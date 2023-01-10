@@ -1179,8 +1179,10 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
     user_manager=dict(
         actions={
             "api_mutations_add_credentials_mutate",
+            "api_mutations_add_credit_card_payment_method_mutate",
             "api_mutations_add_group_mutate",
             "api_mutations_add_organization_finding_policy_mutate",
+            "api_mutations_add_other_payment_method_mutate",
             "api_mutations_add_payment_method_mutate",
             "api_mutations_deactivate_finding_policy_mutate",
             "api_mutations_deactivate_organization_finding_policy_mutate",
@@ -1250,6 +1252,8 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
         actions={
             *ORGANIZATION_LEVEL_ROLES["admin"]["actions"],
             "api_mutations_add_credentials_mutate",
+            "api_mutations_add_credit_card_payment_method_mutate",
+            "api_mutations_add_other_payment_method_mutate",
             "api_mutations_add_payment_method_mutate",
             "api_mutations_download_billing_file_mutate",
             "api_mutations_remove_credentials_mutate",
@@ -1284,6 +1288,8 @@ ORGANIZATION_LEVEL_ROLES_FOR_FLUIDATTACKS: Dict[
         actions={
             *ORGANIZATION_LEVEL_ROLES["user_manager"]["actions"],
             "api_mutations_add_credentials_mutate",
+            "api_mutations_add_credit_card_payment_method_mutate",
+            "api_mutations_add_other_payment_method_mutate",
             "api_mutations_add_payment_method_mutate",
             "api_mutations_download_billing_file_mutate",
             "api_mutations_remove_credentials_mutate",

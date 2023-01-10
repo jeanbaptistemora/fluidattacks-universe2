@@ -388,7 +388,7 @@ async def test_get_organization_ver_1(
     ("email", "role", "permissions"),
     (
         ("user@gmail.com", "user", 3),
-        ("user_manager@gmail.com", "user_manager", 26),
+        ("user_manager@gmail.com", "user_manager", 28),
         ("vulnerability_manager@gmail.com", "user", 3),
         ("hacker@gmail.com", "user", 3),
         ("reattacker@gmail.com", "user", 3),
