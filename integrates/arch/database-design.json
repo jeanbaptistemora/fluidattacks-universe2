@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 10, 2023, 03:50 PM",
+    "DateLastModified": "Jan 10, 2023, 04:15 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -16629,7 +16629,7 @@
                   "accepted": {
                     "N": "1"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -16692,7 +16692,7 @@
                   "accepted": {
                     "N": "0"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "2"
                   },
                   "in_progress": {
@@ -16755,7 +16755,7 @@
                   "accepted": {
                     "N": "5"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "65"
                   },
                   "in_progress": {
@@ -16815,7 +16815,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -16878,7 +16878,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -16941,7 +16941,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -17004,7 +17004,7 @@
                   "accepted": {
                     "N": "0"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -17081,7 +17081,7 @@
                   "accepted": {
                     "N": "5"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "65"
                   },
                   "in_progress": {
@@ -17144,7 +17144,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "1"
                   },
                   "in_progress": {
@@ -17207,7 +17207,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -17772,7 +17772,7 @@
                   "accepted": {
                     "N": "0"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -17980,7 +17980,7 @@
                   "accepted": {
                     "N": "2"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -18043,7 +18043,7 @@
                   "accepted": {
                     "N": "0"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "0"
                   },
                   "in_progress": {
@@ -19271,7 +19271,7 @@
                   "accepted": {
                     "N": "1"
                   },
-                  "new": {
+                  "untreated": {
                     "N": "25"
                   },
                   "in_progress": {
@@ -26073,7 +26073,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "1"
                       },
                       "in_progress": {
@@ -26360,7 +26360,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -26607,7 +26607,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -26881,7 +26881,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "24"
                       },
                       "in_progress": {
@@ -27241,7 +27241,7 @@
                       "accepted": {
                         "N": "1"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -27557,7 +27557,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -27799,7 +27799,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -28027,7 +28027,7 @@
                       "accepted": {
                         "N": "1"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "1"
                       },
                       "in_progress": {
@@ -28321,7 +28321,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -28574,7 +28574,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -28802,7 +28802,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -29044,7 +29044,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -29286,7 +29286,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -29525,7 +29525,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -29756,7 +29756,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -30017,7 +30017,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -30245,7 +30245,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "1"
                       },
                       "in_progress": {
@@ -30525,7 +30525,7 @@
                       "accepted": {
                         "N": "0"
                       },
-                      "new": {
+                      "untreated": {
                         "N": "0"
                       },
                       "in_progress": {
@@ -32237,7 +32237,7 @@
                     "S": "2019-09-13T13:17:41+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32361,7 +32361,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32466,7 +32466,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32593,7 +32593,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32707,7 +32707,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32812,7 +32812,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -32917,7 +32917,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33022,7 +33022,7 @@
                     "S": "2019-09-13T22:00:56+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33133,7 +33133,7 @@
                     "S": "2019-09-13T14:58:38+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33228,7 +33228,7 @@
                     "S": "2019-09-13T20:37:59+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33323,7 +33323,7 @@
                     "S": "2019-09-13T16:03:21+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33421,7 +33421,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33516,7 +33516,7 @@
                     "S": "2019-09-13T13:59:20+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33611,7 +33611,7 @@
                     "S": "2019-09-13T15:00:03+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33709,7 +33709,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33804,7 +33804,7 @@
                     "S": "2019-09-16T21:01:24+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33899,7 +33899,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -33994,7 +33994,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34089,7 +34089,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34184,7 +34184,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34279,7 +34279,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34374,7 +34374,7 @@
                     "S": "2019-09-13T15:53:05+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34472,7 +34472,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34567,7 +34567,7 @@
                     "S": "2019-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34662,7 +34662,7 @@
                     "S": "2019-09-13T20:19:17+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34757,7 +34757,7 @@
                     "S": "2019-08-30T14:30:13+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34852,7 +34852,7 @@
                     "S": "2019-09-16T20:02:17+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -34947,7 +34947,7 @@
                     "S": "2019-09-13T14:03:05+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -35045,7 +35045,7 @@
                     "S": "2018-11-27T19:54:08+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -35143,7 +35143,7 @@
                     "S": "2020-09-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -35238,7 +35238,7 @@
                     "S": "2019-09-13T14:58:38+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -35547,7 +35547,7 @@
                     "S": "2019-01-15T16:04:14+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -35645,7 +35645,7 @@
                     "S": "2019-01-16T13:47:07+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -36179,7 +36179,7 @@
                     "S": "2019-09-13T14:58:38+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -36300,7 +36300,7 @@
                     "S": "2019-04-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -36408,7 +36408,7 @@
                     "S": "2019-04-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -36503,7 +36503,7 @@
                     "S": "2019-12-12T13:45:48+00:00"
                   },
                   "status": {
-                    "S": "NEW"
+                    "S": "UNTREATED"
                   }
                 }
               },
@@ -38564,7 +38564,7 @@
                 "S": "TREATMENT#2019-04-07T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-04-07T13:45:48+00:00"
@@ -38604,7 +38604,7 @@
                 "S": "TREATMENT#2019-04-07T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-04-07T13:45:48+00:00"
@@ -38670,7 +38670,7 @@
                 "S": "TREATMENT#2019-09-13T14:58:38+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -38684,7 +38684,7 @@
                 "S": "TREATMENT#2019-04-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-04-12T13:45:48+00:00"
@@ -38698,7 +38698,7 @@
                 "S": "TREATMENT#2019-04-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-04-12T13:45:48+00:00"
@@ -38735,7 +38735,7 @@
                 "S": "TREATMENT#2020-09-09T21:01:26+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2020-09-09T21:01:26+00:00"
@@ -38772,7 +38772,7 @@
                 "S": "TREATMENT#2019-09-13T13:17:41+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T13:17:41+00:00"
@@ -38786,7 +38786,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38800,7 +38800,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38814,7 +38814,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38828,7 +38828,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38842,7 +38842,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38856,7 +38856,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38870,7 +38870,7 @@
                 "S": "TREATMENT#2019-09-13T22:00:56+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T22:00:56+00:00"
@@ -38884,7 +38884,7 @@
                 "S": "TREATMENT#2019-09-13T14:58:38+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -38898,7 +38898,7 @@
                 "S": "TREATMENT#2019-09-13T20:37:59+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T20:37:59+00:00"
@@ -38912,7 +38912,7 @@
                 "S": "TREATMENT#2019-09-13T16:03:21+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T16:03:21+00:00"
@@ -38926,7 +38926,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38940,7 +38940,7 @@
                 "S": "TREATMENT#2019-09-13T13:59:20+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T13:59:20+00:00"
@@ -38954,7 +38954,7 @@
                 "S": "TREATMENT#2019-09-13T15:00:03+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T15:00:03+00:00"
@@ -38968,7 +38968,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -38982,7 +38982,7 @@
                 "S": "TREATMENT#2019-12-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-12-12T13:45:48+00:00"
@@ -38996,7 +38996,7 @@
                 "S": "TREATMENT#2019-09-16T21:01:24+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-16T21:01:24+00:00"
@@ -39010,7 +39010,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39024,7 +39024,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39038,7 +39038,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39052,7 +39052,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39066,7 +39066,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39080,7 +39080,7 @@
                 "S": "TREATMENT#2019-09-13T15:53:05+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T15:53:05+00:00"
@@ -39094,7 +39094,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39108,7 +39108,7 @@
                 "S": "TREATMENT#2019-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-12T13:45:48+00:00"
@@ -39122,7 +39122,7 @@
                 "S": "TREATMENT#2019-09-13T20:19:17+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T20:19:17+00:00"
@@ -39136,7 +39136,7 @@
                 "S": "TREATMENT#2019-08-30T14:30:13+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-08-30T14:30:13+00:00"
@@ -39150,7 +39150,7 @@
                 "S": "TREATMENT#2019-09-16T20:02:17+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-16T20:02:17+00:00"
@@ -39164,7 +39164,7 @@
                 "S": "TREATMENT#2019-09-13T14:03:05+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T14:03:05+00:00"
@@ -39178,7 +39178,7 @@
                 "S": "TREATMENT#2019-09-13T14:58:38+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-09-13T14:58:38+00:00"
@@ -39261,7 +39261,7 @@
                 "S": "TREATMENT#2019-01-15T16:04:14+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-01-15T16:04:14+00:00"
@@ -39275,7 +39275,7 @@
                 "S": "TREATMENT#2019-01-16T13:47:07+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2019-01-16T13:47:07+00:00"
@@ -39367,7 +39367,7 @@
                 "S": "TREATMENT#2018-11-27T19:54:08+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2018-11-27T19:54:08+00:00"
@@ -39381,7 +39381,7 @@
                 "S": "TREATMENT#2020-09-12T13:45:48+00:00"
               },
               "status": {
-                "S": "NEW"
+                "S": "UNTREATED"
               },
               "modified_date": {
                 "S": "2020-09-12T13:45:48+00:00"
