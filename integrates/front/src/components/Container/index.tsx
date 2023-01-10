@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type TAlign = "center" | "end" | "start" | "stretch" | "unset";
-type TDisplay = "block" | "flex" | "ib" | "inline" | "none";
+type TDisplay = "block" | "flex" | "inline-block" | "inline" | "none";
 type TWrap = "nowrap" | "unset" | "wrap";
 
 interface IContainerProps {

@@ -49,12 +49,20 @@ const Pill: React.FC<ITagScoreProps> = ({
   const { bgColor, border, tone } = variants[variant];
 
   return (
-    <Container border={border} br={"5px"} display={"flex"}>
-      <Container pb={"2px"} pl={"6px"} pr={"6px"} pt={"2px"}>
-        <Text>{textL}</Text>
-      </Container>
-      <Container bgColor={bgColor} pb={"2px"} pl={"6px"} pr={"6px"} pt={"2px"}>
-        <Text tone={tone}>{textR}</Text>
+    <Container display={"inline-block"}>
+      <Container border={border} br={"5px"} display={"flex"}>
+        <Container pb={"2px"} pl={"6px"} pr={"6px"} pt={"2px"}>
+          <Text>{textL}</Text>
+        </Container>
+        <Container
+          bgColor={bgColor}
+          pb={"2px"}
+          pl={"6px"}
+          pr={"6px"}
+          pt={"2px"}
+        >
+          <Text tone={tone}>{textR}</Text>
+        </Container>
       </Container>
     </Container>
   );
