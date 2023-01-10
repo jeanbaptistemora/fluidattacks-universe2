@@ -15,7 +15,7 @@ import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { FloatingButton } from "../components/FloatingButton";
 import { InternalCta } from "../components/InternalCta";
@@ -49,12 +49,12 @@ const ContinuousHackingIndex: React.FC<IQueryData> = ({
 
   const { trackEvent } = useMatomo();
 
-  const matomoFreeTrialEvent = (): void => {
+  const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({
       action: "float-free-trial-click",
       category: "solution",
     });
-  };
+  }, [trackEvent]);
 
   return (
     <React.Fragment>

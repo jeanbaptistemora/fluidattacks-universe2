@@ -1,6 +1,6 @@
 /* eslint react/jsx-no-bind:0 */
 import { useMatomo } from "@datapunt/matomo-tracker-react";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { AirsLink } from "../../../components/AirsLink";
 import { Button } from "../../../components/Button";
@@ -20,12 +20,12 @@ const HeaderSection: React.FC<IHeaderProps> = ({
 }): JSX.Element => {
   const { trackEvent } = useMatomo();
 
-  const matomoFreeTrialEvent = (): void => {
+  const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({
       action: "header-free-trial-click",
       category: "solution",
     });
-  };
+  }, [trackEvent]);
 
   return (
     <Container bgColor={"#f4f4f6"} ph={4} pv={5}>
