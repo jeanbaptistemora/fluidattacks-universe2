@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 
 import { CVSSFContainer } from "./styles";
 
+import { formatPercentage } from "../Group-Content/ToeContent/GroupToeLinesView/utils";
 import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Gap } from "components/Layout/Gap";
@@ -25,6 +26,7 @@ import okIcon from "resources/ok.svg";
 interface IFindingOverviewProps {
   discoveryDate: string;
   estRemediationTime: string;
+  groupCVSSF: number;
   openVulns: number;
   severity: number;
   status: string;
@@ -33,6 +35,7 @@ interface IFindingOverviewProps {
 const FindingOverview: React.FC<IFindingOverviewProps> = ({
   discoveryDate,
   estRemediationTime,
+  groupCVSSF,
   openVulns,
   severity,
   status,
@@ -96,7 +99,11 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                     size={"2x"}
                   />
                   <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
-                    {"20% "}
+                    {`${
+                      status === "SAFE"
+                        ? formatPercentage(0)
+                        : formatPercentage(4 ** (severity - 4) / groupCVSSF)
+                    } `}
                     <Text disp={"inline"} size={"small"} ta={"start"}>
                       {t("searchFindings.header.riskExposure.label")}
                     </Text>

@@ -205,7 +205,7 @@ describe("FindingContent", (): void => {
     );
 
     // Including heading inside `ContentTab`
-    const numberOfHeading: number = 6;
+    const numberOfHeading: number = 1;
     await waitFor((): void => {
       expect(screen.queryAllByRole("heading")).toHaveLength(numberOfHeading);
     });

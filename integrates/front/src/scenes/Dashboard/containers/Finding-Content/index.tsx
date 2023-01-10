@@ -23,13 +23,14 @@ import {
   handleDraftError,
   handleSuccessfulDraft,
 } from "./helpers";
+import { FindingOverview } from "./overview";
 import { ButtonCol, Title, TitleContainer } from "./styles";
 
+import type { IGroupFindingsAttr } from "../Group-Content/GroupFindingsView/types";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
 import { FindingActions } from "scenes/Dashboard/components/FindingActions";
-import { FindingHeader } from "scenes/Dashboard/components/FindingHeader";
 import { RejectDraftModal } from "scenes/Dashboard/components/RejectDraftModal";
 import { CommentsView } from "scenes/Dashboard/containers/Finding-Content/CommentsView/index";
 import { DescriptionView } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/index";
@@ -255,6 +256,29 @@ const FindingContent: React.FC = (): JSX.Element => {
     url,
   ]);
 
+  const handleQryErrors: (error: ApolloError) => void = useCallback(
+    ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        msgError(t("groupAlerts.errorTextsad"));
+        Logger.warning("An error occurred loading group data", error);
+      });
+    },
+    [t]
+  );
+
+  const { data } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
+    fetchPolicy: "cache-first",
+    onError: handleQryErrors,
+    variables: { groupName },
+  });
+
+  const groupCVSSF = data?.group.findings
+    .filter((find): boolean => find.status === "VULNERABLE")
+    .reduce(
+      (sum, finding): number => sum + 4 ** (finding.severityScore - 4),
+      0
+    );
+
   if (_.isUndefined(headerData) || _.isEmpty(headerData)) {
     return <div />;
   }
@@ -308,15 +332,17 @@ const FindingContent: React.FC = (): JSX.Element => {
                 </ButtonCol>
               </TitleContainer>
               <div>
-                <FindingHeader
+                <FindingOverview
                   discoveryDate={
                     headerData.finding.releaseDate?.split(" ")[0] ?? "-"
                   }
                   estRemediationTime={calculateEstRemediationTime()}
+                  groupCVSSF={groupCVSSF ?? 0}
                   openVulns={headerData.finding.openVulns}
                   severity={headerData.finding.severityScore}
                   status={headerData.finding.status}
                 />
+                <br />
                 <Tabs>
                   {featurePreview ? undefined : (
                     <Tab
