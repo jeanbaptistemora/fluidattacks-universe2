@@ -86,7 +86,7 @@ async def remove_stakeholder_all_organizations(
 ) -> None:
     loaders: Dataloaders = get_new_context()
     subscriptions: tuple[
-        Subscription
+        Subscription, ...
     ] = await loaders.stakeholder_subscriptions.load(email)
     await collect(
         tuple(
