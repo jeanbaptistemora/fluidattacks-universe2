@@ -2,7 +2,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
-import React from "react";
+import React, { useCallback } from "react";
 
 import {
   CardContainer,
@@ -23,12 +23,12 @@ import { Paragraph, Title } from "../../Texts";
 const Portrait: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
 
-  const matomoFreeTrialEvent = (): void => {
+  const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({
       action: "cta-free-trial-click",
       category: "plans",
     });
-  };
+  }, [trackEvent]);
 
   return (
     <Container>

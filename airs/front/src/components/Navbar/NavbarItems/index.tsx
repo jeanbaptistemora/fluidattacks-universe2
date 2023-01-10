@@ -3,7 +3,7 @@
 /* eslint react/forbid-component-props: 0 */
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
-import React from "react";
+import React, { useCallback } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 import {
@@ -22,9 +22,9 @@ import { Menu } from "../Menu";
 const NavbarItems: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
 
-  const matomoFreeTrialEvent = (): void => {
+  const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({ action: "free-trial-click", category: "navbar" });
-  };
+  }, [trackEvent]);
 
   return (
     <NavbarList className={"poppins"} id={"navbar_list"}>
