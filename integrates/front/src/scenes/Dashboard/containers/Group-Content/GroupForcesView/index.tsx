@@ -4,12 +4,12 @@ import type { ApolloError } from "@apollo/client";
 import type { ColumnDef, Row, SortingState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { formatExecutions } from "./utils";
+import { formatExecutions, unformatFilterValues } from "./utils";
 
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -35,41 +35,44 @@ const GroupForcesView: React.FC = (): JSX.Element => {
   const [currentRow, setCurrentRow] = useState<IExecution>();
   const [isExecutionDetailsModalOpen, setIsExecutionDetailsModalOpen] =
     useState(false);
-  const [filters, setFilters] = useState<IFilter<IExecution>[]>([
-    {
-      id: "status",
-      key: "status",
-      label: t("group.forces.status.title"),
-      selectOptions: ["Secure", "Vulnerable"],
-      type: "select",
-    },
-    {
-      id: "strictness",
-      key: "strictness",
-      label: t("group.forces.strictness.title"),
-      selectOptions: ["Strict", "Tolerant"],
-      type: "select",
-    },
-    {
-      id: "kind",
-      key: "kind",
-      label: t("group.forces.kind.title"),
-      selectOptions: ["ALL", "DAST", "SAST"],
-      type: "select",
-    },
-    {
-      id: "gitRepo",
-      key: "gitRepo",
-      label: t("group.forces.gitRepo"),
-      type: "text",
-    },
-    {
-      id: "date",
-      key: "date",
-      label: t("group.forces.date"),
-      type: "dateRange",
-    },
-  ]);
+  const [filters, setFilters] = useStoredState<IFilter<IExecution>[]>(
+    "forcesTable-columnFilters",
+    [
+      {
+        id: "status",
+        key: "status",
+        label: t("group.forces.status.title"),
+        selectOptions: ["Secure", "Vulnerable"],
+        type: "select",
+      },
+      {
+        id: "strictness",
+        key: "strictness",
+        label: t("group.forces.strictness.title"),
+        selectOptions: ["Strict", "Tolerant"],
+        type: "select",
+      },
+      {
+        id: "kind",
+        key: "kind",
+        label: t("group.forces.kind.title"),
+        selectOptions: ["DAST", "SAST"],
+        type: "select",
+      },
+      {
+        id: "gitRepo",
+        key: "gitRepo",
+        label: t("group.forces.gitRepo"),
+        type: "text",
+      },
+      {
+        id: "date",
+        key: "date",
+        label: t("group.forces.date"),
+        type: "dateRange",
+      },
+    ]
+  );
   const [sorting, setSorting] = useStoredState<SortingState>(
     "tblForcesExecutionsSorting",
     []
@@ -169,6 +172,21 @@ const GroupForcesView: React.FC = (): JSX.Element => {
       await fetchMore({ variables: { after: pageInfo.endCursor } });
     }
   }, [data, fetchMore]);
+
+  useEffect((): void => {
+    const filterToSearch = filters.reduce(
+      (prev, curr): Record<string, string> => {
+        const currentValue = unformatFilterValues(curr);
+
+        return {
+          ...prev,
+          ...currentValue,
+        };
+      },
+      {}
+    );
+    void refetch(filterToSearch);
+  }, [filters, refetch]);
 
   const handleSearch = useDebouncedCallback((search: string): void => {
     void refetch({ search });
