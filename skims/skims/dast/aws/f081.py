@@ -65,7 +65,41 @@ async def has_mfa_disabled(
     return vulns
 
 
+async def root_without_mfa(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_account_summary"
+    )
+    vulns: core_model.Vulnerabilities = ()
+    summary = response.get("SummaryMap", [])
+    if summary["AccountMFAEnabled"] != 1:
+        locations = [
+            Location(
+                access_patterns=("/AccountMFAEnabled",),
+                arn=("arn:aws:iam::RootAccount"),
+                values=(summary["AccountMFAEnabled"],),
+                description=("lib_path.f081.root_without_mfa"),
+            ),
+        ]
+
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(core_model.MethodsEnum.AWS_IAM_ROOT_HAS_MFA_DISABLED),
+                aws_response=summary,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (has_mfa_disabled,)
+] = (
+    has_mfa_disabled,
+    root_without_mfa,
+)
