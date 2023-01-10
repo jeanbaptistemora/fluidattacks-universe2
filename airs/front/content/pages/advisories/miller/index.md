@@ -5,15 +5,14 @@ authors: Carlos Bello
 writer: cbello
 codename: miller
 product: RushBet 2022.23.1-b490616d (UXSS)
-date: 2023-01-10 12:00 COT
+date: 2023-01-10 09:00 COT
 cveid: CVE-2022-4235
 severity: 6.0
 description: RushBet 2022.23.1-b490616d    -    Universal XSS (UXSS)
 keywords: Fluid Attacks, Security, Vulnerabilities, Rushbet, UXSS
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
