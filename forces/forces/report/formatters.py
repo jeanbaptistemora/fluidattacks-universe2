@@ -32,9 +32,7 @@ async def create_findings_dict(
         findings_dict[find["id"]] = Finding(
             identifier=str(find["id"]),
             title=str(find["title"]),
-            state=FindingState[
-                translate_vuln_state(str(find["state"])).upper()
-            ],
+            state=FindingState[str(find["status"]).upper()],
             exploitability=float(find["exploitability"]),
             severity=Decimal(str(find["severityScore"])),
             url=(
@@ -53,7 +51,3 @@ def get_exploitability_measure(score: float) -> str:
         "0.97": "Functional",
         "1.0": "High",
     }.get(str(score), "-")
-
-
-def translate_vuln_state(state: str) -> str:
-    return {"open": "vulnerable", "closed": "safe"}.get(state, state)

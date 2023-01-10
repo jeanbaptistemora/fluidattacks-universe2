@@ -181,7 +181,7 @@ async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
           finding(identifier: $finding_id) {
             title
             id
-            state
+            status
             severity {
               exploitability
             }
