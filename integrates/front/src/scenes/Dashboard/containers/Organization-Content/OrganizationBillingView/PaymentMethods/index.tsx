@@ -22,6 +22,7 @@ import { UpdateCreditCardModal } from "./UpdateCreditCardModal";
 import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
 import {
+  ADD_CREDIT_CARD_PAYMENT_METHOD,
   ADD_PAYMENT_METHOD,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
@@ -108,6 +109,36 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const closeAddModal = useCallback((): void => {
       setIsAddingPaymentMethod(false);
     }, []);
+    const [addCreditCardPaymentMethod] = useMutation(
+      ADD_CREDIT_CARD_PAYMENT_METHOD,
+      {
+        onCompleted: (): void => {
+          onUpdate();
+          closeAddModal();
+          msgSuccess(
+            t("organization.tabs.billing.paymentMethods.add.success.body"),
+            t("organization.tabs.billing.paymentMethods.add.success.title")
+          );
+        },
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            if (
+              error.message ===
+              "Exception - Provided payment method could not be created"
+            ) {
+              msgError(
+                t(
+                  "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
+                )
+              );
+            } else {
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.error("Couldn't create payment method", error);
+            }
+          });
+        },
+      }
+    );
     const [addPaymentMethod] = useMutation(ADD_PAYMENT_METHOD, {
       onCompleted: (): void => {
         onUpdate();
@@ -149,33 +180,19 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         cardNumber: string;
         makeDefault: boolean;
       }): Promise<void> => {
-        const businessName = "";
-        const email = "";
-        const country = "";
-        const state = "";
-        const city = "";
-        const rut = undefined;
-        const taxId = undefined;
         mixpanel.track("AddPaymentMethod", { method: "TC" });
-        await addPaymentMethod({
+        await addCreditCardPaymentMethod({
           variables: {
-            businessName,
             cardCvc,
             cardExpirationMonth,
             cardExpirationYear,
             cardNumber,
-            city,
-            country,
-            email,
             makeDefault,
             organizationId,
-            rut,
-            state,
-            taxId,
           },
         });
       },
-      [addPaymentMethod, organizationId]
+      [addCreditCardPaymentMethod, organizationId]
     );
 
     const handleFileListUpload = (
@@ -528,7 +545,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           data={creditCardData}
           extraButtons={
             <Fragment>
-              <Can do={"api_mutations_add_payment_method_mutate"}>
+              <Can do={"api_mutations_add_credit_card_payment_method_mutate"}>
                 <Button
                   id={"addCreditCard"}
                   onClick={openAddCreditCardModal}
