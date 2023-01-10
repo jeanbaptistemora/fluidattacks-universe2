@@ -2,3 +2,6 @@
 lib_path.f081.has_mfa_disabled:
   en: Users with password enabled and without MFA
   es: Usuario con contraseña habilitada y sin MFA
+lib_path.f081.root_without_mfa:
+  en: Root with password without MFA
+  es: Root con contraseña y sin MFA
