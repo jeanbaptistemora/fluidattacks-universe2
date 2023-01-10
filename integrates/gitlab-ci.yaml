@@ -5948,7 +5948,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integratesBackChartsGenerators:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -5971,7 +5970,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/streams:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6016,7 +6014,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forces:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6039,7 +6036,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/forcesTests:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6062,7 +6058,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackCharts:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6152,7 +6147,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackTest:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -6197,7 +6191,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesJobsCloneRoots:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []

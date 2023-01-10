@@ -487,7 +487,7 @@ in {
         ++ [
           {
             output = "/lintPython/module/integratesBackCharts";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/module/integratesBackChartsCollector";
@@ -495,11 +495,11 @@ in {
           }
           {
             output = "/lintPython/dirOfModules/integratesBackChartsGenerators";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/dirOfModules/streams";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/imports/integrates";
@@ -511,7 +511,7 @@ in {
           }
           {
             output = "/lintPython/module/integratesJobsCloneRoots";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/module/integratesJobsExecuteMachine";
@@ -523,7 +523,7 @@ in {
           }
           {
             output = "/lintPython/module/integratesBackTest";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/module/integratesBackTestE2e";
@@ -531,11 +531,11 @@ in {
           }
           {
             output = "/lintPython/module/forces";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/module/forcesTests";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintTerraform/integratesInfra";
