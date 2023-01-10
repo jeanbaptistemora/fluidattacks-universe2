@@ -27,6 +27,7 @@ from db_model.events.enums import (
 from events.domain import (
     add_comment,
     add_event,
+    remove_event,
     solve_event,
     update_evidence,
 )
@@ -309,6 +310,63 @@ async def test_add_event_file_image(
     assert mock_update_evidence.called is True
 
 
+@pytest.mark.parametrize(
+    [
+        "event_id",
+        "group_name",
+    ],
+    [
+        [
+            "418900978",
+            "oneshottest",
+        ],
+        [
+            "538745942",
+            "unittesting",
+        ],
+    ],
+)
+@patch(get_mocked_path("events_model.remove"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("event_comments_domain.remove_comments"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("remove_file_evidence"), new_callable=AsyncMock)
+@patch(get_mocked_path("search_evidence"), new_callable=AsyncMock)
+async def test_remove_event(
+    mock_search_evidence: AsyncMock,
+    mock_remove_file_evidence: AsyncMock,
+    mock_event_comments_domain_remove_comments: AsyncMock,
+    mock_events_model_remove: AsyncMock,
+    event_id: str,
+    group_name: str,
+) -> None:
+    mock_search_evidence.return_value = get_mock_response(
+        get_mocked_path("search_evidence"),
+        json.dumps([event_id, group_name]),
+    )
+    mock_remove_file_evidence.return_value = get_mock_response(
+        get_mocked_path("remove_file_evidence"),
+        json.dumps([event_id, group_name]),
+    )
+    mock_event_comments_domain_remove_comments.return_value = (
+        get_mock_response(
+            get_mocked_path("event_comments_domain.remove_comments"),
+            json.dumps([event_id]),
+        )
+    )
+    mock_events_model_remove.return_value = get_mock_response(
+        get_mocked_path("event_comments_domain.remove_comments"),
+        json.dumps([event_id]),
+    )
+    await remove_event(event_id, group_name)
+
+    assert mock_search_evidence.called is True
+    assert mock_remove_file_evidence.called is True
+    assert mock_event_comments_domain_remove_comments.called is True
+    assert mock_events_model_remove.called is True
+
+
 # pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     [
@@ -321,19 +379,19 @@ async def test_add_event_file_image(
     ],
     [
         [
-            "538745942",
-            "unittesting@fluidattacks.com",
-            EventSolutionReason.PERMISSION_GRANTED,
-            "Other info",
-            "unittesting",
-            ({}, {}),
-        ],
-        [
             "418900978",
             "unittest@fluidattacks.com",
             EventSolutionReason.OTHER,
             "Other info",
             "oneshottest",
+            ({}, {}),
+        ],
+        [
+            "538745942",
+            "unittesting@fluidattacks.com",
+            EventSolutionReason.PERMISSION_GRANTED,
+            "Other info",
+            "unittesting",
             ({}, {}),
         ],
     ],

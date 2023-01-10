@@ -120,7 +120,9 @@ mocked_paths: Dict[str, str] = {
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
     "event_comments_domain.add": "event_comments.domain.add",
+    "event_comments_domain.remove_comments": "event_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "events_model.add": "db_model.events.add",
+    "events_model.remove": "db_model.events.remove",
     "events_model.update_state": "db_model.events.update_state",
     "events_model.update_evidence": "db_model.events.update_evidence",
     "findings_storage.download_evidence": "findings.storage.download_evidence",
@@ -140,8 +142,10 @@ mocked_paths: Dict[str, str] = {
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
+    "search_evidence": "events.domain.search_evidence",
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
@@ -175,6 +179,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.events.add": {
         '["unittesting", "unittesting@fluidattacks.com", '
         '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
+    },
+    "db_model.events.remove": {
+        '["418900978"]': None,
+        '["538745942"]': None,
     },
     "db_model.events.get.EventLoader.load": {
         '["418900978"]': Event(
@@ -1070,6 +1078,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         ],
         '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501 pylint: disable=line-too-long
     },
+    "events.domain.remove_file_evidence": {
+        '["418900978", "oneshottest"]': None,
+        '["538745942", "unittesting"]': None,
+    },
     "events.domain.replace_different_format": {
         '["418900978", "FILE_1"]': None,
         '["538745942", "FILE_1"]': None,
@@ -1077,6 +1089,14 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "events.domain.save_evidence": {
         '["418900978", "test-file-records.csv"]': None,
         '["538745942", "test-file-records.csv"]': None,
+    },
+    "events.domain.search_evidence": {
+        '["418900978", "oneshottest"]': [
+            "evidences/oneshottest/418900978/oneshottest-418900978-records.csv"
+        ],
+        '["538745942", "unittesting"]': [
+            "evidences/unittesting/538745942/unittesting-538745942-records.csv"
+        ],
     },
     "events.domain.update_evidence": {
         '["test-anim.webm"]': None,
@@ -1090,6 +1110,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '[["538745942", "1672323259183", "0", '
         '"2022-12-29 14:14:19.182591+00:00", '
         '"comment test", "integratesmanager@gmail.com", "John Doe"]]': None,
+    },
+    "event_comments.domain.remove_comments": {
+        '["418900978"]': None,
+        '["538745942"]': None,
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
