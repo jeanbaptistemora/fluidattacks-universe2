@@ -63,7 +63,8 @@ def get_wildcard_nodes_for_resources(
             )
         )
         if (
-            isinstance(res.raw, str)
+            hasattr(res, "raw")
+            and isinstance(res.raw, str)
             and False in is_action_in_exceptions
             and pattern.match(res.raw)
         ):

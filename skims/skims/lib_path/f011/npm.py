@@ -32,7 +32,7 @@ def npm_package_json(content: str, path: str) -> Iterator[DependencyType]:
     dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
-        if key["item"] == "dependencies"
+        if not isinstance(key, str) and key["item"] == "dependencies"
         for product, version in content_json[key].items()
     )
 

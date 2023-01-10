@@ -113,7 +113,7 @@ def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
 def get_dict_values(dict_val: dict, *keys: str) -> Optional[Any]:
     cur_dict = dict_val
     for key in keys:
-        if key in cur_dict:
+        if key in cur_dict.keys():
             cur_dict = cur_dict[key]
         else:
             return None

@@ -76,7 +76,7 @@ def npm_package_json(content: str, path: str) -> Vulnerabilities:
     dependencies: Iterator[DependencyType] = (
         (product, version)
         for key in content_json
-        if key["item"] == "devDependencies"
+        if not isinstance(key, str) and key["item"] == "devDependencies"
         for product, version in content_json[key].items()
     )
 

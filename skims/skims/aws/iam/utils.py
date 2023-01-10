@@ -66,9 +66,9 @@ def yield_statements_from_policy(
         yield from yield_statements_from_policy_document(
             policy.inner.get("PolicyDocument")
         )
-    elif policy.get("PolicyDocument", {}):  # type: ignore
+    elif hasattr(policy, "get") and policy.get("PolicyDocument", {}):
         yield from yield_statements_from_policy_document(
-            policy.get("PolicyDocument")  # type: ignore
+            policy.get("PolicyDocument")
         )
 
 
