@@ -37,7 +37,7 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
-    Union,
+    Optional,
 )
 
 
@@ -90,7 +90,7 @@ class ToeInputLoader(DataLoader):
 
 async def _get_historic_toe_input(
     request: ToeInputRequest,
-) -> Union[tuple[ToeInput, ...], None]:
+) -> Optional[tuple[ToeInput, ...]]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_historic_metadata"],
         values={
@@ -120,7 +120,7 @@ class ToeInputHistoricLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
-    ) -> tuple[Union[tuple[ToeInput, ...], None], ...]:
+    ) -> tuple[Optional[tuple[ToeInput, ...]], ...]:
         return await collect(
             tuple(_get_historic_toe_input(request) for request in requests)
         )
@@ -128,7 +128,7 @@ class ToeInputHistoricLoader(DataLoader):
 
 async def _get_toe_inputs_by_group(
     request: GroupToeInputsRequest,
-) -> ToeInputsConnection:
+) -> Optional[ToeInputsConnection]:
     if request.be_present is None:
         facet = TABLE.facets["toe_input_metadata"]
         primary_key = keys.build_key(
@@ -181,7 +181,7 @@ class GroupToeInputsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeInputsRequest]
-    ) -> tuple[ToeInputsConnection, ...]:
+    ) -> tuple[Optional[ToeInputsConnection], ...]:
         return await collect(tuple(map(_get_toe_inputs_by_group, requests)))
 
     async def load_nodes(
@@ -193,7 +193,7 @@ class GroupToeInputsLoader(DataLoader):
 
 async def _get_toe_inputs_by_root(
     request: RootToeInputsRequest,
-) -> Union[ToeInputsConnection, None]:
+) -> Optional[ToeInputsConnection]:
     if request.be_present is None:
         facet = TABLE.facets["toe_input_metadata"]
         primary_key = keys.build_key(
@@ -247,7 +247,7 @@ class RootToeInputsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeInputsRequest]
-    ) -> tuple[Union[ToeInputsConnection, None], ...]:
+    ) -> tuple[Optional[ToeInputsConnection], ...]:
         return await collect(tuple(map(_get_toe_inputs_by_root, requests)))
 
     async def load_nodes(
