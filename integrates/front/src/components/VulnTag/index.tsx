@@ -52,9 +52,9 @@ const VulnTag: React.FC<IStatus> = ({ value }: IStatus): JSX.Element => {
       color: "red",
       text: t("searchFindings.highSeverity"),
     },
-    LOW: { color: "orange", text: t("searchFindings.lowSeverity") },
+    LOW: { color: "yellow", text: t("searchFindings.lowSeverity") },
     MED: {
-      color: "yellow",
+      color: "orange",
       text: t("searchFindings.mediumSeverity"),
     },
     NONE: {
