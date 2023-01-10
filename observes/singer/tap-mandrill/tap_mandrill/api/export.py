@@ -10,6 +10,7 @@ from dataclasses import (
 )
 from datetime import (
     datetime,
+    timezone,
 )
 from enum import (
     Enum,
@@ -69,6 +70,8 @@ from typing import (
     Union,
 )
 
+EPOCH = datetime(1970, 1, 1, 0, 0, 0, 0, timezone.utc)
+NOW = datetime.now(timezone.utc)
 LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
 
@@ -261,7 +264,10 @@ class ExportApi:  # type: ignore[no-any-unimported]
         def _action() -> ExportJob:
             job: Result[JsonObj, ErrorAtInput] = (
                 handle_api_error(
-                    lambda: self._client.exports.activity()  # type: ignore[misc, no-any-return]
+                    lambda: self._client.exports.activity(  # type: ignore[misc, no-any-return]
+                        date_from=EPOCH.strftime("%Y-%m-%d %H:%M:%S"),
+                        date_to=NOW.strftime("%Y-%m-%d %H:%M:%S"),
+                    )
                 )
                 .alt(lambda e: ErrorAtInput(e, ""))
                 .bind(
