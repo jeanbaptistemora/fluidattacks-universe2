@@ -48,6 +48,7 @@ from typing import (
     Dict,
     List,
     Optional,
+    Union,
 )
 
 stripe.api_key = FI_STRIPE_API_KEY
@@ -364,19 +365,23 @@ async def get_customer_portal(
 async def update_payment_method(
     *,
     payment_method_id: str,
-    card_expiration_month: str,
-    card_expiration_year: str,
+    card_expiration_month: Union[int, str],
+    card_expiration_year: Union[int, str],
 ) -> bool:
+    if isinstance(card_expiration_month, str):
+        card_expiration_month = int(card_expiration_month)
+        card_expiration_year = int(card_expiration_year)
+
     data = stripe.PaymentMethod.modify(
         payment_method_id,
         card={
-            "exp_month": int(card_expiration_month),
-            "exp_year": int(card_expiration_year),
+            "exp_month": card_expiration_month,
+            "exp_year": card_expiration_year,
         },
     )
     return (
-        int(card_expiration_month) == data["card"]["exp_month"]
-        and int(card_expiration_year) == data["card"]["exp_year"]
+        card_expiration_month == data["card"]["exp_month"]
+        and card_expiration_year == data["card"]["exp_year"]
     )
 
 

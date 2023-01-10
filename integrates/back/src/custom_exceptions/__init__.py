@@ -1475,6 +1475,15 @@ class InvalidBillingPaymentMethod(CustomBaseException):
         super(InvalidBillingPaymentMethod, self).__init__(msg)
 
 
+class InvalidExpiryDateField(CustomBaseException):
+    """Exception to control expiry credit card date field values"""
+
+    def __init__(self) -> None:
+        """Constructor"""
+        msg = "Exception - Expiriy month or year field value must be a number"
+        super(InvalidExpiryDateField, self).__init__(msg)
+
+
 class InvalidPaymentBusinessName(CustomBaseException):
     def __init__(self) -> None:
         msg = (

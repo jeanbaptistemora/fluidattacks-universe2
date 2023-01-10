@@ -26,6 +26,7 @@ from custom_exceptions import (
     CouldNotUpdateSubscription,
     InvalidBillingCustomer,
     InvalidBillingPaymentMethod,
+    InvalidExpiryDateField,
     InvalidFileSize,
     InvalidFileType,
     NoActiveBillingSubscription,
@@ -898,6 +899,47 @@ async def update_payment_method(
     # Raise exception if stripe customer does not exist
     if org.billing_customer is None:
         raise InvalidBillingCustomer()
+
+    result: bool = await dal.update_payment_method(
+        payment_method_id=payment_method_id,
+        card_expiration_month=card_expiration_month,
+        card_expiration_year=card_expiration_year,
+    )
+    if make_default:
+        result = result and await dal.update_default_payment_method(
+            payment_method_id=payment_method_id,
+            org_billing_customer=org.billing_customer,
+        )
+
+    return result
+
+
+async def update_credit_card_payment_method(
+    *,
+    org: Organization,
+    payment_method_id: str,
+    card_expiration_month: int,
+    card_expiration_year: int,
+    make_default: bool,
+) -> bool:
+    if not isinstance(card_expiration_month, int) and not isinstance(
+        card_expiration_year, int
+    ):
+        raise InvalidExpiryDateField()
+
+    # Raise exception if stripe customer does not exist
+    if org.billing_customer is None:
+        raise InvalidBillingCustomer()
+
+    # Raise exception if payment method does not belong to organization
+    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+        org=org,
+        limit=1000,
+    )
+    if payment_method_id not in [
+        payment_method.id for payment_method in list(payment_methods)
+    ]:
+        raise InvalidBillingPaymentMethod()
 
     result: bool = await dal.update_payment_method(
         payment_method_id=payment_method_id,
