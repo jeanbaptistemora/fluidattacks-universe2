@@ -270,4 +270,25 @@ describe("ForcesView", (): void => {
       screen.getByRole("option", { name: "Vulnerable" })
     ).toBeInTheDocument();
   });
+
+  it("should have strictness filter", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await userEvent.click(screen.getByRole("combobox", { name: "strictness" }));
+
+    expect(screen.getByRole("option", { name: "Strict" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "Tolerant" })
+    ).toBeInTheDocument();
+  });
 });
