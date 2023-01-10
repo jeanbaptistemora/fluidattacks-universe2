@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from botocore.exceptions import (
+    ClientError,
+)
 from evaluate_results import (
     get_best_model_name,
 )
@@ -17,6 +20,8 @@ import tempfile
 from training.constants import (
     DATASET_PATH,
     MODEL_HYPERPARAMETERS,
+    S3_BUCKET_NAME,
+    S3_RESOURCE,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
 from training.redshift import (
@@ -35,6 +40,14 @@ def deploy_hyperparameter_tuning_job() -> None:
     estimator: SKLearnEstimator = get_estimator(
         model, training_script="training/training_script/tune.py"
     )
+
+    try:
+        S3_RESOURCE.Object(
+            S3_BUCKET_NAME, f"training-output/results/{model}_tune_results.csv"
+        ).delete()
+    except ClientError as error:
+        if error.response["Error"]["Code"] == "404":
+            print("[INFO] No previous results to delete")
 
     tuner = HyperparameterTuner(
         estimator,

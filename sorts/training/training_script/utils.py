@@ -124,7 +124,7 @@ def get_previous_training_results(results_filename: str) -> List[List[str]]:
             S3_BUCKET.Object(remote_file).download_file(local_file)
         except ClientError as error:
             if error.response["Error"]["Code"] == "404":
-                return []
+                return previous_results
         else:
             with open(local_file, "r", encoding="utf8") as csv_file:
                 csv_reader = csv.reader(csv_file)

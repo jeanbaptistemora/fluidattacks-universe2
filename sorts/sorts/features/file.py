@@ -171,7 +171,7 @@ def get_midnight_commits(git_metrics: GitMetrics) -> int:
         datetime.fromisoformat(date).hour for date in commit_date_history
     ]
 
-    return sum([1 for hour in commit_hour_history if 0 <= hour < 6])
+    return sum(1 for hour in commit_hour_history if 0 <= hour < 6)
 
 
 def get_risky_commits(git_metrics: GitMetrics) -> int:

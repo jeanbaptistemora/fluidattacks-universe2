@@ -22,4 +22,4 @@ Score = Tuple[float, float, float, None]
 Model = Union[
     MLPClassifier, RandomForestClassifier, LinearSVC, KNeighborsClassifier
 ]
-TFun = TypeVar("TFun", bound=Callable[..., Any])
+Tfun = TypeVar("Tfun", bound=Callable[..., Any])

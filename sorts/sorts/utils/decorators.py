@@ -3,7 +3,7 @@ from more_itertools import (
     mark_ends,
 )
 from sorts.typings import (
-    TFun,
+    Tfun,
 )
 from sorts.utils.logs import (
     log,
@@ -42,11 +42,11 @@ def shield(
     ),
     retries: int = 1,
     sleep_between_retries: int = 0,
-) -> Callable[[TFun], TFun]:
+) -> Callable[[Tfun], Tfun]:
     if retries < 1:
         raise ValueError("retries must be >= 1")
 
-    def decorator(function: TFun) -> TFun:
+    def decorator(function: Tfun) -> Tfun:
         @functools.wraps(function)
         def wrapper(*args: Any, **kwargs: Any) -> Any:
             function_id = f"{function.__module__}.{function.__name__}"
@@ -72,6 +72,6 @@ def shield(
 
             return return_value
 
-        return cast(TFun, wrapper)
+        return cast(Tfun, wrapper)
 
     return decorator

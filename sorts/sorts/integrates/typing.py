@@ -12,14 +12,14 @@ class VulnerabilityKindEnum(Enum):
     PORTS: str = "ports"
 
 
-class Vulnerability(NamedTuple):  # pylint: disable=too-few-public-methods
+class Vulnerability(NamedTuple):
     current_state: str
     kind: VulnerabilityKindEnum
     title: str
     where: str
 
 
-class ToeLines(NamedTuple):  # pylint: disable=too-few-public-methods
+class ToeLines(NamedTuple):
     attacked_lines: int
     filename: str
     loc: int
