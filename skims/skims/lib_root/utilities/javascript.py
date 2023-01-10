@@ -83,4 +83,26 @@ def get_default_alias(graph: Graph, module_name: str) -> Optional[str]:
         )
     ) and (alias := graph.nodes[default_named_n_ids[0]].get("label_alias")):
         return alias
+    for var_n_id in g.matching_nodes(graph, label_type="VariableDeclaration"):
+        if _requires_module(graph, var_n_id, module_name) and (
+            var_name := graph.nodes[var_n_id].get("variable")
+        ):
+            return var_name
+    return None
+
+
+def get_named_alias(
+    graph: Graph, module_name: str, element_name: str
+) -> Optional[str]:
+    if named_import_n_ids := g.matching_nodes(
+        graph,
+        label_type="Import",
+        expression='"' + module_name + '"',
+        import_type="named_import",
+        identifier=element_name,
+    ):
+        for n_id in named_import_n_ids:
+            if alias := graph.nodes[n_id].get("label_alias"):
+                return alias
+        return element_name
     return None
