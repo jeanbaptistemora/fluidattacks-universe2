@@ -202,7 +202,7 @@ def test_validate_file_exists() -> None:
 def test_validate_file_exists_deco() -> None:
     file_name = "test1.txt"
 
-    @validate_file_exists_deco("file_name", None)
+    @validate_file_exists_deco("file_name", "not_field")
     def decorated_func(file_name: str) -> str:
         return file_name
 

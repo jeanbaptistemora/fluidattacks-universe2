@@ -149,7 +149,6 @@ from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
     resources as resources_utils,
-    validations,
     vulnerabilities as vulns_utils,
 )
 from newutils.validations import (
@@ -157,6 +156,8 @@ from newutils.validations import (
     validate_email_address_deco,
     validate_field_length_deco,
     validate_fields_deco,
+    validate_file_exists_deco,
+    validate_file_name_deco,
     validate_group_name_deco,
     validate_string_length_between_deco,
 )
@@ -183,6 +184,7 @@ from typing import (
     Any,
     Awaitable,
     Callable,
+    List,
     Optional,
     Tuple,
     Union,
@@ -1186,6 +1188,34 @@ async def mask_files(
         )
 
 
+@validate_fields_deco(["description"])
+@validate_field_length_deco("description", 200)
+@validate_file_name_deco("file_name")
+def validate_file_data(
+    description: str,
+    file_name: str,
+    email: str,
+    modified_date: datetime,
+) -> GroupFile:
+    return GroupFile(
+        description=description,
+        file_name=file_name,
+        modified_by=email,
+        modified_date=modified_date,
+    )
+
+
+@validate_file_exists_deco("file_name", "group_files")
+def assign_files_to_update(
+    file_name: str,
+    group_files: List[GroupFile],
+) -> list[GroupFile]:
+    if file_name and not group_files:
+        files_to_update: list[GroupFile] = []
+        return files_to_update
+    return group_files
+
+
 async def add_file(
     *,
     loaders: Dataloaders,
@@ -1196,20 +1226,17 @@ async def add_file(
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     modified_date = datetime_utils.get_utc_now()
-    validations.validate_fields([description])
-    validations.validate_field_length(description, 200)
-    validations.validate_file_name(file_name)
-    validations.validate_file_exists(file_name, group.files)
-    group_file_to_add = GroupFile(
+    group_file_to_add = validate_file_data(
         description=description,
         file_name=file_name,
-        modified_by=email,
+        email=email,
         modified_date=modified_date,
     )
-    if not group.files:
-        files_to_update: list[GroupFile] = []
-    else:
-        files_to_update = group.files
+    files_to_update = assign_files_to_update(
+        file_name=file_name,
+        group_files=group.files,
+    )
+    if group.files:
         await send_mail_file_report(
             loaders=loaders,
             group_name=group_name,

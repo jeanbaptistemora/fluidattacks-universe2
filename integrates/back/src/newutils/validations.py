@@ -200,16 +200,15 @@ def validate_file_exists(
 
 
 def validate_file_exists_deco(
-    field_name: str, field_group_files: Optional[str]
+    field_name: str, field_group_files: str
 ) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             file_name = kwargs.get(field_name)
-            if field_group_files:
-                group_files = cast(
-                    list[GroupFile], kwargs.get(field_group_files)
-                )
+            field_group = kwargs.get(field_group_files)
+            if field_group is not None:
+                group_files = cast(list[GroupFile], field_group)
                 file_to_check = next(
                     (
                         group_file
