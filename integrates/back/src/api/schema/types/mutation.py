@@ -3,6 +3,7 @@ from api.mutations import (
     acknowledge_concurrent_session,
     activate_root,
     add_credentials,
+    add_credit_card_payment_method,
     add_draft,
     add_enrollment,
     add_event,
@@ -20,6 +21,7 @@ from api.mutations import (
     add_machine_execution,
     add_organization,
     add_organization_finding_policy,
+    add_other_payment_method,
     add_payment_method,
     add_secret,
     add_stakeholder,
@@ -135,6 +137,9 @@ MUTATION.set_field(
 )
 MUTATION.set_field("activateRoot", activate_root.mutate)
 MUTATION.set_field("addCredentials", add_credentials.mutate)
+MUTATION.set_field(
+    "addCreditCardPaymentMethod", add_credit_card_payment_method.mutate
+)
 MUTATION.set_field("addDraft", add_draft.mutate)
 MUTATION.set_field("addEnrollment", add_enrollment.mutate)
 MUTATION.set_field("addEvent", add_event.mutate)
@@ -157,6 +162,7 @@ MUTATION.set_field("addOrganization", add_organization.mutate)
 MUTATION.set_field(
     "addOrganizationFindingPolicy", add_organization_finding_policy.mutate
 )
+MUTATION.set_field("addOtherPaymentMethod", add_other_payment_method.mutate)
 MUTATION.set_field("addPaymentMethod", add_payment_method.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field("addToeInput", add_toe_input.mutate)

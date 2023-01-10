@@ -25,6 +25,22 @@ type Mutation {
     credentials: CredentialsInput!
   ): SimplePayload!
 
+  "Add credit card payment method to an organization"
+  addCreditCardPaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Card number"
+    cardNumber: String!
+    "Card expiration month"
+    cardExpirationMonth: String!
+    "Card expiration year"
+    cardExpirationYear: String!
+    "Card CVC code"
+    cardCvc: String!
+    "Make payment method the default one for the customer"
+    makeDefault: Boolean!
+  ): SimplePayload!
+
   "Adds a new draft Finding to the specified Group"
   addDraft(
     """
@@ -331,6 +347,26 @@ type Mutation {
     organizationName: String!
     "Tags that will be related to this finding policy"
     tags: [String]
+  ): SimplePayload!
+
+    "Add other payment method to an organization"
+  addOtherPaymentMethod(
+    "Organization id"
+    organizationId: String!
+    "Business name of payment method"
+    businessName: String!
+    "e-factura email"
+    email: String!
+    "Country of payment method business"
+    country: String!
+    "State of payment method business"
+    state: String!
+    "City of payment method business"
+    city: String!
+    "Rut document file in gif, jpg, pdf or zip"
+    rut: Upload
+    "TaxId document file in gif, jpg, pdf or zip"
+    taxId: Upload
   ): SimplePayload!
 
   "Add a payment method to an organization"
