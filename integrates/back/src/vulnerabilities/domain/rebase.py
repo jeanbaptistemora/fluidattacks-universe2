@@ -1,5 +1,9 @@
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     ExpectedVulnToBeOfLinesType,
+    InvalidParameter,
     InvalidVulnerabilityAlreadyExists,
 )
 from dataloaders import (
@@ -16,7 +20,11 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
+    VulnerabilityMetadataToUpdate,
     VulnerabilityState,
+)
+from db_model.vulnerabilities.update import (
+    update_metadata,
 )
 import logging
 from newutils import (
@@ -33,6 +41,7 @@ from typing import (
 )
 from vulnerabilities.domain.utils import (
     get_hash,
+    get_hash_from_machine_vuln,
     get_path_from_integrates_vulnerability,
 )
 from vulnerabilities.domain.validations import (
@@ -155,4 +164,14 @@ async def rebase(
         vulnerability_id=vulnerability_id,
         entry=last_state,
     )
+    with suppress(InvalidParameter):
+        await update_metadata(
+            vulnerability_id=vulnerability_id,
+            finding_id=finding_id,
+            metadata=VulnerabilityMetadataToUpdate(
+                hash=await get_hash_from_machine_vuln(
+                    loaders, await loaders.vulnerability.load(vulnerability_id)
+                )
+            ),
+        )
     return last_state

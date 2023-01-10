@@ -2,6 +2,7 @@ import authz
 from custom_exceptions import (
     AcceptanceNotRequested,
     InvalidAssigned,
+    InvalidParameter,
 )
 from dataloaders import (
     Dataloaders,
@@ -9,6 +10,9 @@ from dataloaders import (
 from datetime import (
     datetime,
     timezone,
+)
+from db_model.findings.types import (
+    Finding,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -26,6 +30,7 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
 )
+import hashlib
 import html
 from newutils.vulnerabilities import (
     ignore_advisories,
@@ -51,6 +56,37 @@ def get_hash(
     if root_id:
         items = (*items, root_id)
     return hash(items)
+
+
+async def get_hash_from_machine_vuln(
+    loaders: Dataloaders, vuln: Vulnerability
+) -> int:
+    if (
+        vuln.hacker_email
+        not in (
+            "machine@fluidattacks.com",
+            "kamado@fluidattacks.com",
+        )
+        or vuln.skims_method is None
+    ):
+        raise InvalidParameter()
+    finding: Finding = await loaders.finding.load(vuln.finding_id)
+    return int.from_bytes(
+        hashlib.sha256(
+            bytes(
+                (
+                    get_path_from_integrates_vulnerability(
+                        vuln.state.where, vuln.type, ignore_cve=True
+                    )[1]
+                    + vuln.state.specific
+                    + finding.title.split(".")[0]
+                    + vuln.skims_method
+                ),
+                encoding="utf-8",
+            )
+        ).digest()[:8],
+        "little",
+    )
 
 
 def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
