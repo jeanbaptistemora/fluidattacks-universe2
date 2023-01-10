@@ -1,7 +1,12 @@
 from aioextensions import (
     collect,
 )
+from botocore.exceptions import (
+    ConnectTimeoutError,
+    ReadTimeoutError,
+)
 from custom_exceptions import (
+    UnavailabilityError as CustomUnavailabilityError,
     VulnNotFound,
 )
 from dataloaders import (
@@ -20,6 +25,9 @@ from db_model.vulnerabilities.types import (
 )
 from decorators import (
     retry_on_exceptions,
+)
+from dynamodb.exceptions import (
+    UnavailabilityError,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -41,7 +49,13 @@ from vulnerabilities import (
 )
 
 
-@retry_on_exceptions(exceptions=(VulnNotFound,), sleep_seconds=2.0)
+@retry_on_exceptions(
+    exceptions=(
+        CustomUnavailabilityError,
+        UnavailabilityError,
+        VulnNotFound,
+    ),
+)
 async def _process_vulnerability(
     vulnerability: Vulnerability,
 ) -> Optional[str]:
@@ -79,6 +93,9 @@ async def _process_vulnerability(
     return None
 
 
+@retry_on_exceptions(
+    exceptions=(ReadTimeoutError, ConnectTimeoutError),
+)
 async def _process_finding(loaders: Dataloaders, finding_id: str) -> None:
     vulnerabilities = await loaders.finding_vulnerabilities.load(finding_id)
     results = await collect(
@@ -99,6 +116,9 @@ async def _process_finding(loaders: Dataloaders, finding_id: str) -> None:
     )
 
 
+@retry_on_exceptions(
+    exceptions=(ReadTimeoutError, ConnectTimeoutError),
+)
 async def _process_group(loaders: Dataloaders, group_name: str) -> None:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
