@@ -1294,7 +1294,7 @@
       "/observes/etl/mixpanel"
     ];
 
-    schedule_expression = "cron(0 11 * * ? *)";
+    schedule_expression = "cron(0 7 * * ? *)";
     size = "observes_small";
     awsRole = "prod_observes";
     attempts = 2;
