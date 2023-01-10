@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 10, 2023, 11:46 AM",
+    "DateLastModified": "Jan 10, 2023, 02:39 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1360,54 +1360,6 @@
               },
               "sk_2": {
                 "S": "USER#integratesuser2@gmail.com"
-              }
-            },
-            {
-              "is_concurrent_session": {
-                "BOOL": false
-              },
-              "is_registered": {
-                "BOOL": true
-              },
-              "last_name": {
-                "S": "delete"
-              },
-              "last_login_date": {
-                "S": "2020-10-01T18:40:37+00:00"
-              },
-              "tours": {
-                "M": {
-                  "new_group": {
-                    "BOOL": false
-                  },
-                  "new_root": {
-                    "BOOL": false
-                  }
-                }
-              },
-              "legal_remember": {
-                "BOOL": true
-              },
-              "registration_date": {
-                "S": "2018-02-28T16:54:12+00:00"
-              },
-              "sk": {
-                "S": "USER#inactive_imamura1@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "USER#all"
-              },
-              "pk": {
-                "S": "USER#inactive_imamura1@fluidattacks.com"
-              },
-              "first_name": {
-                "S": "imamura"
-              },
-              "email": {
-                "S": "inactive_imamura1@fluidattacks.com"
-              },
-              "sk_2": {
-                "S": "USER#inactive_imamura1@fluidattacks.com"
               }
             },
             {
@@ -2893,54 +2845,6 @@
                 "BOOL": true
               },
               "last_name": {
-                "S": "no delete"
-              },
-              "last_login_date": {
-                "S": "2020-10-02T18:40:37+00:00"
-              },
-              "tours": {
-                "M": {
-                  "new_group": {
-                    "BOOL": false
-                  },
-                  "new_root": {
-                    "BOOL": false
-                  }
-                }
-              },
-              "legal_remember": {
-                "BOOL": true
-              },
-              "registration_date": {
-                "S": "2018-02-28T16:54:12+00:00"
-              },
-              "sk": {
-                "S": "USER#inactive_imamura2@fluidattacks.com"
-              },
-              "pk_2": {
-                "S": "USER#all"
-              },
-              "pk": {
-                "S": "USER#inactive_imamura2@fluidattacks.com"
-              },
-              "first_name": {
-                "S": "imamura"
-              },
-              "email": {
-                "S": "inactive_imamura2@fluidattacks.com"
-              },
-              "sk_2": {
-                "S": "USER#inactive_imamura2@fluidattacks.com"
-              }
-            },
-            {
-              "is_concurrent_session": {
-                "BOOL": false
-              },
-              "is_registered": {
-                "BOOL": true
-              },
-              "last_name": {
                 "S": "Internal Manager"
               },
               "last_login_date": {
@@ -3043,6 +2947,150 @@
               },
               "sk_2": {
                 "S": "USER#unittest@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "To Be Deleted"
+              },
+              "last_login_date": {
+                "S": "2020-10-01T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#inactive_imamura1@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#inactive_imamura1@fluidattacks.com"
+              },
+              "first_name": {
+                "S": "Imamura"
+              },
+              "email": {
+                "S": "inactive_imamura1@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#inactive_imamura1@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "To Be Deleted"
+              },
+              "last_login_date": {
+                "S": "2020-10-02T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#inactive_imamura2@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#inactive_imamura2@fluidattacks.com"
+              },
+              "first_name": {
+                "S": "Imamura"
+              },
+              "email": {
+                "S": "inactive_imamura2@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#inactive_imamura2@fluidattacks.com"
+              }
+            },
+            {
+              "is_concurrent_session": {
+                "BOOL": false
+              },
+              "is_registered": {
+                "BOOL": true
+              },
+              "last_name": {
+                "S": "Not To Be Deleted"
+              },
+              "last_login_date": {
+                "S": "2020-10-03T18:40:37+00:00"
+              },
+              "tours": {
+                "M": {
+                  "new_group": {
+                    "BOOL": false
+                  },
+                  "new_root": {
+                    "BOOL": false
+                  }
+                }
+              },
+              "legal_remember": {
+                "BOOL": true
+              },
+              "registration_date": {
+                "S": "2018-02-28T16:54:12+00:00"
+              },
+              "sk": {
+                "S": "USER#active_imamura3@fluidattacks.com"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "pk": {
+                "S": "USER#active_imamura3@fluidattacks.com"
+              },
+              "first_name": {
+                "S": "Imamura"
+              },
+              "email": {
+                "S": "active_imamura3@fluidattacks.com"
+              },
+              "sk_2": {
+                "S": "USER#active_imamura3@fluidattacks.com"
               }
             }
           ],
@@ -3454,30 +3502,6 @@
               },
               "organization_id": {
                 "S": "38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
-              },
-              "state": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-01-01T20:07:57+00:00"
-                  }
-                }
-              }
-            },
-            {
-              "sk": {
-                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
-              },
-              "role": {
-                "S": "admin"
-              },
-              "pk": {
-                "S": "USER#inactive_imamura1@fluidattacks.com"
-              },
-              "email": {
-                "S": "inactive_imamura1@fluidattacks.com"
-              },
-              "organization_id": {
-                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
               },
               "state": {
                 "M": {
@@ -4278,30 +4302,6 @@
             },
             {
               "sk": {
-                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
-              },
-              "role": {
-                "S": "user"
-              },
-              "pk": {
-                "S": "USER#inactive_imamura2@fluidattacks.com"
-              },
-              "email": {
-                "S": "inactive_imamura2@fluidattacks.com"
-              },
-              "organization_id": {
-                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
-              },
-              "state": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-01-01T20:07:57+00:00"
-                  }
-                }
-              }
-            },
-            {
-              "sk": {
                 "S": "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"
               },
               "pk": {
@@ -4336,6 +4336,78 @@
               },
               "organization_id": {
                 "S": "f2e2777d-a168-4bea-93cd-d79142b294d2"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "role": {
+                "S": "admin"
+              },
+              "pk": {
+                "S": "USER#inactive_imamura1@fluidattacks.com"
+              },
+              "email": {
+                "S": "inactive_imamura1@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "role": {
+                "S": "user"
+              },
+              "pk": {
+                "S": "USER#inactive_imamura2@fluidattacks.com"
+              },
+              "email": {
+                "S": "inactive_imamura2@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "ORG#7376c5fe-4634-4053-9718-e14ecbda1e6b"
+              },
+              "role": {
+                "S": "user"
+              },
+              "pk": {
+                "S": "USER#active_imamura3@fluidattacks.com"
+              },
+              "email": {
+                "S": "active_imamura3@fluidattacks.com"
+              },
+              "organization_id": {
+                "S": "7376c5fe-4634-4053-9718-e14ecbda1e6b"
               },
               "state": {
                 "M": {
@@ -4717,52 +4789,6 @@
               },
               "email": {
                 "S": "integratesuser2@gmail.com"
-              },
-              "state": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-01-01T20:07:57+00:00"
-                  }
-                }
-              }
-            },
-            {
-              "role": {
-                "S": "hacker"
-              },
-              "group_name": {
-                "S": "deleteimamura"
-              },
-              "responsibility": {
-                "S": "to be deleted by inactivity, first attempt"
-              },
-              "invitation": {
-                "M": {
-                  "url_token": {
-                    "S": "unknown"
-                  },
-                  "role": {
-                    "S": "hacker"
-                  },
-                  "responsibility": {
-                    "S": "to be deleted by inactivity, first attempt"
-                  },
-                  "is_used": {
-                    "BOOL": true
-                  }
-                }
-              },
-              "sk": {
-                "S": "GROUP#deleteimamura"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "pk": {
-                "S": "USER#inactive_imamura1@fluidattacks.com"
-              },
-              "email": {
-                "S": "inactive_imamura1@fluidattacks.com"
               },
               "state": {
                 "M": {
@@ -5975,6 +6001,109 @@
             },
             {
               "role": {
+                "S": "user"
+              },
+              "group_name": {
+                "S": "sheele"
+              },
+              "responsibility": {
+                "S": ""
+              },
+              "sk": {
+                "S": "GROUP#sheele"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#org_testuser3@gmail.com"
+              },
+              "email": {
+                "S": "org_testuser3@gmail.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "sk": {
+                "S": "GROUP#unittesting"
+              },
+              "pk": {
+                "S": "USER#unittest@fluidattacks.com"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "responsibility": {
+                "S": "Tester"
+              },
+              "group_name": {
+                "S": "unittesting"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "role": {
+                "S": "hacker"
+              },
+              "group_name": {
+                "S": "deleteimamura"
+              },
+              "responsibility": {
+                "S": "to be deleted by inactivity, first attempt"
+              },
+              "invitation": {
+                "M": {
+                  "url_token": {
+                    "S": "unknown"
+                  },
+                  "role": {
+                    "S": "hacker"
+                  },
+                  "responsibility": {
+                    "S": "to be deleted by inactivity, first attempt"
+                  },
+                  "is_used": {
+                    "BOOL": true
+                  }
+                }
+              },
+              "sk": {
+                "S": "GROUP#deleteimamura"
+              },
+              "has_access": {
+                "BOOL": true
+              },
+              "pk": {
+                "S": "USER#inactive_imamura1@fluidattacks.com"
+              },
+              "email": {
+                "S": "inactive_imamura1@fluidattacks.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2020-01-01T20:07:57+00:00"
+                  }
+                }
+              }
+            },
+            {
+              "role": {
                 "S": "hacker"
               },
               "group_name": {
@@ -6024,49 +6153,38 @@
                 "S": "user"
               },
               "group_name": {
-                "S": "sheele"
+                "S": "deleteimamura"
               },
               "responsibility": {
-                "S": ""
+                "S": "Not to be deleted by inactivity"
               },
-              "sk": {
-                "S": "GROUP#sheele"
-              },
-              "has_access": {
-                "BOOL": true
-              },
-              "pk": {
-                "S": "USER#org_testuser3@gmail.com"
-              },
-              "email": {
-                "S": "org_testuser3@gmail.com"
-              },
-              "state": {
+              "invitation": {
                 "M": {
-                  "modified_date": {
-                    "S": "2020-01-01T20:07:57+00:00"
+                  "url_token": {
+                    "S": "unknown"
+                  },
+                  "role": {
+                    "S": "user"
+                  },
+                  "responsibility": {
+                    "S": "Not to be deleted by inactivity"
+                  },
+                  "is_used": {
+                    "BOOL": true
                   }
                 }
-              }
-            },
-            {
-              "sk": {
-                "S": "GROUP#unittesting"
               },
-              "pk": {
-                "S": "USER#unittest@fluidattacks.com"
+              "sk": {
+                "S": "GROUP#deleteimamura"
               },
               "has_access": {
                 "BOOL": true
               },
-              "responsibility": {
-                "S": "Tester"
-              },
-              "group_name": {
-                "S": "unittesting"
+              "pk": {
+                "S": "USER#active_imamura3@fluidattacks.com"
               },
               "email": {
-                "S": "unittest@fluidattacks.com"
+                "S": "active_imamura3@fluidattacks.com"
               },
               "state": {
                 "M": {
