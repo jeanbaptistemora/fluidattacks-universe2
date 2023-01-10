@@ -1,10 +1,14 @@
 # pylint: disable=import-error
 from back.test.unit.src.utils import (
+    create_dummy_info,
+    create_dummy_simple_session,
     get_mock_response,
     get_mocked_path,
 )
 from custom_exceptions import (
+    EventAlreadyClosed,
     InvalidCommentParent,
+    InvalidEventSolvingReason,
 )
 from dataloaders import (
     Dataloaders,
@@ -18,11 +22,16 @@ from db_model.event_comments.types import (
 )
 from db_model.events.enums import (
     EventEvidenceId,
+    EventSolutionReason,
 )
 from events.domain import (
     add_comment,
     add_event,
+    solve_event,
     update_evidence,
+)
+from graphql.type.definition import (
+    GraphQLResolveInfo,
 )
 import json
 import os
@@ -298,6 +307,105 @@ async def test_add_event_file_image(
     assert mock_root_loader.called is True
     assert mock_validate_evidence.called is True
     assert mock_update_evidence.called is True
+
+
+# pylint: disable=too-many-arguments
+@pytest.mark.parametrize(
+    [
+        "event_id",
+        "hacker_email",
+        "reason",
+        "other",
+        "group_name",
+        "expected_result",
+    ],
+    [
+        [
+            "538745942",
+            "unittesting@fluidattacks.com",
+            EventSolutionReason.PERMISSION_GRANTED,
+            "Other info",
+            "unittesting",
+            ({}, {}),
+        ],
+        [
+            "418900978",
+            "unittest@fluidattacks.com",
+            EventSolutionReason.OTHER,
+            "Other info",
+            "oneshottest",
+            ({}, {}),
+        ],
+    ],
+)
+@patch(get_mocked_path("events_model.update_state"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("loaders.event_vulnerabilities_loader.load"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
+async def test_solve_event(
+    mock_event_loader: AsyncMock,
+    mock_event_vulnerabilities_loader_loader: AsyncMock,
+    mock_db_model_event_update_state: AsyncMock,
+    event_id: str,
+    hacker_email: str,
+    reason: EventSolutionReason,
+    other: str,
+    group_name: str,
+    expected_result: tuple[dict[str, set[str]], dict[str, list[str]]],
+) -> None:
+
+    mock_event_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event.load"),
+        json.dumps([event_id]),
+    )
+
+    mock_event_vulnerabilities_loader_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event_vulnerabilities_loader.load"),
+        json.dumps([event_id]),
+    )
+    mock_db_model_event_update_state.return_value = get_mock_response(
+        get_mocked_path("events_model.update_state"),
+        json.dumps([event_id, hacker_email, reason, other, group_name]),
+    )
+    loaders: GraphQLResolveInfo = create_dummy_info(
+        request=create_dummy_simple_session()
+    )
+    result = await solve_event(
+        info=loaders,
+        event_id=event_id,
+        hacker_email=hacker_email,
+        reason=reason,
+        other=other,
+    )
+    assert result == expected_result
+    assert mock_event_vulnerabilities_loader_loader.called is True
+    assert mock_db_model_event_update_state.called is True
+
+    with pytest.raises(InvalidEventSolvingReason):
+        await solve_event(
+            info=loaders,
+            event_id=event_id,
+            hacker_email=hacker_email,
+            reason=EventSolutionReason.CLONED_SUCCESSFULLY,
+            other=other,
+        )
+
+    # Modify mock response to raise exception
+    mock_event_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.event.load"),
+        json.dumps([event_id, "Already closed"]),
+    )
+    with pytest.raises(EventAlreadyClosed):
+        assert await solve_event(
+            info=loaders,
+            event_id=event_id,
+            hacker_email=hacker_email,
+            reason=reason,
+            other=other,
+        )
+    assert mock_event_loader.call_count == 3
 
 
 # pylint: disable=too-many-arguments

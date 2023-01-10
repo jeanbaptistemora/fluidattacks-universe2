@@ -133,6 +133,7 @@ mocked_paths: Dict[str, str] = {
     "group_comments_model.add": "db_model.group_comments.add",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.event_vulnerabilities_loader.load": "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -245,6 +246,75 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 unreliable_solving_date=None
             ),
         ),
+        '["418900978", "Already closed"]': Event(
+            client="Test client",
+            created_by="unittest@fluidattacks.com",
+            created_date=datetime.fromisoformat("2020-01-02T19:40:05+00:00"),
+            description="Oneshot event test",
+            event_date=datetime.fromisoformat("2020-01-02T12:00:00+00:00"),
+            evidences=EventEvidences(
+                file_1=None,
+                image_1=None,
+                image_2=None,
+                image_3=None,
+                image_4=None,
+                image_5=None,
+                image_6=None,
+            ),
+            group_name="oneshottest",
+            hacker="unittest@fluidattacks.com",
+            id="418900978",
+            state=EventState(
+                modified_by="unittest@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-01-02T19:40:05+00:00"
+                ),
+                status=EventStateStatus.SOLVED,
+                comment_id=None,
+                other=None,
+                reason=None,
+            ),
+            type=EventType.OTHER,
+            root_id=None,
+            unreliable_indicators=EventUnreliableIndicators(
+                unreliable_solving_date=None
+            ),
+        ),
+        '["538745942", "Already closed"]': Event(
+            client="test",
+            created_by="unittest@fluidattacks.com",
+            created_date=datetime.fromisoformat("2019-09-19T15:43:43+00:00"),
+            description="Esta eventualidad fue levantada para "
+            "poder realizar pruebas de unittesting",
+            event_date=datetime.fromisoformat("2019-09-19T13:09:00+00:00"),
+            evidences=EventEvidences(
+                file_1=None,
+                image_1=None,
+                image_2=None,
+                image_3=None,
+                image_4=None,
+                image_5=None,
+                image_6=None,
+            ),
+            group_name="unittesting",
+            hacker="unittest@fluidattacks.com",
+            id="538745942",
+            state=EventState(
+                modified_by="unittest@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2019-09-19T15:43:43+00:00"
+                ),
+                status=EventStateStatus.SOLVED,
+                comment_id=None,
+                other=None,
+                reason=None,
+            ),
+            type=EventType.AUTHORIZATION_SPECIAL_ATTACK,
+            root_id=None,
+            unreliable_indicators=EventUnreliableIndicators(
+                unreliable_solving_date=None
+            ),
+        ),
     },
     "db_model.events.update_evidence": {
         '["418900978", "test-file-records.csv", '
@@ -255,6 +325,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.events.update_state": {
         '["unittesting", "unittesting@fluidattacks.com", '
         '"4039d098-ffc5-4984-8ed3-eb17bca98e19"]': None,
+        '["418900978", "unittest@fluidattacks.com", "OTHER", '
+        '"Other info", "oneshottest"]': None,
+        '["538745942", "unittesting@fluidattacks.com", "PERMISSION_GRANTED", '
+        '"Other info", "unittesting"]': None,
     },
     "db_model.event_comments.get.EventCommentsLoader.load": {
         '["538745942"]': (
@@ -616,6 +690,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
+    },
+    "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load": {
+        '["418900978"]': tuple(),
+        '["538745942"]': tuple(),
     },
     "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained": {  # noqa: E501 pylint: disable=line-too-long
         '["463558592", "422286126"]': tuple(

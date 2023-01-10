@@ -1,10 +1,4 @@
-# pylint: disable=import-error
-from back.test.unit.src.utils import (
-    create_dummy_info,
-    create_dummy_session,
-)
 from custom_exceptions import (
-    EventAlreadyClosed,
     EventNotFound,
     InvalidFileName,
     InvalidFileSize,
@@ -20,11 +14,6 @@ from db_model.event_comments.types import (
 )
 from db_model.events.enums import (
     EventEvidenceId,
-    EventSolutionReason,
-    EventStateStatus,
-)
-from db_model.events.types import (
-    Event,
 )
 from db_model.groups.types import (
     Group,
@@ -50,35 +39,6 @@ from time import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@pytest.mark.changes_db
-async def test_solve_event() -> None:
-    request = await create_dummy_session("unittesting@fluidattacks.com")
-    info = create_dummy_info(request)
-    await events_domain.solve_event(
-        info=info,
-        event_id="538745942",
-        hacker_email="unittesting@fluidattacks.com",
-        reason=EventSolutionReason.PERMISSION_GRANTED,
-        other="Other info",
-    )
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load("538745942")
-    assert event.state.status == EventStateStatus.SOLVED
-    assert event.state.other == "Other info"
-    assert event.state.reason == EventSolutionReason.PERMISSION_GRANTED
-
-    request = await create_dummy_session("unittesting@fluidattacks.com")
-    info = create_dummy_info(request)
-    with pytest.raises(EventAlreadyClosed):
-        assert await events_domain.solve_event(
-            info=info,
-            event_id="538745942",
-            hacker_email="unittesting@fluidattacks.com",
-            reason=None,  # type: ignore
-            other=None,
-        )
 
 
 async def test_update_evidence_invalid_id() -> None:
