@@ -62,7 +62,7 @@ class RecordProcessor(processor.RecordProcessorBase):
                         self.sleep_seconds,
                     )
                 else:
-                    LOGGER.error("Couldn't checkpoint due to %s", ex.value)
+                    LOGGER.exception(ex)
 
             retries += 1
             sleep(self.sleep_seconds)

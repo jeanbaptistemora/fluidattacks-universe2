@@ -144,13 +144,13 @@ def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
     return EnrollmentTrialState.EXTENDED_ENDED
 
 
-async def is_trial(
+async def in_trial(
     loaders: Dataloaders, user_email: str, organization: Organization
 ) -> bool:
     domain = user_email.split("@")[1]
     company: Company = await loaders.company.load(domain)
-    in_trial = company and not company.trial.completed
+    completed = company and company.trial.completed
 
-    if not in_trial or organization.payment_methods:
+    if completed or organization.payment_methods:
         return False
     return True

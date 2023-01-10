@@ -367,7 +367,7 @@ async def add_group(
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    if await enrollment_domain.is_trial(loaders, email, organization):
+    if await enrollment_domain.in_trial(loaders, email, organization):
         managed = GroupManaged.TRIAL
         if (
             await loaders.organization_groups.load(organization.id)
@@ -662,7 +662,7 @@ async def update_group(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    if await enrollment_domain.is_trial(loaders, email, organization) and (
+    if await enrollment_domain.in_trial(loaders, email, organization) and (
         has_squad
         or not has_machine
         or service != GroupService.WHITE
