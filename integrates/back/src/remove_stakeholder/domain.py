@@ -55,7 +55,7 @@ from newutils.datetime import (
     get_now_plus_delta,
 )
 from newutils.validations import (
-    validate_email_address,
+    validate_email_address_deco,
 )
 from organizations import (
     domain as orgs_domain,
@@ -185,6 +185,7 @@ async def get_confirm_deletion(
     return None
 
 
+@validate_email_address_deco("email")
 async def confirm_deletion_mail(
     *,
     loaders: Dataloaders,
@@ -198,7 +199,6 @@ async def confirm_deletion_mail(
         },
         subject="starlette_session",
     )
-    validate_email_address(email)
     await group_access_domain.update(
         loaders=loaders,
         email=email,

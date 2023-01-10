@@ -11,11 +11,17 @@ from datetime import (
 from db_model.toe_lines.types import (
     SortsSuggestion,
 )
+import functools
 from newutils import (
     datetime as datetime_utils,
 )
 from newutils.findings import (
     is_valid_finding_titles,
+)
+from typing import (
+    Any,
+    Callable,
+    cast,
 )
 
 
@@ -24,9 +30,39 @@ def validate_modified_date(modified_date: datetime) -> None:
         raise InvalidModifiedDate()
 
 
+def validate_modified_date_deco(modified_date_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            modified_date = cast(datetime, kwargs.get(modified_date_field))
+            if modified_date > datetime_utils.get_now():
+                raise InvalidModifiedDate()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
+
+
 def validate_loc(loc: int) -> None:
     if loc < 0:
         raise InvalidLinesOfCode()
+
+
+def validate_loc_deco(loc_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            loc = cast(int, kwargs.get(loc_field))
+            if loc < 0:
+                raise InvalidLinesOfCode()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def validate_sort_risk_level(value: int) -> None:
