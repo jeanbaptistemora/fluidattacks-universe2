@@ -244,4 +244,30 @@ describe("ForcesView", (): void => {
 
     expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
   });
+
+  it("should render filter status", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/unittesting/devsecops"]}>
+        <MockedProvider addTypename={false} mocks={mocks}>
+          <Route component={GroupForcesView} path={"/:groupName/devsecops"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    await waitFor((): void => {
+      expect(screen.queryByRole("table")).toBeInTheDocument();
+    });
+
+    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+
+    await userEvent.click(screen.getByRole("combobox", { name: "status" }));
+
+    expect(screen.getByRole("option", { name: "Secure" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "Vulnerable" })
+    ).toBeInTheDocument();
+  });
 });
