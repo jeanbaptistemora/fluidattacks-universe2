@@ -1,6 +1,10 @@
 from ._utils import (
     log_info,
 )
+from dynamo_etl_conf import (
+    _utils,
+    jobs_sdk,
+)
 from fa_purity import (
     Cmd,
     Maybe,
@@ -80,4 +84,26 @@ def merge_dynamo_tables(
             .alt(lambda s: log_info(LOG, "Ignoring non-existent %s", str(s)))
             .to_union()
         )
+    )
+
+
+def main(
+    client: SchemaClient,
+    tables: FrozenSet[str],
+    parts_schema_prefix: str,
+    loading_schema: SchemaId,
+    pre_merge_schema: SchemaId,
+    schema: SchemaId,
+) -> Cmd[None]:
+    return (
+        _utils.log_info(LOG, "Preparing loading schema...")
+        + jobs_sdk.prepare_loading(
+            loading_schema, "s3://observes.cache/dynamoEtl/vms_schema"
+        )
+        + _utils.log_info(LOG, "Merging schema parts...")
+        + merge_parts(client, parts_schema_prefix, loading_schema)
+        + _utils.log_info(LOG, "Renaming...")
+        + client.rename(loading_schema, pre_merge_schema)
+        + _utils.log_info(LOG, "Migrating data...")
+        + merge_dynamo_tables(client, tables, schema)
     )

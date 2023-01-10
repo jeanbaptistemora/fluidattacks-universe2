@@ -7,6 +7,9 @@ from dynamo_etl_conf._run import (
 from fa_purity.cmd import (
     Cmd,
 )
+from redshift_client.id_objs import (
+    SchemaId,
+)
 from typing import (
     FrozenSet,
 )
@@ -24,10 +27,10 @@ def determine_schema(
     return external_run(args)
 
 
-def prepare_loading(loading_schema: str, cache_bucket: str) -> Cmd[None]:
+def prepare_loading(loading_schema: SchemaId, cache_bucket: str) -> Cmd[None]:
     args = (
         BinPaths.PREPARE_LOADING.value,
-        loading_schema,
+        loading_schema.name,
         cache_bucket,
     )
     return external_run(args)

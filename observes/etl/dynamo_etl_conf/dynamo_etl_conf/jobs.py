@@ -2,7 +2,7 @@ from dataclasses import (
     dataclass,
 )
 from dynamo_etl_conf import (
-    drivers,
+    jobs_sdk,
 )
 from dynamo_etl_conf._run import (
     external_run,
@@ -49,7 +49,7 @@ class Executor:
         return external_run(tuple(args))
 
     def determine_schema(self) -> Cmd[None]:
-        return drivers.determine_schema(
+        return jobs_sdk.determine_schema(
             frozenset([TargetTables.CORE.value]),
             100,
             "s3://observes.cache/dynamoEtl/vms_schema",

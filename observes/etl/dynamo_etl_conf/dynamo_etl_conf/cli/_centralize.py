@@ -6,11 +6,8 @@ import click
 from dynamo_etl_conf import (
     centralize as centralize_module,
 )
-from fa_purity.json.factory import (
-    load,
-)
-from fa_purity.json.value.transform import (
-    Unfolder,
+from fa_purity import (
+    Cmd,
 )
 import logging
 from redshift_client.id_objs import (
@@ -21,6 +18,7 @@ from redshift_client.schema.client import (
 )
 from redshift_client.sql_client import (
     new_client,
+    SqlClient,
 )
 from redshift_client.sql_client.connection import (
     connect,
@@ -31,11 +29,20 @@ from redshift_client.sql_client.connection import (
 import sys
 from typing import (
     Any,
-    IO,
     NoReturn,
 )
 
 LOG = logging.getLogger(__name__)
+
+
+def _client(ctx: CmdContext) -> Cmd[SqlClient]:
+    conn = connect(
+        ctx.db_id,
+        ctx.creds,
+        False,
+        IsolationLvl.AUTOCOMMIT,
+    )
+    return conn.bind(lambda c: new_client(c, LOG))
 
 
 @click.command()  # type: ignore[misc]
@@ -48,18 +55,12 @@ def dynamo_tables(
     tables: str,
 ) -> NoReturn:
     _tables = tuple(tables.split(","))
-    conn = connect(
-        ctx.db_id,
-        ctx.creds,
-        False,
-        IsolationLvl.AUTOCOMMIT,
-    )
-    client = conn.bind(lambda c: new_client(c, LOG))
-    client.bind(
+    cmd: Cmd[None] = _client(ctx).bind(
         lambda c: centralize_module.merge_dynamo_tables(
             SchemaClient(c), frozenset(_tables), SchemaId(schema)
         )
-    ).compute()
+    )
+    cmd.compute()
 
 
 @click.command()  # type: ignore[misc]
@@ -71,18 +72,43 @@ def parts(
     schema_prefix: str,
     schema: str,
 ) -> NoReturn:
-    conn = connect(
-        ctx.db_id,
-        ctx.creds,
-        False,
-        IsolationLvl.AUTOCOMMIT,
-    )
-    client = conn.bind(lambda c: new_client(c, LOG))
-    client.bind(
+    cmd: Cmd[None] = _client(ctx).bind(
         lambda c: centralize_module.merge_parts(
             SchemaClient(c), schema_prefix, SchemaId(schema)
         )
-    ).compute()
+    )
+    cmd.compute()
+
+
+@click.command()  # type: ignore[misc]
+@click.option("--schema", type=str, required=True, help="as in `dynamo_tables` args")  # type: ignore[misc]
+@click.option("--tables", type=str, required=True, help="as in `dynamo_tables` args")  # type: ignore[misc]
+@click.option("--parts-schema-prefix", type=str, required=True, help="as in `parts` args i.e. `schema-prefix`")  # type: ignore[misc]
+@click.option("--parts-loading-schema", type=str, required=True, help="as in `parts` args i.e. `schema`")  # type: ignore[misc]
+@pass_ctx  # type: ignore[misc]
+def main(
+    ctx: CmdContext,
+    schema: str,
+    tables: str,
+    parts_schema_prefix: str,
+    parts_loading_schema: str,
+) -> NoReturn:
+    _tables = tuple(tables.split(","))
+    cmd: Cmd[None] = (
+        _client(ctx)
+        .map(lambda c: SchemaClient(c))
+        .bind(
+            lambda c: centralize_module.main(
+                c,
+                frozenset(_tables),
+                parts_schema_prefix,
+                SchemaId(parts_loading_schema),
+                SchemaId("dynamodb_integrates_vms"),
+                SchemaId(schema),
+            )
+        )
+    )
+    cmd.compute()
 
 
 @click.group()  # type: ignore[misc]
@@ -130,3 +156,4 @@ def centralize(
 
 centralize.add_command(dynamo_tables)
 centralize.add_command(parts)
+centralize.add_command(main)
