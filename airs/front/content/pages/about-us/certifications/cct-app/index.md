@@ -6,7 +6,7 @@ keywords: Fluid Attacks, Ethical Hackers, Red Team, Certifications, Cybersecurit
 certificationlogo: logo-cpsa
 alt: Logo CCT APP
 certification: yes
-certificationid: 34
+certificationid: 35
 ---
 
 [CCT-APP](https://www.crest-approved.org/certification-careers/crest-certifications/crest-certified-web-application-tester/)
