@@ -118,6 +118,7 @@ import uuid
 mocked_paths: Dict[str, str] = {
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
+    "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
     "event_comments_domain.add": "event_comments.domain.add",
     "event_comments_domain.remove_comments": "event_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
@@ -1051,6 +1052,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "dynamodb.operations_legacy.delete_item": {
         '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
         '52110"]': True,
+    },
+    "dynamodb.operations_legacy.put_item": {
+        '["71c0fda0eb400019e9c4760a3711031596ddefdb98a8d2b721cd8a94d56db3a9", "1673453501", "IntegratesBatchQueue.SMALL"]': True  # noqa: E501 pylint: disable=line-too-long
     },
     "dynamodb.operations_legacy.query": {
         '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long

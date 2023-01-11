@@ -1,5 +1,4 @@
-# pylint: disable=import-error
-from back.test.unit.src.utils import (
+from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
 )
@@ -11,6 +10,7 @@ from batch.dal import (
     mapping_to_key,
     put_action_to_batch,
     put_action_to_dynamodb,
+    SkimsBatchQueue,
     to_queue,
 )
 from batch.enums import (
@@ -26,11 +26,10 @@ from moto.dynamodb2 import (
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
-from newutils.datetime import (
-    get_as_epoch,
-    get_now,
-)
 import pytest
+from typing import (
+    Union,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -240,56 +239,81 @@ async def test_put_action_to_batch(action: BatchProcessing) -> None:
     )
 
 
-async def test_put_action_to_dynamodb(dynamodb: ServiceResource) -> None:
-    def side_effect(item: dict, table: str) -> bool:
-        if bool(table and item):
-            return dynamodb.Table(TABLE_NAME).put_item(  # type: ignore
-                Item=item
-            )
-        return False
+@pytest.mark.parametrize(
+    [
+        "action_name",
+        "entity",
+        "subject",
+        "time",
+        "additional_info",
+        "queue",
+    ],
+    [
+        [
+            "report",
+            "unittesting",
+            "unittesting@fluidattacks.com",
+            "1673453501",
+            json.dumps(
+                {
+                    "report_type": "XLS",
+                    "treatments": [
+                        "ACCEPTED",
+                        "ACCEPTED_UNDEFINED",
+                        "IN_PROGRESS",
+                        "NEW",
+                    ],
+                    "states": ["CLOSED"],
+                    "verifications": ["VERIFIED"],
+                    "closing_date": "2020-06-01T05:00:00+00:00",
+                    "finding_title": "039",
+                    "age": 1200,
+                    "min_severity": "2.7",
+                    "max_severity": None,
+                }
+            ),
+            IntegratesBatchQueue.SMALL,
+        ],
+    ],
+)
+@patch(get_mocked_path("dynamodb_ops.put_item"), new_callable=AsyncMock)
+async def test_put_action_to_dynamodb(  # pylint: disable=too-many-arguments
+    mock_dynamodb_ops_put_item: AsyncMock,
+    action_name: str,
+    entity: str,
+    subject: str,
+    time: str,
+    additional_info: str,
+    queue: Union[IntegratesBatchQueue, SkimsBatchQueue],
+) -> None:
 
-    time = str(get_as_epoch(get_now()))
-    item = dict(
-        action_name="report",
-        entity="unittesting",
-        subject="unittesting@fluidattacks.com",
-        time=time,
-        additional_info=json.dumps(
-            {
-                "report_type": "XLS",
-                "treatments": [
-                    "ACCEPTED",
-                    "ACCEPTED_UNDEFINED",
-                    "IN_PROGRESS",
-                    "NEW",
-                ],
-                "states": ["CLOSED"],
-                "verifications": ["VERIFIED"],
-                "closing_date": "2020-06-01T05:00:00+00:00",
-                "age": 1200,
-                "finding_title": "",
-                "min_severity": "2.7",
-                "max_severity": None,
-            }
-        ),
-    )
     key = mapping_to_key(
         [
-            item["action_name"],
-            item["entity"],
-            item["subject"],
-            item["additional_info"],
+            action_name,
+            entity,
+            subject,
+            additional_info,
         ]
     )
-    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
-    with patch("batch.dal.dynamodb_ops.put_item") as mock_put_item:
-        mock_put_item.side_effect = side_effect
-        await put_action_to_dynamodb(queue=IntegratesBatchQueue.SMALL, **item)
-    assert mock_put_item.called is True
-    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
-    assert (
-        key
-        in dynamodb.Table(TABLE_NAME)
-        .get_item(Key={"pk": key})["Item"]
-        .values()
+    mock_dynamodb_ops_put_item.return_value = get_mock_response(
+        get_mocked_path("dynamodb_ops.put_item"),
+        json.dumps(
+            [
+                key,
+                time,
+                queue,
+            ],
+            default=str,
+        ),
     )
+    result = await put_action_to_dynamodb(
+        action_name=action_name,
+        entity=entity,
+        subject=subject,
+        time=time,
+        additional_info=additional_info,
+        queue=queue,
+        key=key,
+    )
+    assert mock_dynamodb_ops_put_item.called is True
+    assert result == key

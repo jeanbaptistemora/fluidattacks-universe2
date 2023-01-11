@@ -53,7 +53,6 @@ pytestmark = [
 ]
 
 
-# pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     ["comment_data", "group"],
     [
@@ -80,7 +79,7 @@ pytestmark = [
     new_callable=AsyncMock,
 )
 @patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
-async def test_add_comment(
+async def test_add_comment(  # pylint: disable=too-many-arguments
     mock_event_loader: AsyncMock,
     mock_authz_validate_handle_comment_scope: AsyncMock,
     mock_event_comments_domain_add: AsyncMock,
@@ -136,7 +135,6 @@ async def test_add_comment(
     assert mock_event_comments_domain_add.called is True
 
 
-# pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     ["group", "hacker_email", "attrs"],
     [
@@ -160,7 +158,7 @@ async def test_add_comment(
 @patch(get_mocked_path("loaders.root.load"), new_callable=AsyncMock)
 @patch(get_mocked_path("loaders.organization.load"), new_callable=AsyncMock)
 @patch(get_mocked_path("loaders.group.load"), new_callable=AsyncMock)
-async def test_add_event(
+async def test_add_event(  # pylint: disable=too-many-arguments
     mock_group_loader: AsyncMock,
     mock_organization_loader: AsyncMock,
     mock_root_loader: AsyncMock,
@@ -203,8 +201,6 @@ async def test_add_event(
     assert mock_root_loader.called is True
 
 
-# pylint: disable=too-many-arguments
-# pylint: disable=too-many-locals
 @pytest.mark.parametrize(
     ["group", "hacker_email", "attrs", "file_name", "image_name"],
     [
@@ -233,6 +229,7 @@ async def test_add_event(
 @patch(get_mocked_path("loaders.organization.load"), new_callable=AsyncMock)
 @patch(get_mocked_path("loaders.group.load"), new_callable=AsyncMock)
 async def test_add_event_file_image(
+    # pylint: disable=too-many-arguments, too-many-locals
     mock_group_loader: AsyncMock,
     mock_organization_loader: AsyncMock,
     mock_root_loader: AsyncMock,
@@ -333,7 +330,7 @@ async def test_add_event_file_image(
 )
 @patch(get_mocked_path("remove_file_evidence"), new_callable=AsyncMock)
 @patch(get_mocked_path("search_evidence"), new_callable=AsyncMock)
-async def test_remove_event(
+async def test_remove_event(  # pylint: disable=too-many-arguments
     mock_search_evidence: AsyncMock,
     mock_remove_file_evidence: AsyncMock,
     mock_event_comments_domain_remove_comments: AsyncMock,
@@ -367,7 +364,6 @@ async def test_remove_event(
     assert mock_events_model_remove.called is True
 
 
-# pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     [
         "event_id",
@@ -402,7 +398,7 @@ async def test_remove_event(
     new_callable=AsyncMock,
 )
 @patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
-async def test_solve_event(
+async def test_solve_event(  # pylint: disable=too-many-arguments
     mock_event_loader: AsyncMock,
     mock_event_vulnerabilities_loader_loader: AsyncMock,
     mock_db_model_event_update_state: AsyncMock,
@@ -466,7 +462,6 @@ async def test_solve_event(
     assert mock_event_loader.call_count == 3
 
 
-# pylint: disable=too-many-arguments
 @pytest.mark.parametrize(
     ["event_id", "evidence_type", "file_name", "update_date"],
     [
@@ -488,7 +483,7 @@ async def test_solve_event(
 @patch(get_mocked_path("events_model.update_evidence"), new_callable=AsyncMock)
 @patch(get_mocked_path("save_evidence"), new_callable=AsyncMock)
 @patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
-async def test_update_evidence(
+async def test_update_evidence(  # pylint: disable=too-many-arguments
     mock_event_loader: AsyncMock,
     mock_save_evidence: AsyncMock,
     mock_events_model_update_evidence: AsyncMock,
