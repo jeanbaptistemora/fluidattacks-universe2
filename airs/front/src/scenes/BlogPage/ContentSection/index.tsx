@@ -48,12 +48,12 @@ const ContentSection: React.FC<IContentProps> = ({
         maxWidth={"1440px"}
         wrap={"wrap"}
       >
-        <Container width={"85%"} widthSm={"100%"}>
+        <Container width={"95%"} widthMd={"85%"} widthSm={"100%"}>
           <Container center={true} maxWidth={"800px"}>
             <div className={"new-internal"}>{renderAst(htmlAst)}</div>
           </Container>
         </Container>
-        <Container width={"15%"} widthSm={"100%"}>
+        <Container width={"5%"} widthMd={"15%"} widthSm={"100%"}>
           <ShareSection slug={slug} />
         </Container>
       </Container>
