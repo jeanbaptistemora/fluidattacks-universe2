@@ -50,6 +50,40 @@ VALID_REASONS: Tuple[str, ...] = tuple(
 )
 
 
+def _match_is_valid_summary(body: str, scope: str) -> bool:
+    if scope == "cross" or any(reason in body for reason in VALID_REASONS):
+        LOGGER.info("Drills daily commit: OK")
+        return True
+    LOGGER.error("Provide a valid reason for non-cross hack")
+    LOGGER.info("Valid reasons are:")
+    for reason in VALID_REASONS:
+        LOGGER.info("  - %s", reason)
+    return False
+
+
+def _enum_match_is_valid_summary(
+    match: Optional[Match[str]], enum_pattern: str
+) -> bool:
+    if match:
+        LOGGER.info("Drills enumeration commit: OK")
+        is_valid = True
+    else:
+        LOGGER.error("Enumeration commit must match: %s", enum_pattern)
+        is_valid = False
+
+    return is_valid
+
+
+def _config_match_is_valid_summary(
+    match: Optional[Match[str]], config_pattern: str
+) -> bool:
+    if match:
+        LOGGER.info("Drills config commit: OK")
+        return True
+    LOGGER.error("Config commit must match: %s", config_pattern)
+    return False
+
+
 @shield(on_error_return=False)
 def is_valid_summary(  # noqa: MC0001
     summary: str,
@@ -95,36 +129,16 @@ def is_valid_summary(  # noqa: MC0001
         if type_ == "drills" and scope in ("lines", "inputs", "cross"):
             match = re.match(daily_pattern, summary)
             if match:
-                if scope == "cross" or any(
-                    reason in body for reason in VALID_REASONS
-                ):
-                    LOGGER.info("Drills daily commit: OK")
-                    is_valid = True
-                else:
-                    LOGGER.error("Provide a valid reason for non-cross hack")
-                    LOGGER.info("Valid reasons are:")
-                    for reason in VALID_REASONS:
-                        LOGGER.info("  - %s", reason)
-                    is_valid = False
+                is_valid = _match_is_valid_summary(body, scope)
             else:
                 LOGGER.error("Daily commit must match: %s", daily_pattern)
                 is_valid = False
         elif type_ == "drills" and scope == "enum":
             match = re.match(enum_pattern, summary)
-            if match:
-                LOGGER.info("Drills enumeration commit: OK")
-                is_valid = True
-            else:
-                LOGGER.error("Enumeration commit must match: %s", enum_pattern)
-                is_valid = False
+            is_valid = _enum_match_is_valid_summary(match, enum_pattern)
         elif type_ == "drills" and scope == "conf":
             match = re.match(config_pattern, summary)
-            if match:
-                LOGGER.info("Drills config commit: OK")
-                is_valid = True
-            else:
-                LOGGER.error("Config commit must match: %s", config_pattern)
-                is_valid = False
+            is_valid = _config_match_is_valid_summary(match, config_pattern)
         else:
             LOGGER.error("Unrecognized scope: %s(%s)", type_, scope)
             is_valid = False

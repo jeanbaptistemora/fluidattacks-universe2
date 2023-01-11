@@ -24,6 +24,7 @@ from typing import (
 
 # Constants
 RAISE = object()
+# pylint: disable=invalid-name
 TFun = TypeVar("TFun", bound=Callable[..., Any])
 RATE_LIMIT_ENABLED: bool = guess_environment() == "production"
 

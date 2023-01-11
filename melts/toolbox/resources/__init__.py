@@ -589,7 +589,7 @@ def get_fingerprint(subs: str) -> bool:
             max_date = date
             max_hash = hashr
         results.append((repo, hashr, date.isoformat()))
-    if results == []:
+    if not results:
         LOGGER.error("There is not any folder in fusion - Subs: %s", subs)
         return False
     output_bar = "-" * 84

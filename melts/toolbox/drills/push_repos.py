@@ -118,7 +118,7 @@ def s3_sync_fusion_to_s3(
 
     with open(zip_output_path, "rb") as object_file:
         object_text = object_file.read()
-        response = requests.put(upload_url, data=object_text)
+        response = requests.put(upload_url, data=object_text, timeout=7200)
         response.raise_for_status()
 
     with suppress(GitError, AttributeError):

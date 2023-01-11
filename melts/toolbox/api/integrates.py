@@ -52,6 +52,36 @@ RETRY_RELAX_SECONDS: float = 3.0
 PROXY = "http://127.0.0.1:8080" if DEBUGGING else None
 
 
+def _format_vulnerability(node: Dict[str, str]) -> Dict[str, str]:
+    formatted_node: Dict[str, str] = {**node}
+    if "state" in node:
+        formatted_node["currentState"] = (
+            {
+                "SAFE": "closed",
+                "VULNERABLE": "open",
+            }
+            .get(
+                str(node["state"]),
+                str(node["state"]),
+            )
+            .lower()
+        )
+
+    if "treatmentStatus" in node:
+        formatted_node["treatment"] = (
+            {
+                "UNTREATED": "NEW",
+            }
+            .get(
+                str(node["treatmentStatus"]),
+                str(node["treatmentStatus"]),
+            )
+            .upper()
+        )
+
+    return formatted_node
+
+
 def get_paginated_fields(
     api_token: str,
     paginated_field: str,
@@ -85,20 +115,7 @@ def get_paginated_fields(
             end_cursor = field_page_info["endCursor"]
             result.extend(
                 [
-                    {
-                        **vuln_edge["node"],
-                        "currentState": {
-                            "SAFE": "closed",
-                            "VULNERABLE": "open",
-                        }
-                        .get(
-                            str(vuln_edge["node"]["state"]),
-                            str(vuln_edge["node"]["state"]),
-                        )
-                        .lower(),
-                    }
-                    if "state" in vuln_edge["node"]
-                    else vuln_edge["node"]
+                    _format_vulnerability(vuln_edge["node"])
                     for vuln_edge in field_edges
                 ]
             )
@@ -346,7 +363,7 @@ class Queries:
                                 hacker
                                 source
                                 lastTreatmentDate
-                                treatment
+                                treatmentStatus
                                 treatmentUser
                                 id
                                 vulnerabilityType

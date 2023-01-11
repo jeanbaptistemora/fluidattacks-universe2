@@ -28,7 +28,8 @@ def test_get_change_request_patch_and_hunks() -> None:
         --- /dev/null
         +++ b/.gitignore
         @@ -0,0 +1,6 @@
-        +# Add any directories, files, or patterns you don't want to be tracked by version control
+        +# Add any directories, files, or patterns you don't want to be tracked by version control"""  # noqa: E501 pylint: disable=line-too-long, useless-suppression
+        """
         +**/fusion/*
         +**/reports/*
         +
