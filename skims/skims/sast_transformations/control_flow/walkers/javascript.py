@@ -10,11 +10,6 @@ from sast_transformations.control_flow.common import (
     step_by_step as common_step_by_step,
     try_statement as common_try_statement,
 )
-from sast_transformations.control_flow.javascript import (
-    function_declaration as javascript_function_declaration,
-    if_statement as javascript_if_statement,
-    switch_statement as javascript_switch_statement,
-)
 from sast_transformations.control_flow.types import (
     Walker,
     Walkers,
@@ -38,24 +33,6 @@ JAVASCRIPT_WALKERS: Walkers = (
             "finally_clause",
         },
         walk_fun=common_catch_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "if_statement",
-        },
-        walk_fun=javascript_if_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "function_declaration",
-        },
-        walk_fun=javascript_function_declaration,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "switch_statement",
-        },
-        walk_fun=javascript_switch_statement,
     ),
     Walker(
         applicable_node_label_types={

@@ -6,9 +6,6 @@ from model.graph_model import (
 from sast_transformations.control_flow.generate import (
     generic,
 )
-from sast_transformations.control_flow.javascript import (
-    unnamed_function as javascript_unnamed_function,
-)
 from sast_transformations.control_flow.types import (
     CfgArgs,
 )
@@ -54,14 +51,6 @@ def java_add(graph: Graph) -> None:
 def javascript_add(graph: Graph) -> None:
     language = GraphShardMetadataLanguage.JAVASCRIPT
     generic(args=CfgArgs(generic, graph, g.ROOT_NODE, language), stack=[])
-
-    # some nodes must be post-processed
-    for n_id, node in graph.nodes.items():
-        if g.pred_has_labels(label_type="arrow_function")(
-            node
-        ) or g.pred_has_labels(label_type="function")(node):
-            args = CfgArgs(generic, graph, n_id, language)
-            javascript_unnamed_function(args, stack=[])
 
 
 def add(

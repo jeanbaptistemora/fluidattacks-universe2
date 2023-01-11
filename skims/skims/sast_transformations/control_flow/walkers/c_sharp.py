@@ -1,8 +1,3 @@
-from sast_transformations.control_flow.c_sharp import (
-    lambda_expression as c_sharp_lambda_expression,
-    switch_statement as c_sharp_switch_statement,
-    using_statement as c_sharp_using_statement,
-)
 from sast_transformations.control_flow.common import (
     catch_statement as common_catch_statement,
     if_statement as common_if_statement,
@@ -34,18 +29,6 @@ CSHARP_WALKERS: Walkers = (
     ),
     Walker(
         applicable_node_label_types={
-            "switch_statement",
-        },
-        walk_fun=c_sharp_switch_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "using_statement",
-        },
-        walk_fun=c_sharp_using_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
             "catch_clause",
             "finally_clause",
         },
@@ -71,11 +54,5 @@ CSHARP_WALKERS: Walkers = (
             "for_each_statement",
         },
         walk_fun=common_loop_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "lambda_expression",
-        },
-        walk_fun=c_sharp_lambda_expression,
     ),
 )

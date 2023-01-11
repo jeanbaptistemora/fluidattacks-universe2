@@ -6,12 +6,6 @@ from sast_transformations.control_flow.common import (
     step_by_step as common_step_by_step,
     try_statement as common_try_statement,
 )
-from sast_transformations.control_flow.java import (
-    lambda_expression as java_lambda_expression,
-    method_invocation as java_method_invocation,
-    switch_expression as java_switch_expression,
-    try_with_resources_statement as java_try_with_resources_statement,
-)
 from sast_transformations.control_flow.types import (
     Walker,
     Walkers,
@@ -51,24 +45,6 @@ JAVA_WALKERS: Walkers = (
     ),
     Walker(
         applicable_node_label_types={
-            "switch_expression",
-        },
-        walk_fun=java_switch_expression,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "method_invocation",
-        },
-        walk_fun=java_method_invocation,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "lambda_expression",
-        },
-        walk_fun=java_lambda_expression,
-    ),
-    Walker(
-        applicable_node_label_types={
             "constructor_declaration",
             "method_declaration",
         },
@@ -79,11 +55,5 @@ JAVA_WALKERS: Walkers = (
             "try_statement",
         },
         walk_fun=common_try_statement,
-    ),
-    Walker(
-        applicable_node_label_types={
-            "try_with_resources_statement",
-        },
-        walk_fun=java_try_with_resources_statement,
     ),
 )
