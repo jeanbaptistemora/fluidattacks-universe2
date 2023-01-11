@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
@@ -16,7 +16,6 @@ import type {
   IUpdateVulnerabilityDescriptionAttr,
 } from "./types";
 
-import type { IErrorInfoAttr } from "../uploadFile";
 import { Input } from "components/Input/Fields/Input";
 import { Select } from "components/Input/Fields/Select";
 import { Col, Row } from "components/Layout";
@@ -24,6 +23,8 @@ import { GET_VULN_ADDITIONAL_INFO } from "scenes/Dashboard/components/Vulnerabil
 import type { IGetVulnAdditionalInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/types";
 import { Value } from "scenes/Dashboard/components/Vulnerabilities/AdditionalInfo/value";
 import { Status } from "scenes/Dashboard/components/Vulnerabilities/Formatter/index";
+import type { IErrorInfoAttr } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
+import { formatTreatment } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { regExps } from "utils/validations";
@@ -144,8 +145,46 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
           }
         });
       },
-      refetchQueries: [GET_VULN_ADDITIONAL_INFO],
+      refetchQueries: [
+        {
+          query: GET_VULN_ADDITIONAL_INFO,
+          variables: {
+            canRetrieveHacker,
+            vulnId: vulnerability.id,
+          },
+        },
+      ],
     }
+  );
+
+  const treatmentLabel = useMemo((): string => {
+    if (data === undefined) {
+      return "";
+    }
+
+    return formatTreatment(
+      data.vulnerability.treatmentStatus,
+      vulnerability.state,
+      data.vulnerability.treatmentAcceptanceStatus
+    );
+  }, [data, vulnerability]);
+
+  // Handle action
+  const toggleEdit = useCallback((): void => {
+    setIsEditing((currentValue: boolean): boolean => !currentValue);
+  }, []);
+
+  const onSubmit = useCallback(
+    async (values: IFormValues): Promise<void> => {
+      await updateVulnerabilityDescription({
+        variables: {
+          commit: values.type === "lines" ? values.commitHash : undefined,
+          source: values.source === "ASM" ? undefined : values.source,
+          vulnerabilityId: vulnerability.id,
+        },
+      });
+    },
+    [vulnerability, updateVulnerabilityDescription]
   );
 
   // Get information
@@ -155,7 +194,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const isVulnOpen: boolean = vulnerability.state === "VULNERABLE";
   const currentExpiration: string =
     isVulnOpen &&
-    data.vulnerability.treatment === "ACCEPTED" &&
+    data.vulnerability.treatmentStatus === "ACCEPTED" &&
     !_.isNull(data.vulnerability.treatmentAcceptanceDate)
       ? data.vulnerability.treatmentAcceptanceDate.split(" ")[0]
       : "";
@@ -176,20 +215,6 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
   const vulnerabilityType: string = t(
     `searchFindings.tabVuln.vulnTable.vulnerabilityType.${data.vulnerability.vulnerabilityType}`
   );
-
-  // Handle action
-  function toggleEdit(): void {
-    setIsEditing(!isEditing);
-  }
-  function onSubmit(values: IFormValues): void {
-    void updateVulnerabilityDescription({
-      variables: {
-        commit: values.type === "lines" ? values.commitHash : undefined,
-        source: values.source === "ASM" ? undefined : values.source,
-        vulnerabilityId: vulnerability.id,
-      },
-    });
-  }
 
   return (
     <React.StrictMode>
@@ -447,7 +472,7 @@ const AdditionalInfo: React.FC<IAdditionalInfoProps> = ({
                       </h4>
                       <Detail
                         editableField={undefined}
-                        field={<Value value={vulnerability.treatment} />}
+                        field={<Value value={treatmentLabel} />}
                         isEditing={false}
                         label={t(
                           "searchFindings.tabVuln.vulnTable.currentTreatment"

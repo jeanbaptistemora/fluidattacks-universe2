@@ -16,6 +16,7 @@ import {
 import { formatVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/utils";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgSuccess } from "utils/notifications";
+import { translate } from "utils/translations/translate";
 
 jest.mock("../../../../../utils/notifications", (): Record<string, unknown> => {
   const mockedNotifications: Record<string, () => Record<string, unknown>> =
@@ -57,7 +58,7 @@ describe("AdditionalInfo", (): void => {
     snippet: null,
     source: "asm",
     specific: "specific-3",
-    state: "SAFE",
+    state: "VULNERABLE",
     stream: null,
     tag: "tag-7, tag-8",
     treatment: "IN PROGRESS",
@@ -100,11 +101,12 @@ describe("AdditionalInfo", (): void => {
           source: "escape",
           specific: "specific-3",
           stream: null,
-          treatment: "IN_PROGRESS",
           treatmentAcceptanceDate: "",
+          treatmentAcceptanceStatus: null,
           treatmentAssigned: "assigned-user-4",
           treatmentChanges: "1",
           treatmentJustification: "test progress justification",
+          treatmentStatus: "IN_PROGRESS",
           vulnerabilityType: "lines",
           where: "https://example.com/lines",
         },
@@ -203,19 +205,45 @@ describe("AdditionalInfo", (): void => {
         )
       ).toBeInTheDocument();
     });
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByText(
+          translate.t("searchFindings.tabDescription.treatment.inProgress")
+        )
+      ).toBeInTheDocument();
+    });
+
     await userEvent.click(
       screen.getByText(
         "searchFindings.tabVuln.additionalInfo.buttons.edit.text"
       )
     );
+
+    expect(
+      screen.getByRole("button", {
+        name: "searchFindings.tabVuln.additionalInfo.buttons.save.text",
+      })
+    ).toBeDisabled();
+
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: /source/iu }),
       ["DETERMINISTIC"]
+    );
+    await userEvent.clear(
+      screen.getByRole("textbox", { name: /commithash/iu })
     );
     await userEvent.type(
       screen.getByRole("textbox", { name: /commithash/iu }),
       "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
     );
+    await waitFor((): void => {
+      expect(
+        screen.getByRole("button", {
+          name: "searchFindings.tabVuln.additionalInfo.buttons.save.text",
+        })
+      ).not.toBeDisabled();
+    });
     await userEvent.click(
       screen.getByRole("button", {
         name: "searchFindings.tabVuln.additionalInfo.buttons.save.text",

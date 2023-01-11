@@ -37,6 +37,24 @@ const requirementsTitle = ({
   return [];
 };
 
+const formatTreatment = (
+  treatmentStatus: string,
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE",
+  treatmentAcceptanceStatus: string | null
+): string => {
+  const isPendingToApproval: boolean =
+    treatmentStatus === "ACCEPTED_UNDEFINED" &&
+    treatmentAcceptanceStatus !== "APPROVED";
+  const isVulnOpen: boolean = state === "VULNERABLE";
+  const treatmentLabel: string =
+    translate.t(formatDropdownField(treatmentStatus)) +
+    (isPendingToApproval
+      ? translate.t("searchFindings.tabDescription.treatment.pendingApproval")
+      : "");
+
+  return isVulnOpen ? treatmentLabel : "-";
+};
+
 const formatVulnerabilities: (
   vulnerabilities: IVulnRowAttr[],
   vulnsData?: Record<string, IVulnData> | undefined,
@@ -47,15 +65,7 @@ const formatVulnerabilities: (
   requirementsData?: Record<string, IRequirementData> | undefined
 ): IVulnRowAttr[] =>
   vulnerabilities.map((vulnerability: IVulnRowAttr): IVulnRowAttr => {
-    const isPendingToApproval: boolean =
-      vulnerability.treatment === "ACCEPTED_UNDEFINED" &&
-      vulnerability.treatmentAcceptanceStatus !== "APPROVED";
     const isVulnOpen: boolean = vulnerability.state === "VULNERABLE";
-    const treatmentLabel: string =
-      translate.t(formatDropdownField(vulnerability.treatment)) +
-      (isPendingToApproval
-        ? translate.t("searchFindings.tabDescription.treatment.pendingApproval")
-        : "");
     const verification: string =
       vulnerability.verification === "Verified"
         ? `${vulnerability.verification} (${vulnerability.state.toLowerCase()})`
@@ -83,7 +93,11 @@ const formatVulnerabilities: (
         : "-",
       reportDate: vulnerability.reportDate.split(" ")[0],
       requirements,
-      treatment: isVulnOpen ? treatmentLabel : "-",
+      treatment: formatTreatment(
+        vulnerability.treatment,
+        vulnerability.state,
+        vulnerability.treatmentAcceptanceStatus
+      ),
       treatmentAssigned: isVulnOpen
         ? (vulnerability.treatmentAssigned as string)
         : "-",
@@ -229,4 +243,5 @@ export {
   getNonSelectableVulnerabilitiesOnReattackIds,
   getNonSelectableVulnerabilitiesOnVerifyIds,
   getVulnerabilityById,
+  formatTreatment,
 };

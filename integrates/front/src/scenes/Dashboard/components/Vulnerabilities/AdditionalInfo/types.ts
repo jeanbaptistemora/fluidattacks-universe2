@@ -39,7 +39,8 @@ interface IVulnInfoAttr {
   source: string;
   specific: string;
   stream: string | null;
-  treatment: string;
+  treatmentStatus: string;
+  treatmentAcceptanceStatus: string | null;
   treatmentAcceptanceDate: string | null;
   treatmentAssigned: string | null;
   treatmentChanges: string;
