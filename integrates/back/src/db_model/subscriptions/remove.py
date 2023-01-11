@@ -9,11 +9,7 @@ from db_model.subscriptions.enums import (
 )
 from dynamodb import (
     keys,
-)
-from dynamodb.operations import (
-    batch_delete_item,
-    delete_item,
-    query,
+    operations,
 )
 from dynamodb.types import (
     PrimaryKey,
@@ -26,18 +22,7 @@ async def remove(
     subject: str,
     email: str,
 ) -> None:
-    primary_key = keys.build_key(
-        facet=TABLE.facets["stakeholder_subscription"],
-        values={
-            "email": email,
-            "entity": entity.lower(),
-            "subject": subject,
-        },
-    )
-
-    await delete_item(key=primary_key, table=TABLE)
-
-    historic_sub_key = keys.build_key(
+    historic_key = keys.build_key(
         facet=TABLE.facets["stakeholder_historic_subscription"],
         values={
             "email": email,
@@ -46,14 +31,14 @@ async def remove(
         },
     )
     key_structure = TABLE.primary_key
-    response = await query(
+    response = await operations.query(
         condition_expression=(
-            Key(key_structure.partition_key).eq(historic_sub_key.partition_key)
+            Key(key_structure.partition_key).eq(historic_key.partition_key)
         ),
         facets=(TABLE.facets["stakeholder_historic_subscription"],),
         table=TABLE,
     )
-    await batch_delete_item(
+    await operations.batch_delete_item(
         keys=tuple(
             PrimaryKey(
                 partition_key=item[key_structure.partition_key],
@@ -63,3 +48,13 @@ async def remove(
         ),
         table=TABLE,
     )
+
+    primary_key = keys.build_key(
+        facet=TABLE.facets["stakeholder_subscription"],
+        values={
+            "email": email,
+            "entity": entity.lower(),
+            "subject": subject,
+        },
+    )
+    await operations.delete_item(key=primary_key, table=TABLE)
