@@ -1,119 +1,125 @@
 {
-    "runs": [
-        {
-            "tool": {
-                "driver": {
-                    "name": "skims",
-                    "contents": [
-                        "localizedData",
-                        "nonLocalizedData"
-                    ],
-                    "rules": [
-                        {
-                            "id": "043",
-                            "defaultConfiguration": {
-                                "level": "error"
-                            },
-                            "fullDescription": {
-                                "text": "The application has unnsafe configurations regarding the Content-Security-Policy header. This may be because:\n- Header is missing from server responses.\n- The header has not defined mandatory security policies.\n- Defined security policies contain insecure values.\n"
-                            },
-                            "help": {
-                                "text": "Set the Content-Security-Policy header in the server responses and configure it in a secure way.\n"
-                            },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/043#details",
-                            "name": "Insecure or unset HTTP headers - Content-Security-Policy",
-                            "properties": {
-                                "auto_approve": "true"
-                            }
-                        }
-                    ]
-                }
-            },
-            "newlineSequences": ["\r\n", "\n"],
-            "originalUriBaseIds": {
-                "SRCROOT": {"uri": "universe"}
-            },
-            "results": [
-                {
-                    "message": {
-                        "text": "Could not found upgrade-insecure-requests header or CSP directive",
-                        "properties": {}
-                    },
-                    "kind": "open",
-                    "level": "error",
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "https://redirectedurl.com/localhost:48000/"
-                                },
-                                "region": {
-                                    "snippet": {
-                                        "text": "   5 | < Content-Type: text/html\n   6 | < Transfer-Encoding: chunked\n   7 | < Connection: keep-alive\n   8 | < Access-Control-Allow-Origin: null\n   9 | < Set-Cookie:\n  10 |     CF_Session=nndRoTwFJrJUDn1eg; Path=/; Secure; Expires=Wed, 04 Jan 2023 22:50:11 GMT; HttpOnly; SameSite=none\n  11 | < Strict-Transport-Security: max-age=31536000; includeSubDomains\n  12 | < Access-Control-Allow-Credentials: true\n  13 | < CF-Access-Domain: secure-administrative.payvalida.com\n  14 | < cf-version: 1334-48f747d\n> 15 | < Content-Security-Policy:\n  16 |     frame-ancestors 'none'; connect-src 'self' http://127.0.0.1:*; default-src 'unsafe-inline'\n  17 | < Referrer-Policy: strict-origin-when-cross-origin\n  18 | < X-Content-Type-Options: nosniff\n  19 | < X-Frame-Options: DENY\n  20 | < X-XSS-Protection: 1; mode=block\n  21 | < Vary: Accept-Encoding\n  22 | < Server: cloudflare\n  23 | < CF-RAY: 78462888dd7e16aa-BOG\n  24 | < Content-Encoding: gzip\n  25 |\n     ^ Col 0"
-                                    },
-                                    "startLine": "Could not found upgrade-insecure-requests header or CSP directive"
-                                }
-                            }
-                        }
-                    ],
-                    "properties": {
-                        "kind": "inputs",
-                        "method_developer": "asalgado@fluidattacks.com",
-                        "source_method": "analyze_headers.upgrade_insecure_requests",
-                        "stream": "home,response,headers",
-                        "technique": "DAST",
-                        "has_redirect": true,
-                        "original_url": "http://localhost:48000/"
-                    },
-                    "ruleId": "043",
-                    "taxa": [
-                        {
-                            "id": "062",
-                            "toolComponent": {
-                                "name": "criteria"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "taxonomies": [
-                {
-                    "name": "criteria",
-                    "contents": [
-                        "localizedData",
-                        "nonLocalizedData"
-                    ],
-                    "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
-                    "isComprehensive": false,
-                    "organization": "Fluidattcks",
-                    "shortDescription": {
-                        "text": "The fluidattcks security requirements"
-                    },
-                    "taxa": [
-                        {
-                            "id": "062",
-                            "fullDescription": {
-                                "text": "System configuration is essential when it comes to security issues. The system must follow the industry's standard configurations that prevent all known vulnerabilities. These settings also contribute to ensuring the ongoing confidentiality, integrity, availability and resilience of systems and services.\n"
-                            },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/requirements/062",
-                            "name": "Define standard configurations",
-                            "shortDescription": {
-                                "text": "The organization must define standard configurations that correct all known vulnerabilities. These configurations must also be consistent with industry standards.\n"
-                            }
-                        }
-                    ],
-                    "version": "1"
-                }
-            ],
-            "versionControlProvenance": [
-                {
-                    "repositoryUri": "https://gitlab.com/fluidattacks/universe.git",
-                    "branch": "trunk",
-                    "revisionId": "368ce8064f05792eb58895d2e707474f1cabe72e"
-                }
-            ]
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "universe"
         }
-    ],
-    "version": "2.1.0",
-    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+      },
+      "results": [
+        {
+          "guid": 7390859125417790635,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "https://redirectedurl.com/localhost:48000/"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "   5 | < Content-Type: text/html\n   6 | < Transfer-Encoding: chunked\n   7 | < Connection: keep-alive\n   8 | < Access-Control-Allow-Origin: null\n   9 | < Set-Cookie:\n  10 |     CF_Session=nndRoTwFJrJUDn1eg; Path=/; Secure; Expires=Wed, 04 Jan 2023 22:50:11 GMT; HttpOnly; SameSite=none\n  11 | < Strict-Transport-Security: max-age=31536000; includeSubDomains\n  12 | < Access-Control-Allow-Credentials: true\n  13 | < CF-Access-Domain: secure-administrative.payvalida.com\n  14 | < cf-version: 1334-48f747d\n> 15 | < Content-Security-Policy:\n  16 |     frame-ancestors 'none'; connect-src 'self' http://127.0.0.1:*; default-src 'unsafe-inline'\n  17 | < Referrer-Policy: strict-origin-when-cross-origin\n  18 | < X-Content-Type-Options: nosniff\n  19 | < X-Frame-Options: DENY\n  20 | < X-XSS-Protection: 1; mode=block\n  21 | < Vary: Accept-Encoding\n  22 | < Server: cloudflare\n  23 | < CF-RAY: 78462888dd7e16aa-BOG\n  24 | < Content-Encoding: gzip\n  25 |\n     ^ Col 0"
+                  },
+                  "startLine": "Could not found upgrade-insecure-requests header or CSP directive"
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "Could not found upgrade-insecure-requests header or CSP directive"
+          },
+          "properties": {
+            "has_redirect": true,
+            "kind": "inputs",
+            "method_developer": "asalgado@fluidattacks.com",
+            "original_url": "http://localhost:48000/",
+            "source_method": "analyze_headers.upgrade_insecure_requests",
+            "stream": "home,response,headers",
+            "technique": "DAST"
+          },
+          "ruleId": "043",
+          "taxa": [
+            {
+              "id": "062",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": false,
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [
+            {
+              "fullDescription": {
+                "text": "System configuration is essential when it comes to security issues. The system must follow the industry's standard configurations that prevent all known vulnerabilities. These settings also contribute to ensuring the ongoing confidentiality, integrity, availability and resilience of systems and services.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/062",
+              "id": "062",
+              "name": "Define standard configurations",
+              "shortDescription": {
+                "text": "The organization must define standard configurations that correct all known vulnerabilities. These configurations must also be consistent with industry standards.\n"
+              }
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "The application has unnsafe configurations regarding the Content-Security-Policy header. This may be because:\n- Header is missing from server responses.\n- The header has not defined mandatory security policies.\n- Defined security policies contain insecure values.\n"
+              },
+              "help": {
+                "text": "Set the Content-Security-Policy header in the server responses and configure it in a secure way.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/043#details",
+              "id": "043",
+              "name": "Insecure or unset HTTP headers - Content-Security-Policy",
+              "properties": {
+                "auto_approve": "true"
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "trunk",
+          "repositoryUri": "https://gitlab.com/fluidattacks/universe.git",
+          "revisionId": "368ce8064f05792eb58895d2e707474f1cabe72e"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0"
 }

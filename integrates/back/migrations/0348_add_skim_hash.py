@@ -19,6 +19,7 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
@@ -33,6 +34,7 @@ from organizations import (
 )
 import time
 from typing import (
+    Dict,
     Tuple,
 )
 from vulnerabilities.domain.utils import (
@@ -44,21 +46,23 @@ async def process_group(group: str) -> None:
     print(f"Processing {group}")
     loaders: Dataloaders = get_new_context()
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group)
+    findings: Dict[str, Finding] = {
+        fin.id: fin
+        for fin in (await loaders.group_drafts_and_findings.load(group))
+    }
     vulns: Tuple[
         Vulnerability, ...
     ] = await loaders.finding_vulnerabilities.load_many_chained(
-        [fin.id for fin in findings]
+        [fin.id for fin in findings.values()]
     )
     vulns = [
         vuln
         for vuln in vulns
         if vuln.type == VulnerabilityType.LINES
+        and vuln.state.status == VulnerabilityStateStatus.VULNERABLE
+        and vuln.skims_method is not None
         and vuln.hacker_email
         in ("kamado@fluidattacks.com", "machine@fluidattacks.com")
-        and vuln.hash is None
     ]
     futures = []
     rows = []
@@ -81,7 +85,7 @@ async def process_group(group: str) -> None:
                 "UPDATE" if vuln.hash else "ADD",
             ]
         )
-    await collect(futures)
+    await collect(futures, workers=50)
     with open("add_skim_hash.csv", "a+", encoding="utf-8") as handler:
         writer = csv.writer(handler)
         writer.writerows(rows)
@@ -92,7 +96,7 @@ async def main() -> None:
     groups = sorted(
         await orgs_domain.get_all_active_group_names(loaders=loaders)
     )
-    await collect([process_group(group) for group in groups], workers=15)
+    await collect([process_group(group) for group in groups], workers=10)
 
 
 if __name__ == "__main__":

@@ -771,6 +771,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     ),
+                    hash=8278473475482913498,
                     treatment=VulnerabilityTreatment(
                         modified_date=datetime.fromisoformat(
                             "2022-09-01T00:45:11+00:00"
@@ -812,6 +813,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         status=VulnerabilityStateStatus.VULNERABLE,
                         where="README.md",
                     ),
+                    hash=17495626552588794164,
                     treatment=VulnerabilityTreatment(
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"

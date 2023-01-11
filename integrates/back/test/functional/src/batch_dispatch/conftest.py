@@ -759,6 +759,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
+                    hash=8278473475482913498,
                     state=VulnerabilityState(
                         commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                         modified_by="machine@fluidattacks.com",
@@ -813,6 +814,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     group_name="unittesting",
                     hacker_email="test1@gmail.com",
                     id="4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
+                    hash=17495626552588794164,
                     state=VulnerabilityState(
                         commit="15ab18899a617e5b18c5c0ad1e7ad7352615d5a3",
                         modified_by="machine@fluidattacks.com",

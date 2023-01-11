@@ -616,33 +616,14 @@ def _machine_vulns_to_close(
     existing_open_machine_vulns: Tuple[Vulnerability, ...],
     execution_config: Dict[str, Any],
 ) -> Tuple[Vulnerability, ...]:
-    sarif_hashes = {
-        hash(
-            (
-                _get_path_from_sarif_vulnerability(vuln, False),
-                str(
-                    vuln["locations"][0]["physicalLocation"]["region"][
-                        "startLine"
-                    ]
-                ),
-            )
-        )
-        for vuln in sarif_vulns
-    }
+    sarif_hashes: Set[int] = {vuln["guid"] for vuln in sarif_vulns}
 
     return tuple(
         vuln
         for vuln in existing_open_machine_vulns
         # his result was not found by Skims
-        if hash(
-            (
-                ignore_advisories(vuln.state.where)
-                if vuln.type == VulnerabilityType.INPUTS
-                else vuln.state.where,
-                vuln.state.specific,
-            )
-        )
-        not in sarif_hashes
+        if vuln.hash
+        and vuln.hash not in sarif_hashes
         and (
             # the result path is included in the current analysis
             path_is_include(

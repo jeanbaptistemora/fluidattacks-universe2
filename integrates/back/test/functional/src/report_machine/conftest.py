@@ -418,6 +418,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="4dbc03e0-4cfc-4b33-9b70-bb7566c460bd",
+                    hash=15417318278186201633,
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
                         modified_date=datetime.fromisoformat(
@@ -458,6 +459,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="4dbc01e0-4cfc-4b77-9b71-bb7566c60bg",
+                    hash=8061522565195734354,
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
                         modified_date=datetime.fromisoformat(
@@ -498,6 +500,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     group_name="group1",
                     hacker_email="test1@gmail.com",
                     id="5dbc02e0-4cfc-4b33-9b70-bb7566c230cv",
+                    hash=11980225504472206636,
                     state=VulnerabilityState(
                         modified_by="machine@fluidattacks.com",
                         modified_date=datetime.fromisoformat(
@@ -548,6 +551,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         status=VulnerabilityStateStatus.VULNERABLE,
                         where="back/src/index.js",
                     ),
+                    hash=3112310311844910506,
                     treatment=VulnerabilityTreatment(
                         modified_date=datetime.fromisoformat(
                             "2018-04-08T00:45:11+00:00"

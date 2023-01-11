@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
   "runs": [
     {
       "newlineSequences": [
@@ -12,6 +13,7 @@
       },
       "results": [
         {
+          "guid": 6848932333822605791,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -22,7 +24,7 @@
                 },
                 "region": {
                   "snippet": {
-                    "text": "   1 | PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000META-INF/��\u0000\u0000\u0003\u0000PK\u0007\b\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000META-INF/MANIFEST.MF�M��LK-.�\n   2 | K-*��ϳR0�3��r.JM,IM�u�\u0004\n   3 | \u0018+h�&�敔j�r�r\u0001\u0000PK\u0007\b�\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n   4 | \u0000\u0000\u0000MyJar.class;�o�>\u0006\u0006\u0006K\u0006~.\u0006f\u0006\n   5 | v\u0006^v\u0006>F\u00066�̼�\u0012;F\u0006f\n   6 | �0F\u0006\u0016���TF\u0006~�̼T��ܤԢ�Ĥ\n   7 | �\bKnbf\n   8 | #��F�OVbY�~Nb^�~pIQf^�5H#Wp~iQr�[&H1�o�Wb�\n   9 | H!\u000f\u0003\n  10 | \u0003+#\u0003+X��A\u0000��?)+5��A�� �\n  11 | \u0010`b`\u0004)\u0006�l@�,�f\u0004ҬZ�\u0019\u00187\u0002\u0019�\n  12 | �@�\n  13 | ,�����\u0001�\u0010��`Y\u0006Le �\n  14 | l27\u0000PK\u0007\b}1���\u0000\u0000\u0000�\u0000\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000�[%O\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000META-INF/��\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000�[%O�\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n  15 | \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000�\u0000\u0000\u0000MyJar.classPK\u0005\u0006\u0000\u0000\u0000\u0000\u0003\u0000\u0003\u0000�\u0000\u0000\u0000�\u0001\u0000\u0000\u0000\u0000\n     ^ Col 0"
+                    "text": "   1 | PK\u0003\u0004\u0014\u0000\b\b\b\u0000\ufffd[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000META-INF/\ufffd\ufffd\u0000\u0000\u0003\u0000PK\u0007\b\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000\ufffd[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0014\u0000\u0000\u0000META-INF/MANIFEST.MF\ufffdM\ufffd\ufffdLK-.\ufffd\n   2 | K-*\ufffd\ufffd\u03f3R0\ufffd3\ufffd\ufffdr.JM,IM\ufffdu\ufffd\u0004\n   3 | \u0018+h\ufffd&\ufffd\u6554j\ufffdr\ufffdr\u0001\u0000PK\u0007\b\ufffd\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000PK\u0003\u0004\u0014\u0000\b\b\b\u0000\ufffd[%O\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n   4 | \u0000\u0000\u0000MyJar.class;\ufffdo\ufffd>\u0006\u0006\u0006K\u0006~.\u0006f\u0006\n   5 | v\u0006^v\u0006>F\u00066\ufffd\u033c\ufffd\u0012;F\u0006f\n   6 | \ufffd0F\u0006\u0016\ufffd\ufffd\ufffdTF\u0006~\ufffd\u033cT\ufffd\ufffd\u0724\u0522\ufffd\u0124\n   7 | \ufffd\bKnbf\n   8 | #\ufffd\ufffdF\ufffdOVbY\ufffd~Nb^\ufffd~pIQf^\ufffd5H#Wp~iQr\ufffd[&H1\ufffdo\ufffdWb\ufffd\n   9 | H!\u000f\u0003\n  10 | \u0003+#\u0003+X\ufffd\ufffdA\u0000\ufffd\ufffd?)+5\ufffd\ufffdA\ufffd\ufffd \ufffd\n  11 | \u0010`b`\u0004)\u0006\ufffdl@\ufffd,\ufffdf\u0004\u04acZ\ufffd\u0019\u00187\u0002\u0019\ufffd\n  12 | \ufffd@\ufffd\n  13 | ,\ufffd\ufffd\ufffd\ufffd\ufffd\u0001\ufffd\u0010\ufffd\ufffd`Y\u0006Le \ufffd\n  14 | l27\u0000PK\u0007\b}1\ufffd\ufffd\ufffd\u0000\u0000\u0000\ufffd\u0000\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000\ufffd[%O\u0000\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0000\u0000\u0000\u0000 \u0000\u0004\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000META-INF/\ufffd\ufffd\u0000\u0000PK\u0001\u0002\u0014\u0000\u0014\u0000\b\b\b\u0000\ufffd[%O\ufffd\u0014Kx3\u0000\u0000\u00002\u0000\u0000\u0000\u0014\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\n  15 | \u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\ufffd\u0000\u0000\u0000MyJar.classPK\u0005\u0006\u0000\u0000\u0000\u0000\u0003\u0000\u0003\u0000\ufffd\u0000\u0000\u0000\ufffd\u0001\u0000\u0000\u0000\u0000\n     ^ Col 0"
                   },
                   "startLine": 0
                 }
@@ -51,6 +53,7 @@
           ]
         },
         {
+          "guid": 17842855327751836219,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -61,7 +64,7 @@
                 },
                 "region": {
                   "snippet": {
-                    "text": "  1 | ����\u0000\u0000\u00009\u0000\u000f\n  2 | \u0000\u0003\u0000\n  3 | \u0007\u0000\n  4 | \u0007\u0000\u000e\u0001\u0000\u0006<init>\u0001\u0000\u0003()V\u0001\u0000\u0004Code\u0001\u0000\u000fLineNumberTable\u0001\u0000\u0004main\u0001\u0000\u0016([Ljava/lang/String;)V\u0001\u0000\n  5 | SourceFile\u0001\u0000\n  6 | MyJar.java\n  7 | \u0000\u0004\u0000\u0005\u0001\u0000\u0005MyJar\u0001\u0000\u0010java/lang/Object\u0000!\u0000\u0002\u0000\u0003\u0000\u0000\u0000\u0000\u0000\u0002\u0000\u0001\u0000\u0004\u0000\u0005\u0000\u0001\u0000\u0006\u0000\u0000\u0000\n  8 | \u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0005*�\u0000\u0001�\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0003\u0000 \u0000\b\u0000 \u0000\u0001\u0000\u0006\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0001�\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0006\u0000\u0001\u0000\n  9 | \u0000\u0000\u0000\u0002\u0000\n    ^ Col 0"
+                    "text": "  1 | \ufffd\ufffd\ufffd\ufffd\u0000\u0000\u00009\u0000\u000f\n  2 | \u0000\u0003\u0000\n  3 | \u0007\u0000\n  4 | \u0007\u0000\u000e\u0001\u0000\u0006<init>\u0001\u0000\u0003()V\u0001\u0000\u0004Code\u0001\u0000\u000fLineNumberTable\u0001\u0000\u0004main\u0001\u0000\u0016([Ljava/lang/String;)V\u0001\u0000\n  5 | SourceFile\u0001\u0000\n  6 | MyJar.java\n  7 | \u0000\u0004\u0000\u0005\u0001\u0000\u0005MyJar\u0001\u0000\u0010java/lang/Object\u0000!\u0000\u0002\u0000\u0003\u0000\u0000\u0000\u0000\u0000\u0002\u0000\u0001\u0000\u0004\u0000\u0005\u0000\u0001\u0000\u0006\u0000\u0000\u0000\n  8 | \u0000\u0001\u0000\u0001\u0000\u0000\u0000\u0005*\ufffd\u0000\u0001\ufffd\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0003\u0000 \u0000\b\u0000 \u0000\u0001\u0000\u0006\u0000\u0000\u0000\u0019\u0000\u0000\u0000\u0001\u0000\u0000\u0000\u0001\ufffd\u0000\u0000\u0000\u0001\u0000\u0007\u0000\u0000\u0000\u0006\u0000\u0001\u0000\u0000\u0000\u0006\u0000\u0001\u0000\n  9 | \u0000\u0000\u0000\u0002\u0000\n    ^ Col 0"
                   },
                   "startLine": 0
                 }
@@ -90,6 +93,7 @@
           ]
         },
         {
+          "guid": 9326911172693336938,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -135,6 +139,7 @@
           ]
         },
         {
+          "guid": 10243425851358752723,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -180,6 +185,7 @@
           ]
         },
         {
+          "guid": 12125856765380656342,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -225,19 +231,7 @@
           ]
         },
         {
-          "message": {
-            "text": "Using axios in the version 0.19.2 con ['CVE-2020-28168', 'CVE-2021-3749', 'GHSA-4w2v-q235-vp99', 'GHSA-cph5-m8f7-6c5x'] in nickname/package.json",
-            "properties": {
-              "dependency_name": "axios",
-              "dependency_version": "^0.19.2",
-              "cve": [
-                "CVE-2020-28168",
-                "CVE-2021-3749",
-                "GHSA-4w2v-q235-vp99",
-                "GHSA-cph5-m8f7-6c5x"
-              ]
-            }
-          },
+          "guid": 11509000728721769628,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -255,6 +249,19 @@
               }
             }
           ],
+          "message": {
+            "properties": {
+              "cve": [
+                "CVE-2020-28168",
+                "CVE-2021-3749",
+                "GHSA-4w2v-q235-vp99",
+                "GHSA-cph5-m8f7-6c5x"
+              ],
+              "dependency_name": "axios",
+              "dependency_version": "^0.19.2"
+            },
+            "text": "Using axios in the version 0.19.2 con ['CVE-2020-28168', 'CVE-2021-3749', 'GHSA-4w2v-q235-vp99', 'GHSA-cph5-m8f7-6c5x'] in nickname/package.json"
+          },
           "properties": {
             "kind": "lines",
             "method_developer": "machine@fluidattacks.com",
@@ -367,7 +374,6 @@
               }
             },
             {
-              "id": "011",
               "defaultConfiguration": {
                 "level": "error"
               },
@@ -378,6 +384,7 @@
                 "text": "Update the affected software to the versions recommended by the vendor.\n"
               },
               "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/011#details",
+              "id": "011",
               "name": "Use of software with known vulnerabilities",
               "properties": {
                 "auto_approve": true
@@ -395,6 +402,5 @@
       ]
     }
   ],
-  "version": "2.1.0",
-  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+  "version": "2.1.0"
 }

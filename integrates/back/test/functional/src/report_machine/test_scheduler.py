@@ -363,7 +363,10 @@ async def test_updated_advisory_report(populate: bool) -> None:
             and vuln.state.source == Source.MACHINE
         )
         assert len(integrates_vulnerabilities) == 1
-
+        assert (
+            integrates_vulnerabilities[0].state.status
+            == VulnerabilityStateStatus.VULNERABLE
+        )
         id_1 = integrates_vulnerabilities[0].id
         await process_execution("group1_")
         loaders.finding_vulnerabilities.clear(finding_011.id)
@@ -383,7 +386,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
             status_2 = integrates_vulnerabilities_2[1].state.status
 
         assert id_2 == id_1
-        assert status_2 == VulnerabilityStateStatus.SAFE
+        assert status_2 == VulnerabilityStateStatus.VULNERABLE
 
 
 @pytest.mark.asyncio

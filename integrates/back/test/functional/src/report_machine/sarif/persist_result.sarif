@@ -1,115 +1,123 @@
 {
-    "runs": [
-        {
-            "tool": {
-                "driver": {
-                    "name": "skims",
-                    "rules": [
-                        {
-                            "id": "001",
-                            "defaultConfiguration": {
-                                "level": "error"
-                            },
-                            "fullDescription": {
-                                "text": "Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.\n"
-                            },
-                            "help": {
-                                "text": "- Perform queries to the database through sentences or parameterized procedures."
-                            },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/001#details",
-                            "name": "SQL injection - C Sharp SQL API"
-                        }
-                    ]
-                }
-            },
-            "originalUriBaseIds": {
-                "SRCROOT": {"uri": "nickname1"}
-            },
-            "results": [
-                {
-                    "message": {
-                        "text": "sql injection in back/src/index.js line 24",
-                        "properties": {}
-                    },
-                    "kind": "open",
-                    "level": "error",
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "back/src/index.js"
-                                },
-                                "region": {
-                                    "snippet": {"text": " "},
-                                    "startLine": 24
-                                }
-                            }
-                        }
-                    ],
-                    "properties": {
-                        "kind": "lines",
-                        "method_developer": "asalgado@fluidattacks.com",
-                        "source_method": "conf_files.sensitive_key_in_json",
-                        "stream": "skims",
-                        "technique": "BSAST"
-                    },
-                    "ruleId": "001"
-                },
-                {
-                    "message": {
-                        "text": "sql injection in back/src/index.js line 35",
-                        "properties": {}
-                    },
-                    "kind": "open",
-                    "level": "error",
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "back/src/index.js"
-                                },
-                                "region": {
-                                    "snippet": {"text": " "},
-                                    "startLine": 35
-                                }
-                            }
-                        }
-                    ],
-                    "properties": {
-                        "kind": "lines",
-                        "method_developer": "asalgado@fluidattacks.com",
-                        "source_method": "conf_files.sensitive_key_in_json",
-                        "stream": "skims",
-                        "technique": "BSAST"
-                    },
-                    "ruleId": "001"
-                }
-            ],
-            "taxonomies": [
-                {
-                    "name": "criteria",
-                    "contents": [
-                        "localizedData",
-                        "nonLocalizedData"
-                    ],
-                    "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
-                    "isComprehensive": false,
-                    "organization": "Fluidattcks",
-                    "shortDescription": {
-                        "text": "The fluidattcks security requirements"
-                    },
-                    "taxa": [],
-                    "version": "1"
-                }
-            ],
-            "versionControlProvenance": [
-                {
-                    "branch": "master",
-                    "revisionId": "7fd232de194916018c4ba68f5cb6dc595e99df7e"
-                }
-            ]
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "nickname1"
         }
-    ],
-    "version": "2.1.0",
-    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+      },
+      "results": [
+        {
+          "guid": 13333917981901284025,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "back/src/index.js"
+                },
+                "region": {
+                  "snippet": {
+                    "text": " "
+                  },
+                  "startLine": 24
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "sql injection in back/src/index.js line 24"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "asalgado@fluidattacks.com",
+            "source_method": "conf_files.sensitive_key_in_json",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "001"
+        },
+        {
+          "guid": 3112310311844910506,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "back/src/index.js"
+                },
+                "region": {
+                  "snippet": {
+                    "text": " "
+                  },
+                  "startLine": 35
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {},
+            "text": "sql injection in back/src/index.js line 35"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "asalgado@fluidattacks.com",
+            "source_method": "conf_files.sensitive_key_in_json",
+            "stream": "skims",
+            "technique": "BSAST"
+          },
+          "ruleId": "001"
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": false,
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures.\n"
+              },
+              "help": {
+                "text": "- Perform queries to the database through sentences or parameterized procedures."
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/001#details",
+              "id": "001",
+              "name": "SQL injection - C Sharp SQL API"
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "master",
+          "revisionId": "7fd232de194916018c4ba68f5cb6dc595e99df7e"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0"
 }

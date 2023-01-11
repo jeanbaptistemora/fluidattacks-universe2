@@ -1,124 +1,130 @@
 {
-    "runs": [
-        {
-            "tool": {
-                "driver": {
-                    "name": "skims",
-                    "contents": [
-                        "localizedData",
-                        "nonLocalizedData"
-                    ],
-                    "rules": [
-                        {
-                            "id": "011",
-                            "defaultConfiguration": {
-                                "level": "error"
-                            },
-                            "fullDescription": {
-                                "text": "The system uses the version of a software or dependency with known vulnerabilities.\n"
-                            },
-                            "help": {
-                                "text": "Update the affected software to the versions recommended by the vendor.\n"
-                            },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/011#details",
-                            "name": "Use of software with known vulnerabilities",
-                            "properties": {
-                                "auto_approve": "true"
-                            }
-                        }
-                    ]
-                }
-            },
-            "newlineSequences": ["\r\n", "\n"],
-            "originalUriBaseIds": {
-                "SRCROOT": {"uri": "universe"}
-            },
-            "results": [
-                {
-                    "message": {
-                        "text": "Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['CVE-2019-17495', 'SNYK-JAVA-IOSPRINGFOX-1075064'] in universe/skims/test/data/lib_path/f011/build.gradle",
-                        "properties": {
-                            "dependency_name": "io.springfox:springfox-swagger-ui",
-                            "dependency_version": "2.6.1",
-                            "cve": [
-                                "CVE-2019-17495",
-                                "SNYK-JAVA-IOSPRINGFOX-1075064"
-                            ]
-                        }
-                    },
-                    "kind": "open",
-                    "level": "error",
-                    "locations": [
-                        {
-                            "physicalLocation": {
-                                "artifactLocation": {
-                                    "uri": "skims/test/data/lib_path/f011/build.gradle"
-                                },
-                                "region": {
-                                    "snippet": {
-                                        "text": "  1 | dependencies {\n> 2 |     compile \"io.springfox:springfox-swagger-ui:2.6.1\"\n  3 |     compile(\"io.springfox:springfox-swagger-ui\")\n  4 |     compile(group: 'javax.mail', name: 'mail')\n  5 |     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'\n  6 |     implementation group: 'org.json', name: 'json', version: '20160810'\n  7 |     implementation(group: 'javax.mail', name: 'mail', version: '1.4')\n  8 | }\n    ^ Col 0"
-                                    },
-                                    "startLine": 2
-                                }
-                            }
-                        }
-                    ],
-                    "properties": {
-                        "kind": "lines",
-                        "method_developer": "acuberos@fluidattacks.com",
-                        "source_method": "maven.maven_gradle",
-                        "stream": "skims",
-                        "technique": "SCA"
-                    },
-                    "ruleId": "011",
-                    "taxa": [
-                        {
-                            "id": "262",
-                            "toolComponent": {
-                                "name": "criteria"
-                            }
-                        }
-                    ]
-                }
-            ],
-            "taxonomies": [
-                {
-                    "name": "criteria",
-                    "contents": [
-                        "localizedData",
-                        "nonLocalizedData"
-                    ],
-                    "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
-                    "isComprehensive": "false",
-                    "organization": "Fluidattcks",
-                    "shortDescription": {
-                        "text": "The fluidattcks security requirements"
-                    },
-                    "taxa": [
-                        {
-                            "id": "262",
-                            "fullDescription": {
-                                "text": "- The organization must ensure that the version of all of its products and the products provided by third-parties is up to date, stable and tested. This reduces the risk of including vulnerabilities reported in previous versions.\n- When a product changes its version, the implemented improvements must be checked to verify if there were fixes or new controls related to recently discovered vulnerabilities.\n"
-                            },
-                            "helpUri": "https://docs.fluidattacks.com/criteria/requirements/262",
-                            "name": "Verify third-party components",
-                            "shortDescription": {
-                                "text": "The system must use stable, tested and up-to-date versions of third-party components.\n"
-                            }
-                        }
-                    ],
-                    "version": "1"
-                }
-            ],
-            "versionControlProvenance": [
-                {
-                    "repositoryUri": "ssh://git@gitlab.com:fluidattacks/product.git",
-                    "branch": "atrujilloatfluid",
-                    "revisionId": "fb7ab9254a643cd324a2d8d243ac76be7400dc0b"
-                }
-            ]
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json",
+  "runs": [
+    {
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
+      "originalUriBaseIds": {
+        "SRCROOT": {
+          "uri": "universe"
         }
-    ],
-    "version": "2.1.0",
-    "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.4.json"
+      },
+      "results": [
+        {
+          "guid": 14936026383834395603,
+          "kind": "open",
+          "level": "error",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "skims/test/data/lib_path/f011/build.gradle"
+                },
+                "region": {
+                  "snippet": {
+                    "text": "  1 | dependencies {\n> 2 |     compile \"io.springfox:springfox-swagger-ui:2.6.1\"\n  3 |     compile(\"io.springfox:springfox-swagger-ui\")\n  4 |     compile(group: 'javax.mail', name: 'mail')\n  5 |     compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.2'\n  6 |     implementation group: 'org.json', name: 'json', version: '20160810'\n  7 |     implementation(group: 'javax.mail', name: 'mail', version: '1.4')\n  8 | }\n    ^ Col 0"
+                  },
+                  "startLine": 2
+                }
+              }
+            }
+          ],
+          "message": {
+            "properties": {
+              "cve": [
+                "CVE-2019-17495",
+                "SNYK-JAVA-IOSPRINGFOX-1075064"
+              ],
+              "dependency_name": "io.springfox:springfox-swagger-ui",
+              "dependency_version": "2.6.1"
+            },
+            "text": "Use of io.springfox:springfox-swagger-ui at version 2.6.1 with ['CVE-2019-17495', 'SNYK-JAVA-IOSPRINGFOX-1075064'] in universe/skims/test/data/lib_path/f011/build.gradle"
+          },
+          "properties": {
+            "kind": "lines",
+            "method_developer": "acuberos@fluidattacks.com",
+            "source_method": "maven.maven_gradle",
+            "stream": "skims",
+            "technique": "SCA"
+          },
+          "ruleId": "011",
+          "taxa": [
+            {
+              "id": "262",
+              "toolComponent": {
+                "name": "criteria"
+              }
+            }
+          ]
+        }
+      ],
+      "taxonomies": [
+        {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "informationUri": "https://docs.fluidattacks.com/criteria/requirements/",
+          "isComprehensive": "false",
+          "name": "criteria",
+          "organization": "Fluidattcks",
+          "shortDescription": {
+            "text": "The fluidattcks security requirements"
+          },
+          "taxa": [
+            {
+              "fullDescription": {
+                "text": "- The organization must ensure that the version of all of its products and the products provided by third-parties is up to date, stable and tested. This reduces the risk of including vulnerabilities reported in previous versions.\n- When a product changes its version, the implemented improvements must be checked to verify if there were fixes or new controls related to recently discovered vulnerabilities.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/requirements/262",
+              "id": "262",
+              "name": "Verify third-party components",
+              "shortDescription": {
+                "text": "The system must use stable, tested and up-to-date versions of third-party components.\n"
+              }
+            }
+          ],
+          "version": "1"
+        }
+      ],
+      "tool": {
+        "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "name": "skims",
+          "rules": [
+            {
+              "defaultConfiguration": {
+                "level": "error"
+              },
+              "fullDescription": {
+                "text": "The system uses the version of a software or dependency with known vulnerabilities.\n"
+              },
+              "help": {
+                "text": "Update the affected software to the versions recommended by the vendor.\n"
+              },
+              "helpUri": "https://docs.fluidattacks.com/criteria/vulnerabilities/011#details",
+              "id": "011",
+              "name": "Use of software with known vulnerabilities",
+              "properties": {
+                "auto_approve": "true"
+              }
+            }
+          ]
+        }
+      },
+      "versionControlProvenance": [
+        {
+          "branch": "atrujilloatfluid",
+          "repositoryUri": "ssh://git@gitlab.com:fluidattacks/product.git",
+          "revisionId": "fb7ab9254a643cd324a2d8d243ac76be7400dc0b"
+        }
+      ]
+    }
+  ],
+  "version": "2.1.0"
 }

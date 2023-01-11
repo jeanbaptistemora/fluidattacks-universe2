@@ -13,6 +13,7 @@
       },
       "results": [
         {
+          "guid": 16716383441314305037,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -54,6 +55,7 @@
           ]
         },
         {
+          "guid": 9366005211044130387,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -95,6 +97,7 @@
           ]
         },
         {
+          "guid": 14159069823988911371,
           "kind": "open",
           "level": "error",
           "locations": [
@@ -136,6 +139,7 @@
           ]
         },
         {
+          "guid": 17477122596438420011,
           "kind": "open",
           "level": "error",
           "locations": [
