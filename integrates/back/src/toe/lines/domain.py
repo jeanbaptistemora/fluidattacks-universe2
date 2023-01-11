@@ -29,8 +29,7 @@ from newutils import (
 from newutils.validations import (
     validate_commit_hash_deco,
     validate_email_address_deco,
-    validate_field_length,
-    validate_sanitized_csv_input,
+    validate_field_length_deco,
     validate_sanitized_csv_input_deco,
 )
 from roots.validations import (
@@ -243,6 +242,15 @@ async def remove(
     )
 
 
+# pylint: disable=unused-argument
+@validate_field_length_deco("comments", limit=200)
+@validate_sanitized_csv_input_deco(["comments"])
+def _validate_comments(
+    comments: str,
+) -> None:
+    return
+
+
 async def update(
     current_value: ToeLines,
     attributes: ToeLinesAttributesToUpdate,
@@ -271,8 +279,7 @@ async def update(
         raise InvalidToeLinesAttackedLines()
 
     if is_moving_toe_lines is False and attributes.comments is not None:
-        validate_field_length(attributes.comments, 200)
-        validate_sanitized_csv_input(attributes.comments)
+        _validate_comments(comments=attributes.comments)
 
     last_attacked_at = attributes.attacked_at or current_value.attacked_at
     last_modified_date = (
