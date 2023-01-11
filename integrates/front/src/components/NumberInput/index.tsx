@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import {
   Col50,
@@ -41,16 +41,22 @@ const NumberInput: React.FC<INumberInputProps> = ({
   const inputReference: React.MutableRefObject<HTMLInputElement | null> =
     useRef(null);
 
-  const getCurrentNumber = (): number => _.toNumber(value);
+  const getCurrentNumber = useCallback(
+    (): number => _.toNumber(value),
+    [value]
+  );
 
-  function updateValue(newValue: number): void {
-    if (newValue >= min && newValue <= max) {
-      setValue(newValue.toFixed(decPlaces));
-      if (autoUpdate) {
-        onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+  const updateValue = useCallback(
+    (newValue: number): void => {
+      if (newValue >= min && newValue <= max) {
+        setValue(newValue.toFixed(decPlaces));
+        if (autoUpdate) {
+          onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+        }
       }
-    }
-  }
+    },
+    [autoUpdate, decPlaces, max, min, onEnter]
+  );
 
   function handleOnInputChange(
     event: React.ChangeEvent<HTMLInputElement>
@@ -76,21 +82,25 @@ const NumberInput: React.FC<INumberInputProps> = ({
     event.stopPropagation();
   }
 
-  function handleOnInputFocus(event: React.FocusEvent<HTMLInputElement>): void {
-    event.stopPropagation();
-  }
+  const handleOnInputFocus = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>): void => {
+      event.stopPropagation();
+    },
+    []
+  );
 
-  function handleOnInputKeyUp(
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): void {
-    event.stopPropagation();
-    if (event.key === "Enter" && !_.isEmpty(event.currentTarget.value)) {
-      const newValue = _.isEmpty(event.currentTarget.value)
-        ? undefined
-        : _.toNumber(event.currentTarget.value);
-      onEnter(newValue);
-    }
-  }
+  const handleOnInputKeyUp = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      event.stopPropagation();
+      if (event.key === "Enter" && !_.isEmpty(event.currentTarget.value)) {
+        const newValue = _.isEmpty(event.currentTarget.value)
+          ? undefined
+          : _.toNumber(event.currentTarget.value);
+        onEnter(newValue);
+      }
+    },
+    [onEnter]
+  );
 
   function handleInputKeyDown(
     event: React.KeyboardEvent<HTMLInputElement>
@@ -106,17 +116,23 @@ const NumberInput: React.FC<INumberInputProps> = ({
     event.preventDefault();
   }
 
-  function handleOnMinusClick(event: React.MouseEvent<HTMLInputElement>): void {
-    event.stopPropagation();
-    updateValue(getCurrentNumber() - 10 ** -decPlaces);
-    setSpin(true);
-  }
+  const handleOnMinusClick = useCallback(
+    (event: React.MouseEvent<HTMLInputElement>): void => {
+      event.stopPropagation();
+      updateValue(getCurrentNumber() - 10 ** -decPlaces);
+      setSpin(true);
+    },
+    [decPlaces, getCurrentNumber, updateValue]
+  );
 
-  function handleOnPlusClick(event: React.MouseEvent<HTMLDivElement>): void {
-    event.stopPropagation();
-    updateValue(getCurrentNumber() + 10 ** -decPlaces);
-    setSpin(true);
-  }
+  const handleOnPlusClick = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>): void => {
+      event.stopPropagation();
+      updateValue(getCurrentNumber() + 10 ** -decPlaces);
+      setSpin(true);
+    },
+    [decPlaces, getCurrentNumber, updateValue]
+  );
 
   useEffect((): void => {
     if (inputReference.current !== null && spin) {
