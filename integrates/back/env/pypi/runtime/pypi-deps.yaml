@@ -1,10 +1,10 @@
 ---
-aioboto3: 10.0.0
-aiobotocore: 2.3.4
+aioboto3: 10.3.0
+aiobotocore: 2.4.1
 aiodataloader: 0.2.1
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
-aiohttp: 3.8.1
+aiohttp: 3.8.3
 arch-lint: 2.1.1
 ariadne:
   version: 0.15.1
@@ -17,8 +17,8 @@ backports.csv: 1.0.7
 binaryornot: 0.4.4
 bleach: 4.1.0
 boto3-type-annotations: 0.3.1
-boto3: 1.21.21
-botocore: 1.24.21
+boto3: 1.24.59
+botocore: 1.27.59
 celery: 5.2.7
 cryptography: 3.3.2
 fpdf: 1.7.2
