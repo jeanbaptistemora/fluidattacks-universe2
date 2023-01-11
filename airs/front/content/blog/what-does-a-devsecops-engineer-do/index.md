@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, devsecops, security-testing, training, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1654612014/blog/what-does-a-devsecops-engineer-do/cover_engineers.webp
 alt: Photo by Jeff Lemond on Unsplash
-description: Ever wondered what a DevSecOps engineer does? Learn all about the required skills, experience and functions to become one in the cybersecurity industry.
+description: Ever wondered what a DevSecOps engineer does in the cybersecurity industry? Find out their job functions and the required skills and experience to become one.
 keywords: Become Devsecops Engineer, Devsecops Engineer Skills, Devsecops Engineer Responsibilities, Devsecops Engineer Roles, Devsecops Engineer Certification, Security Testing, Software Development Lifecycle, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -45,8 +45,8 @@ This results in the protection of data
 and information technology (IT) infrastructure.
 [Much like](https://devops.com/how-to-become-a-devsecops-engineer/)
 individuals in other IT security roles,
-a DevSecOps engineer is familiar with cybersecurity software
-and [DevSecOps best practices](../devsecops-best-practices/)
+a DevSecOps engineer has knowledge of cybersecurity software
+and [DevSecOps best practices](../devsecops-best-practices/),
 such as conducting risk assessments and threat modeling.
 
 This DevSecOps specialist promotes cybersecurity awareness
@@ -222,8 +222,9 @@ by the organization's transition [from DevOps to DevSecOps](../what-is-devsecops
 Teams may feel put out
 with the idea of security maybe being an obstacle
 to fast integration and deployment.
-DevSecOps engineers are then needed to educate
-how [best practices](../devsecops-best-practices/),
+DevSecOps engineers are then needed to,
+drawing on their knowledge,
+educate how [best practices](../devsecops-best-practices/),
 like code review,
 auditing code dependencies
 and breaking the build,
@@ -236,20 +237,20 @@ without sacrificing speed.
 ## DevSecOps roles and DevSecOps engineers
 
 Within organizations,
-it is possible to have different DevSecOps roles.
+it is possible to have different DevSecOps job roles.
 One is designed for people
 with experience automating infrastructure deployments (e.g., cloud engineers).
 They make it possible for the developers
 to concentrate on building the product
 with a pretty basic knowledge of the infrastructure that supports it.
 
-There is another role for people with experience
+There is another job role for people with experience
 designing and implementing security testing tools
 and integrating them into pipelines (e.g., CI/CD engineers).
 They hand over the CI/CD framework to the developers
 so that they can program all the tests that they find necessary.
 
-And yet another role is for people
+And yet another job role is for people
 who work along with the development team
 to review,
 triage
@@ -286,7 +287,8 @@ from [taking secure coding courses](https://www.techtarget.com/searchsecurity/ti
 
 Yet another step is to become certified.
 We'll get to a list of certifications in a moment.
-A prospective DevSecOps engineer should think of training first.
+A prospective DevSecOps engineer should first think of training
+and acquiring knowledge.
 These are some of the [advised security certification courses](https://www.devopsschool.com/blog/devsecops-engineers-roles-and-responsibilities/):
 DevSecOps Certified Professional ([DSOCP](https://certification-courses.github.io/devops-certifications/certifications/devsecops-certified-professional.html)),
 Certified Cyber Security Expert ([CCSE](https://www.checkpoint.com/downloads/training/CCSE_Overview_Flyer.pdf)),
