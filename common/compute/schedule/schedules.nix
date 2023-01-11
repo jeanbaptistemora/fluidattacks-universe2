@@ -1206,32 +1206,6 @@
       "management:type" = "product";
     };
   };
-  observes_etl_dynamo_centralize = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/observes/etl/dynamo/centralize"
-    ];
-
-    schedule_expression = "cron(0 12-23/3 ? * 2-6 *)";
-    size = "observes_nano";
-    awsRole = "prod_observes";
-    attempts = 1;
-    timeout = 3 * 3600;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "observes_etl_dynamo_centralize";
-      "management:area" = "cost";
-      "management:product" = "observes";
-      "management:type" = "product";
-    };
-  };
   observes_etl_gitlab_ephemeral = {
     enabled = true;
     command = [
