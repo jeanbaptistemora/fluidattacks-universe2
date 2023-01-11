@@ -289,6 +289,54 @@ async def user_with_inline_policies(
     return vulns
 
 
+async def policies_attached_to_users(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="list_users"
+    )
+    users = response.get("Users", []) if response else []
+
+    vulns: core_model.Vulnerabilities = ()
+    if users:
+        for user in users:
+            user_policies: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_attached_user_policies",
+                parameters={"UserName": str(user["UserName"])},
+            )
+            attached_policies = user_policies.get("AttachedPolicies", [])
+
+            locations: List[Location] = []
+            if attached_policies:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=("/AttachedPolicies",),
+                            arn=(f"{user['Arn']}"),
+                            values=(attached_policies,),
+                            description=t(
+                                "src.lib_path.f031.policies_attached_to_users"
+                            ),
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_POLICIES_ATTACHED_TO_USERS
+                    ),
+                    aws_response=user_policies,
+                ),
+            )
+
+    return vulns
+
+
 async def full_access_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -752,4 +800,5 @@ CHECKS: Tuple[
     full_access_to_ssm,
     group_with_inline_policies,
     user_with_inline_policies,
+    policies_attached_to_users,
 )
