@@ -1,3 +1,6 @@
+from contextlib import (
+    suppress,
+)
 from lib_path.common import (
     get_vulnerabilities_for_incomplete_deps,
 )
@@ -20,27 +23,30 @@ from virtualenv import (
 
 
 def create_venv_install_requirements(filename: str) -> str:
-    cli_run(["venv"])
-    subprocess.call(  # nosec
-        ["python", "venv/bin/activate_this.py"], shell=False
-    )
-    os.environ["PYTHONPATH"] = ""
-    with open(filename, encoding="utf-8") as dependencies:
-        reqs = dependencies.readlines()
-
-    with open(os.devnull, "wb") as devnull:
-        for item in reqs:
-            subprocess.call(  # nosec
-                ["venv/bin/pip", "install", f"{item}"],
-                shell=False,
-                stdout=devnull,
-                stderr=devnull,
-            )
-
-    with open("requirements_2.txt", "w", encoding="utf-8") as outfile:
+    with suppress(FileNotFoundError):
+        cli_run(["venv"])
         subprocess.call(  # nosec
-            ["venv/bin/pip", "freeze", "--local"], stdout=outfile, shell=False
+            ["python", "venv/bin/activate_this.py"], shell=False
         )
+        os.environ["PYTHONPATH"] = ""
+        with open(filename, encoding="utf-8") as dependencies:
+            reqs = dependencies.readlines()
+
+        with open(os.devnull, "wb") as devnull:
+            for item in reqs:
+                subprocess.call(  # nosec
+                    ["venv/bin/pip", "install", f"{item}"],
+                    shell=False,
+                    stdout=devnull,
+                    stderr=devnull,
+                )
+
+        with open("requirements_2.txt", "w", encoding="utf-8") as outfile:
+            subprocess.call(  # nosec
+                ["venv/bin/pip", "freeze", "--local"],
+                stdout=outfile,
+                shell=False,
+            )
 
     subprocess.call(["rm", "-rf", "venv"], shell=False)  # nosec
     return os.getcwd()
