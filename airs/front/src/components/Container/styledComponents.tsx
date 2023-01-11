@@ -61,7 +61,9 @@ const getJustify = (defaultJustify: TJustify, justify?: TJustify): string =>
 const getBorder = (
   borderColor?: string,
   borderBottomColor?: string,
-  borderTopColor?: string
+  borderTopColor?: string,
+  leftBar?: string,
+  topBar?: string
 ): string => {
   if (borderColor !== undefined) {
     return `border: 1px solid ${borderColor};`;
@@ -69,6 +71,10 @@ const getBorder = (
     return `border-bottom: 1px solid ${borderBottomColor};`;
   } else if (borderTopColor !== undefined) {
     return `border-top: 1px solid ${borderTopColor};`;
+  } else if (leftBar !== undefined) {
+    return `border-left: 5px solid ${leftBar};`;
+  } else if (topBar !== undefined) {
+    return `border-top: 5px solid ${topBar};`;
   }
 
   return "";
@@ -175,10 +181,12 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     direction = "unset",
     display = "block",
     height = "auto",
+    hoverColor = "",
     hoverShadow = false,
     justify = "unset",
     justifyMd,
     justifySm,
+    leftBar,
     maxWidth = "100%",
     minHeight = "0",
     minWidth = "0",
@@ -186,6 +194,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     minWidthSm,
     scroll = "none",
     shadow = false,
+    topBar,
     width = "100%",
     widthMd,
     widthSm,
@@ -203,7 +212,13 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-y: ${scroll.includes("y") ? "auto" : "unset"};
     transition: all 0.3s ease;
     ${getShadow(shadow)}
-    ${getBorder(borderColor, borderBottomColor, borderTopColor)}
+    ${getBorder(
+      borderColor,
+      borderBottomColor,
+      borderTopColor,
+      leftBar,
+      topBar
+    )}
 
     @media screen and (min-width: 60em) {
       ${getWidth(width)}
@@ -228,6 +243,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
 
     :hover {
       ${getShadow(hoverShadow)}
+      background-color: ${hoverColor};
     }
   `}
 `;

@@ -19,10 +19,12 @@ interface IContainerProps {
   direction?: TDirection;
   display?: TDisplay;
   height?: string;
+  hoverColor?: string;
   hoverShadow?: boolean;
   justify?: TJustify;
   justifyMd?: TJustify;
   justifySm?: TJustify;
+  leftBar?: string;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
   mv?: Nums0To7;
   mh?: Nums0To7;
@@ -47,6 +49,7 @@ interface IContainerProps {
   minWidthSm?: string;
   scroll?: TScroll;
   shadow?: boolean;
+  topBar?: string;
   width?: string;
   widthMd?: string;
   widthSm?: string;

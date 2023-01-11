@@ -15,10 +15,12 @@ const Container: React.FC<IContainerProps> = ({
   direction,
   display,
   height,
+  hoverColor,
   hoverShadow,
   justify,
   justifyMd,
   justifySm,
+  leftBar,
   maxWidth,
   mb,
   mh,
@@ -42,6 +44,7 @@ const Container: React.FC<IContainerProps> = ({
   pvMd,
   pvSm,
   shadow,
+  topBar,
   width,
   widthMd,
   widthSm,
@@ -59,10 +62,12 @@ const Container: React.FC<IContainerProps> = ({
       direction={direction}
       display={display}
       height={height}
+      hoverColor={hoverColor}
       hoverShadow={hoverShadow}
       justify={justify}
       justifyMd={justifyMd}
       justifySm={justifySm}
+      leftBar={leftBar}
       maxWidth={maxWidth}
       mb={mb}
       mh={mh}
@@ -86,6 +91,7 @@ const Container: React.FC<IContainerProps> = ({
       pvMd={pvMd}
       pvSm={pvSm}
       shadow={shadow}
+      topBar={topBar}
       width={width}
       widthMd={widthMd}
       widthSm={widthSm}
