@@ -22,7 +22,6 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
-    InvalidBePresentFilterCursor,
     ToeInputNotFound,
 )
 from dynamodb import (
@@ -166,8 +165,8 @@ async def _get_toe_inputs_by_group(
             paginate=request.paginate,
             table=TABLE,
         )
-    except ValidationException as exc:
-        raise InvalidBePresentFilterCursor() from exc
+    except ValidationException:
+        return None
     return ToeInputsConnection(
         edges=tuple(
             format_toe_input_edge(request.group_name, index, item, TABLE)

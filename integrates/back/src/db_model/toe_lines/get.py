@@ -22,7 +22,6 @@ from boto3.dynamodb.conditions import (
     Key,
 )
 from custom_exceptions import (
-    InvalidBePresentFilterCursor,
     ToeLinesNotFound,
 )
 from dynamodb import (
@@ -37,7 +36,7 @@ from dynamodb.model import (
 )
 from typing import (
     Iterable,
-    Union,
+    Optional,
 )
 
 
@@ -82,7 +81,7 @@ class ToeLinesLoader(DataLoader):
 
 async def _get_toe_lines_by_group(
     request: GroupToeLinesRequest,
-) -> ToeLinesConnection:
+) -> Optional[ToeLinesConnection]:
     if request.be_present is None:
         facet = TABLE.facets["toe_lines_metadata"]
         primary_key = keys.build_key(
@@ -117,8 +116,8 @@ async def _get_toe_lines_by_group(
             paginate=request.paginate,
             table=TABLE,
         )
-    except ValidationException as exc:
-        raise InvalidBePresentFilterCursor() from exc
+    except ValidationException:
+        return None
     return ToeLinesConnection(
         edges=tuple(
             format_toe_lines_edge(index, item, TABLE)
@@ -132,7 +131,7 @@ class GroupToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeLinesRequest]
-    ) -> tuple[ToeLinesConnection, ...]:
+    ) -> tuple[Optional[ToeLinesConnection], ...]:
         return await collect(tuple(map(_get_toe_lines_by_group, requests)))
 
     async def load_nodes(
@@ -144,7 +143,7 @@ class GroupToeLinesLoader(DataLoader):
 
 async def _get_toe_lines_by_root(
     request: RootToeLinesRequest,
-) -> Union[ToeLinesConnection, None]:
+) -> Optional[ToeLinesConnection]:
     if request.be_present is None:
         facet = TABLE.facets["toe_lines_metadata"]
         primary_key = keys.build_key(
@@ -197,7 +196,7 @@ class RootToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeLinesRequest]
-    ) -> tuple[Union[ToeLinesConnection, None], ...]:
+    ) -> tuple[Optional[ToeLinesConnection], ...]:
         return await collect(map(_get_toe_lines_by_root, requests))
 
     async def load_nodes(
