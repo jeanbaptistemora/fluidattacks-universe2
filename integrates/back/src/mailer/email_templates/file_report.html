@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('File Update') }}
+      {{ banner_share('File Update') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           A file
           {% if state == 'added' %}
@@ -28,28 +27,26 @@
               href="mailto:{{ responsible }}"
               target="_blank"
               rel="noopener noreferrer"
-              style="color: #ff3435;"
             >
               {{ responsible -}}
             </a></strong>:
           {% endif %}
         </p>
-        <p>
-          <strong>Date:</strong> {{ report_date }}<br>
-          <strong>File:</strong> {{ file_name }}<br>
-          <strong>Description:</strong> {{ file_description }}<br>
-          {% if uploaded_date %}
-          <strong>Upload date:</strong> {{ uploaded_date }}
-          ({{ uploaded_days_to_date }} days)
-          {% endif %}
-        </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <br />
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ report_date }}<br/><br/>
+            <strong>File:</strong><br/>{{ file_name }}<br/><br/>
+            <strong>Description:</strong><br/>{{ file_description }}
+            {% if uploaded_date %}
+            <br/><br/>
+            <strong>Upload date:</strong><br/>{{ uploaded_date }}
+            ({{ uploaded_days_to_date }} days)
+            {% endif %}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

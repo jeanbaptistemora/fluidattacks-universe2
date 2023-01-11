@@ -1,12 +1,10 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import header %}
+{% extends "layouts_new/common.html" %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
       <div class="main-content">
-        <p>Welcome to Fluid Attacks, {{ name }}</p>
+        <h2>Welcome to Fluid Attacks, {{ name }}</h2>
         <p>
           Thanks for signing up. We’re delighted to have you onboard!
           You’re now part of hundreds of people continuously hacking their
@@ -23,33 +21,33 @@
           our Attack Resistance Management (ARM) Platform.
           Click on the links below to get more out of your free trial:
         </p>
-        <ul class="big-list-icon">
-          <li>
-            <a href="{{ stakeholders_link }}" rel="noopener noreferrer" target="_blank">
-              Invite co-workers to your group
-            </a>
-          </li>
-          <li>
-            <a href="{{ scope_link }}" rel="noopener noreferrer" target="_blank">
-              Add more code repositories
-            </a>
-          </li>
-          <li>
-            <a href="{{ policies_link }}" rel="noopener noreferrer" target="_blank">
-              Set vulnerability policies
-            </a>
-          </li>
-        </ul>
+        <div class="data-container">
+          <ul class="big-list-icon">
+            <li>
+              <a href="{{ stakeholders_link }}" rel="noopener noreferrer" target="_blank">
+                Invite co-workers to your group
+              </a>
+            </li>
+            <li>
+              <a href="{{ scope_link }}" rel="noopener noreferrer" target="_blank">
+                Add more code repositories
+              </a>
+            </li>
+            <li>
+              <a href="{{ policies_link }}" rel="noopener noreferrer" target="_blank">
+                Set vulnerability policies
+              </a>
+            </li>
+          </ul>
+        </div>
         <p>
           <strong>Questions or comments?</strong> You can always contact us at
           <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>.
         </p>
         <p>We hope you enjoy your 21-day Free Trial!</p>
-        <p>
-          <strong>Fluid Attacks Team</strong>
-        </p>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
