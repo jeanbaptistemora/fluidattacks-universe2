@@ -289,18 +289,19 @@ def _insecure_ec2_tfm_cidrs(
     unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
     unrestricted_ipv6 = IPv6Network("::/0")
     ip_val = block.val[0] if isinstance(block.val, list) else block.val
-    if ip_type == "ipv4":
-        ipv4_object = IPv4Network(ip_val, strict=False)
-        if ipv4_object == unrestricted_ipv4 or (
-            rule == "ingress" and ipv4_object.num_addresses > 1
-        ):
-            return True
-    else:
-        ipv6_object = IPv6Network(ip_val, strict=False)
-        if ipv6_object == unrestricted_ipv6 or (
-            rule == "ingress" and ipv6_object.num_addresses > 1
-        ):
-            return True
+    with suppress(AddressValueError, KeyError):
+        if ip_type == "ipv4":
+            ipv4_object = IPv4Network(ip_val, strict=False)
+            if ipv4_object == unrestricted_ipv4 or (
+                rule == "ingress" and ipv4_object.num_addresses > 1
+            ):
+                return True
+        else:
+            ipv6_object = IPv6Network(ip_val, strict=False)
+            if ipv6_object == unrestricted_ipv6 or (
+                rule == "ingress" and ipv6_object.num_addresses > 1
+            ):
+                return True
     return False
 
 
