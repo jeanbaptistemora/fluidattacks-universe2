@@ -165,6 +165,7 @@ async def rebase(
         entry=last_state,
     )
     with suppress(InvalidParameter):
+        loaders.vulnerability.clear(vulnerability_id)
         await update_metadata(
             vulnerability_id=vulnerability_id,
             finding_id=finding_id,
