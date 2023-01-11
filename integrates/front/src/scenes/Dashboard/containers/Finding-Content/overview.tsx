@@ -17,9 +17,9 @@ import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
 import { Gap } from "components/Layout/Gap";
 import { Row } from "components/Layout/Row";
+import { Pill } from "components/Pill";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import { VulnTag } from "components/VulnTag";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
 
@@ -41,6 +41,58 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
   status,
 }: IFindingOverviewProps): JSX.Element => {
   const { t } = useTranslation();
+  const SEVERITY_THRESHOLD_CRITICAL: number = 9;
+  const SEVERITY_THRESHOLD_HIGH: number = 6.9;
+  const SEVERITY_THRESHOLD_MED: number = 3.9;
+  const SEVERITY_THRESHOLD_LOW: number = 0.1;
+
+  function setSeverityLevel(
+    severitylvl?: number
+  ): ["CRITICAL" | "HIGH" | "LOW" | "MED" | "NONE", string] {
+    if (severitylvl === undefined) {
+      return ["NONE", t("searchFindings.header.severity.level.none")];
+    }
+    if (severitylvl >= SEVERITY_THRESHOLD_CRITICAL) {
+      return ["CRITICAL", t("searchFindings.header.severity.level.critical")];
+    }
+    if (severitylvl > SEVERITY_THRESHOLD_HIGH) {
+      return ["HIGH", t("searchFindings.header.severity.level.high")];
+    }
+    if (severitylvl > SEVERITY_THRESHOLD_MED) {
+      return ["MED", t("searchFindings.header.severity.level.medium")];
+    }
+    if (severitylvl >= SEVERITY_THRESHOLD_LOW) {
+      return ["LOW", t("searchFindings.header.severity.level.low")];
+    }
+
+    return ["NONE", t("searchFindings.header.severity.level.none")];
+  }
+
+  const severityConfigs: Record<
+    string,
+    { color: "darkRed" | "orange" | "red" | "yellow"; text: string }
+  > = {
+    CRITICAL: {
+      color: "darkRed",
+      text: t("searchFindings.criticalSeverity"),
+    },
+    HIGH: {
+      color: "red",
+      text: t("searchFindings.highSeverity"),
+    },
+    LOW: { color: "yellow", text: t("searchFindings.lowSeverity") },
+    MED: {
+      color: "orange",
+      text: t("searchFindings.mediumSeverity"),
+    },
+    NONE: {
+      color: "yellow",
+      text: t("searchFindings.noneSeverity"),
+    },
+  };
+
+  const [severityLevel, severityLevelTooltip] = setSeverityLevel(severity);
+  const { color, text: severityText } = severityConfigs[severityLevel];
 
   const statusConfigs: Record<
     string,
@@ -122,18 +174,28 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                       t("searchFindings.header.status.tooltip") + statusTooltip
                     }
                   >
-                    <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
+                    <Text fw={9} size={"big"} ta={"start"}>
                       {_.capitalize(status)}
                     </Text>
                   </Tooltip>
                 </Col>
                 <Col>
-                  <Text disp={"inline"} size={"medium"} ta={"end"}>
-                    <VulnTag value={severity} />
+                  <Text ta={"end"}>
+                    <Tooltip
+                      id={"statusTooltip"}
+                      tip={
+                        t("searchFindings.header.severity.tooltip") +
+                        severityLevelTooltip
+                      }
+                    >
+                      <Pill
+                        textL={String(severity)}
+                        textR={severityText}
+                        variant={color}
+                      />
+                    </Tooltip>
                   </Text>
                 </Col>
-              </Row>
-              <Row>
                 <Gap>
                   <FontAwesomeIcon
                     color={"#2e2e38"}
@@ -146,37 +208,71 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card float={true} title={`${openVulns}`}>
-              <Gap>
-                <FontAwesomeIcon
-                  color={"#2e2e38"}
-                  icon={faUnlock}
-                  size={"lg"}
-                />
-                <Text>{t("searchFindings.header.openVulns.label")}</Text>
-              </Gap>
+            <Card float={true}>
+              <Row>
+                <Tooltip
+                  id={"openVulnsTooltip"}
+                  tip={t("searchFindings.header.openVulns.tooltip")}
+                >
+                  <Text fw={9} size={"big"} ta={"start"}>
+                    {openVulns}
+                  </Text>
+                </Tooltip>
+                <Gap>
+                  <FontAwesomeIcon
+                    color={"#2e2e38"}
+                    icon={faUnlock}
+                    size={"lg"}
+                  />
+                  <Text>{t("searchFindings.header.openVulns.label")}</Text>
+                </Gap>
+              </Row>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card float={true} title={discoveryDate}>
-              <Gap>
-                <FontAwesomeIcon
-                  color={"#2e2e38"}
-                  icon={faCalendarDay}
-                  size={"lg"}
-                />
-                <Text>{t("searchFindings.header.discoveryDate.label")}</Text>
-              </Gap>
+            <Card float={true}>
+              <Row>
+                <Tooltip
+                  id={"discoveryDateTooltip"}
+                  tip={t("searchFindings.header.discoveryDate.tooltip")}
+                >
+                  <Text fw={9} size={"big"} ta={"start"}>
+                    {discoveryDate}
+                  </Text>
+                </Tooltip>
+                <Gap>
+                  <FontAwesomeIcon
+                    color={"#2e2e38"}
+                    icon={faCalendarDay}
+                    size={"lg"}
+                  />
+                  <Text>{t("searchFindings.header.discoveryDate.label")}</Text>
+                </Gap>
+              </Row>
             </Card>
           </Col>
           <Col lg={20} md={50} sm={100}>
-            <Card float={true} title={estRemediationTime}>
-              <Gap>
-                <FontAwesomeIcon color={"#2e2e38"} icon={faClock} size={"lg"} />
-                <Text>
-                  {t("searchFindings.header.estRemediationTime.label")}
-                </Text>
-              </Gap>
+            <Card float={true}>
+              <Row>
+                <Tooltip
+                  id={"estRemediationTime"}
+                  tip={t("searchFindings.header.estRemediationTime.tooltip")}
+                >
+                  <Text fw={9} size={"big"} ta={"start"}>
+                    {estRemediationTime}
+                  </Text>
+                </Tooltip>
+                <Gap>
+                  <FontAwesomeIcon
+                    color={"#2e2e38"}
+                    icon={faClock}
+                    size={"lg"}
+                  />
+                  <Text>
+                    {t("searchFindings.header.estRemediationTime.label")}
+                  </Text>
+                </Gap>
+              </Row>
             </Card>
           </Col>
         </Row>
