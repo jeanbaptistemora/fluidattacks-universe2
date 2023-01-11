@@ -8,6 +8,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, {
   Fragment,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -301,17 +302,20 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
     }
   };
 
-  async function handleDeletion(tag: string): Promise<void> {
-    await deleteTagVuln({
-      variables: {
-        findingId: vulnerabilities[0].findingId,
-        tag,
-        vulnerabilities: vulnerabilities.map(
-          (vuln: IVulnDataTypeAttr): string => vuln.id
-        ),
-      },
-    });
-  }
+  const handleDeletion = useCallback(
+    async (tag: string): Promise<void> => {
+      await deleteTagVuln({
+        variables: {
+          findingId: vulnerabilities[0].findingId,
+          tag,
+          vulnerabilities: vulnerabilities.map(
+            (vuln: IVulnDataTypeAttr): string => vuln.id
+          ),
+        },
+      });
+    },
+    [deleteTagVuln, vulnerabilities]
+  );
 
   const [requestZeroRisk, { loading: requestingZeroRisk }] = useMutation(
     REQUEST_VULNS_ZERO_RISK,
