@@ -28,7 +28,7 @@ def get_project(*, url: str, token: str, project_id: str) -> Project:
     rest_session: Gitlab = Gitlab(url, private_token=token)
     gql_transport = AIOHTTPTransport(
         url=f"{url}/api/graphql",
-        headers={"Authorization": token},
+        headers={"Authorization": f"Bearer {token}"},
     )
     return Project(
         rest=rest_session.projects.get(project_id),
@@ -64,7 +64,7 @@ def get_state(*, pull_request: MergeRequest) -> str:
 def get_deltas(*, gql_session: Client, pull_request_id: str) -> int:
     query: str = gql(  # type: ignore
         """
-        query getDeltas ($id: MergeRequestID!){
+        query getDeltas ($id: MergeRequestID!) {
             mergeRequest(id: $id) {
                 diffStatsSummary {
                     changes
