@@ -80,7 +80,7 @@ class S3Handler:
             .unwrap()
         )
         order = tuple(sorted(fields))
-        columns: Dict[str, Optional[str]] = {
+        columns: Dict[str, str] = {
             f"column_{i}": v for i, v in enumerate(order)
         }
         columns_ids = ",".join(f"{{column_{i}}}" for i, _ in enumerate(order))
@@ -88,7 +88,7 @@ class S3Handler:
             COPY {{schema}}.{{table}} ({columns_ids}) FROM %(data_file)s
             iam_role %(role)s CSV NULL AS 'nan' TRUNCATECOLUMNS FILLRECORD
         """
-        identifiers: Dict[str, Optional[str]] = {
+        identifiers: Dict[str, str] = {
             "schema": self._schema.name,
             "table": schema.stream,
         } | columns

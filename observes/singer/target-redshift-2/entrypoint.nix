@@ -8,8 +8,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   arch-lint = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
-      rev = "753e5bd2ed248adc92951611b09780dcedb4e0b6";
       ref = "refs/tags/v1.0.0";
+      rev = "753e5bd2ed248adc92951611b09780dcedb4e0b6";
     };
   in
     import src {
@@ -19,8 +19,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   fa-purity = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
-      rev = "7ec586458c8a1e46093816e62354bd5253f429b5";
-      ref = "refs/tags/v1.25.1";
+      ref = "refs/tags/v1.27.0";
+      rev = "45ddbd204ab1f75180f165f50188f2e59371c26a";
     };
   in
     import src {
@@ -30,8 +30,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   fa-singer-io = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/singer_io";
-      rev = "d35487441ba37e2a98dca789741407231576e481";
       ref = "refs/tags/v1.4.0";
+      rev = "d35487441ba37e2a98dca789741407231576e481";
     };
   in
     import src {
@@ -46,8 +46,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   redshift-client = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/redshift_client";
-      rev = "1644320c6877376cd80900d8d3d7e4457fdb54e9";
-      ref = "refs/tags/v1.1.1";
+      ref = "refs/tags/v1.2.1";
+      rev = "a659f345d102c0b3642abe16dbc15ab241b35d34";
     };
   in
     import src {

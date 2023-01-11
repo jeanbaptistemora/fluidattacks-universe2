@@ -10,7 +10,7 @@ requires-python = ">=3.8"
 dependencies = [
     "boto3 >=1.17.104, <2.0.0",
     "click >=7.1.2, <8.0.0",
-    "fa-purity >=1.25.1, <2.0.0",
+    "fa-purity >=1.27.0, <2.0.0",
     "fa-singer-io >=1.1.0, <2.0.0",
     "jsonschema >=3.2.0, <4.0.0",
     "pathos >=0.2.8, <0.3.0",
@@ -19,7 +19,7 @@ dependencies = [
     "types-boto3 >=1.0.2, <2.0.0",
     "types-click >=7.1.8, <8.0.0",
     "types-psycopg2 >=2.9.9, <3.0.0",
-    "redshift-client >=1.1.1, <2.0.0",
+    "redshift-client >=1.2.1, <2.0.0",
     "utils-logger-2 >=1.0.0, <2.0.0",
 ]
 description = "Singer target redshift"

@@ -9,6 +9,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
       ref = "refs/tags/v2.3.0";
+      rev = "b2d79d8824dfd1b8f191777c006ab208d38352e3";
     };
   in
     import src {
@@ -19,6 +20,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/purity";
       ref = "refs/tags/v1.27.0";
+      rev = "45ddbd204ab1f75180f165f50188f2e59371c26a";
     };
   in
     import src {
@@ -41,6 +43,7 @@ fetchNixpkgs: projectPath: observesIndex: let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/redshift_client";
       ref = "refs/tags/v1.2.0";
+      rev = "edd6a7627196f3bce4388c3ec118313364726d9a";
     };
   in
     import src {

@@ -16,5 +16,5 @@ in
         env
       ];
     };
-    entrypoint = ./entrypoint.sh;
+    entrypoint = "target-redshift \"\${@}\"";
   }
