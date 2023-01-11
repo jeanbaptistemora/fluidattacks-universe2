@@ -24,3 +24,6 @@ src.lib_path.f031.iam_has_full_access_to_ssm:
 src.lib_path.f031.iam_excessive_role_policy:
   en: The policy grant excessive privileges for attachment to a specific role.
   es: La política da privilegios excesivos de adjuntar a un rol especifico.
+src.lib_path.f031.policies_attached_to_users:
+  en: Users must not have policies directly attached.
+  es: Los usuarios no deben tener politicas directamente agregadas.
