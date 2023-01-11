@@ -77,6 +77,7 @@ from typing import (
     Callable,
     cast,
     Dict,
+    Optional,
     Set,
     Tuple,
     Type,
@@ -630,62 +631,62 @@ def require_organization_access(func: TVar) -> TVar:
     return cast(TVar, verify_and_call)
 
 
+async def _resolve_group_name_args(context: Any, args: Any) -> Optional[str]:
+    group_name_extractor = {
+        Vulnerability: lambda x: x.group_name,
+        Group: lambda x: x.name,
+        dict: lambda x: x.get("name") or x.get("project_name"),
+    }
+    if not args or not args[0]:
+        return None
+    if hasattr(args[0], "group_name"):
+        return getattr(args[0], "group_name")
+    if "finding_id" in args[0]:
+        return await _resolve_from_finding_id(context, args[0]["finding_id"])
+
+    return group_name_extractor.get(type(args[0]), lambda x: None)(args[0])
+
+
+# pylint: disable=too-many-return-statements
+async def _resolve_group_name_kwargs(
+    context: Any, kwargs: Any
+) -> Optional[str]:
+    if "group_name" in kwargs or "project_name" in kwargs:
+        return get_key_or_fallback(kwargs)
+    if "finding_id" in kwargs:
+        return await _resolve_from_finding_id(context, kwargs["finding_id"])
+    if "draft_id" in kwargs:
+        return await _resolve_from_finding_id(context, kwargs["draft_id"])
+    if "event_id" in kwargs:
+        return await _resolve_from_event_id(context, kwargs["event_id"])
+    if "vuln_id" in kwargs:
+        return await _resolve_from_vuln_id(context, kwargs["vuln_id"])
+    if "vulnerability_id" in kwargs:
+        return await _resolve_from_vuln_id(context, kwargs["vulnerability_id"])
+    if "vuln_uuid" in kwargs:
+        return await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
+    if "vulnerability_uuid" in kwargs:
+        return await _resolve_from_vuln_id(
+            context, kwargs["vulnerability_uuid"]
+        )
+    if DEBUG:
+        raise Exception("Unable to identify group")
+    return ""
+
+
 async def resolve_group_name(  # noqa: MC0001
     context: Any,
     args: Any,
     kwargs: Any,
 ) -> str:
     """Get group name based on args passed."""
-    if args and args[0] and isinstance(args[0], Vulnerability):
-        vuln: Vulnerability = args[0]
-        name = vuln.group_name
-    elif args and args[0] and isinstance(args[0], Group):
-        group: Group = args[0]
-        name = group.name
-    elif args and args[0] and hasattr(args[0], "group_name"):
-        name = getattr(args[0], "group_name")
-    elif args and args[0] and isinstance(args[0], dict) and "name" in args[0]:
-        name = args[0]["name"]
-    elif (
-        args
-        and args[0]
-        and isinstance(args[0], dict)
-        and "project_name" in args[0]
-    ):
-        name = args[0]["project_name"]
-    elif (
-        args
-        and args[0]
-        and isinstance(args[0], dict)
-        and "finding_id" in args[0]
-    ):
-        name = await _resolve_from_finding_id(context, args[0]["finding_id"])
-    elif "group_name" in kwargs or "project_name" in kwargs:
-        name = get_key_or_fallback(kwargs)
-    elif "finding_id" in kwargs:
-        name = await _resolve_from_finding_id(context, kwargs["finding_id"])
-    elif "draft_id" in kwargs:
-        name = await _resolve_from_finding_id(context, kwargs["draft_id"])
-    elif "event_id" in kwargs:
-        name = await _resolve_from_event_id(context, kwargs["event_id"])
-    elif "vuln_id" in kwargs:
-        name = await _resolve_from_vuln_id(context, kwargs["vuln_id"])
-    elif "vulnerability_id" in kwargs:
-        name = await _resolve_from_vuln_id(context, kwargs["vulnerability_id"])
-    elif "vuln_uuid" in kwargs:
-        name = await _resolve_from_vuln_id(context, kwargs["vuln_uuid"])
-    elif "vulnerability_uuid" in kwargs:
-        name = await _resolve_from_vuln_id(
-            context, kwargs["vulnerability_uuid"]
-        )
-    elif DEBUG:
-        raise Exception("Unable to identify group")
-    else:
-        name = ""
+    name = await _resolve_group_name_args(context=context, args=args)
+    if not name:
+        name = await _resolve_group_name_kwargs(context=context, kwargs=kwargs)
 
     if isinstance(name, str):
         name = name.lower()
-    return name
+    return str(name)
 
 
 def retry_on_exceptions(
