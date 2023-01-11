@@ -20,11 +20,11 @@
         })
         (makeSearchPaths {
           pythonPackage = [
-            "$PWD/integrates"
             "$PWD/integrates/back/src"
           ];
         })
         outputs."/integrates/back/charts/pypi"
+        outputs."/integrates/streams/runtime"
       ];
     };
   };

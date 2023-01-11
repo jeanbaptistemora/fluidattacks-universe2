@@ -13,6 +13,7 @@ from aioextensions import (
 )
 from api import (
     IntegratesAPI,
+    IntegratesHTTPHandler,
 )
 from api.extensions.opentelemetry import (
     OpenTelemetryExtension,
@@ -366,7 +367,7 @@ STARLETTE_APP = Starlette(
             IntegratesAPI(
                 SCHEMA,
                 debug=DEBUG,
-                extensions=API_EXTENSIONS,
+                http_handler=IntegratesHTTPHandler(extensions=API_EXTENSIONS),
                 validation_rules=get_validation_rules,
             ),
         ),

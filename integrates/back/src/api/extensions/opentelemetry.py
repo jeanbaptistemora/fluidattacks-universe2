@@ -1,9 +1,6 @@
 from api import (
     Operation,
 )
-from api.extensions.constants import (
-    VALID_ATTR_VALUE_TYPES,
-)
 from ariadne.contrib.tracing.utils import (
     format_path,
     should_trace,
@@ -47,15 +44,6 @@ class FastExtension(Extension):
         return result
 
 
-def format_attributes(attributes: dict[str, Any]) -> dict[str, Any]:
-    return {
-        key: (
-            str(value) if type(value) not in VALID_ATTR_VALUE_TYPES else value
-        )
-        for key, value in attributes.items()
-    }
-
-
 class OpenTelemetryExtension(FastExtension):
     """
     OpenTelemetry extension for ariadne
@@ -72,7 +60,7 @@ class OpenTelemetryExtension(FastExtension):
         operation: Operation = context.operation
         operation_span = trace.get_current_span()
         operation_span.update_name(operation.name)
-        operation_span.set_attributes(format_attributes(operation.variables))
+        operation_span.set_attributes(operation.variables)
 
     async def resolve(
         self,
@@ -85,7 +73,7 @@ class OpenTelemetryExtension(FastExtension):
 
         if should_trace(info):
             with self.tracer.start_as_current_span(
-                attributes=format_attributes(kwargs),
+                attributes=kwargs,
                 name=path,
             ):
                 return await super().resolve(next_, obj, info, **kwargs)

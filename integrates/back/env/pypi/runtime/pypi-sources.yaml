@@ -10,7 +10,7 @@ closure:
   amqp: 5.1.1
   anyio: 3.6.2
   arch-lint: 2.1.1
-  ariadne: 0.15.1
+  ariadne: 0.17.1
   asgiref: 3.6.0
   async-lru: 1.0.2
   async-timeout: 4.0.2
@@ -49,7 +49,7 @@ closure:
   gitdb: 4.0.10
   gitpython: 3.1.29
   googleapis-common-protos: 1.58.0
-  graphql-core: 3.2.1
+  graphql-core: 3.2.3
   grimp: "1.3"
   grpcio: 1.51.1
   gunicorn: 20.1.0
@@ -57,7 +57,6 @@ closure:
   hijri-converter: 2.2.4
   holidays: 0.11.3.1
   httpcore: 0.16.3
-  httplib2: 0.19.0
   httptools: 0.5.0
   httpx: 0.23.3
   hyperlink: 19.0.0
@@ -80,7 +79,6 @@ closure:
   multidict: 6.0.4
   networkx: 2.8.8
   numpy: 1.21.2
-  oauth2client: 4.1.3
   oauthlib: 3.2.2
   opencv-python-headless: 4.6.0.66
   opensearch-py: 2.0.0
@@ -108,14 +106,12 @@ closure:
   prompt-toolkit: 3.0.36
   protobuf: 4.21.12
   psycopg2: 2.9.3
-  pyasn1: 0.4.8
-  pyasn1-modules: 0.2.8
   pycparser: "2.21"
   pyexcelerate: 0.10.0
   pyjwt: 2.6.0
   pykwalify: 1.8.0
   pymeeus: 0.5.12
-  pyparsing: 2.4.7
+  pyparsing: 3.0.9
   pypdf4: 1.27.0
   python-dateutil: 2.8.2
   python-dotenv: 0.21.0
@@ -128,7 +124,6 @@ closure:
   requests-oauthlib: 1.3.1
   retrying: 1.3.3
   rfc3986: 1.5.0
-  rsa: "4.9"
   ruamel.yaml: 0.17.21
   ruamel.yaml.clib: 0.2.7
   s3transfer: 0.6.0
@@ -138,14 +133,14 @@ closure:
   smmap: 5.0.0
   sniffio: 1.3.0
   social-auth-core: 3.3.3
-  starlette: 0.19.1
+  starlette: 0.23.1
   stripe: 2.63.0
   twilio: 7.7.0
   types-deprecated: 1.2.9
   typing-extensions: 4.4.0
   unidiff: 0.6.0
   urllib3: 1.26.14
-  uvicorn: 0.18.3
+  uvicorn: 0.20.0
   uvloop: 0.17.0
   vine: 5.0.0
   watchfiles: 0.18.1
@@ -260,12 +255,12 @@ links:
   - name: arch_lint-2.1.1.tar.gz
     sha256: 183pdw7974pyc3zp770wr46p6yqbv10r69hlfd55bcqnpdhcsdiw
     url: https://files.pythonhosted.org/packages/ed/62/8523af5954b3aba7078b5263bad0c37c90bb0692995a3eaa7b1b3f67d4da/arch_lint-2.1.1.tar.gz
-  - name: ariadne-0.15.1-py3-none-any.whl
-    sha256: 1k3w3bkag3cv5p7awjgl8fqfjmpfjakb9cha7adwy3xbjpl3ay68
-    url: https://files.pythonhosted.org/packages/c9/32/e242cbf05e4ceab63b4bc29ea2aa6bf6418a7b15faf8ac512dc393d32250/ariadne-0.15.1-py3-none-any.whl
-  - name: ariadne-0.15.1.tar.gz
-    sha256: 1x2ih9zgnl5w9y0zj0xv7qj0awx6m6ggnd8ig5xg5v47d2153237
-    url: https://files.pythonhosted.org/packages/f2/b1/2d61cdad8582eacd78877be57fc186dd09d4143ce58543700a0d52f203f8/ariadne-0.15.1.tar.gz
+  - name: ariadne-0.17.1-py3-none-any.whl
+    sha256: 0gdq3aagrh6h17j58hfi3bibxdi8imwn3qlhqscnvgqfwhl0vrb2
+    url: https://files.pythonhosted.org/packages/b8/78/b844925c6c8873929a47560b741dbb9acc6347506b1333726fdf39bd29e2/ariadne-0.17.1-py3-none-any.whl
+  - name: ariadne-0.17.1.tar.gz
+    sha256: 0bxz6q11126m44xzi7lfcz9dkm4v3rab22nhyymfqd34yfbk1pq7
+    url: https://files.pythonhosted.org/packages/55/74/12fb77f7b66c832720048345d25a6dcbf3e658aeb51f77b6a6141291deca/ariadne-0.17.1.tar.gz
   - name: asgiref-3.6.0-py3-none-any.whl
     sha256: 1b5gfxq8jjgh6d739f4za4iinggkryy3vd74grxrb6w0v8481rki
     url: https://files.pythonhosted.org/packages/8f/29/38d10a47b322a77b2d12c2b79c789f52956f733cb701d4d5157c76b5f238/asgiref-3.6.0-py3-none-any.whl
@@ -542,12 +537,12 @@ links:
   - name: googleapis-common-protos-1.58.0.tar.gz
     sha256: 1psp0ikapvbr0h16lld04hxgqh48aziigfl4a5a7v515q0g2a9y7
     url: https://files.pythonhosted.org/packages/41/43/613cbd071413f6b2a3427f905bc8a8f0f3da202a6e715d78aa22b1f35271/googleapis-common-protos-1.58.0.tar.gz
-  - name: graphql_core-3.2.1-py3-none-any.whl
-    sha256: 08v32nlhxmx4gjxmycf0b807wd6xxpiy78i337nqx6b89676ag7q
-    url: https://files.pythonhosted.org/packages/14/28/c308fc9a5914b9a2333a546f4976d96e0d95230f16593223d727cbc19d52/graphql_core-3.2.1-py3-none-any.whl
-  - name: graphql-core-3.2.1.tar.gz
-    sha256: 00f26g0nhqy5z75crqz2mmhcx4gpklsci1s5jjz58zbv890z26wx
-    url: https://files.pythonhosted.org/packages/61/9e/798c1cfc5b03e98f068a793c2d2f1fd94f76ba50521f3812ff1a4e3c29d2/graphql-core-3.2.1.tar.gz
+  - name: graphql_core-3.2.3-py3-none-any.whl
+    sha256: 1hrx60zgrfda9zp3mn6xd0w3wwcjvj3z52rz2fxchpmxa827hrjp
+    url: https://files.pythonhosted.org/packages/f8/39/e5143e7ec70939d2076c1165ae9d4a3815597019c4d797b7f959cf778600/graphql_core-3.2.3-py3-none-any.whl
+  - name: graphql-core-3.2.3.tar.gz
+    sha256: 0xk6wizh0sakzjlhkcn17fjmdsa5bhz5v227rfqkagkjmk8amlh6
+    url: https://files.pythonhosted.org/packages/ee/a6/94df9045ca1bac404c7b394094cd06713f63f49c7a4d54d99b773ae81737/graphql-core-3.2.3.tar.gz
   - name: grimp-1.3.tar.gz
     sha256: 1xdsc1r5xg9cs20kh8h1lq4qn70f1wybmmj0qkp8rvzb3ksachpd
     url: https://files.pythonhosted.org/packages/f5/e0/5b0124caa6859281d2a77d0a60fcf3e582f3da1dcf337a8979553daf26f0/grimp-1.3.tar.gz
@@ -605,12 +600,6 @@ links:
   - name: httpcore-0.16.3.tar.gz
     sha256: 1jy02w5zsjlmigrz2831158i8gx5r8q6lzh71jgg6c655x7g1mn5
     url: https://files.pythonhosted.org/packages/61/42/5c456b02816845d163fab0f32936b6a5b649f3f915beff6f819f4f6c90b2/httpcore-0.16.3.tar.gz
-  - name: httplib2-0.19.0-py3-none-any.whl
-    sha256: 03l2y2cdcklwni9yc6lh375c5wg80bak35gmfw96rwcv7xh3573l
-    url: https://files.pythonhosted.org/packages/15/7e/51e5bd333c0afa1c7bdbf98eb3b0ccf5167e2b1ecc8b4d13e9cc29291f81/httplib2-0.19.0-py3-none-any.whl
-  - name: httplib2-0.19.0.tar.gz
-    sha256: 13phjadvd38ryh8fz237gq4rr8y7zx9pffqngp7dnwiwskd2im70
-    url: https://files.pythonhosted.org/packages/ed/ef/f0e05d5886a9c25dea4b18be06cd7bcaddbae0168cc576f3568f9bd6a35a/httplib2-0.19.0.tar.gz
   - name: httptools-0.5.0-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 1din40rafaj98zjkanx2nyl3yim7cd99p73ahrlp8fl0d3qsdsv4
     url: https://files.pythonhosted.org/packages/71/bf/5f195a14c5918a786d769661000817cc7b36ec200624c14996c65714d923/httptools-0.5.0-cp39-cp39-macosx_10_9_universal2.whl
@@ -884,12 +873,6 @@ links:
   - name: numpy-1.21.2.zip
     sha256: 1p6n7pbc4s7qdqh28clyrhahs0xzadh7q0w6vwakp4n5mzc1ccj2
     url: https://files.pythonhosted.org/packages/3a/be/650f9c091ef71cb01d735775d554e068752d3ff63d7943b26316dc401749/numpy-1.21.2.zip
-  - name: oauth2client-4.1.3-py2.py3-none-any.whl
-    sha256: 1b6kssi3336245gb19gir9x8hwnlvdcgk60v1d7kcb8fsv2ira5q
-    url: https://files.pythonhosted.org/packages/95/a9/4f25a14d23f0786b64875b91784607c2277eff25d48f915e39ff0cff505a/oauth2client-4.1.3-py2.py3-none-any.whl
-  - name: oauth2client-4.1.3.tar.gz
-    sha256: 1inc3j4hjhjvadn78xd2pwmkmmxcv5q6vlm4d2azd1qj8lg791nl
-    url: https://files.pythonhosted.org/packages/a6/7b/17244b1083e8e604bf154cf9b716aecd6388acd656dd01893d0d244c94d9/oauth2client-4.1.3.tar.gz
   - name: oauthlib-3.2.2-py3-none-any.whl
     sha256: 1jpvcxq0xr3z50fdg828in1icgz8cfcy3sc04r85vqhkmjdg4fc1
     url: https://files.pythonhosted.org/packages/7e/80/cab10959dc1faead58dc8384a781dfbf93cb4d33d50988f7a69f1b7c9bbe/oauthlib-3.2.2-py3-none-any.whl
@@ -1106,18 +1089,6 @@ links:
   - name: psycopg2-2.9.3.tar.gz
     sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
     url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
-  - name: pyasn1-0.4.8-py2.py3-none-any.whl
-    sha256: 0pda8szs8jsaknf4ggilgn2q8vpwdm2nzyw79vzlfnai63nf5irr
-    url: https://files.pythonhosted.org/packages/62/1e/a94a8d635fa3ce4cfc7f506003548d0a2447ae76fd5ca53932970fe3053f/pyasn1-0.4.8-py2.py3-none-any.whl
-  - name: pyasn1-0.4.8.tar.gz
-    sha256: 1fnhbi3rmk47l9851gbik0flfr64vs5j0hbqx24cafjap6gprxxf
-    url: https://files.pythonhosted.org/packages/a4/db/fffec68299e6d7bad3d504147f9094830b704527a7fc098b721d38cc7fa7/pyasn1-0.4.8.tar.gz
-  - name: pyasn1_modules-0.2.8-py2.py3-none-any.whl
-    sha256: 0x0cilayca3lm2wahmxz3z9v7jqnn3v82nfj3mhb6z5rzs7q02x5
-    url: https://files.pythonhosted.org/packages/95/de/214830a981892a3e286c3794f41ae67a4495df1108c3da8a9f62159b9a9d/pyasn1_modules-0.2.8-py2.py3-none-any.whl
-  - name: pyasn1-modules-0.2.8.tar.gz
-    sha256: 0pp6dcagd8c2c9qx3lahc1rdwlnmm0y0siqr5icjq2r32b3q8pwh
-    url: https://files.pythonhosted.org/packages/88/87/72eb9ccf8a58021c542de2588a867dbefc7556e14b2866d1e40e9e2b587e/pyasn1-modules-0.2.8.tar.gz
   - name: pycparser-2.21-py2.py3-none-any.whl
     sha256: 1agwca0hgbpwmr9snhxafqjhfd52mq083rw5n7vf25amallm9r4f
     url: https://files.pythonhosted.org/packages/62/d5/5f610ebe421e85889f2e55e33b7f9a6795bd982198517d912eb1c76e1a53/pycparser-2.21-py2.py3-none-any.whl
@@ -1145,12 +1116,12 @@ links:
   - name: PyMeeus-0.5.12.tar.gz
     sha256: 116nrackmrlzhh4nfj3lmi4wwz9pis79lr6gd70cp5lbpn3733sl
     url: https://files.pythonhosted.org/packages/81/76/599896b37e60f43078afd8354b3802eb7ca257a7e7f6253cc21c4c672877/PyMeeus-0.5.12.tar.gz
-  - name: pyparsing-2.4.7-py2.py3-none-any.whl
-    sha256: 12y8xwjb118a4jqvvfg9k90kqg03n4d3ygb5csz0l81wxy4pb7gg
-    url: https://files.pythonhosted.org/packages/8a/bb/488841f56197b13700afd5658fc279a2025a39e22449b7cf29864669b15d/pyparsing-2.4.7-py2.py3-none-any.whl
-  - name: pyparsing-2.4.7.tar.gz
-    sha256: 1hgc8qrbq1ymxbwfbjghv01fm3fbpjwpjwi0bcailxxzhf3yq0y2
-    url: https://files.pythonhosted.org/packages/c1/47/dfc9c342c9842bbe0036c7f763d2d6686bcf5eb1808ba3e170afdb282210/pyparsing-2.4.7.tar.gz
+  - name: pyparsing-3.0.9-py3-none-any.whl
+    sha256: 1g3b426kswh9ndjdlkpf9ba0fhwz5c2hjbxb3nvfzshfl7lvl9jh
+    url: https://files.pythonhosted.org/packages/6c/10/a7d0fa5baea8fe7b50f448ab742f26f52b80bfca85ac2be9d35cdd9a3246/pyparsing-3.0.9-py3-none-any.whl
+  - name: pyparsing-3.0.9.tar.gz
+    sha256: 1yvhdm0wdc1n20fzl0qly13llr0zcg9wl7mp37r8gdi1gp7hw0ib
+    url: https://files.pythonhosted.org/packages/71/22/207523d16464c40a0310d2d4d8926daffa00ac1f5b1576170a32db749636/pyparsing-3.0.9.tar.gz
   - name: PyPDF4-1.27.0.tar.gz
     sha256: 12bz7mxnq1byz1f5mx8xw74k0b7ag4ydam32z5r5a83d2i0j94vw
     url: https://files.pythonhosted.org/packages/4f/1f/509b44850c475c101aa5b5c9b81755cedd363389d6fbb5c53be6fa915a61/PyPDF4-1.27.0.tar.gz
@@ -1226,12 +1197,6 @@ links:
   - name: rfc3986-1.5.0.tar.gz
     sha256: 0d8q89p98vq33vi8qci6nb8f6vmwvprmpik3a04lw3bxv08ay2i7
     url: https://files.pythonhosted.org/packages/79/30/5b1b6c28c105629cc12b33bdcbb0b11b5bb1880c6cfbd955f9e792921aa8/rfc3986-1.5.0.tar.gz
-  - name: rsa-4.9-py3-none-any.whl
-    sha256: 1xvlc59ipksbkz746bkxibnpwwm8bzvhwk9lcxlph575b280s9lh
-    url: https://files.pythonhosted.org/packages/49/97/fa78e3d2f65c02c8e1268b9aba606569fe97f6c8f7c2d74394553347c145/rsa-4.9-py3-none-any.whl
-  - name: rsa-4.9.tar.gz
-    sha256: 08gg417lvcqfqmg6gwah9ahy19w72ik2c08v6pqxg1bckjj69173
-    url: https://files.pythonhosted.org/packages/aa/65/7d973b89c4d2351d7fb232c2e452547ddfa243e93131e7cfa766da627b52/rsa-4.9.tar.gz
   - name: ruamel.yaml-0.17.21-py3-none-any.whl
     sha256: 19qwnvwc219sx4j2jknvbzvmvkj88b9b65kdpn0kj0k5sv9kaavl
     url: https://files.pythonhosted.org/packages/9e/cb/938214ac358fbef7058343b3765c79a1b7ed0c366f7f992ce7ff38335652/ruamel.yaml-0.17.21-py3-none-any.whl
@@ -1298,12 +1263,12 @@ links:
   - name: social-auth-core-3.3.3.tar.gz
     sha256: 1h3zwzgf5q5i6kdl2samxs8z14j29rypyr3dp0vwrcn2ispy2v1g
     url: https://files.pythonhosted.org/packages/2e/1c/bcece546f7e7045a55985fdb0283d27d4ae64668e616bdadbc2f74f75cd8/social-auth-core-3.3.3.tar.gz
-  - name: starlette-0.19.1-py3-none-any.whl
-    sha256: 1gvrha4da13phzh9kq4mjml3lxwrjc6aldk1akmsiwsis31caq2s
-    url: https://files.pythonhosted.org/packages/f1/9d/1fa96008b302dd3e398f89f3fc5afb19fb0b0f341fefa05c65b3a38d64cf/starlette-0.19.1-py3-none-any.whl
-  - name: starlette-0.19.1.tar.gz
-    sha256: 1ir4gva97mcsxnj3xh8xpyijpr86fxmvhhddmhwrdjsffyb11ln6
-    url: https://files.pythonhosted.org/packages/2b/18/405f4fb59119b8efa203c10a04a32a927976b5450cf649c8b4c9d079d21e/starlette-0.19.1.tar.gz
+  - name: starlette-0.23.1-py3-none-any.whl
+    sha256: 1k32yfy3dy97pfrc01hpkd7w9j3rxdpvl038xk3bz3dyj1n76sgc
+    url: https://files.pythonhosted.org/packages/a3/1d/b23984c05e39ddab35bbba33a3828dc4f896250220dcbd946c0fcad1e934/starlette-0.23.1-py3-none-any.whl
+  - name: starlette-0.23.1.tar.gz
+    sha256: 0hmzn7hv3isib80vgmg57wck4s66gijwpm61qlk66ckhssrya445
+    url: https://files.pythonhosted.org/packages/0c/d2/a2898deb36d12e40e84e83b7728628a04013cb0cfc545932c4605185bf2d/starlette-0.23.1.tar.gz
   - name: stripe-2.63.0-py2.py3-none-any.whl
     sha256: 1ixvjpimx28bpmk3fkmawccaacl48qqc8a4nqymckgpg7rz6jphp
     url: https://files.pythonhosted.org/packages/9a/1a/20b2a376904895b4d5ef4517a6932cd7ac5b286f6a6299f6a11f23681fa8/stripe-2.63.0-py2.py3-none-any.whl
@@ -1340,12 +1305,12 @@ links:
   - name: urllib3-1.26.14.tar.gz
     sha256: 0wjgrzpb7d9vjm8my4iwf5z2ykasc8b16ir8fzkwsmfkiyzhfs87
     url: https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz
-  - name: uvicorn-0.18.3-py3-none-any.whl
-    sha256: 1bz3dzlajnyqcx4xilp8a3r0hd6y602wdribipnh9rj1pfg45g8a
-    url: https://files.pythonhosted.org/packages/64/82/3fdff66fca901b30e42c88e0c37ada35e181074e0c4fd8d7d7525107329d/uvicorn-0.18.3-py3-none-any.whl
-  - name: uvicorn-0.18.3.tar.gz
-    sha256: 06riw28bawnwvawq7rln8qf2cn61ajvs897cfqpj559a5b2ffrls
-    url: https://files.pythonhosted.org/packages/6b/36/20d18a00a14d331f491340bc3a793f902a7de6b908f5b1dec74e066b80b8/uvicorn-0.18.3.tar.gz
+  - name: uvicorn-0.20.0-py3-none-any.whl
+    sha256: 1z8rv5cdp0vpbdhv4sld36nj952hyhv97d1b7xr0i0k6lnc1bvf3
+    url: https://files.pythonhosted.org/packages/96/f3/f39ac8ac3bdf356b4934b8f7e56173e96681f67ef0cd92bd33a5059fae9e/uvicorn-0.20.0-py3-none-any.whl
+  - name: uvicorn-0.20.0.tar.gz
+    sha256: 1n17a6ghv8svbwvfnl8wxp4d1pyp4pkp42y9df1py920p4bj1qd4
+    url: https://files.pythonhosted.org/packages/95/3c/9f4650ff609370456f796bb96a355dcddef1ded67e05d1b4eb3481088329/uvicorn-0.20.0.tar.gz
   - name: uvloop-0.17.0-cp39-cp39-macosx_10_9_universal2.whl
     sha256: 06ycvk0ki5sf7d6vmn1hwxnbllzi82ff3qkfp7vn2gp6gb6dqdvx
     url: https://files.pythonhosted.org/packages/2c/08/c76bc0325b1a372e6780a169c1da56117591335a08ee19c09e3e6839a195/uvloop-0.17.0-cp39-cp39-macosx_10_9_universal2.whl

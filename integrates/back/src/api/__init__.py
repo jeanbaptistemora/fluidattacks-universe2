@@ -1,11 +1,11 @@
-from aioextensions import (
-    schedule,
-)
 from api.validations.directives import (
     validate_directives,
 )
 from ariadne.asgi import (
     GraphQL,
+)
+from ariadne.asgi.handlers import (
+    GraphQLHTTPHandler,
 )
 from custom_exceptions import (
     CustomBaseException,
@@ -28,7 +28,6 @@ from starlette.requests import (
 import sys
 from typing import (
     Any,
-    Dict,
     NamedTuple,
 )
 
@@ -38,10 +37,10 @@ APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
 class Operation(NamedTuple):
     name: str
     query: str
-    variables: Dict[str, Any]
+    variables: dict[str, Any]
 
 
-def _get_operation(data: Dict[str, Any]) -> Operation:
+def _get_operation(data: dict[str, Any]) -> Operation:
     return Operation(
         name=data.get("operationName") or "External (unnamed)",
         query=data.get("query", "").replace("\n", "") or "-",
@@ -49,7 +48,7 @@ def _get_operation(data: Dict[str, Any]) -> Operation:
     )
 
 
-async def _log_request(request: Request, operation: Operation) -> None:
+def _log_request(request: Request, operation: Operation) -> None:
     """
     Sends API operation metadata to cloud logging services for
     analytical purposes.
@@ -84,8 +83,10 @@ class IntegratesAPI(GraphQL):
         super().__init__(*args, **kwargs)
         hook_early_validations()
 
+
+class IntegratesHTTPHandler(GraphQLHTTPHandler):
     async def get_context_for_request(self, request: Request) -> Request:
-        data: Dict[str, Any] = await super().extract_data_from_request(request)
+        data: dict[str, Any] = await super().extract_data_from_request(request)
         operation = _get_operation(data)
         context = apply_context_attrs(request)
         setattr(context, "operation", operation)
@@ -94,11 +95,11 @@ class IntegratesAPI(GraphQL):
 
     async def extract_data_from_request(
         self, request: Request
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         """Hook before the execution process begins"""
-        data: Dict[str, Any] = await super().extract_data_from_request(request)
+        data: dict[str, Any] = await super().extract_data_from_request(request)
         operation = _get_operation(data)
 
-        schedule(_log_request(request, operation))
+        _log_request(request, operation)
 
         return data
