@@ -222,7 +222,8 @@ def admin_policies_attached_iterate_vulnerabilities(
             yield from (
                 policy
                 for policy in policies.data
-                if policy.raw
+                if hasattr(policy, "raw")
+                and policy.raw
                 and policy.raw.split("/")[-1] in elevated_policies
             )
         elif any(

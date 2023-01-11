@@ -105,9 +105,9 @@ def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
         cidr = ec2_res.inner.get("CidrIp", None) or ec2_res.inner.get(
             "CidrIpv6", None
         )
-        if not cidr or not is_cidr(cidr.raw):
+        if not cidr or (hasattr(cidr, "raw") and not is_cidr(cidr.raw)):
             continue
-        if cidr.raw in rfc1918:
+        if hasattr(cidr, "raw") and cidr.raw in rfc1918:
             yield cidr
 
 

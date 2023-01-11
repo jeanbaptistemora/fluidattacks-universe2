@@ -30,10 +30,14 @@ from utils.function import (
 def _cfn_get_node_vulnerabilities(
     dist_config: Any,
 ) -> Iterator[Union[Any, Node]]:
+    def_cache_beh = (
+        dist_config.inner["DefaultCacheBehavior"]
+        if "DefaultCacheBehavior" in dist_config.inner
+        else None
+    )
     if (
-        "DefaultCacheBehavior" in dist_config.inner
-        and (def_cache_beh := dist_config.inner["DefaultCacheBehavior"])
-        and isinstance(def_cache_beh, Node)
+        isinstance(def_cache_beh, Node)
+        and hasattr(def_cache_beh, "raw")
         and "ViewerProtocolPolicy" in def_cache_beh.inner
         and def_cache_beh.raw["ViewerProtocolPolicy"] == "allow-all"
     ):

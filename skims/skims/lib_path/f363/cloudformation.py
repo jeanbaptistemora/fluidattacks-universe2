@@ -82,7 +82,7 @@ def _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
         gen_secret_str = get_node_by_keys(
             secret, ["GenerateSecretString"]  # type: ignore
         )
-        if isinstance(gen_secret_str, Node):
+        if isinstance(gen_secret_str, Node) and hasattr(gen_secret_str, "raw"):
             exclude_chars = gen_secret_str.raw.get("ExcludeCharacters", "")
             password_length = gen_secret_str.raw.get("PasswordLength", 32)
             exclude_lower = gen_secret_str.raw.get("ExcludeLowercase", False)
