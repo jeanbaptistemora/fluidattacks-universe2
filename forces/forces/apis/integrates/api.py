@@ -105,7 +105,7 @@ async def get_vulnerabilities(
                         node {
                             findingId
                             state
-                            treatment
+                            treatmentStatus
                             vulnerabilityType
                             where
                             severity
@@ -156,7 +156,7 @@ async def get_vulnerabilities(
         )
 
     for index, _ in enumerate(vulnerabilities):
-        treatment = vulnerabilities[index].get("treatment")
+        treatment = vulnerabilities[index].get("treatmentStatus")
         zero_risk = vulnerabilities[index].get("zeroRisk")
         if treatment and "ACCEPTED" in treatment.upper():
             vulnerabilities[index]["state"] = "accepted"
