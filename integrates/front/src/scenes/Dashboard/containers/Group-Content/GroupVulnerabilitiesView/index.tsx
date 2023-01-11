@@ -1,7 +1,7 @@
 /* eslint fp/no-mutation: 0 */
 import { useQuery } from "@apollo/client";
 import _ from "lodash";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -71,9 +71,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   }
   const [isVerifying, setIsVerifying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  function toggleEdit(): void {
+  const toggleEdit = useCallback((): void => {
     setIsEditing(!isEditing);
-  }
+  }, [isEditing]);
   function handleCloseUpdateModal(): void {
     setIsEditing(false);
   }
@@ -110,7 +110,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     void fetchData();
   }, [setVulnData, setRequirementData]);
 
-  const vulnerabilities = data === undefined ? [] : formatVulnerability(data);
+  const vulnerabilities: IVulnRowAttr[] = useMemo((): IVulnRowAttr[] => {
+    return data === undefined ? [] : formatVulnerability(data);
+  }, [data]);
   const size = data?.group.vulnerabilities.total;
 
   const vulnerabilitiesZeroRisk =
@@ -130,7 +132,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   function toggleModal(): void {
     setIsOpen(true);
   }
-  function toggleRequestVerify(): void {
+  const toggleRequestVerify = useCallback((): void => {
     if (isRequestingVerify) {
       setIsRequestingVerify(!isRequestingVerify);
     } else {
@@ -150,7 +152,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
         setIsRequestingVerify(!isRequestingVerify);
       }
     }
-  }
+  }, [isRequestingVerify, remediationModal, t, vulnerabilities]);
 
   function toggleVerify(): void {
     if (isVerifying) {
