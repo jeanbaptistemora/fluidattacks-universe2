@@ -195,6 +195,12 @@ In line with this rising trend,
 we have been enriching our [DevSecOps blog series](../tags/devsecops/).
 Be sure to check it out.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ### Identifying risk in software components
 
 Due to the heightened chances

@@ -157,6 +157,12 @@ it is the company's mission
 to ensure that what it receives is red teaming
 and not just penetration testing.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ### Red teaming vs. pentesting
 
 Both red teaming and pentesting are offensive security approaches.

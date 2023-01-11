@@ -219,6 +219,12 @@ an organization can manage and monitor not only the attack surface,
 its vulnerabilities and risk exposure
 but also its security testing.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 Basically,
 this new concept covers an ASM that,
 as we said,

@@ -141,6 +141,13 @@ so one that is given a score of 8.9 is "just" a high severity one.
 It is that difference of 0.1 that would mean the prioritization of the former,
 while they could be threatening the system to a fairly similar degree of risk.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ## Fluid Attacks' risk-exposure-based metric
 
 At Fluid Attacks,

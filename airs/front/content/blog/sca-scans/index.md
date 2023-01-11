@@ -188,6 +188,12 @@ and,
 if necessary,
 which completely incompatible resources to discard.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 One of the fundamental objectives in SCA scans,
 which,
 in fact,

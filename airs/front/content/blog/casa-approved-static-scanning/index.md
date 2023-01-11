@@ -136,6 +136,12 @@ By conducting security testing [all the time](../../solutions/devsecops/),
 you can be aware of and fix common vulnerabilities.
 We can help you with this.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ## Secure your applications with Fluid Attacks
 
 We offer [Continuous Hacking](../../services/continuous-hacking/),

@@ -297,6 +297,12 @@ in fact,
 be implementing in `Fluid Attacks'` [SCA scans](../sca-scans/)
 in the near future.)
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 So it will definitely remain crucial for organizations
 to achieve optimal recognition of their components,
 interconnecting systems

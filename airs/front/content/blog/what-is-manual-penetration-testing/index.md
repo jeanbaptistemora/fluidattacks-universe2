@@ -208,6 +208,13 @@ the evaluation focuses on both the functionality
 and structure of the target
 but without being a method of intruding into the code.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 ## How to do penetration testing
 
 There is no universal standard for this activity,

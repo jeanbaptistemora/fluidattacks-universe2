@@ -166,6 +166,13 @@ it's easier for them to find out
 whether the affected systems
 and versions have been patched.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ## How ARM benefits PSIRTs in vulnerability triage
 
 A further challenge for PSIRTs is to triage vulnerabilities.

@@ -180,6 +180,13 @@ their expertise,
 and their processes of incident monitoring
 and reporting to the board of directors.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ### Disclosure of the board's cybersecurity expertise
 
 For investors knowledgeable about cybersecurity issues,
