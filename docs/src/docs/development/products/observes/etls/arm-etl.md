@@ -76,30 +76,16 @@ the centralization procedure glues the data together.
 When data segments finish successfully the centralization process can be
 triggered. This phase is manually triggered.
 
-1. _Temporal centralized redshift-schema_ should be regenerated
-
-    ```bash
-    m . /observes/etl/dynamo/prepare "dynamodb_integrates_vms_merged_parts_loading" "s3://observes.cache/dynamoEtl/vms_schema"
-    ```
-
-1. Centralization procedure merges data into the _temporal centralized redshift-schema_
+1. local execution
 
     ```bash
     m . /observes/etl/dynamo/centralize
     ```
 
-1. _Temporal centralized redshift-schema_ must be renamed with an SQL query
-
-    ```sql
-    ALTER SCHEMA "dynamodb_integrates_vms_merged_parts_loading" RENAME TO "dynamodb_integrates_vms"
-    ```
-
-1. Re-execute centralization
-
-    to merge the renamed redshift-schema into the production schema
+1. aws batch execution
 
     ```bash
-    m . /observes/etl/dynamo/centralize
+    m . /computeOnAwsBatch/observesDynamoCentralize
     ```
 
 ## Data-schema determination
@@ -116,30 +102,60 @@ m . /computeOnAwsBatch/observesDynamoSchema
 
 ## Common issues
 
-- Host terminated
+ETL jobs are unstable because of redshift or aws unhandled errors.
+This are the most common issues:
 
-    This error is due to the spot nature of the instances used
-    at batch. Depending on where the ETL has stopped it may require re-execution
-    of the segment ETL i.e. if the job completed to upload data to s3, the job can
-    be modified and executed locally to perform only the _redshift load_ phase of
-    the ETL.
+### Host terminated
 
-- InternalError stl_load_errors
+- Reason: due to the spot nature of the instances used at aws batch
 
-    i.e. `psycopg2.errors.InternalError_: Load into table 'integrates_vms' failed.
-    Check 'stl_load_errors' system table for detail`
-    This error is due to [#8258](https://gitlab.com/fluidattacks/universe/-/issues/8258)
-    Re-execution will probably fail again. To solve this modify the s3 data file
-    (in this case the 'integrates_vms' file) by trimming some multi line fields.
-    There is no a defined trim length for the solution, the idea is that the file
-    gets segmented by redshift in the right spot.
+- Resolution: re-execution
 
-- CannotInspectContainerError
+### InternalError: Out of Memory
 
-    This error express that the job finish in an
-    unknown state (can be success or fail), nevertheless the job state is set to
-    failed. This requires manual inspection of the job log to confirm failure.
+- Reason: unknown
 
-- Stuck queries:
+- Hypothesis: high db usage demand from concurrent `s3 -> redshift` operations
 
-    If some query seems stuck see [this resolution](https://aws.amazon.com/es/premiumsupport/knowledge-center/prevent-locks-blocking-queries-redshift/#Resolution).
+- Resolution: re-execution (provable that only needs partial re-execution)
+
+### InternalError stl_load_errors
+
+- Reason: issue [#8258](https://gitlab.com/fluidattacks/universe/-/issues/8258)
+
+- Resolution: unknown (try re-execution)
+
+- Note: this issue should not be raised since the issue was solved
+
+### CannotInspectContainerError
+
+- Reason: the job finish in an unknown state from aws batch perspective
+
+- Resolution: verify job log (possible false negative)
+
+### Stuck queries
+
+If some query seems stuck see [this resolution](https://aws.amazon.com/es/premiumsupport/knowledge-center/prevent-locks-blocking-queries-redshift/#Resolution).
+
+## Partial re-execution
+
+If the job completed to upload data to s3 then a re-upload to redshift can be
+done with:
+
+```bash
+m . /computeOnAwsBatch/observesRetryRedshiftUpload "{nnn}"
+```
+
+Where {nnn} has to be replaced by the number of the segment to be retried.
+
+## Full re-execution
+
+If the job **does not** fully upload data to s3 then full re-execution is
+needed:
+
+```bash
+m . /computeOnAwsBatch/observesDynamoSegment "{total_segments}" "{segment}"
+```
+
+Where {segment} has to be replaced by the number of the segment to be retried,
+and {total_segments} with the total number of segments
