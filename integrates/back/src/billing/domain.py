@@ -955,6 +955,63 @@ async def update_credit_card_payment_method(
     return result
 
 
+async def update_other_payment_method(
+    *,
+    org: Organization,
+    documents: OrganizationDocuments,
+    payment_method_id: str,
+    business_name: str,
+    city: str,
+    country: str,
+    email: str,
+    state: str,
+) -> bool:
+    # validate business_name
+    if business_name:
+        validations.validate_field_length(business_name, 60)
+        validations.validate_fields([business_name])
+    # Raise exception if payment method does not belong to organization
+    payment_methods: list[PaymentMethod] = await customer_payment_methods(
+        org=org,
+        limit=1000,
+    )
+    if payment_method_id not in [
+        payment_method.id for payment_method in list(payment_methods)
+    ]:
+        raise InvalidBillingPaymentMethod()
+
+    # get actual payment methods
+    other_payment_methods: list[OrganizationPaymentMethods] = []
+    if org.payment_methods:
+        other_payment_methods = org.payment_methods
+
+    other_payment_methods = list(
+        filter(
+            lambda method: method.id != payment_method_id,
+            other_payment_methods,
+        )
+    )
+    other_payment_methods.append(
+        OrganizationPaymentMethods(
+            business_name=business_name,
+            city=city,
+            country=country,
+            documents=documents,
+            email=email,
+            id=payment_method_id,
+            state=state,
+        )
+    )
+    await organizations_model.update_metadata(
+        metadata=OrganizationMetadataToUpdate(
+            payment_methods=other_payment_methods
+        ),
+        organization_id=org.id,
+        organization_name=org.name,
+    )
+    return True
+
+
 async def _set_default_payment(
     payment_methods: list[PaymentMethod],
     payment_method_id: str,
