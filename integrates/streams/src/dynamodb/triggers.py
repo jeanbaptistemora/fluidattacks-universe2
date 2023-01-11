@@ -52,8 +52,8 @@ TRIGGERS: tuple[Trigger, ...] = (
     ),
     Trigger(
         records_filter=(
-            lambda record: record.pk.startswith("LINES#")
-            and record.sk.startswith("GROUP#")
+            lambda record: record.pk.startswith("GROUP#")
+            and record.sk.startswith("LINES#")
         ),
         records_processor=opensearch.process_lines,
     ),
