@@ -34,7 +34,11 @@ def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
         ret_period = get_node_by_keys(
             rds_res, ["BackupRetentionPeriod"]  # type: ignore
         )
-        if isinstance(ret_period, Node) and ret_period.raw in (0, "0"):
+        if (
+            hasattr(ret_period, "raw")
+            and isinstance(ret_period, Node)
+            and ret_period.raw in (0, "0")
+        ):
             yield ret_period
 
 
@@ -43,7 +47,11 @@ def _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
     rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
-        del_protection = rds_res.raw.get("DeletionProtection", False)
+        del_protection = (
+            rds_res.raw.get("DeletionProtection", False)
+            if hasattr(rds_res, "raw")
+            else False
+        )
         if del_protection not in TRUE_OPTIONS:
             del_protection_node = get_node_by_keys(
                 rds_res, ["DeletionProtection"]

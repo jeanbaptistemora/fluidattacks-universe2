@@ -79,24 +79,36 @@ def get_wildcard_nodes_for_resources(
 
 
 def _yield_nodes_from_stmt(stmt: Any, file_ext: str) -> Iterator[Node]:
-    if not_actions := stmt.inner.get("NotAction"):
+    if (
+        not_actions := stmt.inner.get("NotAction")
+        if hasattr(stmt, "inner")
+        else None
+    ):
         yield AWSIamManagedPolicy(
             column=not_actions.start_column,
             data=not_actions.data,
             line=get_line_by_extension(not_actions.start_line, file_ext),
         ) if isinstance(not_actions.raw, List) else not_actions
 
-    if not_resource := stmt.inner.get("NotResource"):
+    if (
+        not_resource := stmt.inner.get("NotResource")
+        if hasattr(stmt, "inner")
+        else None
+    ):
         yield AWSIamManagedPolicy(
             column=not_resource.start_column,
             data=not_resource.data,
             line=get_line_by_extension(not_resource.start_line, file_ext),
         ) if isinstance(not_resource.raw, List) else not_resource
 
-    if actions := stmt.inner.get("Action"):
+    if actions := stmt.inner.get("Action") if hasattr(stmt, "inner") else None:
         yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
-    if resources := stmt.inner.get("Resource"):
+    if (
+        resources := stmt.inner.get("Resource")
+        if hasattr(stmt, "inner")
+        else None
+    ):
         yield from get_wildcard_nodes_for_resources(
             actions, resources, WILDCARD_RESOURCE
         )
