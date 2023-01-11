@@ -9,5 +9,5 @@ from telemetry import (
 )
 
 
-def post_fork(_arbiter: Arbiter, _worker: IntegratesWorker):
+def post_fork(_arbiter: Arbiter, _worker: IntegratesWorker) -> None:
     instrumentation.initialize()

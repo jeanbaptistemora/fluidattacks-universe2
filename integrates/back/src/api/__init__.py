@@ -78,7 +78,7 @@ def hook_early_validations() -> None:
     ariadne_graphql.parse_query = before_parse  # type: ignore
 
 
-class IntegratesAPI(GraphQL):
+class IntegratesAPI(GraphQL):  # pylint: disable=too-few-public-methods
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         hook_early_validations()
