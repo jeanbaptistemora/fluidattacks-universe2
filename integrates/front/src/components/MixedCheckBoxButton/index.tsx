@@ -2,7 +2,7 @@
   -------
   We need className to override default styles from react-boostrap.
 */
-import React from "react";
+import React, { useCallback } from "react";
 
 import { CheckBox, CheckBoxOption } from "styles/styledComponents";
 
@@ -35,19 +35,25 @@ const MixedCheckBoxButton: React.FC<ICheckBoxProps> = (
     noLabel,
   } = props;
 
-  function handleClickYes(event: React.MouseEvent<HTMLDivElement>): void {
-    event.stopPropagation();
-    if (onApprove) {
-      onApprove(!isYesEnabled);
-    }
-  }
+  const handleClickYes = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>): void => {
+      event.stopPropagation();
+      if (onApprove) {
+        onApprove(!isYesEnabled);
+      }
+    },
+    [isYesEnabled, onApprove]
+  );
 
-  function handleClickNo(event: React.MouseEvent<HTMLDivElement>): void {
-    event.stopPropagation();
-    if (onDelete) {
-      onDelete(!isNoEnabled);
-    }
-  }
+  const handleClickNo = useCallback(
+    (event: React.MouseEvent<HTMLDivElement>): void => {
+      event.stopPropagation();
+      if (onDelete) {
+        onDelete(!isNoEnabled);
+      }
+    },
+    [isNoEnabled, onDelete]
+  );
 
   return (
     <CheckBox className={fontSize} id={id}>

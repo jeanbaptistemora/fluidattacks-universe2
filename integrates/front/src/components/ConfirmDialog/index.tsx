@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Modal, ModalConfirm } from "components/Modal";
 
@@ -36,15 +36,15 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
     }
   };
 
-  function handleClose(): void {
+  const handleClose = useCallback((): void => {
     setIsOpen(false);
     cancelCallback();
-  }
+  }, [cancelCallback]);
 
-  function handleProceed(): void {
+  const handleProceed = useCallback((): void => {
     setIsOpen(false);
     confirmCallback();
-  }
+  }, [confirmCallback]);
 
   return (
     <React.Fragment>
