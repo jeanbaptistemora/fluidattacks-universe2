@@ -111,35 +111,47 @@ async def test_get_actions(dynamodb: ServiceResource) -> None:
     assert len(all_actions) == 5
 
 
-def test_mapping_to_key(dynamodb: ServiceResource) -> None:
-    item_1 = dict(
-        action_name="report",
-        entity="unittesting",
-        subject="unittesting@fluidattacks.com",
-        additional_info=json.dumps(
-            {
-                "report_type": "XLS",
-                "treatments": ["ACCEPTED", "NEW"],
-                "states": ["OPEN"],
-                "verifications": [],
-                "closing_date": None,
-                "finding_title": "038",
-                "age": 1100,
-                "min_severity": "2.4",
-                "max_severity": "6.4",
-            }
-        ),
-    )
+@pytest.mark.parametrize(
+    ["action_name", "entity", "subject", "additional_info", "expected_result"],
+    [
+        [
+            "report",
+            "unittesting",
+            "unittesting@fluidattacks.com",
+            json.dumps(
+                {
+                    "report_type": "XLS",
+                    "treatments": ["ACCEPTED", "NEW"],
+                    "states": ["OPEN"],
+                    "verifications": [],
+                    "closing_date": None,
+                    "finding_title": "038",
+                    "age": 1100,
+                    "min_severity": "2.4",
+                    "max_severity": "6.4",
+                }
+            ),
+            "69bda99b6a486a86b64e6e3188c3d4c82ccf195ad0baa14fca63656e7666aad4",
+        ],
+    ],
+)
+def test_mapping_to_key(
+    action_name: str,
+    entity: str,
+    subject: str,
+    additional_info: str,
+    expected_result: str,
+) -> None:
     key = mapping_to_key(
         [
-            item_1["action_name"],
-            item_1["entity"],
-            item_1["subject"],
-            item_1["additional_info"],
+            action_name,
+            entity,
+            subject,
+            additional_info,
         ]
     )
 
-    assert dynamodb.Table(TABLE_NAME).get_item(Key={"pk": key})["Item"]
+    assert key == expected_result
 
 
 async def test_put_action_to_batch(dynamodb: ServiceResource) -> None:
