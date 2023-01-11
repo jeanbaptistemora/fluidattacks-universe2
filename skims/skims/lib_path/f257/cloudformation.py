@@ -44,7 +44,8 @@ def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
                 "DisableApiTermination"
             )
             if (
-                not isinstance(dis_api_term.raw, dict)
+                dis_api_term
+                and not isinstance(dis_api_term.raw, dict)
                 and dis_api_term.raw in FALSE_OPTIONS
             ):
                 yield dis_api_term

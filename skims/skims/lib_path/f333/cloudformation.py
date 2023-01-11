@@ -43,7 +43,7 @@ def _cfn_ec2_associate_public_ip_address_iter_vulns(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
-        if "LaunchTemplateData" in ec2_res.raw:
+        if hasattr(ec2_res, "raw") and "LaunchTemplateData" in ec2_res.raw:
             ec2_res = ec2_res.inner.get("LaunchTemplateData")
         if not (net_interfaces := ec2_res.inner.get("NetworkInterfaces")):
             continue

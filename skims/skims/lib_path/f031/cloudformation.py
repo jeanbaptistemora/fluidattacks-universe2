@@ -38,7 +38,7 @@ def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
         policies_node = user.inner.get("Policies", None)
         if policies_node:
             for policy in policies_node.data:
-                yield policy.inner["PolicyName"]
+                yield policy.inner.get("PolicyName", "")
 
 
 def _iam_yield_full_access_ssm_vuln(

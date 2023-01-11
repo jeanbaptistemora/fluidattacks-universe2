@@ -36,7 +36,7 @@ async def has_mfa_disabled(
         credentials, service="iam", function="get_credential_report"
     )
     vulns: core_model.Vulnerabilities = ()
-    users_csv = StringIO(response["Content"].decode())
+    users_csv = StringIO(response.get("Content", "").decode())
     credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
     for user in credentials_report:
         locations: List[Location] = []
