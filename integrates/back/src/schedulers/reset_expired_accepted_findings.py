@@ -99,10 +99,8 @@ async def _process_vulnerability(
 @retry_on_exceptions(
     exceptions=(ReadTimeoutError, ConnectTimeoutError),
 )
-async def _process_finding(
-    loaders: Dataloaders, finding_id: str, group_name: str
-) -> None:
-    vulnerabilities = await loaders.finding_vulnerabilities.load(finding_id)
+async def _process_finding(loaders: Dataloaders, finding: Finding) -> None:
+    vulnerabilities = await loaders.finding_vulnerabilities.load(finding.id)
     results = await collect(
         tuple(
             _process_vulnerability(vulnerability)
@@ -116,14 +114,15 @@ async def _process_finding(
 
     await update_unreliable_indicators_by_deps(
         EntityDependency.reset_expired_accepted_findings,
-        finding_ids=[finding_id],
+        finding_ids=[finding.id],
         vulnerability_ids=list(updated_vulnerability_ids),
     )
     info(
         "Finding processed",
         extra={
-            "finding_id": group_name,
-            "group_name": group_name,
+            "finding_id": finding.id,
+            "finding_title": finding.title,
+            "group_name": finding.group_name,
             "updated_vulnerability_ids": updated_vulnerability_ids,
         },
     )
@@ -140,8 +139,7 @@ async def _process_group(
     )
     await collect(
         tuple(
-            _process_finding(loaders, finding_id)
-            for finding_id in tuple(finding.id for finding in group_findings)
+            _process_finding(loaders, finding) for finding in group_findings
         ),
         workers=4,
     )
@@ -150,7 +148,7 @@ async def _process_group(
         extra={
             "name": group_name,
             "findings": len(group_findings),
-            "progress": {round(progress, 2)},
+            "progress": round(progress, 2),
         },
     )
 
