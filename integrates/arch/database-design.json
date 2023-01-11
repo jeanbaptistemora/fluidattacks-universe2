@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 11, 2023, 05:49 PM",
+    "DateLastModified": "Jan 11, 2023, 06:57 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -36606,6 +36606,113 @@
             {
               "treatment": {
                 "M": {
+                  "modified_date": {
+                    "S": "2020-12-26T00:00:00+00:00"
+                  },
+                  "modified_by": {
+                    "S": "integratesuser@gmail.com"
+                  },
+                  "assigned": {
+                    "S": "integratesuser2@gmail.com"
+                  },
+                  "justification": {
+                    "S": "Observations about permanently accepted"
+                  },
+                  "acceptance_status": {
+                    "S": "SUBMITTED"
+                  },
+                  "status": {
+                    "S": "ACCEPTED_UNDEFINED"
+                  }
+                }
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "lubbock"
+              },
+              "pk_5": {
+                "S": "FIN#818828206"
+              },
+              "pk_6": {
+                "S": "FIN#818828206"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "1"
+                  }
+                }
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "created_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "sk_3": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
+              },
+              "created_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              },
+              "pk": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "where": {
+                    "S": "192.168.1.29"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2019-12-12T13:45:48+00:00"
+                  },
+                  "specific": {
+                    "S": "4444"
+                  },
+                  "status": {
+                    "S": "VULNERABLE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              }
+            },
+            {
+              "treatment": {
+                "M": {
                   "modified_by": {
                     "S": "integratesuser@gmail.com"
                   },
@@ -38398,6 +38505,32 @@
               }
             },
             {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2019-12-12T13:45:48+00:00"
+              },
+              "where": {
+                "S": "192.168.1.29"
+              },
+              "pk": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              },
+              "specific": {
+                "S": "4444"
+              },
+              "status": {
+                "S": "VULNERABLE"
+              }
+            },
+            {
               "commit": {
                 "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
               },
@@ -38979,6 +39112,46 @@
               },
               "status": {
                 "S": "ACCEPTED"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              },
+              "sk": {
+                "S": "TREATMENT#2019-12-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "UNTREATED"
+              },
+              "modified_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#1f0ee1d0-9816-49c6-8687-f91de722681b"
+              },
+              "sk": {
+                "S": "TREATMENT#2020-12-26T00:00:00+00:00"
+              },
+              "modified_date": {
+                "S": "2020-12-26T00:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "integratesuser@gmail.com"
+              },
+              "assigned": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "justification": {
+                "S": "Observations about permanently accepted"
+              },
+              "acceptance_status": {
+                "S": "SUBMITTED"
+              },
+              "status": {
+                "S": "ACCEPTED_UNDEFINED"
               }
             },
             {
