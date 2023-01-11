@@ -369,41 +369,6 @@ type Mutation {
     taxId: Upload
   ): SimplePayload!
 
-  "Add a payment method to an organization"
-  addPaymentMethod(
-    "Organization id"
-    organizationId: String!
-    "Card number"
-    cardNumber: String!
-    "Card expiration month"
-    cardExpirationMonth: String!
-    "Card expiration year"
-    cardExpirationYear: String!
-    "Card CVC code"
-    cardCvc: String!
-    "Make payment method the default one for the customer"
-    makeDefault: Boolean!
-    "Business name of payment method"
-    businessName: String!
-    "e-factura email"
-    email: String!
-    "Country of payment method business"
-    country: String!
-    "State of payment method business"
-    state: String!
-    "City of payment method business"
-    city: String!
-    "Rut document file in gif, jpg, pdf or zip"
-    rut: Upload
-    "TaxId document file in gif, jpg, pdf or zip"
-    taxId: Upload
-  ): SimplePayload!
-    @deprecated(
-          reason: """
-          This field will be removed after 2023/01/11.
-          """
-        )
-
   "Adds a machine execution to git root"
   addSecret(
     "Description of secret"

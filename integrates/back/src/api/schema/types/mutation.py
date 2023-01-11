@@ -22,7 +22,6 @@ from api.mutations import (
     add_organization,
     add_organization_finding_policy,
     add_other_payment_method,
-    add_payment_method,
     add_secret,
     add_stakeholder,
     add_toe_input,
@@ -163,7 +162,6 @@ MUTATION.set_field(
     "addOrganizationFindingPolicy", add_organization_finding_policy.mutate
 )
 MUTATION.set_field("addOtherPaymentMethod", add_other_payment_method.mutate)
-MUTATION.set_field("addPaymentMethod", add_payment_method.mutate)
 MUTATION.set_field("addStakeholder", add_stakeholder.mutate)
 MUTATION.set_field("addToeInput", add_toe_input.mutate)
 MUTATION.set_field("addToeLines", add_toe_lines.mutate)
