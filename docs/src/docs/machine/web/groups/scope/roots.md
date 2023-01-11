@@ -481,13 +481,15 @@ You can add environments corresponding
 to the selected git Root by clicking
 on the **Add Environment URL** button.
 
-![Environment URLs Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_tab.png)
+![Environment URLs Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1673434992/docs/web/groups/scope/add_enviroment.png)
 
 Here you will get a popup window
 where you will have to select which
-environment URL type you want to
-add and the URL of this one,
-followed by clicking Confirm.
+environment URL type you want to add,
+which can be:
+Mobile,
+Cloud,
+and Url.
 
 ![Add Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_environment_select.png)
 
