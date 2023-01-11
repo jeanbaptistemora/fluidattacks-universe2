@@ -18,9 +18,6 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
-from db_model.subscriptions.types import (
-    Subscription,
-)
 from newutils import (
     datetime as datetime_utils,
 )
@@ -32,9 +29,6 @@ from schedulers.common import (
 )
 from stakeholders import (
     domain as stakeholders_domain,
-)
-from subscriptions.domain import (
-    remove,
 )
 
 EMAIL_INTEGRATES = "integrates@fluidattacks.com"
@@ -59,19 +53,6 @@ async def process_stakeholder(
     if inactivity_days < DEFAULT_INACTIVITY_PERIOD:
         return
 
-    subscriptions: tuple[
-        Subscription, ...
-    ] = await loaders.stakeholder_subscriptions.load(stakeholder.email)
-    await collect(
-        tuple(
-            remove(
-                entity=subscription.entity,
-                subject=subscription.subject,
-                email=stakeholder.email,
-            )
-            for subscription in subscriptions
-        )
-    )
     await stakeholders_domain.remove(stakeholder.email)
     info(
         "Inactive stakeholder removed",

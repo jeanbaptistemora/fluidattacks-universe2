@@ -22,6 +22,7 @@ from datetime import (
 from db_model import (
     findings as findings_model,
     stakeholders as stakeholders_model,
+    subscriptions as subscriptions_model,
     vulnerabilities as vulns_model,
 )
 from db_model.findings.types import (
@@ -43,6 +44,9 @@ from db_model.stakeholders.types import (
     StakeholderPhone,
     StakeholderState,
     StakeholderTours,
+)
+from db_model.subscriptions.types import (
+    Subscription,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -101,6 +105,20 @@ async def acknowledge_concurrent_session(email: str) -> None:
 
 async def remove(email: str) -> None:
     loaders: Dataloaders = get_new_context()
+    subscriptions: tuple[
+        Subscription, ...
+    ] = await loaders.stakeholder_subscriptions.load(email)
+    await collect(
+        tuple(
+            subscriptions_model.remove(
+                entity=subscription.entity,
+                subject=subscription.subject,
+                email=email,
+            )
+            for subscription in subscriptions
+        ),
+        workers=8,
+    )
     me_vulnerabilities: tuple[
         Vulnerability, ...
     ] = await loaders.me_vulnerabilities.load(email)
