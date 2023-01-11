@@ -206,46 +206,6 @@ def root_has_access_keys(
     )
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def root_without_mfa(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if root account does not have MFA.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    summary = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="get_account_summary",
-        param="SummaryMap",
-        retry=retry,
-    )
-
-    msg_open: str = "Root password has MFA disabled"
-    msg_closed: str = "Root password has MFA enabled"
-
-    vulns, safes = [], []
-
-    (vulns if summary["AccountMFAEnabled"] != 1 else safes).append(
-        ("User:Root-Account", "Must have MFA")
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="password policies",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def policies_attached_to_users(
