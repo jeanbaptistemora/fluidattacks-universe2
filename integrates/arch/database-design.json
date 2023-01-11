@@ -23717,9 +23717,6 @@
               "be_present": {
                 "BOOL": true
               },
-              "modified_by": {
-                "S": "test2@test.com"
-              },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
               },
@@ -23821,9 +23818,6 @@
               },
               "be_present": {
                 "BOOL": true
-              },
-              "modified_by": {
-                "S": "test2@test.com"
               },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
@@ -23927,9 +23921,6 @@
               "be_present": {
                 "BOOL": false
               },
-              "modified_by": {
-                "S": "test2@test.com"
-              },
               "modified_date": {
                 "S": "2020-11-16T15:41:04+00:00"
               },
@@ -23993,7 +23984,6 @@
             }
           ],
           "NonKeyAttributes": [
-            "modified_by",
             "modified_date",
             "comments",
             "loc",
@@ -24060,9 +24050,6 @@
               "be_present": {
                 "BOOL": true
               },
-              "modified_by": {
-                "S": "test2@test.com"
-              },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
               },
@@ -24116,6 +24103,16 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2022-02-11T05:00:00+00:00"
+                  }
+                }
               }
             },
             {
@@ -24148,9 +24145,6 @@
               },
               "be_present": {
                 "BOOL": true
-              },
-              "modified_by": {
-                "S": "test2@test.com"
               },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
@@ -24205,6 +24199,16 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-15T15:41:04+00:00"
+                  }
+                }
               }
             },
             {
@@ -24237,9 +24241,6 @@
               },
               "be_present": {
                 "BOOL": false
-              },
-              "modified_by": {
-                "S": "test2@test.com"
               },
               "modified_date": {
                 "S": "2020-11-16T15:41:04+00:00"
@@ -24284,11 +24285,20 @@
                     }
                   }
                 ]
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "test2@test.com"
+                  },
+                  "modified_date": {
+                    "S": "2020-11-16T15:41:04+00:00"
+                  }
+                }
               }
             }
           ],
           "NonKeyAttributes": [
-            "modified_by",
             "modified_date",
             "comments",
             "loc",
@@ -24304,6 +24314,7 @@
             "filename",
             "root_id",
             "be_present_until",
+            "state",
             "has_vulnerabilities",
             "last_author",
             "last_commit",
