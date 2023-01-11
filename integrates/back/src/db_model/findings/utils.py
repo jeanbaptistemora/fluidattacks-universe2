@@ -52,16 +52,6 @@ def get_finding_inverted_state_converted(state: str) -> str:
     return state
 
 
-def get_finding_current_treatment_converted(
-    summary: dict[str, int]
-) -> dict[str, int]:
-
-    return {
-        ("new" if key == "untreated" else key): value
-        for key, value in summary.items()
-    }
-
-
 def filter_non_state_status_findings(
     findings: tuple[Finding, ...], status: set[FindingStateStatus]
 ) -> tuple[Finding, ...]:

@@ -6,17 +6,6 @@ interface IFinding {
   title: string;
 }
 
-interface IVulnerability {
-  finding: IFinding;
-  id: string;
-  reportDate: string;
-  specific: string;
-  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
-  treatment: string;
-  verification: string;
-  where: string;
-}
-
 interface IGroupVulnerabilities {
   group: {
     name: string;
@@ -31,4 +20,4 @@ interface IGroupVulnerabilities {
   };
 }
 
-export type { IFinding, IGroupVulnerabilities, IVulnerability };
+export type { IFinding, IGroupVulnerabilities };
