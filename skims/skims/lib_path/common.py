@@ -24,9 +24,6 @@ from ipaddress import (
 )
 import json_parser
 import math
-from metaloaders.model import (
-    Node,
-)
 from model import (
     core_model,
 )
@@ -340,8 +337,10 @@ def get_cloud_iterator(
 ) -> Iterator[Tuple[int, int]]:
     return (
         (
-            stmt.start_line if isinstance(stmt, Node) else stmt.line,
-            stmt.start_column if isinstance(stmt, Node) else stmt.column,
+            stmt.start_line if hasattr(stmt, "start_line") else stmt.line,
+            stmt.start_column
+            if hasattr(stmt, "start_column")
+            else stmt.column,
         )
         for stmt in statements_iterator
     )

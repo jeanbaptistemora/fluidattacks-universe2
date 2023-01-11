@@ -107,7 +107,8 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
         for stmt in statements.data if statements else []:
             if (
-                hasattr(stmt.inner, "get")
+                hasattr(stmt, "inner")
+                and hasattr(stmt.inner, "get")
                 and (effect := stmt.inner.get("Effect"))
                 and effect.raw != "Allow"
             ):
