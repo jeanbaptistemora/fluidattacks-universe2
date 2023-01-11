@@ -9,6 +9,7 @@ from typing import (
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     "settings": (
+        "gunicorn",
         "jwt",
         "uvicorn",
         "session",

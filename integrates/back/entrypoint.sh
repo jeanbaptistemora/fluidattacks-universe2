@@ -13,6 +13,8 @@ function serve {
   local config=(
     # The socket to bind. [['127.0.0.1:8000']]
     --bind "${HOST}:${PORT}"
+    # The Gunicorn config file
+    --config 'python:settings.gunicorn'
     # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
     --forwarded-allow-ips '*'
     # Workers silent for more than this many seconds are killed and restarted. [30]

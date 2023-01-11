@@ -10,11 +10,17 @@ from opentelemetry.exporter.otlp.proto.grpc import (
     metric_exporter,
     trace_exporter,
 )
-from opentelemetry.exporter.otlp.proto.grpc.exporter import (  # type: ignore
+from opentelemetry.exporter.otlp.proto.grpc.exporter import (
     Compression,
 )
 from opentelemetry.instrumentation.aiohttp_client import (
     AioHttpClientInstrumentor,
+)
+from opentelemetry.instrumentation.httpx import (
+    HTTPXClientInstrumentor,
+)
+from opentelemetry.instrumentation.jinja2 import (
+    Jinja2Instrumentor,
 )
 from opentelemetry.instrumentation.requests import (
     RequestsInstrumentor,
@@ -22,10 +28,16 @@ from opentelemetry.instrumentation.requests import (
 from opentelemetry.instrumentation.starlette import (
     StarletteInstrumentor,
 )
-from opentelemetry.sdk.metrics import (  # type: ignore
+from opentelemetry.instrumentation.urllib3 import (
+    URLLib3Instrumentor,
+)
+from opentelemetry.instrumentation.urllib import (
+    URLLibInstrumentor,
+)
+from opentelemetry.sdk.metrics import (
     MeterProvider,
 )
-from opentelemetry.sdk.metrics.export import (  # type: ignore
+from opentelemetry.sdk.metrics.export import (
     PeriodicExportingMetricReader,
 )
 from opentelemetry.sdk.resources import (
@@ -47,9 +59,9 @@ from telemetry.aiobotocore import (
 )
 
 
-def instrument(app: Starlette) -> None:
+def initialize() -> None:
     """
-    Initializes the OpenTelemetry instrumentation
+    Initializes the OpenTelemetry exporters
 
     Automatic instrumentation was not suitable as it currently lacks support
     for servers that fork processes like gunicorn
@@ -88,7 +100,14 @@ def instrument(app: Starlette) -> None:
             )
         )
 
+
+def instrument(app: Starlette) -> None:
+    """Initializes the OpenTelemetry instrumentation"""
     AioBotocoreInstrumentor().instrument()
     AioHttpClientInstrumentor().instrument()
+    HTTPXClientInstrumentor().instrument()
+    Jinja2Instrumentor().instrument()
     RequestsInstrumentor().instrument()
     StarletteInstrumentor.instrument_app(app)
+    URLLibInstrumentor().instrument()
+    URLLib3Instrumentor().instrument()
