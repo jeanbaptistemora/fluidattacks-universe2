@@ -313,6 +313,14 @@ def _get_sarif(
                             )
                             + rule_id
                             + vulnerability.skims_metadata.source_method
+                            # if you want to add a field to the hash you must
+                            # also do it in the integrates function
+                            + (
+                                result.message.properties["dependency_name"]
+                                if result.properties["source_method"]
+                                == "python.pip_incomplete_dependencies_list"
+                                else ""
+                            )
                         ),
                         "utf-8",
                     )
