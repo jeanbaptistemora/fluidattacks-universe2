@@ -59,7 +59,7 @@ from vulnerabilities import (
         VulnNotFound,
     ),
 )
-async def _process_vulnerability(
+async def process_vulnerability(
     vulnerability: Vulnerability,
 ) -> Optional[str]:
     today = datetime_utils.get_utc_now()
@@ -99,11 +99,11 @@ async def _process_vulnerability(
 @retry_on_exceptions(
     exceptions=(ReadTimeoutError, ConnectTimeoutError),
 )
-async def _process_finding(loaders: Dataloaders, finding: Finding) -> None:
+async def process_finding(loaders: Dataloaders, finding: Finding) -> None:
     vulnerabilities = await loaders.finding_vulnerabilities.load(finding.id)
     results = await collect(
         tuple(
-            _process_vulnerability(vulnerability)
+            process_vulnerability(vulnerability)
             for vulnerability in vulnerabilities
         ),
         workers=4,
@@ -131,16 +131,14 @@ async def _process_finding(loaders: Dataloaders, finding: Finding) -> None:
 @retry_on_exceptions(
     exceptions=(ReadTimeoutError, ConnectTimeoutError),
 )
-async def _process_group(
+async def process_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
     await collect(
-        tuple(
-            _process_finding(loaders, finding) for finding in group_findings
-        ),
+        tuple(process_finding(loaders, finding) for finding in group_findings),
         workers=4,
     )
     info(
@@ -160,7 +158,7 @@ async def reset_expired_accepted_findings() -> None:
     info("Groups to process", extra={"item": len(group_names)})
     await collect(
         tuple(
-            _process_group(
+            process_group(
                 loaders=loaders,
                 group_name=group_name,
                 progress=count / len(group_names),
