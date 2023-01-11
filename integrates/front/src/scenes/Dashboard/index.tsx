@@ -20,7 +20,6 @@ import { DashboardContainer, DashboardContent } from "./styles";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
-import { ConcurrentSessionNotice } from "scenes/Dashboard/components/ConcurrentSessionNoticeModal";
 import { GroupRoute } from "scenes/Dashboard/containers/Group-Content/GroupRoute";
 import { HomeView } from "scenes/Dashboard/containers/HomeView";
 import { NotificationsView } from "scenes/Dashboard/containers/NotificationsView";
@@ -28,11 +27,7 @@ import { OrganizationContent } from "scenes/Dashboard/containers/Organization-Co
 import { OrganizationRedirect } from "scenes/Dashboard/containers/Organization-Content/OrganizationRedirectView";
 import { TagContent } from "scenes/Dashboard/containers/TagContent";
 import { TasksContent } from "scenes/Dashboard/containers/Tasks-Content";
-import {
-  ACCEPT_LEGAL_MUTATION,
-  ACKNOWLEDGE_CONCURRENT_SESSION,
-  GET_USER,
-} from "scenes/Dashboard/queries";
+import { ACCEPT_LEGAL_MUTATION, GET_USER } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext, setupSessionCheck } from "utils/auth";
@@ -78,10 +73,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
     authContext as React.Context<Required<IAuthContext>>
   );
 
-  const [isCtSessionModalOpen, setIsCtSessionModalOpen] = useState(false);
   const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
 
-  const { data } = useQuery<IUser>(GET_USER, {
+  useQuery<IUser>(GET_USER, {
     onCompleted: ({ me }): void => {
       user.setUser({
         tours: {
@@ -105,9 +99,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       if (me.permissions.length === 0) {
         Logger.error("Empty permissions", JSON.stringify(me.permissions));
       }
-      if (me.isConcurrentSession) {
-        setIsCtSessionModalOpen(true);
-      } else if (!me.remember && checkLoginReferrer()) {
+      if (!me.remember && checkLoginReferrer()) {
         setIsLegalModalOpen(true);
       }
     },
@@ -129,25 +121,6 @@ export const Dashboard: React.FC = (): JSX.Element => {
       });
     },
   });
-
-  const [acknowledgeConcurrent] = useMutation(ACKNOWLEDGE_CONCURRENT_SESSION, {
-    onError: ({ graphQLErrors }: ApolloError): void => {
-      graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error(
-          "An error occurred while acknowledging concurrent session",
-          error
-        );
-      });
-    },
-  });
-
-  const handleConcurrent: () => void = useCallback((): void => {
-    setIsCtSessionModalOpen(false);
-    if (!(data?.me.remember ?? false) && checkLoginReferrer()) {
-      setIsLegalModalOpen(true);
-    }
-    void acknowledgeConcurrent();
-  }, [data?.me.remember, checkLoginReferrer, acknowledgeConcurrent]);
 
   const handleAccept: (remember: boolean) => void = useCallback(
     (remember: boolean): void => {
@@ -191,80 +164,72 @@ export const Dashboard: React.FC = (): JSX.Element => {
       <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
       {isLegalModalOpen ? undefined : (
         <Fragment>
-          <ConcurrentSessionNotice
-            onClick={handleConcurrent}
-            open={isCtSessionModalOpen}
-          />
-          {isCtSessionModalOpen ? undefined : (
-            <Fragment>
-              <DashboardNavBar userRole={userRole} />
-              <div className={"flex flex-auto flex-row"}>
-                <Switch>
+          <DashboardNavBar userRole={userRole} />
+          <div className={"flex flex-auto flex-row"}>
+            <Switch>
+              <authzPermissionsContext.Provider
+                value={organizationLevelPermissions}
+              >
+                <DashboardSideBar />
+              </authzPermissionsContext.Provider>
+            </Switch>
+            <DashboardContent id={"dashboard"}>
+              <Switch>
+                <Route exact={true} path={"/home"}>
+                  <HomeView />
+                </Route>
+                <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
+                  <authzGroupContext.Provider value={groupAttributes}>
+                    <authzPermissionsContext.Provider
+                      value={groupLevelPermissions}
+                    >
+                      <GroupRoute setUserRole={setUserRole} />
+                    </authzPermissionsContext.Provider>
+                  </authzGroupContext.Provider>
+                </Route>
+                <Route
+                  component={TagContent}
+                  path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
+                />
+                <Route path={`/orgs/${orgRegex}`}>
                   <authzPermissionsContext.Provider
                     value={organizationLevelPermissions}
                   >
-                    <DashboardSideBar />
+                    <OrganizationContent setUserRole={setUserRole} />
                   </authzPermissionsContext.Provider>
-                </Switch>
-                <DashboardContent id={"dashboard"}>
-                  <Switch>
-                    <Route exact={true} path={"/home"}>
-                      <HomeView />
-                    </Route>
-                    <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
-                      <authzGroupContext.Provider value={groupAttributes}>
-                        <authzPermissionsContext.Provider
-                          value={groupLevelPermissions}
-                        >
-                          <GroupRoute setUserRole={setUserRole} />
-                        </authzPermissionsContext.Provider>
-                      </authzGroupContext.Provider>
-                    </Route>
-                    <Route
-                      component={TagContent}
-                      path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
-                    />
-                    <Route path={`/orgs/${orgRegex}`}>
-                      <authzPermissionsContext.Provider
-                        value={organizationLevelPermissions}
-                      >
-                        <OrganizationContent setUserRole={setUserRole} />
-                      </authzPermissionsContext.Provider>
-                    </Route>
-                    <Route path={`/portfolios/${tagRegex}`}>
-                      <OrganizationRedirect type={"portfolios"} />
-                    </Route>
-                    <Route path={"/todos"}>
-                      <authzPermissionsContext.Provider
-                        value={groupLevelPermissions}
-                      >
-                        <TasksContent setUserRole={setUserRole} />
-                      </authzPermissionsContext.Provider>
-                    </Route>
-                    {/* Necessary to support old group URLs */}
-                    <Route path={`/groups/${groupRegex}`}>
-                      <OrganizationRedirect type={"groups"} />
-                    </Route>
-                    <Route exact={true} path={"/user/config"}>
-                      <NotificationsView />
-                    </Route>
-                    <Redirect to={"/home"} />
-                  </Switch>
-                </DashboardContent>
-              </div>
-              <ScrollUpButton />
-              <Modal
-                open={idleWarning}
-                title={translate.t("validations.inactiveSessionModal")}
-              >
-                <p>{translate.t("validations.inactiveSession")}</p>
-                <ModalConfirm
-                  onConfirm={handleClick}
-                  txtConfirm={translate.t("validations.inactiveSessionDismiss")}
-                />
-              </Modal>
-            </Fragment>
-          )}
+                </Route>
+                <Route path={`/portfolios/${tagRegex}`}>
+                  <OrganizationRedirect type={"portfolios"} />
+                </Route>
+                <Route path={"/todos"}>
+                  <authzPermissionsContext.Provider
+                    value={groupLevelPermissions}
+                  >
+                    <TasksContent setUserRole={setUserRole} />
+                  </authzPermissionsContext.Provider>
+                </Route>
+                {/* Necessary to support old group URLs */}
+                <Route path={`/groups/${groupRegex}`}>
+                  <OrganizationRedirect type={"groups"} />
+                </Route>
+                <Route exact={true} path={"/user/config"}>
+                  <NotificationsView />
+                </Route>
+                <Redirect to={"/home"} />
+              </Switch>
+            </DashboardContent>
+          </div>
+          <ScrollUpButton />
+          <Modal
+            open={idleWarning}
+            title={translate.t("validations.inactiveSessionModal")}
+          >
+            <p>{translate.t("validations.inactiveSession")}</p>
+            <ModalConfirm
+              onConfirm={handleClick}
+              txtConfirm={translate.t("validations.inactiveSessionDismiss")}
+            />
+          </Modal>
         </Fragment>
       )}
     </DashboardContainer>
