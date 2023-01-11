@@ -581,7 +581,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 "ACCEPTED",
                                 "ACCEPTED_UNDEFINED",
                                 "IN_PROGRESS",
-                                "NEW",
+                                "UNTREATED",
                               ].map(
                                 (treatment): JSX.Element => (
                                   <Checkbox

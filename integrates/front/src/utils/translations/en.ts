@@ -3027,6 +3027,7 @@ export const enTranslations: ResourceKey = {
         rejected: "Rejected",
         requestZeroRisk: "Request zero risk",
         title: "Treatment",
+        untreated: "Untreated",
       },
       treatmentDate: "Treatment Date",
       treatmentHistoric: "Historic Treatment",
