@@ -34,7 +34,7 @@ Resources:
             NotPrincipal:
               Service:
                 - ec2.amazonaws.com
-            Action:
+            NotAction:
               - sts:AssumeRole
       Path: /
       Policies:

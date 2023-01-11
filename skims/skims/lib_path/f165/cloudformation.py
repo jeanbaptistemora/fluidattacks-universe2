@@ -33,6 +33,12 @@ WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
 WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
 
 
+def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
+    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
+        if pattern.match(act.raw):
+            yield act
+
+
 def get_wildcard_nodes_for_resources(
     actions: Node, resources: Node, pattern: Pattern
 ) -> Iterator[Node]:
@@ -96,12 +102,6 @@ def _yield_nodes_from_stmt(stmt: Any, file_ext: str) -> Iterator[Node]:
         )
 
 
-def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
-    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
-        if pattern.match(act.raw):
-            yield act
-
-
 def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
     for policy in policies.data if policies else []:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
@@ -117,12 +117,25 @@ def _check_policy_documents(policies: Node, file_ext: str) -> Iterator[Node]:
             yield from _yield_nodes_from_stmt(stmt, file_ext)
 
 
-def not_principal(stmt: Any, vuln_type: Optional[str]) -> Any:
+def check_type(
+    stmt: Any, file_ext: str, vuln_type: Optional[str]
+) -> Iterator[Node]:
+    if (
+        not_actions := stmt.inner.get("NotAction")
+    ) and vuln_type == "NOT_ACTION":
+        yield AWSIamManagedPolicy(
+            column=not_actions.start_column,
+            data=not_actions.data,
+            line=get_line_by_extension(not_actions.start_line, file_ext),
+        ) if isinstance(not_actions.raw, List) else not_actions
     if (
         not_princ := stmt.inner.get("NotPrincipal")
     ) and vuln_type == "NOT_PRINCIPAL":
-        return not_princ
-    return None
+        yield AWSIamManagedPolicy(  # type: ignore
+            column=not_princ.start_column,
+            data=not_princ.data,
+            line=get_line_by_extension(not_princ.start_line, file_ext),
+        )
 
 
 def _check_assume_role_policies(
@@ -140,23 +153,11 @@ def _check_assume_role_policies(
             and effect.raw != "Allow"
         ):
             continue
-
-        if not_actions := stmt.inner.get("NotAction"):
-            yield AWSIamManagedPolicy(
-                column=not_actions.start_column,
-                data=not_actions.data,
-                line=get_line_by_extension(not_actions.start_line, file_ext),
-            ) if isinstance(not_actions.raw, List) else not_actions
-
-        if not_princ := not_principal(stmt, vuln_type):
-            yield AWSIamManagedPolicy(  # type: ignore
-                column=not_princ.start_column,
-                data=not_princ.data,
-                line=get_line_by_extension(not_princ.start_line, file_ext),
-            )
-
-        if actions := stmt.inner.get("Action"):
-            yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+        if vuln_type is not None:
+            yield from check_type(stmt, file_ext, vuln_type)
+        elif vuln_type is None:
+            if actions := stmt.inner.get("Action"):
+                yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
 
 def _cfn_iam_is_role_over_privileged_iter_vulns(
@@ -217,4 +218,34 @@ def cfn_iam_allow_not_principal_trust_policy(
         ),
         path=path,
         method=MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL,
+    )
+
+
+def _allow_not_actions_trust_policy(
+    file_ext: str,
+    iam_iterator: Iterator[Node],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
+            yield from _check_assume_role_policies(
+                assume_role_policy, file_ext, "NOT_ACTION"
+            )
+
+
+def cfn_iam_allow_not_actions_trust_policy(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f165.iam_allow_not_action_trust_policy"
+        ),
+        iterator=get_cloud_iterator(
+            _allow_not_actions_trust_policy(
+                file_ext=file_ext,
+                iam_iterator=iter_iam_roles(template=template),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION,
     )

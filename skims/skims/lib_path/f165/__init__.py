@@ -4,6 +4,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f165.cloudformation import (
+    cfn_iam_allow_not_actions_trust_policy,
     cfn_iam_allow_not_principal_trust_policy,
     cfn_iam_is_role_over_privileged,
 )
@@ -24,6 +25,15 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_cfn_iam_allow_not_actions_trust_policy(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_iam_allow_not_actions_trust_policy(
+        content=content, file_ext=file_ext, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -73,6 +83,9 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_allow_not_principal_trust_policy(
+                    content, file_extension, path, template
+                ),
+                run_cfn_iam_allow_not_actions_trust_policy(
                     content, file_extension, path, template
                 ),
             )

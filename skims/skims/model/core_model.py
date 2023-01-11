@@ -4869,6 +4869,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_IAM_TRUST_POLICY_NOT_ACTION = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_trust_policy_allow_not_action",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JSON_PRINCIPAL_WILDCARD = MethodInfo(
         file_name="cloudformation",
         name="json_principal_wildcard",
