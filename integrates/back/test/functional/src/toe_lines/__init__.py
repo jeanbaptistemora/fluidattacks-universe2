@@ -10,52 +10,64 @@ from typing import (
 )
 
 
+def get_query() -> str:
+    return """
+        query(
+            $groupName: String!
+        ) {
+            group(groupName: $groupName) {
+                name
+                toeLines {
+                    edges {
+                        node {
+                            attackedAt
+                            attackedBy
+                            attackedLines
+                            bePresent
+                            bePresentUntil
+                            comments
+                            lastAuthor
+                            filename
+                            firstAttackAt
+                            loc
+                            lastCommit
+                            modifiedDate
+                            root {
+                                id
+                                nickname
+                            }
+                            seenAt
+                            sortsRiskLevel
+                            sortsRiskLevelDate
+                            sortsSuggestions {
+                                findingTitle
+                                probability
+                            }
+                        }
+                        cursor
+                    }
+                    pageInfo {
+                        hasNextPage
+                        endCursor
+                    }
+                }
+            }
+        }
+    """
+
+
 async def get_result(
     *,
     user: str,
     group_name: str,
 ) -> dict[str, Any]:
-    query: str = f"""{{
-        group(groupName: "{group_name}"){{
-            name
-            toeLines {{
-                edges {{
-                    node {{
-                        attackedAt
-                        attackedBy
-                        attackedLines
-                        bePresent
-                        bePresentUntil
-                        comments
-                        lastAuthor
-                        filename
-                        firstAttackAt
-                        loc
-                        lastCommit
-                        modifiedDate
-                        root {{
-                            id
-                            nickname
-                        }}
-                        seenAt
-                        sortsRiskLevel
-                        sortsRiskLevelDate
-                        sortsSuggestions {{
-                            findingTitle
-                            probability
-                        }}
-                    }}
-                    cursor
-                }}
-                pageInfo {{
-                    hasNextPage
-                    endCursor
-                }}
-            }}
-        }}
-    }}
-    """
-    data: dict[str, Any] = {"query": query}
+    query: str = get_query()
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "groupName": group_name,
+        },
+    }
     return await get_graphql_result(
         data,
         stakeholder=user,
