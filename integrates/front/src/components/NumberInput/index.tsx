@@ -58,29 +58,31 @@ const NumberInput: React.FC<INumberInputProps> = ({
     [autoUpdate, decPlaces, max, min, onEnter]
   );
 
-  function handleOnInputChange(
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void {
-    const newValue = _.toNumber(event.target.value);
-    if (event.target.value.endsWith(".")) {
-      setValue(event.target.value);
-    } else if (newValue >= min && newValue <= max) {
-      setValue(_.toString(newValue));
-      if (autoUpdate) {
-        onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+  const handleOnInputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      const newValue = _.toNumber(event.target.value);
+      if (event.target.value.endsWith(".")) {
+        setValue(event.target.value);
+      } else if (newValue >= min && newValue <= max) {
+        setValue(_.toString(newValue));
+        if (autoUpdate) {
+          onEnter(_.toNumber(newValue.toFixed(decPlaces)));
+        }
       }
-    }
-    event.stopPropagation();
-  }
+      event.stopPropagation();
+    },
+    [autoUpdate, decPlaces, max, min, onEnter]
+  );
 
-  function handleOnInputContainerBlur(
-    event: React.FocusEvent<HTMLInputElement>
-  ): void {
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      setValue(defaultValue.toFixed(decPlaces));
-    }
-    event.stopPropagation();
-  }
+  const handleOnInputContainerBlur = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>): void => {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        setValue(defaultValue.toFixed(decPlaces));
+      }
+      event.stopPropagation();
+    },
+    [decPlaces, defaultValue]
+  );
 
   const handleOnInputFocus = useCallback(
     (event: React.FocusEvent<HTMLInputElement>): void => {
@@ -102,19 +104,20 @@ const NumberInput: React.FC<INumberInputProps> = ({
     [onEnter]
   );
 
-  function handleInputKeyDown(
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): void {
-    if (
-      event.key.length > 1 ||
-      /\d/u.test(event.key) ||
-      event.key === "Control" ||
-      event.key.toLocaleLowerCase() === "c" ||
-      (decPlaces > 0 && event.key === ".")
-    )
-      return;
-    event.preventDefault();
-  }
+  const handleInputKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      if (
+        event.key.length > 1 ||
+        /\d/u.test(event.key) ||
+        event.key === "Control" ||
+        event.key.toLocaleLowerCase() === "c" ||
+        (decPlaces > 0 && event.key === ".")
+      )
+        return;
+      event.preventDefault();
+    },
+    [decPlaces]
+  );
 
   const handleOnMinusClick = useCallback(
     (event: React.MouseEvent<HTMLInputElement>): void => {
