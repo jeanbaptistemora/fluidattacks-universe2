@@ -1,7 +1,4 @@
 # pylint: disable=import-error
-from aioextensions import (
-    collect,
-)
 from back.test.unit.src.utils import (
     get_mock_response,
     get_mocked_path,
@@ -34,10 +31,6 @@ from newutils.datetime import (
     get_now,
 )
 import pytest
-from typing import (
-    List,
-    Optional,
-)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -154,32 +147,96 @@ def test_mapping_to_key(
     assert key == expected_result
 
 
-async def test_put_action_to_batch(dynamodb: ServiceResource) -> None:
-    with patch("batch.dal.dynamodb_ops.scan") as mock_scan:
-        mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
-        pending_actions: List[BatchProcessing] = await get_actions()
-    assert mock_scan.called is True
-
-    async def _put(action: BatchProcessing) -> Optional[str]:
-        product = (
-            Product.SKIMS
-            if action.action_name == "execute-machine"
-            else Product.INTEGRATES
-        )
-        return await put_action_to_batch(
+@pytest.mark.parametrize(
+    ["action"],
+    [
+        [
+            BatchProcessing(
+                key="78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                action_name="report",
+                entity="unittesting",
+                subject="unittesting@fluidattacks.com",
+                time="1672248409",
+                additional_info=json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "NEW",
+                        ],
+                        "states": ["SAFE"],
+                        "verifications": ["VERIFIED"],
+                        "closing_date": "2020-06-01T00:00:00",
+                        "finding_title": "065",
+                        "age": None,
+                        "min_severity": None,
+                        "max_severity": None,
+                        "last_report": None,
+                        "min_release_date": None,
+                        "max_release_date": None,
+                        "location": "",
+                    }
+                ),
+                queue="integrates_medium",
+                batch_job_id=None,
+                retries=0,
+                running=False,
+            ),
+        ],
+        [
+            BatchProcessing(
+                key="78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                action_name="report",
+                entity="unittesting",
+                subject="unittesting@fluidattacks.com",
+                time="1672248409",
+                additional_info=json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "NEW",
+                        ],
+                        "states": ["SAFE", "VULNERABLE"],
+                        "verifications": [],
+                        "closing_date": None,
+                        "finding_title": "068",
+                        "age": 1300,
+                        "min_severity": "2.9",
+                        "max_severity": "4.3",
+                        "last_report": None,
+                        "min_release_date": None,
+                        "max_release_date": None,
+                        "location": "",
+                    }
+                ),
+                queue="integrates_medium",
+                batch_job_id=None,
+                retries=0,
+                running=False,
+            ),
+        ],
+    ],
+)
+async def test_put_action_to_batch(action: BatchProcessing) -> None:
+    product = (
+        Product.SKIMS
+        if action.action_name == "execute-machine"
+        else Product.INTEGRATES
+    )
+    assert (
+        await put_action_to_batch(
             entity=action.entity,
             action_name=action.action_name,
             action_dynamo_pk=action.key,
             queue=to_queue(action.queue, product),
             product_name=product.value,
         )
-
-    assert all(
-        result is None
-        for result in await collect(
-            [_put(action) for action in pending_actions],
-            workers=20,
-        )
+        is None
     )
 
 
