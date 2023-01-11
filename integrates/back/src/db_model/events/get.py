@@ -16,9 +16,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    EventNotFound,
-)
 from db_model import (
     TABLE,
 )
@@ -31,10 +28,11 @@ from dynamodb import (
 )
 from typing import (
     Iterable,
+    Optional,
 )
 
 
-async def _get_event(*, event_id: str) -> Event:
+async def _get_event(*, event_id: str) -> Optional[Event]:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_metadata"],
         values={"id": event_id},
@@ -52,7 +50,7 @@ async def _get_event(*, event_id: str) -> Event:
     )
 
     if not response.items:
-        raise EventNotFound()
+        return None
 
     return format_event(response.items[0])
 
@@ -142,7 +140,7 @@ class EventLoader(DataLoader):
     async def batch_load_fn(
         self,
         event_keys: Iterable[str],
-    ) -> tuple[Event, ...]:
+    ) -> tuple[Optional[Event], ...]:
         return await collect(
             tuple(_get_event(event_id=event_id) for event_id in event_keys)
         )

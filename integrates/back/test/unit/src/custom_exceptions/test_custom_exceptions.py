@@ -6,7 +6,6 @@ from back.test.unit.src.utils import (
 from custom_exceptions import (
     CouldNotVerifyStakeholder,
     ErrorUploadingFileS3,
-    EventNotFound,
     GroupNotFound,
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -124,24 +123,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-async def test_exception_event_not_found(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    loaders: Dataloaders = get_new_context()
-    with pytest.raises(EventNotFound):
-        await loaders.event.load("000001111")
-    assert mock_table_resource.called is True
 
 
 @mock.patch(
