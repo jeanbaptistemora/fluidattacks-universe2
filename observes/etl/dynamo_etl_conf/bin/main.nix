@@ -12,7 +12,6 @@
   onAwsBig = outputs."/computeOnAwsBatch/observesDynamoV2EtlBig";
   dynamoSchema = outputs."/computeOnAwsBatch/observesDynamoSchema";
   parallelOnAws = outputs."/computeOnAwsBatch/observesDynamoParallel";
-  prepareOnAws = outputs."/computeOnAwsBatch/observesDynamoPrepare";
   prepareLoading = outputs."/observes/etl/dynamo_etl_conf/jobs/prepare";
 in
   makeScript {
@@ -28,7 +27,6 @@ in
       __argSendTableETL__ = "${onAws}/bin/${onAws.name}";
       __argSendBigTableETL__ = "${onAwsBig}/bin/${onAwsBig.name}";
       __argSendParallelTableETL__ = "${parallelOnAws}/bin/${parallelOnAws.name}";
-      __argSendPrepare__ = "${prepareOnAws}/bin/${prepareOnAws.name}";
       __argPrepareLoading__ = "${prepareLoading}/bin/${prepareLoading.name}";
       __argDynamoSchema__ = "${dynamoSchema}/bin/${dynamoSchema.name}";
     };

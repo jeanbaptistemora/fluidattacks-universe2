@@ -219,6 +219,14 @@ in {
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo_etl_conf/jobs/prepare"];
     };
 
+    observesDynamoCentralize = scheduled_job {
+      name = "dynamo_etl_prepare";
+      size = "observes_nano";
+      attempts = 1;
+      timeout = 3600;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/centralize"];
+    };
+
     observesDynamoV3EtlBig = scheduled_job {
       name = "dynamo_etl_v3_big";
       size = "observes_medium";

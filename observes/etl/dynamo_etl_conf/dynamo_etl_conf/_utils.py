@@ -23,5 +23,5 @@ def get_log(name: str, min_lvl: int = logging.INFO) -> logging.Logger:
 
 def log_info(log: Logger, msg: str, *args: str) -> Cmd[None]:
     if len(args) >= 1:
-        return Cmd.from_cmd(lambda: log.info(msg, args))
+        return Cmd.from_cmd(lambda: log.info(msg, *args))
     return Cmd.from_cmd(lambda: log.info(msg))
