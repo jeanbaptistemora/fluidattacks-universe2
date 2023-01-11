@@ -6,3 +6,7 @@ lib_http.analyze_headers.breach_possible.insecure:
   es: >-
     El servidor es vulnerable a un ataque BREACH al usar {compression}
     como método de codificación
+
+lib_root.f343.insecure_compression_algorithm:
+  en: The application uses an insecure compression algorithm.
+  es: La aplicación utiliza un algoritmo de compresión inseguro.

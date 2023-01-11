@@ -5558,3 +5558,19 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
+        file_name="javascript",
+        name="javascript_insecure_compression_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F343,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
+        file_name="typescript",
+        name="typescript_insecure_compression_algorithm",
+        module="lib_root",
+        finding=FindingEnum.F343,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
