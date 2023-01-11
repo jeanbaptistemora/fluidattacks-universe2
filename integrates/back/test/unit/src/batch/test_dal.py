@@ -20,12 +20,6 @@ from batch.types import (
     BatchProcessing,
 )
 import json
-from moto.dynamodb2 import (
-    dynamodb_backend2,
-)
-from mypy_boto3_dynamodb import (
-    DynamoDBServiceResource as ServiceResource,
-)
 import pytest
 from typing import (
     Union,
@@ -38,14 +32,6 @@ from unittest.mock import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-TABLE_NAME = "fi_async_processing"
-
-
-def test_create_table(dynamodb: ServiceResource, populate_db: bool) -> None:
-    assert populate_db
-    assert TABLE_NAME in dynamodb_backend2.tables
-    assert len(dynamodb.Table(TABLE_NAME).scan()["Items"]) == 5
 
 
 @pytest.mark.parametrize(
@@ -94,13 +80,18 @@ async def test_get_action(
     assert bool(action) is expected_bool
 
 
-async def test_get_actions(dynamodb: ServiceResource) -> None:
-    with patch("batch.dal.dynamodb_ops.scan") as mock_scan:
-        mock_scan.return_value = dynamodb.Table(TABLE_NAME).scan()["Items"]
-        all_actions = await get_actions()
-    assert mock_scan.called is True
-    assert isinstance(all_actions, list)
-    assert len(all_actions) == 5
+@patch(get_mocked_path("dynamodb_ops.scan"), new_callable=AsyncMock)
+async def test_get_actions(
+    mock_dynamodb_ops_scan: AsyncMock,
+) -> None:
+    mock_dynamodb_ops_scan.return_value = get_mock_response(
+        get_mocked_path("dynamodb_ops.scan"),
+        json.dumps([]),
+    )
+    all_actions = await get_actions()
+    assert all_actions
+    assert len(all_actions) == 2
+    assert mock_dynamodb_ops_scan.called is True
 
 
 @pytest.mark.parametrize(
@@ -124,6 +115,34 @@ async def test_get_actions(dynamodb: ServiceResource) -> None:
                 }
             ),
             "69bda99b6a486a86b64e6e3188c3d4c82ccf195ad0baa14fca63656e7666aad4",
+        ],
+        [
+            "report",
+            "unittesting",
+            "unittesting@fluidattacks.com",
+            json.dumps(
+                {
+                    "report_type": "XLS",
+                    "treatments": [
+                        "ACCEPTED",
+                        "ACCEPTED_UNDEFINED",
+                        "IN_PROGRESS",
+                        "NEW",
+                    ],
+                    "states": ["SAFE", "VULNERABLE"],
+                    "verifications": [],
+                    "closing_date": None,
+                    "finding_title": "068",
+                    "age": 1300,
+                    "min_severity": "2.9",
+                    "max_severity": "4.3",
+                    "last_report": None,
+                    "min_release_date": None,
+                    "max_release_date": None,
+                    "location": "",
+                }
+            ),
+            "e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",
         ],
     ],
 )
@@ -186,7 +205,7 @@ def test_mapping_to_key(
         ],
         [
             BatchProcessing(
-                key="78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                key="e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",  # noqa: E501 pylint: disable=line-too-long
                 action_name="report",
                 entity="unittesting",
                 subject="unittesting@fluidattacks.com",

@@ -120,6 +120,7 @@ mocked_paths: Dict[str, str] = {
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
+    "dynamodb_ops.scan": "dynamodb.operations_legacy.scan",
     "event_comments_domain.add": "event_comments.domain.add",
     "event_comments_domain.remove_comments": "event_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "events_model.add": "db_model.events.add",
@@ -1081,6 +1082,70 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         ],
         '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501 pylint: disable=line-too-long
+    },
+    "dynamodb.operations_legacy.scan": {
+        "[]": [
+            {
+                "additional_info": json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "NEW",
+                        ],
+                        "states": ["SAFE"],
+                        "verifications": ["VERIFIED"],
+                        "closing_date": "2020-06-01T00:00:00",
+                        "finding_title": "065",
+                        "age": "null",
+                        "min_severity": "null",
+                        "max_severity": "null",
+                        "last_report": "null",
+                        "min_release_date": "null",
+                        "max_release_date": "null",
+                        "location": "",
+                    }
+                ),
+                "subject": "unittesting@fluidattacks.com",
+                "action_name": "report",
+                "pk": "78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                "time": "1672248409",
+                "entity": "unittesting",
+                "queue": "integrates_medium",
+            },
+            {
+                "additional_info": json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "NEW",
+                        ],
+                        "states": ["SAFE", "VULNERABLE"],
+                        "verifications": [],
+                        "closing_date": "null",
+                        "finding_title": "068",
+                        "age": 1300,
+                        "min_severity": "2.9",
+                        "max_severity": "4.3",
+                        "last_report": "null",
+                        "min_release_date": "null",
+                        "max_release_date": "null",
+                        "location": "",
+                    }
+                ),
+                "subject": "unittesting@fluidattacks.com",
+                "action_name": "report",
+                "pk": "e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",  # noqa: E501 pylint: disable=line-too-long
+                "time": "1672248409",
+                "entity": "unittesting",
+                "queue": "integrates_medium",
+            },
+        ],
     },
     "events.domain.remove_file_evidence": {
         '["418900978", "oneshottest"]': None,
