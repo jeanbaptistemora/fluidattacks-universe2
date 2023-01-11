@@ -49,7 +49,7 @@ const ContentSection: React.FC<IContentProps> = ({
         wrap={"wrap"}
       >
         <Container width={"85%"} widthSm={"100%"}>
-          <Container maxWidth={"1000px"}>
+          <Container center={true} maxWidth={"800px"}>
             <div className={"new-internal"}>{renderAst(htmlAst)}</div>
           </Container>
         </Container>
