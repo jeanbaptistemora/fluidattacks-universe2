@@ -27,14 +27,15 @@ from newutils import (
     datetime as datetime_utils,
 )
 from newutils.validations import (
-    validate_commit_hash,
-    validate_email_address,
+    validate_commit_hash_deco,
+    validate_email_address_deco,
     validate_field_length,
     validate_sanitized_csv_input,
+    validate_sanitized_csv_input_deco,
 )
 from roots.validations import (
-    validate_active_root,
-    validate_git_root,
+    validate_active_root_deco,
+    validate_git_root_deco,
 )
 import simplejson as json
 from toe.lines.constants import (
@@ -44,8 +45,8 @@ from toe.lines.utils import (
     get_filename_extension,
 )
 from toe.lines.validations import (
-    validate_loc,
-    validate_modified_date,
+    validate_loc_deco,
+    validate_modified_date_deco,
 )
 from toe.utils import (
     get_has_vulnerabilities,
@@ -61,38 +62,63 @@ def _get_optional_be_present_until(
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
-async def add(  # pylint: disable=too-many-arguments
-    loaders: Dataloaders,
-    group_name: str,
-    root_id: str,
+def _assign_attacked_lines(
     filename: str,
-    attributes: ToeLinesAttributesToAdd,
-    is_moving_toe_lines: bool = False,
-) -> None:
-    if is_moving_toe_lines is False:
-        validate_loc(attributes.loc)
-        validate_sanitized_csv_input(attributes.last_author, filename)
-        validate_email_address(attributes.last_author)
-        validate_commit_hash(attributes.last_commit)
-        validate_modified_date(attributes.modified_date)
-        validate_email_address(attributes.last_author)
-        if attributes.seen_first_time_by is not None:
-            validate_email_address(attributes.seen_first_time_by)
-        root: Root = await loaders.root.load((group_name, root_id))
-        validate_git_root(root)
-        validate_active_root(root)
-
+    loc: int,
+    modified_date: datetime,
+    attacked_at: Optional[datetime],
+    attacked_lines: int,
+) -> int:
     if get_filename_extension(filename) in CHECKED_FILES:
-        attacked_lines = attributes.loc
-    elif (
-        attributes.attacked_at
-        and attributes.modified_date
-        and attributes.attacked_at <= attributes.modified_date
-    ):
-        attacked_lines = attributes.attacked_lines
-    else:
-        attacked_lines = 0
+        return loc
+    if attacked_at and modified_date and attacked_at <= modified_date:
+        return attacked_lines
+    return 0
 
+
+@validate_loc_deco("loc")
+@validate_modified_date_deco("modified_date")
+def _validate_assign_attacked_lines(
+    filename: str,
+    loc: int,
+    modified_date: datetime,
+    attacked_at: datetime,
+    attacked_lines: int,
+) -> int:
+    return _assign_attacked_lines(
+        filename=filename,
+        loc=loc,
+        modified_date=modified_date,
+        attacked_at=attacked_at,
+        attacked_lines=attacked_lines,
+    )
+
+
+def _assign_state() -> ToeLinesState:
+    return ToeLinesState(
+        modified_by="machine@fluidattacks.com",
+        modified_date=datetime_utils.get_utc_now(),
+    )
+
+
+@validate_email_address_deco("seen_first_time_by")
+def _validate_assign_state(seen_first_time_by: str) -> ToeLinesState:
+    return ToeLinesState(
+        modified_by=seen_first_time_by,
+        modified_date=datetime_utils.get_utc_now(),
+    )
+
+
+def _assign_toe_lines(  # pylint: disable=too-many-arguments
+    attributes: ToeLinesAttributesToAdd,
+    last_author: str,
+    last_commit: str,
+    attacked_lines: int,
+    filename: str,
+    group_name: str,
+    root: Root,
+    state: ToeLinesState,
+) -> ToeLines:
     be_present_until = (
         attributes.be_present_until
         or _get_optional_be_present_until(attributes.be_present)
@@ -101,7 +127,7 @@ async def add(  # pylint: disable=too-many-arguments
     has_vulnerabilities = get_has_vulnerabilities(
         attributes.be_present, attributes.has_vulnerabilities
     )
-    toe_lines = ToeLines(
+    return ToeLines(
         attacked_at=attributes.attacked_at,
         attacked_by=attributes.attacked_by,
         attacked_lines=attacked_lines,
@@ -112,21 +138,98 @@ async def add(  # pylint: disable=too-many-arguments
         first_attack_at=first_attack_at,
         has_vulnerabilities=has_vulnerabilities,
         group_name=group_name,
-        last_author=attributes.last_author,
-        last_commit=attributes.last_commit,
+        last_author=last_author,
+        last_commit=last_commit,
         loc=attributes.loc,
         modified_date=attributes.modified_date,
-        root_id=root_id,
+        root_id=root.id,
         seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
         seen_first_time_by=attributes.seen_first_time_by,
         sorts_risk_level=attributes.sorts_risk_level,
-        state=ToeLinesState(
-            modified_by=attributes.seen_first_time_by
-            if attributes.seen_first_time_by
-            else "machine@fluidattacks.com",
-            modified_date=datetime_utils.get_utc_now(),
-        ),
+        state=state,
     )
+
+
+@validate_sanitized_csv_input_deco(["last_author", "filename"])
+@validate_email_address_deco("last_author")
+@validate_commit_hash_deco("last_commit")
+@validate_git_root_deco("root")
+@validate_active_root_deco("root")
+def _validate_assign_toe_lines(  # pylint: disable=too-many-arguments
+    attributes: ToeLinesAttributesToAdd,
+    last_author: str,
+    last_commit: str,
+    attacked_lines: int,
+    filename: str,
+    group_name: str,
+    root: Root,
+    state: ToeLinesState,
+) -> ToeLines:
+    return _assign_toe_lines(
+        attributes=attributes,
+        last_author=last_author,
+        last_commit=last_commit,
+        attacked_lines=attacked_lines,
+        filename=filename,
+        group_name=group_name,
+        root=root,
+        state=state,
+    )
+
+
+async def add(  # pylint: disable=too-many-arguments
+    loaders: Dataloaders,
+    group_name: str,
+    root_id: str,
+    filename: str,
+    attributes: ToeLinesAttributesToAdd,
+    is_moving_toe_lines: bool = False,
+) -> None:
+    root: Root = await loaders.root.load((group_name, root_id))
+    state = _assign_state()
+    if is_moving_toe_lines is False:
+        if attributes.seen_first_time_by is not None:
+            state = _validate_assign_state(
+                seen_first_time_by=attributes.seen_first_time_by
+            )
+
+        attacked_lines = _validate_assign_attacked_lines(
+            filename=filename,
+            loc=attributes.loc,
+            modified_date=attributes.modified_date,
+            attacked_at=attributes.attacked_at,
+            attacked_lines=attributes.attacked_lines,
+        )
+        print(root)
+        toe_lines = _validate_assign_toe_lines(
+            attributes=attributes,
+            last_author=attributes.last_author,
+            last_commit=attributes.last_commit,
+            attacked_lines=attacked_lines,
+            filename=filename,
+            group_name=group_name,
+            root=root,
+            state=state,
+        )
+    else:
+        attacked_lines = _assign_attacked_lines(
+            filename=filename,
+            loc=attributes.loc,
+            modified_date=attributes.modified_date,
+            attacked_at=attributes.attacked_at,
+            attacked_lines=attributes.attacked_lines,
+        )
+        toe_lines = _assign_toe_lines(
+            attributes=attributes,
+            last_author=attributes.last_author,
+            last_commit=attributes.last_commit,
+            attacked_lines=attacked_lines,
+            filename=filename,
+            group_name=group_name,
+            root=root,
+            state=state,
+        )
+
     await toe_lines_model.add(toe_lines=toe_lines)
 
 

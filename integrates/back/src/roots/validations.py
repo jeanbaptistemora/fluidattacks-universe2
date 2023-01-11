@@ -24,6 +24,7 @@ from db_model.credentials.types import (
 )
 from db_model.roots.enums import (
     RootStatus,
+    RootType,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -32,6 +33,7 @@ from db_model.roots.types import (
     RootEnvironmentUrl,
     URLRoot,
 )
+import functools
 from git.cmd import (
     Git,
 )
@@ -51,6 +53,9 @@ from roots import (
     utils as roots_utils,
 )
 from typing import (
+    Any,
+    Callable,
+    cast,
     Optional,
     Union,
 )
@@ -252,6 +257,21 @@ def validate_active_root(root: Root) -> None:
     raise InactiveRoot()
 
 
+def validate_active_root_deco(root_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            root = cast(Root, kwargs.get(root_field))
+            if root.state.status == RootStatus.ACTIVE:
+                res = func(*args, **kwargs)
+                return res
+            raise InactiveRoot()
+
+        return decorated
+
+    return wrapper
+
+
 def _validate_aws_component(
     component: str, env_urls: list[RootEnvironmentUrl]
 ) -> bool:
@@ -345,6 +365,21 @@ async def validate_component(
 def validate_git_root(root: Root) -> None:
     if not isinstance(root, GitRoot):
         raise InvalidGitRoot()
+
+
+def validate_git_root_deco(root_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            root = cast(Root, kwargs.get(root_field))
+            if root.type != RootType.GIT:
+                raise InvalidGitRoot()
+            res = func(*args, **kwargs)
+            return res
+
+        return decorated
+
+    return wrapper
 
 
 def validate_nickname(nickname: str) -> None:
