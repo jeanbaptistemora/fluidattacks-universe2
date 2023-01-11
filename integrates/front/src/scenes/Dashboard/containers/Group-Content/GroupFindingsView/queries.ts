@@ -22,7 +22,7 @@ const GET_FINDINGS: DocumentNode = gql`
           accepted
           acceptedUndefined
           inProgress
-          new
+          untreated
         }
         verificationSummary {
           onHold

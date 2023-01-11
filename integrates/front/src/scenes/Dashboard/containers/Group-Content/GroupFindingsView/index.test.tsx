@@ -58,7 +58,7 @@ describe("groupFindingsView", (): void => {
                   accepted: 0,
                   acceptedUndefined: 0,
                   inProgress: 0,
-                  new: 1,
+                  untreated: 1,
                 },
                 verificationSummary: {
                   onHold: 1,
@@ -144,7 +144,7 @@ describe("groupFindingsView", (): void => {
                   accepted: 0,
                   acceptedUndefined: 0,
                   inProgress: 0,
-                  new: 1,
+                  untreated: 1,
                 },
                 verificationSummary: {
                   onHold: 1,

@@ -64,7 +64,7 @@ const formatTreatmentSummary: (
   state === "VULNERABLE"
     ? `
 ${translate.t("searchFindings.tabDescription.treatment.new")}: ${
-        treatmentSummary.new
+        treatmentSummary.untreated
       },
 ${translate.t("searchFindings.tabDescription.treatment.inProgress")}: ${
         treatmentSummary.inProgress

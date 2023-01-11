@@ -118,7 +118,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       selectOptions: [
         {
           header: t("searchFindings.tabDescription.treatment.new"),
-          value: "new",
+          value: "untreated",
         },
         {
           header: t("searchFindings.tabDescription.treatment.inProgress"),
@@ -272,10 +272,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           OPEN: "VULNERABLE",
         };
         const value: string = filter.value?.toString().toUpperCase() ?? "";
+        const filterUpdated =
+          filter.id === "treatment" && value === "NEW"
+            ? { ...filter, value: "untreated" }
+            : filter;
 
-        return filter.id === "state" && value in stateParameters
-          ? { ...filter, value: stateParameters[value] }
-          : filter;
+        return filterUpdated.id === "state" && value in stateParameters
+          ? { ...filterUpdated, value: stateParameters[value] }
+          : filterUpdated;
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -291,13 +295,17 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               OPEN: "VULNERABLE",
             };
             const value: string = filter.value?.toString().toUpperCase() ?? "";
+            const filterUpdated =
+              filter.id === "treatment" && value === "NEW"
+                ? { ...filter, value: "untreated" }
+                : filter;
 
-            return filter.id === "state" && value in stateParameters
+            return filterUpdated.id === "state" && value in stateParameters
               ? {
-                  ...filter,
+                  ...filterUpdated,
                   value: stateParameters[value],
                 }
-              : filter;
+              : filterUpdated;
           }
         );
       }
@@ -454,7 +462,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     {
       accessorFn: (row: IFindingAttr): string[] => {
         const treatment = row.treatmentSummary;
-        const treatmentNew = treatment.new > 0 ? "Untreated" : "";
+        const treatmentNew = treatment.untreated > 0 ? "Untreated" : "";
         const treatmentAccUndef =
           treatment.acceptedUndefined > 0 ? "Permanently Accepted" : "";
         const treatmentInProgress =
@@ -472,7 +480,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IFindingAttr>): string => {
         const treatment = cell.row.original.treatmentSummary;
 
-        return `Untreated: ${treatment.new}, In Progress: ${treatment.inProgress},
+        return `Untreated: ${treatment.untreated}, In Progress: ${treatment.inProgress},
         Temporarily Accepted:  ${treatment.accepted}, Permamently Accepted:
         ${treatment.acceptedUndefined}`;
       },

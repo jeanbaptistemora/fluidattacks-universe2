@@ -13,7 +13,7 @@ interface ITreatmentSummaryAttr {
   accepted: number;
   acceptedUndefined: number;
   inProgress: number;
-  new: number;
+  untreated: number;
 }
 
 interface IVerificationSummaryAttr {
