@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 10, 2023, 04:15 PM",
+    "DateLastModified": "Jan 11, 2023, 11:37 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -26353,7 +26353,7 @@
                     }
                   },
                   "unreliable_open_vulnerabilities": {
-                    "N": "0"
+                    "N": "1"
                   },
                   "unreliable_treatment_summary": {
                     "M": {
@@ -26378,10 +26378,10 @@
                     "S": "2019-12-12T13:45:48+00:00"
                   },
                   "unreliable_closed_vulnerabilities": {
-                    "N": "1"
+                    "N": "0"
                   },
                   "unreliable_status": {
-                    "S": "SAFE"
+                    "S": "VULNERABLE"
                   }
                 }
               },
@@ -36522,22 +36522,13 @@
               "unreliable_indicators": {
                 "M": {
                   "unreliable_reattack_cycles": {
-                    "N": "1"
+                    "N": "0"
                   },
                   "unreliable_source": {
                     "S": "ASM"
                   },
-                  "unreliable_closing_date": {
-                    "S": "2020-02-19T15:42:04+00:00"
-                  },
-                  "unreliable_last_reattack_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "unreliable_last_requested_reattack_date": {
-                    "S": "2020-02-18T15:41:04+00:00"
-                  },
                   "unreliable_efficacy": {
-                    "N": "100.0"
+                    "N": "0"
                   },
                   "unreliable_treatment_changes": {
                     "N": "0"
@@ -36560,7 +36551,7 @@
                 "S": "ROOT"
               },
               "sk_6": {
-                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#verified"
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#safe#VERIF#none"
               },
               "created_date": {
                 "S": "2019-12-12T13:45:48+00:00"
@@ -36572,7 +36563,7 @@
                 "S": "USER"
               },
               "sk_5": {
-                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#verified"
+                "S": "VULN#DELETED#false#ZR#false#STATE#closed#VERIF#none"
               },
               "state": {
                 "M": {
@@ -36586,28 +36577,18 @@
                     "S": "ASM"
                   },
                   "modified_date": {
-                    "S": "2020-02-19T15:42:04+00:00"
+                    "S": "2019-12-12T13:45:48+00:00"
                   },
                   "specific": {
                     "S": "3333"
                   },
                   "status": {
-                    "S": "SAFE"
+                    "S": "VULNERABLE"
                   }
                 }
               },
               "sk_2": {
                 "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "verification": {
-                "M": {
-                  "modified_date": {
-                    "S": "2020-02-19T15:41:04+00:00"
-                  },
-                  "status": {
-                    "S": "VERIFIED"
-                  }
-                }
               }
             },
             {
@@ -38445,32 +38426,6 @@
             },
             {
               "modified_by": {
-                "S": "unittest@fluidattacks.com"
-              },
-              "sk": {
-                "S": "STATE#2020-02-19T15:42:04+00:00"
-              },
-              "where": {
-                "S": "192.168.1.29"
-              },
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "source": {
-                "S": "ASM"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:42:04+00:00"
-              },
-              "specific": {
-                "S": "3333"
-              },
-              "status": {
-                "S": "SAFE"
-              }
-            },
-            {
-              "modified_by": {
                 "S": "test@unittesting.com"
               },
               "sk": {
@@ -39445,34 +39400,6 @@
               },
               "status": {
                 "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2020-02-19T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "sk": {
-                "S": "VERIFICATION#2020-02-18T15:41:04+00:00"
-              },
-              "status": {
-                "S": "REQUESTED"
-              },
-              "modified_date": {
-                "S": "2020-02-18T15:41:04+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "VULN#429bd683-3654-4dad-9eeb-3f8a2de9afd4"
-              },
-              "sk": {
-                "S": "VERIFICATION#2020-02-19T15:41:04+00:00"
-              },
-              "status": {
-                "S": "VERIFIED"
               },
               "modified_date": {
                 "S": "2020-02-19T15:41:04+00:00"
