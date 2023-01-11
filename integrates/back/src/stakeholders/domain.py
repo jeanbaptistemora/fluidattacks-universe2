@@ -1,12 +1,14 @@
 from aioextensions import (
     collect,
 )
-import authz
 from authz.validations import (
-    validate_role_fluid_reqs,
+    validate_fluidattacks_staff_on_group_deco,
+    validate_role_fluid_reqs_deco,
 )
 from custom_exceptions import (
     InvalidExpirationTime,
+    InvalidField,
+    InvalidFieldLength,
     RequiredNewPhoneNumber,
     RequiredVerificationCode,
     SamePhoneNumber,
@@ -61,9 +63,9 @@ from newutils import (
     logs as logs_utils,
 )
 from newutils.validations import (
-    validate_alphanumeric_field,
-    validate_email_address,
-    validate_field_length,
+    validate_alphanumeric_field_deco,
+    validate_email_address_deco,
+    validate_field_length_deco,
 )
 from sessions import (
     domain as sessions_domain,
@@ -153,6 +155,24 @@ async def remove(email: str) -> None:
     )
 
 
+@validate_field_length_deco("responsibility", 50)
+@validate_alphanumeric_field_deco("responsibility")
+async def _update_information(
+    context: Any, email: str, group_name: str, responsibility: str, role: Any
+) -> None:
+
+    await group_access_domain.update(
+        loaders=context.loaders,
+        email=email,
+        group_name=group_name,
+        metadata=GroupAccessMetadataToUpdate(
+            responsibility=responsibility,
+            role=role,
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
+        ),
+    )
+
+
 async def update_information(
     context: Any, modified_data: dict[str, str], group_name: str
 ) -> None:
@@ -160,27 +180,29 @@ async def update_information(
     responsibility = modified_data["responsibility"]
     role = modified_data["role"]
     if responsibility:
-        if validate_field_length(
-            responsibility, 50
-        ) and validate_alphanumeric_field(responsibility):
-            await group_access_domain.update(
-                loaders=context.loaders,
+        try:
+            _update_information(
+                context=context,
                 email=email,
                 group_name=group_name,
-                metadata=GroupAccessMetadataToUpdate(
-                    responsibility=responsibility,
-                    role=role,
-                    state=GroupAccessState(
-                        modified_date=datetime_utils.get_utc_now()
-                    ),
-                ),
+                responsibility=responsibility,
+                role=role,
             )
-        else:
+        except InvalidFieldLength as exc:
+            print(responsibility)
             logs_utils.cloudwatch_log(
                 context,
                 f"Security: {email} Attempted to add responsibility to "
                 f"group {group_name} bypassing validation",
             )
+            raise exc
+        except InvalidField as exc:
+            logs_utils.cloudwatch_log(
+                context,
+                f"Security: {email} Attempted to add responsibility to "
+                f"group {group_name} bypassing validation",
+            )
+            raise exc
 
 
 async def has_valid_access_token(
@@ -291,38 +313,33 @@ async def update_notification_preferences(
     )
 
 
-async def update_invited_stakeholder(
+@validate_field_length_deco("responsibility", 50)
+@validate_alphanumeric_field_deco("responsibility")
+@validate_email_address_deco("email")
+@validate_role_fluid_reqs_deco("email", "role")
+@validate_fluidattacks_staff_on_group_deco("group", "email", "role")
+async def update_invited_stakeholder(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
-    updated_data: dict[str, str],
+    email: str,
+    responsibility: str,
+    role: str,
     invitation: GroupInvitation,
     group: Group,
 ) -> None:
-    email = updated_data["email"]
-    responsibility = updated_data["responsibility"]
-    role = updated_data["role"]
-    if (
-        validate_field_length(responsibility, 50)
-        and validate_alphanumeric_field(responsibility)
-        and validate_email_address(email)
-        and validate_role_fluid_reqs(email, role)
-        and authz.validate_fluidattacks_staff_on_group(group, email, role)
-    ):
-        new_invitation = invitation._replace(
-            responsibility=responsibility, role=role
-        )
-        await group_access_domain.update(
-            loaders=loaders,
-            email=email,
-            group_name=group.name,
-            metadata=GroupAccessMetadataToUpdate(
-                invitation=new_invitation,
-                responsibility=responsibility,
-                role=role,
-                state=GroupAccessState(
-                    modified_date=datetime_utils.get_utc_now()
-                ),
-            ),
-        )
+    new_invitation = invitation._replace(
+        responsibility=responsibility, role=role
+    )
+    await group_access_domain.update(
+        loaders=loaders,
+        email=email,
+        group_name=group.name,
+        metadata=GroupAccessMetadataToUpdate(
+            invitation=new_invitation,
+            responsibility=responsibility,
+            role=role,
+            state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
+        ),
+    )
 
 
 async def update(*, email: str, metadata: StakeholderMetadataToUpdate) -> None:

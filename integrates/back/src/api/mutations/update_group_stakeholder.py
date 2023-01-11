@@ -72,9 +72,17 @@ async def _update_stakeholder(
     validate_role_fluid_reqs(modified_email, modified_role)
 
     invitation = group_access.invitation
+    email = updated_data["email"]
+    responsibility = updated_data["responsibility"]
+    role = updated_data["role"]
     if invitation and not invitation.is_used:
         await stakeholders_domain.update_invited_stakeholder(
-            info.context.loaders, updated_data, invitation, group
+            loaders=info.context.loaders,
+            email=email,
+            responsibility=responsibility,
+            role=role,
+            invitation=invitation,
+            group=group,
         )
     else:
         await authz.grant_group_level_role(
