@@ -218,5 +218,13 @@ in {
       timeout = 48 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/v3"];
     };
+
+    observesRetryRedshiftUpload = scheduled_job {
+      name = "retry_redshift_upload";
+      size = "observes_nano";
+      attempts = 1;
+      timeout = 5 * 3600;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/retry-redshift-upload"];
+    };
   };
 }
