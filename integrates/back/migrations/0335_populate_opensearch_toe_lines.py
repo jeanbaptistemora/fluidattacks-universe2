@@ -7,6 +7,9 @@ Populates OpenSearch with all the findings from active groups
 
 Execution Time:    2022-12-20 at 18:16:25 UTC
 Finalization Time: 2022-12-20 at 20:21:35 UTC
+
+Execution Time:    2023-01-11 at 13:46:53 UTC
+Finalization Time: 2023-01-11 at 15:37:31 UTC
 """
 
 from aioextensions import (
