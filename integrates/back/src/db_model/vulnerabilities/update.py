@@ -256,16 +256,7 @@ async def update_historic_entry(  # pylint: disable=too-many-locals
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
-        LOGGER.error(
-            "Error while updating a vuln's treatment",
-            extra={
-                "extra": {
-                    "group_name": current_value.group_name,
-                    "finding": finding_id,
-                    "vuln": vulnerability_id,
-                }
-            },
-        )
+        LOGGER.exception(ex, extra={"extra": locals()})
         raise VulnNotFound() from ex
 
     historic_entry_key = keys.build_key(
