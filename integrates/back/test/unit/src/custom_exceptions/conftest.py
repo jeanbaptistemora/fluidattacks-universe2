@@ -15,6 +15,7 @@ from mypy_boto3_s3 import (
     S3Client,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
     AsyncGenerator,
@@ -131,14 +132,14 @@ data: Dict[str, List[Any]] = dict(
 )
 
 
-@pytest.fixture(name="dynamo_resource", scope="module")
+@pytest_asyncio.fixture(name="dynamo_resource", scope="module")
 async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
         yield boto3.resource("dynamodb")
 
 
-@pytest.fixture(name="s3_client", scope="module")
+@pytest_asyncio.fixture(name="s3_client", scope="module")
 async def s_3() -> AsyncGenerator[S3Client, None]:
     """Mocked S3 Fixture."""
     with mock_s3():

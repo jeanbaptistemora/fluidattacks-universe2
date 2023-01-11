@@ -21,6 +21,7 @@ from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
     AsyncGenerator,
@@ -127,7 +128,7 @@ data: Dict[str, List[Any]] = dict(
 )
 
 
-@pytest.fixture(name="dynamo_resource", scope="module")
+@pytest_asyncio.fixture(name="dynamo_resource", scope="module")
 async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
     with mock_dynamodb2():
