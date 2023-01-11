@@ -1,29 +1,27 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Portfolio Alert') }}
+      {{ banner_share('Portfolio Alert') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           Portfolios have been
           {% if is_added %} added to {% else %} deleted from {% endif %}
           the group <strong>{{ group_name }}</strong>:
         </p>
-        <p>
-          <strong>Date:</strong> {{ report_date }}<br>
-          <strong>Portfolios:</strong> {{ portfolios }}<br>
-        </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ report_date }}<br/><br/>
+            <strong>Portfolios:</strong><br/>{{ portfolios }}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
         <br />
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

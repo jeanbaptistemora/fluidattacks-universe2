@@ -1,32 +1,29 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_finding, go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_magnifying, go_to_button %}
   {% block layout %}
     <div class="container">
-    {% include 'layouts/components/dark_logo_header.html' %}
+    {% include 'layouts_new/components/dark_logo_header.html' %}
 
-    {% include 'layouts/components/arm_banner.html' %}
-    {{ banner_finding('Vulnerability Remediated') }}
+    {{ banner_magnifying('Vulnerability Remediated') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           A vulnerability in the group <strong>{{ group }}</strong>
           has been remediated:
         </p>
-        <p>
-          <strong>Type of vulnerability:</strong> {{ finding_name }} <br>
-          <strong>Solution applied:</strong>
-          {% for line in solution_description %}
-          {{ line }}<br>
-          {% endfor %}
-        </p>
-        <p></p>
-        <p>Regards,<br>
-          Fluid Attacks Team
-        </p>
+        <div class="data-container">
+          <p>
+            <strong>Type of vulnerability:</strong><br/>{{ finding_name }}<br/><br/>
+            <strong>Solution applied:</strong><br/>
+            {% for line in solution_description %}
+            {{ line }}<br/>
+            {% endfor %}
+          </p>
+        </div>
         {{ go_to_button('Go to type of vulnerability', finding_url, 'primary-button') }}
-        <br />
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
