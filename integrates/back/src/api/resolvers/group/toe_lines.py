@@ -24,6 +24,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
+    Any,
     Optional,
 )
 
@@ -33,26 +34,23 @@ from typing import (
     enforce_group_level_auth_async,
     validate_connection,
 )
-async def resolve(  # pylint: disable=too-many-arguments
+async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
-    root_id: Optional[str] = None,
-    after: Optional[str] = None,
-    be_present: Optional[bool] = None,
-    first: Optional[int] = None,
+    **kwargs: Any,
 ) -> Optional[ToeLinesConnection]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    if root_id:
+    if root_id := kwargs.get("root_id"):
         response: Optional[
             ToeLinesConnection
         ] = await loaders.root_toe_lines.load(
             RootToeLinesRequest(
                 group_name=group_name,
                 root_id=root_id,
-                after=after,
-                be_present=be_present,
-                first=first,
+                after=kwargs.get("after"),
+                be_present=kwargs.get("be_present"),
+                first=kwargs.get("first"),
                 paginate=True,
             )
         )
@@ -63,9 +61,9 @@ async def resolve(  # pylint: disable=too-many-arguments
     response = await loaders.group_toe_lines.load(
         GroupToeLinesRequest(
             group_name=group_name,
-            after=after,
-            be_present=be_present,
-            first=first,
+            after=kwargs.get("after"),
+            be_present=kwargs.get("be_present"),
+            first=kwargs.get("first"),
             paginate=True,
         )
     )
