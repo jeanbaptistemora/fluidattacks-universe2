@@ -491,15 +491,23 @@ Mobile,
 Cloud,
 and Url.
 
-![Add Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_environment_select.png)
+- **Cloud:**
+  You enter the credentials
+  to access AWS,
+  Azure,
+  or Google Cloud platform.
+- **Mobile:**
+  You can add files with apk
+  extension **(Android Package)**.
+- **URL:**
+  Here you enter the URL where
+  you have deployed your application.
 
-You will get the added
-environment successfully.
 Remember that you can also delete
 any environment by clicking on
 the trash button.
 
-![Environment Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1659121166/docs/web/groups/scope/managing_added.png)
+![Delete Environment](https://res.cloudinary.com/fluid-attacks/image/upload/v1673436495/docs/web/groups/scope/trash_button.png)
 
 :::note
 You can also find in the Environment URLs
