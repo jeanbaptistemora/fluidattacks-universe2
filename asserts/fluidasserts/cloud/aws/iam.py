@@ -208,58 +208,6 @@ def root_has_access_keys(
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def policies_attached_to_users(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if there are policies attached to users.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    users = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="iam",
-        func="list_users",
-        param="Users",
-        retry=retry,
-    )
-
-    msg_open: str = "User has policies directly attached"
-    msg_closed: str = "User does not have policies directly attached"
-
-    vulns, safes = [], []
-
-    for user in users:
-        user_arn = user["Arn"]
-        user_policies = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            boto3_client_kwargs={"aws_session_token": session_token},
-            service="iam",
-            func="list_attached_user_policies",
-            param="AttachedPolicies",
-            UserName=user["UserName"],
-            retry=retry,
-        )
-        (vulns if user_policies else safes).append(
-            (user_arn, "Must not have policies directly attached")
-        )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="users",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=LOW, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def has_not_support_role(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
