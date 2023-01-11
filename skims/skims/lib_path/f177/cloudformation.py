@@ -35,7 +35,9 @@ def _cfn_ec2_use_default_security_group_iterate_vulnerabilities(
             if (lt_data := res.inner.get("LaunchTemplateData"))
             else res
         )
-        if not any(attr in res.raw for attr in SECURITY_GROUP_ATTRIBUTES):
+        if hasattr(res, "raw") and not any(
+            attr in res.raw for attr in SECURITY_GROUP_ATTRIBUTES
+        ):
             yield AWSEC2(
                 column=res.start_column,
                 data=res.data,

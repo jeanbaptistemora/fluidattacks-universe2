@@ -28,7 +28,7 @@ def _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
     rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
-        if "DBSubnetGroupName" not in rds_res.raw:
+        if hasattr(rds_res, "raw") and "DBSubnetGroupName" not in rds_res.raw:
             yield AWSRdsCluster(
                 column=rds_res.start_column,
                 data=rds_res.data,

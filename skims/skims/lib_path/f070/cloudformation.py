@@ -35,6 +35,7 @@ def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
         ssl_policy = listener.inner.get("SslPolicy")
         if (
             ssl_policy
+            and hasattr(ssl_policy, "raw")
             and ssl_policy.raw in PREDEFINED_SSL_POLICY_VALUES
             and ssl_policy.raw not in SAFE_SSL_POLICY_VALUES
         ):
@@ -60,7 +61,11 @@ def _cfn_elb2_target_group_insecure_port_iterate_vulnerabilities(
                 data=target_group.data,
                 line=get_line_by_extension(target_group.start_line, file_ext),
             )
-        elif not isinstance(port.raw, dict) and int(port.raw) != 443:
+        elif (
+            hasattr(port, "raw")
+            and not isinstance(port.raw, dict)
+            and int(port.raw) != 443
+        ):
             yield port
 
 

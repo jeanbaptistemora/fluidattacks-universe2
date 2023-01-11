@@ -30,7 +30,10 @@ def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2 in ec2_iterator:
         ec2_res_data = ec2.inner.get("LaunchTemplateData") or ec2
-        if "DisableApiTermination" not in ec2_res_data.raw:  # type: ignore
+        if (
+            hasattr(ec2_res_data, "raw")
+            and "DisableApiTermination" not in ec2_res_data.raw  # type: ignore
+        ):
             yield AWSEC2(
                 column=ec2_res_data.start_column,
                 data=ec2_res_data.data,

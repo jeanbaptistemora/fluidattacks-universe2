@@ -141,8 +141,10 @@ def _instances_without_role_iter_vulns(
     instaces_iterator: Iterator[Union[Any, Node]]
 ) -> Iterator[Union[Any, Node]]:
     for instance in instaces_iterator:
-        if isinstance(instance, Node) and not instance.raw.get(
-            "IamInstanceProfile", None
+        if (
+            hasattr(instance, "raw")
+            and isinstance(instance, Node)
+            and not instance.raw.get("IamInstanceProfile", None)
         ):
             yield instance
 
