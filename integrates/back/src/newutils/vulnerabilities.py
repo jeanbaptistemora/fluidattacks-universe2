@@ -865,6 +865,18 @@ def get_advisories(where: str) -> Optional[str]:
     return None
 
 
+def get_missing_dependency(where: str) -> str:
+    try:
+        str_info = where.split(" ", maxsplit=1)[1]
+    except IndexError:
+        return ""
+    if match := re.match(r"\(missing dependency: (?P<name>(.+))\)$", str_info):
+        match_dict = match.groupdict()
+        return match_dict["name"]
+
+    return ""
+
+
 def ignore_advisories(where: Optional[str]) -> str:
     if where is not None:
         where = re.sub(r"(\s+\(.*\))?(\s+\[.*\])?", "", where)

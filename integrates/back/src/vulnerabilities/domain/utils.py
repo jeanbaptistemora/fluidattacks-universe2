@@ -33,6 +33,7 @@ from db_model.vulnerabilities.types import (
 import hashlib
 import html
 from newutils.vulnerabilities import (
+    get_missing_dependency,
     ignore_advisories,
 )
 from typing import (
@@ -81,6 +82,14 @@ async def get_hash_from_machine_vuln(
                     + vuln.state.specific
                     + finding.title.split(".")[0]
                     + vuln.skims_method
+                    # if you want to add a field to the hash you must
+                    # also do it in the skims function
+                    + (
+                        get_missing_dependency(vuln.state.where)
+                        if vuln.skims_method
+                        == "python.pip_incomplete_dependencies_list"
+                        else ""
+                    )
                 ),
                 encoding="utf-8",
             )
