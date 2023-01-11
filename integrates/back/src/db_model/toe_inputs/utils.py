@@ -33,47 +33,37 @@ def format_toe_input(
     group_name: str,
     item: Item,
 ) -> ToeInput:
-    state = item.get("state", {})
+    merged_item: Item = item | item.get("state", {})
     return ToeInput(
         state=ToeInputState(
-            attacked_at=datetime.fromisoformat(
-                state.get("attacked_at", item.get("attacked_at"))
-            )
-            if state.get("attacked_at") or item.get("attacked_at")
+            attacked_at=datetime.fromisoformat(merged_item["attacked_at"])
+            if merged_item.get("attacked_at")
             else None,
-            attacked_by=state.get("attacked_by", item.get("attacked_by", "")),
-            be_present=state.get("be_present", item.get("be_present", True)),
+            attacked_by=merged_item.get("attacked_by", ""),
+            be_present=merged_item.get("be_present", True),
             be_present_until=datetime.fromisoformat(
-                state.get("be_present_until", item.get("be_present_until"))
+                merged_item["be_present_until"]
             )
-            if state.get("be_present_until") or item.get("be_present_until")
+            if merged_item.get("be_present_until")
             else None,
             first_attack_at=datetime.fromisoformat(
-                state.get("first_attack_at", item.get("first_attack_at"))
+                merged_item["first_attack_at"]
             )
-            if state.get("first_attack_at") or item.get("first_attack_at")
+            if merged_item.get("first_attack_at")
             else None,
-            has_vulnerabilities=state.get(
-                "has_vulnerabilities", item.get("has_vulnerabilities")
-            ),
-            modified_by=state.get("modified_by"),
-            modified_date=datetime.fromisoformat(state["modified_date"])
-            if state.get("modified_date")
+            has_vulnerabilities=merged_item.get("has_vulnerabilities"),
+            modified_by=merged_item.get("modified_by"),
+            modified_date=datetime.fromisoformat(merged_item["modified_date"])
+            if merged_item.get("modified_date")
             else None,
-            seen_at=datetime.fromisoformat(
-                state.get("seen_at", item.get("seen_at"))
-            )
-            if state.get("seen_at") or item.get("seen_at")
+            seen_at=datetime.fromisoformat(merged_item["seen_at"])
+            if merged_item.get("seen_at")
             else None,
-            seen_first_time_by=state.get(
-                "seen_first_time_by", item.get("seen_first_time_by")
-            ),
-            unreliable_root_id=state.get(
-                "unreliable_root_id", item.get("unreliable_root_id", "")
-            ),
+            seen_first_time_by=merged_item["seen_first_time_by"],
+            unreliable_root_id=merged_item.get("unreliable_root_id", ""),
         ),
-        component=item["component"],
-        entry_point=item["entry_point"],
+        component=merged_item["component"],
+        entry_point=merged_item["entry_point"],
         group_name=group_name,
     )
 
