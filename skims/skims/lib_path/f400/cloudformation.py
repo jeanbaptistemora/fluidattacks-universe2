@@ -134,11 +134,12 @@ def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
             key_vals = [
                 attr
                 for attr in attrs.data
-                if attr.raw["Key"] == "access_logs.s3.enabled"
+                if hasattr(attr, "raw")
+                and attr.raw["Key"] == "access_logs.s3.enabled"
             ]
             if key_vals:
                 key = key_vals[0]
-                if key.raw["Value"] in FALSE_OPTIONS:
+                if hasattr(key, "raw") and key.raw["Value"] in FALSE_OPTIONS:
                     yield key.inner["Value"]
             else:
                 yield AWSElbV2(

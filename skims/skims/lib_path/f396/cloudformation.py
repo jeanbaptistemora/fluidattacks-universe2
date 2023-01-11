@@ -31,7 +31,11 @@ def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
     key_spec_symmetric = "SYMMETRIC_DEFAULT"
     for key in keys_iterator:
         en_key_rot = key.inner.get("EnableKeyRotation")
-        key_spec = key.raw.get("KeySpec", key_spec_symmetric)
+        key_spec = (
+            key.raw.get("KeySpec", key_spec_symmetric)
+            if hasattr(key, "raw")
+            else key_spec_symmetric
+        )
         if key_spec == key_spec_symmetric:
             if not isinstance(en_key_rot, Node):
                 yield AWSKmsKey(
@@ -39,7 +43,9 @@ def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
                     data=key.data,
                     line=get_line_by_extension(key.start_line, file_ext),
                 )
-            elif en_key_rot.raw in FALSE_OPTIONS:
+            elif (
+                hasattr(en_key_rot, "raw") and en_key_rot.raw in FALSE_OPTIONS
+            ):
                 yield en_key_rot
 
 

@@ -20,11 +20,23 @@ from parse_cfn.structure import (
 from typing import (
     Any,
     Iterator,
+    Optional,
     Union,
 )
 from utils.function import (
     get_node_by_keys,
 )
+
+
+def aux_cfn_bucket_policy(
+    secure_transport: Optional[Node], effect: str
+) -> bool:
+    if isinstance(secure_transport, Node) and (
+        (effect == "Deny" and secure_transport.raw in TRUE_OPTIONS)
+        or (effect == "Allow" and secure_transport.raw in FALSE_OPTIONS)
+    ):
+        return True
+    return False
 
 
 def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
@@ -37,17 +49,14 @@ def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
         for statement in statements.data:
             effect = (
                 statement.raw.get("Effect")
-                if hasattr(statement, "raw")
+                if hasattr(statement, "raw") and hasattr(statement.raw, "get")
                 else ""
             )
             secure_transport = get_node_by_keys(
                 statement, ["Condition", "Bool", "aws:SecureTransport"]
             )
-            if isinstance(secure_transport, Node) and (
-                (effect == "Deny" and secure_transport.raw in TRUE_OPTIONS)
-                or (
-                    effect == "Allow" and secure_transport.raw in FALSE_OPTIONS
-                )
+            if isinstance(secure_transport, Node) and aux_cfn_bucket_policy(
+                secure_transport, effect
             ):
                 yield secure_transport
 

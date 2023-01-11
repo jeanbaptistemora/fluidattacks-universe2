@@ -47,7 +47,11 @@ def _cfn_elb2_target_group_insecure_port_iterate_vulnerabilities(
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for target_group in resources_iterator:
         port = target_group.inner.get("Port")
-        target_type = target_group.raw.get("TargetType")
+        target_type = (
+            target_group.raw.get("TargetType")
+            if hasattr(target_group, "raw")
+            else ""
+        )
         if target_type == "lambda":
             continue
         if not port:

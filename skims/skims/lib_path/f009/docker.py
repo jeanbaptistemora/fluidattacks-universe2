@@ -30,20 +30,31 @@ DOCKERFILE_ENV: Pattern[str] = re.compile(
 )
 
 
-def _iterate_docker_c_envs(template: Node) -> Iterator[Node]:
+def aux_validate_type(template: Node) -> bool:
     if not isinstance(template, Node):
-        return
+        return True
     if template.data_type != Type.OBJECT:
-        return
+        return True
+    return False
 
+
+def aux_iterate_docker_c_envs(resource_config: Node) -> bool:
+    if (
+        resource_config.data_type == Type.OBJECT
+        and "environment" in resource_config.inner
+    ):
+        return True
+    return False
+
+
+def _iterate_docker_c_envs(template: Node) -> Iterator[Node]:
+    if aux_validate_type(template):
+        return
     if template_resources := template.inner.get("services", None):
         for resource_config in template_resources.data.values():
-            if (
-                resource_config.data_type == Type.OBJECT
-                and "environment" in resource_config.inner
-            ):
+            if aux_iterate_docker_c_envs(resource_config):
                 environment = resource_config.inner["environment"]
-                for env_var in environment.data:
+                for env_var in environment.data if environment.data else []:
                     yield env_var
 
 

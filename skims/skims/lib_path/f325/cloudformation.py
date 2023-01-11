@@ -85,7 +85,7 @@ def _cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
         if not statements:
             continue
         for stmt in statements.data:
-            effect = stmt.raw.get("Effect")
+            effect = stmt.raw.get("Effect") if hasattr(stmt, "raw") else ""
             principal = get_node_by_keys(stmt, ["Principal", "AWS"])
             if (
                 isinstance(principal, Node)
@@ -125,7 +125,7 @@ def _resource_all(resource_node: Node) -> Optional[Node]:
         else [resource_node]
     )
     for res in resources:
-        if res.raw == "*":
+        if hasattr(res, "raw") and res.raw == "*":
             return res
     return None
 

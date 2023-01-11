@@ -43,11 +43,12 @@ def _cfn_elb2_has_not_deletion_protection_iterate_vulnerabilities(
             key_vals = [
                 attr
                 for attr in attrs.data
-                if attr.raw["Key"] == "deletion_protection.enabled"
+                if hasattr(attr, "raw")
+                and attr.raw["Key"] == "deletion_protection.enabled"
             ]
             if key_vals:
                 key = key_vals[0]
-                if key.raw["Value"] in FALSE_OPTIONS:
+                if hasattr(key, "raw") and key.raw["Value"] in FALSE_OPTIONS:
                     yield key.inner["Value"]
             else:
                 yield AWSElbV2(

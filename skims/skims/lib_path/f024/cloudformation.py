@@ -153,7 +153,7 @@ def _cidr_iter_vulnerabilities(
     unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
     unrestricted_ipv6 = IPv6Network("::/0")
     for rule in rules_iterator:
-        rule_raw = rule.raw
+        rule_raw = rule.raw if hasattr(rule, "raw") else {}
         with suppress(AddressValueError, KeyError):
             if (
                 IPv4Network(
@@ -178,7 +178,7 @@ def _protocol_iter_vulnerabilities(
     rules_iterator: Iterator[Node],
 ) -> Iterator[Node]:
     for rule in rules_iterator:
-        rule_raw = rule.raw
+        rule_raw = rule.raw if hasattr(rule, "raw") else {}
         with suppress(ValueError, KeyError):
             if rule_raw["IpProtocol"] in ("-1", -1):
                 yield rule.inner["IpProtocol"]
