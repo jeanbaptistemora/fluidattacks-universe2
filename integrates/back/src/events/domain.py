@@ -193,7 +193,6 @@ async def add_event(
 ) -> str:
     validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
     validations.validate_field_length(kwargs["detail"], 300)
-    events_validations.validate_type(EventType[kwargs["event_type"]])
     root_id: Optional[str] = kwargs.get("root_id")
     group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization.load(
