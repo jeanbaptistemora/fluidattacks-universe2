@@ -13,6 +13,7 @@ interface ICtaBannerProps {
   button1Text: string;
   button2Link?: string;
   button2Text?: string;
+  textSize?: TSize;
   title: string;
   paragraph: string;
   image?: string;

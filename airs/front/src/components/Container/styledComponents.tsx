@@ -127,6 +127,18 @@ const getVerticalPadding = (
   return `pv${pv}`;
 };
 
+const getMarginTop = (mt: number, mtMd?: number, mtSm?: number): string => {
+  if (mtMd !== undefined && mtSm !== undefined) {
+    return `mt${mt}-l mt${mtMd}-m mt${mtSm}`;
+  } else if (mtMd !== undefined) {
+    return `mt${mt}-l mt${mtMd}`;
+  } else if (mtSm !== undefined) {
+    return `mt${mt}-ns mt${mtSm}`;
+  }
+
+  return `mt${mt}`;
+};
+
 const getShadow = (shadow: boolean): string =>
   shadow ? "box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);" : "";
 
@@ -139,6 +151,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     ml = 0,
     mr = 0,
     mt = 0,
+    mtMd,
+    mtSm,
     mv = 0,
     onClick,
     pb = 0,
@@ -156,7 +170,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
   } => ({
     className: `
       br${br === 100 ? "-100" : br}
-      ${mv === 0 ? `mb${mb} mt${mt}` : `mv${mv}`}
+      ${mv === 0 ? `mb${mb} ${getMarginTop(mt, mtMd, mtSm)}` : `mv${mv}`}
       ${getHorizontalMargin(center, mh, mr, ml)}
       ${
         pv === 0 && pvMd === undefined && pvSm === undefined

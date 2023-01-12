@@ -21,6 +21,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   size = "big",
   sizeMd,
   sizeSm,
+  textSize = "big",
   title,
   variant = "light",
 }): JSX.Element => {
@@ -72,7 +73,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
           >
             {title}
           </Title>
-          <Text color={variants[variant].subColor} size={"big"}>
+          <Text color={variants[variant].subColor} size={textSize}>
             {paragraph}
           </Text>
           <Container
@@ -141,7 +142,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         </Title>
         <Text
           color={variants[variant].subColor}
-          size={"big"}
+          size={textSize}
           textAlign={"center"}
         >
           {paragraph}
@@ -188,14 +189,13 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         <Title
           color={variants[variant].color}
           level={2}
-          mb={3}
           size={size}
           sizeMd={sizeMd}
           sizeSm={sizeSm}
         >
           {title}
         </Title>
-        <Text color={variants[variant].subColor} size={"big"}>
+        <Text color={variants[variant].subColor} mt={3} size={textSize}>
           {paragraph}
         </Text>
       </Container>
@@ -205,7 +205,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         width={"30%"}
         widthMd={"100%"}
       >
-        <Container pt={3} width={"auto"} widthSm={"100%"}>
+        <Container mtMd={3} width={"auto"} widthSm={"100%"}>
           <AirsLink decoration={"none"} href={button1Link}>
             <Button
               display={"block"}

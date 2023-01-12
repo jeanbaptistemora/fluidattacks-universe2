@@ -13,6 +13,7 @@ import { Header4 } from "./components/Header4";
 import { ImageBlock } from "./components/ImageBlock";
 import { Paragraph } from "./components/Paragraph";
 import { TableBlock } from "./components/TableBlock";
+import { VideoBlock } from "./components/VideoBlock";
 import { ShareSection } from "./ShareSection";
 
 import { Container } from "../../../components/Container";
@@ -37,6 +38,7 @@ const ContentSection: React.FC<IContentProps> = ({
       "image-block": ImageBlock,
       p: Paragraph,
       "table-block": TableBlock,
+      "video-block": VideoBlock,
     },
     createElement,
   }).Compiler;

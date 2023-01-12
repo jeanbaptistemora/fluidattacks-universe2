@@ -31,6 +31,8 @@ const Container: React.FC<IContainerProps> = ({
   ml,
   mr,
   mt,
+  mtMd,
+  mtSm,
   mv,
   onClick,
   pb,
@@ -78,6 +80,8 @@ const Container: React.FC<IContainerProps> = ({
       ml={ml}
       mr={mr}
       mt={mt}
+      mtMd={mtMd}
+      mtSm={mtSm}
       mv={mv}
       onClick={onClick}
       pb={pb}

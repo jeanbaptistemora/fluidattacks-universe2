@@ -22,7 +22,8 @@ const BlogCta: React.FC<IBlogCta> = ({
       button1Text={buttontxt}
       matomoAction={"Blog-internal-cta"}
       paragraph={paragraph}
-      size={"medium"}
+      size={"xs"}
+      textSize={"medium"}
       title={title}
       variant={"dark"}
     />

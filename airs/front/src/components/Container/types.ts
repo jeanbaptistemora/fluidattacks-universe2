@@ -38,6 +38,8 @@ interface IContainerProps {
   ml?: Nums0To7;
   mr?: Nums0To7;
   mt?: Nums0To7;
+  mtMd?: Nums0To7;
+  mtSm?: Nums0To7;
   pb?: Nums0To7;
   pl?: Nums0To7;
   pr?: Nums0To7;
