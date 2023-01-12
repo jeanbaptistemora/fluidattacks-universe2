@@ -36716,6 +36716,113 @@
                   "modified_by": {
                     "S": "integratesuser@gmail.com"
                   },
+                  "accepted_until": {
+                    "S": "2021-01-02T00:00:00+00:00"
+                  },
+                  "assigned": {
+                    "S": "integratesuser2@gmail.com"
+                  },
+                  "justification": {
+                    "S": "test justification temporarily accepted"
+                  },
+                  "modified_date": {
+                    "S": "2020-12-01T00:00:00+00:00"
+                  },
+                  "status": {
+                    "S": "ACCEPTED"
+                  }
+                }
+              },
+              "hacker_email": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "group_name": {
+                "S": "lubbock"
+              },
+              "pk_5": {
+                "S": "FIN#818828206"
+              },
+              "pk_6": {
+                "S": "FIN#818828206"
+              },
+              "unreliable_indicators": {
+                "M": {
+                  "unreliable_reattack_cycles": {
+                    "N": "0"
+                  },
+                  "unreliable_source": {
+                    "S": "ASM"
+                  },
+                  "unreliable_efficacy": {
+                    "N": "0"
+                  },
+                  "unreliable_treatment_changes": {
+                    "N": "1"
+                  }
+                }
+              },
+              "type": {
+                "S": "PORTS"
+              },
+              "created_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "FIN#818828206"
+              },
+              "sk_3": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              },
+              "pk_2": {
+                "S": "ROOT"
+              },
+              "sk_6": {
+                "S": "VULN#DELETED#false#RELEASED#true#ZR#false#STATE#vulnerable#VERIF#none"
+              },
+              "created_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              },
+              "pk": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              },
+              "pk_3": {
+                "S": "USER"
+              },
+              "sk_5": {
+                "S": "VULN#DELETED#false#ZR#false#STATE#open#VERIF#none"
+              },
+              "state": {
+                "M": {
+                  "modified_by": {
+                    "S": "unittest@fluidattacks.com"
+                  },
+                  "where": {
+                    "S": "192.168.1.29"
+                  },
+                  "source": {
+                    "S": "ASM"
+                  },
+                  "modified_date": {
+                    "S": "2019-12-12T13:45:48+00:00"
+                  },
+                  "specific": {
+                    "S": "5555"
+                  },
+                  "status": {
+                    "S": "VULNERABLE"
+                  }
+                }
+              },
+              "sk_2": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              }
+            },
+            {
+              "treatment": {
+                "M": {
+                  "modified_by": {
+                    "S": "integratesuser@gmail.com"
+                  },
                   "assigned": {
                     "S": "integratesuser@gmail.com"
                   },
@@ -38531,6 +38638,32 @@
               }
             },
             {
+              "modified_by": {
+                "S": "unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "STATE#2019-12-12T13:45:48+00:00"
+              },
+              "where": {
+                "S": "192.168.1.29"
+              },
+              "pk": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              },
+              "source": {
+                "S": "ASM"
+              },
+              "modified_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              },
+              "specific": {
+                "S": "5555"
+              },
+              "status": {
+                "S": "VULNERABLE"
+              }
+            },
+            {
               "commit": {
                 "S": "ea871eee64cfd5ce293411efaf4d3b446d04eb4a"
               },
@@ -39152,6 +39285,46 @@
               },
               "status": {
                 "S": "ACCEPTED_UNDEFINED"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              },
+              "sk": {
+                "S": "TREATMENT#2019-12-12T13:45:48+00:00"
+              },
+              "status": {
+                "S": "UNTREATED"
+              },
+              "modified_date": {
+                "S": "2019-12-12T13:45:48+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "VULN#f54d583b-cb1e-4b26-9b88-42baddab33ad"
+              },
+              "sk": {
+                "S": "TREATMENT#2020-12-01T00:00:00+00:00"
+              },
+              "modified_by": {
+                "S": "integratesuser@gmail.com"
+              },
+              "accepted_until": {
+                "S": "2021-01-02T00:00:00+00:00"
+              },
+              "assigned": {
+                "S": "integratesuser2@gmail.com"
+              },
+              "justification": {
+                "S": "test justification temporarily accepted"
+              },
+              "modified_date": {
+                "S": "2020-12-01T00:00:00+00:00"
+              },
+              "status": {
+                "S": "ACCEPTED"
               }
             },
             {
