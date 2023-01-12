@@ -37,12 +37,13 @@ from dynamodb.model import (
 from typing import (
     Iterable,
     Optional,
+    Tuple,
 )
 
 
 async def _get_toe_lines(
-    requests: tuple[ToeLinesRequest, ...]
-) -> tuple[ToeLines, ...]:
+    requests: Tuple[ToeLinesRequest, ...]
+) -> Tuple[ToeLines, ...]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_lines_metadata"],
@@ -75,7 +76,7 @@ class ToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeLinesRequest]
-    ) -> tuple[ToeLines, ...]:
+    ) -> Tuple[ToeLines, ...]:
         return await _get_toe_lines(tuple(requests))
 
 
@@ -131,12 +132,12 @@ class GroupToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeLinesRequest]
-    ) -> tuple[Optional[ToeLinesConnection], ...]:
+    ) -> Tuple[Optional[ToeLinesConnection], ...]:
         return await collect(tuple(map(_get_toe_lines_by_group, requests)))
 
     async def load_nodes(
         self, request: GroupToeLinesRequest
-    ) -> tuple[ToeLines, ...]:
+    ) -> Tuple[ToeLines, ...]:
         connection: ToeLinesConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
 
@@ -196,11 +197,11 @@ class RootToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeLinesRequest]
-    ) -> tuple[Optional[ToeLinesConnection], ...]:
+    ) -> Tuple[Optional[ToeLinesConnection], ...]:
         return await collect(map(_get_toe_lines_by_root, requests))
 
     async def load_nodes(
         self, request: RootToeLinesRequest
-    ) -> tuple[ToeLines, ...]:
+    ) -> Tuple[ToeLines, ...]:
         connection: ToeLinesConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)

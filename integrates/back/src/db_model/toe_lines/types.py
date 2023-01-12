@@ -5,8 +5,10 @@ from dynamodb.types import (
     PageInfo,
 )
 from typing import (
+    List,
     NamedTuple,
     Optional,
+    Tuple,
 )
 
 
@@ -41,7 +43,7 @@ class ToeLines(NamedTuple):
     state: ToeLinesState
     sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
-    sorts_suggestions: Optional[list[SortsSuggestion]] = None
+    sorts_suggestions: Optional[List[SortsSuggestion]] = None
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))
@@ -53,7 +55,7 @@ class ToeLinesEdge(NamedTuple):
 
 
 class ToeLinesConnection(NamedTuple):
-    edges: tuple[ToeLinesEdge, ...]
+    edges: Tuple[ToeLinesEdge, ...]
     page_info: PageInfo
     total: Optional[int] = None
 
@@ -76,7 +78,7 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     sorts_risk_level: Optional[int] = None
     sorts_risk_level_date: Optional[datetime] = None
     clean_be_present_until: bool = False
-    sorts_suggestions: Optional[list[SortsSuggestion]] = None
+    sorts_suggestions: Optional[List[SortsSuggestion]] = None
 
 
 class ToeLinesRequest(NamedTuple):
