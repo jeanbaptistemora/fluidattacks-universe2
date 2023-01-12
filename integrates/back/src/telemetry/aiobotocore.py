@@ -26,7 +26,11 @@ from opentelemetry.semconv.trace import (
 from typing import (
     Any,
     Callable,
+    cast,
     Coroutine,
+    Dict,
+    Mapping,
+    Tuple,
 )
 from wrapt import (
     wrap_function_wrapper,
@@ -74,7 +78,9 @@ class AioBotocoreInstrumentor(BotocoreInstrumentor):
         if context.get_value(context._SUPPRESS_INSTRUMENTATION_KEY):
             return await original_func(*args, **kwargs)
 
-        call_context = _determine_call_context(instance, args)
+        call_context = _determine_call_context(
+            instance, cast(Tuple[str, Dict[str, Any]], args)
+        )
         if call_context is None:
             return await original_func(*args, **kwargs)
 
@@ -94,7 +100,7 @@ class AioBotocoreInstrumentor(BotocoreInstrumentor):
         with self._tracer.start_as_current_span(
             call_context.span_name,
             kind=call_context.span_kind,
-            attributes=attributes,
+            attributes=cast(Mapping[str, str], attributes),
         ) as span:
             _safe_invoke(extension.before_service_call, span)
             self._call_request_hook(span, call_context)
