@@ -96,6 +96,49 @@ in `Fluid Attacks`.
   software areas.
   You must have experience in the use of office solutions.
 
+**Responsibilities:**
+
+- Provide guidance and software support
+- Support the administrative,
+  production and human resources departments.
+
+- **IT Project Manager:**
+  You must have a university degree,
+  basic technical knowledge,
+  understanding of information security,
+  and some relevant experience in networks
+  and IT infrastructure.
+  PMP (Project Management Professional)
+  certification is a plus,
+  but not mandatory in order to apply for this position.
+
+## 4\. Reasons to Work With Us
+
+- **Hackers that develop their own tools:**
+  When we have projects,
+  we hack applications or corporate networks.
+  When we do not have projects,
+  we develop our own software tools.
+  This is why we are looking for hackers
+  that are passionate about programming.
+  Our favorite technologies are Linux,
+  Git,
+  Python,
+  Docker,
+  Ansible,
+  and Amazon Web Services.
+  It does not matter if you have not yet
+  mastered these tools.
+  With Fluid Attacks,
+  what matters is your capacity to self-teach
+  and learn new skills to address challenges
+  we face on a daily basis,
+  the discipline with which you face challenges,
+  the honesty to say what needs to be said,
+  and the ability to listen and communicate
+  in a manner that fosters respectful and
+  equal collaboration with other team members.
+
 ## 4\. Portfolio
 
 The goal of this stage is to assess your ability to express yourself,
