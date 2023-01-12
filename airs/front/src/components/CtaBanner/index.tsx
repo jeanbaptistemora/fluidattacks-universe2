@@ -18,6 +18,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   image,
   matomoAction,
   paragraph,
+  pv = 5,
   size = "big",
   sizeMd,
   sizeSm,
@@ -47,7 +48,11 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
     },
   };
 
-  if (image !== undefined && button2Link !== undefined) {
+  if (
+    image !== undefined &&
+    button2Link !== undefined &&
+    paragraph !== undefined
+  ) {
     return (
       <Container
         align={"center"}
@@ -58,7 +63,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         justify={"center"}
         maxWidth={"1440px"}
         ph={4}
-        pv={5}
+        pv={pv}
         shadow={true}
         wrap={"wrap"}
       >
@@ -117,7 +122,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         </Container>
       </Container>
     );
-  } else if (button2Link !== undefined) {
+  } else if (button2Link !== undefined && paragraph !== undefined) {
     return (
       <Container
         align={"center"}
@@ -126,7 +131,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         center={true}
         maxWidth={"1440px"}
         ph={4}
-        pv={5}
+        pv={pv}
         shadow={true}
       >
         <Title
@@ -169,6 +174,56 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         </Container>
       </Container>
     );
+  } else if (paragraph !== undefined) {
+    return (
+      <Container
+        align={"center"}
+        bgColor={variants[variant].bgColor}
+        br={4}
+        center={true}
+        display={"flex"}
+        justify={"center"}
+        maxWidth={"1440px"}
+        ph={4}
+        pv={pv}
+        shadow={true}
+        wrap={"wrap"}
+      >
+        <Container width={"70%"} widthMd={"100%"}>
+          <Title
+            color={variants[variant].color}
+            level={2}
+            size={size}
+            sizeMd={sizeMd}
+            sizeSm={sizeSm}
+          >
+            {title}
+          </Title>
+          <Text color={variants[variant].subColor} mt={3} size={textSize}>
+            {paragraph}
+          </Text>
+        </Container>
+        <Container
+          display={"flex"}
+          justify={"center"}
+          width={"30%"}
+          widthMd={"100%"}
+        >
+          <Container mtMd={3} width={"auto"} widthSm={"100%"}>
+            <AirsLink decoration={"none"} href={button1Link}>
+              <Button
+                display={"block"}
+                onClick={matomoFreeTrialEvent}
+                size={"lg"}
+                variant={"primary"}
+              >
+                {button1Text}
+              </Button>
+            </AirsLink>
+          </Container>
+        </Container>
+      </Container>
+    );
   }
 
   return (
@@ -181,7 +236,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
       justify={"center"}
       maxWidth={"1440px"}
       ph={4}
-      pv={5}
+      pv={pv}
       shadow={true}
       wrap={"wrap"}
     >
@@ -195,9 +250,6 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         >
           {title}
         </Title>
-        <Text color={variants[variant].subColor} mt={3} size={textSize}>
-          {paragraph}
-        </Text>
       </Container>
       <Container
         display={"flex"}

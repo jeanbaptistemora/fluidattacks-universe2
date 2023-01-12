@@ -1,5 +1,6 @@
 import type { TSize } from "../Typography/types";
 
+type Nums0To7 = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7;
 type TVariant = "dark" | "light";
 
 interface IVariant {
@@ -15,7 +16,8 @@ interface ICtaBannerProps {
   button2Text?: string;
   textSize?: TSize;
   title: string;
-  paragraph: string;
+  paragraph?: string;
+  pv?: Nums0To7;
   image?: string;
   matomoAction: string;
   size?: TSize;
