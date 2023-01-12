@@ -13,12 +13,10 @@ function dynamodb_centralize {
       'REDSHIFT_PASSWORD' \
       'REDSHIFT_PORT' \
       'REDSHIFT_USER' \
-    && echo '[INFO] Running centralizer' \
-    && dynamo-etl centralize main \
+    && echo '[INFO] Running centralizer final phase' \
+    && dynamo-etl centralize dynamo-tables \
       --schema 'dynamodb' \
-      --tables 'integrates_vms' \
-      --parts-schema-prefix 'dynamodb_integrates_vms_part_' \
-      --parts-loading-schema 'dynamodb_integrates_vms_merged_parts_loading'
+      --tables 'integrates_vms'
 }
 
 dynamodb_centralize

@@ -220,11 +220,19 @@ in {
     };
 
     observesDynamoCentralize = scheduled_job {
-      name = "dynamo_etl_prepare";
+      name = "dynamo_etl_centralize";
+      size = "observes_nano";
+      attempts = 1;
+      timeout = 2 * 3600;
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/centralize"];
+    };
+
+    observesRetryCentralizeFinal = scheduled_job {
+      name = "dynamo_etl_retry_centralize_final";
       size = "observes_nano";
       attempts = 1;
       timeout = 3600;
-      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/centralize"];
+      command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/retry-centralize-final"];
     };
 
     observesDynamoV3EtlBig = scheduled_job {
