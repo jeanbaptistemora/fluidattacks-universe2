@@ -27,3 +27,6 @@ src.lib_path.f031.iam_excessive_role_policy:
 src.lib_path.f031.policies_attached_to_users:
   en: Users must not have policies directly attached.
   es: Los usuarios no deben tener politicas directamente agregadas.
+src.lib_path.f031.has_permissive_role_policies:
+  en: IAM Role Policy grants wildcard privileges.
+  es: IAM Role otorga privilegio usando wildcards
