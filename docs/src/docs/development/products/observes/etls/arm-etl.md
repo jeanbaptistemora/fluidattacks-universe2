@@ -9,8 +9,9 @@ This ETL process extracts data from the ARM database (dynamo) and sends it to
 the warehouse (redshift).
 
 :::note
-Local execution and sending of jobs will require access to the
-'prod_observes' role
+Local execution and sending of jobs will require to
+[setup your terminal](/development/setup/terminal) and have access to the
+`prod_observes` role and the `CACHIX_AUTH_TOKEN` environment variable.
 :::
 
 ## Architecture
