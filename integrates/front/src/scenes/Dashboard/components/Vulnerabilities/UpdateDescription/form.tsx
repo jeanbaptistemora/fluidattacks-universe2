@@ -529,9 +529,9 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
               !hasNewVulns) &&
             canUpdateVulnsTreatment &&
             canDeleteVulnsTags ? (
-              <React.StrictMode>
+              <div className={"mb3"}>
                 {tagReminderAlert(isTreatmentPristine)}
-              </React.StrictMode>
+              </div>
             ) : undefined}
             <Row>
               <Col50>

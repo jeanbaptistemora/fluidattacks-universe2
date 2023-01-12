@@ -52,7 +52,7 @@ describe("Update Description component", (): void => {
         {
           date: "",
           justification: "test justification",
-          treatment: "NEW",
+          treatment: "UNTREATED",
           user: "",
         },
       ],

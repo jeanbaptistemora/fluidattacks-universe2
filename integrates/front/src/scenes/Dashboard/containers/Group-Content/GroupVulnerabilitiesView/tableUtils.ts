@@ -18,7 +18,7 @@ const tableColumns: ColumnDef<IVulnRowAttr>[] = [
         source: cell.row.original.vulnerabilityType,
         specific: cell.row.original.specific,
         status: cell.row.original.state,
-        treatment: cell.row.original.treatment,
+        treatment: cell.row.original.treatmentStatus,
         where: cell.getValue(),
       }),
     enableColumnFilter: false,
@@ -125,11 +125,11 @@ const tableFilters: IFilter<IVulnRowAttr>[] = [
   },
   {
     id: "treatment",
-    key: "treatment",
+    key: "treatmentStatus",
     label: "Treatment",
     selectOptions: [
       { header: "In progress", value: "IN_PROGRESS" },
-      { header: "Untreated", value: "NEW" },
+      { header: "Untreated", value: "UNTREATED" },
       { header: "Temporarily accepted", value: "ACCEPTED" },
       { header: "Permanently accepted", value: "ACCEPTED_UNDEFINED" },
     ],

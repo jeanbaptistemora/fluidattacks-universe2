@@ -294,7 +294,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
         if (_.isEmpty(value)) return true;
         const formattedvuln = formatVulnerabilities([vuln]);
 
-        return formattedvuln[0].treatment === value;
+        return formattedvuln[0].treatmentStatus === value;
       },
       label: t("searchFindings.tabVuln.vulnTable.treatment"),
       selectOptions: [
@@ -376,14 +376,19 @@ export const VulnsView: React.FC = (): JSX.Element => {
           OPEN: "VULNERABLE",
         };
         const value: string = filter.value?.toString().toUpperCase() ?? "";
+        const filterUpdated =
+          filter.id === "treatment" && value === "NEW"
+            ? { ...filter, value: "untreated" }
+            : filter;
 
-        return filter.id === "currentState" && value in stateParameters
-          ? { ...filter, value: stateParameters[value] }
-          : filter;
+        return filterUpdated.id === "currentState" && value in stateParameters
+          ? { ...filterUpdated, value: stateParameters[value] }
+          : filterUpdated;
       });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
       if (nzrVulnsPageInfo.hasNextPage) {
@@ -524,7 +529,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
       meta: { filterType: "select" },
     },
     {
-      accessorKey: "treatment",
+      accessorKey: "treatmentStatus",
       header: t("searchFindings.tabVuln.vulnTable.treatment"),
       meta: { filterType: "select" },
     },

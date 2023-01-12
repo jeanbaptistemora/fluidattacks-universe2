@@ -176,7 +176,8 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     }
   }
 
-  useEffect((): void => {
+  // eslint-disable-next-line
+  useEffect((): void => { // NOSONAR
     setVulnFilters(
       (
         currentVulnFilters: IFilter<IVulnRowAttr>[]
@@ -188,8 +189,21 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
               OPEN: "VULNERABLE",
             };
             const value: string = filter.value?.toString().toUpperCase() ?? "";
+            const filterUpdated =
+              filter.id === "treatment" && value === "NEW"
+                ? {
+                    ...tableFilters.reduce(
+                      (prev, curr): IFilter<IVulnRowAttr> => {
+                        return curr.id === "treatment" ? curr : prev;
+                      },
+                      tableFilters[3]
+                    ),
+                    value: "UNTREATED",
+                  }
+                : filter;
 
-            return filter.id === "currentState" && value in stateParameters
+            return filterUpdated.id === "currentState" &&
+              value in stateParameters
               ? {
                   ...tableFilters.reduce(
                     (prev, curr): IFilter<IVulnRowAttr> => {
@@ -199,7 +213,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
                   ),
                   value: stateParameters[value],
                 }
-              : filter;
+              : filterUpdated;
           }
         );
       }

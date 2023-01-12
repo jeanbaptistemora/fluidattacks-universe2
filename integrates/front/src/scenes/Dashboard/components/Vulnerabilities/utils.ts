@@ -93,17 +93,17 @@ const formatVulnerabilities: (
         : "-",
       reportDate: vulnerability.reportDate.split(" ")[0],
       requirements,
-      treatment: formatTreatment(
-        vulnerability.treatment,
-        vulnerability.state,
-        vulnerability.treatmentAcceptanceStatus
-      ),
       treatmentAssigned: isVulnOpen
         ? (vulnerability.treatmentAssigned as string)
         : "-",
       treatmentDate: isVulnOpen
         ? vulnerability.lastTreatmentDate.split(" ")[0]
         : "-",
+      treatmentStatus: formatTreatment(
+        vulnerability.treatmentStatus,
+        vulnerability.state,
+        vulnerability.treatmentAcceptanceStatus
+      ),
       treatmentUser: isVulnOpen ? (vulnerability.treatmentUser as string) : "-",
       verification: shouldDisplayVerification ? verification : "",
       vulnerabilityType: translate.t(
@@ -129,7 +129,7 @@ const formatHistoricTreatment: (
     justification: _.isNull(vulnerability.treatmentJustification)
       ? undefined
       : vulnerability.treatmentJustification,
-    treatment: vulnerability.treatment,
+    treatment: vulnerability.treatmentStatus,
     user: _.isNull(vulnerability.treatmentUser)
       ? ""
       : vulnerability.treatmentUser,

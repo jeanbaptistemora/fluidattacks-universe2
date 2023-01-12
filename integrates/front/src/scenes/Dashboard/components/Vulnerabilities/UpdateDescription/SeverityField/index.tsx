@@ -34,7 +34,7 @@ const SeverityField: React.FC<ISeverityFieldProps> = (
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <div className={"mb4 nt2 w-100"}>
+        <div className={"mb3 nt2 w-100"}>
           <EditableField
             component={FormikText}
             currentValue={level}

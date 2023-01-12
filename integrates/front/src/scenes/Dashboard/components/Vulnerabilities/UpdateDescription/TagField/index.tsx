@@ -32,7 +32,7 @@ const TagField: React.FC<ITagFieldProps> = ({
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <div className={"mb4 nt2 w-100"}>
+        <div className={"mb3 nt2 w-100"}>
           <ControlLabel>
             <b>{t("searchFindings.tabDescription.tag")}</b>
           </ControlLabel>

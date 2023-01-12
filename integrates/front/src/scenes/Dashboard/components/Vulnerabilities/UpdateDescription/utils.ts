@@ -64,7 +64,7 @@ const hasNewTreatment: (vulns: IVulnDataTypeAttr[]) => boolean = (
         vuln.historicTreatment
       );
 
-      return lastTreatment.treatment === "NEW";
+      return lastTreatment.treatment === "UNTREATED";
     }).length > 0
   );
 };

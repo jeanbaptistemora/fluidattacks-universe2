@@ -27,12 +27,12 @@ interface IVulnRowAttr {
   state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
   stream: string | null;
   tag: string;
-  treatment: string;
   treatmentDate: string;
   treatmentAcceptanceDate: string | null;
   treatmentAcceptanceStatus: string | null;
   treatmentAssigned: string | null;
   treatmentJustification: string | null;
+  treatmentStatus: string;
   treatmentUser: string | null;
   assigned: string;
   verification: string | null;

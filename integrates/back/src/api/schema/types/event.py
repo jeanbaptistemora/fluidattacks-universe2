@@ -1,6 +1,4 @@
 from api.resolvers.event import (
-    accessibility,
-    affected_components,
     affected_reattacks,
     client,
     closing_date,
@@ -25,8 +23,6 @@ from ariadne import (
 )
 
 EVENT = ObjectType("Event")
-EVENT.set_field("accessibility", accessibility.resolve)
-EVENT.set_field("affectedComponents", affected_components.resolve)
 EVENT.set_field("client", client.resolve)
 EVENT.set_field("closingDate", closing_date.resolve)
 EVENT.set_field("detail", detail.resolve)

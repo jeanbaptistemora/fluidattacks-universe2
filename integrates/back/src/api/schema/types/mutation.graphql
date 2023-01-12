@@ -107,20 +107,6 @@ type Mutation {
 
   "Reports an unexpected Event when dealing with the ToE"
   addEvent(
-    "Where the event was present"
-    accessibility: [EventAccessibility]
-      @deprecated(
-        reason: """
-        This field will be removed after 2023/01/11.
-        """
-      )
-    "Components involved or affected by the event, if applicable"
-    affectedComponents: [AffectedComponents]
-      @deprecated(
-        reason: """
-        This field will be removed after 2023/01/11.
-        """
-      )
     "Comment laying out or explaining the event"
     detail: String!
     "DateTime of the event in the format `yyyy-MM-ddThh:mm:ssZ`"
@@ -992,13 +978,6 @@ type Mutation {
 
   "Updates an Event's description"
   updateEvent(
-    "Components involved or affected by the event, if applicable"
-    affectedComponents: [AffectedComponents]
-      @deprecated(
-        reason: """
-        This field will be removed after 2023/01/11.
-        """
-      )
     "The kind of event that happened"
     eventType: EventType
     "Identifier of the Event whose evidence will be modified"

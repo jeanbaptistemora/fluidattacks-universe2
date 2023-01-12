@@ -1,17 +1,3 @@
-"Components affected during an Event"
-enum AffectedComponents {
-  "Test data"
-  TEST_DATA
-  "Target of Evaluation credentials"
-  TOE_CREDENTIALS
-  "Target of Evaluation privileges"
-  TOE_PRIVILEGES
-  "Unavailable Target of Evaluation"
-  TOE_UNAVAILABLE
-  "Unstable Target of Evaluation"
-  TOE_UNSTABLE
-}
-
 "Billing subscription type enum definition"
 enum BillingSubscriptionType {
   "Free"
@@ -96,16 +82,6 @@ enum UpdateGroupReason {
   OTHER
 }
 
-"Where the event was present"
-enum EventAccessibility {
-  "Client Environment"
-  ENVIRONMENT
-  "Client Repository"
-  REPOSITORY
-  "VPN connectivity"
-  VPN_CONNECTION
-}
-
 "Reasons to close an event enum definition"
 enum SolveEventReason {
   "Access granted"
@@ -178,13 +154,6 @@ enum EventType {
   DATA_UPDATE_REQUIRED
   "Environment issues"
   ENVIRONMENT_ISSUES
-  "Incorrect or missing supplies"
-  INCORRECT_MISSING_SUPPLIES
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/01/11.
-      """
-    )
   "Installer issues"
   INSTALLER_ISSUES
   "Missing supplies"

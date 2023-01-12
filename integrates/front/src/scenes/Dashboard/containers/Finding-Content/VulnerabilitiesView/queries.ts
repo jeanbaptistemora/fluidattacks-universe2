@@ -21,11 +21,11 @@ const VULNS_FRAGMENT: DocumentNode = gql`
     state
     stream
     tag
-    treatment
     treatmentAcceptanceDate
     treatmentAcceptanceStatus
     treatmentAssigned
     treatmentJustification
+    treatmentStatus
     treatmentUser
     verification
     vulnerabilityType

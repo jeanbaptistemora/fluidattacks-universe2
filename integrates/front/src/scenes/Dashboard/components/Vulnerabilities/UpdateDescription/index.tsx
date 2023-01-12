@@ -155,7 +155,9 @@ export const UpdateDescription: React.FC<IUpdateDescriptionProps> = ({
                     ? vulnerabilities[0].source.toUpperCase()
                     : "",
                 tag: _.join(_.intersection(...vulnsTags), ","),
-                treatment: lastTreatment.treatment.replace("NEW", ""),
+                treatment: lastTreatment.treatment
+                  .replace("NEW", "")
+                  .replace("UNTREATED", ""),
                 user: lastTreatment.user,
               }}
               name={"editTreatmentVulnerability"}

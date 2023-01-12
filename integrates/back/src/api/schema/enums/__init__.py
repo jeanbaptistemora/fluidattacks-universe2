@@ -7,16 +7,6 @@ from typing import (
 
 ENUMS: Tuple[EnumType, ...] = (
     EnumType(
-        "AffectedComponents",
-        {
-            "TEST_DATA": "TEST_DATA",
-            "TOE_CREDENTIALS": "TOE_CREDENTIALS",
-            "TOE_PRIVILEGES": "TOE_PRIVILEGES",
-            "TOE_UNAVAILABLE": "TOE_UNAVAILABLE",
-            "TOE_UNSTABLE": "TOE_UNSTABLE",
-        },
-    ),
-    EnumType(
         "BillingSubscriptionType",
         {
             "FREE": "free",
@@ -61,14 +51,6 @@ ENUMS: Tuple[EnumType, ...] = (
             "OTHER": "OTHER",
             "GROUP_FINALIZATION": "GROUP_FINALIZATION",
             "GROUP_SUSPENSION": "GROUP_SUSPENSION",
-        },
-    ),
-    EnumType(
-        "EventAccessibility",
-        {
-            "ENVIRONMENT": "ENVIRONMENT",
-            "REPOSITORY": "REPOSITORY",
-            "VPN_CONNECTION": "VPN_CONNECTION",
         },
     ),
     EnumType(
@@ -122,7 +104,6 @@ ENUMS: Tuple[EnumType, ...] = (
             "DATA_UPDATE_REQUIRED": "DATA_UPDATE_REQUIRED",
             "ENVIRONMENT_ISSUES": "ENVIRONMENT_ISSUES",
             "INSTALLER_ISSUES": "INSTALLER_ISSUES",
-            "INCORRECT_MISSING_SUPPLIES": "INCORRECT_MISSING_SUPPLIES",
             "MISSING_SUPPLIES": "MISSING_SUPPLIES",
             "NETWORK_ACCESS_ISSUES": "NETWORK_ACCESS_ISSUES",
             "OTHER": "OTHER",
