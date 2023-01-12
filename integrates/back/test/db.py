@@ -597,6 +597,7 @@ async def populate_toe_lines(data: tuple[ToeLines, ...]) -> bool:
     await collect(
         [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
     )
+    await asyncio.sleep(8)
     return True
 
 
