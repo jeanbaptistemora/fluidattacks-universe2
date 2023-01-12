@@ -71,9 +71,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
     useState(false);
-  function toggleHandleAcceptanceModal(): void {
+  const toggleHandleAcceptanceModal = useCallback((): void => {
     setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
-  }
+  }, [isHandleAcceptanceModalOpen]);
   const [remediationModal, setRemediationModal] = useState<IModalConfig>({
     clearSelected: (): void => undefined,
     selectedVulnerabilities: [],
@@ -87,23 +87,23 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
     []
   );
-  function closeRemediationModal(): void {
+  const closeRemediationModal = useCallback((): void => {
     setIsOpen(false);
-  }
+  }, []);
   const [isEditing, setIsEditing] = useState(false);
-  function toggleEdit(): void {
+  const toggleEdit = useCallback((): void => {
     setIsEditing(!isEditing);
-  }
-  function handleCloseUpdateModal(): void {
+  }, [isEditing]);
+  const handleCloseUpdateModal = useCallback((): void => {
     setIsEditing(false);
-  }
+  }, []);
   const [isNotify, setIsNotify] = useState(false);
-  function toggleNotify(): void {
+  const toggleNotify = useCallback((): void => {
     setIsNotify(!isNotify);
-  }
-  function handleCloseNotifyModal(): void {
+  }, [isNotify]);
+  const handleCloseNotifyModal = useCallback((): void => {
     setIsNotify(false);
-  }
+  }, []);
   const [isRequestingVerify, setIsRequestingVerify] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
 
@@ -360,14 +360,14 @@ export const VulnsView: React.FC = (): JSX.Element => {
       },
     }
   );
-  async function handleSendNotification(): Promise<void> {
+  const handleSendNotification = useCallback(async (): Promise<void> => {
     await sendNotification({
       variables: {
         findingId,
       },
     });
     setIsNotify(false);
-  }
+  }, [findingId, sendNotification]);
   useEffect((): void => {
     setFilterVal((currentFilter: IPermanentData[]): IPermanentData[] => {
       return currentFilter.map((filter: IPermanentData): IPermanentData => {
