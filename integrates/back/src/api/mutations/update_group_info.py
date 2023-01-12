@@ -15,15 +15,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.groups.enums import (
-    GroupLanguage,
-)
-from db_model.groups.types import (
-    GroupMetadataToUpdate,
-)
-from db_model.utils import (
-    get_min_iso_date,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -39,7 +30,6 @@ from groups import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    validations as validations_utils,
 )
 import pytz
 from sessions import (
@@ -83,41 +73,25 @@ async def mutate(
         description = description.strip()
         if not description:
             raise InvalidParameter()
-        if business_id is not None:
-            validations_utils.validate_field_length(business_id, 60)
-        if business_name is not None:
-            validations_utils.validate_field_length(business_name, 60)
-            validations_utils.validate_fields([business_name])
-        if sprint_duration is not None:
-            validations_utils.validate_int_range(
-                int(sprint_duration), 1, 10, True
-            )
         if sprint_start_date is not None:
             tzn = pytz.timezone(TIME_ZONE)
             today = datetime_utils.get_now()
             if sprint_start_date.astimezone(tzn) > today:
                 raise InvalidDate()
+        metadata = groups_domain.assign_metadata(
+            business_id=business_id,
+            business_name=business_name,
+            description=description,
+            language=language,
+            sprint_start_date=sprint_start_date,
+            sprint_duration=sprint_duration,
+            tzn=tzn,
+        )
 
-        validations_utils.validate_field_length(description, 200)
-        validations_utils.validate_fields([description])
-        validations_utils.validate_group_language(language)
         await groups_domain.update_group_info(
             loaders=loaders,
             group_name=group_name,
-            metadata=GroupMetadataToUpdate(
-                business_id=business_id,
-                business_name=business_name,
-                description=description,
-                language=GroupLanguage[language.upper()],
-                sprint_duration=int(sprint_duration)
-                if sprint_duration
-                else None,
-                sprint_start_date=get_min_iso_date(
-                    sprint_start_date.astimezone(tzn)
-                )
-                if sprint_start_date
-                else None,
-            ),
+            metadata=metadata,
             email=user_email,
         )
     except PermissionDenied:

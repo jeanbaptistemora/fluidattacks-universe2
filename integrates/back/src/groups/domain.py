@@ -158,7 +158,9 @@ from newutils.validations import (
     validate_fields_deco,
     validate_file_exists_deco,
     validate_file_name_deco,
+    validate_group_language_deco,
     validate_group_name_deco,
+    validate_int_range_deco,
     validate_string_length_between_deco,
 )
 from notifications import (
@@ -1548,6 +1550,34 @@ async def send_mail_unsubscribed(
         email_to=stakeholders_email,
         group_name=group_name,
         report_date=report_date.date(),
+    )
+
+
+@validate_field_length_deco("business_id", 60)
+@validate_field_length_deco("business_name", 60)
+@validate_fields_deco(["business_name"])
+@validate_field_length_deco("description", 200)
+@validate_fields_deco(["description"])
+@validate_group_language_deco("language")
+@validate_int_range_deco("sprint_duration", 1, 10, True)
+def assign_metadata(  # pylint:disable=too-many-arguments
+    business_id: Optional[Any],
+    business_name: Optional[Any],
+    description: str,
+    language: str,
+    sprint_start_date: Any,
+    sprint_duration: Optional[Any],
+    tzn: Optional[Any],
+) -> GroupMetadataToUpdate:
+    return GroupMetadataToUpdate(
+        business_id=business_id,
+        business_name=business_name,
+        description=description,
+        language=GroupLanguage[language.upper()],
+        sprint_duration=int(sprint_duration) if sprint_duration else None,
+        sprint_start_date=get_min_iso_date(sprint_start_date.astimezone(tzn))
+        if sprint_start_date
+        else None,
     )
 
 
