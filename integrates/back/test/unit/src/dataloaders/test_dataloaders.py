@@ -5,9 +5,6 @@ from dataloaders import (
 from db_model.events.types import (
     Event,
 )
-from moto.dynamodb2 import (
-    dynamodb_backend2,
-)
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
 )
@@ -33,7 +30,7 @@ pytestmark = [
 def test_create_tables(
     dynamo_resource: ServiceResource, table: str, length: int
 ) -> None:
-    assert table in dynamodb_backend2.tables
+
     assert len(dynamo_resource.Table(table).scan()["Items"]) == length
 
 

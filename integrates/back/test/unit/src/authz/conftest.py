@@ -1,6 +1,6 @@
 import boto3
-from moto.dynamodb2 import (
-    mock_dynamodb2,
+from moto.dynamodb import (
+    mock_dynamodb,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -254,7 +254,7 @@ data: Dict[str, List[Any]] = dict(
 @pytest_asyncio.fixture(name="dynamo_resource")
 async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
-    with mock_dynamodb2():
+    with mock_dynamodb():
         yield boto3.resource("dynamodb")
 
 
@@ -271,6 +271,9 @@ def create_tables(
             ],
             GlobalSecondaryIndexes=dynamodb_tables_args[table][
                 "global_secondary_indexes"
+            ],
+            ProvisionedThroughput=dynamodb_tables_args[table][
+                "provisioned_throughput"
             ],
         )
         for item in data[table]:

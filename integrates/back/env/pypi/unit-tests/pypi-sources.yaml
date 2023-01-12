@@ -15,9 +15,9 @@ closure:
   jinja2: 3.1.2
   jmespath: 1.0.1
   markupsafe: 2.1.1
-  moto: 3.0.0
-  mypy-boto3-dynamodb: 1.24.36.post1
-  mypy-boto3-s3: 1.24.36.post1
+  moto: 4.1.0
+  mypy-boto3-dynamodb: 1.26.24
+  mypy-boto3-s3: 1.26.0.post1
   packaging: "23.0"
   pluggy: 1.0.0
   pycparser: "2.21"
@@ -25,7 +25,6 @@ closure:
   pytest-asyncio: 0.20.3
   pytest-cov: 4.0.0
   python-dateutil: 2.8.2
-  pytz: "2022.7"
   requests: 2.28.1
   responses: 0.22.0
   s3transfer: 0.6.0
@@ -229,24 +228,24 @@ links:
   - name: MarkupSafe-2.1.1.tar.gz
     sha256: 0jqxp5sfrc0byp6bk0gwdmildi4mck2gprp42afri3z4r5y1k4bz
     url: https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz
-  - name: moto-3.0.0-py2.py3-none-any.whl
-    sha256: 0y1m5anw6vkhjx1ifqm6k8zz9ghq2crnjpj9ys3wchinmnxk6bbn
-    url: https://files.pythonhosted.org/packages/19/1d/32ce250a230487e061143caadd5f6af9287652ff7a102aed091c65cfbe40/moto-3.0.0-py2.py3-none-any.whl
-  - name: moto-3.0.0.tar.gz
-    sha256: 0mc2zmvs7i7pkr9pif16yndxrj14n7y5ygc20sxpw3i9cck0mc6n
-    url: https://files.pythonhosted.org/packages/96/87/072889173d63cc425c468092e935178c4766ab99ec3fa9b04ef1759ed6a2/moto-3.0.0.tar.gz
-  - name: mypy_boto3_dynamodb-1.24.36.post1-py3-none-any.whl
-    sha256: 120i212rbzjxpa46r09fq1wnfk6dq74b0qp40haxgyxddbhppmkk
-    url: https://files.pythonhosted.org/packages/d6/a0/f93e023e8c85951bcd737a9b14f6295a5b77c9fee5542b779b73049e0455/mypy_boto3_dynamodb-1.24.36.post1-py3-none-any.whl
-  - name: mypy-boto3-dynamodb-1.24.36.post1.tar.gz
-    sha256: 0s81pa965gi1xy3izbw60v2jknqyvyficxdd199qh7m6zfqgpvwq
-    url: https://files.pythonhosted.org/packages/6e/5a/7252bd18365cdb6bf30dc89e691611792d0b88c7f7a1f5c72da9f0177ee2/mypy-boto3-dynamodb-1.24.36.post1.tar.gz
-  - name: mypy_boto3_s3-1.24.36.post1-py3-none-any.whl
-    sha256: 0njfg1ys4mzgrmwxwwqsygxs54avx8cra3qpjfvbgy2m7jrmkbih
-    url: https://files.pythonhosted.org/packages/67/27/215cc2b2af82572c2d6088d020b85cbe5634020e9b2e20e7e7a1b501b597/mypy_boto3_s3-1.24.36.post1-py3-none-any.whl
-  - name: mypy-boto3-s3-1.24.36.post1.tar.gz
-    sha256: 1ghagvl3h64hr40lrsfkga0gmrs13agpl78qwbm5jl6yk9py1mrv
-    url: https://files.pythonhosted.org/packages/c8/37/72d29df3096b8f15955e4b907b98cfb8bdc61b04dfe317ea78ca54e6e761/mypy-boto3-s3-1.24.36.post1.tar.gz
+  - name: moto-4.1.0-py2.py3-none-any.whl
+    sha256: 0kwzg6m1j63yhyh8zfrar2l11bpdzlw5g9zjfjbx28mzdqck3whj
+    url: https://files.pythonhosted.org/packages/87/7e/8701dc98dedba64b4435bbf70e2bde1bcec9964a8c9979815413e0b75a3a/moto-4.1.0-py2.py3-none-any.whl
+  - name: moto-4.1.0.tar.gz
+    sha256: 1ym24bbmlxvc4rz551v887iymv4xgj1ggwy80qdn7fvsylnnjnp6
+    url: https://files.pythonhosted.org/packages/5d/3a/5adcdb131ba68c9e36123a2888b665fdad33352d153180486a702fd66be1/moto-4.1.0.tar.gz
+  - name: mypy_boto3_dynamodb-1.26.24-py3-none-any.whl
+    sha256: 19p2rzgc7ip34p1f0i2ymm6398gp5jaqm53gfbi56wcvxc1k7z21
+    url: https://files.pythonhosted.org/packages/a4/66/fab5be47dbaa41773dcf419da6a360e418c0232ff24f55e6130ee1dc1202/mypy_boto3_dynamodb-1.26.24-py3-none-any.whl
+  - name: mypy-boto3-dynamodb-1.26.24.tar.gz
+    sha256: 0674pzsib5vcsm5sbqv1kfq1hh5r09py3x2x67qs77qqjbv5kl4l
+    url: https://files.pythonhosted.org/packages/59/9c/3378de5fef72da1abbbe1484b4df39fce241ccb95efa9dc4bb15750bf26d/mypy-boto3-dynamodb-1.26.24.tar.gz
+  - name: mypy_boto3_s3-1.26.0.post1-py3-none-any.whl
+    sha256: 0kb4vjyich3fgzr068kz45kz5rdnl9m3mzs6rn21nm6cy0ppkqkx
+    url: https://files.pythonhosted.org/packages/28/b1/6efeaac8c1f3951401a7e889472b479640e113b75d72b49925b6acfbeaea/mypy_boto3_s3-1.26.0.post1-py3-none-any.whl
+  - name: mypy-boto3-s3-1.26.0.post1.tar.gz
+    sha256: 0f69xilr39sm71d7jwsbh6bv44y4k5i77l6spqy9kp1rqzw7jw3d
+    url: https://files.pythonhosted.org/packages/d5/e7/d3d7b9846a71d874218b231cfcbb040a96e264f9309c1395046dd1b73030/mypy-boto3-s3-1.26.0.post1.tar.gz
   - name: packaging-23.0-py3-none-any.whl
     sha256: 1ch201bz087xfagzsy0hdyxz719bg9gq804vqacqrrn3jr2c2jki
     url: https://files.pythonhosted.org/packages/ed/35/a31aed2993e398f6b09a790a181a7927eb14610ee8bbf02dc14d31677f1c/packaging-23.0-py3-none-any.whl
@@ -289,12 +288,6 @@ links:
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: pytz-2022.7-py2.py3-none-any.whl
-    sha256: 1z9cwps0z5cyvzarmpzqc6382xj88cny110wk76zf8mffppps04k
-    url: https://files.pythonhosted.org/packages/3d/19/4de17f0d5cf5a0d87aa67532d4c2fa75e6e7d8df13c27635ff40fa6f4b76/pytz-2022.7-py2.py3-none-any.whl
-  - name: pytz-2022.7.tar.gz
-    sha256: 0fk8zblp784pdcwn0m4hpv8qznrzcxhn4g3klrj781ic9dxsxkvw
-    url: https://files.pythonhosted.org/packages/6d/37/54f2d7c147e42dc85ffbc6910862bb4f141fb3fc14d9a88efaa1a76c7df2/pytz-2022.7.tar.gz
   - name: requests-2.28.1-py3-none-any.whl
     sha256: 0jakwryf077k46wbs525hrkxlyg4prpq6hdc199ganrnl6hs5vwg
     url: https://files.pythonhosted.org/packages/ca/91/6d9b8ccacd0412c08820f72cebaa4f0c0441b5cda699c90f618b6f8a1b42/requests-2.28.1-py3-none-any.whl

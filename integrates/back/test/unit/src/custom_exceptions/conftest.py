@@ -5,8 +5,8 @@ from decimal import (
 from moto import (
     mock_s3,
 )
-from moto.dynamodb2 import (
-    mock_dynamodb2,
+from moto.dynamodb import (
+    mock_dynamodb,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -135,7 +135,7 @@ data: Dict[str, List[Any]] = dict(
 @pytest_asyncio.fixture(name="dynamo_resource", scope="module")
 async def dynamodb() -> AsyncGenerator[ServiceResource, None]:
     """Mocked DynamoDB Fixture."""
-    with mock_dynamodb2():
+    with mock_dynamodb():
         yield boto3.resource("dynamodb")
 
 
@@ -147,13 +147,18 @@ async def s_3() -> AsyncGenerator[S3Client, None]:
 
 
 @pytest.fixture(scope="module", autouse=True)
-def create_tables(dynamo_resource: ServiceResource) -> None:
+def create_tables(
+    dynamodb_tables_args: dict, dynamo_resource: ServiceResource
+) -> None:
     for table in tables_names:
         dynamo_resource.create_table(
             TableName=table,
             KeySchema=key_schemas[table],  # type: ignore
             AttributeDefinitions=attribute_definitions[table],  # type: ignore
             GlobalSecondaryIndexes=global_secondary_indexes[table],
+            ProvisionedThroughput=dynamodb_tables_args[table][
+                "provisioned_throughput"
+            ],
         )
         for item in data[table]:
             dynamo_resource.Table(table).put_item(Item=item)

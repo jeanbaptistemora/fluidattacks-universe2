@@ -134,6 +134,10 @@ def dynamodb_tables_args() -> dict:
                     },
                 },
             ],
+            provisioned_throughput={
+                "ReadCapacityUnits": 1,
+                "WriteCapacityUnits": 1,
+            },
         )
     )
     return tables
