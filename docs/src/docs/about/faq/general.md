@@ -303,13 +303,9 @@ in each vulnerability:
 
   a. Little severe
 
-  b. Very frequent
-
 1. Increases the severity of vulnerabilities:
 
   a. Highly severe
-
-  b. Infrequent
 
 1. Allows:
 
