@@ -64,15 +64,15 @@ from newutils import (
     datetime as datetime_utils,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
     Dict,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("update_toe_vulnerabilities")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "findings": [

@@ -13,14 +13,14 @@ from db_model.organization_finding_policies.types import (
     OrgFindingPolicyState,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("submit_organization_finding_policy")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "user_manager@gmail.com"
     test_date = datetime.fromisoformat("2021-05-19T13:37:10+00:00")

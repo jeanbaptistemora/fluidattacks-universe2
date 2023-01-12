@@ -16,14 +16,14 @@ from db_model.events.types import (
     EventState,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("events")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
         "events": [

@@ -62,14 +62,14 @@ from decimal import (
     Decimal,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("organization")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
         "groups": [

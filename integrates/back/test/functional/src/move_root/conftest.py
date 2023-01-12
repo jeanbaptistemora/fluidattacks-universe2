@@ -64,11 +64,11 @@ from db_model.vulnerabilities.types import (
     VulnerabilityUnreliableIndicators,
 )
 import pytest
+import pytest_asyncio
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("move_root")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
         "policies": (

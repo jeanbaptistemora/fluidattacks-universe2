@@ -39,14 +39,14 @@ from db_model.types import (
     Policies,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("machine_queue_all")
-@pytest.fixture(scope="session")
+@pytest_asyncio.fixture(scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
         "groups": [

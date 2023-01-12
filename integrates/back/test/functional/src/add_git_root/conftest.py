@@ -9,11 +9,11 @@ from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
 import pytest
+import pytest_asyncio
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_git_root")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict) -> bool:
     data: dict = {
         "organization_unreliable_integration_repository": (

@@ -23,14 +23,14 @@ from db_model.roots.types import (
     URLRootState,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("activate_root")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
     test_status = RootStatus.INACTIVE

@@ -65,6 +65,7 @@ from git.repo import (
 )
 import os
 import pytest
+import pytest_asyncio
 from shutil import (
     rmtree,
 )
@@ -75,8 +76,7 @@ from typing import (
 )
 
 
-@pytest.mark.asyncio
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data = {
         "credentials": (

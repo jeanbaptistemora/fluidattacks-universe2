@@ -66,15 +66,15 @@ from decimal import (
     Decimal,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
     Dict,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("report_machine")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "groups": [

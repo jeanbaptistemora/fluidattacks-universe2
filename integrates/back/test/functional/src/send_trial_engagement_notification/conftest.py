@@ -35,11 +35,11 @@ from db_model.types import (
     Policies,
 )
 import pytest
+import pytest_asyncio
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("send_trial_engagement_notification")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
         "companies": [

@@ -34,11 +34,11 @@ from db_model.types import (
     Policies,
 )
 import pytest
+import pytest_asyncio
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_enrollment")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
         "enrollments": [

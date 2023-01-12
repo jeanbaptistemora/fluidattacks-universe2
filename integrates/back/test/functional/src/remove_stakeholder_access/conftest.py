@@ -37,14 +37,14 @@ from db_model.types import (
     Policies,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("remove_stakeholder_access")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     new_user: str = "justonegroupaccess@gmail.com"
     organization_id = "e75525d6-70a6-45ba-9f87-66c2dd2678d9"

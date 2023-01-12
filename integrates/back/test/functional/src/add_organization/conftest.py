@@ -23,15 +23,15 @@ from db_model.types import (
     Policies,
 )
 import pytest
+import pytest_asyncio
 from typing import (
     Any,
     Dict,
 )
 
 
-@pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_organization")
-@pytest.fixture(autouse=True, scope="session")
+@pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "companies": [
