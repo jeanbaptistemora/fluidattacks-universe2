@@ -230,6 +230,8 @@ allows companies to stay one step ahead of attackers
 and maintain security controls.
 That is why DevSecOps practices are important.
 
+<caution-box>
+
 **Caution:**
 (a) **Relying heavily on tools and their automatic work
 can lead to high rates of false positives and negatives**.
@@ -243,6 +245,8 @@ that current technology is unable to identify.
 starting [with high-priority areas](https://medium.com/hackernoon/the-future-of-security-is-devsecops-9166db1d8a03),
 trying not to overload the developers with work
 as they are usually responsible for closing the gaps.
+
+</caution-box>
 
 ## Benefits of DevSecOps
 

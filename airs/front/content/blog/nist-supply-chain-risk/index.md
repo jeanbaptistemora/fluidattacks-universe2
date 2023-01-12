@@ -232,10 +232,14 @@ that you can fix to prevent falling victim to supply chain attacks.
 Want to know more?
 [Contact us](../../contact-us/).
 
-> **Caution:**
-> Many major details from the NIST publication are missing in this blog post.
-> Having read this post in no way substitutes
-> for careful reading of the NIST SP 800-161r1.
-> For a thorough understanding of the guidelines,
-> we recommend reading the
-> [original text](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-161r1.pdf).
+<caution-box>
+
+**Caution:**
+Many major details from the NIST publication are missing in this blog post.
+Having read this post in no way substitutes
+for careful reading of the NIST SP 800-161r1.
+For a thorough understanding of the guidelines,
+we recommend reading the
+[original text](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-161r1.pdf).
+
+</caution-box>

@@ -197,9 +197,13 @@ for cybersecurity on SLTT entities
 make for a promising strategy
 in lifting up cybersecurity readiness in all levels of government.
 
-> **Caution:**
-> Many details from the two new laws are missing in this blog post.
-> Having read this post in no way substitutes
-> for careful reading of the two public laws.
-> For a thorough understanding,
-> we recommend that you read the full texts.
+<caution-box>
+
+**Caution:**
+Many details from the two new laws are missing in this blog post.
+Having read this post in no way substitutes
+for careful reading of the two public laws.
+For a thorough understanding,
+we recommend that you read the full texts.
+
+</caution-box>

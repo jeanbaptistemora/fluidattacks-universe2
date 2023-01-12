@@ -180,10 +180,14 @@ that [complies with the HIPAA](../../compliance/hipaa/)
 and many more security standards.
 Don't hesitate to [contact us](../../contact-us/)\!
 
-> **Caution:**
-> Many major details from the publication are missing in this blog post.
-> Having read this post in no way substitutes
-> for careful reading of the NIST SP 800-66 Rev. 2 (Draft).
-> If you need to know all the details,
-> we recommend that you read the
-> [full text](https://doi.org/10.6028/NIST.SP.800-66r2.ipd).
+<caution-box>
+
+**Caution:**
+Many major details from the publication are missing in this blog post.
+Having read this post in no way substitutes
+for careful reading of the NIST SP 800-66 Rev. 2 (Draft).
+If you need to know all the details,
+we recommend that you read the
+[full text](https://doi.org/10.6028/NIST.SP.800-66r2.ipd).
+
+</caution-box>

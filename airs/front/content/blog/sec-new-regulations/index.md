@@ -337,9 +337,13 @@ start by trying our [21-day free trial](../../free-trial/)
 of security testing
 with our automated tools.)
 
-> **Caution:**
-> Many details of the proposed amendments are missing in this blog post.
-> Having read this post in no way replaces a careful reading
-> of the "[Proposed rule](https://www.sec.gov/rules/proposed/2022/33-11038.pdf)."
-> For a thorough understanding,
-> we recommend you read that document fully.
+<caution-box>
+
+**Caution:**
+Many details of the proposed amendments are missing in this blog post.
+Having read this post in no way replaces a careful reading
+of the "[Proposed rule](https://www.sec.gov/rules/proposed/2022/33-11038.pdf)."
+For a thorough understanding,
+we recommend you read that document fully.
+
+</caution-box>

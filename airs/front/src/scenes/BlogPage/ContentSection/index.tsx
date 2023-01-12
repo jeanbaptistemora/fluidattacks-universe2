@@ -6,6 +6,7 @@ import rehypeReact from "rehype-react";
 
 import { BlogCta } from "./components/BlogCta";
 import { BlogLink } from "./components/BlogLink";
+import { Caution } from "./components/Caution";
 import { Header2 } from "./components/Header2";
 import { Header3 } from "./components/Header3";
 import { Header4 } from "./components/Header4";
@@ -28,6 +29,7 @@ const ContentSection: React.FC<IContentProps> = ({
   const renderAst = new (rehypeReact as any)({
     components: {
       a: BlogLink,
+      "caution-box": Caution,
       "cta-banner": BlogCta,
       h2: Header2,
       h3: Header3,

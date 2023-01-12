@@ -231,10 +231,14 @@ as a reference
 for our assessments of organizations systems' security vulnerabilities.
 [Contact us](../../contact-us/)\!
 
-> **Caution:**
-> Many major details from the new standard are missing in this blog post.
-> Having read this post in no way substitutes
-> for careful reading of the ISO/IEC 27002:2022.
-> For your purposes other than personal,
-> we recommend that you purchase and read the
-> [full text](https://www.iso.org/standard/75652.html).
+<caution-box>
+
+**Caution:**
+Many major details from the new standard are missing in this blog post.
+Having read this post in no way substitutes
+for careful reading of the ISO/IEC 27002:2022.
+For your purposes other than personal,
+we recommend that you purchase and read the
+[full text](https://www.iso.org/standard/75652.html).
+
+</caution-box>
