@@ -149,9 +149,8 @@ the following:
   project to which that
   group is associated.
 - **Type of service:**
-  Select between Continuous
-  Hacking (**Machine or Squad**)
-  and One-Shot Hacking.
+  Select between Continuous Hacking - Machine Plan
+  and Continuous Hacking - Squad Plan.
 - **Type of testing:**
   Select between [white-box](/about/glossary/#white-box)
   and [black-box](https://docs.fluidattacks.com/about/glossary/#black-box)
@@ -182,9 +181,8 @@ upon click,
 allows you to filter your
 group search by either group
 name or plan
-([Machine Plan](/about/faq/machine),
-[Squad Plan](/about/faq) or
-[One-Shot](/about/faq/estimation#one-shot-hacking-per-project)).
+([Machine Plan](/about/faq/machine) or
+[Squad Plan](/about/faq)).
 
 ![Group Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1667250616/docs/web/groups/general/group_filtes.png)
 

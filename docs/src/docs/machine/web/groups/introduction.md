@@ -27,9 +27,8 @@ Access to these can vary
 depending on your
 [role](/machine/web/groups/roles)
 and if you are using
-[Machine Plan](/about/faq/machine),
-[Squad Plan](/about/faq) or
-[One-Shot](/about/faq/estimation#one-shot-hacking-per-project).
+[Machine Plan](/about/faq/machine) or
+[Squad Plan](/about/faq).
 The sections you may find in
 your groups are the following:
 

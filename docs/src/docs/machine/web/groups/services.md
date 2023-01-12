@@ -15,11 +15,6 @@ and plan (Machine/Squad).
 The services you can
 change are as follows:
 
-- **Subscription type:**
-  There are two:
-  [Continuous Hacking](/about/faq/estimation#continuous-hacking-with-squad-plan)
-  or
-  [One-Shot Hacking](/about/faq/estimation#one-shot-hacking-per-project).
 - **Service:**
   [White](/about/glossary#white-box)
   and

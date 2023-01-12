@@ -273,10 +273,10 @@ other than credentials.
 
 ### TOE differs approved
 
-In One-Shot or continuous
-service there are services
-different from those agreed
-upon or non-existent functionalities.
+In Continuous Hacking,
+there are services
+different from those agreed upon
+or non-existent functionalities.
 
 ### Other
 
