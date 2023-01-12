@@ -1,11 +1,11 @@
 ---
 id: arm-etl
-title: Arm ETL
-sidebar_label: Arm
+title: ARM ETL
+sidebar_label: ARM
 slug: /development/arm-etl
 ---
 
-This ETL process extracts data from the arm database (dynamo) and sends it to
+This ETL process extracts data from the ARM database (dynamo) and sends it to
 the warehouse (redshift).
 
 :::note
@@ -57,7 +57,7 @@ This process is triggered by an schedule.
 
 1. Redshift load
 
-    Data at S3 is transferred into redshift using custom
+    Data in S3 is transferred into redshift using custom
     redshift queries.
 
 :::info
@@ -74,7 +74,7 @@ segments of data. As a consequence various redshift-schemas are generated
 the centralization procedure glues the data together.
 
 When data segments finish successfully the centralization process can be
-triggered. This phase is manually triggered.
+triggered. This phase is **manually** triggered.
 
 1. local execution
 
@@ -87,6 +87,11 @@ triggered. This phase is manually triggered.
     ```bash
     m . /computeOnAwsBatch/observesDynamoCentralize
     ```
+
+:::tip
+All aws batch executions have their local job equivalent. See
+the `computeOnAwsBatch` job definition to view the underlying local command.
+:::
 
 ## Data-schema determination
 
@@ -105,11 +110,11 @@ m . /computeOnAwsBatch/observesDynamoSchema
 ETL jobs are unstable because of redshift or aws unhandled errors.
 This are the most common issues:
 
-### Host terminated
+### CannotInspectContainerError
 
-- Reason: due to the spot nature of the instances used at aws batch
+- Reason: the job finish in an unknown state from aws batch perspective
 
-- Resolution: re-execution
+- Resolution: verify job log (possible false negative)
 
 ### InternalError: Out of Memory
 
@@ -117,7 +122,23 @@ This are the most common issues:
 
 - Hypothesis: high db usage demand from concurrent `s3 -> redshift` operations
 
-- Resolution: re-execution (provable that only needs partial re-execution)
+- Resolution: re-execution (it is likely to need only partial re-execution)
+
+### Host terminated
+
+- Reason: the spot nature of the instances used at aws batch
+
+- Resolution: re-execution
+
+## Rare issues
+
+Some ETL unhandled errors are not frequent
+
+### Stuck queries
+
+- Reason: unknown
+
+- Resolution: [prevent-locks-blocking-queries](https://aws.amazon.com/es/premiumsupport/knowledge-center/prevent-locks-blocking-queries-redshift/#Resolution).
 
 ### InternalError stl_load_errors
 
@@ -126,16 +147,6 @@ This are the most common issues:
 - Resolution: unknown (try re-execution)
 
 - Note: this issue should not be raised since the issue was solved
-
-### CannotInspectContainerError
-
-- Reason: the job finish in an unknown state from aws batch perspective
-
-- Resolution: verify job log (possible false negative)
-
-### Stuck queries
-
-If some query seems stuck see [this resolution](https://aws.amazon.com/es/premiumsupport/knowledge-center/prevent-locks-blocking-queries-redshift/#Resolution).
 
 ## Partial re-execution
 
