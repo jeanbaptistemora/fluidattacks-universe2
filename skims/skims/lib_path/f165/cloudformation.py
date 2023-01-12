@@ -7,7 +7,7 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from lib_path.f165.utils import (
-    check_assume_role_policies,
+    iam_trust_policies_checks,
 )
 from metaloaders.model import (
     Node,
@@ -161,91 +161,64 @@ def cfn_iam_is_role_over_privileged(
     )
 
 
-def _not_principal_trust_policy(
-    file_ext: str,
-    iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
-            yield from check_assume_role_policies(
-                assume_role_policy, file_ext, "NOT_PRINCIPAL"
-            )
-
-
 def cfn_iam_allow_not_principal_trust_policy(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
             "src.lib_path.f165.iam_allow_not_principal_trust_policy"
         ),
         iterator=get_cloud_iterator(
-            _not_principal_trust_policy(
+            iam_trust_policies_checks(
                 file_ext=file_ext,
                 iam_iterator=iter_iam_roles(template=template),
+                method=method,
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL,
+        method=method,
     )
-
-
-def _allow_not_actions_trust_policy(
-    file_ext: str,
-    iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
-            yield from check_assume_role_policies(
-                assume_role_policy, file_ext, "NOT_ACTION"
-            )
 
 
 def cfn_iam_allow_not_actions_trust_policy(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
             "src.lib_path.f165.iam_allow_not_action_trust_policy"
         ),
         iterator=get_cloud_iterator(
-            _allow_not_actions_trust_policy(
+            iam_trust_policies_checks(
                 file_ext=file_ext,
                 iam_iterator=iter_iam_roles(template=template),
+                method=method,
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION,
+        method=method,
     )
-
-
-def _iam_allow_wildcard_action_trust_policy(
-    file_ext: str,
-    iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
-            yield from check_assume_role_policies(
-                assume_role_policy, file_ext, "WILDCARD_ACTION"
-            )
 
 
 def cfn_iam_allow_wildcard_action_trust_policy(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
             "src.lib_path.f165.iam_allow_wildcard_action_trust_policy"
         ),
         iterator=get_cloud_iterator(
-            _iam_allow_wildcard_action_trust_policy(
+            iam_trust_policies_checks(
                 file_ext=file_ext,
                 iam_iterator=iter_iam_roles(template=template),
+                method=method,
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION,
+        method=method,
     )
