@@ -4,7 +4,7 @@ type TStyle = "i" | "no";
 type Nums1To4 = 1 | 2 | 3 | 4;
 type Nums1To7 = Nums1To4 | 5 | 6 | 7;
 type TWeight = "bold" | "regular" | "semibold";
-type TSize = "big" | "medium" | "small" | "xs";
+type TSize = "big" | "medium" | "small" | "xs" | "xxs";
 
 interface ITypographyProps {
   color: string;

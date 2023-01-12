@@ -27,6 +27,10 @@ const variants: Record<TSize, { sizes: ISize; weight: TWeight }> = {
     sizes: { fontSize: "4", lineHeight: "28" },
     weight: "semibold",
   },
+  xxs: {
+    sizes: { fontSize: "5", lineHeight: "28" },
+    weight: "semibold",
+  },
 };
 
 const getSize = (size: TSize, sizeMd?: TSize, sizeSm?: TSize): string => {

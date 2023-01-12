@@ -20,6 +20,7 @@ const sizes: Record<TSize, ISize> = {
   medium: { fontSize: "5", lineHeight: "24" },
   small: { fontSize: "6", lineHeight: "22" },
   xs: { fontSize: "7", lineHeight: "22" },
+  xxs: { fontSize: "7", lineHeight: "22" },
 };
 
 const getSize = (size: TSize, sizeMd?: TSize, sizeSm?: TSize): string => {
