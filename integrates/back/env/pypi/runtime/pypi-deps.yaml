@@ -31,11 +31,10 @@ httpx: 0.23.3
 hyperlink: 19.0.0
 idna: "2.9"
 itsdangerous: 1.1.0
-Jinja2: 2.11.2
+Jinja2: 3.1.2
 jwcrypto: 1.4.2
 lxml: 4.7.1
 mailchimp-transactional: 1.0.40
-markupsafe: 2.0.1 # https://github.com/pallets/markupsafe/issues/286
 matplotlib: 3.4.3
 mixpanel: 4.9.0
 more_itertools: 8.4.0

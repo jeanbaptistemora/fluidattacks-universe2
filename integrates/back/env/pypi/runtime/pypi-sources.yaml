@@ -63,7 +63,7 @@ closure:
   idna: "2.9"
   isodate: 0.6.1
   itsdangerous: 1.1.0
-  jinja2: 2.11.2
+  jinja2: 3.1.2
   jmespath: 1.0.1
   jwcrypto: 1.4.2
   kiwisolver: 1.4.4
@@ -71,7 +71,7 @@ closure:
   korean-lunar-calendar: 0.3.1
   lxml: 4.7.1
   mailchimp-transactional: 1.0.40
-  markupsafe: 2.0.1
+  markupsafe: 2.1.1
   matplotlib: 3.4.3
   mixpanel: 4.9.0
   more-itertools: 8.4.0
@@ -648,12 +648,12 @@ links:
   - name: itsdangerous-1.1.0.tar.gz
     sha256: 068zpbksq5q2z4dckh2k1zbcq43ay74ylqn77rni797j0wyh66rj
     url: https://files.pythonhosted.org/packages/68/1a/f27de07a8a304ad5fa817bbe383d1238ac4396da447fa11ed937039fa04b/itsdangerous-1.1.0.tar.gz
-  - name: Jinja2-2.11.2-py2.py3-none-any.whl
-    sha256: 0dbhqghlha2qsgn37xz8mcwdd91scsa3sky0i5534mgr7hfn997h
-    url: https://files.pythonhosted.org/packages/30/9e/f663a2aa66a09d838042ae1a2c5659828bb9b41ea3a6efa20a20fd92b121/Jinja2-2.11.2-py2.py3-none-any.whl
-  - name: Jinja2-2.11.2.tar.gz
-    sha256: 1c1v3djnr0ymp5xpy1h3h60abcaqxdlm4wsqmls9rxby88av5al9
-    url: https://files.pythonhosted.org/packages/64/a7/45e11eebf2f15bf987c3bc11d37dcc838d9dc81250e67e4c5968f6008b6c/Jinja2-2.11.2.tar.gz
+  - name: Jinja2-3.1.2-py3-none-any.whl
+    sha256: 0q9a30x046p3wvbgx598g4lmxwwykk0vjsjl21khx7r3zq5r7230
+    url: https://files.pythonhosted.org/packages/bc/c3/f068337a370801f372f2f8f6bad74a5c140f6fda3d9de154052708dd3c65/Jinja2-3.1.2-py3-none-any.whl
+  - name: Jinja2-3.1.2.tar.gz
+    sha256: 0lp86yadzf8dph67f6g3yxmvnhrzzi863z58jmsrx2j059q1ld9i
+    url: https://files.pythonhosted.org/packages/7a/ff/75c28576a1d900e87eb6335b063fab47a8ef3c8b4d88524c4bf78f670cce/Jinja2-3.1.2.tar.gz
   - name: jmespath-1.0.1-py3-none-any.whl
     sha256: 10194nk0641vz2kpy442dsgdv44ia43zksrf6f4apg5mf76f9qh2
     url: https://files.pythonhosted.org/packages/31/b4/b9b800c45527aadd64d5b442f9b932b00648617eb5d63d2c7a6587b7cafc/jmespath-1.0.1-py3-none-any.whl
@@ -729,48 +729,33 @@ links:
   - name: mailchimp_transactional-1.0.40-py3-none-any.whl
     sha256: 1i1lp9vplr8njz17d5ifs4kgy5sbd66p9phpc29fkbh3j16f9mfs
     url: https://files.pythonhosted.org/packages/00/21/a99ee4bc849fe0e2ec4822033dffe8d7bacf0691ce0ba4a06760607ac7a1/mailchimp_transactional-1.0.40-py3-none-any.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_universal2.whl
-    sha256: 09ix4ygm1914ksqihb5p55i422nbv881pwyd5cjh5d9hwyz4mx9f
-    url: https://files.pythonhosted.org/packages/dd/8f/d0c570c851f70377ca6f344531fab4b6b01a99a9d2a801b25d6fd75525e5/MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_universal2.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1rvadbdqglmczly395795a1h7zhb16gcq74ay5mc4y3mam82a49w
-    url: https://files.pythonhosted.org/packages/ce/a7/835a636047f4bb4fea31a682c18affad9795e864d800892bd7248485425e/MarkupSafe-2.0.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux1_i686.whl
-    sha256: 1n6xnpssxchajdpcc0akz5jf70dxaalc49kdgg017b95d7db9vak
-    url: https://files.pythonhosted.org/packages/66/66/b5891704372c9f5d97432933bdd7e9b5a0647fad9170c72bb7f486550c43/MarkupSafe-2.0.1-cp39-cp39-manylinux1_i686.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux1_x86_64.whl
-    sha256: 1icxqzk5inwwkyfrpcw7fhffp7p5rd61avz5aaqi7q9ibwi3lrgm
-    url: https://files.pythonhosted.org/packages/50/99/06eccf68be0bff67ab9a0b90b5382c04769f9ad2e42cae5e5e92f99380cd/MarkupSafe-2.0.1-cp39-cp39-manylinux1_x86_64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux2010_i686.whl
-    sha256: 0dcizk9v32hncgcwcfgw2bdv4ry7zvih8xs6lm427cjldkwaiz2f
-    url: https://files.pythonhosted.org/packages/5a/ff/34bdcd8cc794f692588de0b3f4c1aa7ec0d17716fda9d874836ed68775c1/MarkupSafe-2.0.1-cp39-cp39-manylinux2010_i686.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux2010_x86_64.whl
-    sha256: 00m9lpvary58migmr0rapcl1mqwr8r665c1xalkgl6g3mhwgcgmb
-    url: https://files.pythonhosted.org/packages/6f/83/eabfb8c6d60b096dc9ada378cf935809289c4d0327b74a60789bde77e1db/MarkupSafe-2.0.1-cp39-cp39-manylinux2010_x86_64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux2014_aarch64.whl
-    sha256: 02cmgd9ddcfsq4yfb3klbpdg01k67znxvsp7z80k13d3961hxfpq
-    url: https://files.pythonhosted.org/packages/ae/70/8dd5f2c0aab82431c9c619a2c4fbd1742fc0fb769d8d7b275ae1d03eb3a5/MarkupSafe-2.0.1-cp39-cp39-manylinux2014_aarch64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1wds63qdnpjmhka4rxglpygksmz4w0xa9cy4fhr2pfy15z4xnyn4
-    url: https://files.pythonhosted.org/packages/a6/d1/a7b97d0e000336c4e06bfce7e08dcb2b47fc5091146ee883dfac6cb4842e/MarkupSafe-2.0.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-    sha256: 1b7a02hvz5zn786gjzffamm7hpyr41bjmbxha0vlw6br5an5q81p
-    url: https://files.pythonhosted.org/packages/67/e9/579a3ad8d48f7680f887ff1f22cc6330f083de23ce32a8fa35f8acef477a/MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_12_i686.manylinux2010_i686.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-    sha256: 1dlrhppd0waxnd2b4b864mjvdv3x2z9asjib8jm3jgwhp5vdwahz
-    url: https://files.pythonhosted.org/packages/c2/db/314df69668f582d5173922bded7b58126044bb77cfce6347c5d992074d2e/MarkupSafe-2.0.1-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_12_x86_64.manylinux2010_x86_64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_aarch64.whl
-    sha256: 0iwhl2qf1vv0m44bmip97l7flwm6n55w64w6lypad1lcrsqz55j2
-    url: https://files.pythonhosted.org/packages/8f/87/4668ce3963e942a9aa7b13212158e74bf063a2461138b7ed5a043ac6aa79/MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_aarch64.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 13krxzvb8pkpdw917wv38dbacqdbig6bc2bzch90lhwr9rfkc0lz
-    url: https://files.pythonhosted.org/packages/a7/55/a576835b6b95af21d15f69eaf14c4fb1358fd48475f2b9813abd9654132e/MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 1lbqm8xz4zsxmg16w0bs3rh85nrbcnhgz63c7s7dk3hg0c7r6vav
-    url: https://files.pythonhosted.org/packages/3b/41/f53e2ac439b309d8bb017d12ee6e7d393aa70c508448c1f30a7e5db9d69e/MarkupSafe-2.0.1-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: MarkupSafe-2.0.1.tar.gz
-    sha256: 02k2ynmqvvd0z0gakkf8s4idyb606r7zgga41jrkhqmigy06fk2r
-    url: https://files.pythonhosted.org/packages/bf/10/ff66fea6d1788c458663a84d88787bae15d45daa16f6b3ef33322a51fc7e/MarkupSafe-2.0.1.tar.gz
+  - name: MarkupSafe-2.1.1-cp39-cp39-macosx_10_9_universal2.whl
+    sha256: 12nssadssjcnc1wbwb23imdjkih2arlhri7a674m2f4w7j02ckp0
+    url: https://files.pythonhosted.org/packages/06/7f/d5e46d7464360b6ac39c5b0b604770dba937e3d7cab485d2f3298454717b/MarkupSafe-2.1.1-cp39-cp39-macosx_10_9_universal2.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-macosx_10_9_x86_64.whl
+    sha256: 0kxf0x6m1vlji931pwyfgda1icx3s8dmj3jgaq4p2chk00vb8zdq
+    url: https://files.pythonhosted.org/packages/26/03/2c11ba1a8b2327adea3f59f1c9c9ee9c59e86023925f929e63c4f028b10a/MarkupSafe-2.1.1-cp39-cp39-macosx_10_9_x86_64.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1mn1shgzyvyznwc9lylf29nkh6ccydcnv5x2fnwq3j1sxl3sb8lr
+    url: https://files.pythonhosted.org/packages/82/3d/523e40c45dc1f53b35e60c6e8563dec523f7b6c113f823d5e123dd431631/MarkupSafe-2.1.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0xqzmmi9p8jbbcmf2849k21fjpp16n89jkgr6yfd21ibxmijhi2n
+    url: https://files.pythonhosted.org/packages/df/06/c515c5bc43b90462e753bc768e6798193c6520c9c7eb2054c7466779a9db/MarkupSafe-2.1.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 00v6k6jmk8mgv1xzwck9sjqjvcgpd8pkxmmkdz8dny9zybiixq9w
+    url: https://files.pythonhosted.org/packages/73/68/628f6dbbf5088723a2b939d97c0a2e059d0cc654ce92a6fac5c7959edaff/MarkupSafe-2.1.1-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_aarch64.whl
+    sha256: 1dwa4jj6y1kcav45j5bwja4hmpz007sa7jmdpqkybxfjkcl4vdrk
+    url: https://files.pythonhosted.org/packages/3a/fc/dccc18170917f2cc2a5b77aad97f5f27d992ef0f2b9fb9e334ee71bf5301/MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_aarch64.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 0daihawcm3j4jbphf290867zb4k0v8b5b9xsn70alhw37nw3y2a3
+    url: https://files.pythonhosted.org/packages/ba/16/3627f852d8a846c0fc52ad1beac6e27894a8344cc2c26036db51acb82c3e/MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_i686.whl
+  - name: MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 15jzq4asfsdxlmr1i1waxxx595idaflv4wcfq4s98ib7ychwygcf
+    url: https://files.pythonhosted.org/packages/0f/53/b14de4ede9c2bd76d28e7911033b065ac42896f1cfb258d3ff65cf0332d2/MarkupSafe-2.1.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: MarkupSafe-2.1.1.tar.gz
+    sha256: 0jqxp5sfrc0byp6bk0gwdmildi4mck2gprp42afri3z4r5y1k4bz
+    url: https://files.pythonhosted.org/packages/1d/97/2288fe498044284f39ab8950703e88abbac2abbdf65524d576157af70556/MarkupSafe-2.1.1.tar.gz
   - name: matplotlib-3.4.3-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 0skl9xdly6jk039ivwjbb6rpkza1grfm11sqc77cz226d8rkzddq
     url: https://files.pythonhosted.org/packages/10/29/541b43a73a0f82517c481e0f1568423d88be6108956737f79e7ef97192fc/matplotlib-3.4.3-cp39-cp39-macosx_10_9_x86_64.whl

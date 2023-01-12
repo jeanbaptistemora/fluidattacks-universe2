@@ -33,6 +33,9 @@ from api.validations.query_depth import (
 from api.validations.variables_validation import (
     variables_check,
 )
+from ariadne.types import (
+    ExtensionList,
+)
 from billing.domain import (
     webhook,
 )
@@ -342,7 +345,9 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 
 exception_handlers = {404: not_found, 500: server_error}
 
-API_EXTENSIONS = (OpenTelemetryExtension,)
+API_EXTENSIONS: ExtensionList = [
+    OpenTelemetryExtension,
+]
 
 
 def get_validation_rules(
