@@ -144,6 +144,54 @@ const REMOVE_PAYMENT_METHOD: DocumentNode = gql`
   }
 `;
 
+const UPDATE_CREDIT_CARD_PAYMENT_METHOD: DocumentNode = gql`
+  mutation updateCreditCardPaymentMethod(
+    $organizationId: String!
+    $paymentMethodId: String!
+    $cardExpirationMonth: String!
+    $cardExpirationYear: String!
+    $makeDefault: Boolean!
+  ) {
+    updateCreditCardPaymentMethod(
+      organizationId: $organizationId
+      paymentMethodId: $paymentMethodId
+      cardExpirationMonth: $cardExpirationMonth
+      cardExpirationYear: $cardExpirationYear
+      makeDefault: $makeDefault
+    ) {
+      success
+    }
+  }
+`;
+
+const UPDATE_OTHER_PAYMENT_METHOD: DocumentNode = gql`
+  mutation updateOtherPaymentMethod(
+    $organizationId: String!
+    $paymentMethodId: String!
+    $businessName: String!
+    $email: String!
+    $country: String!
+    $state: String!
+    $city: String!
+    $rut: Upload
+    $taxId: Upload
+  ) {
+    updateOtherPaymentMethod(
+      organizationId: $organizationId
+      paymentMethodId: $paymentMethodId
+      businessName: $businessName
+      email: $email
+      country: $country
+      state: $state
+      city: $city
+      rut: $rut
+      taxId: $taxId
+    ) {
+      success
+    }
+  }
+`;
+
 const UPDATE_PAYMENT_METHOD: DocumentNode = gql`
   mutation updatePaymentMethod(
     $organizationId: String!
@@ -218,7 +266,9 @@ export {
   DOWNLOAD_FILE_MUTATION,
   GET_ORGANIZATION_BILLING,
   REMOVE_PAYMENT_METHOD,
+  UPDATE_CREDIT_CARD_PAYMENT_METHOD,
   UPDATE_GROUP_MUTATION,
+  UPDATE_OTHER_PAYMENT_METHOD,
   UPDATE_PAYMENT_METHOD,
   UPDATE_SUBSCRIPTION,
 };
