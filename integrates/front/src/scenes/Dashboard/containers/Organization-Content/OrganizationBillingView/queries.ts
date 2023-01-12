@@ -148,8 +148,8 @@ const UPDATE_CREDIT_CARD_PAYMENT_METHOD: DocumentNode = gql`
   mutation updateCreditCardPaymentMethod(
     $organizationId: String!
     $paymentMethodId: String!
-    $cardExpirationMonth: String!
-    $cardExpirationYear: String!
+    $cardExpirationMonth: Int!
+    $cardExpirationYear: Int!
     $makeDefault: Boolean!
   ) {
     updateCreditCardPaymentMethod(

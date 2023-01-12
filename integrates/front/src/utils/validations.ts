@@ -27,6 +27,11 @@ const regExps = {
 };
 
 /**
+ *Validations.ts is legacy code or used for complex validations,
+ *Use Yup validations schema instead.
+ */
+
+/**
  * Groups single or multiple field-level validations and returns the first error
  *
  * Example: composeValidators([val1, val2, val3])
