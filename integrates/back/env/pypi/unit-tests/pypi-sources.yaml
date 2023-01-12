@@ -8,7 +8,8 @@ closure:
   colorama: 0.4.6
   coverage: 7.0.5
   cryptography: 39.0.0
-  freezegun: 1.2.1
+  exceptiongroup: 1.1.0
+  freezegun: 1.2.2
   idna: "3.4"
   iniconfig: 2.0.0
   jinja2: 3.1.2
@@ -19,9 +20,8 @@ closure:
   mypy-boto3-s3: 1.24.36.post1
   packaging: "23.0"
   pluggy: 1.0.0
-  py: 1.11.0
   pycparser: "2.21"
-  pytest: 7.1.3
+  pytest: 7.2.0
   pytest-asyncio: 0.20.3
   pytest-cov: 4.0.0
   python-dateutil: 2.8.2
@@ -166,12 +166,18 @@ links:
   - name: cryptography-39.0.0.tar.gz
     sha256: 1pwa3rqcv7l8i4cl30ixd2fly6d09y8na5dxilz16bc0yzfcfr7r
     url: https://files.pythonhosted.org/packages/12/e3/c46c274cf466b24e5d44df5d5cd31a31ff23e57f074a2bb30931a8c9b01a/cryptography-39.0.0.tar.gz
-  - name: freezegun-1.2.1-py3-none-any.whl
-    sha256: 02fbyl5irrccwhkzj99d2yajkglnwd382l4gka0ass58vxkkl40m
-    url: https://files.pythonhosted.org/packages/d2/cf/cb14c48cad1366bd08d5f5482b3d7ea0696b6d38a2764752d331fa8bbd22/freezegun-1.2.1-py3-none-any.whl
-  - name: freezegun-1.2.1.tar.gz
-    sha256: 193bj8cna2sm8f81i9d2h45zkw0gzrzv2wg7qs6wcssy4zxlximl
-    url: https://files.pythonhosted.org/packages/89/a9/ebf3d233893752ca282d91c88103facf6d7d05ce22978829e4e0cbc4113d/freezegun-1.2.1.tar.gz
+  - name: exceptiongroup-1.1.0-py3-none-any.whl
+    sha256: 07pc9dpm531932k6rlf40ak70dvvmf0pn45367h2svkmvaivsz1j
+    url: https://files.pythonhosted.org/packages/e8/14/9c6a7e5f12294ccd6975a45e02899ed25468cd7c2c86f3d9725f387f9f5f/exceptiongroup-1.1.0-py3-none-any.whl
+  - name: exceptiongroup-1.1.0.tar.gz
+    sha256: 08yzvxf6h6kcz5kspnrkaig7lfvxlky49pf20jsf35s41a07vdmw
+    url: https://files.pythonhosted.org/packages/15/ab/dd27fb742b19a9d020338deb9ab9a28796524081bca880ac33c172c9a8f6/exceptiongroup-1.1.0.tar.gz
+  - name: freezegun-1.2.2-py3-none-any.whl
+    sha256: 17vcc25rhzixi1h4z9hd3faxlgspinj97n6vb8cymf9wk4xrc6za
+    url: https://files.pythonhosted.org/packages/50/cd/ba1c8319c002727ccfa03049127218d1767232a77219924d03ba170e0601/freezegun-1.2.2-py3-none-any.whl
+  - name: freezegun-1.2.2.tar.gz
+    sha256: 0ijlq32qvpm5zprfzbyzawpl9qjsknlxhryr1i0q84wl0sxd28nd
+    url: https://files.pythonhosted.org/packages/1d/97/002ac49ec52858538b4aa6f6831f83c2af562c17340bdf6043be695f39ac/freezegun-1.2.2.tar.gz
   - name: idna-3.4-py3-none-any.whl
     sha256: 1hn54ps4kgv2fmyvfaks38sgrvjc1cn4834sh7gadsx3x9wpxdwh
     url: https://files.pythonhosted.org/packages/fc/34/3030de6f1370931b9dbb4dad48f6ab1015ab1d32447850b9fc94e60097be/idna-3.4-py3-none-any.whl
@@ -253,24 +259,18 @@ links:
   - name: pluggy-1.0.0.tar.gz
     sha256: 0n8iadlas2z1b4h0fc73b043c7iwfvx9rgvqm1azjmffmhxkf922
     url: https://files.pythonhosted.org/packages/a1/16/db2d7de3474b6e37cbb9c008965ee63835bba517e22cdb8c35b5116b5ce1/pluggy-1.0.0.tar.gz
-  - name: py-1.11.0-py2.py3-none-any.whl
-    sha256: 0y5k0mjcr85i9xrd2wifc7gww596nq6dbz6d9bzpsr1jhwhm6z30
-    url: https://files.pythonhosted.org/packages/f6/f0/10642828a8dfb741e5f3fbaac830550a518a775c7fff6f04a007259b0548/py-1.11.0-py2.py3-none-any.whl
-  - name: py-1.11.0.tar.gz
-    sha256: 06c7m7sfcn7587xd4s2bng8m6q1gsfd3j93afhplfjq74r0mrisi
-    url: https://files.pythonhosted.org/packages/98/ff/fec109ceb715d2a6b4c4a85a61af3b40c723a961e8828319fbcb15b868dc/py-1.11.0.tar.gz
   - name: pycparser-2.21-py2.py3-none-any.whl
     sha256: 1agwca0hgbpwmr9snhxafqjhfd52mq083rw5n7vf25amallm9r4f
     url: https://files.pythonhosted.org/packages/62/d5/5f610ebe421e85889f2e55e33b7f9a6795bd982198517d912eb1c76e1a53/pycparser-2.21-py2.py3-none-any.whl
   - name: pycparser-2.21.tar.gz
     sha256: 01kjlyn5w2nn2saj8w1rhq7v26328pd91xwgqn32z1zp2bngsi76
     url: https://files.pythonhosted.org/packages/5e/0b/95d387f5f4433cb0f53ff7ad859bd2c6051051cebbb564f139a999ab46de/pycparser-2.21.tar.gz
-  - name: pytest-7.1.3-py3-none-any.whl
-    sha256: 1dqqm2yz0z63cywjjilnqwcz5z3wpdazmv2w7xgbaw3d8sivsxqk
-    url: https://files.pythonhosted.org/packages/e3/b9/3541bbcb412a9fd56593005ff32183825634ef795a1c01ceb6dee86e7259/pytest-7.1.3-py3-none-any.whl
-  - name: pytest-7.1.3.tar.gz
-    sha256: 0f8c31v5r2kgjixvy267n0nhc4xsy65g3n9lz1i1377z5pn5ydjg
-    url: https://files.pythonhosted.org/packages/a4/a7/8c63a4966935b0d0b039fd67ebf2e1ae00f1af02ceb912d838814d772a9a/pytest-7.1.3.tar.gz
+  - name: pytest-7.2.0-py3-none-any.whl
+    sha256: 0wgg3z11cxicdla1x674anrzqnyq0fglanpxns1qh1lz6cyr6bw9
+    url: https://files.pythonhosted.org/packages/67/68/a5eb36c3a8540594b6035e6cdae40c1ef1b6a2bfacbecc3d1a544583c078/pytest-7.2.0-py3-none-any.whl
+  - name: pytest-7.2.0.tar.gz
+    sha256: 0nfyr8184w747m1mlfrzqwcijvbc5kxw5qylb8sizw8h1ss4w0f4
+    url: https://files.pythonhosted.org/packages/0b/21/055f39bf8861580b43f845f9e8270c7786fe629b2f8562ff09007132e2e7/pytest-7.2.0.tar.gz
   - name: pytest_asyncio-0.20.3-py3-none-any.whl
     sha256: 0hk4cpbm7r9vx6cq76lhb21p65jk3v0qbz4nbk3gq14x425rjagi
     url: https://files.pythonhosted.org/packages/45/74/9421cfde8def10c265b4f9ae19c95b8f4dc227f639cb8b89287d4946ac97/pytest_asyncio-0.20.3-py3-none-any.whl
