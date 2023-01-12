@@ -19,6 +19,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from decimal import (
+    Decimal,
+)
 from finding_comments import (
     domain as comments_domain,
 )
@@ -383,9 +386,6 @@ async def test_updated_advisory_report(populate: bool) -> None:
         id_2 = integrates_vulnerabilities_2[0].id
         where_2 = integrates_vulnerabilities_2[0].state.where
         status_2 = integrates_vulnerabilities_2[0].state.status
-        if id_2 != id_1:
-            id_2 = integrates_vulnerabilities_2[1].id
-            status_2 = integrates_vulnerabilities_2[1].state.status
 
         assert id_2 == id_1
         assert status_2 == VulnerabilityStateStatus.VULNERABLE
@@ -430,6 +430,7 @@ async def test_approval(populate: bool) -> None:
             (fin for fin in findings if fin.title.startswith("237")), None
         )
         assert f_117 is not None
+        assert f_117.severity.confidentiality_impact == Decimal("0.22")
         assert f_237 is None
 
         f_117_vulns: Tuple[
@@ -453,6 +454,7 @@ async def test_approval(populate: bool) -> None:
             (fin for fin in findings if fin.title.startswith("237")), None
         )
         assert f_117 is not None
+        assert f_117.severity.confidentiality_impact == Decimal("0.00")
         assert f_011 is not None
         assert f_237 is not None
 

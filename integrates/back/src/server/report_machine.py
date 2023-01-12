@@ -56,7 +56,11 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     Finding,
     Finding31Severity,
+    FindingMetadataToUpdate,
     FindingState,
+)
+from db_model.findings.update import (
+    update_metadata as update_finding_metadata,
 )
 from db_model.roots.enums import (
     RootStatus,
@@ -354,15 +358,10 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
     return file_object
 
 
-async def _create_draft(
-    group_name: str,
-    vulnerability_id: str,
-    language: str,
+def _get_finding_severity(
     criteria_vulnerability: Dict[str, Any],
-    criteria_requirements: Dict[str, Any],
-) -> Finding:
-    language = language.lower()
-    severity_info = Finding31Severity(
+) -> Finding31Severity:
+    return Finding31Severity(
         attack_complexity=AttackComplexity[
             criteria_vulnerability["score"]["base"]["attack_complexity"]
         ].value,
@@ -399,6 +398,64 @@ async def _create_draft(
             criteria_vulnerability["score"]["base"]["user_interaction"]
         ].value,
     )
+
+
+async def _update_finding_metadata(
+    finding_data: Tuple[str, str, str],
+    finding: Finding,
+    criteria_vulnerability: Dict[str, Any],
+    criteria_requirements: Dict[str, Any],
+) -> None:
+    group_name, vulnerability_id, language = finding_data
+    language = language.lower()
+    current_attrs = FindingMetadataToUpdate(
+        attack_vector_description=finding.attack_vector_description,
+        description=finding.description,
+        min_time_to_remediate=finding.min_time_to_remediate,
+        recommendation=finding.recommendation,
+        requirements=finding.requirements,
+        severity=finding.severity,
+        threat=finding.threat,
+        title=finding.title,
+    )
+
+    updated_attrs = FindingMetadataToUpdate(
+        attack_vector_description=criteria_vulnerability[language]["impact"],
+        description=criteria_vulnerability[language]["description"],
+        min_time_to_remediate=int(criteria_vulnerability["remediation_time"]),
+        recommendation=criteria_vulnerability[language]["recommendation"],
+        requirements="\n".join(
+            [
+                criteria_requirements[item][language]["title"]
+                for item in criteria_vulnerability["requirements"]
+            ]
+        ),
+        severity=_get_finding_severity(criteria_vulnerability),
+        threat=criteria_vulnerability[language]["threat"],
+        title=(
+            f"{vulnerability_id}. "
+            f"{criteria_vulnerability[language]['title']}"
+        ),
+    )
+
+    if current_attrs != updated_attrs:
+        await update_finding_metadata(
+            group_name=group_name,
+            finding_id=finding.id,
+            metadata=updated_attrs,
+        )
+
+
+async def _create_draft(
+    group_name: str,
+    vulnerability_id: str,
+    language: str,
+    criteria_vulnerability: Dict[str, Any],
+    criteria_requirements: Dict[str, Any],
+) -> Finding:
+    language = language.lower()
+    severity_info = _get_finding_severity(criteria_vulnerability)
+
     draft_info = FindingDraftToAdd(
         attack_vector_description=criteria_vulnerability[language]["impact"],
         description=criteria_vulnerability[language]["description"],
@@ -418,6 +475,7 @@ async def _create_draft(
             f"{criteria_vulnerability[language]['title']}"
         ),
     )
+
     return await findings_domain.add_draft(
         group_name,
         "machine@fluidattacks.com",
@@ -970,15 +1028,25 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
         for vuln in sarif_log["runs"][0]["results"]
         if vuln["ruleId"] == vulnerability_id
     ]
-    if finding is None and len(sarif_vulns) > 0:
-        finding = await _create_draft(
-            group_name,
-            vulnerability_id,
-            language,
-            criteria_vulnerability,
-            criteria_requirements,
-        )
-        loaders.group_findings.clear(group_name)
+
+    if len(sarif_vulns) > 0:
+        if finding is None:
+            finding = await _create_draft(
+                group_name,
+                vulnerability_id,
+                language,
+                criteria_vulnerability,
+                criteria_requirements,
+            )
+            loaders.group_findings.clear(group_name)
+        else:
+            await _update_finding_metadata(
+                (group_name, vulnerability_id, language),
+                finding,
+                criteria_vulnerability,
+                criteria_requirements,
+            )
+
     if not finding:
         return None
 
