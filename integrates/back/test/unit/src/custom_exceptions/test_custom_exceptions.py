@@ -14,7 +14,6 @@ from custom_exceptions import (
     InvalidRange,
     InvalidSchema,
     OrganizationNotFound,
-    OrgFindingPolicyNotFound,
     RepeatedValues,
     StakeholderNotFound,
     UnableToSendSms,
@@ -34,9 +33,6 @@ from db_model.groups.enums import (
     GroupStateJustification,
     GroupSubscriptionType,
     GroupTier,
-)
-from db_model.organization_finding_policies.types import (
-    OrgFindingPolicyRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -123,29 +119,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-@mock.patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
-async def test_exception_policy_not_found(
-    mock_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
-
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
-    loaders: Dataloaders = get_new_context()
-    org_name = "okada"
-    finding_policy_id = "5d92c7eb-816f-43d5-9361-c0672837e7ab"
-    with pytest.raises(OrgFindingPolicyNotFound):
-        await loaders.organization_finding_policy.load(
-            OrgFindingPolicyRequest(
-                organization_name=org_name, policy_id=finding_policy_id
-            )
-        )
 
 
 @mock.patch(
