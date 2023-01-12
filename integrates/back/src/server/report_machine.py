@@ -488,19 +488,11 @@ def _get_vulns_with_reattack(  # NOSONAR
         ):
             continue
         for _vuln in stream["lines"]:
-            if _vuln["state"] == state and hash(
-                (_vuln["path"], _vuln["line"])
-            ) == hash(
-                (vulnerability.state.where, vulnerability.state.specific)
-            ):
+            if _vuln["state"] == state and _vuln["hash"] == vulnerability.hash:
                 result = (*result, vulnerability)
                 break
         for _vuln in stream["inputs"]:
-            if _vuln["state"] == state and hash(
-                (_vuln["path"], _vuln["line"])
-            ) == hash(
-                (vulnerability.state.where, vulnerability.state.specific)
-            ):
+            if _vuln["state"] == state and _vuln["hash"] == vulnerability.hash:
                 result = (*result, vulnerability)
                 break
 
@@ -589,6 +581,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "skims_technique": vuln.skims_technique,
                 "developer": vuln.developer,
                 "source": vuln.state.source.value,
+                "hash": vuln.hash,
             }
             for vuln in vulnerabilities
             if vuln.type == VulnerabilityType.INPUTS
@@ -604,6 +597,7 @@ def _build_vulnerabilities_stream_from_integrates(
                 "skims_technique": vuln.skims_technique,
                 "developer": vuln.developer,
                 "source": vuln.state.source.value,
+                "hash": vuln.hash,
             }
             for vuln in vulnerabilities
             if vuln.type == VulnerabilityType.LINES
@@ -831,14 +825,7 @@ def _filter_vulns_already_reported(
     existing_open_machine_vulns: Tuple[Vulnerability, ...],
 ) -> Any:
     vulns_already_reported = {
-        hash(
-            (
-                get_path_from_integrates_vulnerability(
-                    vuln.state.where, vuln.type, False
-                )[1],
-                vuln.state.specific,
-            )
-        )
+        vuln.hash
         for vuln in existing_open_machine_vulns
         if (
             vuln.verification is None
@@ -852,28 +839,12 @@ def _filter_vulns_already_reported(
         "inputs": [
             vuln
             for vuln in sarif_vulns["inputs"]
-            if hash(
-                (
-                    get_path_from_integrates_vulnerability(
-                        vuln["url"], VulnerabilityType.INPUTS, False
-                    )[1],
-                    vuln["field"],
-                )
-            )
-            not in vulns_already_reported
+            if vuln["hash"] not in vulns_already_reported
         ],
         "lines": [
             vuln
             for vuln in sarif_vulns["lines"]
-            if hash(
-                (
-                    get_path_from_integrates_vulnerability(
-                        vuln["path"], VulnerabilityType.LINES, False
-                    )[1],
-                    vuln["line"],
-                )
-            )
-            not in vulns_already_reported
+            if vuln["hash"] not in vulns_already_reported
         ],
     }
 

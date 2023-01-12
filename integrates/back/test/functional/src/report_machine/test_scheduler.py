@@ -377,7 +377,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
             )
             if vuln.state.source == Source.MACHINE
         )
-        assert len(integrates_vulnerabilities_2) == 2
+        assert len(integrates_vulnerabilities_2) == 1
 
         id_2 = integrates_vulnerabilities_2[0].id
         status_2 = integrates_vulnerabilities_2[0].state.status
@@ -460,7 +460,7 @@ async def test_approval(populate: bool) -> None:
         ] = await loaders.finding_vulnerabilities.load(f_237.id)
         assert len(f_117_vulns) == 3
         assert len(f_237_vulns) == 3
-        assert len(f_011_vulns) == 3
+        assert len(f_011_vulns) == 2
 
         assert f_117.approval is None
         assert f_237.approval is not None
