@@ -23,6 +23,7 @@ from lib_path.f011.pip import (
 )
 from lib_path.f393.composer import (
     composer_json_dev,
+    composer_lock_dev,
 )
 from operator import (
     itemgetter,
@@ -324,6 +325,44 @@ def test_composer_lock() -> None:
     )
     assertion: bool = True
     for line_num in (9, 85, 165, 241):
+        if (pkg_name_match := patt_info.search(content[line_num])) and (
+            version_match := patt_info.search(content[line_num + 1])
+        ):
+            pkg_name = pkg_name_match.group("info")
+            version = version_match.group("info")
+            try:
+                next_dep = next(generator_dep)
+                pkg_item = itemgetter("item")(next_dep[0])
+                item_ver = itemgetter("item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            if not (pkg_item == pkg_name and version == item_ver):
+                assertion = not assertion
+                break
+        else:
+            assertion = not assertion
+            break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_composer_lock_dev() -> None:
+    patt_info: Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
+    path: str = "skims/test/data/lib_path/f011/composer.lock"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    content: List[str] = file_contents.splitlines()
+    generator_dep = composer_lock_dev.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    for line_num in (365, 440, 510):
         if (pkg_name_match := patt_info.search(content[line_num])) and (
             version_match := patt_info.search(content[line_num + 1])
         ):
