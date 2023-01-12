@@ -131,6 +131,20 @@ This are the most common issues:
 
 - Resolution: re-execution
 
+### Centralizer stuck
+
+- Reason: centralizer query stuck due to other queries
+
+- Resolution:
+
+    if centralizer does not finish its final phase and terminates when
+    executing `DROP TABLE "dynamodb"."integrates_vms" CASCADE`
+    (that commonly happens) then retry with:
+
+    ```bash
+    m . /computeOnAwsBatch/observesRetryCentralizeFinal
+    ```
+
 ## Rare issues
 
 Some ETL unhandled errors are not frequent
