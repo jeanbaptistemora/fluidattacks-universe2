@@ -119,7 +119,11 @@ def _tfm_iam_role_excessive_privilege(
     role_iterator: Iterator[Any],
 ) -> Iterator[Any]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if isinstance(stmt, Node) and hasattr(stmt, "raw")
+            else stmt.data
+        )
         resources = stmt_raw.get("Resource", [])
         actions = stmt_raw.get("Action", [])
         if action_has_attach_role(
@@ -132,7 +136,11 @@ def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
     statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
 ) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
     for stmt in statements_iterator:
-        stmt_raw = stmt.raw if isinstance(stmt, Node) else stmt.data
+        stmt_raw = (
+            stmt.raw
+            if isinstance(stmt, Node) and hasattr(stmt, "raw")
+            else stmt.data
+        )
         effect = stmt_raw.get("Effect", "")
         actions = stmt_raw.get("Action", [])
         if effect == "Allow" and action_has_full_access_to_ssm(actions):

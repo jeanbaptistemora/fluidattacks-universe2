@@ -36,8 +36,12 @@ WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
 
 
 def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
-    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
-        if pattern.match(act.raw):
+    for act in (
+        act_res.data
+        if (hasattr(act_res, "raw") and isinstance(act_res.raw, List))
+        else [act_res]
+    ):
+        if hasattr(act, "raw") and pattern.match(act.raw):
             yield act
 
 

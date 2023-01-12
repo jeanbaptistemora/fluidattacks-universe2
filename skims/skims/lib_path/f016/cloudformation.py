@@ -38,7 +38,10 @@ def _helper_insecure_protocols(
         )
         if isinstance(orig_ssl_prots, Node):
             for ssl_prot in orig_ssl_prots.data:
-                if ssl_prot.raw in vulnerable_origin_ssl_protocols:
+                if (
+                    hasattr(ssl_prot, "raw")
+                    and ssl_prot.raw in vulnerable_origin_ssl_protocols
+                ):
                     yield ssl_prot
 
 

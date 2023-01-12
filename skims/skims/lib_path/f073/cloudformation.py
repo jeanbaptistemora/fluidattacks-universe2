@@ -33,7 +33,11 @@ def _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
         publicy_acc = get_node_by_keys(
             rds_res, ["PubliclyAccessible"]  # type: ignore
         )
-        if isinstance(publicy_acc, Node) and publicy_acc.raw in TRUE_OPTIONS:
+        if (
+            hasattr(publicy_acc, "raw")
+            and isinstance(publicy_acc, Node)
+            and publicy_acc.raw in TRUE_OPTIONS
+        ):
             yield publicy_acc
 
 

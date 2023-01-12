@@ -58,7 +58,7 @@ def _cfn_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
 ) -> Iterator[Union[AWSEC2, Node]]:
     for res in res_iterator:
         if encrypted := res.inner.get("Encrypted"):
-            if encrypted.raw not in TRUE_OPTIONS:
+            if hasattr(encrypted, "raw") and encrypted.raw not in TRUE_OPTIONS:
                 yield encrypted
         else:
             yield AWSEC2(

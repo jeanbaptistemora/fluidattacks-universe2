@@ -44,12 +44,12 @@ def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
 def _iam_yield_full_access_ssm_vuln(
     action: Any,
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    if isinstance(action.raw, list):
+    if hasattr(action, "raw") and isinstance(action.raw, list):
         for act in action.data:
-            if act.raw == "ssm:*":
+            if hasattr(act, "raw") and act.raw == "ssm:*":
                 yield act
     else:
-        if action.raw == "ssm:*":
+        if hasattr(action, "raw") and action.raw == "ssm:*":
             yield action
 
 
@@ -59,7 +59,12 @@ def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
     for stmt in iam_iterator:
         effect = stmt.inner.get("Effect")
         action = stmt.inner.get("Action")
-        if effect and action and effect.raw == "Allow":
+        if (
+            effect
+            and hasattr(effect, "raw")
+            and action
+            and effect.raw == "Allow"
+        ):
             yield from _iam_yield_full_access_ssm_vuln(action)
 
 
