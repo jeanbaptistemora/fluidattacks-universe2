@@ -12,6 +12,28 @@ Are you interested in becoming part of our team? If so, please carefully
 read each section below and make sure you understand it. Do not skip any
 sections.
 
+If you have any questions about any item,
+do not hesitate to email us at
+<careers@fluidattacks.com>
+
+Before starting the selection process,
+it is important that you know the following:
+
+## 1\. Who we are?
+
+At Fluid Attacks,
+we specialize in red team operations as
+well as technology development that
+continuously enhances our security
+testing services.
+We provide speed, precision and scalability
+to hacking projects which identify all
+vulnerabilities in our clients' systems.
+
+If you still don't know who we are and what we do,
+please read our
+[About us](about-us/) section.
+
 ## 1\. Overview
 
 Who we are, who we are looking for, and how to apply
