@@ -481,7 +481,7 @@ in {
         ++ (builtins.map
           (module: {
             output = "/lintPython/dirOfModules/integrates/${module}";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           })
           backSrcModules)
         ++ [
