@@ -12,6 +12,7 @@ import { Header3 } from "./components/Header3";
 import { Header4 } from "./components/Header4";
 import { ImageBlock } from "./components/ImageBlock";
 import { Paragraph } from "./components/Paragraph";
+import { Quote } from "./components/Quote";
 import { TableBlock } from "./components/TableBlock";
 import { VideoBlock } from "./components/VideoBlock";
 import { ShareSection } from "./ShareSection";
@@ -37,6 +38,7 @@ const ContentSection: React.FC<IContentProps> = ({
       h4: Header4,
       "image-block": ImageBlock,
       p: Paragraph,
+      "quote-box": Quote,
       "table-block": TableBlock,
       "video-block": VideoBlock,
     },
