@@ -77,6 +77,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
+from db_model.vulnerabilities.update import (
+    update_historic_entry,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -849,6 +852,48 @@ def _filter_vulns_already_reported(
     }
 
 
+async def update_vulns_already_reported(
+    sarif_vulns: Dict[str, Any],
+    existing_open_machine_vulns: Tuple[Vulnerability, ...],
+) -> None:
+    """Some field of the vulnerability can change, but it is still the same
+    vulnerability, the status of the vulnerability must be updated.
+    """
+    vulns_already_reported = {
+        vuln.hash: vuln
+        for vuln in existing_open_machine_vulns
+        if (
+            vuln.verification is None
+            or (
+                vuln.verification.status
+                != VulnerabilityVerificationStatus.REQUESTED
+            )
+        )
+        and vuln.hash
+    }
+    futures = []
+    for vuln in sarif_vulns["lines"]:
+        if (_current_vuln := vulns_already_reported.get(vuln["hash"])) and (
+            vuln["path"] != _current_vuln.state.where
+        ):
+            new_state = _current_vuln.state._replace(
+                where=vuln["path"],
+                modified_date=datetime.utcnow(),
+                source=Source.MACHINE,
+                modified_by="machine@fluidattacks.com",
+                commit=vuln["commit_hash"],
+            )
+            futures.append(
+                update_historic_entry(
+                    current_value=_current_vuln,
+                    finding_id=_current_vuln.finding_id,
+                    entry=new_state,
+                    vulnerability_id=_current_vuln.id,
+                )
+            )
+    await collect(futures, workers=50)
+
+
 async def _is_machine_finding(loaders: Dataloaders, finding_id: str) -> bool:
     is_machine_finding: bool = False
     historic_state: Tuple[
@@ -980,6 +1025,14 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     )
 
     should_update_evidence: bool = False
+    await update_vulns_already_reported(
+        _build_vulnerabilities_stream_from_sarif(
+            sarif_vulns,
+            sarif_log["runs"][0]["versionControlProvenance"][0]["revisionId"],
+            git_root.state.nickname,
+        ),
+        existing_open_machine_vulns,
+    )
     if persisted_vulns := await persist_vulnerabilities(
         loaders=loaders,
         group_name=group_name,

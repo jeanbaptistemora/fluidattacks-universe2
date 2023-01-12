@@ -368,6 +368,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
             == VulnerabilityStateStatus.VULNERABLE
         )
         id_1 = integrates_vulnerabilities[0].id
+        where_1 = integrates_vulnerabilities[0].state.where
         await process_execution("group1_")
         loaders.finding_vulnerabilities.clear(finding_011.id)
         integrates_vulnerabilities_2: Tuple[Vulnerability, ...] = tuple(
@@ -380,6 +381,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
         assert len(integrates_vulnerabilities_2) == 1
 
         id_2 = integrates_vulnerabilities_2[0].id
+        where_2 = integrates_vulnerabilities_2[0].state.where
         status_2 = integrates_vulnerabilities_2[0].state.status
         if id_2 != id_1:
             id_2 = integrates_vulnerabilities_2[1].id
@@ -387,6 +389,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
 
         assert id_2 == id_1
         assert status_2 == VulnerabilityStateStatus.VULNERABLE
+        assert where_1 != where_2
 
 
 @pytest.mark.asyncio
