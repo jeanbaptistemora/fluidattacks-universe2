@@ -365,14 +365,16 @@ def format_unreliable_indicators_to_update_item(
             indicators.unreliable_treatment_changes
         ),
     }
-    if indicators.clean_unreliable_closing_date:
-        item["unreliable_closing_date"] = ""
-    if indicators.clean_unreliable_last_reattack_date:
-        item["unreliable_last_reattack_date"] = ""
-    if indicators.clean_unreliable_last_requested_reattack_date:
-        item["unreliable_last_requested_reattack_date"] = ""
+    item = {key: value for key, value in item.items() if value is not None}
 
-    return {key: value for key, value in item.items() if value is not None}
+    if indicators.clean_unreliable_closing_date:
+        item["unreliable_closing_date"] = None
+    if indicators.clean_unreliable_last_reattack_date:
+        item["unreliable_last_reattack_date"] = None
+    if indicators.clean_unreliable_last_requested_reattack_date:
+        item["unreliable_last_requested_reattack_date"] = None
+
+    return item
 
 
 def format_verification(item: Item) -> VulnerabilityVerification:
