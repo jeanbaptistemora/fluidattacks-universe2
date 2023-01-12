@@ -953,6 +953,20 @@ type Mutation {
     credentials: CredentialsInput!
   ): SimplePayload!
 
+  "Update credit card payment method from an organization"
+  updateCreditCardPaymentMethod(
+    "Identifier of the Organization"
+    organizationId: String!
+    "Identifier of the Payment Method"
+    paymentMethodId: String!
+    "Card expiration month"
+    cardExpirationMonth: Int!
+    "Card expiration year"
+    cardExpirationYear: Int!
+    "Select card as default"
+    makeDefault: Boolean!
+  ): SimplePayload!
+
   "Updates a Finding's description"
   updateDescription(
     "Malicious actions that can be performed by exploiting the vulnerability"
@@ -1253,6 +1267,28 @@ type Mutation {
     userEmail: String!
   ): UpdateStakeholderPayload!
 
+  "Update other payment method from an organization"
+  updateOtherPaymentMethod(
+    "Identifier of the Organization"
+    organizationId: String!
+    "Identifier of the Payment Method"
+    paymentMethodId: String!
+    "Business name of payment method"
+    businessName: String!
+    "e-factura email"
+    email: String!
+    "Country of payment method business"
+    country: String!
+    "State of payment method business"
+    state: String!
+    "City of payment method business"
+    city: String!
+    "Rut document file in gif, jpg, pdf or zip"
+    rut: Upload
+    "TaxId document file in gif, jpg, pdf or zip"
+    taxId: Upload
+  ): SimplePayload!
+
   "Update a payment method from an organization"
   updatePaymentMethod(
     "Identifier of the Organization"
@@ -1280,6 +1316,11 @@ type Mutation {
     "TaxId document file in gif, jpg, pdf or zip"
     taxId: Upload
   ): SimplePayload!
+    @deprecated(
+          reason: """
+          This field will be removed after 2023/01/12.
+          """
+        )
 
   "Updates the Root cloning status"
   updateRootCloningStatus(

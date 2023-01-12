@@ -85,6 +85,7 @@ from api.mutations import (
     unsubscribe_from_group,
     update_access_token,
     update_credentials,
+    update_credit_card_payment_method,
     update_event,
     update_event_evidence,
     update_event_solving_reason,
@@ -106,6 +107,7 @@ from api.mutations import (
     update_notifications_preferences,
     update_organization_policies,
     update_organization_stakeholder,
+    update_other_payment_method,
     update_payment_method,
     update_root_cloning_status,
     update_severity,
@@ -271,6 +273,9 @@ MUTATION.set_field("syncGitRoot", sync_git_root.mutate)
 MUTATION.set_field("unsubscribeFromGroup", unsubscribe_from_group.mutate)
 MUTATION.set_field("updateAccessToken", update_access_token.mutate)
 MUTATION.set_field("updateCredentials", update_credentials.mutate)
+MUTATION.set_field(
+    "updateCreditCardPaymentMethod", update_credit_card_payment_method.mutate
+)
 MUTATION.set_field("updateDescription", update_finding_description.mutate)
 MUTATION.set_field("updateEvent", update_event.mutate)
 MUTATION.set_field("updateEventEvidence", update_event_evidence.mutate)
@@ -305,6 +310,9 @@ MUTATION.set_field(
 )
 MUTATION.set_field(
     "updateOrganizationStakeholder", update_organization_stakeholder.mutate
+)
+MUTATION.set_field(
+    "updateOtherPaymentMethod", update_other_payment_method.mutate
 )
 MUTATION.set_field("updatePaymentMethod", update_payment_method.mutate)
 MUTATION.set_field(
