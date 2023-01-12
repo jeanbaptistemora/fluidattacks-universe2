@@ -708,11 +708,103 @@ const pageTexts: ResourceKey = {
     clients: {
       title: "We are helping hundreds of companies build secure applications",
     },
+    continuousCycle: {
+      cycle0: {
+        subtitle:
+          "Our automated analyses include SAST, DAST and SCA. " +
+          "Our tools scan your system and report the common vulnerabilities, " +
+          "showing low false positive rates.",
+        title: "Automated deterministic attack",
+      },
+      cycle1: {
+        subtitle:
+          "Our AI is specially trained with thousands of " +
+          "snippets of vulnerable code. A dedicated module " +
+          "helps us prioritize potentially vulnerable files for review.",
+        title: "Triage",
+      },
+      cycle2: {
+        subtitle:
+          "Our highly certified red team continuously examines code, " +
+          "infrastructure and applications for security vulnerabilities through manual pentesting.",
+        title: "Attack team",
+      },
+      cycle3: {
+        subtitle:
+          "Our experts review the findings manually, discard " +
+          "potential false positives and assess the validity of results before showing them to your team.",
+        title: "Release team",
+      },
+      cycle4: {
+        subtitle:
+          "Our experts seek to reduce false negatives by searching " +
+          "even deeper for vulnerabilities.",
+        title: "Escapes team",
+      },
+      cycle5: {
+        subtitle:
+          "Our experts evaluate the effectiveness of your fix to a vulnerability and whether new " +
+          "vulnerabilities emerged due to the implementation.",
+        title: "Reattack team",
+      },
+      subtitle: "How does Continuous Hacking work?",
+      title:
+        "We accurately detect vulnerabilities in continuous " +
+        "cycles as your technology evolves",
+    },
+    discoverContinuous: {
+      button: "Learn more",
+      card1: {
+        subtitle:
+          "We combine automation, AI and expert intelligence to perform " +
+          "SAST, DAST and SCA. This way, we provide you with accurate " +
+          "knowledge of the security status of your application.",
+        title: "All-in-one approach",
+      },
+      card2: {
+        subtitle:
+          "We enable your DevSecOps implementation. This means security " +
+          "goes alongside innovation without hindering your speed.",
+        title: "Fast and secure deployments",
+      },
+      card3: {
+        subtitle:
+          "We provide you with expert knowledge about vulnerabilities " +
+          "and support options that enable you to remediate the security issues in your application.",
+        title: "Support across your SDLC",
+      },
+      subtitle: "Discover Continuous Hacking",
+      title:
+        "Fluid Attacks performs comprehensive security testing continuously",
+    },
     hero: {
       paragraph:
         "We offer multiple techniques in a single solution to secure " +
         "your technology throughout the software development lifecycle.",
       title: "Deploy secure applications without delaying your time-to-market",
+    },
+    reviews: {
+      subtitle:
+        "Learn how Continuous Hacking helps our clients " +
+        "keep their applications secure.",
+      successStory: {
+        description1:
+          "Fluid Attacks’ Continuous Hacking helps Payválida identify " +
+          "vulnerabilities in their application at the speed of their business.",
+        description2:
+          "Fluid Attacks’ Continuous Hacking helps Protección " +
+          "find out the risks to its applications during development " +
+          "so it can prevent security incidents.",
+      },
+      title:
+        "Our clients deploy secure technology " +
+        "several times daily. When will you start?",
+    },
+    solutions: {
+      subtitle: "We help you optimally integrate security into development.",
+      title:
+        "Develop software knowing you are backed up " +
+        "by our powerful application security solutions",
     },
   },
   internalForm: {
