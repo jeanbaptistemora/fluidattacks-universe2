@@ -47,6 +47,48 @@ resource "aws_cloudwatch_event_target" "compute_jobs" {
   }
 }
 
+data "aws_iam_policy_document" "lambda_sts_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["lambda.amazonaws.com"]
+    }
+  }
+}
+
+data "archive_file" "lambda_package" {
+  type             = "zip"
+  source_file      = "src/newline.py"
+  output_file_mode = "0666"
+  output_path      = "newline.zip"
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name               = "firehose_lambda_role"
+  assume_role_policy = data.aws_iam_policy_document.lambda_sts_role.json
+}
+
+resource "aws_lambda_function" "firehose_transform" {
+  function_name    = "FirehoseMultilineJSON"
+  role             = aws_iam_role.lambda_role.arn
+  description      = "Converts multiline JSON records to one event per line"
+  runtime          = "python3.9"
+  filename         = data.archive_file.lambda_package.output_path
+  handler          = "newline.lambda_handler"
+  source_code_hash = filebase64sha256(data.archive_file.lambda_package.output_path)
+  timeout          = 60
+
+  tags = {
+    "Name"               = "common-firehose-lambda"
+    "management:area"    = "cost"
+    "management:product" = "common"
+    "management:type"    = "product"
+    "Access"             = "private"
+  }
+}
+
 resource "aws_kinesis_firehose_delivery_stream" "compute_jobs" {
   name        = "common-monitoring-compute-jobs"
   destination = "extended_s3"
@@ -63,6 +105,19 @@ resource "aws_kinesis_firehose_delivery_stream" "compute_jobs" {
     buffer_interval    = 60
     compression_format = "UNCOMPRESSED"
     prefix             = "compute-jobs/"
+
+    processing_configuration {
+      enabled = true
+
+      processors {
+        type = "Lambda"
+
+        parameters {
+          parameter_name  = "LambdaArn"
+          parameter_value = aws_lambda_function.firehose_transform.arn
+        }
+      }
+    }
 
     cloudwatch_logging_options {
       enabled         = true

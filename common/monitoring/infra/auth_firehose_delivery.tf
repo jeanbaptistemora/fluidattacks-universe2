@@ -50,6 +50,16 @@ resource "aws_iam_policy" "firehose_delivery" {
       {
         "Effect" : "Allow",
         "Action" : [
+          "lambda:GetFunctionConfiguration",
+          "lambda:InvokeFunction"
+        ],
+        "Resource" : [
+          aws_lambda_function.firehose_transform.arn
+        ]
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : [
           "s3:AbortMultipartUpload",
           "s3:GetBucketLocation",
           "s3:GetObject",
