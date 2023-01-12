@@ -77,9 +77,9 @@ def pr_message_equals_commit_message(*, data: TestData) -> bool:
     """PR message equals commit message"""
     should_fail: bool = data.config["fail"]
     err_log: str = get_err_log(should_fail)
-    pr_msg: str = (
-        f"{data.pull_request.title}\n\n{data.pull_request.description}\n"
-    )
+    pr_msg: str = f"{data.pull_request.title}\n"
+    if data.pull_request.description:
+        pr_msg += f"\n{data.pull_request.description}\n"
     commit_msg: str = list(data.pull_request.commits())[0].message
     success: bool = pr_msg == commit_msg
     if not success:
