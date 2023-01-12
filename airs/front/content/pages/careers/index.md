@@ -21,7 +21,7 @@ it is important that you know the following:
 
 ## 1\. Who we are?
 
-At Fluid Attacks,
+At `Fluid Attacks`,
 we specialize in red team operations as
 well as technology development that
 continuously enhances our security
@@ -34,29 +34,25 @@ If you still don't know who we are and what we do,
 please read our
 [About us](about-us/) section.
 
-## 1\. Overview
+## 2\. What are we looking for?
 
-Who we are, who we are looking for, and how to apply
-
-This is the first step in the hiring process to become part of the
-`Fluid Attacks` team. This step provides you with a brief overview of
-our candidate selection process. Completion of each step is mandatory.
-This step requires an estimated 4 to 6 minutes to complete. To begin,
-just follow the detailed [instructions](terms/).
-
-## 2\. Reasons
-
-`Fluid Attacks` is a great place to work and this section will tell you
-why. As with all other sections, this is a mandatory read, and requires
-an estimated time of 3 to 5 minutes to complete. To begin, please click
-[here](reasons/).
+We are looking for people who are
+passionate about what they do.
+We don't really care what you studied
+or what you know,
+but what you can learn and how disciplined,
+ethical and responsible you are.
 
 ## 3\. Openings
 
 The goal of this stage is for you to understand the roles you can have
 in `Fluid Attacks`.
-This is mandatory and requires an estimated effort of 3 to 5 minutes.
-To begin, please click [here](openings/).
+
+- **Ethical Hacker / Pentester**
+  We need people with a developer profile,
+  who like to program,
+  and are interested in
+  Information Security for pentesting.
 
 ## 4\. Portfolio
 
