@@ -48,11 +48,28 @@ ethical and responsible you are.
 The goal of this stage is for you to understand the roles you can have
 in `Fluid Attacks`.
 
-- **Ethical Hacker / Pentester**
+- **Ethical Hacker / Pentester:**
   We need people with a developer profile,
   who like to program,
   and are interested in
   Information Security for pentesting.
+
+  You must have a basic knowledge and
+  understanding of networks,
+  IT infrastructure and be able to work
+  effectively as part of a team.
+
+  Previous work experience is not needed.
+  You do not need to have a university degree.
+  You must be available full-time,
+  but scheduling is negotiable if you are a student.
+
+- **Software Developer:**
+
+  1. Security scanners for vulnerability
+      detection (SCA, SAST, DAST, RE etc).
+  2. Data pipelines that extract data to
+      later be analyzed with Big Data techniques.
 
 ## 4\. Portfolio
 
