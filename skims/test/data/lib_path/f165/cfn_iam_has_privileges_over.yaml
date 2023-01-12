@@ -52,3 +52,10 @@ Resources:
               - Effect: Allow
                 Action: '*'
                 Resource: s3:GetObject
+        - PolicyName: root1
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                NotAction: '*'
+                NotResource: s3:GetObject

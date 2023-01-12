@@ -39,6 +39,27 @@ def cfn_iam_allow_not_resource_perms_policies(
     )
 
 
+def cfn_iam_allow_not_action_perms_policies(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f165.iam_allow_not_action_permissions_policy"
+        ),
+        iterator=get_cloud_iterator(
+            cfn_iam_permissions_policies_checks(
+                file_ext=file_ext,
+                iam_iterator=iter_iam_roles(template=template),
+                method=method,
+            )
+        ),
+        path=path,
+        method=method,
+    )
+
+
 def cfn_iam_is_role_over_privileged(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:

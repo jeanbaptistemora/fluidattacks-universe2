@@ -4879,10 +4879,18 @@ class MethodsEnum(Enum):
     )
     CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE = MethodInfo(
         file_name="cloudformation",
-        name="cfn_cfn_iam_permissions_policy_allow_not_resource",
+        name="cfn_iam_permissions_policy_allow_not_resource",
         module="lib_path",
         finding=FindingEnum.F165,
-        developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_permissions_policy_allow_not_action",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     CFN_IAM_TRUST_POLICY_NOT_PRINCIPAL = MethodInfo(

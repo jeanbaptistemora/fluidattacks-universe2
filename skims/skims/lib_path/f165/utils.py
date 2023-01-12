@@ -140,7 +140,7 @@ def _yield_nodes_from_stmt(
 ) -> Iterator[Node]:
     if (
         not_actions := stmt.inner.get("NotAction")
-    ) and method == MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED:
+    ) and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION:
         yield AWSIamManagedPolicy(
             column=not_actions.start_column,
             data=not_actions.data,
