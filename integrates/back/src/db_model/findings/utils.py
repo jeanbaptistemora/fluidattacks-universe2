@@ -231,7 +231,7 @@ def format_verification_summary(
 def format_unreliable_indicators_item(
     indicators: FindingUnreliableIndicators,
 ) -> Item:
-    return {
+    item = {
         "unreliable_closed_vulnerabilities": (
             indicators.unreliable_closed_vulnerabilities
         ),
@@ -240,21 +240,21 @@ def format_unreliable_indicators_item(
                 indicators.unreliable_newest_vulnerability_report_date
             )
             if indicators.unreliable_newest_vulnerability_report_date
-            else ""
+            else None
         ),
         "unreliable_oldest_open_vulnerability_report_date": (
             get_as_utc_iso_format(
                 indicators.unreliable_oldest_open_vulnerability_report_date
             )
             if indicators.unreliable_oldest_open_vulnerability_report_date
-            else ""
+            else None
         ),
         "unreliable_oldest_vulnerability_report_date": (
             get_as_utc_iso_format(
                 indicators.unreliable_oldest_vulnerability_report_date
             )
             if indicators.unreliable_oldest_vulnerability_report_date
-            else ""
+            else None
         ),
         "unreliable_open_vulnerabilities": (
             indicators.unreliable_open_vulnerabilities
@@ -268,6 +268,8 @@ def format_unreliable_indicators_item(
             indicators.unreliable_verification_summary
         ),
     }
+
+    return {key: value for key, value in item.items() if value is not None}
 
 
 def format_unreliable_indicators_to_update_item(
@@ -314,14 +316,16 @@ def format_unreliable_indicators_to_update_item(
         if indicators.unreliable_verification_summary
         else None,
     }
-    if indicators.clean_unreliable_newest_vulnerability_report_date:
-        item["unreliable_newest_vulnerability_report_date"] = ""
-    if indicators.clean_unreliable_oldest_open_vulnerability_report_date:
-        item["unreliable_oldest_open_vulnerability_report_date"] = ""
-    if indicators.clean_unreliable_oldest_vulnerability_report_date:
-        item["unreliable_oldest_vulnerability_report_date"] = ""
+    item = {key: value for key, value in item.items() if value is not None}
 
-    return {key: value for key, value in item.items() if value is not None}
+    if indicators.clean_unreliable_newest_vulnerability_report_date:
+        item["unreliable_newest_vulnerability_report_date"] = None
+    if indicators.clean_unreliable_oldest_open_vulnerability_report_date:
+        item["unreliable_oldest_open_vulnerability_report_date"] = None
+    if indicators.clean_unreliable_oldest_vulnerability_report_date:
+        item["unreliable_oldest_vulnerability_report_date"] = None
+
+    return item
 
 
 def format_unreliable_indicators(

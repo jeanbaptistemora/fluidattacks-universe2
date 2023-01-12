@@ -338,7 +338,7 @@ async def update_unreliable_indicators(
             indicators
         ).items()
     }
-    current_value_item = {
+    current_indicators_item = {
         f"unreliable_indicators.{key}": value
         for key, value in format_unreliable_indicators_item(
             current_value
@@ -346,17 +346,13 @@ async def update_unreliable_indicators(
     }
 
     conditions = (
-        (
-            Attr(indicator_name).not_exists()
-            | Attr(indicator_name).eq(current_value_item[indicator_name])
-        )
+        Attr(indicator_name).eq(current_indicators_item[indicator_name])
         for indicator_name in unreliable_indicators_item
+        if indicator_name in current_indicators_item
     )
-
     condition_expression = Attr(key_structure.partition_key).exists()
     for condition in conditions:
         condition_expression &= condition
-
     try:
         await operations.update_item(
             condition_expression=condition_expression,
@@ -365,7 +361,6 @@ async def update_unreliable_indicators(
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
-
         raise IndicatorAlreadyUpdated() from ex
 
 
