@@ -2244,6 +2244,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_HAS_PERMISSIVE_ROLE_POLICY = MethodInfo(
+        file_name="aws",
+        name="has_permissive_role_policies",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_FULL_ACCESS_SSM = MethodInfo(
         file_name="aws",
         name="full_access_to_ssm",
