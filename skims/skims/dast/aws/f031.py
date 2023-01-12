@@ -609,6 +609,84 @@ async def permissive_policy(
     return vulns
 
 
+async def has_permissive_role_policies(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_roles",
+    )
+    roles = response.get("Roles", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    method = core_model.MethodsEnum.AWS_HAS_PERMISSIVE_ROLE_POLICY
+
+    async def get_role_policies(role_name: str) -> List:
+        response = await run_boto3_fun(
+            credentials,
+            service="iam",
+            function="list_role_policies",
+            parameters={"RoleName": role_name},
+        )
+        return response["PolicyNames"]
+
+    async def get_policy_role(
+        policy_name: str, role_name: str
+    ) -> Dict[Any, str]:
+        response = await run_boto3_fun(
+            credentials,
+            service="iam",
+            function="get_role_policy",
+            parameters={"PolicyName": policy_name, "RoleName": role_name},
+        )
+        return response["PolicyDocument"]
+
+    for role in roles:
+        locations: List[Location] = []
+        role_policies = await get_role_policies(role["RoleName"])
+        for policy_name in role_policies:
+            policy_role = await get_policy_role(policy_name, role["RoleName"])
+            policy_statements = ast.literal_eval(
+                str(policy_role.get("Statement", []))
+            )
+            for index, statement in enumerate(policy_statements):
+                if (
+                    statement["Action"] in ("*", ["*"])
+                    and statement["Effect"] == "Allow"
+                ):
+                    locations = [
+                        *locations,
+                        *[
+                            Location(
+                                access_patterns=(
+                                    f"/Statement/{index}/Effect",
+                                    f"/Statement/{index}/Action",
+                                ),
+                                arn=(f"{statement['Resource']}"),
+                                values=(
+                                    statement["Effect"],
+                                    statement["Action"],
+                                ),
+                                description=t(
+                                    "src.lib_path.f031."
+                                    "has_permissive_role_policies"
+                                ),
+                            )
+                        ],
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=policy_role,
+                ),
+            )
+
+    return vulns
+
+
 async def full_access_to_ssm(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -801,4 +879,5 @@ CHECKS: Tuple[
     group_with_inline_policies,
     user_with_inline_policies,
     policies_attached_to_users,
+    has_permissive_role_policies,
 )
