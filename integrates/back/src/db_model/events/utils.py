@@ -209,7 +209,9 @@ def format_unreliable_indicators_to_update_item(
             else None
         ),
     }
-    if indicators.clean_unreliable_solving_date:
-        item["unreliable_solving_date"] = ""
+    item = {key: value for key, value in item.items() if value is not None}
 
-    return {key: value for key, value in item.items() if value is not None}
+    if indicators.clean_unreliable_solving_date:
+        item["unreliable_solving_date"] = None
+
+    return item

@@ -30,9 +30,6 @@ from db_model.utils import (
     get_as_utc_iso_format,
     serialize,
 )
-from decimal import (
-    Decimal,
-)
 from dynamodb import (
     keys,
     operations,
@@ -186,7 +183,6 @@ async def update_unreliable_indicators(
         f"unreliable_indicators.{key}": value
         for key, value in json.loads(
             json.dumps(current_value.unreliable_indicators, default=serialize),
-            parse_float=Decimal,
         ).items()
         if value is not None
     }
