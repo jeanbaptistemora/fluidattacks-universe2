@@ -64,7 +64,7 @@ resource "aws_cloudwatch_event_rule" "alert" {
     detail-type = ["Batch Job State Change"]
     detail = {
       status          = ["FAILED"]
-      containerReason = [{ "anything-but" : [{ "prefix" : "CannotInspectContainerError" }] }]
+      containerReason = { "anything-but" : [{ "prefix" : "CannotInspectContainerError" }] }
     }
   })
 
