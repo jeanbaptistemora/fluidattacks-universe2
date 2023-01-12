@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Root Moved') }}
+      {{ banner_share('Root Moved') }}
       <div class="main-content">
-        <p>Good news!</p>
+        <h2>Good news!</h2>
         <p>
           You recently successfully moved the root <strong>{{ nickname }}</strong>
           from the group <strong>{{ group }}</strong>
@@ -15,13 +14,9 @@
           The vulnerabilities previously reported to this root were also moved
           successfully.
         </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <br />
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

@@ -597,6 +597,12 @@ async def get_recipients(
     source_group_name: str,
     target_group_name: str,
 ) -> List[str]:
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email_to[0])
+    if (
+        Notification.ROOT_UPDATE
+        not in stakeholder.state.notifications_preferences.email
+    ):
+        email_to = []
     roles: set[str] = {
         "customer_manager",
         "user_manager",
@@ -605,7 +611,7 @@ async def get_recipients(
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=source_group_name,
-            notification=Notification.UPDATED_TREATMENT,
+            notification=Notification.ROOT_UPDATE,
             roles=roles,
         )
     )
@@ -614,7 +620,7 @@ async def get_recipients(
         await group_access_domain.get_stakeholders_email_by_preferences(
             loaders=loaders,
             group_name=target_group_name,
-            notification=Notification.UPDATED_TREATMENT,
+            notification=Notification.ROOT_UPDATE,
             roles=roles,
         )
     )
@@ -749,45 +755,31 @@ async def move_root(*, item: BatchProcessing) -> None:
             product_name=Product.INTEGRATES,
             queue=IntegratesBatchQueue.SMALL,
         )
-    stakeholder: Stakeholder = await loaders.stakeholder.load(item.subject)
-    if (
-        Notification.ROOT_UPDATE
-        in stakeholder.state.notifications_preferences.email
-    ):
-        LOGGER.info(
-            "Notifying stakeholder",
-            extra={
-                "extra": {
-                    "subject": item.subject,
-                }
-            },
-        )
-        await send_mails_async(
-            get_new_context(),
-            email_to=await get_recipients(
-                loaders, [item.subject], source_group_name, target_group_name
-            ),
-            context={
-                "group": source_group_name,
-                "nickname": root.state.nickname,
-                "target": target_group_name,
-            },
-            tags=GENERAL_TAG,
-            subject=(
-                f"Root moved from [{source_group_name}] "
-                f"to [{target_group_name}]"
-            ),
-            template_name="root_moved",
-        )
-    else:
-        LOGGER.info(
-            "User disabled this notification. Won't notify",
-            extra={
-                "extra": {
-                    "subject": item.subject,
-                }
-            },
-        )
+    LOGGER.info(
+        "Notifying stakeholders",
+        extra={
+            "extra": {
+                "subject": item.subject,
+            }
+        },
+    )
+    await send_mails_async(
+        get_new_context(),
+        email_to=await get_recipients(
+            loaders, [item.subject], source_group_name, target_group_name
+        ),
+        context={
+            "group": source_group_name,
+            "nickname": root.state.nickname,
+            "target": target_group_name,
+        },
+        tags=GENERAL_TAG,
+        subject=(
+            f"Root moved from [{source_group_name}] "
+            f"to [{target_group_name}]"
+        ),
+        template_name="root_moved",
+    )
     await delete_action(
         action_name=item.action_name,
         additional_info=item.additional_info,

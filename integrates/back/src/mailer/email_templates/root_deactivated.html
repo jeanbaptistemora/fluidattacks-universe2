@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Root Deactivated') }}
+      {{ banner_share('Root Deactivated') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           The root with the nickname <strong>{{ root_nickname }}</strong>
           from the group <strong>{{ group }}</strong> has been deactivated by
@@ -15,36 +14,32 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:
         </p>
-        <p>
-          <strong>Reason:</strong> {{ reason }}<br>
-          <strong>Age:</strong> {{ root_age }} days<br>
-          <strong>Last activation by:</strong>
-          <a
-            href="mailto:{{ activated_by }}"
-            target="_blank"
-            rel="noopener noreferrer"
-            style="color: #ff3435;"
-          >
-            {{ activated_by }}
-          </a><br>
-          <strong>Last status:</strong> {{ last_root_state }}<br>
-          <strong>Last cloning date:</strong> {{ last_clone_date }}<br>
-          <strong>{{ sast_vulns }}</strong> SAST and
-          <strong>{{ dast_vulns }}</strong>
-          DAST vulnerabilities have been closed as a result.
-        </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <br />
+        <div class="data-container">
+          <p>
+            <strong>Reason:</strong><br/>{{ reason }}<br/><br/>
+            <strong>Age:</strong><br/>{{ root_age }} days<br/><br/>
+            <strong>Last activation by:</strong><br/>
+            <a
+              href="mailto:{{ activated_by }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ activated_by }}
+            </a><br/><br/>
+            <strong>Last status:</strong><br/>{{ last_root_state }}<br/><br/>
+            <strong>Last cloning date:</strong><br/>{{ last_clone_date }}<br/><br/>
+            <strong>{{ sast_vulns }}</strong> SAST and
+            <strong>{{ dast_vulns }}</strong>
+            DAST vulnerabilities have been closed as a result.
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
