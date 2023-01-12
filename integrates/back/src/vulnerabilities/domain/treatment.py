@@ -212,35 +212,28 @@ async def validate_treatment_change(
 
 async def add_vulnerability_treatment(
     *,
-    finding_id: str,
-    updated_values: dict[str, str],
-    vuln: Vulnerability,
-    user_email: str,
+    modified_by: str,
+    treatment_status: VulnerabilityTreatmentStatus,
+    vulnerability: Vulnerability,
+    accepted_until: Optional[datetime] = None,
+    assigned: Optional[str] = None,
+    justification: Optional[str] = None,
 ) -> None:
-    new_status = VulnerabilityTreatmentStatus[
-        get_inverted_treatment_converted(
-            updated_values["treatment"].replace(" ", "_").upper()
-        )
-    ]
     treatment_to_add = VulnerabilityTreatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
-        if new_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+        if treatment_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
         else None,
-        accepted_until=datetime.fromisoformat(
-            updated_values["acceptance_date"]
-        ).astimezone(tz=timezone.utc)
-        if new_status == VulnerabilityTreatmentStatus.ACCEPTED
-        else None,
-        justification=updated_values.get("justification"),
-        assigned=updated_values.get("assigned") or user_email,
-        modified_by=user_email,
+        accepted_until=accepted_until,
+        justification=justification,
+        assigned=assigned or modified_by,
+        modified_by=modified_by,
         modified_date=datetime_utils.get_utc_now(),
-        status=new_status,
+        status=treatment_status,
     )
     await vulns_model.update_treatment(
-        current_value=vuln,
-        finding_id=finding_id,
-        vulnerability_id=vuln.id,
+        current_value=vulnerability,
+        finding_id=vulnerability.finding_id,
+        vulnerability_id=vulnerability.id,
         treatment=treatment_to_add,
     )
 
@@ -511,7 +504,7 @@ async def get_managers_by_size(
     return managers
 
 
-async def update_vulnerabilities_treatment(
+async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     *,
     loaders: Dataloaders,
     finding_id: str,
@@ -576,11 +569,27 @@ async def update_vulnerabilities_treatment(
         loaders=loaders,
         values=updated_values,
     )
+    new_treatment_status = VulnerabilityTreatmentStatus[
+        get_inverted_treatment_converted(
+            updated_values["treatment"].replace(" ", "_").upper()
+        )
+    ]
+    accepted_until = (
+        datetime.fromisoformat(updated_values["acceptance_date"]).astimezone(
+            tz=timezone.utc
+        )
+        if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
+        else None
+    )
+    justification = updated_values.get("justification")
+    assigned = updated_values.get("assigned")
     await add_vulnerability_treatment(
-        finding_id=finding_id,
-        updated_values=updated_values,
-        vuln=vulnerability,
-        user_email=user_email,
+        modified_by=user_email,
+        treatment_status=new_treatment_status,
+        vulnerability=vulnerability,
+        accepted_until=accepted_until,
+        assigned=assigned,
+        justification=justification,
     )
 
 

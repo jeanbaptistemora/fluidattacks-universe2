@@ -86,10 +86,9 @@ async def process_vulnerability(
         and (is_accepted_expired or is_undefined_accepted_expired)
     ):
         await vulns_domain.add_vulnerability_treatment(
-            finding_id=vulnerability.finding_id,
-            updated_values={"treatment": "UNTREATED"},
-            vuln=vulnerability,
-            user_email=vulnerability.treatment.modified_by,
+            modified_by=vulnerability.treatment.modified_by,
+            treatment_status=VulnerabilityTreatmentStatus.UNTREATED,
+            vulnerability=vulnerability,
         )
         return vulnerability.id
 
