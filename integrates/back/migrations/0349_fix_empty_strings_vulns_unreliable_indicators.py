@@ -3,6 +3,9 @@
 Refresh vulnerabilities unreliable_indicators when an empty string is in an
 attribute that would hold a date. These empty strings are causing an
 indexation error in opensearch. The attribute will be removed instead.
+
+Execution Time:    2023-01-12 at 21:37:11 UTC
+Finalization Time: 2023-01-13 at 05:16:42 UTC
 """
 from aioextensions import (
     collect,
@@ -57,7 +60,7 @@ async def process_finding(loaders: Dataloaders, finding: Finding) -> None:
     ] = await loaders.finding_vulnerabilities_all.load(finding.id)
     await collect(
         tuple(process_vulnerability(vuln) for vuln in vulns),
-        workers=8,
+        workers=16,
     )
 
 
