@@ -1,6 +1,6 @@
 import type { FieldProps } from "formik";
 import { ErrorMessage } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { StyledInput, ValidationError } from "utils/forms/fields/styles";
 
@@ -34,13 +34,16 @@ export const FormikText: React.FC<ITextProps> = ({
 }: Readonly<ITextProps>): JSX.Element => {
   const { name, onBlur, onChange, value } = field;
 
-  function handleBlur(event: React.FocusEvent<HTMLInputElement>): void {
-    onBlur(event);
+  const handleBlur = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>): void => {
+      onBlur(event);
 
-    if (customBlur !== undefined) {
-      customBlur(event);
-    }
-  }
+      if (customBlur !== undefined) {
+        customBlur(event);
+      }
+    },
+    [customBlur, onBlur]
+  );
 
   return (
     <React.Fragment>

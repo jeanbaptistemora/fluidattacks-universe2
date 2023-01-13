@@ -2,7 +2,7 @@ import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { RowData } from "@tanstack/react-table";
 import type { ReactElement } from "react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ToggleContainer } from "./styles";
@@ -19,12 +19,12 @@ export const ToggleFunction = <TData extends RowData>(
   const { table } = props;
   const { t } = useTranslation();
   const [hidden, setHidden] = useState(true);
-  function showModal(): void {
+  const showModal = useCallback((): void => {
     setHidden(false);
-  }
-  function hideModal(): void {
+  }, []);
+  const hideModal = useCallback((): void => {
     setHidden(true);
-  }
+  }, []);
 
   return (
     <div id={"columns-filter"}>
