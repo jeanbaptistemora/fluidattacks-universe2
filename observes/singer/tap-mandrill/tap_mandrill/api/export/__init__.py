@@ -1,6 +1,9 @@
 from ._api_1 import (
     export_api_1,
 )
+from ._api_key import (
+    ApiKey,
+)
 from ._core import (
     ExportApi,
     ExportJob,
@@ -10,6 +13,7 @@ from ._core import (
 )
 
 __all__ = [
+    "ApiKey",
     "MaxRetriesReached",
     "ExportType",
     "JobState",

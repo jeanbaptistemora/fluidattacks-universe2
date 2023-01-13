@@ -33,10 +33,24 @@ from typing import (
     Union,
 )
 
+_API_ENDPOINT = "https://mandrillapp.com/api/1.0"
 EPOCH = datetime(1970, 1, 1, 0, 0, 0, 0, timezone.utc)
 NOW = datetime.now(timezone.utc)
 LOG = logging.getLogger(__name__)
 _T = TypeVar("_T")
+
+
+@dataclass(frozen=True)
+class ApiPath:
+    subpaths: FrozenList[str]
+
+    @staticmethod
+    def from_raw(*subpaths: str) -> ApiPath:
+        return ApiPath(tuple(p.replace("/", "") for p in subpaths))
+
+    @property
+    def full_url(self) -> str:
+        return _API_ENDPOINT + "/" + "/".join(self.subpaths)
 
 
 @dataclass(frozen=True)

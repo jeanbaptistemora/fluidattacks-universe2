@@ -27,7 +27,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     ),
     "tap_mandrill.api.export": (
         "_api_1",
-        "_core",
+        ("_core", "_api_key"),
     ),
     "tap_mandrill.api.export._api_1": (
         ("_activity", "_download", "_get_job"),
