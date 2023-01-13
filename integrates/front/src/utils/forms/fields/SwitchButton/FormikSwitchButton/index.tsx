@@ -1,6 +1,6 @@
 import type { FieldProps } from "formik";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Switch } from "components/Switch";
 
@@ -17,11 +17,11 @@ export const FormikSwitchButton: React.FC<IFormikSwitchButtonProps> = (
 ): JSX.Element => {
   const { disabled, field, offlabel, onlabel, onChange } = props;
   const { checked, name } = field;
-  function handleOnChange(): void {
+  const handleOnChange = useCallback((): void => {
     if (!_.isUndefined(onChange)) {
       onChange(!(checked as boolean));
     }
-  }
+  }, [checked, onChange]);
 
   return (
     <Switch

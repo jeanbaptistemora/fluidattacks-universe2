@@ -2,7 +2,7 @@ import type { FieldProps } from "formik";
 import { useField } from "formik";
 import _ from "lodash";
 import type { InputHTMLAttributes } from "react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { WithContext as ReactTagInput } from "react-tag-input";
 import type { Tag } from "react-tag-input";
 
@@ -48,44 +48,53 @@ export const FormikTagInput: React.FC<ITagInputProps> = (
     return tags.map((tag: Readonly<Tag>): string => tag.text).join(",");
   }
 
-  function handleAddition(tag: Readonly<Tag>): void {
-    const validation: string | undefined = validTextField(tag.text);
-    if (validation === undefined) {
-      setTagsInput([...tagsInput, tag]);
-      helpers.setValue(tagsToString([...tagsInput, tag]));
-    } else {
-      setErrors({ tags: validation });
-    }
-  }
-  function handleDelete(index: number): void {
-    const newTags: Tag[] = tagsInput.filter(
-      (_tag: Readonly<Tag>, indexFilter: number): boolean =>
-        indexFilter !== index
-    );
-    const deletedTags: string = tagsInput.reduce(
-      (
-        tagValue: string,
-        currentTag: Readonly<Tag>,
-        indexFilter: number
-      ): string => (indexFilter === index ? currentTag.text : tagValue),
-      ""
-    );
-    setTagsInput(newTags);
-    if (onDeletion !== undefined) {
-      onDeletion(deletedTags);
-    }
-    helpers.setValue(tagsToString(newTags));
-  }
-  function handleInputBlur(inputText: string): void {
-    const tag: Tag = { id: inputText, text: inputText };
-    const currentString: string = tagsToString(tagsInput);
-    if (
-      !_.isEmpty(inputText) &&
-      !_.includes(currentString.split(","), inputText)
-    ) {
-      handleAddition(tag);
-    }
-  }
+  const handleAddition = useCallback(
+    (tag: Readonly<Tag>): void => {
+      const validation: string | undefined = validTextField(tag.text);
+      if (validation === undefined) {
+        setTagsInput([...tagsInput, tag]);
+        helpers.setValue(tagsToString([...tagsInput, tag]));
+      } else {
+        setErrors({ tags: validation });
+      }
+    },
+    [helpers, tagsInput, setErrors]
+  );
+  const handleDelete = useCallback(
+    (index: number): void => {
+      const newTags: Tag[] = tagsInput.filter(
+        (_tag: Readonly<Tag>, indexFilter: number): boolean =>
+          indexFilter !== index
+      );
+      const deletedTags: string = tagsInput.reduce(
+        (
+          tagValue: string,
+          currentTag: Readonly<Tag>,
+          indexFilter: number
+        ): string => (indexFilter === index ? currentTag.text : tagValue),
+        ""
+      );
+      setTagsInput(newTags);
+      if (onDeletion !== undefined) {
+        onDeletion(deletedTags);
+      }
+      helpers.setValue(tagsToString(newTags));
+    },
+    [helpers, onDeletion, tagsInput]
+  );
+  const handleInputBlur = useCallback(
+    (inputText: string): void => {
+      const tag: Tag = { id: inputText, text: inputText };
+      const currentString: string = tagsToString(tagsInput);
+      if (
+        !_.isEmpty(inputText) &&
+        !_.includes(currentString.split(","), inputText)
+      ) {
+        handleAddition(tag);
+      }
+    },
+    [handleAddition, tagsInput]
+  );
 
   const keyCodes: Record<string, number> = { comma: 188, enter: 13, space: 32 };
   const styles: Record<string, string> = {
