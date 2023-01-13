@@ -9,6 +9,9 @@ from custom_exceptions import (
     EventAlreadyClosed,
     InvalidCommentParent,
     InvalidEventSolvingReason,
+    InvalidFileSize,
+    InvalidFileType,
+    UnsanitizedInputFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -30,6 +33,7 @@ from events.domain import (
     remove_event,
     solve_event,
     update_evidence,
+    validate_evidence,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -527,3 +531,147 @@ async def test_update_evidence(  # pylint: disable=too-many-arguments
     assert mock_save_evidence.called is True
     assert mock_events_model_update_evidence.called is True
     assert mock_replace_different_format.called is True
+
+
+@pytest.mark.parametrize(
+    ["event_id", "evidence_type", "file_name", "update_date", "uses_mock"],
+    [
+        [
+            "=malicious-code-here",
+            EventEvidenceId.FILE_1,
+            "test-file-records.csv",
+            datetime.fromisoformat("2022-12-29 14:14:19.182591+00:00"),
+            False,
+        ],
+        [
+            "418900978",
+            EventEvidenceId.FILE_1,
+            "malicious;-code,-here.csv",
+            datetime.fromisoformat("2022-12-29 14:14:19.182591+00:00"),
+            True,
+        ],
+    ],
+)
+@patch(get_mocked_path("loaders.event.load"), new_callable=AsyncMock)
+async def test_update_evidence_invalid(  # pylint: disable=too-many-arguments
+    mock_event_loader: AsyncMock,
+    event_id: str,
+    evidence_type: EventEvidenceId,
+    file_name: str,
+    update_date: datetime,
+    uses_mock: bool,
+) -> None:
+    if uses_mock:
+        mock_event_loader.return_value = get_mock_response(
+            get_mocked_path("loaders.event.load"),
+            json.dumps([event_id]),
+        )
+    loaders: Dataloaders = get_new_context()
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/" + file_name)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(file_name, test_file, "text/csv")
+        with pytest.raises(UnsanitizedInputFound):
+            await update_evidence(
+                loaders,
+                event_id,
+                evidence_type,
+                uploaded_file,
+                update_date,
+            )
+
+
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "evidence_type",
+        "file_name",
+        "organization_name",
+        "allowed_mimes",
+    ],
+    [
+        [
+            "unittesting",
+            EventEvidenceId.IMAGE_1,
+            "test-file-records.csv",
+            "okada",
+            "images",
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("files_utils.assert_uploaded_file_mime"),
+    new_callable=AsyncMock,
+)
+async def test_validate_evidence_invalid_file_type(
+    # pylint: disable=too-many-arguments
+    mock_assert_uploaded_file_mime: AsyncMock,
+    group_name: str,
+    evidence_type: EventEvidenceId,
+    file_name: str,
+    organization_name: str,
+    allowed_mimes: bool,
+) -> None:
+    mock_assert_uploaded_file_mime.return_value = get_mock_response(
+        get_mocked_path("files_utils.assert_uploaded_file_mime"),
+        json.dumps([file_name, allowed_mimes]),
+    )
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/" + file_name)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(file_name, test_file, "text/csv")
+        with pytest.raises(InvalidFileType):
+            await validate_evidence(
+                group_name=group_name,
+                organization_name=organization_name,
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )
+
+
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "evidence_type",
+        "file_name",
+        "organization_name",
+        "allowed_mimes",
+    ],
+    [
+        [
+            "unittesting",
+            EventEvidenceId.IMAGE_1,
+            "test-big-image.jpg",
+            "okada",
+            "images",
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("files_utils.assert_uploaded_file_mime"),
+    new_callable=AsyncMock,
+)
+async def test_validate_evidence_invalid_file_size(
+    # pylint: disable=too-many-arguments
+    mock_assert_uploaded_file_mime: AsyncMock,
+    group_name: str,
+    evidence_type: EventEvidenceId,
+    file_name: str,
+    organization_name: str,
+    allowed_mimes: bool,
+) -> None:
+    mock_assert_uploaded_file_mime.return_value = get_mock_response(
+        get_mocked_path("files_utils.assert_uploaded_file_mime"),
+        json.dumps([file_name, allowed_mimes]),
+    )
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/" + file_name)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(file_name, test_file, "text/csv")
+        with pytest.raises(InvalidFileSize):
+            await validate_evidence(
+                group_name=group_name,
+                organization_name=organization_name,
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )

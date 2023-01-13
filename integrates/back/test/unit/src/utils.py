@@ -127,6 +127,7 @@ mocked_paths: Dict[str, str] = {
     "events_model.remove": "db_model.events.remove",
     "events_model.update_state": "db_model.events.update_state",
     "events_model.update_evidence": "db_model.events.update_evidence",
+    "files_utils.assert_uploaded_file_mime": "newutils.files.assert_uploaded_file_mime",  # noqa: E501 pylint: disable=line-too-long
     "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
@@ -1231,6 +1232,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["integratesuser@gmail.com"]': None,
         '["test_email@test.com", "user"]': None,
         '["test_email@test.com", "admin"]': None,
+    },
+    "newutils.files.assert_uploaded_file_mime": {
+        '["test-file-records.csv", "images"]': False,
+        '["test-big-image.jpg", "images"]': True,
     },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],
