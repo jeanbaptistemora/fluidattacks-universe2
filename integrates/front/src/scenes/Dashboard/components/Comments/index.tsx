@@ -1,34 +1,18 @@
 import _ from "lodash";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { StyledComponent } from "styled-components";
-import styled from "styled-components";
 
 import { Comment } from "./Comment";
 import { CommentEditor } from "./components/CommentEditor";
 import { commentContext } from "./context";
 
+import { FormikSelect } from "components/Input/Formik";
 import type {
   ICommentStructure,
   ICommentsProps,
 } from "scenes/Dashboard/components/Comments/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
-import style from "utils/forms/index.css";
-
-const Select: StyledComponent<
-  "select",
-  Record<string, unknown>
-> = styled.select.attrs({
-  className: `${style["form-control"]} black-60 border-box`,
-})``;
-
-const Small: StyledComponent<
-  "small",
-  Record<string, unknown>
-> = styled.small.attrs({
-  className: "f5 black-60 db",
-})``;
 
 export const Comments: React.FC<ICommentsProps> = ({
   onLoad,
@@ -111,13 +95,23 @@ export const Comments: React.FC<ICommentsProps> = ({
     <React.StrictMode>
       <commentContext.Provider value={{ replying, setReplying }}>
         <CommentEditor id={0} onPost={postHandler} />
+        <br />
         {comments.length > 1 && (
           <div className={"w-25 w-50-m mb3"}>
-            <Small>{t("comments.orderBy.label")}</Small>
-            <Select defaultValue={"newest"} onChange={onOrderChange}>
+            <FormikSelect
+              field={{
+                name: "orderBy",
+                onBlur: (): void => undefined,
+                onChange: onOrderChange,
+                value: orderBy,
+              }}
+              form={{ errors: {}, touched: {} }}
+              label={t("comments.orderBy.label")}
+              name={"orderBy"}
+            >
               <option value={"newest"}>{t("comments.orderBy.newest")}</option>
               <option value={"oldest"}>{t("comments.orderBy.oldest")}</option>
-            </Select>
+            </FormikSelect>
           </div>
         )}
         {rootComments.length > 0 ? (

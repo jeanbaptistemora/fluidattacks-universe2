@@ -1,8 +1,7 @@
-import type { FC, FocusEvent } from "react";
-import React, { useCallback } from "react";
+import React from "react";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 import { StyledTextArea } from "../styles";
 
 interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
@@ -12,13 +11,14 @@ interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
 
 type TTextAreaProps = ITextAreaProps & TFieldProps;
 
-const FormikTextArea: FC<TTextAreaProps> = ({
+const FormikTextArea: React.FC<TTextAreaProps> = ({
   disabled,
-  field: { name, onBlur: onBlurField, onChange, value },
+  field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
   label,
   onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   placeholder,
@@ -27,12 +27,9 @@ const FormikTextArea: FC<TTextAreaProps> = ({
   tooltip,
   variant,
 }: Readonly<TTextAreaProps>): JSX.Element => {
-  const handleBlur = useCallback(
-    (ev: FocusEvent<HTMLTextAreaElement>): void => {
-      onBlurField(ev);
-      onBlur?.(ev);
-    },
-    [onBlur, onBlurField]
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
   );
 
   return (
@@ -52,7 +49,7 @@ const FormikTextArea: FC<TTextAreaProps> = ({
         id={id}
         name={name}
         onBlur={handleBlur}
-        onChange={onChange}
+        onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         placeholder={placeholder}

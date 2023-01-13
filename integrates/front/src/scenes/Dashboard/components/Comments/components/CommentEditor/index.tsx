@@ -1,4 +1,4 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FormikProps } from "formik";
 import _ from "lodash";
 import React, { useCallback, useContext, useRef, useState } from "react";
@@ -7,9 +7,9 @@ import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
+import { TextArea } from "components/Input";
 import { commentContext } from "scenes/Dashboard/components/Comments/context";
 import type { ICommentContext } from "scenes/Dashboard/components/Comments/types";
-import { FormikTextAreaAutosize } from "utils/forms/fields/TextArea";
 import {
   composeValidators,
   maxLength,
@@ -79,16 +79,12 @@ const CommentEditor: React.FC<ICommentEditorProps> = ({
       onSubmit={clickHandler}
     >
       <Form>
-        <Field
-          component={FormikTextAreaAutosize}
-          maxRows={8}
-          minRows={2}
+        <TextArea
           name={"comment-editor"}
+          onChange={onChange}
           onFocus={onFocus}
-          onTextChange={onChange}
           placeholder={t("comments.editorPlaceholder")}
-          rows={"2"}
-          type={"text"}
+          rows={3}
           validate={composeValidators([maxContentLength, validTextField])}
         />
         {editorText !== "" && (

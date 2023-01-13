@@ -15,7 +15,6 @@ import type {
   ICommentContext,
   ICommentStructure,
 } from "scenes/Dashboard/components/Comments/types";
-import "scenes/Dashboard/components/Comments/index.css";
 
 interface ICommentProps {
   id: number;
