@@ -9,7 +9,7 @@ from lib_path.f165.cloudformation import (
     cfn_iam_allow_not_principal_trust_policy,
     cfn_iam_allow_not_resource_perms_policies,
     cfn_iam_allow_wildcard_action_trust_policy,
-    cfn_iam_is_role_over_privileged,
+    cfn_iam_wildcard_actions_perms_policies,
     cfn_iam_wildcard_resources_perms_policies,
 )
 from lib_path.f165.terraform import (
@@ -29,6 +29,15 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_cfn_iam_wildcard_actions_perms_policies(
+    content: str, file_ext: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_iam_wildcard_actions_perms_policies(
+        content=content, file_ext=file_ext, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -86,15 +95,6 @@ def run_cfn_iam_allow_not_principal_trust_policy(
 
 
 @SHIELD_BLOCKING
-def run_cfn_iam_is_role_over_privileged(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_is_role_over_privileged(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_iam_role_is_over_privileged(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -119,9 +119,6 @@ def analyze(
         for template in load_templates_blocking(content, fmt=file_extension):
             results = (
                 *results,
-                run_cfn_iam_is_role_over_privileged(
-                    content, file_extension, path, template
-                ),
                 run_cfn_iam_allow_not_principal_trust_policy(
                     content, file_extension, path, template
                 ),
@@ -138,6 +135,9 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_wildcard_resources_perms_policies(
+                    content, file_extension, path, template
+                ),
+                run_cfn_iam_wildcard_actions_perms_policies(
                     content, file_extension, path, template
                 ),
             )

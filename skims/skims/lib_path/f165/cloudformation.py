@@ -81,19 +81,21 @@ def cfn_iam_wildcard_resources_perms_policies(
     )
 
 
-def cfn_iam_is_role_over_privileged(
+def cfn_iam_wildcard_actions_perms_policies(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
-    method = MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED
+    method = MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("src.lib_path.f165.iam_is_role_over_privileged"),
+        description_key=(
+            "src.lib_path.f165.iam_allow_wilcard_actions_permissions_policy"
+        ),
         iterator=get_cloud_iterator(
             cfn_iam_permissions_policies_checks(
                 file_ext=file_ext,
                 iam_iterator=iter_iam_roles(template=template),
                 method=method,
-            ),
+            )
         ),
         path=path,
         method=method,

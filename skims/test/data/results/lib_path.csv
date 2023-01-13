@@ -3448,7 +3448,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   20 |               - Action: '*'
   21 |                 Resource: arn:::ec2/specific
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    2 | Resources:
@@ -3473,7 +3473,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   21 |                 Resource: arn:::ec2/specific
   22 |                 Effect: Allow
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
    3 |   AWS_IAM_Role_1:
@@ -3498,7 +3498,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   22 |                 Effect: Allow
   23 |               - Action: ec2:Something
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,20,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   10 |               - Action:
@@ -3523,7 +3523,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   29 |             Principal:
   30 |               Service:
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    3 |     ""AWS_IAM_Role_1"": {
@@ -3548,7 +3548,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   22 |                     ""ec2:Something""
   23 |                   ],
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    4 |       ""Type"": ""AWS::IAM::Role"",
@@ -3573,7 +3573,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   23 |                   ],
   24 |                   ""Resource"": ""*"",
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    5 |       ""Properties"": {
@@ -3598,7 +3598,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                   ""Resource"": ""*"",
   25 |                   ""Effect"": ""Allow""
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,28,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
   18 |                   ""Effect"": ""Allow""
@@ -3623,7 +3623,7 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   37 |               ]
   38 |             }
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,46,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   36 |                 - ec2.amazonaws.com
@@ -3648,7 +3648,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   55 |         - PolicyName: root1
   56 |           PolicyDocument:
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   41 |         - PolicyName: root
@@ -3673,7 +3673,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   60 |                 NotAction: '*'
   61 |                 NotResource: s3:GetObject
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,69,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
    59 |         },
@@ -3698,7 +3698,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    78 |               ""Version"": ""2012-10-17"",
    79 |               ""Statement"": [
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,82,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
    72 |               ]
@@ -3723,32 +3723,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    91 |               ""Version"": ""2012-10-17"",
    92 |               ""Statement"": [
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
-  13 |         }
-  14 |       }
-  15 |     ]
-  16 |   }
-  17 |   EOF
-  18 | }
-  19 |
-  20 | resource ""aws_iam_role"" ""vuln_role_1"" {
-  21 |   name = ""vuln_role_1""
-  22 |
-> 23 |   assume_role_policy = jsonencode({
-  24 |     Version = ""2012-10-17""
-  25 |     Statement = [
-  26 |       {
-  27 |         Action = ""sts:AssumeRole""
-  28 |         Effect = ""Allow""
-  29 |         NotPrincipal = {
-  30 |           Servive = ""ec2.amazonaws.com""
-  31 |         }
-  32 |       },
-  33 |     ]
-     ^ Col 0
-",terraform.tfm_iam_role_is_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,53,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   34 |             Principal:
@@ -3773,7 +3748,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
 > 53 |                 Action: '*'
   54 |                 Resource: s3:GetObject
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,46,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml","
   34 |             Principal:
@@ -3798,7 +3773,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   53 |                 Action: '*'
   54 |                 Resource: s3:GetObject
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,69,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   59 |         },
@@ -3823,7 +3798,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   78 |               ""Version"": ""2012-10-17"",
   79 |               ""Statement"": [
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,82,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   72 |               ]
@@ -3848,7 +3823,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   91 |   }
   92 | }
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,76,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    66 |                 - ec2.amazonaws.com
@@ -3873,7 +3848,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    85 |         - PolicyName: root
    86 |           PolicyDocument:
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,104,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    86 |           PolicyDocument:
@@ -3898,7 +3873,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   105 |                 Resource:
   106 |                   - ec2:StartInstances
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,116,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   106 |         },
@@ -3923,7 +3898,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   125 |               ""Version"": ""2012-10-17"",
   126 |               ""Statement"": [
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,168,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
   158 |               ]
@@ -3948,7 +3923,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
   177 |       }
   178 |     }
       ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,22,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   12 |                 - ec2.amazonaws.com
@@ -3973,7 +3948,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   31 |       ManagedPolicyArns:
   32 |         - arn:aws:iam::aws:policy/AdministratorAccess
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,29,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   13 |             Action:
@@ -3998,7 +3973,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   32 |         - arn:aws:iam::aws:policy/AdministratorAccess
   33 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,31,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   21 |         },
@@ -4023,7 +3998,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   40 |               ""Version"": ""2012-10-17"",
   41 |               ""Statement"": [
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,44,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   34 |               ]
@@ -4048,7 +4023,7 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   53 |           ""arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess""
   54 |         ]
      ^ Col 0
-",cloudformation.cfn_iam_is_role_over_privileged
+",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,43,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow  action on its trust policy
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
@@ -4849,6 +4824,31 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    59 |         },
       ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_principal
+F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+ in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
+  13 |         }
+  14 |       }
+  15 |     ]
+  16 |   }
+  17 |   EOF
+  18 | }
+  19 |
+  20 | resource ""aws_iam_role"" ""vuln_role_1"" {
+  21 |   name = ""vuln_role_1""
+  22 |
+> 23 |   assume_role_policy = jsonencode({
+  24 |     Version = ""2012-10-17""
+  25 |     Statement = [
+  26 |       {
+  27 |         Action = ""sts:AssumeRole""
+  28 |         Effect = ""Allow""
+  29 |         NotPrincipal = {
+  30 |           Servive = ""ec2.amazonaws.com""
+  31 |         }
+  32 |       },
+  33 |     ]
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,61,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   41 |         - PolicyName: root

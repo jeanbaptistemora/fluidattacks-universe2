@@ -51,7 +51,9 @@ def tfm_iam_role_is_over_privileged(
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("src.lib_path.f165.iam_is_role_over_privileged"),
+        description_key=(
+            "src.lib_path.f165.iam_allow_not_principal_trust_policy"
+        ),
         iterator=get_cloud_iterator(
             _tfm_iam_role_is_over_privileged_iter_vulns(
                 role_iterator=iter_aws_iam_role(model=model),

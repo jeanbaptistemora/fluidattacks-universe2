@@ -1,5 +1,5 @@
 ---
-src.lib_path.f165.iam_is_role_over_privileged:
+src.lib_path.f165.iam_allow_wilcard_actions_permissions_policy:
   en: >
     IAM Role is miss configured:
     - Should not allow * action on its permissions policy
