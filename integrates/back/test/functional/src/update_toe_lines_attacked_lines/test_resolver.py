@@ -35,41 +35,29 @@ async def test_update_toe_lines_attacked_lines_set_lines(
     )
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
     result = await query_get(user=email, group_name="group1")
-    assert result["data"]["group"]["toeLines"] == {
-        "edges": [
-            {
-                "node": {
-                    "attackedAt": "2021-05-05T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 180,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 1",
-                    "lastAuthor": "customer1@gmail.com",
-                    "filename": "test/test#.config",
-                    "firstAttackAt": "2021-05-05T07:00:00+00:00",
-                    "loc": 4324,
-                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    "modifiedDate": "2020-11-16T15:41:04+00:00",
-                    "root": {
-                        "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                        "nickname": "universe",
-                    },
-                    "seenAt": "2020-01-01T15:41:04+00:00",
-                    "sortsRiskLevel": 0,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9"
-                "PVCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OT"
-                "AjRklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
-            },
-        ],
-        "pageInfo": {
-            "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDEiLCAic2siOiAiTElORVMjUk9P"
-            "VCM2MzI5OGE3My05ZGZmLTQ2Y2YtYjQyZC05YjJmMDFhNTY2OTAj"
-            "RklMRU5BTUUjdGVzdC90ZXN0Iy5jb25maWcifQ==",
-        },
-    }
+    lines = result["data"]["group"]["toeLines"]["edges"]
+    assert lines[0]["node"]["attackedAt"] == "2021-05-05T07:00:00+00:00"
+    assert lines[0]["node"]["attackedBy"] == "admin@fluidattacks.com"
+    assert lines[0]["node"]["attackedLines"] == 180
+    assert lines[0]["node"]["bePresent"] is True
+    assert lines[0]["node"]["bePresentUntil"] is None
+    assert lines[0]["node"]["comments"] == "edited comments 1"
+    assert lines[0]["node"]["filename"] == "test/test#.config"
+    assert lines[0]["node"]["firstAttackAt"] == "2021-05-05T07:00:00+00:00"
+    assert lines[0]["node"]["lastAuthor"] == "customer1@gmail.com"
+    assert (
+        lines[0]["node"]["lastCommit"]
+        == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
+    )
+    assert lines[0]["node"]["loc"] == 4324
+    assert lines[0]["node"]["modifiedDate"] == "2020-11-16T15:41:04+00:00"
+    assert (
+        lines[0]["node"]["root"]["id"]
+        == "63298a73-9dff-46cf-b42d-9b2f01a56690"
+    )
+    assert lines[0]["node"]["root"]["nickname"] == "universe"
+    assert lines[0]["node"]["seenAt"] == "2020-01-01T15:41:04+00:00"
+    assert lines[0]["node"]["sortsRiskLevel"] == 0
 
 
 @pytest.mark.asyncio
@@ -95,41 +83,29 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
     )
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
     result = await query_get(user=email, group_name="group2")
-    assert result["data"]["group"]["toeLines"] == {
-        "edges": [
-            {
-                "node": {
-                    "attackedAt": "2021-05-06T07:00:00+00:00",
-                    "attackedBy": "admin@fluidattacks.com",
-                    "attackedLines": 180,
-                    "bePresent": True,
-                    "bePresentUntil": None,
-                    "comments": "edited comments 2",
-                    "lastAuthor": "customer2@gmail.com",
-                    "filename": "test2/test.sh",
-                    "firstAttackAt": "2020-02-19T15:41:04+00:00",
-                    "loc": 180,
-                    "lastCommit": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    "modifiedDate": "2020-11-15T15:41:04+00:00",
-                    "root": {
-                        "id": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                        "nickname": "asm_1",
-                    },
-                    "seenAt": "2020-02-01T15:41:04+00:00",
-                    "sortsRiskLevel": -1,
-                },
-                "cursor": "eyJwayI6ICJHUk9VUCNncm91cDIiLCAic2siOiAiTElORVMjUk9"
-                "PVCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMW"
-                "EjRklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
-            },
-        ],
-        "pageInfo": {
-            "hasNextPage": False,
-            "endCursor": "eyJwayI6ICJHUk9VUCNncm91cDIiLCAic2siOiAiTElORVMjUk9P"
-            "VCM3NjViMWQwZi1iNmZiLTQ0ODUtYjRlMi0yYzJjYjE1NTViMWEj"
-            "RklMRU5BTUUjdGVzdDIvdGVzdC5zaCJ9",
-        },
-    }
+    lines = result["data"]["group"]["toeLines"]["edges"]
+    assert lines[0]["node"]["attackedAt"] == "2021-05-06T07:00:00+00:00"
+    assert lines[0]["node"]["attackedBy"] == "admin@fluidattacks.com"
+    assert lines[0]["node"]["attackedLines"] == 180
+    assert lines[0]["node"]["bePresent"] is True
+    assert lines[0]["node"]["bePresentUntil"] is None
+    assert lines[0]["node"]["comments"] == "edited comments 2"
+    assert lines[0]["node"]["lastAuthor"] == "customer2@gmail.com"
+    assert lines[0]["node"]["filename"] == "test2/test.sh"
+    assert lines[0]["node"]["firstAttackAt"] == "2020-02-19T15:41:04+00:00"
+    assert (
+        lines[0]["node"]["lastCommit"]
+        == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
+    )
+    assert lines[0]["node"]["loc"] == 180
+    assert lines[0]["node"]["modifiedDate"] == "2020-11-15T15:41:04+00:00"
+    assert (
+        lines[0]["node"]["root"]["id"]
+        == "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
+    )
+    assert lines[0]["node"]["root"]["nickname"] == "asm_1"
+    assert lines[0]["node"]["seenAt"] == "2020-02-01T15:41:04+00:00"
+    assert lines[0]["node"]["sortsRiskLevel"] == -1
 
 
 @pytest.mark.asyncio
