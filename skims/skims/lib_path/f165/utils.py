@@ -39,7 +39,6 @@ def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
 def check_type(
     stmt: Any, file_ext: str, method: MethodsEnum
 ) -> Iterator[Node]:
-
     if (
         not_actions := stmt.inner.get("NotAction")
     ) and method == MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION:
@@ -57,10 +56,12 @@ def check_type(
             data=not_princ.data,
             line=get_line_by_extension(not_princ.start_line, file_ext),
         )
-
+    allow_wildcard_reports = False
     if (
-        actions := stmt.inner.get("Action")
-    ) and method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION:
+        method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION
+        and allow_wildcard_reports
+        and (actions := stmt.inner.get("Action"))
+    ):
         yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
 
@@ -138,6 +139,7 @@ def get_wildcard_nodes_for_resources(
 def _yield_nodes_from_stmt(
     stmt: Any, file_ext: str, method: MethodsEnum
 ) -> Iterator[Node]:
+    allow_wildcard_reports = False
     if (
         not_actions := stmt.inner.get("NotAction")
     ) and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION:
@@ -157,13 +159,16 @@ def _yield_nodes_from_stmt(
         ) if isinstance(not_resource.raw, List) else not_resource
 
     if (
-        actions := stmt.inner.get("Action")
-    ) and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS:
+        method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
+        and allow_wildcard_reports
+        and (actions := stmt.inner.get("Action"))
+    ):
         yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
     if (
-        (resources := stmt.inner.get("Resource"))
-        and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES
+        method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES
+        and allow_wildcard_reports
+        and (resources := stmt.inner.get("Resource"))
     ):
         yield from get_wildcard_nodes_for_resources(
             actions, resources, WILDCARD_RESOURCE
