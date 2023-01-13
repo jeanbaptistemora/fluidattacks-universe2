@@ -88,7 +88,7 @@ async def send_users_weekly_report() -> None:
                 stakeholder.is_registered,
             )
             if stakeholder_role in ["customer_manager", "user_manager"]:
-                if users[stakeholder.email]:
+                if users.get(stakeholder.email):
                     users[stakeholder.email].append(group_name)
                 else:
                     users[stakeholder.email] = [group_name]

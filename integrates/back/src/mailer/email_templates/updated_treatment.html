@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_finding, go_to_button, text_area %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_magnifying, go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_finding('Treatment Updated') }}
+      {{ banner_magnifying('Treatment Updated') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           A vulnerability treatment in the group <strong>{{ group }}</strong>
           has been updated to <strong>{{ treatment }}</strong> by
@@ -15,33 +14,30 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:
           </p>
-        <p>
-          <strong>Type of vulnerability:</strong>
-          {{ finding }}<br>
-          <strong>Assigned:</strong>
-          {{ assigned }}<br>
-          <strong>Vulnerabilities:</strong>
-          <ul>
-            {% for line in vulnerabilities %}
-            <li>
-              {{ line }}
-            </li>
-            {% endfor %}
-          </ul>
-        </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
+        <div class="data-container">
+          <p>
+            <strong>Type of vulnerability:</strong><br/>
+            {{ finding }}<br/><br/>
+            <strong>Assigned:</strong><br/>
+            {{ assigned }}<br/><br/>
+            <strong>Vulnerabilities:</strong>
+            <ul class="big-list-icon">
+              {% for line in vulnerabilities %}
+              <li>
+                {{ line }}
+              </li>
+              {% endfor %}
+            </ul>
+          </p>
+        </div>
         {{ go_to_button('Go to type of vulnerability', finding_link, 'primary-button') }}
-        <br />
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

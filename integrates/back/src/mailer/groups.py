@@ -736,7 +736,7 @@ async def send_mail_stakeholder_unsubscribed(
 ) -> None:
     email_context: dict[str, Any] = {
         "group_name": group_name,
-        "report_date": report_date.strftime("on %Y-%m-%d at %H:%M:%S"),
+        "report_date": report_date.strftime("on %Y-%m-%d"),
         "user_email": email,
     }
     await send_mails_async(
