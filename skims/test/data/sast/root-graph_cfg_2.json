@@ -18970,53 +18970,7 @@
           "sink_functions": {}
         },
         "java": {
-          "classes": {
-            ".InnerTest": {
-              "attributes": null,
-              "fields": {},
-              "inherit": null,
-              "methods": {},
-              "n_id": "1708"
-            },
-            ".Test": {
-              "attributes": null,
-              "fields": {},
-              "inherit": null,
-              "methods": {
-                ".main": {
-                  "attributes": null,
-                  "class_name": ".Test",
-                  "n_id": "17",
-                  "name": "main",
-                  "parameters": {
-                    "args": {
-                      "attributes": null,
-                      "n_id": "25",
-                      "name": "args",
-                      "type_name": "String[ ]"
-                    }
-                  },
-                  "return_type": null,
-                  "static": true
-                }
-              },
-              "n_id": "10"
-            },
-            ".Test.InnerTest": {
-              "attributes": null,
-              "fields": {},
-              "inherit": null,
-              "methods": {},
-              "n_id": "1708"
-            },
-            "InnerTest": {
-              "attributes": null,
-              "fields": {},
-              "inherit": null,
-              "methods": {},
-              "n_id": "1708"
-            }
-          },
+          "classes": {},
           "package": ""
         },
         "language": "java"
@@ -86072,12 +86026,7 @@
   ],
   "shards_by_language_class": {
     "c_sharp": {},
-    "java": {
-      ".InnerTest": "skims/test/data/sast/test_cfg.java",
-      ".Test": "skims/test/data/sast/test_cfg.java",
-      ".Test.InnerTest": "skims/test/data/sast/test_cfg.java",
-      "InnerTest": "skims/test/data/sast/test_cfg.java"
-    }
+    "java": {}
   },
   "shards_by_path": {
     "skims/test/data/sast/test_cfg.java": 0,

@@ -12,12 +12,10 @@ from model.graph_model import (
     GraphDBContext,
     GraphShard,
     GraphShardCacheable,
+    GraphShardMetadata,
     GraphShardMetadataLanguage,
 )
 import os
-from sast import (
-    inspectors,
-)
 from sast.context import (
     java_resources,
 )
@@ -311,7 +309,9 @@ def _parse_one_cached(
     control_flow.add(graph, language)
     syntax = generate_syntax_readers.read_from_graph(graph, language)
     danger_nodes.mark(graph, language, syntax)
-    metadata = inspectors.get_metadata(graph, language)
+    metadata = GraphShardMetadata(
+        language=language,
+    )
 
     styles.add(graph)
 

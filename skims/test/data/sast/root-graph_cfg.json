@@ -11079,90 +11079,7 @@
       },
       "metadata": {
         "c_sharp": {
-          "classes": {
-            ".Test": {
-              "attributes": [],
-              "fields": {},
-              "inherit": null,
-              "methods": {
-                ".main": {
-                  "attributes": [],
-                  "class_name": ".Test",
-                  "n_id": "450",
-                  "name": "main",
-                  "parameters": {
-                    "args": {
-                      "attributes": [],
-                      "n_id": "459",
-                      "name": "args",
-                      "type_name": "String[]"
-                    }
-                  },
-                  "return_type": "void",
-                  "static": true
-                }
-              },
-              "n_id": "443"
-            },
-            ".cipher": {
-              "attributes": [],
-              "fields": {},
-              "inherit": null,
-              "methods": {
-                ".Bad": {
-                  "attributes": [],
-                  "class_name": ".cipher",
-                  "n_id": "132",
-                  "name": "Bad",
-                  "parameters": {
-                    "req": {
-                      "attributes": [],
-                      "n_id": "141",
-                      "name": "req",
-                      "type_name": "HttpRequest"
-                    },
-                    "resp": {
-                      "attributes": [],
-                      "n_id": "145",
-                      "name": "resp",
-                      "type_name": "HttpResponse"
-                    }
-                  },
-                  "return_type": "void",
-                  "static": false
-                },
-                ".Encrypt": {
-                  "attributes": [],
-                  "class_name": ".cipher",
-                  "n_id": "11",
-                  "name": "Encrypt",
-                  "parameters": {
-                    "data": {
-                      "attributes": [],
-                      "n_id": "26",
-                      "name": "data",
-                      "type_name": "byte[]"
-                    },
-                    "key": {
-                      "attributes": [],
-                      "n_id": "18",
-                      "name": "key",
-                      "type_name": "byte[]"
-                    },
-                    "target": {
-                      "attributes": [],
-                      "n_id": "34",
-                      "name": "target",
-                      "type_name": "MemoryStream"
-                    }
-                  },
-                  "return_type": "void",
-                  "static": false
-                }
-              },
-              "n_id": "6"
-            }
-          },
+          "classes": {},
           "package": ""
         },
         "go": {
@@ -98392,10 +98309,7 @@
     }
   ],
   "shards_by_language_class": {
-    "c_sharp": {
-      ".Test": "skims/test/data/sast/test_cfg.cs",
-      ".cipher": "skims/test/data/sast/test_cfg.cs"
-    },
+    "c_sharp": {},
     "java": {}
   },
   "shards_by_path": {
