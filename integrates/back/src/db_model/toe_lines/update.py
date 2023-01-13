@@ -58,10 +58,10 @@ async def update_metadata(
         "modified_by": metadata.state.modified_by,
         "modified_date": get_as_utc_iso_format(metadata.state.modified_date)
         if metadata.state.modified_date
-        else "",
+        else None,
     }
     if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = ""
+        metadata_item["be_present_until"] = None
 
     condition_expression = Attr(key_structure.partition_key).exists()
     if current_value.state.modified_date is None:
