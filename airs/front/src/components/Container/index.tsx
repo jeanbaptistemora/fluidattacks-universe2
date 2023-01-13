@@ -6,9 +6,11 @@ import type { IContainerProps } from "./types";
 const Container: React.FC<IContainerProps> = ({
   align,
   bgColor,
+  bgGradient,
   borderBottomColor,
   borderTopColor,
   borderColor,
+  borderHoverColor,
   br,
   center,
   children,
@@ -46,6 +48,7 @@ const Container: React.FC<IContainerProps> = ({
   pvMd,
   pvSm,
   shadow,
+  textHoverColor,
   topBar,
   width,
   widthMd,
@@ -56,8 +59,10 @@ const Container: React.FC<IContainerProps> = ({
     <StyledContainer
       align={align}
       bgColor={bgColor}
+      bgGradient={bgGradient}
       borderBottomColor={borderBottomColor}
       borderColor={borderColor}
+      borderHoverColor={borderHoverColor}
       borderTopColor={borderTopColor}
       br={br}
       center={center}
@@ -95,6 +100,7 @@ const Container: React.FC<IContainerProps> = ({
       pvMd={pvMd}
       pvSm={pvSm}
       shadow={shadow}
+      textHoverColor={textHoverColor}
       topBar={topBar}
       width={width}
       widthMd={widthMd}

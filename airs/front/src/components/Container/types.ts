@@ -10,8 +10,10 @@ type TScroll = "none" | "x" | "xy" | "y";
 interface IContainerProps {
   align?: TAlign;
   bgColor?: string;
+  bgGradient?: string;
   borderBottomColor?: string;
   borderColor?: string;
+  borderHoverColor?: string;
   borderTopColor?: string;
   br?: Nums0To4 | 100;
   center?: boolean;
@@ -51,6 +53,7 @@ interface IContainerProps {
   minWidthSm?: string;
   scroll?: TScroll;
   shadow?: boolean;
+  textHoverColor?: string;
   topBar?: string;
   width?: string;
   widthMd?: string;

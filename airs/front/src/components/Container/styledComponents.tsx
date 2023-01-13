@@ -189,9 +189,11 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
   ${({
     align = "unset",
     bgColor = "transparent",
+    bgGradient,
     borderBottomColor,
     borderColor,
     borderTopColor,
+    borderHoverColor,
     direction = "unset",
     display = "block",
     height = "auto",
@@ -208,6 +210,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     minWidthSm,
     scroll = "none",
     shadow = false,
+    textHoverColor = "",
     topBar,
     width = "100%",
     widthMd,
@@ -215,6 +218,9 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     wrap = "unset",
   }): string => `
     align-items: ${aligns[align]};
+    background: ${
+      bgGradient === undefined ? "" : `linear-gradient(${bgGradient})`
+    };
     background-color: ${bgColor};
     display: ${displays[display]};
     flex-direction: ${directions[direction]};
@@ -257,7 +263,11 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
 
     :hover {
       ${getShadow(hoverShadow)}
-      background-color: ${hoverColor};
+      background: ${hoverColor};
+      border: ${
+        borderHoverColor === undefined ? "" : `1px solid ${borderHoverColor}`
+      };
+      color: ${textHoverColor};
     }
   `}
 `;
