@@ -100,7 +100,7 @@ upon click,
 you will find the information that
 the column filter offers you.
 
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1667322709/docs/web/groups/vulnerabilities/downward_facing_arrow.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673628743/docs/web/groups/vulnerabilities/down_facing_arrow.png)
 
 ## Functionalities
 
@@ -126,7 +126,7 @@ Here you will have the activated
 filters that you have at the same
 time activated in the column filter.
 
-![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1667330719/docs/web/groups/vulnerabilities/filter_vulne.png)
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673628831/docs/web/groups/vulnerabilities/filtes.png)
 
 ### Search bar
 
