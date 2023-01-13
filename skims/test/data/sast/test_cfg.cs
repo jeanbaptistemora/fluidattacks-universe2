@@ -1,4 +1,13 @@
 using System;
+using Project = PC.MyCompany.Project;
+
+namespace MVCWebProdem.Controllers
+{
+    interface ISampleInterface
+    {
+        void SampleMethod();
+    }
+}
 
 class cipher{
 
@@ -59,6 +68,9 @@ class cipher{
 public class Test {
 
   public static void main(String[ ] args) {
+
+    int i = 0;
+    while (i < 5) Console.WriteLine(i);
 
     while(counter < 5) {
         System.out.println("Truck number: " + counter);
@@ -121,5 +133,24 @@ public class Test {
             }
         }
     } while(counter < 5);
+
+    try
+    {
+      ShowErrorMessage(result.Message);
+    }
+    catch (Exception)
+    {
+      throw;
+    }
 	}
+
+  public partial class Customer{
+    public string Fax{
+      set{
+        if ((this._Fax != value)){
+          this._Fax = value;
+        }
+      }
+    }
+  }
 }
