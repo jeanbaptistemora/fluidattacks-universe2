@@ -159,6 +159,18 @@ def test_validate_fields(fields: list) -> None:
 
 
 def test_validate_fields_deco() -> None:
+    class TestClass(NamedTuple):
+        field1: str
+        field2: str
+
+    test_object = TestClass(field1="valid", field2=" valid=")
+
+    @validate_fields_deco(["test_object.field1", "test_object.field2"])
+    def decorated_func_obj(test_object: TestClass) -> TestClass:
+        return test_object
+
+    assert decorated_func_obj(test_object=test_object)
+
     @validate_fields_deco(["field1", "field2"])
     def decorated_func(field1: str, field2: str) -> str:
         return field1 + field2
