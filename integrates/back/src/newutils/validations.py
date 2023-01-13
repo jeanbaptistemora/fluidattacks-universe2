@@ -218,6 +218,14 @@ def validate_file_exists_deco(
         def decorated(*args: Any, **kwargs: Any) -> Any:
             file_name = kwargs.get(field_name)
             field_group = kwargs.get(field_group_files)
+            if "." in field_name:
+                obj_name, attr_name = field_name.split(".")
+                obj = kwargs.get(obj_name)
+                file_name = getattr(obj, attr_name)
+            if "." in field_group_files:
+                obj_name, attr_name = field_group_files.split(".")
+                obj = kwargs.get(obj_name)
+                field_group = getattr(obj, attr_name)
             if field_group is not None:
                 group_files = cast(list[GroupFile], field_group)
                 file_to_check = next(

@@ -248,6 +248,23 @@ def test_validate_file_exists_deco() -> None:
         decorated_func_group(file_name="test2.txt", group_files=group_files)
         decorated_func_group(file_name="test3.txt", group_files=group_files)
 
+    class TestClass(NamedTuple):
+        file_name: str
+
+    test_obj = TestClass(file_name="test1.txt")
+    test_obj_fail = TestClass(file_name="test2.txt")
+
+    @validate_file_exists_deco("test_obj.file_name", "group_files")
+    def decorated_func_obj(
+        test_obj: TestClass,
+        group_files: Optional[list[GroupFile]],
+    ) -> Tuple[TestClass, Optional[list[GroupFile]]]:
+        return (test_obj, group_files)
+
+    assert decorated_func_obj(test_obj=test_obj, group_files=group_files)
+    with pytest.raises(ErrorFileNameAlreadyExists):
+        decorated_func_obj(test_obj=test_obj_fail, group_files=group_files)
+
 
 def test_validate_file_name() -> None:
     validate_file_name("test123.py")
