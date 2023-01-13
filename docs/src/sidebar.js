@@ -447,6 +447,7 @@ const Development = [
             label: "ETLs",
             items: [
               "development/products/observes/etls/arm-etl",
+              "development/products/observes/etls/zoho-etl",
             ],
           },
         ],
