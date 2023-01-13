@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Root Updated') }}
+      {{ banner_share('Root Updated') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           The root with the nickname <strong>{{ root_nickname }}</strong>
           in the group <strong>{{ group_name }}</strong> has been updated by
@@ -15,20 +14,21 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:
         </p>
-        <div style="line-height: 30px;">
+        <div class="data-container">
           {% for key, value in new_root_content.items() %}
+          <br/>
             {% if key in key_format %}
-              <strong>{{ key_format[key] }}:</strong>
+          <strong>{{ key_format[key] }}:</strong>
             {% else %}
-              <strong>
-                {{ key.replace('_', ' ').capitalize().replace('vpn', 'of VPN') }}:
-              </strong>
+          <strong>
+            {{ key.replace('_', ' ').capitalize().replace('vpn', 'of VPN') }}:
+          </strong>
             {% endif %}
+          <br/>
             {% if key in ["url", "gitignore"]%}
               <div class="row">
                 <div class="column left">
@@ -59,7 +59,6 @@
                       href="{{ value }}"
                       target="_blank"
                       rel="noopener noreferrer"
-                      style="color: #ff3435;"
                     >
                       {{ value }}
                     </a>
@@ -69,17 +68,14 @@
                 </div>
               </div>
             {% else %}
-            <em>from</em> {{ old_state[key] }} <em>to</em> {{ value }}<br>
+            <em>from</em> {{ old_state[key] }} <em>to</em> {{ value }}
             {% endif %}
+            <br/>
           {% endfor %}
         </div>
-        <p></p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
