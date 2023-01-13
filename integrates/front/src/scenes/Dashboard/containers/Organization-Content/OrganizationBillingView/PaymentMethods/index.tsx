@@ -289,8 +289,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     }, [organizationId, currentOtherMethodRow, removePaymentMethod]);
 
     // Update payment method
-    const canUpdate: boolean = permissions.can(
-      "api_mutations_update_payment_method_mutate"
+    const canUpdateCreditCard: boolean = permissions.can(
+      "api_mutations_update_credit_card_payment_method_mutate"
+    );
+    const canUpdateOther: boolean = permissions.can(
+      "api_mutations_update_other_payment_method_mutate"
     );
     const [isUpdatingCreditCard, setIsUpdatingCreditCard] = useState<
       false | { mode: "UPDATE" }
@@ -535,7 +538,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                   {t("organization.tabs.billing.paymentMethods.add.button")}
                 </Button>
               </Can>
-              <Can do={"api_mutations_update_payment_method_mutate"}>
+              <Can
+                do={"api_mutations_update_credit_card_payment_method_mutate"}
+              >
                 <Button
                   disabled={
                     _.isEmpty(currentCreditCardRow) || removing || updating
@@ -567,7 +572,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           }
           id={"tblCreditCard"}
           rowSelectionSetter={
-            canRemove || canUpdate ? setCurrentCreditCardRow : undefined
+            canRemove || canUpdateCreditCard
+              ? setCurrentCreditCardRow
+              : undefined
           }
           rowSelectionState={currentCreditCardRow}
           selectionMode={"radio"}
@@ -623,7 +630,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           }
           id={"tblOtherMethods"}
           rowSelectionSetter={
-            canRemove || canUpdate ? setCurrentOtherMethodRow : undefined
+            canRemove || canUpdateOther ? setCurrentOtherMethodRow : undefined
           }
           rowSelectionState={currentOtherMethodRow}
           selectionMode={"radio"}

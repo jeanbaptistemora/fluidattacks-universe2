@@ -1318,7 +1318,7 @@ type Mutation {
   ): SimplePayload!
     @deprecated(
           reason: """
-          This field will be removed after 2023/01/12.
+          This field will be removed after 2023/01/13.
           """
         )
 
