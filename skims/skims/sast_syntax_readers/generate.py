@@ -82,6 +82,7 @@ def read_from_graph(
     if language in {
         graph_model.GraphShardMetadataLanguage.DART,
         graph_model.GraphShardMetadataLanguage.GO,
+        graph_model.GraphShardMetadataLanguage.JAVASCRIPT,
         graph_model.GraphShardMetadataLanguage.KOTLIN,
         graph_model.GraphShardMetadataLanguage.TYPESCRIPT,
     }:

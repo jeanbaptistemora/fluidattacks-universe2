@@ -7,9 +7,6 @@ from sast_syntax_readers.dispatchers.c_sharp import (
 from sast_syntax_readers.dispatchers.java import (
     JAVA_DISPATCHERS,
 )
-from sast_syntax_readers.dispatchers.javascript import (
-    JAVASCRIPT_DISPATCHERS,
-)
 from sast_syntax_readers.types import (
     Dispatchers,
 )
@@ -20,5 +17,4 @@ from typing import (
 DISPATCHERS_BY_LANG: Dict[GraphShardMetadataLanguage, Dispatchers] = {
     GraphShardMetadataLanguage.CSHARP: CSHARP_DISPATCHERS,
     GraphShardMetadataLanguage.JAVA: JAVA_DISPATCHERS,
-    GraphShardMetadataLanguage.JAVASCRIPT: JAVASCRIPT_DISPATCHERS,
 }
