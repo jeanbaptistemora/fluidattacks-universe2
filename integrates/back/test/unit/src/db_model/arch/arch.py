@@ -134,12 +134,10 @@ _dag: dict[str, tuple[Union[tuple[str, ...], str], ...]] = {
         "update",
         "get",
         "add",
-        "oauth",
         "constants",
         "utils",
         "types",
     ),
-    "db_model.credentials.oauth": ("bitbucket", "github", "gitlab"),
     "db_model.finding_comments": (
         "remove",
         "get",

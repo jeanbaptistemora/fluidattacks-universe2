@@ -14,20 +14,11 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     credentials as credentials_model,
-)
-from db_model.credentials.oauth import (
-    OAUTH as ROAUTH,
-)
-from db_model.credentials.oauth.bitbucket import (
-    get_bitbucket_refresh_token,
-)
-from db_model.credentials.oauth.github import (
-    get_access_token,
-)
-from db_model.credentials.oauth.gitlab import (
-    get_refresh_token,
 )
 from db_model.credentials.types import (
     Credentials,
@@ -45,7 +36,20 @@ from httpx import (
 import logging
 import logging.config
 from newutils.datetime import (
+    get_plus_delta,
     get_utc_now,
+)
+from oauth import (
+    OAUTH as ROAUTH,
+)
+from oauth.bitbucket import (
+    get_bitbucket_refresh_token,
+)
+from oauth.github import (
+    get_access_token,
+)
+from oauth.gitlab import (
+    get_refresh_token,
 )
 from organizations.domain import (
     has_access,
@@ -112,10 +116,12 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
         ):
             raise PermissionError("Access denied")
         redirect = get_redirect_url(request, "oauth_gitlab")
-        token: Optional[str] = await get_refresh_token(
-            code=code, subject=organization_id, redirect_uri=redirect
+        params = {"subject": organization_id}
+        url = f"{redirect}?{urlencode(params)}"
+        token_data: Optional[dict] = await get_refresh_token(
+            code=code, redirect_uri=url
         )
-        if not token:
+        if not token_data:
             raise OAuthError()
     except (ConnectTimeout, MismatchingStateError, OAuthError) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -133,7 +139,13 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
             modified_date=get_utc_now(),
             name=name,
             secret=OauthGitlabSecret(
-                refresh_token=token,
+                refresh_token=token_data["refresh_token"],
+                redirect_uri=url,
+                access_token=token_data["access_token"],
+                valid_until=get_plus_delta(
+                    datetime.utcfromtimestamp(token_data["created_at"]),
+                    seconds=token_data["expires_in"],
+                ),
             ),
             type=CredentialType.OAUTH,
             is_pat=False,

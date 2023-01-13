@@ -5435,6 +5435,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/lintPython/dirOfModules/integrates/oauth:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /lintPython/dirOfModules/integrates/oauth
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintPython/dirOfModules/integrates/organizations:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

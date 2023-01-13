@@ -1,6 +1,9 @@
 from azure.devops.v6_0.git.models import (
     GitRepository,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
     Credentials,
 )
@@ -29,3 +32,11 @@ class CredentialsGitRepositoryResolver(NamedTuple):
     credential: Optional[Credentials] = None
     repository: Optional[GitRepository] = None
     connection: Optional[OrganizationIntegrationRepositoryConnection] = None
+
+
+class BasicRepoData(NamedTuple):
+    remote_url: str
+    ssh_url: str
+    web_url: str
+    branch: str
+    last_activity_at: datetime

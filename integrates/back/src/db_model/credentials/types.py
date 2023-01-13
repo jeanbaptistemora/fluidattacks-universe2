@@ -22,6 +22,9 @@ class HttpsPatSecret(NamedTuple):
 
 class OauthGitlabSecret(NamedTuple):
     refresh_token: str
+    redirect_uri: str
+    access_token: str
+    valid_until: datetime
 
 
 class OauthBitbucketSecret(NamedTuple):

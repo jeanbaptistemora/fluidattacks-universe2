@@ -79,7 +79,7 @@ async def get_bitbucket_refresh_token(
                 if not response.ok:
                     retry = True
                     retries += 1
-                    await asyncio.sleep(10)
+                    await asyncio.sleep(0.2)
                     continue
 
                 return result["refresh_token"]

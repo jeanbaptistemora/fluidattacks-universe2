@@ -43,14 +43,23 @@ def format_secret(
             user=item["user"],
             password=item["password"],
         )
-    if credential_type is CredentialType.OAUTH and "access_token" in item:
+    if (
+        credential_type is CredentialType.OAUTH
+        and "access_token" in item
+        and "refresh_token" not in item
+    ):
         return OauthGithubSecret(access_token=item["access_token"])
 
     if credential_type is CredentialType.OAUTH and "brefresh_token" in item:
         return OauthBitbucketSecret(brefresh_token=item["brefresh_token"])
 
     if credential_type is CredentialType.OAUTH and "refresh_token" in item:
-        return OauthGitlabSecret(refresh_token=item["refresh_token"])
+        return OauthGitlabSecret(
+            refresh_token=item["refresh_token"],
+            redirect_uri=item["redirect_uri"],
+            access_token=item["access_token"],
+            valid_until=datetime.fromisoformat(item["valid_until"]),
+        )
 
     return SshSecret(key=item["key"])
 

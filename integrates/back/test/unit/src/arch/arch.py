@@ -24,6 +24,7 @@ _dag: Tuple[FrozenSet[str], ...] = (
     frozenset({"toe"}),
     frozenset({"groups"}),
     frozenset({"group_comments"}),
+    frozenset({"oauth"}),
     frozenset({"events"}),
     frozenset({"vulnerability_files"}),
     frozenset({"findings"}),
