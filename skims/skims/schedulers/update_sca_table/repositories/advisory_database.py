@@ -22,6 +22,7 @@ PLATFORMS = {
     "rubygems": "gem",
     "go": "go",
     "packagist": "composer",
+    "pub": "pub",
 }
 
 
