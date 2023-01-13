@@ -264,8 +264,21 @@ def test_validate_file_name_deco() -> None:
     assert decorated_func(file_name="test123.py")
     with pytest.raises(InvalidChar):
 
+        decorated_func(file_name="test123.py")
         decorated_func(file_name="test.test.py")
-        decorated_func(file_name="test=$invalidname!.py")
+
+    class TestClass(NamedTuple):
+        file_name: str
+
+    @validate_file_name_deco("test_object.file_name")
+    def decorated_func_obj(test_object: TestClass) -> TestClass:
+        return test_object
+
+    test_object = TestClass(file_name="valid")
+    test_object_fail = TestClass(file_name="test.test.py")
+    assert decorated_func_obj(test_object=test_object)
+    with pytest.raises(InvalidChar):
+        decorated_func_obj(test_object=test_object_fail)
 
 
 def test_validate_group_name() -> None:
