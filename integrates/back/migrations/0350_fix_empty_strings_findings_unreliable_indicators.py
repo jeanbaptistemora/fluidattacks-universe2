@@ -3,6 +3,9 @@
 Refresh findings unreliable_indicators when an empty string is in an
 attribute that would hold a date. These empty strings are causing an
 indexation error in opensearch. The attribute will be removed instead.
+
+Execution Time:    2023-01-13 at 14:25:02 UTC
+Finalization Time: 2023-01-13 at 15:17:35 UTC
 """
 from aioextensions import (
     collect,
