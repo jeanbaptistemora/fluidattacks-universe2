@@ -8,8 +8,8 @@ function execute {
     if clone_services_repository "${group}"; then
       break
     else
-      echo "[WARNING] Pull repo try #${i} failed"
-      sleep 15
+      echo "[WARNING] Try #${i} for pulling repo of group ${group} has failed"
+      sleep 10
     fi
   done
   if ! test -e "groups/${group}/fusion"; then
@@ -17,7 +17,7 @@ function execute {
       && return 0
   fi \
     && echo '[INFO] Running sorts:' \
-    && if sorts "groups/${group}" "${current_date}"; then
+    && if sorts "groups/${group}"; then
       echo "[INFO] Succesfully executed on: ${group}" \
         && success='true'
     else
@@ -31,13 +31,13 @@ function execute {
 function main {
   local parallel="${1}"
   local groups_file
-  current_date="$(date +"%Y-%m-%d")"
 
   : \
     && aws_login "prod_sorts" "3600" \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && sops_export_vars 'sorts/secrets.yaml' \
+      'FERNET_TOKEN' \
       'MIXPANEL_API_TOKEN_SORTS' \
       'REDSHIFT_DATABASE' \
       'REDSHIFT_HOST' \

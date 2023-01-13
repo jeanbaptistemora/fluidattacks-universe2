@@ -1,3 +1,6 @@
+from botocore.exceptions import (
+    ClientError,
+)
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
@@ -12,6 +15,7 @@ from pandas import (
 )
 from sorts.constants import (
     FERNET,
+    S3_BUCKET,
 )
 from sorts.features.file import (
     extract_features,
@@ -35,6 +39,7 @@ from sorts.utils.static import (
     get_extensions_list,
     read_allowed_names,
 )
+import tempfile
 from typing import (
     List,
     Tuple,
@@ -120,38 +125,56 @@ def get_toes_to_update(
 
 def update_integrates_toes(
     group_name: str, csv_name: str, current_date: str
-) -> None:
+) -> bool:
+    success: bool = False
     group_toe_lines: List[ToeLines] = get_toe_lines_sorts(
         group_name  # type: ignore
     )
-    with open(csv_name, "r", encoding="utf8") as csv_file:
-        reader = csv.DictReader(csv_file)
-        toes_to_update, skipped_toes = get_toes_to_update(
-            group_toe_lines, reader
-        )
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            for skipped_toe in skipped_toes:
-                executor.submit(
-                    update_toe_lines_sorts,
-                    group_name,
-                    skipped_toe.root_nickname,
-                    skipped_toe.filename,
-                    "1970-01-01",
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        local_file: str = os.path.join(tmp_dir, csv_name)
+        try:
+            S3_BUCKET.Object(
+                f"sorts-execution-results/{csv_name}"
+            ).download_file(local_file)
+        except ClientError as error:
+            if error.response["Error"]["Code"] == "404":
+                log(
+                    "error",
+                    f"There is no {group_name} file in S3",
                 )
-        with ThreadPoolExecutor(max_workers=8) as executor:
-            for toe_lines in toes_to_update:
-                executor.submit(
-                    update_toe_lines_sorts,
-                    group_name,
-                    toe_lines.root_nickname,
-                    toe_lines.filename,
-                    current_date,
-                    toe_lines.sorts_risk_level,  # type: ignore
-                )
-        log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
+                return success
+
+        with open(local_file, "r", encoding="utf8") as csv_file:
+            reader = csv.DictReader(csv_file)
+            toes_to_update, skipped_toes = get_toes_to_update(
+                group_toe_lines, reader
+            )
+            with ThreadPoolExecutor(max_workers=8) as executor:
+                for skipped_toe in skipped_toes:
+                    executor.submit(
+                        update_toe_lines_sorts,
+                        group_name,
+                        skipped_toe.root_nickname,
+                        skipped_toe.filename,
+                        "1970-01-01",
+                    )
+            with ThreadPoolExecutor(max_workers=8) as executor:
+                for toe_lines in toes_to_update:
+                    executor.submit(
+                        update_toe_lines_sorts,
+                        group_name,
+                        toe_lines.root_nickname,
+                        toe_lines.filename,
+                        current_date,
+                        toe_lines.sorts_risk_level,  # type: ignore
+                    )
+            log("info", f"ToeLines's sortsFileRisk for {group_name} updated")
+            success = True
+
+    return success
 
 
-def prioritize(subscription_path: str, current_date: str) -> bool:
+def prioritize(subscription_path: str) -> bool:
     """Prioritizes files according to the chance of finding a vulnerability"""
     success: bool = False
     group: str = os.path.basename(os.path.normpath(subscription_path))
@@ -168,7 +191,9 @@ def prioritize(subscription_path: str, current_date: str) -> bool:
                 [f"extension_{num}" for num in range(num_bits + 1)],
                 csv_name,
             )
-            update_integrates_toes(group, csv_name, current_date)
+            S3_BUCKET.Object(
+                f"sorts-execution-results/{csv_name}"
+            ).upload_file(csv_name)
             display_results(csv_name)
     else:
         log(

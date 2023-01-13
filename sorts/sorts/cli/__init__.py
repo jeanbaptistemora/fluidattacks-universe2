@@ -11,6 +11,7 @@ from sorts.integrates.dal import (
 )
 from sorts.predict.file import (
     prioritize as prioritize_files,
+    update_integrates_toes,
 )
 from sorts.training.file import (
     get_subscription_file_metadata,
@@ -60,17 +61,23 @@ from training.redshift import (
     help="Extract file features from the subscription to train ML models",
 )
 @click.option(
+    "--update-group-priority",
+    is_flag=True,
+    help="Update ToEs priorities based on Sorts execution folder in S3",
+)
+@click.option(
     "--token",
     envvar="INTEGRATES_API_TOKEN",
     help="Integrates API token.",
     show_envvar=True,
 )
 @shield(on_error_return=False)
-def execute_sorts(
+def execute_sorts(  # pylint: disable=too-many-arguments
     subscription: str,
     date: str,
     association_rules: bool,
     get_file_data: bool,
+    update_group_priority: bool,
     token: str,
 ) -> None:
     configure_bugsnag()
@@ -79,14 +86,17 @@ def execute_sorts(
     if token:
         create_session(token)
         user_email: str = get_user_email()
+        group: str = os.path.basename(os.path.normpath(subscription))
         if get_file_data:
             success = get_subscription_file_metadata(subscription)
         elif association_rules:
-            group: str = os.path.basename(os.path.normpath(subscription))
             execute_association_rules(group)
             success = True
+        elif update_group_priority:
+            csv_name: str = f"{group}_sorts_results_file.csv"
+            success = update_integrates_toes(group, csv_name, date)
         else:
-            success = prioritize_files(subscription, date)
+            success = prioritize_files(subscription)
 
         execution_time: float = time.time() - start_time
         log_to_remote_info(
@@ -95,6 +105,7 @@ def execute_sorts(
             time=f"Finished after {execution_time:.2f} seconds",
             get_file_data=get_file_data,  # type: ignore
             association_rules=association_rules,  # type: ignore
+            update_group_priority=update_group_priority,  # type: ignore
             user=user_email,
         )
         redshift.insert(
@@ -109,6 +120,8 @@ def execute_sorts(
             "sorts_execution",
             subscription=subscription,
             get_file_data=get_file_data,  # type: ignore
+            association_rules=association_rules,  # type: ignore
+            update_group_priority=update_group_priority,  # type: ignore
         )
     else:
         log(
