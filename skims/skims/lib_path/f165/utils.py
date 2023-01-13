@@ -162,8 +162,9 @@ def _yield_nodes_from_stmt(
         yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
     if (
-        resources := stmt.inner.get("Resource")
-    ) and method == MethodsEnum.CFN_IAM_ROLE_OVER_PRIVILEGED:
+        (resources := stmt.inner.get("Resource"))
+        and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES
+    ):
         yield from get_wildcard_nodes_for_resources(
             actions, resources, WILDCARD_RESOURCE
         )
