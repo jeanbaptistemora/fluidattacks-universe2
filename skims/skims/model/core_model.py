@@ -1789,6 +1789,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.SCA,
     )
+    PUB_PUBSPEC_YAML = MethodInfo(
+        file_name="pub",
+        name="pub_pubspec_yaml",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     CS_XSL_TRANSFORM_OBJECT = MethodInfo(
         file_name="c_sharp",
         name="c_sharp_xsl_transform_object",
