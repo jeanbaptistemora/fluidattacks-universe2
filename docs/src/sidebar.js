@@ -540,6 +540,7 @@ const Development = [
     type: "category",
     label: "Environment",
     items: [
+      "development/setup/onboarding",
       "development/setup/environment",
       "development/setup/terminal",
       "development/setup/editor",
