@@ -1,26 +1,18 @@
 import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { boolean, object, string } from "yup";
+import { boolean, number, object } from "yup";
 
 import { Checkbox, Input } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { composeValidators, required, validTextField } from "utils/validations";
 
 interface IUpdateCreditCardModalProps {
   onClose: () => void;
   onSubmit: (values: {
-    cardExpirationMonth: string;
-    cardExpirationYear: string;
+    cardExpirationMonth: number | undefined;
+    cardExpirationYear: number | undefined;
     makeDefault: boolean;
-    businessName: string;
-    city: string;
-    country: string;
-    email: string;
-    rutList: FileList | undefined;
-    state: string;
-    taxIdList: FileList | undefined;
   }) => Promise<void>;
 }
 
@@ -31,14 +23,15 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
   const { t } = useTranslation();
 
   const validations = object().shape({
-    businessName: string(),
-    cardExpirationMonth: string().required(t("validations.required")),
-    cardExpirationYear: string().required(t("validations.required")),
-    city: string(),
-    country: string(),
-    email: string(),
+    cardExpirationMonth: number()
+      .integer(t("validations.integer"))
+      .positive(t("validations.positive"))
+      .required(t("validations.required")),
+    cardExpirationYear: number()
+      .integer(t("validations.integer"))
+      .positive(t("validations.positive"))
+      .required(t("validations.required")),
     makeDefault: boolean().required(),
-    state: string(),
   });
 
   return (
@@ -49,16 +42,9 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
     >
       <Formik
         initialValues={{
-          businessName: "",
-          cardExpirationMonth: "",
-          cardExpirationYear: "",
-          city: "",
-          country: "",
-          email: "",
+          cardExpirationMonth: undefined,
+          cardExpirationYear: undefined,
           makeDefault: false,
-          rutList: undefined,
-          state: "",
-          taxIdList: undefined,
         }}
         name={"updateCreditCard"}
         onSubmit={onSubmit}
@@ -77,8 +63,7 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.placeholder"
                   )}
-                  type={"text"}
-                  validate={composeValidators([required, validTextField])}
+                  type={"number"}
                 />
               </Col>
               <Col lg={50}>
@@ -91,8 +76,7 @@ export const UpdateCreditCardModal: React.FC<IUpdateCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.placeholder"
                   )}
-                  type={"text"}
-                  validate={composeValidators([required, validTextField])}
+                  type={"number"}
                 />
               </Col>
             </Row>

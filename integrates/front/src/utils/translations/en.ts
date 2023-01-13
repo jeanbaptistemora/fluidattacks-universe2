@@ -1907,6 +1907,9 @@ export const enTranslations: ResourceKey = {
           title: "Payment Methods",
           update: {
             button: "Update",
+            errors: {
+              noPaymentMethod: "The payment method does not exist",
+            },
             modal: {
               default: "Make card default payment method",
               expirationMonth: "Card expiration month",

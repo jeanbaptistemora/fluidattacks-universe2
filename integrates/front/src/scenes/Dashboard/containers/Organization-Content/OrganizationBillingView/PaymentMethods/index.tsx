@@ -26,6 +26,7 @@ import {
   ADD_OTHER_PAYMENT_METHOD,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
+  UPDATE_CREDIT_CARD_PAYMENT_METHOD,
   UPDATE_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
@@ -333,50 +334,55 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         },
       }
     );
+    const [updateCreditCardPaymentMethod, { loading: updatingCreditCard }] =
+      useMutation(UPDATE_CREDIT_CARD_PAYMENT_METHOD, {
+        onCompleted: (): void => {
+          onUpdate();
+          closeUpdateCreditCardModal();
+          msgSuccess(
+            t("organization.tabs.billing.paymentMethods.update.success.body"),
+            t("organization.tabs.billing.paymentMethods.update.success.title")
+          );
+        },
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            switch (error.message) {
+              case "Exception - Cannot perform action. Please add a valid payment method first":
+              case "Exception - Invalid payment method. Provided payment method does not exist for this organization":
+                msgError(
+                  t(
+                    "organization.tabs.billing.paymentMethods.update.errors.noPaymentMethod"
+                  )
+                );
+                break;
+              default:
+                msgError(t("groupAlerts.errorTextsad"));
+                Logger.error("Couldn't update payment method", error);
+            }
+          });
+        },
+      });
     const handleUpdateCreditCardPaymentMethodSubmit = useCallback(
       async ({
         cardExpirationMonth,
         cardExpirationYear,
         makeDefault,
-        businessName,
-        city,
-        country,
-        email,
-        rutList,
-        state,
-        taxIdList,
       }: {
-        cardExpirationMonth: string;
-        cardExpirationYear: string;
+        cardExpirationMonth: number | undefined;
+        cardExpirationYear: number | undefined;
         makeDefault: boolean;
-        businessName: string;
-        city: string;
-        country: string;
-        email: string;
-        rutList: FileList | undefined;
-        state: string;
-        taxIdList: FileList | undefined;
       }): Promise<void> => {
-        const rut = handleFileListUpload(rutList);
-        const taxId = handleFileListUpload(taxIdList);
-        await updatePaymentMethod({
+        await updateCreditCardPaymentMethod({
           variables: {
-            businessName,
             cardExpirationMonth,
             cardExpirationYear,
-            city,
-            country,
-            email,
             makeDefault,
             organizationId,
             paymentMethodId: currentCreditCardRow[0]?.id,
-            rut,
-            state,
-            taxId,
           },
         });
       },
-      [updatePaymentMethod, organizationId, currentCreditCardRow]
+      [updateCreditCardPaymentMethod, organizationId, currentCreditCardRow]
     );
 
     const handleUpdateOtherPaymentMethodSubmit = useCallback(
@@ -543,7 +549,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               >
                 <Button
                   disabled={
-                    _.isEmpty(currentCreditCardRow) || removing || updating
+                    _.isEmpty(currentCreditCardRow) ||
+                    removing ||
+                    updatingCreditCard
                   }
                   id={"updateCreditCard"}
                   onClick={openUpdateCreditCardModal}
