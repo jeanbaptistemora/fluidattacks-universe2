@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Information Updated') }}
+      {{ banner_share('Information Updated') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           Information in the group <strong>{{ group_name }}</strong>
           has been modified by
@@ -15,32 +14,34 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:
         </p>
-        <p>
-          <strong>Date:</strong> {{ report_date }}<br>
-          {% for key, value in group_changes.items() %}
-          <strong>{{ key }}:</strong>
-          {% if value["from"] == value["to"] %}
-          {{ value["to"] }}
-          {% else %}
-            <em>from</em>
-            {% if key in ["Sprint Length"] %}
-              {{ value["from"].split()[0] }}
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ report_date }}<br/>
+            {%- for key, value in group_changes.items() -%}
+            <br/>
+            <strong>{{ key }}:</strong><br/>
+            {% if value["from"] == value["to"] %}
+            {{ value["to"] }}
             {% else %}
-              {{ value["from"] }}
+              <em>from</em>
+              {% if key in ["Sprint Length"] %}
+                {{ value["from"].split()[0] }}
+              {% else %}
+                {{ value["from"] }}
+              {% endif %}
+              <em>to</em> {{ value["to"] }}
             {% endif %}
-            <em>to</em> {{ value["to"] }}
-          {% endif %}
-          <br>
-          {% endfor %}
-        </p>
-        <p>Regards,<br>Fluid Attacks Team</p>
+            <br/>
+            {% endfor %}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

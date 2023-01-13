@@ -1,11 +1,10 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_finding, go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_magnifying, go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_finding('Policies Updated') }}
+      {{ banner_magnifying('Policies Updated') }}
       <div class="main-content">
         <p>Hi {{ name }},</p>
         <p>
@@ -20,27 +19,25 @@
             {{ responsible -}}
           </a></strong>:
         </p>
-        <p>
-          <strong>Date:</strong> {{ date }}<br>
-          <strong>Policies:</strong>
-          <ul>
-            {% for key, val in policies_content.items() %}
-            <li>
-              {{ key }}:
-              <em>from</em> {{ val["from"] }}
-              <em>to</em> {{ val["to"] }}
-            </li>
-            {% endfor %}
-          </ul>
-        </p>
-        <p></p>
-        <p>Regards,<br>
-          Fluid Attacks Team
-        </p>
-
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ date }}<br/><br/>
+            <strong>Policies:</strong>
+            <ul class="big-list-icon">
+              {% for key, val in policies_content.items() %}
+              <li>
+                {{ key }}:
+                <em>from</em> {{ val["from"] }}
+                <em>to</em> {{ val["to"] }}
+              </li>
+              {% endfor %}
+            </ul>
+          </p>
+        </div>
         {{- go_to_button('Go to policies', policies_link, 'primary-button') }}
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
