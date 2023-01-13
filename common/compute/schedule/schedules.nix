@@ -1536,7 +1536,7 @@
       (toString parallel)
     ];
 
-    schedule_expression = "cron(0 23 ? * 7 *)";
+    schedule_expression = "cron(0 23 ? * 6 *)";
     size = "sorts_nano";
     awsRole = "prod_sorts";
     attempts = 3;
@@ -1550,6 +1550,34 @@
 
     tags = {
       "Name" = "sorts_execute";
+      "management:area" = "cost";
+      "management:product" = "sorts";
+      "management:type" = "product";
+    };
+  };
+  sorts_priority_update = rec {
+    enabled = true;
+    command = [
+      "m"
+      "gitlab:fluidattacks/universe@trunk"
+      "/sorts/priority-update"
+      (toString parallel)
+    ];
+
+    schedule_expression = "cron(0 23 ? * 7 *)";
+    size = "sorts_nano";
+    awsRole = "prod_sorts";
+    attempts = 3;
+    timeout = 129600;
+    parallel = 20;
+
+    environment = [
+      "CACHIX_AUTH_TOKEN"
+      "UNIVERSE_API_TOKEN"
+    ];
+
+    tags = {
+      "Name" = "sorts_priority_update";
       "management:area" = "cost";
       "management:product" = "sorts";
       "management:type" = "product";
