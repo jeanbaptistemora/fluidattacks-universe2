@@ -5239,6 +5239,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.SCA,
     )
+    PUB_PUBSPEC_YAML_DEV = MethodInfo(
+        file_name="pub",
+        name="pub_pubspec_yaml_dev",
+        module="lib_path",
+        finding=FindingEnum.F393,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     CFN_LOG_NOT_VALIDATED = MethodInfo(
         file_name="cloudformation",
         name="cfn_log_files_not_validated",
