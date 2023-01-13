@@ -454,3 +454,10 @@ of days it takes customers to request
 a reattack.
 
 ![Mean time to request](https://res.cloudinary.com/fluid-attacks/image/upload/v1666199798/docs/web/analytics/common/mean_time_to_request_reattacks.png)
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

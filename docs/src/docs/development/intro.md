@@ -99,6 +99,13 @@ we divide them by use case:
   and are usually hired by Fluid Attacks.
   They also contribute sometimes to our [projects on GitHub][github_fluidattacks].
 
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::
+
 <!--  -->
 
 [universe]: https://gitlab.com/fluidattacks/universe

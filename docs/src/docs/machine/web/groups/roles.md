@@ -306,3 +306,10 @@ enabled for each role:
 | Request ZR               |        |            |           |          |           |         X        |   X   |
 | Solve events             |    X   |      X     |     X     |          |     X     |         X        |   X   |
 | Verify reattack          |    X   |      X     |           |          |     X     |                  |   X   |
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

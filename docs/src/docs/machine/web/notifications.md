@@ -740,3 +740,10 @@ of vulnerability,
 the ID and the justification.
 
 ![Vulnerability Deleted](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174276/docs/web/notifications/vul_type_deleted.png)
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

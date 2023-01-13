@@ -37,3 +37,10 @@ grouped according to [CAPEC](https://capec.mitre.org/)
 (Common Attack Pattern Enumeration and Classification),
 which supports our security assessments
 and analysis as a red team.
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::
