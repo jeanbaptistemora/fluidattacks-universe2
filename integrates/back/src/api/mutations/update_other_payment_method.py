@@ -43,7 +43,7 @@ async def mutate(
         kwargs["organization_id"]
     )
 
-    result: bool = await billing_domain.update_documents_new(
+    result: bool = await billing_domain.update_documents(
         org=org,
         payment_method_id=kwargs["payment_method_id"],
         business_name=kwargs["business_name"],

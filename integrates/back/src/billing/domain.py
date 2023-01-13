@@ -484,92 +484,8 @@ def document_extension(document: UploadFile) -> str:
     return extension
 
 
-# pylint: disable=too-many-arguments
 async def update_documents(
-    org: Organization,
-    payment_method_id: str,
-    card_expiration_month: str,
-    card_expiration_year: str,
-    make_default: bool,
-    business_name: str,
-    city: str,
-    country: str,
-    email: str,
-    state: str,
-    rut: Optional[UploadFile] = None,
-    tax_id: Optional[UploadFile] = None,
-) -> bool:
-
-    documents = OrganizationDocuments()
-    org_name = org.name.lower()
-    business_name = business_name.lower()
-    if not card_expiration_month and org.payment_methods is not None:
-        actual_payment_method = list(
-            filter(
-                lambda method: method.id == payment_method_id,
-                org.payment_methods,
-            )
-        )[0]
-        if actual_payment_method.business_name.lower() != business_name:
-            document_prefix = (
-                f"billing/{org.name.lower()}/"
-                + f"{actual_payment_method.business_name.lower()}"
-            )
-            file_name: str = ""
-            if actual_payment_method.documents.rut:
-                file_name = actual_payment_method.documents.rut.file_name
-            if actual_payment_method.documents.tax_id:
-                file_name = actual_payment_method.documents.tax_id.file_name
-
-            await remove_file(f"{document_prefix}/{file_name}")
-
-    if rut:
-        rut_file_name = f"{org_name}-{business_name}{document_extension(rut)}"
-        rut_full_name = f"billing/{org_name}/{business_name}/{rut_file_name}"
-        validations.validate_sanitized_csv_input(
-            rut.filename, rut.content_type, rut_full_name
-        )
-        await save_file(rut, rut_full_name)
-        documents = OrganizationDocuments(
-            rut=DocumentFile(
-                file_name=rut_file_name,
-                modified_date=datetime_utils.get_utc_now(),
-            )
-        )
-    if tax_id:
-        tax_id_file_name = (
-            f"{org_name}-{business_name}{document_extension(tax_id)}"
-        )
-        tax_id_full_name = (
-            f"billing/{org_name}/{business_name}/{tax_id_file_name}"
-        )
-        validations.validate_sanitized_csv_input(
-            tax_id.filename, tax_id.content_type, tax_id_full_name
-        )
-        await save_file(tax_id, tax_id_full_name)
-        documents = OrganizationDocuments(
-            tax_id=DocumentFile(
-                file_name=tax_id_file_name,
-                modified_date=datetime_utils.get_utc_now(),
-            )
-        )
-
-    return await update_payment_method(
-        org=org,
-        documents=documents,
-        payment_method_id=payment_method_id,
-        card_expiration_month=card_expiration_month,
-        card_expiration_year=card_expiration_year,
-        make_default=make_default,
-        business_name=business_name,
-        city=city,
-        country=country,
-        email=email,
-        state=state,
-    )
-
-
-async def update_documents_new(
+    *,
     org: Organization,
     payment_method_id: str,
     business_name: str,
@@ -772,9 +688,6 @@ async def create_other_payment_method(
     return await update_documents(
         org=org,
         payment_method_id=other_payment_id,
-        card_expiration_month="",
-        card_expiration_year="",
-        make_default=False,
         business_name=business_name,
         city=city,
         country=country,
