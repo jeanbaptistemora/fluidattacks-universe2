@@ -86,6 +86,7 @@ from vulnerabilities import (
 
 
 async def deactivate_root(  # pylint: disable=too-many-locals
+    *,
     info: GraphQLResolveInfo,
     root: Root,
     email: str,
@@ -266,11 +267,11 @@ async def mutate(
 
     if isinstance(root, GitRoot):
         await require_service_white(deactivate_root)(
-            info, root, email, **kwargs
+            info=info, root=root, email=email, **kwargs
         )
     else:
         await require_service_black(deactivate_root)(
-            info, root, email, **kwargs
+            info=info, root=root, email=email, **kwargs
         )
 
     return SimplePayload(success=True)

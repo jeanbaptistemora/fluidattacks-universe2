@@ -52,6 +52,7 @@ from unreliable_indicators.operations import (
 
 @require_service_white
 async def activate_git_root(
+    *,
     info: GraphQLResolveInfo,
     root: GitRoot,
     user_email: str,
@@ -67,6 +68,7 @@ async def activate_git_root(
 
 @require_service_black
 async def activate_ip_root(
+    *,
     info: GraphQLResolveInfo,
     root: IPRoot,
     user_email: str,
@@ -82,6 +84,7 @@ async def activate_ip_root(
 
 @require_service_black
 async def activate_url_root(
+    *,
     info: GraphQLResolveInfo,
     root: URLRoot,
     user_email: str,
@@ -113,11 +116,17 @@ async def mutate(
     root = await loaders.root.load((kwargs["group_name"], kwargs["id"]))
 
     if isinstance(root, GitRoot):
-        await activate_git_root(info, root, user_email, **kwargs)
+        await activate_git_root(
+            info=info, root=root, user_email=user_email, **kwargs
+        )
     elif isinstance(root, IPRoot):
-        await activate_ip_root(info, root, user_email, **kwargs)
+        await activate_ip_root(
+            info=info, root=root, user_email=user_email, **kwargs
+        )
     else:
-        await activate_url_root(info, root, user_email, **kwargs)
+        await activate_url_root(
+            info=info, root=root, user_email=user_email, **kwargs
+        )
 
     await update_unreliable_indicators_by_deps(
         EntityDependency.activate_root,

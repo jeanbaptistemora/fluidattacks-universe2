@@ -17,10 +17,13 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Any,
+)
 
 
 @enforce_group_level_auth_async
-async def _get_draft(finding: Finding, _info: GraphQLResolveInfo) -> Finding:
+async def _get_draft(finding: Finding, **_kwargs: Any) -> Finding:
     return finding
 
 
@@ -37,6 +40,6 @@ async def resolve(
     loaders: Dataloaders = info.context.loaders
     finding: Finding = await loaders.finding.load(finding_id)
     if finding.approval is None:
-        return await _get_draft(finding, info)
+        return await _get_draft(finding, info=info)
 
     return finding

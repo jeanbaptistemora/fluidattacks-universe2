@@ -125,8 +125,6 @@ def decode_token(token: str) -> Dict[str, Any]:
 
 async def get_jwt_content(context: Any) -> Dict[str, str]:  # noqa: MC0001
     context_store_key = function.get_id(get_jwt_content)
-    if isinstance(context, dict):
-        context = context.get("request", {})
     store = get_request_store(context)
 
     # Within the context of one request we only need to process it once

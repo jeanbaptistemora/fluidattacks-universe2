@@ -128,8 +128,9 @@ def _filter_unique_report(
 
 
 @enforce_group_level_auth_async
-# noqa pylint: disable=too-many-arguments, too-many-locals
-async def _get_url_group_report(  # NOSONAR
+# noqa pylint: disable=too-many-locals
+async def _get_url_group_report(
+    *,
     info: GraphQLResolveInfo,
     report_type: str,
     user_email: str,
@@ -374,9 +375,9 @@ async def resolve(  # pylint: disable=too-many-locals
 
     return {
         "success": await _get_url_group_report(
-            info,
-            report_type,
-            user_email,
+            info=info,
+            report_type=report_type,
+            user_email=user_email,
             group_name=group_name,
             treatments=treatments,
             states=states,

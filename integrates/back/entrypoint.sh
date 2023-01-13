@@ -41,7 +41,7 @@ function serve {
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
         # The number of worker processes for handling requests
-        --workers 1
+        --workers 5
       )
     elif test "${env}" == 'eph'; then
       config+=(
@@ -64,7 +64,7 @@ function serve {
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
         # The number of worker processes for handling requests
-        --workers "1"
+        --workers 5
       )
     else
       error First argument must be one of: dev, eph, prod, prod-local

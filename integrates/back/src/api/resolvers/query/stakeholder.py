@@ -26,6 +26,7 @@ from sessions import (
 
 @enforce_organization_level_auth_async
 async def _resolve_for_organization(
+    *,
     info: GraphQLResolveInfo,
     email: str,
     organization_id: str,
@@ -38,6 +39,7 @@ async def _resolve_for_organization(
 
 @enforce_group_level_auth_async
 async def _resolve_for_group(
+    *,
     info: GraphQLResolveInfo,
     email: str,
     group_name: str,
@@ -62,8 +64,8 @@ async def resolve(
         org_id: str = kwargs["organization_id"]
         request_store["organization_id"] = org_id
         return await _resolve_for_organization(
-            info,
-            email,
+            info=info,
+            email=email,
             organization_id=org_id,
         )
 
@@ -71,8 +73,8 @@ async def resolve(
         group_name: str = kwargs["group_name"]
         request_store["group_name"] = group_name
         return await _resolve_for_group(
-            info,
-            email,
+            info=info,
+            email=email,
             group_name=group_name,
         )
 

@@ -199,7 +199,6 @@ async def add(  # pylint: disable=too-many-arguments
             attacked_at=attributes.attacked_at,
             attacked_lines=attributes.attacked_lines,
         )
-        print(root)
         toe_lines = _validate_assign_toe_lines(
             attributes=attributes,
             last_author=attributes.last_author,

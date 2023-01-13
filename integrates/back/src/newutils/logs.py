@@ -39,4 +39,4 @@ async def cloudwatch_log_async(request: Request, msg: str) -> None:
     info = [str(user_data["user_email"])]
     info.append(FI_ENVIRONMENT)
     info.append(msg)
-    schedule(in_thread(LOGGER_TRANSACTIONAL.info, ":".join(info)))
+    await in_thread(LOGGER_TRANSACTIONAL.info, ":".join(info))

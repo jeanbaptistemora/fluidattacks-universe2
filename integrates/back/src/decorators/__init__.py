@@ -222,21 +222,21 @@ def delete_kwargs(attributes: Set[str]) -> Callable[[TVar], TVar]:
     return wrapped
 
 
+def _get_context(args: Any, kwargs: Any) -> Any:
+    if len(args) > 1 and hasattr(args[1], "context"):
+        # Called from resolver function
+        return args[1].context
+    # Called from custom function
+    return kwargs["info"].context
+
+
 def enforce_group_level_auth_async(func: TVar) -> TVar:
     """Enforce authorization using the group-level role."""
     _func = cast(Callable[..., Any], func)
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context") and not isinstance(args[0], Group):
-            context = args[0].context
-        elif hasattr(args[1], "context") and not isinstance(args[1], Group):
-            context = args[1].context
-        else:
-            GraphQLError("Could not get context from request.")  # NOSONAR
-
-        if isinstance(context, dict):
-            context = context.get("request", {})
+        context = _get_context(args, kwargs)
         user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         object_ = await resolve_group_name(context, args, kwargs)
@@ -273,13 +273,7 @@ def enforce_organization_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context"):
-            context = args[0].context
-        elif hasattr(args[1], "context"):
-            context = args[1].context
-        else:
-            GraphQLError("Could not get context from request.")
-
+        context = _get_context(args, kwargs)
         organization_identifier = str(
             kwargs.get("identifier")
             or kwargs.get("organization_id")
@@ -324,13 +318,7 @@ def enforce_user_level_auth_async(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context"):
-            context = args[0].context
-        elif hasattr(args[1], "context"):
-            context = args[1].context
-        else:
-            GraphQLError("Could not get context from request.")
-
+        context = _get_context(args, kwargs)
         user_data = await sessions_domain.get_jwt_content(context)
         subject = user_data["user_email"]
         action = f"{_func.__module__}.{_func.__qualname__}".replace(".", "_")
@@ -351,13 +339,7 @@ def enforce_owner(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context"):
-            context = args[0].context
-        elif hasattr(args[1], "context"):
-            context = args[1].context
-        else:
-            GraphQLError("Could not get context from request.")
-
+        context = _get_context(args, kwargs)
         loaders = context.loaders
         owner = str((getattr(args[0], "owner", None) if args else None))
 
@@ -414,17 +396,7 @@ def require_attribute(attribute: str) -> Callable[[TVar], TVar]:
 
         @functools.wraps(_func)
         async def resolve_and_call(*args: Any, **kwargs: Any) -> Any:
-            if hasattr(args[0], "context") and not isinstance(args[0], Group):
-                context = args[0].context
-            elif hasattr(args[1], "context") and not isinstance(
-                args[1], Group
-            ):
-                context = args[1].context
-            else:
-                GraphQLError("Could not get context from request.")
-
-            if isinstance(context, dict):
-                context = context.get("request", {})
+            context = _get_context(args, kwargs)
             store = sessions_domain.get_request_store(context)
             group_name = await resolve_group_name(context, args, kwargs)
             loaders = context.loaders
@@ -489,7 +461,7 @@ def require_finding_access(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        context = args[1].context
+        context = _get_context(args, kwargs)
         if "finding_id" in kwargs:
             finding_id = kwargs["finding_id"]
         elif "draft_id" in kwargs:
@@ -533,7 +505,7 @@ def require_corporate_email(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        context = args[1].context
+        context = _get_context(args, kwargs)
         user_data = await sessions_domain.get_jwt_content(context)
 
         if await is_personal_email(user_data["user_email"]):
@@ -557,9 +529,7 @@ def require_login(func: TVar) -> TVar:
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
         # The underlying request object being served
-        context = args[1].context if len(args) > 1 else args[0]
-        if isinstance(context, dict):
-            context = context.get("request", {})
+        context = _get_context(args, kwargs)
         store = sessions_domain.get_request_store(context)
 
         # Within the context of one request we only need to check this once
@@ -595,10 +565,7 @@ def require_organization_access(func: TVar) -> TVar:
 
     @functools.wraps(_func)
     async def verify_and_call(*args: Any, **kwargs: Any) -> Any:
-        if hasattr(args[0], "context"):
-            context = args[0].context
-        elif hasattr(args[1], "context"):
-            context = args[1].context
+        context = _get_context(args, kwargs)
         organization_identifier = str(
             kwargs.get("identifier")
             or kwargs.get("organization_id")
@@ -683,7 +650,7 @@ async def _resolve_group_name_kwargs(
     return ""
 
 
-async def resolve_group_name(  # noqa: MC0001
+async def resolve_group_name(
     context: Any,
     args: Any,
     kwargs: Any,

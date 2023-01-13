@@ -189,7 +189,6 @@ async def update_information(
                 role=role,
             )
         except InvalidFieldLength as exc:
-            print(responsibility)
             logs_utils.cloudwatch_log(
                 context,
                 f"Security: {email} Attempted to add responsibility to "
