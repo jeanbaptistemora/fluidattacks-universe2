@@ -9,6 +9,7 @@ from custom_exceptions import (
     EventAlreadyClosed,
     InvalidCommentParent,
     InvalidEventSolvingReason,
+    InvalidFileName,
     InvalidFileSize,
     InvalidFileType,
     UnsanitizedInputFound,
@@ -669,6 +670,54 @@ async def test_validate_evidence_invalid_file_size(
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(file_name, test_file, "text/csv")
         with pytest.raises(InvalidFileSize):
+            await validate_evidence(
+                group_name=group_name,
+                organization_name=organization_name,
+                evidence_id=evidence_type,
+                file=uploaded_file,
+            )
+
+
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "evidence_type",
+        "file_name",
+        "organization_name",
+        "allowed_mimes",
+    ],
+    [
+        [
+            "unittesting",
+            EventEvidenceId.FILE_1,
+            "test-file-records.csv",
+            "okada",
+            "files",
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("files_utils.assert_uploaded_file_mime"),
+    new_callable=AsyncMock,
+)
+async def test_validate_evidence_invalid_file_name(
+    # pylint: disable=too-many-arguments
+    mock_assert_uploaded_file_mime: AsyncMock,
+    group_name: str,
+    evidence_type: EventEvidenceId,
+    file_name: str,
+    organization_name: str,
+    allowed_mimes: bool,
+) -> None:
+    mock_assert_uploaded_file_mime.return_value = get_mock_response(
+        get_mocked_path("files_utils.assert_uploaded_file_mime"),
+        json.dumps([file_name, allowed_mimes]),
+    )
+    filename = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(filename, "./mock/" + file_name)
+    with open(filename, "rb") as test_file:
+        uploaded_file = UploadFile(file_name, test_file, "text/csv")
+        with pytest.raises(InvalidFileName):
             await validate_evidence(
                 group_name=group_name,
                 organization_name=organization_name,

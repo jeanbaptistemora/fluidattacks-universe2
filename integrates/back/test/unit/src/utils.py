@@ -1236,6 +1236,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,
         '["test-big-image.jpg", "images"]': True,
+        '["test-file-records.csv", "files"]': True,
     },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],
