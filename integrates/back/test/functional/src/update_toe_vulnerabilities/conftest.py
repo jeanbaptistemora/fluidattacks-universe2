@@ -411,68 +411,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                 ),
             ),
-            ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="test2@test.com",
-                attacked_lines=4,
-                be_present=True,
-                be_present_until=None,
-                comments="comment 2",
-                filename="test2/test#.config",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
-                group_name="group1",
-                has_vulnerabilities=True,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                loc=180,
-                modified_date=datetime.fromisoformat(
-                    "2020-11-15T15:41:04+00:00"
-                ),
-                root_id="968cc999-3b6e-4f10-a291-81ef8f22dcca",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=80,
-                state=ToeLinesState(
-                    modified_by="test2@test.com",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-15T15:41:04+00:00"
-                    ),
-                ),
-            ),
-            ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-01-20T05:00:00+00:00"
-                ),
-                attacked_by="test3@test.com",
-                attacked_lines=120,
-                be_present=True,
-                be_present_until=None,
-                comments="comment 3",
-                filename="test3/test.sh",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-14T15:41:04+00:00"
-                ),
-                group_name="group1",
-                has_vulnerabilities=True,
-                last_author="customer3@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
-                loc=243,
-                modified_date=datetime.fromisoformat(
-                    "2020-11-16T15:41:04+00:00"
-                ),
-                root_id="968cc999-3b6e-4f10-a291-81ef8f22dcca",
-                seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
-                state=ToeLinesState(
-                    modified_by="test3@test.com",
-                    modified_date=datetime.fromisoformat(
-                        "2020-11-16T15:41:04+00:00"
-                    ),
-                ),
-            ),
         ),
         "toe_ports": (
             ToePort(
