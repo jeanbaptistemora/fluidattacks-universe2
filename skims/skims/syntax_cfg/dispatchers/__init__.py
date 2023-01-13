@@ -104,6 +104,8 @@ DISPATCHERS: Dispatchers = (
             "Resource",
             "Selector",
             "SymbolLookup",
+            "TernaryOperation",
+            "This",
             "ThrowStatement",
             "UnaryExpression",
             "UpdateExpression",

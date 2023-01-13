@@ -18,11 +18,13 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     interface = args.ast_graph.nodes[args.n_id]
     name_id = interface["label_field_name"]
-    parameters_id = interface["label_field_type_parameters"]
-    block_id = interface["label_field_body"]
     name = node_to_str(args.ast_graph, name_id)
 
-    if "__0__" not in match_ast(args.ast_graph, parameters_id, "(", ")"):
+    block_id = interface["label_field_body"]
+    parameters_id = interface.get("label_field_type_parameters")
+    if parameters_id and "__0__" not in match_ast(
+        args.ast_graph, parameters_id, "(", ")"
+    ):
         parameters_id = None
 
     return build_interface_declaration_node(

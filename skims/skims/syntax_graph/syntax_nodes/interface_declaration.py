@@ -24,7 +24,6 @@ def build_interface_declaration_node(
 
     if parameters_id:
         args.syntax_graph.nodes[args.n_id]["parameters_id"] = parameters_id
-
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(parameters_id)),
