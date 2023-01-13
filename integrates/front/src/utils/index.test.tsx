@@ -71,13 +71,15 @@ describe("Validations", (): void => {
     );
   });
 
-  it("should required at least 10 characters", (): void => {
+  it("should required at least 9 characters", (): void => {
     expect.hasAssertions();
 
     const max: number = 10;
     const length: ConfigurableValidator = maxLength(max);
 
-    expect(length("testmaxlength")).toBe(`Type ${max} characters or less`);
+    // HasLengthLessThan test that the value is less than a predefined length
+
+    expect(length("testmaxlength")).toBe(`Type ${max - 1} characters or less`);
   });
 
   it("should required 4 minimum characters", (): void => {
@@ -312,7 +314,8 @@ describe("Validations", (): void => {
 
   // Exception: WF(This function must contain explicit assert)
   // eslint-disable-next-line
-  it("shouldn't be a valid .png evidence", (): void => { // NOSONAR
+  it("shouldn't be a valid .png evidence", (): void => {
+    // NOSONAR
     expect.hasAssertions();
 
     const day: number = 8;

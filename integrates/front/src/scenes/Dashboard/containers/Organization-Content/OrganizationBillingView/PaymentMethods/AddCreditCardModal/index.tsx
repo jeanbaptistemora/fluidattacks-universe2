@@ -2,22 +2,26 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
-import { boolean, object, string } from "yup";
+import { boolean, number, object } from "yup";
 
 import { Button } from "components/Button";
 import { Checkbox, Input } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import {
-  composeValidators,
-  maxLength,
-  required,
-  validTextField,
-} from "utils/validations";
+import { composeValidators, maxLength } from "utils/validations";
 
-const MAX_CREDITCARD_NUMBER_LENGTH = 17;
+const MAX_CARD_NUMBER_LENGTH = 17;
+const MAX_DATE_NUMBER_LENGTH = 3;
+const MAX_CVC_NUMBER_LENGTH = 5;
+
 const maxCreditNumberLength: ConfigurableValidator = maxLength(
-  MAX_CREDITCARD_NUMBER_LENGTH
+  MAX_CARD_NUMBER_LENGTH
+);
+const maxDateNumberLength: ConfigurableValidator = maxLength(
+  MAX_DATE_NUMBER_LENGTH
+);
+const maxcvcNumberLength: ConfigurableValidator = maxLength(
+  MAX_CVC_NUMBER_LENGTH
 );
 
 interface IAddCreditCardModalProps {
@@ -42,10 +46,22 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
   const { t } = useTranslation();
 
   const validations = object().shape({
-    cardCvc: string().required(t("validations.required")),
-    cardExpirationMonth: string().required(t("validations.required")),
-    cardExpirationYear: string().required(t("validations.required")),
-    cardNumber: string().required(t("validations.required")),
+    cardCvc: number()
+      .positive(t("validations.positive"))
+      .integer(t("validations.integer"))
+      .required(t("validations.required")),
+    cardExpirationMonth: number()
+      .positive(t("validations.positive"))
+      .integer(t("validations.integer"))
+      .required(t("validations.required")),
+    cardExpirationYear: number()
+      .positive(t("validations.positive"))
+      .integer(t("validations.integer"))
+      .required(t("validations.required")),
+    cardNumber: number()
+      .positive(t("validations.positive"))
+      .integer(t("validations.integer"))
+      .required(t("validations.required")),
     makeDefault: boolean(),
   });
 
@@ -86,11 +102,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                     "organization.tabs.billing.paymentMethods.add.creditCard.number.placeholder"
                   )}
                   type={"text"}
-                  validate={composeValidators([
-                    maxCreditNumberLength,
-                    required,
-                    validTextField,
-                  ])}
+                  validate={composeValidators([maxCreditNumberLength])}
                 />
               </Col>
             </Row>
@@ -106,7 +118,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.placeholder"
                   )}
                   type={"text"}
-                  validate={required}
+                  validate={composeValidators([maxDateNumberLength])}
                 />
               </Col>
               <Col lg={33}>
@@ -120,7 +132,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.placeholder"
                   )}
                   type={"text"}
-                  validate={required}
+                  validate={composeValidators([maxDateNumberLength])}
                 />
               </Col>
               <Col lg={33}>
@@ -134,7 +146,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                     "organization.tabs.billing.paymentMethods.add.creditCard.cvc.placeholder"
                   )}
                   type={"text"}
-                  validate={required}
+                  validate={composeValidators([maxcvcNumberLength])}
                 />
               </Col>
             </Row>

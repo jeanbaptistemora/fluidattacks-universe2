@@ -241,7 +241,7 @@ const minLength: (min: number) => Validator = (min: number): Validator =>
 
 const maxLength: (max: number) => Validator = (max: number): Validator =>
   hasLengthLessThan(max)({
-    message: translate.t("validations.maxLength", { count: max }),
+    message: translate.t("validations.maxLength", { count: max - 1 }),
   }) as Validator;
 
 const sameValue =
