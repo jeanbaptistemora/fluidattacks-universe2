@@ -1,3 +1,4 @@
+import boto3
 import bugsnag
 from cryptography.fernet import (
     Fernet,
@@ -42,4 +43,11 @@ LOGGER_REMOTE_HANDLER = bugsnag.handlers.BugsnagHandler()
 LOGGER_REMOTE: logging.Logger = logging.getLogger("Sorts.stability")
 
 # Encryption
-FERNET = Fernet(Fernet.generate_key())
+FERNET = Fernet(
+    environ.get("FERNET_TOKEN", Fernet.generate_key())  # type: ignore
+)
+
+# AWS-related
+S3_BUCKET_NAME: str = "sorts"
+S3_RESOURCE = boto3.resource("s3")
+S3_BUCKET = S3_RESOURCE.Bucket(S3_BUCKET_NAME)
