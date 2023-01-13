@@ -99,6 +99,13 @@ In order to do so, you need to:
 1. Open the AWS Client VPN and import the downloaded configuration.
 1. Connect to the VPN.
 
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::
+
 [VPN]: https://aws.amazon.com/vpn/
 [VPC]: /development/stack/aws/vpc/
 [TERRAFORM]: /development/stack/terraform/

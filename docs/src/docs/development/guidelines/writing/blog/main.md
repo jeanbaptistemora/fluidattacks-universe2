@@ -117,3 +117,10 @@ slug: /development/writing/blog/main
   Example:
 
   ![BO01](https://res.cloudinary.com/fluid-attacks/image/upload/v1625258536/docs/development/writing/boa_jlahex.webp)
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

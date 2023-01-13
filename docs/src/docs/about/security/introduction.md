@@ -35,3 +35,10 @@ On this page,
 we will mention those
 that provide the highest value to our customers
 in terms of security.
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

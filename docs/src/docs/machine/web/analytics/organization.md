@@ -137,3 +137,10 @@ This chart shows the number
 of days of the oldest
 unsolved event in the groups
 of your organization.
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::

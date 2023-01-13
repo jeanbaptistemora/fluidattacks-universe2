@@ -126,3 +126,10 @@ This use of automation provides
 agility to the reattack process.
 
 ![Verified Closed](https://res.cloudinary.com/fluid-attacks/image/upload/v1647974013/docs/squad/reattack/reattack_on_hold.png)
+
+:::tip free trial
+**Search for vulnerabilities in your application for free!**
+Start your [21-day free trial](https://fluidattacks.com/free-trial/)
+and discover the benefits of our [Continuous Hacking](https://fluidattacks.com/services/continuous-hacking/)
+[Machine Plan](https://fluidattacks.com/plans/).
+:::
