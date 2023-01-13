@@ -2,7 +2,7 @@
  */
 import type { FieldProps } from "formik";
 import { ErrorMessage } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 
 import type { IRadioGroupProps } from "components/RadioGroup";
 import { RadioGroup } from "components/RadioGroup/index";
@@ -30,12 +30,15 @@ export const FormikRadioGroup: React.FC<FormikRadioGroupProps> = (
   } = props;
   const { name } = field;
 
-  function handleChange(value: unknown): void {
-    form.setFieldValue(name, value);
-    if (uncheck) {
-      uncheck(false);
-    }
-  }
+  const handleChange = useCallback(
+    (value: unknown): void => {
+      form.setFieldValue(name, value);
+      if (uncheck) {
+        uncheck(false);
+      }
+    },
+    [form, name, uncheck]
+  );
 
   return (
     <React.Fragment>

@@ -1,6 +1,6 @@
 import type { FieldProps, FormikHandlers } from "formik";
 import { ErrorMessage } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { StyledSelect, ValidationError } from "utils/forms/fields/styles";
 
@@ -19,17 +19,20 @@ const FormikDropdown: React.FC<IDropdownProps> = ({
 }: IDropdownProps): JSX.Element => {
   const { name, onChange, value } = field;
 
-  function handleChange(event: unknown): void {
-    onChange(event);
+  const handleChange = useCallback(
+    (event: unknown): void => {
+      onChange(event);
 
-    if (customChange !== undefined) {
-      customChange(event);
-    }
-  }
+      if (customChange !== undefined) {
+        customChange(event);
+      }
+    },
+    [customChange, onChange]
+  );
 
-  function handleBlur(): void {
+  const handleBlur = useCallback((): void => {
     form.setFieldTouched(name, true);
-  }
+  }, [form, name]);
 
   return (
     <React.Fragment>
