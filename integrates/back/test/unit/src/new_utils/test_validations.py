@@ -139,6 +139,20 @@ def test_validate_field_length_deco() -> None:
 
         decorated_func_failed(test_string="testLength")
 
+    class TestClass(NamedTuple):
+        test_string: str
+
+    @validate_field_length_deco("test_obj.test_string", limit=12)
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    test_obj = TestClass(test_string="test_string")
+    test_obj_fail = TestClass(test_string="test_string_too_long")
+    assert decorated_func_obj(test_obj=test_obj)
+
+    with pytest.raises(InvalidFieldLength):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 @pytest.mark.parametrize(
     "fields",
