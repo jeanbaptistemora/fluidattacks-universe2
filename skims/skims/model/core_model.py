@@ -25,6 +25,7 @@ class Platform(Enum):
     NUGET: str = "NUGET"
     GEM: str = "GEM"
     GO: str = "GO"
+    PUB: str = "PUB"
 
 
 class DependenciesTypeEnum(Enum):
