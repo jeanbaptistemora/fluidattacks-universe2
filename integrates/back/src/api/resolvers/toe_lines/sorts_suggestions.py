@@ -13,4 +13,4 @@ from typing import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[list[SortsSuggestion]]:
-    return parent.sorts_suggestions
+    return parent.state.sorts_suggestions

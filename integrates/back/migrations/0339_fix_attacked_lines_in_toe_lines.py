@@ -49,7 +49,7 @@ async def process_group(group_name: str) -> None:
             toe_lines_model.update_metadata(
                 current_value=toe_lines,
                 metadata=ToeLinesMetadataToUpdate(
-                    attacked_lines=toe_lines.loc,
+                    attacked_lines=toe_lines.state.loc,
                     state=toe_lines.state._replace(
                         modified_date=datetime_utils.get_utc_now()
                     ),
@@ -57,9 +57,9 @@ async def process_group(group_name: str) -> None:
             )
             for toe_lines in group_toe_lines
             if (
-                toe_lines.attacked_at is not None
-                and toe_lines.attacked_at > toe_lines.modified_date
-                and toe_lines.attacked_lines == 0
+                toe_lines.state.attacked_at is not None
+                and toe_lines.state.attacked_at > toe_lines.modified_date
+                and toe_lines.state.attacked_lines == 0
             )
         )
     )

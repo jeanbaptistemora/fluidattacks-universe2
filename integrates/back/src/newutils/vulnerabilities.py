@@ -913,7 +913,7 @@ async def validate_vulnerability_in_toe_lines(
                 ) from exc
             return None
 
-        if not 0 <= int(vulnerability.state.specific) <= toe_lines.loc:
+        if not 0 <= int(vulnerability.state.specific) <= toe_lines.state.loc:
             if raises:
                 raise LineDoesNotExistInTheLinesOfCodeRange(
                     line=vulnerability.state.specific, index=f"{index}"

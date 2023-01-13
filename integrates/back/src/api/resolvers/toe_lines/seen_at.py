@@ -12,4 +12,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime:
-    return parent.seen_at
+    return parent.state.seen_at

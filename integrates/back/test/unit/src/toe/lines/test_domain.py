@@ -56,26 +56,28 @@ async def test_add() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
-        attacked_by="hacker@test.com",
-        attacked_lines=0,
-        be_present=True,
-        be_present_until=None,
-        comments="comment test",
         filename="test/new.new",
-        first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
-        has_vulnerabilities=False,
-        last_author="user@gmail.com",
-        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-        loc=1000,
         modified_date=datetime.fromisoformat("2017-08-01T05:00:00+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        seen_at=datetime.fromisoformat("2018-08-01T05:00:00+00:00"),
-        sorts_risk_level=100,
         state=ToeLinesState(
+            attacked_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
+            attacked_by="hacker@test.com",
+            attacked_lines=0,
+            be_present=True,
+            be_present_until=None,
+            comments="comment test",
+            first_attack_at=datetime.fromisoformat(
+                "2020-08-01T05:00:00+00:00"
+            ),
+            has_vulnerabilities=False,
+            last_author="user@gmail.com",
+            last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+            loc=1000,
             modified_by="machine@fluidattacks.com",
             modified_date=datetime.fromisoformat("2018-08-01T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2018-08-01T05:00:00+00:00"),
+            sorts_risk_level=100,
         ),
     )
 
@@ -113,25 +115,27 @@ async def test_update() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
-        attacked_by="hacker2@test.com",
-        attacked_lines=434,
-        be_present=True,
-        be_present_until=None,
-        comments="comment test 2",
         filename="test/new.new",
-        first_attack_at=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         group_name="unittesting",
-        has_vulnerabilities=False,
-        last_author="customer2@gmail.com",
-        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
-        loc=1111,
         modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
-        sorts_risk_level=50,
         state=ToeLinesState(
+            attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
+            attacked_by="hacker2@test.com",
+            attacked_lines=434,
+            be_present=True,
+            be_present_until=None,
+            comments="comment test 2",
+            first_attack_at=datetime.fromisoformat(
+                "2020-08-01T05:00:00+00:00"
+            ),
+            has_vulnerabilities=False,
+            last_author="customer2@gmail.com",
+            last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
+            loc=1111,
             modified_by="hacker2@test.com",
             modified_date=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
+            seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
+            sorts_risk_level=50,
         ),
     )

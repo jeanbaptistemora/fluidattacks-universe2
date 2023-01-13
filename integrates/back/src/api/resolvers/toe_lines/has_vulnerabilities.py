@@ -12,4 +12,4 @@ from typing import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[bool]:
-    return parent.has_vulnerabilities
+    return parent.state.has_vulnerabilities

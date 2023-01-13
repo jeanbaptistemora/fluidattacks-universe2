@@ -13,4 +13,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    return parent.comments
+    return parent.state.comments

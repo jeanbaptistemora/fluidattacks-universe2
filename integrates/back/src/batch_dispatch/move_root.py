@@ -477,20 +477,20 @@ async def _process_toe_lines(
     toe_lines: ToeLines,
 ) -> None:
     attributes_to_add = ToeLinesAttributesToAdd(
-        attacked_at=toe_lines.attacked_at,
-        attacked_by=toe_lines.attacked_by,
-        attacked_lines=toe_lines.attacked_lines,
-        comments=toe_lines.comments,
-        last_author=toe_lines.last_author,
+        attacked_at=toe_lines.state.attacked_at,
+        attacked_by=toe_lines.state.attacked_by,
+        attacked_lines=toe_lines.state.attacked_lines,
+        comments=toe_lines.state.comments,
+        last_author=toe_lines.state.last_author,
         be_present=False,
-        be_present_until=toe_lines.be_present_until,
-        first_attack_at=toe_lines.first_attack_at,
-        has_vulnerabilities=toe_lines.has_vulnerabilities,
-        loc=toe_lines.loc,
-        last_commit=toe_lines.last_commit,
+        be_present_until=toe_lines.state.be_present_until,
+        first_attack_at=toe_lines.state.first_attack_at,
+        has_vulnerabilities=toe_lines.state.has_vulnerabilities,
+        loc=toe_lines.state.loc,
+        last_commit=toe_lines.state.last_commit,
         modified_date=toe_lines.modified_date,
-        seen_at=toe_lines.seen_at,
-        sorts_risk_level=toe_lines.sorts_risk_level,
+        seen_at=toe_lines.state.seen_at,
+        sorts_risk_level=toe_lines.state.sorts_risk_level,
     )
     try:
         await toe_lines_add(
@@ -510,14 +510,14 @@ async def _process_toe_lines(
             )
         )
         attributes_to_update = ToeLinesAttributesToUpdate(
-            attacked_at=toe_lines.attacked_at,
-            attacked_by=toe_lines.attacked_by,
-            attacked_lines=toe_lines.attacked_lines,
-            comments=toe_lines.comments,
-            first_attack_at=toe_lines.first_attack_at,
-            has_vulnerabilities=toe_lines.has_vulnerabilities,
-            seen_at=toe_lines.seen_at,
-            sorts_risk_level=toe_lines.sorts_risk_level,
+            attacked_at=toe_lines.state.attacked_at,
+            attacked_by=toe_lines.state.attacked_by,
+            attacked_lines=toe_lines.state.attacked_lines,
+            comments=toe_lines.state.comments,
+            first_attack_at=toe_lines.state.first_attack_at,
+            has_vulnerabilities=toe_lines.state.has_vulnerabilities,
+            seen_at=toe_lines.state.seen_at,
+            sorts_risk_level=toe_lines.state.sorts_risk_level,
         )
         await toe_lines_update(
             current_value,

@@ -121,7 +121,11 @@ async def generate_one(
         chain.from_iterable(all_toe_inputs)
     )
     tested_lines: Decimal = Decimal(
-        sum(line.attacked_lines for line in toe_lines if line.attacked_at)
+        sum(
+            line.state.attacked_lines
+            for line in toe_lines
+            if line.state.attacked_at
+        )
     )
     tested_inputs: Decimal = Decimal(
         sum(1 for input in toe_inputs if input.state.attacked_at)

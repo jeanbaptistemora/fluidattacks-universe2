@@ -70,7 +70,9 @@ async def mutate(
             ToeLinesAttributesToUpdate(
                 attacked_at=datetime_utils.get_utc_now(),
                 attacked_by=user_email,
-                attacked_lines=kwargs.get("attacked_lines", current_value.loc),
+                attacked_lines=kwargs.get(
+                    "attacked_lines", current_value.state.loc
+                ),
                 comments=comments,
             ),
         )

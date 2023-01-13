@@ -178,11 +178,11 @@ async def process_toe_lines(
                 for vulnerability in open_vulnerabilities
                 if vulnerability.type == VulnerabilityType.LINES
             )
-            if toe_line.be_present
+            if toe_line.state.be_present
             else False
         )
 
-        if toe_line.has_vulnerabilities != has_vulnerabilities:
+        if toe_line.state.has_vulnerabilities != has_vulnerabilities:
             updates.append(
                 update_toe_lines(
                     toe_line,

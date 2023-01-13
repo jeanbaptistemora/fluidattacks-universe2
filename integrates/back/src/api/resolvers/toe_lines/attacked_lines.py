@@ -13,4 +13,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
-    return parent.attacked_lines
+    return parent.state.attacked_lines

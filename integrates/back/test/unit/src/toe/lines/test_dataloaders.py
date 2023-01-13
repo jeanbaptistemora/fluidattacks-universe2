@@ -36,38 +36,42 @@ async def test_get() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at=datetime.fromisoformat("2021-02-20T05:00:00+00:00"),
-        attacked_by="test2@test.com",
-        attacked_lines=4,
-        be_present=True,
-        be_present_until=None,
-        comments="comment 1",
         filename="test/test#.config",
-        first_attack_at=datetime.fromisoformat("2020-02-19T15:41:04+00:00"),
         group_name="unittesting",
-        has_vulnerabilities=False,
-        last_author="user@gmail.com",
-        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-        loc=180,
         modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
         root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-        sorts_risk_level=80,
-        sorts_risk_level_date=datetime.fromisoformat(
-            "2021-02-20T05:00:00+00:00"
-        ),
-        sorts_suggestions=[
-            SortsSuggestion(
-                finding_title="083. XML injection (XXE)", probability=90
-            ),
-            SortsSuggestion(
-                finding_title="033. Password change without identity check",
-                probability=50,
-            ),
-        ],
         state=ToeLinesState(
+            attacked_at=datetime.fromisoformat("2021-02-20T05:00:00+00:00"),
+            attacked_by="test2@test.com",
+            attacked_lines=4,
+            be_present=True,
+            be_present_until=None,
+            comments="comment 1",
+            has_vulnerabilities=False,
+            last_author="user@gmail.com",
+            last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+            loc=180,
+            first_attack_at=datetime.fromisoformat(
+                "2020-02-19T15:41:04+00:00"
+            ),
             modified_by="test2@test.com",
             modified_date=datetime.fromisoformat("2020-11-15T15:41:04+00:00"),
+            seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
+            sorts_risk_level=80,
+            sorts_risk_level_date=datetime.fromisoformat(
+                "2021-02-20T05:00:00+00:00"
+            ),
+            sorts_suggestions=[
+                SortsSuggestion(
+                    finding_title="083. XML injection (XXE)", probability=90
+                ),
+                SortsSuggestion(
+                    finding_title=(
+                        "033. Password change without identity check"
+                    ),
+                    probability=50,
+                ),
+            ],
         ),
     )
     group_name = "unittesting"
@@ -79,34 +83,38 @@ async def test_get() -> None:
         )
     )
     assert toe_lines == ToeLines(
-        attacked_at=datetime.fromisoformat("2021-01-20T05:00:00+00:00"),
-        attacked_by="test@test.com",
-        attacked_lines=120,
-        be_present=False,
-        be_present_until=datetime.fromisoformat("2021-01-01T15:41:04+00:00"),
-        comments="comment 2",
         filename="test2/test.sh",
-        first_attack_at=datetime.fromisoformat("2020-01-19T15:41:04+00:00"),
         group_name="unittesting",
-        has_vulnerabilities=False,
-        last_author="user@gmail.com",
-        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-        loc=172,
         modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
         root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-        seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
-        sorts_risk_level=0,
-        sorts_risk_level_date=datetime.fromisoformat(
-            "2021-04-10T05:00:00+00:00"
-        ),
-        sorts_suggestions=[
-            SortsSuggestion(
-                finding_title="027. Insecure file upload", probability=100
-            ),
-        ],
         state=ToeLinesState(
+            attacked_at=datetime.fromisoformat("2021-01-20T05:00:00+00:00"),
+            attacked_by="test@test.com",
+            attacked_lines=120,
+            be_present=False,
+            be_present_until=datetime.fromisoformat(
+                "2021-01-01T15:41:04+00:00"
+            ),
+            comments="comment 2",
+            first_attack_at=datetime.fromisoformat(
+                "2020-01-19T15:41:04+00:00"
+            ),
+            has_vulnerabilities=False,
+            last_author="user@gmail.com",
+            last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+            loc=172,
             modified_by="test2@test.com",
             modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
+            seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
+            sorts_risk_level=0,
+            sorts_risk_level_date=datetime.fromisoformat(
+                "2021-04-10T05:00:00+00:00"
+            ),
+            sorts_suggestions=[
+                SortsSuggestion(
+                    finding_title="027. Insecure file upload", probability=100
+                ),
+            ],
         ),
     )
 
@@ -121,52 +129,53 @@ async def test_get_by_group() -> None:
         edges=(
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    attacked_lines=4,
-                    be_present=True,
-                    be_present_until=None,
-                    comments="comment 1",
                     filename="path/to/file3.ext",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-02-19T15:41:04+00:00"
-                    ),
-                    has_vulnerabilities=False,
                     group_name="unittesting",
-                    last_author="user@gmail.com",
-                    last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
-                    loc=350,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                    seen_at=datetime.fromisoformat(
-                        "2020-02-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=80,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-03-30T05:00:00+00:00"
-                    ),
                     seen_first_time_by=None,
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="083. XML injection (XXE)",
-                            probability=90,
-                        ),
-                        SortsSuggestion(
-                            finding_title=(
-                                "033. Password change without identity check"
-                            ),
-                            probability=50,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test2@test.com",
+                        attacked_lines=4,
+                        be_present=True,
+                        be_present_until=None,
+                        comments="comment 1",
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-02-19T15:41:04+00:00"
+                        ),
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                        loc=350,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-15T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-02-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=80,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-03-30T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="083. XML injection (XXE)",
+                                probability=90,
+                            ),
+                            SortsSuggestion(
+                                finding_title=(
+                                    "033. Password change without identity "
+                                    "check"
+                                ),
+                                probability=50,
+                            ),
+                        ],
                     ),
                 ),
                 cursor=(
@@ -177,50 +186,50 @@ async def test_get_by_group() -> None:
             ),
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    attacked_lines=4,
-                    be_present=True,
-                    be_present_until=None,
-                    comments="comment 1",
                     filename="test/test#.config",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-02-19T15:41:04+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    last_author="user@gmail.com",
-                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc=180,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                    seen_at=datetime.fromisoformat(
-                        "2020-02-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=80,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="083. XML injection (XXE)",
-                            probability=90,
-                        ),
-                        SortsSuggestion(
-                            finding_title="033. Password change without "
-                            "identity check",
-                            probability=50,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test2@test.com",
+                        attacked_lines=4,
+                        be_present=True,
+                        be_present_until=None,
+                        comments="comment 1",
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-02-19T15:41:04+00:00"
+                        ),
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                        loc=180,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-15T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-02-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=80,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="083. XML injection (XXE)",
+                                probability=90,
+                            ),
+                            SortsSuggestion(
+                                finding_title="033. Password change without "
+                                "identity check",
+                                probability=50,
+                            ),
+                        ],
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -229,47 +238,47 @@ async def test_get_by_group() -> None:
             ),
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-01-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test@test.com",
-                    attacked_lines=120,
-                    be_present=False,
-                    be_present_until=datetime.fromisoformat(
-                        "2021-01-01T15:41:04+00:00"
-                    ),
-                    comments="comment 2",
                     filename="test2/test.sh",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-01-19T15:41:04+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    last_author="user@gmail.com",
-                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    loc=172,
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),
                     root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                    seen_at=datetime.fromisoformat(
-                        "2020-01-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=0,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-04-10T05:00:00+00:00"
-                    ),
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="027. Insecure file upload",
-                            probability=100,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-01-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test@test.com",
+                        attacked_lines=120,
+                        be_present=False,
+                        be_present_until=datetime.fromisoformat(
+                            "2021-01-01T15:41:04+00:00"
+                        ),
+                        comments="comment 2",
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-01-19T15:41:04+00:00"
+                        ),
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                        loc=172,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-16T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-01-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=0,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-04-10T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="027. Insecure file upload",
+                                probability=100,
+                            ),
+                        ],
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -292,52 +301,53 @@ async def test_get_by_root() -> None:
         edges=(
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    attacked_lines=4,
-                    be_present=True,
-                    be_present_until=None,
-                    comments="comment 1",
                     filename="path/to/file3.ext",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-02-19T15:41:04+00:00"
-                    ),
-                    has_vulnerabilities=False,
                     group_name="unittesting",
-                    last_author="user@gmail.com",
-                    last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
-                    loc=350,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                    seen_at=datetime.fromisoformat(
-                        "2020-02-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=80,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-03-30T05:00:00+00:00"
-                    ),
                     seen_first_time_by=None,
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="083. XML injection (XXE)",
-                            probability=90,
-                        ),
-                        SortsSuggestion(
-                            finding_title=(
-                                "033. Password change without identity check"
-                            ),
-                            probability=50,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test2@test.com",
+                        attacked_lines=4,
+                        be_present=True,
+                        be_present_until=None,
+                        comments="comment 1",
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                        loc=350,
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-02-19T15:41:04+00:00"
+                        ),
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-15T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-02-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=80,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-03-30T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="083. XML injection (XXE)",
+                                probability=90,
+                            ),
+                            SortsSuggestion(
+                                finding_title=(
+                                    "033. Password change without identity "
+                                    "check"
+                                ),
+                                probability=50,
+                            ),
+                        ],
                     ),
                 ),
                 cursor=(
@@ -348,50 +358,50 @@ async def test_get_by_root() -> None:
             ),
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test2@test.com",
-                    attacked_lines=4,
-                    be_present=True,
-                    be_present_until=None,
-                    comments="comment 1",
                     filename="test/test#.config",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-02-19T15:41:04+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    last_author="user@gmail.com",
-                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc=180,
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
                     root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-                    seen_at=datetime.fromisoformat(
-                        "2020-02-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=80,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-02-20T05:00:00+00:00"
-                    ),
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="083. XML injection (XXE)",
-                            probability=90,
-                        ),
-                        SortsSuggestion(
-                            finding_title="033. Password change without "
-                            "identity check",
-                            probability=50,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test2@test.com",
+                        attacked_lines=4,
+                        be_present=True,
+                        be_present_until=None,
+                        comments="comment 1",
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-02-19T15:41:04+00:00"
+                        ),
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                        loc=180,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-15T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-02-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=80,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-02-20T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="083. XML injection (XXE)",
+                                probability=90,
+                            ),
+                            SortsSuggestion(
+                                finding_title="033. Password change without "
+                                "identity check",
+                                probability=50,
+                            ),
+                        ],
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"
@@ -410,47 +420,47 @@ async def test_get_by_root() -> None:
         edges=(
             ToeLinesEdge(
                 node=ToeLines(
-                    attacked_at=datetime.fromisoformat(
-                        "2021-01-20T05:00:00+00:00"
-                    ),
-                    attacked_by="test@test.com",
-                    attacked_lines=120,
-                    be_present=False,
-                    be_present_until=datetime.fromisoformat(
-                        "2021-01-01T15:41:04+00:00"
-                    ),
-                    comments="comment 2",
                     filename="test2/test.sh",
-                    first_attack_at=datetime.fromisoformat(
-                        "2020-01-19T15:41:04+00:00"
-                    ),
                     group_name="unittesting",
-                    has_vulnerabilities=False,
-                    last_author="user@gmail.com",
-                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    loc=172,
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),
                     root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                    seen_at=datetime.fromisoformat(
-                        "2020-01-01T15:41:04+00:00"
-                    ),
-                    sorts_risk_level=0,
-                    sorts_risk_level_date=datetime.fromisoformat(
-                        "2021-04-10T05:00:00+00:00"
-                    ),
-                    sorts_suggestions=[
-                        SortsSuggestion(
-                            finding_title="027. Insecure file upload",
-                            probability=100,
-                        ),
-                    ],
                     state=ToeLinesState(
+                        attacked_at=datetime.fromisoformat(
+                            "2021-01-20T05:00:00+00:00"
+                        ),
+                        attacked_by="test@test.com",
+                        attacked_lines=120,
+                        be_present=False,
+                        be_present_until=datetime.fromisoformat(
+                            "2021-01-01T15:41:04+00:00"
+                        ),
+                        comments="comment 2",
+                        first_attack_at=datetime.fromisoformat(
+                            "2020-01-19T15:41:04+00:00"
+                        ),
+                        has_vulnerabilities=False,
+                        last_author="user@gmail.com",
+                        last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                        loc=172,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
                             "2020-11-16T15:41:04+00:00"
                         ),
+                        seen_at=datetime.fromisoformat(
+                            "2020-01-01T15:41:04+00:00"
+                        ),
+                        sorts_risk_level=0,
+                        sorts_risk_level_date=datetime.fromisoformat(
+                            "2021-04-10T05:00:00+00:00"
+                        ),
+                        sorts_suggestions=[
+                            SortsSuggestion(
+                                finding_title="027. Insecure file upload",
+                                probability=100,
+                            ),
+                        ],
                     ),
                 ),
                 cursor="eyJwayI6ICJHUk9VUCN1bml0dGVzdGluZyIsICJzayI6ICJMSU5FUy"

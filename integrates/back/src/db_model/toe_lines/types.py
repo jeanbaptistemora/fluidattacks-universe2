@@ -18,32 +18,33 @@ class SortsSuggestion(NamedTuple):
 
 
 class ToeLinesState(NamedTuple):
-    modified_by: Optional[str]
-    modified_date: Optional[datetime]
-
-
-class ToeLines(NamedTuple):
     attacked_at: Optional[datetime]
     attacked_by: str
     attacked_lines: int
     be_present: bool
     be_present_until: Optional[datetime]
     comments: str
-    filename: str
     first_attack_at: Optional[datetime]
     has_vulnerabilities: Optional[bool]
-    group_name: str
     last_author: str
     last_commit: str
     loc: int
-    modified_date: datetime
-    root_id: str
+    modified_by: Optional[str]
+    modified_date: Optional[datetime]
     seen_at: datetime
     sorts_risk_level: int
-    state: ToeLinesState
     sorts_risk_level_date: Optional[datetime] = None
     seen_first_time_by: Optional[str] = None
-    sorts_suggestions: Optional[List[SortsSuggestion]] = None
+    sorts_suggestions: Optional[list[SortsSuggestion]] = None
+
+
+class ToeLines(NamedTuple):
+    filename: str
+    group_name: str
+    modified_date: datetime
+    root_id: str
+    state: ToeLinesState
+    seen_first_time_by: Optional[str] = None
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.root_id, self.filename))

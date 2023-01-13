@@ -65,10 +65,10 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def process_group_lines(
     current_toe_lines: ToeLines,
 ) -> None:
-    if current_toe_lines.attacked_lines > current_toe_lines.loc:
-        new_attacked_lines = current_toe_lines.loc
+    if current_toe_lines.state.attacked_lines > current_toe_lines.state.loc:
+        new_attacked_lines = current_toe_lines.state.loc
         metadata = ToeLinesMetadataToUpdate(
-            state=ToeLinesState(
+            state=current_toe_lines.state._replace(
                 modified_by="machine@fluidattacks.com",
                 modified_date=datetime_utils.get_utc_now(),
             ),

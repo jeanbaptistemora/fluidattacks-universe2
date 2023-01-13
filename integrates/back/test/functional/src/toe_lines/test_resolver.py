@@ -24,22 +24,22 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert populate
     result: dict[str, Any] = await get_result(user=email, group_name="group1")
     lines = result["data"]["group"]["toeLines"]["edges"]
-    assert lines[0]["node"]["attackedAt"] == "2021-01-20T05:00:00+00:00"
-    assert lines[0]["node"]["attackedBy"] == "test@test.com"
-    assert lines[0]["node"]["attackedLines"] == 23
-    assert lines[0]["node"]["bePresent"] is False
-    assert lines[0]["node"]["bePresentUntil"] == "2021-01-19T15:41:04+00:00"
-    assert lines[0]["node"]["comments"] == "comment 1"
-    assert lines[0]["node"]["filename"] == "test1/test.sh"
-    assert lines[0]["node"]["firstAttackAt"] == "2020-01-19T15:41:04+00:00"
-    assert lines[0]["node"]["lastAuthor"] == "customer1@gmail.com"
+    assert lines[1]["node"]["attackedAt"] == "2021-01-20T05:00:00+00:00"
+    assert lines[1]["node"]["attackedBy"] == "test@test.com"
+    assert lines[1]["node"]["attackedLines"] == 23
+    assert lines[1]["node"]["bePresent"] is False
+    assert lines[1]["node"]["bePresentUntil"] == "2021-01-19T15:41:04+00:00"
+    assert lines[1]["node"]["comments"] == "comment 1"
+    assert lines[1]["node"]["filename"] == "test1/test.sh"
+    assert lines[1]["node"]["firstAttackAt"] == "2020-01-19T15:41:04+00:00"
+    assert lines[1]["node"]["lastAuthor"] == "customer1@gmail.com"
     assert (
-        lines[0]["node"]["lastCommit"]
+        lines[1]["node"]["lastCommit"]
         == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
     )
-    assert lines[0]["node"]["loc"] == 4324
-    assert lines[0]["node"]["modifiedDate"] == "2020-11-16T15:41:04+00:00"
-    assert lines[0]["node"]["seenAt"] == "2020-01-01T15:41:04+00:00"
+    assert lines[1]["node"]["loc"] == 4324
+    assert lines[1]["node"]["modifiedDate"] == "2020-11-16T15:41:04+00:00"
+    assert lines[1]["node"]["seenAt"] == "2020-01-01T15:41:04+00:00"
 
 
 @pytest.mark.asyncio

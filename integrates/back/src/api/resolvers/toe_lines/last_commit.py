@@ -9,4 +9,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:
-    return parent.last_commit
+    return parent.state.last_commit

@@ -40,7 +40,7 @@ async def add(*, toe_lines: ToeLines) -> None:
     gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "be_present": str(toe_lines.be_present).lower(),
+            "be_present": str(toe_lines.state.be_present).lower(),
             "filename": toe_lines.filename,
             "group_name": toe_lines.group_name,
             "root_id": toe_lines.root_id,

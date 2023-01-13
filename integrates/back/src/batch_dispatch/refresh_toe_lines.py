@@ -246,10 +246,10 @@ async def get_present_toe_lines_to_update(
             last_commit_info.modified_date,
         )
         != (
-            repo_toe_lines[filename].be_present,
-            repo_toe_lines[filename].last_author,
-            repo_toe_lines[filename].loc,
-            repo_toe_lines[filename].last_commit,
+            repo_toe_lines[filename].state.be_present,
+            repo_toe_lines[filename].state.last_author,
+            repo_toe_lines[filename].state.loc,
+            repo_toe_lines[filename].state.last_commit,
             repo_toe_lines[filename].modified_date,
         )
     )
@@ -277,7 +277,7 @@ def get_non_present_toe_lines_to_update(
         )
         for db_filename in repo_toe_lines
         if db_filename not in present_filenames
-        and repo_toe_lines[db_filename].be_present
+        and repo_toe_lines[db_filename].state.be_present
     )
 
 

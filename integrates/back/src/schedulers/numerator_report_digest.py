@@ -512,11 +512,11 @@ async def _toe_line_content(
         _common_generate_count_report(
             content=content,
             date_range=date_range,
-            date_report=toe_lines.node.attacked_at,
+            date_report=toe_lines.node.state.attacked_at,
             field="loc",
             group=group,
-            user_email=toe_lines.node.attacked_by,
-            to_add=toe_lines.node.attacked_lines,
+            user_email=toe_lines.node.state.attacked_by,
+            to_add=toe_lines.node.state.attacked_lines,
             allowed_users=users_email,
         )
 

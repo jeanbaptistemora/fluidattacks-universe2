@@ -609,278 +609,296 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
         ],
         "toe_lines": (
             ToeLines(
-                attacked_at=None,
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=23,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="nickname/back/src/model/user/index.js",
-                first_attack_at=None,
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer1@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                loc=4324,
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
-                sorts_risk_level=0,
                 state=ToeLinesState(
+                    attacked_at=None,
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=23,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=None,
+                    has_vulnerabilities=False,
+                    last_author="customer1@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                    loc=4324,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=0,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=4,
-                be_present=True,
-                be_present_until=None,
-                comments="comment 2",
                 filename="back/src/index.js",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=4,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 2",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=4,
-                be_present=True,
-                be_present_until=None,
-                comments="comment 2",
                 filename="skims/test/data/lib_path/f011/requirements.txt",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=4,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 2",
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                    loc=180,
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2020-01-14T15:41:04+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=120,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="front/index.html",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-14T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer3@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
-                loc=243,
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2019-01-01T15:41:04+00:00"),
-                sorts_risk_level=80,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2020-01-14T15:41:04+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=120,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-14T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer3@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
+                    loc=243,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2019-01-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=80,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=1,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="skims/test/data/lib_path/f011/build.gradle",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=1,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=1,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="MyJar.jar",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=1,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=1,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="MyJar.class",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=1,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=30,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="java_has_print_statements.java",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=30,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-02-20T05:00:00+00:00"
-                ),
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=30,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="package.json",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-02-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer2@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
-                loc=180,
                 modified_date=datetime.fromisoformat(
                     "2020-11-15T15:41:04+00:00"
                 ),
                 root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
-                seen_at=datetime.fromisoformat("2020-02-01T15:41:04+00:00"),
-                sorts_risk_level=-1,
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=30,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c5",
+                    loc=180,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-15T15:41:04+00:00"
                     ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
                 ),
             ),
         ),

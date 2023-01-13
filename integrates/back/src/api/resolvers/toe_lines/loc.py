@@ -9,4 +9,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:
-    return parent.loc
+    return parent.state.loc

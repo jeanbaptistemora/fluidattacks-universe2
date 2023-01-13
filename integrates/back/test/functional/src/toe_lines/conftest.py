@@ -122,44 +122,129 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         ],
         "toe_lines": (
             ToeLines(
-                attacked_at=datetime.fromisoformat(
-                    "2021-01-20T05:00:00+00:00"
-                ),
-                attacked_by="test@test.com",
-                attacked_lines=23,
-                be_present=False,
-                be_present_until=datetime.fromisoformat(
-                    "2021-01-19T15:41:04+00:00"
-                ),
-                comments="comment 1",
                 filename="test1/test.sh",
-                first_attack_at=datetime.fromisoformat(
-                    "2020-01-19T15:41:04+00:00"
-                ),
                 group_name="group1",
-                has_vulnerabilities=False,
-                last_author="customer1@gmail.com",
-                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                loc=4324,
                 modified_date=datetime.fromisoformat(
                     "2020-11-16T15:41:04+00:00"
                 ),
                 root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
-                sorts_risk_level=0,
-                sorts_risk_level_date=datetime.fromisoformat(
-                    "2021-04-10T05:00:00+00:00"
-                ),
-                sorts_suggestions=[
-                    SortsSuggestion(
-                        finding_title="027. Insecure file upload",
-                        probability=100,
-                    ),
-                ],
                 state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-01-20T05:00:00+00:00"
+                    ),
+                    attacked_by="test@test.com",
+                    attacked_lines=23,
+                    be_present=False,
+                    be_present_until=datetime.fromisoformat(
+                        "2021-01-19T15:41:04+00:00"
+                    ),
+                    comments="comment 1",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer1@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                    loc=4324,
                     modified_by="test@test.com",
                     modified_date=datetime.fromisoformat(
                         "2020-11-16T15:41:04+00:00"
+                    ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=0,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-04-10T05:00:00+00:00"
+                    ),
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="027. Insecure file upload",
+                            probability=100,
+                        ),
+                    ],
+                ),
+            ),
+            ToeLines(
+                filename="test2/test#.config",
+                group_name="group1",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-15T15:41:04+00:00"
+                ),
+                root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+                state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-20T05:00:00+00:00"
+                    ),
+                    attacked_by="test2@test.com",
+                    attacked_lines=4,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 2",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-02-19T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer2@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                    loc=180,
+                    modified_by="test2@test.com",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-02-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=80,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-04-10T05:00:00+00:00"
+                    ),
+                    sorts_suggestions=[
+                        SortsSuggestion(
+                            finding_title="083. XML injection (XXE)",
+                            probability=90,
+                        ),
+                        SortsSuggestion(
+                            finding_title="033. Password change without "
+                            "identity check",
+                            probability=50,
+                        ),
+                    ],
+                ),
+            ),
+            ToeLines(
+                filename="test3/test.sh",
+                group_name="group1",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-16T15:41:04+00:00"
+                ),
+                root_id="765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                state=ToeLinesState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-01-20T05:00:00+00:00"
+                    ),
+                    attacked_by="test3@test.com",
+                    attacked_lines=120,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="comment 3",
+                    first_attack_at=datetime.fromisoformat(
+                        "2020-01-14T15:41:04+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    last_author="customer3@gmail.com",
+                    last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
+                    loc=243,
+                    modified_by="test3@test.com",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
+                    seen_at=datetime.fromisoformat(
+                        "2019-01-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=-1,
+                    sorts_risk_level_date=datetime.fromisoformat(
+                        "2021-04-10T05:00:00+00:00"
                     ),
                 ),
             ),

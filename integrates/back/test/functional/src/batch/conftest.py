@@ -837,30 +837,32 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         ],
         "toe_lines": (
             ToeLines(
-                attacked_at=None,
-                attacked_by="machine@fluidattacks.com",
-                attacked_lines=5,
-                be_present=True,
-                be_present_until=None,
-                comments="",
                 filename="README.md",
-                first_attack_at=None,
                 group_name="unittesting",
-                has_vulnerabilities=False,
-                last_author="customer1@gmail.com",
-                last_commit="be8d00f5fe64d59dc463adb34f9fabdf262e1ed9",
-                loc=10,
                 modified_date=datetime.fromisoformat(
                     "2022-09-05T00:45:11+00:00"
                 ),
                 root_id="77637717-41d4-4242-854a-db8ff7fe5ed0",
-                seen_at=datetime.fromisoformat("2020-01-01T15:41:04+00:00"),
-                sorts_risk_level=0,
                 state=ToeLinesState(
+                    attacked_at=None,
+                    attacked_by="machine@fluidattacks.com",
+                    attacked_lines=5,
+                    be_present=True,
+                    be_present_until=None,
+                    comments="",
+                    first_attack_at=None,
+                    loc=10,
                     modified_by="machine@fluidattacks.com",
                     modified_date=datetime.fromisoformat(
                         "2022-09-05T00:45:11+00:00"
                     ),
+                    has_vulnerabilities=False,
+                    last_author="customer1@gmail.com",
+                    last_commit="be8d00f5fe64d59dc463adb34f9fabdf262e1ed9",
+                    seen_at=datetime.fromisoformat(
+                        "2020-01-01T15:41:04+00:00"
+                    ),
+                    sorts_risk_level=0,
                 ),
             ),
         ),

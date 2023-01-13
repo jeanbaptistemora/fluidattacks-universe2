@@ -9,4 +9,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:
-    return parent.be_present
+    return parent.state.be_present
