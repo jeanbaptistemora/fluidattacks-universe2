@@ -1917,7 +1917,7 @@ export const enTranslations: ResourceKey = {
               update: "Update payment method",
             },
             success: {
-              body: "Payment method successfuly updated",
+              body: "Payment method successfully updated",
               title: "Success",
             },
           },
@@ -1926,7 +1926,7 @@ export const enTranslations: ResourceKey = {
           title: "Invoices",
         },
         text: "Billing",
-        tooltip: "Billing and subcriptions for your organization",
+        tooltip: "Billing and subscriptions for your organization",
       },
       compliance: {
         tabs: {

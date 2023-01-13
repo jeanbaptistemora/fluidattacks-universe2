@@ -18,9 +18,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils import (
-    validations,
-)
 from starlette.datastructures import (
     UploadFile,
 )
@@ -46,16 +43,6 @@ async def mutate(
         kwargs["organization_id"]
     )
 
-    if rut is not None:
-        validations.validate_sanitized_csv_input(
-            rut.filename, rut.content_type
-        )
-    if tax_id is not None:
-        validations.validate_sanitized_csv_input(
-            tax_id.filename, tax_id.content_type
-        )
-
-    # Update payment method
     result: bool = await billing_domain.update_documents_new(
         org=org,
         payment_method_id=kwargs["payment_method_id"],

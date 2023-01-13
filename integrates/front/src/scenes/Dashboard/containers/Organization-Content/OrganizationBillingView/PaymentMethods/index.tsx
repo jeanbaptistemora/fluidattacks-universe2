@@ -27,7 +27,7 @@ import {
   DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
   UPDATE_CREDIT_CARD_PAYMENT_METHOD,
-  UPDATE_PAYMENT_METHOD,
+  UPDATE_OTHER_PAYMENT_METHOD,
 } from "../queries";
 import type { IPaymentMethodAttr } from "../types";
 import { Button } from "components/Button";
@@ -314,26 +314,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     const closeUpdateOhterMethodModal = useCallback((): void => {
       setIsUpdatingOhterMethod(false);
     }, []);
-    const [updatePaymentMethod, { loading: updating }] = useMutation(
-      UPDATE_PAYMENT_METHOD,
-      {
-        onCompleted: (): void => {
-          onUpdate();
-          closeUpdateCreditCardModal();
-          closeUpdateOhterMethodModal();
-          msgSuccess(
-            t("organization.tabs.billing.paymentMethods.update.success.body"),
-            t("organization.tabs.billing.paymentMethods.update.success.title")
-          );
-        },
-        onError: ({ graphQLErrors }): void => {
-          graphQLErrors.forEach((error): void => {
-            msgError(t("groupAlerts.errorTextsad"));
-            Logger.error("Couldn't update payment method", error);
-          });
-        },
-      }
-    );
     const [updateCreditCardPaymentMethod, { loading: updatingCreditCard }] =
       useMutation(UPDATE_CREDIT_CARD_PAYMENT_METHOD, {
         onCompleted: (): void => {
@@ -362,6 +342,36 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           });
         },
       });
+    const [updateOtherPaymentMethod, { loading: updatingOther }] = useMutation(
+      UPDATE_OTHER_PAYMENT_METHOD,
+      {
+        onCompleted: (): void => {
+          onUpdate();
+          closeUpdateOhterMethodModal();
+          msgSuccess(
+            t("organization.tabs.billing.paymentMethods.update.success.body"),
+            t("organization.tabs.billing.paymentMethods.update.success.title")
+          );
+        },
+        onError: ({ graphQLErrors }): void => {
+          graphQLErrors.forEach((error): void => {
+            if (
+              error.message ===
+              "Exception - Invalid payment method. Provided payment method does not exist for this organization"
+            ) {
+              msgError(
+                t(
+                  "organization.tabs.billing.paymentMethods.update.errors.noPaymentMethod"
+                )
+              );
+            } else {
+              msgError(t("groupAlerts.errorTextsad"));
+              Logger.error("Couldn't update payment method", error);
+            }
+          });
+        },
+      }
+    );
     const handleUpdateCreditCardPaymentMethodSubmit = useCallback(
       async ({
         cardExpirationMonth,
@@ -387,9 +397,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
 
     const handleUpdateOtherPaymentMethodSubmit = useCallback(
       async ({
-        cardExpirationMonth,
-        cardExpirationYear,
-        makeDefault,
         businessName,
         city,
         country,
@@ -398,9 +405,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         state,
         taxIdList,
       }: {
-        cardExpirationMonth: string;
-        cardExpirationYear: string;
-        makeDefault: boolean;
         businessName: string;
         city: string;
         country: string;
@@ -411,15 +415,12 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       }): Promise<void> => {
         const rut = handleFileListUpload(rutList);
         const taxId = handleFileListUpload(taxIdList);
-        await updatePaymentMethod({
+        await updateOtherPaymentMethod({
           variables: {
             businessName,
-            cardExpirationMonth,
-            cardExpirationYear,
             city,
             country,
             email,
-            makeDefault,
             organizationId,
             paymentMethodId: currentOtherMethodRow[0]?.id,
             rut,
@@ -428,7 +429,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           },
         });
       },
-      [updatePaymentMethod, organizationId, currentOtherMethodRow]
+      [updateOtherPaymentMethod, organizationId, currentOtherMethodRow]
     );
 
     // Download legal document file
@@ -565,7 +566,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               <Can do={"api_mutations_remove_payment_method_mutate"}>
                 <Button
                   disabled={
-                    _.isEmpty(currentCreditCardRow) || removing || updating
+                    _.isEmpty(currentCreditCardRow) ||
+                    removing ||
+                    updatingCreditCard
                   }
                   id={"removeCreditCard"}
                   onClick={handleRemoveCreditCardPaymentMethod}
@@ -609,9 +612,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               <Can do={"api_mutations_update_payment_method_mutate"}>
                 <Button
                   disabled={
-                    _.isEmpty(currentOtherMethodRow) || removing || updating
+                    _.isEmpty(currentOtherMethodRow) ||
+                    removing ||
+                    updatingOther
                   }
-                  id={"updateCreditCard"}
+                  id={"updateOtherMethod"}
                   onClick={openUpdateOhterMethodModal}
                   variant={"secondary"}
                 >
@@ -623,7 +628,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
               <Can do={"api_mutations_remove_payment_method_mutate"}>
                 <Button
                   disabled={
-                    _.isEmpty(currentOtherMethodRow) || removing || updating
+                    _.isEmpty(currentOtherMethodRow) ||
+                    removing ||
+                    updatingOther
                   }
                   id={"removeOtherMethod"}
                   onClick={handleRemoveOtherPaymentMethod}
@@ -667,12 +674,9 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           <UpdateOtherMethodModal
             initialValues={{
               businessName: currentOtherMethodRow[0].businessName,
-              cardExpirationMonth: "",
-              cardExpirationYear: "",
               city: currentOtherMethodRow[0].city,
               country: currentOtherMethodRow[0].country,
               email: currentOtherMethodRow[0].email,
-              makeDefault: false,
               rutList: undefined,
               state: currentOtherMethodRow[0].state,
               taxIdList: undefined,

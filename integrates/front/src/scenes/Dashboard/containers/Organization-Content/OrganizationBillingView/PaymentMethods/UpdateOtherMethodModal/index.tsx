@@ -2,7 +2,7 @@
 import { Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { boolean, mixed, object, string } from "yup";
+import { mixed, object, string } from "yup";
 
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
@@ -17,9 +17,6 @@ import {
 interface IUpdateOtherMethodModalProps {
   onClose: () => void;
   onSubmit: (values: {
-    cardExpirationMonth: string;
-    cardExpirationYear: string;
-    makeDefault: boolean;
     businessName: string;
     city: string;
     country: string;
@@ -29,9 +26,6 @@ interface IUpdateOtherMethodModalProps {
     taxIdList: FileList | undefined;
   }) => Promise<void>;
   initialValues: {
-    cardExpirationMonth: string;
-    cardExpirationYear: string;
-    makeDefault: boolean;
     businessName: string;
     city: string;
     country: string;
@@ -60,8 +54,6 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
       .matches(
         /^[a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@_$#!,.*\-?"[\]|()/{}>][a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@_$#!,.*\-?"[\]|()/{}>=]+$/u
       ),
-    cardExpirationMonth: string(),
-    cardExpirationYear: string(),
     city: string().test(
       "isRequired",
       t("validations.required"),
@@ -75,7 +67,6 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
       otherwise: string(),
       then: string().email().required(),
     }),
-    makeDefault: boolean(),
     rutList: mixed().when("country", {
       is: "Colombia",
       otherwise: mixed(),
