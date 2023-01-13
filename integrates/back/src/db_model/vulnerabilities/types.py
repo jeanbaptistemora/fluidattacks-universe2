@@ -24,10 +24,8 @@ from serializers import (
     Snippet,
 )
 from typing import (
-    List,
     NamedTuple,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -45,7 +43,7 @@ class VulnerabilityState(NamedTuple):
     status: VulnerabilityStateStatus
     where: str
     commit: Optional[str] = None
-    reasons: Optional[List[VulnerabilityStateReason]] = None
+    reasons: Optional[list[VulnerabilityStateReason]] = None
     other_reason: Optional[str] = None
     tool: Optional[VulnerabilityTool] = None
     snippet: Optional[Snippet] = None
@@ -102,8 +100,8 @@ class Vulnerability(NamedTuple):
     root_id: Optional[str] = None
     skims_method: Optional[str] = None
     skims_technique: Optional[str] = None
-    stream: Optional[List[str]] = None
-    tags: Optional[List[str]] = None
+    stream: Optional[list[str]] = None
+    tags: Optional[list[str]] = None
     treatment: Optional[VulnerabilityTreatment] = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()
@@ -118,7 +116,7 @@ class VulnerabilityEdge(NamedTuple):
 
 
 class VulnerabilitiesConnection(NamedTuple):
-    edges: Tuple[VulnerabilityEdge, ...]
+    edges: tuple[VulnerabilityEdge, ...]
     page_info: PageInfo
     total: Optional[int] = None
 
@@ -134,16 +132,16 @@ class VulnerabilityMetadataToUpdate(NamedTuple):
     skims_technique: Optional[str] = None
     developer: Optional[str] = None
     root_id: Optional[str] = None
-    stream: Optional[List[str]] = None
-    tags: Optional[List[str]] = None
+    stream: Optional[list[str]] = None
+    tags: Optional[list[str]] = None
     type: Optional[VulnerabilityType] = None
 
 
 VulnerabilityHistoric = Union[
-    Tuple[VulnerabilityState, ...],
-    Tuple[VulnerabilityTreatment, ...],
-    Tuple[VulnerabilityVerification, ...],
-    Tuple[VulnerabilityZeroRisk, ...],
+    tuple[VulnerabilityState, ...],
+    tuple[VulnerabilityTreatment, ...],
+    tuple[VulnerabilityVerification, ...],
+    tuple[VulnerabilityZeroRisk, ...],
 ]
 
 VulnerabilityHistoricEntry = Union[

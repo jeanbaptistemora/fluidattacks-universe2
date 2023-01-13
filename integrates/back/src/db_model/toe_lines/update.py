@@ -52,7 +52,14 @@ async def update_metadata(
         if isinstance(value, datetime)
         else value
         for key, value in metadata._asdict().items()
-        if value is not None and key not in {"clean_be_present_until", "state"}
+        if value is not None
+        and key
+        not in {
+            "clean_attacked_at",
+            "clean_be_present_until",
+            "clean_first_attack_at",
+            "state",
+        }
     }
     metadata_item["state"] = {
         "modified_by": metadata.state.modified_by,
@@ -60,8 +67,12 @@ async def update_metadata(
         if metadata.state.modified_date
         else None,
     }
+    if metadata.clean_attacked_at:
+        metadata_item["attacked_at"] = None
     if metadata.clean_be_present_until:
         metadata_item["be_present_until"] = None
+    if metadata.clean_first_attack_at:
+        metadata_item["first_attack_at"] = None
 
     condition_expression = Attr(key_structure.partition_key).exists()
     if current_value.state.modified_date is None:

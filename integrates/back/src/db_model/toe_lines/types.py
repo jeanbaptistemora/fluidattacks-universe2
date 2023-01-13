@@ -5,10 +5,8 @@ from dynamodb.types import (
     PageInfo,
 )
 from typing import (
-    List,
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
@@ -56,7 +54,7 @@ class ToeLinesEdge(NamedTuple):
 
 
 class ToeLinesConnection(NamedTuple):
-    edges: Tuple[ToeLinesEdge, ...]
+    edges: tuple[ToeLinesEdge, ...]
     page_info: PageInfo
     total: Optional[int] = None
 
@@ -78,8 +76,10 @@ class ToeLinesMetadataToUpdate(NamedTuple):
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
     sorts_risk_level_date: Optional[datetime] = None
+    sorts_suggestions: Optional[list[SortsSuggestion]] = None
+    clean_attacked_at: bool = False
     clean_be_present_until: bool = False
-    sorts_suggestions: Optional[List[SortsSuggestion]] = None
+    clean_first_attack_at: bool = False
 
 
 class ToeLinesRequest(NamedTuple):

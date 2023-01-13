@@ -18,14 +18,13 @@ from decimal import (
 from typing import (
     NamedTuple,
     Optional,
-    Set,
     Union,
 )
 
 
 class DraftRejection(NamedTuple):
     other: str
-    reasons: Set[DraftRejectionReason]
+    reasons: set[DraftRejectionReason]
     rejected_by: str
     rejection_date: datetime
     submitted_by: str
@@ -47,7 +46,7 @@ class FindingVerification(NamedTuple):
     modified_by: str
     modified_date: datetime
     status: FindingVerificationStatus
-    vulnerability_ids: Optional[Set[str]] = None
+    vulnerability_ids: Optional[set[str]] = None
 
 
 class FindingEvidence(NamedTuple):

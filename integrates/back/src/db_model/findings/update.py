@@ -59,7 +59,6 @@ from enum import (
 import simplejson as json
 from typing import (
     Optional,
-    Tuple,
 )
 
 
@@ -224,7 +223,7 @@ async def update_historic_state(
     *,
     group_name: str,
     finding_id: str,
-    historic_state: Tuple[FindingState, ...],
+    historic_state: tuple[FindingState, ...],
 ) -> None:
     if not historic_state:
         raise EmptyHistoric()
