@@ -25,6 +25,14 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "objs",
         "_utils",
     ),
+    "tap_mandrill.api.export": (
+        "_api_1",
+        "_core",
+    ),
+    "tap_mandrill.api.export._api_1": (
+        ("_activity", "_download", "_get_job"),
+        "_decode",
+    ),
     "tap_mandrill.singer": (
         "activity",
         "core",
@@ -47,7 +55,9 @@ def forbidden_allowlist() -> Dict[FullPathModule, FrozenSet[FullPathModule]]:
         "dateutil": frozenset(["tap_mandrill._utils"]),
         "mailchimp_transactional": frozenset(
             [
-                "tap_mandrill.api.export",
+                "tap_mandrill.api.export._api_1._activity",
+                "tap_mandrill.api.export._api_1._get_job",
+                "tap_mandrill.api.export._api_1",
                 "tap_mandrill.api.client",
                 "tap_mandrill.api._utils",
             ]

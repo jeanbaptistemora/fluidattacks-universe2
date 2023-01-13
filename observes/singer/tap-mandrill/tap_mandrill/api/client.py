@@ -9,6 +9,7 @@ from mailchimp_transactional import (
     Client,
 )
 from tap_mandrill.api.export import (
+    export_api_1,
     ExportApi,
 )
 
@@ -41,4 +42,4 @@ class ApiClient:
         )
 
     def export_api(self) -> ExportApi:
-        return ExportApi(self._inner.client)  # type: ignore[misc]
+        return export_api_1(self._inner.client)  # type: ignore[misc]
