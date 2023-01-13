@@ -860,3 +860,16 @@ def search_pred_until_type(
             return (pred_c[0], last_child)
         return search_pred_until_type(graph, pred_c[0], targets, pred_c[0])
     return "", ""
+
+
+def get_nodes_by_path(
+    graph: Graph, n_id: NId, nodes: List[NId], *label_type_path: str
+) -> List[NId]:
+    if len(label_type_path) == 1:
+        nodes.extend(match_ast_group_d(graph, n_id, label_type_path[0]))
+        return nodes
+    for node in match_ast_group_d(graph, n_id, label_type_path[0]):
+        nodes.extend(
+            get_nodes_by_path(graph, node, nodes, *label_type_path[1:])
+        )
+    return nodes
