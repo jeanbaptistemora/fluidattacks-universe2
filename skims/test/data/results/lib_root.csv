@@ -1,27 +1,27 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F128,lines,namespace/skims/test/data/lib_root/f128/httpOnly.ts,39,1004,skims,128. Insecurely generated cookies - HttpOnly,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_root/f128/httpOnly.ts","
-  29 |         try {
-  30 |           const jwtHelper = new JwtHelperService();
-  31 |           const decondeToken: any = jwtHelper.decodeToken(this.token);
-  32 |           // se valida si el token no ha expirado
-  33 |           if (jwtHelper.isTokenExpired(this.token)) {
-  34 |             throw new Error(""token expirado"");
-  35 |           }
-  36 |           // valida si el cliente viene en el token
-  37 |           if (decondeToken.cliente) {
-  38 |             const cliente: ICliente = JSON.parse(decondeToken.cliente);
-> 39 |             this.cookieService.set(SESSION_OBJECT_ID, this.token);
-  40 |             this.authService.setCurrentUser(cliente);
-  41 |             this.router.navigate(['main'], { replaceUrl: true });
-  42 |           } else {
-  43 |             this.router.navigate(['login'], { replaceUrl: true });
-  44 |           }
-  45 |         } catch (error) {
-  46 |           this.router.navigate(['login'], { replaceUrl: true });
-  47 |         }
-  48 |
-  49 |       });
+F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f128/ts_http_only.ts","
+   2 | import { ActivatedRoute} from '@angular/router';
+   3 | import { CookieService } from 'ngx-cookie-service';
+   4 |
+   5 | export const SESSION_OBJECT_ID: string = 'OficinaSession';
+   6 |
+   7 | export class AsistenciaComponent implements OnInit {
+   8 |   public token: string;
+   9 |
+  10 |   constructor(
+  11 |     private route: ActivatedRoute,
+  12 |     private cookieService: CookieService,
+  13 |   ){}
+  14 |
+  15 |   ngOnInit(): void {
+  16 |     this.route.params.subscribe(params => {
+  17 |       this.token = params.token;
+> 18 |       this.cookieService.set(SESSION_OBJECT_ID, this.token);
+  19 |     });
+  20 |   }
+  21 |
+  22 | }
      ^ Col 0
 ",typescript.typescript_insecure_cookie
 F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
@@ -2135,6 +2135,30 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,10,31
   15 | }
      ^ Col 0
 ",c_sharp.c_sharp_rsa_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+> 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,"
    1 | import com.ibm.mq.*;
    2 | import com.ibm.mq.jmqi.JmqiUtils;
@@ -2802,7 +2826,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_hash.js,8,310,ski
   20 | export default router;
      ^ Col 0
 ",javascript.javascript_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
    5 | import java.security.spec.ECGenParameterSpec
    6 | import java.security.spec.RSAKeyGenParameterSpec
    7 | import javax.crypto.Cipher
@@ -2826,7 +2850,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,15,310,skims,052. I
   25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
    6 | import java.security.spec.RSAKeyGenParameterSpec
    7 | import javax.crypto.Cipher
    8 | import javax.crypto.NoSuchPaddingException
@@ -2850,7 +2874,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,16,310,skims,052. I
   26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
    7 | import javax.crypto.Cipher
    8 | import javax.crypto.NoSuchPaddingException
    9 |
@@ -2874,7 +2898,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,17,310,skims,052. I
   27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
    8 | import javax.crypto.NoSuchPaddingException
    9 |
   10 | class test {
@@ -2898,7 +2922,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,18,310,skims,052. I
   28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   10 | class test {
   11 |     fun main(args: Array<String>) {
   12 |         try {
@@ -2922,7 +2946,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,20,310,skims,052. I
   30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   11 |     fun main(args: Array<String>) {
   12 |         try {
   13 |             val c1 = Cipher.getInstance(""AES"")
@@ -2946,7 +2970,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,21,310,skims,052. I
   31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   12 |         try {
   13 |             val c1 = Cipher.getInstance(""AES"")
   14 |             val cipher_ins = ""DES""
@@ -2970,7 +2994,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,22,310,skims,052. I
   32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   13 |             val c1 = Cipher.getInstance(""AES"")
   14 |             val cipher_ins = ""DES""
   15 |             val c2 = Cipher.getInstance(cipher_ins)
@@ -2994,7 +3018,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,23,310,skims,052. I
   33 |
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   14 |             val cipher_ins = ""DES""
   15 |             val c2 = Cipher.getInstance(cipher_ins)
   16 |             val c3 = Cipher.getInstance(""DESede"")
@@ -3018,7 +3042,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,24,310,skims,052. I
   34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   15 |             val c2 = Cipher.getInstance(cipher_ins)
   16 |             val c3 = Cipher.getInstance(""DESede"")
   17 |             val c4 = Cipher.getInstance(""RSA"")
@@ -3042,7 +3066,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,25,310,skims,052. I
   35 |             val key = 2047
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   16 |             val c3 = Cipher.getInstance(""DESede"")
   17 |             val c4 = Cipher.getInstance(""RSA"")
   18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
@@ -3066,7 +3090,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,26,310,skims,052. I
   36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   17 |             val c4 = Cipher.getInstance(""RSA"")
   18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
   19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
@@ -3090,7 +3114,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,27,310,skims,052. I
   37 |             val k3 = ECGenParameterSpec(""secp521r1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
   19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
   20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
@@ -3114,7 +3138,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,28,310,skims,052. I
   38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,29,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,29,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
   20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
   21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
@@ -3138,7 +3162,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,29,310,skims,052. I
   39 |
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,30,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,30,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
   21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
   22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
@@ -3162,7 +3186,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,30,310,skims,052. I
   40 |             val spec1: ConnectionSpec = (
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,41,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,41,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
   32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
   33 |
@@ -3186,30 +3210,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,41,310,skims,052. I
   51 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
      ^ Col 0
 ",kotlin.kotlin_insecure_cipher
-F052,lines,namespace/skims/test/data/lib_root/f052/test.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/test.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
-   8 |  ""crypto/sha1""
-   9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-> 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
-     ^ Col 0
-",go.go_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,"
    1 | import crypto from 'crypto';
    2 |
@@ -3506,6 +3506,102 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,9,31
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+> 17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,16,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+> 16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,15,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+> 15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+> 14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
   16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
@@ -3746,7 +3842,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,5,310
   9 | sha1.arrayBuffer('');
     ^ Col 0
 ",javascript.javascript_insecure_hash_library
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,51,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,51,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   37 |     val k3 = ECGenParameterSpec(""secp521r1"")
   38 |     val k4 = ECGenParameterSpec(""c2pnb208w1"")
   39 |
@@ -3770,102 +3866,6 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,51,310,skims,052. I
   57 |
      ^ Col 8
 ",kotlin.kotlin_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/test.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
-   8 |  ""crypto/sha1""
-   9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-> 17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
-     ^ Col 0
-",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/test.go,16,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
-   8 |  ""crypto/sha1""
-   9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-> 16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
-     ^ Col 0
-",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/test.go,15,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
-   8 |  ""crypto/sha1""
-   9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-> 15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
-     ^ Col 0
-",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/test.go,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/test.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
-   8 |  ""crypto/sha1""
-   9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-> 14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
-     ^ Col 0
-",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   24 |
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
@@ -4000,7 +4000,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,20
   30 | router.get(""/test130"", test);
      ^ Col 0
 ",javascript.javascript_insecure_rsa_keypair
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
   27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
   28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
@@ -4024,7 +4024,7 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,36,310,skims,052. I
   46 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
      ^ Col 0
 ",kotlin.kotlin_insecure_key
-F052,lines,namespace/skims/test/data/lib_root/f052/kotlin.kt,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin.kt,"
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
   28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
   29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
   30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
@@ -7224,7 +7224,7 @@ F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,
   12 | }
      ^ Col 0
 ",typescript.typescript_crypto_ts_credentials
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lack of data validation - Type confusion,Lack of data validation - Type confusion in namespace/skims/test/data/lib_root/f127/test.go,"
+F127,lines,namespace/skims/test/data/lib_root/f127/go_query_float.go,11,843,skims,127. Lack of data validation - Type confusion,Lack of data validation - Type confusion in namespace/skims/test/data/lib_root/f127/go_query_float.go,"
    1 | package f127
    2 |
    3 | import (
@@ -7248,7 +7248,7 @@ F127,lines,namespace/skims/test/data/lib_root/f127/test.go,11,843,skims,127. Lac
   21 |  if math.IsNaN(amount) || math.IsInf(amount, 0) {
      ^ Col 0
 ",go.go_insecure_query_float
-F127,lines,namespace/skims/test/data/lib_root/f127/test.go,16,843,skims,127. Lack of data validation - Type confusion,Lack of data validation - Type confusion in namespace/skims/test/data/lib_root/f127/test.go,"
+F127,lines,namespace/skims/test/data/lib_root/f127/go_query_float.go,16,843,skims,127. Lack of data validation - Type confusion,Lack of data validation - Type confusion in namespace/skims/test/data/lib_root/f127/go_query_float.go,"
    5 |  ""math""
    6 |  ""strconv""
    7 | )
