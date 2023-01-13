@@ -1,6 +1,6 @@
 import { ErrorMessage, useField } from "formik";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import type { CountryData } from "react-phone-input-2";
 
 import type { IPhoneData, IPhoneNumberProps } from "./types";
@@ -17,21 +17,24 @@ export const FormikPhone: React.FC<IPhoneNumberProps> = (
     field;
   const [, , helpers] = useField(name);
 
-  function onPhoneChange(
-    currentNumber: string,
-    countryData: CountryData,
-    _event: React.ChangeEvent<HTMLInputElement>,
-    _formattedValue: string
-  ): void {
-    const info = {
-      callingCountryCode: countryData.dialCode,
-      countryCode: countryData.countryCode,
-      nationalNumber: currentNumber.substring(
-        _.isUndefined(countryData.dialCode) ? 0 : countryData.dialCode.length
-      ),
-    };
-    helpers.setValue(info);
-  }
+  const onPhoneChange = useCallback(
+    (
+      currentNumber: string,
+      countryData: CountryData,
+      _event: React.ChangeEvent<HTMLInputElement>,
+      _formattedValue: string
+    ): void => {
+      const info = {
+        callingCountryCode: countryData.dialCode,
+        countryCode: countryData.countryCode,
+        nationalNumber: currentNumber.substring(
+          _.isUndefined(countryData.dialCode) ? 0 : countryData.dialCode.length
+        ),
+      };
+      helpers.setValue(info);
+    },
+    [helpers]
+  );
 
   return (
     <React.Fragment>

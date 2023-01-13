@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Modal, ModalConfirm } from "components/Modal";
@@ -39,13 +39,13 @@ const ConfirmDialog: React.FC<IConfirmDialogProps> = ({
     setCancelCallback((): (() => void) => cancelFn);
   };
 
-  function handleClose(): void {
+  const handleClose = useCallback((): void => {
     cancelCallback();
-  }
+  }, [cancelCallback]);
 
-  function handleProceed(): void {
+  const handleProceed = useCallback((): void => {
     confirmCallback();
-  }
+  }, [confirmCallback]);
 
   return (
     <React.Fragment>
