@@ -1,7 +1,3 @@
-from .._api_key import (
-    ApiKey,
-    KeyAccess,
-)
 from .._core import (
     ApiPath,
     EPOCH,
@@ -25,6 +21,10 @@ from mailchimp_transactional import (
 import requests
 from tap_mandrill._utils import (
     ErrorAtInput,
+)
+from tap_mandrill.api._api_key import (
+    ApiKey,
+    KeyAccess,
 )
 from tap_mandrill.api._utils import (
     handle_api_error,

@@ -20,14 +20,13 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         ("_logger", "_files", "_utils"),
     ),
     "tap_mandrill.api": (
-        "client",
         "export",
-        "objs",
+        ("_api_key", "objs"),
         "_utils",
     ),
     "tap_mandrill.api.export": (
         "_api_1",
-        ("_core", "_api_key"),
+        "_core",
     ),
     "tap_mandrill.api.export._api_1": (
         ("_activity", "_download", "_get_job"),
@@ -58,7 +57,6 @@ def forbidden_allowlist() -> Dict[FullPathModule, FrozenSet[FullPathModule]]:
                 "tap_mandrill.api.export._api_1._activity",
                 "tap_mandrill.api.export._api_1._get_job",
                 "tap_mandrill.api.export._api_1",
-                "tap_mandrill.api.client",
                 "tap_mandrill.api._utils",
             ]
         ),

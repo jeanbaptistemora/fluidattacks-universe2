@@ -8,7 +8,7 @@ from fa_singer_io.singer.emitter import (
     emit,
 )
 import sys
-from tap_mandrill.api.client import (
+from tap_mandrill.api import (
     ApiClient,
 )
 from tap_mandrill.singer.activity import (

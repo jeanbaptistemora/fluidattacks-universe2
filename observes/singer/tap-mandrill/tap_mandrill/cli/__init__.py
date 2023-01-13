@@ -2,7 +2,7 @@ from . import (
     _streams,
 )
 import click
-from tap_mandrill.api.client import (
+from tap_mandrill.api import (
     ApiClient,
     ApiKey,
 )
@@ -25,8 +25,8 @@ from typing import (
     required=True,
 )
 def stream_cli(api_key: str, stream: str) -> NoReturn:
-    key = ApiKey(api_key)
-    client = ApiClient.new(key)
+    key = ApiKey.protect(api_key)
+    client = ApiClient(key)
     _streams.emit_stream(client, DataStreams(stream)).compute()
 
 

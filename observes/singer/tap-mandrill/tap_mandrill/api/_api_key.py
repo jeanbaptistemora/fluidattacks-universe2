@@ -20,7 +20,7 @@ _T = TypeVar("_T")
 class KeyAccess:
     # [WARNING] This type constructor should be only
     # available to client modules that need the raw key
-    # DO NOT export the type (i.e. at export module)
+    # DO NOT export the type (i.e. at api module)
     pass
 
 
@@ -39,3 +39,6 @@ class ApiKey:
     @staticmethod
     def protect(raw: str) -> ApiKey:
         return ApiKey(_Patch(lambda _: raw))
+
+    def __repr__(self) -> str:
+        return "[masked-api-key]"
