@@ -64,11 +64,11 @@ async def mutate(
     user_email = user_info["user_email"]
 
     try:
-        business_id = parameters.get("business_id", None)
-        business_name = parameters.get("business_name", None)
-        sprint_duration = parameters.get("sprint_duration", None)
+        business_id = parameters.get("business_id")
+        business_name = parameters.get("business_name")
+        sprint_duration = parameters.get("sprint_duration")
         sprint_start_date: Optional[datetime] = parameters.get(
-            "sprint_start_date", None
+            "sprint_start_date"
         )
         description = description.strip()
         if not description:

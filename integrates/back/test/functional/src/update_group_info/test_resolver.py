@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.groups.enums import (
     GroupLanguage,
 )
@@ -55,8 +58,12 @@ async def test_update_group_info(
 
     loaders: Dataloaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
+    assert group.business_id == business_id
+    assert group.business_name == business_name
     assert group.description == description
     assert group.language == GroupLanguage[language]
+    assert group.sprint_duration == 2
+    assert group.sprint_start_date == datetime.fromisoformat(sprint_start_date)
 
 
 @pytest.mark.asyncio

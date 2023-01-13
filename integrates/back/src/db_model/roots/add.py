@@ -168,8 +168,8 @@ async def add_root_environment_secret(
         "key": secret.key,
         "value": secret.value,
         "description": secret.description,
-        "created_at": secret.created_at.isoformat()
-        if secret.created_at is not None
+        "created_at": get_as_utc_iso_format(secret.created_at)
+        if secret.created_at
         else None,
     }
     with suppress(botocore.exceptions.ClientError):
@@ -192,8 +192,8 @@ async def add_root_environment_url(
         key_structure.partition_key: url_key.partition_key,
         key_structure.sort_key: url_key.sort_key,
         "url": url.url,
-        "created_at": url.created_at.isoformat()
-        if url.created_at is not None
+        "created_at": get_as_utc_iso_format(url.created_at)
+        if url.created_at
         else None,
         "type": url.url_type.value,
         "cloud_name": url.cloud_name.value if url.cloud_name else None,

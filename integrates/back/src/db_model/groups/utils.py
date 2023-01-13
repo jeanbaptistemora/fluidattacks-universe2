@@ -276,13 +276,16 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
         else None,
         "language": metadata.language.value if metadata.language else None,
     }
-    if metadata.clean_sprint_start_date:
-        item["sprint_start_date"] = ""
-    return {
+    item = {
         key: None if not value else value
         for key, value in item.items()
         if value is not None
     }
+
+    if metadata.clean_sprint_start_date:
+        item["sprint_start_date"] = None
+
+    return item
 
 
 def format_state_managed(managed: Union[bool, str]) -> GroupManaged:
