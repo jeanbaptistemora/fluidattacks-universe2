@@ -12,7 +12,8 @@ description: phpwcms 1.9.34    -    CORS leads to Account Takeover
 keywords: Fluid Attacks, Security, Vulnerabilities, Phpwcms, CORS
 banner: advisories-bg
 advise: yes
-template: advisory
+template: maskedAdvisory
+encrypted: yes
 ---
 
 ## Summary
@@ -50,7 +51,7 @@ is vulnerable to CORS.
 The application allows an administrator to view the information
 available on the phpinfo page.
 
-![phpinfo-admin](https://user-images.githubusercontent.com/51862990/212195529-e49a0132-e0b8-4ee7-82ff-868f401d4230.png)
+![phpinfo-admin](https://user-images.githubusercontent.com/51862990/212206747-a60ce362-4451-45ef-b3bf-0c46eb20d2b2.png)
 
 ![phpinfo-page](https://user-images.githubusercontent.com/51862990/212196963-79f14938-45eb-4f18-838c-8d63ee67f365.png)
 
@@ -102,6 +103,8 @@ the phpinfo page to our malicious server.
 
 ![steal-session-cookie](https://user-images.githubusercontent.com/51862990/212198509-08150e9d-e234-41f6-8976-f311458410f5.png)
 
+![account-takeover-success](https://user-images.githubusercontent.com/51862990/212206133-dc21429e-cd1f-4cc1-a838-f751c42059ef.png)
+
 ## Our security policy
 
 We have reserved the CVE-2023-0265 to refer to this issue from now on.
@@ -116,7 +119,7 @@ We have reserved the CVE-2023-0265 to refer to this issue from now on.
 
 ## Mitigation
 
-An updated version of phpwcms is available at the vendor page.
+There is currently no patch available for this vulnerability.
 
 ## Credits
 
