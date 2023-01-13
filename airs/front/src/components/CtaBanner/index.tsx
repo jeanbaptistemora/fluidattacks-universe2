@@ -17,6 +17,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   button2Text,
   image,
   matomoAction,
+  maxWidth,
   paragraph,
   pv = 5,
   size = "big",
@@ -61,7 +62,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         center={true}
         display={"flex"}
         justify={"center"}
-        maxWidth={"1440px"}
+        maxWidth={maxWidth === undefined ? "1440px" : maxWidth}
         ph={4}
         pv={pv}
         shadow={true}
@@ -129,7 +130,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         bgColor={variants[variant].bgColor}
         br={4}
         center={true}
-        maxWidth={"1440px"}
+        maxWidth={maxWidth === undefined ? "1440px" : maxWidth}
         ph={4}
         pv={pv}
         shadow={true}
@@ -183,7 +184,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         center={true}
         display={"flex"}
         justify={"center"}
-        maxWidth={"1440px"}
+        maxWidth={maxWidth === undefined ? "1440px" : maxWidth}
         ph={4}
         pv={pv}
         shadow={true}
@@ -234,7 +235,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
       center={true}
       display={"flex"}
       justify={"center"}
-      maxWidth={"1440px"}
+      maxWidth={maxWidth === undefined ? "1440px" : maxWidth}
       ph={4}
       pv={pv}
       shadow={true}

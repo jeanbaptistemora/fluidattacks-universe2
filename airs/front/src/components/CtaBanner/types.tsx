@@ -16,6 +16,7 @@ interface ICtaBannerProps {
   button2Text?: string;
   textSize?: TSize;
   title: string;
+  maxWidth?: string;
   paragraph?: string;
   pv?: Nums0To7;
   image?: string;
