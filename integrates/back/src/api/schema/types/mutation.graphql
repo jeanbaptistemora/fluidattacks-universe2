@@ -1289,39 +1289,6 @@ type Mutation {
     taxId: Upload
   ): SimplePayload!
 
-  "Update a payment method from an organization"
-  updatePaymentMethod(
-    "Identifier of the Organization"
-    organizationId: String!
-    "Identifier of the Payment Method"
-    paymentMethodId: String!
-    "Card expiration month"
-    cardExpirationMonth: String!
-    "Card expiration year"
-    cardExpirationYear: String!
-    "Select card as default"
-    makeDefault: Boolean!
-    "Business name of payment method"
-    businessName: String!
-    "e-factura email"
-    email: String!
-    "Country of payment method business"
-    country: String!
-    "State of payment method business"
-    state: String!
-    "City of payment method business"
-    city: String!
-    "Rut document file in gif, jpg, pdf or zip"
-    rut: Upload
-    "TaxId document file in gif, jpg, pdf or zip"
-    taxId: Upload
-  ): SimplePayload!
-    @deprecated(
-          reason: """
-          This field will be removed after 2023/01/13.
-          """
-        )
-
   "Updates the Root cloning status"
   updateRootCloningStatus(
     "Name of the group the root is associated with"

@@ -609,7 +609,7 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
                   {t("organization.tabs.billing.paymentMethods.add.button")}
                 </Button>
               </Can>
-              <Can do={"api_mutations_update_payment_method_mutate"}>
+              <Can do={"api_mutations_update_other_payment_method_mutate"}>
                 <Button
                   disabled={
                     _.isEmpty(currentOtherMethodRow) ||
