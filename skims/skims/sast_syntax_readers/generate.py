@@ -79,6 +79,14 @@ def read_from_graph(
 ) -> graph_model.GraphSyntax:
     graph_syntax: graph_model.GraphSyntax = {}
 
+    if language in {
+        graph_model.GraphShardMetadataLanguage.DART,
+        graph_model.GraphShardMetadataLanguage.GO,
+        graph_model.GraphShardMetadataLanguage.KOTLIN,
+        graph_model.GraphShardMetadataLanguage.TYPESCRIPT,
+    }:
+        return graph_syntax
+
     # Read the syntax of every node in the graph, if possible
     for n_id in graph.nodes:
         if n_id not in graph_syntax and g.is_connected_to_cfg(graph, n_id):

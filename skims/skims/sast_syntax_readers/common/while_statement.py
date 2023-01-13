@@ -12,15 +12,8 @@ from typing import (
 
 
 def reader(args: SyntaxReaderArgs) -> Iterator[SyntaxStep]:
-    node_attrs = args.graph.nodes[args.n_id]
-
     yield SyntaxStepLoop(
         meta=SyntaxStepMeta.default(
             args.n_id,
-            [
-                args.generic(
-                    args.fork_n_id(node_attrs["label_field_condition"])
-                )
-            ],
         ),
     )

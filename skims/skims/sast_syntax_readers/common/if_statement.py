@@ -10,7 +10,6 @@ from utils import (
 
 
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
-    condition_id = args.graph.nodes[args.n_id]["label_field_condition"]
     n_id_true = args.graph.nodes[args.n_id]["label_field_consequence"]
     n_id_false = args.graph.nodes[args.n_id].get("label_field_alternative")
 
@@ -23,9 +22,6 @@ def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     yield graph_model.SyntaxStepIf(
         meta=graph_model.SyntaxStepMeta.default(
             n_id=args.n_id,
-            dependencies=[
-                args.generic(args.fork_n_id(condition_id)),
-            ],
         ),
         n_id_false=n_id_false,
         n_id_true=n_id_true,

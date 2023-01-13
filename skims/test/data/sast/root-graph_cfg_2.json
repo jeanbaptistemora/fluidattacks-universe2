@@ -19042,27 +19042,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1025",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1023",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Inside the while loop, counting: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1022",
               "value": null
             },
@@ -19122,27 +19101,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1040",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "4",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1038",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1037",
               "value": null
             },
@@ -19210,27 +19168,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1059",
-              "value": null
-            },
-            "symbol": "j",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1057",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "number :",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1056",
               "value": null
             },
@@ -19308,27 +19245,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1087",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1085",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1084",
               "value": null
             },
@@ -19372,27 +19288,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1105",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1103",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Printing using for loop. Count is: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1102",
               "value": null
             },
@@ -19523,27 +19418,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1143",
-              "value": null
-            },
-            "symbol": "person",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1141",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Hi, I am ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1140",
               "value": null
             },
@@ -19680,16 +19554,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1162",
-              "value": null
-            },
-            "symbol": "age",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1160",
               "value": null
             },
@@ -19761,27 +19625,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1239",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1237",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1236",
               "value": null
             },
@@ -19814,27 +19657,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1254",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1252",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1251",
               "value": null
             },
@@ -19954,27 +19776,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1282",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1280",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Printing using for loop. Count is: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1279",
               "value": null
             },
@@ -20027,46 +19828,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1300",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1298",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1297",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1295",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1293",
               "value": null
             },
@@ -20089,27 +19850,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1311",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1309",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1308",
               "value": null
             },
@@ -20204,27 +19944,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1339",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1337",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Inside the while loop, counting: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1336",
               "value": null
             },
@@ -20431,26 +20150,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1389",
-              "value": null
-            },
-            "symbol": "nums.length",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1387",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1386",
               "value": null
             },
@@ -20521,67 +20220,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1411",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "0",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1409",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "2",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1404",
-              "value": null
-            },
-            "symbol": "nums",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1406",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1403",
-              "value": null
-            },
-            "type": "SyntaxStepArrayAccess"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1402",
-              "value": null
-            },
-            "operator": "%",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1401",
               "value": null
             },
@@ -20638,46 +20276,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1433",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": " is even",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1428",
-              "value": null
-            },
-            "symbol": "nums",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1430",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1427",
-              "value": null
-            },
-            "type": "SyntaxStepArrayAccess"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1426",
               "value": null
             },
@@ -20948,26 +20546,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1498",
-              "value": null
-            },
-            "symbol": "nums.length",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1496",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1495",
               "value": null
             },
@@ -21051,26 +20629,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1519",
-              "value": null
-            },
-            "symbol": "nums[i].length",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1517",
-              "value": null
-            },
-            "symbol": "j",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1516",
               "value": null
             },
@@ -21103,64 +20661,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1542",
-              "value": null
-            },
-            "symbol": "search",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1534",
-              "value": null
-            },
-            "symbol": "nums",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1536",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1533",
-              "value": null
-            },
-            "type": "SyntaxStepArrayAccess"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1539",
-              "value": null
-            },
-            "symbol": "j",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1532",
-              "value": null
-            },
-            "type": "SyntaxStepArrayAccess"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1531",
               "value": null
             },
@@ -21206,109 +20706,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1568",
-              "value": null
-            },
-            "symbol": "j",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1566",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": ",",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1564",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1562",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": " at position ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1560",
-              "value": null
-            },
-            "symbol": "search",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1558",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Found ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1557",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1556",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1555",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1554",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "1553",
               "value": null
             },
@@ -21994,27 +21391,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "257",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "255",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "254",
               "value": null
             },
@@ -22058,27 +21434,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "275",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "273",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Car number :",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "272",
               "value": null
             },
@@ -22289,46 +21644,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "326",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "324",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "323",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "321",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "319",
               "value": null
             },
@@ -22362,27 +21677,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "340",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "338",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Truck number: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "337",
               "value": null
             },
@@ -22455,27 +21749,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "361",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "359",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "358",
               "value": null
             },
@@ -22519,68 +21792,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "385",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "383",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": ", ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "381",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "379",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Truck Number: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "378",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "377",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "376",
               "value": null
             },
@@ -22633,48 +21844,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "398",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "0",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "396",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "2",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "394",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "393",
-              "value": null
-            },
-            "operator": "%",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "392",
               "value": null
             },
@@ -22753,68 +21922,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "429",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "427",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": ", ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "425",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "423",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Truck Number: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "422",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "421",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "420",
               "value": null
             },
@@ -22841,27 +21948,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "440",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "4",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "438",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "437",
               "value": null
             },
@@ -23351,16 +22437,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "535",
-              "value": null
-            },
-            "symbol": "age",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "533",
               "value": null
             },
@@ -23548,16 +22624,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "690",
-              "value": null
-            },
-            "symbol": "age",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "688",
               "value": null
             },
@@ -23748,16 +22814,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "773",
-              "value": null
-            },
-            "symbol": "age",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "771",
               "value": null
             },
@@ -23817,46 +22873,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "865",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "863",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "862",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "860",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "858",
               "value": null
             },
@@ -23901,27 +22917,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "879",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "877",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Inside the while loop, counting: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "876",
               "value": null
             },
@@ -23948,31 +22943,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "101",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Error",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "93",
-              "value": null
-            },
-            "method": "e.toString",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "92",
               "value": null
             },
@@ -24066,27 +23036,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "909",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "907",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Inside the while loop, counting: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "906",
               "value": null
             },
@@ -24159,27 +23108,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "930",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "928",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "927",
               "value": null
             },
@@ -24223,27 +23151,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "948",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "946",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "number :",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "945",
               "value": null
             },
@@ -24294,27 +23201,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "964",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "962",
-              "value": null
-            },
-            "symbol": "j",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "961",
               "value": null
             },
@@ -24373,46 +23259,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "986",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "984",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "983",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "981",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "979",
               "value": null
             },
@@ -24435,27 +23281,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "997",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "995",
-              "value": null
-            },
-            "symbol": "counter",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "994",
               "value": null
             },
@@ -52089,46 +50914,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1107",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1105",
-              "value": null
-            },
-            "symbol": "n",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1104",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1102",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1100",
               "value": null
             },
@@ -52932,74 +51717,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "1661",
-              "value": null
-            },
-            "symbol": "service",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1663",
-              "value": null
-            },
-            "symbol": "ourService",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1660",
-              "value": null
-            },
-            "type": "SyntaxStepSubscriptExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "1658",
-              "value": null
-            },
-            "symbol": "key",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "1657",
-              "value": null
-            },
-            "operator": "in",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1655",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "1653",
-              "value": null
-            },
-            "operator": "!",
-            "type": "SyntaxStepUnaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "1651",
               "value": null
             },
@@ -53168,17 +51885,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "243",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "true",
-            "value_type": "boolean"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "241",
               "value": null
             },
@@ -53301,46 +52007,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "301",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "6",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "299",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "298",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "296",
-              "value": null
-            },
-            "type": "SyntaxStepParenthesizedExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "294",
               "value": null
             },
@@ -53378,37 +52044,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "312",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "310",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "309",
-              "value": null
-            },
-            "operator": "===",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "307",
               "value": null
             },
@@ -53442,27 +52077,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "327",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "1",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "325",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "324",
               "value": null
             },
@@ -53865,68 +52479,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "494",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "492",
-              "value": null
-            },
-            "symbol": "k",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "491",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "489",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "0",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "487",
-              "value": null
-            },
-            "symbol": "k",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "486",
-              "value": null
-            },
-            "operator": ">",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "485",
               "value": null
             },
@@ -54005,27 +52557,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "479",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": " ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "477",
-              "value": null
-            },
-            "symbol": "k",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "476",
               "value": null
             },
@@ -54474,30 +53005,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "776",
-              "value": null
-            },
-            "symbol": "prop",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "769",
-              "value": null
-            },
-            "method": "obj.hasOwnProperty",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "767",
               "value": null
             },
@@ -54910,17 +53417,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "938",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "5",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "936",
               "value": null
             },
@@ -55107,16 +53603,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "955",
-              "value": null
-            },
-            "symbol": "expr",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "953",
               "value": null
             },

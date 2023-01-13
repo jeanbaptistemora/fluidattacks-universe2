@@ -4819,7 +4819,6 @@
             "label_field_arguments": "382",
             "label_field_type": "381",
             "label_l": 71,
-            "label_sink_type": "F063",
             "label_type": "object_creation_expression"
           },
           "38": {
@@ -4857,7 +4856,6 @@
             "label_field_arguments": "387",
             "label_field_type": "386",
             "label_l": 71,
-            "label_sink_type": "F063",
             "label_type": "object_creation_expression"
           },
           "385": {
@@ -6597,28 +6595,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "122",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "3",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "120",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "60",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "119",
               "value": null
             },
@@ -6732,35 +6708,9 @@
         ],
         "153": [
           {
-            "current_instance": {
-              "fields": {}
-            },
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "166",
-              "value": null
-            },
-            "method": "request.getRequestURL",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": null,
-            "expression": null,
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "165",
-              "value": null
-            },
-            "method": ".toString",
-            "type": "SyntaxStepMethodInvocationChain"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "160",
               "value": null
             },
@@ -7055,27 +7005,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "286",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "284",
-              "value": null
-            },
-            "symbol": "theCookies",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "283",
               "value": null
             },
@@ -7366,26 +7295,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "373",
-              "value": null
-            },
-            "symbol": "param",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "371",
-              "value": null
-            },
-            "symbol": "org.owasp.benchmark.helpers.Utils.testfileDir",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "370",
               "value": null
             },
@@ -7420,26 +7329,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "389",
-              "value": null
-            },
-            "symbol": "fileName",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "384",
-              "value": null
-            },
-            "object_type": "java.io.File",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "379",
               "value": null
             },
@@ -7549,154 +7438,9 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
-            "current_instance": {
-              "fields": {}
-            },
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "456",
-              "value": null
-            },
-            "method": "org.owasp.esapi.ESAPI.encoder",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "472",
-              "value": null
-            },
-            "symbol": "b",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "474",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "0",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "476",
-              "value": null
-            },
-            "symbol": "size",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -3,
-              "n_id": "467",
-              "value": null
-            },
-            "object_type": "String",
-            "type": "SyntaxStepObjectInstantiation"
-          },
-          {
-            "current_instance": null,
-            "expression": null,
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "455",
-              "value": null
-            },
-            "method": ".encodeForHTML",
-            "type": "SyntaxStepMethodInvocationChain"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "453",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "' is:\\n\\n",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "439",
-              "value": null
-            },
-            "method": "org.owasp.esapi.ESAPI.encoder",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "450",
-              "value": null
-            },
-            "symbol": "fileName",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "current_instance": null,
-            "expression": null,
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "438",
-              "value": null
-            },
-            "method": ".encodeForHTML",
-            "type": "SyntaxStepMethodInvocationChain"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "436",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "The beginning of file: '",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "435",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "434",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "433",
               "value": null
             },
@@ -7756,48 +7500,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "505",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "'",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "503",
-              "value": null
-            },
-            "symbol": "fileName",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "501",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Couldn't open FileInputStream on file: '",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "500",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "499",
               "value": null
             },
@@ -7846,60 +7548,9 @@
             "type": "SyntaxStepMethodInvocation"
           },
           {
-            "current_instance": {
-              "fields": {}
-            },
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "525",
-              "value": null
-            },
-            "method": "org.owasp.esapi.ESAPI.encoder",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "536",
-              "value": null
-            },
-            "method": "e.getMessage",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": null,
-            "expression": null,
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "524",
-              "value": null
-            },
-            "method": ".encodeForHTML",
-            "type": "SyntaxStepMethodInvocationChain"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "522",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Problem getting FileInputStream: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "521",
               "value": null
             },
@@ -7946,27 +7597,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "558",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "556",
-              "value": null
-            },
-            "symbol": "fis",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "555",
               "value": null
             },
@@ -8186,28 +7816,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "107",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "BenchmarkTest00001",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "109",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "FileName",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "102",
               "value": null
             },
@@ -13817,42 +13425,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "155",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "152",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "BenchmarkTest00008",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "146",
-              "value": null
-            },
-            "method": "request.getHeader",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "145",
               "value": null
             },
@@ -13995,48 +13567,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "200",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "}",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "198",
-              "value": null
-            },
-            "symbol": "param",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "196",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "{call ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "195",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "194",
               "value": null
             },
@@ -14346,15 +13876,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "297",
-              "value": null
-            },
-            "type": "SyntaxStepNoOp"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "295",
               "value": null
             },
@@ -19688,7 +19209,6 @@
             "label_c": 12,
             "label_field_arguments": "248",
             "label_field_type": "247",
-            "label_input_type": "F034",
             "label_l": 59,
             "label_type": "object_creation_expression"
           },
@@ -22809,42 +22329,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "154",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "151",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "BenchmarkTest00167",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "145",
-              "value": null
-            },
-            "method": "request.getHeader",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "144",
               "value": null
             },
@@ -23013,27 +22497,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "202",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "200",
-              "value": null
-            },
-            "symbol": "param",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "199",
               "value": null
             },
@@ -23076,51 +22539,9 @@
         ],
         "207": [
           {
-            "current_instance": {
-              "fields": {}
-            },
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "227",
-              "value": null
-            },
-            "method": "param.getBytes",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "221",
-              "value": null
-            },
-            "method": "org.apache.commons.codec.binary.Base64.encodeBase64",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "215",
-              "value": null
-            },
-            "method": "org.apache.commons.codec.binary.Base64.decodeBase64",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
               "n_id": "210",
               "value": null
             },
@@ -23294,75 +22715,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "322",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "BenchmarkTest",
-            "value_type": "string"
-          },
-          {
-            "current_instance": null,
-            "expression": null,
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "321",
-              "value": null
-            },
-            "method": ".length",
-            "type": "SyntaxStepMethodInvocationChain"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "319",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "1",
-            "value_type": "number"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "316",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": ".",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "310",
-              "value": null
-            },
-            "method": "fullClassName.lastIndexOf",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "309",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "308",
               "value": null
             },
@@ -23436,27 +22788,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "344",
-              "value": null
-            },
-            "symbol": "testCaseNumber",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "342",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "rememberMe",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "341",
               "value": null
             },
@@ -23537,27 +22868,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "373",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "null",
-            "value_type": "null"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "371",
-              "value": null
-            },
-            "symbol": "cookies",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "370",
               "value": null
             },
@@ -23616,56 +22926,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "395",
-              "value": null
-            },
-            "symbol": "cookies.length",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "393",
-              "value": null
-            },
-            "symbol": "i",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "392",
-              "value": null
-            },
-            "operator": "<",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "390",
-              "value": null
-            },
-            "symbol": "foundUser",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -1,
-              "n_id": "388",
-              "value": null
-            },
-            "operator": "!",
-            "type": "SyntaxStepUnaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "387",
               "value": null
             },
@@ -23974,48 +23234,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "506",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "<br/>",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "504",
-              "value": null
-            },
-            "symbol": "user",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "502",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "Welcome back: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "501",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "500",
               "value": null
             },
@@ -24051,26 +23269,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "523",
-              "value": null
-            },
-            "symbol": "cookieName",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "525",
-              "value": null
-            },
-            "symbol": "rememberMeKey",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "518",
               "value": null
             },
@@ -24334,117 +23532,6 @@
             "meta": {
               "danger": false,
               "dependencies": 0,
-              "n_id": "634",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": "<br/>",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "626",
-              "value": null
-            },
-            "method": "rememberMe.getValue",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "624",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": " whose value is: ",
-            "value_type": "string"
-          },
-          {
-            "current_instance": {
-              "fields": {}
-            },
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "616",
-              "value": null
-            },
-            "method": "rememberMe.getName",
-            "return_type": null,
-            "type": "SyntaxStepMethodInvocation"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "614",
-              "value": null
-            },
-            "type": "SyntaxStepLiteral",
-            "value": " has been remembered with cookie: ",
-            "value_type": "string"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": 0,
-              "n_id": "612",
-              "value": null
-            },
-            "symbol": "user",
-            "type": "SyntaxStepSymbolLookup"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "611",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "610",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "609",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
-              "n_id": "608",
-              "value": null
-            },
-            "operator": "+",
-            "type": "SyntaxStepBinaryExpression"
-          },
-          {
-            "meta": {
-              "danger": false,
-              "dependencies": -2,
               "n_id": "607",
               "value": null
             },

@@ -13,13 +13,10 @@ from utils import (
 def reader(args: SyntaxReaderArgs) -> graph_model.SyntaxStepsLazy:
     match = g.match_ast(args.graph, args.n_id, "(", "__0__", ")", "__1__")
 
-    if (cast_type_id := match["__0__"]) and (src_id := match["__1__"]):
+    if cast_type_id := match["__0__"]:
         yield graph_model.SyntaxStepCastExpression(
             meta=graph_model.SyntaxStepMeta.default(
                 n_id=args.n_id,
-                dependencies=[
-                    args.generic(args.fork_n_id(src_id)),
-                ],
             ),
             cast_type=args.graph.nodes[cast_type_id]["label_text"],
         )
