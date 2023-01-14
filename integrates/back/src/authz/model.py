@@ -1238,6 +1238,7 @@ ORGANIZATION_LEVEL_ROLES: Dict[str, Dict[str, Set[str]]] = dict(
             "api_resolvers_organization_analytics_resolve",
             "api_resolvers_organization_billing_resolve",
             "api_resolvers_organization_stakeholders_resolve",
+            "api_resolvers_organization_vulnerabilities_url_resolve",
             "api_resolvers_query_stakeholder__resolve_for_organization",
         },
         tags=set(),
