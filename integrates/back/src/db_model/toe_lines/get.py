@@ -204,3 +204,38 @@ class RootToeLinesLoader(DataLoader):
     ) -> tuple[ToeLines, ...]:
         connection: ToeLinesConnection = await self.load(request)
         return tuple(edge.node for edge in connection.edges)
+
+
+async def _get_historic_toe_lines(
+    request: ToeLinesRequest,
+) -> Optional[tuple[ToeLines, ...]]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_lines_historic_metadata"],
+        values={
+            "filename": request.filename,
+            "group_name": request.group_name,
+            "root_id": request.root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["toe_lines_historic_metadata"],),
+        table=TABLE,
+    )
+    if not response.items:
+        return None
+    return tuple(format_toe_lines(item) for item in response.items)
+
+
+class ToeLinesHistoricLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, requests: Iterable[ToeLinesRequest]
+    ) -> tuple[Optional[tuple[ToeLines, ...]], ...]:
+        return await collect(
+            tuple(_get_historic_toe_lines(request) for request in requests)
+        )
