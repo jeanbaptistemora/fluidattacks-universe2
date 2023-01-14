@@ -7667,8 +7667,8 @@ sig:
       title: Server security
       link: https://www.atlassian.com/fr/dam/jcr:866b5d64-71dc-40c4-96de-a3290ab5c118/2018%20SIG_20180129_Atlassian_Cloud_Lite.xlsm
   metadata: {}
-owaspapisp:
-  title: OWASP API Security Project
+owaspapi:
+  title: OWASP API Security Top 10
   en:
     summary: >
       API Security focuses on strategies and solutions
@@ -7676,7 +7676,7 @@ owaspapisp:
       the unique vulnerabilities and security risks
       of Application Programming Interfaces (APIs).
       The version used in this section is
-      API Security Top 9 2019.
+      OWASP API Security Top 10 2019.
   es:
     summary: __empty__
   definitions:
