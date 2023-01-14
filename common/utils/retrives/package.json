@@ -45,16 +45,16 @@
     ],
     "commands": [
       {
-				"command": "retrieves.clone",
-				"title": "Clone"
-			}
+        "command": "retrieves.clone",
+        "title": "Clone"
+      }
     ],
     "menus": {
       "view/item/context": [
         {
-					"command": "retrieves.clone",
-					"when": "view == user_groups && viewItem == gitRoot"
-				}
+          "command": "retrieves.clone",
+          "when": "view == user_groups && viewItem == gitRoot"
+        }
       ]
     }
   },
@@ -74,15 +74,15 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/vscode": "^1.74.0",
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
+    "@typescript-eslint/eslint-plugin": "5.41.0",
+    "@typescript-eslint/parser": "5.41.0",
     "@vscode/test-electron": "^2.2.0",
-    "eslint": "^8.28.0",
+    "eslint": "8.14.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-formatter-codeframe": "7.32.1",
-    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-import-resolver-typescript": "2.7.1",
     "eslint-plugin-fp": "2.3.0",
-    "eslint-plugin-import": "^2.24.1",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "26.1.5",
     "eslint-plugin-jest-formatting": "3.1.0",
     "eslint-plugin-jsx-a11y": "6.5.1",
@@ -100,6 +100,8 @@
   "dependencies": {
     "@apollo/client": "^3.7.3",
     "cross-fetch": "^3.1.5",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "simple-git": "^3.15.1",
+    "tar-stream": "^3.0.0"
   }
 }

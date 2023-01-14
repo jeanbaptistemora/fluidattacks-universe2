@@ -22,6 +22,8 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
     return new GitRootTreeItem(
       root.nickname,
       vscode.TreeItemCollapsibleState.Collapsed,
+      groupName,
+      root.nickname,
       root.downloadUrl
     );
   };
@@ -34,6 +36,8 @@ export class GitRootTreeItem extends vscode.TreeItem {
   constructor(
     public readonly label: string,
     public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+    public readonly groupName: string,
+    public readonly nickname: string,
     public readonly downloadUrl?: string,
     public readonly command?: vscode.Command
   ) {
