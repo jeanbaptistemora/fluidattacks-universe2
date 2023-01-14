@@ -377,7 +377,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [data, findingVulnerabilities]
   );
 
-  const filteredFindings = useFilters(findings, filters);
+  const orderFindings: IFindingAttr[] = _.orderBy(
+    findings,
+    ["status", "severityScore"],
+    ["desc", "desc"]
+  );
+
+  const filteredFindings = useFilters(orderFindings, filters);
 
   const groupCVSSF = findings
     .filter((find): boolean => find.status === "VULNERABLE")
