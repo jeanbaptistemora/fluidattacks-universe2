@@ -101,6 +101,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/lintPython/module/commonUtilsGitSelf";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/lintTerraform/commonCi";
           gitlabExtra = gitlabLint;
         }

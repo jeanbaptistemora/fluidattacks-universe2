@@ -176,6 +176,7 @@ def _format_https_url(
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
+    is_oauth: bool = False,
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
@@ -188,6 +189,10 @@ def _format_https_url(
 
     if token is not None:
         url = (parsed_url._replace(netloc=f"{token}@{host}")).geturl()
+        if is_oauth:
+            url = (
+                parsed_url._replace(netloc=f"oauth2:{token}@{host}")
+            ).geturl()
     elif user is not None and password is not None:
         url = (
             parsed_url._replace(netloc=f"{user}:{password}@{host}")
@@ -198,14 +203,15 @@ def _format_https_url(
     return url
 
 
-async def https_ls_remote(
+async def https_ls_remote(  # pylint: disable=too-many-arguments
     repo_url: str,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
     branch: str = "HEAD",
+    is_oauth: bool = False,
 ) -> Optional[str]:
-    url = _format_https_url(repo_url, user, password, token)
+    url = _format_https_url(repo_url, user, password, token, is_oauth)
 
     proc = await asyncio.create_subprocess_exec(
         "git",
@@ -304,8 +310,9 @@ async def https_clone(
     password: Optional[str] = None,
     token: Optional[str] = None,
     user: Optional[str] = None,
+    is_oauth: bool = False,
 ) -> Tuple[Optional[str], Optional[str]]:
-    url = _format_https_url(repo_url, user, password, token)
+    url = _format_https_url(repo_url, user, password, token, is_oauth)
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
         "git",

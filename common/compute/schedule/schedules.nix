@@ -758,7 +758,7 @@
     ];
 
     schedule_expression = "cron(0 11,17,23 ? * 2-6 *)";
-    size = "integrates_medium";
+    size = "integrates_small";
     awsRole = "prod_integrates";
     attempts = 1;
     timeout = 10800;
@@ -786,7 +786,7 @@
     ];
 
     schedule_expression = "cron(45 0,7 ? * 2-6 *)";
-    size = "integrates_medium";
+    size = "integrates_small";
     awsRole = "prod_integrates";
     attempts = 1;
     timeout = 86400;
@@ -1021,7 +1021,7 @@
     size = "integrates_medium";
     awsRole = "prod_integrates";
     attempts = 2;
-    timeout = 216000;
+    timeout = 86400;
     parallel = 1;
 
     environment = [

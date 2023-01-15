@@ -13,6 +13,7 @@
     ./pipeline/makes.nix
     ./status/makes.nix
     ./users/makes.nix
+    ./utils/git_self/makes.nix
     ./vpc/makes.nix
     ./vpn/makes.nix
   ];
