@@ -150,6 +150,7 @@ async def get_roots(
                     user
                     password
                     token
+                    type
                     key
                   }
                   state
@@ -295,12 +296,15 @@ def _format_https_url(
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
+    is_oauth: bool = False,
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
     parsed_url = parse_url(repo_url)
     if token is not None:
         url = str(parsed_url._replace(auth=token))
+        if is_oauth:
+            url = str(parsed_url._replace(auth=f"oauth2:{token}"))
     elif user is not None and password is not None:
         url = str(parsed_url._replace(auth=f"{user}:{password}"))
 
@@ -363,8 +367,9 @@ async def https_clone(
     password: Optional[str] = None,
     token: Optional[str] = None,
     user: Optional[str] = None,
+    is_oauth: bool = False,
 ) -> Tuple[Optional[str], Optional[str]]:
-    url = _format_https_url(repo_url, user, password, token)
+    url = _format_https_url(repo_url, user, password, token, is_oauth)
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
         "git",
@@ -453,6 +458,7 @@ async def clone_root(
                 temp_dir=temp_dir,
                 token=token,
                 user=None,
+                is_oauth=cred.get("type", "") == "OAUTH",
             )
         elif (user := cred.get("user")) and (password := cred.get("password")):
             folder_to_clone_root, stderr = await https_clone(

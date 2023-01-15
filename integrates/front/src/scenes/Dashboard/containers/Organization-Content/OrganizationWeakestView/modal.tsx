@@ -86,7 +86,7 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
     }: IFormValues): Promise<void> => {
       mixpanel.track("AddGitRoot");
       try {
-        const chunkSize = 5;
+        const chunkSize = 1;
         const repositoriesChunks = _.chunk(repositories, chunkSize);
         const addedChuncks = repositoriesChunks.map(
           (chunck): (() => Promise<AddGitRootResult[]>) =>
