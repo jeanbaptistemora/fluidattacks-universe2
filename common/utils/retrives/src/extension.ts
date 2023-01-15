@@ -1,13 +1,24 @@
-import * as vscode from "vscode";
-import { GitRootTreeItem } from "./providers/gitRoots";
+import { simpleGit } from "simple-git";
+import type { ExtensionContext } from "vscode";
+import { commands, window, workspace } from "vscode";
+
+import { clone } from "./commands/clone";
 import { GroupsProvider } from "./providers/groups";
 
-export function activate(context: vscode.ExtensionContext) {
-  const groupsProvider = new GroupsProvider();
-  vscode.window.registerTreeDataProvider("user_groups", groupsProvider);
-  vscode.commands.registerCommand("retrieves.clone", (node: GitRootTreeItem) =>
-    vscode.window.showInformationMessage(
-      `Successfully called clone entry on ${node.label} from ${node.downloadUrl}.`
-    )
-  );
+function activate(_context: ExtensionContext): void {
+  if (!workspace.workspaceFolders) {
+    return;
+  }
+  const repo = simpleGit(workspace.workspaceFolders[0].uri.path);
+  void repo.listRemote(["--get-url"], (err, data): void => {
+    if (err) {
+      void window.showErrorMessage(err.message);
+    } else if (data.includes("fluidattacks/services")) {
+      const groupsProvider = new GroupsProvider();
+      void window.registerTreeDataProvider("user_groups", groupsProvider);
+      void commands.registerCommand("retrieves.clone", clone);
+    }
+  });
 }
+
+export { activate };

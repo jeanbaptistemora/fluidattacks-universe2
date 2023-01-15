@@ -12,4 +12,4 @@ interface GitRoot {
   downloadUrl?: string;
 }
 
-export { Group, Organization, GitRoot };
+export type { Group, Organization, GitRoot };

@@ -1,66 +1,61 @@
+/* eslint-disable fp/no-this */
 import * as vscode from "vscode";
-import { GET_GROUPS } from "../queries";
-import { getClient } from "../utils/apollo";
-import { Organization } from "../types";
-import { getGitRoots, GitRootTreeItem } from "./gitRoots";
 
-type EventGroup = Group | undefined | void;
-type TreeItems = Group[] | GitRootTreeItem[];
-export class GroupsProvider implements vscode.TreeDataProvider<Group> {
-  private _onDidChangeTreeData: vscode.EventEmitter<EventGroup> =
+import type { GitRootTreeItem } from "./gitRoots";
+import { getGitRoots } from "./gitRoots";
+
+import { GET_GROUPS } from "../queries";
+import { GroupTreeItem } from "../treeItems/group";
+import type { Organization } from "../types";
+import { getClient } from "../utils/apollo";
+
+type EventGroup = GroupTreeItem | undefined | void;
+type TreeItems = GitRootTreeItem[] | GroupTreeItem[];
+// eslint-disable-next-line fp/no-class
+class GroupsProvider implements vscode.TreeDataProvider<GroupTreeItem> {
+  private readonly _onDidChangeTreeData: vscode.EventEmitter<EventGroup> =
     new vscode.EventEmitter<EventGroup>();
-  readonly onDidChangeTreeData: vscode.Event<EventGroup> =
+
+  public readonly onDidChangeTreeData: vscode.Event<EventGroup> =
     this._onDidChangeTreeData.event;
 
-  refresh(): void {
+  public refresh(): void {
     this._onDidChangeTreeData.fire();
   }
 
-  getTreeItem(element: Group): vscode.TreeItem {
+  public getTreeItem(element: GroupTreeItem): vscode.TreeItem {
     return element;
   }
 
-  getChildren(element?: Group): Thenable<TreeItems> {
+  getChildren(element?: GroupTreeItem): Thenable<TreeItems> {
     if (element) {
       return Promise.resolve(getGitRoots(element.label));
-    } else {
-      return Promise.resolve(this.getGroups());
     }
+
+    return Promise.resolve(this.getGroups());
   }
 
-  private async getGroups(): Promise<Group[]> {
-    let groups: string[] = await Promise.resolve(
+  private async getGroups(): Promise<GroupTreeItem[]> {
+    const groups: string[] = await Promise.resolve(
       getClient()
         .query({ query: GET_GROUPS })
-        .then((result) => {
-          return result.data.me.organizations
-            .map((org: Organization) => {
-              return org.groups.map((group) => group.name);
-            })
-            .flat();
-        })
-        .catch((err) => {
-          console.log(err);
+        .then((result: any) =>
+          result.data.me.organizations
+            .map((org: Organization) => org.groups.map((group) => group.name))
+            .flat()
+        )
+        .catch((err: any): [] => {
           return [];
         })
     );
-    const toGroup = (groupName: string): Group => {
-      return new Group(groupName, vscode.TreeItemCollapsibleState.Collapsed);
-    };
 
-    const deps = groups.map((dep) => toGroup(dep));
+    const toGroup = (groupName: string): GroupTreeItem =>
+      new GroupTreeItem(groupName, vscode.TreeItemCollapsibleState.Collapsed);
+
+    const deps = groups.map((dep): GroupTreeItem => toGroup(dep));
+
     return deps;
   }
 }
 
-export class Group extends vscode.TreeItem {
-  constructor(
-    public readonly label: string,
-    public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-    public readonly command?: vscode.Command
-  ) {
-    super(label, collapsibleState);
-  }
-
-  contextValue = "group";
-}
+export { GroupsProvider };

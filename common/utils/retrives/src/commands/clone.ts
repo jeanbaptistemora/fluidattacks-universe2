@@ -1,8 +1,11 @@
 import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { GitRootTreeItem } from "../providers/gitRoots";
-import { window, workspace } from "vscode";
 import { get } from "https";
 import { join } from "path";
+
+import { window, workspace } from "vscode";
+
+import type { GitRootTreeItem } from "../providers/gitRoots";
+
 function clone(node: GitRootTreeItem): void {
   if (!workspace.workspaceFolders) {
     return;
@@ -13,17 +16,18 @@ function clone(node: GitRootTreeItem): void {
     mkdirSync(fusionPath);
   }
   const file = createWriteStream(join(fusionPath, `${node.nickname}.tar.gz`));
-  if (node.downloadUrl == undefined) {
-    window.showErrorMessage("Can not get download url");
+  if (node.downloadUrl === undefined) {
+    void window.showErrorMessage("Can not get download url");
+
     return;
   }
 
-  get(node.downloadUrl, function (response) {
-    window.showInformationMessage("Downloading repo");
+  get(node.downloadUrl, (response): void => {
+    void window.showInformationMessage("Downloading repo");
     response.pipe(file);
-    file.on("finish", () => {
+    file.on("finish", (): void => {
       file.close();
-      window.showInformationMessage("Download Completed");
+      void window.showInformationMessage("Download Completed");
     });
   });
 }

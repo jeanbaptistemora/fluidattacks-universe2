@@ -1,32 +1,40 @@
 import {
   ApolloClient,
-  createHttpLink,
   InMemoryCache,
+  createHttpLink,
 } from "@apollo/client/core";
-import * as vscode from "vscode";
+import type { NormalizedCacheObject } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
-
 import fetch from "cross-fetch";
+import { workspace } from "vscode";
 
-const getClient = () => {
-  const authLink = setContext(() => {
-    const token: undefined | string =
-      process.env.INTEGRATES_API_TOKEN ||
-      vscode.workspace.getConfiguration("retrieves").get("api_token");
-    return {
+const getClient = (): ApolloClient<NormalizedCacheObject> => {
+  const authLink = setContext(
+    (): {
       headers: {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        Authorization: `Bearer ${token}`,
-      },
-    };
-  });
+        Authorization: string;
+      };
+    } => {
+      const token: string | undefined =
+        (process.env.INTEGRATES_API_TOKEN ?? "") ||
+        workspace.getConfiguration("retrieves").get("api_token");
+
+      return {
+        headers: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          Authorization: `Bearer ${token ?? ""}`,
+        },
+      };
+    }
+  );
   const httpLink = createHttpLink({
-    uri: "https://app.fluidattacks.com/api",
     fetch,
+    uri: "https://app.fluidattacks.com/api",
   });
+
   return new ApolloClient({
-    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
+    link: authLink.concat(httpLink),
   });
 };
 
