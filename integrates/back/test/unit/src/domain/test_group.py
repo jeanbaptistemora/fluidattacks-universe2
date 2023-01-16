@@ -47,32 +47,6 @@ pytestmark = [
 ]
 
 
-@freeze_time("2020-12-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("375.797")),
-        (30, Decimal("0")),
-        (90, Decimal("83.000")),
-    ),
-)
-async def test_get_mean_remediate_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    mean_remediate_cvssf = await get_mean_remediate_severity_cvssf(
-        loaders,
-        group_name,
-        Decimal("0.0"),
-        Decimal("10.0"),
-        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_cvssf == expected_output
-
-
 async def test_list_comments() -> None:
     group_name = "unittesting"
     test_data = await get_comments(get_new_context(), group_name, "admin")

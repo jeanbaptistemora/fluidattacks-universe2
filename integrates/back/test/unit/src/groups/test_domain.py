@@ -1,3 +1,7 @@
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_mock_response,
+    get_mocked_path,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -28,6 +32,7 @@ from groups.domain import (
     get_mean_remediate_non_treated_severity,
     get_mean_remediate_non_treated_severity_cvssf,
     get_mean_remediate_severity,
+    get_mean_remediate_severity_cvssf,
     get_open_findings,
     get_open_vulnerabilities,
     get_treatment_summary,
@@ -37,6 +42,7 @@ from groups.domain import (
     update_group,
     validate_group_tags,
 )
+import json
 from newutils import (
     datetime as datetime_utils,
 )
@@ -49,6 +55,10 @@ from organizations import (
 import pytest
 from typing import (
     Optional,
+)
+from unittest.mock import (
+    AsyncMock,
+    patch,
 )
 
 pytestmark = [
@@ -209,6 +219,74 @@ async def test_get_mean_remediate_non_treated_cvssf(
         )
     )
     assert mttr_no_treated_cvssf == expected_output
+
+
+@freeze_time("2020-12-01")
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "min_severity",
+        "max_severity",
+        "min_days",
+        "expected_output",
+    ],
+    [
+        [
+            "unittesting",
+            Decimal("0.0"),
+            Decimal("10.0"),
+            0,
+            Decimal("375.799"),
+        ],
+        ["unittesting", Decimal("0.0"), Decimal("10.0"), 30, Decimal("0")],
+        [
+            "unittesting",
+            Decimal("0.0"),
+            Decimal("10.0"),
+            90,
+            Decimal("83.000"),
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("loaders.finding_vulnerabilities.load_many_chained"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("loaders.group_findings.load"), new_callable=AsyncMock)
+async def test_get_mean_remediate_cvssf(  # pylint: disable=too-many-arguments
+    mock_group_findings_loader: AsyncMock,
+    mock_finding_vulnerabilities_load_many_chained: AsyncMock,
+    group_name: str,
+    min_severity: Decimal,
+    max_severity: Decimal,
+    min_days: int,
+    expected_output: Decimal,
+) -> None:
+    mock_group_findings_loader.return_value = get_mock_response(
+        get_mocked_path("loaders.group_findings.load"),
+        json.dumps([group_name]),
+    )
+    mock_finding_vulnerabilities_load_many_chained.return_value = (
+        get_mock_response(
+            get_mocked_path(
+                "loaders.finding_vulnerabilities.load_many_chained"
+            ),
+            json.dumps([group_name]),
+        )
+    )
+    loaders = get_new_context()
+    mean_remediate_cvssf = await get_mean_remediate_severity_cvssf(
+        loaders,
+        group_name,
+        min_severity,
+        max_severity,
+        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
+        if min_days
+        else None,
+    )
+    assert mock_group_findings_loader.called is True
+    assert mock_finding_vulnerabilities_load_many_chained.called is True
+    assert mean_remediate_cvssf == expected_output
 
 
 @freeze_time("2019-10-01")
