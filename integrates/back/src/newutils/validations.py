@@ -300,7 +300,11 @@ def validate_finding_id_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
-            if not re.match(
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
+            if not re.fullmatch(
                 r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"
                 r"[0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\d+",
                 field_content,

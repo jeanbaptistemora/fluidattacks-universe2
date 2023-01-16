@@ -540,12 +540,26 @@ def test_validate_finding_id_deco() -> None:
     def decorated_func(finding_id: str) -> str:
         return finding_id
 
-    assert decorated_func(finding_id="12345678-1234-1234-1234-1234567890ab")
+    assert decorated_func(finding_id="3c475384-834c-47b0-ac71-a41a022e401c")
+    assert decorated_func(finding_id="123456781234567812345678")
 
     with pytest.raises(InvalidField):
-        decorated_func(finding_id="invalid_finding_id")
-        decorated_func(finding_id="12345678-1234-1234-1234-1234567890az")
         decorated_func(finding_id="12345678-1234-1234-1234-1234567890a")
+        decorated_func(finding_id="invalid_finding_id")
+
+    class TestClass(NamedTuple):
+        finding_id: str
+
+    @validate_finding_id_deco("test_obj.finding_id")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    test_obj = TestClass(finding_id="8b3a4c2d-e5f6-4g1h-9i8j-7k6l5m4n3o2r")
+    test_obj_fail = TestClass(finding_id="12345678-1234-1234-1234-1234567890a")
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidField):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 @pytest.mark.parametrize(
