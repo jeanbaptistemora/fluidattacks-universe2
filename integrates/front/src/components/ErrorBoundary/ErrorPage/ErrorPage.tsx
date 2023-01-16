@@ -1,9 +1,13 @@
 import React from "react";
 
-import { PageContainer } from "./styles";
+import { Announce } from "components/Announce";
 
 export const ErrorPage = (): JSX.Element => {
   return (
-    <PageContainer>{<h1>{"Sorry.. there was an error"}</h1>}</PageContainer>
+    <Announce
+      message={
+        "Oops... something went wrong, if this keeps appearing feel free to submit a report"
+      }
+    />
   );
 };
