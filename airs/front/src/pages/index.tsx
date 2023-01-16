@@ -4,10 +4,10 @@ import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
-import { Home } from "../components/Home";
 import { Layout } from "../components/Layout";
 import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { HomePage } from "../scenes/HomePage";
 
 const NewHomeIndex: React.FC<IQueryData> = ({
   data,
@@ -32,7 +32,7 @@ const NewHomeIndex: React.FC<IQueryData> = ({
         <div>
           <NavbarComponent />
 
-          <Home />
+          <HomePage />
         </div>
       </Layout>
     </React.Fragment>
