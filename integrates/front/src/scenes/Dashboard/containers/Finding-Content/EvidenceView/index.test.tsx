@@ -168,7 +168,7 @@ describe("FindingEvidenceView", (): void => {
       screen.queryByText("group.findings.evidence.noData")
     ).not.toBeInTheDocument();
 
-    expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "");
+    expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "animation");
     expect(
       screen.queryByText("searchFindings.tabEvidence.editable")
     ).toBeInTheDocument();
@@ -215,7 +215,7 @@ describe("FindingEvidenceView", (): void => {
       expect(screen.queryAllByRole("img")).toHaveLength(1);
     });
 
-    expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "");
+    expect(screen.getAllByRole("img")[0]).toHaveAttribute("alt", "animation");
 
     jest.clearAllMocks();
   });

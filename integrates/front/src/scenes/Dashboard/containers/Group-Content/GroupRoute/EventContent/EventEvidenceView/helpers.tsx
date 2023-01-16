@@ -1,8 +1,5 @@
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import React from "react";
-
-import type { IEventEvidenceAttr } from "./types";
 
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -56,11 +53,4 @@ const getDownloadHandler = (
   };
 };
 
-const showContent = (
-  showEmpty: boolean,
-  evidence: IEventEvidenceAttr
-): JSX.Element | string => {
-  return showEmpty ? <div /> : `${location.href}/${evidence.fileName}`;
-};
-
-export { handleUpdateEvidenceError, showContent, getDownloadHandler };
+export { handleUpdateEvidenceError, getDownloadHandler };

@@ -22,7 +22,6 @@ import {
   handleUpdateEvidenceError,
   setAltDescription,
   setPreffix,
-  showUrl,
   updateChangesHelper,
 } from "./helpers";
 
@@ -259,8 +258,10 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         }
                       };
 
-                      const showEmpty: boolean =
-                        _.isEmpty(evidence.url) || isRefetching;
+                      const content =
+                        _.isEmpty(evidence.url) || isRefetching
+                          ? ""
+                          : `${location.href}/${evidence.url}`;
 
                       const preffix: string = setPreffix(name);
                       const altDescription = setAltDescription(
@@ -271,7 +272,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
                       return (
                         <EvidenceImage
                           acceptedMimes={"image/png,video/webm"}
-                          content={showUrl(showEmpty, evidence)}
+                          content={content}
                           date={evidence.date ?? ""}
                           description={altDescription}
                           isDescriptionEditable={true}

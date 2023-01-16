@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading, react/no-multi-comp */
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
 import { Field, useField, useFormikContext } from "formik";
 import _ from "lodash";
-import React, { cloneElement, useCallback } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
@@ -23,10 +23,9 @@ import {
   validTextField,
 } from "utils/validations";
 
-/* eslint-disable react/require-default-props, react/no-unused-prop-types */
 interface IEvidenceImageProps {
   acceptedMimes?: string;
-  content: JSX.Element | string;
+  content: string;
   date?: string;
   description: string;
   isDescriptionEditable: boolean;
@@ -43,14 +42,13 @@ interface IEvidenceImageProps {
   shouldPreviewValidation: FieldValidator[];
   shouldPreview: boolean;
 }
-/* eslint-disable react/require-default-props, react/no-unused-prop-types */
 
 const MAX_DESCRIPTION_LENGTH: number = 5000;
 const maxDescriptionLength: ConfigurableValidator = maxLength(
   MAX_DESCRIPTION_LENGTH
 );
 
-const RenderForm: React.FC<IEvidenceImageProps> = ({
+const RenderForm: React.FC<Readonly<IEvidenceImageProps>> = ({
   acceptedMimes,
   shouldPreview,
   shouldPreviewValidation,
@@ -60,7 +58,7 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
   name,
   onDelete,
   validate,
-}: IEvidenceImageProps): JSX.Element => {
+}): JSX.Element => {
   const { t } = useTranslation();
   const getFieldName = (fieldName: string): string => {
     return name ? `${name}.${fieldName}` : fieldName;
@@ -118,62 +116,63 @@ const RenderForm: React.FC<IEvidenceImageProps> = ({
   );
 };
 
-const EvidenceImage: React.FC<IEvidenceImageProps> = (
-  props: IEvidenceImageProps
+const DisplayImage: React.FC<
+  Pick<Readonly<IEvidenceImageProps>, "content" | "name" | "onClick">
+> = ({ content, name, onClick }): JSX.Element => {
+  const { t } = useTranslation();
+
+  if (content === "") {
+    return <div className={style.img} />;
+  }
+
+  if (content === "file") {
+    return (
+      <div
+        className={style.img}
+        onClick={onClick}
+        onKeyUp={onClick}
+        role={"button"}
+        tabIndex={0}
+      >
+        <FontAwesomeIcon icon={faFile} size={"1x"} />
+      </div>
+    );
+  }
+
+  if (getFileNameExtension(content) === "webm") {
+    return (
+      <video className={style.img} controls={true} muted={true}>
+        <source src={content} type={"video/webm"} />
+        <p>
+          {t("searchFindings.tabEvidence.altVideo.first")}&nbsp;
+          <ExternalLink href={content}>
+            {t("searchFindings.tabEvidence.altVideo.second")}
+          </ExternalLink>
+          &nbsp;{t("searchFindings.tabEvidence.altVideo.third")}
+        </p>
+      </video>
+    );
+  }
+
+  return (
+    <div onClick={onClick} onKeyUp={onClick} role={"button"} tabIndex={0}>
+      <img alt={name} className={style.img} src={content} />
+    </div>
+  );
+};
+
+const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
+  props
 ): JSX.Element => {
   const { content, isEditing, description, date, name, onClick } = props;
   const { t } = useTranslation();
-  const handleClick = useCallback((): void => {
-    onClick();
-  }, [onClick]);
-  const DisplayImage = useCallback((): JSX.Element => {
-    if (typeof content === "string") {
-      if (getFileNameExtension(content) === "webm") {
-        return (
-          <video className={style.img} controls={true} muted={true}>
-            <source src={content} type={"video/webm"} />
-            <p>
-              {t("searchFindings.tabEvidence.altVideo.first")}&nbsp;
-              <ExternalLink href={content}>
-                {t("searchFindings.tabEvidence.altVideo.second")}
-              </ExternalLink>
-              &nbsp;{t("searchFindings.tabEvidence.altVideo.third")}
-            </p>
-          </video>
-        );
-      }
-
-      return (
-        <React.Fragment>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
-          <img
-            alt={""}
-            className={style.img}
-            key={`${name}.img.key`}
-            onClick={handleClick}
-            src={content}
-          />
-        </React.Fragment>
-      );
-    }
-
-    return <div />;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [content]);
 
   return (
     <React.StrictMode>
       <Col33>
         <div>
           <div className={style.imgContainer}>
-            {typeof content === "string" ? (
-              <DisplayImage />
-            ) : (
-              cloneElement(content, {
-                className: style.img,
-                onClick: handleClick,
-              })
-            )}
+            <DisplayImage content={content} name={name} onClick={onClick} />
           </div>
           <div className={style.description}>
             <Row>

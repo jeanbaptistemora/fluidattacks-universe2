@@ -1,7 +1,6 @@
 import { NetworkStatus, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError, FetchResult } from "@apollo/client";
 import {
-  faFile,
   faImage,
   faPen,
   faRotateRight,
@@ -15,7 +14,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
-import { handleUpdateEvidenceError, showContent } from "./helpers";
+import { handleUpdateEvidenceError } from "./helpers";
 import type {
   IEventEvidenceAttr,
   IGetEventEvidences,
@@ -274,13 +273,15 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                     }
                   };
 
-                  const showEmpty: boolean =
-                    _.isEmpty(evidence.fileName) || isRefetching;
+                  const content =
+                    _.isEmpty(evidence.fileName) || isRefetching
+                      ? ""
+                      : `${location.href}/${evidence.fileName}`;
 
                   return (
                     <EvidenceImage
                       acceptedMimes={"image/png,video/webm"}
-                      content={showContent(showEmpty, evidence)}
+                      content={content}
                       date={evidence.date}
                       description={""}
                       isDescriptionEditable={false}
@@ -334,11 +335,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       acceptedMimes={
                         "application/pdf,application/zip,text/csv,text/plain"
                       }
-                      content={
-                        <div>
-                          <FontAwesomeIcon icon={faFile} size={"1x"} />
-                        </div>
-                      }
+                      content={"file"}
                       date={evidence.date}
                       description={""}
                       isDescriptionEditable={false}

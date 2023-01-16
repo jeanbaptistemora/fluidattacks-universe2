@@ -1,6 +1,5 @@
 import type { ApolloError, FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
-import React from "react";
 
 import type { IEvidenceItem } from ".";
 import { Logger } from "utils/logger";
@@ -57,13 +56,6 @@ function setPreffix(name: string): string {
     ? translate.t("searchFindings.tabEvidence.evidenceExploit")
     : "";
 }
-
-const showUrl = (
-  showEmpty: boolean,
-  evidence: { url: string }
-): JSX.Element | string => {
-  return showEmpty ? <div /> : `${location.href}/${evidence.url}`;
-};
 
 const setAltDescription = (
   preffix: string,
@@ -125,7 +117,6 @@ export {
   handleUpdateDescriptionError,
   handleUpdateEvidenceError,
   setPreffix,
-  showUrl,
   setAltDescription,
   updateChangesHelper,
 };
