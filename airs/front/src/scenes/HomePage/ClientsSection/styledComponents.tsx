@@ -1,4 +1,9 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const ClientsAnimation = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-155.2px * 47));}
+  `;
 
 const Container = styled.div.attrs({
   className: `
@@ -51,10 +56,11 @@ const ClientsContainer = styled.div.attrs({
 
 const SlideShow = styled.div.attrs({
   className: `
-    product-slide-track
     flex
   `,
 })`
+  animation: ${ClientsAnimation} 150s linear infinite;
+  width: calc(155.2px * 94);
   > img {
     max-width: 135px;
     max-height: 70px;

@@ -24,18 +24,20 @@ const ClientsSection: React.FC<IClientsSectionProps> = ({
       </Title>
       <ClientsContainer gradientColor={sectionColor}>
         <SlideShow>
-          {[...Array(48).keys()].map(
-            (el: number): JSX.Element =>
-              el === 0 ? (
-                <div key={el} />
-              ) : (
-                <CloudImage
-                  alt={`logo-gray(${el})`}
-                  key={`logo-gray(${el})`}
-                  src={`airs/home/ClientSection/logos-gray_${el}.png`}
-                  styles={"mh3"}
-                />
-              )
+          {[...Array(2).keys()].map((): JSX.Element[] =>
+            [...Array(48).keys()].map(
+              (el: number): JSX.Element =>
+                el === 0 ? (
+                  <div key={el} />
+                ) : (
+                  <CloudImage
+                    alt={`logo-gray(${el})`}
+                    key={`logo-gray(${el})`}
+                    src={`airs/home/ClientSection/logos-gray_${el}.png`}
+                    styles={"mh3"}
+                  />
+                )
+            )
           )}
         </SlideShow>
       </ClientsContainer>
