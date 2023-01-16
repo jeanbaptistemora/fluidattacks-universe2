@@ -124,7 +124,9 @@ def get_wildcard_nodes_for_resources(
         is_action_in_exceptions = list(
             map(
                 lambda action: str(action.raw) in exceptions,
-                actions.data if isinstance(actions.raw, List) else [actions],
+                actions.data
+                if hasattr(actions, "raw") and isinstance(actions.raw, List)
+                else [actions],
             )
         )
         if (
@@ -141,8 +143,10 @@ def _yield_nodes_from_stmt(
 ) -> Iterator[Node]:
     allow_wildcard_reports = False
     if (
-        not_actions := stmt.inner.get("NotAction")
-    ) and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION:
+        hasattr(stmt, "inner")
+        and (not_actions := stmt.inner.get("NotAction"))
+        and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_ACTION
+    ):
         yield AWSIamManagedPolicy(
             column=not_actions.start_column,
             data=not_actions.data,

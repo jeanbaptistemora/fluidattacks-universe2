@@ -49,12 +49,16 @@ def _cfn_ec2_associate_public_ip_address_iter_vulns(
             continue
         for net_interface in net_interfaces.data:
             if (
-                aso_public_add := net_interface.inner.get(
-                    "AssociatePublicIpAddress"
+                (
+                    aso_public_add := net_interface.inner.get(
+                        "AssociatePublicIpAddress"
+                    )
                 )
-            ) and (
-                not isinstance(aso_public_add.raw, dict)
-                and aso_public_add.raw in TRUE_OPTIONS
+                and hasattr(aso_public_add, "raw")
+                and (
+                    not isinstance(aso_public_add.raw, dict)
+                    and aso_public_add.raw in TRUE_OPTIONS
+                )
             ):
                 yield aso_public_add
 
