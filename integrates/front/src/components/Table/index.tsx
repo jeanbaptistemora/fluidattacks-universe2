@@ -79,13 +79,16 @@ const Table = <TData extends RowData>({
   const [rowSelection, setRowSelection] = useState({});
   const { t } = useTranslation();
 
-  function globalFilterHandler(event: ChangeEvent<HTMLInputElement>): void {
-    setGlobalFilter(event.target.value);
+  const globalFilterHandler = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      setGlobalFilter(event.target.value);
 
-    if (onSearch) {
-      onSearch(event.target.value);
-    }
-  }
+      if (onSearch) {
+        onSearch(event.target.value);
+      }
+    },
+    [onSearch]
+  );
 
   const radioSelectionhandler = useCallback(
     (row: Row<TData>): ChangeEventHandler =>

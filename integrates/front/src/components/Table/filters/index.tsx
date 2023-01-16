@@ -35,13 +35,15 @@ const Filters = <TData extends RowData>({
       (column): boolean => column.getCanFilter() && column.getIsVisible()
     );
 
-  function resetFiltersHandler(): (event: React.FormEvent) => void {
+  const resetFiltersHandler = useCallback((): ((
+    event: React.FormEvent
+  ) => void) => {
     table.resetColumnFilters();
 
     return (event: React.FormEvent): void => {
       event.stopPropagation();
     };
-  }
+  }, [table]);
 
   return (
     <React.Fragment>
