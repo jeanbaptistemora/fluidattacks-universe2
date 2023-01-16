@@ -57,3 +57,6 @@ src.lib_path.f165.iam_wildcard_resources_permissions_policy:
     El Role de IAM está mal configurado:
     - No debe permitir recursos * con acción PassRole en su política de permisos
     - No debe permitir recursos * en su política de permisos
+src.lib_path.f165.users_with_multiple_access_keys:
+  en: IAM User have multiple access keys.
+  es: El usuario IAM tiene multiples llaves de acceso.
