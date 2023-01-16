@@ -19,6 +19,8 @@ interface ICtaBannerProps {
   maxWidth?: string;
   paragraph?: string;
   pv?: Nums0To7;
+  pvMd?: Nums0To7;
+  pvSm?: Nums0To7;
   image?: string;
   matomoAction: string;
   size?: TSize;

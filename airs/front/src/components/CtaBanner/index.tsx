@@ -4,6 +4,7 @@ import React, { useCallback } from "react";
 
 import type { ICtaBannerProps, IVariant, TVariant } from "./types";
 
+import { useWindowSize } from "../../utils/hooks/useWindowSize";
 import { AirsLink } from "../AirsLink";
 import { Button } from "../Button";
 import { CloudImage } from "../CloudImage";
@@ -20,6 +21,8 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   maxWidth,
   paragraph,
   pv = 5,
+  pvMd = 5,
+  pvSm = 5,
   size = "big",
   sizeMd,
   sizeSm,
@@ -28,6 +31,8 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
   variant = "light",
 }): JSX.Element => {
   const { trackEvent } = useMatomo();
+  const { width } = useWindowSize();
+  const alignTextHook = width > 960 ? "start" : "center";
 
   const matomoFreeTrialEvent = useCallback((): void => {
     trackEvent({
@@ -65,6 +70,8 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
         maxWidth={maxWidth === undefined ? "1440px" : maxWidth}
         ph={4}
         pv={pv}
+        pvMd={pvMd}
+        pvSm={pvSm}
         shadow={true}
         wrap={"wrap"}
       >
@@ -76,10 +83,15 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
             size={size}
             sizeMd={sizeMd}
             sizeSm={sizeSm}
+            textAlign={alignTextHook}
           >
             {title}
           </Title>
-          <Text color={variants[variant].subColor} size={textSize}>
+          <Text
+            color={variants[variant].subColor}
+            size={textSize}
+            textAlign={alignTextHook}
+          >
             {paragraph}
           </Text>
           <Container
