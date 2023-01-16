@@ -1,14 +1,13 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import header, go_to_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import go_to_button %}
   {% block layout %}
     <div class="container">
-      {{ header(
-        'You have reached day 21!',
-        'Want to continue enjoying the Machine Plan free trial?'
-      ) }}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
       <div class="main-content">
-        <p>Hi, {{ name }},</p>
+        <h2>Hi, {{ name }},</h2>
+        <p><strong>You have reached day 21!</strong></p>
+        <p>Want to continue enjoying the Machine Plan free trial?</p>
         <p>
           For us, it’s been a great journey having you using our
           <strong>Continuous Hacking Machine</strong> Plan in this free trial.
@@ -17,57 +16,58 @@
         </p>
         <p>
           <strong>What do you want to do next?</strong>
+          <ul class="big-list-icon">
+            <li>
+              <a href="mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription">
+                Talk to a sales representative
+              </a>
+            </li>
+            <li>
+              <a href="https://go.fluidattacks.tech/free-trial-feedback" rel="noopener noreferrer" target="_blank">
+                Schedule a Customer Success Session
+              </a>
+            </li>
+          </ul>
         </p>
-        <ul class="big-list-icon">
-          <li>
-            <a href="mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription">
-              Talk to a sales representative
-            </a>
-          </li>
-          <li>
-            <a href="https://go.fluidattacks.tech/free-trial-feedback" rel="noopener noreferrer" target="_blank">
-              Schedule a Customer Success Session
-            </a>
-          </li>
-        </ul>
         <p>
+          <br/>
           <strong>What happens when the trial expires?</strong>
-        </p>
-        <p>
+          <br/>
           Just as a reminder, the information that is in our
           <strong>ARM Platform</strong> will follow one
           of these two paths after the trial ends:
         </p>
-        <ul class="big-list-icon">
-          <li class="mb1">
-            <strong>
-              You want to subscribe to our Continuous Hacking solution:
-            </strong>
-            we would preserve the information in ARM. To subscribe,
-            talk to one of our sales representatives:
-          </li>
-          {{
-            go_to_button(
-            'Contact sales',
-            'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
-            'primary-button'
-            )
-          }}
-          <li class="mt1">
-            <strong>You don’t want to subscribe at the moment:</strong>
-            your information (account, groups, vulnerabilities, and more)
-            will be <u>securely removed from our ARM Platform within one day</u>.
-          </li>
-        </ul>
-        {{ go_to_button('Go to Vulnerabilities', vulnerabilities_link, 'primary-button') }}
+        <div class="data-container">
+          <ul class="big-list-icon">
+            <li>
+              <strong>
+                You want to subscribe to our Continuous Hacking solution:
+              </strong>
+              we would preserve the information in ARM. To subscribe,
+              talk to one of our sales representatives:
+            </li>
+            {{
+              go_to_button(
+              'Contact sales',
+              'mailto:help@fluidattacks.com?subject=I want to subscribe to Continuous Hacking&body=Please, contact me to setup the subscription',
+              'primary-button'
+              )
+            }}
+            <li>
+              <strong>You don’t want to subscribe at the moment:</strong>
+              your information (account, groups, vulnerabilities, and more)
+              will be <u>securely removed from our ARM Platform within one day</u>.
+            </li>
+            {{ go_to_button('Go to Vulnerabilities', vulnerabilities_link, 'primary-button') }}
+          </ul>
+        </div>
         <p class="mt1">
           <strong>Questions or comments?</strong> You can always contact us at
           <a href="mailto:help@fluidattacks.com">help@fluidattacks.com</a>
         </p>
-        <p>Best regards,</p>
-        <p>Fluid Attacks Team</p>
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
