@@ -36,7 +36,7 @@ async def update_unreliable_repositories(
         "branch": repository.branch,
         "last_commit_date": get_as_utc_iso_format(repository.last_commit_date)
         if repository.last_commit_date
-        else "",
+        else None,
         "url": repository.url,
     }
 
