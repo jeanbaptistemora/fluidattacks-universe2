@@ -24,7 +24,6 @@ from custom_exceptions import (
     AlreadySubmitted,
     InvalidRootComponent,
     RepeatedToeInput,
-    RootNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -126,12 +125,8 @@ from organizations_finding_policies import (
 )
 import os
 import random
-import re
 from roots.domain import (
     add_machine_execution,
-    finish_machine_execution,
-    get_root_id_by_nickname,
-    start_machine_execution,
 )
 from s3.resource import (
     get_s3_resource,
@@ -1173,95 +1168,6 @@ async def get_current_execution(
     return result[0]
 
 
-def _match_execution_id(execution_id: str) -> Optional[Dict[str, str]]:
-    pattern = (
-        r"(?P<group_name>[a-z]*)_(?P<job_id>[0-9a-z-]{36})_"
-        r"(?P<root_nickname>(.?)*)_([0-9a-z]{8})"
-    )
-    match = re.match(pattern, execution_id)
-    if not match:
-        return None
-    return match.groupdict()
-
-
-async def _start_machine_execution(
-    loaders: Dataloaders,
-    execution_id: str,
-    findings_executed: Optional[List[MachineFindingResult]] = None,
-    commit: Optional[str] = None,
-) -> None:
-
-    match_dict = _match_execution_id(execution_id)
-    if not match_dict:
-        return
-    batch_job_id = match_dict["job_id"]
-    try:
-        root_id = get_root_id_by_nickname(
-            match_dict["root_nickname"],
-            await loaders.group_roots.load(match_dict["group_name"]),
-            True,
-        )
-    except RootNotFound:
-        return None
-
-    current_execution = await get_current_execution(
-        root_id, batch_job_id, findings_executed, commit
-    )
-    if not current_execution:
-        return
-    if not current_execution.started_at:
-        await start_machine_execution(
-            root_id,
-            batch_job_id,
-            started_at=datetime.now(),
-            git_commit=commit,
-        )
-
-
-async def _finish_machine_execution(
-    loaders: Dataloaders,
-    execution_id: str,
-    findings_executed: Tuple[MachineFindingResult, ...],
-) -> None:
-    match_dict = _match_execution_id(execution_id)
-    if not match_dict:
-        return
-    try:
-        root_id = get_root_id_by_nickname(
-            match_dict["root_nickname"],
-            await loaders.group_roots.load(match_dict["group_name"]),
-            True,
-        )
-    except RootNotFound:
-        return
-
-    current_execution = await get_current_execution(
-        root_id,
-        match_dict["job_id"],
-    )
-    if not current_execution:
-        return
-    result: list[MachineFindingResult] = []
-    for item in current_execution.findings_executed:
-        for _item in findings_executed:
-            if _item and _item.finding == item.finding:
-                new_item = item._replace(
-                    open=item.open + _item.open,
-                    modified=item.modified + _item.modified,
-                )
-                result = [*result, new_item]
-                break
-        else:
-            result = [*result, item]
-
-    await finish_machine_execution(
-        root_id,
-        match_dict["job_id"],
-        stopped_at=datetime.now(),
-        findings_executed=result,
-    )
-
-
 async def process_execution(
     execution_id: str,
     criteria_vulns: Optional[Dict[str, Any]] = None,
@@ -1302,15 +1208,6 @@ async def process_execution(
         )
         return False
 
-    await _start_machine_execution(
-        loaders,
-        execution_id,
-        [
-            MachineFindingResult(open=0, modified=0, finding=check)
-            for check in execution_config.get("checks", [])
-        ],
-        results["runs"][0]["versionControlProvenance"][0]["revisionId"],
-    )
     rules_id: Set[str] = {
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     }
@@ -1338,7 +1235,7 @@ async def process_execution(
             (await loaders.group.load(group_name)).organization_id
         )
     ).name
-    result: Tuple[Optional[MachineFindingResult], ...] = await collect(
+    await collect(
         [
             process_criteria_vuln(
                 loaders=loaders,
@@ -1356,9 +1253,6 @@ async def process_execution(
             )
             for vuln_id, finding in rules_finding
         ]
-    )
-    await _finish_machine_execution(
-        loaders, execution_id, tuple(item for item in result if item)
     )
     return True
 

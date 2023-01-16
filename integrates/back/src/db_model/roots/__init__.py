@@ -12,8 +12,6 @@ from .remove import (
     remove_secret,
 )
 from .update import (
-    finish_machine_execution,
-    start_machine_execution,
     update_git_root_cloning,
     update_root_state,
     update_unreliable_indicators,
@@ -32,8 +30,6 @@ __all__ = [
     "remove_environment_url_secret",
     "remove_secret",
     # update
-    "finish_machine_execution",
-    "start_machine_execution",
     "update_git_root_cloning",
     "update_root_state",
     "update_unreliable_indicators",

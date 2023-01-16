@@ -26,10 +26,6 @@ from db_model.roots.types import (
 from more_itertools import (
     collapse,
 )
-from roots.domain import (
-    finish_machine_execution,
-    start_machine_execution,
-)
 from s3.resource import (
     get_s3_resource,
 )
@@ -74,20 +70,7 @@ async def process_item(
     ).get("Contents", [])
     if not result_objects or not config_objects:
         return False
-
-    await start_machine_execution(
-        job.root_id,
-        job.job_id,
-        started_at=config_objects[0]["LastModified"],
-        git_commit=job.commit,
-    )
-    return await finish_machine_execution(
-        job.root_id,
-        job.job_id,
-        stopped_at=result_objects[-1]["LastModified"],
-        findings_executed=[],
-        status="SUCCESS",
-    )
+    return True
 
 
 async def main() -> None:

@@ -37,7 +37,6 @@ from api.mutations import (
     download_event_file,
     download_file,
     download_vulnerability_file,
-    finish_machine_execution,
     grant_stakeholder_access,
     grant_stakeholder_organization_access,
     handle_organization_finding_policy_acceptance,
@@ -75,7 +74,6 @@ from api.mutations import (
     send_vulnerability_notification,
     sign_post_url,
     solve_event,
-    start_machine_execution,
     submit_draft,
     submit_group_machine_execution,
     submit_machine_job,
@@ -184,8 +182,6 @@ MUTATION.set_field("downloadFile", download_file.mutate)
 MUTATION.set_field(
     "downloadVulnerabilityFile", download_vulnerability_file.mutate
 )
-MUTATION.set_field("finishMachineExecution", finish_machine_execution.mutate)
-MUTATION.set_field("startMachineExecution", start_machine_execution.mutate)
 MUTATION.set_field("grantStakeholderAccess", grant_stakeholder_access.mutate)
 MUTATION.set_field(
     "grantStakeholderOrganizationAccess",

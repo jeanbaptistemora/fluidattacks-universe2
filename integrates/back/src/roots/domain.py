@@ -21,9 +21,6 @@ from batch.enums import (
 from batch.types import (
     PutActionResult,
 )
-from botocore.exceptions import (
-    ClientError,
-)
 from collections import (
     defaultdict,
 )
@@ -1788,69 +1785,12 @@ async def remove_environment_url_secret(url_id: str, secret_key: str) -> None:
     await roots_model.remove_environment_url_secret(url_id, secret_key)
 
 
-async def finish_machine_execution(
-    root_id: str,
-    job_id: str,
-    **kwargs: Any,
-) -> bool:
-    stop_date = kwargs.pop("stopped_at").astimezone(pytz.timezone(TIME_ZONE))
-
-    try:
-        await roots_model.finish_machine_execution(
-            root_id,
-            job_id,
-            stopped_at=datetime_utils.get_as_str(stop_date),
-            findings_executed=kwargs.pop("findings_executed", []),
-            status=(kwargs.pop("status", "SUCCESS") or "SUCCESS").upper(),
-        )
-    except ClientError:
-        LOGGER.warning(
-            "Failed to finish machine execution",
-            extra={
-                "extra": {
-                    "root_id": root_id,
-                    "job_id": job_id,
-                }
-            },
-        )
-        return False
-    return True
-
-
 async def is_in_s3(group_name: str, root_nickname: str) -> bool:
     return bool(
         await s3_operations.list_files(
             f"continuous-repositories/{group_name}/{root_nickname}.tar.gz",
         )
     )
-
-
-async def start_machine_execution(
-    root_id: str,
-    job_id: str,
-    **kwargs: Any,
-) -> bool:
-    started_at = kwargs.pop("started_at").astimezone(pytz.timezone(TIME_ZONE))
-
-    try:
-        await roots_model.start_machine_execution(
-            root_id,
-            job_id,
-            started_at=datetime_utils.get_as_str(started_at),
-            git_commit=kwargs.pop("git_commit", None),
-        )
-    except ClientError:
-        LOGGER.warning(
-            "Failed to start machine execution",
-            extra={
-                "extra": {
-                    "root_id": root_id,
-                    "job_id": job_id,
-                }
-            },
-        )
-        return False
-    return True
 
 
 async def remove_root(

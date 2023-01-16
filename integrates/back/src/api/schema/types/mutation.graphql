@@ -505,22 +505,6 @@ type Mutation {
     findingId: String!
   ): DownloadFilePayload!
 
-  "Registers a machine execution finalization"
-  finishMachineExecution(
-    "Name of the group the root is associated with"
-    groupName: String!
-    "Nickname of the root"
-    rootNickname: String!
-    "Id of the job in aws batch"
-    jobId: ID!
-    "when the job was stopped"
-    stoppedAt: DateTime!
-    "Findings executed in the job"
-    findingsExecuted: [MachineFindingResultInput]
-    "Execution finish status"
-    status: String
-  ): SimplePayload!
-
   "Grants a stakeholder access to a Group"
   grantStakeholderAccess(
     "Name of the Group"
@@ -861,20 +845,6 @@ type Mutation {
     reason: SolveEventReason!
     "Custom reason provided"
     other: String
-  ): SimplePayload!
-
-  "Registers a machine execution finalization"
-  startMachineExecution(
-    "Full SHA-1 hash of the tested commit"
-    gitCommit: String
-    "Name of the group the root is associated with"
-    groupName: String!
-    "Nickname of the root"
-    rootNickname: String!
-    "Id of the job in aws batch"
-    jobId: ID!
-    "when the job was started"
-    startedAt: DateTime!
   ): SimplePayload!
 
   "Submits a draft Finding submission for approval"

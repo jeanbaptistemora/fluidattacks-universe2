@@ -25,7 +25,6 @@ from db_model.roots.types import (
     GitRootCloning,
     GitRootState,
     IPRootState,
-    MachineFindingResult,
     Root,
     RootUnreliableIndicatorsToUpdate,
     URLRootState,
@@ -43,7 +42,6 @@ from dynamodb.exceptions import (
 )
 import simplejson as json
 from typing import (
-    Optional,
     Union,
 )
 
@@ -213,54 +211,3 @@ async def update_unreliable_indicators(
         )
     except ConditionalCheckFailedException as ex:
         raise IndicatorAlreadyUpdated() from ex
-
-
-async def finish_machine_execution(
-    root_id: str,
-    job_id: str,
-    stopped_at: str,
-    findings_executed: list[MachineFindingResult],
-    status: str,
-) -> None:
-    key_structure = TABLE.primary_key
-    machine_execution_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={"uuid": root_id, "job_id": job_id},
-    )
-
-    await operations.update_item(
-        condition_expression=Attr(key_structure.partition_key).exists(),
-        item={
-            "stopped_at": stopped_at,
-            "findings_executed": json.loads(
-                json.dumps(findings_executed, default=serialize)
-            ),
-            "status": status,
-        },
-        key=machine_execution_key,
-        table=TABLE,
-    )
-
-
-async def start_machine_execution(
-    root_id: str,
-    job_id: str,
-    started_at: str,
-    git_commit: Optional[str] = None,
-) -> None:
-    key_structure = TABLE.primary_key
-    machine_execution_key = keys.build_key(
-        facet=TABLE.facets["machine_git_root_execution"],
-        values={"uuid": root_id, "job_id": job_id},
-    )
-
-    await operations.update_item(
-        condition_expression=Attr(key_structure.partition_key).exists(),
-        item={
-            "started_at": started_at,
-            "git_commit": git_commit,
-            "status": "RUNNING",
-        },
-        key=machine_execution_key,
-        table=TABLE,
-    )
