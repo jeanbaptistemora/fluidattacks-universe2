@@ -2,6 +2,7 @@ from . import (
     get_result,
     query_get,
 )
+import asyncio
 from freezegun import (
     freeze_time,
 )
@@ -33,6 +34,8 @@ async def test_update_toe_lines_attacked_lines_set_lines(
         attacked_lines=180,
         comments="edited comments 1",
     )
+    await asyncio.sleep(8)
+
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
     result = await query_get(user=email, group_name="group1")
     lines = result["data"]["group"]["toeLines"]["edges"]
@@ -81,6 +84,8 @@ async def test_update_toe_lines_attacked_lines_not_set_lines(
         attacked_lines=None,
         comments="edited comments 2",
     )
+    await asyncio.sleep(8)
+
     assert result["data"]["updateToeLinesAttackedLines"]["success"]
     result = await query_get(user=email, group_name="group2")
     lines = result["data"]["group"]["toeLines"]["edges"]
