@@ -13,8 +13,8 @@ import { useTranslation } from "react-i18next";
 import { useRouteMatch } from "react-router-dom";
 
 import { GET_GROUP_SERVICES } from "./queries";
-import { UpgradeGroupsModal } from "./UpgradeGroupsModal";
 
+import { UpgradeGroupsModal } from "../../UpgradeGroupsModal";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
 import { ExternalLink } from "components/ExternalLink";
