@@ -59,7 +59,7 @@ async def mutate(
         )
 
     await roots_validations.validate_git_access(
-        url=url, branch=branch, secret=secret
+        url=url, branch=branch, secret=secret, loaders=loaders
     )
     logs_utils.cloudwatch_log(
         info.context,

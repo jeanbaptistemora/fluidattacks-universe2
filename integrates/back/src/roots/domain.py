@@ -61,6 +61,8 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthGithubSecret,
+    OauthGitlabSecret,
     SshSecret,
 )
 from db_model.enums import (
@@ -225,7 +227,7 @@ async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
             )
             if not use_vpn and required_credentials:
                 await validations.working_credentials(
-                    url, branch, organization_credential
+                    url, branch, organization_credential, loaders
                 )
         else:
             organization_credential = _format_root_credential_new(
@@ -238,7 +240,7 @@ async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
             )
             if not use_vpn and required_credentials:
                 await validations.working_credentials(
-                    url, branch, organization_credential
+                    url, branch, organization_credential, loaders
                 )
             await creds_model.add(credential=organization_credential)
 
@@ -1914,6 +1916,12 @@ async def _ls_remote_root(root: GitRoot, cred: Credentials) -> Optional[str]:
         last_commit = await git_self.https_ls_remote(
             repo_url=root.state.url,
             token=cred.state.secret.token,
+        )
+    elif isinstance(cred.state.secret, (OauthGithubSecret, OauthGitlabSecret)):
+        last_commit = await git_self.https_ls_remote(
+            repo_url=root.state.url,
+            token=cred.state.secret.access_token,
+            is_oauth=True,
         )
     else:
         raise InvalidParameter()

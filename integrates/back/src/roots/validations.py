@@ -44,6 +44,12 @@ import git_self
 from ipaddress import (
     ip_address,
 )
+from newutils.datetime import (
+    get_utc_now,
+)
+from oauth.gitlab import (
+    get_token,
+)
 from organizations import (
     utils as orgs_utils,
 )
@@ -74,6 +80,7 @@ from urllib.parse import (
 
 
 async def validate_git_access(
+    *,
     url: str,
     branch: str,
     secret: Union[
@@ -84,6 +91,9 @@ async def validate_git_access(
         OauthGitlabSecret,
         SshSecret,
     ],
+    loaders: Dataloaders,
+    credential_id: Optional[str] = None,
+    organization_id: Optional[str] = None,
 ) -> None:
     try:
         url = roots_utils.format_git_repo_url(url)
@@ -94,7 +104,14 @@ async def validate_git_access(
         secret = SshSecret(
             key=orgs_utils.format_credentials_ssh_key(secret.key)
         )
-    await validate_git_credentials(url, branch, secret)
+    await validate_git_credentials(
+        repo_url=url,
+        branch=branch,
+        secret=secret,
+        loaders=loaders,
+        credential_id=credential_id,
+        organization_id=organization_id,
+    )
 
 
 async def validate_credential_in_organization(
@@ -114,12 +131,18 @@ async def working_credentials(
     url: str,
     branch: str,
     credentials: Optional[Credentials],
+    loaders: Dataloaders,
 ) -> None:
     if not credentials:
         raise RequiredCredentials()
 
     await validate_git_access(
-        url=url, branch=branch, secret=credentials.state.secret
+        url=url,
+        branch=branch,
+        secret=credentials.state.secret,
+        loaders=loaders,
+        organization_id=credentials.organization_id,
+        credential_id=credentials.id,
     )
 
 
@@ -402,6 +425,43 @@ async def _validate_git_credentials_ssh(
         raise BranchNotFound()
 
 
+async def _validate_git_credentials_oauth(
+    repo_url: str,
+    branch: str,
+    loaders: Dataloaders,
+    credential_id: str,
+    organization_id: str,
+) -> None:
+    token: Optional[str] = None
+    _credential: Credentials = await loaders.credentials.load(
+        CredentialsRequest(
+            id=credential_id,
+            organization_id=organization_id,
+        )
+    )
+    if isinstance(_credential.state.secret, OauthGitlabSecret):
+        token = _credential.state.secret.access_token
+        if _credential.state.secret.valid_until <= get_utc_now():
+            token = await get_token(credential=_credential, loaders=loaders)
+
+    if token is None:
+        raise InvalidGitCredentials()
+
+    last_commit = await git_self.https_ls_remote(
+        branch=branch,
+        repo_url=repo_url,
+        password=None,
+        token=token,
+        user=None,
+        is_oauth=True,
+    )
+    if last_commit is None:
+        raise InvalidGitCredentials()
+
+    if not last_commit:
+        raise BranchNotFound()
+
+
 async def _validate_git_credentials_https(
     repo_url: str,
     branch: str,
@@ -424,6 +484,7 @@ async def _validate_git_credentials_https(
 
 
 async def validate_git_credentials(
+    *,
     repo_url: str,
     branch: str,
     secret: Union[
@@ -434,6 +495,9 @@ async def validate_git_credentials(
         OauthGitlabSecret,
         SshSecret,
     ],
+    loaders: Dataloaders,
+    credential_id: Optional[str] = None,
+    organization_id: Optional[str] = None,
 ) -> None:
     if isinstance(secret, SshSecret):
         await _validate_git_credentials_ssh(repo_url, branch, secret.key)
@@ -452,4 +516,16 @@ async def validate_git_credentials(
             token=None,
             user=secret.user,
             password=secret.password,
+        )
+    elif (
+        isinstance(secret, (OauthGithubSecret, OauthGitlabSecret))
+        and organization_id
+        and credential_id
+    ):
+        await _validate_git_credentials_oauth(
+            repo_url,
+            branch=branch,
+            loaders=loaders,
+            organization_id=organization_id,
+            credential_id=credential_id,
         )
