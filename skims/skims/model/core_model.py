@@ -993,6 +993,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.http,
         requirements=[266],
     )
+    F344: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F344",
+        cwe=922,
+        execution_queue=ExecutionQueue.http,
+        requirements=[173, 320, 357],
+    )
     F346: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F346",
@@ -5662,4 +5669,20 @@ class MethodsEnum(Enum):
         finding=FindingEnum.F343,
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
+        file_name="javascript",
+        name="javascript_local_storage_with_sensitive_data",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
+        file_name="typescript",
+        name="typescript_local_storage_with_sensitive_data",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )

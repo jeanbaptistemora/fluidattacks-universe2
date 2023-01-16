@@ -1,0 +1,6 @@
+---
+lib_root.f344.local_storage_with_sensitive_data:
+  en: The application stores data from a HTTP request using
+      browser's Local Storage.
+  es: La aplicación almacena información proveniente de un
+      request HTTP en el Local Storage del navegador.

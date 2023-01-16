@@ -951,6 +951,14 @@
       "title": "343. Insecure service configuration - BREACH Attack"
     }
   },
+  "F344": {
+    "EN": {
+      "title": "344. Lack of data validation - Non Sanitized Variables"
+    },
+    "ES": {
+      "title": "344. Lack of data validation - Non Sanitized Variables"
+    }
+  },
   "F346": {
     "EN": {
       "title": "346. Excessive privileges - Mobile App"
