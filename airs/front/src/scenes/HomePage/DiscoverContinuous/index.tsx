@@ -43,24 +43,33 @@ const DiscoverContinuous: React.FC = (): JSX.Element => {
         <Grid columns={3} columnsMd={3} columnsSm={1} gap={"1rem"}>
           <SimpleCard
             bgColor={"#f4f4f6"}
+            bgGradient={"#ffffff, #f4f4f6"}
             description={translate.t("home.discoverContinuous.card1.subtitle")}
             descriptionColor={"#535365"}
+            hoverColor={"#ffffff"}
+            hoverShadow={true}
             image={"airs/home/DiscoverContinuous/card1.png"}
             title={translate.t("home.discoverContinuous.card1.title")}
             titleColor={"#2e2e38"}
           />
           <SimpleCard
             bgColor={"#f4f4f6"}
+            bgGradient={"#ffffff, #f4f4f6"}
             description={translate.t("home.discoverContinuous.card2.subtitle")}
             descriptionColor={"#535365"}
+            hoverColor={"#ffffff"}
+            hoverShadow={true}
             image={"airs/home/DiscoverContinuous/card2.png"}
             title={translate.t("home.discoverContinuous.card2.title")}
             titleColor={"#2e2e38"}
           />
           <SimpleCard
             bgColor={"#f4f4f6"}
+            bgGradient={"#ffffff, #f4f4f6"}
             description={translate.t("home.discoverContinuous.card3.subtitle")}
             descriptionColor={"#535365"}
+            hoverColor={"#ffffff"}
+            hoverShadow={true}
             image={"airs/home/DiscoverContinuous/card3.png"}
             title={translate.t("home.discoverContinuous.card3.title")}
             titleColor={"#2e2e38"}

@@ -16,7 +16,7 @@ const Reviews: React.FC = (): JSX.Element => {
       bgColor={"#ffffff"}
       display={"flex"}
       justify={"center"}
-      minHeight={"600px"}
+      minHeight={"500px"}
       wrap={"wrap"}
     >
       <Container maxWidth={"600px"} minWidth={"300px"} mt={5} ph={4} phMd={4}>
@@ -29,6 +29,7 @@ const Reviews: React.FC = (): JSX.Element => {
         <Container display={"flex"} wrap={"wrap"}>
           <AirsLink
             decoration={"underline"}
+            hoverColor={"#bf0b1a"}
             href={"https://clutch.co/profile/fluid-attacks"}
           >
             <Text color={"#2e2e38"} mr={1} mt={3} size={"big"} weight={"bold"}>
@@ -51,11 +52,14 @@ const Reviews: React.FC = (): JSX.Element => {
       >
         <Container
           align={"start"}
-          bgColor={"#f4f4f5"}
+          bgGradient={"#ffffff, #f4f4f6"}
+          borderColor={"#dddde3"}
+          borderHoverColor={"#bf0b1a"}
           br={2}
           direction={"column"}
           display={"flex"}
           height={"360px"}
+          hoverColor={"#ffe5e7"}
           maxWidth={"280px"}
           mh={3}
           minWidth={"280px"}
@@ -78,6 +82,7 @@ const Reviews: React.FC = (): JSX.Element => {
             <Container align={"center"} display={"flex"} pb={2} wrap={"wrap"}>
               <AirsLink
                 decoration={"underline"}
+                hoverColor={"#bf0b1a"}
                 href={"https://fluidattacks.docsend.com/view/u37w4yqbh27e5dte"}
               >
                 <Text color={"#2e2e38"} mr={1} size={"small"} weight={"bold"}>
@@ -90,11 +95,14 @@ const Reviews: React.FC = (): JSX.Element => {
         </Container>
         <Container
           align={"start"}
-          bgColor={"#f4f4f5"}
+          bgGradient={"#ffffff, #f4f4f6"}
+          borderColor={"#dddde3"}
+          borderHoverColor={"#bf0b1a"}
           br={2}
           direction={"column"}
           display={"flex"}
           height={"360px"}
+          hoverColor={"#ffe5e7"}
           maxWidth={"280px"}
           minWidth={"280px"}
           mv={4}
@@ -116,6 +124,7 @@ const Reviews: React.FC = (): JSX.Element => {
             <Container align={"center"} display={"flex"} pb={2} wrap={"wrap"}>
               <AirsLink
                 decoration={"underline"}
+                hoverColor={"#bf0b1a"}
                 href={"https://fluidattacks.docsend.com/view/v3aj7p3sixmh6ict"}
               >
                 <Text color={"#2e2e38"} mr={1} size={"small"} weight={"bold"}>

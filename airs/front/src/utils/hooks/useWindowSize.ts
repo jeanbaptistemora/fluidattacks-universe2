@@ -6,6 +6,10 @@ interface IWindowSize {
 }
 
 const getSize = (): IWindowSize => {
+  if (typeof window === "undefined") {
+    return { height: 0, width: 0 };
+  }
+
   const { innerHeight, innerWidth } = window;
 
   return { height: innerHeight, width: innerWidth };
