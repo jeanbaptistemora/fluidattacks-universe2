@@ -34045,7 +34045,7 @@
     title: Security controls bypass or absence - Tampering Protection
     description: >
       La aplicación no cuenta con un control que garantice que un tercero no haya modificado y vuelto
-      a compilar la aplicación, permitiendo modificar y evadir validaciones como la detección de un 
+      a compilar la aplicación, permitiendo modificar y evadir validaciones como la detección de un
       usuario root en el dispositivo.
     impact: >
       Eludir las validaciones de la aplicación.
@@ -38487,17 +38487,9 @@
   category: System Manipulation
   examples:
     non_compliant: |
-
-      ```
-      NA
-
-      ```
+      Code examples do not apply for this vulnerability
     compliant: |
-
-      ```
-      NA
-
-      ```
+      Code examples do not apply for this vulnerability
   remediation_time: '1440'
   es:
     title: Sideloaded
@@ -38590,7 +38582,6 @@
             $this->widgetSchema->setNameFormat('contact[%s]');
           }
         }
-
         ```
   remediation_time: '45'
   es:
@@ -38906,15 +38897,9 @@
     category: Unexpected Injection
     examples:
       non_compliant: |
-
-        ```
-        N/A
-        ```
+        Code examples do not apply for this vulnerability
       compliant: |
-
-        ```
-        N/A
-        ```
+        Code examples do not apply for this vulnerability
     remediation_time: '600'
     score:
       base:
@@ -38960,78 +38945,73 @@
         Ejecutar acciones que deberían estar restringidas a otros grupos o roles.
       recommendation: >
         Cada función de Lambda debe tener una relación 1:1 con un rol de IAM. Incluso si algunas
-        funciones tienen la misma política inicialmente, siempre separe los roles de IAM para 
+        funciones tienen la misma política inicialmente, siempre separe los roles de IAM para
         garantizar políticas de privilegios mínimos.
       threat: >
         Atacante desde Internet con acceso a cualquiera de los roles mal configurados.
     category: Unexpected Injection
     examples:
       non_compliant: |
-        
         ``` yaml
-          iamRoleStatements:
-            - Effect: Allow
-              Action:
-                - dynamodb:DescribeTable
-                - dynamodb:Query
-                - dynamodb:Scan
-                - dynamodb:GetItem
-                - dynamodb:PutItem
-                - dynamodb:UpdateItem
-                - dynamodb:DeleteItem
-              Resource: "arn:aws:dynamodb:us-east-1:*:*"
-            - Effect: "Allow"
-              Action:
-                - xray:PutTelemetryRecords
-                - xray:PutTraceSegments
-              Resource: "*"
+        iamRoleStatements:
+          - Effect: Allow
+            Action:
+              - dynamodb:DescribeTable
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:GetItem
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:DeleteItem
+            Resource: "arn:aws:dynamodb:us-east-1:*:*"
+          - Effect: "Allow"
+            Action:
+              - xray:PutTelemetryRecords
+              - xray:PutTraceSegments
+            Resource: "*"
         ```
       compliant: |
-        
-        ```
-            createFunctionRole:
-              Type: AWS::IAM::Role
-              Properties:
-                RoleName: ${self:service}-${self:custom.stage}-create-${self:custom.region}-lambdaRole
-                AssumeRolePolicyDocument:
+        ```yaml
+        createFunctionRole:
+          Type: AWS::IAM::Role
+          Properties:
+            RoleName: ${self:service}-${self:custom.stage}-create-${self:custom.region}-lambdaRole
+            AssumeRolePolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Principal:
+                    Service:
+                      - lambda.amazonaws.com
+                  Action: sts:AssumeRole
+            Policies:
+              - PolicyName: inlinePolicy
+                PolicyDocument:
                   Version: '2012-10-17'
                   Statement:
                     - Effect: Allow
-                      Principal:
-                        Service:
-                          - lambda.amazonaws.com
-                      Action: sts:AssumeRole
-                Policies:
-                 - PolicyName: inlinePolicy
-                   PolicyDocument:
-                      Version: '2012-10-17'
-                      Statement:
-                        - Effect: Allow
-                          Action:
-                            - logs:PutLogEvents
-                          Resource: 
-                            - 'Fn::Join':
-                            - ':'
-                            -
-                            - 'arn:aws:logs'
-                            - Ref: 'AWS::Region'
-                            - Ref: 'AWS::AccountId'
-                            - log-group:/aws/lambda/${self:service}-${self:custom.stage}-create:*
-                        - Effect: "Allow"
-                          Action:
-                          - xray:PutTraceSegments
-                          Resource: "*"
-                        - Effect: Allow
-                          Action:
-                          - dynamodb:PutItem
-                          Resource: 
-                          - 'Fn::Join':
-                          - ':'
-                          -
-                          - 'arn:aws:dynamodb'
-                          - Ref: 'AWS::Region'
-                          - Ref: 'AWS::AccountId'
-                         
+                      Action:
+                        - logs:PutLogEvents
+                      Resource:
+                        - 'Fn::Join':
+                        - ':'
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - log-group:/aws/lambda/${self:service}-${self:custom.stage}-create:*
+                    - Effect: "Allow"
+                      Action:
+                      - xray:PutTraceSegments
+                      Resource: "*"
+                    - Effect: Allow
+                      Action:
+                      - dynamodb:PutItem
+                      Resource:
+                      - 'Fn::Join':
+                      - ':'
+                      - 'arn:aws:dynamodb'
+                      - Ref: 'AWS::Region'
+                      - Ref: 'AWS::AccountId'
         ```
     remediation_time: '30'
     score:
