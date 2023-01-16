@@ -34,6 +34,8 @@ function main {
       'REDSHIFT_PASSWORD' \
       'REDSHIFT_PORT' \
       'REDSHIFT_USER' \
+    && groups_file="$(mktemp)" \
+    && list_groups "${groups_file}" \
     && execute_chunk_parallel update_priority "${groups_file}" "${parallel}" "batch"
 
 }
