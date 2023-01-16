@@ -17,14 +17,14 @@ template: advisory
 
 ## Summary
 
-|                       |                                                      |
-| --------------------- | ---------------------------------------------------- |
-| **Name**              | OrangeScrum 2.0.11 - Reflected XSS via imgName       |
-| **Code name**         | [Queen](https://en.wikipedia.org/wiki/Queen_(band))  |
-| **Product**           | OrangeScrum                                          |
-| **Affected versions** | 2.0.11                                               |
-| **State**             | Public                                               |
-| **Release Date**      | 2023-01-16                                           |
+|                       |                                                          |
+| --------------------- | -------------------------------------------------------- |
+| **Name**              | OrangeScrum 2.0.11 - OS Command Injection via projuniqid |
+| **Code name**         | [Queen](https://en.wikipedia.org/wiki/Queen_(band))      |
+| **Product**           | OrangeScrum                                              |
+| **Affected versions** | 2.0.11                                                   |
+| **State**             | Public                                                   |
+| **Release Date**      | 2023-01-16                                               |
 
 ## Vulnerability
 
