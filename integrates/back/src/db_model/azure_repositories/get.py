@@ -25,11 +25,16 @@ from azure.devops.v6_0.git.models import (
     GitRepositoryStats,
 )
 from db_model.azure_repositories.types import (
+    BasicRepoData,
     CredentialsGitRepositoryCommit,
 )
 from db_model.credentials.types import (
     Credentials,
     HttpsPatSecret,
+)
+import gitlab
+from itertools import (
+    chain,
 )
 import logging
 import logging.config
@@ -197,6 +202,36 @@ def _get_repositories_stats(
         return None
     else:
         return stats
+
+
+async def get_gitlab_projects(*, token: str) -> tuple[BasicRepoData, ...]:
+    return await in_thread(_get_gitlab_projects, token=token)
+
+
+def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
+    with gitlab.Gitlab(oauth_token=token) as g_session:
+        groups = tuple(g_session.groups.list(all=True))
+        group_projects = tuple(
+            chain.from_iterable(
+                tuple(group.projects.list() for group in groups)
+            )
+        )
+
+        return tuple(
+            BasicRepoData(
+                remote_url=gproject.attributes["http_url_to_repo"],
+                ssh_url=gproject.attributes["ssh_url_to_repo"],
+                web_url=gproject.attributes["web_url"],
+                branch=(
+                    "refs/heads/"
+                    f'{gproject.attributes["default_branch"]}'.rstrip().lstrip(
+                        "refs/heads/"
+                    )
+                ),
+                last_activity_at=gproject.attributes["last_activity_at"],
+            )
+            for gproject in group_projects
+        )
 
 
 class OrganizationRepositoriesLoader(DataLoader):
