@@ -55,13 +55,7 @@ function main() {
             -name "*.yaml" \
           | while read -r file_config; do
             pushd "groups/${group_name}/fusion/${root}" \
-              && current_commit="$(git rev-parse HEAD)" \
               && popd \
-              && python3 __argScript__ start-execution \
-                --group-name "${group_name}" \
-                --root-nickname "${root}" \
-                --api-token "${INTEGRATES_API_TOKEN}" \
-                --commit-hash "${current_commit}" \
               && skims scan --group "${group_name}" "${file_config}" \
               && filename="$(basename "${file_config}")" \
               && execution_id="${filename%.*}" \
@@ -69,12 +63,7 @@ function main() {
               && if test -f "${execution_result}"; then
                 aws s3 cp "${execution_result}" s3://machine.data/results/ \
                   && python3 __argScript__ submit-task \
-                    --execution-id "${execution_id}" \
-                  && python3 __argScript__ finish-execution \
-                    --group-name "${group_name}" \
-                    --root-nickname "${root}" \
-                    --api-token "${INTEGRATES_API_TOKEN}" \
-                    --checks "${checks}"
+                    --execution-id "${execution_id}"
               fi
           done
       done \
