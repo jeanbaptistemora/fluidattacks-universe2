@@ -8,13 +8,19 @@ from custom_exceptions import (
     ErrorUploadingFileS3,
     InvalidParameter,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
 from db_model.credentials.types import (
     Credentials,
+    CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
+    OauthGithubSecret,
+    OauthGitlabSecret,
     SshSecret,
 )
 from decorators import (
@@ -28,11 +34,20 @@ from git.repo.base import (
 )
 import git_self as git_utils
 import logging
+from newutils.datetime import (
+    get_utc_now,
+)
+from oauth.gitlab import (
+    get_token,
+)
 from settings.logger import (
     LOGGING,
 )
 import shutil
 import tempfile
+from typing import (
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -47,6 +62,19 @@ cloned_repo_to_s3_tar = retry_on_exceptions(
 )(upload_cloned_repo_to_s3_tar)
 
 
+async def _get_token(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+) -> Optional[str]:
+    if isinstance(credential.state.secret, OauthGitlabSecret):
+        if credential.state.secret.valid_until <= get_utc_now():
+            return await get_token(credential=credential, loaders=loaders)
+
+        return credential.state.secret.access_token
+    return None
+
+
 async def clone_root(
     *,
     group_name: str,
@@ -54,6 +82,7 @@ async def clone_root(
     branch: str,
     root_url: str,
     cred: Credentials,
+    loaders: Dataloaders,
 ) -> CloneResult:
     with tempfile.TemporaryDirectory() as temp_dir:
         if isinstance(cred.state.secret, SshSecret):
@@ -80,6 +109,26 @@ async def clone_root(
                 temp_dir=temp_dir,
                 token=None,
                 user=cred.state.secret.user,
+            )
+        elif isinstance(
+            cred.state.secret, (OauthGithubSecret, OauthGitlabSecret)
+        ):
+            token: Optional[str] = None
+            _credential: Credentials = await loaders.credentials.load(
+                CredentialsRequest(
+                    id=cred.id,
+                    organization_id=cred.organization_id,
+                )
+            )
+            token = await _get_token(credential=_credential, loaders=loaders)
+            folder_to_clone_root, stderr = await git_utils.https_clone(
+                branch=branch,
+                password=None,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=token,
+                user=None,
+                is_oauth=True,
             )
         else:
             raise InvalidParameter()

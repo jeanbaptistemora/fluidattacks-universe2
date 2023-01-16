@@ -131,6 +131,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             branch=root.state.branch,
             root_url=root.state.url,
             cred=root_cred,
+            loaders=dataloaders,
         )
         LOGGER.info(
             "Cloned success: %s, with commit: %s",
