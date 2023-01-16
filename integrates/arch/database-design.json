@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 11, 2023, 06:57 PM",
+    "DateLastModified": "Jan 16, 2023, 06:21 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -23723,9 +23723,6 @@
               "attacked_by": {
                 "S": "test2@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "attacked_lines": {
                 "N": "4"
               },
@@ -23809,9 +23806,6 @@
                   "attacked_by": {
                     "S": "test2@test.com"
                   },
-                  "be_present_until": {
-                    "S": ""
-                  },
                   "attacked_lines": {
                     "N": "4"
                   },
@@ -23890,9 +23884,6 @@
               },
               "attacked_by": {
                 "S": "test2@test.com"
-              },
-              "be_present_until": {
-                "S": ""
               },
               "attacked_lines": {
                 "N": "4"
@@ -23976,9 +23967,6 @@
                   },
                   "attacked_by": {
                     "S": "test2@test.com"
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "attacked_lines": {
                     "N": "4"
@@ -24261,9 +24249,6 @@
                   "attacked_by": {
                     "S": "test2@test.com"
                   },
-                  "be_present_until": {
-                    "S": ""
-                  },
                   "attacked_lines": {
                     "N": "4"
                   },
@@ -24353,9 +24338,6 @@
                   },
                   "attacked_by": {
                     "S": "test2@test.com"
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "attacked_lines": {
                     "N": "4"
@@ -24524,9 +24506,6 @@
               "attacked_by": {
                 "S": "test2@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
               },
@@ -24564,9 +24543,6 @@
                   },
                   "be_present": {
                     "BOOL": true
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "first_attack_at": {
                     "S": "2021-02-11T05:00:00+00:00"
@@ -24610,9 +24586,6 @@
               },
               "attacked_by": {
                 "S": "test2@test.com"
-              },
-              "be_present_until": {
-                "S": ""
               },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
@@ -24698,9 +24671,6 @@
               "attacked_by": {
                 "S": "test@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "component": {
                 "S": "https://test.com/api/Test"
               },
@@ -24738,9 +24708,6 @@
                   },
                   "be_present": {
                     "BOOL": true
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "first_attack_at": {
                     "S": "2020-01-02T05:00:00+00:00"
@@ -24901,9 +24868,6 @@
               "attacked_by": {
                 "S": "test2@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
               },
@@ -24935,9 +24899,6 @@
                   },
                   "be_present": {
                     "BOOL": true
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "first_attack_at": {
                     "S": "2021-02-11T05:00:00+00:00"
@@ -24982,9 +24943,6 @@
               "attacked_by": {
                 "S": "test2@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
               },
@@ -25016,9 +24974,6 @@
                   },
                   "be_present": {
                     "BOOL": true
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "first_attack_at": {
                     "S": "2021-02-11T05:00:00+00:00"
@@ -25063,9 +25018,6 @@
               "attacked_by": {
                 "S": "test@test.com"
               },
-              "be_present_until": {
-                "S": ""
-              },
               "component": {
                 "S": "https://test.com/api/Test"
               },
@@ -25097,9 +25049,6 @@
                   },
                   "be_present": {
                     "BOOL": true
-                  },
-                  "be_present_until": {
-                    "S": ""
                   },
                   "first_attack_at": {
                     "S": "2020-01-02T05:00:00+00:00"
