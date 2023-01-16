@@ -2,6 +2,7 @@ from . import (
     get_result,
     query_get,
 )
+import asyncio
 from custom_exceptions import (
     InvalidSortsRiskLevel,
 )
@@ -54,12 +55,14 @@ async def test_update_toe_lines_sorts(
     result: dict[str, Any] = await get_result(
         user=user_email,
         group_name="group1",
-        root_nickname="asm_1",
-        filename="test2/test.sh",
+        root_nickname="universe",
+        filename="test/test#.config",
         sorts_risk_level=sorts_risk_level,
         sorts_risk_level_date=sorts_risk_level_date,
         sorts_suggestions=sorts_suggestions,
     )
+    await asyncio.sleep(8)
+
     assert result["data"]["updateToeLinesSorts"]["success"]
     result = await query_get(user=user_email, group_name="group1")
     lines = result["data"]["group"]["toeLines"]["edges"]
@@ -80,7 +83,7 @@ async def test_update_toe_lines_sorts(
     assert lines[0]["node"]["modifiedDate"] == "2020-11-16T15:41:04+00:00"
     assert lines[0]["node"]["root"]["nickname"] == "universe"
     assert lines[0]["node"]["seenAt"] == "2020-01-01T15:41:04+00:00"
-    assert lines[0]["node"]["sortsRiskLevel"] == 0
+    assert lines[0]["node"]["sortsRiskLevel"] == sorts_risk_level
 
 
 @pytest.mark.asyncio
