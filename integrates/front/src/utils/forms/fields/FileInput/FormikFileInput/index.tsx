@@ -14,7 +14,6 @@ import { ConfirmDialog } from "./modal";
 
 import { Alert } from "components/Alert";
 import { Label } from "components/Input";
-import styleImage from "scenes/Dashboard/components/EvidenceImage/index.css";
 import { ControlLabel, FormGroup, InputGroup } from "styles/styledComponents";
 import { ValidationError } from "utils/forms/fields/styles";
 import style from "utils/forms/index.css";
@@ -103,17 +102,18 @@ export const FormikFileInput: React.FC<IFileInputProps> = (
       message={
         <React.Fragment>
           <Label>{t("searchFindings.tabEvidence.fields.modal.message")}</Label>
-          <div className={styleImage.imgContainer}>
+          <div>
             {getFileNameExtension(imgName) === "webm" ? (
-              <video className={styleImage.img} controls={true} muted={true}>
+              <video controls={true} height={600} muted={true} width={600}>
                 <source src={imgUrl} type={"video/webm"} />
               </video>
             ) : (
               <img
                 alt={""}
-                className={styleImage.img}
+                height={600}
                 key={`${name}.img.key`}
                 src={imgUrl}
+                width={600}
               />
             )}
           </div>

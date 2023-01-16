@@ -8,10 +8,11 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
+import { DescriptionContainer, ImageContainer } from "./styles";
+
 import { Button } from "components/Button/index";
 import { ExternalLink } from "components/ExternalLink";
 import { Tooltip } from "components/Tooltip";
-import style from "scenes/Dashboard/components/EvidenceImage/index.css";
 import type { IEvidenceItem } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/types";
 import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
 import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
@@ -122,18 +123,12 @@ const DisplayImage: React.FC<
   const { t } = useTranslation();
 
   if (content === "") {
-    return <div className={style.img} />;
+    return <div />;
   }
 
   if (content === "file") {
     return (
-      <div
-        className={style.img}
-        onClick={onClick}
-        onKeyUp={onClick}
-        role={"button"}
-        tabIndex={0}
-      >
+      <div onClick={onClick} onKeyUp={onClick} role={"button"} tabIndex={0}>
         <FontAwesomeIcon icon={faFile} size={"1x"} />
       </div>
     );
@@ -141,7 +136,7 @@ const DisplayImage: React.FC<
 
   if (getFileNameExtension(content) === "webm") {
     return (
-      <video className={style.img} controls={true} muted={true}>
+      <video controls={true} muted={true}>
         <source src={content} type={"video/webm"} />
         <p>
           {t("searchFindings.tabEvidence.altVideo.first")}&nbsp;
@@ -156,7 +151,7 @@ const DisplayImage: React.FC<
 
   return (
     <div onClick={onClick} onKeyUp={onClick} role={"button"} tabIndex={0}>
-      <img alt={name} className={style.img} src={content} />
+      <img alt={name} src={content} />
     </div>
   );
 };
@@ -171,10 +166,10 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
     <React.StrictMode>
       <Col33>
         <div>
-          <div className={style.imgContainer}>
+          <ImageContainer>
             <DisplayImage content={content} name={name} onClick={onClick} />
-          </div>
-          <div className={style.description}>
+          </ImageContainer>
+          <DescriptionContainer>
             <Row>
               <label>
                 <b>{t("searchFindings.tabEvidence.detail")}</b>
@@ -195,7 +190,7 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
                 </React.Fragment>
               )}
             </Row>
-          </div>
+          </DescriptionContainer>
         </div>
       </Col33>
     </React.StrictMode>
