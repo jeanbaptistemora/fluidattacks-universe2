@@ -672,7 +672,14 @@ def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
             )
             separators: Tuple[str, ...] = ('"', "'", ",", ";")
             fields_to_validate = [
-                str(kwargs.get(field)) for field in field_names
+                str(kwargs.get(field))
+                if "." not in field
+                else str(
+                    getattr(
+                        kwargs.get(field.split(".")[0]), field.split(".")[1]
+                    )
+                )
+                for field in field_names
             ]
             fields_union = [field.split() for field in fields_to_validate]
             fields_flat = list(itertools.chain(*fields_union))
@@ -720,6 +727,10 @@ def validate_commit_hash_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             commit_hash = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                commit_hash = str(getattr(obj, attr_name))
             if not (
                 # validate SHA-1
                 re.match(
@@ -759,6 +770,10 @@ def validate_int_range_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             value = cast(int, kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                value = cast(int, (getattr(obj, attr_name)))
             if inclusive:
                 if not lower_bound <= value <= upper_bound:
                     raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
@@ -783,6 +798,10 @@ def validate_start_letter_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             if not field_content[0].isalpha():
                 raise InvalidReportFilter(
                     "Password should start with a letter"
@@ -807,6 +826,11 @@ def validate_include_number_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
+            print(field, field_content)
             if not re.search(r"\d", field_content):
                 raise InvalidReportFilter(
                     "Password should include at least one number"

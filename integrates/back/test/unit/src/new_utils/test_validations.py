@@ -391,6 +391,22 @@ def test_validate_int_range_deco() -> None:
 
         decorated_func_fail(int_value=12)
 
+    class TestClass(NamedTuple):
+        int_value: int
+
+    test_obj = TestClass(int_value=12)
+    test_obj_fail = TestClass(int_value=13)
+
+    @validate_int_range_deco(
+        "test_obj.int_value", lower_bound=11, upper_bound=12, inclusive=True
+    )
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(NumberOutOfRange):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 @pytest.mark.parametrize(
     "field",
@@ -460,6 +476,32 @@ def test_validate_sanitized_csv_input_deco(
             field2=field2,
             field3=field3,
         )
+
+    class TestClass(NamedTuple):
+        field1: str
+        field2: str
+        field3: str
+
+    test_obj = TestClass(
+        field1="validfield@",
+        field2="not_check",
+        field3="valid field",
+    )
+    test_obj_fail = TestClass(
+        field1="\\ninvalidField",
+        field2="not_check",
+        field3='"=invalidField"',
+    )
+
+    @validate_sanitized_csv_input_deco(
+        field_names=["test_obj.field1", "test_obj.field3", "field"]
+    )
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(UnsanitizedInputFound):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 @pytest.mark.parametrize(
@@ -752,6 +794,20 @@ def test_validate_commit_hash_deco() -> None:
     with pytest.raises(InvalidCommitHash):
         decorated_func(comm="invalid Hash")
 
+    class TestClass(NamedTuple):
+        comm: str
+
+    test_obj = TestClass(comm="da39a3ee5e6b4b0d3255bfef95601890afd80709")
+    test_obj_fail = TestClass(comm="invalid Hash")
+
+    @validate_commit_hash_deco("test_obj.comm")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidCommitHash):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 def test_validate_start_letter_deco() -> None:
     @validate_start_letter_deco(
@@ -764,6 +820,20 @@ def test_validate_start_letter_deco() -> None:
 
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="123abc")
+
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="abc123")
+    test_obj_fail = TestClass(field="123abc")
+
+    @validate_start_letter_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 def test_validate_include_number_deco() -> None:
@@ -778,15 +848,27 @@ def test_validate_include_number_deco() -> None:
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="abcdef")
 
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="abc123")
+    test_obj_fail = TestClass(field="abcdef")
+
+    @validate_include_number_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 def test_validate_include_lowercase_deco() -> None:
-    @validate_include_lowercase_deco(
-        "field",
-    )
+    @validate_include_lowercase_deco("field")
     def decorated_func(field: str) -> str:
         return field
 
-    decorated_func(field="abc123")
+    assert decorated_func(field="abc123")
 
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="ABC123")
