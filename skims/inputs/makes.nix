@@ -61,6 +61,12 @@
       rev = "eb306e6e60f393df346cfc8cbfaf52667a37128a";
       sha256 = "7LD8wR4Gg4OadYaXTSbGPe5iAOagRPGJSpO51uW0ow8=";
     };
+    skimsTreeSitterHcl = fetchGithub {
+      owner = "MichaHoffmann";
+      repo = "tree-sitter-hcl";
+      rev = "6b74f88b3d396e0f101c93f807e0b3667cd3e3a2";
+      sha256 = "/YpP3DkM+rFoRiwdW+D2vbKjOALE91tLSc/jkFgSobY=";
+    };
     skimsTreeSitterJava = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-java";
@@ -72,6 +78,12 @@
       repo = "tree-sitter-javascript";
       rev = "45b9ce2a2588c0e6d616b0ee2a710b1fcb99c5b5";
       sha256 = "nU0mVkGG6Sr4OstRFCIrbUGJnAHMZ9+lCDTJAFf392c=";
+    };
+    skimsTreeSitterJson = fetchGithub {
+      owner = "tree-sitter";
+      repo = "tree-sitter-json";
+      rev = "73076754005a460947cafe8e03a8cf5fa4fa2938";
+      sha256 = "wbE7CQ6l1wlhJdAoDVAj1QzyvlYnevbrlVCO0TMU7to=";
     };
     skimsTreeSitterKotlin = fetchGithub {
       owner = "fwcd";
@@ -102,6 +114,12 @@
       repo = "tree-sitter-typescript";
       rev = "0ab9d99867435a7667c5548a6617a6bf73dbd830";
       sha256 = "Nx+K7Ic/ePKAXPIMlrRn6zELYE59f/FnnZ/LM5ELaU8=";
+    };
+    skimsTreeSitterYaml = fetchGithub {
+      owner = "ikatyang";
+      repo = "tree-sitter-yaml";
+      rev = "0e36bed171768908f331ff7dff9d956bae016efb";
+      sha256 = "bpiT3FraOZhJaoiFWAoVJX1O+plnIi8aXOW2LwyU23M=";
     };
   };
 }

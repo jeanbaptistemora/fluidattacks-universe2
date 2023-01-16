@@ -20,12 +20,15 @@ makeDerivation {
     envTreeSitterCSharp = inputs.skimsTreeSitterCSharp;
     envTreeSitterDart = inputs.skimsTreeSitterDart;
     envTreeSitterGo = inputs.skimsTreeSitterGo;
+    envTreeSitterHcl = inputs.skimsTreeSitterHcl;
     envTreeSitterJava = inputs.skimsTreeSitterJava;
     envTreeSitterJavaScript = inputs.skimsTreeSitterJavaScript;
+    envTreeSitterJson = inputs.skimsTreeSitterJson;
     envTreeSitterKotlin = inputs.skimsTreeSitterKotlin;
     envTreeSitterPhp = inputs.skimsTreeSitterPhp;
     envTreeSitterRuby = inputs.skimsTreeSitterRuby;
     envTreeSitterScala = inputs.skimsTreeSitterScala;
     envTreeSitterTsx = inputs.skimsTreeSitterTsx;
+    envTreeSitterYaml = inputs.skimsTreeSitterYaml;
   };
 }
