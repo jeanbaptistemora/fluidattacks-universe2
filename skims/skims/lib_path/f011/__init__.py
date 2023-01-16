@@ -30,6 +30,9 @@ from lib_path.f011.nuget import (
 from lib_path.f011.pip import (
     pip_requirements_txt,
 )
+from lib_path.f011.pub import (
+    pubspec_yaml,
+)
 from model.core_model import (
     Vulnerabilities,
 )
@@ -107,6 +110,11 @@ def run_npm_package_lock_json(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
     return pip_requirements_txt(content, path)
+
+
+@SHIELD_BLOCKING
+def run_pubspec_yaml(content: str, path: str) -> Vulnerabilities:
+    return pubspec_yaml(content, path)
 
 
 def _is_pom_xml(content: str) -> bool:
