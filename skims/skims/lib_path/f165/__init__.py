@@ -8,7 +8,6 @@ from lib_path.f165.cloudformation import (
     cfn_iam_allow_not_actions_trust_policy,
     cfn_iam_allow_not_principal_trust_policy,
     cfn_iam_allow_not_resource_perms_policies,
-    cfn_iam_allow_wildcard_action_trust_policy,
     cfn_iam_wildcard_actions_perms_policies,
     cfn_iam_wildcard_resources_perms_policies,
 )
@@ -68,15 +67,6 @@ def run_cfn_iam_allow_not_resource_perms_policies(
 
 
 @SHIELD_BLOCKING
-def run_cfn_iam_allow_wildcard_action_trust_policy(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_allow_wildcard_action_trust_policy(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def run_cfn_iam_allow_not_actions_trust_policy(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -123,9 +113,6 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_allow_not_actions_trust_policy(
-                    content, file_extension, path, template
-                ),
-                run_cfn_iam_allow_wildcard_action_trust_policy(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_allow_not_resource_perms_policies(

@@ -56,13 +56,6 @@ def check_type(
             data=not_princ.data,
             line=get_line_by_extension(not_princ.start_line, file_ext),
         )
-    allow_wildcard_reports = False
-    if (
-        method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION
-        and allow_wildcard_reports
-        and (actions := stmt.inner.get("Action"))
-    ):
-        yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
 
 def check_assume_role_policies(

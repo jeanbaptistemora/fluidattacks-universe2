@@ -20,6 +20,7 @@ from model.core_model import (
 from parse_cfn.structure import (
     iter_iam_managed_policies_and_mgd_policies,
     iter_iam_managed_policies_and_roles,
+    iter_iam_roles,
     iter_kms_keys,
 )
 import re
@@ -311,4 +312,57 @@ def cfn_iam_has_privileges_over_iam(
         ),
         path=path,
         method=MethodsEnum.CFN_IAM_PRIVILEGES_OVER_IAM,
+    )
+
+
+def check_assume_role_policies(
+    assume_role_policy: Node, method: MethodsEnum
+) -> Iterator[Node]:
+    statements = (
+        assume_role_policy.inner.get("Statement")
+        if hasattr(assume_role_policy.inner, "get")
+        else None
+    )
+    for stmt in statements.data if statements else []:
+        if (
+            hasattr(stmt.inner, "get")
+            and (effect := stmt.inner.get("Effect"))
+            and effect.raw != "Allow"
+        ):
+            continue
+        if method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION and (
+            actions := stmt.inner.get("Action")
+        ):
+            yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+
+
+def iam_trust_policies_checks(
+    iam_iterator: Iterator[Node],
+    method: MethodsEnum,
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
+            yield from check_assume_role_policies(
+                assume_role_policy,
+                method,
+            )
+
+
+def cfn_iam_allow_wildcard_action_trust_policy(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f165.iam_allow_wildcard_action_trust_policy"
+        ),
+        iterator=get_cloud_iterator(
+            iam_trust_policies_checks(
+                iam_iterator=iter_iam_roles(template=template),
+                method=method,
+            )
+        ),
+        path=path,
+        method=method,
     )
