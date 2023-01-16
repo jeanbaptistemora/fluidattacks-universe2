@@ -1,8 +1,11 @@
 interface ISimpleCardProps {
   bgColor?: string;
+  bgGradient?: string;
   borderColor?: string;
   description: string;
   descriptionColor: string;
+  hoverColor?: string;
+  hoverShadow?: boolean;
   image: string;
   title?: string;
   titleColor?: string;

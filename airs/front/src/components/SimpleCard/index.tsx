@@ -8,9 +8,12 @@ import { Text, Title } from "../Typography";
 
 const SimpleCard: React.FC<ISimpleCardProps> = ({
   bgColor,
+  bgGradient,
   borderColor,
   description,
   descriptionColor,
+  hoverColor,
+  hoverShadow,
   image,
   title = "",
   titleColor = "unset",
@@ -23,10 +26,13 @@ const SimpleCard: React.FC<ISimpleCardProps> = ({
     return (
       <Container
         bgColor={bgColor}
+        bgGradient={bgGradient}
         borderColor={borderColor}
         br={2}
         direction={"column"}
         display={"flex"}
+        hoverColor={hoverColor}
+        hoverShadow={hoverShadow}
         mh={2}
         mv={2}
         ph={3}
@@ -55,10 +61,13 @@ const SimpleCard: React.FC<ISimpleCardProps> = ({
   return (
     <Container
       bgColor={bgColor}
+      bgGradient={bgGradient}
       borderColor={borderColor}
       br={2}
       direction={"column"}
       display={"flex"}
+      hoverColor={hoverColor}
+      hoverShadow={hoverShadow}
       mh={2}
       mv={2}
       ph={3}
