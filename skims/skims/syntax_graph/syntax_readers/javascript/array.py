@@ -18,21 +18,19 @@ def reader(args: SyntaxGraphArgs) -> NId:
         args.n_id,
     )
 
-    node_types = {
-        "call_expression",
-        "false",
-        "identifier",
-        "number",
-        "object",
-        "string",
-        "template_string",
-        "true",
+    invalid_types = {
+        "[",
+        "]",
+        "{",
+        "}",
+        ",",
+        ";",
     }
 
     valid_childs = [
         child
         for child in childs_id
-        if args.ast_graph.nodes[child]["label_type"] in node_types
+        if args.ast_graph.nodes[child]["label_type"] not in invalid_types
     ]
 
     return build_array_node(args, valid_childs)

@@ -47882,8 +47882,89 @@
               "label_ast": "AST"
             }
           },
+          "1504": {
+            "1506": {
+              "label_ast": "AST"
+            }
+          },
+          "1506": {
+            "1508": {
+              "label_ast": "AST"
+            }
+          },
+          "1508": {
+            "1511": {
+              "label_ast": "AST"
+            }
+          },
+          "1511": {
+            "1513": {
+              "label_ast": "AST"
+            }
+          },
+          "1513": {
+            "1514": {
+              "label_ast": "AST"
+            },
+            "1518": {
+              "label_ast": "AST"
+            }
+          },
+          "1514": {
+            "1515": {
+              "label_ast": "AST"
+            },
+            "1517": {
+              "label_ast": "AST"
+            }
+          },
+          "1518": {
+            "1520": {
+              "label_ast": "AST"
+            }
+          },
           "152": {
             "155": {
+              "label_ast": "AST"
+            }
+          },
+          "1520": {
+            "1521": {
+              "label_ast": "AST"
+            },
+            "1523": {
+              "label_ast": "AST"
+            }
+          },
+          "1523": {
+            "1524": {
+              "label_ast": "AST"
+            },
+            "1531": {
+              "label_ast": "AST"
+            }
+          },
+          "1524": {
+            "1525": {
+              "label_ast": "AST"
+            },
+            "1530": {
+              "label_ast": "AST"
+            }
+          },
+          "1525": {
+            "1526": {
+              "label_ast": "AST"
+            },
+            "1528": {
+              "label_ast": "AST"
+            }
+          },
+          "1531": {
+            "1533": {
+              "label_ast": "AST"
+            },
+            "1535": {
               "label_ast": "AST"
             }
           },
@@ -50934,8 +51015,94 @@
           "1504": {
             "label_type": "ArrayInitializer"
           },
+          "1506": {
+            "label_type": "ParenthesizedExpression"
+          },
+          "1508": {
+            "arguments_id": "1511",
+            "label_type": "ObjectCreation",
+            "name": "Set"
+          },
+          "1511": {
+            "label_type": "ArgumentList"
+          },
+          "1513": {
+            "arguments_id": "1518",
+            "expression": "locales.map",
+            "expression_id": "1514",
+            "label_type": "MethodInvocation"
+          },
+          "1514": {
+            "expression": "map",
+            "expression_id": "1517",
+            "label_type": "MemberAccess",
+            "member": "locales"
+          },
+          "1515": {
+            "label_type": "SymbolLookup",
+            "symbol": "locales"
+          },
+          "1517": {
+            "label_type": "SymbolLookup",
+            "symbol": "map"
+          },
+          "1518": {
+            "label_type": "ArgumentList"
+          },
           "152": {
             "label_type": "StatementBlock"
+          },
+          "1520": {
+            "block_id": "1523",
+            "label_type": "MethodDeclaration",
+            "parameters_id": "1521"
+          },
+          "1521": {
+            "label_type": "SymbolLookup",
+            "symbol": "locale"
+          },
+          "1523": {
+            "arguments_id": "1531",
+            "expression": "locale.key.substr",
+            "expression_id": "1524",
+            "label_type": "MethodInvocation"
+          },
+          "1524": {
+            "expression": "substr",
+            "expression_id": "1530",
+            "label_type": "MemberAccess",
+            "member": "locale.key"
+          },
+          "1525": {
+            "expression": "key",
+            "expression_id": "1528",
+            "label_type": "MemberAccess",
+            "member": "locale"
+          },
+          "1526": {
+            "label_type": "SymbolLookup",
+            "symbol": "locale"
+          },
+          "1528": {
+            "label_type": "SymbolLookup",
+            "symbol": "key"
+          },
+          "1530": {
+            "label_type": "SymbolLookup",
+            "symbol": "substr"
+          },
+          "1531": {
+            "label_type": "ArgumentList"
+          },
+          "1533": {
+            "label_type": "Literal",
+            "value": "0",
+            "value_type": "number"
+          },
+          "1535": {
+            "label_type": "Literal",
+            "value": "2",
+            "value_type": "number"
           },
           "1541": {
             "label_type": "SymbolLookup",
