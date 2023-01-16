@@ -31,16 +31,24 @@ can access [a vast list](/criteria/vulnerabilities/)
 that we are constantly updating on our
 [Documentation](https://docs.fluidattacks.com/).
 
-![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1671719877/docs/web/vulnerabilities/management/header_locations.png)
+![Vulnerability header](https://res.cloudinary.com/fluid-attacks/image/upload/v1673910324/docs/web/vulnerabilities/management/vul_name.png)
 
 The first thing you see below
 the title, on the far left, is
-the **severity** level of that
-type of vulnerability.
-Specifically, it shows you a
-number and its corresponding
-qualitative rating.
-The number is a score based on
+the **Total Risk Exposure (CVSSF)**
+represents how much the vulnerability
+to exposure (CVSSF) of the group is
+contributing.
+
+![total risk cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911339/docs/web/vulnerabilities/management/risk_cvssf.png)
+
+Next is the **Status** information,
+where you can see two items of information:
+The severity level and the
+status of this vulnerability.
+In **severity** level shows you a
+number,
+which means it is a score based on
 the renowned Common Vulnerability
 Scoring System (CVSS), an open
 standard for assessing the
@@ -53,27 +61,20 @@ those scores: **low** from 0.1 to
 **high** from 7.0 to 8.9 and
 **critical** from 9.0 to 10.0.
 
-![Vulnerability Severity Level critical](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/critical.png)
+![severity level cvss](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911424/docs/web/vulnerabilities/management/severity_level.png)
 
-![Vulnerability Severity Level High](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/hight.png)
-
-![Vulnerability Severity Level Medium](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/medium.png)
-
-![Vulnerability Severity Level Low](https://res.cloudinary.com/fluid-attacks/image/upload/v1668775496/docs/web/vulnerabilities/management/low.png)
-
-To the right of the severity,
-you find the **status** of that
+In **status** of that
 type of vulnerability.
 It can simply be **Safe** or **Vulnerable**.
-Open means that at least one of
+Vulnerable means that at least one of
 the locations where we reported
 that type of vulnerability has it
 without being fixed.
-On the other hand, closed means
+On the other hand, Safe means
 that you remediated that security
 issue in all those locations.
 
-![Vulnerability Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1671655380/docs/web/vulnerabilities/management/statuses.png)
+![Vulnerability Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911527/docs/web/vulnerabilities/management/status.png)
 
 Then, continuing from left
 to right, you discover the number
@@ -85,7 +86,7 @@ In the table below, you can precisely
 find which files and code lines
 are affected.
 
-![Number Of Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778790/docs/web/vulnerabilities/management/open_vuln.png)
+![Number Of Open Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911635/docs/web/vulnerabilities/management/opne_vul.png)
 
 Next, you can see the
 **discovery date**.
@@ -94,7 +95,7 @@ and day we first identified and
 reported that type of vulnerability
 for the group in question.
 
-![Discovery Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778886/docs/web/vulnerabilities/management/discover_day.png)
+![Discovery Date](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911702/docs/web/vulnerabilities/management/firts_report.png)
 
 The last item in the header is
 the **MMTR (Mean Time to Repair)**
@@ -113,7 +114,7 @@ of how much time you would have
 to invest in the future in the
 remediation task.
 
-![Estimated Remediation Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1668778933/docs/web/vulnerabilities/management/mtr.png)
+![Estimated Remediation Time](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911762/docs/web/vulnerabilities/management/mttr.png)
 
 ## Locations table
 
@@ -123,7 +124,7 @@ the vulnerability,
 giving us a total of 9 columns;
 these are described below:
 
-![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1671655220/docs/web/vulnerabilities/management/locations_tables.png)
+![Locations table explication](https://res.cloudinary.com/fluid-attacks/image/upload/v1673912109/docs/web/vulnerabilities/management/locations_col.png)
 
 - **Location:**
   The files where
