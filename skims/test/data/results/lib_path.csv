@@ -15498,6 +15498,206 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   120 |     }
       ^ Col 0
 ",cloudformation.cfn_iam_is_policy_miss_configured
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,43,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  24 |                 Resource: arn:::ec2/specific
+  25 |                 Effect: Allow
+  26 |       AssumeRolePolicyDocument:
+  27 |         Statement:
+  28 |           - Effect: Allow
+  29 |             Principal:
+  30 |               Service:
+  31 |                 - ec2.amazonaws.com
+  32 |             Action:
+  33 |               - sts:AssumeRole
+  34 |           - Effect: Allow
+  35 |             Action:
+  36 |               - ec2:*
+  37 |               - autoscaling:*
+  38 |               - eks:*
+  39 |             Resource: '*'
+  40 |           - Effect: Allow
+  41 |             Principal:
+  42 |               AWS: arn:aws:iam:::root
+> 43 |             Action: kms:*
+  44 |             Resource: '*'
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  24 |                 Resource: arn:::ec2/specific
+  25 |                 Effect: Allow
+  26 |       AssumeRolePolicyDocument:
+  27 |         Statement:
+  28 |           - Effect: Allow
+  29 |             Principal:
+  30 |               Service:
+  31 |                 - ec2.amazonaws.com
+  32 |             Action:
+  33 |               - sts:AssumeRole
+  34 |           - Effect: Allow
+  35 |             Action:
+  36 |               - ec2:*
+  37 |               - autoscaling:*
+> 38 |               - eks:*
+  39 |             Resource: '*'
+  40 |           - Effect: Allow
+  41 |             Principal:
+  42 |               AWS: arn:aws:iam:::root
+  43 |             Action: kms:*
+  44 |             Resource: '*'
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  24 |                 Resource: arn:::ec2/specific
+  25 |                 Effect: Allow
+  26 |       AssumeRolePolicyDocument:
+  27 |         Statement:
+  28 |           - Effect: Allow
+  29 |             Principal:
+  30 |               Service:
+  31 |                 - ec2.amazonaws.com
+  32 |             Action:
+  33 |               - sts:AssumeRole
+  34 |           - Effect: Allow
+  35 |             Action:
+  36 |               - ec2:*
+> 37 |               - autoscaling:*
+  38 |               - eks:*
+  39 |             Resource: '*'
+  40 |           - Effect: Allow
+  41 |             Principal:
+  42 |               AWS: arn:aws:iam:::root
+  43 |             Action: kms:*
+  44 |             Resource: '*'
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+  24 |                 Resource: arn:::ec2/specific
+  25 |                 Effect: Allow
+  26 |       AssumeRolePolicyDocument:
+  27 |         Statement:
+  28 |           - Effect: Allow
+  29 |             Principal:
+  30 |               Service:
+  31 |                 - ec2.amazonaws.com
+  32 |             Action:
+  33 |               - sts:AssumeRole
+  34 |           - Effect: Allow
+  35 |             Action:
+> 36 |               - ec2:*
+  37 |               - autoscaling:*
+  38 |               - eks:*
+  39 |             Resource: '*'
+  40 |           - Effect: Allow
+  41 |             Principal:
+  42 |               AWS: arn:aws:iam:::root
+  43 |             Action: kms:*
+  44 |             Resource: '*'
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  47 |                   ""ec2.amazonaws.com""
+  48 |                 ]
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+> 57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  48 |                 ]
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+> 58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+  68 |               ""Action"": ""kms:*"",
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  49 |               },
+  50 |               ""Action"": [
+  51 |                 ""sts:AssumeRole""
+  52 |               ]
+  53 |             },
+  54 |             {
+  55 |               ""Effect"": ""Allow"",
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+> 59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+  68 |               ""Action"": ""kms:*"",
+  69 |               ""Resource"": ""*""
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,68,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  56 |               ""Action"": [
+  57 |                 ""ec2:*"",
+  58 |                 ""autoscaling:*"",
+  59 |                 ""eks:*""
+  60 |               ],
+  61 |               ""Resource"": ""*""
+  62 |             },
+  63 |             {
+  64 |               ""Effect"": ""Allow"",
+  65 |               ""Principal"": {
+  66 |                 ""AWS"": ""arn:aws:iam:::root""
+  67 |               },
+> 68 |               ""Action"": ""kms:*"",
+  69 |               ""Resource"": ""*""
+  70 |             }
+  71 |           ]
+  72 |         }
+  73 |       }
+  74 |     }
+  75 |   }
+  76 | }
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
    1 | ---
    2 | Resources:

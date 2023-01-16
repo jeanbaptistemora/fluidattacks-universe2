@@ -5,6 +5,7 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f325.cloudformation import (
+    cfn_iam_allow_wildcard_action_trust_policy,
     cfn_iam_has_privileges_over_iam,
     cfn_iam_has_wildcard_resource_on_write_action,
     cfn_iam_is_policy_miss_configured,
@@ -31,6 +32,15 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_cfn_iam_allow_wildcard_action_trust_policy(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_iam_allow_wildcard_action_trust_policy(
+        content=content, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -126,6 +136,9 @@ def analyze(
                 ),
                 run_cfn_iam_has_privileges_over_iam(content, path, template),
                 run_json_principal_wildcard(content, path, template),
+                run_cfn_iam_allow_wildcard_action_trust_policy(
+                    content, path, template
+                ),
             )
             if file_extension in EXTENSIONS_JSON:
                 results = (
