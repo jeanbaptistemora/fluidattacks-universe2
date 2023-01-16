@@ -1735,6 +1735,27 @@ export const enTranslations: ResourceKey = {
         expert: "Request any help you need through a scheduled videoconference",
         mail: "Direct communication channel through an email ticketing system",
       },
+      options: {
+        chat: {
+          description: "Solve questions about using our ARM platform",
+          title: "Live Chat",
+        },
+        docs: {
+          description:
+            "Read our product documentation and related help articles",
+          title: "Documentation",
+        },
+        expert: {
+          description:
+            "Discuss any question or issue with reported vulnerabilities",
+          title: "Talk to a hacker",
+        },
+        mail: {
+          description:
+            "Report any problem or request a new feature for the platform",
+          title: "help@fluidattacks.com",
+        },
+      },
       support: "Support",
       tooltip: "For more information",
     },
