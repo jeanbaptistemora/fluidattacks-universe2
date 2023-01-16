@@ -199,23 +199,23 @@ export const Graphic: React.FC<IGraphicProps> = (
     return roundedWidth + minModalSize;
   }, [bodySize]);
 
-  function panelOnMouseEnter(): void {
+  const panelOnMouseEnter = useCallback((): void => {
     setExpanded(true);
-  }
-  function panelOnMouseLeave(): void {
+  }, []);
+  const panelOnMouseLeave = useCallback((): void => {
     setExpanded(reportMode);
-  }
+  }, [reportMode]);
   function frameOnLoad(): void {
     setIframeState("ready");
     secureStore.storeIframeContent(bodyRef);
   }
-  function frameOnFullScreen(): void {
+  const frameOnFullScreen = useCallback((): void => {
     setFullScreen(true);
-  }
-  function frameOnFullScreenExit(): void {
+  }, []);
+  const frameOnFullScreenExit = useCallback((): void => {
     setFullScreen(false);
-  }
-  function frameOnRefresh(): void {
+  }, []);
+  const frameOnRefresh = useCallback((): void => {
     if (bodyRef.current?.contentWindow !== null) {
       setRetries(0);
       setIframeState("loading");
@@ -227,12 +227,12 @@ export const Graphic: React.FC<IGraphicProps> = (
         return value + 1;
       });
     }
-  }
+  }, []);
   function modalFrameOnLoad(): void {
     setModalIframeState("ready");
     secureStore.storeIframeContent(modalBodyRef);
   }
-  function modalFrameOnRefresh(): void {
+  const modalFrameOnRefresh = useCallback((): void => {
     if (modalBodyRef.current?.contentWindow !== null) {
       setModalIframeState("loading");
       setModalRetries(0);
@@ -244,7 +244,7 @@ export const Graphic: React.FC<IGraphicProps> = (
         return value + 1;
       });
     }
-  }
+  }, []);
   function buildFileName(size: IComponentSizeProps): string {
     return `${currentTitle}-${subject}-${size.width}x${size.height}.html`;
   }
