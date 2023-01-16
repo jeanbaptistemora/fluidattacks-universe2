@@ -35,6 +35,7 @@ class CredentialsGitRepositoryResolver(NamedTuple):
 
 
 class BasicRepoData(NamedTuple):
+    id: str
     remote_url: str
     ssh_url: str
     web_url: str
