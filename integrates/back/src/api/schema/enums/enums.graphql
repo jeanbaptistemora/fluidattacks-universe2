@@ -210,13 +210,6 @@ enum EvidenceType {
 
 "Stakeholder invitation state enum definition"
 enum InvitationState {
-  "Acceptance confirmed"
-  CONFIRMED
-    @deprecated(
-      reason: """
-      This field will be removed after 2023/01/15. Use `REGISTERED` instead.
-      """
-    )
   "Acceptance pending"
   PENDING
   "Accepted"
