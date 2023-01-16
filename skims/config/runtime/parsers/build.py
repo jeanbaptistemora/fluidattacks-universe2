@@ -10,13 +10,16 @@ GRAMMARS: Dict[str, str] = dict(
     c_sharp=os.environ["envTreeSitterCSharp"],
     dart=os.environ["envTreeSitterDart"],
     go=os.environ["envTreeSitterGo"],
+    hcl=os.environ["envTreeSitterHcl"],
     java=os.environ["envTreeSitterJava"],
     javascript=os.environ["envTreeSitterJavaScript"],
+    json=os.environ["envTreeSitterJson"],
     kotlin=os.environ["envTreeSitterKotlin"],
     php=os.environ["envTreeSitterPhp"],
     ruby=os.environ["envTreeSitterRuby"],
     scala=os.environ["envTreeSitterScala"],
     tsx=os.path.join(os.environ["envTreeSitterTsx"], "tsx"),
+    yaml=os.environ["envTreeSitterYaml"],
 )
 
 

@@ -379,14 +379,17 @@ class GraphShardMetadataLanguage(Enum):
     CSHARP: str = "c_sharp"
     DART: str = "dart"
     GO: str = "go"
+    HCL: str = "hcl"
     JAVA: str = "java"
     JAVASCRIPT: str = "javascript"
+    JSON: str = "json"
     KOTLIN: str = "kotlin"
     NOT_SUPPORTED: str = "not_supported"
     PHP: str = "php"
     RUBY: str = "ruby"
     SCALA: str = "scala"
     TYPESCRIPT: str = "tsx"
+    YAML: str = "yaml"
 
 
 class GraphShardMetadata(NamedTuple):
