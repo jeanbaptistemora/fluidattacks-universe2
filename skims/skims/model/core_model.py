@@ -2349,6 +2349,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_USER_WITH_MULTIPLE_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="users_with_multiple_access_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_DEFAULT_SECURITY_GROUP = MethodInfo(
         file_name="aws",
         name="use_default_security_group",
