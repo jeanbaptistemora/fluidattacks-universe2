@@ -17,6 +17,7 @@ from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
     is_cidr,
+    validate_port_values,
 )
 from model.core_model import (
     MethodsEnum,
@@ -98,7 +99,9 @@ def _tfm_iter_vulnerable_admin_ports(
                     int(to_port.val) + 1,
                 )
             )
-            if from_port and to_port
+            if from_port
+            and to_port
+            and validate_port_values(from_port, to_port)
             else set()
         )
         if unrestricted_ip and admin_ports.intersection(port_range):
@@ -158,7 +161,9 @@ def _tfm_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
                     int(to_port.val) + 1,
                 )
             )
-            if from_port and to_port
+            if from_port
+            and to_port
+            and validate_port_values(from_port, to_port)
             else set()
         )
         if public_cidrs.intersection(valid_cidrs) and 53 in port_range:
@@ -193,7 +198,9 @@ def _tfm_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
                     int(to_port.val) + 1,
                 )
             )
-            if from_port and to_port
+            if from_port
+            and to_port
+            and validate_port_values(from_port, to_port)
             else set()
         )
         ftp_range = set(range(20, 22))
@@ -228,6 +235,7 @@ def _tfm_ec2_has_open_all_ports_to_the_public_iter_vulns(
             public_cidrs.intersection(valid_cidrs)
             and from_port
             and to_port
+            and validate_port_values(from_port, to_port)
             and (int(to_port.val) - int(from_port.val)) >= 65535
         ):
             yield from_port
@@ -362,6 +370,7 @@ def _ec2_unrestricted_ports_awsec2_vulnerabilities(
         if (
             ingress_from_port
             and ingress_to_port
+            and validate_port_values(ingress_from_port, ingress_to_port)
             and float(ingress_from_port.val) != float(ingress_to_port.val)
         ):
             yield ingress_block
@@ -376,6 +385,7 @@ def _ec2_unrestricted_ports_awsec2_vulnerabilities(
         if (
             egress_from_port
             and egress_to_port
+            and validate_port_values(egress_from_port, egress_to_port)
             and float(egress_from_port.val) != float(egress_to_port.val)
         ):
             yield egress_block
@@ -393,6 +403,7 @@ def _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
             if (
                 from_port_attr
                 and to_port_attr
+                and validate_port_values(from_port_attr, to_port_attr)
                 and float(from_port_attr.val) != float(to_port_attr.val)
             ):
                 yield resource

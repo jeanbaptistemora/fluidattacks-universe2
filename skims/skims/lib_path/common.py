@@ -23,6 +23,9 @@ from ipaddress import (
     IPv6Network,
 )
 import json_parser
+from lark import (
+    Tree,
+)
 import math
 from model import (
     core_model,
@@ -575,3 +578,14 @@ def pkg_deps_to_vulns(
         return resolve_vulns
 
     return resolve_deps
+
+
+def validate_port_values(from_port: Any, to_port: Any) -> bool:
+    if (
+        not isinstance(from_port.val, dict)
+        and not isinstance(from_port.val, Tree)
+        and not isinstance(to_port.val, dict)
+        and not isinstance(to_port.val, Tree)
+    ):
+        return True
+    return False
