@@ -9,6 +9,7 @@ from .enums import (
     VulnerabilityZeroRiskStatus,
 )
 from custom_exceptions import (
+    InvalidParameter,
     VulnerabilityEntryNotFound,
 )
 from datetime import (
@@ -403,7 +404,8 @@ def historic_entry_type_to_str(item: VulnerabilityHistoricEntry) -> str:
         return "verification"
     if isinstance(item, VulnerabilityZeroRisk):
         return "zero_risk"
-    return ""
+
+    raise InvalidParameter(type(item))
 
 
 def get_current_entry(

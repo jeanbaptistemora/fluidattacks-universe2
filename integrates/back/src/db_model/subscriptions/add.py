@@ -7,6 +7,9 @@ from .types import (
 from .utils import (
     format_subscription_item,
 )
+from custom_exceptions import (
+    InvalidParameter,
+)
 from db_model import (
     TABLE,
 )
@@ -20,6 +23,9 @@ from dynamodb import (
 
 
 async def add(*, subscription: Subscription) -> None:
+    if subscription.state.modified_date is None:
+        raise InvalidParameter("modified_date")
+
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     subscription_key = keys.build_key(
@@ -51,12 +57,9 @@ async def add(*, subscription: Subscription) -> None:
             "email": subscription.email,
             "entity": subscription.entity.lower(),
             "subject": subscription.subject,
-            # The modified date will always exist here
             "iso8601utc": get_as_utc_iso_format(
                 subscription.state.modified_date
-            )
-            if subscription.state.modified_date
-            else "",
+            ),
         },
     )
 

@@ -11,6 +11,7 @@ from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
+    InvalidParameter,
     RepeatedToeInput,
 )
 from db_model.utils import (
@@ -29,6 +30,9 @@ from dynamodb.model import (
 
 
 async def add(*, toe_input: ToeInput) -> None:
+    if toe_input.state.modified_date is None:
+        raise InvalidParameter("modified_date")
+
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_input_metadata"]
@@ -72,10 +76,7 @@ async def add(*, toe_input: ToeInput) -> None:
             "entry_point": toe_input.entry_point,
             "group_name": toe_input.group_name,
             "root_id": toe_input.state.unreliable_root_id,
-            # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(toe_input.state.modified_date)
-            if toe_input.state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(toe_input.state.modified_date),
         },
     )
     await operations.put_item(

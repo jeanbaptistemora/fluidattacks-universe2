@@ -11,6 +11,9 @@ from .utils import (
 from boto3.dynamodb.conditions import (
     Attr,
 )
+from custom_exceptions import (
+    InvalidParameter,
+)
 from db_model import (
     TABLE,
 )
@@ -69,6 +72,9 @@ async def update_state(
     user_email: str,
     state: StakeholderState,
 ) -> None:
+    if state.modified_date is None:
+        raise InvalidParameter("modified_date")
+
     email = user_email.lower().strip()
     key_structure = TABLE.primary_key
     state_item: Item = json.loads(
@@ -99,9 +105,7 @@ async def update_state(
         facet=TABLE.facets["stakeholder_historic_state"],
         values={
             "email": email,
-            "iso8601utc": get_as_utc_iso_format(state.modified_date)
-            if state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(state.modified_date),
         },
     )
     historic_item = {

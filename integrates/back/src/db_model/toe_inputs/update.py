@@ -114,10 +114,7 @@ async def update_state(
             "entry_point": current_value.entry_point,
             "group_name": current_value.group_name,
             "root_id": current_value.state.unreliable_root_id,
-            # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(new_state.modified_date)
-            if new_state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(new_state.modified_date),
         },
     )
     await operations.put_item(

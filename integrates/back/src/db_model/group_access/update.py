@@ -4,6 +4,9 @@ from .types import (
 from .utils import (
     format_metadata_item,
 )
+from custom_exceptions import (
+    InvalidParameter,
+)
 from db_model import (
     TABLE,
 )
@@ -22,6 +25,9 @@ async def update_metadata(
     group_name: str,
     metadata: GroupAccessMetadataToUpdate,
 ) -> None:
+    if metadata.state.modified_date is None:
+        raise InvalidParameter("modified_date")
+
     email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
@@ -46,10 +52,7 @@ async def update_metadata(
         values={
             "email": email,
             "name": group_name,
-            # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date)
-            if metadata.state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(metadata.state.modified_date),
         },
     )
     key_structure = TABLE.primary_key
