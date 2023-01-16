@@ -7,9 +7,6 @@ from .types import (
 from datetime import (
     datetime,
 )
-from db_model import (
-    utils as db_model_utils,
-)
 from db_model.utils import (
     get_as_utc_iso_format,
     serialize,
@@ -96,33 +93,31 @@ def format_toe_input_item(
         "entry_point": toe_input.entry_point,
         "group_name": toe_input.group_name,
         "state": {
-            "attacked_at": ""
-            if toe_input.state.attacked_at is None
-            else db_model_utils.get_as_utc_iso_format(
-                toe_input.state.attacked_at
-            ),
+            "attacked_at": get_as_utc_iso_format(toe_input.state.attacked_at)
+            if toe_input.state.attacked_at
+            else None,
             "attacked_by": toe_input.state.attacked_by,
             "be_present": toe_input.state.be_present,
-            "be_present_until": ""
-            if toe_input.state.be_present_until is None
-            else db_model_utils.get_as_utc_iso_format(
+            "be_present_until": get_as_utc_iso_format(
                 toe_input.state.be_present_until
-            ),
-            "first_attack_at": ""
-            if toe_input.state.first_attack_at is None
-            else db_model_utils.get_as_utc_iso_format(
+            )
+            if toe_input.state.be_present_until
+            else None,
+            "first_attack_at": get_as_utc_iso_format(
                 toe_input.state.first_attack_at
-            ),
+            )
+            if toe_input.state.first_attack_at
+            else None,
             "has_vulnerabilities": toe_input.state.has_vulnerabilities,
             "modified_by": toe_input.state.modified_by,
             "modified_date": get_as_utc_iso_format(
                 toe_input.state.modified_date
             )
             if toe_input.state.modified_date
-            else "",
-            "seen_at": ""
-            if toe_input.state.seen_at is None
-            else db_model_utils.get_as_utc_iso_format(toe_input.state.seen_at),
+            else None,
+            "seen_at": get_as_utc_iso_format(toe_input.state.seen_at)
+            if toe_input.state.seen_at
+            else None,
             "seen_first_time_by": toe_input.state.seen_first_time_by,
             "unreliable_root_id": toe_input.state.unreliable_root_id,
         },
@@ -135,16 +130,16 @@ def format_toe_input_metadata_item(
     metadata_item: Item = {}
     metadata_item["state"] = json.loads(json.dumps(state, default=serialize))
     if metadata.clean_attacked_at:
-        metadata_item["attacked_at"] = ""
-        metadata_item["state"]["attacked_at"] = ""
+        metadata_item["attacked_at"] = None
+        metadata_item["state"]["attacked_at"] = None
     if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = ""
-        metadata_item["state"]["be_present_until"] = ""
+        metadata_item["be_present_until"] = None
+        metadata_item["state"]["be_present_until"] = None
     if metadata.clean_first_attack_at:
-        metadata_item["first_attack_at"] = ""
-        metadata_item["state"]["first_attack_at"] = ""
+        metadata_item["first_attack_at"] = None
+        metadata_item["state"]["first_attack_at"] = None
     if metadata.clean_seen_at:
-        metadata_item["seen_at"] = ""
-        metadata_item["state"]["seen_at"] = ""
+        metadata_item["seen_at"] = None
+        metadata_item["state"]["seen_at"] = None
 
     return metadata_item
