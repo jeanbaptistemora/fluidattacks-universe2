@@ -77,6 +77,20 @@ def test_validate_alphanumeric_field_deco() -> None:
     with pytest.raises(InvalidField):
         decorated_func(field="=test2@")
 
+    class TestClass(NamedTuple):
+        field: str
+
+    @validate_alphanumeric_field_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    test_obj = TestClass(field="one test")
+    test_obj_fail = TestClass(field="=test2@")
+    assert decorated_func_obj(test_obj=test_obj)
+
+    with pytest.raises(InvalidField):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 def test_validate_email_address() -> None:
     assert validate_email_address("test@unittesting.com")
@@ -327,6 +341,20 @@ def test_validate_group_name_deco() -> None:
     with pytest.raises(InvalidField):
 
         decorated_func(group="=test2@")
+
+    class TestClass(NamedTuple):
+        group: str
+
+    test_obj = TestClass(group="test")
+    test_obj_fail = TestClass(group="=test2@")
+
+    @validate_group_name_deco("test_obj.group")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidField):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 @pytest.mark.parametrize(
@@ -583,6 +611,20 @@ def test_validate_group_language(language: str, should_fail: bool) -> None:
     else:
         assert decorated_func(value=language)
 
+    class TestClass(NamedTuple):
+        language: str
+
+    test_obj = TestClass(language="es")
+    test_obj_fail = TestClass(language="fr")
+
+    @validate_group_language_deco("test_obj.language")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidField):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 def test_validate_space_field_deco() -> None:
     @validate_space_field_deco("field")
@@ -595,6 +637,20 @@ def test_validate_space_field_deco() -> None:
     # Test invalid input
     with pytest.raises(InvalidSpacesField):
         decorated_func(field="  ")
+
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="test")
+    test_obj_fail = TestClass(field="   ")
+
+    @validate_space_field_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidSpacesField):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 def test_validate_string_length_between_deco() -> None:
@@ -610,6 +666,22 @@ def test_validate_string_length_between_deco() -> None:
     # Test invalid input
     with pytest.raises(InvalidFieldLength):
         decorated_func(field="longerfield")
+
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="field")
+    test_obj_fail = TestClass(field="longerfield")
+
+    @validate_string_length_between_deco(
+        "test_obj.field", inclusive_lower_bound=4, inclusive_upper_bound=8
+    )
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidFieldLength):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 def test_validate_title_change_deco() -> None:
@@ -636,6 +708,32 @@ def test_validate_title_change_deco() -> None:
             old_title_field="old_title",
             new_title_field="new_title",
             status_field=FindingStateStatus.APPROVED,
+        )
+
+    class TestClass(NamedTuple):
+        old_title_field: str
+        new_title_field: str
+
+    test_obj = TestClass(
+        old_title_field="old_title", new_title_field="new_title"
+    )
+
+    @validate_finding_title_change_policy_deco(
+        "test_obj.old_title_field",
+        "test_obj.new_title_field",
+        "status_field",
+    )
+    def decorated_func_obj(
+        test_obj: TestClass, status_field: str
+    ) -> Tuple[TestClass, str]:
+        return (test_obj, status_field)
+
+    assert decorated_func_obj(
+        test_obj=test_obj, status_field=FindingStateStatus.CREATED
+    )
+    with pytest.raises(InvalidFieldChange):
+        decorated_func_obj(
+            test_obj=test_obj, status_field=FindingStateStatus.APPROVED
         )
 
 

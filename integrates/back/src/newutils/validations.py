@@ -328,6 +328,10 @@ def validate_group_language_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             language = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                language = str(getattr(obj, attr_name))
             if language.upper() not in {"EN", "ES"}:
                 raise InvalidField("group language")
             return func(*args, **kwargs)
@@ -347,6 +351,10 @@ def validate_group_name_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             if not field_content.isalnum():
                 raise InvalidField("group name")
             res = func(*args, **kwargs)
@@ -453,6 +461,10 @@ def validate_space_field_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             if not re.search(r"\S", field_content):
                 raise InvalidSpacesField
             return func(*args, **kwargs)
@@ -480,6 +492,10 @@ def validate_string_length_between_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             string = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                string = str(getattr(obj, attr_name))
             if (
                 not inclusive_lower_bound
                 <= len(string)
@@ -506,6 +522,10 @@ def validate_alphanumeric_field_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             is_alnum = all(word.isalnum() for word in field_content.split())
             if is_alnum or field_content == "-" or not field_content:
                 res = func(*args, **kwargs)
@@ -541,6 +561,14 @@ def validate_finding_title_change_policy_deco(
         def decorated(*args: Any, **kwargs: Any) -> Any:
             old_title = str(kwargs.get(old_title_field))
             new_title = str(kwargs.get(new_title_field))
+            if "." in old_title_field:
+                obj_name, attr_name = old_title_field.split(".")
+                obj = kwargs.get(obj_name)
+                old_title = str(getattr(obj, attr_name))
+            if "." in new_title_field:
+                obj_name, attr_name = new_title_field.split(".")
+                obj = kwargs.get(obj_name)
+                new_title = str(getattr(obj, attr_name))
             status = cast(FindingStateStatus, kwargs.get(status_field))
             if (
                 old_title != new_title
