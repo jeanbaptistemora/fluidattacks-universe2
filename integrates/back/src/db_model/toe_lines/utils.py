@@ -163,3 +163,60 @@ def format_toe_lines_item(
             else None,
         },
     }
+
+
+def format_historic_toe_lines_item(
+    primary_key: PrimaryKey,
+    key_structure: PrimaryKey,
+    toe_lines: ToeLines,
+) -> Item:
+    return {
+        key_structure.partition_key: primary_key.partition_key,
+        key_structure.sort_key: primary_key.sort_key,
+        "filename": toe_lines.filename,
+        "group_name": toe_lines.group_name,
+        "modified_date": get_as_utc_iso_format(toe_lines.modified_date),
+        "root_id": toe_lines.root_id,
+        "seen_first_time_by": toe_lines.seen_first_time_by,
+        "state": {
+            "attacked_at": get_as_utc_iso_format(toe_lines.state.attacked_at)
+            if toe_lines.state.attacked_at
+            else None,
+            "attacked_by": toe_lines.state.attacked_by,
+            "attacked_lines": toe_lines.state.attacked_lines,
+            "be_present": toe_lines.state.be_present,
+            "be_present_until": get_as_utc_iso_format(
+                toe_lines.state.be_present_until
+            )
+            if toe_lines.state.be_present_until
+            else None,
+            "comments": toe_lines.state.comments,
+            "first_attack_at": get_as_utc_iso_format(
+                toe_lines.state.first_attack_at
+            )
+            if toe_lines.state.first_attack_at
+            else None,
+            "has_vulnerabilities": toe_lines.state.has_vulnerabilities,
+            "last_author": toe_lines.state.last_author,
+            "last_commit": toe_lines.state.last_commit,
+            "loc": toe_lines.state.loc,
+            "modified_by": toe_lines.state.modified_by,
+            "modified_date": get_as_utc_iso_format(
+                toe_lines.state.modified_date
+            )
+            if toe_lines.state.modified_date
+            else None,
+            "seen_at": get_as_utc_iso_format(toe_lines.state.seen_at),
+            "sorts_risk_level": toe_lines.state.sorts_risk_level,
+            "sorts_risk_level_date": get_as_utc_iso_format(
+                toe_lines.state.sorts_risk_level_date
+            )
+            if toe_lines.state.sorts_risk_level_date
+            else None,
+            "sorts_suggestions": format_toe_lines_sorts_suggestions_item(
+                toe_lines.state.sorts_suggestions
+            )
+            if toe_lines.state.sorts_suggestions
+            else None,
+        },
+    }

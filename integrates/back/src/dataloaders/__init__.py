@@ -107,6 +107,7 @@ from db_model.toe_inputs.get import (
 from db_model.toe_lines.get import (
     GroupToeLinesLoader,
     RootToeLinesLoader,
+    ToeLinesHistoricLoader,
     ToeLinesLoader,
 )
 from db_model.toe_ports.get import (
@@ -229,6 +230,7 @@ class Dataloaders(NamedTuple):
     toe_input_historic: ToeInputHistoricLoader
     toe_input: ToeInputLoader
     toe_lines: ToeLinesLoader
+    toe_lines_historic: ToeLinesHistoricLoader
     toe_port: ToePortLoader
     toe_port_historic_state: ToePortHistoricStateLoader
     stakeholder: StakeholderLoader
@@ -417,6 +419,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         toe_input=ToeInputLoader(),
         toe_input_historic=ToeInputHistoricLoader(),
         toe_lines=ToeLinesLoader(),
+        toe_lines_historic=ToeLinesHistoricLoader(),
         toe_port=ToePortLoader(),
         toe_port_historic_state=ToePortHistoricStateLoader(),
         user_credentials=UserCredentialsLoader(),
