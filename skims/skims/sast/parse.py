@@ -14,13 +14,11 @@ from model.graph_model import (
     GraphShardCacheable,
     GraphShardMetadata,
     GraphShardMetadataLanguage,
+    GraphSyntax,
 )
 import os
 from sast.context import (
     java_resources,
-)
-from sast_syntax_readers import (
-    generate as generate_syntax_readers,
 )
 from sast_transformations import (
     control_flow,
@@ -306,7 +304,7 @@ def _parse_one_cached(
         syntax_graph = None
 
     control_flow.add(graph, language)
-    syntax = generate_syntax_readers.read_from_graph(graph, language)
+    syntax: GraphSyntax = {}
     metadata = GraphShardMetadata(
         language=language,
     )
