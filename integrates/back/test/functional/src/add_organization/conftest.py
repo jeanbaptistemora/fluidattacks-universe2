@@ -36,6 +36,17 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
         "companies": [
             Company(
+                domain="fluidattacks.com",
+                trial=Trial(
+                    completed=True,
+                    extension_date=None,
+                    extension_days=0,
+                    start_date=datetime.fromisoformat(
+                        "2022-10-25T15:58:31.280182"
+                    ),
+                ),
+            ),
+            Company(
                 domain="johndoe.com",
                 trial=Trial(
                     completed=False,
@@ -73,6 +84,30 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     ),
                 ),
             },
+            {
+                "organization": Organization(
+                    created_by="janedoe@janedoe.com",
+                    created_date=datetime.fromisoformat(
+                        "2022-10-21T15:58:31.280182+00:00"
+                    ),
+                    country="Colombia",
+                    id="967e17db-6345-4504-a5c4-285e5f8068c7",
+                    name="trialorg2",
+                    policies=Policies(
+                        modified_by="janedoe@janedoe.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
+                    ),
+                    state=OrganizationState(
+                        modified_by="janedoe@janedoe.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-10-21T15:58:31.280182+00:00"
+                        ),
+                        status=OrganizationStateStatus.ACTIVE,
+                    ),
+                ),
+            },
         ],
         "policies": [
             *generic_data["db_data"]["policies"],
@@ -82,12 +117,25 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                 "object": "ORG#967e17db-6345-4504-a5c4-285e5f8068c6",
                 "role": "user_manager",
             },
+            {
+                "level": "organization",
+                "subject": "janedoe@janedoe.com",
+                "object": "ORG#967e17db-6345-4504-a5c4-285e5f8068c7",
+                "role": "user_manager",
+            },
         ],
         "stakeholders": [
             *generic_data["db_data"]["stakeholders"],
             Stakeholder(
                 email="johndoe@johndoe.com",
                 first_name="John",
+                is_registered=True,
+                last_name="Doe",
+                role="user_manager",
+            ),
+            Stakeholder(
+                email="janedoe@janedoe.com",
+                first_name="Jane",
                 is_registered=True,
                 last_name="Doe",
                 role="user_manager",

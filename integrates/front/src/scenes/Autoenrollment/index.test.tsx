@@ -42,7 +42,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
             userEmail: "jdoe@personal.com",
           },
@@ -79,7 +79,12 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "2022-12-06T07:40:16.114232" } },
+            company: {
+              trial: {
+                completed: false,
+                startDate: "2022-12-06T07:40:16.114232",
+              },
+            },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -128,7 +133,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -222,7 +227,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -381,7 +386,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -475,7 +480,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
             userEmail: "jdoe@fluidattacks.com",
           },
@@ -686,7 +691,7 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { startDate: "" } },
+            company: { trial: { completed: false, startDate: "" } },
             organizations: [
               {
                 country: "Colombia",
@@ -804,8 +809,11 @@ describe("Autoenrollment", (): void => {
     });
 
     expect(orgNameInput).toHaveDisplayValue("testOrg");
+    expect(orgNameInput).toBeDisabled();
     expect(groupNameInput).toHaveDisplayValue("testGroup");
+    expect(groupNameInput).toBeDisabled();
     expect(countrySelect).toHaveDisplayValue("Colombia");
+    expect(countrySelect).toBeDisabled();
 
     const languageSelect = await screen.findByRole("combobox", {
       name: "reportLanguage",

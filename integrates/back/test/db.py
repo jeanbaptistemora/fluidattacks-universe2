@@ -477,7 +477,6 @@ async def populate_events(data: list[Any]) -> bool:
         )
         for item in data
     )
-    await asyncio.sleep(8)
     await collect([_populate_event_historic_state(item) for item in data])
     return True
 
@@ -582,7 +581,6 @@ async def populate_executions(data: list[Any]) -> bool:
         )
         for item in data
     )
-    await asyncio.sleep(10)
     return True
 
 
@@ -597,7 +595,6 @@ async def populate_toe_lines(data: tuple[ToeLines, ...]) -> bool:
     await collect(
         [toe_lines_model.add(toe_lines=toe_lines) for toe_lines in data]
     )
-    await asyncio.sleep(8)
     return True
 
 
@@ -664,4 +661,7 @@ async def populate(data: dict[str, Any]) -> bool:
     functions: dict[str, Any] = globals()
     for name, dataset in data.items():
         coroutines.append(functions[f"populate_{name}"](dataset))
-    return all(await collect(coroutines))
+    results = all(await collect(coroutines))
+    # Give OpenSearch some time to replicate
+    await asyncio.sleep(10)
+    return results

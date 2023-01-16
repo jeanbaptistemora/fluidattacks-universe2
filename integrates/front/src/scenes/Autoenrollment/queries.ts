@@ -79,6 +79,7 @@ const GET_STAKEHOLDER_GROUPS = gql`
     me {
       company {
         trial {
+          completed
           startDate
         }
       }

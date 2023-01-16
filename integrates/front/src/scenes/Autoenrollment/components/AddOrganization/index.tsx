@@ -41,7 +41,6 @@ interface IAddOrganizationProps {
   successMutation: {
     group: boolean;
     organization: boolean;
-    repository: boolean;
   };
 }
 

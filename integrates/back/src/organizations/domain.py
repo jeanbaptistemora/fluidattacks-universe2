@@ -457,7 +457,7 @@ async def add_organization(
     company: Optional[Company] = await loaders.company.load(
         email.split("@")[1]
     )
-    in_trial = company and not company.trial.completed
+    in_trial = not company.trial.completed if company else True
     if in_trial and await loaders.stakeholder_organizations_access.load(email):
         raise TrialRestriction()
 

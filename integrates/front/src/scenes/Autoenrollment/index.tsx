@@ -91,7 +91,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
   const [successMutation, setSuccessMutation] = useState({
     group: false,
     organization: false,
-    repository: false,
   });
 
   const [hasPersonalEmail, setHasPersonalEmail] = useState<boolean | undefined>(
@@ -118,7 +117,6 @@ const Autoenrollment: React.FC = (): JSX.Element => {
         setSuccessMutation({
           group: group !== "",
           organization: organizationName !== "",
-          repository: false,
         });
         setHasPersonalEmail(await isPersonalEmail(me.userEmail));
       },
@@ -297,7 +295,9 @@ const Autoenrollment: React.FC = (): JSX.Element => {
       }
 
       if (successMutation.organization ? true : await addNewOrganization()) {
+        setSuccessMutation({ ...successMutation, organization: true });
         if (successMutation.group ? true : await addNewGroup()) {
+          setSuccessMutation({ ...successMutation, group: true });
           if (await addNewRoot()) {
             localStorage.clear();
             sessionStorage.clear();
@@ -362,7 +362,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
 
   const { trial } = data.me.company;
 
-  if (trial.startDate) {
+  if (trial.completed || trial.startDate) {
     return <Announce message={t("autoenrollment.companyAlreadyInTrial")} />;
   }
 

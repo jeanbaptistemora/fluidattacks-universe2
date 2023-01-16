@@ -60,8 +60,15 @@ async def test_personal(populate: bool) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("add_organization")
-async def test_only_one_org_during_trial(populate: bool) -> None:
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["johndoe@johndoe.com"],
+        ["janedoe@janedoe.com"],
+    ],
+)
+async def test_only_one_org_during_trial(populate: bool, email: str) -> None:
     assert populate
-    result = await get_result(user="johndoe@johndoe.com", org="anotherorg")
+    result = await get_result(user=email, org="anotherorg")
     assert "errors" in result
     assert result["errors"][0]["message"] == TrialRestriction().args[0]

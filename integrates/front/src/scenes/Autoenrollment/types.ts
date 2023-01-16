@@ -37,6 +37,7 @@ interface IGetStakeholderGroupsResult {
   me: {
     company: {
       trial: {
+        completed: boolean;
         startDate: string;
       };
     };
