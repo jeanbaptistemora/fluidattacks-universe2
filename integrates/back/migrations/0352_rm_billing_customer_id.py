@@ -2,8 +2,8 @@
 """
 Remove billing customer id from DB since this id belongs to Stripe test_mode
 
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-16 at 17:13:36 UTC
+Finalization Time: 2023-01-16 at 17:13:51 UTC
 
 """
 
