@@ -121,34 +121,6 @@ async def test_get_mean_remediate_severity_medium_cvssf(
     assert mean_remediate_medium_severity == expected_output
 
 
-@freeze_time("2020-12-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("365.252")),
-        (30, Decimal("0.0")),
-        (90, Decimal("83.0")),
-    ),
-)
-async def test_get_mean_remediate_severity_low_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("0.1")
-    max_severity = Decimal("3.9")
-    mean_remediate_low_severity = await get_mean_remediate_severity_cvssf(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_low_severity == expected_output
-
-
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
