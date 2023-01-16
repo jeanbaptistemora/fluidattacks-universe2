@@ -24491,6 +24491,7 @@
             "group_name",
             "filename",
             "root_id",
+            "seen_first_time_by",
             "state"
           ],
           "DataAccess": {
