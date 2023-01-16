@@ -3,6 +3,8 @@
 import type { ErrorInfo, ReactNode } from "react";
 import React, { Component } from "react";
 
+import { ErrorPage } from "./ErrorPage/ErrorPage";
+
 import { Logger } from "utils/logger";
 
 interface IProps {
@@ -49,7 +51,7 @@ class ErrorBoundary extends Component<IProps, IState> {
     const { children } = this.props;
 
     if (hasError) {
-      return <h1>{"Sorry.. there was an error"}</h1>;
+      return <ErrorPage />;
     }
 
     return children;
