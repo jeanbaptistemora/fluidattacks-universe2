@@ -21,10 +21,10 @@ according to the information you want
 to see using the [columns filter](/machine/web/groups/vulnerabilities/#filtering-your-vulnerabilities-table)
 button.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1671650975/docs/web/groups/vulnerabilities/vulnerabilities.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673904828/docs/web/groups/vulnerabilities/vulnerabilities_view.png)
 
 In total,
-we have thirteen columns which are
+we have fourteen columns which are
 described below:
 
 - **Type:** The name of the
@@ -92,6 +92,10 @@ described below:
 - **Description:**
   A definition of the type of
   vulnerability.
+- **% Risk Exposure:**
+  Represents how much the vulnerability
+  to exposure (CVSSF)
+  of the group is contributing.
 
 There is also a downward-facing
 arrow on the left of the Type column,
@@ -100,7 +104,7 @@ upon click,
 you will find the information that
 the column filter offers you.
 
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673628743/docs/web/groups/vulnerabilities/down_facing_arrow.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673907188/docs/web/groups/vulnerabilities/down_row.png)
 
 ## Functionalities
 
@@ -117,7 +121,7 @@ window to appear,
 from which you can enable
 and disable columns.
 
-![Filtering Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667330341/docs/web/groups/vulnerabilities/columns_filter_vulne.png)
+![Filtering Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1673907259/docs/web/groups/vulnerabilities/columns_filter.png)
 ### Filters
 
 The other way of filtering is
@@ -126,7 +130,7 @@ Here you will have the activated
 filters that you have at the same
 time activated in the column filter.
 
-![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673628831/docs/web/groups/vulnerabilities/filtes.png)
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673907407/docs/web/groups/vulnerabilities/filter_general.png)
 
 ### Search bar
 
