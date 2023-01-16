@@ -849,8 +849,7 @@ async def release_finding(
 ) -> None:
     finding: Finding = await loaders.finding.load(finding_id)
     if finding.approval and (
-        finding.approval.status
-        in (FindingStateStatus.APPROVED, FindingStateStatus.SUBMITTED)
+        finding.approval.status == FindingStateStatus.APPROVED
     ):
         return
 
