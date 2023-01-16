@@ -469,7 +469,7 @@ cwe:
       title: Misconfiguration - Insufficient session-ID length
       link: https://cwe.mitre.org/data/definitions/6.html
     "11":
-      title: Creating bebug binary
+      title: Creating debug binary
       link: https://cwe.mitre.org/data/definitions/11.html
     "13":
       title: Misconfiguration - Password in configuration file
