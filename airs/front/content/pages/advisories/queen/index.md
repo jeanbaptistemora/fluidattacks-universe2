@@ -5,15 +5,14 @@ authors: Carlos Bello
 writer: cbello
 codename: queen
 product: OrangeScrum 2.0.11
-date: 2023-01-10 12:00 COT
+date: 2023-01-16 12:00 COT
 cveid: CVE-2023-0164
 severity: 9.9
 description: OrangeScrum 2.0.11 - OS Command Injection via projuniqid
 keywords: Fluid Attacks, Security, Vulnerabilities, Orangescrum, RCE
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
@@ -25,7 +24,7 @@ encrypted: yes
 | **Product**           | OrangeScrum                                          |
 | **Affected versions** | 2.0.11                                               |
 | **State**             | Public                                               |
-| **Release Date**      | 2023-01-10                                           |
+| **Release Date**      | 2023-01-16                                           |
 
 ## Vulnerability
 
@@ -114,7 +113,7 @@ Offensive Team.
   discovered="2023-01-10"
   contacted="2022-01-10"
   replied="2022-01-10"
-  confirmed=""
+  confirmed="2022-01-10"
   patched=""
-  disclosure="">
+  disclosure="2023-01-16">
 </time-lapse>
