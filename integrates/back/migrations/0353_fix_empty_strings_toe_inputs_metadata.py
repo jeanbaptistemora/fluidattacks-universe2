@@ -3,6 +3,9 @@
 Refresh toe inputs metadata and state when an empty string is in an
 attribute that would hold a date. These empty strings are causing an
 indexation error in opensearch. The attribute will be removed instead.
+
+Execution Time:    2023-01-16 at 21:20:49 UTC
+Execution Time:    2023-01-16 at 21:20:49 UTC
 """
 from aioextensions import (
     collect,
