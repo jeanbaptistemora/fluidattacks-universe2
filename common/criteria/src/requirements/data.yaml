@@ -5427,6 +5427,7 @@
     - capec.18
     - capec.19
     - capec.22
+    - capec.24
     - capec.32
     - capec.34
     - capec.41
@@ -11929,6 +11930,7 @@
     squad: true
     oneshot: true
   references:
+    - capec.24
     - capec.123
     - capec.153
     - cwe.120
