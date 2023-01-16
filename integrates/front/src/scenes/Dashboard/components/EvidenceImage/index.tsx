@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading, react/no-multi-comp */
+/* eslint-disable jsx-a11y/click-events-have-key-events, react/jsx-props-no-spreading, react/no-multi-comp */
 import { faFile, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
@@ -128,7 +128,7 @@ const DisplayImage: React.FC<
 
   if (content === "file") {
     return (
-      <div onClick={onClick} onKeyUp={onClick} role={"button"} tabIndex={0}>
+      <div onClick={onClick} role={"button"} tabIndex={0}>
         <FontAwesomeIcon icon={faFile} size={"1x"} />
       </div>
     );
@@ -150,7 +150,7 @@ const DisplayImage: React.FC<
   }
 
   return (
-    <div onClick={onClick} onKeyUp={onClick} role={"button"} tabIndex={0}>
+    <div onClick={onClick} role={"button"} tabIndex={0}>
       <img alt={name} src={content} />
     </div>
   );

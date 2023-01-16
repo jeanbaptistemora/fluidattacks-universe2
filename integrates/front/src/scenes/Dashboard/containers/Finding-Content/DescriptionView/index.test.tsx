@@ -203,7 +203,7 @@ describe("Finding Description", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    const EXPECTED_LENGTH: number = 5;
+    const EXPECTED_LENGTH: number = 4;
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabDescription.editable.text")

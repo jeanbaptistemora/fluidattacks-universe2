@@ -141,34 +141,6 @@
   border-radius: 10px;
 }
 
-.suggestionList {
-  border-color: #000;
-  border-style: solid;
-  border-width: 0 1px 1px 1px;
-  list-style-type: none;
-  max-height: 300px;
-  overflow-y: scroll;
-  padding-inline-start: 0;
-}
-
-.suggestionList li {
-  font-size: 18px;
-  padding-inline-start: 10px;
-}
-
-.suggestionList li:hover {
-  background-color: #ff3435;
-  color: #fff;
-}
-
-.suggestionList button {
-  padding: 0;
-  border: none;
-  background: transparent;
-  text-align: left;
-  width: 100%;
-}
-
 :local .inputTags {
   border: 1px solid #ddd;
   background: #eee;

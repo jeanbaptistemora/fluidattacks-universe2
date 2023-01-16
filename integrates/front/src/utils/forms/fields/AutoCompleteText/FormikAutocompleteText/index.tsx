@@ -1,13 +1,8 @@
 import type { FieldProps } from "formik";
-import { useField } from "formik";
-import _ from "lodash";
 import type { InputHTMLAttributes } from "react";
 import React from "react";
 
-import { SuggestionItem } from "./suggestionItem";
-
 import { StyledInput, ValidationError } from "utils/forms/fields/styles";
-import style from "utils/forms/index.css";
 
 interface IAutocompleteTextProps
   extends FieldProps<string, Record<string, string>>,
@@ -27,18 +22,6 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
   const { name, onChange, value } = field;
   const { errors } = form;
   const error = errors[name];
-  const [, , helpers] = useField(name);
-
-  const matches = suggestions.filter(
-    (suggestion: string): boolean =>
-      !_.isNil(value) &&
-      value.trim() !== "" &&
-      suggestion.toLowerCase().includes(value.toLowerCase())
-  );
-
-  function handleClick(newValue: string): void {
-    helpers.setValue(newValue);
-  }
 
   return (
     <React.Fragment>
@@ -47,25 +30,20 @@ export const FormikAutocompleteText: React.FC<IAutocompleteTextProps> = ({
         autoComplete={"off"}
         autoFocus={focus} // eslint-disable-line jsx-a11y/no-autofocus
         disabled={disabled}
+        list={`${name}-list`}
         name={name}
         onChange={onChange}
         placeholder={placeholder}
         type={"text"}
         value={value}
       />
-      {matches.length > 0 && matches[0] !== value ? (
-        <ul className={style.suggestionList}>
-          {matches.map(
-            (match: string): JSX.Element => (
-              <SuggestionItem
-                key={match}
-                onChange={handleClick}
-                value={match}
-              />
-            )
-          )}
-        </ul>
-      ) : undefined}
+      <datalist id={`${name}-list`}>
+        {suggestions.map(
+          (suggestion: string): JSX.Element => (
+            <option key={suggestion} value={suggestion} />
+          )
+        )}
+      </datalist>
       <ValidationError id={"validationError"}>{error}</ValidationError>
     </React.Fragment>
   );

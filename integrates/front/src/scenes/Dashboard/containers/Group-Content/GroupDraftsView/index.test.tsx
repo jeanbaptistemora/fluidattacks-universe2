@@ -201,21 +201,9 @@ describe("GroupDraftsView", (): void => {
     await userEvent.click(screen.getByText("group.drafts.btn.text"));
     await waitFor((): void => {
       expect(
-        screen.queryByRole("textbox", { name: "title" })
+        screen.queryByRole("combobox", { name: "title" })
       ).toBeInTheDocument();
     });
-
-    expect(screen.queryByRole("list")).not.toBeInTheDocument();
-
-    await userEvent.type(screen.getByRole("textbox", { name: "title" }), "002");
-    await waitFor((): void => {
-      expect(screen.queryByRole("listitem")).toBeInTheDocument();
-    });
-
-    expect(screen.queryByRole("list")).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "002. Asymmetric denial of service" })
-    ).toBeInTheDocument();
   });
 
   it("should render error in modal", async (): Promise<void> => {

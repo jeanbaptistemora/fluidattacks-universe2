@@ -1,7 +1,11 @@
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
-import style from "utils/forms/index.css";
+/**
+ * This is a legacy file and is set to dissapear eventually.
+ * New generic and reusable components should be created in src/components
+ * or in a styles.ts file in the same directory if its very specific to the view.
+ */
 
 const ButtonToolbarCenter: StyledComponent<
   "div",
@@ -316,10 +320,6 @@ const Small: StyledComponent<
   className: "justify-center ph1 pv0",
 })``;
 
-const SearchText = styled.input.attrs({
-  className: `${style["form-control"]} black-40 border-box pv2`,
-})``;
-
 const SwitchItem: StyledComponent<
   "li",
   Record<string, unknown>
@@ -370,7 +370,6 @@ export {
   Row,
   RowCenter,
   Small,
-  SearchText,
   SwitchItem,
   TabContent,
 };

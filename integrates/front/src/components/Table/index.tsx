@@ -33,9 +33,9 @@ import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
 import { Button } from "components/Button";
+import { FormikInput } from "components/Input/Formik";
 import { Gap } from "components/Layout/Gap";
 import { Text } from "components/Text";
-import { SearchText } from "styles/styledComponents";
 import { flattenData } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
 
@@ -231,10 +231,16 @@ const Table = <TData extends RowData>({
         </div>
         <div className={"flex justify-between"}>
           {enableSearchBar ? (
-            <SearchText
-              onChange={globalFilterHandler}
+            <FormikInput
+              field={{
+                name: "search",
+                onBlur: (): void => undefined,
+                onChange: globalFilterHandler,
+                value: globalFilter,
+              }}
+              form={{ errors: {}, touched: {} }}
+              name={"search"}
               placeholder={t("table.search")}
-              value={globalFilter}
             />
           ) : undefined}
           {enableColumnFilters ? <Filters table={table} /> : undefined}

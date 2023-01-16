@@ -214,7 +214,7 @@ describe("eventsView", (): void => {
       1
     );
     expect(
-      screen.getAllByRole("textbox", { name: "rootNickname" })
+      screen.getAllByRole("combobox", { name: "rootNickname" })
     ).toHaveLength(1);
     expect(screen.getAllByRole("textbox", { name: "detail" })).toHaveLength(1);
     expect(screen.getAllByTestId("files")).toHaveLength(1);
@@ -393,7 +393,7 @@ describe("eventsView", (): void => {
     expect(screen.getByRole("button", { name: /confirm/iu })).toBeDisabled();
 
     await userEvent.type(
-      screen.getByRole("textbox", { name: "rootNickname" }),
+      screen.getByRole("combobox", { name: "rootNickname" }),
       "universe"
     );
     await userEvent.type(
@@ -593,7 +593,7 @@ describe("eventsView", (): void => {
     expect(screen.getByRole("button", { name: /confirm/iu })).toBeDisabled();
 
     await userEvent.type(
-      screen.getByRole("textbox", { name: "rootNickname" }),
+      screen.getByRole("combobox", { name: "rootNickname" }),
       "universe"
     );
     await userEvent.type(
