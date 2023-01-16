@@ -1646,7 +1646,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["538745942"]': tuple(),
     },
     "db_model.vulnerabilities.get.FindingVulnerabilitiesNonDeletedLoader.load_many_chained": {  # noqa: E501 pylint: disable=line-too-long
-        '["unittesting"]': tuple(
+        '["unittesting", "0.0", "10.0"]': tuple(
             [
                 Vulnerability(
                     created_by="unittest@fluidattacks.com",
@@ -2235,7 +2235,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 Vulnerability(
                     created_by="unittest@fluidattacks.com",
                     created_date=datetime.fromisoformat(
-                        "2019-09-12T13:45:48+00:00"
+                        "2019-09-13T22:00:56+00:00"
                     ),
                     finding_id="436992569",
                     group_name="unittesting",

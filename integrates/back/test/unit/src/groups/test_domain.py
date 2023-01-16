@@ -236,7 +236,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
             Decimal("0.0"),
             Decimal("10.0"),
             0,
-            Decimal("375.799"),
+            Decimal("375.797"),
         ],
         ["unittesting", Decimal("0.0"), Decimal("10.0"), 30, Decimal("0")],
         [
@@ -271,7 +271,7 @@ async def test_get_mean_remediate_cvssf(  # pylint: disable=too-many-arguments
             get_mocked_path(
                 "loaders.finding_vulnerabilities.load_many_chained"
             ),
-            json.dumps([group_name]),
+            json.dumps([group_name, min_severity, max_severity], default=str),
         )
     )
     loaders = get_new_context()
