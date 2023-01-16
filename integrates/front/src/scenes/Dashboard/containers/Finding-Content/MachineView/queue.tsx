@@ -6,7 +6,6 @@ import type { IQueue } from "./types";
 import { Checkbox } from "components/Input";
 import { ModalConfirm } from "components/Modal";
 import { FormGroup } from "styles/styledComponents";
-import style from "utils/forms/index.css";
 import { translate } from "utils/translations/translate";
 
 const initializeRootNicknames = (
@@ -83,11 +82,10 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
           </React.Fragment>
           <div>
             <FormGroup>
-              <ul className={style.suggestionList}>
-                {rootNicknames.map((root): JSX.Element => {
-                  return <Checkbox key={root} label={root} name={root} />;
-                })}
-              </ul>
+              <br />
+              {rootNicknames.map((root): JSX.Element => {
+                return <Checkbox key={root} label={root} name={root} />;
+              })}
               <ModalConfirm disabled={isJobSubmitted} onCancel={handleClose} />
             </FormGroup>
           </div>
