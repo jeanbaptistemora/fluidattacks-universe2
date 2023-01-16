@@ -22,13 +22,16 @@ export const FormikDateTime: React.FC<IDateTimeProps> = (
   const { dataTestId, field, form, disabled = false } = props;
   const { name } = field;
 
-  function handleChange(value: Dayjs | null): void {
-    form.setFieldValue(name, value);
-  }
+  const handleChange = useCallback(
+    (value: Dayjs | null): void => {
+      form.setFieldValue(name, value);
+    },
+    [form, name]
+  );
 
-  function handleBlur(): void {
+  const handleBlur = useCallback((): void => {
     form.setFieldTouched(name, true);
-  }
+  }, [form, name]);
 
   const textField = useCallback(
     (componentProps: TextFieldProps): JSX.Element => (

@@ -52,6 +52,10 @@ const Pagination = <TData extends RowData>({
     Math.min(pageIndex + 2, pageCount - 1) + 1
   );
 
+  const handlePreviousPage = useCallback((): void => {
+    table.previousPage();
+  }, [table]);
+
   return (
     <PaginationBox>
       {[10, 20, 50, lastPage]
@@ -84,9 +88,7 @@ const Pagination = <TData extends RowData>({
       </Text>
       <Button
         disabled={!table.getCanPreviousPage()}
-        onClick={function fn(): void {
-          table.previousPage();
-        }}
+        onClick={handlePreviousPage}
         size={"sm"}
         variant={"secondary"}
       >
