@@ -67,6 +67,7 @@
     - capec.227
     - cis.4_3
     - cwe.404
+    - cwe.613
     - hipaa.164_312_a_2_iii
     - nist80053.AC-2_2
     - nist80053.AC-12
@@ -502,6 +503,7 @@
     - cwe.294
     - cwe.308
     - cwe.345
+    - cwe.613
     - iso27001.14_1_3
     - nist80063.5_2_8
     - nist80063.7_1
@@ -606,6 +608,7 @@
     - owaspm10.M6
     - cmmc.AC_L2-3_1_11
     - cmmc.SC_L2-3_13_9
+    - cwe.613
     - hitrust.01_t
     - iec62443.SI-3_8
     - wassec.3_1
@@ -11935,6 +11938,7 @@
     - capec.153
     - cwe.120
     - cwe.134
+    - cwe.170
     - cwe.190
     - owaspm10.M7
     - agile.9
@@ -13099,6 +13103,7 @@
     - wasc.W_47
     - owasprisks.P8
     - owaspscp.4
+    - cwe.613
   metadata: {}
 "370":
   en:
