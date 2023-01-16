@@ -3,6 +3,9 @@
 Refresh toe lines metadata and state when an empty string is in an
 attribute that would hold a date. These empty strings are causing an
 indexation error in opensearch. The attribute will be removed instead.
+
+Execution Time:    2023-01-16 at 16:27:41 UTC
+Finalization Time: 2023-01-16 at 19:33:17 UTC
 """
 from aioextensions import (
     collect,
@@ -91,16 +94,16 @@ async def process_toe_lines_item(item: Item) -> None:
 
 async def process_group(group_name: str, progress: float) -> None:
     group_toe_lines = await get_toe_lines_by_group(group_name)
+    print(
+        f"Working on {group_name=}, {len(group_toe_lines)=}, "
+        f"progress: {round(progress, 2)}"
+    )
     if not group_toe_lines:
         return
 
     await collect(
         tuple(process_toe_lines_item(item) for item in group_toe_lines),
-        workers=8,
-    )
-    print(
-        f"Processed {group_name=}, {len(group_toe_lines)=}, "
-        f"progress: {round(progress, 2)}"
+        workers=64,
     )
 
 
