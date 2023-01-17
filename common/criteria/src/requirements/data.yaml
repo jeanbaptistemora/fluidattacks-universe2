@@ -1334,6 +1334,8 @@
     - nistssdf.PS_3_1
     - issaf.Y_3_4
     - owaspapi.API10
+    - hitrust.09_ac
+    - hitrust.09_ad
   metadata: {}
 "048":
   en:
@@ -1758,6 +1760,7 @@
     - hitrust.03_a
     - hitrust.06_c
     - hitrust.09_aa
+    - hitrust.09_ad
     - hitrust.13_s
     - fedramp.CA-7
     - fedramp.SI-5
@@ -1955,6 +1958,7 @@
     - cmmc.CA_L2-3_12_3
     - cmmc.SI_L2-3_14_7
     - hitrust.09_aa
+    - hitrust.09_ad
     - hitrust.09_af
     - hitrust.13_s
     - fedramp.AU-8
@@ -2025,6 +2029,7 @@
     - cmmc.AU_L2-3_3_8
     - hitrust.06_c
     - hitrust.09_ab
+    - hitrust.09_ac
     - fedramp.AU-12_3
     - fedramp.CA-7
     - iso27002.5_33
