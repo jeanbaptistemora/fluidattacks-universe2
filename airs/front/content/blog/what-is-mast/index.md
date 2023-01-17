@@ -176,6 +176,12 @@ and that are part of the DevSecOps culture
 choose to keep the security of their products under continuous assessment
 to prevent cyberattacks and consequential losses.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## This is where MAST comes in
 
 Mobile application security testing

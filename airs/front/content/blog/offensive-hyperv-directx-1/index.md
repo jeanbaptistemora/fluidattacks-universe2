@@ -190,6 +190,12 @@ It's a complex process if you read it, but let's look at it
 in action. Let's see an example performing only one
 command: `Create Device`. Here is the sample code.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ```c
 /*
 Hyper-V -> DirectX Interaction Sample Code

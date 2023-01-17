@@ -156,6 +156,13 @@ Additionally,
 they provide evidence of the security issues
 and recommendations for their remediation.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 ## What is PTaaS?
 
 Before cloud computing,

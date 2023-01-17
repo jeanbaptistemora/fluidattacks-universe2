@@ -227,6 +227,12 @@ of software composition analysis:
 - When done manually in combination with tools,
   it yields results with low rates of false positives and false negatives.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ### What is DAST?
 
 Dynamic application security testing ([DAST](../../categories/dast/))

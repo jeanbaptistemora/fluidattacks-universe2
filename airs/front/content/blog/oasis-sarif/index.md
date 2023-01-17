@@ -58,6 +58,12 @@ to have an overall picture of the software quality.
 Tools producing results in various formats complicate this task.
 Hence the value of defining a standard output format.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ["Clearly](https://www.oasis-open.org/news/pr/industry-leaders-collaborate-to-define-sarif-interoperability-standard-for-detecting-softwar/),
 people involved in static analysis appreciate the need for interoperability,
 and they are committed to making it happen with SARIF,"
