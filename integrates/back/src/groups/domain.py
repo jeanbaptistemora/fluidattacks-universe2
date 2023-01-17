@@ -663,16 +663,20 @@ async def update_group(
     subscription: GroupSubscriptionType,
     tier: GroupTier = GroupTier.OTHER,
 ) -> None:
-
     group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    if await enrollment_domain.in_trial(loaders, email, organization) and (
+    restricted_in_trial = (
         has_squad
         or not has_machine
         or service != GroupService.WHITE
         or subscription != GroupSubscriptionType.CONTINUOUS
+    )
+    if (
+        has_arm
+        and await enrollment_domain.in_trial(loaders, email, organization)
+        and restricted_in_trial
     ):
         raise TrialRestriction()
 
