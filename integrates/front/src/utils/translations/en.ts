@@ -3938,7 +3938,9 @@ export const enTranslations: ResourceKey = {
   signup: {
     enrolledUser: {
       button: "Go to the ARM dashboard",
-      subtitle: " is already registered in the ARM platform.",
+      subtitle:
+        " is already registered in the Attack " +
+        "Resistance Management platform.",
       title: "Oops! You're not eligible for the free trial.",
     },
     subtitle:
