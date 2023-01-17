@@ -271,6 +271,8 @@ export const enTranslations: ResourceKey = {
     },
   },
   app: {
+    errorPage:
+      "Oops... something went wrong, if this keeps appearing feel free to submit a report through our ticket system",
     minimumWidth: "ARM is only available on desktops",
   },
   autoenrollment: {
