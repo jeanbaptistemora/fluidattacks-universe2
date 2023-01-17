@@ -81,6 +81,9 @@ from findings.types import (
     FindingDescriptionToUpdate,
     Tracking,
 )
+from itertools import (
+    chain,
+)
 import logging
 import logging.config
 from machine.availability import (
@@ -141,6 +144,33 @@ class VulnsProperties(TypedDict):
     vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
 
 
+async def _get_finding_comments(
+    *,
+    loaders: Dataloaders,
+    comment_type: CommentType,
+    finding_id: str,
+) -> tuple[FindingComment, ...]:
+    return await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=comment_type,
+            finding_id=finding_id,
+        )
+    )
+
+
+async def _get_finding_verification_comments(
+    *,
+    loaders: Dataloaders,
+    finding_id: str,
+) -> tuple[FindingComment, ...]:
+    return await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION,
+            finding_id=finding_id,
+        )
+    )
+
+
 async def add_comment(
     loaders: Dataloaders,
     user_email: str,
@@ -162,15 +192,24 @@ async def add_comment(
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
     if parent_comment != "0":
-        finding_comments = [
-            comment.id
-            for comment in await loaders.finding_comments.load(
-                FindingCommentsRequest(
-                    comment_type=comment_data.comment_type,
-                    finding_id=finding_id,
+        all_finding_comments: tuple[FindingComment, ...] = tuple(
+            chain.from_iterable(
+                await collect(
+                    [
+                        _get_finding_comments(
+                            finding_id=finding_id,
+                            loaders=loaders,
+                            comment_type=comment_data.comment_type,
+                        ),
+                        _get_finding_verification_comments(
+                            finding_id=finding_id,
+                            loaders=loaders,
+                        ),
+                    ]
                 )
             )
-        ]
+        )
+        finding_comments = {comment.id for comment in all_finding_comments}
         if parent_comment not in finding_comments:
             raise InvalidCommentParent()
     await comments_domain.add(loaders, comment_data, notify=True)
