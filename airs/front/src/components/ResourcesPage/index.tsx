@@ -29,6 +29,30 @@ const ResourcesPage: React.FC<IProps> = ({
 }: IProps): JSX.Element => {
   const data = [
     {
+      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
+      cardType: "successstory-card",
+      description: translate.t(
+        "resources.cardsText.successStory.successStory2Description"
+      ),
+      image: "/resources/resource-card19n",
+      key: "card-19",
+      language: "ENGLISH",
+      title: translate.t("resources.cardsText.successStory.successStory2Title"),
+      urlCard: "https://try.fluidattacks.tech/case-study/proteccion/",
+    },
+    {
+      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
+      cardType: "successstory-card",
+      description: translate.t(
+        "resources.cardsText.successStory.successStory1Description"
+      ),
+      image: "/resources/resource-card18n",
+      key: "card-18",
+      language: "ENGLISH",
+      title: translate.t("resources.cardsText.successStory.successStory1Title"),
+      urlCard: "https://try.fluidattacks.tech/case-study/payvalida/",
+    },
+    {
       buttonText: translate.t("resources.cardsText.buttons.webinarButton"),
       cardType: "webinar-card",
       description: translate.t(
@@ -63,30 +87,6 @@ const ResourcesPage: React.FC<IProps> = ({
       language: "ENGLISH",
       title: translate.t("resources.cardsText.reports.report6Title"),
       urlCard: "https://try.fluidattacks.tech/state-of-attacks-2022/",
-    },
-    {
-      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
-      cardType: "successstory-card",
-      description: translate.t(
-        "resources.cardsText.successStory.successStory2Description"
-      ),
-      image: "/resources/resource-card19n",
-      key: "card-19",
-      language: "ENGLISH",
-      title: translate.t("resources.cardsText.successStory.successStory2Title"),
-      urlCard: "https://try.fluidattacks.tech/case-study/proteccion/",
-    },
-    {
-      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
-      cardType: "successstory-card",
-      description: translate.t(
-        "resources.cardsText.successStory.successStory1Description"
-      ),
-      image: "/resources/resource-card18n",
-      key: "card-18",
-      language: "ENGLISH",
-      title: translate.t("resources.cardsText.successStory.successStory1Title"),
-      urlCard: "https://try.fluidattacks.tech/case-study/payvalida/",
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
