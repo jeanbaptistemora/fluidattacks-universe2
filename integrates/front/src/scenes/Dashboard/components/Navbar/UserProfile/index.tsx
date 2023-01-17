@@ -124,10 +124,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
     <Dropdown
       align={"left"}
       button={
-        <Button size={"sm"}>
-          <Text size={"medium"}>
-            <FontAwesomeIcon icon={faUser} />
-          </Text>
+        <Button icon={faUser} size={"md"}>
+          {userName.split(" ")[0]}
         </Button>
       }
     >
