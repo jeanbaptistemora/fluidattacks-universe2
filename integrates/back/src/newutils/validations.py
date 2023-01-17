@@ -1,3 +1,4 @@
+# pylint: disable=too-many-lines
 import bleach
 from custom_exceptions import (
     DuplicateDraftFound,
@@ -855,6 +856,10 @@ def validate_include_lowercase_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             if not any(val.islower() for val in field_content):
                 raise InvalidReportFilter(
                     "Password should include lowercase characters"
@@ -879,6 +884,10 @@ def validate_include_uppercase_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                field_content = str(getattr(obj, attr_name))
             if not any(val.isupper() for val in field_content):
                 raise InvalidReportFilter(
                     "Password should include uppercase characters"
@@ -955,6 +964,10 @@ def validate_sequence_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             value = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                value = str(getattr(obj, attr_name))
             if has_sequence(value):
                 raise InvalidReportFilter(
                     "Password should not include sequentials characters"
@@ -977,6 +990,10 @@ def validate_symbols_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             value = str(kwargs.get(field))
+            if "." in field:
+                obj_name, attr_name = field.split(".")
+                obj = kwargs.get(obj_name)
+                value = str(getattr(obj, attr_name))
             if not re.search(
                 r"[!\";#\$%&'\(\)\*\+,-./:<=>\?@\[\]^_`\{\|\}~]", value
             ):

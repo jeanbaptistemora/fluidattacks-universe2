@@ -540,6 +540,20 @@ def test_validate_sequence_deco() -> None:
     with pytest.raises(InvalidReportFilter):
         decorated_func(value="aabcc")
 
+    class TestClass(NamedTuple):
+        value: str
+
+    @validate_sequence_deco("test_obj.value")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    test_obj = TestClass(value="a1221b")
+    test_obj_fail = TestClass(value="aabcc")
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 @pytest.mark.parametrize(
     ["value", "should_fail"],
@@ -603,6 +617,20 @@ def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
             decorated_func(value=value)
     else:
         assert decorated_func(value=value)
+
+    class TestClass(NamedTuple):
+        value: str
+
+    @validate_symbols_deco("test_obj.value")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    test_obj = TestClass(value="a'123b")
+    test_obj_fail = TestClass(value="a123b")
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 def test_validate_finding_id_deco() -> None:
@@ -873,6 +901,20 @@ def test_validate_include_lowercase_deco() -> None:
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="ABC123")
 
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="abc123")
+    test_obj_fail = TestClass(field="ABC123")
+
+    @validate_include_lowercase_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
+
 
 def test_validate_include_uppercase_deco() -> None:
     @validate_include_uppercase_deco(
@@ -885,3 +927,17 @@ def test_validate_include_uppercase_deco() -> None:
 
     with pytest.raises(InvalidReportFilter):
         decorated_func(field="abc123")
+
+    class TestClass(NamedTuple):
+        field: str
+
+    test_obj = TestClass(field="aBc123")
+    test_obj_fail = TestClass(field="abc123")
+
+    @validate_include_uppercase_deco("test_obj.field")
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(InvalidReportFilter):
+        decorated_func_obj(test_obj=test_obj_fail)
