@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Missing Registered Environments') }}
+      {{ banner_share('Missing Registered Environments') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           You have not yet registered any environment in the group
           <strong>{{ group }}</strong>, created <strong>{{ group_date }}
@@ -17,17 +16,12 @@
             href="https://docs.fluidattacks.com/machine/web/groups/scope/roots/#managing-git-root-environments"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             check here</a>.
         </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <br />
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}

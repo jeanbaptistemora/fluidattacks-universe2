@@ -1,13 +1,12 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Environment Alert') }}
+      {{ banner_share('Environment Alert') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           An environment in the group <strong>{{ group_name }}</strong>
           has been modified by
@@ -15,59 +14,57 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:
         </p>
-        <p>
-          <strong>Date:</strong> {{ report_date }}<br>
-          <strong>Git root:</strong> {{ git_root }}<br>
-          {% if urls_deleted and reason %}
-          <strong>Reason:</strong> {{ reason }}.<br>
-          {% endif %}
-        </p>
-        <p>
-          {% if urls_added %}
-          <strong>URLs added:</strong>
-          <ul>
-            {% for url_added in urls_added %}
-            <li>
-              <a href="{{ url_added }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="color: #ff3435;"
-              >
-                {{ url_added }}
-              </a>
-            </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </p>
-        <p>
-          {% if urls_deleted %}
-          <strong>URLs deleted:</strong>
-          <ul>
-            {% for url_deleted in urls_deleted %}
+        <div class="data-container">
+          <p>
+            <strong>Date:</strong><br/>{{ report_date }}<br/><br/>
+            <strong>Git root:</strong><br/>{{ git_root }}
+            {% if urls_deleted and reason %}
+            <br/><br/>
+            <strong>Reason:</strong><br/>{{ reason }}.
+            {% endif %}
+            {% if urls_added %}
+            <br/><br/>
+            <strong>URLs added:</strong>
+            <ul class="big-list-icon">
+              {% for url_added in urls_added %}
+              <li>
+                <a href="{{ url_added }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {{ url_added }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            {% if urls_deleted %}
+          </p>
+          <p>
+            <br/>
+            <strong>URLs deleted:</strong>
+            <ul class="big-list-icon">
+              {% for url_deleted in urls_deleted %}
               <li>
                 <a href="{{ url_deleted }}"
                   target="_blank"
                   rel="noopener noreferrer"
-                  style="color: #ff3435;"
                 >
                   {{ url_deleted }}
                 </a>
               </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </p>
-        <p></p>
-        <p>Regards,<br>Fluid Attacks Team</p>
-        <br />
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
