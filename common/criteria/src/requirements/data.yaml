@@ -6136,6 +6136,7 @@
     - certj.IDS14-J
     - certj.MSC00-J
     - nyshield.5575_B_6
+    - padss.2_5_2
     - padss.3_3_1
     - padss.5_2_4
     - padss.6_1
@@ -8897,6 +8898,7 @@
     - mitre.M1049
     - mitre.M1057
     - padss.6_1
+    - padss.8_1
     - cmmc.CM_L2-3_4_2
     - cmmc.PE_L1-3_10_1
     - cmmc.PE_L2-3_10_6
@@ -9046,6 +9048,7 @@
     - cpra.1798_104
     - nyshield.5575_B_2
     - padss.2_2
+    - padss.2_5_2
     - pdpo.S1_4
     - hitrust.06_d
     - hitrust.09_y
@@ -13270,6 +13273,7 @@
     - c2m2.9_2_l
     - siglite.SL_88
     - asvs.5_2_8
+    - padss.8_1
   metadata: {}
 "375":
   en:
