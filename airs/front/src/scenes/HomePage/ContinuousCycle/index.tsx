@@ -5,45 +5,52 @@ import {
   BsFillArrowRightCircleFill,
 } from "react-icons/bs";
 
-import { SlideShow } from "./styledComponents";
+import { ProgressBar, SlideHook, SlideShow } from "./styledComponents";
 
 import { Button } from "../../../components/Button";
 import { CloudImage } from "../../../components/CloudImage";
 import { Container } from "../../../components/Container";
 import { Grid } from "../../../components/Grid";
 import { Text, Title } from "../../../components/Typography";
+import { useCarrousel } from "../../../utils/hooks";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 import { translate } from "../../../utils/translations/translate";
 
 const ContinuousCycle: React.FC = (): JSX.Element => {
   const { width } = useWindowSize();
-  const [cycle, setCycle] = useState(0);
+  const [state, setState] = useState(0);
   const screen = width > 960 ? "big" : "md";
 
-  const handleContainerCLick = useCallback(
-    (el: number): VoidFunction => {
-      return (): void => {
-        setCycle(el);
-      };
-    },
-    [setCycle]
-  );
+  const timePerProgress = 100;
+  const numberOfCycles = 6;
+  const { cycle, progress } = useCarrousel(timePerProgress, numberOfCycles);
+
   const cardWidth = width * 0.63;
   const maxScroll = cardWidth * 7;
 
   const [currentWidth, setCurrentWidth] = useState(0);
   const [scroll, setScroll] = useState(0);
   const scrollLeft: () => void = useCallback((): void => {
-    setCycle(cycle - 1);
+    setState(state - 1);
     setScroll(scroll < cardWidth ? 0 : scroll - cardWidth);
-  }, [cardWidth, cycle, scroll]);
+  }, [cardWidth, state, scroll]);
+  const getProgress = useCallback(
+    (el: number): string => {
+      if (cycle > el) {
+        return "100%";
+      }
+
+      return cycle === el ? `${progress}%` : "0%";
+    },
+    [cycle, progress]
+  );
 
   const scrollRight: () => void = useCallback((): void => {
-    setCycle(cycle + 1);
+    setState(state + 1);
     setScroll(
       scroll > currentWidth - cardWidth ? currentWidth : scroll + cardWidth
     );
-  }, [scroll, currentWidth, cardWidth, cycle]);
+  }, [scroll, currentWidth, cardWidth, state]);
 
   const changeScroll: (element: HTMLElement) => void = (
     element: HTMLElement
@@ -96,7 +103,7 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
             <Container maxWidth={"80%"}>
               <CloudImage
                 alt={"cycle-image"}
-                src={`airs/home/ContinuousCycle/ciclo-hc-fluid-${cycle}.png`}
+                src={`airs/home/ContinuousCycle/ciclo-hc-fluid-${state}.png`}
               />
             </Container>
           </Container>
@@ -110,8 +117,8 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
                   maxWidth={"97%"}
                   minHeight={"100px"}
                   minWidth={"70%"}
-                  pr={cycle === 5 ? 1 : 0}
-                  topBar={cycle >= el ? "#bf0b1a" : "#ffffff"}
+                  pr={state === 5 ? 1 : 0}
+                  topBar={state >= el ? "#bf0b1a" : "#ffffff"}
                 >
                   <Container pl={3}>
                     <Title color={"#2e2e38"} level={4} size={"small"}>
@@ -127,10 +134,10 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
           </SlideShow>
         </Grid>
         <Container display={"flex"} justify={"center"} pb={2} wrap={"wrap"}>
-          <Button disabled={cycle === 0} onClick={scrollLeft} size={"lg"}>
+          <Button disabled={state === 0} onClick={scrollLeft} size={"lg"}>
             <BsFillArrowLeftCircleFill color={"#40404f"} size={50} />
           </Button>
-          <Button disabled={cycle === 5} onClick={scrollRight}>
+          <Button disabled={state === 5} onClick={scrollRight}>
             <BsFillArrowRightCircleFill color={"#40404f"} size={50} />
           </Button>
         </Container>
@@ -166,15 +173,17 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
             (el: number): JSX.Element => (
               <Container
                 bgColor={"#ffffff"}
+                display={"flex"}
                 height={"153px"}
-                hoverColor={"#f4f4f6"}
                 key={`cycle${el}`}
-                leftBar={cycle >= el ? "#bf0b1a" : "#ffffff"}
                 maxWidth={"555px"}
-                onClick={handleContainerCLick(el)}
+                wrap={"wrap"}
               >
-                <SlideShow id={"solutionsSlides"} />
-                <Container pl={3} pt={2}>
+                <Container bgColor={"#DDDDE3"} width={"5px"}>
+                  <ProgressBar width={getProgress(el)} />
+                </Container>
+                <SlideHook id={"solutionsSlides"} />
+                <Container maxWidth={"90%"} pl={3} pt={2}>
                   <Title color={"#2e2e38"} level={4} size={"small"}>
                     {translate.t(`home.continuousCycle.cycle${el}.title`)}
                   </Title>

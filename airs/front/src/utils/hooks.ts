@@ -16,6 +16,7 @@ const useCarrousel = (
     };
 
     if (progress === progressLimit) {
+      setProgress(0);
       changeCycle();
     }
   }, [progress, numberOfCycles]);

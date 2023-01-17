@@ -12,4 +12,24 @@ const SlideShow = styled.div.attrs({
   width: 100%;
 `;
 
-export { SlideShow };
+const SlideHook = styled.div.attrs({
+  className: `
+    flex
+    scroll-smooth
+  `,
+})`
+  width: 0%;
+`;
+
+const ProgressBar = styled.div.attrs({
+  className: `
+    relative
+  `,
+})<{ width: string }>`
+  background-color: #bf0b1a;
+  height: ${({ width }): string => width};
+  width: 4px;
+  transition: width 0.25s;
+`;
+
+export { SlideShow, SlideHook, ProgressBar };
