@@ -1,99 +1,98 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Progress Report') }}
+      {{ banner_share('Progress Report') }}
       <div class="main-content">
-        <p>Hi {{ responsible }},</p>
+        <h2>Hi {{ responsible }},</h2>
         <p>Below is a short report of your progress over the previous day:</p>
-        <p>
-          <strong>Hacking details:</strong><br />
-          <ul>
-            <li>
-              <strong>Enumerated:</strong> {{ count_var_report["enumerated_inputs"]["count"] }} inputs
-              ({{ count_var_report["enumerated_inputs"]["variation"] }}),
-              {{ count_var_report["enumerated_ports"]["count"] }} ports
-              ({{ count_var_report["enumerated_ports"]["variation"] }}).
-              <br />
-            </li>
-            <li>
-              <strong>Verified:</strong> {{ count_var_report["verified_inputs"]["count"] }} inputs
-              ({{ count_var_report["verified_inputs"]["variation"] }}),
-              {{ count_var_report["verified_ports"]["count"] }} ports
-              ({{ count_var_report["verified_ports"]["variation"] }}),
-              {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines
-              ({{ count_var_report["loc"]["variation"] }}).
-              <br />
-            </li>
-            <li>
-              <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities
-              ({{ count_var_report["reattacked"]["variation"] }}).
-              <br />
-            </li>
-            <li>
-              <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities
-              (oldest: {{ oldest_draft["submit_age"] }}/{{ oldest_draft["age"] }} days,
-              max: {{ oldest_draft["max_cvss"] }} severity).
-              <br />
-            </li>
-            <li>
-              <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities
-              ({{ count_var_report["released"]["variation"] }},
-              max: {{ max_cvss }} severity,
-              {% if "evidences" in count_var_report.keys() and "released" in count_var_report.keys() %}
-                {%- if count_var_report["released"]["count"] == 0 %}
-              0
+        <div class="data-container">
+          <p>
+            <strong>Hacking details:</strong>
+            <ul class="big-list-icon">
+              <li>
+                <strong>Enumerated:</strong> {{ count_var_report["enumerated_inputs"]["count"] }} inputs
+                ({{ count_var_report["enumerated_inputs"]["variation"] }}),
+                {{ count_var_report["enumerated_ports"]["count"] }} ports
+                ({{ count_var_report["enumerated_ports"]["variation"] }}).
+                <br />
+              </li>
+              <li>
+                <strong>Verified:</strong> {{ count_var_report["verified_inputs"]["count"] }} inputs
+                ({{ count_var_report["verified_inputs"]["variation"] }}),
+                {{ count_var_report["verified_ports"]["count"] }} ports
+                ({{ count_var_report["verified_ports"]["variation"] }}),
+                {{ "%.1f"|format(count_var_report["loc"]["count"] / 1000) }}k lines
+                ({{ count_var_report["loc"]["variation"] }}).
+                <br />
+              </li>
+              <li>
+                <strong>Reattacked:</strong> {{ count_var_report["reattacked"]["count"] }} vulnerabilities
+                ({{ count_var_report["reattacked"]["variation"] }}).
+                <br />
+              </li>
+              <li>
+                <strong>Drafts:</strong> {{ count_var_report["draft_created"]["count"] }} vulnerabilities
+                (oldest: {{ oldest_draft["submit_age"] }}/{{ oldest_draft["age"] }} days,
+                max: {{ oldest_draft["max_cvss"] }} severity).
+                <br />
+              </li>
+              <li>
+                <strong>Released:</strong> {{ count_var_report["released"]["count"] }} vulnerabilities
+                ({{ count_var_report["released"]["variation"] }},
+                max: {{ max_cvss }} severity,
+                {% if "evidences" in count_var_report.keys() and "released" in count_var_report.keys() %}
+                  {%- if count_var_report["released"]["count"] == 0 %}
+                0
+                  {%- else %}
+                {{ "%d"|format((count_var_report["evidences"]["count"] * 100) / (count_var_report["released"]["count"] * 7)) -}}
+                  {%- endif -%}
                 {%- else %}
-              {{ "%d"|format((count_var_report["evidences"]["count"] * 100) / (count_var_report["released"]["count"] * 7)) -}}
+                0
                 {%- endif -%}
-              {%- else %}
-              0
-              {%- endif -%}
-              % completeness).
-            </li>
-          </ul>
-        </p>
-        <p>
-          {% if groups %}
-          <strong>Groups details:</strong><br />
-          <ul>
-            {% for group, fields in groups.items() %}
-            <li>
-              <strong>{{ group }}:</strong>
-              ({{ fields["subscription"] }})
-              {{ fields["enumerated_inputs"] }} inputs enumerated,
-              {{ fields["verified_inputs"] }} inputs verified,
-              {{ fields["enumerated_ports"] }} ports enumerated,
-              {{ fields["verified_ports"] }} ports verified,
-              {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
-              {{ fields["reattacked"] }} reattacked,
-              {{ fields["draft_created"] }} drafts,
-              {{ fields["released"] }} released (
-              {%- if "evidences" in fields.keys() and "released" in fields.keys() -%}
-                {%- if fields["released"] == 0 -%}
-              0
+                % completeness).
+              </li>
+            </ul>
+          </p>
+          <p>
+            {% if groups %}
+            <br />
+            <strong>Groups details:</strong>
+            <ul class="big-list-icon">
+              {% for group, fields in groups.items() %}
+              <li>
+                <strong>{{ group }}:</strong>
+                ({{ fields["subscription"] }})
+                {{ fields["enumerated_inputs"] }} inputs enumerated,
+                {{ fields["verified_inputs"] }} inputs verified,
+                {{ fields["enumerated_ports"] }} ports enumerated,
+                {{ fields["verified_ports"] }} ports verified,
+                {{ "%.1f"|format(fields["loc"] / 1000) }}k lines verified,
+                {{ fields["reattacked"] }} reattacked,
+                {{ fields["draft_created"] }} drafts,
+                {{ fields["released"] }} released (
+                {%- if "evidences" in fields.keys() and "released" in fields.keys() -%}
+                  {%- if fields["released"] == 0 -%}
+                0
+                  {%- else -%}
+                {{- "%d"|format((fields["evidences"] * 100) / (fields["released"] * 7)) -}}
+                  {%- endif -%}
                 {%- else -%}
-              {{- "%d"|format((fields["evidences"] * 100) / (fields["released"] * 7)) -}}
+                0
                 {%- endif -%}
-              {%- else -%}
-              0
-              {%- endif -%}
-              % completeness).
-              <br />
-            </li>
-            {% endfor %}
-          </ul>
-          {% endif %}
-        </p>
-        <p>
-          Regards,<br />
-          Fluid Attacks Team
-        </p>
+                % completeness).
+                <br />
+              </li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </p>
+        </div>
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
