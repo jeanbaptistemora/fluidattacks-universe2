@@ -15,20 +15,15 @@ from utils import (
 
 
 def get_vuln_nodes(graph: Graph, n_id: NId) -> Optional[NId]:
-    algorithm_set_flag: bool = False
     for p_id in g.get_nodes_by_path(
         graph, n_id, [], "ArgumentList", "Object", "Pair"
     ):
         if (key_n_id := graph.nodes[p_id].get("key_id")) and (
             graph.nodes[key_n_id].get("symbol") == "algorithm"
+            and (value_n_id := graph.nodes[p_id].get("value_id"))
+            and graph.nodes[value_n_id].get("value") == '"' + "gzip" + '"'
         ):
-            algorithm_set_flag = True
-            if (value_n_id := graph.nodes[p_id].get("value_id")) and (
-                graph.nodes[value_n_id].get("value") == '"' + "gzip" + '"'
-            ):
-                return p_id
-    if not algorithm_set_flag:
-        return n_id
+            return p_id
     return None
 
 
