@@ -41,6 +41,9 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     VulnerabilityTreatment,
 )
+from decimal import (
+    Decimal,
+)
 from freezegun import (
     freeze_time,
 )
@@ -261,7 +264,7 @@ async def test_validate_past_acceptance_days(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    finding_severity = 3
+    finding_severity = Decimal("3.0")
     accepted_until = datetime.fromisoformat(acceptance_date).astimezone(
         tz=timezone.utc
     )
@@ -294,7 +297,7 @@ async def test_validate_acceptance_severity(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    finding_severity = 8.5
+    finding_severity = Decimal("8.5")
     accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
         tz=timezone.utc
     )
@@ -359,7 +362,7 @@ async def test_validate_number_acceptances(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    finding_severity = 3
+    finding_severity = Decimal("3.0")
     accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
         tz=timezone.utc
     )

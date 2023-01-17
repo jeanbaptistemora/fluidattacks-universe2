@@ -480,7 +480,7 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
         vulnerability=vulnerability,
         treatment=treatment,
         assigned=assigned,
-        acceptance_date="2021-04-02 19:45:11",
+        acceptance_date="2021-04-02 19:45:12",
     )
     assert "errors" not in result_1
     assert result_1["data"]["updateVulnerabilitiesTreatment"]["success"]

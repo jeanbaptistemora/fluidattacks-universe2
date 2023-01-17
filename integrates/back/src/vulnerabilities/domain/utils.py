@@ -7,10 +7,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from datetime import (
-    datetime,
-    timezone,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -23,12 +19,10 @@ from db_model.stakeholders.types import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
-    VulnerabilityTreatmentStatus,
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityTreatment,
 )
 import hashlib
 import html
@@ -157,29 +151,6 @@ def get_hash_from_typed(
         where=where,
         root_id=(vuln.root_id if validate_root else None),
     )
-
-
-def compare_historic_treatments(
-    last_state: VulnerabilityTreatment, new_state: Dict[str, str]
-) -> bool:
-    treatment_changed = (
-        last_state.status
-        != VulnerabilityTreatmentStatus(
-            new_state["treatment"].replace(" ", "_").upper()
-        )
-        or last_state.justification != new_state["justification"]
-        or last_state.assigned != new_state.get("assigned")
-    )
-    date_changed = (
-        "acceptance_date" in new_state
-        and bool(new_state.get("acceptance_date"))
-        and last_state.accepted_until
-        and last_state.accepted_until
-        != datetime.fromisoformat(new_state["acceptance_date"]).astimezone(
-            tz=timezone.utc
-        )
-    )
-    return treatment_changed or bool(date_changed)
 
 
 def validate_acceptance(vuln: Vulnerability) -> None:

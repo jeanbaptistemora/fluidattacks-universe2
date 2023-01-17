@@ -86,6 +86,7 @@ async def process_vulnerability(
         and (is_accepted_expired or is_undefined_accepted_expired)
     ):
         await vulns_domain.add_vulnerability_treatment(
+            justification="Expired accepted treatment",
             modified_by=vulnerability.treatment.modified_by,
             treatment_status=VulnerabilityTreatmentStatus.UNTREATED,
             vulnerability=vulnerability,

@@ -77,7 +77,6 @@ from vulnerabilities.domain.core import (
     should_send_update_treatment,
 )
 from vulnerabilities.domain.utils import (
-    compare_historic_treatments,
     format_vulnerability_locations,
     get_valid_assigned,
     validate_acceptance,
@@ -111,22 +110,20 @@ async def _validate_acceptance_days(
 async def _validate_acceptance_severity(
     loaders: Dataloaders,
     group_name: str,
-    severity: float,
+    severity: Decimal,
 ) -> None:
     """
-    Checks if the finding severity to be temporarily accepted is inside
+    Checks if the severity to be temporarily accepted is inside
     the range set by the defined policy.
     """
     group: Group = await loaders.group.load(group_name)
-    min_value: Decimal = await get_group_min_acceptance_severity(
+    min_value = await get_group_min_acceptance_severity(
         loaders=loaders, group=group
     )
-    max_value: Decimal = await get_group_max_acceptance_severity(
+    max_value = await get_group_max_acceptance_severity(
         loaders=loaders, group=group
     )
-    if not (
-        min_value <= Decimal(severity).quantize(Decimal("0.1")) <= max_value
-    ):
+    if not min_value <= severity <= max_value:
         raise InvalidAcceptanceSeverity(str(severity))
 
 
@@ -136,8 +133,8 @@ async def _validate_number_acceptances(
     historic_treatment: tuple[VulnerabilityTreatment, ...],
 ) -> None:
     """
-    Check that a finding to temporarily accept does not exceed the maximum
-    number of acceptances the organization set.
+    Check that a vulnerability to temporarily accept does not exceed the
+    maximum number of acceptances the organization set.
     """
     group: Group = await loaders.group.load(group_name)
     max_acceptances = await get_group_max_number_acceptances(
@@ -162,7 +159,7 @@ async def validate_accepted_treatment_change(
     *,
     loaders: Dataloaders,
     accepted_until: datetime,
-    finding_severity: float,
+    finding_severity: Decimal,
     group_name: str,
     historic_treatment: tuple[VulnerabilityTreatment, ...],
 ) -> None:
@@ -181,12 +178,12 @@ async def validate_accepted_treatment_change(
 
 async def add_vulnerability_treatment(
     *,
+    justification: str,
     modified_by: str,
     treatment_status: VulnerabilityTreatmentStatus,
     vulnerability: Vulnerability,
     accepted_until: Optional[datetime] = None,
     assigned: Optional[str] = None,
-    justification: Optional[str] = None,
 ) -> None:
     treatment_to_add = VulnerabilityTreatment(
         acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
@@ -478,7 +475,7 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     finding_id: str,
     updated_values: dict[str, str],
-    finding_severity: float,
+    finding_severity: Decimal,
     user_email: str,
     vulnerability_id: str,
     group_name: str,
@@ -523,24 +520,31 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
         validations.validate_field_length(
             updated_values["justification"], 10000
         )
-    if vulnerability.treatment and not compare_historic_treatments(
-        vulnerability.treatment, updated_values
-    ):
-        raise SameValues()
 
     new_treatment_status = VulnerabilityTreatmentStatus[
         get_inverted_treatment_converted(
             updated_values["treatment"].replace(" ", "_").upper()
         )
     ]
-    accepted_until: Optional[datetime] = None
-    justification = updated_values.get("justification")
-    assigned = updated_values.get("assigned")
+    accepted_until = (
+        datetime_utils.get_from_str(updated_values["acceptance_date"])
+        if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
+        else None
+    )
+    justification: str = updated_values["justification"]
+    assigned: Optional[str] = updated_values.get("assigned")
+    if (
+        vulnerability.treatment
+        and vulnerability.treatment.status == new_treatment_status
+        and vulnerability.treatment.justification == justification
+        and vulnerability.treatment.assigned == assigned
+        and vulnerability.treatment.accepted_until == accepted_until
+    ):
+        raise SameValues()
 
     if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED:
-        accepted_until = datetime_utils.get_from_str(
-            updated_values["acceptance_date"]
-        )
+        if not accepted_until:
+            raise InvalidAcceptanceDays("Acceptance parameter missing")
         historic_treatment = (
             await loaders.vulnerability_historic_treatment.load(
                 vulnerability.id

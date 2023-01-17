@@ -75,7 +75,7 @@ async def mutate(
             loaders=loaders,
             finding_id=finding_id,
             updated_values=parameters,
-            finding_severity=float(severity_score),
+            finding_severity=severity_score,
             user_email=user_email,
             vulnerability_id=vulnerability_id,
             group_name=group_name,
