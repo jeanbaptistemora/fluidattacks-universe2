@@ -2,14 +2,13 @@ import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFileExcel, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FormikProps } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import type { ConfigurableValidator } from "revalidate";
@@ -67,7 +66,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
   const { groupName } = useParams<{ groupName: string }>();
   const { t } = useTranslation();
 
-  const formRef = useRef<FormikProps<IFormValues>>(null);
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
 
   const handleClose = useCallback((): void => {
@@ -235,21 +233,7 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
         <Col100>
           <VerifyDialog isOpen={isVerifyDialogOpen}>
             {(setVerifyCallbacks): JSX.Element => {
-              function onRequestReport(values: {
-                age: number | undefined;
-                closingDate: string;
-                findingTitle: string;
-                lastReport: number | undefined;
-                location: string;
-                maxReleaseDate: string | undefined;
-                maxSeverity: number | undefined;
-                minReleaseDate: string | undefined;
-                minSeverity: number | undefined;
-
-                states: string[];
-                treatments: string[];
-                verifications: string[];
-              }): void {
+              function onRequestReport(values: IFormValues): void {
                 setVerifyCallbacks(
                   (verificationCode: string): void => {
                     handleRequestGroupReport(
@@ -307,7 +291,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                     treatments: [],
                     verifications: [],
                   }}
-                  innerRef={formRef}
                   name={"reportTreatments"}
                   onSubmit={onRequestReport}
                   validationSchema={validations}

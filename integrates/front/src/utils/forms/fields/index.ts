@@ -1,6 +1,5 @@
 export { FormikArrayField } from "utils/forms/fields/ArrayField/FormikArrayField";
 export { EditableField } from "utils/forms/fields/EditableField";
-export { FormikDate } from "utils/forms/fields/Date/FormikDate";
 export { FormikDateTime } from "utils/forms/fields/DateTime/FormikDateTime";
 export { FormikAutocompleteText } from "utils/forms/fields/AutoCompleteText/FormikAutocompleteText";
 export { FormikRadioGroup } from "utils/forms/fields/RadioGroup/FormikRadioGroup";
