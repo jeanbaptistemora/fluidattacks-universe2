@@ -83,7 +83,7 @@ const Reviews: React.FC = (): JSX.Element => {
               <AirsLink
                 decoration={"underline"}
                 hoverColor={"#bf0b1a"}
-                href={"https://fluidattacks.docsend.com/view/u37w4yqbh27e5dte"}
+                href={"https://try.fluidattacks.tech/case-study/payvalida/"}
               >
                 <Text color={"#2e2e38"} mr={1} size={"small"} weight={"bold"}>
                   {"Read success story"}
@@ -125,7 +125,7 @@ const Reviews: React.FC = (): JSX.Element => {
               <AirsLink
                 decoration={"underline"}
                 hoverColor={"#bf0b1a"}
-                href={"https://fluidattacks.docsend.com/view/v3aj7p3sixmh6ict"}
+                href={"https://try.fluidattacks.tech/case-study/proteccion/"}
               >
                 <Text color={"#2e2e38"} mr={1} size={"small"} weight={"bold"}>
                   {"Read success story"}
