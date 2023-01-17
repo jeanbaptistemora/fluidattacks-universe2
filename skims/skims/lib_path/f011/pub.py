@@ -15,7 +15,7 @@ import yaml
 
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_JSON)
-def pubspec_yaml(  # NOSONAR
+def pub_pubspec_yaml(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
     dict_yaml = yaml.safe_load(content)

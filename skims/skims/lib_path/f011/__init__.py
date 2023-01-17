@@ -31,7 +31,7 @@ from lib_path.f011.pip import (
     pip_requirements_txt,
 )
 from lib_path.f011.pub import (
-    pubspec_yaml,
+    pub_pubspec_yaml,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -113,8 +113,8 @@ def run_pip_requirements_txt(content: str, path: str) -> Vulnerabilities:
 
 
 @SHIELD_BLOCKING
-def run_pubspec_yaml(content: str, path: str) -> Vulnerabilities:
-    return pubspec_yaml(content, path)
+def run_pub_pubspec_yaml(content: str, path: str) -> Vulnerabilities:
+    return pub_pubspec_yaml(content, path)
 
 
 def _is_pom_xml(content: str) -> bool:
