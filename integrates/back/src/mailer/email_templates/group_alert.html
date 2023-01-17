@@ -9,7 +9,7 @@
         <h2>Hello, {{ name }}:</h2>
         <p>
           {% if attempt %}
-          An attempt to delete the <strong>{{ group }}</strong> group
+          The process to delete the <strong>{{ group }}</strong> group
           from <strong>{{ organization }}</strong> has been started
           {% else %}
           The group <strong>{{ group }}</strong> has been {{ state }}
@@ -20,7 +20,6 @@
             href="mailto:{{ responsible }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             {{ responsible -}}
           </a></strong>:

@@ -346,16 +346,18 @@ async def send_mail_group_alert(
     loaders: Dataloaders, email_to: list[str], context: dict[str, Any]
 ) -> None:
     subject = (
-        f'[{context["group"]}] group deletion attempt'
+        f'[{context["group"]}] group will be deleted from '
+        + f'[{context["organization"]}] soon'
         if context["attempt"]
-        else f'Group [{context["group"]}] has been [{context["state"]}]'
+        else f'[ARM] Group [{context["group"]}] has been [{context["state"]}]'
+        + f' from [{context["organization"]}]'
     )
     await send_mails_async(
         loaders,
         email_to,
         context,
         GENERAL_TAG,
-        f'[ARM] {subject} from [{context["organization"]}]',
+        subject,
         "group_alert",
     )
 
