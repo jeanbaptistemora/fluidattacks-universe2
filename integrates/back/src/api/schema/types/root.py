@@ -12,7 +12,6 @@ from api.resolvers.git_root import (
     gitignore,
     includes_health_check,
     last_cloning_status_update,
-    last_machine_executions,
     last_state_status_update,
     secrets,
     upload_url,
@@ -52,7 +51,6 @@ GITROOT.set_field("includesHealthCheck", includes_health_check.resolve)
 GITROOT.set_field(
     "lastCloningStatusUpdate", last_cloning_status_update.resolve
 )
-GITROOT.set_field("lastMachineExecutions", last_machine_executions.resolve)
 GITROOT.set_field("lastStateStatusUpdate", last_state_status_update.resolve)
 GITROOT.set_field("nickname", nickname.resolve)
 GITROOT.set_field("secrets", secrets.resolve)

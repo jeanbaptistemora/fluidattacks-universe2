@@ -74,8 +74,6 @@ type GitRoot implements IRoot {
   includesHealthCheck: Boolean!
   "Last time the root cloning state was modified"
   lastCloningStatusUpdate: DateTime!
-  "Machine executions for the root"
-  lastMachineExecutions: LastMachineExecutions!
   "Last time the root status was modified"
   lastStateStatusUpdate: DateTime!
   "Nickname for the repository"

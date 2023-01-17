@@ -36,8 +36,6 @@ from db_model.roots.get import (
 )
 from db_model.roots.types import (
     GitRoot,
-    LastMachineExecutions,
-    MachineFindingResult,
     Root,
     RootMachineExecution,
 )
@@ -46,9 +44,6 @@ import logging
 import logging.config
 from more_itertools import (
     collapse,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 import os
 from roots.domain import (
@@ -335,58 +330,6 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
             )
 
     return queue_result
-
-
-async def get_active_executions(root: GitRoot) -> LastMachineExecutions:
-    group: str = root.group_name
-    queued_jobs_dict = {
-        job.batch_job_id: job
-        for job in await get_actions_by_name(
-            action_name="execute-machine", entity=group
-        )
-        if job.batch_job_id and json.loads(job.additional_info)["roots"]
-    }
-    jobs_from_batch = await describe_jobs(*queued_jobs_dict.keys())
-
-    active_jobs_from_batch = tuple(
-        RootMachineExecution(
-            job_id=entry_execution["jobId"],
-            created_at=datetime_utils.get_datetime_from_batch(
-                entry_execution["createdAt"]
-            ),
-            started_at=datetime_utils.get_datetime_from_batch(
-                entry_execution["startedAt"]
-            )
-            if "startedAt" in entry_execution
-            else None,
-            stopped_at=datetime_utils.get_datetime_from_batch(
-                entry_execution["stoppedAt"]
-            )
-            if "stoppedAt" in entry_execution
-            else None,
-            name=f"skims-process-{group}-{root_nickname}",
-            queue=queued_jobs_dict[entry_execution["jobId"]].queue,
-            root_id=root.id,
-            findings_executed=[
-                MachineFindingResult(open=0, modified=0, finding=fin)
-                for fin in json.loads(
-                    queued_jobs_dict[entry_execution["jobId"]].additional_info
-                )["checks"]
-            ],
-        )
-        for entry_execution in jobs_from_batch
-        for root_nickname in json.loads(
-            queued_jobs_dict[entry_execution["jobId"]].additional_info
-        )["roots"]
-        if root_nickname == root.state.nickname
-    )
-
-    jobs = tuple(job for job in active_jobs_from_batch)
-
-    return LastMachineExecutions(
-        complete=jobs[0] if jobs else None,
-        specific=jobs[0] if jobs else None,
-    )
 
 
 __all__ = [

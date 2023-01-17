@@ -183,8 +183,3 @@ class RootMachineExecution(NamedTuple):
     commit: Optional[str] = None
     success: bool = True
     status: Optional[str] = None
-
-
-class LastMachineExecutions(NamedTuple):
-    complete: Optional[RootMachineExecution]
-    specific: Optional[RootMachineExecution]

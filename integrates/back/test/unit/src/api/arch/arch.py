@@ -102,7 +102,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
     ),
     "api.resolvers.git_root": (
         "download_url",
-        "last_machine_executions",
         "environment",
         "upload_url",
         "last_state_status_update",
@@ -476,7 +475,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "approve_vulnerabilities",
         "reject_vulnerabilities",
         "reject_vulnerabilities_zero_risk",
-        "finish_machine_execution",
         "add_draft",
         "remove_vulnerability_tags",
         "download_event_file",
