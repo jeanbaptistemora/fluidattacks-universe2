@@ -37,7 +37,7 @@ The first thing you see below
 the title, on the far left, is
 the **Total Risk Exposure (CVSSF)**
 represents how much the vulnerability
-to exposure (CVSSF) of the group is
+to exposure of the group is
 contributing.
 
 ![total risk cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1673911339/docs/web/vulnerabilities/management/risk_cvssf.png)
@@ -45,7 +45,7 @@ contributing.
 Next is the **Status** information,
 where you can see two items of information:
 The severity level and the
-status of this vulnerability.
+status.
 In **severity** level shows you a
 number,
 which means it is a score based on
@@ -200,7 +200,7 @@ roles.
 To receive this email,
 Click on the **Notify button**.
 
-![Notify button](https://res.cloudinary.com/fluid-attacks/image/upload/v1671720194/docs/web/vulnerabilities/management/notification_action.png)
+![Notify button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673913674/docs/web/vulnerabilities/management/notify_button.png)
 
 You will get a confirmation
 pop-up window if you want
@@ -221,8 +221,10 @@ you can do Reattack;
 for more information,
 we have an exclusive section
 for this action,
-you can enter [here](squad/reattacks)
+you can enter [here](/squad/reattacks)
 for more details.
+
+![reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1673915354/docs/web/vulnerabilities/management/reattack.pngg)
 
 ### Edit button
 
@@ -238,13 +240,13 @@ you must select which vulnerability
 you want to edit,
 followed by clicking on the edit button.
 
-![Edit action](https://res.cloudinary.com/fluid-attacks/image/upload/v1671720438/docs/web/vulnerabilities/management/edit_action.png)
+![Edit action](https://res.cloudinary.com/fluid-attacks/image/upload/v1673915918/docs/web/vulnerabilities/management/edit_button.png)
 
 You will get a popup window where
 you can edit the vulnerability.
 If you want to know more about the
 fields of this action,
-click [here](/machine/web/vulnerabilities/management/vulnerability-assignment).
+click [here](/machine/web/vulnerabilities/management/treatments).
 
 ![Edit pop-window](https://res.cloudinary.com/fluid-attacks/image/upload/v1669045647/docs/web/vulnerabilities/management/edit_popwindow.png)
 
