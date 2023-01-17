@@ -1045,6 +1045,9 @@ const pageTexts: ResourceKey = {
         successStory1Description:
           "Learn how Fluid Attacks' Continuous Hacking helps Payválida.",
         successStory1Title: "Success Story: Payválida",
+        successStory2Description:
+          "Learn how Fluid Attacks' Continuous Hacking helps Protección.",
+        successStory2Title: "Success Story: Protección",
       },
       webinars: {
         webinar1Description:
