@@ -4,7 +4,6 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
-    timedelta,
 )
 from db_model.events.types import (
     Event,
@@ -16,26 +15,16 @@ from db_model.group_comments.types import (
 from db_model.groups.types import (
     Group,
 )
-from decimal import (
-    Decimal,
-)
 from findings.domain import (
     get_pending_verification_findings,
-)
-from freezegun import (
-    freeze_time,
 )
 from group_comments.domain import (
     get_comments,
 )
 from groups.domain import (
-    get_mean_remediate_severity_cvssf,
     remove_pending_deletion_date,
     send_mail_devsecops_agent,
     set_pending_deletion_date,
-)
-from newutils import (
-    datetime as datetime_utils,
 )
 from newutils.group_comments import (
     format_group_consulting_resolve,
@@ -91,34 +80,6 @@ async def test_list_events() -> None:
         GroupEventsRequest(group_name=group_name)
     )
     assert expected_output == sorted([event.id for event in events_group])
-
-
-@freeze_time("2019-10-01")
-@pytest.mark.parametrize(
-    ("min_days", "expected_output"),
-    (
-        (0, Decimal("152.264")),
-        (30, Decimal("0")),
-        (90, Decimal("0")),
-    ),
-)
-async def test_get_mean_remediate_severity_medium_cvssf(
-    min_days: int, expected_output: Decimal
-) -> None:
-    loaders = get_new_context()
-    group_name = "unittesting"
-    min_severity = Decimal("4")
-    max_severity = Decimal("6.9")
-    mean_remediate_medium_severity = await get_mean_remediate_severity_cvssf(
-        loaders,
-        group_name,
-        min_severity,
-        max_severity,
-        (datetime_utils.get_utc_now() - timedelta(days=min_days)).date()
-        if min_days
-        else None,
-    )
-    assert mean_remediate_medium_severity == expected_output
 
 
 async def test_get_pending_verification_findings() -> None:

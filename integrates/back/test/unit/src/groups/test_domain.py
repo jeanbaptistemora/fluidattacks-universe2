@@ -244,7 +244,7 @@ async def test_get_mean_remediate_non_treated_cvssf(
             Decimal("0.0"),
             Decimal("10.0"),
             90,
-            Decimal("83.000"),
+            Decimal("83.0"),
         ],
         [
             "unittesting",
@@ -266,6 +266,27 @@ async def test_get_mean_remediate_non_treated_cvssf(
             Decimal("3.9"),
             90,
             Decimal("83.0"),
+        ],
+        [
+            "unittesting",
+            Decimal("4"),
+            Decimal("6.9"),
+            0,
+            Decimal("377.003"),
+        ],
+        [
+            "unittesting",
+            Decimal("4"),
+            Decimal("6.9"),
+            30,
+            Decimal("0"),
+        ],
+        [
+            "unittesting",
+            Decimal("4"),
+            Decimal("6.9"),
+            90,
+            Decimal("0"),
         ],
     ],
 )
