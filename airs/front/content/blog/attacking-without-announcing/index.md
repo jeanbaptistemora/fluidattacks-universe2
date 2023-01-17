@@ -162,6 +162,12 @@ Five management policies are derived from this approach:
     and respond according to defined procedures:
     blocking, reporting, incident handling, etc.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 3. **Relentless response:**
     React relentlessly to every detection
     regardless of the hackers' intentions.

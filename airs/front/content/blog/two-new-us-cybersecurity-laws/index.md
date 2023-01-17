@@ -102,6 +102,12 @@ of course,
 to identify the kinds of entities
 that will benefit from shared cybersecurity expertise and resources.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 The most substantial addition of the new law is
 how exactly the national cybersecurity and communications integration center
 (henceforth, "Center")

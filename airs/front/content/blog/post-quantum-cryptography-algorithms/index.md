@@ -200,6 +200,12 @@ Apart from the need for more qubits to solve more useful computations,
 another issue to keep in mind is that qubits are unstable,
 and this can lead to miscalculations.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 The development of a large-scale quantum computer is a clear goal
 in a wild race of international companies and governments
 with diverse methods under exploration and assessment.

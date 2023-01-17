@@ -109,6 +109,12 @@ For example,
 China has invested in a number of projects
 in the sector of information technology.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 The concern with China goes beyond the growth of its trade relationships.
 An EU official [told](https://www.wsj.com/articles/u-s-eu-plan-joint-foreign-aid-for-cybersecurity-to-counter-china-11655285401)
 the WSJ

@@ -121,6 +121,12 @@ that **67.4%** of the risk exposure reported
 in the systems we evaluated throughout the last year
 was identified only by our [ethical hackers](../what-is-ethical-hacking/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 Another welcome addition is
 that this new revision **acknowledges the importance
 of continuous risk assessment**.
