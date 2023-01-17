@@ -1,3 +1,6 @@
+from custom_exceptions import (
+    ToeLinesNotFound,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -169,3 +172,39 @@ async def test_update() -> None:
             ),
         )
     )
+
+
+@pytest.mark.changes_db
+async def test_remove() -> None:
+    group_name = "unittesting"
+    root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
+    filename = "test/new.new"
+    loaders = get_new_context()
+    current_value: ToeLines = await loaders.toe_lines.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
+    assert current_value
+    historic_toe_lines: tuple[
+        ToeLines, ...
+    ] = await loaders.toe_lines_historic.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
+    assert historic_toe_lines
+    await toe_lines_domain.remove(group_name, root_id, filename)
+
+    with pytest.raises(ToeLinesNotFound):
+        await loaders.toe_lines.clear_all().load(
+            ToeLinesRequest(
+                group_name=group_name, root_id=root_id, filename=filename
+            )
+        )
+    historic_toe_lines = await loaders.toe_lines_historic.clear_all().load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
+    assert historic_toe_lines is None
