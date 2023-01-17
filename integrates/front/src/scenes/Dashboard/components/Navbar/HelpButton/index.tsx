@@ -87,12 +87,16 @@ const HelpButton: FC = (): JSX.Element => {
       id={"navbar-help-options"}
     >
       <div>
-        <HelpOption
-          description={t("navbar.help.options.expert.description")}
-          icon={faHeadset}
-          onClick={openCalendly}
-          title={t("navbar.help.options.expert.title")}
-        />
+        {match === null || data === undefined ? (
+          <div />
+        ) : (
+          <HelpOption
+            description={t("navbar.help.options.expert.description")}
+            icon={faHeadset}
+            onClick={openCalendly}
+            title={t("navbar.help.options.expert.title")}
+          />
+        )}
         {isUpgradeOpen ? (
           <UpgradeGroupsModal onClose={closeUpgradeModal} />
         ) : undefined}

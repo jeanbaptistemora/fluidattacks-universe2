@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { faTasks } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
@@ -9,7 +8,6 @@ import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "./queries";
 import type { IGetMeVulnerabilitiesAssignedIds } from "./types";
 
 import { Button } from "components/Button";
-import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import { Logger } from "utils/logger";
 
@@ -70,15 +68,13 @@ export const TaskInfo: React.FC = (): JSX.Element => {
           }`
         )}
       >
-        <Button onClick={onClick} size={"sm"}>
-          <Text size={"medium"}>
-            <FontAwesomeIcon color={"#2e2e38"} icon={faTasks} />
-            {undefinedOrEmpty ? undefined : (
-              <span className={"fa-layers-counter f2 b"}>
-                {limitFormatter(allAssigned)}
-              </span>
-            )}
-          </Text>
+        <Button icon={faCheck} onClick={onClick} size={"md"}>
+          {undefinedOrEmpty ? undefined : (
+            <span className={"fa-layers-counter f2 b"}>
+              {limitFormatter(allAssigned)}
+            </span>
+          )}
+          {t("components.navBar.toDo")}
         </Button>
       </Tooltip>
     </React.StrictMode>

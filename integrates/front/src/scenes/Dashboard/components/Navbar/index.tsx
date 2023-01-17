@@ -1,10 +1,8 @@
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import { Breadcrumb } from "./Breadcrumb";
-import { HelpModal } from "./HelpModal";
+import { HelpButton } from "./HelpButton";
 import { NewsWidget } from "./NewsWidget";
 import { Searchbar } from "./Searchbar";
 import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
@@ -12,9 +10,6 @@ import { TaskInfo } from "./Tasks";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
-import { Button } from "components/Button";
-import { useShow } from "components/Modal";
-import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
@@ -26,7 +21,6 @@ export const Navbar: React.FC<INavbarProps> = ({
   userRole,
 }: INavbarProps): JSX.Element => {
   const { t } = useTranslation();
-  const [show, open, close] = useShow();
 
   return (
     <React.StrictMode>
@@ -41,20 +35,15 @@ export const Navbar: React.FC<INavbarProps> = ({
             </li>
           </Can>
           <li>
+            <TaskInfo />
+          </li>
+          <li>
             <Tooltip id={"navbar.newsTooltip.id"} tip={t("navbar.newsTooltip")}>
               <NewsWidget />
             </Tooltip>
           </li>
           <li>
-            <TaskInfo />
-          </li>
-          <li>
-            <Button onClick={open} size={"sm"}>
-              <Text size={"medium"}>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-              </Text>
-            </Button>
-            <HelpModal onClose={close} open={show} />
+            <HelpButton />
           </li>
           <li>
             <TechnicalInfo />
