@@ -32,10 +32,6 @@ class IntegratesWorker(workers.UvicornWorker):
                 "nosniff",
             ],
             [
-                "X-Frame-Options",
-                "SAMEORIGIN",
-            ],
-            [
                 "X-XSS-Protection",
                 "0",
             ],
