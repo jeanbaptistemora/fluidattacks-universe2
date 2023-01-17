@@ -5,7 +5,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -57,25 +57,28 @@ const APITokenModal: FC<IAPITokenModalProps> = ({
   const issuedAt: string = accessToken?.issuedAt ?? "0";
 
   const [updateAPIToken, mtResponse] = useUpdateAPIToken(refetch);
-  async function handleUpdateAPIToken(values: IAccessTokenAttr): Promise<void> {
-    const expTimeStamp: number = Math.floor(
-      new Date(values.expirationTime).getTime() / msToSec
-    );
-    mixpanel.track("GenerateAPIToken");
-    await updateAPIToken({
-      variables: { expirationTime: expTimeStamp },
-    });
-  }
+  const handleUpdateAPIToken = useCallback(
+    async (values: IAccessTokenAttr): Promise<void> => {
+      const expTimeStamp: number = Math.floor(
+        new Date(values.expirationTime).getTime() / msToSec
+      );
+      mixpanel.track("GenerateAPIToken");
+      await updateAPIToken({
+        variables: { expirationTime: expTimeStamp },
+      });
+    },
+    [updateAPIToken]
+  );
 
   const invalidateAPIToken: MutationFunction = useInvalidateAPIToken(
     refetch,
     onClose
   );
-  async function handleInvalidateAPIToken(): Promise<void> {
+  const handleInvalidateAPIToken = useCallback(async (): Promise<void> => {
     await invalidateAPIToken();
-  }
+  }, [invalidateAPIToken]);
 
-  async function handleCopy(): Promise<void> {
+  const handleCopy = useCallback(async (): Promise<void> => {
     const { clipboard } = navigator;
 
     if (_.isUndefined(clipboard)) {
@@ -89,7 +92,7 @@ const APITokenModal: FC<IAPITokenModalProps> = ({
         t("updateAccessToken.copy.success")
       );
     }
-  }
+  }, [mtResponse.data?.updateAccessToken.sessionJwt, t]);
 
   return (
     <Modal onClose={onClose} open={open} title={t("updateAccessToken.title")}>
