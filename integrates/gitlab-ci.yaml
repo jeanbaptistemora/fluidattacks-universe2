@@ -489,6 +489,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__add_files:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'add_files'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_files_to_db:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4311,6 +4340,7 @@
     - /integrates/back/test/functional__add_enrollment
     - /integrates/back/test/functional__add_event
     - /integrates/back/test/functional__add_event_consult
+    - /integrates/back/test/functional__add_files
     - /integrates/back/test/functional__add_files_to_db
     - /integrates/back/test/functional__add_finding_consult
     - /integrates/back/test/functional__add_forces_execution
@@ -4341,7 +4371,6 @@
     - /integrates/back/test/functional__finding
     - /integrates/back/test/functional__forces_executions
     - /integrates/back/test/functional__get_organization_finding_policy
-    - /integrates/back/test/functional__grant_stakeholder_access
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4370,6 +4399,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__grant_stakeholder_access
     - /integrates/back/test/functional__grant_stakeholder_organization_access
     - /integrates/back/test/functional__group
     - /integrates/back/test/functional__groups_languages_distribution
@@ -4409,7 +4439,6 @@
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
     - /integrates/back/test/functional__requeue_actions
-    - /integrates/back/test/functional__resources
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4438,6 +4467,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__resources
     - /integrates/back/test/functional__send_trial_engagement_notification
     - /integrates/back/test/functional__solve_event
     - /integrates/back/test/functional__stakeholder
@@ -4477,7 +4507,6 @@
     - /integrates/back/test/functional__update_root_cloning_status
     - /integrates/back/test/functional__update_severity
     - /integrates/back/test/functional__update_stakeholder_phone
-    - /integrates/back/test/functional__update_toe_input
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4506,6 +4535,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_toe_input
     - /integrates/back/test/functional__update_toe_lines_attacked_lines
     - /integrates/back/test/functional__update_toe_lines_sorts
     - /integrates/back/test/functional__update_toe_port
