@@ -232,12 +232,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     setIsDeleteModalOpen(false);
   }, []);
 
-  function goToFinding(rowInfo: Row<IFindingAttr>): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      push(`${url}/${rowInfo.original.id}/locations`);
-      event.preventDefault();
-    };
-  }
+  const goToFinding = useCallback(
+    (rowInfo: Row<IFindingAttr>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        push(`${url}/${rowInfo.original.id}/locations`);
+        event.preventDefault();
+      };
+    },
+    [push, url]
+  );
 
   const handleQryErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
@@ -518,47 +521,53 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     }
   );
 
-  const validMutationsHelper = (
-    handleCloseModal: () => void,
-    areAllMutationValid: boolean[]
-  ): void => {
-    if (areAllMutationValid.every(Boolean)) {
-      msgSuccess(
-        t("searchFindings.findingsDeleted"),
-        t("group.drafts.titleSuccess")
-      );
-      void refetch();
-      handleCloseModal();
-    }
-  };
-
-  const handleRemoveFinding = async (justification: unknown): Promise<void> => {
-    if (selectedFindings.length === 0) {
-      msgError(t("searchFindings.tabResources.noSelection"));
-    } else {
-      try {
-        const results = await getResults(
-          removeFinding,
-          selectedFindings,
-          justification
+  const validMutationsHelper = useCallback(
+    (handleCloseModal: () => void, areAllMutationValid: boolean[]): void => {
+      if (areAllMutationValid.every(Boolean)) {
+        msgSuccess(
+          t("searchFindings.findingsDeleted"),
+          t("group.drafts.titleSuccess")
         );
-        const areAllMutationValid = getAreAllMutationValid(results);
-        validMutationsHelper(closeDeleteModal, areAllMutationValid);
-      } catch (updateError: unknown) {
-        handleRemoveFindingsError(updateError);
-      } finally {
-        setIsRunning(false);
+        void refetch();
+        handleCloseModal();
       }
-    }
-  };
+    },
+    [refetch, t]
+  );
 
-  function handleDelete(values: Record<string, unknown>): void {
-    void handleRemoveFinding(values.justification);
-  }
+  const handleRemoveFinding = useCallback(
+    async (justification: unknown): Promise<void> => {
+      if (selectedFindings.length === 0) {
+        msgError(t("searchFindings.tabResources.noSelection"));
+      } else {
+        try {
+          const results = await getResults(
+            removeFinding,
+            selectedFindings,
+            justification
+          );
+          const areAllMutationValid = getAreAllMutationValid(results);
+          validMutationsHelper(closeDeleteModal, areAllMutationValid);
+        } catch (updateError: unknown) {
+          handleRemoveFindingsError(updateError);
+        } finally {
+          setIsRunning(false);
+        }
+      }
+    },
+    [closeDeleteModal, removeFinding, selectedFindings, t, validMutationsHelper]
+  );
 
-  function handleRowExpand(row: Row<IFindingAttr>): JSX.Element {
+  const handleDelete = useCallback(
+    (values: Record<string, unknown>): void => {
+      void handleRemoveFinding(values.justification);
+    },
+    [handleRemoveFinding]
+  );
+
+  const handleRowExpand = useCallback((row: Row<IFindingAttr>): JSX.Element => {
     return renderDescription(row.original);
-  }
+  }, []);
 
   return (
     <React.StrictMode>
