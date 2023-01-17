@@ -216,6 +216,9 @@ public class Test {
 		}
 	}
 
+  int counterTesti = 3;
+  while(counterTesti < 5) counterTesti + 1;
+
   try {int j = 0;} catch (E e) {log(e);} catch (E2 e2) {log2(e);};
   try {int j = 0;} catch (E e) {log(e);};
   try {int j = 0;} finally {log(e);};

@@ -10,9 +10,6 @@ from sast_transformations.control_flow.walkers.c_sharp import (
 from sast_transformations.control_flow.walkers.java import (
     JAVA_WALKERS,
 )
-from sast_transformations.control_flow.walkers.javascript import (
-    JAVASCRIPT_WALKERS,
-)
 from typing import (
     Dict,
 )
@@ -20,5 +17,4 @@ from typing import (
 WALKERS_BY_LANG: Dict[GraphShardMetadataLanguage, Walkers] = {
     GraphShardMetadataLanguage.CSHARP: CSHARP_WALKERS,
     GraphShardMetadataLanguage.JAVA: JAVA_WALKERS,
-    GraphShardMetadataLanguage.JAVASCRIPT: JAVASCRIPT_WALKERS,
 }

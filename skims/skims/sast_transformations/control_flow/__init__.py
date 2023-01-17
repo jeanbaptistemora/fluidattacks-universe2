@@ -59,7 +59,5 @@ def add(
 ) -> None:
     if language == GraphShardMetadataLanguage.JAVA:
         java_add(graph)
-    elif language == GraphShardMetadataLanguage.JAVASCRIPT:
-        javascript_add(graph)
     elif language == GraphShardMetadataLanguage.CSHARP:
         c_sharp_add(graph)
