@@ -20,5 +20,6 @@ module "secondary_domains" {
     ]
   )
 
-  domain = each.key
+  cloudflareAccountId = var.cloudflareAccountId
+  domain              = each.key
 }

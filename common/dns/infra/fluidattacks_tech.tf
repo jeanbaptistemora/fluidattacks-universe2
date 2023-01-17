@@ -1,5 +1,6 @@
 resource "cloudflare_zone" "fluidattacks_tech" {
-  zone = "fluidattacks.tech"
+  account_id = var.cloudflareAccountId
+  zone       = "fluidattacks.tech"
 }
 
 resource "cloudflare_zone_settings_override" "fluidattacks_tech" {
@@ -166,7 +167,7 @@ resource "cloudflare_record" "autodiscover" {
   data {
     service  = "_autodiscover"
     proto    = "_tcp"
-    name     = "autodiscover-srv"
+    name     = "autodiscover-srv.${cloudflare_zone.fluidattacks_tech.zone}"
     priority = 0
     weight   = 0
     port     = 443

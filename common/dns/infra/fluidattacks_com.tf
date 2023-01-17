@@ -1,5 +1,6 @@
 resource "cloudflare_zone" "fluidattacks_com" {
-  zone = "fluidattacks.com"
+  account_id = var.cloudflareAccountId
+  zone       = "fluidattacks.com"
 }
 
 resource "cloudflare_zone_settings_override" "fluidattacks_com" {
@@ -489,7 +490,7 @@ resource "cloudflare_certificate_pack" "main" {
   type                  = "advanced"
   validation_method     = "txt"
   validity_days         = 14
-  certificate_authority = "digicert"
+  certificate_authority = "google"
   cloudflare_branding   = false
 
   hosts = [

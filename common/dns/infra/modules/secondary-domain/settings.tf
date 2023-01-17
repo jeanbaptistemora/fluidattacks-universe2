@@ -1,5 +1,6 @@
 resource "cloudflare_zone" "main" {
-  zone = var.domain
+  account_id = var.cloudflareAccountId
+  zone       = var.domain
 }
 
 resource "cloudflare_zone_settings_override" "main" {

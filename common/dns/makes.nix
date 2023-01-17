@@ -28,6 +28,7 @@
   };
   secretsForTerraformFromEnv = {
     commonDns = {
+      cloudflareAccountId = "CLOUDFLARE_ACCOUNT_ID";
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
     };
