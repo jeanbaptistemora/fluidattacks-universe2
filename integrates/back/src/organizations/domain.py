@@ -447,7 +447,7 @@ async def add_organization(
     loaders: Dataloaders,
     organization_name: str,
     email: str,
-    country: Optional[str],
+    country: str,
 ) -> Organization:
     if await exists(loaders, organization_name):
         raise InvalidOrganization("Name taken")

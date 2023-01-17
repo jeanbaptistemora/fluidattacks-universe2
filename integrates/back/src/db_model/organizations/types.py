@@ -68,7 +68,7 @@ class Organization(NamedTuple):
     name: str
     policies: Policies
     state: OrganizationState
-    country: Optional[str] = None
+    country: str
     payment_methods: Optional[list[OrganizationPaymentMethods]] = None
     billing_customer: Optional[str] = None
     vulnerabilities_url: Optional[str] = None

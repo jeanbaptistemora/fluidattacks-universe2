@@ -317,7 +317,7 @@ type Mutation {
   "Adds a new Organization"
   addOrganization(
     "Country of the new Organization"
-    country: String
+    country: String!
     "Name of the new Organization"
     name: String!
   ): AddOrganizationPayload!

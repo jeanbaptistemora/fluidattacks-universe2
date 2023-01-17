@@ -35,7 +35,7 @@ async def mutate(
         info.context
     )
     user_email: str = user_info["user_email"]
-    country = kwargs.get("country")
+    country = kwargs["country"]
     name = kwargs["name"]
 
     TRANSACTIONS_LOGGER.info(
