@@ -8,6 +8,7 @@ import { object, string } from "yup";
 
 import type {
   ICheckboxProps,
+  IEditableProps,
   IInputArrayProps,
   IInputDateProps,
   IInputNumberProps,
@@ -18,6 +19,7 @@ import type {
 import {
   Checkbox as CheckboxComp,
   DataList,
+  Editable as EditableComp,
   Input,
   InputArray as InputArrayComp,
   InputDate as InputDateComp,
@@ -30,7 +32,6 @@ import { Logger } from "utils/logger";
 
 const config: Meta = {
   component: Input,
-  subcomponents: { DataList },
   title: "components/Input",
 };
 
@@ -148,6 +149,27 @@ const StoryTextArea: Story<ITextAreaProps> = (props): JSX.Element => (
   </Formik>
 );
 
+const StoryEditable: Story<IEditableProps> = (
+  props: Readonly<IEditableProps>
+): JSX.Element => {
+  const { label } = props;
+
+  return (
+    <Formik
+      initialValues={{ exampleName: "" }}
+      name={"exampleForm"}
+      onSubmit={handleSubmit}
+      validationSchema={validations}
+    >
+      <Form id={"exampleForm"}>
+        <EditableComp {...props}>
+          <Input id={"ExInput"} label={label} name={"exampleName"} />
+        </EditableComp>
+      </Form>
+    </Formik>
+  );
+};
+
 const Default = StoryDefault.bind({});
 Default.args = {
   disabled: false,
@@ -228,9 +250,17 @@ TextArea.args = {
   variant: "solid",
 };
 
+const Editable = StoryEditable.bind({});
+Editable.args = {
+  currentValue: "Example value",
+  isEditing: false,
+  label: "Example label",
+};
+
 export {
   Default,
   Checkbox,
+  Editable,
   InputArray,
   InputDate,
   InputNumber,

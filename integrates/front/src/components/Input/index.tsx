@@ -1,5 +1,7 @@
 import { DataList } from "./DataList";
 import { Checkbox } from "./Fields/Checkbox";
+import type { IEditableProps } from "./Fields/Editable";
+import { Editable } from "./Fields/Editable";
 import { Input } from "./Fields/Input";
 import { InputArray } from "./Fields/InputArray";
 import { InputDate } from "./Fields/InputDate";
@@ -19,6 +21,7 @@ import { Label } from "./Label";
 
 export type {
   ICheckboxProps,
+  IEditableProps,
   IInputDateProps,
   IInputNumberProps,
   IInputProps,
@@ -29,6 +32,7 @@ export type {
 export {
   Checkbox,
   DataList,
+  Editable,
   Input,
   InputDate,
   InputNumber,

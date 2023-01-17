@@ -6,8 +6,8 @@ import { InputBase, useHandlers } from "../InputBase";
 import { StyledInput } from "../styles";
 
 interface IInputDateProps extends IInputBase<HTMLInputElement> {
-  max?: Date;
-  min?: Date;
+  max?: string;
+  min?: string;
 }
 
 type TInputDateProps = IInputDateProps & TFieldProps;
@@ -48,8 +48,8 @@ const FormikDate: FC<TInputDateProps> = ({
         autoComplete={"off"}
         disabled={disabled}
         id={id}
-        max={max?.toISOString().substring(0, 10)}
-        min={min?.toISOString().substring(0, 10)}
+        max={max}
+        min={min}
         name={name}
         onBlur={handleBlur}
         onChange={handleChange}
