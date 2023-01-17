@@ -49,59 +49,6 @@ def _any_to_list(_input):
 
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def have_old_creds_enabled(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Find password not used in the last 90 days.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    users = aws.credentials_report(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        retry=retry,
-    )
-
-    msg_open: str = "Users have unused passwords (last 90 days)"
-    msg_closed: str = "Users do not have unused passwords (last 90 days)"
-
-    vulns, safes = [], []
-
-    three_months_ago = datetime.now() - timedelta(days=90)
-    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
-
-    client = aws.get_aws_client(service="iam", key_id=key_id, secret=secret)
-
-    for user in users:
-        if user["password_enabled"] != "true":
-            continue
-        try:
-            user_pass_last_used = aws.client_get_user(client, user["user"])[
-                "User"
-            ]["PasswordLastUsed"]
-            vulnerable = user_pass_last_used < three_months_ago
-        except KeyError:
-            vulnerable = False
-
-        (vulns if vulnerable else safes).append(
-            (user["arn"], "Must not have an unused password")
-        )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="users",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def have_old_access_keys(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
