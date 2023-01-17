@@ -12,9 +12,6 @@ from db_model.events.types import (
 from db_model.group_comments.types import (
     GroupComment,
 )
-from db_model.groups.types import (
-    Group,
-)
 from findings.domain import (
     get_pending_verification_findings,
 )
@@ -22,9 +19,7 @@ from group_comments.domain import (
     get_comments,
 )
 from groups.domain import (
-    remove_pending_deletion_date,
     send_mail_devsecops_agent,
-    set_pending_deletion_date,
 )
 from newutils.group_comments import (
     format_group_consulting_resolve,
@@ -93,25 +88,6 @@ async def test_get_pending_verification_findings() -> None:
 
 
 @pytest.mark.changes_db
-async def test_set_pending_deletion_date() -> None:
-    loaders: Dataloaders = get_new_context()
-    group_name = "unittesting"
-    user_email = "integratesmanager@gmail.com"
-    test_date = datetime.fromisoformat("2022-04-06T16:46:23+00:00")
-    group: Group = await loaders.group.load(group_name)
-    assert group.state.pending_deletion_date is None
-
-    await set_pending_deletion_date(
-        group=group, modified_by=user_email, pending_deletion_date=test_date
-    )
-    loaders.group.clear(group_name)
-    group_updated: Group = await loaders.group.load(group_name)
-    assert group_updated.state.pending_deletion_date is not None
-    assert group_updated.state.pending_deletion_date == test_date
-    assert group_updated.state.modified_by == user_email
-
-
-@pytest.mark.changes_db
 @pytest.mark.parametrize(
     [
         "group_name",
@@ -142,18 +118,3 @@ async def test_send_mail_devsecops_agent(
         responsible=responsible,
         had_token=had_token,
     )
-
-
-@pytest.mark.changes_db
-async def test_clear_pending_deletion_date() -> None:
-    loaders: Dataloaders = get_new_context()
-    group_name = "unittesting"
-    user_email = "integratesmanager@gmail.com"
-    group: Group = await loaders.group.load(group_name)
-    assert group.state.pending_deletion_date
-
-    await remove_pending_deletion_date(group=group, modified_by=user_email)
-    loaders.group.clear(group_name)
-    group_updated: Group = await loaders.group.load(group_name)
-    assert group_updated.state.pending_deletion_date is None
-    assert group_updated.state.modified_by == user_email

@@ -7,16 +7,21 @@ from dataloaders import (
     get_new_context,
 )
 from datetime import (
+    datetime,
     timedelta,
 )
 from db_model.groups.enums import (
+    GroupLanguage,
+    GroupManaged,
     GroupService,
     GroupStateJustification,
+    GroupStateStatus,
     GroupSubscriptionType,
     GroupTier,
 )
 from db_model.groups.types import (
     Group,
+    GroupState,
     GroupTreatmentSummary,
 )
 from decimal import (
@@ -39,6 +44,8 @@ from groups.domain import (
     get_vulnerabilities_with_pending_attacks,
     is_valid,
     remove_group,
+    remove_pending_deletion_date,
+    set_pending_deletion_date,
     update_group,
     validate_group_tags,
 )
@@ -420,6 +427,138 @@ async def test_is_valid() -> None:
     loaders: Dataloaders = get_new_context()
     assert await is_valid(loaders, "unittesting")
     assert not await is_valid(loaders, "nonexistent_group")
+
+
+@pytest.mark.parametrize(
+    ["group", "user_email"],
+    [
+        [
+            Group(
+                created_by="unknown",
+                created_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                description="Integrates unit test group",
+                language=GroupLanguage.EN,
+                name="unittesting",
+                organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                state=GroupState(
+                    has_machine=True,
+                    has_squad=True,
+                    managed=GroupManaged.NOT_MANAGED,
+                    modified_by="unknown",
+                    modified_date=datetime.fromisoformat(
+                        "2018-03-08T00:43:18+00:00"
+                    ),
+                    status=GroupStateStatus.ACTIVE,
+                    tier=GroupTier.MACHINE,
+                    type=GroupSubscriptionType.CONTINUOUS,
+                    tags={"test-updates", "test-tag", "test-groups"},
+                    comments=None,
+                    justification=None,
+                    payment_id=None,
+                    pending_deletion_date=None,
+                    service=GroupService.WHITE,
+                ),
+                agent_token=None,
+                business_id="14441323",
+                business_name="Testing Company and Sons",
+                context="Group context test",
+                disambiguation="Disambiguation test",
+                files=[],
+                policies=None,
+                sprint_duration=2,
+                sprint_start_date=datetime.fromisoformat(
+                    "2022-08-06T19:28:00+00:00"
+                ),
+            ),
+            "integratesmanager@gmail.com",
+        ],
+    ],
+)
+@patch(get_mocked_path("update_state"), new_callable=AsyncMock)
+async def test_remove_pending_deletion_date(
+    mock_groups_domain_update_state: AsyncMock,
+    group: Group,
+    user_email: str,
+) -> None:
+
+    mock_groups_domain_update_state.return_value = get_mock_response(
+        get_mocked_path("update_state"),
+        json.dumps([group.name, user_email], default=str),
+    )
+    await remove_pending_deletion_date(group=group, modified_by=user_email)
+
+    assert mock_groups_domain_update_state.called is True
+
+
+@pytest.mark.parametrize(
+    ["group", "user_email", "date"],
+    [
+        [
+            Group(
+                created_by="unknown",
+                created_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                description="Integrates unit test group",
+                language=GroupLanguage.EN,
+                name="unittesting",
+                organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                state=GroupState(
+                    has_machine=True,
+                    has_squad=True,
+                    managed=GroupManaged.NOT_MANAGED,
+                    modified_by="unknown",
+                    modified_date=datetime.fromisoformat(
+                        "2018-03-08T00:43:18+00:00"
+                    ),
+                    status=GroupStateStatus.ACTIVE,
+                    tier=GroupTier.MACHINE,
+                    type=GroupSubscriptionType.CONTINUOUS,
+                    tags={"test-updates", "test-tag", "test-groups"},
+                    comments=None,
+                    justification=None,
+                    payment_id=None,
+                    pending_deletion_date=None,
+                    service=GroupService.WHITE,
+                ),
+                agent_token=None,
+                business_id="14441323",
+                business_name="Testing Company and Sons",
+                context="Group context test",
+                disambiguation="Disambiguation test",
+                files=[],
+                policies=None,
+                sprint_duration=2,
+                sprint_start_date=datetime.fromisoformat(
+                    "2022-08-06T19:28:00+00:00"
+                ),
+            ),
+            "integratesmanager@gmail.com",
+            datetime.fromisoformat("2022-04-06T16:46:23+00:00"),
+        ],
+    ],
+)
+@patch(get_mocked_path("update_state"), new_callable=AsyncMock)
+async def test_set_pending_deletion_date(
+    mock_groups_domain_update_state: AsyncMock,
+    group: Group,
+    user_email: str,
+    date: datetime,
+) -> None:
+
+    mock_groups_domain_update_state.return_value = get_mock_response(
+        get_mocked_path("update_state"),
+        json.dumps(
+            [group.name, group.organization_id, user_email, date], default=str
+        ),
+    )
+    await set_pending_deletion_date(
+        group=group, modified_by=user_email, pending_deletion_date=date
+    )
+
+    assert mock_groups_domain_update_state.called is True
 
 
 @pytest.mark.changes_db

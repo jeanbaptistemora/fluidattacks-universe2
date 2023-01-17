@@ -179,6 +179,7 @@ mocked_paths: Dict[str, str] = {
     "s3_ops.remove_file": "s3.operations.remove_file",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
     "update_evidence": "events.domain.update_evidence",
+    "update_state": "groups.domain.update_state",
     "validate_evidence": "events.domain.validate_evidence",
 }
 
@@ -1561,6 +1562,166 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
         ),
     },
+    "db_model.stakeholders.get.StakeholderLoader.load": {
+        '["continuoushacking@gmail.com", "hacker"]': Stakeholder(
+            email="continuoushacking@gmail.com",
+            access_token=None,
+            first_name="Jhon",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Hackeroy",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3004005006",
+            ),
+            role="hacker",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="continuoushacking@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ],
+                    sms=[],
+                    parameters=NotificationsParameters(
+                        min_severity=Decimal("7.0")
+                    ),
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["integrateshacker@fluidattacks.com", "hacker"]': Stakeholder(
+            email="integrateshacker@fluidattacks.com",
+            access_token=None,
+            first_name="Ismael",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Rivera",
+            legal_remember=False,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3004005006",
+            ),
+            role="hacker",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="integrateshacker@fluidattacks.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[],
+                    sms=[],
+                    parameters=NotificationsParameters(
+                        min_severity=Decimal("7.0")
+                    ),
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["integratesuser@gmail.com", "user"]': Stakeholder(
+            email="integratesuser@gmail.com",
+            access_token=None,
+            first_name="Jane",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="Doe",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="30044445556",
+            ),
+            role="user",
+            session_key=None,
+            session_token=StakeholderSessionToken(
+                jti="0f98c8d494be2c9eddd973e4a861483988a1d90bb26"
+                "8be48dfc442d0b4cada72",
+                state=StateSessionType.IS_VALID,
+            ),
+            state=StakeholderState(
+                modified_by="integratesuser@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[
+                        "ACCESS_GRANTED",
+                        "AGENT_TOKEN",
+                        "CHARTS_REPORT",
+                        "EVENT_REPORT",
+                        "FILE_UPDATE",
+                        "GROUP_INFORMATION",
+                        "GROUP_REPORT",
+                        "NEW_COMMENT",
+                        "NEW_DRAFT",
+                        "PORTFOLIO_UPDATE",
+                        "REMEDIATE_FINDING",
+                        "REMINDER_NOTIFICATION",
+                        "ROOT_UPDATE",
+                        "SERVICE_UPDATE",
+                        "UNSUBSCRIPTION_ALERT",
+                        "UPDATED_TREATMENT",
+                        "VULNERABILITY_ASSIGNED",
+                        "VULNERABILITY_REPORT",
+                    ],
+                    sms=[],
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+        '["unittest@fluidattacks.com", "admin"]': Stakeholder(
+            email="unittest@fluidattacks.com",
+            access_token=StakeholderAccessToken(
+                iat=1634677195,
+                jti="c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd0"
+                "70808418d640e77d",
+                salt="27c7f388ccdd7cc432871c84b63e78cd716739c40055253c"
+                "e7ad1666a8532db6",
+            ),
+            first_name="Miguel",
+            is_concurrent_session=False,
+            is_registered=True,
+            last_name="de Orellana",
+            legal_remember=True,
+            phone=StakeholderPhone(
+                country_code="CO",
+                calling_country_code="57",
+                national_number="3006007008",
+            ),
+            role="admin",
+            session_key=None,
+            session_token=None,
+            state=StakeholderState(
+                modified_by="integratesuser@gmail.com",
+                modified_date=None,
+                notifications_preferences=NotificationsPreferences(
+                    email=[],
+                    sms=[],
+                ),
+            ),
+            tours=StakeholderTours(new_group=False, new_root=False),
+        ),
+    },
     "db_model.stakeholders.get.StakeholderWithFallbackLoader.load": {
         '["integrateshacker@fluidattacks.com"]': Stakeholder(
             email="integrateshacker@fluidattacks.com",
@@ -1640,6 +1801,12 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
+    },
+    "db_model.stakeholders.update_metadata": {
+        '["integrateshacker@fluidattacks.com"]': None,
+        '["integratesuser@gmail.com"]': None,
+        '["test_email@test.com", "user"]': None,
+        '["test_email@test.com", "admin"]': None,
     },
     "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load": {
         '["418900978"]': tuple(),
@@ -6964,166 +7131,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         )
     },
-    "db_model.stakeholders.get.StakeholderLoader.load": {
-        '["continuoushacking@gmail.com", "hacker"]': Stakeholder(
-            email="continuoushacking@gmail.com",
-            access_token=None,
-            first_name="Jhon",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="Hackeroy",
-            legal_remember=True,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="3004005006",
-            ),
-            role="hacker",
-            session_key=None,
-            session_token=None,
-            state=StakeholderState(
-                modified_by="continuoushacking@gmail.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[
-                        "ACCESS_GRANTED",
-                        "AGENT_TOKEN",
-                        "CHARTS_REPORT",
-                        "EVENT_REPORT",
-                        "FILE_UPDATE",
-                        "GROUP_INFORMATION",
-                        "GROUP_REPORT",
-                        "NEW_COMMENT",
-                        "NEW_DRAFT",
-                        "PORTFOLIO_UPDATE",
-                        "REMEDIATE_FINDING",
-                        "REMINDER_NOTIFICATION",
-                        "ROOT_UPDATE",
-                        "SERVICE_UPDATE",
-                        "UNSUBSCRIPTION_ALERT",
-                        "UPDATED_TREATMENT",
-                        "VULNERABILITY_ASSIGNED",
-                        "VULNERABILITY_REPORT",
-                    ],
-                    sms=[],
-                    parameters=NotificationsParameters(
-                        min_severity=Decimal("7.0")
-                    ),
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-        '["integrateshacker@fluidattacks.com", "hacker"]': Stakeholder(
-            email="integrateshacker@fluidattacks.com",
-            access_token=None,
-            first_name="Ismael",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="Rivera",
-            legal_remember=False,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="3004005006",
-            ),
-            role="hacker",
-            session_key=None,
-            session_token=None,
-            state=StakeholderState(
-                modified_by="integrateshacker@fluidattacks.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[],
-                    sms=[],
-                    parameters=NotificationsParameters(
-                        min_severity=Decimal("7.0")
-                    ),
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-        '["integratesuser@gmail.com", "user"]': Stakeholder(
-            email="integratesuser@gmail.com",
-            access_token=None,
-            first_name="Jane",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="Doe",
-            legal_remember=True,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="30044445556",
-            ),
-            role="user",
-            session_key=None,
-            session_token=StakeholderSessionToken(
-                jti="0f98c8d494be2c9eddd973e4a861483988a1d90bb26"
-                "8be48dfc442d0b4cada72",
-                state=StateSessionType.IS_VALID,
-            ),
-            state=StakeholderState(
-                modified_by="integratesuser@gmail.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[
-                        "ACCESS_GRANTED",
-                        "AGENT_TOKEN",
-                        "CHARTS_REPORT",
-                        "EVENT_REPORT",
-                        "FILE_UPDATE",
-                        "GROUP_INFORMATION",
-                        "GROUP_REPORT",
-                        "NEW_COMMENT",
-                        "NEW_DRAFT",
-                        "PORTFOLIO_UPDATE",
-                        "REMEDIATE_FINDING",
-                        "REMINDER_NOTIFICATION",
-                        "ROOT_UPDATE",
-                        "SERVICE_UPDATE",
-                        "UNSUBSCRIPTION_ALERT",
-                        "UPDATED_TREATMENT",
-                        "VULNERABILITY_ASSIGNED",
-                        "VULNERABILITY_REPORT",
-                    ],
-                    sms=[],
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-        '["unittest@fluidattacks.com", "admin"]': Stakeholder(
-            email="unittest@fluidattacks.com",
-            access_token=StakeholderAccessToken(
-                iat=1634677195,
-                jti="c8d9d5f095958cf200f7435508fc2dba37d07447ec12dcd0"
-                "70808418d640e77d",
-                salt="27c7f388ccdd7cc432871c84b63e78cd716739c40055253c"
-                "e7ad1666a8532db6",
-            ),
-            first_name="Miguel",
-            is_concurrent_session=False,
-            is_registered=True,
-            last_name="de Orellana",
-            legal_remember=True,
-            phone=StakeholderPhone(
-                country_code="CO",
-                calling_country_code="57",
-                national_number="3006007008",
-            ),
-            role="admin",
-            session_key=None,
-            session_token=None,
-            state=StakeholderState(
-                modified_by="integratesuser@gmail.com",
-                modified_date=None,
-                notifications_preferences=NotificationsPreferences(
-                    email=[],
-                    sms=[],
-                ),
-            ),
-            tours=StakeholderTours(new_group=False, new_root=False),
-        ),
-    },
     "dynamodb.operations_legacy.delete_item": {
         '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
         '52110"]': True,
@@ -7300,11 +7307,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "findings.domain.core.get_open_vulnerabilities": {
         '["463558592", "422286126"]': 1
     },
-    "db_model.stakeholders.update_metadata": {
-        '["integrateshacker@fluidattacks.com"]': None,
-        '["integratesuser@gmail.com"]': None,
-        '["test_email@test.com", "user"]': None,
-        '["test_email@test.com", "admin"]': None,
+    "groups.domain.update_state": {
+        '["unittesting", "integratesmanager@gmail.com"]': None,
+        '["unittesting", "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"integratesmanager@gmail.com", "2022-04-06 16:46:23+00:00"]': None,
     },
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,
