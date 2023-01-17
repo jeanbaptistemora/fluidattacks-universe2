@@ -487,11 +487,12 @@ async def remove_group(
 
     if validate_pending_actions:
         cancelable_actions = {
+            Action.CLONE_ROOTS.value,
             Action.EXECUTE_MACHINE.value,
+            Action.REBASE.value,
             Action.REFRESH_TOE_INPUTS.value,
             Action.REFRESH_TOE_LINES.value,
             Action.REFRESH_TOE_PORTS.value,
-            Action.CLONE_ROOTS.value,
         }
         group_actions: list[BatchProcessing] = [
             action
@@ -503,14 +504,14 @@ async def remove_group(
             for action in group_actions
             if action.action_name not in cancelable_actions
         ]
+        if pending_actions:
+            raise GroupHasPendingActions()
+
         actions_to_delete = [
             action
             for action in group_actions
             if action.action_name in cancelable_actions
         ]
-        if pending_actions:
-            raise GroupHasPendingActions()
-
         await collect(
             [
                 batch_dal.delete_action(dynamodb_pk=action.key)
@@ -519,7 +520,10 @@ async def remove_group(
         )
         await collect(
             [
-                batch_dal.cancel_batch_job(job_id=action.batch_job_id)
+                batch_dal.cancel_batch_job(
+                    job_id=action.batch_job_id,
+                    reason=f"GROUP_REMOVAL: {justification}",
+                )
                 for action in actions_to_delete
                 if action.batch_job_id
             ]
