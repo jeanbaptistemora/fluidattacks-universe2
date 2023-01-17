@@ -3,7 +3,7 @@
   We need className to override default styles
   Needed to declare various small helpers components
 */
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IDocumentValues } from "./ctx";
@@ -48,9 +48,9 @@ const GButton: React.FC<IGButton> = ({
   currentDocumentName,
   index,
 }: IGButton): JSX.Element => {
-  function onClick(): void {
+  const onClick = useCallback((): void => {
     changeToAlternative(index);
-  }
+  }, [changeToAlternative, index]);
 
   return (
     <Tooltip

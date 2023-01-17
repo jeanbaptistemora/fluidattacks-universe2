@@ -3,7 +3,7 @@ import { Buffer } from "buffer";
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { Form, Formik } from "formik";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
@@ -51,37 +51,40 @@ const AddRoot: React.FC<IAddRootProps> = ({
   const [validateGitAccess] =
     useMutation<ICheckGitAccessResult>(VALIDATE_GIT_ACCESS);
 
-  async function validateAndSubmit(values: IRootAttr): Promise<void> {
-    try {
-      await validateGitAccess({
-        variables: {
-          branch: values.branch,
-          credentials: {
-            key: values.credentials.key
-              ? Buffer.from(values.credentials.key).toString("base64")
-              : undefined,
-            name: values.credentials.name,
-            password: values.credentials.password,
-            token: values.credentials.token,
-            type: values.credentials.type,
-            user: values.credentials.user,
+  const validateAndSubmit = useCallback(
+    async (values: IRootAttr): Promise<void> => {
+      try {
+        await validateGitAccess({
+          variables: {
+            branch: values.branch,
+            credentials: {
+              key: values.credentials.key
+                ? Buffer.from(values.credentials.key).toString("base64")
+                : undefined,
+              name: values.credentials.name,
+              password: values.credentials.password,
+              token: values.credentials.token,
+              type: values.credentials.type,
+              user: values.credentials.user,
+            },
+            url: values.url,
           },
-          url: values.url,
-        },
-      });
-      setShowSubmitAlert(false);
-      setRepositoryValues(values);
-      setRootMessages({
-        message: t("group.scope.git.repo.credentials.checkAccess.success"),
-        type: "success",
-      });
-      onCompleted();
-    } catch (error) {
-      setShowSubmitAlert(false);
-      const { graphQLErrors } = error as ApolloError;
-      handleValidationError(graphQLErrors, setRootMessages);
-    }
-  }
+        });
+        setShowSubmitAlert(false);
+        setRepositoryValues(values);
+        setRootMessages({
+          message: t("group.scope.git.repo.credentials.checkAccess.success"),
+          type: "success",
+        });
+        onCompleted();
+      } catch (error) {
+        setShowSubmitAlert(false);
+        const { graphQLErrors } = error as ApolloError;
+        handleValidationError(graphQLErrors, setRootMessages);
+      }
+    },
+    [onCompleted, setRootMessages, setRepositoryValues, t, validateGitAccess]
+  );
 
   return (
     <div>

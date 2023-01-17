@@ -1,5 +1,5 @@
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Joyride, { ACTIONS, EVENTS, STATUS } from "react-joyride";
 import type { CallBackProps, Step } from "react-joyride";
 
@@ -51,23 +51,28 @@ const Tour: React.FC<ITourProps> = (
   const [runTour, setRunTour] = useState(run);
   const [tourStep, setTourStep] = useState(0);
 
-  function handleJoyrideCallback(tourState: CallBackProps): void {
-    const { action, index, status, type } = tourState;
+  const handleJoyrideCallback = useCallback(
+    (tourState: CallBackProps): void => {
+      const { action, index, status, type } = tourState;
 
-    if (
-      ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(type)
-    ) {
-      setTourStep(index + (action === ACTIONS.PREV ? -1 : 1));
-    } else if (
-      ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status) ||
-      action === "close"
-    ) {
-      setRunTour(false);
-      if (!_.isUndefined(onFinish)) {
-        onFinish();
+      if (
+        ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND] as string[]).includes(
+          type
+        )
+      ) {
+        setTourStep(index + (action === ACTIONS.PREV ? -1 : 1));
+      } else if (
+        ([STATUS.FINISHED, STATUS.SKIPPED] as string[]).includes(status) ||
+        action === "close"
+      ) {
+        setRunTour(false);
+        if (!_.isUndefined(onFinish)) {
+          onFinish();
+        }
       }
-    }
-  }
+    },
+    [onFinish]
+  );
 
   return (
     <Joyride
