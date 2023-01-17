@@ -17,14 +17,14 @@ import type { TestContext } from "yup";
 import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
-import { Checkbox } from "components/Input";
+import { Checkbox, InputDate } from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import { FormikDate, FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -313,19 +313,6 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                   validationSchema={validations}
                 >
                   {({ values }): JSX.Element => {
-                    function onChangeDate(
-                      event: React.ChangeEvent<HTMLInputElement>
-                    ): void {
-                      if (event.target.value !== "") {
-                        formRef.current?.setFieldValue(
-                          "states",
-                          values.states.filter(
-                            (state: string): boolean => state !== "OPEN"
-                          )
-                        );
-                      }
-                    }
-
                     return (
                       <Form>
                         <p className={"mb0"}>
@@ -364,55 +351,29 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             <Row align={"start"} justify={"start"}>
                               <Col lg={45} md={45} sm={45}>
                                 <Col lg={100} md={100} sm={100}>
-                                  <p className={"mb1 mt1"}>
-                                    <span className={"fw8"}>
-                                      {t(
-                                        "group.findings.report.minReleaseDate.text"
-                                      )}
-                                    </span>
-                                  </p>
-                                  <Tooltip
-                                    id={
-                                      "group.findings.report.minReleaseDate.id"
-                                    }
-                                    place={"top"}
-                                    tip={t(
+                                  <InputDate
+                                    label={t(
+                                      "group.findings.report.minReleaseDate.text"
+                                    )}
+                                    name={"minReleaseDate"}
+                                    tooltip={t(
                                       "group.findings.report.minReleaseDate.tooltip"
                                     )}
-                                  >
-                                    <Field
-                                      component={FormikDate}
-                                      customChange={onChangeDate}
-                                      name={"minReleaseDate"}
-                                    />
-                                  </Tooltip>
+                                  />
                                 </Col>
                               </Col>
                               <Col lg={5} md={5} sm={5} />
                               <Col lg={45} md={45} sm={45}>
-                                <p className={"mb1 mt1"}>
-                                  <span className={"fw8"}>
-                                    {t(
+                                <Col lg={100} md={100} sm={100}>
+                                  <InputDate
+                                    label={t(
                                       "group.findings.report.maxReleaseDate.text"
                                     )}
-                                  </span>
-                                </p>
-                                <Col lg={100} md={100} sm={100}>
-                                  <Tooltip
-                                    id={
-                                      "group.findings.report.maxReleaseDate.id"
-                                    }
-                                    place={"top"}
-                                    tip={t(
+                                    name={"maxReleaseDate"}
+                                    tooltip={t(
                                       "group.findings.report.maxReleaseDate.tooltip"
                                     )}
-                                  >
-                                    <Field
-                                      component={FormikDate}
-                                      customChange={onChangeDate}
-                                      name={"maxReleaseDate"}
-                                    />
-                                  </Tooltip>
+                                  />
                                 </Col>
                               </Col>
                             </Row>
@@ -549,25 +510,16 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           </Col>
                           <Col lg={90} md={90} sm={90}>
                             <Col lg={50} md={50} sm={50}>
-                              <p className={"mb1 mt1"}>
-                                <span className={"fw8"}>
-                                  {t("group.findings.report.closingDate.text")}
-                                </span>
-                              </p>
-                              <Tooltip
-                                id={"group.findings.report.closingDate.id"}
-                                place={"top"}
-                                tip={t(
+                              <InputDate
+                                label={t(
+                                  "group.findings.report.closingDate.text"
+                                )}
+                                name={"closingDate"}
+                                tooltip={t(
                                   "group.findings.report.closingDate.tooltip"
                                 )}
-                              >
-                                <Field
-                                  component={FormikDate}
-                                  customChange={onChangeDate}
-                                  name={"closingDate"}
-                                  validate={composeValidators([isGreaterDate])}
-                                />
-                              </Tooltip>
+                                validate={composeValidators([isGreaterDate])}
+                              />
                             </Col>
                           </Col>
                           {_.isEmpty(values.closingDate) ? (
