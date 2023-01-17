@@ -224,7 +224,7 @@ for this action,
 you can enter [here](/squad/reattacks)
 for more details.
 
-![reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1673915354/docs/web/vulnerabilities/management/reattack.pngg)
+![reattack button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673915354/docs/web/vulnerabilities/management/reattack.png)
 
 ### Edit button
 
