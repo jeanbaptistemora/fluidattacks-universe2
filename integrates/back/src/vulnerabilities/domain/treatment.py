@@ -6,7 +6,6 @@ import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
-    InvalidDateFormat,
     InvalidNotificationRequest,
     InvalidNumberAcceptances,
     SameValues,
@@ -18,7 +17,6 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
-    timezone,
 )
 from db_model import (
     utils as db_model_utils,
@@ -86,29 +84,16 @@ from vulnerabilities.domain.utils import (
 )
 
 
-def _validate_acceptance_date(values: dict[str, str]) -> None:
-    """Check that the date set to temporarily accept a vuln is logical."""
-    if values.get("acceptance_date"):
-        today = datetime_utils.get_now_as_str()
-        values[
-            "acceptance_date"
-        ] = f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
-        if not datetime_utils.is_valid_format(values["acceptance_date"]):
-            raise InvalidDateFormat()
-    else:
-        raise InvalidDateFormat()
-
-
 async def _validate_acceptance_days(
-    loaders: Dataloaders, values: dict[str, str], group_name: str
+    loaders: Dataloaders,
+    accepted_until: datetime,
+    group_name: str,
 ) -> None:
     """
-    Check that the date during which the finding will be temporarily accepted
-    complies with organization settings.
+    Checks if acceptance date complies with organization policies.
     """
-    today = datetime_utils.get_now()
-    acceptance_date = datetime_utils.get_from_str(values["acceptance_date"])
-    acceptance_days = Decimal((acceptance_date - today).days)
+    today = datetime_utils.get_utc_now()
+    acceptance_days = Decimal((accepted_until - today).days)
     group: Group = await loaders.group.load(group_name)
     max_acceptance_days = await get_group_max_acceptance_days(
         loaders=loaders, group=group
@@ -129,7 +114,7 @@ async def _validate_acceptance_severity(
     severity: float,
 ) -> None:
     """
-    Check that the severity of the finding to temporaryly accept is inside
+    Checks if the finding severity to be temporarily accepted is inside
     the range set by the defined policy.
     """
     group: Group = await loaders.group.load(group_name)
@@ -176,15 +161,14 @@ async def _validate_number_acceptances(
 async def validate_accepted_treatment_change(
     *,
     loaders: Dataloaders,
+    accepted_until: datetime,
     finding_severity: float,
     group_name: str,
     historic_treatment: tuple[VulnerabilityTreatment, ...],
-    values: dict[str, str],
 ) -> None:
-    _validate_acceptance_date(values)
     await collect(
         [
-            _validate_acceptance_days(loaders, values, group_name),
+            _validate_acceptance_days(loaders, accepted_until, group_name),
             _validate_acceptance_severity(
                 loaders, group_name, finding_severity
             ),
@@ -544,7 +528,19 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     ):
         raise SameValues()
 
-    if updated_values["treatment"] == "ACCEPTED":
+    new_treatment_status = VulnerabilityTreatmentStatus[
+        get_inverted_treatment_converted(
+            updated_values["treatment"].replace(" ", "_").upper()
+        )
+    ]
+    accepted_until: Optional[datetime] = None
+    justification = updated_values.get("justification")
+    assigned = updated_values.get("assigned")
+
+    if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED:
+        accepted_until = datetime_utils.get_from_str(
+            updated_values["acceptance_date"]
+        )
         historic_treatment = (
             await loaders.vulnerability_historic_treatment.load(
                 vulnerability.id
@@ -552,26 +548,12 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
         )
         await validate_accepted_treatment_change(
             loaders=loaders,
+            accepted_until=accepted_until,
             finding_severity=finding_severity,
             group_name=group_name,
             historic_treatment=historic_treatment,
-            values=updated_values,
         )
 
-    new_treatment_status = VulnerabilityTreatmentStatus[
-        get_inverted_treatment_converted(
-            updated_values["treatment"].replace(" ", "_").upper()
-        )
-    ]
-    accepted_until = (
-        datetime.fromisoformat(updated_values["acceptance_date"]).astimezone(
-            tz=timezone.utc
-        )
-        if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
-        else None
-    )
-    justification = updated_values.get("justification")
-    assigned = updated_values.get("assigned")
     await add_vulnerability_treatment(
         modified_by=user_email,
         treatment_status=new_treatment_status,

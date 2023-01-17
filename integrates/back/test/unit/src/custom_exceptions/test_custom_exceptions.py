@@ -27,6 +27,7 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
+    timezone,
 )
 from db_model.groups.enums import (
     GroupService,
@@ -260,20 +261,17 @@ async def test_validate_past_acceptance_days(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    severity = 3
-    values_accepted = {
-        "justification": "This is a test treatment justification",
-        "bts_url": "",
-        "treatment": "ACCEPTED",
-        "acceptance_date": acceptance_date,
-    }
+    finding_severity = 3
+    accepted_until = datetime.fromisoformat(acceptance_date).astimezone(
+        tz=timezone.utc
+    )
     with pytest.raises(InvalidAcceptanceDays):
         await validate_accepted_treatment_change(
             loaders=get_new_context(),
-            finding_severity=severity,
+            accepted_until=accepted_until,
+            finding_severity=finding_severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            values=values_accepted,
         )
     assert mock_table_resource.called is True
 
@@ -296,23 +294,17 @@ async def test_validate_acceptance_severity(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    severity = 8.5
-    acceptance_date = (datetime.now() + timedelta(days=10)).strftime(
-        "%Y-%m-%d %H:%M:%S"
+    finding_severity = 8.5
+    accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
+        tz=timezone.utc
     )
-    values_accepted = {
-        "justification": "This is a test treatment justification",
-        "bts_url": "",
-        "treatment": "ACCEPTED",
-        "acceptance_date": acceptance_date,
-    }
     with pytest.raises(InvalidAcceptanceSeverity):
         await validate_accepted_treatment_change(
             loaders=get_new_context(),
-            finding_severity=severity,
+            accepted_until=accepted_until,
+            finding_severity=finding_severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            values=values_accepted,
         )
     assert mock_table_resource.called is True
 
@@ -367,23 +359,17 @@ async def test_validate_number_acceptances(
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
     )
-    severity = 3
-    acceptance_date = (datetime.now() + timedelta(days=10)).strftime(
-        "%Y-%m-%d %H:%M:%S"
+    finding_severity = 3
+    accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
+        tz=timezone.utc
     )
-    values_accepted = {
-        "justification": "This is a test treatment justification",
-        "bts_url": "",
-        "treatment": "ACCEPTED",
-        "acceptance_date": acceptance_date,
-    }
     with pytest.raises(InvalidNumberAcceptances):
         await validate_accepted_treatment_change(
             loaders=get_new_context(),
-            finding_severity=severity,
+            accepted_until=accepted_until,
+            finding_severity=finding_severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            values=values_accepted,
         )
     assert mock_table_resource.called is True
 
