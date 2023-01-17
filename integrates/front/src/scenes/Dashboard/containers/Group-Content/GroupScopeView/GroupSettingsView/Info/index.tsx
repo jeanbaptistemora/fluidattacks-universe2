@@ -16,7 +16,7 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { Select } from "components/Input";
+import { InputDate, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
@@ -28,7 +28,7 @@ import { handleEditGroupDataError } from "scenes/Dashboard/containers/Group-Cont
 import type { IGroupData } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatIsoDate } from "utils/date";
-import { FormikDate, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -182,7 +182,7 @@ const GroupInformation: React.FC = (): JSX.Element => {
     },
     {
       attribute: "Sprint Start Date",
-      value: formatIsoDate(data.group.sprintStartDate),
+      value: formatIsoDate(data.group.sprintStartDate).split(" ")[0],
     },
   ];
 
@@ -354,29 +354,19 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 </Col>
                 <Col lg={33} md={50} sm={100}>
                   <Card>
-                    <Text mb={2}>
-                      {t(
+                    <InputDate
+                      disabled={permissions.cannot(
+                        "api_mutations_update_group_stakeholder_mutate"
+                      )}
+                      label={t(
                         "organization.tabs.groups.editGroup.sprintStartDate.text"
                       )}
-                    </Text>
-                    <Tooltip
-                      id={
-                        "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                      name={"sprintStartDate"}
+                      tooltip={t(
                         "organization.tabs.groups.editGroup.sprintStartDate.tooltip"
                       )}
-                    >
-                      <Field
-                        component={FormikDate}
-                        disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
-                        )}
-                        name={"sprintStartDate"}
-                        validate={composeValidators([required, isGreaterDate])}
-                      />
-                    </Tooltip>
+                      validate={composeValidators([required, isGreaterDate])}
+                    />
                   </Card>
                 </Col>
                 <Col lg={33} md={50} sm={100}>

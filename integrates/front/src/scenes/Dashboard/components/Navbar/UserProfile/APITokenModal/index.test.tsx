@@ -195,7 +195,7 @@ describe("Update access token modal", (): void => {
     );
 
     await userEvent.type(
-      screen.getByTestId("expiration-time-input"),
+      screen.getByLabelText("expirationTime"),
       expirationTime
     );
     await userEvent.click(screen.getByText("components.modal.confirm"));

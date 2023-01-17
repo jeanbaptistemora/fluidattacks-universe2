@@ -1,6 +1,6 @@
 import type { MutationFunction } from "@apollo/client";
 import dayjs from "dayjs";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -10,7 +10,7 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { Label, TextArea } from "components/Input";
+import { InputDate, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -23,7 +23,6 @@ import type {
   IAccessTokenAttr,
   IGetAccessTokenDictAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
-import { FormikDate } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
   composeValidators,
@@ -107,22 +106,17 @@ const APITokenModal: FC<IAPITokenModalProps> = ({
       >
         <Form>
           {hasAPIToken ? undefined : (
-            <Fragment>
-              <Label>{t("updateAccessToken.expirationTime")}</Label>
-              <Field
-                component={FormikDate}
-                dataTestId={"expiration-time-input"}
-                maxDate={sixMonthsLater}
-                minDate={oneDayLater}
-                name={"expirationTime"}
-                type={"date"}
-                validate={composeValidators([
-                  isLowerDate,
-                  isValidDateAccessToken,
-                  required,
-                ])}
-              />
-            </Fragment>
+            <InputDate
+              label={t("updateAccessToken.expirationTime")}
+              max={sixMonthsLater}
+              min={oneDayLater}
+              name={"expirationTime"}
+              validate={composeValidators([
+                isLowerDate,
+                isValidDateAccessToken,
+                required,
+              ])}
+            />
           )}
           {mtResponse.data === undefined ? (
             hasAPIToken ? (

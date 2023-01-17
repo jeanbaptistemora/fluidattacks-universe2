@@ -2,18 +2,19 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import _ from "lodash";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import type { IAcceptanceDateFieldProps } from "./types";
 
+import { Editable, InputDate } from "components/Input";
 import { authzPermissionsContext } from "utils/authz/config";
-import { EditableField, FormikDate } from "utils/forms/fields";
-import { translate } from "utils/translations/translate";
 import { composeValidators, isLowerDate, required } from "utils/validations";
 
-const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
-  props: IAcceptanceDateFieldProps
-): JSX.Element => {
-  const { isAcceptedSelected, lastTreatment } = props;
+const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = ({
+  isAcceptedSelected,
+  lastTreatment,
+}): JSX.Element => {
+  const { t } = useTranslation();
 
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
   const canUpdateVulnsTreatment: boolean = permissions.can(
@@ -23,16 +24,18 @@ const AcceptanceDateField: React.FC<IAcceptanceDateFieldProps> = (
   return (
     <React.StrictMode>
       {isAcceptedSelected ? (
-        <div className={"nt2 w-100"}>
-          <EditableField
-            component={FormikDate}
+        <div className={"mb4 nt2 w-100"}>
+          <Editable
             currentValue={_.get(lastTreatment, "acceptanceDate", "-")}
-            label={translate.t("searchFindings.tabDescription.acceptanceDate")}
-            name={"acceptanceDate"}
-            renderAsEditable={canUpdateVulnsTreatment}
-            type={"date"}
-            validate={composeValidators([required, isLowerDate])}
-          />
+            isEditing={canUpdateVulnsTreatment}
+            label={t("searchFindings.tabDescription.acceptanceDate")}
+          >
+            <InputDate
+              label={t("searchFindings.tabDescription.acceptanceDate")}
+              name={"acceptanceDate"}
+              validate={composeValidators([required, isLowerDate])}
+            />
+          </Editable>
         </div>
       ) : undefined}
     </React.StrictMode>

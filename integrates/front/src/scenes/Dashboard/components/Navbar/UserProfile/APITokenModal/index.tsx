@@ -1,6 +1,6 @@
 import type { MutationFunction } from "@apollo/client";
 import dayjs from "dayjs";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
@@ -9,7 +9,7 @@ import React, { Fragment } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
-import { TextArea } from "components/Input";
+import { InputDate, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -22,7 +22,6 @@ import type {
   IAccessTokenAttr,
   IGetAccessTokenDictAttr,
 } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal/types";
-import { FormikDate } from "utils/forms/fields";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
   composeValidators,
@@ -107,13 +106,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               <Text fw={7} mb={1}>
                 {t("updateAccessToken.expirationTime")}
               </Text>
-              <Field
-                component={FormikDate}
-                dataTestId={"expiration-time-input"}
-                maxDate={sixMonthsLater}
-                minDate={oneDayLater}
+              <InputDate
+                max={sixMonthsLater}
+                min={oneDayLater}
                 name={"expirationTime"}
-                type={"date"}
                 validate={composeValidators([
                   isLowerDate,
                   isValidDateAccessToken,
