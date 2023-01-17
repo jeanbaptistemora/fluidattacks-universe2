@@ -6,6 +6,9 @@ from .types import (
     ToeLinesMetadataToUpdate,
     ToeLinesState,
 )
+from .utils import (
+    format_historic_toe_lines_item,
+)
 from boto3.dynamodb.conditions import (
     Attr,
 )
@@ -114,3 +117,28 @@ async def update_state(
             )
     except ConditionalCheckFailedException as ex:
         raise ToeLinesAlreadyUpdated() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_lines_historic_metadata"],
+        values={
+            "filename": current_value.filename,
+            "group_name": current_value.group_name,
+            "root_id": current_value.root_id,
+            # The modified date will always exist here
+            "iso8601utc": get_as_utc_iso_format(new_state.modified_date)
+            if new_state.modified_date
+            else "",
+        },
+    )
+    historic_item = (
+        format_historic_toe_lines_item(
+            historic_key, key_structure, current_value
+        )
+        | base_item
+    )
+    historic_item["state"] |= state_item
+    await operations.put_item(
+        facet=TABLE.facets["toe_lines_historic_metadata"],
+        item=historic_item,
+        table=TABLE,
+    )

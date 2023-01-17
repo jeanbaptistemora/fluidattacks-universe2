@@ -123,33 +123,49 @@ async def test_update() -> None:
         sorts_risk_level=50,
     )
     await toe_lines_domain.update(current_value, attributes)
-    toe_lines = await loaders.toe_lines.clear_all().load(
+    toe_lines: ToeLines = await loaders.toe_lines.clear_all().load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
-    assert toe_lines == ToeLines(
-        filename="test/new.new",
-        group_name="unittesting",
-        modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
-        root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
-        state=ToeLinesState(
-            attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
-            attacked_by="hacker2@test.com",
-            attacked_lines=434,
-            be_present=True,
-            be_present_until=None,
-            comments="comment test 2",
-            first_attack_at=datetime.fromisoformat(
-                "2020-08-01T05:00:00+00:00"
+    historic_toe_lines: tuple[
+        ToeLines, ...
+    ] = await loaders.toe_lines_historic.load(
+        ToeLinesRequest(
+            group_name=group_name, root_id=root_id, filename=filename
+        )
+    )
+    assert len(historic_toe_lines) == 2
+    assert (
+        historic_toe_lines[1]
+        == toe_lines
+        == ToeLines(
+            filename="test/new.new",
+            group_name="unittesting",
+            modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
+            root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            state=ToeLinesState(
+                attacked_at=datetime.fromisoformat(
+                    "2021-08-01T05:00:00+00:00"
+                ),
+                attacked_by="hacker2@test.com",
+                attacked_lines=434,
+                be_present=True,
+                be_present_until=None,
+                comments="comment test 2",
+                first_attack_at=datetime.fromisoformat(
+                    "2020-08-01T05:00:00+00:00"
+                ),
+                has_vulnerabilities=False,
+                last_author="customer2@gmail.com",
+                last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
+                loc=1111,
+                modified_by="hacker2@test.com",
+                modified_date=datetime.fromisoformat(
+                    "2022-08-01T05:00:00+00:00"
+                ),
+                seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
+                sorts_risk_level=50,
             ),
-            has_vulnerabilities=False,
-            last_author="customer2@gmail.com",
-            last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
-            loc=1111,
-            modified_by="hacker2@test.com",
-            modified_date=datetime.fromisoformat("2022-08-01T05:00:00+00:00"),
-            seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
-            sorts_risk_level=50,
-        ),
+        )
     )
