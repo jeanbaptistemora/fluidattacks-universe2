@@ -1,19 +1,15 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_exceptions import (
-    InvalidBePresentFilterCursor,
-)
-from dataloaders import (
-    Dataloaders,
-)
 from db_model.groups.types import (
     Group,
 )
 from db_model.toe_lines.types import (
-    GroupToeLinesRequest,
-    RootToeLinesRequest,
     ToeLinesConnection,
+    ToeLinesEdge,
+)
+from db_model.toe_lines.utils import (
+    format_toe_lines,
 )
 from decorators import (
     concurrent_decorators,
@@ -22,6 +18,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from search.operations import (
+    search,
 )
 from typing import (
     Any,
@@ -36,36 +35,31 @@ from typing import (
 )
 async def resolve(
     parent: Group,
-    info: GraphQLResolveInfo,
+    _info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> Optional[ToeLinesConnection]:
-    loaders: Dataloaders = info.context.loaders
-    group_name: str = parent.name
-    if root_id := kwargs.get("root_id"):
-        response: Optional[
-            ToeLinesConnection
-        ] = await loaders.root_toe_lines.load(
-            RootToeLinesRequest(
-                group_name=group_name,
-                root_id=root_id,
-                after=kwargs.get("after"),
-                be_present=kwargs.get("be_present"),
-                first=kwargs.get("first"),
-                paginate=True,
-            )
-        )
-        if response:
-            return response
-        raise InvalidBePresentFilterCursor()
+    must_filters: list[dict[str, Any]] = must_filter(**kwargs)
 
-    response = await loaders.group_toe_lines.load(
-        GroupToeLinesRequest(
-            group_name=group_name,
-            after=kwargs.get("after"),
-            be_present=kwargs.get("be_present"),
-            first=kwargs.get("first"),
-            paginate=True,
-        )
+    results = await search(
+        after=kwargs.get("after"),
+        exact_filters={"group_name": parent.name},
+        must_filters=must_filters,
+        index="toe_lines",
+        limit=kwargs.get("first", 10),
+    )
+
+    toe_lines = tuple(format_toe_lines(result) for result in results.items)
+
+    response = ToeLinesConnection(
+        edges=tuple(
+            ToeLinesEdge(
+                cursor=results.page_info.end_cursor,
+                node=toe_line,
+            )
+            for toe_line in toe_lines
+        ),
+        page_info=results.page_info,
+        total=results.total,
     )
     return response
 
