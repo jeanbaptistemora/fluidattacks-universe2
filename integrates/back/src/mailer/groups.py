@@ -34,9 +34,11 @@ from mailer.types import (
     TrialEngagementInfo,
 )
 from mailer.utils import (
+    get_organization_country,
     get_organization_name,
 )
 from newutils import (
+    analytics,
     datetime as datetime_utils,
 )
 from typing import (
@@ -50,7 +52,9 @@ async def send_mail_free_trial_start(
 ) -> None:
     first_name = full_name.split(" ")[0]
     org_name = await get_organization_name(loaders, group_name)
+    org_country = await get_organization_country(loaders, group_name)
     context = {
+        "country": org_country,
         "email": email_to,
         "empty_notification_notice": True,
         "enrolled_date": datetime_utils.get_as_str(
@@ -68,6 +72,7 @@ async def send_mail_free_trial_start(
             f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/stakeholders"
         ),
     }
+    await analytics.mixpanel_track(email_to, "AutoenrollSuccess")
     await send_mails_async(
         loaders,
         email_to=[email_to],
@@ -86,7 +91,7 @@ async def send_mail_free_trial_start(
         email_to=enrolled_email_to,
         context=context,
         tags=[],
-        subject=f"[ARM] New enrolled user [{email_to}]",
+        subject=f"[ARM] New enrolled user [{email_to}] from [{org_country}]",
         template_name="new_enrolled",
     )
 
@@ -768,7 +773,6 @@ async def send_mail_environment_report(
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
     )
-
     context = {
         "group_name": group_name,
         "responsible": responsible,
@@ -780,13 +784,11 @@ async def send_mail_environment_report(
         "report_date": str(modified_date.date()),
         "reason": other,
     }
-
     if not other:
         if reason:
             context.update({"reason": reason.replace("_", " ").capitalize()})
         else:
             context.update({"reason": ""})
-
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,
@@ -815,7 +817,6 @@ async def send_mail_updated_group_information(
         metadata.language.value if metadata.language else ""
     )
     language_format: dict[str, Any] = {"EN": "English", "ES": "Spanish"}
-
     group_info_modified: dict[str, Any] = {
         "Business Registration Number": {
             "from": group.business_id,
@@ -852,11 +853,9 @@ async def send_mail_updated_group_information(
             else {}
         ),
     }
-
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
     )
-
     await send_mails_async(
         loaders=loaders,
         email_to=email_to,

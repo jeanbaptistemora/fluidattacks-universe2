@@ -7,6 +7,9 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from typing import (
+    Optional,
+)
 
 
 async def get_organization_name(loaders: Dataloaders, group_name: str) -> str:
@@ -15,3 +18,13 @@ async def get_organization_name(loaders: Dataloaders, group_name: str) -> str:
         group.organization_id
     )
     return organization.name
+
+
+async def get_organization_country(
+    loaders: Dataloaders, group_name: str
+) -> Optional[str]:
+    group: Group = await loaders.group.load(group_name)
+    organization: Organization = await loaders.organization.load(
+        group.organization_id
+    )
+    return organization.country
