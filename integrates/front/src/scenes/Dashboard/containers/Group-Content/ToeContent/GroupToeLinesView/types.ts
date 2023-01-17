@@ -18,6 +18,7 @@ interface IToeLinesConnection {
     hasNextPage: boolean;
     endCursor: string;
   };
+  total: number | undefined;
 }
 
 interface IToeLinesAttr {

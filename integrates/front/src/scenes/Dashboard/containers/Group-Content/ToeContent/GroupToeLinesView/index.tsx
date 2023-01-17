@@ -227,6 +227,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       first: 150,
     },
   });
+  const size = data?.group.toeLines.total;
+
   const toeLinesEdges: IToeLinesEdge[] =
     data === undefined ? [] : data.group.toeLines.edges;
   const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
@@ -774,6 +776,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
             : undefined
         }
         rowSelectionState={selectedToeLinesDatas}
+        size={size}
         sortingSetter={setSorting}
         sortingState={sorting}
       />

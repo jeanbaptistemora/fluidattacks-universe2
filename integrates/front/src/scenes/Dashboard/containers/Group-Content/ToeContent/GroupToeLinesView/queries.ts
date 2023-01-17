@@ -61,6 +61,7 @@ const GET_TOE_LINES: DocumentNode = gql`
           hasNextPage
           endCursor
         }
+        total
         __typename
       }
       __typename
