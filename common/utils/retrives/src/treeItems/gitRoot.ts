@@ -5,7 +5,6 @@ import { GET_GIT_ROOTS } from "../queries";
 import type { GitRoot } from "../types";
 import { getClient } from "../utils/apollo";
 
-// eslint-disable-next-line fp/no-class
 class GitRootTreeItem extends TreeItem {
   public contextValue = "gitRoot";
 

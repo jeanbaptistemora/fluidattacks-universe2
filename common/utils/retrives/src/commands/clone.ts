@@ -4,7 +4,7 @@ import { join } from "path";
 
 import { window, workspace } from "vscode";
 
-import type { GitRootTreeItem } from "../providers/gitRoots";
+import type { GitRootTreeItem } from "../treeItems/gitRoot";
 
 function clone(node: GitRootTreeItem): void {
   if (!workspace.workspaceFolders) {

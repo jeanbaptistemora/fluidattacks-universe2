@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable fp/no-this */
-import * as vscode from "vscode";
 
-import type { GitRootTreeItem } from "./gitRoots";
-import { getGitRoots } from "./gitRoots";
+import type { Event, TreeDataProvider, TreeItem } from "vscode";
+import { EventEmitter, TreeItemCollapsibleState } from "vscode";
 
 import { GET_GROUPS } from "../queries";
+import type { GitRootTreeItem } from "../treeItems/gitRoot";
+import { getGitRoots } from "../treeItems/gitRoot";
 import { GroupTreeItem } from "../treeItems/group";
 import type { Organization } from "../types";
 import { getClient } from "../utils/apollo";
@@ -12,22 +14,24 @@ import { getClient } from "../utils/apollo";
 type EventGroup = GroupTreeItem | undefined | void;
 type TreeItems = GitRootTreeItem[] | GroupTreeItem[];
 // eslint-disable-next-line fp/no-class
-class GroupsProvider implements vscode.TreeDataProvider<GroupTreeItem> {
-  private readonly _onDidChangeTreeData: vscode.EventEmitter<EventGroup> =
-    new vscode.EventEmitter<EventGroup>();
+class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
+  private readonly onDidChangeTreeDataEventEmitter: EventEmitter<EventGroup> =
+    new EventEmitter<EventGroup>();
 
-  public readonly onDidChangeTreeData: vscode.Event<EventGroup> =
-    this._onDidChangeTreeData.event;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  public readonly onDidChangeTreeData: Event<EventGroup> =
+    this.onDidChangeTreeDataEventEmitter.event;
 
   public refresh(): void {
-    this._onDidChangeTreeData.fire();
+    this.onDidChangeTreeDataEventEmitter.fire();
   }
 
-  public getTreeItem(element: GroupTreeItem): vscode.TreeItem {
+  // eslint-disable-next-line class-methods-use-this
+  public getTreeItem(element: GroupTreeItem): TreeItem {
     return element;
   }
 
-  getChildren(element?: GroupTreeItem): Thenable<TreeItems> {
+  public getChildren(element?: GroupTreeItem): Thenable<TreeItems> {
     if (element) {
       return Promise.resolve(getGitRoots(element.label));
     }
@@ -35,22 +39,31 @@ class GroupsProvider implements vscode.TreeDataProvider<GroupTreeItem> {
     return Promise.resolve(this.getGroups());
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private async getGroups(): Promise<GroupTreeItem[]> {
     const groups: string[] = await Promise.resolve(
       getClient()
         .query({ query: GET_GROUPS })
-        .then((result: any) =>
-          result.data.me.organizations
-            .map((org: Organization) => org.groups.map((group) => group.name))
-            .flat()
+        .then(
+          (result: {
+            data: {
+              me: {
+                organizations: Organization[];
+              };
+            };
+          }): string[] =>
+            result.data.me.organizations
+              .map((org: Organization): string[] =>
+                org.groups.map((group): string => group.name)
+              )
+              .flat()
         )
-        .catch((err: any): [] => {
+        .catch((_err): [] => {
           return [];
         })
     );
-
     const toGroup = (groupName: string): GroupTreeItem =>
-      new GroupTreeItem(groupName, vscode.TreeItemCollapsibleState.Collapsed);
+      new GroupTreeItem(groupName, TreeItemCollapsibleState.Collapsed);
 
     const deps = groups.map((dep): GroupTreeItem => toGroup(dep));
 

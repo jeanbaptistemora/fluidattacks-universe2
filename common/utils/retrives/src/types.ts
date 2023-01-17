@@ -1,15 +1,19 @@
-interface Group {
+interface IGroup {
   name: string;
   subscription: string;
 }
 
-interface Organization {
-  groups: Group[];
+interface IOrganization {
+  groups: IGroup[];
 }
 
-interface GitRoot {
+interface IGitRoot {
   nickname: string;
   downloadUrl?: string;
 }
 
-export type { Group, Organization, GitRoot };
+export type {
+  IGroup as Group,
+  IOrganization as Organization,
+  IGitRoot as GitRoot,
+};
