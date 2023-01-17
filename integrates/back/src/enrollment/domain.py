@@ -23,6 +23,9 @@ from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -92,6 +95,12 @@ async def add_enrollment(
         )
     )
 
+    stakeholder_org: tuple[
+        OrganizationAccess, ...
+    ] = await loaders.stakeholder_organizations_access.load(user_email)
+    organization: Organization = await loaders.organization.load(
+        stakeholder_org[0].organization_id
+    )
     group_names = await group_access_domain.get_stakeholder_groups_names(
         loaders, user_email, True
     )
@@ -99,10 +108,14 @@ async def add_enrollment(
     schedule(
         mail_free_trial_start(loaders, user_email, full_name, group_names[0])
     )
+    # Fallback event
     await analytics.mixpanel_track(
         user_email,
         "AutoenrollSubmit",
         group=group_names[0],
+        mp_country_code=organization.country,
+        organization=organization.name,
+        User=full_name,
     )
 
 

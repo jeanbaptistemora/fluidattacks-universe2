@@ -20,6 +20,9 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -99,6 +102,12 @@ async def populate() -> bool:
                     ),
                 ),
             },
+        ],
+        "organization_access": [
+            OrganizationAccess(
+                organization_id="e314a87c-223f-44bc-8317-75900f2ffbc7",
+                email="johndoe@johndoe.com",
+            ),
         ],
         "policies": [
             {
