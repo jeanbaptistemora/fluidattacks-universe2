@@ -24,6 +24,10 @@ const ResourcesMenuElements: React.FC<IProps> = ({
       type: "report-card",
     },
     {
+      text: "success story",
+      type: "successstory-card",
+    },
+    {
       text: "webinar",
       type: "webinar-card",
     },

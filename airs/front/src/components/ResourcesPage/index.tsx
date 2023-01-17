@@ -66,6 +66,18 @@ const ResourcesPage: React.FC<IProps> = ({
     },
     {
       buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
+      cardType: "successstory-card",
+      description: translate.t(
+        "resources.cardsText.successStory.successStory1Description"
+      ),
+      image: "/resources/resource-card18n",
+      key: "card-18",
+      language: "ENGLISH",
+      title: translate.t("resources.cardsText.successStory.successStory1Title"),
+      urlCard: "https://try.fluidattacks.tech/case-study/payvalida/",
+    },
+    {
+      buttonText: translate.t("resources.cardsText.buttons.downloadButton"),
       cardType: "report-card",
       description: translate.t(
         "resources.cardsText.reports.report1Description"

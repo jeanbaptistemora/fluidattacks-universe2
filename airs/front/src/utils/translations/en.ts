@@ -1041,6 +1041,11 @@ const pageTexts: ResourceKey = {
           "from one year of security testing.",
         report6Title: "State of Attacks, Annual Report 2022",
       },
+      successStory: {
+        successStory1Description:
+          "Learn how Fluid Attacks' Continuous Hacking helps Payválida.",
+        successStory1Title: "Success Story: Payválida",
+      },
       webinars: {
         webinar1Description:
           "How to Develop Products With Speed Without Sacrificing Security?",
