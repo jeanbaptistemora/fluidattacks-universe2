@@ -15,13 +15,21 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
+    timezone,
+)
+from dateutil import (
+    parser,
 )
 from db_model.azure_repositories.get import (
+    get_gitlab_commit,
+    get_gitlab_projects,
     get_repositories_stats,
 )
 from db_model.azure_repositories.types import (
+    BasicRepoData,
     CredentialsGitRepository,
     CredentialsGitRepositoryCommit,
+    ProjectStats,
     RepositoriesStats,
 )
 from db_model.azure_repositories.utils import (
@@ -29,6 +37,7 @@ from db_model.azure_repositories.utils import (
 )
 from db_model.credentials.types import (
     Credentials,
+    OauthGitlabSecret,
 )
 from db_model.credentials.utils import (
     filter_pat_credentials,
@@ -75,6 +84,10 @@ import logging.config
 from newutils.datetime import (
     DEFAULT_ISO_STR,
     get_now_minus_delta,
+    get_utc_now,
+)
+from oauth.gitlab import (
+    get_token,
 )
 from organizations.domain import (
     get_group_names,
@@ -402,6 +415,10 @@ def _get_id(repository: CredentialsGitRepository) -> str:
     ).hexdigest()
 
 
+def __get_id(url: str) -> str:
+    return hashlib.sha256(url.lower().encode("utf-8")).hexdigest()
+
+
 def _get_branch(repository: CredentialsGitRepository) -> str:
     return str(
         repository.repository.default_branch
@@ -534,6 +551,107 @@ async def _remove(
     )
 
 
+async def get_gitlab_credentials_stats(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+    organization_id: str,
+) -> RepositoriesStats:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_gitlab_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                        loaders=loaders,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return RepositoriesStats(
+        repositories=tuple(
+            OrganizationIntegrationRepository(
+                id=__get_id(stat.project.remote_url),
+                organization_id=organization_id,
+                branch=stat.project.branch,
+                last_commit_date=parser.parse(
+                    stat.commits[0]["committed_date"]
+                ).astimezone(timezone.utc)
+                if stat.commits
+                else stat.project.last_activity_at,
+                url=stat.project.remote_url,
+                commit_count=len(stat.commits),
+            )
+            for stat in filtered_stats
+        ),
+        missed_repositories=len(filtered_stats),
+        missed_commits=sum(len(stat.commits) for stat in filtered_stats),
+    )
+
+
+async def _get_gitlab_credential_stats(
+    *,
+    credential: Credentials,
+    urls: set[str],
+    loaders: Dataloaders,
+) -> tuple[ProjectStats, ...]:
+    if isinstance(credential.state.secret, OauthGitlabSecret):
+        token: Optional[str] = credential.state.secret.access_token
+        if credential.state.secret.valid_until <= get_utc_now():
+            token = await get_token(
+                credential=credential,
+                loaders=loaders,
+            )
+        if not token:
+            return tuple()
+
+        projects: tuple[BasicRepoData, ...] = await get_gitlab_projects(
+            token=token
+        )
+        filtered_projects = tuple(
+            project
+            for project in projects
+            if project.last_activity_at.timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+            and filter_urls(repository=project, urls=urls)
+        )
+        commits: tuple[tuple[dict, ...], ...] = await get_gitlab_commit(
+            token=token,
+            projects=tuple(project.id for project in filtered_projects),
+        )
+        sorted_commits: tuple[tuple[dict, ...], ...] = tuple(
+            tuple(
+                sorted(
+                    p_commits, key=lambda x: x["committed_date"], reverse=True
+                )
+            )
+            for p_commits in commits
+        )
+        return tuple(
+            ProjectStats(
+                project=project,
+                commits=p_commits,
+            )
+            for project, p_commits in zip(filtered_projects, sorted_commits)
+            if p_commits
+            and parser.parse(p_commits[0]["committed_date"])
+            .astimezone(timezone.utc)
+            .timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+        )
+
+    return tuple()
+
+
 async def get_pat_credentials_stats(
     credentials: tuple[Credentials, ...],
     urls: set[str],
@@ -658,6 +776,12 @@ async def update_organization_repositories(
     repositories_stats: tuple[RepositoriesStats, ...] = await collect(
         [
             get_pat_credentials_stats(
+                credentials=credentials,
+                urls=urls,
+                loaders=loaders,
+                organization_id=organization.id,
+            ),
+            get_gitlab_credentials_stats(
                 credentials=credentials,
                 urls=urls,
                 loaders=loaders,
