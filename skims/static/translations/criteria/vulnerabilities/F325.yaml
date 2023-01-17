@@ -43,3 +43,11 @@ lib_path.f325.json_principal_wildcard:
     The wildcard (*) is used to give access to any user, including anonymous users.
   es: >
     Se usa el comodín (*) para brindar acceso a cualquier usuario, incluyendo usuarios anónimos
+
+src.lib_path.f325.iam_allow_wildcard_action_trust_policy:
+  en: >
+    IAM Role is miss configured:
+    - Should not allow * action on its trust policy
+  es: >
+    El Role de IAM está mal configurado:
+    - No debe permitir acciones * sobre su política de confianza

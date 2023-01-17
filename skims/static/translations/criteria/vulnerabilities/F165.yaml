@@ -24,14 +24,6 @@ src.lib_path.f165.iam_allow_not_action_trust_policy:
     El Role de IAM está mal configurado:
     - No debe permitir Allow + NotAction en politicas de confianza
 
-src.lib_path.f165.iam_allow_wildcard_action_trust_policy:
-  en: >
-    IAM Role is miss configured:
-    - Should not allow * action on its trust policy
-  es: >
-    El Role de IAM está mal configurado:
-    - No debe permitir acciones * sobre su política de confianza
-
 src.lib_path.f165.iam_allow_not_resourse_permissions_policy:
   en: >
     IAM Role is miss configured:

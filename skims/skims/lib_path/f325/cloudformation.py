@@ -355,7 +355,7 @@ def cfn_iam_allow_wildcard_action_trust_policy(
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
         description_key=(
-            "src.lib_path.f165.iam_allow_wildcard_action_trust_policy"
+            "src.lib_path.f325.iam_allow_wildcard_action_trust_policy"
         ),
         iterator=get_cloud_iterator(
             iam_trust_policies_checks(
