@@ -24,6 +24,12 @@ from azure.devops.v6_0.git.models import (
     GitRepository,
     GitRepositoryStats,
 )
+from datetime import (
+    timezone,
+)
+from dateutil import (
+    parser,
+)
 from db_model.azure_repositories.types import (
     BasicRepoData,
     CredentialsGitRepositoryCommit,
@@ -283,7 +289,9 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
                         "refs/heads/"
                     )
                 ),
-                last_activity_at=gproject.attributes["last_activity_at"],
+                last_activity_at=parser.parse(
+                    gproject.attributes["last_activity_at"]
+                ).astimezone(timezone.utc),
             )
             for gproject in group_projects
         )

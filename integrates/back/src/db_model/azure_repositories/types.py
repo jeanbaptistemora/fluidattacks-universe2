@@ -8,6 +8,7 @@ from db_model.credentials.types import (
     Credentials,
 )
 from db_model.integration_repositories.types import (
+    OrganizationIntegrationRepository,
     OrganizationIntegrationRepositoryConnection,
 )
 from typing import (
@@ -41,3 +42,14 @@ class BasicRepoData(NamedTuple):
     web_url: str
     branch: str
     last_activity_at: datetime
+
+
+class ProjectStats(NamedTuple):
+    project: BasicRepoData
+    commits: tuple[dict, ...]
+
+
+class RepositoriesStats(NamedTuple):
+    repositories: tuple[OrganizationIntegrationRepository, ...]
+    missed_repositories: int
+    missed_commits: int

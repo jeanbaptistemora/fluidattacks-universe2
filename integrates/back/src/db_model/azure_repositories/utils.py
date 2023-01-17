@@ -1,13 +1,23 @@
 from azure.devops.v6_0.git.models import (
     GitRepository,
 )
+from db_model.azure_repositories.types import (
+    BasicRepoData,
+)
+from typing import (
+    Union,
+)
 from urllib.parse import (
     unquote_plus,
     urlparse,
 )
 
 
-def filter_urls(*, repository: GitRepository, urls: set[str]) -> bool:
+def filter_urls(
+    *,
+    repository: Union[GitRepository, BasicRepoData],
+    urls: set[str],
+) -> bool:
     remote_url_filter = (
         unquote_plus(urlparse(repository.remote_url.lower()).path) in urls
     )
