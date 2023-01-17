@@ -174,7 +174,7 @@ async def update(
             raise InvalidToeInputAttackedBy()
 
     be_present_until = (
-        None
+        current_value.state.be_present_until
         if attributes.be_present is None
         else _get_optional_be_present_until(attributes.be_present)
     )
@@ -183,10 +183,12 @@ async def update(
         if attributes.be_present is None
         else attributes.be_present
     )
-    first_attack_at = None
+    first_attack_at = current_value.state.first_attack_at
     if attributes.first_attack_at is not None:
         first_attack_at = attributes.first_attack_at
-    elif not current_value.state.first_attack_at and attributes.attacked_at:
+    elif (
+        current_value.state.first_attack_at is None and attributes.attacked_at
+    ):
         first_attack_at = attributes.attacked_at
     has_vulnerabilities = (
         get_has_vulnerabilities(
@@ -204,12 +206,8 @@ async def update(
         attacked_by=attributes.attacked_by
         if attributes.attacked_by is not None
         else current_value.state.attacked_by,
-        be_present=attributes.be_present
-        if attributes.be_present is not None
-        else current_value.state.be_present,
-        be_present_until=be_present_until
-        if be_present_until is not None
-        else current_value.state.be_present_until,
+        be_present=current_be_present,
+        be_present_until=be_present_until,
         first_attack_at=first_attack_at
         if first_attack_at is not None
         else current_value.state.first_attack_at,
