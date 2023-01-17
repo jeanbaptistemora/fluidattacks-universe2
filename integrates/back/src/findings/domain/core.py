@@ -161,8 +161,12 @@ async def _get_finding_comments(
 async def _get_finding_verification_comments(
     *,
     loaders: Dataloaders,
+    comment_type: CommentType,
     finding_id: str,
 ) -> tuple[FindingComment, ...]:
+    if comment_type == CommentType.OBSERVATION:
+        return tuple()
+
     return await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.VERIFICATION,
@@ -204,6 +208,7 @@ async def add_comment(
                         _get_finding_verification_comments(
                             finding_id=finding_id,
                             loaders=loaders,
+                            comment_type=comment_data.comment_type,
                         ),
                     ]
                 )

@@ -5,10 +5,6 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 async def get_result(
@@ -16,23 +12,36 @@ async def get_result(
     user: str,
     content: str,
     finding: str,
-    mutation_type: str,
-) -> Dict[str, Any]:
-    query: str = f"""
-        mutation {{
+    comment_type: str,
+    parent_comment: str,
+) -> dict:
+    mutation: str = """
+        mutation AddFindingConsult(
+            $content: String!
+            $findingId: String!
+            $parentComment: GenericScalar!
+            $type: FindingConsultType!
+        ) {
             addFindingConsult(
-                content: "{content}",
-                findingId: "{finding}",
-                type: {mutation_type},
-                parentComment: "0"
-            ) {{
-                success
+                content: $content
+                findingId: $findingId
+                parentComment: $parentComment
+                type: $type
+            ) {
                 commentId
-            }}
-        }}
-        """
-    data: Dict[str, str] = {
-        "query": query,
+                success
+                __typename
+            }
+        }
+    """
+    data: dict = {
+        "query": mutation,
+        "variables": {
+            "content": content,
+            "findingId": finding,
+            "parentComment": parent_comment,
+            "type": comment_type,
+        },
     }
     return await get_graphql_result(
         data,

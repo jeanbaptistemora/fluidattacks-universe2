@@ -8,6 +8,12 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
+from db_model.finding_comments.enums import (
+    CommentType,
+)
+from db_model.finding_comments.types import (
+    FindingComment,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
@@ -238,6 +244,50 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                 "unreliable_indicator": FindingUnreliableIndicatorsToUpdate(
                     unreliable_status=FindingStatus.VULNERABLE,
                 ),
+            },
+        ],
+        "finding_comments": [
+            {
+                "finding_comment": FindingComment(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="1558048727111",
+                    comment_type=CommentType.COMMENT,
+                    content="This is a finding comment test",
+                    email="admin@gmail.com",
+                    full_name="Test User",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-24T15:09:37+00:00"
+                    ),
+                    parent_id="0",
+                )
+            },
+            {
+                "finding_comment": FindingComment(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="1673975237896",
+                    comment_type=CommentType.VERIFICATION,
+                    content="This is a verification finding comment test",
+                    email="admin@gmail.com",
+                    full_name="Test User",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-25T15:09:37+00:00"
+                    ),
+                    parent_id="0",
+                )
+            },
+            {
+                "finding_comment": FindingComment(
+                    finding_id="3c475384-834c-47b0-ac71-a41a022e401c",
+                    id="1558048727000",
+                    comment_type=CommentType.OBSERVATION,
+                    content="This is a finding observation test",
+                    email="admin@gmail.com",
+                    full_name="Test User",
+                    creation_date=datetime.fromisoformat(
+                        "2022-11-23T15:09:37+00:00"
+                    ),
+                    parent_id="0",
+                )
             },
         ],
     }
