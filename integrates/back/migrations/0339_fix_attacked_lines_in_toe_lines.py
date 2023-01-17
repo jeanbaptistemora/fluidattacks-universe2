@@ -46,14 +46,13 @@ async def process_group(group_name: str) -> None:
     )
     await collect(
         tuple(
-            toe_lines_model.update_metadata(
+            toe_lines_model.update_state(
                 current_value=toe_lines,
-                metadata=ToeLinesMetadataToUpdate(
+                new_state=toe_lines.state._replace(
                     attacked_lines=toe_lines.state.loc,
-                    state=toe_lines.state._replace(
-                        modified_date=datetime_utils.get_utc_now()
-                    ),
+                    modified_date=datetime_utils.get_utc_now(),
                 ),
+                metadata=ToeLinesMetadataToUpdate(),
             )
             for toe_lines in group_toe_lines
             if (
@@ -77,13 +76,12 @@ async def process_group(group_name: str) -> None:
     )
     await collect(
         tuple(
-            toe_lines_model.update_metadata(
+            toe_lines_model.update_state(
                 current_value=toe_lines,
-                metadata=ToeLinesMetadataToUpdate(
-                    state=toe_lines.state._replace(
-                        modified_date=datetime_utils.get_utc_now()
-                    ),
+                new_state=toe_lines.state._replace(
+                    modified_date=datetime_utils.get_utc_now()
                 ),
+                metadata=ToeLinesMetadataToUpdate(),
             )
             for toe_lines in group_toe_lines
             if toe_lines.state.modified_date == toe_lines.modified_date

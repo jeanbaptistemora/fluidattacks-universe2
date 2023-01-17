@@ -4,6 +4,7 @@ from .constants import (
 from .types import (
     ToeLines,
     ToeLinesMetadataToUpdate,
+    ToeLinesState,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -16,6 +17,7 @@ from datetime import (
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb import (
     keys,
@@ -30,11 +32,13 @@ from dynamodb.model import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json
 
 
-async def update_metadata(
+async def update_state(
     *,
     current_value: ToeLines,
+    new_state: ToeLinesState,
     metadata: ToeLinesMetadataToUpdate,
 ) -> None:
     key_structure = TABLE.primary_key
@@ -47,7 +51,7 @@ async def update_metadata(
             "root_id": current_value.root_id,
         },
     )
-    metadata_item: Item = {
+    base_item: Item = {
         key: get_as_utc_iso_format(value)
         if isinstance(value, datetime)
         else value
@@ -61,18 +65,24 @@ async def update_metadata(
             "state",
         }
     }
+    state_item: Item = json.loads(json.dumps(new_state, default=serialize))
+    if metadata.clean_attacked_at:
+        state_item["attacked_at"] = None
+    if metadata.clean_be_present_until:
+        state_item["be_present_until"] = None
+    if metadata.clean_first_attack_at:
+        state_item["first_attack_at"] = None
+    metadata_item = base_item | {
+        key: value
+        for key, value in state_item.items()
+        if key not in {"modified_by", "modified_date"}
+    }
     metadata_item["state"] = {
-        "modified_by": metadata.state.modified_by,
-        "modified_date": get_as_utc_iso_format(metadata.state.modified_date)
-        if metadata.state.modified_date
+        "modified_by": new_state.modified_by,
+        "modified_date": get_as_utc_iso_format(new_state.modified_date)
+        if new_state.modified_date
         else None,
     }
-    if metadata.clean_attacked_at:
-        metadata_item["attacked_at"] = None
-    if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = None
-    if metadata.clean_first_attack_at:
-        metadata_item["first_attack_at"] = None
 
     condition_expression = Attr(key_structure.partition_key).exists()
     if current_value.state.modified_date is None:

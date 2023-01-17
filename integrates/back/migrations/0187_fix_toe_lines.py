@@ -67,16 +67,14 @@ async def process_group_lines(
 ) -> None:
     if current_toe_lines.state.attacked_lines > current_toe_lines.state.loc:
         new_attacked_lines = current_toe_lines.state.loc
-        metadata = ToeLinesMetadataToUpdate(
-            state=current_toe_lines.state._replace(
+        await toe_lines_model.update_state(
+            current_value=current_toe_lines,
+            new_state=current_toe_lines.state._replace(
+                attacked_lines=new_attacked_lines,
                 modified_by="machine@fluidattacks.com",
                 modified_date=datetime_utils.get_utc_now(),
             ),
-            attacked_lines=new_attacked_lines,
-        )
-        await toe_lines_model.update_metadata(
-            current_value=current_toe_lines,
-            metadata=metadata,
+            metadata=ToeLinesMetadataToUpdate(),
         )
 
 

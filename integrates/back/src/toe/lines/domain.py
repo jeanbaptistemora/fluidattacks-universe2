@@ -281,7 +281,7 @@ async def update(
     last_modified_date = (
         attributes.modified_date or current_value.modified_date
     )
-    first_attack_at = None
+    first_attack_at = current_value.state.first_attack_at
     if attributes.first_attack_at is not None:
         first_attack_at = attributes.first_attack_at
     elif not current_value.state.first_attack_at and attributes.attacked_at:
@@ -302,7 +302,7 @@ async def update(
         attacked_lines = 0
 
     be_present_until = (
-        None
+        current_value.state.be_present_until
         if attributes.be_present is None
         else _get_optional_be_present_until(attributes.be_present)
     )
@@ -319,78 +319,58 @@ async def update(
         or attributes.be_present is not None
         else None
     )
-    metadata = ToeLinesMetadataToUpdate(
-        attacked_at=attributes.attacked_at,
-        attacked_by=attributes.attacked_by,
-        attacked_lines=attacked_lines,
-        be_present=attributes.be_present,
+    new_state = ToeLinesState(
+        attacked_at=attributes.attacked_at
+        if attributes.attacked_at is not None
+        else current_value.state.attacked_at,
+        attacked_by=attributes.attacked_by
+        if attributes.attacked_by is not None
+        else current_value.state.attacked_by,
+        attacked_lines=attacked_lines
+        if attributes.attacked_lines is not None
+        else current_value.state.attacked_lines,
+        be_present=attributes.be_present
+        if attributes.be_present is not None
+        else current_value.state.be_present,
         be_present_until=be_present_until,
-        comments=attributes.comments,
-        last_author=attributes.last_author,
+        comments=attributes.comments
+        if attributes.comments is not None
+        else current_value.state.comments,
+        last_author=attributes.last_author
+        if attributes.last_author is not None
+        else current_value.state.last_author,
         first_attack_at=first_attack_at,
         has_vulnerabilities=has_vulnerabilities,
-        loc=attributes.loc,
-        last_commit=attributes.last_commit,
-        modified_date=attributes.modified_date,
-        seen_at=attributes.seen_at,
-        sorts_risk_level=attributes.sorts_risk_level,
+        loc=attributes.loc
+        if attributes.loc is not None
+        else current_value.state.loc,
+        last_commit=attributes.last_commit
+        if attributes.last_commit is not None
+        else current_value.state.last_commit,
+        modified_by=attributes.attacked_by
+        if attributes.attacked_by
+        else "machine@fluidattacks.com",
+        modified_date=datetime_utils.get_utc_now(),
+        seen_at=attributes.seen_at
+        if attributes.seen_at is not None
+        else current_value.state.seen_at,
+        sorts_risk_level=attributes.sorts_risk_level
+        if attributes.sorts_risk_level is not None
+        else current_value.state.sorts_risk_level,
         sorts_risk_level_date=attributes.sorts_risk_level_date
         if attributes.sorts_risk_level_date is not None
-        else None,
-        clean_be_present_until=attributes.be_present is not None
-        and be_present_until is None,
+        else current_value.state.sorts_risk_level_date,
         sorts_suggestions=json.loads(json.dumps(attributes.sorts_suggestions))
         if attributes.sorts_suggestions is not None
-        else None,
-        state=ToeLinesState(
-            attacked_at=attributes.attacked_at
-            if attributes.attacked_at is not None
-            else current_value.state.attacked_at,
-            attacked_by=attributes.attacked_by
-            if attributes.attacked_by is not None
-            else current_value.state.attacked_by,
-            attacked_lines=attacked_lines
-            if attributes.attacked_lines is not None
-            else current_value.state.attacked_lines,
-            be_present=attributes.be_present
-            if attributes.be_present is not None
-            else current_value.state.be_present,
-            be_present_until=be_present_until,
-            comments=attributes.comments
-            if attributes.comments is not None
-            else current_value.state.comments,
-            last_author=attributes.last_author
-            if attributes.last_author is not None
-            else current_value.state.last_author,
-            first_attack_at=first_attack_at,
-            has_vulnerabilities=has_vulnerabilities,
-            loc=attributes.loc
-            if attributes.loc is not None
-            else current_value.state.loc,
-            last_commit=attributes.last_commit
-            if attributes.last_commit is not None
-            else current_value.state.last_commit,
-            modified_by=attributes.attacked_by
-            if attributes.attacked_by
-            else "machine@fluidattacks.com",
-            modified_date=datetime_utils.get_utc_now(),
-            seen_at=attributes.seen_at
-            if attributes.seen_at is not None
-            else current_value.state.seen_at,
-            sorts_risk_level=attributes.sorts_risk_level
-            if attributes.sorts_risk_level is not None
-            else current_value.state.sorts_risk_level,
-            sorts_risk_level_date=attributes.sorts_risk_level_date
-            if attributes.sorts_risk_level_date is not None
-            else current_value.state.sorts_risk_level_date,
-            sorts_suggestions=json.loads(
-                json.dumps(attributes.sorts_suggestions)
-            )
-            if attributes.sorts_suggestions is not None
-            else current_value.state.sorts_suggestions,
-        ),
+        else current_value.state.sorts_suggestions,
     )
-    await toe_lines_model.update_metadata(
+    metadata = ToeLinesMetadataToUpdate(
+        modified_date=attributes.modified_date,
+        clean_be_present_until=attributes.be_present is not None
+        and be_present_until is None,
+    )
+    await toe_lines_model.update_state(
         current_value=current_value,
+        new_state=new_state,
         metadata=metadata,
     )

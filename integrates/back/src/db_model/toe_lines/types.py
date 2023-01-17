@@ -59,23 +59,7 @@ class ToeLinesConnection(NamedTuple):
 
 
 class ToeLinesMetadataToUpdate(NamedTuple):
-    state: ToeLinesState
-    attacked_at: Optional[datetime] = None
-    attacked_by: Optional[str] = None
-    attacked_lines: Optional[int] = None
-    be_present: Optional[bool] = None
-    be_present_until: Optional[datetime] = None
-    comments: Optional[str] = None
-    first_attack_at: Optional[datetime] = None
-    has_vulnerabilities: Optional[bool] = None
-    last_author: Optional[str] = None
-    last_commit: Optional[str] = None
-    loc: Optional[int] = None
     modified_date: Optional[datetime] = None
-    seen_at: Optional[datetime] = None
-    sorts_risk_level: Optional[int] = None
-    sorts_risk_level_date: Optional[datetime] = None
-    sorts_suggestions: Optional[list[SortsSuggestion]] = None
     clean_attacked_at: bool = False
     clean_be_present_until: bool = False
     clean_first_attack_at: bool = False
