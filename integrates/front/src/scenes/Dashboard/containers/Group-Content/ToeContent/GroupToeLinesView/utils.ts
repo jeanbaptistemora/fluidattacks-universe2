@@ -4,6 +4,7 @@ import { filterDateRange, filterSearchText, filterSelect } from "./filters";
 import type { IFilterSet, IToeLinesData } from "./types";
 
 const PERCENTBASE = 100;
+const COMMIT_LENGTH = 7;
 
 const getToeLinesId: (toeLinesData: IToeLinesData) => string = (
   toeLinesData: IToeLinesData
@@ -216,7 +217,11 @@ const formatPercentage = (value: number): string =>
     style: "percent",
   }).format(value);
 
+const commitFormatter = (value: string): string =>
+  value.slice(0, COMMIT_LENGTH);
+
 export {
+  commitFormatter,
   formatBePresent,
   formatPercentage,
   formatRootId,
