@@ -51,3 +51,12 @@ src.lib_path.f325.iam_allow_wildcard_action_trust_policy:
   es: >
     El Role de IAM está mal configurado:
     - No debe permitir acciones * sobre su política de confianza
+
+src.lib_path.f325.iam_allow_wilcard_actions_permissions_policy:
+  en: >
+    IAM Role is miss configured:
+    - Should not allow * action on its permissions policy
+
+  es: >
+    El Role de IAM está mal configurado:
+    - No debe permitir acciones * en su política de permisos

@@ -6,9 +6,10 @@ from lib_path.common import (
 )
 from lib_path.f325.cloudformation import (
     cfn_iam_allow_wildcard_action_trust_policy,
+    cfn_iam_allow_wildcard_actions_perms_policies,
     cfn_iam_has_privileges_over_iam,
     cfn_iam_has_wildcard_resource_on_write_action,
-    cfn_iam_is_policy_miss_configured,
+    cfn_iam_is_policy_actions_wildcards,
     cfn_kms_key_has_master_keys_exposed_to_everyone,
 )
 from lib_path.f325.conf_files import (
@@ -32,6 +33,15 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_cfn_iam_allow_wildcard_actions_perms_policies(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_iam_allow_wildcard_actions_perms_policies(
+        content=content, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -64,12 +74,11 @@ def run_cfn_iam_has_wildcard_resource_on_write_action(
 @SHIELD_BLOCKING
 def run_cfn_iam_is_policy_miss_configured(
     content: str,
-    file_ext: str,
     path: str,
     template: Any,
 ) -> Vulnerabilities:
-    return cfn_iam_is_policy_miss_configured(
-        content=content, file_ext=file_ext, path=path, template=template
+    return cfn_iam_is_policy_actions_wildcards(
+        content=content, path=path, template=template
     )
 
 
@@ -131,9 +140,10 @@ def analyze(
                 run_cfn_iam_has_wildcard_resource_on_write_action(
                     content, path, template
                 ),
-                run_cfn_iam_is_policy_miss_configured(
-                    content, file_extension, path, template
+                run_cfn_iam_allow_wildcard_actions_perms_policies(
+                    content, path, template
                 ),
+                run_cfn_iam_is_policy_miss_configured(content, path, template),
                 run_cfn_iam_has_privileges_over_iam(content, path, template),
                 run_json_principal_wildcard(content, path, template),
                 run_cfn_iam_allow_wildcard_action_trust_policy(

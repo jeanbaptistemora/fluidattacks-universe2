@@ -154,17 +154,10 @@ def _yield_nodes_from_stmt(
             data=not_resource.data,
             line=get_line_by_extension(not_resource.start_line, file_ext),
         ) if isinstance(not_resource.raw, List) else not_resource
-
-    if (
-        method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
-        and allow_wildcard_reports
-        and (actions := stmt.inner.get("Action"))
-    ):
-        yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
-
     if (
         method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES
         and allow_wildcard_reports
+        and (actions := stmt.inner.get("Action"))
         and (resources := stmt.inner.get("Resource"))
     ):
         yield from get_wildcard_nodes_for_resources(

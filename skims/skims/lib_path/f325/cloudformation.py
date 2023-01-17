@@ -7,7 +7,6 @@ from aws.services import (
 )
 from lib_path.common import (
     get_cloud_iterator,
-    get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
 )
 from metaloaders.model import (
@@ -202,42 +201,22 @@ def _cfn_iam_has_privileges_over_iam_iter_vulns(
                     yield from _iam_is_present_in_action(stmt)
 
 
-def _is_statement_miss_configured(file_ext: str, stmt: Node) -> Iterator[Node]:
-    wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+def _policy_document_actions_wilrcard(stmt: Node) -> Iterator[Node]:
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":
-        if no_action := stmt.inner.get("NotAction"):
-            yield AWSIamManagedPolicy(
-                column=no_action.start_column,
-                data=no_action.data,
-                line=get_line_by_extension(no_action.start_line, file_ext),
-            ) if isinstance(no_action.raw, List) else no_action
-        if no_resource := stmt.inner.get("NotResource"):
-            yield AWSIamManagedPolicy(
-                column=no_resource.start_column,
-                data=no_resource.data,
-                line=get_line_by_extension(no_resource.start_line, file_ext),
-            ) if isinstance(no_resource.raw, List) else no_resource
         action = stmt.inner.get("Action")
         if action:
-            yield from get_wildcard_nodes(action, wildcard_action)
+            yield from get_wildcard_nodes(action, WILDCARD_ACTION)
 
 
-def _cfn_iam_is_policy_miss_configured_iter_vulns(
-    file_ext: str,
+def _cfn_iam_is_policy_actions_wildcard(
     iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
         pol_document = iam_res.inner.get("PolicyDocument")
         statements = pol_document.inner.get("Statement")
         for stmt in statements.data:
-            yield from _is_statement_miss_configured(file_ext, stmt)
-        if users := iam_res.inner.get("Users"):
-            yield AWSIamManagedPolicy(
-                column=users.start_column,
-                data=users.data,
-                line=get_line_by_extension(users.start_line, file_ext),
-            )
+            yield from _policy_document_actions_wilrcard(stmt)
 
 
 def cfn_kms_key_has_master_keys_exposed_to_everyone(
@@ -278,22 +257,75 @@ def cfn_iam_has_wildcard_resource_on_write_action(
     )
 
 
-def cfn_iam_is_policy_miss_configured(
-    content: str, file_ext: str, path: str, template: Any
+def cfn_iam_is_policy_actions_wildcards(
+    content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key=("src.lib_path.f325.iam_is_policy_miss_configured"),
+        description_key=(
+            "src.lib_path.f325.iam_allow_wilcard_actions_permissions_policy"
+        ),
         iterator=get_cloud_iterator(
-            _cfn_iam_is_policy_miss_configured_iter_vulns(
-                file_ext=file_ext,
+            _cfn_iam_is_policy_actions_wildcard(
                 iam_iterator=iter_iam_managed_policies_and_mgd_policies(
                     template=template
                 ),
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_POLICY_MISS_CONFIG,
+        method=MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS,
+    )
+
+
+def _yield_nodes_from_stmt(stmt: Any, method: MethodsEnum) -> Iterator[Node]:
+    if method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS and (
+        actions := stmt.inner.get("Action")
+    ):
+        yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
+
+
+def _check_policy_documents(
+    policies: Node, method: MethodsEnum
+) -> Iterator[Node]:
+    for policy in policies.data if policies else []:
+        statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
+        for stmt in statements.data if statements else []:
+            if (
+                hasattr(stmt, "inner")
+                and hasattr(stmt.inner, "get")
+                and (effect := stmt.inner.get("Effect"))
+                and effect.raw != "Allow"
+            ):
+                continue
+            yield from _yield_nodes_from_stmt(stmt, method)
+
+
+def cfn_iam_permissions_policies_checks(
+    iam_iterator: Iterator[Node],
+    method: MethodsEnum,
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        policies = iam_res.inner.get("Policies")
+        yield from _check_policy_documents(policies, method)
+
+
+def cfn_iam_allow_wildcard_actions_perms_policies(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    method = MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f325.iam_allow_wilcard_actions_permissions_policy"
+        ),
+        iterator=get_cloud_iterator(
+            cfn_iam_permissions_policies_checks(
+                iam_iterator=iter_iam_roles(template=template),
+                method=method,
+            )
+        ),
+        path=path,
+        method=method,
     )
 
 
