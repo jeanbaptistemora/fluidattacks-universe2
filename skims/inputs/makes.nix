@@ -62,10 +62,10 @@
       sha256 = "7LD8wR4Gg4OadYaXTSbGPe5iAOagRPGJSpO51uW0ow8=";
     };
     skimsTreeSitterHcl = fetchGithub {
-      owner = "MichaHoffmann";
+      owner = "mitchellh";
       repo = "tree-sitter-hcl";
-      rev = "6b74f88b3d396e0f101c93f807e0b3667cd3e3a2";
-      sha256 = "/YpP3DkM+rFoRiwdW+D2vbKjOALE91tLSc/jkFgSobY=";
+      rev = "bdc2ee0cbd19d22f8a1529e5c9d099029573c931";
+      sha256 = "kTkSgf3YCOgBLEAi1Op4oYsvWVGIXSc1wi/GS2K0MxU=";
     };
     skimsTreeSitterJava = fetchGithub {
       owner = "tree-sitter";
