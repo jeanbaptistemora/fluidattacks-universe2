@@ -50,11 +50,6 @@ function.
 This vulnerability occurs because the application injects an attacker-controlled
 parameter into a system function.
 
-## Exploitation
-
-To exploit this vulnerability, we only need to send the following malicious HTML
-code to an application user.
-
 ### Exploit
 
 To exploit this vulnerability, we just need to send the malicious command we want
