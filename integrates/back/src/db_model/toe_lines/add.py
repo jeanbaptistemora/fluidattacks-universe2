@@ -11,7 +11,11 @@ from custom_exceptions import (
     RepeatedToeLines,
 )
 from db_model.toe_lines.utils import (
+    format_historic_toe_lines_item,
     format_toe_lines_item,
+)
+from db_model.utils import (
+    get_as_utc_iso_format,
 )
 from dynamodb import (
     keys,
@@ -55,6 +59,31 @@ async def add(*, toe_lines: ToeLines) -> None:
             condition_expression=condition_expression,
             facet=facet,
             item=toe_lines_item,
+            table=TABLE,
+        )
+    except ConditionalCheckFailedException as ex:
+        raise RepeatedToeLines() from ex
+
+    historic_key = keys.build_key(
+        facet=TABLE.facets["toe_lines_historic_metadata"],
+        values={
+            "filename": toe_lines.filename,
+            "group_name": toe_lines.group_name,
+            "root_id": toe_lines.root_id,
+            # The modified date will always exist here
+            "iso8601utc": get_as_utc_iso_format(toe_lines.state.modified_date)
+            if toe_lines.state.modified_date
+            else "",
+        },
+    )
+    historic_item = format_historic_toe_lines_item(
+        historic_key, key_structure, toe_lines
+    )
+    try:
+        await operations.put_item(
+            condition_expression=condition_expression,
+            facet=TABLE.facets["toe_lines_historic_metadata"],
+            item=historic_item,
             table=TABLE,
         )
     except ConditionalCheckFailedException as ex:
