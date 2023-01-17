@@ -10,18 +10,6 @@ import { Col50, Row } from "styles/styledComponents";
 import { formatIsoDate } from "utils/date";
 import { Logger } from "utils/logger";
 
-interface ILastMachineExecutions {
-  complete: {
-    stoppedAt: string | null;
-  } | null;
-  specific: {
-    findingsExecuted: {
-      finding: string;
-    }[];
-    stoppedAt: string | null;
-  } | null;
-}
-
 interface IDescriptionProps {
   cloningStatus: { message: string; status: string };
   environment: string;
@@ -46,7 +34,6 @@ const Description = ({
   const { data } = useQuery<{
     root: {
       lastCloningStatusUpdate: string;
-      lastMachineExecutions: ILastMachineExecutions;
       lastStateStatusUpdate: string;
     };
   }>(GET_GIT_ROOT_DETAILS, {
@@ -61,36 +48,10 @@ const Description = ({
     data === undefined
       ? {
           lastCloningStatusUpdate: "",
-          lastMachineExecutions: {
-            complete: null,
-            specific: null,
-          },
           lastStateStatusUpdate: "",
         }
       : data.root;
-  const {
-    lastCloningStatusUpdate,
-    lastMachineExecutions,
-    lastStateStatusUpdate,
-  } = rootDetails;
-
-  function fillMessageSpecific(): string {
-    if (lastMachineExecutions.specific === null) {
-      return t("group.scope.git.repo.machineExecutions.noExecutions");
-    } else if (
-      lastMachineExecutions.specific.stoppedAt === null &&
-      cloningStatus.status === "OK"
-    ) {
-      return `${t("group.scope.git.repo.machineExecutions.active")} for ${
-        lastMachineExecutions.specific.findingsExecuted[0].finding
-      }`;
-    } else if (lastMachineExecutions.specific.stoppedAt !== null) {
-      return `${lastMachineExecutions.specific.findingsExecuted[0]?.finding} on
-        ${lastMachineExecutions.specific.stoppedAt}`;
-    }
-
-    return t("group.scope.git.repo.machineExecutions.noExecutions");
-  }
+  const { lastCloningStatusUpdate, lastStateStatusUpdate } = rootDetails;
 
   return (
     <div>
@@ -150,24 +111,6 @@ const Description = ({
         <Col50>
           {t("group.scope.git.repo.cloning.message")}
           {":"}&nbsp;{cloningStatus.message}
-        </Col50>
-      </Row>
-      <hr />
-      <Row>
-        <Col50>
-          {t("group.scope.git.repo.machineExecutions.messageComplete")}
-          {":"}&nbsp;
-          {lastMachineExecutions.complete === null
-            ? t("group.scope.git.repo.machineExecutions.noExecutions")
-            : lastMachineExecutions.complete.stoppedAt === null &&
-              cloningStatus.status === "OK"
-            ? t("group.scope.git.repo.machineExecutions.active")
-            : lastMachineExecutions.complete.stoppedAt}
-        </Col50>
-        <Col50>
-          {t("group.scope.git.repo.machineExecutions.messageSpecific")}
-          {":"}&nbsp;
-          {fillMessageSpecific()}
         </Col50>
       </Row>
     </div>

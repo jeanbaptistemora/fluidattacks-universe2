@@ -111,17 +111,6 @@ const GET_GIT_ROOT_DETAILS = gql`
         gitignore
         id
         lastCloningStatusUpdate
-        lastMachineExecutions {
-          complete {
-            stoppedAt
-          }
-          specific {
-            findingsExecuted {
-              finding
-            }
-            stoppedAt
-          }
-        }
         lastStateStatusUpdate
         nickname
         useVpn
