@@ -17,6 +17,7 @@ import { DashboardNavBar } from "./NavBar";
 import { DashboardSideBar } from "./SideBar";
 import { DashboardContainer, DashboardContent } from "./styles";
 
+import { ErrorBoundary } from "components/ErrorBoundary";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ScrollUpButton } from "components/ScrollUpButton";
 import { CompulsoryNotice } from "scenes/Dashboard/components/CompulsoryNoticeModal";
@@ -160,78 +161,80 @@ export const Dashboard: React.FC = (): JSX.Element => {
   }
 
   return (
-    <DashboardContainer>
-      <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
-      {isLegalModalOpen ? undefined : (
-        <Fragment>
-          <DashboardNavBar userRole={userRole} />
-          <div className={"flex flex-auto flex-row"}>
-            <Switch>
-              <authzPermissionsContext.Provider
-                value={organizationLevelPermissions}
-              >
-                <DashboardSideBar />
-              </authzPermissionsContext.Provider>
-            </Switch>
-            <DashboardContent id={"dashboard"}>
+    <ErrorBoundary>
+      <DashboardContainer>
+        <CompulsoryNotice onAccept={handleAccept} open={isLegalModalOpen} />
+        {isLegalModalOpen ? undefined : (
+          <Fragment>
+            <DashboardNavBar userRole={userRole} />
+            <div className={"flex flex-auto flex-row"}>
               <Switch>
-                <Route exact={true} path={"/home"}>
-                  <HomeView />
-                </Route>
-                <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
-                  <authzGroupContext.Provider value={groupAttributes}>
+                <authzPermissionsContext.Provider
+                  value={organizationLevelPermissions}
+                >
+                  <DashboardSideBar />
+                </authzPermissionsContext.Provider>
+              </Switch>
+              <DashboardContent id={"dashboard"}>
+                <Switch>
+                  <Route exact={true} path={"/home"}>
+                    <HomeView />
+                  </Route>
+                  <Route path={`/orgs/${orgRegex}/groups/${groupRegex}`}>
+                    <authzGroupContext.Provider value={groupAttributes}>
+                      <authzPermissionsContext.Provider
+                        value={groupLevelPermissions}
+                      >
+                        <GroupRoute setUserRole={setUserRole} />
+                      </authzPermissionsContext.Provider>
+                    </authzGroupContext.Provider>
+                  </Route>
+                  <Route
+                    component={TagContent}
+                    path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
+                  />
+                  <Route path={`/orgs/${orgRegex}`}>
+                    <authzPermissionsContext.Provider
+                      value={organizationLevelPermissions}
+                    >
+                      <OrganizationContent setUserRole={setUserRole} />
+                    </authzPermissionsContext.Provider>
+                  </Route>
+                  <Route path={`/portfolios/${tagRegex}`}>
+                    <OrganizationRedirect type={"portfolios"} />
+                  </Route>
+                  <Route path={"/todos"}>
                     <authzPermissionsContext.Provider
                       value={groupLevelPermissions}
                     >
-                      <GroupRoute setUserRole={setUserRole} />
+                      <TasksContent setUserRole={setUserRole} />
                     </authzPermissionsContext.Provider>
-                  </authzGroupContext.Provider>
-                </Route>
-                <Route
-                  component={TagContent}
-                  path={`/orgs/${orgRegex}/portfolios/${tagRegex}`}
-                />
-                <Route path={`/orgs/${orgRegex}`}>
-                  <authzPermissionsContext.Provider
-                    value={organizationLevelPermissions}
-                  >
-                    <OrganizationContent setUserRole={setUserRole} />
-                  </authzPermissionsContext.Provider>
-                </Route>
-                <Route path={`/portfolios/${tagRegex}`}>
-                  <OrganizationRedirect type={"portfolios"} />
-                </Route>
-                <Route path={"/todos"}>
-                  <authzPermissionsContext.Provider
-                    value={groupLevelPermissions}
-                  >
-                    <TasksContent setUserRole={setUserRole} />
-                  </authzPermissionsContext.Provider>
-                </Route>
-                {/* Necessary to support old group URLs */}
-                <Route path={`/groups/${groupRegex}`}>
-                  <OrganizationRedirect type={"groups"} />
-                </Route>
-                <Route exact={true} path={"/user/config"}>
-                  <NotificationsView />
-                </Route>
-                <Redirect to={"/home"} />
-              </Switch>
-            </DashboardContent>
-          </div>
-          <ScrollUpButton />
-          <Modal
-            open={idleWarning}
-            title={translate.t("validations.inactiveSessionModal")}
-          >
-            <p>{translate.t("validations.inactiveSession")}</p>
-            <ModalConfirm
-              onConfirm={handleClick}
-              txtConfirm={translate.t("validations.inactiveSessionDismiss")}
-            />
-          </Modal>
-        </Fragment>
-      )}
-    </DashboardContainer>
+                  </Route>
+                  {/* Necessary to support old group URLs */}
+                  <Route path={`/groups/${groupRegex}`}>
+                    <OrganizationRedirect type={"groups"} />
+                  </Route>
+                  <Route exact={true} path={"/user/config"}>
+                    <NotificationsView />
+                  </Route>
+                  <Redirect to={"/home"} />
+                </Switch>
+              </DashboardContent>
+            </div>
+            <ScrollUpButton />
+            <Modal
+              open={idleWarning}
+              title={translate.t("validations.inactiveSessionModal")}
+            >
+              <p>{translate.t("validations.inactiveSession")}</p>
+              <ModalConfirm
+                onConfirm={handleClick}
+                txtConfirm={translate.t("validations.inactiveSessionDismiss")}
+              />
+            </Modal>
+          </Fragment>
+        )}
+      </DashboardContainer>
+    </ErrorBoundary>
   );
 };
