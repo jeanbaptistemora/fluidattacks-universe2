@@ -35,3 +35,6 @@ src.lib_path.f363.password_expiration_unsafe:
     Account/PasswordPolicy password policy expires the passwords within 90 days
     or less.
   es: PasswordPolicy la contraseña expira dentro de 90 dias o menos
+src.lib_path.f363.have_old_access_keys:
+  en: Users have unused passwords (last 90 days)
+  es: El usuario tiene contraseñas sin usar (ultimos 90 dias)
