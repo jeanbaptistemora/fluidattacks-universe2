@@ -2,10 +2,10 @@ from aws.model import (
     AWSRdsCluster,
 )
 from lib_path.common import (
+    FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
-    TRUE_OPTIONS,
 )
 from metaloaders.model import (
     Node,
@@ -47,23 +47,16 @@ def _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
     rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for rds_res in rds_iterator:
-        del_protection = (
-            rds_res.raw.get("DeletionProtection", False)
-            if hasattr(rds_res, "raw")
-            else False
-        )
-        if del_protection not in TRUE_OPTIONS:
-            del_protection_node = get_node_by_keys(
-                rds_res, ["DeletionProtection"]
-            )
-            if isinstance(del_protection_node, Node):
+        del_protection_node = get_node_by_keys(rds_res, ["DeletionProtection"])
+        if isinstance(del_protection_node, Node):
+            if del_protection_node.data in FALSE_OPTIONS:
                 yield del_protection_node
-            else:
-                yield AWSRdsCluster(
-                    column=rds_res.start_column,
-                    data=rds_res.data,
-                    line=get_line_by_extension(rds_res.start_line, file_ext),
-                )
+        else:
+            yield AWSRdsCluster(
+                column=rds_res.start_column,
+                data=rds_res.data,
+                line=get_line_by_extension(rds_res.start_line, file_ext),
+            )
 
 
 def cfn_rds_has_not_automated_backups(

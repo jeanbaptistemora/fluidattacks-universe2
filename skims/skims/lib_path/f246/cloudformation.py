@@ -2,10 +2,10 @@ from aws.model import (
     AWSRdsCluster,
 )
 from lib_path.common import (
+    FALSE_OPTIONS,
     get_cloud_iterator,
     get_line_by_extension,
     get_vulnerabilities_from_iterator_blocking,
-    TRUE_OPTIONS,
 )
 from metaloaders.model import (
     Node,
@@ -32,24 +32,16 @@ def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
     rds_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSRdsCluster, Node]]:
     for red_res in rds_iterator:
-        storage_encrypted = (
-            red_res.raw.get("StorageEncrypted", False)
-            if hasattr(red_res, "raw")
-            else False
-        )
-        if (
-            not isinstance(storage_encrypted, dict)
-            and storage_encrypted not in TRUE_OPTIONS
-        ):
-            st_enc_node = get_node_by_keys(red_res, ["StorageEncrypted"])
-            if isinstance(st_enc_node, Node):
+        st_enc_node = get_node_by_keys(red_res, ["StorageEncrypted"])
+        if isinstance(st_enc_node, Node):
+            if st_enc_node.data in FALSE_OPTIONS:
                 yield st_enc_node
-            else:
-                yield AWSRdsCluster(
-                    column=red_res.start_column,
-                    data=red_res.data,
-                    line=get_line_by_extension(red_res.start_line, file_ext),
-                )
+        else:
+            yield AWSRdsCluster(
+                column=red_res.start_column,
+                data=red_res.data,
+                line=get_line_by_extension(red_res.start_line, file_ext),
+            )
 
 
 def cfn_rds_has_unencrypted_storage(

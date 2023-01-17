@@ -73,6 +73,7 @@ DISPATCHERS: Dispatchers = (
             "ArrayInitializer",
             "ArrowExpressionClause",
             "Assignment",
+            "AwaitExpression",
             "Break",
             "BlocklessMethodDeclaration",
             "CatchClause",
