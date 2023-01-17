@@ -9,7 +9,7 @@ function lint_typescript {
     --format codeframe
   )
 
-  copy "__argConfig__/.eslintrc.json" "${1}/.eslintrc.json" \
+  copy "__argConfig__/.eslintrc.js" "${1}/.eslintrc.js" \
     && copy "__argConfig__/.prettierrc.json" "${1}/.prettierrc.json" \
     && pushd "${1}" \
     && if ! "${lint[@]}"; then
