@@ -1,20 +1,19 @@
-{% extends "layouts/common.html" %}
-  {% from 'layouts/components/forms.html' import banner_group, analytics_image, charts_report_button %}
+{% extends "layouts_new/common.html" %}
+  {% from 'layouts_new/components/forms.html' import banner_share, analytics_image, charts_report_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts/components/dark_logo_header.html' %}
+      {% include 'layouts_new/components/dark_logo_header.html' %}
 
-      {% include 'layouts/components/arm_banner.html' %}
-      {{ banner_group('Analytics Report') }}
+      {{ banner_share('Analytics Report') }}
       <div class="main-content">
-        <p>Hi {{ name }},</p>
+        <h2>Hello {{ name }},</h2>
         <p>
           Below, you will find the Analytics report for the
           {{ report_entity }} <strong>{{ report_subject }}</strong>,
           sent as part of your {{ frequency_lower }} subscription.
           This report will be available for two days.
         </p>
-        <p></p>
+        <br />
         {{ analytics_image(image_src, 1200) }}
         <br />
         <p>
@@ -26,27 +25,15 @@
             href="{{ live_report_url }}"
             target="_blank"
             rel="noopener noreferrer"
-            style="color: #ff3435;"
           >
             link</a>.
         </p>
-        <p>
-          Regards,<br>
-          Fluid Attacks Team
-        </p>
-        <table aria-label="Report Type" style="margin: auto;">
-          <tr>
-            <th scope="col">
-              {{ charts_report_button('Download', image_src, 'primary-button') }}
-            </th>
-            <th scope="col">
-              {{ charts_report_button('Live', live_report_url, 'secondary-button') }}
-            </th>
-          </tr>
-        </table>
+        {{ charts_report_button('Download', image_src, 'primary-button') }}
         <br />
+        {{ charts_report_button('Live', live_report_url, 'secondary-button') }}
+        <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts/components/footer.html' %}
+      {% include 'layouts_new/components/footer.html' %}
 
     </div>
   {% endblock %}
