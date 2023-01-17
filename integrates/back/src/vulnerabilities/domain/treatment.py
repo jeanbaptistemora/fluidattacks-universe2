@@ -88,16 +88,15 @@ from vulnerabilities.domain.utils import (
 
 def _validate_acceptance_date(values: dict[str, str]) -> None:
     """Check that the date set to temporarily accept a vuln is logical."""
-    if values["treatment"] == "ACCEPTED":
-        if values.get("acceptance_date"):
-            today = datetime_utils.get_now_as_str()
-            values[
-                "acceptance_date"
-            ] = f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
-            if not datetime_utils.is_valid_format(values["acceptance_date"]):
-                raise InvalidDateFormat()
-        else:
+    if values.get("acceptance_date"):
+        today = datetime_utils.get_now_as_str()
+        values[
+            "acceptance_date"
+        ] = f'{values["acceptance_date"].split()[0]} {today.split()[1]}'
+        if not datetime_utils.is_valid_format(values["acceptance_date"]):
             raise InvalidDateFormat()
+    else:
+        raise InvalidDateFormat()
 
 
 async def _validate_acceptance_days(
@@ -107,104 +106,90 @@ async def _validate_acceptance_days(
     Check that the date during which the finding will be temporarily accepted
     complies with organization settings.
     """
-    _validate_acceptance_date(values)
-    if values.get("treatment") == "ACCEPTED":
-        today = datetime_utils.get_now()
-        acceptance_date = datetime_utils.get_from_str(
-            values["acceptance_date"]
+    today = datetime_utils.get_now()
+    acceptance_date = datetime_utils.get_from_str(values["acceptance_date"])
+    acceptance_days = Decimal((acceptance_date - today).days)
+    group: Group = await loaders.group.load(group_name)
+    max_acceptance_days = await get_group_max_acceptance_days(
+        loaders=loaders, group=group
+    )
+    if (
+        max_acceptance_days is not None
+        and acceptance_days > max_acceptance_days
+    ) or acceptance_days < 0:
+        raise InvalidAcceptanceDays(
+            "Chosen date is either in the past or exceeds "
+            "the maximum number of days allowed by the defined policy"
         )
-        acceptance_days = Decimal((acceptance_date - today).days)
-        group: Group = await loaders.group.load(group_name)
-        max_acceptance_days = await get_group_max_acceptance_days(
-            loaders=loaders, group=group
-        )
-        if (
-            max_acceptance_days is not None
-            and acceptance_days > max_acceptance_days
-        ) or acceptance_days < 0:
-            raise InvalidAcceptanceDays(
-                "Chosen date is either in the past or exceeds "
-                "the maximum number of days allowed by the defined policy"
-            )
 
 
 async def _validate_acceptance_severity(
     loaders: Dataloaders,
-    values: dict[str, str],
-    severity: float,
     group_name: str,
+    severity: float,
 ) -> None:
     """
     Check that the severity of the finding to temporaryly accept is inside
     the range set by the defined policy.
     """
-    if values.get("treatment") == "ACCEPTED":
-        group: Group = await loaders.group.load(group_name)
-        min_value: Decimal = await get_group_min_acceptance_severity(
-            loaders=loaders,
-            group=group,
-        )
-        max_value: Decimal = await get_group_max_acceptance_severity(
-            loaders=loaders,
-            group=group,
-        )
-        if not (
-            min_value
-            <= Decimal(severity).quantize(Decimal("0.1"))
-            <= max_value
-        ):
-            raise InvalidAcceptanceSeverity(str(severity))
+    group: Group = await loaders.group.load(group_name)
+    min_value: Decimal = await get_group_min_acceptance_severity(
+        loaders=loaders, group=group
+    )
+    max_value: Decimal = await get_group_max_acceptance_severity(
+        loaders=loaders, group=group
+    )
+    if not (
+        min_value <= Decimal(severity).quantize(Decimal("0.1")) <= max_value
+    ):
+        raise InvalidAcceptanceSeverity(str(severity))
 
 
 async def _validate_number_acceptances(
     loaders: Dataloaders,
-    values: dict[str, str],
-    historic_treatment: tuple[VulnerabilityTreatment, ...],
     group_name: str,
+    historic_treatment: tuple[VulnerabilityTreatment, ...],
 ) -> None:
     """
     Check that a finding to temporarily accept does not exceed the maximum
     number of acceptances the organization set.
     """
-    if values["treatment"] == "ACCEPTED":
-        group: Group = await loaders.group.load(group_name)
-        max_acceptances = await get_group_max_number_acceptances(
-            loaders=loaders,
-            group=group,
+    group: Group = await loaders.group.load(group_name)
+    max_acceptances = await get_group_max_number_acceptances(
+        loaders=loaders,
+        group=group,
+    )
+    current_acceptances: int = sum(
+        1
+        for item in historic_treatment
+        if item.status == VulnerabilityTreatmentStatus.ACCEPTED
+    )
+    if (
+        max_acceptances is not None
+        and current_acceptances + 1 > max_acceptances
+    ):
+        raise InvalidNumberAcceptances(
+            str(current_acceptances) if current_acceptances else "-"
         )
-        current_acceptances: int = sum(
-            1
-            for item in historic_treatment
-            if item.status == VulnerabilityTreatmentStatus.ACCEPTED
-        )
-        if (
-            max_acceptances is not None
-            and current_acceptances + 1 > max_acceptances
-        ):
-            raise InvalidNumberAcceptances(
-                str(current_acceptances) if current_acceptances else "-"
-            )
 
 
-async def validate_treatment_change(
+async def validate_accepted_treatment_change(
     *,
+    loaders: Dataloaders,
     finding_severity: float,
     group_name: str,
     historic_treatment: tuple[VulnerabilityTreatment, ...],
-    loaders: Dataloaders,
     values: dict[str, str],
 ) -> None:
+    _validate_acceptance_date(values)
     await collect(
         [
             _validate_acceptance_days(loaders, values, group_name),
             _validate_acceptance_severity(
-                loaders, values, finding_severity, group_name
+                loaders, group_name, finding_severity
             ),
             _validate_number_acceptances(
-                loaders,
-                values,
-                historic_treatment,
-                group_name,
+                loaders, group_name, historic_treatment
             ),
         ]
     )
@@ -559,16 +544,20 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     ):
         raise SameValues()
 
-    historic_treatment = await loaders.vulnerability_historic_treatment.load(
-        vulnerability.id
-    )
-    await validate_treatment_change(
-        finding_severity=finding_severity,
-        group_name=group_name,
-        historic_treatment=historic_treatment,
-        loaders=loaders,
-        values=updated_values,
-    )
+    if updated_values["treatment"] == "ACCEPTED":
+        historic_treatment = (
+            await loaders.vulnerability_historic_treatment.load(
+                vulnerability.id
+            )
+        )
+        await validate_accepted_treatment_change(
+            loaders=loaders,
+            finding_severity=finding_severity,
+            group_name=group_name,
+            historic_treatment=historic_treatment,
+            values=updated_values,
+        )
+
     new_treatment_status = VulnerabilityTreatmentStatus[
         get_inverted_treatment_converted(
             updated_values["treatment"].replace(" ", "_").upper()

@@ -85,7 +85,7 @@ from verify.operations import (
 )
 from vulnerabilities.domain import (
     send_treatment_report_mail,
-    validate_treatment_change,
+    validate_accepted_treatment_change,
 )
 from vulnerability_files.domain import (
     validate_file_schema,
@@ -268,11 +268,11 @@ async def test_validate_past_acceptance_days(
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidAcceptanceDays):
-        await validate_treatment_change(
+        await validate_accepted_treatment_change(
+            loaders=get_new_context(),
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            loaders=get_new_context(),
             values=values_accepted,
         )
     assert mock_table_resource.called is True
@@ -307,11 +307,11 @@ async def test_validate_acceptance_severity(
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidAcceptanceSeverity):
-        await validate_treatment_change(
+        await validate_accepted_treatment_change(
+            loaders=get_new_context(),
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            loaders=get_new_context(),
             values=values_accepted,
         )
     assert mock_table_resource.called is True
@@ -378,11 +378,11 @@ async def test_validate_number_acceptances(
         "acceptance_date": acceptance_date,
     }
     with pytest.raises(InvalidNumberAcceptances):
-        await validate_treatment_change(
+        await validate_accepted_treatment_change(
+            loaders=get_new_context(),
             finding_severity=severity,
             group_name="kurome",
             historic_treatment=historic_treatment,
-            loaders=get_new_context(),
             values=values_accepted,
         )
     assert mock_table_resource.called is True

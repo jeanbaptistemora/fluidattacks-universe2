@@ -37,7 +37,7 @@ from .treatment import (
     send_treatment_change_mail,
     send_treatment_report_mail,
     update_vulnerabilities_treatment,
-    validate_treatment_change,
+    validate_accepted_treatment_change,
 )
 from .verification import (
     get_efficacy,
@@ -83,7 +83,7 @@ __all__ = [
     "send_treatment_change_mail",
     "send_treatment_report_mail",
     "update_vulnerabilities_treatment",
-    "validate_treatment_change",
+    "validate_accepted_treatment_change",
     # verification
     "get_efficacy",
     "get_reattack_cycles",

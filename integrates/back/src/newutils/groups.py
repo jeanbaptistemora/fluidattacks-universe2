@@ -101,7 +101,6 @@ async def get_group_max_acceptance_severity(
 async def get_group_min_acceptance_severity(
     *, loaders: Any, group: Group
 ) -> Decimal:
-
     if group.policies:
         return group.policies.min_acceptance_severity or DEFAULT_MIN_SEVERITY
 
