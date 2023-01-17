@@ -52,6 +52,10 @@ from utils.encodings import (
             "cfg_2",
         ),
         (
+            ("skims/test/data/sast/test_cfg.json",),
+            "cfg_path",
+        ),
+        (
             (
                 (
                     "skims/test/data/benchmark/nist/"

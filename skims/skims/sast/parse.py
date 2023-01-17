@@ -293,6 +293,7 @@ def _parse_one_cached(
         GraphShardMetadataLanguage.GO,
         GraphShardMetadataLanguage.JAVA,
         GraphShardMetadataLanguage.JAVASCRIPT,
+        GraphShardMetadataLanguage.JSON,
         GraphShardMetadataLanguage.KOTLIN,
         GraphShardMetadataLanguage.TYPESCRIPT,
     }
