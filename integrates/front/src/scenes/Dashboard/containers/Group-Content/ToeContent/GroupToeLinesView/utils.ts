@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import { filterDateRange, filterSearchText, filterSelect } from "./filters";
-import type { IFilterSet, IToeLinesData } from "./types";
+import type { IFilterSet, IToeLinesAttr, IToeLinesData } from "./types";
 
 const PERCENTBASE = 100;
 const COMMIT_LENGTH = 7;
@@ -220,11 +220,15 @@ const formatPercentage = (value: number): string =>
 const commitFormatter = (value: string): string =>
   value.slice(0, COMMIT_LENGTH);
 
+const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
+  toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
+
 export {
   commitFormatter,
   formatBePresent,
   formatPercentage,
   formatRootId,
+  getCoverage,
   getFilteredData,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
