@@ -1,9 +1,20 @@
+from contextlib import (
+    suppress,
+)
+import csv
 from dast.aws.types import (
     Location,
 )
 from dast.aws.utils import (
     build_vulnerabilities,
     run_boto3_fun,
+)
+from datetime import (
+    datetime,
+    timedelta,
+)
+from io import (
+    StringIO,
 )
 from model import (
     core_model,
@@ -12,6 +23,7 @@ from model.core_model import (
     AwsCredentials,
     Vulnerability,
 )
+import pytz
 from typing import (
     Any,
     Callable,
@@ -214,6 +226,61 @@ async def password_reuse_unsafe(
     return vulns
 
 
+async def have_old_creds_enabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    await run_boto3_fun(
+        credentials, service="iam", function="generate_credential_report"
+    )
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_credential_report"
+    )
+
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+    vulns: core_model.Vulnerabilities = ()
+    users_csv = StringIO(response.get("Content", b"").decode())
+    credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
+    for user in credentials_report:
+        if user["password_enabled"] != "true":
+            continue
+
+        get_user: Dict[str, Any] = await run_boto3_fun(
+            credentials,
+            service="iam",
+            function="get_user",
+            parameters={"UserName": user["user"]},
+        )
+        with suppress(KeyError):
+            user_pass_last_used = get_user["User"]["PasswordLastUsed"]
+            user_arn = user["arn"]
+            vulnerable = user_pass_last_used < three_months_ago
+            if vulnerable:
+                locations = [
+                    Location(
+                        access_patterns=("/User/PasswordLastUsed",),
+                        arn=(f"{user_arn}"),
+                        values=(user_pass_last_used,),
+                        description=(
+                            "src.lib_path.f363.have_old_creds_enabled"
+                        ),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_IAM_HAS_OLD_CREDS_ENABLED
+                    ),
+                    aws_response=get_user,
+                ),
+            )
+
+    return vulns
+
+
 async def password_expiration_unsafe(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -259,4 +326,5 @@ CHECKS: Tuple[
     min_password_len_unsafe,
     password_reuse_unsafe,
     password_expiration_unsafe,
+    have_old_creds_enabled,
 )
