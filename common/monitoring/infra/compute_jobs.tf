@@ -77,7 +77,7 @@ resource "aws_lambda_function" "firehose_transform" {
   runtime          = "python3.9"
   filename         = data.archive_file.lambda_package.output_path
   handler          = "newline.lambda_handler"
-  source_code_hash = filebase64sha256(data.archive_file.lambda_package.output_path)
+  source_code_hash = data.archive_file.lambda_package.output_base64sha256
   timeout          = 60
 
   tags = {
@@ -115,6 +115,11 @@ resource "aws_kinesis_firehose_delivery_stream" "compute_jobs" {
         parameters {
           parameter_name  = "LambdaArn"
           parameter_value = aws_lambda_function.firehose_transform.arn
+        }
+
+        parameters {
+          parameter_name  = "BufferSizeInMBs"
+          parameter_value = 1
         }
       }
     }
