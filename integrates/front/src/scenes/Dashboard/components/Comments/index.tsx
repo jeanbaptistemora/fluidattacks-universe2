@@ -1,5 +1,11 @@
 import _ from "lodash";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { Comment } from "./Comment";
@@ -8,6 +14,7 @@ import { commentContext } from "./context";
 
 import { FormikSelect } from "components/Input/Formik";
 import type {
+  ICommentContext,
   ICommentStructure,
   ICommentsProps,
 } from "scenes/Dashboard/components/Comments/types";
@@ -91,9 +98,14 @@ export const Comments: React.FC<ICommentsProps> = ({
       : _.orderBy(unordered, ["created"], ["desc"]);
   };
 
+  const value = useMemo(
+    (): ICommentContext => ({ replying, setReplying }),
+    [replying]
+  );
+
   return (
     <React.StrictMode>
-      <commentContext.Provider value={{ replying, setReplying }}>
+      <commentContext.Provider value={value}>
         <CommentEditor id={0} onPost={postHandler} />
         <br />
         {comments.length > 1 && (
