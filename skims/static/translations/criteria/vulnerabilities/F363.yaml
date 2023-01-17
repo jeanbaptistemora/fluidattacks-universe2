@@ -38,3 +38,6 @@ src.lib_path.f363.password_expiration_unsafe:
 src.lib_path.f363.have_old_creds_enabled:
   en: Users have unused passwords (last 90 days)
   es: El usuario tiene contraseñas sin usar (ultimos 90 dias)
+src.lib_path.f363.have_old_access_keys:
+  en: User access keys have not been rotated in the last 90 days
+  es: el IAM access key del usuario no se ha rotaso en  los ultimos 90 dias
