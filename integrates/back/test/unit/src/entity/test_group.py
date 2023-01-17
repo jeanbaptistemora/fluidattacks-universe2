@@ -1,18 +1,14 @@
-# pylint: disable=import-error
 from api.schema import (
     SCHEMA,
 )
 from ariadne import (
     graphql,
 )
-from back.test.unit.src.utils import (
+from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_session,
 )
 from dataloaders import (
     apply_context_attrs,
-)
-from datetime import (
-    datetime,
 )
 import pytest
 from typing import (
@@ -119,64 +115,6 @@ async def test_get_roots() -> None:
             "url": "https://gitlab.com/fluidattacks/integrates",
         },
     ]
-
-
-@pytest.mark.changes_db
-async def test_update_git_environments() -> None:
-    query = """
-      mutation {
-        updateGitEnvironments(
-          groupName: "unittesting"
-          id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-          environmentUrls: ["https://app.fluidattacks.com/"]
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async({"query": query})
-
-    assert "errors" not in result
-    assert result["data"]["updateGitEnvironments"]["success"]
-
-    query_changes = """
-      query {
-        root(
-          groupName: "unittesting"
-          rootId: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
-        ) {
-          ... on GitRoot {
-            environmentUrls
-            gitEnvironmentUrls {
-              url
-              id
-              createdAt
-              secrets {
-                value
-                key
-                description
-              }
-            }
-          }
-        }
-      }
-    """
-    result = await _get_result_async({"query": query_changes})
-    assert len(result["data"]["root"]["gitEnvironmentUrls"]) > 0
-    assert (
-        result["data"]["root"]["gitEnvironmentUrls"][0]["id"]
-        == "e6118eb4696e04e882362cf2159baf240687256f"
-    )
-    assert (
-        result["data"]["root"]["gitEnvironmentUrls"][0]["url"]
-        == result["data"]["root"]["environmentUrls"][0]
-    )
-    assert (
-        datetime.fromisoformat(
-            result["data"]["root"]["gitEnvironmentUrls"][0]["createdAt"]
-        ).day
-        == datetime.now().day
-    )
 
 
 @pytest.mark.changes_db

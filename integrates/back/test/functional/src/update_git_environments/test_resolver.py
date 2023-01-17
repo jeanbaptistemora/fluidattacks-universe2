@@ -1,11 +1,10 @@
-# pylint: disable=import-error
 from . import (
     get_result_add,
     get_result_remove,
     mutation_add,
     mutation_remove,
 )
-from back.test.functional.src.add_toe_input import (
+from back.test.functional.src.add_toe_input import (  # noqa: E501 pylint: disable=import-error
     get_result,
 )
 from contextlib import (
@@ -18,6 +17,9 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
     get_new_context,
+)
+from datetime import (
+    datetime,
 )
 from db_model.roots.types import (
     GitRoot,
@@ -69,6 +71,9 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
 
     loaders = get_new_context()
     root: GitRoot = await loaders.root.load((group_name, root_id))
+    assert root.state.modified_date == datetime.fromisoformat(
+        "2022-02-10T14:58:10+00:00"
+    )
     assert root.state.environment_urls == []
 
     result: Dict[str, Any] = await get_result_add(
@@ -82,6 +87,7 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
 
     loaders.root.clear_all()
     changed_root: GitRoot = await loaders.root.load((group_name, root_id))
+    assert changed_root.state.modified_date.date() == datetime.now().date()
     assert changed_root.state.environment_urls == env_urls
 
 
