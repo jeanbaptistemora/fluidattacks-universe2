@@ -25,6 +25,8 @@ def js_local_storage_with_sensitive_data(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method: MethodsEnum = MethodsEnum.JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA
+
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVASCRIPT,
@@ -32,7 +34,7 @@ def js_local_storage_with_sensitive_data(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in local_storage_from_http(graph):
+            for n_id in local_storage_from_http(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
