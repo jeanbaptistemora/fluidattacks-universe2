@@ -3746,86 +3746,87 @@ sans25:
   es:
     summary: __empty__
   definitions:
-    "119":
-      title: Improper restriction of operations within the bounds of a memory buffer
+    "1":
+      title: Out-of-bounds Write
       link: https://www.sans.org/top25-software-errors/
-    "79":
-      title:
-        Improper neutralization of input during web page generation (cross-site
-        scripting)
+    "2":
+      title: Improper Neutralization of Input During Web Page Generation
+        ('Cross-site Scripting')
+      link: https://www.sans.org/top25-software-errors/
+    "3":
+      title: Improper Neutralization of Special Elements used in an
+        SQL Command ('SQL Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "4":
+      title: Improper Input Validation
+      link: https://www.sans.org/top25-software-errors/
+    "5":
+      title: Out-of-bounds Read
+      link: https://www.sans.org/top25-software-errors/
+    "6":
+      title: Improper Neutralization of Special Elements used in an OS Command
+        ('OS Command Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "7":
+      title: Use After Free
+      link: https://www.sans.org/top25-software-errors/
+    "8":
+      title: Improper Limitation of a Pathname to a Restricted Directory
+        ('Path Traversal')
+      link: https://www.sans.org/top25-software-errors/
+    "9":
+      title: Cross-Site Request Forgery (CSRF)
+      link: https://www.sans.org/top25-software-errors/
+    "10":
+      title: Unrestricted Upload of File with Dangerous Type
+      link: https://www.sans.org/top25-software-errors/
+    "11":
+      title: NULL Pointer Dereference
+      link: https://www.sans.org/top25-software-errors/
+    "12":
+      title: Deserialization of Untrusted Data
+      link: https://www.sans.org/top25-software-errors/
+    "13":
+      title: Integer Overflow or Wraparound
+      link: https://www.sans.org/top25-software-errors/
+    "14":
+      title: Improper Authentication
+      link: https://www.sans.org/top25-software-errors/
+    "15":
+      title: Use of Hard-coded Credentials
+      link: https://www.sans.org/top25-software-errors/
+    "16":
+      title: Missing Authorization
+      link: https://www.sans.org/top25-software-errors/
+    "17":
+      title: Improper Neutralization of Special Elements used in a
+        Command ('Command Injection')
+      link: https://www.sans.org/top25-software-errors/
+    "18":
+      title: Missing Authentication for Critical Function
+      link: https://www.sans.org/top25-software-errors/
+    "19":
+      title: Improper Restriction of Operations within the Bounds
+        of a Memory Buffer
       link: https://www.sans.org/top25-software-errors/
     "20":
-      title: Improper input validation
+      title: Incorrect Default Permissions
       link: https://www.sans.org/top25-software-errors/
-    "200":
-      title: Information exposure
-      link: https://www.sans.org/top25-software-errors/
-    "125":
-      title: Out-of-bounds read
-      link: https://www.sans.org/top25-software-errors/
-    "89":
-      title:
-        Improper neutralization of special elements used in an SQL command (SQL
-        injection)
-      link: https://www.sans.org/top25-software-errors/
-    "416":
-      title: Use after free
-      link: https://www.sans.org/top25-software-errors/
-    "190":
-      title: Integer overflow or wraparound
-      link: https://www.sans.org/top25-software-errors/
-    "352":
-      title: Cross-site request forgery (CSRF)
+    "21":
+      title: Server-Side Request Forgery (SSRF)
       link: https://www.sans.org/top25-software-errors/
     "22":
-      title: Improper limitation of a pathname to a restricted directory (path traversal)
+      title: Concurrent Execution using Shared Resource with
+        Improper Synchronization ('Race Condition')
       link: https://www.sans.org/top25-software-errors/
-    "78":
-      title:
-        Improper neutralization of special elements used in an OS command (OS
-        command injection)
+    "23":
+      title: Uncontrolled Resource Consumption
       link: https://www.sans.org/top25-software-errors/
-    "787":
-      title: Out-of-bounds write
+    "24":
+      title: Improper Restriction of XML External Entity Reference
       link: https://www.sans.org/top25-software-errors/
-    "287":
-      title: Improper authentication
-      link: https://www.sans.org/top25-software-errors/
-    "476":
-      title: NULL pointer dereference
-      link: https://www.sans.org/top25-software-errors/
-    "732":
-      title: Incorrect permission assignment for critical resource
-      link: https://www.sans.org/top25-software-errors/
-    "434":
-      title: Unrestricted upload of file with dangerous type
-      link: https://www.sans.org/top25-software-errors/
-    "611":
-      title: Improper restriction of XML external entity reference
-      link: https://www.sans.org/top25-software-errors/
-    "94":
-      title: Improper control of generation of code (code injection)
-      link: https://www.sans.org/top25-software-errors/
-    "798":
-      title: Use of hard-coded credentials
-      link: https://www.sans.org/top25-software-errors/
-    "400":
-      title: Uncontrolled resource consumption
-      link: https://www.sans.org/top25-software-errors/
-    "772":
-      title: Missing release of resource after effective lifetime
-      link: https://www.sans.org/top25-software-errors/
-    "426":
-      title: Untrusted search path
-      link: https://www.sans.org/top25-software-errors/
-    "502":
-      title: Deserialization of untrusted data
-      link: https://www.sans.org/top25-software-errors/
-    "269":
-      title: Improper privilege management
-      link: https://www.sans.org/top25-software-errors/
-    "295":
-      title: Improper certificate validation
+    "25":
+      title: Improper Control of Generation of Code ('Code Injection')
       link: https://www.sans.org/top25-software-errors/
   metadata: {}
 pdpa:

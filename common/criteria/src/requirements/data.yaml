@@ -410,7 +410,7 @@
     - padss.5_2_7
     - padss.5_2_9
     - padss.5_2_10
-    - sans25.352
+    - sans25.9
     - iso27002.8_26
     - iec62443.SI-3_8
     - wassec.1_1
@@ -515,7 +515,7 @@
     - misrac.5_5
     - misrac.5_7
     - misrac.20_2
-    - sans25.287
+    - sans25.14
     - pdpa.9B_48F
     - popia.9_72
     - cmmc.AC_L1-3_1_2
@@ -703,7 +703,6 @@
     - nist.PR_DS-5
     - certj.IDS14-J
     - padss.5_2_10
-    - sans25.200
     - hitrust.09_v
     - wassec.6_2_2_2
     - nistssdf.PW_1_1
@@ -805,6 +804,8 @@
     - pci.2_2_7
     - sig.U_1_9_20
     - owaspapi.API1
+    - sans25.16
+    - sans25.18
   metadata: {}
 "034":
   en:
@@ -843,6 +844,7 @@
     - owaspscp.5
     - pci.2_2_2
     - pci.8_2_4
+    - sans25.16
   metadata: {}
 "035":
   en:
@@ -911,7 +913,7 @@
     - mitre.M1056
     - padss.3_4
     - padss.5_2_8
-    - sans25.269
+    - sans25.16
     - cmmc.AC_L1-3_1_1
     - cmmc.AC_L2-3_1_4
     - cmmc.AC_L2-3_1_7
@@ -1069,7 +1071,7 @@
   references:
     - cwe.409
     - cwe.770
-    - sans25.400
+    - sans25.23
     - cmmc.CA_L2-3_12_2
     - hitrust.09_j
     - issaf.K_9_1
@@ -1105,7 +1107,7 @@
     - capec.165
     - cwe.434
     - cwe.646
-    - sans25.434
+    - sans25.10
     - wassec.6_2_4_10
     - nistssdf.PS_3_1
     - issaf.J_7_3_5
@@ -1149,7 +1151,7 @@
     - nerccip.003-8_5_1
     - mitre.M1016
     - mitre.M1049
-    - sans25.434
+    - sans25.10
     - cmmc.MA_L2-3_7_4
     - cmmc.RA_L2-3_11_2
     - cmmc.SI_L1-3_14_2
@@ -1326,8 +1328,6 @@
     - mitre.M1025
     - padss.4_2_2
     - padss.4_2_6
-    - sans25.426
-    - sans25.732
     - pdpa.9B_48E
     - iec62443.SI-3_1
     - nistssdf.PS_2_1
@@ -1407,7 +1407,7 @@
     - owasp10.A8
     - owaspm10.M9
     - padss.5_2_1
-    - sans25.94
+    - sans25.25
     - iso27002.8_26
     - nistssdf.PW_6_1
     - asvs.5_2_8
@@ -1639,7 +1639,7 @@
     - cwe.1325
     - gdpr.32_1c
     - agile.11
-    - sans25.400
+    - sans25.23
     - hitrust.01_u
     - iec62443.RA-7_1
     - wasc.A_07
@@ -2024,7 +2024,6 @@
     - nist.DE_AE-2
     - certj.IDS03-J
     - padss.5_2_8
-    - sans25.200
     - cmmc.AC_L2-3_1_7
     - cmmc.AU_L2-3_3_8
     - hitrust.06_c
@@ -2261,7 +2260,6 @@
     - iso27001.14_1_3
     - nist80063.5_2_5
     - owasp10.A7
-    - sans25.732
     - pdpo.6_31
     - iec62443.IAC-1_9
     - wassec.2_1
@@ -2294,7 +2292,6 @@
     - cwe.295
     - cwe.298
     - cwe.299
-    - sans25.295
     - ptes.7_4_2_7
     - bsafss.EN_3-2
     - sig.I_3_2_4_2
@@ -2357,7 +2354,6 @@
     oneshot: true
   references:
     - cwe.295
-    - sans25.295
     - ptes.7_4_2_7
     - owaspmasvs.V5_4
     - osamm.OE_3
@@ -2424,7 +2420,6 @@
     - cwe.295
     - cwe.297
     - owasp10.A7
-    - sans25.295
     - iec62443.IAC-1_8
     - ptes.6_7
     - ptes.7_4_2_7
@@ -2610,7 +2605,7 @@
     - mitre.M1026
     - mitre.M1052
     - padss.5_2_8
-    - sans25.287
+    - sans25.14
     - pdpo.S1_4
     - cmmc.AC_L1-3_1_1
     - cmmc.AC_L2-3_1_4
@@ -2874,7 +2869,6 @@
   references:
     - cwe.200
     - gdpr.5_1f
-    - sans25.200
   metadata: {}
 "121":
   en:
@@ -2942,7 +2936,7 @@
     - soc2.CC6_2
     - nist.PR_AC-1
     - mitre.M1043
-    - sans25.287
+    - sans25.14
     - popia.3A_23
     - pdpo.S1_4
     - cmmc.IA_L1-3_5_2
@@ -3117,7 +3111,7 @@
     - nist80063.5_1_1_2
     - mitre.M1027
     - padss.2_3
-    - sans25.798
+    - sans25.15
     - cmmc.IA_L2-3_5_10
     - cmmc.SC_L2-3_13_4
     - iso27002.5_17
@@ -3735,7 +3729,7 @@
   references:
     - nist80063.5_1_4_2
     - owasp10.A7
-    - sans25.287
+    - sans25.14
     - cmmc.IA_L2-3_5_5
     - iec62443.CR-1_7-RE_2
     - nist800171.5_2
@@ -4013,7 +4007,7 @@
     - padss.2_5_3
     - padss.2_5_7
     - padss.5_2_3
-    - sans25.798
+    - sans25.15
     - cmmc.SC_L1-3_13_1
     - cmmc.SC_L2-3_13_10
     - hitrust.09_s
@@ -4066,7 +4060,7 @@
   references:
     - owasp10.A7
     - padss.2_5_3
-    - sans25.798
+    - sans25.15
     - cmmc.SC_L2-3_13_16
     - hitrust.10_g
     - fedramp.SC-13
@@ -4382,7 +4376,7 @@
     - owasp10.A7
     - owaspm10.M4
     - nist.PR_PT-2
-    - sans25.287
+    - sans25.14
     - popia.9_72
     - cmmc.AC_L2-3_1_12
     - cmmc.MP_L2-3_8_1
@@ -4571,7 +4565,7 @@
     - mitre.M1016
     - mitre.M1044
     - mitre.M1047
-    - sans25.94
+    - sans25.25
     - cmmc.AT_L2-3_2_1
     - cmmc.MA_L2-3_7_4
     - cmmc.RA_L2-3_11_2
@@ -4712,11 +4706,12 @@
     - misrac.1_4
     - mitre.M1013
     - padss.5_2_2
-    - sans25.89
-    - sans25.119
-    - sans25.125
-    - sans25.611
-    - sans25.787
+    - sans25.1
+    - sans25.3
+    - sans25.5
+    - sans25.7
+    - sans25.19
+    - sans25.24
     - wassec.5_3
     - nistssdf.PW_6_1
     - cwe25.416
@@ -4763,10 +4758,11 @@
     - agile.9
     - certj.MET03-J
     - mitre.M1013
-    - sans25.89
-    - sans25.119
-    - sans25.125
-    - sans25.787
+    - sans25.1
+    - sans25.3
+    - sans25.5
+    - sans25.7
+    - sans25.19
     - cmmc.AT_L2-3_2_1
     - hitrust.10_j
     - iso27002.8_28
@@ -4816,7 +4812,7 @@
     - certj.ENV02-J
     - mitre.M1013
     - mitre.M1048
-    - sans25.94
+    - sans25.25
     - hitrust.01_w
     - hitrust.09_d
     - hitrust.10_j
@@ -4900,7 +4896,7 @@
     - padss.1_1_1
     - padss.1_1_2
     - padss.5_2_1
-    - sans25.79
+    - sans25.2
     - hitrust.09_v
     - hitrust.10_e
     - fedramp.PE-16
@@ -5032,6 +5028,7 @@
     - c2m2.7_2_c
     - cwe.453
     - owaspmasvs.V7_9
+    - sans25.20
   metadata: {}
 "162":
   en:
@@ -5087,9 +5084,9 @@
     - agile.9
     - certj.MSC04-J
     - mitre.M1013
-    - sans25.20
-    - sans25.94
-    - sans25.119
+    - sans25.4
+    - sans25.19
+    - sans25.25
     - cmmc.CA_L2-3_12_2
     - iso27002.8_28
     - wasc.A_07
@@ -5214,7 +5211,7 @@
     - certj.IDS00-J
     - mitre.M1013
     - padss.5_2_1
-    - sans25.89
+    - sans25.3
     - wassec.5_5
     - wassec.6_2_4_4
     - wasc.A_19
@@ -5491,13 +5488,15 @@
     - padss.5_2_1
     - padss.5_2_2
     - padss.5_2_7
-    - sans25.20
-    - sans25.78
-    - sans25.79
-    - sans25.89
-    - sans25.94
-    - sans25.119
-    - sans25.611
+    - sans25.2
+    - sans25.3
+    - sans25.4
+    - sans25.6
+    - sans25.17
+    - sans25.19
+    - sans25.21
+    - sans25.24
+    - sans25.25
     - hitrust.10_b
     - hitrust.13_k
     - fedramp.PE-16
@@ -5631,7 +5630,7 @@
     - capec.31
     - cwe.352
     - padss.5_2_9
-    - sans25.352
+    - sans25.9
     - cmmc.AC_L1-3_1_2
     - hitrust.09_y
     - wassec.6_1_2
@@ -6055,7 +6054,6 @@
     - owasp10.A3
     - mitre.M1048
     - padss.5_1_1
-    - sans25.200
     - hitrust.01_w
     - hitrust.09_d
     - hitrust.10_i
@@ -6142,8 +6140,7 @@
     - padss.6_1
     - padss.6_2
     - padss.11_1
-    - sans25.200
-    - sans25.798
+    - sans25.15
     - popia.9_72
     - pdpo.S1_4
     - cmmc.AC_L2-3_1_13
@@ -6307,7 +6304,6 @@
     - iso27001.18_1_3
     - owasp10.A2
     - owaspm10.M9
-    - sans25.200
     - iso27002.8_26
     - osstmm3.11_7_2
     - nistssdf.PW_6_2
@@ -6501,7 +6497,6 @@
     - mitre.M1056
     - padss.3_4
     - padss.5_2_8
-    - sans25.269
     - cmmc.AC_L2-3_1_5
     - cmmc.CM_L2-3_4_6
     - hitrust.09_c
@@ -6693,7 +6688,7 @@
     - owaspm10.M3
     - nist.PR_PT-2
     - nist.PR_PT-4
-    - sans25.798
+    - sans25.15
     - cmmc.AC_L2-3_1_18
     - cmmc.SC_L1-3_13_1
     - hitrust.09_s
@@ -7062,8 +7057,7 @@
     - mitre.M1025
     - padss.2_5_1
     - padss.5_2_3
-    - sans25.426
-    - sans25.798
+    - sans25.15
     - cmmc.MP_L2-3_8_6
     - cmmc.SC_L1-3_13_1
     - cmmc.SC_L2-3_13_8
@@ -7274,7 +7268,7 @@
     - certj.OBJ10-J
     - nyshield.5575_B_4
     - mitre.M1036
-    - sans25.287
+    - sans25.14
     - cmmc.AC_L1-3_1_1
     - cmmc.AC_L2-3_1_8
     - cmmc.AC_L2-3_1_9
@@ -7311,7 +7305,8 @@
     - soc2.CC6_1
     - nyshield.5575_B_2
     - padss.3_1_4
-    - sans25.798
+    - sans25.15
+    - sans25.18
     - popia.3A_23
     - iso27002.8_5
     - iec62443.IAC-1_5
@@ -7390,7 +7385,8 @@
     - mitre.M1032
     - padss.3_1
     - padss.3_1_4
-    - sans25.798
+    - sans25.15
+    - sans25.18
     - pdpa.5_21
     - popia.3A_19
     - popia.3A_23
@@ -7549,8 +7545,7 @@
     - capec.114
     - owasp10.A7
     - mitre.M1025
-    - sans25.287
-    - sans25.732
+    - sans25.14
     - pdpo.S1_4
     - cmmc.MP_L2-3_8_1
     - cmmc.MP_L2-3_8_8
@@ -7683,7 +7678,7 @@
     - cwe.804
     - nerccip.007-6_R5_7
     - owasp10.A7
-    - sans25.287
+    - sans25.14
     - hitrust.08_b
     - iec62443.IAC-1_1
     - wassec.4_1
@@ -8341,7 +8336,6 @@
     - iso27001.18_1_3
     - owasp10.A2
     - padss.9_1
-    - sans25.200
     - pdpa.6_24
     - cmmc.AC_L1-3_1_22
     - hitrust.09_z
@@ -8534,8 +8528,9 @@
     - soc2.CC6_1
     - nist.PR_AC-7
     - nydfs.500_12
-    - sans25.287
-    - sans25.798
+    - sans25.14
+    - sans25.15
+    - sans25.18
     - popia.3A_19
     - popia.3A_23
     - pdpo.5_18
@@ -8639,8 +8634,7 @@
     - owasp10.A7
     - mitre.M1025
     - padss.5_2_8
-    - sans25.269
-    - sans25.426
+    - sans25.17
     - cmmc.AC_L1-3_1_1
     - cmmc.AC_L1-3_1_2
     - cmmc.CM_L2-3_4_5
@@ -8853,6 +8847,8 @@
     - owaspapi.API6
     - owaspapi.API7
     - owaspapi.API9
+    - sans25.7
+    - sans25.17
   metadata: {}
 "273":
   en:
@@ -8954,7 +8950,7 @@
     - agile.11
     - certj.FIO00-J
     - mitre.M1022
-    - sans25.22
+    - sans25.8
     - hitrust.01_v
   metadata: {}
 "284":
@@ -10033,7 +10029,7 @@
     - owaspm10.M4
     - nydfs.500_12
     - padss.8_3
-    - sans25.287
+    - sans25.14
     - iso27002.5_17
     - iso27002.8_5
     - iec62443.IAC-1_5
@@ -10212,7 +10208,7 @@
     - nist.PR_DS-6
     - certj.SER12-J
     - padss.5_2_1
-    - sans25.502
+    - sans25.12
     - pdpo.S1_4
     - hitrust.10_d
     - fedramp.CA-3
@@ -10437,6 +10433,7 @@
     - asvs.5_1_5
     - asvs.5_2_6
     - asvs.12_6_1
+    - sans25.21
   metadata: {}
 "325":
   en:
@@ -10695,6 +10692,7 @@
     - sig.U_1_6_2
     - sig.U_1_9_27
     - asvs.4_3_1
+    - sans25.18
   metadata: {}
 "329":
   en:
@@ -11157,7 +11155,7 @@
     - padss.1_1_1
     - padss.1_1_2
     - padss.1_1_4
-    - sans25.287
+    - sans25.14
     - cmmc.IA_L2-3_5_5
     - hitrust.09_y
     - fedramp.MP-5
@@ -11343,6 +11341,7 @@
     - cwe25.362
     - asvs.11_1_1
     - sig.L_2_1
+    - sans25.22
   metadata: {}
 "338":
   en:
@@ -11652,6 +11651,7 @@
     - sig.N_1_9
     - asvs.4_1_1
     - owaspmasvs.V7_7
+    - sans25.16
   metadata: {}
 "342":
   en:
@@ -11719,8 +11719,9 @@
     - owasp10.A3
     - owasp10.A8
     - certj.IDS16-J
-    - sans25.20
-    - sans25.125
+    - sans25.4
+    - sans25.5
+    - sans25.17
     - hitrust.10_b
     - iso27002.8_28
     - wassec.6_2_5_3
@@ -11955,11 +11956,11 @@
     - certj.NUM00-J
     - mitre.M1013
     - padss.5_2_2
-    - sans25.119
-    - sans25.125
-    - sans25.190
-    - sans25.476
-    - sans25.787
+    - sans25.1
+    - sans25.5
+    - sans25.11
+    - sans25.13
+    - sans25.19
     - cmmc.CA_L2-3_12_2
     - iec62443.RA-7_1
     - wasc.A_03
@@ -12084,7 +12085,7 @@
     oneshot: true
   references:
     - owasp10.A7
-    - sans25.287
+    - sans25.14
     - asvs.2_2_6
     - asvs.2_8_4
     - pci.8_3_5
@@ -12171,6 +12172,7 @@
     - asvs.5_3_9
     - asvs.12_3_3
     - asvs.13_1_1
+    - sans25.21
   metadata: {}
 "349":
   en:
@@ -12231,7 +12233,7 @@
     - mitre.M1021
     - padss.5_2_7
     - padss.5_2_9
-    - sans25.352
+    - sans25.9
     - wassec.1_1
     - wassec.6_1_6
     - wassec.6_2_3_6
@@ -12311,7 +12313,7 @@
     - cwe.693
     - cwe.1233
     - owasp10.A5
-    - sans25.798
+    - sans25.15
     - pdpo.9A_66G
     - cmmc.MP_L2-3_8_1
     - cmmc.MP_L2-3_8_2
@@ -12854,7 +12856,7 @@
     - mitre.M1032
     - padss.3_1_5
     - padss.8_3
-    - sans25.287
+    - sans25.14
     - cmmc.IA_L2-3_5_3
     - cmmc.MA_L2-3_7_5
     - cmmc.MP_L2-3_8_1
@@ -12965,8 +12967,6 @@
     - cwe.295
     - cwe.298
     - owasp10.A7
-    - sans25.295
-    - sans25.732
     - cmmc.AC_L1-3_1_22
     - hitrust.09_z
     - hitrust.10_c
@@ -13023,7 +13023,7 @@
   references:
     - cwe.710
     - agile.9
-    - sans25.476
+    - sans25.11
     - iso27002.8_28
     - siglite.SL_89
     - sig.I_2_1
@@ -13314,7 +13314,6 @@
     - owasp10.A2
     - soc2.C1_1
     - mitre.M1043
-    - sans25.200
     - pdpo.S1_4
     - cmmc.CM_L2-3_4_9
     - hitrust.09_p
@@ -13616,6 +13615,6 @@
   references:
     - cwe.73
     - cwe.710
-    - sans25.22
-    - sans25.476
+    - sans25.8
+    - sans25.11
   metadata: {}
