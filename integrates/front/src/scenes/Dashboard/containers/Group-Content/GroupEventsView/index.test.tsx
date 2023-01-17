@@ -17,6 +17,7 @@ import {
   GET_EVENTS,
   REQUEST_EVENT_VERIFICATION_MUTATION,
 } from "scenes/Dashboard/containers/Group-Content/GroupEventsView/queries";
+import { getCache } from "utils/apollo";
 import { authzPermissionsContext } from "utils/authz/config";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -107,6 +108,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -116,6 +118,7 @@ describe("eventsView", (): void => {
                   eventType: "AUTHORIZATION_SPECIAL_ATTACK",
                   groupName: "unittesting",
                   id: "463457733",
+                  root: null,
                 },
               ],
               name: "unittesting",
@@ -127,7 +130,7 @@ describe("eventsView", (): void => {
 
     render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
+        <MockedProvider cache={getCache()} mocks={mocks}>
           <Route
             component={GroupEventsView}
             path={"/groups/:groupName/events"}
@@ -168,6 +171,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -177,6 +181,7 @@ describe("eventsView", (): void => {
                   eventType: "AUTHORIZATION_SPECIAL_ATTACK",
                   groupName: "unittesting",
                   id: "463457733",
+                  root: null,
                 },
               ],
               name: "unittesting",
@@ -191,7 +196,7 @@ describe("eventsView", (): void => {
     ]);
     render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
+        <MockedProvider cache={getCache()} mocks={mocks}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={GroupEventsView}
@@ -257,6 +262,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -347,7 +353,7 @@ describe("eventsView", (): void => {
           query: ADD_EVENT_MUTATION,
           variables: {
             detail: "detail test",
-            eventDate: "2021-09-07T00:00:00Z",
+            eventDate: "2021-09-07T00:00:00+00:00",
             eventType: "CLONING_ISSUES",
             groupName: "unittesting",
             rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -370,7 +376,7 @@ describe("eventsView", (): void => {
     render(
       <MemoryRouter initialEntries={["orgs/okada/groups/unittesting/events"]}>
         <MockedProvider
-          addTypename={false}
+          cache={getCache()}
           mocks={[...mockedQueries, ...mockedMutations]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -458,6 +464,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -548,7 +555,7 @@ describe("eventsView", (): void => {
           query: ADD_EVENT_MUTATION,
           variables: {
             detail: "detail test",
-            eventDate: "2021-09-07T00:00:00Z",
+            eventDate: "2021-09-07T00:00:00+00:00",
             eventType: "CLONING_ISSUES",
             groupName: "unittesting",
             rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -570,7 +577,7 @@ describe("eventsView", (): void => {
     render(
       <MemoryRouter initialEntries={["orgs/okada/groups/unittesting/events"]}>
         <MockedProvider
-          addTypename={false}
+          cache={getCache()}
           mocks={[...mockedQueries, ...mockedMutations]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -640,6 +647,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -693,7 +701,7 @@ describe("eventsView", (): void => {
     render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <MockedProvider
-          addTypename={false}
+          cache={getCache()}
           mocks={[...mockedQueries, ...mockedMutations]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -758,6 +766,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -809,7 +818,7 @@ describe("eventsView", (): void => {
     render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
         <MockedProvider
-          addTypename={false}
+          cache={getCache()}
           mocks={[...mockedQueries, ...mockedMutations]}
         >
           <authzPermissionsContext.Provider value={mockedPermissions}>
@@ -873,6 +882,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               events: [
                 {
                   closingDate: "-",
@@ -910,6 +920,7 @@ describe("eventsView", (): void => {
         result: {
           data: {
             group: {
+              __typename: "Group",
               findings: [
                 {
                   id: "test-finding-id",
@@ -965,7 +976,7 @@ describe("eventsView", (): void => {
     ]);
     render(
       <MemoryRouter initialEntries={["/groups/unittesting/events"]}>
-        <MockedProvider addTypename={false} mocks={mockedQueries}>
+        <MockedProvider cache={getCache()} mocks={mockedQueries}>
           <authzPermissionsContext.Provider value={mockedPermissions}>
             <Route
               component={GroupEventsView}
