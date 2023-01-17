@@ -60,15 +60,13 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     validations,
+    vulnerabilities as vulns_utils,
 )
 from newutils.groups import (
     get_group_max_acceptance_days,
     get_group_max_acceptance_severity,
     get_group_max_number_acceptances,
     get_group_min_acceptance_severity,
-)
-from newutils.vulnerabilities import (
-    validate_closed,
 )
 from typing import (
     Optional,
@@ -470,7 +468,7 @@ async def get_managers_by_size(
     return managers
 
 
-async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
+async def update_vulnerabilities_treatment(
     *,
     loaders: Dataloaders,
     finding_id: str,
@@ -480,16 +478,13 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     vulnerability_id: str,
     group_name: str,
 ) -> None:
-    if "assigned" not in updated_values:
-        updated_values["assigned"] = user_email
-
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
-    vulnerability = next(
-        iter(vuln for vuln in vulnerabilities if vuln.id == vulnerability_id)
+    vulnerability: Vulnerability = await loaders.vulnerability.load(
+        vulnerability_id
     )
-    validate_closed(vulnerability)
+    vulns_utils.validate_closed(vulnerability)
+    if vulnerability.finding_id != finding_id:
+        raise VulnNotFound()
+
     if (
         "acceptance_date" in updated_values
         and updated_values.get("acceptance_date")
@@ -501,6 +496,8 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
             f" {today.split()[1]}"
         )
 
+    if "assigned" not in updated_values:
+        updated_values["assigned"] = user_email
     if "assigned" in updated_values:
         role: str = await authz.get_group_level_role(
             loaders, user_email, group_name
@@ -512,13 +509,6 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
             in {"user_manager", "customer_manager", "vulnerability_manager"},
             email=user_email,
             group_name=group_name,
-        )
-
-    validations.validate_fields(list(updated_values.values()))
-    if updated_values["treatment"] not in {"NEW", "UNTREATED"}:
-        validations.validate_fields([updated_values["justification"]])
-        validations.validate_field_length(
-            updated_values["justification"], 10000
         )
 
     new_treatment_status = VulnerabilityTreatmentStatus[
@@ -533,6 +523,13 @@ async def update_vulnerabilities_treatment(  # pylint: disable=too-many-locals
     )
     justification: str = updated_values["justification"]
     assigned: Optional[str] = updated_values.get("assigned")
+
+    if justification:
+        validations.validate_fields([justification])
+        validations.validate_field_length(justification, 10000)
+    if assigned:
+        validations.validate_fields([assigned])
+
     if (
         vulnerability.treatment
         and vulnerability.treatment.status == new_treatment_status
