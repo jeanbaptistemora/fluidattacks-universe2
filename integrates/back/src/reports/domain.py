@@ -96,7 +96,7 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
             description=group.description,
             findings_ord=findings_ord,
             group_name=group_name,
-            lang="en",
+            lang=str(group.language.value).lower(),
             user_email=user_email,
         )
     if report_type == "CERT":

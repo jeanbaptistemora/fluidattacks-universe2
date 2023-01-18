@@ -7,6 +7,9 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
+from db_model.groups.types import (
+    Group,
+)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -91,13 +94,14 @@ async def _append_pdf_report(
     group_description: str,
     requester_email: str,
 ) -> None:
+    _group: Group = await loaders.group.load(group)
     # Generate the PDF report
     report_filename = await technical_report.generate_pdf_file(
         loaders=loaders,
         description=group_description,
         findings_ord=findings_ord,
         group_name=group,
-        lang="en",
+        lang=str(_group.language.value).lower(),
         user_email=requester_email,
     )
     with open(os.path.join(directory, "report.pdf"), mode="wb") as file:

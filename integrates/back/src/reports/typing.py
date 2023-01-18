@@ -333,6 +333,13 @@ class PDFWordlistEn(Wordlist):
 
 
 class PDFWordlistEs(Wordlist):
+    ATTACK_VECTOR_TITLE: WordlistItem = WordlistItem(
+        "attack_vector_title", "Vector de ataque"
+    )
+    CARDINALITY_TITLE: WordlistItem = WordlistItem(
+        "cardinality_title", "Vulnerabilidades"
+    )
+    COMMIT_HASH: WordlistItem = WordlistItem("commit_hash", "Commit Hash")
     CONTENT_LIST: WordlistItem = WordlistItem(
         "content_list",
         [
@@ -344,19 +351,90 @@ class PDFWordlistEs(Wordlist):
         ],
     )
     CONTENT_TITLE: WordlistItem = WordlistItem("content_title", "Contenido")
+    CRIT_C: WordlistItem = WordlistItem("crit_c", "(Crítico)")
+    CRIT_H: WordlistItem = WordlistItem("crit_h", "(Alto)")
+    CRIT_L: WordlistItem = WordlistItem("crit_l", "(Bajo)")
+    CRIT_M: WordlistItem = WordlistItem("crit_m", "(Medio)")
     CLOSED_VULNS_TITLE: WordlistItem = WordlistItem(
         "closed_vulns_title", "Vulnerabilidades Remediadas"
     )
-    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
-        "fin_status_closed", "Cerrado"
+    DESCRIPTION_TITLE: WordlistItem = WordlistItem(
+        "description_title", "Vulnerabilidad"
     )
-    FIN_STATUS_OPEN: WordlistItem = WordlistItem("fin_status_open", "Abierto")
+    EVIDENCE_TITLE: WordlistItem = WordlistItem("evidence_title", "Evidencias")
+    EXECUTIVE: WordlistItem = WordlistItem("executive", "Reporte Ejecutivo")
+    FIELD: WordlistItem = WordlistItem("field", "Campo")
+    FIN_STATUS_CLOSED: WordlistItem = WordlistItem(
+        "fin_status_closed", "Seguro"
+    )
+    FIN_STATUS_OPEN: WordlistItem = WordlistItem(
+        "fin_status_open", "Vulnerable"
+    )
     FINDING_NUMBER_TITLE: WordlistItem = WordlistItem(
         "finding_number_title", "Cantidad de Tipologías"
     )
+    FINDING_SECTION_TITLE: WordlistItem = WordlistItem(
+        "finding_section_title", "Resumen"
+    )
+    FINDING_TITLE: WordlistItem = WordlistItem("finding_title", "Hallazgo")
     GOALS_TITLE: WordlistItem = WordlistItem("goals_title", "Metas")
+    INPUTS: WordlistItem = WordlistItem("inputs", "Inputs")
+    LINE: WordlistItem = WordlistItem("line", "Line")
+    LINES: WordlistItem = WordlistItem("lines", "Lines")
+    METHODOLOGY_TITLE: WordlistItem = WordlistItem(
+        "metodology_title", "Metodología"
+    )
+    PATH: WordlistItem = WordlistItem("path", "Path")
+    PORT: WordlistItem = WordlistItem("port", "Port")
+    PORTS: WordlistItem = WordlistItem("ports", "Ports")
+    RECORDS_TITLE: WordlistItem = WordlistItem("records_title", "Registros")
+    REQUISITE_TITLE: WordlistItem = WordlistItem(
+        "requisite_title", "Requisito"
+    )
+    REQUIREMENT: WordlistItem = WordlistItem("requirement", "Requisito")
     RESUME_PERC_TITLE: WordlistItem = WordlistItem(
         "resume_perc_title", "Porcentaje de Remediación"
+    )
+    RESUME_PAGE_TITLE: WordlistItem = WordlistItem(
+        "resume_page_title", "Vista General"
+    )
+    RESUME_TABLE_TITLE: WordlistItem = WordlistItem(
+        "resume_table_title", "Tabla de Hallazgos"
+    )
+    RESUME_TOP_TITLE: WordlistItem = WordlistItem(
+        "resume_top_title", "Top Hallazgo"
+    )
+    RESUME_TTAB_TITLE: WordlistItem = WordlistItem(
+        "resume_ttab_title", "Nombre"
+    )
+    RESUME_VNAME_TITLE: WordlistItem = WordlistItem(
+        "resume_vname_title", "Nombre"
+    )
+    RESUME_VNUM_TITLE: WordlistItem = WordlistItem("resume_vnum_title", "#")
+    RESUME_VULN_TITLE: WordlistItem = WordlistItem(
+        "resume_vuln_title", "Vulnerabilidades"
+    )
+    ROOT_ADDRESS: WordlistItem = WordlistItem("root_address", "Address")
+    ROOT_BRANCH: WordlistItem = WordlistItem("root_branch", "Branch")
+    ROOT_ENVIRONMENT_TITLE: WordlistItem = WordlistItem(
+        "root_environment_title", "Environment URLs"
+    )
+    ROOT_GIT_TITLE: WordlistItem = WordlistItem("root_git_title", "Git Roots")
+    ROOT_HOST: WordlistItem = WordlistItem("root_host", "Host")
+    ROOT_IP_TITLE: WordlistItem = WordlistItem("root_ip_title", "IP Roots")
+    ROOT_NICKNAME: WordlistItem = WordlistItem("root_nickname", "Nickname")
+    ROOT_SCOPE_TITLE: WordlistItem = WordlistItem(
+        "root_scope_title", "Alcance"
+    )
+    ROOT_STATE_TITLE: WordlistItem = WordlistItem("root_state", "State")
+    ROOT_URL_TITLE: WordlistItem = WordlistItem("root_url_title", "URL Roots")
+    ROOT_URL: WordlistItem = WordlistItem("root_url", "URL")
+    SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solución")
+    STANDARD: WordlistItem = WordlistItem("standard", "Standard")
+    STATE_TITLE: WordlistItem = WordlistItem("state_title", "Estado")
+    TECH: WordlistItem = WordlistItem("tech", "Reporte Técnico")
+    UNFULFILLED_STANDARDS: WordlistItem = WordlistItem(
+        "unfulfilled_standards", "Estándares Incumplidos"
     )
     SEVERITY_TITLE: WordlistItem = WordlistItem(
         "severity_title", "Severidad del Hallazgo"
@@ -364,10 +442,27 @@ class PDFWordlistEs(Wordlist):
     TOTAL_VULNS_TITLE: WordlistItem = WordlistItem(
         "total_vulns_title", "Vulnerabilidades Reportadas"
     )
+    THREAT_TITLE: WordlistItem = WordlistItem("threat_title", "Amenaza")
+    TREAT_PERMANENTLY_ASU: WordlistItem = WordlistItem(
+        "treat_per_asu", "Permanently Accepted"
+    )
+    TREAT_STATUS_ASU: WordlistItem = WordlistItem(
+        "treat_status_asu", "Temporarily Accepted"
+    )
+    TREAT_STATUS_REM: WordlistItem = WordlistItem(
+        "treat_status_rem", "In Progress"
+    )
+    TREAT_STATUS_WOR: WordlistItem = WordlistItem(
+        "treat_status_wor", "Untreated"
+    )
+    TREATMENT_TITLE: WordlistItem = WordlistItem(
+        "treatment_title", "Tratamiento"
+    )
     VULN_C: WordlistItem = WordlistItem("vuln_c", "Crítica")
     VULN_H: WordlistItem = WordlistItem("vuln_h", "Alta")
     VULN_L: WordlistItem = WordlistItem("vuln_l", "Baja")
     VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
+    WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Where")
     # To avoid setlocale's global effects, we'll have to support these names
     JANUARY: WordlistItem = WordlistItem("january", "Enero")
     FEBRUARY: WordlistItem = WordlistItem("february", "Febrero")

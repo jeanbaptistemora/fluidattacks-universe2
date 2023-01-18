@@ -7,7 +7,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"NEW\"], \"states\": [\"VULNERABLE\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100, \"min_severity\": \"1.9\", \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"UNTREATED\"], \"states\": [\"VULNERABLE\"], \"verifications\": [\"REQUESTED\"], \"closing_date\": null, \"finding_title\": \"038\", \"age\": 1100, \"min_severity\": \"1.9\", \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
@@ -34,7 +34,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T00:00:00\", \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"UNTREATED\"], \"states\": [\"SAFE\"], \"verifications\": [\"VERIFIED\"], \"closing_date\": \"2020-06-01T00:00:00\", \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
@@ -61,7 +61,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"PDF\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"UNTREATED\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
@@ -88,7 +88,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"DATA\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"UNTREATED\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
@@ -115,7 +115,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"UNTREATED\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": null, \"min_severity\": null, \"max_severity\": null, \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
@@ -142,7 +142,7 @@
             "S": "report"
           },
           "additional_info": {
-            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"NEW\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": 1300, \"min_severity\": \"2.9\", \"max_severity\": \"4.3\", \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
+            "S": "{\"report_type\": \"XLS\", \"treatments\": [\"ACCEPTED\", \"ACCEPTED_UNDEFINED\", \"IN_PROGRESS\", \"UNTREATED\"], \"states\": [\"SAFE\", \"VULNERABLE\"], \"verifications\": [], \"closing_date\": null, \"finding_title\": \"\", \"age\": 1300, \"min_severity\": \"2.9\", \"max_severity\": \"4.3\", \"last_report\": null, \"min_release_date\": null, \"max_release_date\": null, \"location\": \"\"}"
           },
           "entity": {
             "S": "unittesting"
