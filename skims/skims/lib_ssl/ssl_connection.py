@@ -62,6 +62,16 @@ def ssl_connect(
             yield None
         else:
             ssl_ctx = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)  # NOSONAR
+            ssl_ctx.set_ciphers(
+                (
+                    "TLS13-CHACHA20-POLY1305-SHA256"
+                    ":TLS13-AES-128-GCM-SHA256"
+                    ":TLS13-AES-256-GCM-SHA384"
+                    ":ECDHE"
+                    ":AES256-SHA"
+                    ":!COMPLEMENTOFDEFAULT"
+                )
+            )
             ssl_ctx.minimum_version = ssl_id2tls_id(ssl_settings.tls_version)
             ssl_ctx.maximum_version = ssl_id2tls_id(ssl_settings.tls_version)
 

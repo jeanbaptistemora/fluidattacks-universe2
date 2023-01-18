@@ -10,7 +10,7 @@ makePythonPypiEnvironment rec {
       inputs.nixpkgs.curl
       inputs.nixpkgs.gcc
     ];
-    pythonPackage38 = [
+    pythonPackage311 = [
       inputs.nixpkgs.python38Packages.pygraphviz
     ];
   };

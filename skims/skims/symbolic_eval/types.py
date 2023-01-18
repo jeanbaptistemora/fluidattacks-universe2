@@ -23,7 +23,7 @@ from xmlrpc.client import (
 
 Path = List[NId]
 
-SYMBOLIC_EVAL_ARGS = Any  # SymbolicEvalArgs
+SYMBOLIC_EVAL_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SymbolicEvaluation(NamedTuple):

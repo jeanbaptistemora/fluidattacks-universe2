@@ -22,7 +22,7 @@
           outputs."/skims/env/development"
           outputs."/skims/env/type-stubs"
         ];
-        python = "3.8";
+        python = "3.11";
         src = "/skims/skims";
       };
     };
@@ -38,7 +38,7 @@
           outputs."/skims/config/runtime"
           outputs."/skims/env/development"
         ];
-        python = "3.8";
+        python = "3.11";
         src = "/skims/test";
       };
     };
@@ -51,7 +51,7 @@
   };
   securePythonWithBandit = {
     skims = {
-      python = "3.8";
+      python = "3.11";
       target = "/skims/skims";
     };
   };

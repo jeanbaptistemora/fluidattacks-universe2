@@ -48,7 +48,7 @@ async def _get_advisories(
 
 class AdvisoriesLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
+    async def batch_load_fn(  # type: ignore
         self, ad_keys: Iterable[Tuple[str, str]]
     ) -> Tuple[Advisory, ...]:
         return await collect(

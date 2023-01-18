@@ -11,7 +11,7 @@ from typing import (
     Tuple,
 )
 
-SYNTAX_GRAPH_ARGS = Any
+SYNTAX_GRAPH_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SyntaxGraphArgs(NamedTuple):

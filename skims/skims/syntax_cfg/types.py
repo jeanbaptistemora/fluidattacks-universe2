@@ -11,7 +11,7 @@ from typing import (
     Tuple,
 )
 
-SYNTAX_CFG_ARGS = Any
+SYNTAX_CFG_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SyntaxCfgArgs(NamedTuple):

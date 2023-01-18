@@ -12,7 +12,7 @@ from typing import (
     Optional,
 )
 
-SOLVER_ARGS = Any  # SymbolicEvalArgs
+SOLVER_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SolverArgs(NamedTuple):

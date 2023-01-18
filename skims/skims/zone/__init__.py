@@ -10,14 +10,12 @@ from enum import (
 from glob import (
     iglob,
 )
-from ruamel import (
-    yaml,
-)
 from typing import (
     Any,
     Dict,
     Optional,
 )
+import yaml
 
 
 class LocalesEnum(Enum):

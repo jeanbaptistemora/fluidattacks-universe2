@@ -188,7 +188,7 @@ def test_lib_http_2() -> None:
 def test_lib_http() -> None:
     def snippet_filter(snippet: str) -> str:
         return "\n".join(
-            line for line in snippet.splitlines() if "< Date: " not in line
+            line for line in snippet.splitlines() if "< Date:" not in line
         )
 
     _run_no_group("lib_http", snippet_filter=snippet_filter)

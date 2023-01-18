@@ -9,15 +9,13 @@ import json
 from model import (
     graph_model,
 )
-from ruamel import (
-    yaml,
-)
 from typing import (
     Any,
 )
 from utils.graph import (
     export_graph_as_json,
 )
+import yaml
 
 
 def simplify(obj: Any) -> Any:
@@ -62,7 +60,7 @@ def json_dumps(element: object, *args: Any, **kwargs: Any) -> str:
 def yaml_dumps_blocking(element: object, *args: Any, **kwargs: Any) -> str:
     element = simplify(element)
 
-    dumped: str = yaml.safe_dump(  # type: ignore
+    dumped: str = yaml.safe_dump(
         element,
         *args,
         default_flow_style=False,
