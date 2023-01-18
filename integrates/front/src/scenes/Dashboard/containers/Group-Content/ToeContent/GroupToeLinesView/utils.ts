@@ -3,6 +3,7 @@ import _ from "lodash";
 import { filterDateRange, filterSearchText, filterSelect } from "./filters";
 import type { IFilterSet, IToeLinesAttr, IToeLinesData } from "./types";
 
+const NOEXTENSION = ".no.extension.";
 const PERCENTBASE = 100;
 const COMMIT_LENGTH = 7;
 
@@ -250,6 +251,16 @@ const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number => {
   );
 };
 
+const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
+  const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
+  const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
+  if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
+    return NOEXTENSION;
+  }
+
+  return toeLinesAttr.filename.slice(lastPointindex + 1);
+};
+
 export {
   commitFormatter,
   formatBePresent,
@@ -257,6 +268,7 @@ export {
   formatRootId,
   getCoverage,
   getDaysToAttack,
+  getExtension,
   getFilteredData,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
