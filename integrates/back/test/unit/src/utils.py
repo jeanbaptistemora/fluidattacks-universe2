@@ -7336,6 +7336,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     },
     "s3.operations.upload_memory_file": {
         '["billing-test-file.png"]': None,
+        '["test-vulns.yaml"]': None,
         '["unittesting-test-file.csv"]': None,
     },
 }
