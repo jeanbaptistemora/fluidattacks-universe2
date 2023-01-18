@@ -134,6 +134,7 @@ def format_stakeholder(item: Item) -> Stakeholder:
         if item.get("access_token")
         else None,
         email=email.lower().strip(),
+        enrolled=item.get("enrolled", False),
         first_name=item.get("first_name"),
         is_concurrent_session=item.get("is_concurrent_session", False),
         is_registered=item.get("is_registered", False),
