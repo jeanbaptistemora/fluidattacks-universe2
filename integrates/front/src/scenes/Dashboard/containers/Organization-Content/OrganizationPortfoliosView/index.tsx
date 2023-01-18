@@ -1,7 +1,7 @@
 import type { ColumnDef, Row as tanRow } from "@tanstack/react-table";
 import _ from "lodash";
 import type { FormEvent } from "react";
-import React, { StrictMode } from "react";
+import React, { StrictMode, useCallback } from "react";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
 import { Table } from "components/Table";
@@ -51,20 +51,22 @@ const OrganizationPortfolios: React.FC<IOrganizationPortfoliosProps> = (
       })
     );
 
-  const goToPortfolio: (portfolioName: string) => void = (
-    portfolioName: string
-  ): void => {
-    push(`${url}/${portfolioName.toLowerCase()}/`);
-  };
+  const goToPortfolio: (portfolioName: string) => void = useCallback(
+    (portfolioName: string): void => {
+      push(`${url}/${portfolioName.toLowerCase()}/`);
+    },
+    [push, url]
+  );
 
-  function handleRowClick(
-    rowInfo: tanRow<IPortfoliosTable>
-  ): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      goToPortfolio(rowInfo.getValue("portfolio"));
-      event.preventDefault();
-    };
-  }
+  const handleRowClick = useCallback(
+    (rowInfo: tanRow<IPortfoliosTable>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        goToPortfolio(rowInfo.getValue("portfolio"));
+        event.preventDefault();
+      };
+    },
+    [goToPortfolio]
+  );
 
   const tableHeaders: ColumnDef<IPortfoliosTable>[] = [
     {
