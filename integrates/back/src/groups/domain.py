@@ -503,9 +503,12 @@ async def remove_group(
             action
             for action in group_actions
             if action.action_name not in cancelable_actions
+            and action.batch_job_id
         ]
         if pending_actions:
-            raise GroupHasPendingActions()
+            raise GroupHasPendingActions(
+                action_names=[action.action_name for action in pending_actions]
+            )
 
         actions_to_delete = [
             action

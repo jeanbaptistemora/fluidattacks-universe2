@@ -1798,8 +1798,8 @@ class TrialRestriction(CustomBaseException):
 
 
 class GroupHasPendingActions(CustomBaseException):
-    def __init__(self) -> None:
-        msg = "Exception - The group has pending actions"
+    def __init__(self, action_names: list[str]) -> None:
+        msg = f"Exception - The group has pending actions: {str(action_names)}"
         super(GroupHasPendingActions, self).__init__(msg)
 
 

@@ -16,9 +16,6 @@ from db_model import (
     organization_finding_policies as polices_model,
     vulnerabilities as vulns_model,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
 )
@@ -34,9 +31,6 @@ from db_model.vulnerabilities.enums import (
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
-)
-from itertools import (
-    chain,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -213,13 +207,9 @@ async def update_finding_policy_in_groups(
     status: PolicyStateStatus,
     tags: set[str],
 ) -> tuple[list[str], list[str]]:
-    group_drafts: tuple[
-        tuple[Finding, ...], ...
-    ] = await loaders.group_drafts.load_many(group_names)
-    group_findings: tuple[
-        tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(group_names)
-    findings = tuple(chain.from_iterable(group_drafts + group_findings))
+    findings = await loaders.group_drafts_and_findings.load_many_chained(
+        group_names
+    )
     findings_ids: list[str] = [
         finding.id
         for finding in findings
@@ -228,10 +218,10 @@ async def update_finding_policy_in_groups(
 
     if not findings_ids:
         return [], []
-    vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        findings_ids
+    vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            findings_ids
+        )
     )
 
     await _apply_finding_policy(

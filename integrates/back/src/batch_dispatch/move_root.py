@@ -389,7 +389,7 @@ async def _process_finding(
             update_unreliable_indicators_by_deps(
                 EntityDependency.move_root,
                 finding_ids=[target_finding_id],
-                vulnerability_ids=target_vuln_ids,  # type: ignore
+                vulnerability_ids=list(target_vuln_ids),
             ),
         )
     )
