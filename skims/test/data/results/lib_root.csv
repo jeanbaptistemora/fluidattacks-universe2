@@ -1,6 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_root/f128/ts_http_only.ts","
+F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,cookieService is missing HttpOnly in namespace/skims/test/data/lib_root/f128/ts_http_only.ts,"
    2 | import { ActivatedRoute} from '@angular/router';
    3 | import { CookieService } from 'ngx-cookie-service';
    4 |

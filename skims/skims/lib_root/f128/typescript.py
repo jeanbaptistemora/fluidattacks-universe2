@@ -26,6 +26,7 @@ def typescript_insecure_cookies(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_COOKIE
+    desc = "lib_http.analyze_headers.set_cookie_httponly.missing_httponly"
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -39,8 +40,8 @@ def typescript_insecure_cookies(
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f135.ts_unsafe_http_xss_protection",
-        desc_params={},
+        desc_key=desc,
+        desc_params={"cookie_name": "cookieService"},
         graph_shard_nodes=n_ids(),
         method=method,
     )
