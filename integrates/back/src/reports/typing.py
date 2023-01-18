@@ -385,7 +385,7 @@ class PDFWordlistEs(Wordlist):
         "metodology_title", "Metodología"
     )
     PATH: WordlistItem = WordlistItem("path", "Path")
-    PORT: WordlistItem = WordlistItem("port", "Port")
+    PORT: WordlistItem = WordlistItem("port", "Puerto")
     PORTS: WordlistItem = WordlistItem("ports", "Ports")
     RECORDS_TITLE: WordlistItem = WordlistItem("records_title", "Registros")
     REQUISITE_TITLE: WordlistItem = WordlistItem(
@@ -414,10 +414,10 @@ class PDFWordlistEs(Wordlist):
     RESUME_VULN_TITLE: WordlistItem = WordlistItem(
         "resume_vuln_title", "Vulnerabilidades"
     )
-    ROOT_ADDRESS: WordlistItem = WordlistItem("root_address", "Address")
-    ROOT_BRANCH: WordlistItem = WordlistItem("root_branch", "Branch")
+    ROOT_ADDRESS: WordlistItem = WordlistItem("root_address", "Dirección")
+    ROOT_BRANCH: WordlistItem = WordlistItem("root_branch", "Rama")
     ROOT_ENVIRONMENT_TITLE: WordlistItem = WordlistItem(
-        "root_environment_title", "Environment URLs"
+        "root_environment_title", "URLs del entorno"
     )
     ROOT_GIT_TITLE: WordlistItem = WordlistItem("root_git_title", "Git Roots")
     ROOT_HOST: WordlistItem = WordlistItem("root_host", "Host")
@@ -426,11 +426,11 @@ class PDFWordlistEs(Wordlist):
     ROOT_SCOPE_TITLE: WordlistItem = WordlistItem(
         "root_scope_title", "Alcance"
     )
-    ROOT_STATE_TITLE: WordlistItem = WordlistItem("root_state", "State")
+    ROOT_STATE_TITLE: WordlistItem = WordlistItem("root_state", "Estado")
     ROOT_URL_TITLE: WordlistItem = WordlistItem("root_url_title", "URL Roots")
     ROOT_URL: WordlistItem = WordlistItem("root_url", "URL")
     SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solución")
-    STANDARD: WordlistItem = WordlistItem("standard", "Standard")
+    STANDARD: WordlistItem = WordlistItem("standard", "Estándar")
     STATE_TITLE: WordlistItem = WordlistItem("state_title", "Estado")
     TECH: WordlistItem = WordlistItem("tech", "Reporte Técnico")
     UNFULFILLED_STANDARDS: WordlistItem = WordlistItem(
