@@ -2189,6 +2189,2461 @@
           }
         }
       }
+    },
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "100": {
+            "101": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "101": {
+            "102": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "106": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "102": {
+            "103": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "103": {
+            "104": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "106": {
+            "107": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "107": {
+            "108": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "109": {
+            "110": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "111": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "11": {
+            "12": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "111": {
+            "112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "112": {
+            "113": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "118": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "119": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "115": {
+            "116": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "116": {
+            "117": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "119": {
+            "120": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "12": {
+            "13": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "120": {
+            "121": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "129": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "137": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "145": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "168": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "121": {
+            "122": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "125": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "126": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "122": {
+            "123": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "123": {
+            "124": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "126": {
+            "127": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "127": {
+            "128": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "129": {
+            "130": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "133": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "134": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "130": {
+            "131": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "131": {
+            "132": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "134": {
+            "135": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "135": {
+            "136": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "137": {
+            "138": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "141": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "142": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "138": {
+            "139": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "139": {
+            "140": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "142": {
+            "143": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "143": {
+            "144": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "145": {
+            "146": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "149": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "150": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "146": {
+            "147": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "147": {
+            "148": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "15": {
+            "16": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "150": {
+            "151": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "151": {
+            "152": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "160": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "152": {
+            "153": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "156": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "157": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "153": {
+            "154": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "154": {
+            "155": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "157": {
+            "158": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "158": {
+            "159": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "16": {
+            "17": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "164": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "165": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "161": {
+            "162": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "162": {
+            "163": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "165": {
+            "166": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "166": {
+            "167": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "168": {
+            "169": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "172": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "173": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "169": {
+            "170": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "170": {
+            "171": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "173": {
+            "174": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "174": {
+            "175": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "19": {
+            "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2": {
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "20": {
+            "21": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "22": {
+            "23": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "26": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "23": {
+            "24": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "24": {
+            "25": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "27": {
+            "28": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "28": {
+            "29": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "30": {
+            "31": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "35": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "31": {
+            "32": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "32": {
+            "33": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "35": {
+            "36": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "36": {
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "42": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "43": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "39": {
+            "40": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "4": {
+            "5": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "40": {
+            "41": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "43": {
+            "44": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "44": {
+            "45": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "46": {
+            "47": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "50": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "47": {
+            "48": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "48": {
+            "49": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "5": {
+            "114": {
+              "label_ast": "AST",
+              "label_index": "6"
+            },
+            "14": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "30": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "6": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "51": {
+            "52": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "52": {
+            "109": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "53": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "87": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "92": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "97": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "53": {
+            "54": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "55": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "56": {
+            "57": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "57": {
+            "58": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "62": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "58": {
+            "59": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "59": {
+            "60": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "6": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "62": {
+            "63": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "63": {
+            "64": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "82": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "83": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "86": {
+              "label_ast": "AST",
+              "label_index": "4"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "69": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "70": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "66": {
+            "67": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "67": {
+            "68": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "7": {
+            "8": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "70": {
+            "71": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "71": {
+            "72": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "73": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "73": {
+            "74": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "78": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "74": {
+            "75": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "78": {
+            "79": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "79": {
+            "80": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "8": {
+            "9": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "83": {
+            "84": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "84": {
+            "85": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "87": {
+            "88": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "89": {
+            "90": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "90": {
+            "91": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "92": {
+            "93": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "94": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "94": {
+            "95": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "95": {
+            "96": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "97": {
+            "98": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "99": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "stream"
+          },
+          "10": {
+            "label_c": 5,
+            "label_l": 2,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "100": {
+            "label_c": 6,
+            "label_l": 11,
+            "label_type": "block_mapping"
+          },
+          "101": {
+            "label_c": 6,
+            "label_field_key": "102",
+            "label_field_value": "106",
+            "label_l": 11,
+            "label_type": "block_mapping_pair"
+          },
+          "102": {
+            "label_c": 6,
+            "label_l": 11,
+            "label_type": "flow_node"
+          },
+          "103": {
+            "label_c": 6,
+            "label_l": 11,
+            "label_type": "plain_scalar"
+          },
+          "104": {
+            "label_c": 6,
+            "label_l": 11,
+            "label_text": "louie",
+            "label_type": "string_scalar"
+          },
+          "105": {
+            "label_c": 11,
+            "label_l": 11,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "106": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_type": "flow_node"
+          },
+          "107": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_type": "plain_scalar"
+          },
+          "108": {
+            "label_c": 13,
+            "label_l": 11,
+            "label_text": "smith",
+            "label_type": "string_scalar"
+          },
+          "109": {
+            "label_c": 4,
+            "label_l": 12,
+            "label_type": "block_sequence_item"
+          },
+          "11": {
+            "label_c": 7,
+            "label_l": 2,
+            "label_type": "flow_node"
+          },
+          "110": {
+            "label_c": 4,
+            "label_l": 12,
+            "label_text": "-",
+            "label_type": "-"
+          },
+          "111": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_type": "flow_node"
+          },
+          "112": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_type": "plain_scalar"
+          },
+          "113": {
+            "label_c": 6,
+            "label_l": 12,
+            "label_text": "fred",
+            "label_type": "string_scalar"
+          },
+          "114": {
+            "label_c": 2,
+            "label_field_key": "115",
+            "label_field_value": "119",
+            "label_l": 13,
+            "label_type": "block_mapping_pair"
+          },
+          "115": {
+            "label_c": 2,
+            "label_l": 13,
+            "label_type": "flow_node"
+          },
+          "116": {
+            "label_c": 2,
+            "label_l": 13,
+            "label_type": "plain_scalar"
+          },
+          "117": {
+            "label_c": 2,
+            "label_l": 13,
+            "label_text": "xmas-fifth-day",
+            "label_type": "string_scalar"
+          },
+          "118": {
+            "label_c": 16,
+            "label_l": 13,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "119": {
+            "label_c": 4,
+            "label_l": 14,
+            "label_type": "block_node"
+          },
+          "12": {
+            "label_c": 7,
+            "label_l": 2,
+            "label_type": "plain_scalar"
+          },
+          "120": {
+            "label_c": 4,
+            "label_l": 14,
+            "label_type": "block_mapping"
+          },
+          "121": {
+            "label_c": 4,
+            "label_field_key": "122",
+            "label_field_value": "126",
+            "label_l": 14,
+            "label_type": "block_mapping_pair"
+          },
+          "122": {
+            "label_c": 4,
+            "label_l": 14,
+            "label_type": "flow_node"
+          },
+          "123": {
+            "label_c": 4,
+            "label_l": 14,
+            "label_type": "plain_scalar"
+          },
+          "124": {
+            "label_c": 4,
+            "label_l": 14,
+            "label_text": "calling-birds",
+            "label_type": "string_scalar"
+          },
+          "125": {
+            "label_c": 17,
+            "label_l": 14,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "126": {
+            "label_c": 19,
+            "label_l": 14,
+            "label_type": "flow_node"
+          },
+          "127": {
+            "label_c": 19,
+            "label_l": 14,
+            "label_type": "plain_scalar"
+          },
+          "128": {
+            "label_c": 19,
+            "label_l": 14,
+            "label_text": "four",
+            "label_type": "string_scalar"
+          },
+          "129": {
+            "label_c": 4,
+            "label_field_key": "130",
+            "label_field_value": "134",
+            "label_l": 15,
+            "label_type": "block_mapping_pair"
+          },
+          "13": {
+            "label_c": 7,
+            "label_l": 2,
+            "label_text": "a deer, a female deer",
+            "label_type": "string_scalar"
+          },
+          "130": {
+            "label_c": 4,
+            "label_l": 15,
+            "label_type": "flow_node"
+          },
+          "131": {
+            "label_c": 4,
+            "label_l": 15,
+            "label_type": "plain_scalar"
+          },
+          "132": {
+            "label_c": 4,
+            "label_l": 15,
+            "label_text": "french-hens",
+            "label_type": "string_scalar"
+          },
+          "133": {
+            "label_c": 15,
+            "label_l": 15,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "134": {
+            "label_c": 17,
+            "label_l": 15,
+            "label_type": "flow_node"
+          },
+          "135": {
+            "label_c": 17,
+            "label_l": 15,
+            "label_type": "plain_scalar"
+          },
+          "136": {
+            "label_c": 17,
+            "label_l": 15,
+            "label_text": "3",
+            "label_type": "integer_scalar"
+          },
+          "137": {
+            "label_c": 4,
+            "label_field_key": "138",
+            "label_field_value": "142",
+            "label_l": 16,
+            "label_type": "block_mapping_pair"
+          },
+          "138": {
+            "label_c": 4,
+            "label_l": 16,
+            "label_type": "flow_node"
+          },
+          "139": {
+            "label_c": 4,
+            "label_l": 16,
+            "label_type": "plain_scalar"
+          },
+          "14": {
+            "label_c": 2,
+            "label_field_key": "15",
+            "label_field_value": "19",
+            "label_l": 3,
+            "label_type": "block_mapping_pair"
+          },
+          "140": {
+            "label_c": 4,
+            "label_l": 16,
+            "label_text": "golden-rings",
+            "label_type": "string_scalar"
+          },
+          "141": {
+            "label_c": 16,
+            "label_l": 16,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "142": {
+            "label_c": 18,
+            "label_l": 16,
+            "label_type": "flow_node"
+          },
+          "143": {
+            "label_c": 18,
+            "label_l": 16,
+            "label_type": "plain_scalar"
+          },
+          "144": {
+            "label_c": 18,
+            "label_l": 16,
+            "label_text": "5",
+            "label_type": "integer_scalar"
+          },
+          "145": {
+            "label_c": 4,
+            "label_field_key": "146",
+            "label_field_value": "150",
+            "label_l": 17,
+            "label_type": "block_mapping_pair"
+          },
+          "146": {
+            "label_c": 4,
+            "label_l": 17,
+            "label_type": "flow_node"
+          },
+          "147": {
+            "label_c": 4,
+            "label_l": 17,
+            "label_type": "plain_scalar"
+          },
+          "148": {
+            "label_c": 4,
+            "label_l": 17,
+            "label_text": "partridges",
+            "label_type": "string_scalar"
+          },
+          "149": {
+            "label_c": 14,
+            "label_l": 17,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "15": {
+            "label_c": 2,
+            "label_l": 3,
+            "label_type": "flow_node"
+          },
+          "150": {
+            "label_c": 6,
+            "label_l": 18,
+            "label_type": "block_node"
+          },
+          "151": {
+            "label_c": 6,
+            "label_l": 18,
+            "label_type": "block_mapping"
+          },
+          "152": {
+            "label_c": 6,
+            "label_field_key": "153",
+            "label_field_value": "157",
+            "label_l": 18,
+            "label_type": "block_mapping_pair"
+          },
+          "153": {
+            "label_c": 6,
+            "label_l": 18,
+            "label_type": "flow_node"
+          },
+          "154": {
+            "label_c": 6,
+            "label_l": 18,
+            "label_type": "plain_scalar"
+          },
+          "155": {
+            "label_c": 6,
+            "label_l": 18,
+            "label_text": "count",
+            "label_type": "string_scalar"
+          },
+          "156": {
+            "label_c": 11,
+            "label_l": 18,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "157": {
+            "label_c": 13,
+            "label_l": 18,
+            "label_type": "flow_node"
+          },
+          "158": {
+            "label_c": 13,
+            "label_l": 18,
+            "label_type": "plain_scalar"
+          },
+          "159": {
+            "label_c": 13,
+            "label_l": 18,
+            "label_text": "1",
+            "label_type": "integer_scalar"
+          },
+          "16": {
+            "label_c": 2,
+            "label_l": 3,
+            "label_type": "plain_scalar"
+          },
+          "160": {
+            "label_c": 6,
+            "label_field_key": "161",
+            "label_field_value": "165",
+            "label_l": 19,
+            "label_type": "block_mapping_pair"
+          },
+          "161": {
+            "label_c": 6,
+            "label_l": 19,
+            "label_type": "flow_node"
+          },
+          "162": {
+            "label_c": 6,
+            "label_l": 19,
+            "label_type": "plain_scalar"
+          },
+          "163": {
+            "label_c": 6,
+            "label_l": 19,
+            "label_text": "location",
+            "label_type": "string_scalar"
+          },
+          "164": {
+            "label_c": 14,
+            "label_l": 19,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "165": {
+            "label_c": 16,
+            "label_l": 19,
+            "label_type": "flow_node"
+          },
+          "166": {
+            "label_c": 16,
+            "label_l": 19,
+            "label_type": "plain_scalar"
+          },
+          "167": {
+            "label_c": 16,
+            "label_l": 19,
+            "label_text": "a pear tree",
+            "label_type": "string_scalar"
+          },
+          "168": {
+            "label_c": 4,
+            "label_field_key": "169",
+            "label_field_value": "173",
+            "label_l": 20,
+            "label_type": "block_mapping_pair"
+          },
+          "169": {
+            "label_c": 4,
+            "label_l": 20,
+            "label_type": "flow_node"
+          },
+          "17": {
+            "label_c": 2,
+            "label_l": 3,
+            "label_text": "ray",
+            "label_type": "string_scalar"
+          },
+          "170": {
+            "label_c": 4,
+            "label_l": 20,
+            "label_type": "plain_scalar"
+          },
+          "171": {
+            "label_c": 4,
+            "label_l": 20,
+            "label_text": "turtle-doves",
+            "label_type": "string_scalar"
+          },
+          "172": {
+            "label_c": 16,
+            "label_l": 20,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "173": {
+            "label_c": 18,
+            "label_l": 20,
+            "label_type": "flow_node"
+          },
+          "174": {
+            "label_c": 18,
+            "label_l": 20,
+            "label_type": "plain_scalar"
+          },
+          "175": {
+            "label_c": 18,
+            "label_l": 20,
+            "label_text": "two",
+            "label_type": "string_scalar"
+          },
+          "18": {
+            "label_c": 5,
+            "label_l": 3,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "19": {
+            "label_c": 7,
+            "label_l": 3,
+            "label_type": "flow_node"
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "document"
+          },
+          "20": {
+            "label_c": 7,
+            "label_l": 3,
+            "label_type": "plain_scalar"
+          },
+          "21": {
+            "label_c": 7,
+            "label_l": 3,
+            "label_text": "a drop of golden sun",
+            "label_type": "string_scalar"
+          },
+          "22": {
+            "label_c": 2,
+            "label_field_key": "23",
+            "label_field_value": "27",
+            "label_l": 4,
+            "label_type": "block_mapping_pair"
+          },
+          "23": {
+            "label_c": 2,
+            "label_l": 4,
+            "label_type": "flow_node"
+          },
+          "24": {
+            "label_c": 2,
+            "label_l": 4,
+            "label_type": "plain_scalar"
+          },
+          "25": {
+            "label_c": 2,
+            "label_l": 4,
+            "label_text": "pi",
+            "label_type": "string_scalar"
+          },
+          "26": {
+            "label_c": 4,
+            "label_l": 4,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "27": {
+            "label_c": 6,
+            "label_l": 4,
+            "label_type": "flow_node"
+          },
+          "28": {
+            "label_c": 6,
+            "label_l": 4,
+            "label_type": "plain_scalar"
+          },
+          "29": {
+            "label_c": 6,
+            "label_l": 4,
+            "label_text": "3.14159",
+            "label_type": "float_scalar"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "---",
+            "label_type": "---"
+          },
+          "30": {
+            "label_c": 2,
+            "label_field_key": "31",
+            "label_field_value": "35",
+            "label_l": 5,
+            "label_type": "block_mapping_pair"
+          },
+          "31": {
+            "label_c": 2,
+            "label_l": 5,
+            "label_type": "flow_node"
+          },
+          "32": {
+            "label_c": 2,
+            "label_l": 5,
+            "label_type": "plain_scalar"
+          },
+          "33": {
+            "label_c": 2,
+            "label_l": 5,
+            "label_text": "xmas",
+            "label_type": "string_scalar"
+          },
+          "34": {
+            "label_c": 6,
+            "label_l": 5,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "35": {
+            "label_c": 8,
+            "label_l": 5,
+            "label_type": "flow_node"
+          },
+          "36": {
+            "label_c": 8,
+            "label_l": 5,
+            "label_type": "plain_scalar"
+          },
+          "37": {
+            "label_c": 8,
+            "label_l": 5,
+            "label_text": "true",
+            "label_type": "boolean_scalar"
+          },
+          "38": {
+            "label_c": 2,
+            "label_field_key": "39",
+            "label_field_value": "43",
+            "label_l": 6,
+            "label_type": "block_mapping_pair"
+          },
+          "39": {
+            "label_c": 2,
+            "label_l": 6,
+            "label_type": "flow_node"
+          },
+          "4": {
+            "label_c": 2,
+            "label_l": 2,
+            "label_type": "block_node"
+          },
+          "40": {
+            "label_c": 2,
+            "label_l": 6,
+            "label_type": "plain_scalar"
+          },
+          "41": {
+            "label_c": 2,
+            "label_l": 6,
+            "label_text": "french-hens",
+            "label_type": "string_scalar"
+          },
+          "42": {
+            "label_c": 13,
+            "label_l": 6,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "43": {
+            "label_c": 15,
+            "label_l": 6,
+            "label_type": "flow_node"
+          },
+          "44": {
+            "label_c": 15,
+            "label_l": 6,
+            "label_type": "plain_scalar"
+          },
+          "45": {
+            "label_c": 15,
+            "label_l": 6,
+            "label_text": "3",
+            "label_type": "integer_scalar"
+          },
+          "46": {
+            "label_c": 2,
+            "label_field_key": "47",
+            "label_field_value": "51",
+            "label_l": 7,
+            "label_type": "block_mapping_pair"
+          },
+          "47": {
+            "label_c": 2,
+            "label_l": 7,
+            "label_type": "flow_node"
+          },
+          "48": {
+            "label_c": 2,
+            "label_l": 7,
+            "label_type": "plain_scalar"
+          },
+          "49": {
+            "label_c": 2,
+            "label_l": 7,
+            "label_text": "calling-birds",
+            "label_type": "string_scalar"
+          },
+          "5": {
+            "label_c": 2,
+            "label_l": 2,
+            "label_type": "block_mapping"
+          },
+          "50": {
+            "label_c": 15,
+            "label_l": 7,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "51": {
+            "label_c": 4,
+            "label_l": 8,
+            "label_type": "block_node"
+          },
+          "52": {
+            "label_c": 4,
+            "label_l": 8,
+            "label_type": "block_sequence"
+          },
+          "53": {
+            "label_c": 4,
+            "label_l": 8,
+            "label_type": "block_sequence_item"
+          },
+          "54": {
+            "label_c": 4,
+            "label_l": 8,
+            "label_text": "-",
+            "label_type": "-"
+          },
+          "55": {
+            "label_c": 6,
+            "label_l": 8,
+            "label_type": "block_node"
+          },
+          "56": {
+            "label_c": 6,
+            "label_l": 8,
+            "label_type": "block_mapping"
+          },
+          "57": {
+            "label_c": 6,
+            "label_field_key": "58",
+            "label_field_value": "62",
+            "label_l": 8,
+            "label_type": "block_mapping_pair"
+          },
+          "58": {
+            "label_c": 6,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "59": {
+            "label_c": 6,
+            "label_l": 8,
+            "label_type": "plain_scalar"
+          },
+          "6": {
+            "label_c": 2,
+            "label_field_key": "7",
+            "label_field_value": "11",
+            "label_l": 2,
+            "label_type": "block_mapping_pair"
+          },
+          "60": {
+            "label_c": 6,
+            "label_l": 8,
+            "label_text": "Id",
+            "label_type": "string_scalar"
+          },
+          "61": {
+            "label_c": 8,
+            "label_l": 8,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "62": {
+            "label_c": 10,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "63": {
+            "label_c": 10,
+            "label_l": 8,
+            "label_type": "flow_sequence"
+          },
+          "64": {
+            "label_c": 10,
+            "label_l": 8,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "65": {
+            "label_c": 11,
+            "label_field_key": "66",
+            "label_field_value": "70",
+            "label_l": 8,
+            "label_type": "flow_pair"
+          },
+          "66": {
+            "label_c": 11,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "67": {
+            "label_c": 11,
+            "label_l": 8,
+            "label_type": "plain_scalar"
+          },
+          "68": {
+            "label_c": 11,
+            "label_l": 8,
+            "label_text": "MyLambdaFunction",
+            "label_type": "string_scalar"
+          },
+          "69": {
+            "label_c": 27,
+            "label_l": 8,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "7": {
+            "label_c": 2,
+            "label_l": 2,
+            "label_type": "flow_node"
+          },
+          "70": {
+            "label_c": 29,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "71": {
+            "label_c": 29,
+            "label_l": 8,
+            "label_type": "flow_sequence"
+          },
+          "72": {
+            "label_c": 29,
+            "label_l": 8,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "73": {
+            "label_c": 30,
+            "label_field_key": "74",
+            "label_field_value": "78",
+            "label_l": 8,
+            "label_type": "flow_pair"
+          },
+          "74": {
+            "label_c": 30,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "75": {
+            "label_c": 30,
+            "label_l": 8,
+            "label_type": "plain_scalar"
+          },
+          "76": {
+            "label_c": 30,
+            "label_l": 8,
+            "label_text": "test",
+            "label_type": "string_scalar"
+          },
+          "77": {
+            "label_c": 34,
+            "label_l": 8,
+            "label_text": ":",
+            "label_type": ":"
+          },
+          "78": {
+            "label_c": 36,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "79": {
+            "label_c": 36,
+            "label_l": 8,
+            "label_type": "plain_scalar"
+          },
+          "8": {
+            "label_c": 2,
+            "label_l": 2,
+            "label_type": "plain_scalar"
+          },
+          "80": {
+            "label_c": 36,
+            "label_l": 8,
+            "label_text": "a",
+            "label_type": "string_scalar"
+          },
+          "81": {
+            "label_c": 37,
+            "label_l": 8,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "82": {
+            "label_c": 38,
+            "label_l": 8,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "83": {
+            "label_c": 40,
+            "label_l": 8,
+            "label_type": "flow_node"
+          },
+          "84": {
+            "label_c": 40,
+            "label_l": 8,
+            "label_type": "plain_scalar"
+          },
+          "85": {
+            "label_c": 40,
+            "label_l": 8,
+            "label_text": "Arn",
+            "label_type": "string_scalar"
+          },
+          "86": {
+            "label_c": 43,
+            "label_l": 8,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "87": {
+            "label_c": 4,
+            "label_l": 9,
+            "label_type": "block_sequence_item"
+          },
+          "88": {
+            "label_c": 4,
+            "label_l": 9,
+            "label_text": "-",
+            "label_type": "-"
+          },
+          "89": {
+            "label_c": 6,
+            "label_l": 9,
+            "label_type": "flow_node"
+          },
+          "9": {
+            "label_c": 2,
+            "label_l": 2,
+            "label_text": "doe",
+            "label_type": "string_scalar"
+          },
+          "90": {
+            "label_c": 6,
+            "label_l": 9,
+            "label_type": "plain_scalar"
+          },
+          "91": {
+            "label_c": 6,
+            "label_l": 9,
+            "label_text": "huey",
+            "label_type": "string_scalar"
+          },
+          "92": {
+            "label_c": 4,
+            "label_l": 10,
+            "label_type": "block_sequence_item"
+          },
+          "93": {
+            "label_c": 4,
+            "label_l": 10,
+            "label_text": "-",
+            "label_type": "-"
+          },
+          "94": {
+            "label_c": 6,
+            "label_l": 10,
+            "label_type": "flow_node"
+          },
+          "95": {
+            "label_c": 6,
+            "label_l": 10,
+            "label_type": "plain_scalar"
+          },
+          "96": {
+            "label_c": 6,
+            "label_l": 10,
+            "label_text": "dewey",
+            "label_type": "string_scalar"
+          },
+          "97": {
+            "label_c": 4,
+            "label_l": 11,
+            "label_type": "block_sequence_item"
+          },
+          "98": {
+            "label_c": 4,
+            "label_l": 11,
+            "label_text": "-",
+            "label_type": "-"
+          },
+          "99": {
+            "label_c": 6,
+            "label_l": 11,
+            "label_type": "block_node"
+          }
+        }
+      },
+      "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
+        "go": {
+          "imports": [],
+          "package": "",
+          "sink_functions": {}
+        },
+        "java": {
+          "classes": {},
+          "package": ""
+        },
+        "language": "yaml"
+      },
+      "path": "skims/test/data/sast/test_cfg.yaml",
+      "syntax": {},
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "5": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "100": {
+            "101": {
+              "label_ast": "AST"
+            }
+          },
+          "101": {
+            "102": {
+              "label_ast": "AST"
+            },
+            "106": {
+              "label_ast": "AST"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST"
+            },
+            "120": {
+              "label_ast": "AST"
+            }
+          },
+          "120": {
+            "121": {
+              "label_ast": "AST"
+            },
+            "129": {
+              "label_ast": "AST"
+            },
+            "137": {
+              "label_ast": "AST"
+            },
+            "145": {
+              "label_ast": "AST"
+            },
+            "168": {
+              "label_ast": "AST"
+            }
+          },
+          "121": {
+            "122": {
+              "label_ast": "AST"
+            },
+            "126": {
+              "label_ast": "AST"
+            }
+          },
+          "129": {
+            "130": {
+              "label_ast": "AST"
+            },
+            "134": {
+              "label_ast": "AST"
+            }
+          },
+          "137": {
+            "138": {
+              "label_ast": "AST"
+            },
+            "142": {
+              "label_ast": "AST"
+            }
+          },
+          "14": {
+            "15": {
+              "label_ast": "AST"
+            },
+            "19": {
+              "label_ast": "AST"
+            }
+          },
+          "145": {
+            "146": {
+              "label_ast": "AST"
+            },
+            "151": {
+              "label_ast": "AST"
+            }
+          },
+          "151": {
+            "152": {
+              "label_ast": "AST"
+            },
+            "160": {
+              "label_ast": "AST"
+            }
+          },
+          "152": {
+            "153": {
+              "label_ast": "AST"
+            },
+            "157": {
+              "label_ast": "AST"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST"
+            },
+            "165": {
+              "label_ast": "AST"
+            }
+          },
+          "168": {
+            "169": {
+              "label_ast": "AST"
+            },
+            "173": {
+              "label_ast": "AST"
+            }
+          },
+          "22": {
+            "23": {
+              "label_ast": "AST"
+            },
+            "27": {
+              "label_ast": "AST"
+            }
+          },
+          "30": {
+            "31": {
+              "label_ast": "AST"
+            },
+            "35": {
+              "label_ast": "AST"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST"
+            },
+            "43": {
+              "label_ast": "AST"
+            }
+          },
+          "46": {
+            "47": {
+              "label_ast": "AST"
+            },
+            "52": {
+              "label_ast": "AST"
+            }
+          },
+          "5": {
+            "114": {
+              "label_ast": "AST"
+            },
+            "14": {
+              "label_ast": "AST"
+            },
+            "22": {
+              "label_ast": "AST"
+            },
+            "30": {
+              "label_ast": "AST"
+            },
+            "38": {
+              "label_ast": "AST"
+            },
+            "46": {
+              "label_ast": "AST"
+            },
+            "6": {
+              "label_ast": "AST"
+            }
+          },
+          "52": {
+            "100": {
+              "label_ast": "AST"
+            },
+            "111": {
+              "label_ast": "AST"
+            },
+            "56": {
+              "label_ast": "AST"
+            },
+            "89": {
+              "label_ast": "AST"
+            },
+            "94": {
+              "label_ast": "AST"
+            }
+          },
+          "56": {
+            "57": {
+              "label_ast": "AST"
+            }
+          },
+          "57": {
+            "58": {
+              "label_ast": "AST"
+            },
+            "62": {
+              "label_ast": "AST"
+            }
+          },
+          "6": {
+            "11": {
+              "label_ast": "AST"
+            },
+            "7": {
+              "label_ast": "AST"
+            }
+          },
+          "62": {
+            "65": {
+              "label_ast": "AST"
+            },
+            "83": {
+              "label_ast": "AST"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST"
+            },
+            "70": {
+              "label_ast": "AST"
+            }
+          },
+          "70": {
+            "73": {
+              "label_ast": "AST"
+            }
+          },
+          "73": {
+            "74": {
+              "label_ast": "AST"
+            },
+            "78": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "100": {
+            "label_type": "Object"
+          },
+          "101": {
+            "key_id": "102",
+            "label_type": "Pair",
+            "value_id": "106"
+          },
+          "102": {
+            "label_type": "Literal",
+            "value": "louie",
+            "value_type": "string"
+          },
+          "106": {
+            "label_type": "Literal",
+            "value": "smith",
+            "value_type": "string"
+          },
+          "11": {
+            "label_type": "Literal",
+            "value": "a deer, a female deer",
+            "value_type": "string"
+          },
+          "111": {
+            "label_type": "Literal",
+            "value": "fred",
+            "value_type": "string"
+          },
+          "114": {
+            "key_id": "115",
+            "label_type": "Pair",
+            "value_id": "120"
+          },
+          "115": {
+            "label_type": "Literal",
+            "value": "xmas-fifth-day",
+            "value_type": "string"
+          },
+          "120": {
+            "label_type": "Object"
+          },
+          "121": {
+            "key_id": "122",
+            "label_type": "Pair",
+            "value_id": "126"
+          },
+          "122": {
+            "label_type": "Literal",
+            "value": "calling-birds",
+            "value_type": "string"
+          },
+          "126": {
+            "label_type": "Literal",
+            "value": "four",
+            "value_type": "string"
+          },
+          "129": {
+            "key_id": "130",
+            "label_type": "Pair",
+            "value_id": "134"
+          },
+          "130": {
+            "label_type": "Literal",
+            "value": "french-hens",
+            "value_type": "string"
+          },
+          "134": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "137": {
+            "key_id": "138",
+            "label_type": "Pair",
+            "value_id": "142"
+          },
+          "138": {
+            "label_type": "Literal",
+            "value": "golden-rings",
+            "value_type": "string"
+          },
+          "14": {
+            "key_id": "15",
+            "label_type": "Pair",
+            "value_id": "19"
+          },
+          "142": {
+            "label_type": "Literal",
+            "value": "5",
+            "value_type": "number"
+          },
+          "145": {
+            "key_id": "146",
+            "label_type": "Pair",
+            "value_id": "151"
+          },
+          "146": {
+            "label_type": "Literal",
+            "value": "partridges",
+            "value_type": "string"
+          },
+          "15": {
+            "label_type": "Literal",
+            "value": "ray",
+            "value_type": "string"
+          },
+          "151": {
+            "label_type": "Object"
+          },
+          "152": {
+            "key_id": "153",
+            "label_type": "Pair",
+            "value_id": "157"
+          },
+          "153": {
+            "label_type": "Literal",
+            "value": "count",
+            "value_type": "string"
+          },
+          "157": {
+            "label_type": "Literal",
+            "value": "1",
+            "value_type": "number"
+          },
+          "160": {
+            "key_id": "161",
+            "label_type": "Pair",
+            "value_id": "165"
+          },
+          "161": {
+            "label_type": "Literal",
+            "value": "location",
+            "value_type": "string"
+          },
+          "165": {
+            "label_type": "Literal",
+            "value": "a pear tree",
+            "value_type": "string"
+          },
+          "168": {
+            "key_id": "169",
+            "label_type": "Pair",
+            "value_id": "173"
+          },
+          "169": {
+            "label_type": "Literal",
+            "value": "turtle-doves",
+            "value_type": "string"
+          },
+          "173": {
+            "label_type": "Literal",
+            "value": "two",
+            "value_type": "string"
+          },
+          "19": {
+            "label_type": "Literal",
+            "value": "a drop of golden sun",
+            "value_type": "string"
+          },
+          "22": {
+            "key_id": "23",
+            "label_type": "Pair",
+            "value_id": "27"
+          },
+          "23": {
+            "label_type": "Literal",
+            "value": "pi",
+            "value_type": "string"
+          },
+          "27": {
+            "label_type": "Literal",
+            "value": "3.14159",
+            "value_type": "number"
+          },
+          "30": {
+            "key_id": "31",
+            "label_type": "Pair",
+            "value_id": "35"
+          },
+          "31": {
+            "label_type": "Literal",
+            "value": "xmas",
+            "value_type": "string"
+          },
+          "35": {
+            "label_type": "Literal",
+            "value": "true",
+            "value_type": "bool"
+          },
+          "38": {
+            "key_id": "39",
+            "label_type": "Pair",
+            "value_id": "43"
+          },
+          "39": {
+            "label_type": "Literal",
+            "value": "french-hens",
+            "value_type": "string"
+          },
+          "43": {
+            "label_type": "Literal",
+            "value": "3",
+            "value_type": "number"
+          },
+          "46": {
+            "key_id": "47",
+            "label_type": "Pair",
+            "value_id": "52"
+          },
+          "47": {
+            "label_type": "Literal",
+            "value": "calling-birds",
+            "value_type": "string"
+          },
+          "5": {
+            "label_type": "Object"
+          },
+          "52": {
+            "label_type": "ArrayInitializer"
+          },
+          "56": {
+            "label_type": "Object"
+          },
+          "57": {
+            "key_id": "58",
+            "label_type": "Pair",
+            "value_id": "62"
+          },
+          "58": {
+            "label_type": "Literal",
+            "value": "Id",
+            "value_type": "string"
+          },
+          "6": {
+            "key_id": "7",
+            "label_type": "Pair",
+            "value_id": "11"
+          },
+          "62": {
+            "label_type": "ArrayInitializer"
+          },
+          "65": {
+            "key_id": "66",
+            "label_type": "Pair",
+            "value_id": "70"
+          },
+          "66": {
+            "label_type": "Literal",
+            "value": "MyLambdaFunction",
+            "value_type": "string"
+          },
+          "7": {
+            "label_type": "Literal",
+            "value": "doe",
+            "value_type": "string"
+          },
+          "70": {
+            "label_type": "ArrayInitializer"
+          },
+          "73": {
+            "key_id": "74",
+            "label_type": "Pair",
+            "value_id": "78"
+          },
+          "74": {
+            "label_type": "Literal",
+            "value": "test",
+            "value_type": "string"
+          },
+          "78": {
+            "label_type": "Literal",
+            "value": "a",
+            "value_type": "string"
+          },
+          "83": {
+            "label_type": "Literal",
+            "value": "Arn",
+            "value_type": "string"
+          },
+          "89": {
+            "label_type": "Literal",
+            "value": "huey",
+            "value_type": "string"
+          },
+          "94": {
+            "label_type": "Literal",
+            "value": "dewey",
+            "value_type": "string"
+          }
+        }
+      }
     }
   ],
   "shards_by_language_class": {
@@ -2196,6 +4651,7 @@
     "java": {}
   },
   "shards_by_path": {
-    "skims/test/data/sast/test_cfg.json": 0
+    "skims/test/data/sast/test_cfg.json": 0,
+    "skims/test/data/sast/test_cfg.yaml": 1
   }
 }

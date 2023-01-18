@@ -296,6 +296,7 @@ def _parse_one_cached(
         GraphShardMetadataLanguage.JSON,
         GraphShardMetadataLanguage.KOTLIN,
         GraphShardMetadataLanguage.TYPESCRIPT,
+        GraphShardMetadataLanguage.YAML,
     }
 
     if language in syntax_support:

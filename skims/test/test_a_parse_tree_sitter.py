@@ -52,7 +52,10 @@ from utils.encodings import (
             "cfg_2",
         ),
         (
-            ("skims/test/data/sast/test_cfg.json",),
+            (
+                "skims/test/data/sast/test_cfg.json",
+                "skims/test/data/sast/test_cfg.yaml",
+            ),
             "cfg_path",
         ),
         (
