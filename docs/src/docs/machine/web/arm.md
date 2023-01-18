@@ -379,6 +379,17 @@ to define:
   Minimum CVSS 3.1 score from which agent breaks
   the build for open vulnerabilities.
 
+### Azure Credentials (Out of Scope)
+
+This section refers to repositories that
+are not yet associated with any group on
+the ARM platform,
+which can consult with the credentials
+available in the [Credentials](/machine/web/machine/web/global-credentials/)
+tab.
+to learn more about this section,
+you can enter [here](/machine/web/azure-credentials)
+
 ### Credentials
 
 In this [section,](/machine/web/machine/web/global-credentials)
@@ -423,7 +434,7 @@ the developer who made the change,
 what was removed and added, and
 on what file.
 
-![Commit Hash Id](https://res.cloudinary.com/fluid-attacks/image/upload/v1646329458/docs/web/web_asm_update_commit.png)
+![Commit Hash Id](https://res.cloudinary.com/fluid-attacks/image/upload/v1674065614/docs/web/last_update.png)
 
 :::tip free trial
 **Search for vulnerabilities in your apps for free
