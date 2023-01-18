@@ -158,38 +158,49 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
   );
 
   // Handle actions
-  async function handleSubmit(values: IFormValues): Promise<void> {
-    const secrets = formatSecrets(values);
+  const handleSubmit = useCallback(
+    async (values: IFormValues): Promise<void> => {
+      const secrets = formatSecrets(values);
 
-    if (isAdding) {
-      await handleAddCredentials({
-        variables: {
-          credentials: {
-            name: values.name,
-            ...secrets,
+      if (isAdding) {
+        await handleAddCredentials({
+          variables: {
+            credentials: {
+              name: values.name,
+              ...secrets,
+            },
+            organizationId,
           },
-          organizationId,
-        },
-      });
-    }
+        });
+      }
 
-    if (isEditing && !_.isUndefined(selectedCredentials)) {
-      await handleUpdateCredentials({
-        variables: {
-          credentials: values.newSecrets
-            ? {
-                name: values.name,
-                ...secrets,
-              }
-            : {
-                name: values.name,
-              },
-          credentialsId: selectedCredentials[0].id,
-          organizationId,
-        },
-      });
-    }
-  }
+      if (isEditing && !_.isUndefined(selectedCredentials)) {
+        await handleUpdateCredentials({
+          variables: {
+            credentials: values.newSecrets
+              ? {
+                  name: values.name,
+                  ...secrets,
+                }
+              : {
+                  name: values.name,
+                },
+            credentialsId: selectedCredentials[0].id,
+            organizationId,
+          },
+        });
+      }
+    },
+    [
+      formatSecrets,
+      handleAddCredentials,
+      handleUpdateCredentials,
+      isAdding,
+      isEditing,
+      organizationId,
+      selectedCredentials,
+    ]
+  );
 
   return (
     <Modal
