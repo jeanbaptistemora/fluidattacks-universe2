@@ -1,7 +1,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f343.method_declaration.javascript import (
+from symbolic_eval.f343.method_declaration.common import (
     js_insecure_compression,
 )
 from symbolic_eval.types import (
@@ -15,6 +15,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_COMPRESSION_ALGORITHM: js_insecure_compression,
+    MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM: js_insecure_compression,
 }
 
 

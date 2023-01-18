@@ -25,7 +25,7 @@ def ts_insecure_compression(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method: MethodsEnum = MethodsEnum.JS_INSECURE_COMPRESSION_ALGORITHM
+    method: MethodsEnum = MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -41,5 +41,5 @@ def ts_insecure_compression(
         desc_key="lib_root.f343.insecure_compression_algorithm",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JS_INSECURE_COMPRESSION_ALGORITHM,
+        method=MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM,
     )

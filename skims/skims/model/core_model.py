@@ -5684,7 +5684,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F343,
         developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     TS_INSECURE_COMPRESSION_ALGORITHM = MethodInfo(
         file_name="typescript",
