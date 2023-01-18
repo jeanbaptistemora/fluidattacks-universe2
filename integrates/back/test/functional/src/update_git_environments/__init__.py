@@ -172,3 +172,32 @@ async def mutation_remove(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def mutation_remove_secret(
+    *,
+    user: str,
+    group_name: str,
+    key: str,
+    url_id: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        mutation {{
+            removeEnvironmentUrlSecret(
+                key: "{key}"
+                groupName: "{group_name}"
+                urlId: "{url_id}"
+            ) {{
+                success
+            }}
+        }}
+    """
+
+    data: dict[str, Any] = {
+        "query": query,
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )

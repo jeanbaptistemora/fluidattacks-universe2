@@ -4,6 +4,7 @@ from . import (
     mutation_add,
     mutation_add_secret,
     mutation_remove,
+    mutation_remove_secret,
 )
 from back.test.functional.src.add_toe_input import (  # noqa: E501 pylint: disable=import-error
     get_result,
@@ -258,3 +259,32 @@ async def test_remove_git_environment_url(populate: bool, email: str) -> None:
     assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 1
     assert len(await loaders.root_environment_urls.load((root_id))) == 2
     assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 0
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_git_environments")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_remove_environment_url_secret(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    url_id: str = "e6118eb4696e04e882362cf2159baf240687256f"
+
+    result: Dict[str, Any] = await mutation_remove_secret(
+        user=email,
+        group_name=group_name,
+        key="user",
+        url_id=url_id,
+    )
+    assert "errors" not in result
+    assert result["data"]["removeEnvironmentUrlSecret"]["success"]
+
+    loaders = get_new_context()
+    secrets = await loaders.environment_secrets.load((url_id))
+    assert len(secrets) == 0
