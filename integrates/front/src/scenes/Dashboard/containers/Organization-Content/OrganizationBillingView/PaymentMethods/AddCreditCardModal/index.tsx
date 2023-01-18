@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 import { boolean, number, object } from "yup";
@@ -65,9 +65,9 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
     makeDefault: boolean(),
   });
 
-  function goToOtherMethods(): void {
+  const goToOtherMethods = useCallback((): void => {
     onChangeMethod("OTHER_METHOD");
-  }
+  }, [onChangeMethod]);
 
   return (
     <Modal

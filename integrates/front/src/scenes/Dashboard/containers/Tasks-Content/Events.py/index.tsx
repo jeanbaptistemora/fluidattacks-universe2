@@ -4,7 +4,7 @@ import type { ColumnDef, Row } from "@tanstack/react-table";
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
 import type { FormEvent } from "react";
-import React from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 
 import { GET_TODO_EVENTS } from "./queries";
@@ -66,15 +66,18 @@ const EventsTaskView: React.FC = (): JSX.Element => {
     void refetch({ search });
   }, 500);
 
-  function goToEvent(rowInfo: Row<IEventAttr>): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      mixpanel.track("ReadEvent");
-      push(
-        `/groups/${rowInfo.original.groupName}/events/${rowInfo.original.id}/description`
-      );
-      event.preventDefault();
-    };
-  }
+  const goToEvent = useCallback(
+    (rowInfo: Row<IEventAttr>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        mixpanel.track("ReadEvent");
+        push(
+          `/groups/${rowInfo.original.groupName}/events/${rowInfo.original.id}/description`
+        );
+        event.preventDefault();
+      };
+    },
+    [push]
+  );
 
   return (
     <div>

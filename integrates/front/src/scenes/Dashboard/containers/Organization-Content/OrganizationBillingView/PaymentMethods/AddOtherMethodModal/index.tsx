@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { Field, Form, Formik } from "formik";
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
@@ -37,9 +37,9 @@ export const AddOtherMethodModal = ({
 }: IAddOtherMethodModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  function goToCreditCard(): void {
+  const goToCreditCard = useCallback((): void => {
     onChangeMethod("CREDIT_CARD");
-  }
+  }, [onChangeMethod]);
 
   const [countries, setCountries] = useState<ICountry[]>([]);
   const [states, setStates] = useState<string[]>([]);
