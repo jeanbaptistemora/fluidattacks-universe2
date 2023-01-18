@@ -26,6 +26,8 @@ This window has four tabs:
 **Treatments**
 and **Tracking**.
 
+## Details tab
+
 In the **Details** tab,
 you can see the vulnerability’s
 status –whether it is open or
@@ -34,6 +36,15 @@ last reattack request date
 and current treatment.
 
 ![Vulnerability Detail Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674000974/docs/web/vulnerabilities/management/detailstab.png)
+
+Here we explain the information of each item:
+
+- **Location**:
+  - **Locations**:
+    Path where the vulnerability was found.
+- **End Users**:
+  xxx
+  - **xxx**:
 
 Next to details tab is code
 is **Code** tab.
