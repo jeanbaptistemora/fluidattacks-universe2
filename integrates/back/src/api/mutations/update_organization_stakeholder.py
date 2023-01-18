@@ -78,7 +78,7 @@ async def mutate(
             )
         )
         # Validate role requirements before changing anything
-        orgs_domain.update_stakeholder_role(
+        await orgs_domain.update_stakeholder_role(
             loaders=loaders,
             user_email=user_email,
             organization_id=organization_id,
