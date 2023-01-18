@@ -148,6 +148,23 @@ def validate_url(url: Optional[str]) -> None:
         )
 
 
+def validate_url_deco(url_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            url = get_attr_value(
+                field=url_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            validate_url(url=url)
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_chart_field(param_value: str, param_name: str) -> None:
     is_valid = bool(re.search("^[A-Za-z0-9 #_-]*$", str(param_value)))
     if not is_valid:

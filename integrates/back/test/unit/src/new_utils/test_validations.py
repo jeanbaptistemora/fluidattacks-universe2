@@ -16,39 +16,8 @@ from db_model.findings.enums import (
 from db_model.groups.types import (
     GroupFile,
 )
-from newutils.validations import (
-    has_sequence,
-    validate_alphanumeric_field,
-    validate_alphanumeric_field_deco,
-    validate_commit_hash_deco,
-    validate_email_address,
-    validate_email_address_deco,
-    validate_field_length,
-    validate_field_length_deco,
-    validate_fields,
-    validate_fields_deco,
-    validate_file_exists,
-    validate_file_exists_deco,
-    validate_file_name,
-    validate_file_name_deco,
-    validate_finding_id_deco,
-    validate_finding_title_change_policy_deco,
-    validate_group_language_deco,
-    validate_group_name,
-    validate_group_name_deco,
-    validate_include_lowercase_deco,
-    validate_include_number_deco,
-    validate_include_uppercase_deco,
-    validate_int_range,
-    validate_int_range_deco,
-    validate_sanitized_csv_input,
-    validate_sanitized_csv_input_deco,
-    validate_sequence_deco,
-    validate_space_field_deco,
-    validate_start_letter_deco,
-    validate_string_length_between_deco,
-    validate_symbols,
-    validate_symbols_deco,
+from newutils import (
+    validations,
 )
 import pytest
 from typing import (
@@ -63,13 +32,13 @@ pytestmark = [
 
 
 def test_validate_alphanumeric_field() -> None:
-    assert validate_alphanumeric_field("one test")
+    assert validations.validate_alphanumeric_field("one test")
     with pytest.raises(InvalidField):
-        assert validate_alphanumeric_field("=test2@")
+        assert validations.validate_alphanumeric_field("=test2@")
 
 
 def test_validate_alphanumeric_field_deco() -> None:
-    @validate_alphanumeric_field_deco("field")
+    @validations.validate_alphanumeric_field_deco("field")
     def decorated_func(field: str) -> str:
         return field
 
@@ -80,7 +49,7 @@ def test_validate_alphanumeric_field_deco() -> None:
     class TestClass(NamedTuple):
         field: str
 
-    @validate_alphanumeric_field_deco("test_obj.field")
+    @validations.validate_alphanumeric_field_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -93,14 +62,14 @@ def test_validate_alphanumeric_field_deco() -> None:
 
 
 def test_validate_email_address() -> None:
-    assert validate_email_address("test@unittesting.com")
+    assert validations.validate_email_address("test@unittesting.com")
     with pytest.raises(InvalidField):
-        assert validate_email_address("testunittesting.com")
-        assert validate_email_address("test+1@unittesting.com")
+        assert validations.validate_email_address("testunittesting.com")
+        assert validations.validate_email_address("test+1@unittesting.com")
 
 
 def test_validate_email_address_deco() -> None:
-    @validate_email_address_deco("email")
+    @validations.validate_email_address_deco("email")
     def decorated_func(email: str) -> str:
         return email
 
@@ -109,7 +78,7 @@ def test_validate_email_address_deco() -> None:
     class Email(NamedTuple):
         address: str
 
-    @validate_email_address_deco("email_test.address")
+    @validations.validate_email_address_deco("email_test.address")
     def decorated_func_obj(email_test: Email) -> Email:
         return email_test
 
@@ -122,32 +91,32 @@ def test_validate_email_address_deco() -> None:
 
 
 def test_validate_field_length() -> None:
-    assert validate_field_length("testlength", limit=12)
-    assert validate_field_length(
+    assert validations.validate_field_length("testlength", limit=12)
+    assert validations.validate_field_length(
         "testlength", limit=2, is_greater_than_limit=True
     )
     with pytest.raises(InvalidFieldLength):
-        validate_field_length("testlength", limit=9)
-        validate_field_length(
+        validations.validate_field_length("testlength", limit=9)
+        validations.validate_field_length(
             "testlength", limit=11, is_greater_than_limit=True
         )
 
 
 def test_validate_field_length_deco() -> None:
-    @validate_field_length_deco(
+    @validations.validate_field_length_deco(
         "test_string", limit=2, is_greater_than_limit=True
     )
-    @validate_field_length_deco("test_string", limit=12)
+    @validations.validate_field_length_deco("test_string", limit=12)
     def decorated_func(test_string: str) -> str:
         return test_string
 
     assert decorated_func(test_string="testlength")
     with pytest.raises(InvalidFieldLength):
 
-        @validate_field_length_deco(
+        @validations.validate_field_length_deco(
             "test_string", limit=11, is_greater_than_limit=True
         )
-        @validate_field_length_deco("test_string", limit=9)
+        @validations.validate_field_length_deco("test_string", limit=9)
         def decorated_func_failed(test_string: str) -> str:
             return test_string
 
@@ -156,7 +125,7 @@ def test_validate_field_length_deco() -> None:
     class TestClass(NamedTuple):
         test_string: str
 
-    @validate_field_length_deco("test_obj.test_string", limit=12)
+    @validations.validate_field_length_deco("test_obj.test_string", limit=12)
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -178,12 +147,19 @@ def test_validate_field_length_deco() -> None:
     ],
 )
 def test_validate_fields(fields: list) -> None:
-    assert not bool(validate_fields(["valid%", " valid="]))  # type: ignore
     assert not bool(
-        validate_fields(["testfield", "testfield2"])  # type: ignore
+        validations.validate_fields(["valid%", " valid="]),  # type: ignore
+    )
+    assert not bool(
+        validations.validate_fields(  # type: ignore
+            [
+                "testfield",
+                "testfield2",
+            ]
+        ),
     )
     with pytest.raises(InvalidChar):
-        assert validate_fields(fields)  # type: ignore
+        assert validations.validate_fields(fields)  # type: ignore
 
 
 def test_validate_fields_deco() -> None:
@@ -193,13 +169,15 @@ def test_validate_fields_deco() -> None:
 
     test_object = TestClass(field1="valid", field2=" valid=")
 
-    @validate_fields_deco(["test_object.field1", "test_object.field2"])
+    @validations.validate_fields_deco(
+        ["test_object.field1", "test_object.field2"]
+    )
     def decorated_func_obj(test_object: TestClass) -> TestClass:
         return test_object
 
     assert decorated_func_obj(test_object=test_object)
 
-    @validate_fields_deco(["field1", "field2"])
+    @validations.validate_fields_deco(["field1", "field2"])
     def decorated_func(field1: str, field2: str) -> str:
         return field1 + field2
 
@@ -214,7 +192,7 @@ def test_validate_fields_deco() -> None:
 
 def test_validate_file_exists() -> None:
     file_name = "test1.txt"
-    validate_file_exists(
+    validations.validate_file_exists(
         file_name,
         None,
     )
@@ -230,19 +208,25 @@ def test_validate_file_exists() -> None:
             modified_by="user@gmail.com",
         ),
     ]
-    validate_file_exists(
+    validations.validate_file_exists(
         file_name=file_name,
         group_files=group_files,
     )
     with pytest.raises(ErrorFileNameAlreadyExists):
-        assert validate_file_exists("test2.txt", group_files)  # type: ignore
-        assert validate_file_exists("test3.txt", group_files)  # type: ignore
+        assert validations.validate_file_exists(  # type: ignore
+            "test2.txt",
+            group_files,
+        )
+        assert validations.validate_file_exists(  # type: ignore
+            "test3.txt",
+            group_files,
+        )
 
 
 def test_validate_file_exists_deco() -> None:
     file_name = "test1.txt"
 
-    @validate_file_exists_deco("file_name", "not_field")
+    @validations.validate_file_exists_deco("file_name", "not_field")
     def decorated_func(file_name: str) -> str:
         return file_name
 
@@ -261,7 +245,7 @@ def test_validate_file_exists_deco() -> None:
         ),
     ]
 
-    @validate_file_exists_deco("file_name", "group_files")
+    @validations.validate_file_exists_deco("file_name", "group_files")
     def decorated_func_group(
         file_name: str, group_files: Optional[list[GroupFile]]
     ) -> Tuple:
@@ -282,7 +266,7 @@ def test_validate_file_exists_deco() -> None:
     test_obj = TestClass(file_name="test1.txt")
     test_obj_fail = TestClass(file_name="test2.txt")
 
-    @validate_file_exists_deco("test_obj.file_name", "group_files")
+    @validations.validate_file_exists_deco("test_obj.file_name", "group_files")
     def decorated_func_obj(
         test_obj: TestClass,
         group_files: Optional[list[GroupFile]],
@@ -295,14 +279,16 @@ def test_validate_file_exists_deco() -> None:
 
 
 def test_validate_file_name() -> None:
-    validate_file_name("test123.py")
+    validations.validate_file_name("test123.py")
     with pytest.raises(InvalidChar):
-        assert validate_file_name("test.test.py")  # type: ignore
-        assert validate_file_name("test=$invalidname!.py")  # type: ignore
+        assert validations.validate_file_name("test.test.py")  # type: ignore
+        assert validations.validate_file_name(  # type: ignore
+            "test=$invalidname!.py",
+        )
 
 
 def test_validate_file_name_deco() -> None:
-    @validate_file_name_deco("file_name")
+    @validations.validate_file_name_deco("file_name")
     def decorated_func(file_name: str) -> str:
         return file_name
 
@@ -315,7 +301,7 @@ def test_validate_file_name_deco() -> None:
     class TestClass(NamedTuple):
         file_name: str
 
-    @validate_file_name_deco("test_object.file_name")
+    @validations.validate_file_name_deco("test_object.file_name")
     def decorated_func_obj(test_object: TestClass) -> TestClass:
         return test_object
 
@@ -327,13 +313,13 @@ def test_validate_file_name_deco() -> None:
 
 
 def test_validate_group_name() -> None:
-    assert not bool(validate_group_name("test"))  # type: ignore
+    assert not bool(validations.validate_group_name("test"))  # type: ignore
     with pytest.raises(InvalidField):
-        assert validate_group_name("=test2@")  # type: ignore
+        assert validations.validate_group_name("=test2@")  # type: ignore
 
 
 def test_validate_group_name_deco() -> None:
-    @validate_group_name_deco("group")
+    @validations.validate_group_name_deco("group")
     def decorated_func(group: str) -> str:
         return group
 
@@ -348,7 +334,7 @@ def test_validate_group_name_deco() -> None:
     test_obj = TestClass(group="test")
     test_obj_fail = TestClass(group="=test2@")
 
-    @validate_group_name_deco("test_obj.group")
+    @validations.validate_group_name_deco("test_obj.group")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -368,13 +354,13 @@ def test_validate_int_range(
     value: int, lower_bound: int, upper_bound: int, inclusive: bool
 ) -> None:
     with pytest.raises(NumberOutOfRange):
-        assert validate_int_range(
+        assert validations.validate_int_range(
             value, lower_bound, upper_bound, inclusive  # type: ignore
         )
 
 
 def test_validate_int_range_deco() -> None:
-    @validate_int_range_deco(
+    @validations.validate_int_range_deco(
         "int_value", lower_bound=11, upper_bound=12, inclusive=True
     )
     def decorated_func(int_value: int) -> int:
@@ -383,7 +369,7 @@ def test_validate_int_range_deco() -> None:
     assert decorated_func(int_value=12)
     with pytest.raises(NumberOutOfRange):
 
-        @validate_int_range_deco(
+        @validations.validate_int_range_deco(
             "int_value", lower_bound=11, upper_bound=12, inclusive=False
         )
         def decorated_func_fail(int_value: int) -> int:
@@ -397,7 +383,7 @@ def test_validate_int_range_deco() -> None:
     test_obj = TestClass(int_value=12)
     test_obj_fail = TestClass(int_value=13)
 
-    @validate_int_range_deco(
+    @validations.validate_int_range_deco(
         "test_obj.int_value", lower_bound=11, upper_bound=12, inclusive=True
     )
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
@@ -423,14 +409,14 @@ def test_validate_int_range_deco() -> None:
     ],
 )
 def test_validate_sanitized_csv_input(field: str) -> None:
-    validate_sanitized_csv_input(
+    validations.validate_sanitized_csv_input(
         "validfield@",
         "valid+field",
         "valid field",
         "http://localhost/bWAPP/sqli_1.php",
     )
     with pytest.raises(UnsanitizedInputFound):
-        assert validate_sanitized_csv_input(field)  # type: ignore
+        assert validations.validate_sanitized_csv_input(field)  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -461,7 +447,9 @@ def test_validate_sanitized_csv_input(field: str) -> None:
 def test_validate_sanitized_csv_input_deco(
     field1: str, field2: str, field3: str
 ) -> None:
-    @validate_sanitized_csv_input_deco(field_names=["field1", "field3"])
+    @validations.validate_sanitized_csv_input_deco(
+        field_names=["field1", "field3"]
+    )
     def decorated_func(field1: str, field2: str, field3: str) -> str:
         return field1 + field2 + field3
 
@@ -493,7 +481,7 @@ def test_validate_sanitized_csv_input_deco(
         field3='"=invalidField"',
     )
 
-    @validate_sanitized_csv_input_deco(
+    @validations.validate_sanitized_csv_input_deco(
         field_names=["test_obj.field1", "test_obj.field3", "field"]
     )
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
@@ -528,11 +516,11 @@ def test_validate_sanitized_csv_input_deco(
     ],
 )
 def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
-    assert has_sequence(value, length) == should_fail
+    assert validations.has_sequence(value, length) == should_fail
 
 
 def test_validate_sequence_deco() -> None:
-    @validate_sequence_deco("value")
+    @validations.validate_sequence_deco("value")
     def decorated_func(value: str) -> str:
         return value
 
@@ -543,7 +531,7 @@ def test_validate_sequence_deco() -> None:
     class TestClass(NamedTuple):
         value: str
 
-    @validate_sequence_deco("test_obj.value")
+    @validations.validate_sequence_deco("test_obj.value")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -580,9 +568,9 @@ def test_validate_sequence_deco() -> None:
 def test_validate_symbols(value: str, should_fail: bool) -> None:
     if should_fail:
         with pytest.raises(InvalidReportFilter):
-            assert validate_symbols(value)  # type: ignore
+            assert validations.validate_symbols(value)  # type: ignore
     else:
-        assert validate_symbols(value) is None  # type: ignore
+        assert validations.validate_symbols(value) is None  # type: ignore
 
 
 @pytest.mark.parametrize(
@@ -608,7 +596,7 @@ def test_validate_symbols(value: str, should_fail: bool) -> None:
     ],
 )
 def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
-    @validate_symbols_deco("value")
+    @validations.validate_symbols_deco("value")
     def decorated_func(value: str) -> str:
         return value
 
@@ -621,7 +609,7 @@ def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
     class TestClass(NamedTuple):
         value: str
 
-    @validate_symbols_deco("test_obj.value")
+    @validations.validate_symbols_deco("test_obj.value")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -634,7 +622,7 @@ def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
 
 
 def test_validate_finding_id_deco() -> None:
-    @validate_finding_id_deco("finding_id")
+    @validations.validate_finding_id_deco("finding_id")
     def decorated_func(finding_id: str) -> str:
         return finding_id
 
@@ -648,7 +636,7 @@ def test_validate_finding_id_deco() -> None:
     class TestClass(NamedTuple):
         finding_id: str
 
-    @validate_finding_id_deco("test_obj.finding_id")
+    @validations.validate_finding_id_deco("test_obj.finding_id")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -671,7 +659,7 @@ def test_validate_finding_id_deco() -> None:
     ],
 )
 def test_validate_group_language(language: str, should_fail: bool) -> None:
-    @validate_group_language_deco("value")
+    @validations.validate_group_language_deco("value")
     def decorated_func(value: str) -> str:
         return value
 
@@ -687,7 +675,7 @@ def test_validate_group_language(language: str, should_fail: bool) -> None:
     test_obj = TestClass(language="es")
     test_obj_fail = TestClass(language="fr")
 
-    @validate_group_language_deco("test_obj.language")
+    @validations.validate_group_language_deco("test_obj.language")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -697,7 +685,7 @@ def test_validate_group_language(language: str, should_fail: bool) -> None:
 
 
 def test_validate_space_field_deco() -> None:
-    @validate_space_field_deco("field")
+    @validations.validate_space_field_deco("field")
     def decorated_func(field: str) -> str:
         return field
 
@@ -714,7 +702,7 @@ def test_validate_space_field_deco() -> None:
     test_obj = TestClass(field="test")
     test_obj_fail = TestClass(field="   ")
 
-    @validate_space_field_deco("test_obj.field")
+    @validations.validate_space_field_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -724,7 +712,7 @@ def test_validate_space_field_deco() -> None:
 
 
 def test_validate_string_length_between_deco() -> None:
-    @validate_string_length_between_deco(
+    @validations.validate_string_length_between_deco(
         "field", inclusive_lower_bound=4, inclusive_upper_bound=8
     )
     def decorated_func(field: str) -> str:
@@ -743,7 +731,7 @@ def test_validate_string_length_between_deco() -> None:
     test_obj = TestClass(field="field")
     test_obj_fail = TestClass(field="longerfield")
 
-    @validate_string_length_between_deco(
+    @validations.validate_string_length_between_deco(
         "test_obj.field", inclusive_lower_bound=4, inclusive_upper_bound=8
     )
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
@@ -755,7 +743,7 @@ def test_validate_string_length_between_deco() -> None:
 
 
 def test_validate_title_change_deco() -> None:
-    @validate_finding_title_change_policy_deco(
+    @validations.validate_finding_title_change_policy_deco(
         "old_title_field",
         "new_title_field",
         "status_field",
@@ -788,7 +776,7 @@ def test_validate_title_change_deco() -> None:
         old_title_field="old_title", new_title_field="new_title"
     )
 
-    @validate_finding_title_change_policy_deco(
+    @validations.validate_finding_title_change_policy_deco(
         "test_obj.old_title_field",
         "test_obj.new_title_field",
         "status_field",
@@ -808,7 +796,7 @@ def test_validate_title_change_deco() -> None:
 
 
 def test_validate_commit_hash_deco() -> None:
-    @validate_commit_hash_deco(
+    @validations.validate_commit_hash_deco(
         "comm",
     )
     def decorated_func(comm: str) -> str:
@@ -828,7 +816,7 @@ def test_validate_commit_hash_deco() -> None:
     test_obj = TestClass(comm="da39a3ee5e6b4b0d3255bfef95601890afd80709")
     test_obj_fail = TestClass(comm="invalid Hash")
 
-    @validate_commit_hash_deco("test_obj.comm")
+    @validations.validate_commit_hash_deco("test_obj.comm")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -838,7 +826,7 @@ def test_validate_commit_hash_deco() -> None:
 
 
 def test_validate_start_letter_deco() -> None:
-    @validate_start_letter_deco(
+    @validations.validate_start_letter_deco(
         "field",
     )
     def decorated_func(field: str) -> str:
@@ -855,7 +843,7 @@ def test_validate_start_letter_deco() -> None:
     test_obj = TestClass(field="abc123")
     test_obj_fail = TestClass(field="123abc")
 
-    @validate_start_letter_deco("test_obj.field")
+    @validations.validate_start_letter_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -865,7 +853,7 @@ def test_validate_start_letter_deco() -> None:
 
 
 def test_validate_include_number_deco() -> None:
-    @validate_include_number_deco(
+    @validations.validate_include_number_deco(
         "field",
     )
     def decorated_func(field: str) -> str:
@@ -882,7 +870,7 @@ def test_validate_include_number_deco() -> None:
     test_obj = TestClass(field="abc123")
     test_obj_fail = TestClass(field="abcdef")
 
-    @validate_include_number_deco("test_obj.field")
+    @validations.validate_include_number_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -892,7 +880,7 @@ def test_validate_include_number_deco() -> None:
 
 
 def test_validate_include_lowercase_deco() -> None:
-    @validate_include_lowercase_deco("field")
+    @validations.validate_include_lowercase_deco("field")
     def decorated_func(field: str) -> str:
         return field
 
@@ -907,7 +895,7 @@ def test_validate_include_lowercase_deco() -> None:
     test_obj = TestClass(field="abc123")
     test_obj_fail = TestClass(field="ABC123")
 
-    @validate_include_lowercase_deco("test_obj.field")
+    @validations.validate_include_lowercase_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
@@ -917,7 +905,7 @@ def test_validate_include_lowercase_deco() -> None:
 
 
 def test_validate_include_uppercase_deco() -> None:
-    @validate_include_uppercase_deco(
+    @validations.validate_include_uppercase_deco(
         "field",
     )
     def decorated_func(field: str) -> str:
@@ -934,10 +922,28 @@ def test_validate_include_uppercase_deco() -> None:
     test_obj = TestClass(field="aBc123")
     test_obj_fail = TestClass(field="abc123")
 
-    @validate_include_uppercase_deco("test_obj.field")
+    @validations.validate_include_uppercase_deco("test_obj.field")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
     assert decorated_func_obj(test_obj=test_obj)
     with pytest.raises(InvalidReportFilter):
         decorated_func_obj(test_obj=test_obj_fail)
+
+
+def test_validate_url_deco() -> None:
+    @validations.validate_url_deco("url")
+    def decorated_func(url: str) -> str:
+        return url
+
+    assert decorated_func(
+        url="https://www.example.com/path/to/page?query=1%20and%202"
+    )
+    assert decorated_func(
+        url="ftp://user:password@ftp.example.com:21/path/to/file"
+    )
+
+    with pytest.raises(InvalidChar):
+        decorated_func(
+            url="https://www.example.com/path/to/page!query=1%20and%202"
+        )
