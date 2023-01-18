@@ -388,7 +388,7 @@ which can consult with the credentials
 available in the [Credentials](/machine/web/machine/web/global-credentials/)
 tab.
 to learn more about this section,
-you can enter [here](/machine/web/azure-credentials)
+you can enter [here.](/machine/web/azure-credentials)
 
 ### Credentials
 
@@ -419,7 +419,7 @@ clicking on the icon with the
 letter **i** on the ARM’s
 top-right menu.
 
-![Top Right Menu](https://res.cloudinary.com/fluid-attacks/image/upload/v1646329458/docs/web/web_asm_update_menu.png)
+![Commit Hash Id](https://res.cloudinary.com/fluid-attacks/image/upload/v1674065614/docs/web/last_update.png)
 
 Upon clicking, you will see the
 commit hash ID (a commit’s unique
@@ -433,8 +433,6 @@ lines of code that were changed,
 the developer who made the change,
 what was removed and added, and
 on what file.
-
-![Commit Hash Id](https://res.cloudinary.com/fluid-attacks/image/upload/v1674065614/docs/web/last_update.png)
 
 :::tip free trial
 **Search for vulnerabilities in your apps for free

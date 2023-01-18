@@ -393,7 +393,7 @@ Remember to click on the
 or validation if the credential
 gives access to clone the repository.
 
-### Adding a root with the Azure DevOps PTA
+### Adding a root with the Azure DevOps PAT
 
 **Azure DevOps** is a platform that
 provides software development services,
@@ -406,7 +406,7 @@ if you want more information.
 
 In the ARM,
 if you want to add
-**Azure DevOps PTA (Personal Access Token)**
+**Azure DevOps PAT (Personal Access Token)**
 repositories, you have to select
 that type of credential.
 There,

@@ -49,7 +49,7 @@ credential name and select the
 credential type (
 [HTTPS](/machine/web/groups/scope/roots/#adding-a-root-with-the-https),
 [SSH](/machine/web/groups/scope/roots/#adding-a-root-with-the-ssh-key)
-or [Azure DevOps PTA](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pta)).
+or [Azure DevOps PAT](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pat)).
 
 ### Edit
 

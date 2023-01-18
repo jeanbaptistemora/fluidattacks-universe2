@@ -20,7 +20,7 @@ view in the column named **Type**.
 If you don't know how to add
 an Azure DevOps PAT credential,
 you can do it in two parts:
-[Scope](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pta)
+[Scope](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pat)
 or [Global credentials](/machine/web/machine/web/global-credentials/).
 
 When you see that you have
@@ -31,7 +31,7 @@ repositories that are not yet
 associated with the ARM and
 that you have access with the
 token given by adding an
-[Azure DevOps PTA](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pta)
+[Azure DevOps PAT](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pat)
 credential where you have access
 to read source code.
 
