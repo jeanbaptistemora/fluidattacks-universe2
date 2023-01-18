@@ -261,9 +261,15 @@ const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
   return toeLinesAttr.filename.slice(lastPointindex + 1);
 };
 
+const formatOptionalDate: (date: string | null) => Date | undefined = (
+  date: string | null
+): Date | undefined =>
+  _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
+
 export {
   commitFormatter,
   formatBePresent,
+  formatOptionalDate,
   formatPercentage,
   formatRootId,
   getCoverage,
