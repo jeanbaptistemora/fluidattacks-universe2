@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { StyledMenuItem } from "../styles";
 
@@ -13,9 +13,9 @@ const MenuItem: React.FC<IMenuItemsProps> = (
 ): JSX.Element => {
   const { itemContent, eventKey, onClick } = props;
 
-  function onClick1(): void {
+  const onClick1 = useCallback((): void => {
     onClick(eventKey);
-  }
+  }, [eventKey, onClick]);
 
   return <StyledMenuItem onClick={onClick1}>{itemContent}</StyledMenuItem>;
 };

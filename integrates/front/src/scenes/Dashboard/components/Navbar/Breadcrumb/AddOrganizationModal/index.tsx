@@ -5,7 +5,7 @@ import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import { object, string } from "yup";
@@ -76,12 +76,15 @@ const AddOrganizationModal: React.FC<IAddOrganizationModalProps> = ({
     }
   );
 
-  function handleSubmit(values: { country: string; name: string }): void {
-    mixpanel.track("AddOrganization");
-    void addOrganization({
-      variables: { country: values.country, name: values.name.toUpperCase() },
-    });
-  }
+  const handleSubmit = useCallback(
+    (values: { country: string; name: string }): void => {
+      mixpanel.track("AddOrganization");
+      void addOrganization({
+        variables: { country: values.country, name: values.name.toUpperCase() },
+      });
+    },
+    [addOrganization]
+  );
 
   const validations = object().shape({
     country: string().required(t("validations.required")),

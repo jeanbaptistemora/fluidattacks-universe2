@@ -4,7 +4,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import ImageViewer from "react-simple-image-viewer";
 
 interface IEvidenceLightboxProps {
@@ -17,6 +17,9 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
   props: IEvidenceLightboxProps
 ): JSX.Element => {
   const { currentImage, evidenceImages, onClose } = props;
+  const handleOnClose = useCallback((): void => {
+    onClose(0, false);
+  }, [onClose]);
 
   return currentImage >= 0 ? (
     <div aria-label={"ImageViewer"} role={"dialog"}>
@@ -31,9 +34,7 @@ const EvidenceLightbox: React.FC<IEvidenceLightboxProps> = (
         disableScroll={true}
         leftArrowComponent={<FontAwesomeIcon icon={faAngleLeft} />}
         // eslint-disable-next-line react/jsx-no-bind
-        onClose={(): void => {
-          onClose(0, false);
-        }}
+        onClose={handleOnClose}
         rightArrowComponent={<FontAwesomeIcon icon={faAngleRight} />}
         src={evidenceImages.map(
           (name: { url: string }): string => `${location.href}/${name.url}`
