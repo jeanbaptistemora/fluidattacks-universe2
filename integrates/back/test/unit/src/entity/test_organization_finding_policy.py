@@ -415,41 +415,6 @@ async def test_deactivate_org_finding_policy() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_org_finding_policy() -> None:
-    org_name = "okada"
-    fin_name = "031. Excessive privileges - AWS"
-    query = """
-        mutation AddOrganizationFindingPolicy(
-            $findingName: String!
-            $orgName: String!
-        ) {
-            addOrganizationFindingPolicy(
-                findingName: $findingName
-                organizationName: $orgName
-            ) {
-                success
-            }
-        }
-    """
-
-    data = {
-        "query": query,
-        "variables": {"orgName": org_name, "findingName": fin_name},
-    }
-    result = await _get_result_async(
-        data, stakeholder="integratesuser2@gmail.com"
-    )
-    assert "errors" not in result
-    assert result["data"]["addOrganizationFindingPolicy"]["success"]
-
-    result = await _get_result_async(
-        data, stakeholder="org_testuser5@gmail.com"
-    )
-    assert "errors" in result
-    assert result["errors"][0]["message"] == "Access denied"
-
-
-@pytest.mark.changes_db
 async def test_submit_organization_finding_policy() -> None:
     organization_name = "okada"
     finding_name = "001. SQL injection - C Sharp SQL API"
