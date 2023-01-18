@@ -6198,6 +6198,54 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,58,16,skims,165. Insecure service configuration - AWS,"Should not apply directly to users, Should be on group. in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
+  48 |           - Effect: Allow
+  49 |             Action:
+  50 |               - rds:CreateDBSnapshot
+  51 |             Resource: '*'
+  52 |             NotResource:
+  53 |               - arn:aws:s3:::HRBucket/Payroll
+  54 |               - arn:aws:s3:::HRBucket/Payroll/*
+  55 |             Condition:
+  56 |               StringEquals:
+  57 |                 rds:DatabaseClass: db.t2.micro
+> 58 |       Users:
+  59 |         - user1
+  60 |       Groups:
+  61 |         - TestDBGroup
+  62 |   Policy:
+  63 |     Type: AWS::IAM::Policy
+  64 |     Properties:
+  65 |       PolicyName: CFNUsers
+  66 |       PolicyDocument:
+  67 |         Version: '2012-10-17'
+  68 |         Statement:
+     ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_aplly_users
+F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,87,16,skims,165. Insecure service configuration - AWS,"Should not apply directly to users, Should be on group. in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
+   77 |                 ""arn:aws:s3:::HRBucket/Payroll/*""
+   78 |               ],
+   79 |               ""Condition"": {
+   80 |                 ""StringEquals"": {
+   81 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   82 |                 }
+   83 |               }
+   84 |             }
+   85 |           ]
+   86 |         },
+>  87 |         ""Users"": [
+   88 |           ""user1""
+   89 |         ],
+   90 |         ""Groups"": [
+   91 |           ""TestDBGroup""
+   92 |         ]
+   93 |       }
+   94 |     },
+   95 |     ""Policy"": {
+   96 |       ""Type"": ""AWS::IAM::Policy"",
+   97 |       ""Properties"": {
+      ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_aplly_users
 F164,lines,namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json","
    1 | {
    2 |     ""iisSettings"": {

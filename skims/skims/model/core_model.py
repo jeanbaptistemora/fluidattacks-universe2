@@ -4941,6 +4941,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    CFN_IAM_PERMISSIONS_POLICY_APLLY_USERS = MethodInfo(
+        file_name="cloudformation",
+        name="cfn_iam_permissions_policy_aplly_users",
+        module="lib_path",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS = MethodInfo(
         file_name="cloudformation",
         name="cfn_iam_permissions_policy_wildcard_actions",
