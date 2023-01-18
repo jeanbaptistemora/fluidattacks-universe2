@@ -1080,6 +1080,7 @@
     - asvs.12_1_3
     - asvs.11_1_4
     - asvs.12_1_2
+    - cwe25.400
   metadata: {}
 "040":
   en:
@@ -1412,6 +1413,7 @@
     - nistssdf.PW_6_1
     - asvs.5_2_8
     - owaspapi.API9
+    - cwe25.94
   metadata: {}
 "051":
   en:
@@ -1650,6 +1652,7 @@
     - asvs.11_1_2
     - asvs.11_1_3
     - asvs.11_1_4
+    - cwe25.400
   metadata: {}
 "075":
   en:
@@ -4593,6 +4596,7 @@
     - sig.I_2_1
     - asvs.10_2_1
     - asvs.10_2_6
+    - cwe25.94
   metadata: {}
 "156":
   en:
@@ -4715,6 +4719,7 @@
     - wassec.5_3
     - nistssdf.PW_6_1
     - cwe25.416
+    - cwe25.787
     - osamm.IR_3
     - asvs.5_5_2
     - asvs.14_1_2
@@ -4774,9 +4779,9 @@
     - ptes.5_5_7
     - mvsp.2_5
     - owaspmasvs.V7_8
+    - cwe25.119
     - cwe25.125
     - cwe25.416
-    - cwe25.119
     - osamm.IR_3
     - asvs.5_4_1
     - c2m2.9_4_d
@@ -4825,6 +4830,7 @@
     - siglite.SL_89
     - sig.I_1_19_3
     - sig.I_2_1
+    - cwe25.94
   metadata: {}
 "160":
   en:
@@ -5022,8 +5028,8 @@
     - ptes.5_5_7
     - owasprisks.P15
     - owaspmasvs.V7_6
-    - cwe25.476
     - cwe25.276
+    - cwe25.476
     - osamm.SA_2
     - c2m2.7_2_c
     - cwe.453
@@ -5101,6 +5107,7 @@
     - cwe.400
     - cwe.1325
     - asvs.14_1_2
+    - cwe25.94
   metadata: {}
 "167":
   en:
@@ -5558,14 +5565,15 @@
     - bsafss.SC_3-3
     - bsafss.LO_2-4
     - owaspmasvs.V6_2
+    - cwe25.20
+    - cwe25.22
+    - cwe25.78
     - cwe25.79
     - cwe25.89
-    - cwe25.20
-    - cwe25.78
-    - cwe25.22
     - cwe25.77
-    - cwe25.918
+    - cwe25.94
     - cwe25.611
+    - cwe25.918
     - asvs.1_5_3
     - asvs.5_2_5
     - asvs.5_2_6
@@ -8809,9 +8817,9 @@
     - owaspmasvs.V7_6
     - nist800171.4_2
     - cwe25.78
+    - cwe25.119
     - cwe25.416
     - cwe25.476
-    - cwe25.119
     - nist800115.4_2
     - swiftcsc.2_3
     - swiftcsc.2_10
@@ -11977,6 +11985,7 @@
     - owaspscp.13
     - cwe25.125
     - cwe25.190
+    - cwe25.787
     - osamm.IR_3
     - asvs.5_4_3
     - siglite.SL_89
@@ -12288,6 +12297,7 @@
     - asvs.8_3_6
     - owaspmasvs.V8_6
     - owaspmasvs.V8_7
+    - cwe25.400
   metadata: {}
 "351":
   en:

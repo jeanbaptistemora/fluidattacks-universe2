@@ -2631,6 +2631,9 @@ cwe25:
   es:
     summary: __empty__
   definitions:
+    "787":
+      title: Out-of-bounds Write
+      link: https://cwe.mitre.org/data/definitions/787.html
     "79":
       title:
         Improper neutralization of input during web page generation (cross-site
@@ -2704,9 +2707,15 @@ cwe25:
         Concurrent execution using shared resource with improper synchronization
         (Race condition)
       link: https://cwe.mitre.org/data/definitions/362.html
+    "400":
+      title: Uncontrolled Resource Consumption
+      link: https://cwe.mitre.org/data/definitions/400.html
     "611":
       title: Improper restriction of XML external entity reference
       link: https://cwe.mitre.org/data/definitions/611.html
+    "94":
+      title: Improper Control of Generation of Code ('Code Injection')
+      link: https://cwe.mitre.org/data/definitions/94.html
   metadata: {}
 owaspm10:
   title: OWASP-M TOP 10
