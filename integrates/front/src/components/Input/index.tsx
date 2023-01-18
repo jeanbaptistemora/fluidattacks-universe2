@@ -5,6 +5,7 @@ import { Editable } from "./Fields/Editable";
 import { Input } from "./Fields/Input";
 import { InputArray } from "./Fields/InputArray";
 import { InputDate } from "./Fields/InputDate";
+import { InputDateTime } from "./Fields/InputDateTime";
 import { InputNumber } from "./Fields/InputNumber";
 import { Select } from "./Fields/Select";
 import { TextArea } from "./Fields/TextArea";
@@ -12,6 +13,7 @@ import type {
   ICheckboxProps,
   IInputArrayProps,
   IInputDateProps,
+  IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
   ISelectProps,
@@ -23,6 +25,7 @@ export type {
   ICheckboxProps,
   IEditableProps,
   IInputDateProps,
+  IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
   IInputArrayProps,
@@ -35,6 +38,7 @@ export {
   Editable,
   Input,
   InputDate,
+  InputDateTime,
   InputNumber,
   InputArray,
   Label,

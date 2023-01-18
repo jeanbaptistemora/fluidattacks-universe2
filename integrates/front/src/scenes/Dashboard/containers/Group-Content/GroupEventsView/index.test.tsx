@@ -353,7 +353,7 @@ describe("eventsView", (): void => {
           query: ADD_EVENT_MUTATION,
           variables: {
             detail: "detail test",
-            eventDate: "2021-09-07T00:00:00+00:00",
+            eventDate: "2021-09-07T00:00:00Z",
             eventType: "CLONING_ISSUES",
             groupName: "unittesting",
             rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
@@ -555,7 +555,7 @@ describe("eventsView", (): void => {
           query: ADD_EVENT_MUTATION,
           variables: {
             detail: "detail test",
-            eventDate: "2021-09-07T00:00:00+00:00",
+            eventDate: "2021-09-07T00:00:00Z",
             eventType: "CLONING_ISSUES",
             groupName: "unittesting",
             rootId: "ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19",
