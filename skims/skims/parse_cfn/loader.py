@@ -91,7 +91,7 @@ def overloaded_multi_constructor(
 
 def overloaded_construct_yaml_timestamp(
     self: yaml.Loader,
-    node: yaml.Node,
+    node: yaml.ScalarNode,
 ) -> str:
     result: str = self.construct_yaml_timestamp(node).isoformat()
     return result

@@ -1,5 +1,6 @@
 ---
 types-aiofiles: '*'
+types-python-dateutil: '*'
 types-pytz: '*'
 types-PyYAML: '*'
 types-requests: '*'
