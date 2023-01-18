@@ -119,7 +119,11 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
         params = {"subject": organization_id}
         url = f"{redirect}?{urlencode(params)}"
         token_data: Optional[dict] = await get_refresh_token(
-            code=code, redirect_uri=url
+            code=code,
+            redirect_uri=url,
+            code_verifier=request.session.get(
+                "_gitlab_authlib_code_verifier_", ""
+            ),
         )
         if not token_data:
             raise OAuthError()

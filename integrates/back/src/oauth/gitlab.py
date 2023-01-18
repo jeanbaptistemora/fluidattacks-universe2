@@ -31,17 +31,24 @@ GITLAB_ARGS = dict(
     client_id=FI_GITLAB_OAUTH2_APP_ID,
     client_secret=FI_GITLAB_OAUTH2_SECRET,
     authorize_url=GITLAB_AUTHZ_URL,
+    code_challenge_method="S256",
     client_kwargs={"scope": "read_api read_repository"},
 )
 
 
-async def get_refresh_token(*, code: str, redirect_uri: str) -> Optional[dict]:
+async def get_refresh_token(
+    *,
+    code: str,
+    redirect_uri: str,
+    code_verifier: str,
+) -> Optional[dict]:
     request_parameters: dict[str, str] = dict(
         client_id=FI_GITLAB_OAUTH2_APP_ID,
         client_secret=FI_GITLAB_OAUTH2_SECRET,
         code=code,
         grant_type="authorization_code",
         redirect_uri=redirect_uri,
+        code_verifier=code_verifier,
     )
     headers: dict[str, str] = {"content-type": "application/json"}
     retries: int = 0
