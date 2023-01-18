@@ -25,7 +25,7 @@ two different places.
 One is in each specific vulnerability type,
 where you can have a global overview.
 
-![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671815199/docs/web/vulnerabilities/management/tracking_section.png)
+![Vulnerability Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674062087/docs/web/vulnerabilities/management/tracking_view.png)
 
 The second Tracking tab can be accessed
 by first clicking on the Locations tab
@@ -45,7 +45,7 @@ based on the date of the change
 and the type of change that occurred.
 Here you will be able
 to visualize the amount of vulnerabilities
-that were opened/closed in a specific date
+that were Vulnerable/Safe in a specific date
 and also the treatment
 that a set amount of vulnerabilities
 were given in a specific date,

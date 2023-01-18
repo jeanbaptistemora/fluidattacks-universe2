@@ -20,4 +20,4 @@ For more information
 go to the following
 [link](/squad/consulting/).
 
-![Consulting tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671815366/docs/web/vulnerabilities/management/consulting_location.png)
+![Consulting tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674003485/docs/web/vulnerabilities/management/consulting.png)

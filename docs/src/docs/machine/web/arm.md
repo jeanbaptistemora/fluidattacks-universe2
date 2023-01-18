@@ -143,7 +143,7 @@ You can define different
 [treatments](/machine/web/vulnerabilities/management/treatments)
 in the [Locations tab](/machine/web/vulnerabilities/management/locations):
 
-- **New:**
+- **Untreated:**
   The vulnerability was reported,
   and there is no treatment defined.
 - **In progress:**

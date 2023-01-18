@@ -26,4 +26,4 @@ this subsection,
 we recommend you follow
 [this link](/machine/web/vulnerabilities/new-vulnerability-types/new-vuln-description).
 
-![Description Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671814856/docs/web/vulnerabilities/management/description_section.png)
+![Description Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674060823/docs/web/vulnerabilities/management/description.png)

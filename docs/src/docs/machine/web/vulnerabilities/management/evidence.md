@@ -21,4 +21,4 @@ This evidence changes each time
 we perform a reattack on this
 type of vulnerability.
 
-![Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1671815116/docs/web/vulnerabilities/management/evidence_section.png)
+![Evidence](https://res.cloudinary.com/fluid-attacks/image/upload/v1674061382/docs/web/vulnerabilities/management/evidence_tab.png)
