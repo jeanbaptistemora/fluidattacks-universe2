@@ -156,8 +156,14 @@ def _get_missing_dependency(what: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def _format_what(what: str) -> str:
-    return re.sub(r"\s(\(.*?\))((\s)(\[.*?\]))?", "", what)  # NOSONAR
+def _format_what(vulnerability: core_model.Vulnerability) -> str:
+    what = re.sub(
+        r"\s(\(.*?\))((\s)(\[.*?\]))?", "", vulnerability.what  # NOSONAR
+    )
+    if vulnerability.kind.value == "inputs":
+        while what.endswith("/"):
+            what = what.rstrip("/")
+    return what
 
 
 def _format_were(were: str) -> Union[int, str]:
@@ -265,7 +271,7 @@ def _get_sarif(
                     sarif_om.Location(
                         physical_location=sarif_om.PhysicalLocation(
                             artifact_location=sarif_om.ArtifactLocation(
-                                uri=_format_what(vulnerability.what)
+                                uri=_format_what(vulnerability)
                             ),
                             region=sarif_om.Region(
                                 start_line=_format_were(vulnerability.where),
