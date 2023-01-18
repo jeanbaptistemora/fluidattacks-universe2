@@ -1,26 +1,26 @@
-{
-  "env": {
-    "browser": true,
-    "node": true,
-    "es6": true
+module.exports = {
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
   },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    sourceType: "module",
+    ecmaFeatures: {
+      jsx: true,
     },
-    "project": "./tsconfig.json"
+    project: "./tsconfig.json",
   },
-  "plugins": [
+  plugins: [
     "@typescript-eslint",
     "fp",
     "import",
     "jsx-a11y",
     "prettier",
-    "eslint-plugin-import"
+    "eslint-plugin-import",
   ],
-  "extends": [
+  extends: [
     "eslint:all",
     "plugin:@typescript-eslint/all",
     "plugin:fp/recommended",
@@ -28,37 +28,31 @@
     "plugin:import/typescript",
     "plugin:jsx-a11y/strict",
     "plugin:prettier/recommended",
-    "prettier"  ],
-  "settings": {
+    "prettier",
+  ],
+  settings: {
     "import/parsers": {
-      "@typescript-eslint/parser": [
-        ".ts",
-        ".tsx"
-      ]
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      "typescript": {
-      }
-    }
+      typescript: {},
+    },
   },
-  "rules": {
+  rules: {
     "capitalized-comments": [
       "error",
       "always",
       {
-        "ignoreConsecutiveComments": true
-      }
+        ignoreConsecutiveComments: true,
+      },
     ],
-    "eqeqeq": [
-      "error",
-      "smart"
-    ],
+    eqeqeq: ["error", "smart"],
     "func-style": [
       "error",
       "declaration",
       {
-        "allowArrowFunctions": true
-      }
+        allowArrowFunctions: true,
+      },
     ],
     /*
      * Given exceptions for lodash, jquery and translation wildcard "t"
@@ -66,18 +60,11 @@
     "id-length": [
       "error",
       {
-        "exceptions": [
-          "_",
-          "$",
-          "t"
-        ],
-        "properties": "never"
-      }
+        exceptions: ["_", "$", "t"],
+        properties: "never",
+      },
     ],
-    "line-comment-position": [
-      "error",
-      "above"
-    ],
+    "line-comment-position": ["error", "above"],
     /*
      * "Max" retrictions are not suitable for the present codebase due to the
      * size of certain files and components
@@ -86,10 +73,7 @@
     "max-lines-per-function": "off",
     "max-params": "off",
     "max-statements": "off",
-    "multiline-comment-style": [
-      "error",
-      "starred-block"
-    ],
+    "multiline-comment-style": ["error", "starred-block"],
     /*
      * Replaced by @typescript-eslint/no-duplicate-imports to avoid
      * conflicts with type imports
@@ -118,47 +102,42 @@
     "no-underscore-dangle": [
       "error",
       {
-        "allow": [
-          "__typename"
-        ]
-      }
+        allow: ["__typename"],
+      },
     ],
     "no-void": [
       "error",
       {
-        "allowAsStatement": true
-      }
+        allowAsStatement: true,
+      },
     ],
-    "one-var": [
-      "error",
-      "never"
-    ],
+    "one-var": ["error", "never"],
     "padding-line-between-statements": [
       "error",
       {
-        "blankLine": "always",
-        "prev": "*",
-        "next": "return"
-      }
+        blankLine: "always",
+        prev: "*",
+        next: "return",
+      },
     ],
     "sort-imports": [
       "error",
       {
-        "ignoreDeclarationSort": true
-      }
+        ignoreDeclarationSort: true,
+      },
     ],
     "prettier/prettier": [
       "error",
       {},
       {
-        "usePrettierrc": true
-      }
+        usePrettierrc: true,
+      },
     ],
     "@typescript-eslint/ban-ts-comment": [
       "error",
       {
-        "ts-expect-error": "allow-with-description"
-      }
+        "ts-expect-error": "allow-with-description",
+      },
     ],
     /*
      * Useful when migrating from TSLint to ESLint
@@ -167,35 +146,25 @@
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {
-        "allowConciseArrowFunctionExpressionsStartingWithVoid": false,
-        "allowTypedFunctionExpressions": false,
-        "allowHigherOrderFunctions": false
-      }
+        allowConciseArrowFunctionExpressionsStartingWithVoid: false,
+        allowTypedFunctionExpressions: false,
+        allowHigherOrderFunctions: false,
+      },
     ],
     "@typescript-eslint/naming-convention": [
       "error",
       {
-        "selector": "variable",
-        "format": [
-          "camelCase",
-          "UPPER_CASE",
-          "PascalCase"
-        ],
-        "leadingUnderscore": "allow"
+        selector: "variable",
+        format: ["camelCase", "UPPER_CASE", "PascalCase"],
+        leadingUnderscore: "allow",
       },
       {
-        "selector": "interface",
-        "format": [
-          "PascalCase"
-        ],
-        "prefix": [
-          "I"
-        ]
-      }
+        selector: "interface",
+        format: ["PascalCase"],
+        prefix: ["I"],
+      },
     ],
-    "@typescript-eslint/no-duplicate-imports": [
-      "error"
-    ],
+    "@typescript-eslint/no-duplicate-imports": ["error"],
     /*
      * Disabling this rule is necessary to avoid a conflict with
      * @typescript-eslint/typedef that checks for all variables to be typed
@@ -207,18 +176,12 @@
     "@typescript-eslint/no-magic-numbers": [
       "off",
       {
-        "ignore": [
-          -1,
-          0,
-          1,
-          2,
-          4
-        ],
+        ignore: [-1, 0, 1, 2, 4],
         /*
          * We need type indexes to retrieve specific objects in interface lists
          */
-        "ignoreTypeIndexes": true
-      }
+        ignoreTypeIndexes: true,
+      },
     ],
     /*
      * Disabled until the migration to newer versions of eslint is done
@@ -239,9 +202,9 @@
     "@typescript-eslint/no-type-alias": [
       "off",
       {
-        "allowAliases": "always",
-        "allowGenerics": "always"
-      }
+        allowAliases: "always",
+        allowGenerics: "always",
+      },
     ],
     /*
      * Since we are working with external libraries that use any in there type
@@ -253,8 +216,8 @@
     "@typescript-eslint/no-unused-vars": [
       "error",
       {
-        "argsIgnorePattern": "^_"
-      }
+        argsIgnorePattern: "^_",
+      },
     ],
     /*
      * This rule must be disabled as it can report incorrect errors in conflict
@@ -286,8 +249,8 @@
     "fp/no-mutation": [
       "error",
       {
-        "commonjs": true
-      }
+        commonjs: true,
+      },
     ],
     /*
      * Since we need side effects to make our program meaningful, for instace:
@@ -306,14 +269,14 @@
     "import/no-absolute-path": [
       "error",
       {
-        "commonjs": false
-      }
+        commonjs: false,
+      },
     ],
     "import/no-cycle": [
       "error",
       {
-        "ignoreExternal": true
-      }
+        ignoreExternal: true,
+      },
     ],
     "import/no-default-export": "error",
     "import/no-deprecated": "error",
@@ -326,8 +289,8 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "optionalDependencies": false
-      }
+        optionalDependencies: false,
+      },
     ],
     "import/no-named-as-default": "error",
     "import/no-named-as-default-member": "error",
@@ -338,24 +301,20 @@
     "import/no-useless-path-segments": [
       "error",
       {
-        "noUselessIndex": true
-      }
+        noUselessIndex: true,
+      },
     ],
     "import/no-webpack-loader-syntax": "error",
     "import/order": [
       "error",
       {
-        "alphabetize": {
-          "order": "asc",
-          "caseInsensitive": true
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
         },
-        "groups": [
-          "builtin",
-          "external",
-          "sibling"
-        ],
-        "newlines-between": "always"
-      }
+        groups: ["builtin", "external", "sibling"],
+        "newlines-between": "always",
+      },
     ],
     /*
      * This rule has been deprecated in favor of
@@ -371,8 +330,8 @@
     "@typescript-eslint/parameter-properties": [
       1,
       {
-        "allow": ["readonly", "public"]
-      }
-    ]
-  }
-}
+        allow: ["readonly", "public"],
+      },
+    ],
+  },
+};
