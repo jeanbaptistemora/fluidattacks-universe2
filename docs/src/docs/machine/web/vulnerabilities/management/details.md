@@ -33,7 +33,7 @@ closed–, location,
 last reattack request date
 and current treatment.
 
-![Vulnerability Detail Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668514861/docs/web/vulnerabilities/management/details_tab.png)
+![Vulnerability Detail Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674000974/docs/web/vulnerabilities/management/detailstab.png)
 
 Next to details tab is code
 is **Code** tab.
@@ -68,4 +68,4 @@ Find out more information about
 this tab under
 [this link](/machine/web/vulnerabilities/management/tracking).
 
-![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668520103/docs/web/vulnerabilities/management/tracking_tab.png)
+![Tracking Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674001175/docs/web/vulnerabilities/management/tracking_tab.png)
