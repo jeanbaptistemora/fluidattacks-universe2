@@ -9,6 +9,7 @@ import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
+import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { DescriptionViewForm } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/DescriptionViewForm";
 import {
   GET_FINDING_DESCRIPTION,
@@ -137,6 +138,7 @@ const DescriptionView: React.FC = (): JSX.Element => {
           setEditing={setIsEditing}
         />
       </Formik>
+      <ExpertButton />
     </React.StrictMode>
   );
 };

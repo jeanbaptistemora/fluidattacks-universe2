@@ -46,6 +46,7 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
+import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";
 import type {
@@ -674,6 +675,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
           </Form>
         </Formik>
       </Modal>
+      <ExpertButton />
     </React.StrictMode>
   );
 };
