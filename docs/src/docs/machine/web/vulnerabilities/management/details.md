@@ -42,9 +42,53 @@ Here we explain the information of each item:
 - **Location**:
   - **Locations**:
     Path where the vulnerability was found.
-- **End Users**:
-  xxx
-  - **xxx**:
+  - **LoC / Port / Input**:
+    The location specified is either the code line,
+    port number,
+    or input field.
+- **General details**:
+  - **Report date**:
+    Date vulnerability reported.
+  - **Closing date**:
+    The date vulnerability was closed.
+  - **Commit hash**:
+    Commit ID where the vulnerability was found.
+  - **Tags**:
+    Vulnerability identification tags.
+  - **Level**:
+    The user's rating of the vulnerability
+    indicates how important/critical it is.
+  - **Type**:
+    The type of vulnerability can be an app,
+    code,
+    or infra.
+- **Reattacks**:
+  - **Last request**:
+    Date of last time a re-attack was requested.
+  - **Requester**:
+    The name of the person requesting the reattack.
+  - **Cycles**:
+    Total of how many reattacks have been requested.
+  - **Efficiency**:
+    Percentage of efficiency in the solution
+    of vulnerabilities.
+- **Treatments**:
+  - **Current**:
+    Current treatment of vulnerability.
+  - **Assigned**:
+    The person assigned the vulnerability.
+  - **Date**:
+    Date stipulated in the application
+    of the treatment.
+  - **Expiration**:
+    Date stipulated in the application of
+    the treatment Temporarily Accepted.
+  - **Justification**:
+    The justification given when
+    Temporarily Accepted treatment was applied.
+  - **Changes**:
+    The number of times the treatment of
+    that vulnerability has changed.
 
 Next to details tab is code
 is **Code** tab.
