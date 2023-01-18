@@ -485,10 +485,6 @@ async def remove_group(
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
-    await _remove_all_batch_actions(
-        group_name, justification, validate_pending_actions
-    )
-
     await groups_model.update_state(
         group_name=group_name,
         organization_id=group.organization_id,
@@ -506,15 +502,15 @@ async def remove_group(
         action=Action.REMOVE_GROUP_RESOURCES,
         entity=group_name,
         subject=email,
-        additional_info="remove_group",
+        additional_info=f"validate_pending_actions:{validate_pending_actions}",
         queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
     if FI_ENVIRONMENT == "development":
         await remove_resources(
             loaders=loaders,
-            group_name=group_name,
             email=email,
+            group_name=group_name,
         )
 
 
@@ -1370,22 +1366,22 @@ async def _remove_all_toe(
 
 async def _remove_all_batch_actions(
     group_name: str,
-    justification: str,
     validate_pending_actions: bool,
 ) -> None:
     group_actions: list[BatchProcessing] = [
         action
         for action in await batch_dal.get_actions()
         if action.entity == group_name
+        and action.action_name != Action.REMOVE_GROUP_RESOURCES
     ]
     if validate_pending_actions:
         cancelable_actions = {
-            Action.CLONE_ROOTS.value,
-            Action.EXECUTE_MACHINE.value,
-            Action.REBASE.value,
-            Action.REFRESH_TOE_INPUTS.value,
-            Action.REFRESH_TOE_LINES.value,
-            Action.REFRESH_TOE_PORTS.value,
+            Action.CLONE_ROOTS,
+            Action.EXECUTE_MACHINE,
+            Action.REBASE,
+            Action.REFRESH_TOE_INPUTS,
+            Action.REFRESH_TOE_LINES,
+            Action.REFRESH_TOE_PORTS,
         }
         pending_actions = [
             action
@@ -1408,7 +1404,7 @@ async def _remove_all_batch_actions(
         [
             batch_dal.cancel_batch_job(
                 job_id=action.batch_job_id,
-                reason=f"GROUP_REMOVAL: {justification}",
+                reason="GROUP_REMOVAL",
             )
             for action in group_actions
             if action.batch_job_id
@@ -1428,13 +1424,18 @@ async def _remove_all_batch_actions(
 async def remove_resources(
     *,
     loaders: Dataloaders,
-    group_name: str,
     email: str,
+    group_name: str,
+    validate_pending_actions: bool = False,
 ) -> None:
     await remove_all_stakeholders(
         loaders=loaders,
         group_name=group_name,
         modified_by=email,
+    )
+    await _remove_all_batch_actions(
+        group_name=group_name,
+        validate_pending_actions=validate_pending_actions,
     )
     all_findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(

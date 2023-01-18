@@ -3,7 +3,7 @@ from enum import (
 )
 
 
-class JobStatus(Enum):
+class JobStatus(str, Enum):
     SUBMITTED: str = "SUBMITTED"
     PENDING: str = "PENDING"
     RUNNABLE: str = "RUNNABLE"
@@ -13,12 +13,12 @@ class JobStatus(Enum):
     FAILED: str = "FAILED"
 
 
-class Product(Enum):
+class Product(str, Enum):
     INTEGRATES: str = "integrates"
     SKIMS: str = "skims"
 
 
-class Action(Enum):
+class Action(str, Enum):
     REPORT = "report"
     REBASE = "rebase"
     MOVE_ROOT = "move_root"

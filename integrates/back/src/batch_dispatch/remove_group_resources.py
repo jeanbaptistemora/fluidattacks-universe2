@@ -47,8 +47,10 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     success: bool = True
     await groups_domain.remove_resources(
         loaders=loaders,
-        group_name=group_name,
         email=email,
+        group_name=group_name,
+        validate_pending_actions="validate_pending_actions:True"
+        in item.additional_info,
     )
     # Delete roots and related cloned repos
     if group_roots:
