@@ -32,7 +32,7 @@ INSECURE_ALGOS = {
     "rsa",
 }
 
-INSECURE_MODES = {"ecb", "ofb", "cfb", "cbc"}
+INSECURE_MODES = {"cbc", "ecb", "ofb"}
 
 INSECURE_HASHES = {"md2", "md4", "md5", "sha1", "sha-1"}
 

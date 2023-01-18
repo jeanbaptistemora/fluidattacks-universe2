@@ -1426,30 +1426,6 @@ F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test112.js,9,310,skims,052.
   21 |   cipher.on(""end"", () => {
      ^ Col 0
 ",javascript.javascript_insecure_create_cipher
-F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test113.js,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test113.js,"
-   1 | import { Router } from ""express"";
-   2 | import * as crypto from ""crypto"";
-   3 | var router = Router();
-   4 |
-   5 | router.get(""/test113/:target"", function (req, res) {
-   6 |   const algorithm = ""aes-256-cfb"";
-   7 |   const keyString = ""*wC!*f--xCFwUaUpLT%eSu2wnJ+ms%ac"";
-   8 |   const key = Buffer.alloc(32, keyString);
-   9 |   const iv = Buffer.alloc(16);
-> 10 |   const cipher = crypto.createCipheriv(algorithm, key, iv);
-  11 |
-  12 |   let parameters = req.params;
-  13 |   let target = parameters[""target""];
-  14 |
-  15 |   let encrypted = """";
-  16 |   cipher.on(""readable"", () => {
-  17 |     let chunk;
-  18 |     while (null !== (chunk = cipher.read())) {
-  19 |       encrypted += chunk.toString(""hex"");
-  20 |     }
-  21 |   });
-     ^ Col 0
-",javascript.javascript_insecure_create_cipher
 F052,lines,VULNERABLE_JS_APP/server/routes/testcases/test115.js,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in VULNERABLE_JS_APP/server/routes/testcases/test115.js,"
    1 | import { Router } from ""express"";
    2 | var CryptoJS = require(""crypto-js"");

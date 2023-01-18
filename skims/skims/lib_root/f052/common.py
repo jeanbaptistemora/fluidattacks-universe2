@@ -52,7 +52,7 @@ def is_insecure_encrypt(
         and (args := g.adj_ast(graph, al_id))
         and len(args) > 2
     ):
-        return get_eval_danger(graph, args[2], method)
+        return get_eval_danger(graph, args[-1], method)
     return False
 
 

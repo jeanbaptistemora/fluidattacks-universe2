@@ -2613,74 +2613,74 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,23
 ",java.java_insecure_cipher_ssl
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
-   2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
-   3 |         mode: CryptoJS.mode.CFB, // Insecure
+   2 |     var unsafe_1 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CBC,
    4 |         padding: CryptoJS.pad.AnsiX923
    5 |     });
    6 |
-   7 |     var crypto = CryptoJS.mode.OFB
->  8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
-   9 |         mode: crypto, // Insecure
+   7 |     var crypto = CryptoJS.mode.ECB
+>  8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
   10 |         padding: CryptoJS.pad.AnsiX923
   11 |     });
   12 |
-  13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
   14 |         padding: CryptoJS.pad.AnsiX923
   15 |     });
-  16 |
-  17 | }
-  18 |
-  19 | function secureMode() {
-  20 |     var safe_mode = CryptoJS.mode.CTR
-  21 |     var message = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,2,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
    1 | function insecureModes() {
->  2 |     var encrypted = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
-   3 |         mode: CryptoJS.mode.CFB, // Insecure
+>  2 |     var unsafe_1 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CBC,
    4 |         padding: CryptoJS.pad.AnsiX923
    5 |     });
    6 |
-   7 |     var crypto = CryptoJS.mode.OFB
-   8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
-   9 |         mode: crypto, // Insecure
+   7 |     var crypto = CryptoJS.mode.ECB
+   8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
   10 |         padding: CryptoJS.pad.AnsiX923
   11 |     });
   12 |
-  13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
   14 |         padding: CryptoJS.pad.AnsiX923
   15 |     });
-  16 |
-  17 | }
-  18 |
-  19 | function secureMode() {
-  20 |     var safe_mode = CryptoJS.mode.CTR
-  21 |     var message = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
-   3 |         mode: CryptoJS.mode.CFB, // Insecure
+   3 |         mode: CryptoJS.mode.CBC,
    4 |         padding: CryptoJS.pad.AnsiX923
    5 |     });
    6 |
-   7 |     var crypto = CryptoJS.mode.OFB
-   8 |     var encrypted_mess = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
-   9 |         mode: crypto, // Insecure
+   7 |     var crypto = CryptoJS.mode.ECB
+   8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
   10 |         padding: CryptoJS.pad.AnsiX923
   11 |     });
   12 |
-> 13 |     var miss_encrypt = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+> 13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
   14 |         padding: CryptoJS.pad.AnsiX923
   15 |     });
-  16 |
-  17 | }
-  18 |
-  19 | function secureMode() {
-  20 |     var safe_mode = CryptoJS.mode.CTR
-  21 |     var message = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
-  22 |         mode: safe_mode,
-  23 |         padding: CryptoJS.pad.AnsiX923
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
+  22 |         padding: CryptoJS.pad.AnsiX923
+  23 |     });
      ^ Col 0
 ",javascript.javascript_insecure_encrypt
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,"
