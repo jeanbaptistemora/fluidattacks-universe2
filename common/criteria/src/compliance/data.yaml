@@ -448,7 +448,7 @@ cis:
       link: https://www.cisecurity.org/controls/
   metadata: {}
 cwe:
-  title: CWE
+  title: CWE™
   en:
     summary: >
       Common Weakness Enumeration
@@ -458,7 +458,7 @@ cwe:
       a measuring stick for security tools,
       and as a baseline for weakness identification,
       mitigation and prevention efforts.
-      The version used in this section is CWE List v4.8.
+      The version used in this section is CWE™ List v4.8.
   es:
     summary: __empty__
   definitions:
