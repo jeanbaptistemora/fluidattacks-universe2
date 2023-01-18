@@ -4,9 +4,7 @@ from aioextensions import (
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
-    InvalidAcceptanceSeverity,
     InvalidNotificationRequest,
-    InvalidNumberAcceptances,
     SameValues,
     VulnNotFound,
 )
@@ -26,9 +24,6 @@ from db_model.enums import (
 )
 from db_model.findings.types import (
     Finding,
-)
-from db_model.groups.types import (
-    Group,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -58,12 +53,6 @@ from newutils import (
     validations,
     vulnerabilities as vulns_utils,
 )
-from newutils.groups import (
-    get_group_max_acceptance_days,
-    get_group_max_acceptance_severity,
-    get_group_max_number_acceptances,
-    get_group_min_acceptance_severity,
-)
 from typing import (
     Optional,
 )
@@ -75,102 +64,12 @@ from vulnerabilities.domain.utils import (
     get_valid_assigned,
     validate_acceptance,
 )
+from vulnerabilities.domain.validations import (
+    validate_accepted_treatment_change,
+)
 from vulnerabilities.types import (
     VulnerabilityTreatmentToUpdate,
 )
-
-
-async def _validate_acceptance_days(
-    loaders: Dataloaders,
-    accepted_until: datetime,
-    group_name: str,
-) -> None:
-    """
-    Checks if acceptance date complies with organization policies.
-    """
-    today = datetime_utils.get_utc_now()
-    acceptance_days = Decimal((accepted_until - today).days)
-    group: Group = await loaders.group.load(group_name)
-    max_acceptance_days = await get_group_max_acceptance_days(
-        loaders=loaders, group=group
-    )
-    if (
-        max_acceptance_days is not None
-        and acceptance_days > max_acceptance_days
-    ) or acceptance_days < 0:
-        raise InvalidAcceptanceDays(
-            "Chosen date is either in the past or exceeds "
-            "the maximum number of days allowed by the defined policy"
-        )
-
-
-async def _validate_acceptance_severity(
-    loaders: Dataloaders,
-    group_name: str,
-    severity: Decimal,
-) -> None:
-    """
-    Checks if the severity to be temporarily accepted is inside
-    the range set by the defined policy.
-    """
-    group: Group = await loaders.group.load(group_name)
-    min_value = await get_group_min_acceptance_severity(
-        loaders=loaders, group=group
-    )
-    max_value = await get_group_max_acceptance_severity(
-        loaders=loaders, group=group
-    )
-    if not min_value <= severity <= max_value:
-        raise InvalidAcceptanceSeverity(str(severity))
-
-
-async def _validate_number_acceptances(
-    loaders: Dataloaders,
-    group_name: str,
-    historic_treatment: tuple[VulnerabilityTreatment, ...],
-) -> None:
-    """
-    Check that a vulnerability to temporarily accept does not exceed the
-    maximum number of acceptances the organization set.
-    """
-    group: Group = await loaders.group.load(group_name)
-    max_acceptances = await get_group_max_number_acceptances(
-        loaders=loaders,
-        group=group,
-    )
-    current_acceptances: int = sum(
-        1
-        for item in historic_treatment
-        if item.status == VulnerabilityTreatmentStatus.ACCEPTED
-    )
-    if (
-        max_acceptances is not None
-        and current_acceptances + 1 > max_acceptances
-    ):
-        raise InvalidNumberAcceptances(
-            str(current_acceptances) if current_acceptances else "-"
-        )
-
-
-async def validate_accepted_treatment_change(
-    *,
-    loaders: Dataloaders,
-    accepted_until: datetime,
-    finding_severity: Decimal,
-    group_name: str,
-    historic_treatment: tuple[VulnerabilityTreatment, ...],
-) -> None:
-    await collect(
-        [
-            _validate_acceptance_days(loaders, accepted_until, group_name),
-            _validate_acceptance_severity(
-                loaders, group_name, finding_severity
-            ),
-            _validate_number_acceptances(
-                loaders, group_name, historic_treatment
-            ),
-        ]
-    )
 
 
 async def add_vulnerability_treatment(

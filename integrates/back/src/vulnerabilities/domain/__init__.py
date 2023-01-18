@@ -37,6 +37,8 @@ from .treatment import (
     send_treatment_change_mail,
     send_treatment_report_mail,
     update_vulnerabilities_treatment,
+)
+from .validations import (
     validate_accepted_treatment_change,
 )
 from .verification import (
