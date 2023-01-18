@@ -1,8 +1,8 @@
-{% extends "layouts_new/common.html" %}
-  {% from 'layouts_new/components/forms.html' import banner_share, go_to_button %}
+{% extends "layouts/common.html" %}
+  {% from 'layouts/components/forms.html' import banner_share, go_to_button %}
   {% block layout %}
     <div class="container">
-      {% include 'layouts_new/components/dark_logo_header.html' %}
+      {% include 'layouts/components/dark_logo_header.html' %}
 
       {{ banner_share('Report Available') }}
       <div class="main-content">
@@ -16,7 +16,7 @@
         {{ go_to_button('Download Report', filelink, 'primary-button') }}
         <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>
-      {% include 'layouts_new/components/footer.html' %}
+      {% include 'layouts/components/footer.html' %}
 
     </div>
   {% endblock %}
