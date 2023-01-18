@@ -29,7 +29,7 @@ are described below:
   Which type of credential it is,
   can be [HTTPS](/machine/web/groups/scope/roots#adding-a-root-with-the-https-user-and-password),
   [SSH](/machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key)
-  or [Azure DevOps PTA](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pta)
+  or [Azure DevOps PAT](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pat)
 - **Owner:**
   The person who created the credential.
 
