@@ -21,7 +21,7 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
   const [state, setState] = useState(0);
   const screen = width > 960 ? "big" : "md";
 
-  const timePerProgress = 100;
+  const timePerProgress = 50;
   const numberOfCycles = 6;
   const { cycle, progress } = useCarrousel(timePerProgress, numberOfCycles);
 
