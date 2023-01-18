@@ -21,6 +21,9 @@ from lib_path.f011.maven import (
 from lib_path.f011.pip import (
     pip_requirements_txt,
 )
+from lib_path.f011.pub import (
+    pub_pubspec_yaml,
+)
 from lib_path.f393.composer import (
     composer_json_dev,
     composer_lock_dev,
@@ -379,6 +382,39 @@ def test_composer_lock_dev() -> None:
                 assertion = not assertion
                 break
         else:
+            assertion = not assertion
+            break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_pub_pubspec_yaml() -> None:
+    path: str = "skims/test/data/lib_path/f011/pubspec.yaml"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    content: List[str] = file_contents.splitlines()
+    gemfile_lock_fun = pub_pubspec_yaml.__wrapped__  # type: ignore
+    generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
+        file_contents, path
+    )
+    assertion: bool = True
+
+    for line_num in range(13, 27):
+        pkg_name, version = content[line_num].lstrip().split(": ")
+        current_dep = next(generator_gem)
+        try:
+            item = itemgetter("item")(current_dep[0])
+            item_version = itemgetter("item")(current_dep[1])
+        except StopIteration:
+            assertion = not assertion
+            break
+
+        if pkg_name != item or version != item_version:
             assertion = not assertion
             break
 
