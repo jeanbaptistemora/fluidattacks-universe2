@@ -26,7 +26,7 @@ it from Locations.
   you will see a list of all
   the types of vulnerabilities it has.
 
-   ![Group Vulnerabilities Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1665174418/docs/squad/reattack/vuln_view.png)
+   ![Group Vulnerabilities Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674041920/docs/squad/reattack/reattack_vulnerabilities.png)
 
 1. Now look for the type of vulnerability
   that contains the individual vulnerability
@@ -44,7 +44,7 @@ it from Locations.
   click on the **Reattack** button
   on the right-hand side of the screen.
 
-   ![Enabled Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1665174541/docs/squad/reattack/reattack_action.png)
+   ![Enabled Reattacks Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1674043672/docs/squad/reattack/reattack_action.png)
 
 1. The following form will appear
   where you will have to explain
@@ -63,7 +63,7 @@ it from Locations.
   comply with the conditions set forth
   in the service-level agreements.
 
-   ![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1665174651/docs/squad/reattack/requested_state.png)
+   ![Reattack Requested](https://res.cloudinary.com/fluid-attacks/image/upload/v1674043773/docs/squad/reattack/requested.png)
 
 1. In the **Consulting** tab,
   you will see a new comment related
@@ -74,7 +74,7 @@ it from Locations.
   comments and notify the decision
   taken on your request.
 
-   ![Consulting Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1665174707/docs/squad/reattack/consul_reattack.png)
+   ![Consulting Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674043994/docs/squad/reattack/consulting_reattack.png)
 
 ## Reattack outcomes
 
@@ -87,7 +87,7 @@ evidence of how it was exploited,
 which you can access in the
 **Evidence** tab.
 
-![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1665174749/docs/squad/reattack/evidence_reattack.png)
+![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674044271/docs/squad/reattack/evidence_reattack.png)
 
 If the vulnerability is still open
 and you cannot close it for the moment,
