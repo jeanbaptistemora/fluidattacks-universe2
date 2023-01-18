@@ -57,45 +57,55 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
       variables: { groupName, urlId },
     }
   );
-  function editCurrentRow(
-    key: string,
-    value: string,
-    description: string
-  ): void {
-    setCurrentRow({ description, key, value });
-    setIsUpdate(true);
-    setAddSecretModalOpen(true);
-  }
 
-  const secretsDataSet =
-    data === undefined
-      ? []
-      : data.environmentUrl.secrets.map((item: ISecret): ISecretItem => {
-          return {
-            description: item.description,
-            element: (
-              <SecretValue
-                onEdit={editCurrentRow}
-                secretDescription={item.description}
-                secretKey={item.key}
-                secretValue={item.value}
-              />
-            ),
-            key: item.key,
-            value: item.value,
-          };
-        });
-  function closeAddModal(): void {
+  const editCurrentRow = useCallback(
+    (key: string, value: string, description: string): void => {
+      setCurrentRow({ description, key, value });
+      setIsUpdate(true);
+      setAddSecretModalOpen(true);
+    },
+    []
+  );
+
+  const secretsDataSet = useMemo(
+    (): ISecretItem[] =>
+      data === undefined
+        ? []
+        : data.environmentUrl.secrets.map((item: ISecret): ISecretItem => {
+            return {
+              description: item.description,
+              element: (
+                <SecretValue
+                  onEdit={editCurrentRow}
+                  secretDescription={item.description}
+                  secretKey={item.key}
+                  secretValue={item.value}
+                />
+              ),
+              key: item.key,
+              value: item.value,
+            };
+          }),
+    [data, editCurrentRow]
+  );
+
+  const closeAddModal = useCallback((): void => {
     setIsUpdate(false);
     setCurrentRow(defaultCurrentRow);
     setAddSecretModalOpen(false);
-  }
-  function openModal(): void {
+  }, [defaultCurrentRow]);
+
+  const openModal = useCallback((): void => {
     setAddSecretModalOpen(true);
-  }
-  function isSecretDuplicated(key: string): boolean {
-    return secretsDataSet.some((item): boolean => item.key === key);
-  }
+  }, []);
+
+  const isSecretDuplicated = useCallback(
+    (key: string): boolean => {
+      return secretsDataSet.some((item): boolean => item.key === key);
+    },
+    [secretsDataSet]
+  );
+
   const onCloseModal: () => void = useCallback((): void => {
     closeModal();
     setIsUpdate(false);
@@ -103,11 +113,11 @@ const ManagementEnvironmentUrlsModal: React.FC<IManagementModalProps> = ({
     setAddSecretModalOpen(false);
   }, [closeModal, defaultCurrentRow]);
 
-  function handleRowExpand(row: Row<ISecretItem>): JSX.Element {
+  const handleRowExpand = useCallback((row: Row<ISecretItem>): JSX.Element => {
     return renderSecretsDescription({
       description: [row.original.description],
     });
-  }
+  }, []);
 
   return (
     <React.StrictMode>
