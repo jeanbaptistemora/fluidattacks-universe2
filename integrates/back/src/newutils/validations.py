@@ -83,8 +83,7 @@ def validate_email_address_deco(field: str) -> Callable:
                     r"^([a-zA-Z0-9_\-\.]+)@"
                     r"([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
                 )
-                res = func(*args, **kwargs)
-                return res
+                return func(*args, **kwargs)
             except InvalidChar as ex:
                 raise InvalidField("email address") from ex
 
@@ -126,8 +125,7 @@ def validate_fields_deco(fields: Iterable[str]) -> Callable:
                 if field in kwargs and value:
                     check_field(str(value), regex)
 
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -207,8 +205,7 @@ def validate_file_name_deco(field: str) -> Callable:
                 )
                 if not is_valid:
                     raise InvalidChar("filename")
-                res = func(*args, **kwargs)
-                return res
+                return func(*args, **kwargs)
             raise InvalidChar("filename")
 
         return decorated
@@ -261,8 +258,7 @@ def validate_file_exists_deco(
                 )
                 if file_to_check is not None:
                     raise ErrorFileNameAlreadyExists.new()
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -301,8 +297,7 @@ def validate_field_length_deco(
                 (len(field_content) > limit) != is_greater_than_limit
             ):
                 raise InvalidFieldLength()
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -333,8 +328,7 @@ def validate_finding_id_deco(field: str) -> Callable:
                 field_content,
             ):
                 raise InvalidField("finding id")
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -380,8 +374,7 @@ def validate_group_name_deco(field: str) -> Callable:
                 field_content = str(getattr(obj, attr_name))
             if not field_content.isalnum():
                 raise InvalidField("group name")
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -436,6 +429,68 @@ def validate_markdown(text: str) -> str:
         raise InvalidMarkdown()
 
     return cleaned
+
+
+def validate_markdown_deco(text_field: str) -> Callable:
+    """
+    Escapes special characters and accepts only
+    the use of certain html tags
+    """
+
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            text = get_attr_value(
+                field=text_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            allowed_tags = [
+                "a",
+                "b",
+                "br",
+                "div",
+                "dl",
+                "dt",
+                "em",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "h5",
+                "h6",
+                "img",
+                "li",
+                "ol",
+                "p",
+                "small",
+                "strong",
+                "table",
+                "tbody",
+                "td",
+                "tfoot",
+                "th",
+                "tr",
+                "tt",
+                "ul",
+            ]
+            allowed_attrs = {
+                "a": ["href", "rel", "target"],
+                "img": ["src", "alt", "width", "height"],
+            }
+            cleaned = bleach.clean(
+                text,
+                tags=allowed_tags,
+                attributes=allowed_attrs,
+            )
+            cleaned = cleaned.replace("&amp;", "&")
+            if text != cleaned:
+                raise InvalidMarkdown()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_missing_severity_field_names(
@@ -551,8 +606,7 @@ def validate_alphanumeric_field_deco(field: str) -> Callable:
                 field_content = str(getattr(obj, attr_name))
             is_alnum = all(word.isalnum() for word in field_content.split())
             if is_alnum or field_content == "-" or not field_content:
-                res = func(*args, **kwargs)
-                return res
+                return func(*args, **kwargs)
             raise InvalidField()
 
         return decorated
@@ -774,8 +828,7 @@ def validate_commit_hash_deco(field: str) -> Callable:
                 )
             ):
                 raise InvalidCommitHash()
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -810,8 +863,7 @@ def validate_int_range_deco(
             else:
                 if not lower_bound < value < upper_bound:
                     raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -836,8 +888,7 @@ def validate_start_letter_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should start with a letter"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -865,8 +916,7 @@ def validate_include_number_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should include at least one number"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -893,8 +943,7 @@ def validate_include_lowercase_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should include lowercase characters"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -921,8 +970,7 @@ def validate_include_uppercase_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should include uppercase characters"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -1001,8 +1049,7 @@ def validate_sequence_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should not include sequentials characters"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -1029,8 +1076,7 @@ def validate_symbols_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should include symbols characters"
                 )
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 

@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidField,
     InvalidFieldChange,
     InvalidFieldLength,
+    InvalidMarkdown,
     InvalidReportFilter,
     InvalidSpacesField,
     NumberOutOfRange,
@@ -947,3 +948,17 @@ def test_validate_url_deco() -> None:
         decorated_func(
             url="https://www.example.com/path/to/page!query=1%20and%202"
         )
+
+
+def test_validate_markdown_deco() -> None:
+    @validations.validate_markdown_deco("text")
+    def decorated_func(text: str) -> str:
+        return text
+
+    assert decorated_func(text="<h1>Heading level\t 1</h1>")
+    assert decorated_func(
+        text="ftp://user:password@ftp.example.com:21/path/to/file"
+    )
+
+    with pytest.raises(InvalidMarkdown):
+        decorated_func(text="<span>Example Text</span>")
