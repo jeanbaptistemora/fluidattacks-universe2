@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useCallback, useContext, useState } from "react";
 import { openPopupWidget } from "react-calendly";
-import type { match } from "react-router-dom";
 import { useRouteMatch } from "react-router-dom";
 
 import { GET_GROUP_SERVICES } from "./queries";
@@ -23,10 +22,9 @@ interface IMatchProps {
 
 const useCalendly = (): {
   closeUpgradeModal: () => void;
-  data: IGetGroupServices | undefined;
+  isAvailable: boolean;
   isUpgradeOpen: boolean;
   openCalendly: () => void;
-  routeMatch: match<IMatchProps> | null;
 } => {
   const routeMatch = useRouteMatch<IMatchProps>(
     "/orgs/:orgName/groups/:groupName"
@@ -46,6 +44,8 @@ const useCalendly = (): {
     skip: routeMatch === null,
     variables: { groupName },
   });
+
+  const isAvailable = routeMatch !== null && data !== undefined;
 
   const closeUpgradeModal = useCallback((): void => {
     setIsUpgradeOpen(false);
@@ -73,7 +73,7 @@ const useCalendly = (): {
     }
   }, [data, groupName, userEmail, userName]);
 
-  return { closeUpgradeModal, data, isUpgradeOpen, openCalendly, routeMatch };
+  return { closeUpgradeModal, isAvailable, isUpgradeOpen, openCalendly };
 };
 
 export { useCalendly };

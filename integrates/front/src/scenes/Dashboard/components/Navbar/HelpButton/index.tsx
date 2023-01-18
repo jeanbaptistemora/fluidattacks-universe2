@@ -21,7 +21,7 @@ import { toggleZendesk } from "utils/widgets";
 const HelpButton: FC = (): JSX.Element => {
   const { t } = useTranslation();
 
-  const { closeUpgradeModal, data, isUpgradeOpen, openCalendly, routeMatch } =
+  const { closeUpgradeModal, isAvailable, isUpgradeOpen, openCalendly } =
     useCalendly();
 
   return (
@@ -35,15 +35,15 @@ const HelpButton: FC = (): JSX.Element => {
       id={"navbar-help-options"}
     >
       <div>
-        {routeMatch === null || data === undefined ? (
-          <div />
-        ) : (
+        {isAvailable ? (
           <HelpOption
             description={t("navbar.help.options.expert.description")}
             icon={faHeadset}
             onClick={openCalendly}
             title={t("navbar.help.options.expert.title")}
           />
+        ) : (
+          <div />
         )}
         {isUpgradeOpen ? (
           <UpgradeGroupsModal onClose={closeUpgradeModal} />
