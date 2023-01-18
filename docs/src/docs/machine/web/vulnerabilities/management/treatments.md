@@ -25,7 +25,7 @@ assign a treatment by clicking the
 check box to its left and click
 on [Edit.](/machine/web/vulnerabilities/management/locations#edit-button)
 
-![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1669209743/docs/web/vulnerabilities/management/edit_treatment.png)
+![Vulnerability Assign](https://res.cloudinary.com/fluid-attacks/image/upload/v1674002336/docs/web/vulnerabilities/management/edit_option.png)
 
 The **Edit** button helps you manage
 the vulnerability treatments and
@@ -170,7 +170,7 @@ vulnerability and click on the
 **Treatment Acceptance** button,
 which is only available to them.
 
-![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1669210387/docs/web/vulnerabilities/management/treatment_acceptence.png)
+![Treatment Acceptance](https://res.cloudinary.com/fluid-attacks/image/upload/v1674002714/docs/web/vulnerabilities/management/treatment_aceptance.png)
 
 A pop-up **Observations**
 window will appear,
@@ -180,7 +180,7 @@ observation concerning the requested
 treatment and decide whether
 they approve or reject it.
 
-![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1669210512/docs/web/vulnerabilities/management/observations.png)
+![Observations](https://res.cloudinary.com/fluid-attacks/image/upload/v1674002906/docs/web/vulnerabilities/management/observations.png)
 
 If the treatment is approved,
 the vulnerability status will
@@ -188,7 +188,7 @@ immediately change to
 **Permanently accepted**.
 Otherwise,
 the status will appear as
-**In progress** or **New**.
+**In progress** or **Untreated**.
 
 ## Reattacking a permanently accepted vulnerability
 
@@ -216,7 +216,7 @@ type, tick the check box on the
 left of the location you want to
 reattack, and click **Reattack**.
 
-![Request Reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1669213193/docs/web/vulnerabilities/management/reattack_permanent.png)
+![Request Reattack](https://res.cloudinary.com/fluid-attacks/image/upload/v1674003232/docs/web/vulnerabilities/management/reattack_permanet_ace.png)
 
 A pop-up window will appear asking
 you to provide a description of
@@ -239,7 +239,7 @@ requests, along with their respective
 justifications, persons in charge and
 submission dates are recorded.
 
-![Consulting Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1669123362/docs/web/vulnerabilities/management/consulting_tab.png)
+![Consulting Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1674003485/docs/web/vulnerabilities/management/consulting.png)
 
 A hacker will be responsible for
 verifying the effectiveness of the
@@ -254,7 +254,7 @@ by the hacker.
 You can access this evidence by
 going to the **Evidence** tab.
 
-![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1669065446/docs/web/vulnerabilities/management/evidence_tab.png)
+![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674003567/docs/web/vulnerabilities/management/evidence.png)
 
 To know the status of the reattack,
 you simply need to go to the
