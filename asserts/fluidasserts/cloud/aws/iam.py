@@ -47,64 +47,6 @@ def _any_to_list(_input):
     return res
 
 
-@api(risk=MEDIUM, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def have_old_access_keys(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Find access keys not rotated in the last 90 days.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    users = aws.credentials_report(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        retry=retry,
-    )
-
-    msg_open: str = (
-        "User access keys have not been " "rotated in the last 90 days"
-    )
-    msg_closed: str = "User access keys have been rotated in the last 90 days"
-
-    vulns, safes = [], []
-
-    three_months_ago = datetime.now() - timedelta(days=90)
-    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
-
-    for user in users:
-        if any(
-            (
-                user["access_key_1_active"] != "true",
-                user["access_key_2_active"] != "true",
-            )
-        ):
-            continue
-
-        user_arn = user["arn"]
-
-        is_vulnerable: bool = any(
-            parser.parse(user[x]).replace(tzinfo=pytz.UTC) < three_months_ago
-            for x in ("access_key_1_last_rotated", "access_key_2_last_rotated")
-        )
-
-        (vulns if is_vulnerable else safes).append(
-            (user_arn, "Keys must be rotated")
-        )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="users",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def root_has_access_keys(
