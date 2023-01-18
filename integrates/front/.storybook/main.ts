@@ -5,8 +5,8 @@ const config: StorybookConfig = {
   core: { builder: "webpack5" },
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
-    "@storybook/addon-a11y",
     "@storybook/addon-essentials",
+    "@storybook/addon-a11y",
     "@storybook/addon-links",
   ],
   webpackFinal: (config) => ({
@@ -18,4 +18,4 @@ const config: StorybookConfig = {
   }),
 };
 
-export = config;
+export default config;
