@@ -1,7 +1,12 @@
 import _ from "lodash";
 
 import { filterDateRange, filterSearchText, filterSelect } from "./filters";
-import type { IFilterSet, IToeLinesAttr, IToeLinesData } from "./types";
+import type {
+  IFilterSet,
+  IToeLinesAttr,
+  IToeLinesData,
+  IToeLinesEdge,
+} from "./types";
 
 const NOEXTENSION = ".no.extension.";
 const PERCENTBASE = 100;
@@ -266,15 +271,31 @@ const formatOptionalDate: (date: string | null) => Date | undefined = (
 ): Date | undefined =>
   _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
 
+const formatToeLines: (toeLinesEdges: IToeLinesEdge[]) => IToeLinesData[] = (
+  toeLinesEdges: IToeLinesEdge[]
+): IToeLinesData[] =>
+  toeLinesEdges.map(
+    ({ node }): IToeLinesData => ({
+      ...node,
+      attackedAt: formatOptionalDate(node.attackedAt),
+      bePresentUntil: formatOptionalDate(node.bePresentUntil),
+      coverage: getCoverage(node),
+      daysToAttack: getDaysToAttack(node),
+      extension: getExtension(node),
+      firstAttackAt: formatOptionalDate(node.firstAttackAt),
+      lastCommit: commitFormatter(node.lastCommit),
+      modifiedDate: formatOptionalDate(node.modifiedDate),
+      rootId: node.root.id,
+      rootNickname: node.root.nickname,
+      seenAt: formatOptionalDate(node.seenAt),
+    })
+  );
+
 export {
-  commitFormatter,
   formatBePresent,
-  formatOptionalDate,
   formatPercentage,
   formatRootId,
-  getCoverage,
-  getDaysToAttack,
-  getExtension,
+  formatToeLines,
   getFilteredData,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
