@@ -18,10 +18,12 @@ from db_model.groups.types import (
     Group,
 )
 import functools
+from newutils.validations import (
+    get_attr_value,
+)
 from typing import (
     Any,
     Callable,
-    cast,
 )
 
 # Constants
@@ -63,10 +65,22 @@ def validate_fluidattacks_staff_on_group_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            group = cast(Group, kwargs.get(group_field))
-            email = str(kwargs.get(email_field))
-            role = str(kwargs.get(role_field))
-
+            group = get_attr_value(
+                field=group_field,
+                kwargs=kwargs,
+                obj_type=Group,
+            )
+            email = get_attr_value(
+                field=email_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            role = get_attr_value(
+                field=role_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            print(email, role)
             enforcer = get_group_service_attributes_enforcer(group)
             is_user_at_fluidattacks: bool = email.endswith(
                 FLUIDATTACKS_EMAIL_SUFFIX

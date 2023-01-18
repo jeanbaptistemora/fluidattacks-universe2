@@ -15,6 +15,7 @@ from db_model.groups.types import (
 )
 import pytest
 from typing import (
+    NamedTuple,
     Tuple,
 )
 
@@ -50,6 +51,31 @@ async def test_validate_fluidattacks_staff_on_group_deco() -> None:
             email="test@gmail.com",
             role="hacker",
         )
+
+    class TestClass(NamedTuple):
+        group: Group
+        email: str
+        role: str
+
+    test_obj = TestClass(
+        group=group, email="test@fluidattacks.com", role="hacker"
+    )
+
+    test_obj_fail = TestClass(
+        group=group, email="test@gmail.com", role="hacker"
+    )
+
+    @validate_fluidattacks_staff_on_group_deco(
+        "test_obj.group",
+        "test_obj.email",
+        "test_obj.role",
+    )
+    def decorated_func_obj(test_obj: TestClass) -> TestClass:
+        return test_obj
+
+    assert decorated_func_obj(test_obj=test_obj)
+    with pytest.raises(UnexpectedUserRole):
+        decorated_func_obj(test_obj=test_obj_fail)
 
 
 def test_validate_role_fluid_reqs_deco() -> None:

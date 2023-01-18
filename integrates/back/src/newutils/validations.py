@@ -45,7 +45,12 @@ from typing import (
     Optional,
     Set,
     Tuple,
+    Type,
+    TypeVar,
 )
+
+# Typing
+T = TypeVar("T")
 
 
 def validate_email_address(email: str) -> bool:
@@ -554,22 +559,29 @@ def validate_finding_title_change_policy(
     return True
 
 
+def get_attr_value(field: str, kwargs: dict, obj_type: Type[T]) -> T:
+    if "." in field:
+        obj_name, attr_name = field.split(".")
+        obj = kwargs.get(obj_name)
+        value = getattr(obj, attr_name)
+        if not isinstance(value, obj_type):
+            return cast(T, value)
+        return value
+    return cast(T, kwargs.get(field))
+
+
 def validate_finding_title_change_policy_deco(
     old_title_field: str, new_title_field: str, status_field: str
 ) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            old_title = str(kwargs.get(old_title_field))
-            new_title = str(kwargs.get(new_title_field))
-            if "." in old_title_field:
-                obj_name, attr_name = old_title_field.split(".")
-                obj = kwargs.get(obj_name)
-                old_title = str(getattr(obj, attr_name))
-            if "." in new_title_field:
-                obj_name, attr_name = new_title_field.split(".")
-                obj = kwargs.get(obj_name)
-                new_title = str(getattr(obj, attr_name))
+            old_title = get_attr_value(
+                field=old_title_field, kwargs=kwargs, obj_type=str
+            )
+            new_title = get_attr_value(
+                field=new_title_field, kwargs=kwargs, obj_type=str
+            )
             status = cast(FindingStateStatus, kwargs.get(status_field))
             if (
                 old_title != new_title
