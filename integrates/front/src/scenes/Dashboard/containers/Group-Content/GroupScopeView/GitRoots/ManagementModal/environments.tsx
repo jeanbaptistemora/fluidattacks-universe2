@@ -81,12 +81,12 @@ const Environments: FC<IEnvironmentsProps> = ({
     },
   });
 
-  function openAddModal(): void {
+  const openAddModal = useCallback((): void => {
     setIsAddEnvModalOpen(true);
-  }
-  function closeAddModal(): void {
+  }, []);
+  const closeAddModal = useCallback((): void => {
     setIsAddEnvModalOpen(false);
-  }
+  }, []);
 
   const handleRemoveClick = useCallback(
     (urlId: string): void => {
