@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useHistory } from "react-router-dom";
 
 import { Table } from "components/Table";
@@ -53,16 +53,17 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       : _.flatten(data.me.findingReattacks)
   );
 
-  function goToFinding(
-    rowInfo: Row<IFindingFormatted>
-  ): (event: React.FormEvent) => void {
-    return (event: React.FormEvent): void => {
-      push(
-        `/groups/${rowInfo.original.groupName}/vulns/${rowInfo.original.id}/locations`
-      );
-      event.preventDefault();
-    };
-  }
+  const goToFinding = useCallback(
+    (rowInfo: Row<IFindingFormatted>): ((event: React.FormEvent) => void) => {
+      return (event: React.FormEvent): void => {
+        push(
+          `/groups/${rowInfo.original.groupName}/vulns/${rowInfo.original.id}/locations`
+        );
+        event.preventDefault();
+      };
+    },
+    [push]
+  );
 
   return (
     <React.StrictMode>

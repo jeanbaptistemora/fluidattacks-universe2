@@ -137,9 +137,9 @@ export const Dashboard: React.FC = (): JSX.Element => {
   function handleOnIdle(): void {
     setIdleWarning(true);
   }
-  function handleClick(): void {
+  const handleClick = useCallback((): void => {
     setIdleWarning(false);
-  }
+  }, []);
 
   useIdleTimer({
     onIdle: handleOnIdle,

@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { ColumnDef, Row as TableRow } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 
@@ -45,14 +45,17 @@ const TagsGroup: React.FC<IPortfolioViewProps> = ({
     { accessorKey: "description", header: "Description" },
   ];
 
-  function handleRowTagClick(
-    rowInfo: TableRow<{ description: string; name: string }>
-  ): (event: React.FormEvent) => void {
-    return (event: React.FormEvent): void => {
-      push(`/groups/${rowInfo.original.name.toLowerCase()}/analytics`);
-      event.preventDefault();
-    };
-  }
+  const handleRowTagClick = useCallback(
+    (
+      rowInfo: TableRow<{ description: string; name: string }>
+    ): ((event: React.FormEvent) => void) => {
+      return (event: React.FormEvent): void => {
+        push(`/groups/${rowInfo.original.name.toLowerCase()}/analytics`);
+        event.preventDefault();
+      };
+    },
+    [push]
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;

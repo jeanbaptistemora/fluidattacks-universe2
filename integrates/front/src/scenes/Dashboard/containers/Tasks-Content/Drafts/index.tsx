@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import type { IFilter } from "components/Filter";
@@ -86,16 +86,17 @@ export const TasksDrafts: React.FC = (): JSX.Element => {
 
   const filteredDataset = useFilters(dataset, filters);
 
-  function goToDraft(
-    rowInfo: Row<ITodoDraftAttr>
-  ): (event: React.FormEvent) => void {
-    return (event: React.FormEvent): void => {
-      push(
-        `/groups/${rowInfo.original.groupName}/drafts/${rowInfo.original.id}/locations`
-      );
-      event.preventDefault();
-    };
-  }
+  const goToDraft = useCallback(
+    (rowInfo: Row<ITodoDraftAttr>): ((event: React.FormEvent) => void) => {
+      return (event: React.FormEvent): void => {
+        push(
+          `/groups/${rowInfo.original.groupName}/drafts/${rowInfo.original.id}/locations`
+        );
+        event.preventDefault();
+      };
+    },
+    [push]
+  );
 
   return (
     <React.StrictMode>
