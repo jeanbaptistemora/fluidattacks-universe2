@@ -7,10 +7,15 @@ from model.core_model import (
     MethodsEnum,
     Platform,
 )
+import re
 from typing import (
     Iterator,
+    Pattern,
 )
-import yaml
+
+PUB_DEP: Pattern[str] = re.compile(
+    r"^\s{2}(?P<pkg>[^\s]+):\s(?P<version>[^\s]*)$"
+)
 
 
 # pylint: disable=unused-argument
@@ -18,11 +23,18 @@ import yaml
 def pub_pubspec_yaml(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
-    dict_yaml = yaml.safe_load(content)
-    if "dependencies" in dict_yaml:
-        for dep, version in dict_yaml["dependencies"].items():
-            if dep == "flutter":
-                continue
-            yield format_pkg_dep(dep, version, 1, 1)
+    line_deps: bool = False
+    for line_number, line in enumerate(content.splitlines(), 1):
+        if line.startswith("dependencies:"):
+            line_deps = True
+        elif line_deps:
+            if matched := re.match(PUB_DEP, line):
+                pkg_name = matched.group("pkg")
+                pkg_version = matched.group("version")
+                yield format_pkg_dep(
+                    pkg_name, pkg_version, line_number, line_number
+                )
+            elif not line:
+                break
 
     return iter([({}, {})])
