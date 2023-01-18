@@ -1,7 +1,4 @@
 import boto3
-from context import (
-    FI_AWS_S3_MAIN_BUCKET,
-)
 from datetime import (
     datetime,
 )
@@ -29,17 +26,11 @@ from db_model.findings.types import (  # type: ignore
 from decimal import (
     Decimal,
 )
-from moto import (
-    mock_s3,
-)
 from moto.dynamodb import (
     mock_dynamodb,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
-)
-from mypy_boto3_s3 import (
-    S3Client,
 )
 import pytest
 import pytest_asyncio
@@ -57,7 +48,6 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
-BUCKET_NAME = FI_AWS_S3_MAIN_BUCKET
 
 tables_names = ["integrates_vms"]
 key_schemas = {
@@ -1014,15 +1004,6 @@ findings: Dict[str, Tuple[Finding, ...]] = {
 @pytest.fixture(scope="function")
 def findings_data() -> Dict[str, Tuple[Finding, ...]]:
     return findings
-
-
-@pytest_asyncio.fixture(scope="module")
-def s3_mock() -> S3Client:  # type: ignore
-    """Mocked S3 Fixture."""
-    with mock_s3():
-        s3_client = boto3.client("s3")
-        s3_client.create_bucket(Bucket=BUCKET_NAME)
-        yield s3_client
 
 
 @pytest_asyncio.fixture(name="dynamo_resource", scope="module")

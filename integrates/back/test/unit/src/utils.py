@@ -120,6 +120,7 @@ from graphql import (
     GraphQLResolveInfo,
 )
 import json
+import os
 from requests import (
     Request,
 )
@@ -140,6 +141,7 @@ import uuid
 
 mocked_paths: Dict[str, str] = {
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
+    "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
     "dynamodb_ops.query": "dynamodb.operations_legacy.query",
@@ -7265,6 +7267,13 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "event_comments.domain.remove_comments": {
         '["418900978"]': None,
         '["538745942"]': None,
+    },
+    "findings.domain.evidence.download_evidence_file": {
+        '["unittesting", "422286126",'
+        ' "unittesting-422286126-evidence_file.csv"]': os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "findings/domain/tmp_mock/unittesting-422286126-evidence_file.csv",
+        )
     },
     "findings.storage.search_evidence": {
         '["unittesting", "422286126",'
