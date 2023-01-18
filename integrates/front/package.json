@@ -35,6 +35,7 @@
     "font-awesome": "4.7.0",
     "formik": "2.2.9",
     "graphql": "15.8.0",
+    "html-webpack-plugin": "5.5.0",
     "i18next": "19.9.2",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
