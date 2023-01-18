@@ -114,6 +114,38 @@ async def mutation_add(
     )
 
 
+async def mutation_add_secret(
+    *,
+    user: str,
+    group_name: str,
+    key: str,
+    url_id: str,
+    value: str,
+) -> dict[str, Any]:
+    query: str = f"""
+        mutation {{
+            addGitEnvironmentSecret(
+                groupName: "{group_name}"
+                urlId: "{url_id}"
+                key: "{key}"
+                value: "{value}"
+                description: "user access for prod"
+            ) {{
+                success
+            }}
+        }}
+    """
+
+    data: dict[str, Any] = {
+        "query": query,
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
+
+
 async def mutation_remove(
     *,
     user: str,

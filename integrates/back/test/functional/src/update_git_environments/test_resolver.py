@@ -2,6 +2,7 @@ from . import (
     get_result_add,
     get_result_remove,
     mutation_add,
+    mutation_add_secret,
     mutation_remove,
 )
 from back.test.functional.src.add_toe_input import (  # noqa: E501 pylint: disable=import-error
@@ -23,6 +24,7 @@ from datetime import (
 )
 from db_model.roots.types import (
     GitRoot,
+    Secret,
 )
 from db_model.toe_inputs.types import (
     RootToeInputsRequest,
@@ -189,6 +191,40 @@ async def test_add_git_environment_url(populate: bool, email: str) -> None:
     loaders.root_toe_inputs.clear_all()
     assert len(await _get_root_toe_inputs(False, group_name, root_id)) == 0
     assert len(await _get_root_toe_inputs(True, group_name, root_id)) == 1
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_git_environments")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_add_git_environment_url_secret(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    group_name: str = "group1"
+    url_id: str = "e6118eb4696e04e882362cf2159baf240687256f"
+
+    result: Dict[str, Any] = await mutation_add_secret(
+        user=email,
+        group_name=group_name,
+        key="user",
+        url_id=url_id,
+        value="integrates_test",
+    )
+    assert "errors" not in result
+    assert result["data"]["addGitEnvironmentSecret"]["success"]
+
+    loaders = get_new_context()
+    secrets = await loaders.environment_secrets.load((url_id))
+    assert len(secrets) > 0
+
+    secret: Secret = secrets[0]
+    assert secret.key == "user"
+    assert secret.value == "integrates_test"
 
 
 @pytest.mark.asyncio

@@ -197,52 +197,6 @@ async def test_update_git_environments_delete() -> None:
 
 
 @pytest.mark.changes_db
-async def test_add_environment_url_secret() -> None:
-    query = """
-      mutation {
-        addGitEnvironmentSecret(
-          groupName: "unittesting"
-          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
-          key: "user"
-          value: "jane_doe"
-          description: "user acces for prod"
-        ) {
-          success
-        }
-      }
-    """
-    result = await _get_result_async(
-        {"query": query}, user="integratesuser@gmail.com"
-    )
-
-    assert "errors" not in result
-    assert result["data"]["addGitEnvironmentSecret"]["success"]
-
-    query_secrets = """
-      query {
-        environmentUrl(
-          groupName: "unittesting"
-          urlId: "e6118eb4696e04e882362cf2159baf240687256f"
-        ) {
-          url
-          id
-          secrets {
-            key
-            value
-          }
-        }
-      }
-    """
-    result_secrets = await _get_result_async(
-        {"query": query_secrets}, user="integrateshacker@fluidattacks.com"
-    )
-    secrets = result_secrets["data"]["environmentUrl"]["secrets"]
-    assert len(secrets) > 0
-    assert secrets[0]["key"] == "user"
-    assert secrets[0]["value"] == "jane_doe"
-
-
-@pytest.mark.changes_db
 async def test_remove_environment_url_secret() -> None:
     query = """
       mutation {
