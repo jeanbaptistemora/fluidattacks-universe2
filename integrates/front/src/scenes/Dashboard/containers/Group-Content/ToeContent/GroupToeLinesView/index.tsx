@@ -21,7 +21,12 @@ import { HandleAdditionModal } from "./HandleAdditionModal";
 import { HandleEditionModal } from "./HandleEditionModal";
 import { SortsSuggestionsModal } from "./SortsSuggestionsModal";
 import { SortsSuggestionsButton } from "./styles";
-import { formatBePresent, formatPercentage, formatRootId } from "./utils";
+import {
+  formatBePresent,
+  formatPercentage,
+  formatRootId,
+  formatToeLines,
+} from "./utils";
 
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -36,7 +41,6 @@ import {
 import type {
   IGroupToeLinesViewProps,
   ISortsSuggestionAttr,
-  IToeLinesAttr,
   IToeLinesConnection,
   IToeLinesData,
   IToeLinesEdge,
@@ -47,8 +51,6 @@ import { getErrors } from "utils/helpers";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
-
-const NOEXTENSION = ".no.extension.";
 
 const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   isInternal,
@@ -122,12 +124,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     "tblToeLines-sortingState",
     []
   );
-
-  function commitFormatter(value: string): string {
-    const COMMIT_LENGTH: number = 7;
-
-    return value.slice(0, COMMIT_LENGTH);
-  }
 
   const formatDate: (date: Date | undefined) => string = (
     date: Date | undefined
@@ -231,67 +227,8 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const toeLinesEdges: IToeLinesEdge[] =
     data === undefined ? [] : data.group.toeLines.edges;
-  const getCoverage = (toeLinesAttr: IToeLinesAttr): number =>
-    toeLinesAttr.loc === 0 ? 1 : toeLinesAttr.attackedLines / toeLinesAttr.loc;
 
-  const getDaysToAttack = (toeLinesAttr: IToeLinesAttr): number => {
-    if (
-      _.isNull(toeLinesAttr.attackedAt) ||
-      _.isEmpty(toeLinesAttr.attackedAt) ||
-      new Date(toeLinesAttr.modifiedDate) > new Date(toeLinesAttr.attackedAt)
-    ) {
-      if (toeLinesAttr.bePresent) {
-        return Math.floor(
-          (new Date().getTime() -
-            new Date(toeLinesAttr.modifiedDate).getTime()) /
-            (1000 * 3600 * 24)
-        );
-      }
-
-      return Math.floor(
-        (new Date(toeLinesAttr.bePresentUntil ?? "").getTime() -
-          new Date(toeLinesAttr.modifiedDate).getTime()) /
-          (1000 * 3600 * 24)
-      );
-    }
-
-    return Math.floor(
-      (new Date(toeLinesAttr.attackedAt).getTime() -
-        new Date(toeLinesAttr.modifiedDate).getTime()) /
-        (1000 * 3600 * 24)
-    );
-  };
-
-  const getExtension = (toeLinesAttr: IToeLinesAttr): string => {
-    const lastPointindex = toeLinesAttr.filename.lastIndexOf(".");
-    const lastSlashIndex = toeLinesAttr.filename.lastIndexOf("/");
-    if (lastPointindex === -1 || lastSlashIndex > lastPointindex) {
-      return NOEXTENSION;
-    }
-
-    return toeLinesAttr.filename.slice(lastPointindex + 1);
-  };
-
-  const formatOptionalDate: (date: string | null) => Date | undefined = (
-    date: string | null
-  ): Date | undefined =>
-    _.isNull(date) || _.isEmpty(date) ? undefined : new Date(date);
-  const toeLines: IToeLinesData[] = toeLinesEdges.map(
-    ({ node }): IToeLinesData => ({
-      ...node,
-      attackedAt: formatOptionalDate(node.attackedAt),
-      bePresentUntil: formatOptionalDate(node.bePresentUntil),
-      coverage: getCoverage(node),
-      daysToAttack: getDaysToAttack(node),
-      extension: getExtension(node),
-      firstAttackAt: formatOptionalDate(node.firstAttackAt),
-      lastCommit: commitFormatter(node.lastCommit),
-      modifiedDate: formatOptionalDate(node.modifiedDate),
-      rootId: node.root.id,
-      rootNickname: node.root.nickname,
-      seenAt: formatOptionalDate(node.seenAt),
-    })
-  );
+  const toeLines: IToeLinesData[] = formatToeLines(toeLinesEdges);
 
   const handleUpdateAttackedLines: (
     rootId: string,
