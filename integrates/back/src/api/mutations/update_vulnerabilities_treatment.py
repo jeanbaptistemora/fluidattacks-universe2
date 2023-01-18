@@ -43,6 +43,9 @@ from newutils import (
 from sessions import (
     domain as sessions_domain,
 )
+from typing import (
+    Optional,
+)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -55,6 +58,25 @@ from vulnerabilities import (
 from vulnerabilities.types import (
     VulnerabilityTreatmentToUpdate,
 )
+
+
+def _get_accepted_until(
+    acceptance_date: Optional[str],
+    treatment_status: VulnerabilityTreatmentStatus,
+) -> Optional[datetime]:
+    if (
+        treatment_status != VulnerabilityTreatmentStatus.ACCEPTED
+        or not acceptance_date
+    ):
+        return None
+
+    if len(acceptance_date.split(" ")) == 1:
+        today = datetime_utils.get_now_as_str()
+        acceptance_date = f"{acceptance_date.split()[0]} {today.split()[1]}"
+
+    return datetime_utils.get_from_str(acceptance_date).astimezone(
+        tz=timezone.utc
+    )
 
 
 @convert_kwargs_to_snake_case
@@ -82,12 +104,8 @@ async def mutate(
                 kwargs["treatment"].replace(" ", "_").upper()
             )
         ]
-        accepted_until = (
-            datetime_utils.get_from_str(kwargs["acceptance_date"]).astimezone(
-                tz=timezone.utc
-            )
-            if treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
-            else None
+        accepted_until = _get_accepted_until(
+            kwargs.get("acceptance_date"), treatment_status
         )
         assigned = kwargs.get("assigned", "")
         await vulns_domain.update_vulnerabilities_treatment(
