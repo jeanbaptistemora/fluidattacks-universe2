@@ -485,52 +485,9 @@ async def remove_group(
     if group.state.status == GroupStateStatus.DELETED:
         raise AlreadyPendingDeletion()
 
-    if validate_pending_actions:
-        cancelable_actions = {
-            Action.CLONE_ROOTS.value,
-            Action.EXECUTE_MACHINE.value,
-            Action.REBASE.value,
-            Action.REFRESH_TOE_INPUTS.value,
-            Action.REFRESH_TOE_LINES.value,
-            Action.REFRESH_TOE_PORTS.value,
-        }
-        group_actions: list[BatchProcessing] = [
-            action
-            for action in await batch_dal.get_actions()
-            if action.entity == group_name
-        ]
-        pending_actions = [
-            action
-            for action in group_actions
-            if action.action_name not in cancelable_actions
-            and action.batch_job_id
-        ]
-        if pending_actions:
-            raise GroupHasPendingActions(
-                action_names=[action.action_name for action in pending_actions]
-            )
-
-        actions_to_delete = [
-            action
-            for action in group_actions
-            if action.action_name in cancelable_actions
-        ]
-        await collect(
-            [
-                batch_dal.delete_action(dynamodb_pk=action.key)
-                for action in actions_to_delete
-            ]
-        )
-        await collect(
-            [
-                batch_dal.cancel_batch_job(
-                    job_id=action.batch_job_id,
-                    reason=f"GROUP_REMOVAL: {justification}",
-                )
-                for action in actions_to_delete
-                if action.batch_job_id
-            ]
-        )
+    await _remove_all_batch_actions(
+        group_name, justification, validate_pending_actions
+    )
 
     await groups_model.update_state(
         group_name=group_name,
@@ -1373,7 +1330,8 @@ async def remove_all_stakeholders(
                 modified_by=modified_by,
             )
             for access in stakeholders_access
-        )
+        ),
+        workers=4,
     )
 
 
@@ -1407,6 +1365,63 @@ async def _remove_all_toe(
     LOGGER.info(
         "Group's toe removed",
         extra={"extra": {"group_name": group_name}},
+    )
+
+
+async def _remove_all_batch_actions(
+    group_name: str,
+    justification: str,
+    validate_pending_actions: bool,
+) -> None:
+    group_actions: list[BatchProcessing] = [
+        action
+        for action in await batch_dal.get_actions()
+        if action.entity == group_name
+    ]
+    if validate_pending_actions:
+        cancelable_actions = {
+            Action.CLONE_ROOTS.value,
+            Action.EXECUTE_MACHINE.value,
+            Action.REBASE.value,
+            Action.REFRESH_TOE_INPUTS.value,
+            Action.REFRESH_TOE_LINES.value,
+            Action.REFRESH_TOE_PORTS.value,
+        }
+        pending_actions = [
+            action
+            for action in group_actions
+            if action.action_name not in cancelable_actions
+            and action.batch_job_id
+        ]
+        if pending_actions:
+            raise GroupHasPendingActions(
+                action_names=[action.action_name for action in pending_actions]
+            )
+
+    await collect(
+        [
+            batch_dal.delete_action(dynamodb_pk=action.key)
+            for action in group_actions
+        ]
+    )
+    await collect(
+        [
+            batch_dal.cancel_batch_job(
+                job_id=action.batch_job_id,
+                reason=f"GROUP_REMOVAL: {justification}",
+            )
+            for action in group_actions
+            if action.batch_job_id
+        ]
+    )
+    LOGGER.info(
+        "Group's batch actions removed",
+        extra={
+            "extra": {
+                "group_name": group_name,
+                "actions": [action.action_name for action in group_actions],
+            }
+        },
     )
 
 
