@@ -25,7 +25,7 @@ interface IInnerInputProps {
 function renderInput({
   disabled,
   form,
-  field: { name },
+  field: { name, onBlur: fieldBlur },
   id,
   label,
   onBlur,
@@ -41,9 +41,9 @@ function renderInput({
     InputProps,
     inputRef,
   }: Readonly<IInnerInputProps>): JSX.Element {
-    const [, handleChange] = useHandlers(
-      { onChange: inputProps?.onChange },
-      { onChange }
+    const [handleBlur, handleChange] = useHandlers(
+      { onBlur: fieldBlur, onChange: inputProps?.onChange },
+      { onBlur, onChange }
     );
 
     return (
@@ -62,7 +62,7 @@ function renderInput({
           disabled={disabled}
           id={id}
           name={name}
-          onBlur={onBlur}
+          onBlur={handleBlur}
           onChange={handleChange}
           onFocus={onFocus}
           onKeyDown={onKeyDown}

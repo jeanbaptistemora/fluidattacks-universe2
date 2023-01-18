@@ -17,6 +17,7 @@ import type {
   IFinding,
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
+import { InputDateTime } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   Col100,
@@ -29,7 +30,6 @@ import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import {
   FormikAutocompleteText,
-  FormikDateTime,
   FormikDropdown,
   FormikFileInput,
   FormikTextArea,
@@ -174,19 +174,15 @@ const AddModal: React.FC<IAddModalProps> = ({
             <Form>
               <Row>
                 <Col50>
-                  <FormGroup>
-                    <ControlLabel>{t("group.events.form.date")}</ControlLabel>
-                    <Field
-                      component={FormikDateTime}
-                      dataTestId={"event-date-time"}
-                      name={"eventDate"}
-                      validate={composeValidators([
-                        required,
-                        validDatetime,
-                        dateTimeBeforeToday,
-                      ])}
-                    />
-                  </FormGroup>
+                  <InputDateTime
+                    label={t("group.events.form.date")}
+                    name={"eventDate"}
+                    validate={composeValidators([
+                      required,
+                      validDatetime,
+                      dateTimeBeforeToday,
+                    ])}
+                  />
                 </Col50>
                 <Col50>
                   <FormGroup>

@@ -17,6 +17,7 @@ const Select: FC<ISelectProps> = ({
   onKeyDown,
   required,
   tooltip,
+  validate,
   variant,
 }: Readonly<ISelectProps>): JSX.Element => (
   <Field
@@ -32,6 +33,7 @@ const Select: FC<ISelectProps> = ({
     required={required}
     tooltip={tooltip}
     type={"text"}
+    validate={validate}
     variant={variant}
   >
     {children}

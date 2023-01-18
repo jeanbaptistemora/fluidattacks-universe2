@@ -19,6 +19,7 @@ const InputNumber: FC<IInputNumberProps> = ({
   placeholder,
   required,
   tooltip,
+  validate,
   variant = "solid",
 }: Readonly<IInputNumberProps>): JSX.Element => (
   <Field
@@ -36,6 +37,7 @@ const InputNumber: FC<IInputNumberProps> = ({
     placeholder={placeholder}
     required={required}
     tooltip={tooltip}
+    validate={validate}
     variant={variant}
   />
 );

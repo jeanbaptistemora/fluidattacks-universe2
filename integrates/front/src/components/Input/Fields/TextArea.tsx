@@ -17,6 +17,7 @@ const TextArea: FC<ITextAreaProps> = ({
   placeholder,
   required,
   rows,
+  validate,
   variant,
 }: Readonly<ITextAreaProps>): JSX.Element => (
   <Field
@@ -32,6 +33,7 @@ const TextArea: FC<ITextAreaProps> = ({
     placeholder={placeholder}
     required={required}
     rows={rows}
+    validate={validate}
     variant={variant}
   />
 );

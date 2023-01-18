@@ -18,6 +18,7 @@ const InputDate: FC<IInputDateProps> = ({
   onKeyDown,
   required,
   tooltip,
+  validate,
   variant = "solid",
 }: Readonly<IInputDateProps>): JSX.Element => (
   <Field
@@ -34,6 +35,7 @@ const InputDate: FC<IInputDateProps> = ({
     onKeyDown={onKeyDown}
     required={required}
     tooltip={tooltip}
+    validate={validate}
     variant={variant}
   />
 );

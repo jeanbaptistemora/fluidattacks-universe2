@@ -16,6 +16,7 @@ const Checkbox: FC<ICheckboxProps> = ({
   onKeyDown,
   required,
   tooltip,
+  validate,
   value,
 }: Readonly<ICheckboxProps>): JSX.Element => (
   <Field
@@ -31,6 +32,7 @@ const Checkbox: FC<ICheckboxProps> = ({
     required={required}
     tooltip={tooltip}
     type={"checkbox"}
+    validate={validate}
     value={value}
   />
 );
