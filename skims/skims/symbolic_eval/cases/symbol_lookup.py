@@ -7,6 +7,9 @@ from symbolic_eval.context.search import (
 from symbolic_eval.f085.symbol_lookup import (
     evaluate as evaluate_symbol_f085,
 )
+from symbolic_eval.f343.symbol_lookup import (
+    evaluate as evaluate_symbol_f343,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -23,7 +26,8 @@ from utils import (
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
-    FindingEnum.F085: evaluate_symbol_f085
+    FindingEnum.F085: evaluate_symbol_f085,
+    FindingEnum.F343: evaluate_symbol_f343,
 }
 
 OUTSIDEPATH_TYPES = {

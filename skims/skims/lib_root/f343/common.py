@@ -1,9 +1,18 @@
 from lib_root.utilities.javascript import (
     get_default_alias,
 )
+from model.core_model import (
+    MethodsEnum,
+)
 from model.graph_model import (
     Graph,
     NId,
+)
+from symbolic_eval.evaluate import (
+    evaluate,
+)
+from symbolic_eval.utils import (
+    get_backward_paths,
 )
 from typing import (
     Optional,
@@ -14,20 +23,25 @@ from utils import (
 )
 
 
-def get_vuln_nodes(graph: Graph, n_id: NId) -> Optional[NId]:
-    for p_id in g.get_nodes_by_path(
-        graph, n_id, [], "ArgumentList", "Object", "Pair"
-    ):
-        if (key_n_id := graph.nodes[p_id].get("key_id")) and (
-            graph.nodes[key_n_id].get("symbol") == "algorithm"
-            and (value_n_id := graph.nodes[p_id].get("value_id"))
-            and graph.nodes[value_n_id].get("value") == '"' + "gzip" + '"'
-        ):
-            return p_id
+def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> Optional[NId]:
+    for path in get_backward_paths(graph, n_id):
+        if evaluation := evaluate(method, graph, path, n_id):
+            if "custom_function" in evaluation.triggers:
+                return None
+            if "algorithm" not in evaluation.triggers:
+                return n_id
+            if "gzip" in evaluation.triggers:
+                evaluation.triggers.difference_update(
+                    {"algorithm_key", "gzip"}
+                )
+                alg_n_id = next(iter(evaluation.triggers))
+                return alg_n_id
     return None
 
 
-def webpack_insecure_compression(graph: Graph) -> Set[NId]:
+def webpack_insecure_compression(
+    graph: Graph, method: MethodsEnum
+) -> Set[NId]:
     vuln_nodes: Set[NId] = set()
     if dangerous_library := get_default_alias(
         graph, "compression-webpack-plugin"
@@ -35,7 +49,8 @@ def webpack_insecure_compression(graph: Graph) -> Set[NId]:
         for n_id in g.matching_nodes(
             graph, label_type="ObjectCreation", name=dangerous_library
         ):
-            if vuln_node := get_vuln_nodes(graph, n_id):
-                vuln_nodes.add(vuln_node)
-
+            if (
+                parameters_n_id := g.match_ast_d(graph, n_id, "ArgumentList")
+            ) and (vuln_n_id := is_vuln(graph, method, parameters_n_id)):
+                vuln_nodes.add(vuln_n_id)
     return vuln_nodes

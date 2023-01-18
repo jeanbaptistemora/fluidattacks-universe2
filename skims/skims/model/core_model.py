@@ -5692,7 +5692,7 @@ class MethodsEnum(Enum):
         module="lib_root",
         finding=FindingEnum.F343,
         developer=DeveloperEnum.LUIS_PATINO,
-        technique=TechniqueEnum.BASIC_SAST,
+        technique=TechniqueEnum.ADVANCE_SAST,
     )
     JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA = MethodInfo(
         file_name="javascript",
