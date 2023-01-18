@@ -13,6 +13,9 @@ from datetime import (
     datetime,
     timedelta,
 )
+from dateutil import (
+    parser,
+)
 from io import (
     StringIO,
 )
@@ -29,6 +32,7 @@ from typing import (
     Callable,
     Coroutine,
     Dict,
+    List,
     Tuple,
 )
 
@@ -281,6 +285,66 @@ async def have_old_creds_enabled(
     return vulns
 
 
+async def have_old_access_keys(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    await run_boto3_fun(
+        credentials, service="iam", function="generate_credential_report"
+    )
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_credential_report"
+    )
+
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+    vulns: core_model.Vulnerabilities = ()
+    users_csv = StringIO(response.get("Content", b"").decode())
+    credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
+
+    for user in credentials_report:
+        locations: List[Location] = []
+        if any(
+            (
+                user["access_key_1_active"] != "true",
+                user["access_key_2_active"] != "true",
+            )
+        ):
+            continue
+
+        key_names = ("access_key_1_last_rotated", "access_key_2_last_rotated")
+        with suppress(KeyError):
+            for index, name in enumerate(key_names):
+                if (
+                    parser.parse(user[name]).replace(tzinfo=pytz.UTC)
+                    < three_months_ago
+                ):
+                    user_arn = user["arn"]
+                    locations = [
+                        *locations,
+                        Location(
+                            access_patterns=(f"/{key_names[index]}",),
+                            arn=(f"{user_arn}"),
+                            values=(user[key_names[index]],),
+                            description=(
+                                "src.lib_path.f363.have_old_access_keys"
+                            ),
+                        ),
+                    ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(
+                        core_model.MethodsEnum.AWS_IAM_HAS_OLD_ACCESS_KEYS
+                    ),
+                    aws_response=user,
+                ),
+            )
+
+    return vulns
+
+
 async def password_expiration_unsafe(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -327,4 +391,5 @@ CHECKS: Tuple[
     password_reuse_unsafe,
     password_expiration_unsafe,
     have_old_creds_enabled,
+    have_old_access_keys,
 )
