@@ -41,15 +41,36 @@ def get_regex_node(graph: Graph, expr: str) -> Optional[NId]:
     return None
 
 
-def is_node_danger(graph: Graph, n_id: NId) -> bool:
+def sets_timespan(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.CS_VULN_REGEX
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and "hastimespan" in evaluation.triggers:
+            return True
+    return False
+
+
+def is_pattern_danger(graph: Graph, n_id: NId) -> bool:
     method = MethodsEnum.CS_VULN_REGEX
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if (
             evaluation
             and evaluation.danger
-            and evaluation.triggers != {"SafeRegex"}
+            and "safepattern" not in evaluation.triggers
         ):
+            return True
+    return False
+
+
+def is_node_danger(graph: Graph, n_id: NId) -> bool:
+    method = MethodsEnum.CS_VULN_REGEX
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.triggers == {
+            "userparams",
+            "userconnection",
+        }:
             return True
     return False
 
@@ -63,13 +84,13 @@ def is_regex_vuln(graph: Graph, n_id: NId) -> bool:
     ):
         args_nids = g.adj_ast(graph, al_id)
         regpat_nid = args_nids[0]
-        is_danger_pattern = is_node_danger(graph, regpat_nid)
-        no_timespan = True
+        is_danger_pattern = is_pattern_danger(graph, regpat_nid)
+        has_timespan = False
         if len(args_nids) == 3:
             timespan_nid = args_nids[2]
-            no_timespan = is_node_danger(graph, timespan_nid)
+            has_timespan = sets_timespan(graph, timespan_nid)
 
-        return is_danger_pattern and no_timespan
+        return is_danger_pattern and not has_timespan
 
     return False
 
@@ -80,16 +101,18 @@ def analyze_method_vuln(graph: Graph, method_id: NId) -> bool:
     args_id = g.get_ast_childs(graph, method_id, "ArgumentList")
     args_nids = g.adj_ast(graph, args_id[0])
 
-    is_danger_method = False
+    if len(args_nids) == 0 or not is_node_danger(graph, args_nids[0]):
+        return False
+
     if len(args_nids) == 1:
         is_danger_method = True
     elif len(args_nids) >= 2:
         regpat_nid = args_nids[1]
-        is_danger_method = is_node_danger(graph, regpat_nid)
+        is_danger_method = is_pattern_danger(graph, regpat_nid)
 
     if len(args_nids) == 4:
         timespan_nid = args_nids[3]
-        is_danger_method = is_node_danger(graph, timespan_nid)
+        is_danger_method = not sets_timespan(graph, timespan_nid)
 
     if (
         is_danger_method

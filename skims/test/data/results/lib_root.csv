@@ -5047,104 +5047,79 @@ F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,5,405,s
   21 | }
      ^ Col 0
 ",typescript.ts_regex_injection
-F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,11,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
-   1 | using System.Text.RegularExpressions;
    2 | namespace Controllers
    3 | {
    4 |     public class Controller : Controller
    5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
    7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   10 |
-> 11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+> 12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+  14 |             bool unsafe2 = myreg.Matches(input, pattern);
+  15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
   18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-     ^ Col 0
-",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,9,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
- in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
-   1 | using System.Text.RegularExpressions;
-   2 | namespace Controllers
-   3 | {
-   4 |     public class Controller : Controller
-   5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
-   7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
->  9 |             bool unsafe = myreg.IsMatch(""testing"");
-  10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
-  18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
      ^ Col 0
 ",c_sharp.csharp_vuln_regular_expression
 F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,14,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
    4 |     public class Controller : Controller
    5 |     {
-   6 |         public IActionResult Validate(string regex, string input)
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
    7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-> 14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-  17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+  12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+> 14 |             bool unsafe2 = myreg.Matches(input, pattern);
+  15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
   18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
   23 |
-  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  24 |             Regex myreg2 = new Regex(pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
      ^ Col 0
 ",c_sharp.csharp_vuln_regular_expression
-F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,17,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,15,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
  in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   5 |     {
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
    7 |         {
-   8 |             Regex myreg = new Regex(regex, RegexOptions.IgnoreCase);
-   9 |             bool unsafe = myreg.IsMatch(""testing"");
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
   10 |
-  11 |             bool unsafe2 = myreg.Matches(""testing"", regex);
-  12 |
-  13 |             var expreg = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
-  14 |             bool unsafe3 = myreg.Match(""testing"", expreg);
-  15 |
-  16 |             Regex anotherDangerous = new Regex(expreg, RegexOptions.IgnoreCase);
-> 17 |             bool unsafe4 = anotherDangerous.Match(""testing"");
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+  12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+  14 |             bool unsafe2 = myreg.Matches(input, pattern);
+> 15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
   18 |
-  19 |             bool safe = myreg.IsMatch(""testing"", reg.Escape(expreg));
-  20 |
-  21 |             string safeInput = reg.Escape(expreg);
-  22 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
   23 |
-  24 |             bool safe3 = myreg.IsMatch(""testing"", expreg, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-  25 |
-  26 |             Regex myreg2 = new Regex(regex, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
-  27 |             bool safe4 = myreg2.IsMatch(input, regex);
+  24 |             Regex myreg2 = new Regex(pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  25 |             bool safe4 = myreg2.IsMatch(input);
      ^ Col 0
 ",c_sharp.csharp_vuln_regular_expression
 F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
