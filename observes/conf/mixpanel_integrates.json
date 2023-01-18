@@ -20,6 +20,7 @@
     "AutoenrollCancel",
     "AutoenrollCheckAccess",
     "AutoenrollmentWelcome",
+    "AutoenrollSuccess",
     "AutoenrollSubmit",
     "DeleteGroup",
     "DownloadGraphic",
@@ -97,6 +98,8 @@
     "RemoveUserOrganizationAccess",
     "RequestReattack",
     "SearchGroup",
+    "SendSquadFormOnboarding",
+    "SupportedLanguagesOnboarding",
     "UnsubscribeFromGroup",
     "UpdatedTreatmentVulnerabilities",
     "UpdateOrganizationPolicies",
@@ -105,4 +108,3 @@
     "ViewVulnerability"
   ]
 }
-
