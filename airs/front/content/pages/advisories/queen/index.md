@@ -72,7 +72,9 @@ server to receive the reverse shell from the victim server.
 
 ![vulnerability-orangescrum](https://user-images.githubusercontent.com/51862990/211672802-e1fd6b44-1f5a-414f-8f27-5fbba9d40267.png)
 
-![explotation-orangescrum](https://user-images.githubusercontent.com/51862990/211674614-e71238c4-0fe3-4029-bb71-15c35c46e0e2.gif)
+<iframe src="https://www.veed.io/embed/ba4eb5e3-edfc-4d62-b2ad-638fef75099d"
+width="835" height="505" frameborder="0" title="POC-OS-Command-Injection-OrangeScrum.mp4"
+webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ![exploit-success-orangescrum](https://user-images.githubusercontent.com/51862990/211672619-a0006c75-3f39-4cfd-9791-af389d8a37f2.png)
 
