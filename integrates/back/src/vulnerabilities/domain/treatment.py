@@ -2,7 +2,6 @@ from aioextensions import (
     collect,
     schedule,
 )
-import authz
 from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
@@ -42,9 +41,6 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityTreatment,
 )
-from db_model.vulnerabilities.utils import (
-    get_inverted_treatment_converted,
-)
 from decimal import (
     Decimal,
 )
@@ -78,6 +74,9 @@ from vulnerabilities.domain.utils import (
     format_vulnerability_locations,
     get_valid_assigned,
     validate_acceptance,
+)
+from vulnerabilities.types import (
+    VulnerabilityTreatmentToUpdate,
 )
 
 
@@ -176,29 +175,26 @@ async def validate_accepted_treatment_change(
 
 async def add_vulnerability_treatment(
     *,
-    justification: str,
     modified_by: str,
-    treatment_status: VulnerabilityTreatmentStatus,
     vulnerability: Vulnerability,
-    accepted_until: Optional[datetime] = None,
-    assigned: Optional[str] = None,
+    treatment: VulnerabilityTreatmentToUpdate,
 ) -> None:
-    treatment_to_add = VulnerabilityTreatment(
-        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
-        if treatment_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        else None,
-        accepted_until=accepted_until,
-        justification=justification,
-        assigned=assigned or modified_by,
-        modified_by=modified_by,
-        modified_date=datetime_utils.get_utc_now(),
-        status=treatment_status,
-    )
     await vulns_model.update_treatment(
         current_value=vulnerability,
         finding_id=vulnerability.finding_id,
         vulnerability_id=vulnerability.id,
-        treatment=treatment_to_add,
+        treatment=VulnerabilityTreatment(
+            acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED
+            if treatment.status
+            == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
+            else None,
+            accepted_until=treatment.accepted_until,
+            justification=treatment.justification,
+            assigned=treatment.assigned or modified_by,
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_utc_now(),
+            status=treatment.status,
+        ),
     )
 
 
@@ -471,76 +467,41 @@ async def get_managers_by_size(
 async def update_vulnerabilities_treatment(
     *,
     loaders: Dataloaders,
-    finding_id: str,
-    updated_values: dict[str, str],
+    finding: Finding,
     finding_severity: Decimal,
-    user_email: str,
+    modified_by: str,
     vulnerability_id: str,
-    group_name: str,
+    treatment: VulnerabilityTreatmentToUpdate,
 ) -> None:
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
     vulns_utils.validate_closed(vulnerability)
-    if vulnerability.finding_id != finding_id:
+    if vulnerability.finding_id != finding.id:
         raise VulnNotFound()
 
-    if (
-        "acceptance_date" in updated_values
-        and updated_values.get("acceptance_date")
-        and len(updated_values["acceptance_date"].split(" ")) == 1
-    ):
-        today = datetime_utils.get_now_as_str()
-        updated_values["acceptance_date"] = (
-            f'{updated_values["acceptance_date"].split()[0]}'
-            f" {today.split()[1]}"
-        )
-
-    if "assigned" not in updated_values:
-        updated_values["assigned"] = user_email
-    if "assigned" in updated_values:
-        role: str = await authz.get_group_level_role(
-            loaders, user_email, group_name
-        )
-        updated_values["assigned"] = await get_valid_assigned(
-            loaders=loaders,
-            assigned=updated_values["assigned"],
-            is_manager=role
-            in {"user_manager", "customer_manager", "vulnerability_manager"},
-            email=user_email,
-            group_name=group_name,
-        )
-
-    new_treatment_status = VulnerabilityTreatmentStatus[
-        get_inverted_treatment_converted(
-            updated_values["treatment"].replace(" ", "_").upper()
-        )
-    ]
-    accepted_until = (
-        datetime_utils.get_from_str(updated_values["acceptance_date"])
-        if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
-        else None
+    if treatment.assigned:
+        validations.validate_fields([treatment.assigned])
+    if treatment.justification:
+        validations.validate_fields([treatment.justification])
+        validations.validate_field_length(treatment.justification, 10000)
+    valid_assigned = await get_valid_assigned(
+        loaders=loaders,
+        assigned=treatment.assigned or modified_by,
+        email=modified_by,
+        group_name=finding.group_name,
     )
-    justification: str = updated_values["justification"]
-    assigned: Optional[str] = updated_values.get("assigned")
-
-    if justification:
-        validations.validate_fields([justification])
-        validations.validate_field_length(justification, 10000)
-    if assigned:
-        validations.validate_fields([assigned])
-
     if (
         vulnerability.treatment
-        and vulnerability.treatment.status == new_treatment_status
-        and vulnerability.treatment.justification == justification
-        and vulnerability.treatment.assigned == assigned
-        and vulnerability.treatment.accepted_until == accepted_until
+        and vulnerability.treatment.status == treatment.status
+        and vulnerability.treatment.justification == treatment.justification
+        and vulnerability.treatment.assigned == valid_assigned
+        and vulnerability.treatment.accepted_until == treatment.accepted_until
     ):
         raise SameValues()
 
-    if new_treatment_status == VulnerabilityTreatmentStatus.ACCEPTED:
-        if not accepted_until:
+    if treatment.status == VulnerabilityTreatmentStatus.ACCEPTED:
+        if not treatment.accepted_until:
             raise InvalidAcceptanceDays("Acceptance parameter missing")
         historic_treatment = (
             await loaders.vulnerability_historic_treatment.load(
@@ -549,19 +510,16 @@ async def update_vulnerabilities_treatment(
         )
         await validate_accepted_treatment_change(
             loaders=loaders,
-            accepted_until=accepted_until,
+            accepted_until=treatment.accepted_until,
             finding_severity=finding_severity,
-            group_name=group_name,
+            group_name=finding.group_name,
             historic_treatment=historic_treatment,
         )
 
     await add_vulnerability_treatment(
-        modified_by=user_email,
-        treatment_status=new_treatment_status,
+        modified_by=modified_by,
+        treatment=treatment._replace(assigned=valid_assigned),
         vulnerability=vulnerability,
-        accepted_until=accepted_until,
-        assigned=assigned,
-        justification=justification,
     )
 
 

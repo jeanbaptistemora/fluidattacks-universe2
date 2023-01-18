@@ -1,10 +1,15 @@
+from datetime import (
+    datetime,
+)
 from db_model.enums import (
     Source,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityTreatmentStatus,
 )
 from typing import (
     NamedTuple,
     Optional,
-    Tuple,
 )
 
 
@@ -15,9 +20,9 @@ class GroupedVulnerabilitiesInfo(NamedTuple):
 
 
 class FindingGroupedVulnerabilitiesInfo(NamedTuple):
-    grouped_ports_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
-    grouped_lines_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
-    grouped_inputs_vulnerabilities: Tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_ports_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_lines_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
+    grouped_inputs_vulnerabilities: tuple[GroupedVulnerabilitiesInfo, ...]
     where: str
 
 
@@ -39,6 +44,13 @@ class VulnerabilityDescriptionToUpdate(NamedTuple):
     source: Optional[Source] = None
     where: Optional[str] = None
     specific: Optional[str] = None
+
+
+class VulnerabilityTreatmentToUpdate(NamedTuple):
+    accepted_until: Optional[datetime]
+    assigned: Optional[str]
+    justification: str
+    status: VulnerabilityTreatmentStatus
 
 
 ToolItem = dict[str, str]

@@ -166,10 +166,12 @@ async def get_valid_assigned(
     *,
     loaders: Dataloaders,
     assigned: str,
-    is_manager: bool,
     email: str,
     group_name: str,
 ) -> str:
+    is_manager = await authz.get_group_level_role(
+        loaders, email, group_name
+    ) in {"user_manager", "customer_manager", "vulnerability_manager"}
     if not is_manager:
         assigned = email
     group_enforcer = await authz.get_group_level_enforcer(loaders, assigned)

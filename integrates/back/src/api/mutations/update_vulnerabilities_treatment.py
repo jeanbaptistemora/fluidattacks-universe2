@@ -21,6 +21,9 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
+from db_model.vulnerabilities.utils import (
+    get_inverted_treatment_converted,
+)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -34,6 +37,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
 )
 from sessions import (
@@ -48,6 +52,9 @@ from unreliable_indicators.operations import (
 from vulnerabilities import (
     domain as vulns_domain,
 )
+from vulnerabilities.types import (
+    VulnerabilityTreatmentToUpdate,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -61,24 +68,40 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerability_id: str,
-    **parameters: str,
+    **kwargs: str,
 ) -> SimplePayload:
     try:
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)
-        group_name: str = finding.group_name
         severity_score = findings_domain.get_severity_score(finding.severity)
-
+        justification: str = kwargs["justification"]
+        treatment_status = VulnerabilityTreatmentStatus[
+            get_inverted_treatment_converted(
+                kwargs["treatment"].replace(" ", "_").upper()
+            )
+        ]
+        accepted_until = (
+            datetime_utils.get_from_str(kwargs["acceptance_date"]).astimezone(
+                tz=timezone.utc
+            )
+            if treatment_status == VulnerabilityTreatmentStatus.ACCEPTED
+            else None
+        )
+        assigned = kwargs.get("assigned", "")
         await vulns_domain.update_vulnerabilities_treatment(
             loaders=loaders,
-            finding_id=finding_id,
-            updated_values=parameters,
+            finding=finding,
             finding_severity=severity_score,
-            user_email=user_email,
+            modified_by=user_email,
             vulnerability_id=vulnerability_id,
-            group_name=group_name,
+            treatment=VulnerabilityTreatmentToUpdate(
+                accepted_until=accepted_until,
+                assigned=assigned,
+                justification=justification,
+                status=treatment_status,
+            ),
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.update_vulnerabilities_treatment,
@@ -90,13 +113,7 @@ async def mutate(
             "Security: Vulnerabilities treatment successfully updated in "
             f"finding {finding_id}",
         )
-
-        justification: str = parameters["justification"]
-        assigned: str = parameters.get("assigned", "")
-        if (
-            parameters.get("treatment")
-            == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED
-        ):
+        if treatment_status == VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED:
             await vulns_domain.send_treatment_report_mail(
                 loaders=loaders,
                 modified_by=user_email,
@@ -104,15 +121,13 @@ async def mutate(
                 vulnerability_id=vulnerability_id,
             )
 
-        # Clearing cache
         loaders.finding_vulnerabilities_all.clear(finding_id)
-
         await vulns_domain.send_treatment_change_mail(
             loaders=loaders,
             assigned=assigned,
             finding_id=finding_id,
             finding_title=finding.title,
-            group_name=group_name,
+            group_name=finding.group_name,
             justification=justification,
             min_date=datetime.now(timezone.utc) - timedelta(days=1),
             modified_by=user_email,

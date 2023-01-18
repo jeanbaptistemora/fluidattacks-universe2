@@ -50,6 +50,9 @@ from unreliable_indicators.operations import (
 from vulnerabilities import (
     domain as vulns_domain,
 )
+from vulnerabilities.types import (
+    VulnerabilityTreatmentToUpdate,
+)
 
 
 @retry_on_exceptions(
@@ -86,9 +89,13 @@ async def process_vulnerability(
         and (is_accepted_expired or is_undefined_accepted_expired)
     ):
         await vulns_domain.add_vulnerability_treatment(
-            justification="Expired accepted treatment",
             modified_by=vulnerability.treatment.modified_by,
-            treatment_status=VulnerabilityTreatmentStatus.UNTREATED,
+            treatment=VulnerabilityTreatmentToUpdate(
+                accepted_until=None,
+                assigned=None,
+                justification="Expired accepted treatment",
+                status=VulnerabilityTreatmentStatus.UNTREATED,
+            ),
             vulnerability=vulnerability,
         )
         return vulnerability.id
