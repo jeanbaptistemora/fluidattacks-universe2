@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 16, 2023, 06:21 PM",
+    "DateLastModified": "Jan 18, 2023, 07:11 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1064,6 +1064,9 @@
           },
           "TableData": [
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1258,6 +1261,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1363,6 +1369,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1502,6 +1511,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1553,6 +1565,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1604,6 +1619,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -3110,6 +3128,7 @@
             "is_concurrent_session",
             "phone",
             "is_registered",
+            "enrolled",
             "tours"
           ],
           "DataAccess": {
