@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-unresolved
 import { TreeItem } from "vscode";
 import type { Command, TreeItemCollapsibleState } from "vscode";
 

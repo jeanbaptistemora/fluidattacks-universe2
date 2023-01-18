@@ -2,6 +2,7 @@
 /* eslint-disable fp/no-this */
 
 import type { Event, TreeDataProvider, TreeItem } from "vscode";
+// eslint-disable-next-line import/no-unresolved
 import { EventEmitter, TreeItemCollapsibleState } from "vscode";
 
 import { GET_GROUPS } from "../queries";

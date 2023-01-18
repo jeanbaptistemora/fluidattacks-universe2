@@ -1,4 +1,5 @@
 import type { Command } from "vscode";
+// eslint-disable-next-line import/no-unresolved
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
 
 import { GET_GIT_ROOTS } from "../queries";
@@ -13,6 +14,7 @@ class GitRootTreeItem extends TreeItem {
     public readonly collapsibleState: TreeItemCollapsibleState,
     public readonly groupName: string,
     public readonly nickname: string,
+    public readonly gitignore: string[],
     public readonly downloadUrl?: string,
     public readonly command?: Command
   ) {
@@ -41,6 +43,7 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
       TreeItemCollapsibleState.Collapsed,
       groupName,
       root.nickname,
+      root.gitignore,
       root.downloadUrl
     );
   };

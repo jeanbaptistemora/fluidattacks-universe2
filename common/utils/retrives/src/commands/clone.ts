@@ -1,11 +1,55 @@
-import { createWriteStream, existsSync, mkdirSync } from "fs";
+import { createReadStream, createWriteStream, existsSync, mkdirSync } from "fs";
 import { get } from "https";
 import { join } from "path";
+import { createGunzip } from "zlib";
 
+// eslint-disable-next-line import/no-named-as-default
+import simpleGit, { ResetMode } from "simple-git";
+import type { Extract } from "tar-stream";
+import { extract as tarExtract } from "tar-stream";
+// eslint-disable-next-line import/no-unresolved
 import { window, workspace } from "vscode";
 
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
+import { ignoreFiles } from "../utils/file";
 
+function extractRoot(
+  rootPath: string,
+  fusionPath: string,
+  rootNickname: string,
+  gitignore: string[]
+): void {
+  const file = rootPath;
+
+  const gunzip = createGunzip();
+  const extract: Extract = tarExtract();
+  const read = createReadStream(file);
+
+  read.pipe(gunzip).pipe(extract);
+
+  extract.on("entry", (header, stream, next): void => {
+    const fileName = header.name;
+    const filePath = join(fusionPath, fileName);
+    if (header.type === "directory") {
+      mkdirSync(filePath, { recursive: true });
+    }
+    stream.pipe(createWriteStream(filePath));
+
+    stream.on("end", (): void => {
+      next();
+    });
+  });
+
+  extract.on("finish", (): void => {
+    void window.showInformationMessage("Finished extracting all files");
+    const repo = simpleGit(join(fusionPath, rootNickname));
+    void repo.reset(ResetMode.HARD);
+    ignoreFiles(rootPath, gitignore);
+  });
+  extract.on("error", (_error): void => {
+    void window.showErrorMessage("Failed to extract repo");
+  });
+}
 function clone(node: GitRootTreeItem): void {
   if (!workspace.workspaceFolders) {
     return;
@@ -13,7 +57,7 @@ function clone(node: GitRootTreeItem): void {
   const servicePath = workspace.workspaceFolders[0].uri.path;
   const fusionPath = join(servicePath, "groups", node.groupName, "fusion");
   if (!existsSync(fusionPath)) {
-    mkdirSync(fusionPath);
+    mkdirSync(fusionPath, { recursive: true });
   }
   const file = createWriteStream(join(fusionPath, `${node.nickname}.tar.gz`));
   if (node.downloadUrl === undefined) {
@@ -28,6 +72,12 @@ function clone(node: GitRootTreeItem): void {
     file.on("finish", (): void => {
       file.close();
       void window.showInformationMessage("Download Completed");
+      extractRoot(
+        join(fusionPath, `${node.nickname}.tar.gz`),
+        fusionPath,
+        node.nickname,
+        node.gitignore
+      );
     });
   });
 }

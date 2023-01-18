@@ -9,6 +9,7 @@ interface IOrganization {
 
 interface IGitRoot {
   nickname: string;
+  gitignore: string[];
   downloadUrl?: string;
 }
 

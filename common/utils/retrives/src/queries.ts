@@ -22,6 +22,7 @@ const GET_GIT_ROOTS = gql`
         ... on GitRoot {
           nickname
           downloadUrl
+          gitignore
         }
       }
     }

@@ -1,5 +1,6 @@
 import { simpleGit } from "simple-git";
 import type { ExtensionContext } from "vscode";
+// eslint-disable-next-line import/no-unresolved
 import { commands, window, workspace } from "vscode";
 
 import { clone } from "./commands/clone";

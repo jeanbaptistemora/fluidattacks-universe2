@@ -6,6 +6,7 @@ import {
 import type { NormalizedCacheObject } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
 import fetch from "cross-fetch";
+// eslint-disable-next-line import/no-unresolved
 import { workspace } from "vscode";
 
 const getClient = (): ApolloClient<NormalizedCacheObject> => {
