@@ -90,6 +90,8 @@ Here we explain the information of each item:
     The number of times the treatment of
     that vulnerability has changed.
 
+## Code tab
+
 Next to details tab is code
 is **Code** tab.
 Here you can see the vulnerable
@@ -103,6 +105,8 @@ out directly from the code.
 > **Note:** This tab is exclusive only,
 > to vulnerability type SAST.
 
+## Treatments tab
+
 In the **Treatments** tab,
 you can modify the vulnerability’s
 defined treatment.
@@ -113,6 +117,8 @@ follow
 [this link](/machine/web/vulnerabilities/management/treatments).
 
 ![Treatments Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1668515370/docs/web/vulnerabilities/management/treatments_Tab.png)
+
+## Tracking tab
 
 Lastly,
 in the **Tracking** tab,
