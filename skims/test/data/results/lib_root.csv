@@ -5162,6 +5162,32 @@ F413,lines,namespace/skims/test/data/lib_root/f413/c_sharp_insecure_assembly_loa
   12 | }
      ^ Col 0
 ",csharp.csharp_insecure_assembly_load
+F343,lines,namespace/skims/test/data/lib_root/f343/js_insecure_plugin.js,6,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/js_insecure_plugin.js,"
+   1 | const CompressionPlugin = require(""compression-webpack-plugin"");
+   2 |
+   3 | // must fail line 6
+   4 | new CompressionPlugin({
+   5 |     filename: ""[path][base].gz"",
+>  6 |     algorithm: ""gzip"",
+   7 |     test: /\.js$|\.css$|\.html$/,
+   8 |     threshold: 10240,
+   9 |     minRatio: 0.8,
+  10 | });
+     ^ Col 0
+",javascript.javascript_insecure_compression_algorithm
+F343,lines,namespace/skims/test/data/lib_root/f343/js_insecure_plugin_alias.js,6,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/js_insecure_plugin_alias.js,"
+   1 | const anyName = require(""compression-webpack-plugin"");
+   2 |
+   3 | // must fail line 6
+   4 | new anyName({
+   5 |     filename: ""[path][base].gz"",
+>  6 |     algorithm: ""gzip"",
+   7 |     test: /\.js$|\.css$|\.html$/,
+   8 |     threshold: 10240,
+   9 |     minRatio: 0.8,
+  10 | });
+     ^ Col 0
+",javascript.javascript_insecure_compression_algorithm
 F343,lines,namespace/skims/test/data/lib_root/f343/js_insecure_plugin_default.js,4,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/js_insecure_plugin_default.js,"
   1 | const CompressionPlugin = require(""compression-webpack-plugin"");
   2 |
@@ -5174,6 +5200,78 @@ F343,lines,namespace/skims/test/data/lib_root/f343/js_insecure_plugin_default.js
   9 | });
     ^ Col 0
 ",javascript.javascript_insecure_compression_algorithm
+F343,lines,namespace/skims/test/data/lib_root/f343/js_insecure_plugin_safe.js,6,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/js_insecure_plugin_safe.js,"
+   1 | const CompressionPlugin = require(""compression-webpack-plugin"");
+   2 |
+   3 | // must fail line 6
+   4 | const opt = {
+   5 |   filename: ""[path][base].gz"",
+>  6 |   algorithm: ""gzip"",
+   7 |   test: /\.js$|\.css$|\.html$/,
+   8 |   threshold: 10240,
+   9 |   minRatio: 0.8,
+  10 | };
+  11 |
+  12 | new CompressionPlugin(opt);
+  13 |
+  14 | // safe
+  15 | const opt2 = {
+  16 |   filename: ""[path][base].br"",
+  17 |   algorithm: ""brotliCompress"",
+  18 |   test: /\.(js|css|html|svg)$/,
+  19 |   compressionOptions: {
+  20 |     params: {
+  21 |       [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+     ^ Col 0
+",javascript.javascript_insecure_compression_algorithm
+F343,lines,namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,6,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,"
+   1 | import CompressionPlugin from ""compression-webpack-plugin"";
+   2 |
+   3 | // Must fail line 6
+   4 | new CompressionPlugin({
+   5 |     filename: ""[path][base].gz"",
+>  6 |     algorithm: ""gzip"",
+   7 |     test: /\.js$|\.css$|\.html$/,
+   8 |     threshold: 10240,
+   9 |     minRatio: 0.8,
+  10 | });
+  11 |
+  12 | const pluginOpts = {
+  13 |     filename: ""[path][base].br"",
+  14 |     algorithm: ""brotliCompress"",
+  15 |     test: /\.(js|css|html|svg)$/,
+  16 |     compressionOptions: {
+  17 |       params: {
+  18 |         [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+  19 |       },
+  20 |     },
+  21 |     threshold: 10240,
+     ^ Col 0
+",typescript.typescript_insecure_compression_algorithm
+F343,lines,namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,29,444,skims,343. Insecure service configuration - BREACH Attack,The application uses an insecure compression algorithm. in namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,"
+  15 |     test: /\.(js|css|html|svg)$/,
+  16 |     compressionOptions: {
+  17 |       params: {
+  18 |         [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+  19 |       },
+  20 |     },
+  21 |     threshold: 10240,
+  22 |     minRatio: 0.8,
+  23 | };
+  24 |
+  25 | new CompressionPlugin(pluginOpts);
+  26 |
+  27 | const pluginOpts2 = {
+  28 |     filename: ""[path][base].gz"",
+> 29 |     algorithm: ""gzip"",
+  30 |     test: /\.js$|\.css$|\.html$/,
+  31 |     threshold: 10240,
+  32 |     minRatio: 0.8,
+  33 |   };
+  34 |
+  35 | new CompressionPlugin(pluginOpts2);
+     ^ Col 0
+",typescript.typescript_insecure_compression_algorithm
 F089,lines,namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java,9,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java","
    1 | import java.io.IOException;

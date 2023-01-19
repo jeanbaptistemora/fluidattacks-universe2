@@ -31,9 +31,7 @@ def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> Optional[NId]:
             if "algorithm" not in evaluation.triggers:
                 return n_id
             if "gzip" in evaluation.triggers:
-                evaluation.triggers.difference_update(
-                    {"algorithm_key", "gzip"}
-                )
+                evaluation.triggers.difference_update({"algorithm", "gzip"})
                 alg_n_id = next(iter(evaluation.triggers))
                 return alg_n_id
     return None
