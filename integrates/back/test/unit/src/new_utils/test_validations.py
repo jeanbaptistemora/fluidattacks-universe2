@@ -2,8 +2,10 @@
 from custom_exceptions import (
     DuplicateDraftFound,
     ErrorFileNameAlreadyExists,
+    IncompleteSeverity,
     InvalidChar,
     InvalidCommitHash,
+    InvalidCvssVersion,
     InvalidField,
     InvalidFieldChange,
     InvalidFieldLength,
@@ -20,6 +22,7 @@ from db_model.enums import (
     Source,
 )
 from db_model.findings.enums import (
+    FindingCvssVersion,
     FindingStateStatus,
 )
 from db_model.findings.types import (
@@ -42,6 +45,7 @@ import pytest
 from typing import (
     NamedTuple,
     Optional,
+    Set,
     Tuple,
 )
 
@@ -982,7 +986,7 @@ def test_validate_markdown_deco() -> None:
         decorated_func(text="<span>Example Text</span>")
 
 
-async def test_validate_no_duplicate_drafts_deco() -> None:
+def test_validate_no_duplicate_drafts_deco() -> None:
     @validations.validate_no_duplicate_drafts_deco(
         "title_field", "drafts_field", "findings_field"
     )
@@ -1072,4 +1076,77 @@ async def test_validate_no_duplicate_drafts_deco() -> None:
             title_field="001. SQL injection - C Sharp SQL API",
             drafts_field=(),
             findings_field=test_finding,
+        )
+
+
+def test_validate_missing_severity_field_names_deco() -> None:
+    @validations.validate_missing_severity_field_names_deco(
+        "fields", "css_version_field"
+    )
+    def decorated_func(fields: Set[str], css_version_field: str) -> Tuple:
+        return (fields, css_version_field)
+
+    fields_20_severity = {
+        "access_complexity",
+        "access_vector",
+        "authentication",
+        "availability_impact",
+        "availability_requirement",
+        "collateral_damage_potential",
+        "confidence_level",
+        "confidentiality_impact",
+        "confidentiality_requirement",
+        "exploitability",
+        "finding_distribution",
+        "integrity_impact",
+        "integrity_requirement",
+        "resolution_level",
+    }
+
+    fields_31_severity = {
+        "attack_complexity",
+        "attack_vector",
+        "availability_impact",
+        "availability_requirement",
+        "confidentiality_impact",
+        "confidentiality_requirement",
+        "exploitability",
+        "integrity_impact",
+        "integrity_requirement",
+        "modified_attack_complexity",
+        "modified_attack_vector",
+        "modified_availability_impact",
+        "modified_confidentiality_impact",
+        "modified_integrity_impact",
+        "modified_privileges_required",
+        "modified_user_interaction",
+        "modified_severity_scope",
+        "privileges_required",
+        "remediation_level",
+        "report_confidence",
+        "severity_scope",
+        "user_interaction",
+    }
+
+    assert decorated_func(
+        fields=fields_20_severity,
+        css_version_field=FindingCvssVersion.V20.value,
+    )
+    assert decorated_func(
+        fields=fields_31_severity,
+        css_version_field=FindingCvssVersion.V31.value,
+    )
+    with pytest.raises(IncompleteSeverity):
+        decorated_func(
+            fields=fields_31_severity,
+            css_version_field=FindingCvssVersion.V20.value,
+        )
+        decorated_func(
+            fields=fields_20_severity,
+            css_version_field=FindingCvssVersion.V31.value,
+        )
+    with pytest.raises(InvalidCvssVersion):
+        decorated_func(
+            fields=fields_20_severity,
+            css_version_field="invalid Version",
         )

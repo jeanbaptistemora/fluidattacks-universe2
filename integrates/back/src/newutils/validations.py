@@ -514,6 +514,45 @@ def validate_missing_severity_field_names(
         raise IncompleteSeverity(missing_field_names)
 
 
+def validate_missing_severity_field_names_deco(
+    field_names_field: str, css_version_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            css_version = get_attr_value(
+                field=css_version_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            field_names = get_attr_value(
+                field=field_names_field,
+                kwargs=kwargs,
+                obj_type=set[str],
+            )
+            if css_version == FindingCvssVersion.V20.value:
+                missing_field_names = {
+                    utils.snakecase_to_camelcase(field)
+                    for field in Finding20Severity._fields
+                    if field not in field_names
+                }
+            elif css_version == FindingCvssVersion.V31.value:
+                missing_field_names = {
+                    utils.snakecase_to_camelcase(field)
+                    for field in Finding31Severity._fields
+                    if field not in field_names
+                }
+            else:
+                raise InvalidCvssVersion()
+            if missing_field_names:
+                raise IncompleteSeverity(missing_field_names)
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_update_severity_values(dictionary: dict) -> None:
     if (
         len(
@@ -702,12 +741,11 @@ def validate_no_duplicate_drafts_deco(
                 kwargs=kwargs,
                 obj_type=tuple[Finding, ...],
             )
-            findings: Tuple[Finding, ...] = get_attr_value(
+            findings = get_attr_value(
                 field=findings_field,
                 kwargs=kwargs,
                 obj_type=tuple[Finding, ...],
             )
-
             for draft in drafts:
                 if new_title == draft.title:
                     raise DuplicateDraftFound(kind="draft")
