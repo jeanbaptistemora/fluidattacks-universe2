@@ -257,7 +257,8 @@ Below follow the step by step to apply.
   depending on your profile.
   Before doing this,
   you must first complete the previous stage.
-  To begin, click the following link.
+  To begin, click the following
+  [link.](https://forms.zohopublic.com/autonomic/form/PruebaFormularioRegistroCorto/formperma/tbfC99r0J9ln41MzQiglDDCWxbopM8HCw9r6iUnW_-k)
 
 - **History:**
   The goal of this stage is to register your
@@ -267,6 +268,38 @@ Below follow the step by step to apply.
   of 3 to 5 minutes per job prior to this one.
   Before doing this,
   you must first complete the previous stage.
+
+To begin, please follow these detailed instructions.
+
+- **Evaluations:**
+  The goal of this stage is to assess your skills
+  and abilities in different areas.
+  This is mandatory and requires an estimated
+  effort of 2 to 3 hours,
+  depending on your knowledge,
+  with an average time of 1 minute to answer
+  each question.
+  Before doing this,
+  you must first complete the previous stage.
+
+- **Challenges:**
+  On some occasions,
+  challenges will be assigned to be able to
+  evaluate some technical activities.
+
+  The realization of the challenges depends
+  100% on you since they are totally virtual.
+
+- **Interview:**
+  The goal of this stage is to show your interest
+  and desire to be a part of `Fluid Attacks`
+  through a video interview.
+  It requires an estimated effort of 45 to 60 minutes.
+  Our interviews are conducted by video call.
+
+- **Security process:**
+  At this stage of the process,
+  we verify and perform:
 
 ## 4\. Portfolio
 
