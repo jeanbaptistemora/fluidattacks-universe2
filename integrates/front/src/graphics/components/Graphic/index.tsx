@@ -260,10 +260,12 @@ export const Graphic: React.FC<IGraphicProps> = (
     setSubjectName(`${subject}_30`);
     frameOnRefresh();
   }
-  function changeToNinety(): void {
+
+  const changeToNinety = useCallback((): void => {
     setSubjectName(`${subject}_90`);
     frameOnRefresh();
-  }
+  }, [frameOnRefresh, subject]);
+
   function changeToSixtyDays(): void {
     setSubjectName(`${subject}_60`);
     frameOnRefresh();
@@ -272,24 +274,31 @@ export const Graphic: React.FC<IGraphicProps> = (
     setSubjectName(`${subject}_180`);
     frameOnRefresh();
   }
-  function changeToAll(): void {
+
+  const changeToAll = useCallback((): void => {
     setSubjectName(subject);
     frameOnRefresh();
-  }
-  function changeToDefault(): void {
+  }, [frameOnRefresh, subject]);
+
+  const changeToDefault = useCallback((): void => {
     setCurrentDocumentName(documentName);
     setCurrentTitle(title);
     frameOnRefresh();
-  }
-  function changeToAlternative(index: number): void {
-    if (_.includes(Object.keys(mergedDocuments), documentName)) {
-      setCurrentDocumentName(
-        mergedDocuments[documentName].alt[index].documentName
-      );
-      setCurrentTitle(mergedDocuments[documentName].alt[index].title);
-      frameOnRefresh();
-    }
-  }
+  }, [documentName, frameOnRefresh, title]);
+
+  const changeToAlternative = useCallback(
+    (index: number): void => {
+      if (_.includes(Object.keys(mergedDocuments), documentName)) {
+        setCurrentDocumentName(
+          mergedDocuments[documentName].alt[index].documentName
+        );
+        setCurrentTitle(mergedDocuments[documentName].alt[index].title);
+        frameOnRefresh();
+      }
+    },
+    [documentName, frameOnRefresh]
+  );
+
   function isDocumentAllowed(name: string, type: string): boolean {
     return (
       _.includes(allowedDocumentNames, name) &&
