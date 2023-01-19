@@ -108,6 +108,7 @@ _dag: dict[str, tuple[Union[tuple[str, ...], str], ...]] = {
         "update",
         "get",
         "add",
+        "remove",
         "utils",
         "types",
         "enums",

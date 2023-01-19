@@ -7,14 +7,13 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_result_mutation(
     *,
     user: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         mutation RemoveStakeholder {
             removeStakeholder {
@@ -22,7 +21,7 @@ async def get_result_mutation(
             }
         }
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,
@@ -34,7 +33,7 @@ async def get_result_me_query(
     *,
     user: str,
     organization_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query GetUser ($organizationId: String!, $callerOrigin: String!) {
             me(callerOrigin: $callerOrigin) {
@@ -47,7 +46,7 @@ async def get_result_me_query(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "callerOrigin": "API",
@@ -68,7 +67,7 @@ async def get_result_stakeholder_query(
     group_name: str = "",
     organization_id: str = "",
     entity: str = "GROUP",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
         query getGroupStakeholder (
             $entity: StakeholderEntity!
@@ -94,7 +93,7 @@ async def get_result_stakeholder_query(
             }
         }
     """
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "query": query,
         "variables": {
             "entity": entity,

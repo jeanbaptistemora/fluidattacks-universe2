@@ -17,9 +17,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.stakeholders.get import (
     get_historic_state,
 )
@@ -33,7 +30,6 @@ from decimal import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -54,15 +50,15 @@ async def test_remove_stakeholder(
     assert populate
     group_name: str = "group1"
     organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result_me_query: Dict[str, Any] = await get_result_me_query(
+    result_me_query: dict[str, Any] = await get_result_me_query(
         user=email, organization_id=organization_id
     )
-    result_stakeholder_query: Dict[
+    result_stakeholder_query: dict[
         str, Any
     ] = await get_result_stakeholder_query(
         user=admin_email, stakeholder=email, group_name=group_name
     )
-    result_organization_stakeholder_query: Dict[
+    result_organization_stakeholder_query: dict[
         str, Any
     ] = await get_result_stakeholder_query(
         user=admin_email,
@@ -119,9 +115,6 @@ async def test_remove_stakeholder(
     assert "errors" not in result
     assert result["data"]["removeStakeholder"]["success"]
 
-    old_enrollment: Enrollment = await old_loaders.enrollment.load(email)
-    assert old_enrollment.enrolled
-
     await confirm_deletion(loaders=get_new_context(), email=email)
 
     new_loaders: Dataloaders = get_new_context()
@@ -130,9 +123,6 @@ async def test_remove_stakeholder(
 
     historic_state = await get_historic_state(email=email)
     assert len(historic_state) == 0
-
-    new_enrollment: Enrollment = await new_loaders.enrollment.load(email)
-    assert new_enrollment.enrolled
 
     result_stakeholder_query = await get_result_stakeholder_query(
         user=admin_email, stakeholder=email, group_name=group_name
