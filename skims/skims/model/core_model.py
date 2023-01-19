@@ -2544,7 +2544,7 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="have_old_creds_enabled",
         module="dast",
-        finding=FindingEnum.F363,
+        finding=FindingEnum.F277,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
@@ -2552,7 +2552,7 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="have_old_access_keys",
         module="dast",
-        finding=FindingEnum.F363,
+        finding=FindingEnum.F277,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
