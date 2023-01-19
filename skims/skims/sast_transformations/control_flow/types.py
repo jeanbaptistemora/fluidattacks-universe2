@@ -8,8 +8,6 @@ from typing import (
     Dict,
     List,
     NamedTuple,
-    Set,
-    Tuple,
 )
 
 Frame = Dict[str, str]  # {type: node_type, next_id: n_id}
@@ -35,11 +33,3 @@ class CfgArgs(NamedTuple):
 
 
 CfgBuilder = Callable[[CfgArgs, Stack], None]
-
-
-class Walker(NamedTuple):
-    applicable_node_label_types: Set[str]
-    walk_fun: CfgBuilder
-
-
-Walkers = Tuple[Walker, ...]
