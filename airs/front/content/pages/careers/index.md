@@ -185,6 +185,49 @@ in `Fluid Attacks`.
   17025 and Common Criteria standards as a reference
   for all security tests.
 
+- **Work with industry leaders:**
+  `Fluid Attacks` provides information security services
+  to some of the biggest organizations in Colombia.
+  This means that there will always be challenging
+  projects in which you can participate.
+  To know our clients, enter here.
+
+- **Great talent working together:**
+  Our most valuable asset is our people and we are
+  proud of our amazing team.
+  In fact,
+  it is a very young team with an average age of 25.
+  We believe our talented team makes `Fluid Attacks`
+  a competitive place to work and,
+  at the same time,
+  a great place to learn and develop your skills.
+  The first three Debian developers in Colombia
+  work with `Fluid Attacks`.
+  Compared to other companies,
+  `Fluid Attacks` has the highest percentage of employees
+  certified in CEH and OSWP.
+  The majority of the team members of the Latin American
+  Security Wargames Championship work with us.
+  Additionally,
+  our employees have important certifications such as
+  CEH,
+  OSCP,
+  CompTIA,
+  eCPTXv2,
+  CARTP,
+  CRT,
+  GPEN,
+  GXPN.
+
+- **Maintaining contact in academia:**
+  To us,
+  it is very important to maintain close
+  relationships in academia.
+  This is why some of our employees teach
+  or have taught courses and lectures at
+  different universities,
+  covering topics such as:
+
 ## 4\. Portfolio
 
 The goal of this stage is to assess your ability to express yourself,
