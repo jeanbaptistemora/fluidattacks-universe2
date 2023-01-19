@@ -31,7 +31,7 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSEC2, Node]]:
     for ec2_res in ec2_iterator:
-        if "Encrypted" not in ec2_res.raw:
+        if hasattr(ec2_res, "raw") and "Encrypted" not in ec2_res.raw:
             yield AWSEC2(
                 column=ec2_res.start_column,
                 data=ec2_res.data,

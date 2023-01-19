@@ -114,7 +114,7 @@ def _cfn_ec2_monitoring_disabled_iterate_vulnerabilities(
                 data=res.data,
                 line=get_line_by_extension(res.start_line, file_ext),
             )
-        elif monitoring.raw not in TRUE_OPTIONS:
+        elif hasattr(monitoring, "raw") and monitoring.raw not in TRUE_OPTIONS:
             yield monitoring
 
 
