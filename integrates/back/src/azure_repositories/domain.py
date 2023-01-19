@@ -21,6 +21,8 @@ from dateutil import (
     parser,
 )
 from db_model.azure_repositories.get import (
+    get_github_repos,
+    get_github_repos_commits,
     get_gitlab_commit,
     get_gitlab_projects,
     get_repositories_stats,
@@ -37,6 +39,7 @@ from db_model.azure_repositories.utils import (
 )
 from db_model.credentials.types import (
     Credentials,
+    OauthGithubSecret,
     OauthGitlabSecret,
 )
 from db_model.credentials.utils import (
@@ -73,6 +76,9 @@ from git.cmd import (
 )
 from git_self import (
     pull_repositories,
+)
+from github import (
+    GitCommit as GitHubCommit,
 )
 import hashlib
 from itertools import (
@@ -652,6 +658,99 @@ async def _get_gitlab_credential_stats(
     return tuple()
 
 
+async def get_github_credentials_stats(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    organization_id: str,
+) -> RepositoriesStats:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_github_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return RepositoriesStats(
+        repositories=tuple(
+            OrganizationIntegrationRepository(
+                id=__get_id(stat.project.remote_url),
+                organization_id=organization_id,
+                branch=stat.project.branch,
+                last_commit_date=parser.parse(
+                    stat.commits[0]["_rawData"]["committer"]["date"]
+                ).astimezone(timezone.utc)
+                if stat.commits
+                else stat.project.last_activity_at,
+                url=stat.project.remote_url,
+                commit_count=len(stat.commits),
+            )
+            for stat in filtered_stats
+        ),
+        missed_repositories=len(filtered_stats),
+        missed_commits=sum(len(stat.commits) for stat in filtered_stats),
+    )
+
+
+async def _get_github_credential_stats(
+    *,
+    credential: Credentials,
+    urls: set[str],
+) -> tuple[ProjectStats, ...]:
+    if isinstance(credential.state.secret, OauthGithubSecret):
+        token: str = credential.state.secret.access_token
+
+        repositories: tuple[BasicRepoData, ...] = await get_github_repos(
+            token=token
+        )
+        filtered_repositories = tuple(
+            repository
+            for repository in repositories
+            if repository.last_activity_at.timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+            and filter_urls(repository=repository, urls=urls)
+        )
+        commits: tuple[
+            tuple[GitHubCommit.GitCommit, ...], ...
+        ] = await get_github_repos_commits(
+            token=token,
+            repositories=tuple(
+                repository.id for repository in filtered_repositories
+            ),
+        )
+        sorted_commits: tuple[tuple[GitHubCommit.GitCommit, ...], ...] = tuple(
+            tuple(
+                sorted(p_commits, key=lambda x: x.committer.date, reverse=True)
+            )
+            for p_commits in commits
+        )
+        return tuple(
+            ProjectStats(
+                project=project,
+                commits=tuple(commit.__dict__ for commit in p_commits),
+            )
+            for project, p_commits in zip(
+                filtered_repositories, sorted_commits
+            )
+            if p_commits
+            and p_commits[0].committer.date.timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+        )
+
+    return tuple()
+
+
 async def get_pat_credentials_stats(
     credentials: tuple[Credentials, ...],
     urls: set[str],
@@ -785,6 +884,11 @@ async def update_organization_repositories(
                 credentials=credentials,
                 urls=urls,
                 loaders=loaders,
+                organization_id=organization.id,
+            ),
+            get_github_credentials_stats(
+                credentials=credentials,
+                urls=urls,
                 organization_id=organization.id,
             ),
         ],

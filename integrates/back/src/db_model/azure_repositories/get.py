@@ -336,9 +336,9 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
                 web_url=gproject.attributes["web_url"],
                 branch=(
                     "refs/heads/"
-                    f'{gproject.attributes["default_branch"]}'.rstrip().lstrip(
-                        "refs/heads/"
-                    )
+                    + gproject.attributes["default_branch"]
+                    .rstrip()
+                    .lstrip("refs/heads/")
                 ),
                 last_activity_at=parser.parse(
                     gproject.attributes["last_activity_at"]
