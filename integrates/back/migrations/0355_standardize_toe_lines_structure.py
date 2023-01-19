@@ -1,8 +1,6 @@
 # pylint: disable=invalid-name
 """
-Refresh toe inputs metadata and state when an empty string is in an
-attribute that would hold a date. These empty strings are causing an
-indexation error in opensearch. The attribute will be removed instead.
+Move migrated attributes from the ToeLines Item into the State
 
 Execution Time:
 Execution Time:
@@ -35,6 +33,36 @@ from organizations import (
 )
 import time
 
+MIGRATED_ATTRS = {
+    "loc",
+    "comments",
+    "sorts_risk_level",
+    "sorts_risk_level_date",
+    "last_commit",
+    "last_author",
+    "has_vulnerabilities",
+    "attacked_at",
+    "first_attack_at",
+    "be_present",
+    "attacked_by",
+    "attacked_lines",
+    "seen_at",
+    "sorts_suggestions",
+}
+MIGRATE = False
+
+
+def check_item_state_shape(item: Item) -> None:
+    if "state" not in item:
+        print(f"Found an item without a state: {item}")
+    elif any(
+        key not in item["state"] for key in ("modified_by", "modified_date")
+    ):
+        print(f"Found a state without some values: {item['state']}")
+    # return (MIGRATED_ATTRS & item.keys()) == (
+    #   MIGRATED_ATTRS & state_item.keys()
+    # )
+
 
 async def get_toe_lines_by_group(
     group_name: str,
@@ -62,23 +90,7 @@ async def get_toe_lines_by_group(
 
 async def process_toe_lines_item(item: Item) -> None:
     state_item: Item = item["state"]
-    migrated_attrs = {
-        "loc",
-        "comments",
-        "sorts_risk_level",
-        "sorts_risk_level_date",
-        "last_commit",
-        "last_author",
-        "has_vulnerabilities",
-        "attacked_at",
-        "first_attack_at",
-        "be_present",
-        "attacked_by",
-        "attacked_lines",
-        "seen_at",
-        "sorts_suggestions",
-    }
-    keys_to_update = (migrated_attrs & item.keys()) - state_item.keys()
+    keys_to_update = (MIGRATED_ATTRS & item.keys()) - state_item.keys()
 
     if not keys_to_update:
         return
@@ -90,9 +102,15 @@ async def process_toe_lines_item(item: Item) -> None:
         sort_key=item[TABLE.primary_key.sort_key],
     )
     condition_expression = Attr(key_structure.partition_key).exists()
+    if state_item.get("modified_date") is None:
+        condition_expression &= Attr("state.modified_date").not_exists()
+    else:
+        condition_expression &= Attr("state.modified_date").eq(
+            state_item["modified_date"]
+        )
     await operations.update_item(
         condition_expression=condition_expression,
-        item=to_update,
+        item={"state": to_update},
         key=primary_key,
         table=TABLE,
     )
@@ -101,16 +119,20 @@ async def process_toe_lines_item(item: Item) -> None:
 async def process_group(group_name: str, progress: float) -> None:
     group_toe_lines = await get_toe_lines_by_group(group_name)
     print(
-        f"Working on {group_name=}, {len(group_toe_lines)=}, "
+        f"Working on {group_name=}, {len(group_toe_lines)}, "
         f"progress: {round(progress, 2)}"
     )
     if not group_toe_lines:
         return
 
-    await collect(
-        tuple(process_toe_lines_item(item) for item in group_toe_lines),
-        workers=64,
-    )
+    if MIGRATE:
+        await collect(
+            tuple(process_toe_lines_item(item) for item in group_toe_lines),
+            workers=64,
+        )
+    else:
+        for item in group_toe_lines:
+            check_item_state_shape(item)
 
 
 async def main() -> None:
