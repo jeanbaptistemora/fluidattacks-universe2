@@ -4,6 +4,7 @@ interface ITodoDraftAttr {
   hacker: string;
   id: string;
   openVulnerabilities: number;
+  organizationName: string | undefined;
   reportDate: string | null;
   severityScore: number;
   title: string;
