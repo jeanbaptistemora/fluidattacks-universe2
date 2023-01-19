@@ -35019,7 +35019,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0)
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, CVE-2022-3704, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'CVE-2022-3704', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, CVE-2022-3704, GHSA-8xww-x3g3-6jcv, GHSA-9445-4cr6-336r, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'CVE-2022-3704', 'GHSA-8xww-x3g3-6jcv', 'GHSA-9445-4cr6-336r', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    38 |     actionmailer (7.0.2.3)
    39 |       actionpack (= 7.0.2.3)
    40 |       actionview (= 7.0.2.3)
@@ -35043,7 +35043,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.
    58 |       activestorage (= 7.0.2.3)
       ^ Col 0
 ",gem.gem_gemfile_lock
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v7.0.2.3) [CVE-2022-32224, GHSA-3hhc-qp5v-9p2j]",73,937,skims,011. Use of software with known vulnerabilities,"Use of activerecord at version 7.0.2.3 with ['CVE-2022-32224', 'GHSA-3hhc-qp5v-9p2j'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v7.0.2.3) [CVE-2022-32224, GHSA-3hhc-qp5v-9p2j, GHSA-579w-22j4-4749, GHSA-hq7p-j377-6v63]",73,937,skims,011. Use of software with known vulnerabilities,"Use of activerecord at version 7.0.2.3 with ['CVE-2022-32224', 'GHSA-3hhc-qp5v-9p2j', 'GHSA-579w-22j4-4749', 'GHSA-hq7p-j377-6v63'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    63 |       activesupport (= 7.0.2.3)
    64 |       builder (~> 3.1)
    65 |       erubi (~> 1.4)
@@ -35065,6 +35065,30 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (activerecord v
    81 |       marcel (~> 1.0)
    82 |       mini_mime (>= 1.1.0)
    83 |     activesupport (7.0.2.3)
+      ^ Col 0
+",gem.gem_gemfile_lock
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (activesupport v7.0.2.3) [GHSA-j6gc-792m-qgm2],83,937,skims,011. Use of software with known vulnerabilities,Use of activesupport at version 7.0.2.3 with ['GHSA-j6gc-792m-qgm2'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+   73 |     activerecord (7.0.2.3)
+   74 |       activemodel (= 7.0.2.3)
+   75 |       activesupport (= 7.0.2.3)
+   76 |     activestorage (7.0.2.3)
+   77 |       actionpack (= 7.0.2.3)
+   78 |       activejob (= 7.0.2.3)
+   79 |       activerecord (= 7.0.2.3)
+   80 |       activesupport (= 7.0.2.3)
+   81 |       marcel (~> 1.0)
+   82 |       mini_mime (>= 1.1.0)
+>  83 |     activesupport (7.0.2.3)
+   84 |       concurrent-ruby (~> 1.0, >= 1.0.2)
+   85 |       i18n (>= 1.6, < 2)
+   86 |       minitest (>= 5.1)
+   87 |       tzinfo (~> 2.0)
+   88 |     bcrypt (3.1.17)
+   89 |     builder (3.2.4)
+   90 |     concurrent-ruby (1.1.10)
+   91 |     crass (1.0.6)
+   92 |     digest (3.1.0)
+   93 |     erubi (1.10.0)
       ^ Col 0
 ",gem.gem_gemfile_lock
 F011,lines,"namespace/skims/test/data/lib_path/f011/build.sbt (com.h2database:h2 v1.4.200) [CVE-2021-23463, CVE-2021-42392, CVE-2022-23221, GHSA-22wj-vf5f-wrvj, GHSA-45hx-wfhj-473x, GHSA-7rpj-hg47-cx62, GHSA-h376-j262-vhq6]",18,937,skims,011. Use of software with known vulnerabilities,"Use of com.h2database:h2 at version 1.4.200 with ['CVE-2021-23463', 'CVE-2021-42392', 'CVE-2022-23221', 'GHSA-22wj-vf5f-wrvj', 'GHSA-45hx-wfhj-473x', 'GHSA-7rpj-hg47-cx62', 'GHSA-h376-j262-vhq6'] in namespace/skims/test/data/lib_path/f011/build.sbt","
@@ -35163,6 +35187,30 @@ F393,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (devise v=1.4.2) [CV
   142 |   group :development do
       ^ Col 0
 ",gem.gem_gemfile_dev
+F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (globalid v1.0.0) [GHSA-23c2-gwp5-pxw9],98,937,skims,011. Use of software with known vulnerabilities,Use of globalid at version 1.0.0 with ['GHSA-23c2-gwp5-pxw9'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
+   88 |     bcrypt (3.1.17)
+   89 |     builder (3.2.4)
+   90 |     concurrent-ruby (1.1.10)
+   91 |     crass (1.0.6)
+   92 |     digest (3.1.0)
+   93 |     erubi (1.10.0)
+   94 |     faraday (2.2.0)
+   95 |       faraday-net_http (~> 2.0)
+   96 |       ruby2_keywords (>= 0.0.4)
+   97 |     faraday-net_http (2.0.2)
+>  98 |     globalid (1.0.0)
+   99 |       activesupport (>= 5.0)
+  100 |     hashie (5.0.0)
+  101 |     i18n (1.10.0)
+  102 |       concurrent-ruby (~> 1.0)
+  103 |     jwt (2.3.0)
+  104 |     loofah (2.16.0)
+  105 |       crass (~> 1.0.2)
+  106 |       nokogiri (>= 1.5.9)
+  107 |     mail (2.7.1)
+  108 |       mini_mime (>= 0.1.1)
+      ^ Col 0
+",gem.gem_gemfile_lock
 F393,lines,"namespace/skims/test/data/lib_path/f011/package-lock.json (hoek v5.0.0.3) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",5,937,skims,393. Use of software with known vulnerabilities in development,"Use of hoek at version 5.0.0.3 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f011/package-lock.json","
    1 | {
    2 |   ""dependencies"": {
@@ -35913,6 +35961,30 @@ F011,lines,namespace/skims/test/data/lib_path/f011/yarn.lock (qs v6.5.3) [CVE-20
   318 |     aws-sign2 ""~0.7.0""
       ^ Col 0
 ",npm.npm_yarn_lock
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (rack v2.2.3) [GHSA-65f5-mfpf-vfhj, GHSA-93pm-5p5f-3ghx, GHSA-rqv2-275x-2jq5]",159,937,skims,011. Use of software with known vulnerabilities,"Use of rack at version 2.2.3 with ['GHSA-65f5-mfpf-vfhj', 'GHSA-93pm-5p5f-3ghx', 'GHSA-rqv2-275x-2jq5'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
+  149 |       oauth2 (~> 1.4)
+  150 |       omniauth (>= 1.9, < 3)
+  151 |     omniauth-openid (2.0.1)
+  152 |       omniauth (>= 1.0, < 3.0)
+  153 |       rack-openid (~> 1.4.0)
+  154 |     orm_adapter (0.5.0)
+  155 |     psych (4.0.3)
+  156 |       stringio
+  157 |     puma (5.4.0)
+  158 |     racc (1.6.0)
+> 159 |     rack (2.2.3)
+  160 |     rack-openid (1.4.2)
+  161 |       rack (>= 1.1.0)
+  162 |       ruby-openid (>= 2.1.8)
+  163 |     rack-protection (2.2.0)
+  164 |       rack
+  165 |     rack-test (1.1.0)
+  166 |       rack (>= 1.0, < 3)
+  167 |     rails (7.0.2.3)
+  168 |       actioncable (= 7.0.2.3)
+  169 |       actionmailbox (= 7.0.2.3)
+      ^ Col 0
+",gem.gem_gemfile_lock
 F011,lines,namespace/skims/test/data/lib_path/f011/Gemfile.lock (rails v7.0.2.3) [CVE-2022-3704],167,937,skims,011. Use of software with known vulnerabilities,Use of rails at version 7.0.2.3 with ['CVE-2022-3704'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock,"
   157 |     puma (5.4.0)
   158 |     racc (1.6.0)
