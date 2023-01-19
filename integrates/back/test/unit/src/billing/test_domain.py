@@ -3,10 +3,14 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mocked_path,
 )
 from billing.domain import (
+    customer_payment_methods,
     get_document_link,
     remove_file,
     save_file,
     search_file,
+)
+from billing.types import (
+    PaymentMethod,
 )
 from datetime import (
     datetime,
@@ -40,6 +44,109 @@ from unittest.mock import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+@pytest.mark.parametrize(
+    ("organization", "expected_result"),
+    (
+        (
+            Organization(
+                created_by="unknown@unknown.com",
+                created_date=datetime.fromisoformat(
+                    "2018-02-08T00:43:18+00:00"
+                ),
+                id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                name="okada",
+                policies=Policies(
+                    modified_date=datetime.fromisoformat(
+                        "2019-11-22T20:07:57+00:00"
+                    ),
+                    modified_by="integratesmanager@gmail.com",
+                    inactivity_period=90,
+                    max_acceptance_days=60,
+                    max_acceptance_severity=Decimal("10.0"),
+                    max_number_acceptances=2,
+                    min_acceptance_severity=Decimal("0.0"),
+                    min_breaking_severity=Decimal("0"),
+                    vulnerability_grace_period=0,
+                ),
+                state=OrganizationState(
+                    status=OrganizationStateStatus.ACTIVE,
+                    modified_by="unknown",
+                    modified_date=datetime.fromisoformat(
+                        "2018-02-08T00:43:18+00:00"
+                    ),
+                    pending_deletion_date=datetime.fromisoformat(
+                        "2019-11-22T20:07:57+00:00"
+                    ),
+                ),
+                country="Colombia",
+                payment_methods=[
+                    OrganizationPaymentMethods(
+                        id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                        business_name="Fluid",
+                        email="test@fluidattacks.com",
+                        country="Colombia",
+                        state="Antioquia",
+                        city="Medellín",
+                        documents=OrganizationDocuments(rut=None, tax_id=None),
+                    ),
+                    OrganizationPaymentMethods(
+                        id="4722b0b7-cfeb-4898-8308-185dfc2523bc",
+                        business_name="Testing Company and Sons",
+                        email="test@fluidattacks.com",
+                        country="Colombia",
+                        state="Antioquia",
+                        city="Medellín",
+                        documents=OrganizationDocuments(rut=None, tax_id=None),
+                    ),
+                ],
+                billing_customer=None,
+                vulnerabilities_url=None,
+            ),
+            [
+                PaymentMethod(
+                    id="38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                    fingerprint="",
+                    last_four_digits="",
+                    expiration_month="",
+                    expiration_year="",
+                    brand="",
+                    default=False,
+                    business_name="Fluid",
+                    city="Medellín",
+                    country="Colombia",
+                    email="test@fluidattacks.com",
+                    state="Antioquia",
+                    rut=None,
+                    tax_id=None,
+                ),
+                PaymentMethod(
+                    id="4722b0b7-cfeb-4898-8308-185dfc2523bc",
+                    fingerprint="",
+                    last_four_digits="",
+                    expiration_month="",
+                    expiration_year="",
+                    brand="",
+                    default=False,
+                    business_name="Testing Company and Sons",
+                    city="Medellín",
+                    country="Colombia",
+                    email="test@fluidattacks.com",
+                    state="Antioquia",
+                    rut=None,
+                    tax_id=None,
+                ),
+            ],
+        ),
+    ),
+)
+async def test_customer_payment_methods(
+    organization: Organization, expected_result: list
+) -> None:
+
+    result = await customer_payment_methods(org=organization)
+    assert result == expected_result
 
 
 @pytest.mark.parametrize(
