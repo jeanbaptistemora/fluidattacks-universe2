@@ -1,0 +1,41 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: adot-collector
+  namespace: monitoring
+spec:
+  image: public.ecr.aws/aws-observability/aws-otel-collector:latest
+  mode: daemonset
+  serviceAccount: monitoring
+  config: |
+    extensions:
+      sigv4auth:
+        service: "aps"
+        region: "us-east-1"
+
+    receivers:
+      prometheus:
+        config:
+          scrape_configs:
+            - job_name: 'kubernetes-nodes'
+              scheme: https
+
+              kubernetes_sd_configs:
+              - role: node
+              tls_config:
+                ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                insecure_skip_verify: true
+              bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+    exporters:
+      prometheusremotewrite:
+        endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-e60ff23e-bccf-4df2-bf46-745c50b45c70/api/v1/remote_write
+        auth:
+          authenticator: sigv4auth
+
+    service:
+      extensions: [sigv4auth]
+      pipelines:
+        metrics:
+          receivers: [prometheus]
+          exporters: [prometheusremotewrite]

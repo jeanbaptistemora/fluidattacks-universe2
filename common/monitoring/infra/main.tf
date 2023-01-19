@@ -4,15 +4,19 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.50.0"
+      version = "~> 4.50.0"
     }
     grafana = {
       source  = "grafana/grafana"
-      version = "1.33.0"
+      version = "~> 1.33.0"
     }
     helm = {
       source  = "hashicorp/helm"
       version = "~> 2.8.0"
+    }
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 2.3.0"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"

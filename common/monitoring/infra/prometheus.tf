@@ -99,12 +99,12 @@ data "aws_iam_policy_document" "k8s_oidc" {
     condition {
       test     = "StringEquals"
       values   = ["system:serviceaccount:${kubernetes_namespace.monitoring.metadata[0].name}:${local.role_name}"]
-      variable = "${data.aws_eks_cluster.k8s_cluster.identity[0].oidc[0].issuer}:sub"
+      variable = "${replace(data.aws_eks_cluster.k8s_cluster.identity[0].oidc[0].issuer, "https://", "")}:sub"
     }
 
     principals {
       type        = "Federated"
-      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${data.aws_eks_cluster.k8s_cluster.identity[0].oidc[0].issuer}"]
+      identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:oidc-provider/${replace(data.aws_eks_cluster.k8s_cluster.identity[0].oidc[0].issuer, "https://", "")}"]
     }
   }
 }
@@ -181,4 +181,12 @@ resource "kubernetes_cluster_role_binding" "monitoring" {
     name      = kubernetes_service_account.monitoring.metadata[0].name
     namespace = kubernetes_namespace.monitoring.metadata[0].name
   }
+}
+
+data "local_file" "adot_collector_manifest" {
+  filename = "src/adot_collector.yaml"
+}
+
+resource "kubernetes_manifest" "adot_collector" {
+  manifest = yamldecode(data.local_file.adot_collector_manifest.content)
 }
