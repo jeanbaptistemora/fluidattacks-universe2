@@ -68,26 +68,33 @@ in `Fluid Attacks`.
 
   1. Security scanners for vulnerability
       detection (SCA, SAST, DAST, RE etc).
+
   2. Data pipelines that extract data to
       later be analyzed with Big Data techniques.
+
   3. We control the product roadmap and we decide
       what will be incorporated into our products.
+
   4. We hate excessive planning and
       useless meetings,
       we believe in the power of programming and
       that code speaks for you,
       not handbooks or documentation.
+
   5. We love python with duck typing as a central
       development tool,
       our frontend is built in typescript and react,
       using only stateless components.
+
   6. We do not say that we are DevOps,
       we live DevOps by having more than 70 daily
       deployments to production.
+
   7. All the infrastructure is as it is in Terraform,
       deployed in AWS and with a Kubernetes cluster
       which is the heart of our operation and that
       allows us to have high availability systems.
+
   8. All problems are treated as software problems,
       following SRE principles
 
