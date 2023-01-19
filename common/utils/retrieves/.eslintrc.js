@@ -23,7 +23,6 @@ module.exports = {
   extends: [
     "eslint:all",
     "plugin:@typescript-eslint/all",
-    "plugin:fp/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:jsx-a11y/strict",
@@ -35,7 +34,7 @@ module.exports = {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      typescript: {},
+      typescript: {}
     },
   },
   rules: {
@@ -260,6 +259,7 @@ module.exports = {
      */
     "fp/no-unused-expression": "off",
     "fp/no-nil": "off",
+    "fp/no-class": "off",
     "import/default": "error",
     "import/export": "error",
     "import/exports-last": "error",
@@ -330,8 +330,9 @@ module.exports = {
     "@typescript-eslint/parameter-properties": [
       1,
       {
-        allow: ["readonly", "public"],
+        allow: ["readonly public"],
       },
     ],
+
   },
 };

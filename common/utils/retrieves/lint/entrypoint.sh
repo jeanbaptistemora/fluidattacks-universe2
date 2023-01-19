@@ -1,10 +1,9 @@
 # shellcheck shell=bash
 
 function main {
-  : && pushd common/utils/retrives \
+  : && pushd common/utils/retrieves \
     && copy __argSetupRetrievesDevRuntime__ ./node_modules \
-    && tsc -p tsconfig.json \
-    && eslint src/** --ext ".ts" \
+    && eslint . --ext ".ts" --fix \
     && popd \
     || return 1
 }

@@ -177,6 +177,10 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
+          output = "/common/utils/retrieves/lint";
+          gitlabExtra = gitlabLint;
+        }
+        {
           output = "/secureKubernetesWithRbacPolice/commonCluster";
           gitlabExtra = gitlabDeployInfra // {allow_failure = true;};
         }
