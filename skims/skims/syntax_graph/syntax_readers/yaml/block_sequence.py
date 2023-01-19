@@ -39,7 +39,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
         if args.ast_graph.nodes[curr_child]["label_type"] != "block_node":
             usable_childs.append(curr_child)
         else:
-            print("aa")
             usable_childs.append(adj_ast(args.ast_graph, curr_child)[0])
 
     return build_array_node(args, usable_childs)
