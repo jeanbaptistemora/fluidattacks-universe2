@@ -190,7 +190,8 @@ in `Fluid Attacks`.
   to some of the biggest organizations in Colombia.
   This means that there will always be challenging
   projects in which you can participate.
-  To know our clients, enter here.
+  To know our clients, enter
+  [here.](/about-us/clients/)
 
 - **Great talent working together:**
   Our most valuable asset is our people and we are
@@ -227,6 +228,45 @@ in `Fluid Attacks`.
   or have taught courses and lectures at
   different universities,
   covering topics such as:
+
+  1. Information Security.
+
+  2. Secure Development Lifecycle.
+
+  3. Programming.
+
+  4. Networks.
+
+  5. Operating Systems.
+
+  6. Distributed Systems.
+
+## 5\. The Selection Process
+
+It is important that you know that the duration
+of the selection process is 90% in your hands
+due it is totally online.
+
+Below follow the step by step to apply.
+
+- **Apply:**
+  The goal of this stage is that you send us
+  your CV and your expectations.
+  This is mandatory and requires an estimated
+  effort of 5 to 10 minutes,
+  depending on your profile.
+  Before doing this,
+  you must first complete the previous stage.
+  To begin, click the following link.
+
+- **History:**
+  The goal of this stage is to register your
+  previous work experience.
+  This is optional If you have no previous
+  experience and requires an estimated effort
+  of 3 to 5 minutes per job prior to this one.
+  Before doing this,
+  you must first complete the previous stage.
 
 ## 4\. Portfolio
 
