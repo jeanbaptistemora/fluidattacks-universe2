@@ -16,6 +16,10 @@
       };
     doCheck = false;
   });
+  self_pycurl = inputs.nixpkgs.python39Packages.pycurl.overridePythonAttrs (_: rec {
+    doCheck = false;
+    version = "7.45.2";
+  });
   pythonRequirements = makePythonPypiEnvironment {
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
@@ -28,7 +32,7 @@
         inputs.nixpkgs.postgresql
         inputs.nixpkgs.gnutar
         inputs.nixpkgs.gzip
-        inputs.nixpkgs.python39Packages.pycurl
+        self_pycurl
       ];
     };
     withSetuptools_57_4_0 = true;
@@ -40,7 +44,7 @@ in
     searchPaths = {
       pythonPackage = [
         "${self_bugsnag}/lib/python3.9/site-packages/"
-        "${inputs.nixpkgs.python39Packages.pycurl}/lib/python3.9/site-packages/"
+        "${self_pycurl}/lib/python3.9/site-packages/"
         (projectPath "/integrates/back/src")
         (projectPath "/integrates")
         (projectPath "/common/utils/bugsnag/client")

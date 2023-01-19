@@ -3,6 +3,6 @@ from enum import (
 )
 
 
-class Channel(Enum):
+class Channel(str, Enum):
     CALL = "CALL"
     SMS = "SMS"

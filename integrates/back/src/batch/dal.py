@@ -86,14 +86,14 @@ OPTIONS = dict(
 TABLE_NAME: str = "fi_async_processing"
 
 
-class SkimsBatchQueue(Enum):
+class SkimsBatchQueue(str, Enum):
     SMALL: str = "skims_small"
     MEDIUM: str = "skims_medium"
     LARGE: str = "skims_large"
     CLONE: str = "clone"
 
 
-class IntegratesBatchQueue(Enum):
+class IntegratesBatchQueue(str, Enum):
     SMALL = "integrates_small"
     MEDIUM = "integrates_medium"
     LARGE = "integrates_large"

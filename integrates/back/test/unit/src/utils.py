@@ -7152,7 +7152,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '52110"]': True,
     },
     "dynamodb.operations_legacy.put_item": {
-        '["71c0fda0eb400019e9c4760a3711031596ddefdb98a8d2b721cd8a94d56db3a9", "1673453501", "IntegratesBatchQueue.SMALL"]': True  # noqa: E501 pylint: disable=line-too-long
+        '["71c0fda0eb400019e9c4760a3711031596ddefdb98a8d2b721cd8a94d56db3a9", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
     },
     "dynamodb.operations_legacy.query": {
         '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long

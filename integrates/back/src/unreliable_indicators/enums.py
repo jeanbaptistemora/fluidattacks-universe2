@@ -4,18 +4,18 @@ from enum import (
 )
 
 
-class Entity(Enum):
+class Entity(str, Enum):
     event: str = "event"
     finding: str = "finding"
     root: str = "root"
     vulnerability: str = "vulnerability"
 
 
-class EntityId(Enum):
+class EntityId(str, Enum):
     ids: str = "ids"
 
 
-class EntityAttr(Enum):
+class EntityAttr(str, Enum):
     efficacy: str = "efficacy"
     closed_vulnerabilities: str = "closed_vulnerabilities"
     closing_date: str = "closing_date"
@@ -39,7 +39,7 @@ class EntityAttr(Enum):
     where: str = "where"
 
 
-class EntityDependency(Enum):
+class EntityDependency(str, Enum):
     activate_root: str = "activate_root"
     approve_draft: str = "approve_draft"
     deactivate_root: str = "deactivate_root"

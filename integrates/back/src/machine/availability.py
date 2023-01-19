@@ -35,7 +35,7 @@ def _json_load(path: str) -> Any:
 QUEUES: Dict[str, Dict[str, str]] = _json_load(os.environ["MACHINE_QUEUES"])
 
 
-class AvailabilityEnum(Enum):
+class AvailabilityEnum(str, Enum):
     ALWAYS: str = "ALWAYS"
     NEVER: str = "NEVER"
     WORKING_HOURS: str = "WORKING_HOURS"

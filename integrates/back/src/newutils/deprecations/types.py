@@ -9,7 +9,7 @@ from typing import (
 )
 
 
-class ApiFieldType(Enum):
+class ApiFieldType(str, Enum):
     DIRECTIVE = "directive_definition"
     ENUM = "enum_type_definition"
     INPUT = "input_object_type_definition"

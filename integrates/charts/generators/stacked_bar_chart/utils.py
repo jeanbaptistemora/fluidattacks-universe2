@@ -97,7 +97,7 @@ GroupDocumentData = NamedTuple(
 )
 
 
-class TimeRangeType(Enum):
+class TimeRangeType(str, Enum):
     MONTHLY: str = "MONTHLY"
     QUARTERLY: str = "QUARTERLY"
     SEMESTERLY: str = "SEMESTERLY"
