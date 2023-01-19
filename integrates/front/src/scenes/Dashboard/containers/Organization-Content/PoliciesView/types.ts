@@ -1,4 +1,5 @@
 interface IPoliciesData {
+  inactivityPeriod?: string;
   maxAcceptanceDays: string;
   maxAcceptanceSeverity: string;
   maxNumberAcceptances: string;

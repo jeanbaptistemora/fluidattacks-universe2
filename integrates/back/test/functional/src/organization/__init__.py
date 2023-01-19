@@ -20,7 +20,7 @@ async def get_result(
         query {{
             organization(organizationId: "{org}") {{
                 id
-                 company {{
+                company {{
                     domain
                     trial {{
                         completed

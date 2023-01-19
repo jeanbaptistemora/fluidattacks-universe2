@@ -11,6 +11,7 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
         status
         tags
       }
+      inactivityPeriod
       maxAcceptanceDays
       maxAcceptanceSeverity
       maxNumberAcceptances
@@ -24,6 +25,7 @@ const GET_ORGANIZATION_POLICIES: DocumentNode = gql`
 
 const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
   mutation UpdateOrganizationPolicies(
+    $inactivityPeriod: Int
     $maxAcceptanceDays: Int
     $maxAcceptanceSeverity: Float
     $maxNumberAcceptances: Int
@@ -34,6 +36,7 @@ const UPDATE_ORGANIZATION_POLICIES: DocumentNode = gql`
     $organizationName: String!
   ) {
     updateOrganizationPolicies(
+      inactivityPeriod: $inactivityPeriod
       maxAcceptanceDays: $maxAcceptanceDays
       maxAcceptanceSeverity: $maxAcceptanceSeverity
       maxNumberAcceptances: $maxNumberAcceptances
