@@ -115,39 +115,50 @@ const UpdateVerificationModal: React.FC<IUpdateVerificationModal> = ({
       ],
     });
 
-  async function handleSubmit(values: {
-    treatmentJustification: string;
-  }): Promise<void> {
-    try {
-      const results = await handleAltSubmitHelper(
-        requestVerification,
-        verifyRequest,
-        values,
-        vulnerabilitiesList,
-        isReattacking
-      );
-      const areAllMutationValid = getAreAllChunckedMutationValid(results);
-      if (areAllMutationValid.every(Boolean)) {
+  const handleSubmit = useCallback(
+    async (values: { treatmentJustification: string }): Promise<void> => {
+      try {
+        const results = await handleAltSubmitHelper(
+          requestVerification,
+          verifyRequest,
+          values,
+          vulnerabilitiesList,
+          isReattacking
+        );
+        const areAllMutationValid = getAreAllChunckedMutationValid(results);
+        if (areAllMutationValid.every(Boolean)) {
+          if (isReattacking) {
+            handleRequestVerification(clearSelected, setRequestState, true);
+          } else {
+            handleVerifyRequest(
+              clearSelected,
+              setVerifyState,
+              true,
+              vulns.length
+            );
+          }
+        }
+      } catch (requestError: unknown) {
         if (isReattacking) {
-          handleRequestVerification(clearSelected, setRequestState, true);
+          handleRequestVerificationError(requestError);
         } else {
-          handleVerifyRequest(
-            clearSelected,
-            setVerifyState,
-            true,
-            vulns.length
-          );
+          handleVerifyRequestError(requestError);
         }
       }
-    } catch (requestError: unknown) {
-      if (isReattacking) {
-        handleRequestVerificationError(requestError);
-      } else {
-        handleVerifyRequestError(requestError);
-      }
-    }
-    closeRemediationModal();
-  }
+      closeRemediationModal();
+    },
+    [
+      clearSelected,
+      closeRemediationModal,
+      isReattacking,
+      requestVerification,
+      setRequestState,
+      setVerifyState,
+      verifyRequest,
+      vulnerabilitiesList,
+      vulns.length,
+    ]
+  );
 
   const handleOnChange = useCallback((): void => {
     setIsOpen((currentValue: boolean): boolean => {
