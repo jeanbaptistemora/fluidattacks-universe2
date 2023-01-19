@@ -13,6 +13,9 @@ from lib_path.f393.npm import (
     npm_pkg_lock_json,
     npm_yarn_lock_dev,
 )
+from lib_path.f393.pub import (
+    pub_pubspec_yaml_dev,
+)
 from model.core_model import (
     Vulnerabilities,
 )
@@ -50,6 +53,11 @@ def run_npm_pkg_lock_json(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_npm_yarn_lock_dev(content: str, path: str) -> Vulnerabilities:
     return npm_yarn_lock_dev(content, path)
+
+
+@SHIELD_BLOCKING
+def run_pub_pubspec_yaml_dev(content: str, path: str) -> Vulnerabilities:
+    return pub_pubspec_yaml_dev(content, path)
 
 
 @SHIELD_BLOCKING
