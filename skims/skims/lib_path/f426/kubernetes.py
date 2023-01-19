@@ -41,7 +41,7 @@ def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
 
 
 def check_digest(line: str) -> bool:
-    env_var_re: Pattern = re.compile(r"\$\{.+\}")
+    env_var_re: Pattern = re.compile(r"\{.+\}")
     digest_re: Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
     return bool(env_var_re.search(line) or digest_re.search(line))
 

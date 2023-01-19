@@ -10989,206 +10989,6 @@ F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   42 |   }
      ^ Col 0
 ",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-   5 |   name: rss-site
-   6 |   labels:
-   7 |     app: web
-   8 | spec:
-   9 |   privileged: true
-  10 |   containers:
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-> 15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-> 21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-> 33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,27,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-> 27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-  33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  11 |     ""privileged"": true,
-  12 |     ""containers"": [
-  13 |       {
-  14 |         ""name"": ""must-fail"",
-  15 |         ""image"": ""nginx"",
-  16 |         ""ports"": [
-  17 |           {
-  18 |             ""containerPort"": 80
-  19 |           }
-  20 |         ],
-> 21 |         ""securityContext"": {
-  22 |           ""allowPrivilegeEscalation"": false
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-  32 |         ],
-> 33 |         ""securityContext"": {
-  34 |           ""allowPrivilegeEscalation"": false
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,45,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-  44 |         ],
-> 45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,57,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  43 |           }
-  44 |         ],
-  45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-  56 |         ],
-> 57 |         ""securityContext"": {
-  58 |           ""allowPrivilegeEscalation"": false
-  59 |         }
-  60 |       }
-  61 |     ]
-  62 |   }
-  63 | }
-     ^ Col 0
-",kubernetes.k8s_root_filesystem_read_only
 F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
  in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
    5 |   name: rss-site
@@ -11876,206 +11676,6 @@ F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   40 |       }
   41 |     ]
   42 |   }
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-   5 |   name: rss-site
-   6 |   labels:
-   7 |     app: web
-   8 | spec:
-   9 |   privileged: true
-  10 |   containers:
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-> 15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-> 21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-> 33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,27,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-> 27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-  33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  11 |     ""privileged"": true,
-  12 |     ""containers"": [
-  13 |       {
-  14 |         ""name"": ""must-fail"",
-  15 |         ""image"": ""nginx"",
-  16 |         ""ports"": [
-  17 |           {
-  18 |             ""containerPort"": 80
-  19 |           }
-  20 |         ],
-> 21 |         ""securityContext"": {
-  22 |           ""allowPrivilegeEscalation"": false
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-  32 |         ],
-> 33 |         ""securityContext"": {
-  34 |           ""allowPrivilegeEscalation"": false
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,45,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-  44 |         ],
-> 45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-     ^ Col 0
-",kubernetes.k8s_root_container
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,57,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  43 |           }
-  44 |         ],
-  45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-  56 |         ],
-> 57 |         ""securityContext"": {
-  58 |           ""allowPrivilegeEscalation"": false
-  59 |         }
-  60 |       }
-  61 |     ]
-  62 |   }
-  63 | }
      ^ Col 0
 ",kubernetes.k8s_root_container
 F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
@@ -12815,206 +12415,6 @@ F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   40 |       }
   41 |     ]
   42 |   }
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-   5 |   name: rss-site
-   6 |   labels:
-   7 |     app: web
-   8 | spec:
-   9 |   privileged: true
-  10 |   containers:
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-> 15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  11 |     - name: must-fail
-  12 |       image: nginx
-  13 |       ports:
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-> 21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-> 33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,27,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml","
-  14 |         - containerPort: 80
-  15 |       securityContext:
-  16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-> 27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
-  29 |     - name: must-not-fail
-  30 |       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
-  31 |       ports:
-  32 |         - containerPort: 80
-  33 |       securityContext:
-  34 |         allowPrivilegeEscalation: false
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  11 |     ""privileged"": true,
-  12 |     ""containers"": [
-  13 |       {
-  14 |         ""name"": ""must-fail"",
-  15 |         ""image"": ""nginx"",
-  16 |         ""ports"": [
-  17 |           {
-  18 |             ""containerPort"": 80
-  19 |           }
-  20 |         ],
-> 21 |         ""securityContext"": {
-  22 |           ""allowPrivilegeEscalation"": false
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,33,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-  27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-  32 |         ],
-> 33 |         ""securityContext"": {
-  34 |           ""allowPrivilegeEscalation"": false
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,45,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  35 |         }
-  36 |       },
-  37 |       {
-  38 |         ""name"": ""must-not-fail"",
-  39 |         ""image"": ""nginx@${COULD_BE_A_DIGEST}"",
-  40 |         ""ports"": [
-  41 |           {
-  42 |             ""containerPort"": 80
-  43 |           }
-  44 |         ],
-> 45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-     ^ Col 0
-",kubernetes.k8s_check_seccomp_profile
-F267,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,57,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
- in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json","
-  43 |           }
-  44 |         ],
-  45 |         ""securityContext"": {
-  46 |           ""allowPrivilegeEscalation"": false
-  47 |         }
-  48 |       },
-  49 |       {
-  50 |         ""name"": ""must-not-fail"",
-  51 |         ""image"": ""nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"",
-  52 |         ""ports"": [
-  53 |           {
-  54 |             ""containerPort"": 80
-  55 |           }
-  56 |         ],
-> 57 |         ""securityContext"": {
-  58 |           ""allowPrivilegeEscalation"": false
-  59 |         }
-  60 |       }
-  61 |     ]
-  62 |   }
-  63 | }
      ^ Col 0
 ",kubernetes.k8s_check_seccomp_profile
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
@@ -29980,91 +29380,91 @@ F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,12,
    8 | spec:
    9 |   privileged: true
   10 |   containers:
-  11 |     - name: must-fail
+  11 |     - name: unsafe_image
 > 12 |       image: nginx
   13 |       ports:
   14 |         - containerPort: 80
   15 |       securityContext:
   16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-  18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         runAsNonRoot: true
+  19 |         seccompProfile:
+  20 |           type: Confined
+  21 |     - name: unsafe_image_2
+  22 |       image: nginx@sha256:notavalidshahash098882
      ^ Col 0
 ",kubernetes.k8s_image_has_digest
-F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,18,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,"
-   8 | spec:
-   9 |   privileged: true
-  10 |   containers:
-  11 |     - name: must-fail
+F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,22,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml,"
   12 |       image: nginx
   13 |       ports:
   14 |         - containerPort: 80
   15 |       securityContext:
   16 |         allowPrivilegeEscalation: false
-  17 |     - name: must-fail
-> 18 |       image: nginx@sha256:notavalidshahash098882
-  19 |       ports:
-  20 |         - containerPort: 80
-  21 |       securityContext:
-  22 |         allowPrivilegeEscalation: false
-  23 |     - name: must-not-fail
-  24 |       image: ""nginx@${COULD_BE_A_DIGEST}""
-  25 |       ports:
-  26 |         - containerPort: 80
-  27 |       securityContext:
-  28 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         runAsNonRoot: true
+  19 |         seccompProfile:
+  20 |           type: Confined
+  21 |     - name: unsafe_image_2
+> 22 |       image: nginx@sha256:notavalidshahash098882
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: true
+  28 |         runAsNonRoot: true
+  29 |         seccompProfile:
+  30 |           type: Confined
+  31 |     - name: safe_image
+  32 |       image: ""nginx@${COULD_BE_A_DIGEST}""
      ^ Col 0
 ",kubernetes.k8s_image_has_digest
 F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,15,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,"
-   5 |     ""name"": ""rss-site"",
-   6 |     ""labels"": {
-   7 |       ""app"": ""web""
-   8 |     }
-   9 |   },
-  10 |   ""spec"": {
-  11 |     ""privileged"": true,
-  12 |     ""containers"": [
-  13 |       {
-  14 |         ""name"": ""must-fail"",
-> 15 |         ""image"": ""nginx"",
-  16 |         ""ports"": [
-  17 |           {
-  18 |             ""containerPort"": 80
-  19 |           }
-  20 |         ],
-  21 |         ""securityContext"": {
-  22 |           ""allowPrivilegeEscalation"": false
-  23 |         }
-  24 |       },
-  25 |       {
-     ^ Col 0
+    5 |     ""name"": ""rss-site"",
+    6 |     ""labels"": {
+    7 |       ""app"": ""web""
+    8 |     }
+    9 |   },
+   10 |   ""spec"": {
+   11 |     ""privileged"": true,
+   12 |     ""containers"": [
+   13 |       {
+   14 |         ""name"": ""unsafe_image"",
+>  15 |         ""image"": ""nginx"",
+   16 |         ""ports"": [
+   17 |           {
+   18 |             ""containerPort"": 80
+   19 |           }
+   20 |         ],
+   21 |         ""securityContext"": {
+   22 |           ""allowPrivilegeEscalation"": false,
+   23 |           ""readOnlyRootFilesystem"": true,
+   24 |           ""runAsNonRoot"": true,
+   25 |           ""seccompProfile"": {
+      ^ Col 0
 ",kubernetes.k8s_image_has_digest
-F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,27,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,"
-  17 |           {
-  18 |             ""containerPort"": 80
-  19 |           }
-  20 |         ],
-  21 |         ""securityContext"": {
-  22 |           ""allowPrivilegeEscalation"": false
-  23 |         }
-  24 |       },
-  25 |       {
-  26 |         ""name"": ""must-fail"",
-> 27 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
-  28 |         ""ports"": [
-  29 |           {
-  30 |             ""containerPort"": 80
-  31 |           }
-  32 |         ],
-  33 |         ""securityContext"": {
-  34 |           ""allowPrivilegeEscalation"": false
-  35 |         }
-  36 |       },
-  37 |       {
-     ^ Col 0
+F426,lines,namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,32,749,skims,426. Supply Chain Attack - Kubernetes,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f426/k8s_image_has_digest.yaml.json,"
+   22 |           ""allowPrivilegeEscalation"": false,
+   23 |           ""readOnlyRootFilesystem"": true,
+   24 |           ""runAsNonRoot"": true,
+   25 |           ""seccompProfile"": {
+   26 |             ""type"": ""Confined""
+   27 |           }
+   28 |         }
+   29 |       },
+   30 |       {
+   31 |         ""name"": ""unsafe_image_2"",
+>  32 |         ""image"": ""nginx@sha256:notavalidshahash098882"",
+   33 |         ""ports"": [
+   34 |           {
+   35 |             ""containerPort"": 80
+   36 |           }
+   37 |         ],
+   38 |         ""securityContext"": {
+   39 |           ""allowPrivilegeEscalation"": false,
+   40 |           ""readOnlyRootFilesystem"": true,
+   41 |           ""runAsNonRoot"": true,
+   42 |           ""seccompProfile"": {
+      ^ Col 0
 ",kubernetes.k8s_image_has_digest
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Traceability Loss - Azure,"Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
  in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","

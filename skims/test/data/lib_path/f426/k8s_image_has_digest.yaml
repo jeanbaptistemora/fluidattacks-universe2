@@ -8,27 +8,53 @@ metadata:
 spec:
   privileged: true
   containers:
-    - name: must-fail
+    - name: unsafe_image
       image: nginx
       ports:
         - containerPort: 80
       securityContext:
         allowPrivilegeEscalation: false
-    - name: must-fail
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: Confined
+    - name: unsafe_image_2
       image: nginx@sha256:notavalidshahash098882
       ports:
         - containerPort: 80
       securityContext:
         allowPrivilegeEscalation: false
-    - name: must-not-fail
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: Confined
+    - name: safe_image
       image: "nginx@${COULD_BE_A_DIGEST}"
       ports:
         - containerPort: 80
       securityContext:
         allowPrivilegeEscalation: false
-    - name: must-not-fail
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: Confined
+    - name: safe_image_2
+      image: "{IMAGE@sha256:HASH}"
+      ports:
+        - containerPort: 80
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: Confined
+    - name: safe_image_3
       image: nginx@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
       ports:
         - containerPort: 80
       securityContext:
         allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        seccompProfile:
+          type: Confined
