@@ -141,6 +141,7 @@ const About = [
       "about/compare/detectify",
       "about/compare/faraday",
       "about/compare/fortify",
+      "about/compare/hackmetrix",
       "about/compare/kiuwan",
       "about/compare/nowsecure",
       "about/compare/prisma-cloud",
