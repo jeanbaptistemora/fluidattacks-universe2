@@ -27,9 +27,10 @@ class ErrorBoundary extends Component<IProps, IState> {
     return { hasError: true };
   }
 
-  public shouldComponentUpdate(_prevProps: IProps, prevState: IState): boolean {
+  public shouldComponentUpdate(prevProps: IProps, prevState: IState): boolean {
     const { hasError } = this.state;
-    if (prevState.hasError !== hasError) {
+    const { children } = this.props;
+    if (prevState.hasError !== hasError || prevProps.children !== children) {
       return true;
     }
 
