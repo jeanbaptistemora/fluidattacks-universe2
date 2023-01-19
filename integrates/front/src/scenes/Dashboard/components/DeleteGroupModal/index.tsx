@@ -1,6 +1,6 @@
 import { Field, Formik } from "formik";
 import type { FC } from "react";
-import React, { Fragment, StrictMode } from "react";
+import React, { Fragment, StrictMode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
@@ -38,19 +38,25 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
 }: IDeleteGroupModalProps): JSX.Element => {
   const { t } = useTranslation();
 
-  function formValidations(values: { confirmation: string; reason: string }): {
-    confirmation?: string;
-    reason?: string;
-  } {
-    return values.confirmation === groupName
-      ? {}
-      : {
-          confirmation: t(
-            "searchFindings.servicesTable.errors.expectedGroupName",
-            { groupName }
-          ),
-        };
-  }
+  const formValidations = useCallback(
+    (values: {
+      confirmation: string;
+      reason: string;
+    }): {
+      confirmation?: string;
+      reason?: string;
+    } => {
+      return values.confirmation === groupName
+        ? {}
+        : {
+            confirmation: t(
+              "searchFindings.servicesTable.errors.expectedGroupName",
+              { groupName }
+            ),
+          };
+    },
+    [groupName, t]
+  );
 
   return (
     <StrictMode>
