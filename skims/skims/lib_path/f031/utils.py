@@ -200,11 +200,6 @@ def permissive_policy_iterate_vulnerabilities(
                 if hasattr(resource, "raw")
                 and is_resource_permissive(resource.raw)
             )
-            yield from (
-                action
-                for action in stmt.inner.get("Action").data
-                if hasattr(action, "raw") and is_action_permissive(action.raw)
-            )
 
         elif has_permissive_resources and has_permissive_actions:
             yield stmt

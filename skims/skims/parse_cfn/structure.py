@@ -409,3 +409,19 @@ def iter_severless_api(template: Node) -> Iterator[Node]:
             exact=True,
         )
     )
+
+
+def iter_iam_policies(
+    template: Node,
+) -> Iterator[Node]:
+    yield from (
+        props
+        for _, _, props in iterate_resources(
+            template,
+            "AWS::IAM::ManagedPolicy",
+            "AWS::IAM::Policy",
+            "AWS::IAM::Role",
+            "AWS::IAM::User",
+            exact=True,
+        )
+    )

@@ -140,23 +140,6 @@ def _iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
             yield from _service_is_present_action(action, "iam")
 
 
-def cfn_iam_has_privileges_over_iam_iter_vulns(
-    iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
-    for iam_res in iam_iterator:
-        policies = (
-            iam_res.inner["Policies"].data
-            if hasattr(iam_res, "raw") and "Policies" in iam_res.raw
-            else [iam_res]
-        )
-        for policy in policies:
-            if statements := get_node_by_keys(
-                policy, ["PolicyDocument", "Statement"]
-            ):
-                for stmt in statements.data or []:
-                    yield from _iam_is_present_in_action(stmt)
-
-
 def policy_document_actions_wilrcard(stmt: Node) -> Iterator[Node]:
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":
@@ -169,10 +152,10 @@ def cfn_iam_is_policy_actions_wildcard(
     iam_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
     for iam_res in iam_iterator:
-        pol_document = iam_res.inner.get("PolicyDocument")
-        statements = pol_document.inner.get("Statement")
-        for stmt in statements.data:
-            yield from policy_document_actions_wilrcard(stmt)
+        if pol_document := iam_res.inner.get("PolicyDocument"):
+            statements = pol_document.inner.get("Statement")
+            for stmt in statements.data:
+                yield from policy_document_actions_wilrcard(stmt)
 
 
 def _yield_nodes_from_stmt(stmt: Any, method: MethodsEnum) -> Iterator[Node]:
