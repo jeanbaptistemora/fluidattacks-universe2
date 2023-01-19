@@ -245,6 +245,50 @@ async def get_covered_group(
     )
 
 
+async def get_pat_credentials_authors_stats(
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+) -> set[str]:
+    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
+        credentials
+    )
+    all_repositories: tuple[
+        tuple[GitRepository, ...], ...
+    ] = await loaders.organization_integration_repositories.load_many(
+        pat_credentials
+    )
+    repositories: tuple[CredentialsGitRepository, ...] = tuple(
+        CredentialsGitRepository(
+            credential=credential,
+            repository=repository,
+        )
+        for credential, _repositories in zip(pat_credentials, all_repositories)
+        for repository in _repositories
+        if filter_urls(
+            repository=repository,
+            urls=urls,
+        )
+    )
+    repositories_dates: tuple[datetime, ...] = await collect(
+        tuple(
+            _get_commit_date(loaders=loaders, repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
+    repositories_authors: tuple[set[str], ...] = await collect(
+        tuple(
+            _get_missed_authors(loaders=loaders, repository=repository)
+            for repository, date in zip(repositories, repositories_dates)
+            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
+        ),
+        workers=1,
+    )
+
+    return set().union(*list(repositories_authors))
+
+
 async def update_organization_unreliable(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
@@ -329,49 +373,22 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
     credentials: tuple[
         Credentials, ...
     ] = await loaders.organization_credentials.load(organization.id)
-    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
-        credentials
-    )
-    all_repositories: tuple[
-        tuple[GitRepository, ...], ...
-    ] = await loaders.organization_integration_repositories.load_many(
-        pat_credentials
-    )
-    organization_roots: tuple[Root, ...] = tuple(
-        chain.from_iterable(groups_roots)
-    )
     urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)
-        for root in organization_roots
+        for root in tuple(chain.from_iterable(groups_roots))
         if isinstance(root, GitRoot)
     }
-    repositories: tuple[CredentialsGitRepository, ...] = tuple(
-        CredentialsGitRepository(
-            credential=credential,
-            repository=repository,
-        )
-        for credential, _repositories in zip(pat_credentials, all_repositories)
-        for repository in _repositories
-        if filter_urls(
-            repository=repository,
-            urls=urls,
-        )
-    )
-    repositories_dates: tuple[datetime, ...] = await collect(
-        tuple(
-            _get_commit_date(loaders=loaders, repository=repository)
-            for repository in repositories
-        ),
+    authors_stats: tuple[set[str], ...] = await collect(
+        [
+            get_pat_credentials_authors_stats(
+                credentials=credentials,
+                urls=urls,
+                loaders=loaders,
+            ),
+        ],
         workers=1,
     )
-    repositories_authors: tuple[set[str], ...] = await collect(
-        tuple(
-            _get_missed_authors(loaders=loaders, repository=repository)
-            for repository, date in zip(repositories, repositories_dates)
-            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
-        ),
-        workers=1,
-    )
+
     await update_unreliable_org_indicators(
         organization_id=organization.id,
         organization_name=organization.name,
@@ -383,7 +400,7 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
                     )
                 )
             ),
-            missed_authors=len(list(set().union(*list(repositories_authors)))),
+            missed_authors=len(set().union(*list(authors_stats))),
             covered_commits=sum(commit for commit, _ in covered_organization),
         ),
     )
@@ -407,9 +424,7 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
                         )
                     )
                 ),
-                "missed_authors": len(
-                    list(set().union(*list(repositories_authors)))
-                ),
+                "missed_authors": len(list(set().union(*list(authors_stats)))),
             }
         },
     )
