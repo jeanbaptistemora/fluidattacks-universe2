@@ -37,46 +37,51 @@ def format_toe_lines_sorts_suggestions(
 
 
 def format_toe_lines(item: Item) -> ToeLines:
-    state_modified_date = item.get("state", {}).get("modified_date")
+    merged_item = item | item.get("state", {})
+    state_modified_date = merged_item.get("state", {}).get("modified_date")
     return ToeLines(
-        filename=item["filename"],
-        group_name=item["group_name"],
+        filename=merged_item["filename"],
+        group_name=merged_item["group_name"],
         modified_date=datetime.fromisoformat(item["modified_date"]),
-        root_id=item["root_id"],
-        seen_first_time_by=item.get("seen_first_time_by"),
+        root_id=merged_item["root_id"],
+        seen_first_time_by=merged_item.get("seen_first_time_by"),
         state=ToeLinesState(
-            attacked_at=datetime.fromisoformat(item["attacked_at"])
-            if item.get("attacked_at")
+            attacked_at=datetime.fromisoformat(merged_item["attacked_at"])
+            if merged_item.get("attacked_at")
             else None,
-            attacked_by=item["attacked_by"],
-            attacked_lines=int(item["attacked_lines"]),
-            be_present=item["be_present"],
-            be_present_until=datetime.fromisoformat(item["be_present_until"])
-            if item.get("be_present_until")
+            attacked_by=merged_item["attacked_by"],
+            attacked_lines=int(merged_item["attacked_lines"]),
+            be_present=merged_item["be_present"],
+            be_present_until=datetime.fromisoformat(
+                merged_item["be_present_until"]
+            )
+            if merged_item.get("be_present_until")
             else None,
-            comments=item["comments"],
-            first_attack_at=datetime.fromisoformat(item["first_attack_at"])
-            if item.get("first_attack_at")
+            comments=merged_item["comments"],
+            first_attack_at=datetime.fromisoformat(
+                merged_item["first_attack_at"]
+            )
+            if merged_item.get("first_attack_at")
             else None,
-            has_vulnerabilities=item.get("has_vulnerabilities"),
-            last_author=item["last_author"],
-            last_commit=item["last_commit"],
-            loc=int(item["loc"]),
-            modified_by=item.get("state", {}).get("modified_by"),
+            has_vulnerabilities=merged_item.get("has_vulnerabilities"),
+            last_author=merged_item["last_author"],
+            last_commit=merged_item["last_commit"],
+            loc=int(merged_item["loc"]),
+            modified_by=merged_item.get("state", {}).get("modified_by"),
             modified_date=datetime.fromisoformat(state_modified_date)
             if state_modified_date
             else None,
-            seen_at=datetime.fromisoformat(item["seen_at"]),
-            sorts_risk_level=int(item["sorts_risk_level"]),
+            seen_at=datetime.fromisoformat(merged_item["seen_at"]),
+            sorts_risk_level=int(merged_item["sorts_risk_level"]),
             sorts_risk_level_date=datetime.fromisoformat(
-                item["sorts_risk_level_date"]
+                merged_item["sorts_risk_level_date"]
             )
-            if item.get("sorts_risk_level_date")
+            if merged_item.get("sorts_risk_level_date")
             else None,
             sorts_suggestions=format_toe_lines_sorts_suggestions(
-                item["sorts_suggestions"]
+                merged_item["sorts_suggestions"]
             )
-            if item.get("sorts_suggestions")
+            if merged_item.get("sorts_suggestions")
             else None,
         ),
     )
@@ -205,11 +210,44 @@ def format_toe_lines_item(
         if toe_lines.state.sorts_suggestions
         else None,
         "state": {
+            "attacked_at": get_as_utc_iso_format(toe_lines.state.attacked_at)
+            if toe_lines.state.attacked_at
+            else None,
+            "attacked_by": toe_lines.state.attacked_by,
+            "attacked_lines": toe_lines.state.attacked_lines,
+            "be_present": toe_lines.state.be_present,
+            "be_present_until": get_as_utc_iso_format(
+                toe_lines.state.be_present_until
+            )
+            if toe_lines.state.be_present_until
+            else None,
+            "comments": toe_lines.state.comments,
+            "first_attack_at": get_as_utc_iso_format(
+                toe_lines.state.first_attack_at
+            )
+            if toe_lines.state.first_attack_at
+            else None,
+            "has_vulnerabilities": toe_lines.state.has_vulnerabilities,
+            "last_author": toe_lines.state.last_author,
+            "last_commit": toe_lines.state.last_commit,
+            "loc": toe_lines.state.loc,
             "modified_by": toe_lines.state.modified_by,
             "modified_date": get_as_utc_iso_format(
                 toe_lines.state.modified_date
             )
             if toe_lines.state.modified_date
+            else None,
+            "seen_at": get_as_utc_iso_format(toe_lines.state.seen_at),
+            "sorts_risk_level": toe_lines.state.sorts_risk_level,
+            "sorts_risk_level_date": get_as_utc_iso_format(
+                toe_lines.state.sorts_risk_level_date
+            )
+            if toe_lines.state.sorts_risk_level_date
+            else None,
+            "sorts_suggestions": format_toe_lines_sorts_suggestions_item(
+                toe_lines.state.sorts_suggestions
+            )
+            if toe_lines.state.sorts_suggestions
             else None,
         },
     }
