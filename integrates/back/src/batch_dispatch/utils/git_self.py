@@ -110,9 +110,7 @@ async def clone_root(
                 token=None,
                 user=cred.state.secret.user,
             )
-        elif isinstance(
-            cred.state.secret, (OauthGithubSecret, OauthGitlabSecret)
-        ):
+        elif isinstance(cred.state.secret, OauthGitlabSecret):
             token: Optional[str] = None
             _credential: Credentials = await loaders.credentials.load(
                 CredentialsRequest(
@@ -127,6 +125,16 @@ async def clone_root(
                 repo_url=root_url,
                 temp_dir=temp_dir,
                 token=token,
+                user=None,
+                is_oauth=True,
+            )
+        elif isinstance(cred.state.secret, OauthGithubSecret):
+            folder_to_clone_root, stderr = await git_utils.https_clone(
+                branch=branch,
+                password=None,
+                repo_url=root_url,
+                temp_dir=temp_dir,
+                token=cred.state.secret.access_token,
                 user=None,
                 is_oauth=True,
             )

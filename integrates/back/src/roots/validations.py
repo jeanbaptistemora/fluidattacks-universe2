@@ -439,6 +439,9 @@ async def _validate_git_credentials_oauth(
             organization_id=organization_id,
         )
     )
+    if isinstance(_credential.state.secret, OauthGithubSecret):
+        token = _credential.state.secret.access_token
+
     if isinstance(_credential.state.secret, OauthGitlabSecret):
         token = _credential.state.secret.access_token
         if _credential.state.secret.valid_until <= get_utc_now():
