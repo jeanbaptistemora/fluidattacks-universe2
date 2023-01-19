@@ -93,6 +93,10 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/common/utils/retrieves/deploy";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/lintPython/module/commonComputeScheduleParseTerraform";
           gitlabExtra = gitlabLint;
         }

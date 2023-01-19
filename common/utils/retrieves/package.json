@@ -1,52 +1,25 @@
 {
-  "name": "retrieves",
-  "displayName": "retrieves",
-  "description": "",
-  "version": "0.0.1",
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "categories": [
-    "Other"
-  ],
   "activationEvents": [
     "onCommand:retrieves.helloWorld"
   ],
-  "main": "./dist/extension.js",
+  "categories": [
+    "Other"
+  ],
   "contributes": {
-    "viewsContainers": {
-      "activitybar": [
-        {
-          "id": "groups_explorer",
-          "title": "Groups Manager",
-          "icon": "media/dep.svg"
-        }
-      ]
-    },
-    "views": {
-      "groups_explorer": [
-        {
-          "id": "user_groups",
-          "name": "User Groups",
-          "icon": "media/dep.svg",
-          "contextualTitle": "Retrieves"
-        }
-      ]
-    },
-    "configuration": [
-      {
-        "title": "Retrieves configuration",
-        "properties": {
-          "retrieves.api_token": {
-            "type": "string"
-          }
-        }
-      }
-    ],
     "commands": [
       {
         "command": "retrieves.clone",
         "title": "Clone"
+      }
+    ],
+    "configuration": [
+      {
+        "properties": {
+          "retrieves.api_token": {
+            "type": "string"
+          }
+        },
+        "title": "Retrieves configuration"
       }
     ],
     "menus": {
@@ -56,18 +29,36 @@
           "when": "view == user_groups && viewItem == gitRoot"
         }
       ]
+    },
+    "views": {
+      "groups_explorer": [
+        {
+          "contextualTitle": "Retrieves",
+          "icon": "media/dep.svg",
+          "id": "user_groups",
+          "name": "User Groups"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "icon": "media/dep.svg",
+          "id": "groups_explorer",
+          "title": "Groups Manager"
+        }
+      ]
     }
   },
-  "scripts": {
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+  "dependencies": {
+    "@apollo/client": "^3.7.3",
+    "cross-fetch": "^3.1.5",
+    "glob": "^8.1.0",
+    "graphql": "^16.6.0",
+    "simple-git": "^3.15.1",
+    "tar-stream": "^3.0.0"
   },
+  "description": "",
   "devDependencies": {
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
@@ -93,12 +84,22 @@
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.1"
   },
-  "dependencies": {
-    "@apollo/client": "^3.7.3",
-    "cross-fetch": "^3.1.5",
-    "glob": "^8.1.0",
-    "graphql": "^16.6.0",
-    "simple-git": "^3.15.1",
-    "tar-stream": "^3.0.0"
-  }
+  "displayName": "retrieves",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "main": "./dist/extension.js",
+  "name": "retrieves",
+  "publisher": "fluidattacks",
+  "scripts": {
+    "compile": "webpack",
+    "compile-tests": "tsc -p . --outDir out",
+    "lint": "eslint src --ext ts",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "watch": "webpack --watch",
+    "watch-tests": "tsc -p . -w --outDir out"
+  },
+  "version": "0.0.1"
 }
