@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { PhoneField } from "./PhoneField";
@@ -171,63 +171,77 @@ const MobileModal: React.FC<IMobileModalProps> = (
     }
   );
 
-  function handleAdd(values: IAdditionFormValues): void {
-    setPhoneToAdd(values.phone);
-    setIsAdding(true);
-    setIsCodeInNewMobile(false);
-    void handleVerifyStakeholder({
-      variables: {
-        newPhone: {
-          callingCountryCode: values.phone.callingCountryCode,
-          nationalNumber: values.phone.nationalNumber,
+  const handleAdd = useCallback(
+    (values: IAdditionFormValues): void => {
+      setPhoneToAdd(values.phone);
+      setIsAdding(true);
+      setIsCodeInNewMobile(false);
+      void handleVerifyStakeholder({
+        variables: {
+          newPhone: {
+            callingCountryCode: values.phone.callingCountryCode,
+            nationalNumber: values.phone.nationalNumber,
+          },
         },
-      },
-    });
-  }
-  function handleVerifyAdditionCode(
-    values: IVerifyAdditionCodeFormValues
-  ): void {
-    void handleUpdateStakeholderPhone({
-      variables: {
-        newPhone: {
-          callingCountryCode: phoneToAdd?.callingCountryCode,
-          nationalNumber: phoneToAdd?.nationalNumber,
+      });
+    },
+    [handleVerifyStakeholder]
+  );
+
+  const handleVerifyAdditionCode = useCallback(
+    (values: IVerifyAdditionCodeFormValues): void => {
+      void handleUpdateStakeholderPhone({
+        variables: {
+          newPhone: {
+            callingCountryCode: phoneToAdd?.callingCountryCode,
+            nationalNumber: phoneToAdd?.nationalNumber,
+          },
+          verificationCode: values.newVerificationCode,
         },
-        verificationCode: values.newVerificationCode,
-      },
-    });
-  }
+      });
+    },
+    [handleUpdateStakeholderPhone, phoneToAdd]
+  );
+
   function handleOpenEdit(): void {
     setIsOpenEdit(true);
     setIsCodeInCurrentMobile(false);
     void handleVerifyStakeholder();
   }
-  function handleEdit(values: IEditionFormValues): void {
-    setPhoneToEdit(values.newPhone);
-    setCurrentMobileVerificationCode(values.verificationCode);
-    setIsEditing(true);
-    setIsCodeInNewMobile(false);
-    void handleVerifyStakeholder({
-      variables: {
-        newPhone: {
-          callingCountryCode: values.newPhone.callingCountryCode,
-          nationalNumber: values.newPhone.nationalNumber,
+
+  const handleEdit = useCallback(
+    (values: IEditionFormValues): void => {
+      setPhoneToEdit(values.newPhone);
+      setCurrentMobileVerificationCode(values.verificationCode);
+      setIsEditing(true);
+      setIsCodeInNewMobile(false);
+      void handleVerifyStakeholder({
+        variables: {
+          newPhone: {
+            callingCountryCode: values.newPhone.callingCountryCode,
+            nationalNumber: values.newPhone.nationalNumber,
+          },
+          verificationCode: values.verificationCode,
         },
-        verificationCode: values.verificationCode,
-      },
-    });
-  }
-  function handleVerifyEditionCode(values: IVerifyEditionFormValues): void {
-    void handleUpdateStakeholderPhone({
-      variables: {
-        newPhone: {
-          callingCountryCode: phoneToEdit?.callingCountryCode,
-          nationalNumber: phoneToEdit?.nationalNumber,
+      });
+    },
+    [handleVerifyStakeholder]
+  );
+
+  const handleVerifyEditionCode = useCallback(
+    (values: IVerifyEditionFormValues): void => {
+      void handleUpdateStakeholderPhone({
+        variables: {
+          newPhone: {
+            callingCountryCode: phoneToEdit?.callingCountryCode,
+            nationalNumber: phoneToEdit?.nationalNumber,
+          },
+          verificationCode: values.newVerificationCode,
         },
-        verificationCode: values.newVerificationCode,
-      },
-    });
-  }
+      });
+    },
+    [handleUpdateStakeholderPhone, phoneToEdit]
+  );
 
   const { data } = useQuery<IGetStakeholderPhoneAttr>(GET_STAKEHOLDER_PHONE, {
     onError: ({ graphQLErrors }: ApolloError): void => {
