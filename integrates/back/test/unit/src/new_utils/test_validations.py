@@ -1,4 +1,6 @@
+# pylint: disable=too-many-lines
 from custom_exceptions import (
+    DuplicateDraftFound,
     ErrorFileNameAlreadyExists,
     InvalidChar,
     InvalidCommitHash,
@@ -11,11 +13,27 @@ from custom_exceptions import (
     NumberOutOfRange,
     UnsanitizedInputFound,
 )
+from datetime import (
+    datetime,
+)
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
+from db_model.findings.types import (
+    Finding,
+    Finding31Severity,
+    FindingEvidence,
+    FindingEvidences,
+    FindingState,
+)
 from db_model.groups.types import (
     GroupFile,
+)
+from decimal import (
+    Decimal,
 )
 from newutils import (
     validations,
@@ -962,3 +980,96 @@ def test_validate_markdown_deco() -> None:
 
     with pytest.raises(InvalidMarkdown):
         decorated_func(text="<span>Example Text</span>")
+
+
+async def test_validate_no_duplicate_drafts_deco() -> None:
+    @validations.validate_no_duplicate_drafts_deco(
+        "title_field", "drafts_field", "findings_field"
+    )
+    def decorated_func(
+        title_field: str,
+        drafts_field: Tuple[Finding, ...],
+        findings_field: Tuple[Finding, ...],
+    ) -> Tuple:
+        return (title_field, drafts_field, findings_field)
+
+    test_finding = (
+        Finding(
+            id="3c475384-834c-47b0-ac71-a41a022e401c",
+            group_name="group1",
+            state=FindingState(
+                modified_by="test1@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2017-04-08T00:45:11+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.CREATED,
+            ),
+            title="001. SQL injection - C Sharp SQL API",
+            recommendation="Updated recommendation",
+            description="I just have updated the description",
+            hacker_email="test1@gmail.com",
+            severity=Finding31Severity(
+                attack_complexity=Decimal("0.44"),
+                attack_vector=Decimal("0.2"),
+                availability_impact=Decimal("0.22"),
+                availability_requirement=Decimal("1.5"),
+                confidentiality_impact=Decimal("0.22"),
+                confidentiality_requirement=Decimal("0.5"),
+                exploitability=Decimal("0.94"),
+                integrity_impact=Decimal("0.22"),
+                integrity_requirement=Decimal("1"),
+                modified_availability_impact=Decimal("0.22"),
+                modified_user_interaction=Decimal("0.62"),
+                modified_integrity_impact=Decimal("0"),
+                modified_attack_complexity=Decimal("0.44"),
+                modified_severity_scope=Decimal("0"),
+                modified_privileges_required=Decimal("0.27"),
+                modified_attack_vector=Decimal("0.85"),
+                modified_confidentiality_impact=Decimal("0.22"),
+                privileges_required=Decimal("0.62"),
+                severity_scope=Decimal("1.2"),
+                remediation_level=Decimal("0.95"),
+                report_confidence=Decimal("1"),
+                user_interaction=Decimal("0.85"),
+            ),
+            requirements=(
+                "REQ.0132. Passwords (phrase type) "
+                "must be at least 3 words long."
+            ),
+            threat="Updated threat",
+            attack_vector_description=("This is an updated attack vector"),
+            evidences=FindingEvidences(
+                evidence1=FindingEvidence(
+                    description="evidence1",
+                    url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                    "evidence1",
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-19T13:37:10+00:00"
+                    ),
+                ),
+                records=FindingEvidence(
+                    description="records",
+                    url="group1-3c475384-834c-47b0-ac71-a41a022e401c-"
+                    "records",
+                    modified_date=datetime.fromisoformat(
+                        "2111-11-19T13:37:10+00:00"
+                    ),
+                ),
+            ),
+        ),
+    )
+
+    assert decorated_func(
+        title_field="New Title", drafts_field=(), findings_field=test_finding
+    )
+    assert decorated_func(
+        title_field="New Title", drafts_field=test_finding, findings_field=()
+    )
+
+    with pytest.raises(DuplicateDraftFound):
+        decorated_func(
+            title_field="001. SQL injection - C Sharp SQL API",
+            drafts_field=(),
+            findings_field=test_finding,
+        )

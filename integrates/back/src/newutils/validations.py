@@ -686,6 +686,42 @@ def validate_no_duplicate_drafts(
     return True
 
 
+def validate_no_duplicate_drafts_deco(
+    new_title_field: str, drafts_field: str, findings_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            new_title = get_attr_value(
+                field=new_title_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            drafts = get_attr_value(
+                field=drafts_field,
+                kwargs=kwargs,
+                obj_type=tuple[Finding, ...],
+            )
+            findings: Tuple[Finding, ...] = get_attr_value(
+                field=findings_field,
+                kwargs=kwargs,
+                obj_type=tuple[Finding, ...],
+            )
+
+            for draft in drafts:
+                if new_title == draft.title:
+                    raise DuplicateDraftFound(kind="draft")
+            for finding in findings:
+                print(new_title, finding.title)
+                if new_title == finding.title:
+                    raise DuplicateDraftFound(kind="finding")
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def check_and_set_min_time_to_remediate(
     mttr: Optional[str],
 ) -> Optional[int]:
