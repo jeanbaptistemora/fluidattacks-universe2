@@ -25,7 +25,7 @@ GITHUB_ARGS = dict(
     name="github",
     client_id=FI_GITHUB_OAUTH2_APP_ID,
     authorize_url=GITHUB_AUTHZ_URL,
-    client_kwargs={"scope": "repo"},
+    client_kwargs={"scope": "read:org repo"},
 )
 
 

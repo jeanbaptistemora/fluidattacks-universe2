@@ -38,6 +38,10 @@ from db_model.credentials.types import (
     Credentials,
     HttpsPatSecret,
 )
+from github import (
+    GitCommit as GitHubCommit,
+    Github,
+)
 import gitlab
 from gitlab.const import (
     AccessLevel,
@@ -257,6 +261,53 @@ def _get_gitlab_commit(token: str, project_id: str) -> tuple[dict, ...]:
         commits = project.commits.list(get_all=True, order_by="default")
 
         return tuple(commit.attributes for commit in commits)
+
+
+async def get_github_repos_commits(
+    *, token: str, repositories: tuple[str, ...]
+) -> tuple[tuple[GitHubCommit.GitCommit, ...], ...]:
+    return await collect(
+        tuple(
+            in_thread(_get_github_repos_commits, token=token, repo_id=repo_id)
+            for repo_id in repositories
+        ),
+        workers=1,
+    )
+
+
+def _get_github_repos_commits(
+    token: str, repo_id: str
+) -> tuple[GitHubCommit.GitCommit, ...]:
+    commits: list[GitHubCommit.GitCommit] = []
+    for commit in Github(token).get_repo(int(repo_id)).get_commits():
+        commits.append(commit.commit)
+
+    return tuple(commits)
+
+
+async def get_github_repos(*, token: str) -> tuple[BasicRepoData, ...]:
+    return await in_thread(_get_github_repos, token=token)
+
+
+def _get_github_repos(token: str) -> tuple[BasicRepoData, ...]:
+    repos: list[BasicRepoData] = []
+    for org in Github(token).get_user().get_orgs():
+        for repo in org.get_repos():
+            repos.append(
+                BasicRepoData(
+                    id=str(repo.id),
+                    remote_url=repo.clone_url,
+                    ssh_url=repo.git_url,
+                    web_url=repo.html_url,
+                    branch=(
+                        "refs/heads/"
+                        f'{repo.default_branch.rstrip().lstrip("refs/heads/")}'
+                    ),
+                    last_activity_at=repo.updated_at.astimezone(timezone.utc),
+                )
+            )
+
+    return tuple(repos)
 
 
 async def get_gitlab_projects(*, token: str) -> tuple[BasicRepoData, ...]:

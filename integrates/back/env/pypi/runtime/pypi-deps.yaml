@@ -58,6 +58,7 @@ pathspec: 0.10.1
 psycopg2: 2.9.3
 PyExcelerate: 0.10.0
 pykwalify: 1.8.0
+PyGithub: 1.57.0
 PyPDF4: 1.27.0
 python-gitlab: 3.12.0
 python-magic: 0.4.18
