@@ -4,8 +4,11 @@ locals {
     "management:area"    = "cost"
     "management:product" = "common"
     "management:type"    = "product"
-    "Access"             = "private"
   }
+}
+
+data "aws_eks_cluster" "k8s_cluster" {
+  name = "common"
 }
 
 data "aws_subnet" "k8s_subnets" { # common/vpc/infra/subnets.tf
@@ -33,4 +36,41 @@ resource "aws_prometheus_workspace" "monitoring" {
   logging_configuration {
     log_group_arn = "${aws_cloudwatch_log_group.monitoring.arn}:*"
   }
+}
+
+resource "kubernetes_namespace" "monitoring" {
+  metadata {
+    name = "monitoring"
+  }
+}
+
+resource "helm_release" "cert_manager" {
+  name            = "cert-manager"
+  description     = "Certificate manager, required to install OpenTelemtry Operator"
+  repository      = "https://charts.jetstack.io"
+  chart           = "cert-manager"
+  version         = "1.11.0"
+  namespace       = kubernetes_namespace.monitoring.metadata[0].name
+  cleanup_on_fail = true
+  atomic          = true
+
+  set {
+    name  = "installCRDs"
+    value = "true"
+  }
+}
+
+resource "helm_release" "adot_operator" {
+  name            = "adot-operator"
+  description     = "OpenTelemetry Operator, scrapes metrics and sends them to AWS Managed Prometheus"
+  repository      = "https://open-telemetry.github.io/opentelemetry-helm-charts"
+  chart           = "opentelemetry-operator"
+  version         = "0.21.2"
+  namespace       = kubernetes_namespace.monitoring.metadata[0].name
+  cleanup_on_fail = true
+  atomic          = true
+
+  depends_on = [
+    helm_release.cert_manager
+  ]
 }

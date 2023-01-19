@@ -85,7 +85,6 @@ resource "aws_lambda_function" "firehose_transform" {
     "management:area"    = "cost"
     "management:product" = "common"
     "management:type"    = "product"
-    "Access"             = "private"
   }
 }
 
