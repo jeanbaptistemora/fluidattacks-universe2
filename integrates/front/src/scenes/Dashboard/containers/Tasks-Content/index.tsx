@@ -40,7 +40,7 @@ export const TasksContent: React.FC<ITasksContent> = ({
               link={`${url}/drafts`}
               tooltip={t("todoList.tooltip.drafts")}
             >
-              {t("todoList.tabs.drafts")}
+              {t("todoList.tabs.drafts.title")}
             </Tab>
           </Can>
           <Can do={"front_can_retrieve_todo_reattacks"}>

@@ -4002,7 +4002,10 @@ export const enTranslations: ResourceKey = {
   },
   todoList: {
     tabs: {
-      drafts: "Drafts",
+      drafts: {
+        organization: "Organization",
+        title: "Drafts",
+      },
       reattacks: "Reattacks",
       vulnerabilities: "Vulnerabilities",
     },
