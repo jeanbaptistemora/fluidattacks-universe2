@@ -18,7 +18,9 @@ resource "checkly_check" "airs" {
 
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto("https://fluidattacks.com/");
+    await page.goto("https://fluidattacks.com/", {
+      waitUntil: "domcontentloaded"
+    });
     const title = await page.title();
 
     assert.equal(title, "Application security testing solutions | Fluid Attacks");
