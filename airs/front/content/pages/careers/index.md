@@ -103,13 +103,6 @@ in `Fluid Attacks`.
   software areas.
   You must have experience in the use of office solutions.
 
-**Responsibilities:**
-
-- Provide guidance and software support.
-
-- Support the administrative,
-    production and human resources departments.
-
 - **IT Project Manager:**
   You must have a university degree,
   basic technical knowledge,
@@ -268,8 +261,6 @@ Below follow the step by step to apply.
   of 3 to 5 minutes per job prior to this one.
   Before doing this,
   you must first complete the previous stage.
-
-To begin, please follow these detailed instructions.
 
 - **Evaluations:**
   The goal of this stage is to assess your skills
