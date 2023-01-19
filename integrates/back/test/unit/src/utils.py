@@ -140,6 +140,7 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
+    "authz.grant_organization_level_role": "authz.grant_organization_level_role",  # noqa: E501 pylint: disable=line-too-long
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
@@ -156,9 +157,11 @@ mocked_paths: Dict[str, str] = {
     "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
+    "get_group_names": "organizations.domain.get_group_names",
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501 pylint: disable=line-too-long
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",
+    "group_access_domain.add_access": "group_access.domain.add_access",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
@@ -172,6 +175,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
@@ -187,6 +191,11 @@ mocked_paths: Dict[str, str] = {
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
+    "authz.grant_organization_level_role": {
+        '["org_testgroupmanager2@fluidattacks.com", '
+        '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
+        '"customer_manager"]': None,
+    },
     "authz.policy.get_user_level_role": {
         '["integrateshacker@fluidattacks.com"]': "hacker",
         '["integratesuser@gmail.com"]': "user_manager",
@@ -1515,6 +1524,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             billing_customer=None,
             vulnerabilities_url=None,
         ),
+    },
+    "db_model.organization_access.update_metadata": {
+        '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
+        '"org_testgroupmanager2@fluidattacks.com"]': None,
     },
     "db_model.roots.get.RootLoader.load": {
         '["unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19"]': GitRoot(
@@ -7322,10 +7335,20 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittesting", "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
         '"integratesmanager@gmail.com", "2022-04-06 16:46:23+00:00"]': None,
     },
+    "group_access.domain.add_access": {
+        '["org_testgroupmanager2@fluidattacks.com", '
+        '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
+        '"customer_manager"]': None,
+    },
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,
         '["test-big-image.jpg", "images"]': True,
         '["test-file-records.csv", "files"]': True,
+    },
+    "organizations.domain.get_group_names": {
+        '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(
+            ["kurome", "sheele"]
+        ),
     },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],
