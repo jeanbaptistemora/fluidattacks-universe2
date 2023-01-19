@@ -301,6 +301,40 @@ To begin, please follow these detailed instructions.
   At this stage of the process,
   we verify and perform:
 
+  1. References: The goal of this stage is
+      to validate the references from your
+      previous jobs.
+      This is mandatory and requires an estimated
+      effort of 15 to 25 minutes.
+      The referral step also includes a home
+      visit and requires an estimated
+      effort of 1 hour.
+
+  2. Polygraph: Our company is focused on information
+      security and for this reason we may require you
+      to take a polygraph test during the selection process.
+      This step is mandatory and requires an average
+      effort of 2 hours.
+
+- **Offer:**
+  If you reach this stage in the process,
+  we will send you a job offer via email
+  detailing the terms and conditions of
+  the offer we have for you.
+  If you have any doubts,
+  you must state them in the same email thread.
+
+- **Hiring:**
+  Once we come to an agreement regarding the offer,
+  we will email you with a list of documents
+  you must provide to complete this stage.
+
+Finally, we will notify you with the results.
+Although it is a long process,
+it can be completed in a short amount of time.
+In some cases,
+it can take less than 2 weeks.
+
 ## 4\. Portfolio
 
 The goal of this stage is to assess your ability to express yourself,
