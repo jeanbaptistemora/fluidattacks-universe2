@@ -682,6 +682,13 @@ async def update_group(
         )
         return
 
+    await remove_group(
+        loaders=loaders,
+        group_name=group_name,
+        justification=justification,
+        email=email,
+    )
+
     await notifications_domain.delete_group(
         loaders=loaders,
         deletion_date=datetime_utils.get_utc_now(),
@@ -690,20 +697,6 @@ async def update_group(
         reason=justification.value,
         comments=comments,
         attempt=True,
-    )
-    await remove_group(
-        loaders=loaders,
-        group_name=group_name,
-        justification=justification,
-        email=email,
-    )
-    await notifications_domain.delete_group(
-        loaders=loaders,
-        deletion_date=datetime_utils.get_utc_now(),
-        group_name=group_name,
-        requester_email=email,
-        reason=justification.value,
-        comments=comments,
     )
 
 
@@ -1465,6 +1458,21 @@ async def remove_resources(
     await _remove_all_toe(group_name=group_name)
     await forces_model.remove_group_forces_executions(group_name=group_name)
     await groups_model.remove(group_name=group_name)
+    group: Group = await loaders.group.load(group_name)
+    reason = (
+        group.state.justification
+        if group.state.justification
+        else GroupStateJustification.OTHER.value
+    )
+    comments = group.state.comments if group.state.comments else "None"
+    await notifications_domain.delete_group(
+        loaders=loaders,
+        deletion_date=datetime_utils.get_utc_now(),
+        group_name=group_name,
+        requester_email=email,
+        reason=reason,
+        comments=comments,
+    )
 
 
 async def remove_stakeholder(

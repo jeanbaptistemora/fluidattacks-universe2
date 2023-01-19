@@ -115,7 +115,7 @@ async def delete_group(
     requester_email: str,
     reason: str,
     comments: str,
-    attempt: bool = False,
+    attempt: Optional[bool] = False,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id

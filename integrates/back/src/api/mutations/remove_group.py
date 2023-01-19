@@ -37,7 +37,11 @@ from groups import (
 import logging
 import logging.config
 from newutils import (
+    datetime as datetime_utils,
     logs as logs_utils,
+)
+from notifications import (
+    domain as notifications_domain,
 )
 from sessions import (
     domain as sessions_domain,
@@ -96,6 +100,15 @@ async def mutate(
         )
         raise
     except APP_EXCEPTIONS as ex:
+        await notifications_domain.delete_group(
+            loaders=loaders,
+            deletion_date=datetime_utils.get_utc_now(),
+            group_name=group_name,
+            requester_email=requester_email,
+            reason=reason.upper(),
+            comments=f"ARM exception: {ex}",
+            attempt=None,
+        )
         LOGGER.exception(
             "Error - could not remove group",
             extra={"extra": {"group_name": group_name, "ex": ex, **kwargs}},

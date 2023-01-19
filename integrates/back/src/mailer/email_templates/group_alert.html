@@ -11,6 +11,10 @@
           {% if attempt %}
           The process to delete the <strong>{{ group }}</strong> group
           from <strong>{{ organization }}</strong> has been started
+          {% elif attempt is none %}
+          The process to delete the <strong>{{ group }}</strong> group
+          from <strong>{{ organization }}</strong> has <strong>Falied</strong>.
+          Group deletion started
           {% else %}
           The group <strong>{{ group }}</strong> has been {{ state }}
           from <strong>{{ organization }}</strong>
