@@ -321,6 +321,9 @@ def _oldest_draft(  # pylint: disable=too-many-arguments
 
     draft_days = (datetime_utils.get_now().date() - date_report.date()).days
 
+    if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
+        content[user_email]["oldest_draft"]["max_cvss"] = cvss
+
     if date_submission:
         submission_days = (
             datetime_utils.get_now().date() - date_submission.date()
@@ -331,13 +334,9 @@ def _oldest_draft(  # pylint: disable=too-many-arguments
             <= submission_days
             and state == FindingStateStatus.SUBMITTED
         ):
-            if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
-                content[user_email]["oldest_draft"]["max_cvss"] = cvss
             content[user_email]["oldest_draft"]["submit_age"] = submission_days
     else:
         if content[user_email]["oldest_draft"]["age"] <= draft_days:
-            if content[user_email]["oldest_draft"]["max_cvss"] < cvss:
-                content[user_email]["oldest_draft"]["max_cvss"] = cvss
             content[user_email]["oldest_draft"]["age"] = draft_days
 
 
