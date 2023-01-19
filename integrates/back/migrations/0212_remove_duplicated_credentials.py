@@ -32,6 +32,7 @@ from settings import (
 )
 import time
 from typing import (
+    Any,
     Tuple,
 )
 
@@ -40,6 +41,68 @@ logging.config.dictConfig(LOGGING)
 # Constants
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
+
+
+async def get_creds_ids(
+    credentials: Tuple[CredentialItem, ...], group: Any
+) -> list[str]:
+    remove_creds_ids = []
+    for cred_a in credentials:
+        if cred_a.id in remove_creds_ids:
+            continue
+
+        roots_for_a = cred_a.state.roots
+        for cred_b in credentials:
+            if (
+                cred_a.metadata.type != cred_b.metadata.type
+                or cred_a.id == cred_b.id
+                or len(
+                    set(cred_a.state.roots).intersection(
+                        set(cred_b.state.roots)
+                    )
+                )
+                > 0
+            ):
+                continue
+            if (
+                (  # pylint: disable=too-many-boolean-expressions
+                    cred_a.state.key is not None
+                    and cred_a.state.key == cred_b.state.key
+                )
+                or (
+                    cred_a.state.token is None
+                    and cred_a.state.token == cred_b.state.token
+                )
+                or (
+                    (
+                        cred_a.state.user is None
+                        and cred_a.state.user == cred_b.state.user
+                    )
+                    and (
+                        cred_a.state.password is None
+                        and cred_a.state.password == cred_b.state.password
+                    )
+                )
+            ):
+                roots_for_a = {*roots_for_a, *cred_b.state.roots}
+                remove_creds_ids = [*remove_creds_ids, cred_b.id]
+        if (
+            len(cred_a.state.roots) != len(roots_for_a)
+            and len(roots_for_a) > 1
+        ):
+            try:
+                await update_root_ids(
+                    current_value=cred_a.state,
+                    modified_by="drestrepo@fluiidattacks.com",
+                    group_name=group,
+                    credential_id=cred_a.id,
+                    root_ids=tuple(roots_for_a),
+                )
+            except Exception:  # pylint: disable=broad-except
+                LOGGER.error(
+                    "failed to dupdate root ids",
+                    extra={"extra": {"group": group}},
+                )
 
 
 async def main() -> None:  # noqa: MC0001
@@ -53,63 +116,8 @@ async def main() -> None:  # noqa: MC0001
         if not credentials:
             continue
 
-        remove_creds_ids: list[str] = []
-        for cred_a in credentials:
-            if cred_a.id in remove_creds_ids:
-                continue
+        remove_creds_ids = await get_creds_ids(credentials, group)
 
-            roots_for_a = cred_a.state.roots
-            for cred_b in credentials:
-                if (
-                    cred_a.metadata.type != cred_b.metadata.type
-                    or cred_a.id == cred_b.id
-                    or len(
-                        set(cred_a.state.roots).intersection(
-                            set(cred_b.state.roots)
-                        )
-                    )
-                    > 0
-                ):
-                    continue
-                if (
-                    (  # pylint: disable=too-many-boolean-expressions
-                        cred_a.state.key is not None
-                        and cred_a.state.key == cred_b.state.key
-                    )
-                    or (
-                        cred_a.state.token is None
-                        and cred_a.state.token == cred_b.state.token
-                    )
-                    or (
-                        (
-                            cred_a.state.user is None
-                            and cred_a.state.user == cred_b.state.user
-                        )
-                        and (
-                            cred_a.state.password is None
-                            and cred_a.state.password == cred_b.state.password
-                        )
-                    )
-                ):
-                    roots_for_a = {*roots_for_a, *cred_b.state.roots}
-                    remove_creds_ids = [*remove_creds_ids, cred_b.id]
-            if (
-                len(cred_a.state.roots) != len(roots_for_a)
-                and len(roots_for_a) > 1
-            ):
-                try:
-                    await update_root_ids(
-                        current_value=cred_a.state,
-                        modified_by="drestrepo@fluiidattacks.com",
-                        group_name=group,
-                        credential_id=cred_a.id,
-                        root_ids=tuple(roots_for_a),
-                    )
-                except Exception:  # pylint: disable=broad-except
-                    LOGGER.error(
-                        "failed to dupdate root ids",
-                        extra={"extra": {"group": group}},
-                    )
         await collect(
             [
                 remove(credential_id=cred_id, group_name=group)

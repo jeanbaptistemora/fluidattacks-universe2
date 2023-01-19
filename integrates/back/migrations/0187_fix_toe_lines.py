@@ -30,7 +30,6 @@ from db_model.toe_lines.types import (
     ToeLines,
     ToeLinesConnection,
     ToeLinesMetadataToUpdate,
-    ToeLinesState,
 )
 from decorators import (
     retry_on_exceptions,

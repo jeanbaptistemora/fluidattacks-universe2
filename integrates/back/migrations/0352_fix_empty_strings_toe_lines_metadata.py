@@ -68,7 +68,7 @@ async def process_toe_lines_item(item: Item) -> None:
     if attacked_at and be_present_until and first_attack_at:
         return
 
-    to_update: Item = dict()
+    to_update: Item = {}
     if attacked_at == "":
         to_update["attacked_at"] = None
     if be_present_until == "":

@@ -6157,7 +6157,6 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /lintPython/module/integratesBackMigrations:
-  allow_failure: true
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []

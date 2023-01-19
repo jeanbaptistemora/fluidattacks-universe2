@@ -85,6 +85,44 @@ async def _get_historic_state(*, root_id: str) -> tuple[Any, ...]:
     return tuple(response.items)
 
 
+async def process_root_ip(root: Root, historic: tuple[Any, ...]) -> None:
+    for index, state in enumerate(historic):
+        try:
+            format_ip_state(state)
+        except IndexError as exc:
+            LOGGER_CONSOLE.info(
+                "Working on ip root",
+                extra={
+                    "extra": {
+                        "ex": exc,
+                        "index": index,
+                        "group_name": root.group_name,
+                        "historic": historic,
+                        "root_id": root.id,
+                    }
+                },
+            )
+
+
+async def process_root_url(root: Root, historic: tuple[Any, ...]) -> None:
+    for index, state in enumerate(historic):
+        try:
+            format_url_state(state)
+        except IndexError as exc:
+            LOGGER_CONSOLE.info(
+                "Working on url root",
+                extra={
+                    "extra": {
+                        "ex": exc,
+                        "index": index,
+                        "group_name": root.group_name,
+                        "historic": historic,
+                        "root_id": root.id,
+                    }
+                },
+            )
+
+
 async def process_root(*, root: Root) -> None:  # noqa: MC0001
     historic: tuple[Any, ...] = await _get_historic_state(root_id=root.id)
 
@@ -107,47 +145,16 @@ async def process_root(*, root: Root) -> None:  # noqa: MC0001
                 )
 
     if isinstance(root, IPRoot):
-        for index, state in enumerate(historic):
-            try:
-                format_ip_state(state)
-            except IndexError as exc:
-                LOGGER_CONSOLE.info(
-                    "Working on ip root",
-                    extra={
-                        "extra": {
-                            "ex": exc,
-                            "index": index,
-                            "group_name": root.group_name,
-                            "historic": historic,
-                            "root_id": root.id,
-                        }
-                    },
-                )
+        await process_root_ip(root, historic)
 
     if isinstance(root, URLRoot):
-        for index, state in enumerate(historic):
-            try:
-                format_url_state(state)
-            except IndexError as exc:
-                LOGGER_CONSOLE.info(
-                    "Working on url root",
-                    extra={
-                        "extra": {
-                            "ex": exc,
-                            "index": index,
-                            "group_name": root.group_name,
-                            "historic": historic,
-                            "root_id": root.id,
-                        }
-                    },
-                )
+        await process_root_url(root, historic)
 
 
 async def _process_group(*, loaders: Dataloaders, group_name: str) -> None:
+    historic: tuple[GroupStakeholdersAccessLoader, ...] = tuple()
     try:
-        historic: tuple[
-            GroupStakeholdersAccessLoader, ...
-        ] = await loaders.group_historic_state.load(group_name)
+        historic = await loaders.group_historic_state.load(group_name)
     except IndexError as exc:
         LOGGER_CONSOLE.info(
             "Error loading group historic_state",

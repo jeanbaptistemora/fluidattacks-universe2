@@ -519,7 +519,7 @@ in {
           }
           {
             output = "/lintPython/module/integratesBackMigrations";
-            gitlabExtra = gitlabLint // {allow_failure = true;};
+            gitlabExtra = gitlabLint;
           }
           {
             output = "/lintPython/module/integratesBackTest";

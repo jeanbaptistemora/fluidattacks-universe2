@@ -148,6 +148,52 @@ async def update_evidence(
         )
 
 
+async def process_images(event: Event) -> None:
+    update_image = True
+    if "Masked" in event.evidences.image.file_name:
+        return
+    with tempfile.TemporaryDirectory() as temp_dir:
+        os.makedirs(f"{temp_dir}/{event.group_name}/{event.id}", exist_ok=True)
+        file_name = (
+            f"{event.group_name}/{event.id}/"
+            f"{event.evidences.image.file_name}"
+        )
+        target_name = f"{temp_dir}/{file_name}"
+        try:
+            await s3_ops.download_file(
+                file_name=file_name,
+                file_path=target_name,
+            )
+        except ClientError as exc:
+            if exc.response["Error"]["Code"] == "404":
+                try:
+                    list_files = await s3_ops.list_files(file_name)
+                    file_name = list_files[0]
+                    await s3_ops.download_file(
+                        file_name=file_name,
+                        file_path=target_name,
+                    )
+                except (ClientError, IndexError):
+                    update_image = False
+                    await events_model.update_evidence(
+                        event_id=event.id,
+                        group_name=event.group_name,
+                        evidence_info=None,
+                        evidence_id=EventEvidenceId.IMAGE,
+                    )
+                    print("remove", file_name)
+
+        if update_image:
+            with open(target_name, mode="rb", encoding=None) as file:
+                await update_evidence(
+                    event=event,
+                    evidence_id=EventEvidenceId.IMAGE_1,
+                    file=file,
+                    target_name=target_name,
+                    modified_date=event.evidences.image.modified_date,
+                )
+
+
 async def process_event(event: Event) -> None:  # noqa: MC0001
     if event.evidences.file:
         update_file = True
@@ -199,51 +245,7 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
                     )
 
     if event.evidences.image:
-        update_image = True
-        if "Masked" in event.evidences.image.file_name:
-            return
-        with tempfile.TemporaryDirectory() as temp_dir:
-            os.makedirs(
-                f"{temp_dir}/{event.group_name}/{event.id}", exist_ok=True
-            )
-            file_name = (
-                f"{event.group_name}/{event.id}/"
-                f"{event.evidences.image.file_name}"
-            )
-            target_name = f"{temp_dir}/{file_name}"
-            try:
-                await s3_ops.download_file(
-                    file_name=file_name,
-                    file_path=target_name,
-                )
-            except ClientError as exc:
-                if exc.response["Error"]["Code"] == "404":
-                    try:
-                        list_files = await s3_ops.list_files(file_name)
-                        file_name = list_files[0]
-                        await s3_ops.download_file(
-                            file_name=file_name,
-                            file_path=target_name,
-                        )
-                    except (ClientError, IndexError):
-                        update_image = False
-                        await events_model.update_evidence(
-                            event_id=event.id,
-                            group_name=event.group_name,
-                            evidence_info=None,
-                            evidence_id=EventEvidenceId.IMAGE,
-                        )
-                        print("remove", file_name)
-
-            if update_image:
-                with open(target_name, mode="rb", encoding=None) as file:
-                    await update_evidence(
-                        event=event,
-                        evidence_id=EventEvidenceId.IMAGE_1,
-                        file=file,
-                        target_name=target_name,
-                        modified_date=event.evidences.image.modified_date,
-                    )
+        await process_images(event)
 
 
 async def get_group_events(
