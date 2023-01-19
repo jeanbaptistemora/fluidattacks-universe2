@@ -1,6 +1,5 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -8,8 +7,9 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-import { SearchContainer, SearchInput } from "./styles";
-
+import { Button } from "components/Button";
+import { Container } from "components/Container";
+import { Input } from "components/Input";
 import { alphaNumeric, composeValidators } from "utils/validations";
 
 export const Searchbar: React.FC = (): JSX.Element => {
@@ -28,23 +28,23 @@ export const Searchbar: React.FC = (): JSX.Element => {
   );
 
   return (
-    <Formik
-      initialValues={{ groupName: "" }}
-      name={"searchBar"}
-      onSubmit={handleSubmit}
-    >
-      <Form>
-        <SearchContainer>
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <Field
-            component={SearchInput}
+    <Container margin={"0 16px 0 0"}>
+      <Formik
+        initialValues={{ groupName: "" }}
+        name={"searchBar"}
+        onSubmit={handleSubmit}
+      >
+        <Form>
+          <Input
+            childLeft={
+              <Button icon={faMagnifyingGlass} size={"xs"} type={"submit"} />
+            }
             name={"groupName"}
             placeholder={t("navbar.searchPlaceholder")}
-            type={"text"}
             validate={composeValidators([alphaNumeric])}
           />
-        </SearchContainer>
-      </Form>
-    </Formik>
+        </Form>
+      </Formik>
+    </Container>
   );
 };

@@ -5,11 +5,11 @@ import { Breadcrumb } from "./Breadcrumb";
 import { HelpButton } from "./HelpButton";
 import { NewsWidget } from "./NewsWidget";
 import { Searchbar } from "./Searchbar";
-import { NavbarContainer, NavbarHeader, NavbarMenu } from "./styles";
 import { TaskInfo } from "./Tasks";
 import { TechnicalInfo } from "./TechnicalInfo";
 import { UserProfile } from "./UserProfile";
 
+import { NavBar } from "components/NavBar";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
 
@@ -23,36 +23,17 @@ export const Navbar: React.FC<INavbarProps> = ({
   const { t } = useTranslation();
 
   return (
-    <React.StrictMode>
-      <NavbarContainer id={"navbar"}>
-        <NavbarHeader>
-          <Breadcrumb />
-        </NavbarHeader>
-        <NavbarMenu>
-          <Can do={"front_can_use_groups_searchbar"}>
-            <li>
-              <Searchbar />
-            </li>
-          </Can>
-          <li>
-            <TaskInfo />
-          </li>
-          <li>
-            <Tooltip id={"navbar.newsTooltip.id"} tip={t("navbar.newsTooltip")}>
-              <NewsWidget />
-            </Tooltip>
-          </li>
-          <li>
-            <HelpButton />
-          </li>
-          <li>
-            <TechnicalInfo />
-          </li>
-          <li id={"navbar-user-profile"}>
-            <UserProfile userRole={userRole} />
-          </li>
-        </NavbarMenu>
-      </NavbarContainer>
-    </React.StrictMode>
+    <NavBar header={<Breadcrumb />} variant={"light"}>
+      <Can do={"front_can_use_groups_searchbar"}>
+        <Searchbar />
+      </Can>
+      <TaskInfo />
+      <Tooltip id={"navbar.newsTooltip.id"} tip={t("navbar.newsTooltip")}>
+        <NewsWidget />
+      </Tooltip>
+      <HelpButton />
+      <TechnicalInfo />
+      <UserProfile userRole={userRole} />
+    </NavBar>
   );
 };

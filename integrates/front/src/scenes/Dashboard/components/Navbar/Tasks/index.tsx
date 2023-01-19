@@ -5,9 +5,11 @@ import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "./queries";
+import { TaskIndicator } from "./styles";
 import type { IGetMeVulnerabilitiesAssignedIds } from "./types";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Tooltip } from "components/Tooltip";
 import { Logger } from "utils/logger";
 
@@ -59,7 +61,7 @@ export const TaskInfo: React.FC = (): JSX.Element => {
   }
 
   return (
-    <React.StrictMode>
+    <Container position={"relative"}>
       <Tooltip
         id={"navbar.task.id"}
         tip={t(
@@ -69,14 +71,12 @@ export const TaskInfo: React.FC = (): JSX.Element => {
         )}
       >
         <Button icon={faCheck} onClick={onClick} size={"md"}>
-          {undefinedOrEmpty ? undefined : (
-            <span className={"fa-layers-counter f2 b"}>
-              {limitFormatter(allAssigned)}
-            </span>
-          )}
           {t("components.navBar.toDo")}
         </Button>
       </Tooltip>
-    </React.StrictMode>
+      {undefinedOrEmpty ? undefined : (
+        <TaskIndicator>{limitFormatter(allAssigned)}</TaskIndicator>
+      )}
+    </Container>
   );
 };
