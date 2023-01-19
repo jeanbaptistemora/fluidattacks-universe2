@@ -1,6 +1,9 @@
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { getNonSelectableVulnerabilitiesOnReattackIds } from "scenes/Dashboard/components/Vulnerabilities/utils";
-import type { IOrganizationGroups } from "scenes/Dashboard/types";
+import type {
+  IGetUserOrganizationsGroups,
+  IOrganizationGroups,
+} from "scenes/Dashboard/types";
 
 const filteredContinuousVulnerabilitiesOnReattackIds = (
   vulnerabilities: IVulnRowAttr[],
@@ -32,4 +35,20 @@ const filteredContinuousVulnerabilitiesOnReattackIds = (
   );
 };
 
-export { filteredContinuousVulnerabilitiesOnReattackIds };
+const getUserGroups = (
+  userData: IGetUserOrganizationsGroups | undefined
+): IOrganizationGroups["groups"] =>
+  userData === undefined
+    ? []
+    : userData.me.organizations.reduce(
+        (
+          previousValue: IOrganizationGroups["groups"],
+          currentValue
+        ): IOrganizationGroups["groups"] => [
+          ...previousValue,
+          ...currentValue.groups,
+        ],
+        []
+      );
+
+export { filteredContinuousVulnerabilitiesOnReattackIds, getUserGroups };
