@@ -105,9 +105,10 @@ in `Fluid Attacks`.
 
 **Responsibilities:**
 
-- Provide guidance and software support
+- Provide guidance and software support.
+
 - Support the administrative,
-  production and human resources departments.
+    production and human resources departments.
 
 - **IT Project Manager:**
   You must have a university degree,
@@ -136,7 +137,7 @@ in `Fluid Attacks`.
   and Amazon Web Services.
   It does not matter if you have not yet
   mastered these tools.
-  With Fluid Attacks,
+  With `Fluid Attacks`,
   what matters is your capacity to self-teach
   and learn new skills to address challenges
   we face on a daily basis,
@@ -145,6 +146,44 @@ in `Fluid Attacks`.
   and the ability to listen and communicate
   in a manner that fosters respectful and
   equal collaboration with other team members.
+
+  Do you want to take part in the most
+  challenging selection process there is?
+  A selection process where no matter the result,
+  you will learn more than with any other company?
+  If so,
+  then we invite you to participate and see for
+  yourself that with `Fluid Attacks`
+  it is better to do then to know.
+  Our selection process is guided using Git,
+  provides feedback through continuous integration
+  and allows you to improve your world ranking
+  in programming and hacking,
+  as well as your GitLab profile.
+  You don’t need to have graduated,
+  nor be enrolled in a college or university,
+  nor have any specific work experience.
+  The only thing that matters is that you
+  show us you can learn,
+  on your own,
+  at an expected rate.
+
+- **Short projects and high rotations:**
+  This allows you to constantly become familiar
+  with new organizations,
+  different problems,
+  different methods,
+  and to broaden your knowledge.
+
+- **Continuous improvement based on International Standards:**
+  `Fluid Attacks` was the first company in Colombia
+  to obtain an ISO/IEC 27001 (Information Security)
+  certification at the same time as we obtained the
+  ISO 9001 certificate.
+  Also,
+  our continuous improvement process uses the ISO/IEC
+  17025 and Common Criteria standards as a reference
+  for all security tests.
 
 ## 4\. Portfolio
 
