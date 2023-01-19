@@ -36,7 +36,10 @@ import type {
   IGroupAction,
   ITasksVulnerabilities,
 } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/types";
-import { filteredContinuousVulnerabilitiesOnReattackIds } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/utils";
+import {
+  filteredContinuousVulnerabilitiesOnReattackIds,
+  getUserGroups,
+} from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/utils";
 import { GET_USER_ORGANIZATIONS_GROUPS } from "scenes/Dashboard/queries";
 import type {
   IGetUserOrganizationsGroups,
@@ -102,19 +105,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
   useTabTracking("Todos");
 
   const groups = useMemo(
-    (): IOrganizationGroups["groups"] =>
-      userData === undefined
-        ? []
-        : userData.me.organizations.reduce(
-            (
-              previousValue: IOrganizationGroups["groups"],
-              currentValue
-            ): IOrganizationGroups["groups"] => [
-              ...previousValue,
-              ...currentValue.groups,
-            ],
-            []
-          ),
+    (): IOrganizationGroups["groups"] => getUserGroups(userData),
     [userData]
   );
 
