@@ -1,7 +1,7 @@
 import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FC } from "react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type {
@@ -33,9 +33,10 @@ const UnfulfilledStandardCard: FC<IUnfulfilledStandardCardProps> = (
   const [showAllRequirements, setShowAllRequirements] = useState(false);
 
   // Handle actions
-  function handleShowAll(): void {
+  const handleShowAll = useCallback((): void => {
     setShowAllRequirements(!showAllRequirements);
-  }
+  }, [showAllRequirements]);
+
   function getButtonVariant(selected: boolean): "input" | "selected-input" {
     return selected ? "selected-input" : "input";
   }

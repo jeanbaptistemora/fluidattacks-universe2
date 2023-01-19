@@ -8,7 +8,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import {
@@ -139,10 +139,13 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     }, [groups, selectedGroupName]);
 
     // Handle actions
-    function onGroupChange(event: React.ChangeEvent<HTMLSelectElement>): void {
-      event.preventDefault();
-      setSelectedGroupName(event.target.value);
-    }
+    const onGroupChange = useCallback(
+      (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        event.preventDefault();
+        setSelectedGroupName(event.target.value);
+      },
+      []
+    );
     function onSubmit(): void {
       // OnSubmit
     }
