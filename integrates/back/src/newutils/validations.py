@@ -568,6 +568,34 @@ def validate_update_severity_values(dictionary: dict) -> None:
         raise InvalidSeverityUpdateValues()
 
 
+def validate_update_severity_values_deco(dictionary_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            dictionary = get_attr_value(
+                field=dictionary_field,
+                kwargs=kwargs,
+                obj_type=dict,
+            )
+            if (
+                len(
+                    list(
+                        filter(
+                            lambda item: item[1] < 0 or item[1] > 10,
+                            dictionary.items(),
+                        )
+                    )
+                )
+                > 0
+            ):
+                raise InvalidSeverityUpdateValues()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_space_field(field: str) -> None:
     if not re.search(r"\S", field):
         raise InvalidSpacesField

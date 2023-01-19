@@ -11,6 +11,7 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMarkdown,
     InvalidReportFilter,
+    InvalidSeverityUpdateValues,
     InvalidSpacesField,
     NumberOutOfRange,
     UnsanitizedInputFound,
@@ -43,6 +44,7 @@ from newutils import (
 )
 import pytest
 from typing import (
+    Dict,
     NamedTuple,
     Optional,
     Set,
@@ -1150,3 +1152,17 @@ def test_validate_missing_severity_field_names_deco() -> None:
             fields=fields_20_severity,
             css_version_field="invalid Version",
         )
+
+
+def test_validate_update_severity_values_deco() -> None:
+    @validations.validate_update_severity_values_deco("dictionary")
+    def decorated_func(dictionary: Dict) -> Dict:
+        return dictionary
+
+    my_dict = {"field1": 2, "field2": 6, "field3": 9}
+    my_dict_fail = {"field1": 2, "field2": 12, "field3": 9}
+
+    assert decorated_func(dictionary=my_dict)
+
+    with pytest.raises(InvalidSeverityUpdateValues):
+        decorated_func(dictionary=my_dict_fail)
