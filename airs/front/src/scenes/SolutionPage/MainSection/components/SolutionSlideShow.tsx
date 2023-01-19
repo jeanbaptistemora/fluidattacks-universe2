@@ -78,6 +78,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/what-is-ethical-hacking/",
     ],
     penetrationTesting: [
+      "/blog/penetration-testing-compliance/",
       "/blog/bas-vs-pentesting-vs-red-teaming/",
       "/blog/importance-pentesting/",
       "/blog/choosing-pentesting-team/",
