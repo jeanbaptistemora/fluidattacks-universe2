@@ -22,6 +22,17 @@ and the impact of exploit.
 Scores range from 0 to 10,
 with 10 being the most severe.
 
+## CVSSF
+
+The Metric is made up of `Fluid Attacks`
+and shows the level of **risk exposure**
+represented by the vulnerabilities in your system.
+The **CVSSF** allows an aggregate analysis
+of vulnerabilities.
+The scale that is handled is from 0.015625 to 4096.
+If you want to know more,
+you can enter [here.](/about/faq/#severity-vs-vulnerabilities)
+
 ## Mailmaps
 
 These are the rules
