@@ -47,9 +47,9 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
             )
         )
     )
-    keys_to_delete = [
-        PrimaryKey(exc.root_id, exc.job_id) for exc in executions
-    ]
+    keys_to_delete = tuple(
+        [PrimaryKey(exc.root_id, exc.job_id) for exc in executions]
+    )
     await batch_delete_item(keys=keys_to_delete, table=TABLE)
 
 
