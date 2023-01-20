@@ -184,6 +184,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "orgs_model.add": "db_model.organizations.add",
+    "orgs_model.update_policies": "db_model.organizations.update_policies",
     "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
@@ -195,6 +196,7 @@ mocked_paths: Dict[str, str] = {
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
     "update_evidence": "events.domain.update_evidence",
     "update_state": "groups.domain.update_state",
+    "validate_acceptance_severity_range": "organizations.domain.validate_acceptance_severity_range",  # noqa: E501 pylint: disable=line-too-long
     "validate_evidence": "events.domain.validate_evidence",
 }
 
@@ -1554,6 +1556,11 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.organization_access.update_metadata": {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
         '"org_testgroupmanager2@fluidattacks.com"]': None,
+    },
+    "db_model.organizations.update_policies": {
+        '["org_testuser1@gmail.com", '
+        '"ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", "bulat", '
+        '[21, 20, "8.3", 3, "2.2", "3.4", 17]]': None,
     },
     "db_model.roots.get.RootLoader.load": {
         '["unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19"]': GitRoot(
@@ -7383,6 +7390,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(
             ["kurome", "sheele"]
         ),
+    },
+    "organizations.domain.validate_acceptance_severity_range": {
+        '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", '
+        '[21, 20, "8.3", 3, "2.2", "3.4", 17]]': True,
     },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],

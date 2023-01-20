@@ -10,6 +10,15 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.constants import (
+    MIN_INACTIVITY_PERIOD,
+)
+from db_model.types import (
+    PoliciesToUpdate,
+)
+from decimal import (
+    Decimal,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -23,6 +32,7 @@ from organizations.domain import (
     get_stakeholders_emails,
     has_access,
     has_group,
+    update_policies,
 )
 import pytest
 from unittest.mock import (
@@ -279,3 +289,55 @@ async def test_has_user_access() -> None:
     non_existent_user = "madeupuser@gmail.com"
     assert await has_access(loaders, org_id, existing_user)
     assert not await has_access(loaders, org_id, non_existent_user)
+
+
+@pytest.mark.parametrize(
+    ("organization_id", "organization_name", "email", "policies_to_update"),
+    (
+        (
+            "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
+            "bulat",
+            "org_testuser1@gmail.com",
+            PoliciesToUpdate(
+                inactivity_period=MIN_INACTIVITY_PERIOD,
+                max_acceptance_days=20,
+                max_acceptance_severity=Decimal("8.3"),
+                max_number_acceptances=3,
+                min_acceptance_severity=Decimal("2.2"),
+                min_breaking_severity=Decimal("3.4"),
+                vulnerability_grace_period=17,
+            ),
+        ),
+    ),
+)
+@patch(get_mocked_path("orgs_model.update_policies"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("validate_acceptance_severity_range"),
+    new_callable=AsyncMock,
+)
+async def test_update_policies(  # pylint: disable=too-many-arguments
+    mock_validate_acceptance_severity_range: AsyncMock,
+    mock_orgs_model_update_policies: AsyncMock,
+    organization_id: str,
+    organization_name: str,
+    email: str,
+    policies_to_update: PoliciesToUpdate,
+) -> None:
+    loaders: Dataloaders = get_new_context()
+    mock_validate_acceptance_severity_range.return_value = get_mock_response(
+        get_mocked_path("validate_acceptance_severity_range"),
+        json.dumps([organization_id, policies_to_update], default=str),
+    )
+    mock_orgs_model_update_policies.return_value = get_mock_response(
+        get_mocked_path("orgs_model.update_policies"),
+        json.dumps(
+            [email, organization_id, organization_name, policies_to_update],
+            default=str,
+        ),
+    )
+    await update_policies(
+        loaders, organization_id, organization_name, email, policies_to_update
+    )
+
+    assert mock_validate_acceptance_severity_range.called is True
+    assert mock_orgs_model_update_policies.called is True
