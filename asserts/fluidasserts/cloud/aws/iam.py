@@ -47,54 +47,6 @@ def _any_to_list(_input):
     return res
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def root_has_access_keys(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if root account has access keys.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    users = aws.credentials_report(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        retry=retry,
-    )
-
-    msg_open: str = "Root user has access keys"
-    msg_closed: str = "Root user does not have access keys"
-
-    vulns, safes = [], []
-
-    # Root user is always the first retrieved
-    root_user = users[0]
-    root_arn = root_user["arn"]
-
-    root_has_active_keys: bool = any(
-        (
-            root_user["access_key_1_active"] == "true",
-            root_user["access_key_2_active"] == "true",
-        )
-    )
-
-    (vulns if root_has_active_keys else safes).append(
-        (root_arn, "Must not have access keys")
-    )
-
-    return _get_result_as_tuple(
-        service="IAM",
-        objects="users",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_not_support_role(
