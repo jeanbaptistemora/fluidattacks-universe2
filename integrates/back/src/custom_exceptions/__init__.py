@@ -102,6 +102,13 @@ class InvalidGroupName(_SingleMessageException):
     msg = "Exception - Error invalid group name"
 
 
+class InvalidInactivityPeriod(_SingleMessageException):
+    msg = (
+        "Exception - Inactivity period should be greater than "
+        "the provided value"
+    )
+
+
 class InvalidNewVulnState(_SingleMessageException):
     msg: str = "Invalid, only New vulnerabilities with Open state are allowed"
 
@@ -412,23 +419,6 @@ class IncompleteSeverity(CustomBaseException):
         """Constructor"""
         msg = f'Exception - Severity has missing fields: {", ".join(fields)}'
         super(IncompleteSeverity, self).__init__(msg)
-
-
-class InvalidInactivityPeriod(CustomBaseException):
-    """Exception to control correct input in organization settings"""
-
-    def __init__(self, expr: str = "") -> None:
-        if expr:
-            msg = (
-                "Exception - Inactivity period should be greater than "
-                f"{expr} days"
-            )
-        else:
-            msg = (
-                "Exception - Inactivity period should be greater than "
-                "the provided value"
-            )
-        super(InvalidInactivityPeriod, self).__init__(msg)
 
 
 class InvalidAcceptanceDays(CustomBaseException):

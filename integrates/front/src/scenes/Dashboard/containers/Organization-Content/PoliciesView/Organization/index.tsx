@@ -31,6 +31,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
   const { t } = useTranslation();
   const { organizationId } = props;
   const { organizationName } = useParams<{ organizationName: string }>();
+  const defaultInactivityPeriod: number = 90;
 
   // GraphQL Operations
   const {
@@ -61,6 +62,9 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
       onError: (error: ApolloError): void => {
         error.graphQLErrors.forEach(({ message }: GraphQLError): void => {
           switch (message) {
+            case "Exception - Inactivity period should be greater than the provided value":
+              msgError(t(`${tPath}errors.inactivityPeriod`));
+              break;
             case "Exception - Vulnerability grace period value should be a positive integer":
               msgError(t(`${tPath}errors.vulnerabilityGracePeriod`));
               break;
@@ -95,6 +99,10 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     async (values: IPoliciesData): Promise<void> => {
       await savePolicies({
         variables: {
+          inactivityPeriod:
+            values.inactivityPeriod === undefined
+              ? defaultInactivityPeriod
+              : parseInt(values.inactivityPeriod, 10),
           maxAcceptanceDays: parseInt(values.maxAcceptanceDays, 10),
           maxAcceptanceSeverity: parseFloat(values.maxAcceptanceSeverity),
           maxNumberAcceptances: parseInt(values.maxNumberAcceptances, 10),
@@ -120,6 +128,7 @@ const OrganizationPolicies: React.FC<IOrganizationPolicies> = (
     <React.StrictMode>
       <Policies
         handleSubmit={handleFormSubmit}
+        inactivityPeriod={data.organization.inactivityPeriod}
         loadingPolicies={loadingPolicies}
         maxAcceptanceDays={data.organization.maxAcceptanceDays}
         maxAcceptanceSeverity={data.organization.maxAcceptanceSeverity}

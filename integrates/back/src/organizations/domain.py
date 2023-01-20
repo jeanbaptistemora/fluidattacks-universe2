@@ -1061,7 +1061,7 @@ async def validate_acceptance_severity_range(
 def validate_inactivity_period(value: int) -> bool:
     success: bool = True
     if value < MIN_INACTIVITY_PERIOD:
-        raise InvalidInactivityPeriod(expr=str(MIN_INACTIVITY_PERIOD))
+        raise InvalidInactivityPeriod()
     return success
 
 

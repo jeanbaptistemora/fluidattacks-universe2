@@ -2245,6 +2245,8 @@ export const enTranslations: ResourceKey = {
             "Acceptance severity score must be a positive floating number between 0.0 and 10.0",
           acceptanceSeverityRange:
             "Minimum acceptance score should be lower than the maximum value",
+          inactivityPeriod:
+            "Inactivity period should be greater than the provided value",
           invalidBreakableSeverity:
             "The minimum breaking severity score must be a positive floating number between 0.0 and 10.0",
           maxAcceptanceDays:
