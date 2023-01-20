@@ -13,6 +13,7 @@
   "benchmark_xss",
   "instance_references",
   "lib_apk",
+  "lib_dast",
   "lib_http",
   "lib_http_2",
   "lib_path",

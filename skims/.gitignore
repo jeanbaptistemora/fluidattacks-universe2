@@ -35,3 +35,4 @@
 /test/**/*.yaml.json
 /test/data/config/*.dev.yaml
 /test/outputs/
+/test/lib_dast/outputs/
