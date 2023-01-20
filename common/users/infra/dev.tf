@@ -191,6 +191,7 @@ locals {
         admins = [
           "prod_common",
         ]
+        read_users = []
         users = [
           "dev",
           "prod_airs",
@@ -247,10 +248,11 @@ module "dev_keys" {
   source   = "./modules/key"
   for_each = local.dev.keys
 
-  name   = each.key
-  admins = each.value.admins
-  users  = each.value.users
-  tags   = each.value.tags
+  name       = each.key
+  admins     = each.value.admins
+  read_users = each.value.read_users
+  users      = each.value.users
+  tags       = each.value.tags
 }
 
 module "dev_cloudflare" {

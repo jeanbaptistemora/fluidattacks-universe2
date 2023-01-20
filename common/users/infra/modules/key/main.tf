@@ -12,6 +12,7 @@ terraform {
 variable "name" {}
 variable "admins" {}
 variable "users" {}
+variable "read_users" {}
 variable "tags" {}
 
 resource "aws_kms_key" "main" {

@@ -7,6 +7,10 @@ locals {
   user_arns = [
     for user in var.users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
   ]
+  read_user_arns = [
+    for user in var.read_users : "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/${user}"
+
+  ]
   policy = {
     Version = "2012-10-17",
     Statement = [
@@ -20,12 +24,25 @@ locals {
         },
       },
       {
-        Sid    = "Key Users",
+        Sid    = "Key Write Users",
         Effect = "Allow",
         Action = [
           "kms:ReEncrypt*",
           "kms:GenerateDataKey*",
-          "kms:Encrypt",
+          "kms:Encrypt"
+        ],
+        Resource = "*",
+        Principal = {
+          AWS = concat(
+            local.admin_arns,
+            local.user_arns,
+          )
+        },
+      },
+      {
+        Sid    = "Key Read Users",
+        Effect = "Allow",
+        Action = [
           "kms:DescribeKey",
           "kms:Decrypt",
         ],
@@ -33,6 +50,7 @@ locals {
         Principal = {
           AWS = concat(
             local.admin_arns,
+            local.read_user_arns,
             local.user_arns,
           )
         },
