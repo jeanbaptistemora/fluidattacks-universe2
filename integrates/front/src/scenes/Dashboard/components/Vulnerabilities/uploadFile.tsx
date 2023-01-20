@@ -6,7 +6,7 @@ import type { FormikHelpers } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { errorMessageHelper } from "./helpers";
@@ -230,26 +230,29 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     filename: FileList;
   }
 
-  async function handleUploadVulnerability(
-    values: IUploadVulnFile,
-    formikHelpers: FormikHelpers<IUploadVulnFile>
-  ): Promise<void> {
-    await uploadVulnerability({
-      variables: {
-        file: values.filename[0],
-        findingId,
-      },
-    });
-    formikHelpers.resetForm();
-  }
+  const handleUploadVulnerability = useCallback(
+    async (
+      values: IUploadVulnFile,
+      formikHelpers: FormikHelpers<IUploadVulnFile>
+    ): Promise<void> => {
+      await uploadVulnerability({
+        variables: {
+          file: values.filename[0],
+          findingId,
+        },
+      });
+      formikHelpers.resetForm();
+    },
+    [findingId, uploadVulnerability]
+  );
 
-  function handleDownloadVulnerability(): void {
+  const handleDownloadVulnerability = useCallback((): void => {
     void downloadVulnerability({
       variables: {
         findingId,
       },
     });
-  }
+  }, [downloadVulnerability, findingId]);
 
   return (
     <Formik
