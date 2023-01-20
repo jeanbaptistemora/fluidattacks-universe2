@@ -75,6 +75,8 @@ locals {
             "arn:aws:s3:::integrates/continuous-repositories/*",
             "arn:aws:s3:::machine.data",
             "arn:aws:s3:::machine.data/*",
+            "arn:aws:s3:::sorts",
+            "arn:aws:s3:::sorts/*",
           ]
         },
         {
