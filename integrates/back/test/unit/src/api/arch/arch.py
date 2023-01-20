@@ -263,9 +263,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "forces_execution",
     ),
     "api.resolvers.event": (
-        "accessibility",
         "hacker",
-        "affected_components",
         "affected_reattacks",
         "root",
         "other_solving_reason",
@@ -281,9 +279,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "event_status",
         "consulting",
         "evidence_file",
-        "suscription",
         "evidence_file_date",
-        "historic_state",
         "event_type",
     ),
     "api.resolvers.finding": (
@@ -466,7 +462,6 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "remove_secret",
         "remove_payment_method",
         "remove_finding_evidence",
-        "start_machine_execution",
         "invalidate_access_token",
         "add_finding_consult",
         "remove_vulnerability",
