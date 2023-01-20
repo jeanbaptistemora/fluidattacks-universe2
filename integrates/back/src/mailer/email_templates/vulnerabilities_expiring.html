@@ -12,30 +12,33 @@
           is close to expiring:
         </p>
         <div class="data-container">
-          <p>
           {% for group_name, group_data in groups_data.items() %}
             {%- if group_data["group_expiring_findings"] -%}
-              {% for finding_id, vulnerabilities in group_data["group_expiring_findings"].items() %}
-              <strong>
-                <a
-                  href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/vulns/{{- finding_id.lower() -}}/locations"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {{ group_name.capitalize() }} - {{ group_data['finding_title'] }}
-                </a>
-              </strong>
+              {%- for i in range(group_data["group_expiring_findings"]|length) -%}
+                {% for finding_id, vulnerabilities in group_data["group_expiring_findings"][i].items() %}
+          <p>
+            <strong>
+              <a
+                href="https://app.fluidattacks.com/orgs/{{- group_data['org_name'].lower() -}}/groups/{{- group_name.lower() -}}/vulns/{{- finding_id.lower() -}}/locations"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {{ group_name.capitalize() }} - {{ group_data['finding_title'][i] }}
+              </a>
+            </strong>
             <ul class="big-list-icon">
-                {% for vulnerability, days_remaining in vulnerabilities.items() %}
+                  {% for vulnerability, days_remaining in vulnerabilities.items() %}
               <li>
                 {{ vulnerability }} ({{ days_remaining }} days remaining)
               </li>
-                {% endfor %}
+                  {% endfor %}
             </ul>
+            <br />
+          </p>
+                {% endfor %}
               {% endfor %}
             {% endif %}
           {% endfor %}
-          </p>
         </div>
         <p><br/>Regards, <strong>Fluid Attacks Team.</strong></p>
       </div>

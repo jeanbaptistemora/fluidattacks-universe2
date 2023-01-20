@@ -207,7 +207,9 @@ async def send_temporal_treatment_report() -> None:
                 ExpiringDataType(
                     org_name=org_name,
                     email_to=tuple(email_to),
-                    group_expiring_findings=expiring_findings,
+                    group_expiring_findings=dict(
+                        sorted(expiring_findings.items())
+                    ),
                 )
                 for org_name, email_to, expiring_findings in zip(
                     groups_org_names,
@@ -231,10 +233,10 @@ async def send_temporal_treatment_report() -> None:
                     "org_name": data["org_name"],
                     "finding_title": list(
                         data["group_expiring_findings"].keys()
-                    )[0],
+                    ),
                     "group_expiring_findings": list(
                         data["group_expiring_findings"].values()
-                    )[0],
+                    ),
                 }
                 for group_name, data in groups_data.items()
                 if email in data["email_to"]
