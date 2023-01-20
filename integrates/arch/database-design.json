@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 18, 2023, 07:11 AM",
+    "DateLastModified": "Jan 20, 2023, 02:40 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -14093,6 +14093,9 @@
           },
           "TableData": [
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "0"
               },
@@ -14116,6 +14119,9 @@
               }
             },
             {
+              "inactivity_period": {
+                    "N": "90"
+                  },
               "min_acceptance_severity": {
                 "N": "1"
               },
@@ -14145,6 +14151,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "max_number_acceptances": {
                 "N": "4"
               },
@@ -14177,6 +14186,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "0"
               },
@@ -14200,6 +14212,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "max_number_acceptances": {
                 "N": "1"
               },
@@ -14232,6 +14247,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "3.4"
               },
@@ -14255,6 +14273,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "0"
               },
@@ -14278,6 +14299,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "max_number_acceptances": {
                 "N": "3"
               },
@@ -14310,6 +14334,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "0"
               },
@@ -14333,6 +14360,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "max_number_acceptances": {
                 "N": "2"
               },
@@ -14365,6 +14395,9 @@
               }
             },
             {
+              "inactivity_period": {
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "0"
               },
@@ -14391,6 +14424,7 @@
           "NonKeyAttributes": [
             "modified_date",
             "modified_by",
+            "inactivity_period",
             "max_acceptance_days",
             "max_acceptance_severity",
             "max_number_acceptances",
