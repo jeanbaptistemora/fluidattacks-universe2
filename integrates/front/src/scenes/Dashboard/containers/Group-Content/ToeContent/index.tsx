@@ -18,7 +18,7 @@ import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 
-const toeContent: React.FC<IToeContentProps> = ({
+const ToeContent: React.FC<IToeContentProps> = ({
   isInternal,
 }: IToeContentProps): JSX.Element => {
   const { t } = useTranslation();
@@ -101,4 +101,4 @@ const toeContent: React.FC<IToeContentProps> = ({
   );
 };
 
-export { toeContent as ToeContent };
+export { ToeContent };
