@@ -11,6 +11,9 @@ from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
 )
+from lib_path.f325.utils import (
+    permissive_policy_iterate_vulnerabilities,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -136,4 +139,22 @@ def tfm_kms_key_has_master_keys_exposed_to_everyone(
         ),
         path=path,
         method=MethodsEnum.TFM_KMS_MASTER_KEYS_EXPOSED,
+    )
+
+
+def terraform_permissive_policy(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f325_aws.permissive_policy",
+        iterator=get_cloud_iterator(
+            permissive_policy_iterate_vulnerabilities(
+                statements_iterator=iterate_iam_policy_documents(
+                    model=model,
+                )
+            )
+        ),
+        path=path,
+        method=MethodsEnum.TFM_PERMISSIVE_POLICY,
     )

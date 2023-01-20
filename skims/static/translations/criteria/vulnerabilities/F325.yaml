@@ -60,3 +60,7 @@ src.lib_path.f325.iam_allow_wilcard_actions_permissions_policy:
   es: >
     El Role de IAM está mal configurado:
     - No debe permitir acciones * en su política de permisos
+
+src.lib_path.f325_aws.permissive_policy:
+  en: Should not allow * resource.
+  es: No debe permitir recurso *.

@@ -10,11 +10,13 @@ from lib_path.f325.cloudformation import (
     cfn_iam_has_wildcard_resource_on_write_action,
     cfn_iam_is_policy_actions_wildcards,
     cfn_kms_key_has_master_keys_exposed_to_everyone,
+    cfn_permissive_policy,
 )
 from lib_path.f325.conf_files import (
     json_principal_wildcard,
 )
 from lib_path.f325.terraform import (
+    terraform_permissive_policy,
     tfm_iam_has_wildcard_resource_on_write_action,
     tfm_kms_key_has_master_keys_exposed_to_everyone,
 )
@@ -32,6 +34,18 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_cfn_permissive_policy(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    # cloudconformity IAM-045
+    # cloudconformity IAM-049
+    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
+    # cfn_nag W12 IAM policy should not allow * resource
+    # cfn_nag W13 IAM managed policy should not allow * resource
+    return cfn_permissive_policy(content=content, path=path, template=template)
 
 
 @SHIELD_BLOCKING
@@ -100,6 +114,22 @@ def run_tfm_kms_key_has_master_keys_exposed_to_everyone(
 
 
 @SHIELD_BLOCKING
+def run_terraform_permissive_policy(
+    content: str, path: str, model: Any
+) -> Vulnerabilities:
+    # cloudconformity IAM-045
+    # cloudconformity IAM-049
+    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
+    # cfn_nag W12 IAM policy should not allow * resource
+    # cfn_nag W13 IAM managed policy should not allow * resource
+    # cfn_nag F2 IAM role should not allow * action on its trust policy
+    # cfn_nag F3 IAM role should not allow * action on its permissions policy
+    # cfn_nag F4 IAM policy should not allow * action
+    # cfn_nag F5 IAM managed policy should not allow * action
+    return terraform_permissive_policy(content=content, path=path, model=model)
+
+
+@SHIELD_BLOCKING
 def run_json_principal_wildcard(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
@@ -138,6 +168,7 @@ def analyze(
                 run_cfn_iam_allow_wildcard_action_trust_policy(
                     content, path, template
                 ),
+                run_cfn_permissive_policy(content, path, template),
             )
             if file_extension in EXTENSIONS_JSON:
                 results = (
@@ -155,6 +186,7 @@ def analyze(
                 for fun in (
                     run_tfm_kms_key_has_master_keys_exposed_to_everyone,
                     run_tfm_iam_has_wildcard_resource_on_write_action,
+                    run_terraform_permissive_policy,
                 )
             ),
         )

@@ -3048,7 +3048,7 @@ class MethodsEnum(Enum):
         file_name="terraform",
         name="terraform_permissive_policy",
         module="lib_path",
-        finding=FindingEnum.F031,
+        finding=FindingEnum.F325,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,
     )

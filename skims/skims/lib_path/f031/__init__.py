@@ -10,13 +10,11 @@ from lib_path.f031.cloudformation import (
     cfn_iam_user_missing_role_based_security,
     cfn_negative_statement,
     cfn_open_passrole,
-    cfn_permissive_policy,
 )
 from lib_path.f031.terraform import (
     terraform_admin_policy_attached,
     terraform_negative_statement,
     terraform_open_passrole,
-    terraform_permissive_policy,
     tfm_bucket_policy_allows_public_access,
     tfm_iam_excessive_privileges,
     tfm_iam_excessive_role_policy,
@@ -94,22 +92,6 @@ def run_cfn_open_passrole(
     # cfn_nag F40 IAM managed policy should not allow a * resource with
     #             PassRole action
     return cfn_open_passrole(content=content, path=path, template=template)
-
-
-@SHIELD_BLOCKING
-def run_cfn_permissive_policy(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cloudconformity IAM-045
-    # cloudconformity IAM-049
-    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
-    # cfn_nag W12 IAM policy should not allow * resource
-    # cfn_nag W13 IAM managed policy should not allow * resource
-    # cfn_nag F2 IAM role should not allow * action on its trust policy
-    # cfn_nag F3 IAM role should not allow * action on its permissions policy
-    # cfn_nag F4 IAM policy should not allow * action
-    # cfn_nag F5 IAM managed policy should not allow * action
-    return cfn_permissive_policy(content=content, path=path, template=template)
 
 
 @SHIELD_BLOCKING
@@ -197,22 +179,6 @@ def run_terraform_open_passrole(
 
 
 @SHIELD_BLOCKING
-def run_terraform_permissive_policy(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    # cloudconformity IAM-045
-    # cloudconformity IAM-049
-    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
-    # cfn_nag W12 IAM policy should not allow * resource
-    # cfn_nag W13 IAM managed policy should not allow * resource
-    # cfn_nag F2 IAM role should not allow * action on its trust policy
-    # cfn_nag F3 IAM role should not allow * action on its permissions policy
-    # cfn_nag F4 IAM policy should not allow * action
-    # cfn_nag F5 IAM managed policy should not allow * action
-    return terraform_permissive_policy(content=content, path=path, model=model)
-
-
-@SHIELD_BLOCKING
 def run_tfm_iam_excessive_privileges(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -243,7 +209,6 @@ def analyze(
                         run_cfn_iam_user_missing_role_based_security,
                         run_cfn_negative_statement,
                         run_cfn_open_passrole,
-                        run_cfn_permissive_policy,
                         run_cfn_iam_has_full_access_to_ssm,
                     )
                 ),
@@ -264,7 +229,6 @@ def analyze(
                     run_tfm_iam_user_missing_role_based_security,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
-                    run_terraform_permissive_policy,
                     run_tfm_iam_has_full_access_to_ssm,
                 )
             ),

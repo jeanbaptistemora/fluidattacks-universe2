@@ -8,6 +8,7 @@ from lib_path.f325.utils import (
     cfn_iam_permissions_policies_checks,
     cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns,
     iam_trust_policies_checks,
+    permissive_policy_iterate_vulnerabilities,
 )
 from model.core_model import (
     MethodsEnum,
@@ -18,6 +19,7 @@ from parse_cfn.structure import (
     iter_iam_policies,
     iter_iam_roles,
     iter_kms_keys,
+    iterate_iam_policy_documents as cfn_iterate_iam_policy_documents,
 )
 from typing import (
     Any,
@@ -117,4 +119,22 @@ def cfn_iam_allow_wildcard_action_trust_policy(
         ),
         path=path,
         method=method,
+    )
+
+
+def cfn_permissive_policy(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key="src.lib_path.f325_aws.permissive_policy",
+        iterator=get_cloud_iterator(
+            permissive_policy_iterate_vulnerabilities(
+                statements_iterator=cfn_iterate_iam_policy_documents(
+                    template=template,
+                )
+            )
+        ),
+        path=path,
+        method=MethodsEnum.CFN_PERMISSIVE_POLICY,
     )
