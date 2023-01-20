@@ -2556,6 +2556,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_ROOT_HAS_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="root_has_access_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_IAM_NOT_REQUIRES_LOWERCASE = MethodInfo(
         file_name="aws",
         name="not_requires_lowercase",

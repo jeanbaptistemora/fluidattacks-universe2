@@ -1,5 +1,4 @@
 ---
-
 src.lib_path.f165.iam_allow_not_principal_trust_policy:
   en: >
     IAM Role is miss configured:
@@ -44,7 +43,9 @@ src.lib_path.f165.iam_wildcard_resources_permissions_policy:
 src.lib_path.f165.users_with_multiple_access_keys:
   en: IAM User have multiple access keys.
   es: El usuario IAM tiene multiples llaves de acceso.
-
 src.lib_path.f165.iam_policies_applying_to_users:
   en: Should not apply directly to users, Should be on group.
   es: No debe aplicarse directamente a los usuarios, debe estar en el grupo.
+src.lib_path.f165.root_has_access_keys:
+  en: Root user must not have access keys
+  es: El usuario root no debe tener IAM access keys
