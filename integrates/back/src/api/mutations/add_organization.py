@@ -44,7 +44,10 @@ async def mutate(
         name,
     )
     organization = await orgs_domain.add_organization(
-        loaders, name, user_email, country
+        loaders=loaders,
+        organization_name=name,
+        email=user_email,
+        country=country,
     )
     TRANSACTIONS_LOGGER.info(
         "Organization %s with ID %s was successfully added by %s",

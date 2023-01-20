@@ -126,7 +126,7 @@ async def test_add_group_access() -> None:
     ["organization_name", "email", "country"],
     [
         [
-            "esdeath",
+            "esde",
             "org_testusermanager1@gmail.com",
             "Colombia",
         ],
@@ -142,12 +142,17 @@ async def test_add_organization(
 
     loaders: Dataloaders = get_new_context()
     with pytest.raises(InvalidOrganization) as repeated:
-        repeated_name = organization_name + "_repeated"
+        repeated_name = organization_name + "repeat"
         mock_exist.return_value = get_mock_response(
             get_mocked_path("exists"),
             json.dumps([repeated_name]),
         )
-        await add_organization(loaders, repeated_name, email, country)
+        await add_organization(
+            loaders=loaders,
+            organization_name=repeated_name,
+            email=email,
+            country=country,
+        )
         assert str(repeated) == "Exception - Name taken"
     with pytest.raises(InvalidOrganization) as repeated:
         invalid_name = "#@^" + organization_name
@@ -155,7 +160,12 @@ async def test_add_organization(
             get_mocked_path("exists"),
             json.dumps([invalid_name]),
         )
-        await add_organization(loaders, invalid_name, email, country)
+        await add_organization(
+            loaders=loaders,
+            organization_name=invalid_name,
+            email=email,
+            country=country,
+        )
         assert str(repeated) == "Exception - Invalid name"
 
 

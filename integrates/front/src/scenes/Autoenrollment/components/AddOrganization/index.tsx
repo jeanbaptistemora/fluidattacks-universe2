@@ -72,6 +72,10 @@ const AddOrganization: React.FC<IAddOrganizationProps> = ({
       .matches(regExps.text, t("validations.text")),
     groupName: string()
       .required(t("validations.required"))
+      .min(
+        MIN_ORG_LENGTH,
+        t("validations.minLength", { count: MIN_ORG_LENGTH })
+      )
       .max(
         MAX_GROUP_LENGTH,
         t("validations.maxLength", { count: MAX_GROUP_LENGTH })

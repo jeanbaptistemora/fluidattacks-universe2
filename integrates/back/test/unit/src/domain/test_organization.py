@@ -63,7 +63,12 @@ async def test_add_organization() -> None:
     with pytest.raises(OrganizationNotFound):
         await loaders.organization.load(org_name)
 
-    await orgs_domain.add_organization(loaders, org_name, user, country)
+    await orgs_domain.add_organization(
+        loaders=loaders,
+        organization_name=org_name,
+        email=user,
+        country=country,
+    )
 
     organization: Organization = await loaders.organization.load(org_name)
     loaders = get_new_context()

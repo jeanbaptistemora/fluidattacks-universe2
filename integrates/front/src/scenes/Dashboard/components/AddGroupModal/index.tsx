@@ -29,12 +29,14 @@ import {
   alphaNumeric,
   composeValidators,
   maxLength,
+  minLength,
   required,
   validTextField,
 } from "utils/validations";
 
 const MAX_DESCRIPTION_LENGTH: number = 200;
 const MAX_GROUP_NAME_LENGTH: number = 20;
+const MIN_GROUP_NAME_LENGTH: number = 4;
 const MAX_ORGANIZATION_LENGTH: number = 50;
 
 const maxDescriptionLength: ConfigurableValidator = maxLength(
@@ -42,6 +44,9 @@ const maxDescriptionLength: ConfigurableValidator = maxLength(
 );
 const maxGroupNameLength: ConfigurableValidator = maxLength(
   MAX_GROUP_NAME_LENGTH
+);
+const minGroupNameLength: ConfigurableValidator = minLength(
+  MIN_GROUP_NAME_LENGTH
 );
 const maxOrganizationLength: ConfigurableValidator = maxLength(
   MAX_ORGANIZATION_LENGTH
@@ -199,6 +204,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       type={"text"}
                       validate={composeValidators([
                         alphaNumeric,
+                        minGroupNameLength,
                         maxGroupNameLength,
                         required,
                         validTextField,

@@ -7347,8 +7347,8 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["test-file-records.csv", "files"]': True,
     },
     "organizations.domain.exists": {
-        '["esdeath_repeated"]': True,
-        '["#@^esdeath"]': False,
+        '["esderepeat"]': True,
+        '["#@^esde"]': False,
     },
     "organizations.domain.get_group_names": {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(

@@ -334,7 +334,10 @@ def validate_group_services_config_deco(
 
 @validate_group_name_deco("group_name")
 @validate_fields_deco(["description"])
-@validate_field_length_deco("group_name", 20)
+@validate_field_length_deco("group_name", limit=3, is_greater_than_limit=True)
+@validate_field_length_deco(
+    "group_name", limit=20, is_greater_than_limit=False
+)
 @validate_field_length_deco("description", 200)
 @validate_group_services_config_deco(
     "has_machine",

@@ -443,7 +443,14 @@ async def exists(loaders: Dataloaders, organization_name: str) -> bool:
         return False
 
 
+@validate_field_length_deco(
+    "organization_name", limit=3, is_greater_than_limit=True
+)
+@validate_field_length_deco(
+    "organization_name", limit=10, is_greater_than_limit=False
+)
 async def add_organization(
+    *,
     loaders: Dataloaders,
     organization_name: str,
     email: str,
