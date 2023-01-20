@@ -1,6 +1,9 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    VulnNotFound,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -78,6 +81,31 @@ async def test_handle_vulnerabilities_acceptance(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("handle_vulnerabilities_acceptance")
 @pytest.mark.parametrize(
+    ("email"),
+    (
+        ("user_manager@gmail.com"),
+        ("vulnerability_manager@gmail.com"),
+    ),
+)
+async def test_handle_vulnerabilities_acceptance_fail_1(
+    populate: bool,
+    email: str,
+) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        accepted_vulnerability_id="6f023c26-5x10-4ded-aa27-xx563c2206ax",
+        rejected_vulnerability_id="",
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(VulnNotFound())
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("handle_vulnerabilities_acceptance")
+@pytest.mark.parametrize(
     ("email", "accepted_vulnerability_id", "rejected_vulnerability_id"),
     (
         (
@@ -107,7 +135,7 @@ async def test_handle_vulnerabilities_acceptance(
         ),
     ),
 )
-async def test_handle_vulnerabilities_acceptance_fail(
+async def test_handle_vulnerabilities_acceptance_fail_2(
     populate: bool,
     email: str,
     accepted_vulnerability_id: str,
