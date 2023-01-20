@@ -40,10 +40,11 @@ class ErrorBoundary extends Component<IProps, IState> {
   // eslint-disable-next-line class-methods-use-this
   public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     Logger.error(
-      `Uncaught error: ${error.name}
-      ${error.message}
-      ${error.stack ?? ""}
-      ${errorInfo.componentStack}`
+      `Critical Error caught by boundary
+      Uncaught error: ${error.name}
+      Msg: ${error.message}
+      Stack: ${error.stack ?? ""}
+      Componentstack: ${errorInfo.componentStack}`
     );
   }
 
