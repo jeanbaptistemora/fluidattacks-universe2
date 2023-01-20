@@ -70,11 +70,12 @@ def validate_email_address_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = getattr(obj, attr_name)
+            field_content = get_attr_value(
+                field=field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            print(type(field_content))
             if "+" in field_content:
                 raise InvalidField("email address")
             try:

@@ -338,7 +338,7 @@ def validate_group_services_config_deco(
 @validate_field_length_deco(
     "group_name", limit=20, is_greater_than_limit=False
 )
-@validate_field_length_deco("description", 200)
+@validate_field_length_deco("description", limit=200)
 @validate_group_services_config_deco(
     "has_machine",
     "has_squad",
@@ -1025,7 +1025,7 @@ async def get_open_vulnerabilities(
     return last_approved_status.count(VulnerabilityStateStatus.VULNERABLE)
 
 
-@validate_field_length_deco("responsibility", 50)
+@validate_field_length_deco("responsibility", limit=50)
 @validate_alphanumeric_field_deco("responsibility")
 @validate_email_address_deco("email")
 @validate_role_fluid_reqs_deco("email", "role")
@@ -1151,7 +1151,7 @@ async def mask_files(
 
 
 @validate_fields_deco(["description"])
-@validate_field_length_deco("description", 200)
+@validate_field_length_deco("description", limit=200)
 @validate_file_name_deco("file_name")
 def validate_file_data(
     description: str,
@@ -1591,13 +1591,15 @@ async def send_mail_unsubscribed(
     )
 
 
-@validate_field_length_deco("business_id", 60)
-@validate_field_length_deco("business_name", 60)
+@validate_field_length_deco("business_id", limit=60)
+@validate_field_length_deco("business_name", limit=60)
 @validate_fields_deco(["business_name"])
-@validate_field_length_deco("description", 200)
+@validate_field_length_deco("description", limit=200)
 @validate_fields_deco(["description"])
 @validate_group_language_deco("language")
-@validate_int_range_deco("sprint_duration", 1, 10, True)
+@validate_int_range_deco(
+    "sprint_duration", lower_bound=1, upper_bound=10, inclusive=True
+)
 def assign_metadata(  # pylint:disable=too-many-arguments
     business_id: Optional[Any],
     business_name: Optional[Any],
