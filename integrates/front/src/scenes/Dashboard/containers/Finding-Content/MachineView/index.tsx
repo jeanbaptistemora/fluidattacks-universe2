@@ -89,9 +89,9 @@ const MachineView: React.FC = (): JSX.Element => {
   const closeQueueModal: () => void = useCallback((): void => {
     setIsQueueModalOpen(false);
   }, []);
-  function openQueueModal(): void {
+  const openQueueModal = useCallback((): void => {
     setIsQueueModalOpen(true);
-  }
+  }, []);
 
   const isLoading: boolean =
     submittingMachineJob || dataNS === NetworkStatus.refetch;

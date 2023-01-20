@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import type { IQueue } from "./types";
 
@@ -36,9 +36,10 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
     checkAll: isCheckAll,
   });
 
-  function handleClose(): void {
+  const handleClose = useCallback((): void => {
     onClose();
-  }
+  }, [onClose]);
+
   function handleOnCheckAll(): void {
     setIsCheckAll(!isCheckAll);
     if (isCheckAll) {
@@ -53,15 +54,18 @@ const Queue: React.FC<IQueue> = (props: Readonly<IQueue>): JSX.Element => {
       });
     }
   }
-  async function handleSubmit(values: Record<string, unknown>): Promise<void> {
-    setIsJobSubmitted(true);
-    const nicknames = Object.keys(values).flatMap(
-      (root: string): [] | [string] =>
-        rootNicknames.includes(root) && values[root] === true ? [root] : []
-    );
-    await onSubmit(nicknames);
-    onClose();
-  }
+  const handleSubmit = useCallback(
+    async (values: Record<string, unknown>): Promise<void> => {
+      setIsJobSubmitted(true);
+      const nicknames = Object.keys(values).flatMap(
+        (root: string): [] | [string] =>
+          rootNicknames.includes(root) && values[root] === true ? [root] : []
+      );
+      await onSubmit(nicknames);
+      onClose();
+    },
+    [onClose, onSubmit, rootNicknames]
+  );
 
   return (
     <div>
