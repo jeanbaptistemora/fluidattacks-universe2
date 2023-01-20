@@ -40,11 +40,6 @@ from typing import (
 def run_cfn_permissive_policy(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    # cloudconformity IAM-045
-    # cloudconformity IAM-049
-    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
-    # cfn_nag W12 IAM policy should not allow * resource
-    # cfn_nag W13 IAM managed policy should not allow * resource
     return cfn_permissive_policy(content=content, path=path, template=template)
 
 
@@ -117,15 +112,6 @@ def run_tfm_kms_key_has_master_keys_exposed_to_everyone(
 def run_terraform_permissive_policy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
-    # cloudconformity IAM-045
-    # cloudconformity IAM-049
-    # cfn_nag W11 IAM role should not allow * resource on its permissions pol
-    # cfn_nag W12 IAM policy should not allow * resource
-    # cfn_nag W13 IAM managed policy should not allow * resource
-    # cfn_nag F2 IAM role should not allow * action on its trust policy
-    # cfn_nag F3 IAM role should not allow * action on its permissions policy
-    # cfn_nag F4 IAM policy should not allow * action
-    # cfn_nag F5 IAM managed policy should not allow * action
     return terraform_permissive_policy(content=content, path=path, model=model)
 
 

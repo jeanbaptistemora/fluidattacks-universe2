@@ -163,26 +163,6 @@ def cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 yield from _policy_statement_privilege(statements)
 
 
-def _service_is_present_action(
-    action_node: Node, service: str
-) -> Iterator[Node]:
-    actions = (
-        action_node.data
-        if isinstance(action_node.data, list)
-        else [action_node]
-    )
-    for act in actions:
-        if act.raw == "*" or act.raw.split(":")[0] == service:
-            yield act
-
-
-def _iam_is_present_in_action(stmt: Node) -> Iterator[Node]:
-    if isinstance(stmt, Node) and hasattr(stmt.inner, "get"):
-        effect = stmt.inner.get("Effect")
-        if effect.raw == "Allow" and (action := stmt.inner.get("Action")):
-            yield from _service_is_present_action(action, "iam")
-
-
 def policy_document_actions_wilrcard(stmt: Node) -> Iterator[Node]:
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":
