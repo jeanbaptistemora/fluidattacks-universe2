@@ -979,7 +979,7 @@
     };
   };
   integrates_update_group_toe_priorities = {
-    enabled = true;
+    enabled = false;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
