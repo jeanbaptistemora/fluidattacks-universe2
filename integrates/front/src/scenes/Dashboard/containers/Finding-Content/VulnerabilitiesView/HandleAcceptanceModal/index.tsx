@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { Formik } from "formik";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HandleAcceptanceModalForm } from "./form";
@@ -96,36 +96,45 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       return canConfirmZeroRisk ? "CONFIRM_REJECT_ZERO_RISK" : "";
     }
 
-    function handleSubmit(values: IFormValues): void {
-      const isAcceptedUndefinedSelected: boolean =
-        values.treatment === "ACCEPTED_UNDEFINED";
-      const isConfirmRejectZeroRiskSelected: boolean =
-        values.treatment === "CONFIRM_REJECT_ZERO_RISK";
+    const handleSubmit = useCallback(
+      (values: IFormValues): void => {
+        const isAcceptedUndefinedSelected: boolean =
+          values.treatment === "ACCEPTED_UNDEFINED";
+        const isConfirmRejectZeroRiskSelected: boolean =
+          values.treatment === "CONFIRM_REJECT_ZERO_RISK";
 
-      const formValues = (({ justification }): { justification: string } => ({
-        justification,
-      }))(values);
+        const formValues = (({ justification }): { justification: string } => ({
+          justification,
+        }))(values);
 
-      isAcceptedUndefinedSelectedHelper(
-        isAcceptedUndefinedSelected,
-        handleAcceptance,
+        isAcceptedUndefinedSelectedHelper(
+          isAcceptedUndefinedSelected,
+          handleAcceptance,
+          acceptedVulns,
+          formValues,
+          rejectedVulns
+        );
+        isConfirmZeroRiskSelectedHelper(
+          isConfirmRejectZeroRiskSelected,
+          confirmZeroRisk,
+          acceptedVulns,
+          formValues
+        );
+        isRejectZeroRiskSelectedHelper(
+          isConfirmRejectZeroRiskSelected,
+          rejectZeroRisk,
+          formValues,
+          rejectedVulns
+        );
+      },
+      [
         acceptedVulns,
-        formValues,
-        rejectedVulns
-      );
-      isConfirmZeroRiskSelectedHelper(
-        isConfirmRejectZeroRiskSelected,
         confirmZeroRisk,
-        acceptedVulns,
-        formValues
-      );
-      isRejectZeroRiskSelectedHelper(
-        isConfirmRejectZeroRiskSelected,
+        handleAcceptance,
         rejectZeroRisk,
-        formValues,
-        rejectedVulns
-      );
-    }
+        rejectedVulns,
+      ]
+    );
 
     const initialTreatment: string = getInitialTreatment(
       canHandleVulnsAcceptance,

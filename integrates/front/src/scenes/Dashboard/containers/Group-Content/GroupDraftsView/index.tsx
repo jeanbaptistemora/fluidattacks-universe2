@@ -57,14 +57,17 @@ const GroupDraftsView: React.FC = (): JSX.Element => {
   const { url } = useRouteMatch();
   const { t } = useTranslation();
 
-  function goToFinding(
-    rowInfo: tableRow<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
-  ): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      push(`${url}/${rowInfo.original.id}/locations`);
-      event.preventDefault();
-    };
-  }
+  const goToFinding = useCallback(
+    (
+      rowInfo: tableRow<IGroupDraftsAndFindingsAttr["group"]["drafts"][0]>
+    ): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        push(`${url}/${rowInfo.original.id}/locations`);
+        event.preventDefault();
+      };
+    },
+    [push, url]
+  );
 
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
 
