@@ -153,6 +153,7 @@ mocked_paths: Dict[str, str] = {
     "events_model.remove": "db_model.events.remove",
     "events_model.update_state": "db_model.events.update_state",
     "events_model.update_evidence": "db_model.events.update_evidence",
+    "exists": "organizations.domain.exists",
     "files_utils.assert_uploaded_file_mime": "newutils.files.assert_uploaded_file_mime",  # noqa: E501 pylint: disable=line-too-long
     "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
@@ -7344,6 +7345,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["test-file-records.csv", "images"]': False,
         '["test-big-image.jpg", "images"]': True,
         '["test-file-records.csv", "files"]': True,
+    },
+    "organizations.domain.exists": {
+        '["esdeath_repeated"]': True,
+        '["#@^esdeath"]': False,
     },
     "organizations.domain.get_group_names": {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(

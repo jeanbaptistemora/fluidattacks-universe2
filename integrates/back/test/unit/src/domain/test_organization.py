@@ -6,7 +6,6 @@ from custom_exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
-    InvalidOrganization,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
@@ -73,9 +72,6 @@ async def test_add_organization() -> None:
         await authz.get_organization_level_role(loaders, user, organization.id)
         == "user_manager"
     )
-
-    with pytest.raises(InvalidOrganization):
-        await orgs_domain.add_organization(loaders, org_name, user, country)
 
 
 @pytest.mark.changes_db

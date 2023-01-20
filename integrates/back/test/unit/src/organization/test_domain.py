@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
 )
+from custom_exceptions import (
+    InvalidOrganization,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -13,6 +16,7 @@ from group_access import (
 import json
 from organizations.domain import (
     add_group_access,
+    add_organization,
     add_stakeholder,
     get_group_names,
     get_stakeholders,
@@ -116,6 +120,43 @@ async def test_add_group_access() -> None:
         )
         == "customer_manager"
     )
+
+
+@pytest.mark.parametrize(
+    ["organization_name", "email", "country"],
+    [
+        [
+            "esdeath",
+            "org_testusermanager1@gmail.com",
+            "Colombia",
+        ],
+    ],
+)
+@patch(get_mocked_path("exists"), new_callable=AsyncMock)
+async def test_add_organization(
+    mock_exist: AsyncMock,
+    organization_name: str,
+    email: str,
+    country: str,
+) -> None:
+
+    loaders: Dataloaders = get_new_context()
+    with pytest.raises(InvalidOrganization) as repeated:
+        repeated_name = organization_name + "_repeated"
+        mock_exist.return_value = get_mock_response(
+            get_mocked_path("exists"),
+            json.dumps([repeated_name]),
+        )
+        await add_organization(loaders, repeated_name, email, country)
+        assert str(repeated) == "Exception - Name taken"
+    with pytest.raises(InvalidOrganization) as repeated:
+        invalid_name = "#@^" + organization_name
+        mock_exist.return_value = get_mock_response(
+            get_mocked_path("exists"),
+            json.dumps([invalid_name]),
+        )
+        await add_organization(loaders, invalid_name, email, country)
+        assert str(repeated) == "Exception - Invalid name"
 
 
 async def test_get_group_names() -> None:
