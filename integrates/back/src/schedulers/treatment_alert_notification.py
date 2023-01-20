@@ -22,9 +22,12 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
+    FindingVulnerabilitiesZrRequest,
+    VulnerabilitiesConnection,
     Vulnerability,
 )
 from decorators import (
@@ -83,14 +86,30 @@ def days_to_end(date: datetime) -> int:
     return (date - datetime_utils.get_utc_now()).days
 
 
+async def get_open_vulnerabilities(
+    loaders: Dataloaders,
+    finding: Finding,
+) -> tuple[Vulnerability, ...]:
+    connections: VulnerabilitiesConnection = (
+        await loaders.finding_vulnerabilities_released_nzr_c.load(
+            FindingVulnerabilitiesZrRequest(
+                finding_id=finding.id,
+                paginate=False,
+                state_status=VulnerabilityStateStatus.VULNERABLE,
+            )
+        )
+    )
+    return tuple(edge.node for edge in connections.edges)
+
+
 async def expiring_vulnerabilities(
-    loaders: Dataloaders, finding_id: str
+    loaders: Dataloaders, finding: Finding
 ) -> Dict[str, Dict[str, int]]:
     vulnerabilities: Tuple[
         Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    ] = await get_open_vulnerabilities(loaders, finding)
     return {
-        finding_id: {
+        finding.id: {
             f"{vulnerability.state.where}"
             + f" ({vulnerability.state.specific})": days_to_end(
                 vulnerability.treatment.accepted_until
@@ -115,7 +134,7 @@ async def findings_close_to_expiring(
     finding_types = (finding.title for finding in findings)
 
     vulnerabilities = await collect(
-        [expiring_vulnerabilities(loaders, finding.id) for finding in findings]
+        [expiring_vulnerabilities(loaders, finding) for finding in findings]
     )
 
     findings_to_expiring = dict(zip(finding_types, vulnerabilities))
