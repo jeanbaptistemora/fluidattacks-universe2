@@ -81,6 +81,10 @@ describe("TodoDraftsView", (): void => {
     expect(screen.getByText("Type")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();
     expect(screen.getByText("Open Vulns.")).toBeInTheDocument();
+    expect(screen.getByText("Group Name")).toBeInTheDocument();
+    expect(
+      screen.getByText("todoList.tabs.drafts.organization")
+    ).toBeInTheDocument();
     expect(screen.getByText("State")).toBeInTheDocument();
     expect(screen.getAllByText("Submitted")).toHaveLength(1);
     expect(
