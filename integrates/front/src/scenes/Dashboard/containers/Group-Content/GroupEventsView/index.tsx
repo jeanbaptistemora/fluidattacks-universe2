@@ -201,13 +201,16 @@ const GroupEventsView: React.FC = (): JSX.Element => {
     return !nonselectables.includes(row.original);
   }
 
-  function goToEventz(rowInfo: Row<IEventData>): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      mixpanel.track("ReadEvent");
-      push(`${url}/${rowInfo.original.id}/description`);
-      event.preventDefault();
-    };
-  }
+  const goToEventz = useCallback(
+    (rowInfo: Row<IEventData>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        mixpanel.track("ReadEvent");
+        push(`${url}/${rowInfo.original.id}/description`);
+        event.preventDefault();
+      };
+    },
+    [push, url]
+  );
 
   // State Management
   const [selectedEvents, setSelectedEvents] = useState<IEventData[]>([]);

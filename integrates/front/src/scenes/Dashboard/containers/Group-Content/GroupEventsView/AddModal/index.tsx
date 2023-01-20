@@ -5,7 +5,7 @@ import type { Dayjs } from "dayjs";
 import type { FieldValidator } from "formik";
 import { Field, Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
@@ -112,20 +112,28 @@ const AddModal: React.FC<IAddModalProps> = ({
     },
     variables: { groupName },
   });
-  const roots =
-    data === undefined
-      ? []
-      : data.group.roots.filter((root): boolean => root.state === "ACTIVE");
+
+  const roots = useMemo(
+    (): Root[] =>
+      data === undefined
+        ? []
+        : data.group.roots.filter((root): boolean => root.state === "ACTIVE"),
+    [data]
+  );
+
   const nicknames = roots.map((root): string => root.nickname);
 
-  async function handleSubmit(values: IFormValues): Promise<void> {
-    return onSubmit({
-      ...values,
-      rootId: values.rootNickname
-        ? roots[nicknames.indexOf(values.rootNickname)].id
-        : "",
-    });
-  }
+  const handleSubmit = useCallback(
+    async (values: IFormValues): Promise<void> => {
+      return onSubmit({
+        ...values,
+        rootId: values.rootNickname
+          ? roots[nicknames.indexOf(values.rootNickname)].id
+          : "",
+      });
+    },
+    [nicknames, onSubmit, roots]
+  );
 
   const validations = object().shape({
     affectedReattacks: array().when("affectsReattacks", {

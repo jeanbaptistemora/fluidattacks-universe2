@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
@@ -31,11 +31,14 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
     }
   );
 
-  async function handleSubmit(values: IUpdateAffectedValues): Promise<void> {
-    return onSubmit({
-      ...values,
-    });
-  }
+  const handleSubmit = useCallback(
+    async (values: IUpdateAffectedValues): Promise<void> => {
+      return onSubmit({
+        ...values,
+      });
+    },
+    [onSubmit]
+  );
 
   const validations = object().shape({
     affectedReattacks: array().min(1, t("validations.someRequired")),
