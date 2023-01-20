@@ -2,6 +2,7 @@ from . import (
     get_result,
 )
 from custom_exceptions import (
+    InvalidFieldLength,
     OnlyCorporateEmails,
     TrialRestriction,
 )
@@ -44,6 +45,26 @@ async def test_analyst(populate: bool) -> None:
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == "Name taken"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_organization")
+@pytest.mark.parametrize(
+    ["email", "org_name"],
+    [
+        ["admin@fluidattacks.com", "a" * 1],
+        ["admin@fluidattacks.com", "a" * 2],
+        ["admin@fluidattacks.com", "a" * 3],
+        ["admin@fluidattacks.com", "a" * 11],
+    ],
+)
+async def test_add_organization_invalid_name_fail(
+    populate: bool, email: str, org_name: str
+) -> None:
+    assert populate
+    result: dict = await get_result(user=email, org=org_name)
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidFieldLength())
 
 
 @pytest.mark.asyncio

@@ -2,6 +2,7 @@ from . import (
     get_result,
 )
 from custom_exceptions import (
+    InvalidFieldLength,
     InvalidGroupName,
     TrialRestriction,
 )
@@ -94,6 +95,29 @@ async def test_add_group_invalid_name_fail(
     )
     assert "errors" in result
     assert result["errors"][0]["message"] == InvalidGroupName.msg
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("add_group")
+@pytest.mark.parametrize(
+    ["email", "group_name"],
+    [
+        ["admin@gmail.com", "a" * 1],
+        ["admin@gmail.com", "a" * 2],
+        ["admin@gmail.com", "a" * 3],
+        ["admin@gmail.com", "a" * 21],
+    ],
+)
+async def test_add_group_invalid_name_fail_1(
+    populate: bool, email: str, group_name: str
+) -> None:
+    assert populate
+    org_name: str = "orgtest"
+    result: dict[str, Any] = await get_result(
+        user=email, org=org_name, group=group_name
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidFieldLength())
 
 
 @pytest.mark.asyncio
