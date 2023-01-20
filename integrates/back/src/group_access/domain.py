@@ -56,6 +56,8 @@ from db_model.vulnerabilities.update import (
 from jwcrypto.jwt import (
     JWTExpired,
 )
+import logging
+import logging.config
 from newutils import (
     datetime as datetime_utils,
 )
@@ -65,6 +67,12 @@ from newutils.group_access import (
 from sessions import (
     domain as sessions_domain,
 )
+from settings import (
+    LOGGING,
+)
+
+logging.config.dictConfig(LOGGING)
+LOGGER = logging.getLogger(__name__)
 
 
 async def add_access(
@@ -320,6 +328,15 @@ async def remove_access(
     )
 
     await group_access_model.remove(email=email, group_name=group_name)
+    LOGGER.info(
+        "Stakeholder removed from group",
+        extra={
+            "extra": {
+                "email": email,
+                "group_name": group_name,
+            }
+        },
+    )
 
 
 async def update(
