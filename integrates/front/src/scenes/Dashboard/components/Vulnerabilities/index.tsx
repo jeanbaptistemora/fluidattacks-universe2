@@ -115,32 +115,36 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
   const previousIsRequestingReattack = usePreviousProps(isRequestingReattack);
   const previousIsVerifyingRequest = usePreviousProps(isVerifyingRequest);
 
-  function openAdditionalInfoModal(
-    rowInfo: Row<IVulnRowAttr>
-  ): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      if (changePermissions !== undefined) {
-        changePermissions(rowInfo.original.groupName);
-      }
-      setCurrentRow(rowInfo.original);
-      mixpanel.track("ViewVulnerability", {
-        groupName: rowInfo.original.groupName,
-      });
-      setIsAdditionalInfoOpen(true);
-      event.stopPropagation();
-    };
-  }
+  const openAdditionalInfoModal = useCallback(
+    (rowInfo: Row<IVulnRowAttr>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        if (changePermissions !== undefined) {
+          changePermissions(rowInfo.original.groupName);
+        }
+        setCurrentRow(rowInfo.original);
+        mixpanel.track("ViewVulnerability", {
+          groupName: rowInfo.original.groupName,
+        });
+        setIsAdditionalInfoOpen(true);
+        event.stopPropagation();
+      };
+    },
+    [changePermissions]
+  );
   const closeAdditionalInfoModal: () => void = useCallback((): void => {
     setIsAdditionalInfoOpen(false);
   }, []);
   const handleCloseDeleteModal: () => void = useCallback((): void => {
     setIsDeleteVulnOpen(false);
   }, []);
-  function onDeleteVulnResult(removeVulnResult: IRemoveVulnAttr): void {
-    refetchData();
-    onRemoveVulnResultHelper(removeVulnResult, t);
-    setIsDeleteVulnOpen(false);
-  }
+  const onDeleteVulnResult = useCallback(
+    (removeVulnResult: IRemoveVulnAttr): void => {
+      refetchData();
+      onRemoveVulnResultHelper(removeVulnResult, t);
+      setIsDeleteVulnOpen(false);
+    },
+    [refetchData, t]
+  );
   function handleDeleteVulnerability(vulnInfo: IVulnRowAttr | undefined): void {
     handleDeleteVulnerabilityHelper(
       vulnInfo as unknown as Record<string, string>,
@@ -220,29 +224,32 @@ export const VulnComponent: React.FC<IVulnComponentProps> = ({
     previousIsVerifyingRequest,
   ]);
 
-  function enabledRows(row: Row<IVulnRowAttr>): boolean {
-    if (
-      (isVerifyingRequest || isRequestingReattack) &&
-      row.original.state === "SAFE"
-    ) {
-      return false;
-    }
-    if (
-      isRequestingReattack &&
-      (row.original.verification?.toLowerCase() === "requested" ||
-        row.original.verification?.toLowerCase() === "on_hold")
-    ) {
-      return false;
-    }
-    if (
-      isVerifyingRequest &&
-      row.original.verification?.toLowerCase() !== "requested"
-    ) {
-      return false;
-    }
+  const enabledRows = useCallback(
+    (row: Row<IVulnRowAttr>): boolean => {
+      if (
+        (isVerifyingRequest || isRequestingReattack) &&
+        row.original.state === "SAFE"
+      ) {
+        return false;
+      }
+      if (
+        isRequestingReattack &&
+        (row.original.verification?.toLowerCase() === "requested" ||
+          row.original.verification?.toLowerCase() === "on_hold")
+      ) {
+        return false;
+      }
+      if (
+        isVerifyingRequest &&
+        row.original.verification?.toLowerCase() !== "requested"
+      ) {
+        return false;
+      }
 
-    return true;
-  }
+      return true;
+    },
+    [isRequestingReattack, isVerifyingRequest]
+  );
 
   const findingId: string = useMemo(
     (): string => (currentRow === undefined ? "" : currentRow.findingId),
