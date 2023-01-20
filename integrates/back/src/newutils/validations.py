@@ -288,14 +288,14 @@ def validate_field_length_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = kwargs.get(field)
+            field_content = kwargs.get(field, "")
             if "." in field:
                 obj_name, attr_name = field.split(".")
                 obj = kwargs.get(obj_name)
                 field_content = getattr(obj, attr_name)
-            if field_content is None or (
-                (len(field_content) > limit) != is_greater_than_limit
-            ):
+            if field_content is None:
+                return func(*args, **kwargs)
+            if (len(field_content) > limit) != is_greater_than_limit:
                 raise InvalidFieldLength()
             return func(*args, **kwargs)
 
