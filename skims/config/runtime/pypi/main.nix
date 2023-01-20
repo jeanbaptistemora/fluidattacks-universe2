@@ -10,8 +10,9 @@ makePythonPypiEnvironment rec {
       inputs.nixpkgs.curl
       inputs.nixpkgs.gcc
     ];
-    pythonPackage311 = [
-      inputs.nixpkgs.python38Packages.pygraphviz
+    export = [
+      ["CPATH" inputs.nixpkgs.graphviz "/include"]
+      ["LIBRARY_PATH" inputs.nixpkgs.graphviz "/lib"]
     ];
   };
   searchPathsRuntime = searchPathsBuild;
