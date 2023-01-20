@@ -52,24 +52,17 @@ MIGRATED_ATTRS = {
 MIGRATE = False
 
 
-def check_item_state_shape(item: Item) -> None:
-    if "state" not in item:
-        print(f"Found an item without a state: {item}")
-    elif any(
-        key not in item["state"] for key in ("modified_by", "modified_date")
-    ):
-        print(f"Found a state without some values: {item['state']}")
-    # return (MIGRATED_ATTRS & item.keys()) == (
-    #   MIGRATED_ATTRS & state_item.keys()
-    # )
+def check_item_state_shape(item: Item, state_item: Item) -> bool:
+    return (MIGRATED_ATTRS & item.keys()) != (
+        MIGRATED_ATTRS & state_item.keys()
+    )
 
 
 async def get_toe_lines_by_group(
     group_name: str,
 ) -> tuple[Item, ...]:
-    facet = TABLE.facets["toe_lines_metadata"]
     primary_key = keys.build_key(
-        facet=facet,
+        facet=TABLE.facets["toe_lines_metadata"],
         values={"group_name": group_name},
     )
     key_structure = TABLE.primary_key
@@ -89,25 +82,34 @@ async def get_toe_lines_by_group(
 
 
 async def process_toe_lines_item(item: Item) -> None:
-    state_item: Item = item["state"]
+    state_item: Item = item.get(
+        "state",
+        {
+            "modified_date": item["modified_date"],
+        },
+    )
     keys_to_update = (MIGRATED_ATTRS & item.keys()) - state_item.keys()
 
     if not keys_to_update:
         return
-    to_update: Item = {key: item[key] for key in keys_to_update}
+    to_update: Item = (
+        {key: item[key] for key in keys_to_update}
+        | {
+            "modified_by": item["attacked_by"]
+            if item.get("attacked_by")
+            else "machine@fluidattacks.com"
+        }
+        | state_item
+    )
 
     key_structure = TABLE.primary_key
     primary_key = PrimaryKey(
         partition_key=item[TABLE.primary_key.partition_key],
         sort_key=item[TABLE.primary_key.sort_key],
     )
-    condition_expression = Attr(key_structure.partition_key).exists()
-    if state_item.get("modified_date") is None:
-        condition_expression &= Attr("state.modified_date").not_exists()
-    else:
-        condition_expression &= Attr("state.modified_date").eq(
-            state_item["modified_date"]
-        )
+    condition_expression = Attr(key_structure.partition_key).exists() & Attr(
+        "state.modified_date"
+    ).eq(state_item["modified_date"])
     await operations.update_item(
         condition_expression=condition_expression,
         item={"state": to_update},
@@ -119,7 +121,7 @@ async def process_toe_lines_item(item: Item) -> None:
 async def process_group(group_name: str, progress: float) -> None:
     group_toe_lines = await get_toe_lines_by_group(group_name)
     print(
-        f"Working on {group_name=}, {len(group_toe_lines)}, "
+        f"Working on {group_name}, {len(group_toe_lines)}, "
         f"progress: {round(progress, 2)}"
     )
     if not group_toe_lines:
@@ -132,7 +134,7 @@ async def process_group(group_name: str, progress: float) -> None:
         )
     else:
         for item in group_toe_lines:
-            check_item_state_shape(item)
+            check_item_state_shape(item, item.get("state", {}))
 
 
 async def main() -> None:
