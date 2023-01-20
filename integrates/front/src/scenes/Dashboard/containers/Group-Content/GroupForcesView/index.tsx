@@ -124,15 +124,16 @@ const GroupForcesView: React.FC = (): JSX.Element => {
     [t]
   );
 
-  function openSeeExecutionDetailsModal(
-    rowInfo: Row<IExecution>
-  ): (event: FormEvent) => void {
-    return (event: FormEvent): void => {
-      setCurrentRow(rowInfo.original);
-      setIsExecutionDetailsModalOpen(true);
-      event.preventDefault();
-    };
-  }
+  const openSeeExecutionDetailsModal = useCallback(
+    (rowInfo: Row<IExecution>): ((event: FormEvent) => void) => {
+      return (event: FormEvent): void => {
+        setCurrentRow(rowInfo.original);
+        setIsExecutionDetailsModalOpen(true);
+        event.preventDefault();
+      };
+    },
+    []
+  );
 
   const closeSeeExecutionDetailsModal: () => void = useCallback((): void => {
     setIsExecutionDetailsModalOpen(false);
