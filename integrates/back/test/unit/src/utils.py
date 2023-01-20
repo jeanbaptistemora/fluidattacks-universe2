@@ -9,6 +9,10 @@ from datetime import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
+from db_model.companies.types import (
+    Company,
+    Trial,
+)
 from db_model.enums import (
     GitCloningStatus,
     Source,
@@ -140,6 +144,7 @@ from typing import (
 import uuid
 
 mocked_paths: Dict[str, str] = {
+    "add_stakeholder": "organizations.domain.add_stakeholder",
     "authz.grant_organization_level_role": "authz.grant_organization_level_role",  # noqa: E501 pylint: disable=line-too-long
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
@@ -165,6 +170,7 @@ mocked_paths: Dict[str, str] = {
     "group_access_domain.add_access": "group_access.domain.add_access",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
+    "loaders.company.load": "db_model.companies.get.CompanyLoader.load",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.event_vulnerabilities_loader.load": "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -177,6 +183,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
+    "orgs_model.add": "db_model.organizations.add",
     "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
@@ -217,6 +224,21 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         ' "unittesting", "1"]': None,
         '["Test comment", "unittest@fluidattacks.com",'
         ' "unittesting", "0"]': None,
+    },
+    "db_model.companies.get.CompanyLoader.load": {
+        '["esdeath"]': Company(
+            domain="gmail.com",
+            trial=Trial(
+                completed=True,
+                extension_date=datetime.fromisoformat(
+                    "2022-08-04T22:21:45.938286+00:00"
+                ),
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-08-04T22:21:45.946275+00:00"
+                ),
+            ),
+        ),
     },
     "db_model.events.add": {
         '["unittesting", "unittesting@fluidattacks.com", '
@@ -1471,6 +1493,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.group_comments.add": {
         '[["unittesting", "1672083646257", "0", "2022-04-06 16:46:23+00:00",'
         ' "Test comment", "unittest@fluidattacks.com", "unittesting"]]': None,
+    },
+    "db_model.organizations.add": {
+        '["org_testusermanager1@gmail.com", "Colombia", "esdeath"]': None,
     },
     "db_model.organizations.get.OrganizationLoader.load": {
         '["unittesting"]': Organization(
@@ -7346,9 +7371,13 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["test-big-image.jpg", "images"]': True,
         '["test-file-records.csv", "files"]': True,
     },
+    "organizations.domain.add_stakeholder": {
+        '["esdeath", "org_testusermanager1@gmail.com"]': None,
+    },
     "organizations.domain.exists": {
-        '["esderepeat"]': True,
-        '["#@^esde"]': False,
+        '["esdeath"]': False,
+        '["esdeath_r"]': True,
+        '["#@^esdeath"]': False,
     },
     "organizations.domain.get_group_names": {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(

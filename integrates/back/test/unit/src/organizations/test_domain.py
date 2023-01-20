@@ -126,23 +126,67 @@ async def test_add_group_access() -> None:
     ["organization_name", "email", "country"],
     [
         [
-            "esde",
+            "esdeath",
             "org_testusermanager1@gmail.com",
             "Colombia",
         ],
     ],
 )
+@patch(get_mocked_path("add_stakeholder"), new_callable=AsyncMock)
+@patch(get_mocked_path("orgs_model.add"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.company.load"), new_callable=AsyncMock)
 @patch(get_mocked_path("exists"), new_callable=AsyncMock)
-async def test_add_organization(
+async def test_add_organization(  # pylint: disable=too-many-arguments
     mock_exist: AsyncMock,
+    mock_loaders_company: AsyncMock,
+    mock_orgs_model_add: AsyncMock,
+    mock_add_stakeholder: AsyncMock,
     organization_name: str,
     email: str,
     country: str,
 ) -> None:
 
     loaders: Dataloaders = get_new_context()
+    mock_exist.return_value = get_mock_response(
+        get_mocked_path("exists"),
+        json.dumps([organization_name]),
+    )
+    mock_loaders_company.return_value = get_mock_response(
+        get_mocked_path("loaders.company.load"),
+        json.dumps([organization_name]),
+    )
+    mock_orgs_model_add.return_value = get_mock_response(
+        get_mocked_path("orgs_model.add"),
+        json.dumps([email, country, organization_name]),
+    )
+    mock_orgs_model_add.return_value = get_mock_response(
+        get_mocked_path("orgs_model.add"),
+        json.dumps([email, country, organization_name]),
+    )
+    mock_add_stakeholder.return_value = get_mock_response(
+        get_mocked_path("add_stakeholder"),
+        json.dumps([organization_name, email]),
+    )
+    result = await add_organization(
+        loaders=loaders,
+        organization_name=organization_name,
+        email=email,
+        country=country,
+    )
+
+    assert result
+    assert result.created_by == email
+    assert result.name == organization_name
+    assert result.country == country
+
+    assert mock_exist.called is True
+    assert mock_loaders_company.called is True
+    assert mock_orgs_model_add.called is True
+    assert mock_orgs_model_add.called is True
+    assert mock_add_stakeholder.called is True
+
     with pytest.raises(InvalidOrganization) as repeated:
-        repeated_name = organization_name + "repeat"
+        repeated_name: str = organization_name + "_r"
         mock_exist.return_value = get_mock_response(
             get_mocked_path("exists"),
             json.dumps([repeated_name]),
@@ -154,8 +198,8 @@ async def test_add_organization(
             country=country,
         )
         assert str(repeated) == "Exception - Name taken"
-    with pytest.raises(InvalidOrganization) as repeated:
-        invalid_name = "#@^" + organization_name
+    with pytest.raises(InvalidOrganization) as invalid:
+        invalid_name: str = "#@^" + organization_name
         mock_exist.return_value = get_mock_response(
             get_mocked_path("exists"),
             json.dumps([invalid_name]),
@@ -166,7 +210,7 @@ async def test_add_organization(
             email=email,
             country=country,
         )
-        assert str(repeated) == "Exception - Invalid name"
+        assert str(invalid) == "Exception - Invalid name"
 
 
 async def test_get_group_names() -> None:

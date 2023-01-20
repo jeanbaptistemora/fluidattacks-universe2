@@ -55,31 +55,6 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
-async def test_add_organization() -> None:
-    loaders: Dataloaders = get_new_context()
-    org_name = "esdeath"
-    user = "org_testusermanager1@gmail.com"
-    country = "Colombia"
-    with pytest.raises(OrganizationNotFound):
-        await loaders.organization.load(org_name)
-
-    await orgs_domain.add_organization(
-        loaders=loaders,
-        organization_name=org_name,
-        email=user,
-        country=country,
-    )
-
-    organization: Organization = await loaders.organization.load(org_name)
-    loaders = get_new_context()
-    assert await orgs_domain.has_access(loaders, organization.id, user)
-    assert (
-        await authz.get_organization_level_role(loaders, user, organization.id)
-        == "user_manager"
-    )
-
-
-@pytest.mark.changes_db
 async def test_remove_organization() -> None:
     org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
     org_name = "tatsumi"
