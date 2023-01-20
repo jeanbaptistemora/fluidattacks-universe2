@@ -88,9 +88,7 @@ locals {
         admins = [
           "prod_common",
         ]
-        users = [
-          "dev",
-        ]
+        users = []
         tags = {
           "Name"               = "common_okta"
           "management:area"    = "cost"
