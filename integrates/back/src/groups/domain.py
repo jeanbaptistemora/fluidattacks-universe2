@@ -518,7 +518,9 @@ async def remove_group(
 
 
 @validate_fields_deco(["comments"])
-@validate_string_length_between_deco("comments", 0, 250)
+@validate_string_length_between_deco(
+    "comments", inclusive_lower_bound=0, inclusive_upper_bound=250
+)
 async def update_group_managed(
     *,
     loaders: Dataloaders,
@@ -573,7 +575,9 @@ async def update_group_managed(
 
 
 @validate_fields_deco(["comments"])
-@validate_string_length_between_deco("comments", 0, 250)
+@validate_string_length_between_deco(
+    "comments", inclusive_lower_bound=0, inclusive_upper_bound=250
+)
 async def update_group_payment_id(
     *,
     group: Group,
@@ -606,7 +610,9 @@ async def update_group_payment_id(
 
 
 @validate_fields_deco(["comments"])
-@validate_string_length_between_deco("comments", 0, 250)
+@validate_string_length_between_deco(
+    "comments", inclusive_lower_bound=0, inclusive_upper_bound=250
+)
 @validate_group_services_config_deco("has_machine", "has_squad", "has_arm")
 async def update_group(
     *,

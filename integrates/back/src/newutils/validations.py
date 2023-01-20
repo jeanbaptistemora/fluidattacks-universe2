@@ -75,7 +75,6 @@ def validate_email_address_deco(field: str) -> Callable:
                 kwargs=kwargs,
                 obj_type=str,
             )
-            print(type(field_content))
             if "+" in field_content:
                 raise InvalidField("email address")
             try:
