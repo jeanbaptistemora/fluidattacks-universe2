@@ -1584,6 +1584,8 @@ export const enTranslations: ResourceKey = {
       "This finding has not been submitted yet or it might've been rejected by someone else",
     draftWithoutVulns:
       "This finding can not been approved without vulnerabilities",
+    errorApprove:
+      "This finding can not been approved without {{missingFields}}",
     errorNetwork: "Check your network connection",
     errorTextsad: "There is an error :(",
     expectedPathToStartWithRepo:

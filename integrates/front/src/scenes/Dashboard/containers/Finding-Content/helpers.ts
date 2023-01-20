@@ -86,28 +86,36 @@ const handleDraftApprovalError = (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<IHeaderQueryResult>>
 ): void => {
-  approveError.graphQLErrors.forEach(({ message }: GraphQLError): void => {
-    switch (message) {
-      case "Exception - This draft has already been approved":
-        msgError(translate.t("groupAlerts.draftAlreadyApproved"));
-        // Exception: FP(void operator is necessary)
-        // eslint-disable-next-line
-          void headerRefetch(); //NOSONAR
-        break;
-      case "Exception - The draft has not been submitted yet":
-        msgError(translate.t("groupAlerts.draftNotSubmitted"));
-        // Exception: FP(void operator is necessary)
-        // eslint-disable-next-line
-          void headerRefetch(); //NOSONAR
-        break;
-      case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
-        msgError(translate.t("groupAlerts.draftWithoutVulns"));
-        break;
-      default:
-        msgError(translate.t("groupAlerts.errorTextsad"));
-        Logger.warning("An error occurred approving draft", approveError);
+  approveError.graphQLErrors.forEach(
+    async ({ message }: GraphQLError): Promise<void> => {
+      if (_.includes(message, "Exception - This draft has missing fields")) {
+        msgError(
+          translate.t("groupAlerts.errorApprove", {
+            missingFields: message.split("fields: ")[1],
+          })
+        );
+
+        return;
+      }
+
+      switch (message) {
+        case "Exception - This draft has already been approved":
+          msgError(translate.t("groupAlerts.draftAlreadyApproved"));
+          await headerRefetch();
+          break;
+        case "Exception - The draft has not been submitted yet":
+          msgError(translate.t("groupAlerts.draftNotSubmitted"));
+          await headerRefetch();
+          break;
+        case "CANT_APPROVE_FINDING_WITHOUT_VULNS":
+          msgError(translate.t("groupAlerts.draftWithoutVulns"));
+          break;
+        default:
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred approving draft", approveError);
+      }
     }
-  });
+  );
 };
 
 export {

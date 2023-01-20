@@ -15,6 +15,8 @@ from db_model.findings.enums import (
 from db_model.findings.types import (  # type: ignore
     Finding,
     Finding31Severity,
+    FindingEvidence,
+    FindingEvidences,
     FindingState,
     FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
@@ -93,6 +95,15 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     threat="Updated threat",
                     attack_vector_description=(
                         "This is an updated attack vector"
+                    ),
+                    evidences=FindingEvidences(
+                        evidence3=FindingEvidence(
+                            description="evidence5",
+                            url=("group1-475041520-evidence5"),
+                            modified_date=datetime.fromisoformat(
+                                "2017-04-19T13:37:10+00:00"
+                            ),
+                        ),
                     ),
                 ),
                 "historic_state": [

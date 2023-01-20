@@ -86,6 +86,17 @@ async def approve_draft(
     )
     if not nzr_vulns:
         raise DraftWithoutVulns()
+    has_evidence = any(
+        bool(evidence["url"])
+        for evidence in get_formatted_evidence(finding).values()
+    )
+    if not has_evidence:
+        required_fields: dict[str, bool] = {
+            "evidences": has_evidence,
+        }
+        raise IncompleteDraft(
+            [key for key, value in required_fields.items() if not value]
+        )
 
     new_state = FindingState(
         modified_by=user_email,
@@ -240,7 +251,7 @@ async def submit_draft(
         bool(evidence["url"])
         for evidence in get_formatted_evidence(finding).values()
     )
-    if not has_severity or not has_vulns:
+    if not has_severity or not has_vulns or not has_evidence:
         required_fields: dict[str, bool] = {
             "evidences": has_evidence,
             "severity": has_severity,
