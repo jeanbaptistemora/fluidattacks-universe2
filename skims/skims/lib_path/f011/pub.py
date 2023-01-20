@@ -19,7 +19,7 @@ PUB_DEP: Pattern[str] = re.compile(
 
 
 # pylint: disable=unused-argument
-@pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_JSON)
+@pkg_deps_to_vulns(Platform.PUB, MethodsEnum.PUB_PUBSPEC_YAML)
 def pub_pubspec_yaml(  # NOSONAR
     content: str, path: str
 ) -> Iterator[DependencyType]:
