@@ -21,7 +21,6 @@ from sast.context import (
     java_resources,
 )
 from sast_transformations import (
-    control_flow,
     styles,
 )
 from syntax_cfg.generate import (
@@ -52,7 +51,6 @@ from utils.fs import (
 )
 from utils.graph import (
     copy_ast,
-    copy_cfg,
     to_svg,
 )
 from utils.logs import (
@@ -305,7 +303,6 @@ def _parse_one_cached(
     else:
         syntax_graph = None
 
-    control_flow.add(graph, language)
     syntax: GraphSyntax = {}
     metadata = GraphShardMetadata(
         language=language,
@@ -358,9 +355,7 @@ def parse_one(
 
     if CTX.debug:
         output = get_debug_path("tree-sitter-" + path)
-        to_svg(graph.graph, output)
         to_svg(copy_ast(graph.graph), f"{output}.ast")
-        to_svg(copy_cfg(graph.graph), f"{output}.cfg")
 
     return GraphShard(
         graph=graph.graph,
