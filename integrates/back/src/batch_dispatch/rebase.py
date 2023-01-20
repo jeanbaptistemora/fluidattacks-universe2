@@ -192,16 +192,26 @@ async def _rebase_vulnerability_integrates(
             )
 
 
+async def _vulnerability_historic_state(
+    loaders: Dataloaders, vuln_id: str
+) -> tuple[str, tuple[VulnerabilityState, ...]]:
+    return (vuln_id, await loaders.vulnerability_historic_state.load(vuln_id))
+
+
 async def rebase_root(
     loaders: Dataloaders, group_name: str, repo: Repo, git_root: GitRoot
 ) -> None:
     vulnerabilities: tuple[
         Vulnerability, ...
     ] = await _get_vulnerabilities_to_rebase(loaders, group_name, git_root)
-    vulns_states: tuple[
-        tuple[VulnerabilityState, ...], ...
-    ] = await loaders.vulnerability_historic_state.load_many(
-        [vuln.id for vuln in vulnerabilities]
+    vuln_states_dict: dict[str, tuple[VulnerabilityState, ...]] = dict(
+        await collect(
+            [
+                _vulnerability_historic_state(loaders, vuln.id)
+                for vuln in vulnerabilities
+            ],
+            workers=100,
+        )
     )
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
@@ -209,10 +219,12 @@ async def rebase_root(
         ] = tuple(
             executor.map(
                 lambda vuln: (
-                    _rebase_vulnerability(repo, vuln[0], vuln[1]),
-                    vuln[0],
+                    _rebase_vulnerability(
+                        repo, vuln, vuln_states_dict[vuln.id]
+                    ),
+                    vuln,
                 ),
-                zip(vulnerabilities, vulns_states),
+                vulnerabilities,
             )
         )
     await collect(
