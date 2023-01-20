@@ -45,8 +45,11 @@ const Policies: React.FC<IPolicies> = ({
   vulnerabilityGracePeriod,
   savingPolicies,
   tooltipMessage = undefined,
+  inactivityPeriod = undefined,
 }: IPolicies): JSX.Element => {
   const { t } = useTranslation();
+  const minInactivityPeriod: number = 21;
+  const maxInactivityPeriod: number = 999;
   const minSeverity: number = 0.0;
   const maxSeverity: number = 10.0;
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -55,6 +58,9 @@ const Policies: React.FC<IPolicies> = ({
     <Formik
       enableReinitialize={true}
       initialValues={{
+        inactivityPeriod: _.isNil(inactivityPeriod)
+          ? ""
+          : inactivityPeriod.toString(),
         maxAcceptanceDays: _.isNull(maxAcceptanceDays)
           ? ""
           : maxAcceptanceDays.toString(),
@@ -317,6 +323,34 @@ const Policies: React.FC<IPolicies> = ({
               </Card>
             </Col>
           </Row>
+          {_.isNil(inactivityPeriod) ? undefined : (
+            <Row>
+              <Col lg={33} md={50} sm={100}>
+                <Card>
+                  <Label htmlFor={"inactivityPeriod"}>
+                    {t(`${translationStart}policies.inactivityPeriod`)}
+                  </Label>
+                  <Tooltip
+                    disp={"inline"}
+                    id={"inactivityPeriod-tooltip"}
+                    place={"bottom"}
+                    tip={t(`${translationStart}recommended.inactivityPeriod`)}
+                  >
+                    <Field
+                      component={FormikText}
+                      disabled={permissions.cannot(permission)}
+                      name={"inactivityPeriod"}
+                      type={"text"}
+                      validate={composeValidators([
+                        numeric,
+                        numberBetween(minInactivityPeriod, maxInactivityPeriod),
+                      ])}
+                    />
+                  </Tooltip>
+                </Card>
+              </Col>
+            </Row>
+          )}
           <div className={"mt2"} />
           <Can do={permission}>
             {!dirty ||

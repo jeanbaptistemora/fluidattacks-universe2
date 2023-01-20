@@ -2311,6 +2311,9 @@ export const enTranslations: ResourceKey = {
         policies: {
           acceptanceSeverityRange:
             "Temporal acceptance: CVSS 3.1 score range allowed for assignment",
+          inactivityPeriod:
+            "Login inactivity: number of days to remove a stakeholder " +
+            "due to inactivity",
           maxAcceptanceDays:
             "Temporal acceptance: maximum number of days for assignment",
           maxAcceptanceSeverity:
@@ -2330,6 +2333,7 @@ export const enTranslations: ResourceKey = {
         policy: "Policy",
         recommended: {
           acceptanceSeverityRange: "Recommended value: 0.0 - 0.0",
+          inactivityPeriod: "Recommended value: 90 days",
           maxAcceptanceDays: "Recommended value: 0",
           maxAcceptanceSeverity: "Recommended value: 0.0",
           maxNumberAcceptances: "Recommended value: 0",
