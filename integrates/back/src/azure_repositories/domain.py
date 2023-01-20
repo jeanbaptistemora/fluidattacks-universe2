@@ -289,6 +289,38 @@ async def get_pat_credentials_authors_stats(
     return set().union(*list(repositories_authors))
 
 
+async def get_gitlab_credentials_authors(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+) -> set[str]:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_gitlab_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                        loaders=loaders,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return {
+        commit["author_email"].lower()
+        for stat in filtered_stats
+        for commit in stat.commits
+    }
+
+
 async def update_organization_unreliable(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
@@ -381,6 +413,11 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
     authors_stats: tuple[set[str], ...] = await collect(
         [
             get_pat_credentials_authors_stats(
+                credentials=credentials,
+                urls=urls,
+                loaders=loaders,
+            ),
+            get_gitlab_credentials_authors(
                 credentials=credentials,
                 urls=urls,
                 loaders=loaders,
