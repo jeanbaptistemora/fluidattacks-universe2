@@ -9,6 +9,7 @@ interface IOrganization {
 
 interface IGitRoot {
   nickname: string;
+  state: "ACTIVE" | "INACTIVE";
   gitignore: string[];
   downloadUrl?: string;
 }

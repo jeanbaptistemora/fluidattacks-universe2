@@ -7,6 +7,7 @@ import { createGunzip } from "zlib";
 import simpleGit, { ResetMode } from "simple-git";
 import type { Extract } from "tar-stream";
 import { extract as tarExtract } from "tar-stream";
+import { fileSync } from "tmp";
 // eslint-disable-next-line import/no-unresolved
 import { window, workspace } from "vscode";
 
@@ -50,6 +51,7 @@ function extractRoot(
     void window.showErrorMessage("Failed to extract repo");
   });
 }
+
 function clone(node: GitRootTreeItem): void {
   if (!workspace.workspaceFolders) {
     return;
@@ -59,7 +61,9 @@ function clone(node: GitRootTreeItem): void {
   if (!existsSync(fusionPath)) {
     mkdirSync(fusionPath, { recursive: true });
   }
-  const file = createWriteStream(join(fusionPath, `${node.nickname}.tar.gz`));
+
+  const tarFile = fileSync().name;
+  const tarFileStream = createWriteStream(tarFile);
   if (node.downloadUrl === undefined) {
     void window.showErrorMessage("Can not get download url");
 
@@ -68,16 +72,11 @@ function clone(node: GitRootTreeItem): void {
 
   get(node.downloadUrl, (response): void => {
     void window.showInformationMessage("Downloading repo");
-    response.pipe(file);
-    file.on("finish", (): void => {
-      file.close();
+    response.pipe(tarFileStream);
+    tarFileStream.on("finish", (): void => {
+      tarFileStream.close();
       void window.showInformationMessage("Download Completed");
-      extractRoot(
-        join(fusionPath, `${node.nickname}.tar.gz`),
-        fusionPath,
-        node.nickname,
-        node.gitignore
-      );
+      extractRoot(tarFile, fusionPath, node.nickname, node.gitignore);
     });
   });
 }

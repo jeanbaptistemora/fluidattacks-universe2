@@ -7,7 +7,7 @@ import type { NormalizedCacheObject } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
 import fetch from "cross-fetch";
 // eslint-disable-next-line import/no-unresolved
-import { workspace } from "vscode";
+import { window, workspace } from "vscode";
 
 const getClient = (): ApolloClient<NormalizedCacheObject> => {
   const authLink = setContext(
@@ -16,14 +16,17 @@ const getClient = (): ApolloClient<NormalizedCacheObject> => {
         Authorization: string;
       };
     } => {
-      const token: string | undefined =
-        (process.env.INTEGRATES_API_TOKEN ?? "") ||
-        workspace.getConfiguration("retrieves").get("api_token");
+      const token: string =
+        (workspace.getConfiguration("retrieves").get("api_token") ?? "") ||
+        (process.env.INTEGRATES_API_TOKEN ?? "");
+      if (token.length === 0) {
+        void window.showWarningMessage("Can not find the integrates api token");
+      }
 
       return {
         headers: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          Authorization: `Bearer ${token ?? ""}`,
+          Authorization: `Bearer ${token}`,
         },
       };
     }

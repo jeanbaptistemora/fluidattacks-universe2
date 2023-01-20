@@ -23,6 +23,7 @@ const GET_GIT_ROOTS = gql`
           nickname
           downloadUrl
           gitignore
+          state
         }
       }
     }

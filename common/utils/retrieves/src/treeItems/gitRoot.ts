@@ -48,7 +48,9 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
     );
   };
 
-  const deps = nicknames.map((dep): GitRootTreeItem => toGitRoot(dep));
+  const deps = nicknames
+    .filter((root: GitRoot): boolean => root.state === "ACTIVE")
+    .map((dep): GitRootTreeItem => toGitRoot(dep));
 
   return deps;
 }

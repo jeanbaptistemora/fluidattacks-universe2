@@ -56,7 +56,8 @@
     "glob": "^8.1.0",
     "graphql": "^16.6.0",
     "simple-git": "^3.15.1",
-    "tar-stream": "^3.0.0"
+    "tar-stream": "^3.0.0",
+    "tmp": "^0.2.1"
   },
   "description": "",
   "devDependencies": {
@@ -64,6 +65,7 @@
     "@types/mocha": "^10.0.1",
     "@types/node": "16.x",
     "@types/tar-stream": "^2.2.2",
+    "@types/tmp": "^0.2.3",
     "@types/vscode": "^1.74.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "5.41.0",
@@ -101,5 +103,5 @@
     "watch": "webpack --watch",
     "watch-tests": "tsc -p . -w --outDir out"
   },
-  "version": "0.0.1"
+  "version": "0.4.0"
 }

@@ -10,6 +10,7 @@ function activate(_context: ExtensionContext): void {
   if (!workspace.workspaceFolders) {
     return;
   }
+
   const repo = simpleGit(workspace.workspaceFolders[0].uri.path);
   void repo.listRemote(["--get-url"], (err, data): void => {
     if (err) {
@@ -18,6 +19,10 @@ function activate(_context: ExtensionContext): void {
       const groupsProvider = new GroupsProvider();
       void window.registerTreeDataProvider("user_groups", groupsProvider);
       void commands.registerCommand("retrieves.clone", clone);
+    } else {
+      void window.showWarningMessage(
+        "this doesn't look like the services repository"
+      );
     }
   });
 }
