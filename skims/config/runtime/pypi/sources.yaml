@@ -37,7 +37,7 @@ closure:
   gemfileparser: 0.8.0
   gitdb: 4.0.10
   gitpython: 3.1.29
-  hypothesis: 6.62.1
+  hypothesis: 6.63.0
   idna: "2.10"
   ipython: 5.9.0
   jmespath: 0.10.0
@@ -97,7 +97,7 @@ closure:
   soupsieve: 2.2.1
   tlslite-ng: 0.8.0-alpha41
   traitlets: 5.8.1
-  tree-sitter: 0.19.0
+  tree-sitter: 0.20.1
   types-docutils: 0.19.1.2
   types-setuptools: 65.7.0.3
   typing-extensions: 4.4.0
@@ -352,12 +352,12 @@ links:
   - name: GitPython-3.1.29.tar.gz
     sha256: 1zdybpw1l3jgnlvyaxqh9hk9r7a17rq893m20mlfc4zrlg2bydnc
     url: https://files.pythonhosted.org/packages/22/ab/3dd8b8a24399cee9c903d5f7600d20e8703d48904020f46f7fa5ac5474e9/GitPython-3.1.29.tar.gz
-  - name: hypothesis-6.62.1-py3-none-any.whl
-    sha256: 038n9vwfc04q60c6fzjh98xrfyl0jliy9az11xbv9f5hajf4l2nh
-    url: https://files.pythonhosted.org/packages/7e/67/5fb5b438ea0ae495ef221c9d8637d8f81e0a8c8cc7ac9939940e50388760/hypothesis-6.62.1-py3-none-any.whl
-  - name: hypothesis-6.62.1.tar.gz
-    sha256: 0l2is8p4smsgm8q7jv7vh21b7mmb9adxyyiiv9i9cl76f6c2y7kx
-    url: https://files.pythonhosted.org/packages/0b/a7/08f79b065d9b9cc2306aa1634c9cc5024e728d4629abb364b19c36e91afa/hypothesis-6.62.1.tar.gz
+  - name: hypothesis-6.63.0-py3-none-any.whl
+    sha256: 0hrj3hagxfrsgmmb3vihaigp6vxvsrnqw8apbyw5h79dpbhj95i7
+    url: https://files.pythonhosted.org/packages/de/77/2109046d3b327c6a32558de9ced4f54fabc4c638bae3ab1ac90229306c8b/hypothesis-6.63.0-py3-none-any.whl
+  - name: hypothesis-6.63.0.tar.gz
+    sha256: 1mm9iwnkkakp8xm46hw3237nix269dxhlhrp4xlbfys346y0hwcx
+    url: https://files.pythonhosted.org/packages/44/69/e0cca2f1030013b81d971f7aa242dc2cf280f2bb40591ca29213ce7d8253/hypothesis-6.63.0.tar.gz
   - name: idna-2.10-py2.py3-none-any.whl
     sha256: 1h280sli58v5dapmf79rnnqdrrk0xjn8vi3pxppknllv3r5q0zdr
     url: https://files.pythonhosted.org/packages/a2/38/928ddce2273eaa564f6f50de919327bf3a00f091b5baba8dfa9460f3a8a8/idna-2.10-py2.py3-none-any.whl
@@ -829,9 +829,9 @@ links:
   - name: traitlets-5.8.1.tar.gz
     sha256: 0nvqyp3pvnhxz5h5xn2n9prslmx6ixs33sk7j8xvyyzzyn40hl1j
     url: https://files.pythonhosted.org/packages/be/58/2d930cfab2caca22c827229ca61aabd8102423f7e817805cba706dce1598/traitlets-5.8.1.tar.gz
-  - name: tree_sitter-0.19.0.tar.gz
-    sha256: 169lsdnrwx0sbg009wc1ifz3lbrz82y28cdrz1sxszwmkzrzq6l6
-    url: https://files.pythonhosted.org/packages/ac/46/da153b968bf088a8c1656e8e17cf2b8ac5ca5ca16bfe6bf2381fe1db2ca0/tree_sitter-0.19.0.tar.gz
+  - name: tree_sitter-0.20.1.tar.gz
+    sha256: 03f6xqpnjh4g28d9g219w9n4l07bap91ws2xzfy4jrjxahn0hgz9
+    url: https://files.pythonhosted.org/packages/ea/11/8d3f8ed4761c375dca0918a5b170aa2d777f5325c5442c36c0851305b77a/tree_sitter-0.20.1.tar.gz
   - name: types_docutils-0.19.1.2-py3-none-any.whl
     sha256: 0w54fcjiv4883wx2l2c2srg10xcix3an4dy4i8q0228n3fn4vr3v
     url: https://files.pythonhosted.org/packages/91/85/fe294d3ea95baa23282674dac5977b77dac302d30994011b096df22e4885/types_docutils-0.19.1.2-py3-none-any.whl
