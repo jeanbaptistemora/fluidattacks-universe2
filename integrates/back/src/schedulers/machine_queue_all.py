@@ -7,6 +7,9 @@ from dataloaders import (
 from db_model.enums import (
     GitCloningStatus,
 )
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -38,7 +41,10 @@ async def main() -> None:
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
     machine_groups: List[Group] = [
-        group for group in groups if group.state.has_machine is True
+        group
+        for group in groups
+        if group.state.has_machine is True
+        and group.state.managed in (GroupManaged.MANAGED, GroupManaged.TRIAL)
     ]
     groups_roots: Tuple[
         Tuple[Root, ...], ...

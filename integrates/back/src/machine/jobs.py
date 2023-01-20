@@ -25,6 +25,9 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.groups.enums import (
+    GroupManaged,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -244,7 +247,10 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
 ) -> Optional[PutActionResult]:
     queue_result: Optional[PutActionResult] = None
     group: Group = await dataloaders.group.load(group_name)
-    if group.state.has_machine:
+    if group.state.has_machine and group.state.managed in (
+        GroupManaged.MANAGED,
+        GroupManaged.TRIAL,
+    ):
         group_roots: Tuple[Root, ...] = await dataloaders.group_roots.load(
             group_name
         )
