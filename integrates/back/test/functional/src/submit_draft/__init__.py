@@ -5,27 +5,24 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 async def get_result(
     *,
     user: str,
     finding_id: str,
-) -> Dict[str, Any]:
-    query: str = f"""
-        mutation {{
+) -> dict:
+    query: str = """
+        mutation SubmitDraft($findingId: String!) {
             submitDraft(
-                findingId: "{finding_id}"
-            ) {{
+                findingId: $findingId
+            ) {
                 success
-            }}
-        }}
+            }
+        }
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict = {"query": query, "variables": {"findingId": finding_id}}
+
     return await get_graphql_result(
         data,
         stakeholder=user,

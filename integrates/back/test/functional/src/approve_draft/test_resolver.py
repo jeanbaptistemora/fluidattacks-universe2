@@ -1,5 +1,8 @@
 from . import (
-    get_result,
+    approve_draft,
+)
+from custom_exceptions import (
+    IncompleteDraft,
 )
 from dataloaders import (
     Dataloaders,
@@ -19,9 +22,6 @@ from db_model.vulnerabilities.types import (
     Vulnerability,
 )
 import pytest
-from typing import (
-    Any,
-)
 
 
 @pytest.mark.asyncio
@@ -45,9 +45,7 @@ async def test_approve_draft(
     populate: bool, email: str, finding_id: str, vuln_id: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id
-    )
+    result: dict = await approve_draft(user=email, finding_id=finding_id)
     assert "errors" not in result
     assert "success" in result["data"]["approveDraft"]
     assert result["data"]["approveDraft"]["success"]
@@ -80,18 +78,35 @@ async def test_approve_draft(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("approve_draft")
 @pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+    ],
+)
+async def test_approve_draft_fail_1(populate: bool, email: str) -> None:
+    assert populate
+    result: dict = await approve_draft(
+        user=email, finding_id="8bf3c5e8-1e90-452c-b89d-f9be9eff197b"
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(
+        IncompleteDraft(["evidences"])
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("approve_draft")
+@pytest.mark.parametrize(
     ["email", "finding_id"],
     [
         ["hacker@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
         ["reattacker@gmail.com", "3c475384-834c-47b0-ac71-a41a022e401c"],
     ],
 )
-async def test_approve_draft_fail(
+async def test_approve_draft_fail_2(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    result: dict[str, Any] = await get_result(
-        user=email, finding_id=finding_id
-    )
+    result: dict = await approve_draft(user=email, finding_id=finding_id)
     assert "errors" in result
     assert result["errors"][0]["message"] == "Access denied"
