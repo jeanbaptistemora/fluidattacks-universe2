@@ -25,6 +25,9 @@ from syntax_graph.dispatchers.json import (
 from syntax_graph.dispatchers.kotlin import (
     KOTLIN_DISPATCHERS,
 )
+from syntax_graph.dispatchers.python import (
+    PYTHON_DISPATCHERS,
+)
 from syntax_graph.dispatchers.typescript import (
     TYPESCRIPT_DISPATCHERS,
 )
@@ -47,6 +50,7 @@ DISPATCHERS_BY_LANG: Dict[GraphLanguage, Dispatchers] = {
     GraphLanguage.JAVASCRIPT: JAVASCRIPT_DISPATCHERS,
     GraphLanguage.JSON: JSON_DISPATCHERS,
     GraphLanguage.KOTLIN: KOTLIN_DISPATCHERS,
+    GraphLanguage.PYTHON: PYTHON_DISPATCHERS,
     GraphLanguage.TYPESCRIPT: TYPESCRIPT_DISPATCHERS,
     GraphLanguage.YAML: YAML_DISPATCHERS,
 }
