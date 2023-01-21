@@ -7185,7 +7185,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '52110"]': True,
     },
     "dynamodb.operations_legacy.put_item": {
-        '["71c0fda0eb400019e9c4760a3711031596ddefdb98a8d2b721cd8a94d56db3a9", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
+        '["b48ee2ddd5d3869cf9e5f9a419db6d3d01858af338cae057aec9c1618fc5b790", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
     },
     "dynamodb.operations_legacy.query": {
         '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long
@@ -7193,8 +7193,8 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 additional_info=json.dumps(
                     dict(
                         report_type="XLS",
-                        treatments=["ACCEPTED", "NEW"],
-                        states=["OPEN"],
+                        treatments=["ACCEPTED", "UNTREATED"],
+                        states=["VULNERABLE"],
                         verifications=["REQUESTED"],
                         closing_date="null",
                         finding_title="038",
@@ -7223,7 +7223,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                             "ACCEPTED",
                             "ACCEPTED_UNDEFINED",
                             "IN_PROGRESS",
-                            "NEW",
+                            "UNTREATED",
                         ],
                         "states": ["SAFE"],
                         "verifications": ["VERIFIED"],
@@ -7253,7 +7253,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                             "ACCEPTED",
                             "ACCEPTED_UNDEFINED",
                             "IN_PROGRESS",
-                            "NEW",
+                            "UNTREATED",
                         ],
                         "states": ["SAFE", "VULNERABLE"],
                         "verifications": [],
@@ -7270,7 +7270,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
                 "subject": "unittesting@fluidattacks.com",
                 "action_name": "report",
-                "pk": "e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",  # noqa: E501 pylint: disable=line-too-long
+                "pk": "ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",  # noqa: E501 pylint: disable=line-too-long
                 "time": "1672248409",
                 "entity": "unittesting",
                 "queue": "integrates_medium",

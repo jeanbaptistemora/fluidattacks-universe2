@@ -122,7 +122,7 @@ data: Dict[str, List[Any]] = dict(
                     "2019-08-30T14:30:13+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("4"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="038. Business information leak",
             analyst_email="unittest@fluidattacks.com",
@@ -266,7 +266,7 @@ data: Dict[str, List[Any]] = dict(
                     "2020-01-03T17:46:10+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("0"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="060. Insecure service configuration - Host verification",
             analyst_email="unittest@fluidattacks.com",
@@ -412,7 +412,7 @@ data: Dict[str, List[Any]] = dict(
                     "2019-04-08T00:45:15+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("1"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="014. Insecure functionality",
             analyst_email="integratesmanager@gmail.com",
@@ -456,7 +456,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             pk="VULN#15375781-31f2-4953-ac77-f31134225747",
             sk="STATE#2019-09-13T13:17:41+00:00",
-            status="OPEN",
+            status="VULNERABLE",
             modified_date="2019-09-13T13:17:41+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
@@ -470,7 +470,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             pk="VULN#0a848781-b6a4-422e-95fa-692151e6a98z",
             sk="STATE#2020-01-03T17:46:10+00:00",
-            status="OPEN",
+            status="VULNERABLE",
             modified_date="2020-01-03T17:46:10+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
@@ -484,7 +484,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             pk="VULN#47ce0fb0-4108-49b0-93cc-160dce8168a6",
             sk="STATE#2019-04-08T00:45:15+00:00",
-            status="OPEN",
+            status="VULNERABLE",
             modified_date="2019-04-08T00:45:15+00:00",
             modified_by="unittest@fluidattacks.com",
             source="ASM",
@@ -498,7 +498,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             treatment=dict(
                 modified_date="2019-09-13T13:17:41+00:00",
-                status="NEW",
+                status="UNTREATED",
             ),
             hacker_email="unittest@fluidattacks.com",
             group_name="unittesting",
@@ -530,7 +530,7 @@ data: Dict[str, List[Any]] = dict(
                 source="ASM",
                 modified_date="2019-09-13T13:17:41+00:00",
                 specific="333",
-                status="OPEN",
+                status="VULNERABLE",
                 tool=dict(
                     name="tool-2",
                     impact="INDIRECT",
@@ -577,7 +577,7 @@ data: Dict[str, List[Any]] = dict(
                 source="ASM",
                 modified_date="2020-01-03T17:46:10+00:00",
                 specific="12",
-                status="OPEN",
+                status="VULNERABLE",
                 tool=dict(
                     name="tool-2",
                     impact="INDIRECT",
@@ -621,7 +621,7 @@ data: Dict[str, List[Any]] = dict(
                 source="ASM",
                 modified_date="2019-04-08T00:45:15+00:00",
                 specific="8888",
-                status="OPEN",
+                status="VULNERABLE",
                 tool=dict(
                     name="tool-1",
                     impact="INDIRECT",
@@ -633,7 +633,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             pk="VULN#15375781-31f2-4953-ac77-f31134225747",
             sk="TREATMENT#2019-09-13T13:17:41+00:00",
-            status="NEW",
+            status="UNTREATED",
             modified_date="2019-09-13T13:17:41+00:00",
         ),
         dict(

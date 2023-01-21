@@ -145,7 +145,7 @@ data: Dict[str, List[Any]] = dict(
                     "2019-01-15T15:43:39+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("1"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="007. Cross-site request forgery",
             analyst_email="unittest@fluidattacks.com",
@@ -282,7 +282,7 @@ data: Dict[str, List[Any]] = dict(
                     "2020-01-03T17:46:10+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("0"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="060. Insecure service configuration - Host verification",
             analyst_email="unittest@fluidattacks.com",
@@ -426,7 +426,7 @@ data: Dict[str, List[Any]] = dict(
                     "2020-09-12T13:45:48+00:00"
                 ),
                 unreliable_closed_vulnerabilities=Decimal("0"),
-                unreliable_status="OPEN",
+                unreliable_status="VULNERABLE",
             ),
             title="037. Technical information leak",
             analyst_email="unittest@fluidattacks.com",
@@ -480,7 +480,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             treatment=dict(
                 modified_date="2020-09-12T13:45:48+00:00",
-                status="NEW",
+                status="UNTREATED",
             ),
             hacker_email="unittest@fluidattacks.com",
             group_name="oneshottest",
@@ -505,7 +505,7 @@ data: Dict[str, List[Any]] = dict(
                 source="ASM",
                 modified_date="2020-09-12T13:45:48+00:00",
                 specific="6666",
-                status="OPEN",
+                status="VULNERABLE",
                 where="192.168.1.9",
             ),
             sk_2="VULN#afb345f6-9319-416a-b174-0201d7cd3822",
@@ -541,7 +541,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_by="unittest@fluidattacks.com",
                 source="ASM",
                 modified_date="2019-01-15T15:43:39+00:00",
-                status="OPEN",
+                status="VULNERABLE",
                 specific="12",
                 where="path/to/file2.exe",
             ),
@@ -550,7 +550,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             treatment=dict(
                 modified_date="2019-01-15T15:43:39+00:00",
-                status="NEW",
+                status="UNTREATED",
             ),
             hacker_email="unittest@fluidattacks.com",
             group_name="unittesting",
@@ -574,7 +574,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_by="unittest@fluidattacks.com",
                 source="ASM",
                 modified_date="2019-01-15T20:59:16+00:00",
-                status="CLOSED",
+                status="SAFE",
                 specific="123456",
                 where="path/to/file2.ext",
             ),
@@ -583,7 +583,7 @@ data: Dict[str, List[Any]] = dict(
         dict(
             treatment=dict(
                 modified_date="2019-04-12T13:45:48+00:00",
-                status="NEW",
+                status="UNTREATED",
             ),
             hacker_email="unittest@fluidattacks.com",
             group_name="oneshottest",
@@ -609,7 +609,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2019-04-12T13:45:48+00:00",
                 specific="564",
                 where="path/to/file4.ext",
-                status="OPEN",
+                status="VULNERABLE",
             ),
             sk_2="VULN#a8c0ff07-bb21-4cd5-bb9f-4d716fc69320",
         ),
@@ -650,7 +650,7 @@ data: Dict[str, List[Any]] = dict(
                 ),
                 specific="12",
                 where="test/data/lib_path/f060/csharp.cs",
-                status="OPEN",
+                status="VULNERABLE",
             ),
             sk_2="VULN#0a848781-b6a4-422e-95fa-692151e6a98z",
         ),

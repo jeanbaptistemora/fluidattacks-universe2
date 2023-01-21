@@ -176,51 +176,6 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     }
   }
 
-  // eslint-disable-next-line
-  useEffect((): void => { // NOSONAR
-    setVulnFilters(
-      (
-        currentVulnFilters: IFilter<IVulnRowAttr>[]
-      ): IFilter<IVulnRowAttr>[] => {
-        return currentVulnFilters.map(
-          (filter: IFilter<IVulnRowAttr>): IFilter<IVulnRowAttr> => {
-            const stateParameters: Record<string, string> = {
-              CLOSED: "SAFE",
-              OPEN: "VULNERABLE",
-            };
-            const value: string = filter.value?.toString().toUpperCase() ?? "";
-            const filterUpdated =
-              filter.id === "treatment" && value === "NEW"
-                ? {
-                    ...tableFilters.reduce(
-                      (prev, curr): IFilter<IVulnRowAttr> => {
-                        return curr.id === "treatment" ? curr : prev;
-                      },
-                      tableFilters[3]
-                    ),
-                    value: "UNTREATED",
-                  }
-                : filter;
-
-            return filterUpdated.id === "currentState" &&
-              value in stateParameters
-              ? {
-                  ...tableFilters.reduce(
-                    (prev, curr): IFilter<IVulnRowAttr> => {
-                      return curr.id === "currentState" ? curr : prev;
-                    },
-                    tableFilters[1]
-                  ),
-                  value: stateParameters[value],
-                }
-              : filterUpdated;
-          }
-        );
-      }
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   useEffect((): void => {
     const filterToSearch = vulnFilters.reduce(
       (prev, curr): Record<string, string> => {

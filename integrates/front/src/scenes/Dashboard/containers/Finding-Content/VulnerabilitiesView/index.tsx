@@ -368,26 +368,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     });
     setIsNotify(false);
   }, [findingId, sendNotification]);
-  useEffect((): void => {
-    setFilterVal((currentFilter: IPermanentData[]): IPermanentData[] => {
-      return currentFilter.map((filter: IPermanentData): IPermanentData => {
-        const stateParameters: Record<string, string> = {
-          CLOSED: "SAFE",
-          OPEN: "VULNERABLE",
-        };
-        const value: string = filter.value?.toString().toUpperCase() ?? "";
-        const filterUpdated =
-          filter.id === "treatment" && value === "NEW"
-            ? { ...filter, value: "untreated" }
-            : filter;
-
-        return filterUpdated.id === "currentState" && value in stateParameters
-          ? { ...filterUpdated, value: stateParameters[value] }
-          : filterUpdated;
-      });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {

@@ -269,55 +269,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
   );
 
   useEffect((): void => {
-    setFilterVal((currentFilter: IPermanentData[]): IPermanentData[] => {
-      return currentFilter.map((filter: IPermanentData): IPermanentData => {
-        const stateParameters: Record<string, string> = {
-          CLOSED: "SAFE",
-          OPEN: "VULNERABLE",
-        };
-        const value: string = filter.value?.toString().toUpperCase() ?? "";
-        const filterUpdated =
-          filter.id === "treatment" && value === "NEW"
-            ? { ...filter, value: "untreated" }
-            : filter;
-
-        return filterUpdated.id === "state" && value in stateParameters
-          ? { ...filterUpdated, value: stateParameters[value] }
-          : filterUpdated;
-      });
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect((): void => {
-    setFilters(
-      (currentFilters: IFilter<IFindingAttr>[]): IFilter<IFindingAttr>[] => {
-        return currentFilters.map(
-          (filter: IFilter<IFindingAttr>): IFilter<IFindingAttr> => {
-            const stateParameters: Record<string, string> = {
-              CLOSED: "SAFE",
-              OPEN: "VULNERABLE",
-            };
-            const value: string = filter.value?.toString().toUpperCase() ?? "";
-            const filterUpdated =
-              filter.id === "treatment" && value === "NEW"
-                ? { ...filter, value: "untreated" }
-                : filter;
-
-            return filterUpdated.id === "state" && value in stateParameters
-              ? {
-                  ...filterUpdated,
-                  value: stateParameters[value],
-                }
-              : filterUpdated;
-          }
-        );
-      }
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect((): void => {
     if (!_.isUndefined(vulnData)) {
       const { edges } = vulnData.group.vulnerabilities;
 

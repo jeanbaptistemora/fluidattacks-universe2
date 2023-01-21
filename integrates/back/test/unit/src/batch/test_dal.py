@@ -104,8 +104,8 @@ async def test_get_actions(
             json.dumps(
                 {
                     "report_type": "XLS",
-                    "treatments": ["ACCEPTED", "NEW"],
-                    "states": ["OPEN"],
+                    "treatments": ["ACCEPTED", "UNTREATED"],
+                    "states": ["VULNERABLE"],
                     "verifications": [],
                     "closing_date": None,
                     "finding_title": "038",
@@ -114,7 +114,7 @@ async def test_get_actions(
                     "max_severity": "6.4",
                 }
             ),
-            "69bda99b6a486a86b64e6e3188c3d4c82ccf195ad0baa14fca63656e7666aad4",
+            "7790c855b860e6a0365c5755c362f4f579ba958edea3fce14146f4270541a6a4",
         ],
         [
             "report",
@@ -127,7 +127,7 @@ async def test_get_actions(
                         "ACCEPTED",
                         "ACCEPTED_UNDEFINED",
                         "IN_PROGRESS",
-                        "NEW",
+                        "UNTREATED",
                     ],
                     "states": ["SAFE", "VULNERABLE"],
                     "verifications": [],
@@ -142,7 +142,7 @@ async def test_get_actions(
                     "location": "",
                 }
             ),
-            "e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",
+            "ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",
         ],
     ],
 )
@@ -182,7 +182,7 @@ def test_mapping_to_key(
                             "ACCEPTED",
                             "ACCEPTED_UNDEFINED",
                             "IN_PROGRESS",
-                            "NEW",
+                            "UNTREATED",
                         ],
                         "states": ["SAFE"],
                         "verifications": ["VERIFIED"],
@@ -205,7 +205,7 @@ def test_mapping_to_key(
         ],
         [
             BatchProcessing(
-                key="e020054b8a51c8e6f208a6890c59b6bc914526c208d0ba3807305f073faf0654",  # noqa: E501 pylint: disable=line-too-long
+                key="ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",  # noqa: E501 pylint: disable=line-too-long
                 action_name="report",
                 entity="unittesting",
                 subject="unittesting@fluidattacks.com",
@@ -217,7 +217,7 @@ def test_mapping_to_key(
                             "ACCEPTED",
                             "ACCEPTED_UNDEFINED",
                             "IN_PROGRESS",
-                            "NEW",
+                            "UNTREATED",
                         ],
                         "states": ["SAFE", "VULNERABLE"],
                         "verifications": [],
@@ -280,9 +280,9 @@ async def test_put_action_to_batch(action: BatchProcessing) -> None:
                         "ACCEPTED",
                         "ACCEPTED_UNDEFINED",
                         "IN_PROGRESS",
-                        "NEW",
+                        "UNTREATED",
                     ],
-                    "states": ["CLOSED"],
+                    "states": ["SAFE"],
                     "verifications": ["VERIFIED"],
                     "closing_date": "2020-06-01T05:00:00+00:00",
                     "finding_title": "039",
