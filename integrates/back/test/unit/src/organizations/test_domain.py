@@ -4,6 +4,8 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mocked_path,
 )
 from custom_exceptions import (
+    InvalidAcceptanceDays,
+    InvalidInactivityPeriod,
     InvalidOrganization,
 )
 from dataloaders import (
@@ -33,6 +35,8 @@ from organizations.domain import (
     has_access,
     has_group,
     update_policies,
+    validate_inactivity_period,
+    validate_max_acceptance_days,
 )
 import pytest
 from unittest.mock import (
@@ -341,3 +345,27 @@ async def test_update_policies(  # pylint: disable=too-many-arguments
 
     assert mock_validate_acceptance_severity_range.called is True
     assert mock_orgs_model_update_policies.called is True
+
+
+@pytest.mark.parametrize(
+    ["inactivity_period"],
+    [[20]],
+)
+async def test_validate_inactivity_period(
+    inactivity_period: int,
+) -> None:
+
+    with pytest.raises(InvalidInactivityPeriod):
+        validate_inactivity_period(inactivity_period)
+
+
+@pytest.mark.parametrize(
+    ["max_acceptance_days"],
+    [[-10]],
+)
+async def test_validate_max_acceptance_days(
+    max_acceptance_days: int,
+) -> None:
+
+    with pytest.raises(InvalidAcceptanceDays):
+        validate_max_acceptance_days(max_acceptance_days)

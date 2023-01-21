@@ -1,10 +1,8 @@
 import authz
 from custom_exceptions import (
     GroupNotFound,
-    InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
@@ -158,18 +156,6 @@ async def test_update_policies() -> None:
     org_id = "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"
     org_name = "bulat"
 
-    new_values = PoliciesToUpdate(inactivity_period=20)
-    with pytest.raises(InvalidInactivityPeriod):
-        await orgs_domain.update_policies(
-            get_new_context(), org_id, org_name, "", new_values
-        )
-
-    new_values = PoliciesToUpdate(max_acceptance_days=-10)
-    with pytest.raises(InvalidAcceptanceDays):
-        await orgs_domain.update_policies(
-            get_new_context(), org_id, org_name, "", new_values
-        )
-
     new_values = PoliciesToUpdate(
         max_acceptance_severity=Decimal("10.5"),
     )
@@ -211,17 +197,11 @@ async def test_update_policies() -> None:
 
 
 async def test_validate_negative_values() -> None:
-    with pytest.raises(InvalidInactivityPeriod):
-        orgs_domain.validate_inactivity_period(-1)
-
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_max_acceptance_severity(Decimal("-1"))
 
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("-1"))
-
-    with pytest.raises(InvalidAcceptanceDays):
-        orgs_domain.validate_max_acceptance_days(-1)
 
     with pytest.raises(InvalidNumberAcceptances):
         orgs_domain.validate_max_number_acceptances(-1)
