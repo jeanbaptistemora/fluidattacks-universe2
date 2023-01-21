@@ -16,6 +16,7 @@ GRAMMARS: Dict[str, str] = dict(
     json=os.environ["envTreeSitterJson"],
     kotlin=os.environ["envTreeSitterKotlin"],
     php=os.environ["envTreeSitterPhp"],
+    python=os.environ["envTreeSitterPython"],
     ruby=os.environ["envTreeSitterRuby"],
     scala=os.environ["envTreeSitterScala"],
     tsx=os.path.join(os.environ["envTreeSitterTsx"], "tsx"),

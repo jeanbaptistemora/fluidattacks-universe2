@@ -59,6 +59,7 @@ language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
     GraphShardMetadataLanguage.JSON: [".json"],
     GraphShardMetadataLanguage.KOTLIN: [".kt", ".ktm", ".kts"],
     GraphShardMetadataLanguage.PHP: [".php"],
+    GraphShardMetadataLanguage.PYTHON: [".py"],
     GraphShardMetadataLanguage.RUBY: [".rb"],
     GraphShardMetadataLanguage.SCALA: [".sc", ".scala"],
     GraphShardMetadataLanguage.TYPESCRIPT: [".ts", ".tsx"],

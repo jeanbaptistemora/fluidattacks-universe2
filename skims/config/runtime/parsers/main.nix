@@ -26,6 +26,7 @@ makeDerivation {
     envTreeSitterJson = inputs.skimsTreeSitterJson;
     envTreeSitterKotlin = inputs.skimsTreeSitterKotlin;
     envTreeSitterPhp = inputs.skimsTreeSitterPhp;
+    envTreeSitterPython = inputs.skimsTreeSitterPython;
     envTreeSitterRuby = inputs.skimsTreeSitterRuby;
     envTreeSitterScala = inputs.skimsTreeSitterScala;
     envTreeSitterTsx = inputs.skimsTreeSitterTsx;

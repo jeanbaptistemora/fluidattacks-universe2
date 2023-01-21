@@ -386,6 +386,7 @@ class GraphShardMetadataLanguage(Enum):
     KOTLIN: str = "kotlin"
     NOT_SUPPORTED: str = "not_supported"
     PHP: str = "php"
+    PYTHON: str = "python"
     RUBY: str = "ruby"
     SCALA: str = "scala"
     TYPESCRIPT: str = "tsx"

@@ -97,6 +97,12 @@
       rev = "435fa00006c0d1515c37fbb4dd6a9de284af75ab";
       sha256 = "05k4h58gi616gv41r0qqdb1x4rs8y94vghn2r10yczisgzq4vbad";
     };
+    skimsTreeSitterPython = fetchGithub {
+      owner = "tree-sitter";
+      repo = "tree-sitter-python";
+      rev = "9e53981ec31b789ee26162ea335de71f02186003";
+      sha256 = "D2++Xg7dRfjGM2r4cxaXGQnBOAX5JBREcEAJeNa7Y9M=";
+    };
     skimsTreeSitterRuby = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-ruby";
