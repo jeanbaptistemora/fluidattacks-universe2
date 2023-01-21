@@ -54,6 +54,7 @@ from utils.encodings import (
         (
             (
                 "skims/test/data/sast/test_cfg.json",
+                "skims/test/data/sast/test_cfg.tf",
                 "skims/test/data/sast/test_cfg.yaml",
             ),
             "cfg_path",

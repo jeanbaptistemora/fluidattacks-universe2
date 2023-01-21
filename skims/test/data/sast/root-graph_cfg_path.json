@@ -2199,6 +2199,3601 @@
               "label_index": "0"
             }
           },
+          "101": {
+            "102": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "103": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "104": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "105": {
+            "106": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "107": {
+            "108": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "120": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "108": {
+            "109": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "110": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "111": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "111": {
+            "112": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "114": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "117": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "112": {
+            "113": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "114": {
+            "115": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "116": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "117": {
+            "118": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "119": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "120": {
+            "121": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "122": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "123": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "123": {
+            "124": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "124": {
+            "125": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "125": {
+            "126": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "127": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "128": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "129": {
+            "130": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "13": {
+            "14": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "131": {
+            "132": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "133": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "137": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "141": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "143": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "288": {
+              "label_ast": "AST",
+              "label_index": "5"
+            }
+          },
+          "133": {
+            "134": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "135": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "136": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "137": {
+            "138": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "139": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "140": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "141": {
+            "142": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "143": {
+            "144": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "156": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "144": {
+            "145": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "146": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "147": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "147": {
+            "148": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "150": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "153": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "148": {
+            "149": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "15": {
+            "16": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "25": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "150": {
+            "151": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "152": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "153": {
+            "154": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "155": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "156": {
+            "157": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "158": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "159": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "159": {
+            "160": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "16": {
+            "17": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "18": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "19": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "160": {
+            "161": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "162": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "163": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "287": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "163": {
+            "164": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "164": {
+            "165": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "165": {
+            "166": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "166": {
+            "167": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "169": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "180": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "285": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "167": {
+            "168": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "169": {
+            "170": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "173": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "174": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "170": {
+            "171": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "171": {
+            "172": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "174": {
+            "175": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "175": {
+            "176": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "176": {
+            "177": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "178": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "179": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "180": {
+            "181": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "184": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "185": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "181": {
+            "182": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "182": {
+            "183": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "185": {
+            "186": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "186": {
+            "187": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "187": {
+            "188": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "190": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "282": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "283": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "188": {
+            "189": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "19": {
+            "20": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "22": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "190": {
+            "191": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "191": {
+            "192": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "192": {
+            "193": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "195": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "206": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "217": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "228": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "239": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "280": {
+              "label_ast": "AST",
+              "label_index": "6"
+            }
+          },
+          "193": {
+            "194": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "195": {
+            "196": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "199": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "200": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "196": {
+            "197": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "197": {
+            "198": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "2": {
+            "131": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "95": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "20": {
+            "21": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "200": {
+            "201": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "201": {
+            "202": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "202": {
+            "203": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "204": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "205": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "206": {
+            "207": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "210": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "211": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "207": {
+            "208": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "208": {
+            "209": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "211": {
+            "212": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "212": {
+            "213": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "213": {
+            "214": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "215": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "216": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "217": {
+            "218": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "221": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "222": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "218": {
+            "219": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "219": {
+            "220": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "22": {
+            "23": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "24": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "222": {
+            "223": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "223": {
+            "224": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "224": {
+            "225": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "226": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "227": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "228": {
+            "229": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "232": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "233": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "229": {
+            "230": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "230": {
+            "231": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "233": {
+            "234": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "234": {
+            "235": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "235": {
+            "236": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "237": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "238": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "239": {
+            "240": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "243": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "244": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "240": {
+            "241": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "241": {
+            "242": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "244": {
+            "245": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "245": {
+            "246": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "246": {
+            "247": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "249": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "258": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "259": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "277": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "278": {
+              "label_ast": "AST",
+              "label_index": "5"
+            }
+          },
+          "247": {
+            "248": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "249": {
+            "250": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "252": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "255": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "25": {
+            "26": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "27": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "28": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "250": {
+            "251": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "252": {
+            "253": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "254": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "255": {
+            "256": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "257": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "259": {
+            "260": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "260": {
+            "261": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "261": {
+            "262": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "263": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "275": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "276": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "263": {
+            "264": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "265": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "274": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "265": {
+            "266": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "268": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "271": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "266": {
+            "267": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "268": {
+            "269": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "270": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "271": {
+            "272": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "273": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "278": {
+            "279": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "28": {
+            "29": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "31": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "280": {
+            "281": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "283": {
+            "284": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "285": {
+            "286": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "288": {
+            "289": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "29": {
+            "30": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "3": {
+            "13": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "15": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "34": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "4": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "5": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "9": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "31": {
+            "32": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "33": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "34": {
+            "35": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "36": {
+            "37": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "38": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "42": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "46": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "48": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "93": {
+              "label_ast": "AST",
+              "label_index": "5"
+            }
+          },
+          "38": {
+            "39": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "40": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "41": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "42": {
+            "43": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "44": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "45": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "46": {
+            "47": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "48": {
+            "49": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "61": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "77": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "49": {
+            "50": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "51": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "52": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "5": {
+            "6": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "7": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "8": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "52": {
+            "53": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "55": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "58": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "53": {
+            "54": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "55": {
+            "56": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "57": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "58": {
+            "59": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "60": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "61": {
+            "62": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "63": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "65": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "75": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "63": {
+            "64": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "65": {
+            "66": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "66": {
+            "67": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "68": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "69": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "69": {
+            "70": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "70": {
+            "71": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "71": {
+            "72": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "73": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "74": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "75": {
+            "76": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "77": {
+            "78": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "79": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "81": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "91": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "79": {
+            "80": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "81": {
+            "82": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "82": {
+            "83": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "84": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "85": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "85": {
+            "86": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "86": {
+            "87": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "87": {
+            "88": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "89": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "90": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "9": {
+            "10": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "11": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "12": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "91": {
+            "92": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "93": {
+            "94": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "95": {
+            "101": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "105": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "107": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "129": {
+              "label_ast": "AST",
+              "label_index": "5"
+            },
+            "96": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "97": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "97": {
+            "100": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "98": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "99": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "config_file"
+          },
+          "10": {
+            "label_c": 26,
+            "label_l": 1,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "100": {
+            "label_c": 28,
+            "label_l": 19,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "101": {
+            "label_c": 30,
+            "label_l": 19,
+            "label_type": "string_lit"
+          },
+          "102": {
+            "label_c": 30,
+            "label_l": 19,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "103": {
+            "label_c": 31,
+            "label_l": 19,
+            "label_text": "s3_bucket",
+            "label_type": "template_literal"
+          },
+          "104": {
+            "label_c": 40,
+            "label_l": 19,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "105": {
+            "label_c": 42,
+            "label_l": 19,
+            "label_type": "block_start"
+          },
+          "106": {
+            "label_c": 42,
+            "label_l": 19,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "107": {
+            "label_c": 3,
+            "label_l": 20,
+            "label_type": "body"
+          },
+          "108": {
+            "label_c": 3,
+            "label_l": 20,
+            "label_type": "attribute"
+          },
+          "109": {
+            "label_c": 3,
+            "label_l": 20,
+            "label_text": "bucket",
+            "label_type": "identifier"
+          },
+          "11": {
+            "label_c": 27,
+            "label_l": 1,
+            "label_text": "s3_bucket",
+            "label_type": "template_literal"
+          },
+          "110": {
+            "label_c": 10,
+            "label_l": 20,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "111": {
+            "label_c": 12,
+            "label_l": 20,
+            "label_type": "expression"
+          },
+          "112": {
+            "label_c": 12,
+            "label_l": 20,
+            "label_type": "variable_expr"
+          },
+          "113": {
+            "label_c": 12,
+            "label_l": 20,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "114": {
+            "label_c": 25,
+            "label_l": 20,
+            "label_type": "get_attr"
+          },
+          "115": {
+            "label_c": 25,
+            "label_l": 20,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "116": {
+            "label_c": 26,
+            "label_l": 20,
+            "label_text": "s3_bucket",
+            "label_type": "identifier"
+          },
+          "117": {
+            "label_c": 35,
+            "label_l": 20,
+            "label_type": "get_attr"
+          },
+          "118": {
+            "label_c": 35,
+            "label_l": 20,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "119": {
+            "label_c": 36,
+            "label_l": 20,
+            "label_text": "id",
+            "label_type": "identifier"
+          },
+          "12": {
+            "label_c": 36,
+            "label_l": 1,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "120": {
+            "label_c": 3,
+            "label_l": 22,
+            "label_type": "attribute"
+          },
+          "121": {
+            "label_c": 3,
+            "label_l": 22,
+            "label_text": "acl",
+            "label_type": "identifier"
+          },
+          "122": {
+            "label_c": 7,
+            "label_l": 22,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "123": {
+            "label_c": 9,
+            "label_l": 22,
+            "label_type": "expression"
+          },
+          "124": {
+            "label_c": 9,
+            "label_l": 22,
+            "label_type": "literal_value"
+          },
+          "125": {
+            "label_c": 9,
+            "label_l": 22,
+            "label_type": "string_lit"
+          },
+          "126": {
+            "label_c": 9,
+            "label_l": 22,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "127": {
+            "label_c": 10,
+            "label_l": 22,
+            "label_text": "public-read",
+            "label_type": "template_literal"
+          },
+          "128": {
+            "label_c": 21,
+            "label_l": 22,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "129": {
+            "label_c": 1,
+            "label_l": 23,
+            "label_type": "block_end"
+          },
+          "13": {
+            "label_c": 38,
+            "label_l": 1,
+            "label_type": "block_start"
+          },
+          "130": {
+            "label_c": 1,
+            "label_l": 23,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "131": {
+            "label_c": 1,
+            "label_l": 25,
+            "label_type": "block"
+          },
+          "132": {
+            "label_c": 1,
+            "label_l": 25,
+            "label_text": "resource",
+            "label_type": "identifier"
+          },
+          "133": {
+            "label_c": 10,
+            "label_l": 25,
+            "label_type": "string_lit"
+          },
+          "134": {
+            "label_c": 10,
+            "label_l": 25,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "135": {
+            "label_c": 11,
+            "label_l": 25,
+            "label_text": "aws_s3_bucket_policy",
+            "label_type": "template_literal"
+          },
+          "136": {
+            "label_c": 31,
+            "label_l": 25,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "137": {
+            "label_c": 33,
+            "label_l": 25,
+            "label_type": "string_lit"
+          },
+          "138": {
+            "label_c": 33,
+            "label_l": 25,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "139": {
+            "label_c": 34,
+            "label_l": 25,
+            "label_text": "s3_bucket",
+            "label_type": "template_literal"
+          },
+          "14": {
+            "label_c": 38,
+            "label_l": 1,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "140": {
+            "label_c": 43,
+            "label_l": 25,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "141": {
+            "label_c": 45,
+            "label_l": 25,
+            "label_type": "block_start"
+          },
+          "142": {
+            "label_c": 45,
+            "label_l": 25,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "143": {
+            "label_c": 3,
+            "label_l": 26,
+            "label_type": "body"
+          },
+          "144": {
+            "label_c": 3,
+            "label_l": 26,
+            "label_type": "attribute"
+          },
+          "145": {
+            "label_c": 3,
+            "label_l": 26,
+            "label_text": "bucket",
+            "label_type": "identifier"
+          },
+          "146": {
+            "label_c": 10,
+            "label_l": 26,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "147": {
+            "label_c": 12,
+            "label_l": 26,
+            "label_type": "expression"
+          },
+          "148": {
+            "label_c": 12,
+            "label_l": 26,
+            "label_type": "variable_expr"
+          },
+          "149": {
+            "label_c": 12,
+            "label_l": 26,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "15": {
+            "label_c": 3,
+            "label_l": 2,
+            "label_type": "body"
+          },
+          "150": {
+            "label_c": 25,
+            "label_l": 26,
+            "label_type": "get_attr"
+          },
+          "151": {
+            "label_c": 25,
+            "label_l": 26,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "152": {
+            "label_c": 26,
+            "label_l": 26,
+            "label_text": "s3_bucket",
+            "label_type": "identifier"
+          },
+          "153": {
+            "label_c": 35,
+            "label_l": 26,
+            "label_type": "get_attr"
+          },
+          "154": {
+            "label_c": 35,
+            "label_l": 26,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "155": {
+            "label_c": 36,
+            "label_l": 26,
+            "label_text": "id",
+            "label_type": "identifier"
+          },
+          "156": {
+            "label_c": 3,
+            "label_l": 28,
+            "label_type": "attribute"
+          },
+          "157": {
+            "label_c": 3,
+            "label_l": 28,
+            "label_text": "policy",
+            "label_type": "identifier"
+          },
+          "158": {
+            "label_c": 10,
+            "label_l": 28,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "159": {
+            "label_c": 12,
+            "label_l": 28,
+            "label_type": "expression"
+          },
+          "16": {
+            "label_c": 3,
+            "label_l": 2,
+            "label_type": "attribute"
+          },
+          "160": {
+            "label_c": 12,
+            "label_l": 28,
+            "label_type": "function_call"
+          },
+          "161": {
+            "label_c": 12,
+            "label_l": 28,
+            "label_text": "jsonencode",
+            "label_type": "identifier"
+          },
+          "162": {
+            "label_c": 22,
+            "label_l": 28,
+            "label_text": "(",
+            "label_type": "("
+          },
+          "163": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_type": "function_arguments"
+          },
+          "164": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_type": "expression"
+          },
+          "165": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_type": "collection_value"
+          },
+          "166": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_type": "object"
+          },
+          "167": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_type": "object_start"
+          },
+          "168": {
+            "label_c": 23,
+            "label_l": 28,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "169": {
+            "label_c": 5,
+            "label_field_key": "170",
+            "label_field_val": "174",
+            "label_l": 29,
+            "label_type": "object_elem"
+          },
+          "17": {
+            "label_c": 3,
+            "label_l": 2,
+            "label_text": "bucket",
+            "label_type": "identifier"
+          },
+          "170": {
+            "label_c": 5,
+            "label_l": 29,
+            "label_type": "expression"
+          },
+          "171": {
+            "label_c": 5,
+            "label_l": 29,
+            "label_type": "variable_expr"
+          },
+          "172": {
+            "label_c": 5,
+            "label_l": 29,
+            "label_text": "Version",
+            "label_type": "identifier"
+          },
+          "173": {
+            "label_c": 13,
+            "label_l": 29,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "174": {
+            "label_c": 15,
+            "label_l": 29,
+            "label_type": "expression"
+          },
+          "175": {
+            "label_c": 15,
+            "label_l": 29,
+            "label_type": "literal_value"
+          },
+          "176": {
+            "label_c": 15,
+            "label_l": 29,
+            "label_type": "string_lit"
+          },
+          "177": {
+            "label_c": 15,
+            "label_l": 29,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "178": {
+            "label_c": 16,
+            "label_l": 29,
+            "label_text": "2012-10-17",
+            "label_type": "template_literal"
+          },
+          "179": {
+            "label_c": 26,
+            "label_l": 29,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "18": {
+            "label_c": 10,
+            "label_l": 2,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "180": {
+            "label_c": 5,
+            "label_field_key": "181",
+            "label_field_val": "185",
+            "label_l": 30,
+            "label_type": "object_elem"
+          },
+          "181": {
+            "label_c": 5,
+            "label_l": 30,
+            "label_type": "expression"
+          },
+          "182": {
+            "label_c": 5,
+            "label_l": 30,
+            "label_type": "variable_expr"
+          },
+          "183": {
+            "label_c": 5,
+            "label_l": 30,
+            "label_text": "Statement",
+            "label_type": "identifier"
+          },
+          "184": {
+            "label_c": 15,
+            "label_l": 30,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "185": {
+            "label_c": 17,
+            "label_l": 30,
+            "label_type": "expression"
+          },
+          "186": {
+            "label_c": 17,
+            "label_l": 30,
+            "label_type": "collection_value"
+          },
+          "187": {
+            "label_c": 17,
+            "label_l": 30,
+            "label_type": "tuple"
+          },
+          "188": {
+            "label_c": 17,
+            "label_l": 30,
+            "label_type": "tuple_start"
+          },
+          "189": {
+            "label_c": 17,
+            "label_l": 30,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "19": {
+            "label_c": 12,
+            "label_l": 2,
+            "label_type": "expression"
+          },
+          "190": {
+            "label_c": 7,
+            "label_l": 31,
+            "label_type": "expression"
+          },
+          "191": {
+            "label_c": 7,
+            "label_l": 31,
+            "label_type": "collection_value"
+          },
+          "192": {
+            "label_c": 7,
+            "label_l": 31,
+            "label_type": "object"
+          },
+          "193": {
+            "label_c": 7,
+            "label_l": 31,
+            "label_type": "object_start"
+          },
+          "194": {
+            "label_c": 7,
+            "label_l": 31,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "195": {
+            "label_c": 9,
+            "label_field_key": "196",
+            "label_field_val": "200",
+            "label_l": 32,
+            "label_type": "object_elem"
+          },
+          "196": {
+            "label_c": 9,
+            "label_l": 32,
+            "label_type": "expression"
+          },
+          "197": {
+            "label_c": 9,
+            "label_l": 32,
+            "label_type": "variable_expr"
+          },
+          "198": {
+            "label_c": 9,
+            "label_l": 32,
+            "label_text": "Sid",
+            "label_type": "identifier"
+          },
+          "199": {
+            "label_c": 19,
+            "label_l": 32,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "2": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "body"
+          },
+          "20": {
+            "label_c": 12,
+            "label_l": 2,
+            "label_type": "variable_expr"
+          },
+          "200": {
+            "label_c": 21,
+            "label_l": 32,
+            "label_type": "expression"
+          },
+          "201": {
+            "label_c": 21,
+            "label_l": 32,
+            "label_type": "literal_value"
+          },
+          "202": {
+            "label_c": 21,
+            "label_l": 32,
+            "label_type": "string_lit"
+          },
+          "203": {
+            "label_c": 21,
+            "label_l": 32,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "204": {
+            "label_c": 22,
+            "label_l": 32,
+            "label_text": "PublicReadGetObject",
+            "label_type": "template_literal"
+          },
+          "205": {
+            "label_c": 41,
+            "label_l": 32,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "206": {
+            "label_c": 9,
+            "label_field_key": "207",
+            "label_field_val": "211",
+            "label_l": 33,
+            "label_type": "object_elem"
+          },
+          "207": {
+            "label_c": 9,
+            "label_l": 33,
+            "label_type": "expression"
+          },
+          "208": {
+            "label_c": 9,
+            "label_l": 33,
+            "label_type": "variable_expr"
+          },
+          "209": {
+            "label_c": 9,
+            "label_l": 33,
+            "label_text": "Effect",
+            "label_type": "identifier"
+          },
+          "21": {
+            "label_c": 12,
+            "label_l": 2,
+            "label_text": "var",
+            "label_type": "identifier"
+          },
+          "210": {
+            "label_c": 19,
+            "label_l": 33,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "211": {
+            "label_c": 21,
+            "label_l": 33,
+            "label_type": "expression"
+          },
+          "212": {
+            "label_c": 21,
+            "label_l": 33,
+            "label_type": "literal_value"
+          },
+          "213": {
+            "label_c": 21,
+            "label_l": 33,
+            "label_type": "string_lit"
+          },
+          "214": {
+            "label_c": 21,
+            "label_l": 33,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "215": {
+            "label_c": 22,
+            "label_l": 33,
+            "label_text": "Allow",
+            "label_type": "template_literal"
+          },
+          "216": {
+            "label_c": 27,
+            "label_l": 33,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "217": {
+            "label_c": 9,
+            "label_field_key": "218",
+            "label_field_val": "222",
+            "label_l": 34,
+            "label_type": "object_elem"
+          },
+          "218": {
+            "label_c": 9,
+            "label_l": 34,
+            "label_type": "expression"
+          },
+          "219": {
+            "label_c": 9,
+            "label_l": 34,
+            "label_type": "variable_expr"
+          },
+          "22": {
+            "label_c": 15,
+            "label_l": 2,
+            "label_type": "get_attr"
+          },
+          "220": {
+            "label_c": 9,
+            "label_l": 34,
+            "label_text": "Principal",
+            "label_type": "identifier"
+          },
+          "221": {
+            "label_c": 19,
+            "label_l": 34,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "222": {
+            "label_c": 21,
+            "label_l": 34,
+            "label_type": "expression"
+          },
+          "223": {
+            "label_c": 21,
+            "label_l": 34,
+            "label_type": "literal_value"
+          },
+          "224": {
+            "label_c": 21,
+            "label_l": 34,
+            "label_type": "string_lit"
+          },
+          "225": {
+            "label_c": 21,
+            "label_l": 34,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "226": {
+            "label_c": 22,
+            "label_l": 34,
+            "label_text": "*",
+            "label_type": "template_literal"
+          },
+          "227": {
+            "label_c": 23,
+            "label_l": 34,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "228": {
+            "label_c": 9,
+            "label_field_key": "229",
+            "label_field_val": "233",
+            "label_l": 35,
+            "label_type": "object_elem"
+          },
+          "229": {
+            "label_c": 9,
+            "label_l": 35,
+            "label_type": "expression"
+          },
+          "23": {
+            "label_c": 15,
+            "label_l": 2,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "230": {
+            "label_c": 9,
+            "label_l": 35,
+            "label_type": "variable_expr"
+          },
+          "231": {
+            "label_c": 9,
+            "label_l": 35,
+            "label_text": "Action",
+            "label_type": "identifier"
+          },
+          "232": {
+            "label_c": 19,
+            "label_l": 35,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "233": {
+            "label_c": 21,
+            "label_l": 35,
+            "label_type": "expression"
+          },
+          "234": {
+            "label_c": 21,
+            "label_l": 35,
+            "label_type": "literal_value"
+          },
+          "235": {
+            "label_c": 21,
+            "label_l": 35,
+            "label_type": "string_lit"
+          },
+          "236": {
+            "label_c": 21,
+            "label_l": 35,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "237": {
+            "label_c": 22,
+            "label_l": 35,
+            "label_text": "s3:GetObject",
+            "label_type": "template_literal"
+          },
+          "238": {
+            "label_c": 34,
+            "label_l": 35,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "239": {
+            "label_c": 9,
+            "label_field_key": "240",
+            "label_field_val": "244",
+            "label_l": 36,
+            "label_type": "object_elem"
+          },
+          "24": {
+            "label_c": 16,
+            "label_l": 2,
+            "label_text": "bucket_name",
+            "label_type": "identifier"
+          },
+          "240": {
+            "label_c": 9,
+            "label_l": 36,
+            "label_type": "expression"
+          },
+          "241": {
+            "label_c": 9,
+            "label_l": 36,
+            "label_type": "variable_expr"
+          },
+          "242": {
+            "label_c": 9,
+            "label_l": 36,
+            "label_text": "Resource",
+            "label_type": "identifier"
+          },
+          "243": {
+            "label_c": 18,
+            "label_l": 36,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "244": {
+            "label_c": 20,
+            "label_l": 36,
+            "label_type": "expression"
+          },
+          "245": {
+            "label_c": 20,
+            "label_l": 36,
+            "label_type": "collection_value"
+          },
+          "246": {
+            "label_c": 20,
+            "label_l": 36,
+            "label_type": "tuple"
+          },
+          "247": {
+            "label_c": 20,
+            "label_l": 36,
+            "label_type": "tuple_start"
+          },
+          "248": {
+            "label_c": 20,
+            "label_l": 36,
+            "label_text": "[",
+            "label_type": "["
+          },
+          "249": {
+            "label_c": 11,
+            "label_l": 37,
+            "label_type": "expression"
+          },
+          "25": {
+            "label_c": 3,
+            "label_l": 4,
+            "label_type": "attribute"
+          },
+          "250": {
+            "label_c": 11,
+            "label_l": 37,
+            "label_type": "variable_expr"
+          },
+          "251": {
+            "label_c": 11,
+            "label_l": 37,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "252": {
+            "label_c": 24,
+            "label_l": 37,
+            "label_type": "get_attr"
+          },
+          "253": {
+            "label_c": 24,
+            "label_l": 37,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "254": {
+            "label_c": 25,
+            "label_l": 37,
+            "label_text": "s3_bucket",
+            "label_type": "identifier"
+          },
+          "255": {
+            "label_c": 34,
+            "label_l": 37,
+            "label_type": "get_attr"
+          },
+          "256": {
+            "label_c": 34,
+            "label_l": 37,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "257": {
+            "label_c": 35,
+            "label_l": 37,
+            "label_text": "arn",
+            "label_type": "identifier"
+          },
+          "258": {
+            "label_c": 38,
+            "label_l": 37,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "259": {
+            "label_c": 11,
+            "label_l": 38,
+            "label_type": "expression"
+          },
+          "26": {
+            "label_c": 3,
+            "label_l": 4,
+            "label_text": "tags",
+            "label_type": "identifier"
+          },
+          "260": {
+            "label_c": 11,
+            "label_l": 38,
+            "label_type": "template_expr"
+          },
+          "261": {
+            "label_c": 11,
+            "label_l": 38,
+            "label_type": "quoted_template"
+          },
+          "262": {
+            "label_c": 11,
+            "label_l": 38,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "263": {
+            "label_c": 12,
+            "label_l": 38,
+            "label_type": "template_interpolation"
+          },
+          "264": {
+            "label_c": 12,
+            "label_l": 38,
+            "label_text": "${",
+            "label_type": "template_interpolation_start"
+          },
+          "265": {
+            "label_c": 14,
+            "label_l": 38,
+            "label_type": "expression"
+          },
+          "266": {
+            "label_c": 14,
+            "label_l": 38,
+            "label_type": "variable_expr"
+          },
+          "267": {
+            "label_c": 14,
+            "label_l": 38,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "268": {
+            "label_c": 27,
+            "label_l": 38,
+            "label_type": "get_attr"
+          },
+          "269": {
+            "label_c": 27,
+            "label_l": 38,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "27": {
+            "label_c": 8,
+            "label_l": 4,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "270": {
+            "label_c": 28,
+            "label_l": 38,
+            "label_text": "s3_bucket",
+            "label_type": "identifier"
+          },
+          "271": {
+            "label_c": 37,
+            "label_l": 38,
+            "label_type": "get_attr"
+          },
+          "272": {
+            "label_c": 37,
+            "label_l": 38,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "273": {
+            "label_c": 38,
+            "label_l": 38,
+            "label_text": "arn",
+            "label_type": "identifier"
+          },
+          "274": {
+            "label_c": 41,
+            "label_l": 38,
+            "label_text": "}",
+            "label_type": "template_interpolation_end"
+          },
+          "275": {
+            "label_c": 42,
+            "label_l": 38,
+            "label_text": "/*",
+            "label_type": "template_literal"
+          },
+          "276": {
+            "label_c": 44,
+            "label_l": 38,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "277": {
+            "label_c": 45,
+            "label_l": 38,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "278": {
+            "label_c": 9,
+            "label_l": 39,
+            "label_type": "tuple_end"
+          },
+          "279": {
+            "label_c": 9,
+            "label_l": 39,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "28": {
+            "label_c": 10,
+            "label_l": 4,
+            "label_type": "expression"
+          },
+          "280": {
+            "label_c": 7,
+            "label_l": 40,
+            "label_type": "object_end"
+          },
+          "281": {
+            "label_c": 7,
+            "label_l": 40,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "282": {
+            "label_c": 8,
+            "label_l": 40,
+            "label_text": ",",
+            "label_type": ","
+          },
+          "283": {
+            "label_c": 5,
+            "label_l": 41,
+            "label_type": "tuple_end"
+          },
+          "284": {
+            "label_c": 5,
+            "label_l": 41,
+            "label_text": "]",
+            "label_type": "]"
+          },
+          "285": {
+            "label_c": 3,
+            "label_l": 42,
+            "label_type": "object_end"
+          },
+          "286": {
+            "label_c": 3,
+            "label_l": 42,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "287": {
+            "label_c": 4,
+            "label_l": 42,
+            "label_text": ")",
+            "label_type": ")"
+          },
+          "288": {
+            "label_c": 1,
+            "label_l": 43,
+            "label_type": "block_end"
+          },
+          "289": {
+            "label_c": 1,
+            "label_l": 43,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "29": {
+            "label_c": 10,
+            "label_l": 4,
+            "label_type": "variable_expr"
+          },
+          "3": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_type": "block"
+          },
+          "30": {
+            "label_c": 10,
+            "label_l": 4,
+            "label_text": "var",
+            "label_type": "identifier"
+          },
+          "31": {
+            "label_c": 13,
+            "label_l": 4,
+            "label_type": "get_attr"
+          },
+          "32": {
+            "label_c": 13,
+            "label_l": 4,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "33": {
+            "label_c": 14,
+            "label_l": 4,
+            "label_text": "tags",
+            "label_type": "identifier"
+          },
+          "34": {
+            "label_c": 1,
+            "label_l": 5,
+            "label_type": "block_end"
+          },
+          "35": {
+            "label_c": 1,
+            "label_l": 5,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "36": {
+            "label_c": 1,
+            "label_l": 7,
+            "label_type": "block"
+          },
+          "37": {
+            "label_c": 1,
+            "label_l": 7,
+            "label_text": "resource",
+            "label_type": "identifier"
+          },
+          "38": {
+            "label_c": 10,
+            "label_l": 7,
+            "label_type": "string_lit"
+          },
+          "39": {
+            "label_c": 10,
+            "label_l": 7,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "4": {
+            "label_c": 1,
+            "label_l": 1,
+            "label_text": "resource",
+            "label_type": "identifier"
+          },
+          "40": {
+            "label_c": 11,
+            "label_l": 7,
+            "label_text": "aws_s3_bucket_website_configuration",
+            "label_type": "template_literal"
+          },
+          "41": {
+            "label_c": 46,
+            "label_l": 7,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "42": {
+            "label_c": 48,
+            "label_l": 7,
+            "label_type": "string_lit"
+          },
+          "43": {
+            "label_c": 48,
+            "label_l": 7,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "44": {
+            "label_c": 49,
+            "label_l": 7,
+            "label_text": "s3_bucket",
+            "label_type": "template_literal"
+          },
+          "45": {
+            "label_c": 58,
+            "label_l": 7,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "46": {
+            "label_c": 60,
+            "label_l": 7,
+            "label_type": "block_start"
+          },
+          "47": {
+            "label_c": 60,
+            "label_l": 7,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "48": {
+            "label_c": 3,
+            "label_l": 8,
+            "label_type": "body"
+          },
+          "49": {
+            "label_c": 3,
+            "label_l": 8,
+            "label_type": "attribute"
+          },
+          "5": {
+            "label_c": 10,
+            "label_l": 1,
+            "label_type": "string_lit"
+          },
+          "50": {
+            "label_c": 3,
+            "label_l": 8,
+            "label_text": "bucket",
+            "label_type": "identifier"
+          },
+          "51": {
+            "label_c": 10,
+            "label_l": 8,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "52": {
+            "label_c": 12,
+            "label_l": 8,
+            "label_type": "expression"
+          },
+          "53": {
+            "label_c": 12,
+            "label_l": 8,
+            "label_type": "variable_expr"
+          },
+          "54": {
+            "label_c": 12,
+            "label_l": 8,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "55": {
+            "label_c": 25,
+            "label_l": 8,
+            "label_type": "get_attr"
+          },
+          "56": {
+            "label_c": 25,
+            "label_l": 8,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "57": {
+            "label_c": 26,
+            "label_l": 8,
+            "label_text": "s3_bucket",
+            "label_type": "identifier"
+          },
+          "58": {
+            "label_c": 35,
+            "label_l": 8,
+            "label_type": "get_attr"
+          },
+          "59": {
+            "label_c": 35,
+            "label_l": 8,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "6": {
+            "label_c": 10,
+            "label_l": 1,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "60": {
+            "label_c": 36,
+            "label_l": 8,
+            "label_text": "id",
+            "label_type": "identifier"
+          },
+          "61": {
+            "label_c": 3,
+            "label_l": 10,
+            "label_type": "block"
+          },
+          "62": {
+            "label_c": 3,
+            "label_l": 10,
+            "label_text": "index_document",
+            "label_type": "identifier"
+          },
+          "63": {
+            "label_c": 18,
+            "label_l": 10,
+            "label_type": "block_start"
+          },
+          "64": {
+            "label_c": 18,
+            "label_l": 10,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "65": {
+            "label_c": 5,
+            "label_l": 11,
+            "label_type": "body"
+          },
+          "66": {
+            "label_c": 5,
+            "label_l": 11,
+            "label_type": "attribute"
+          },
+          "67": {
+            "label_c": 5,
+            "label_l": 11,
+            "label_text": "suffix",
+            "label_type": "identifier"
+          },
+          "68": {
+            "label_c": 12,
+            "label_l": 11,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "69": {
+            "label_c": 14,
+            "label_l": 11,
+            "label_type": "expression"
+          },
+          "7": {
+            "label_c": 11,
+            "label_l": 1,
+            "label_text": "aws_s3_bucket",
+            "label_type": "template_literal"
+          },
+          "70": {
+            "label_c": 14,
+            "label_l": 11,
+            "label_type": "literal_value"
+          },
+          "71": {
+            "label_c": 14,
+            "label_l": 11,
+            "label_type": "string_lit"
+          },
+          "72": {
+            "label_c": 14,
+            "label_l": 11,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "73": {
+            "label_c": 15,
+            "label_l": 11,
+            "label_text": "index.html",
+            "label_type": "template_literal"
+          },
+          "74": {
+            "label_c": 25,
+            "label_l": 11,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "75": {
+            "label_c": 3,
+            "label_l": 12,
+            "label_type": "block_end"
+          },
+          "76": {
+            "label_c": 3,
+            "label_l": 12,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "77": {
+            "label_c": 3,
+            "label_l": 14,
+            "label_type": "block"
+          },
+          "78": {
+            "label_c": 3,
+            "label_l": 14,
+            "label_text": "error_document",
+            "label_type": "identifier"
+          },
+          "79": {
+            "label_c": 18,
+            "label_l": 14,
+            "label_type": "block_start"
+          },
+          "8": {
+            "label_c": 24,
+            "label_l": 1,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "80": {
+            "label_c": 18,
+            "label_l": 14,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "81": {
+            "label_c": 5,
+            "label_l": 15,
+            "label_type": "body"
+          },
+          "82": {
+            "label_c": 5,
+            "label_l": 15,
+            "label_type": "attribute"
+          },
+          "83": {
+            "label_c": 5,
+            "label_l": 15,
+            "label_text": "key",
+            "label_type": "identifier"
+          },
+          "84": {
+            "label_c": 9,
+            "label_l": 15,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "85": {
+            "label_c": 11,
+            "label_l": 15,
+            "label_type": "expression"
+          },
+          "86": {
+            "label_c": 11,
+            "label_l": 15,
+            "label_type": "literal_value"
+          },
+          "87": {
+            "label_c": 11,
+            "label_l": 15,
+            "label_type": "string_lit"
+          },
+          "88": {
+            "label_c": 11,
+            "label_l": 15,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "89": {
+            "label_c": 12,
+            "label_l": 15,
+            "label_text": "error.html",
+            "label_type": "template_literal"
+          },
+          "9": {
+            "label_c": 26,
+            "label_l": 1,
+            "label_type": "string_lit"
+          },
+          "90": {
+            "label_c": 22,
+            "label_l": 15,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "91": {
+            "label_c": 3,
+            "label_l": 16,
+            "label_type": "block_end"
+          },
+          "92": {
+            "label_c": 3,
+            "label_l": 16,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "93": {
+            "label_c": 1,
+            "label_l": 17,
+            "label_type": "block_end"
+          },
+          "94": {
+            "label_c": 1,
+            "label_l": 17,
+            "label_text": "}",
+            "label_type": "}"
+          },
+          "95": {
+            "label_c": 1,
+            "label_l": 19,
+            "label_type": "block"
+          },
+          "96": {
+            "label_c": 1,
+            "label_l": 19,
+            "label_text": "resource",
+            "label_type": "identifier"
+          },
+          "97": {
+            "label_c": 10,
+            "label_l": 19,
+            "label_type": "string_lit"
+          },
+          "98": {
+            "label_c": 10,
+            "label_l": 19,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "99": {
+            "label_c": 11,
+            "label_l": 19,
+            "label_text": "aws_s3_bucket_acl",
+            "label_type": "template_literal"
+          }
+        }
+      },
+      "metadata": {
+        "c_sharp": {
+          "classes": {},
+          "package": ""
+        },
+        "go": {
+          "imports": [],
+          "package": "",
+          "sink_functions": {}
+        },
+        "java": {
+          "classes": {},
+          "package": ""
+        },
+        "language": "hcl"
+      },
+      "path": "skims/test/data/sast/test_cfg.tf",
+      "syntax": {},
+      "syntax_graph": {
+        "edges": {
+          "1": {
+            "131": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "3": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "36": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
+            "95": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            }
+          },
+          "108": {
+            "109": {
+              "label_ast": "AST"
+            },
+            "111": {
+              "label_ast": "AST"
+            }
+          },
+          "120": {
+            "121": {
+              "label_ast": "AST"
+            },
+            "123": {
+              "label_ast": "AST"
+            }
+          },
+          "131": {
+            "144": {
+              "label_ast": "AST"
+            },
+            "156": {
+              "label_ast": "AST"
+            }
+          },
+          "144": {
+            "145": {
+              "label_ast": "AST"
+            },
+            "147": {
+              "label_ast": "AST"
+            }
+          },
+          "156": {
+            "157": {
+              "label_ast": "AST"
+            },
+            "159": {
+              "label_ast": "AST"
+            }
+          },
+          "159": {
+            "161": {
+              "label_ast": "AST"
+            },
+            "164": {
+              "label_ast": "AST"
+            }
+          },
+          "16": {
+            "17": {
+              "label_ast": "AST"
+            },
+            "19": {
+              "label_ast": "AST"
+            }
+          },
+          "164": {
+            "169": {
+              "label_ast": "AST"
+            },
+            "180": {
+              "label_ast": "AST"
+            }
+          },
+          "169": {
+            "170": {
+              "label_ast": "AST"
+            },
+            "174": {
+              "label_ast": "AST"
+            }
+          },
+          "180": {
+            "181": {
+              "label_ast": "AST"
+            },
+            "185": {
+              "label_ast": "AST"
+            }
+          },
+          "185": {
+            "190": {
+              "label_ast": "AST"
+            }
+          },
+          "190": {
+            "195": {
+              "label_ast": "AST"
+            },
+            "206": {
+              "label_ast": "AST"
+            },
+            "217": {
+              "label_ast": "AST"
+            },
+            "228": {
+              "label_ast": "AST"
+            },
+            "239": {
+              "label_ast": "AST"
+            }
+          },
+          "195": {
+            "196": {
+              "label_ast": "AST"
+            },
+            "200": {
+              "label_ast": "AST"
+            }
+          },
+          "206": {
+            "207": {
+              "label_ast": "AST"
+            },
+            "211": {
+              "label_ast": "AST"
+            }
+          },
+          "217": {
+            "218": {
+              "label_ast": "AST"
+            },
+            "222": {
+              "label_ast": "AST"
+            }
+          },
+          "228": {
+            "229": {
+              "label_ast": "AST"
+            },
+            "233": {
+              "label_ast": "AST"
+            }
+          },
+          "239": {
+            "240": {
+              "label_ast": "AST"
+            },
+            "244": {
+              "label_ast": "AST"
+            }
+          },
+          "244": {
+            "249": {
+              "label_ast": "AST"
+            },
+            "259": {
+              "label_ast": "AST"
+            }
+          },
+          "25": {
+            "26": {
+              "label_ast": "AST"
+            },
+            "28": {
+              "label_ast": "AST"
+            }
+          },
+          "3": {
+            "16": {
+              "label_ast": "AST"
+            },
+            "25": {
+              "label_ast": "AST"
+            }
+          },
+          "36": {
+            "49": {
+              "label_ast": "AST"
+            },
+            "61": {
+              "label_ast": "AST"
+            },
+            "77": {
+              "label_ast": "AST"
+            }
+          },
+          "49": {
+            "50": {
+              "label_ast": "AST"
+            },
+            "52": {
+              "label_ast": "AST"
+            }
+          },
+          "61": {
+            "66": {
+              "label_ast": "AST"
+            }
+          },
+          "66": {
+            "67": {
+              "label_ast": "AST"
+            },
+            "69": {
+              "label_ast": "AST"
+            }
+          },
+          "77": {
+            "82": {
+              "label_ast": "AST"
+            }
+          },
+          "82": {
+            "83": {
+              "label_ast": "AST"
+            },
+            "85": {
+              "label_ast": "AST"
+            }
+          },
+          "95": {
+            "108": {
+              "label_ast": "AST"
+            },
+            "120": {
+              "label_ast": "AST"
+            }
+          }
+        },
+        "nodes": {
+          "1": {
+            "label_type": "File"
+          },
+          "108": {
+            "key_id": "109",
+            "label_type": "Pair",
+            "value_id": "111"
+          },
+          "109": {
+            "label_type": "Literal",
+            "value": "bucket",
+            "value_type": "string"
+          },
+          "111": {
+            "label_type": "Literal",
+            "value": "aws_s3_bucket",
+            "value_type": "string"
+          },
+          "120": {
+            "key_id": "121",
+            "label_type": "Pair",
+            "value_id": "123"
+          },
+          "121": {
+            "label_type": "Literal",
+            "value": "acl",
+            "value_type": "string"
+          },
+          "123": {
+            "label_type": "Literal",
+            "value": "\"public-read\"",
+            "value_type": "string"
+          },
+          "131": {
+            "label_type": "Object",
+            "name": "resource"
+          },
+          "144": {
+            "key_id": "145",
+            "label_type": "Pair",
+            "value_id": "147"
+          },
+          "145": {
+            "label_type": "Literal",
+            "value": "bucket",
+            "value_type": "string"
+          },
+          "147": {
+            "label_type": "Literal",
+            "value": "aws_s3_bucket",
+            "value_type": "string"
+          },
+          "156": {
+            "key_id": "157",
+            "label_type": "Pair",
+            "value_id": "159"
+          },
+          "157": {
+            "label_type": "Literal",
+            "value": "policy",
+            "value_type": "string"
+          },
+          "159": {
+            "arguments_id": "164",
+            "expression": "jsonencode",
+            "expression_id": "161",
+            "label_type": "MethodInvocation"
+          },
+          "16": {
+            "key_id": "17",
+            "label_type": "Pair",
+            "value_id": "19"
+          },
+          "161": {
+            "label_type": "Literal",
+            "value": "jsonencode",
+            "value_type": "string"
+          },
+          "164": {
+            "label_type": "Object"
+          },
+          "169": {
+            "key_id": "170",
+            "label_type": "Pair",
+            "value_id": "174"
+          },
+          "17": {
+            "label_type": "Literal",
+            "value": "bucket",
+            "value_type": "string"
+          },
+          "170": {
+            "label_type": "Literal",
+            "value": "Version",
+            "value_type": "string"
+          },
+          "174": {
+            "label_type": "Literal",
+            "value": "\"2012-10-17\"",
+            "value_type": "string"
+          },
+          "180": {
+            "key_id": "181",
+            "label_type": "Pair",
+            "value_id": "185"
+          },
+          "181": {
+            "label_type": "Literal",
+            "value": "Statement",
+            "value_type": "string"
+          },
+          "185": {
+            "label_type": "ArrayInitializer"
+          },
+          "19": {
+            "label_type": "Literal",
+            "value": "var",
+            "value_type": "string"
+          },
+          "190": {
+            "label_type": "Object"
+          },
+          "195": {
+            "key_id": "196",
+            "label_type": "Pair",
+            "value_id": "200"
+          },
+          "196": {
+            "label_type": "Literal",
+            "value": "Sid",
+            "value_type": "string"
+          },
+          "200": {
+            "label_type": "Literal",
+            "value": "\"PublicReadGetObject\"",
+            "value_type": "string"
+          },
+          "206": {
+            "key_id": "207",
+            "label_type": "Pair",
+            "value_id": "211"
+          },
+          "207": {
+            "label_type": "Literal",
+            "value": "Effect",
+            "value_type": "string"
+          },
+          "211": {
+            "label_type": "Literal",
+            "value": "\"Allow\"",
+            "value_type": "string"
+          },
+          "217": {
+            "key_id": "218",
+            "label_type": "Pair",
+            "value_id": "222"
+          },
+          "218": {
+            "label_type": "Literal",
+            "value": "Principal",
+            "value_type": "string"
+          },
+          "222": {
+            "label_type": "Literal",
+            "value": "\"*\"",
+            "value_type": "string"
+          },
+          "228": {
+            "key_id": "229",
+            "label_type": "Pair",
+            "value_id": "233"
+          },
+          "229": {
+            "label_type": "Literal",
+            "value": "Action",
+            "value_type": "string"
+          },
+          "233": {
+            "label_type": "Literal",
+            "value": "\"s3:GetObject\"",
+            "value_type": "string"
+          },
+          "239": {
+            "key_id": "240",
+            "label_type": "Pair",
+            "value_id": "244"
+          },
+          "240": {
+            "label_type": "Literal",
+            "value": "Resource",
+            "value_type": "string"
+          },
+          "244": {
+            "label_type": "ArrayInitializer"
+          },
+          "249": {
+            "label_type": "Literal",
+            "value": "aws_s3_bucket",
+            "value_type": "string"
+          },
+          "25": {
+            "key_id": "26",
+            "label_type": "Pair",
+            "value_id": "28"
+          },
+          "259": {
+            "label_type": "Literal",
+            "value": "\"${aws_s3_bucket.s3_bucket.arn}/*\"",
+            "value_type": "string"
+          },
+          "26": {
+            "label_type": "Literal",
+            "value": "tags",
+            "value_type": "string"
+          },
+          "28": {
+            "label_type": "Literal",
+            "value": "var",
+            "value_type": "string"
+          },
+          "3": {
+            "label_type": "Object",
+            "name": "resource"
+          },
+          "36": {
+            "label_type": "Object",
+            "name": "resource"
+          },
+          "49": {
+            "key_id": "50",
+            "label_type": "Pair",
+            "value_id": "52"
+          },
+          "50": {
+            "label_type": "Literal",
+            "value": "bucket",
+            "value_type": "string"
+          },
+          "52": {
+            "label_type": "Literal",
+            "value": "aws_s3_bucket",
+            "value_type": "string"
+          },
+          "61": {
+            "label_type": "Object",
+            "name": "index_document"
+          },
+          "66": {
+            "key_id": "67",
+            "label_type": "Pair",
+            "value_id": "69"
+          },
+          "67": {
+            "label_type": "Literal",
+            "value": "suffix",
+            "value_type": "string"
+          },
+          "69": {
+            "label_type": "Literal",
+            "value": "\"index.html\"",
+            "value_type": "string"
+          },
+          "77": {
+            "label_type": "Object",
+            "name": "error_document"
+          },
+          "82": {
+            "key_id": "83",
+            "label_type": "Pair",
+            "value_id": "85"
+          },
+          "83": {
+            "label_type": "Literal",
+            "value": "key",
+            "value_type": "string"
+          },
+          "85": {
+            "label_type": "Literal",
+            "value": "\"error.html\"",
+            "value_type": "string"
+          },
+          "95": {
+            "label_type": "Object",
+            "name": "resource"
+          }
+        }
+      }
+    },
+    {
+      "graph": {
+        "edges": {
+          "1": {
+            "2": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
           "100": {
             "101": {
               "label_ast": "AST",
@@ -4652,6 +8247,7 @@
   },
   "shards_by_path": {
     "skims/test/data/sast/test_cfg.json": 0,
-    "skims/test/data/sast/test_cfg.yaml": 1
+    "skims/test/data/sast/test_cfg.tf": 1,
+    "skims/test/data/sast/test_cfg.yaml": 2
   }
 }

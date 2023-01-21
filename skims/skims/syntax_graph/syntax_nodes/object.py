@@ -6,14 +6,20 @@ from syntax_graph.types import (
 )
 from typing import (
     Iterator,
+    Optional,
 )
 
 
-def build_object_node(args: SyntaxGraphArgs, c_ids: Iterator[NId]) -> NId:
+def build_object_node(
+    args: SyntaxGraphArgs, c_ids: Iterator[NId], name: Optional[str] = None
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="Object",
     )
+
+    if name:
+        args.syntax_graph.nodes[args.n_id]["name"] = name
 
     for c_id in c_ids:
         args.syntax_graph.add_edge(
