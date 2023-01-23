@@ -1,0 +1,17 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess: AttachmentCount/1 (namespace),Arn: arn:aws:iam::aws:policy/AdministratorAccess; AttachmentCount: 1,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources","
+   1 | {
+   2 |     ""PolicyName"": ""unsafePol"",
+   3 |     ""PolicyId"": ""pol-018de572ae43404d8"",
+   4 |     ""Arn"": ""arn:aws:iam::aws:policy/AdministratorAccess"",
+   5 |     ""Path"": ""server-certificate/ProdServerCert"",
+   6 |     ""DefaultVersionId"": ""pol-018"",
+>  7 |     ""AttachmentCount"": 1,
+   8 |     ""PermissionsBoundaryUsageCount"": 1,
+   9 |     ""IsAttachable"": true,
+  10 |     ""Description"": ""string"",
+  11 |     ""CreateDate"": ""2015/01/01"",
+  12 |     ""UpdateDate"": ""2015/01/01""
+  13 | }
+     ^ Col 0
+",aws.admin_policy_attached

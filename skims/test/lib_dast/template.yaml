@@ -2,10 +2,10 @@
 language: EN
 namespace: namespace
 output:
-  file_path: skims/test/lib_dast/outputs/f024.csv
+  file_path: skims/test/lib_dast/outputs/{FINDING}.csv
   format: CSV
 checks:
-  - F024
+  - {FINDING}
 dast:
   aws_credentials:
     - access_key_id: "000f"
