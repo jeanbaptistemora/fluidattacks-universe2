@@ -22,5 +22,6 @@ async def resolve(
 ) -> tuple[Group, ...]:
     group_names = parent.groups
     loaders: Dataloaders = info.context.loaders
-    groups: tuple[Group, ...] = await loaders.group.load_many(group_names)
-    return groups_utils.filter_active_groups(groups)
+    groups: list[Group] = await loaders.group.load_many(group_names)
+
+    return groups_utils.filter_active_groups(tuple(groups))

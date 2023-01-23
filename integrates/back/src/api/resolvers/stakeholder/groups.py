@@ -19,17 +19,13 @@ from groups import (
 from newutils import (
     groups as groups_utils,
 )
-from typing import (
-    List,
-    Tuple,
-)
 
 
 async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Tuple[Group, ...]:
+) -> tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
     email = parent.email
     active, inactive = await collect(
@@ -40,7 +36,9 @@ async def resolve(
             ),
         ]
     )
-    user_groups: List[str] = active + inactive
+    stakeholder_group_names: list[str] = active + inactive
+    groups: list[Group] = await loaders.group.load_many(
+        stakeholder_group_names
+    )
 
-    groups: Tuple[Group, ...] = await loaders.group.load_many(user_groups)
-    return groups_utils.filter_active_groups(groups)
+    return groups_utils.filter_active_groups(tuple(groups))
