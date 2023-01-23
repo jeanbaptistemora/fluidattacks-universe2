@@ -5,7 +5,9 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
+    InvalidAcceptanceSeverityRange,
     InvalidInactivityPeriod,
+    InvalidNumberAcceptances,
     InvalidOrganization,
 )
 from dataloaders import (
@@ -35,8 +37,10 @@ from organizations.domain import (
     has_access,
     has_group,
     update_policies,
+    validate_acceptance_severity_range,
     validate_inactivity_period,
     validate_max_acceptance_days,
+    validate_max_number_acceptances,
 )
 import pytest
 from unittest.mock import (
@@ -348,10 +352,57 @@ async def test_update_policies(  # pylint: disable=too-many-arguments
 
 
 @pytest.mark.parametrize(
+    [
+        "organization_id",
+        "max_acceptance_severity_good",
+        "max_acceptance_severity_bad",
+    ],
+    [
+        [
+            "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
+            Decimal("10.4"),
+            Decimal("3.1"),
+        ],
+    ],
+)
+@patch(get_mocked_path("loaders.organization.load"), new_callable=AsyncMock)
+async def test_validate_acceptance_severity_range(
+    mock_loaders_organization: AsyncMock,
+    organization_id: str,
+    max_acceptance_severity_good: Decimal,
+    max_acceptance_severity_bad: Decimal,
+) -> None:
+    mock_loaders_organization.return_value = get_mock_response(
+        get_mocked_path("loaders.organization.load"),
+        json.dumps([organization_id]),
+    )
+    loaders: Dataloaders = get_new_context()
+    result = await validate_acceptance_severity_range(
+        loaders=loaders,
+        organization_id=organization_id,
+        values=PoliciesToUpdate(
+            max_acceptance_severity=max_acceptance_severity_good
+        ),
+    )
+    assert result
+    assert mock_loaders_organization.called is True
+
+    with pytest.raises(InvalidAcceptanceSeverityRange):
+        await validate_acceptance_severity_range(
+            loaders=loaders,
+            organization_id=organization_id,
+            values=PoliciesToUpdate(
+                max_acceptance_severity=max_acceptance_severity_bad
+            ),
+        )
+    assert mock_loaders_organization.called is True
+
+
+@pytest.mark.parametrize(
     ["inactivity_period"],
     [[20]],
 )
-async def test_validate_inactivity_period(
+def test_validate_inactivity_period(
     inactivity_period: int,
 ) -> None:
 
@@ -363,9 +414,22 @@ async def test_validate_inactivity_period(
     ["max_acceptance_days"],
     [[-10]],
 )
-async def test_validate_max_acceptance_days(
+def test_validate_max_acceptance_days(
     max_acceptance_days: int,
 ) -> None:
 
     with pytest.raises(InvalidAcceptanceDays):
         validate_max_acceptance_days(max_acceptance_days)
+
+
+@pytest.mark.parametrize(
+    ["value_good", "value_bad"],
+    [[10, -10]],
+)
+def test_validate_max_number_acceptances(
+    value_good: int,
+    value_bad: int,
+) -> None:
+    assert validate_max_number_acceptances(value=value_good)
+    with pytest.raises(InvalidNumberAcceptances):
+        validate_max_number_acceptances(value=value_bad)

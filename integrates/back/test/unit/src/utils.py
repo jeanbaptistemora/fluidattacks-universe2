@@ -1552,6 +1552,36 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             billing_customer=None,
             vulnerabilities_url=None,
         ),
+        '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"]': Organization(
+            created_by="testing@unittest.com",
+            created_date=datetime.fromisoformat("2018-02-08T00:43:18+00:00"),
+            id="ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
+            name="bulat",
+            policies=Policies(
+                modified_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+                modified_by="integratesmanager@gmail.com",
+                inactivity_period=90,
+                max_acceptance_days=60,
+                max_acceptance_severity=Decimal("3.4"),
+                max_number_acceptances=2,
+                min_acceptance_severity=Decimal("3.4"),
+                min_breaking_severity=Decimal("0"),
+                vulnerability_grace_period=0,
+            ),
+            state=OrganizationState(
+                status=OrganizationStateStatus.ACTIVE,
+                modified_by="unittests",
+                modified_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+            ),
+            country="Colombia",
+            payment_methods=None,
+            billing_customer=None,
+            vulnerabilities_url=None,
+        ),
     },
     "db_model.organization_access.update_metadata": {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '

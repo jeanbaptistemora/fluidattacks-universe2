@@ -3,7 +3,6 @@ from custom_exceptions import (
     GroupNotFound,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
-    InvalidNumberAcceptances,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
     OrganizationNotFound,
@@ -27,9 +26,6 @@ from decimal import (
 )
 from group_access import (
     domain as group_access_domain,
-)
-from groups import (
-    domain as group_domain,
 )
 from organizations import (
     domain as orgs_domain,
@@ -157,20 +153,6 @@ async def test_update_policies() -> None:
     org_name = "bulat"
 
     new_values = PoliciesToUpdate(
-        max_acceptance_severity=Decimal("10.5"),
-    )
-    with pytest.raises(InvalidAcceptanceSeverity):
-        await orgs_domain.update_policies(
-            get_new_context(), org_id, org_name, "", new_values
-        )
-
-    new_values = PoliciesToUpdate(max_number_acceptances=-1)
-    with pytest.raises(InvalidNumberAcceptances):
-        await orgs_domain.update_policies(
-            get_new_context(), org_id, org_name, "", new_values
-        )
-
-    new_values = PoliciesToUpdate(
         min_acceptance_severity=Decimal("-1.5"),
     )
     with pytest.raises(InvalidAcceptanceSeverity):
@@ -203,9 +185,6 @@ async def test_validate_negative_values() -> None:
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("-1"))
 
-    with pytest.raises(InvalidNumberAcceptances):
-        orgs_domain.validate_max_number_acceptances(-1)
-
     with pytest.raises(InvalidSeverity):
         orgs_domain.validate_min_breaking_severity(-1)  # type: ignore
 
@@ -219,24 +198,6 @@ async def test_validate_severity_range() -> None:
 
     with pytest.raises(InvalidAcceptanceSeverity):
         orgs_domain.validate_min_acceptance_severity(Decimal("10.1"))
-
-    values = PoliciesToUpdate(
-        min_acceptance_severity=Decimal("8.0"),
-        max_acceptance_severity=Decimal("5.0"),
-    )
-    with pytest.raises(InvalidAcceptanceSeverityRange):
-        await orgs_domain.validate_acceptance_severity_range(
-            get_new_context(),
-            "ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
-            values,
-        )
-
-    with pytest.raises(InvalidAcceptanceSeverityRange):
-        await group_domain.validate_acceptance_severity_range(
-            loaders=get_new_context(),
-            group_name="oneshottest",
-            values=values,
-        )
 
 
 async def test_iterate_organizations() -> None:
