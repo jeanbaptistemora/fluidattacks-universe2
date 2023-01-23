@@ -5,9 +5,6 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from typing import (
-    Any,
-)
 
 
 async def get_result(
@@ -15,18 +12,25 @@ async def get_result(
     user: str,
     group: str,
     disambiguation: str,
-) -> dict[str, Any]:
-    query: str = f"""
-        mutation {{
+) -> dict:
+    query: str = """
+        mutation UpdateGroupDisambiguation(
+            $disambiguation: String
+            $groupName: String!
+        ) {
             updateGroupDisambiguation(
-                disambiguation: "{disambiguation}",
-                groupName: "{group}",
-            ) {{
+                disambiguation: $disambiguation
+                groupName: $groupName
+            ) {
                 success
-            }}
-        }}
+            }
+        }
     """
-    data: dict[str, Any] = {"query": query}
+    data: dict = {
+        "query": query,
+        "variables": {"groupName": group, "disambiguation": disambiguation},
+    }
+
     return await get_graphql_result(
         data,
         stakeholder=user,

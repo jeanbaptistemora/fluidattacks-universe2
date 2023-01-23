@@ -4,12 +4,9 @@ from back.test import (
 )
 import pytest
 import pytest_asyncio
-from typing import (
-    Any,
-)
 
 
 @pytest.mark.resolver_test_group("update_group_disambiguation")
 @pytest_asyncio.fixture(autouse=True, scope="session")
-async def populate(generic_data: dict[str, Any]) -> bool:
+async def populate(generic_data: dict) -> bool:
     return await db.populate(generic_data["db_data"])

@@ -9,9 +9,6 @@ from db_model.groups.types import (
     Group,
 )
 import pytest
-from typing import (
-    Any,
-)
 
 
 @pytest.mark.asyncio
@@ -22,6 +19,7 @@ from typing import (
         ["admin@gmail.com"],
         ["hacker@gmail.com"],
         ["resourcer@gmail.com"],
+        ["reviewer@gmail.com"],
     ],
 )
 async def test_update_group_info(
@@ -31,7 +29,7 @@ async def test_update_group_info(
     assert populate
     group_name: str = "group1"
     disambiguation = f"disambiguation text modified by {email}"
-    result: dict[str, Any] = await get_result(
+    result: dict = await get_result(
         user=email,
         disambiguation=disambiguation,
         group=group_name,
@@ -63,7 +61,7 @@ async def test_update_group_info_clear_field(
     group: Group = await loaders.group.load(group_name)
     assert group.disambiguation is not None
 
-    result: dict[str, Any] = await get_result(
+    result: dict = await get_result(
         user=email,
         disambiguation="",
         group=group_name,
@@ -86,7 +84,6 @@ async def test_update_group_info_clear_field(
         ["vulnerability_manager@gmail.com"],
         ["user@gmail.com"],
         ["reattacker@gmail.com"],
-        ["reviewer@gmail.com"],
     ],
 )
 async def test_update_group_info_fail(
@@ -95,7 +92,7 @@ async def test_update_group_info_fail(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: dict[str, Any] = await get_result(
+    result: dict = await get_result(
         user=email,
         disambiguation="Disambiguation test",
         group=group_name,
