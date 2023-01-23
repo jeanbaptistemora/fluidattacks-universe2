@@ -57,6 +57,7 @@ describe("Organization policies view", (): void => {
           data: {
             organization: {
               findingPolicies: [],
+              inactivityPeriod: 90,
               maxAcceptanceDays: null,
               maxAcceptanceSeverity: 10,
               maxNumberAcceptances: null,
@@ -101,6 +102,9 @@ describe("Organization policies view", (): void => {
     expect(
       screen.getByRole("textbox", { name: "vulnerabilityGracePeriod" })
     ).toHaveValue("1");
+    expect(
+      screen.getByRole("textbox", { name: "inactivityPeriod" })
+    ).toHaveValue("90");
   });
 
   it("should render an error message", async (): Promise<void> => {
@@ -151,6 +155,7 @@ describe("Organization policies view", (): void => {
           data: {
             organization: {
               findingPolicies: [],
+              inactivityPolicies: 90,
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 5,
@@ -166,6 +171,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 180,
             maxAcceptanceDays: 2,
             maxAcceptanceSeverity: 8.9,
             maxNumberAcceptances: 1,
@@ -195,6 +201,7 @@ describe("Organization policies view", (): void => {
           data: {
             organization: {
               findingPolicies: [],
+              inactivityPeriod: 180,
               maxAcceptanceDays: 2,
               maxAcceptanceSeverity: 8.9,
               maxNumberAcceptances: 1,
@@ -258,6 +265,10 @@ describe("Organization policies view", (): void => {
       screen.getByRole("textbox", { name: "vulnerabilityGracePeriod" }),
       "2"
     );
+    await userEvent.type(
+      screen.getByRole("textbox", { name: "inactivityPeriod" }),
+      "180"
+    );
 
     await waitFor((): void => {
       expect(
@@ -274,6 +285,9 @@ describe("Organization policies view", (): void => {
     expect(
       screen.getByRole("textbox", { name: "maxAcceptanceDays" })
     ).toHaveValue("2");
+    expect(
+      screen.getByRole("textbox", { name: "inactivityPeriod" })
+    ).toHaveValue("180");
   });
 
   it.skip("should not show save button", async (): Promise<void> => {
@@ -291,6 +305,7 @@ describe("Organization policies view", (): void => {
           data: {
             organization: {
               findingPolicies: [],
+              inactivityPeriod: 90,
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
@@ -350,6 +365,7 @@ describe("Organization policies view", (): void => {
           data: {
             organization: {
               findingPolicies: [],
+              inactivityPeriod: 90,
               maxAcceptanceDays: 5,
               maxAcceptanceSeverity: 7.5,
               maxNumberAcceptances: 2,
@@ -365,6 +381,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 180,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -387,6 +404,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 180,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -409,6 +427,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 180,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -431,6 +450,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 90,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -453,6 +473,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 90,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -475,6 +496,7 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 90,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -497,6 +519,30 @@ describe("Organization policies view", (): void => {
         request: {
           query: UPDATE_ORGANIZATION_POLICIES,
           variables: {
+            inactivityPeriod: 20,
+            maxAcceptanceDays: 1,
+            maxAcceptanceSeverity: 7.5,
+            maxNumberAcceptances: 2,
+            minAcceptanceSeverity: 3,
+            minBreakingSeverity: 3,
+            organizationId: mockProps.organizationId,
+            organizationName: "okada",
+            vulnerabilityGracePeriod: 1,
+          },
+        },
+        result: {
+          errors: [
+            new GraphQLError(
+              "Exception - Inactivity period should be greater than the provided value"
+            ),
+          ],
+        },
+      },
+      {
+        request: {
+          query: UPDATE_ORGANIZATION_POLICIES,
+          variables: {
+            inactivityPeriod: 90,
             maxAcceptanceDays: 1,
             maxAcceptanceSeverity: 7.5,
             maxNumberAcceptances: 2,
@@ -580,6 +626,14 @@ describe("Organization policies view", (): void => {
     await waitFor((): void => {
       expect(msgError).toHaveBeenCalledWith(
         "organization.tabs.policies.errors.invalidBreakableSeverity"
+      );
+    });
+
+    await userEvent.click(screen.getByText("organization.tabs.policies.save"));
+
+    await waitFor((): void => {
+      expect(msgError).toHaveBeenCalledWith(
+        "organization.tabs.policies.errors.inactivityPeriod"
       );
     });
 
