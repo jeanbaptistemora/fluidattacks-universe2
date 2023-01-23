@@ -15,16 +15,21 @@ interface IGitRoot {
   downloadUrl?: string;
 }
 
+interface IEdge {
+  node: {
+    attackedLines: number;
+    filename: string;
+    comments: string;
+    modifiedDate: string;
+    loc: number;
+  };
+}
 interface IToeLinesPaginator {
-  edges: {
-    node: {
-      attackedLines: number;
-      filename: string;
-      comments: string;
-      modifiedDate: string;
-      loc: number;
-    };
-  }[];
+  edges: IEdge[];
+  pageInfo: {
+    hasNextPage: boolean;
+    endCursor: string;
+  };
 }
 
 export type {
@@ -32,4 +37,5 @@ export type {
   IOrganization as Organization,
   IGitRoot as GitRoot,
   IToeLinesPaginator,
+  IEdge,
 };
