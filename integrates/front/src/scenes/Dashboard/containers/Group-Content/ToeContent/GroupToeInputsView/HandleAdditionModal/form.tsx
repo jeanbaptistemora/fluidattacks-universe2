@@ -28,13 +28,18 @@ const HandleAdditionModalForm: React.FC<IHandleAdditionModalFormProps> = (
     : roots.filter((root: Root): boolean => root.id === rootId)[0];
 
   useEffect((): void => {
-    const newHost = _.isUndefined(selectedRoot)
-      ? undefined
-      : isGitRoot(selectedRoot) && !_.isUndefined(environmentUrl)
-      ? getGitRootHost(environmentUrl)
-      : isURLRoot(selectedRoot)
-      ? getUrlRootHost(selectedRoot)
-      : undefined;
+    function getNewHost(): string | undefined {
+      if (_.isUndefined(selectedRoot)) {
+        return undefined;
+      } else if (isGitRoot(selectedRoot) && !_.isUndefined(environmentUrl)) {
+        return getGitRootHost(environmentUrl);
+      } else if (isURLRoot(selectedRoot)) {
+        return getUrlRootHost(selectedRoot);
+      }
+
+      return undefined;
+    }
+    const newHost: string | undefined = getNewHost();
     setHost(newHost);
   }, [environmentUrl, selectedRoot, setHost]);
   useEffect((): void => {
