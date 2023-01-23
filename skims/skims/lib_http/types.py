@@ -22,6 +22,7 @@ class URLContext(NamedTuple):
     soup: bs4.BeautifulSoup
     timestamp_ntp: Optional[float]
     url: str
+    response_status: int
 
     def __hash__(self) -> int:
         return hash(self.url)

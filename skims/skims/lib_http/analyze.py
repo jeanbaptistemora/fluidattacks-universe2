@@ -82,14 +82,28 @@ def analyze_one(
     log_blocking(
         "info", "Analyzing http %s of %s: %s", index, unique_count, url
     )
-    return tuple(
-        vuln
-        for get_check_ctx, checks in CHECKS
-        for finding, check_list in checks.items()
-        if finding in CTX.config.checks
-        for check in check_list
-        for vuln in check(get_check_ctx(url))
-    )
+    vulns: Tuple[core_model.Vulnerability, ...] = tuple()
+
+    for get_check_ctx, checks in CHECKS:
+        url_ctx = get_check_ctx(url)
+        for finding, check_list in checks.items():
+            if (
+                finding not in CTX.config.checks
+                or (
+                    url.response_status >= 400
+                    and finding is not core_model.FindingEnum.F015
+                )
+                or (
+                    url.response_status != 401
+                    and finding is core_model.FindingEnum.F015
+                )
+            ):
+                continue
+
+            for check in check_list:
+                vulns += check(url_ctx)
+
+    return vulns
 
 
 # @rate_limited(rpm=LIB_HTTP_DEFAULT)
@@ -101,7 +115,6 @@ async def get_url(
     async with create_session() as session:  # type: ignore
         if response := await request(session, "GET", url):
             redirect_url = str(response.url)  # Update with the redirected URL
-
             has_redirect: bool = redirect_url != url
             if not url.endswith("/") and redirect_url == f"{url}/":
                 has_redirect = False
@@ -132,6 +145,7 @@ async def get_url(
                     else None
                 ),
                 url=redirect_url,
+                response_status=response.status,
             )
 
     return None
