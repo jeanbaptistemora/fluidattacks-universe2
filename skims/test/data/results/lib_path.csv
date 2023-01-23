@@ -6246,19 +6246,6 @@ F165,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    97 |       ""Properties"": {
       ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_aplly_users
-F164,lines,namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_path/f164/json_ssl_port_missing.json","
-   1 | {
-   2 |     ""iisSettings"": {
-   3 |         ""windowsAuthentication"": false,
-   4 |         ""anonymousAuthentication"": false,
-   5 |         ""iisExpress"": {
-   6 |             ""applicationUrl"": ""http://localhost:7287"",
->  7 |             ""sslPort"": 0
-   8 |         }
-   9 |     }
-  10 | }
-     ^ Col 0
-",conf_files.json_ssl_port_missing
 F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,19,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml,"
    2 | Resources:
    3 |   FileSystemResource:
@@ -25436,26 +25423,6 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use
   72 | }
      ^ Col 0
 ",terraform.tfm_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/json_https_flag_missing.json,15,650,skims,372. Use of an insecure channel - HTTP,Secure request serving with TLS/SSL (HTTPS) flag is either set to false or missing. in namespace/skims/test/data/lib_path/f372/json_https_flag_missing.json,"
-   1 | {
-   2 |     ""name"": ""holidays-component"",
-   3 |     ""version"": ""0.0.0"",
-   4 |     ""scripts"": {
-   5 |         ""ng"": ""ng"",
-   6 |         ""start"": ""ng serve"",
-   7 |         ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --ssl"",
-   8 |         ""build"": ""ng build"",
-   9 |         ""test"": ""ng test"",
-  10 |         ""lint"": ""ng lint"",
-  11 |         ""e2e"": ""ng e2e"",
-  12 |         ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
-  13 |         ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
-  14 |         ""npm-login"": ""node npm-login.js"",
-> 15 |         ""serve:elements"": ""http-server elements/ --port 5063 --cors""
-  16 |     }
-  17 | }
-     ^ Col 0
-",conf_files.json_https_flag_missing
 F372,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,11,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,"
    1 | ---
    2 | Resources:

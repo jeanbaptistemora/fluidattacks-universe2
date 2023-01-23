@@ -1,15 +1,11 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_JSON,
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f372.cloudformation import (
     cfn_elb2_uses_insecure_protocol,
     cfn_serves_content_over_http,
-)
-from lib_path.f372.conf_files import (
-    json_https_flag_missing,
 )
 from lib_path.f372.terraform import (
     tfm_aws_sec_group_using_http,
@@ -98,15 +94,6 @@ def run_tfm_aws_sec_group_using_http(
 
 
 @SHIELD_BLOCKING
-def run_json_https_flag_missing(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return json_https_flag_missing(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -125,11 +112,6 @@ def analyze(
                     content, file_extension, path, template
                 ),
             )
-            if file_extension in EXTENSIONS_JSON:
-                results = (
-                    *results,
-                    run_json_https_flag_missing(content, path, template),
-                )
 
     if file_extension in EXTENSIONS_TERRAFORM:
         content = content_generator()

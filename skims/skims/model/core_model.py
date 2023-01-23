@@ -3607,7 +3607,7 @@ class MethodsEnum(Enum):
     JSON_SSL_PORT_MISSING = MethodInfo(
         file_name="conf_files",
         name="json_ssl_port_missing",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F164,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
@@ -3615,7 +3615,7 @@ class MethodsEnum(Enum):
     JSON_HTTPS_FLAG_MISSING = MethodInfo(
         file_name="conf_files",
         name="json_https_flag_missing",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,

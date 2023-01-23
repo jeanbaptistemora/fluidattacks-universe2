@@ -323,6 +323,19 @@ F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,15,117,sk
   25 | }
      ^ Col 0
 ",typescript.typescript_insecure_logging
+F164,lines,namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json","
+   1 | {
+   2 |     ""iisSettings"": {
+   3 |         ""windowsAuthentication"": false,
+   4 |         ""anonymousAuthentication"": false,
+   5 |         ""iisExpress"": {
+   6 |             ""applicationUrl"": ""http://localhost:7287"",
+>  7 |             ""sslPort"": 0
+   8 |         }
+   9 |     }
+  10 | }
+     ^ Col 0
+",conf_files.json_ssl_port_missing
 F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
    4 | {
    5 |     public class Controllers
@@ -6263,6 +6276,26 @@ F414,lines,namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_
   11 |
      ^ Col 21
 ",csharp.csharp_disabled_http_header_check
+F372,lines,namespace/skims/test/data/lib_root/f372/json_https_flag_missing.json,15,650,skims,372. Use of an insecure channel - HTTP,Secure request serving with TLS/SSL (HTTPS) flag is either set to false or missing. in namespace/skims/test/data/lib_root/f372/json_https_flag_missing.json,"
+   1 | {
+   2 |     ""name"": ""holidays-component"",
+   3 |     ""version"": ""0.0.0"",
+   4 |     ""scripts"": {
+   5 |         ""ng"": ""ng"",
+   6 |         ""start"": ""ng serve"",
+   7 |         ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --ssl"",
+   8 |         ""build"": ""ng build"",
+   9 |         ""test"": ""ng test"",
+  10 |         ""lint"": ""ng lint"",
+  11 |         ""e2e"": ""ng e2e"",
+  12 |         ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
+  13 |         ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
+  14 |         ""npm-login"": ""node npm-login.js"",
+> 15 |         ""serve:elements"": ""http-server elements/ --port 5063 --cors""
+  16 |     }
+  17 | }
+     ^ Col 0
+",conf_files.json_https_flag_missing
 F143,lines,namespace/skims/test/data/lib_root/f143/js_eval_open.js,12,676,skims,143. Inappropriate coding practices - Eval function,eval() calls in a file or directory. in namespace/skims/test/data/lib_root/f143/js_eval_open.js,"
    2 |     var a = 13
    3 |     var c = Math.floor((Math.random() * 100) + 1);
