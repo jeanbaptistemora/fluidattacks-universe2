@@ -329,6 +329,19 @@ const Policies: React.FC<IPolicies> = ({
                 <Card>
                   <Label htmlFor={"inactivityPeriod"}>
                     {t(`${translationStart}policies.inactivityPeriod`)}
+                    <ExternalLink
+                      className={`${styles["link-to-policies-docs"]} f7`}
+                      href={`${policiesUrl}#login-inactivity-number-of-days-for-stakeholders-inactivity-period`}
+                    >
+                      <Tooltip
+                        disp={"inline-block"}
+                        id={"inactivityPeriod-tooltip"}
+                        place={"bottom"}
+                        tip={t(`${translationStart}externalTooltip`)}
+                      >
+                        <FontAwesomeIcon icon={faExternalLinkAlt} />
+                      </Tooltip>
+                    </ExternalLink>
                   </Label>
                   <Tooltip
                     disp={"inline"}
