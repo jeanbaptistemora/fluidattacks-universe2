@@ -13,6 +13,7 @@ class GitRootTreeItem extends TreeItem {
     public readonly label: string,
     public readonly collapsibleState: TreeItemCollapsibleState,
     public readonly groupName: string,
+    public readonly rootId: string,
     public readonly nickname: string,
     public readonly gitignore: string[],
     public readonly downloadUrl?: string,
@@ -42,6 +43,7 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
       root.nickname,
       TreeItemCollapsibleState.Collapsed,
       groupName,
+      root.id,
       root.nickname,
       root.gitignore,
       root.downloadUrl
@@ -49,7 +51,10 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
   };
 
   const deps = nicknames
-    .filter((root: GitRoot): boolean => root.state === "ACTIVE")
+    .filter(
+      (root: GitRoot): boolean =>
+        root.state === "ACTIVE" && root.downloadUrl !== undefined
+    )
     .map((dep): GitRootTreeItem => toGitRoot(dep));
 
   return deps;
