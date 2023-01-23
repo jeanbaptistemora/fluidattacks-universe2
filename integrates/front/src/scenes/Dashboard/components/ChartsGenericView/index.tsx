@@ -616,23 +616,6 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
               title={t("analytics.textBox.totalVulnerabilities.title")}
             />
           </Col33>
-          {doesEntityMatch(["group"]) ? (
-            <Col33>
-              <Graphic
-                bsHeight={80}
-                className={"g3"}
-                documentName={"pendingCvssf"}
-                documentType={"textBox"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"textBox"}
-                infoLink={`${graphInfoLink}groups#pending-exposure`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("analytics.textBox.pendingCvssf.title")}
-              />
-            </Col33>
-          ) : undefined}
         </Row>
         <RowCenter>
           <Col100>
@@ -881,23 +864,6 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
                 reportMode={reportMode}
                 subject={subject}
                 title={t("tagIndicator.oldestGroupEvent")}
-              />
-            </Col100>
-          </RowCenter>
-          <RowCenter>
-            <Col100>
-              <Graphic
-                bsHeight={320}
-                className={"g1"}
-                documentName={"pendingCvssf"}
-                documentType={"barChart"}
-                entity={entity}
-                generatorName={"generic"}
-                generatorType={"barChart"}
-                infoLink={`${graphInfoLink}${entity}#pending-exposure-by-group`}
-                reportMode={reportMode}
-                subject={subject}
-                title={t("tagIndicator.pendingCvssf")}
               />
             </Col100>
           </RowCenter>
