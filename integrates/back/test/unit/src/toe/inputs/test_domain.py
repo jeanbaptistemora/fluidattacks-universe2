@@ -85,7 +85,7 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 6
+    assert len(group_toe_inputs) == 5
     current_value = await loaders.toe_input.load(
         ToeInputRequest(
             component="https://test.com/test/new.aspx",
@@ -136,7 +136,7 @@ async def test_delete() -> None:
     group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(
         GroupToeInputsRequest(group_name=group_name)
     )
-    assert len(group_toe_inputs) == 5
+    assert len(group_toe_inputs) == 4
     if not historic_value:
         await loaders.toe_input_historic.clear_all().load(
             ToeInputRequest(

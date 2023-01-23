@@ -3,6 +3,15 @@ inputs:
   - field: phone
     state: open
     url: https://example.com
+    stream: home,info,contact_us
+    repo_nickname: universe
+    source: analyst
+    tool:
+      name: tool-3
+      impact: direct
+  - field: phone
+    state: open
+    url: https://example.com
     stream: home,blog,articulo
     repo_nickname: universe
     source: analyst
