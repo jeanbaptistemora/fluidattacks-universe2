@@ -49,3 +49,6 @@ src.lib_path.f165.iam_policies_applying_to_users:
 src.lib_path.f165.root_has_access_keys:
   en: Root user must not have access keys
   es: El usuario root no debe tener IAM access keys
+src.lib_path.f165.has_not_support_role:
+  en: There are not entities attached to the AWSSupportAccess policy
+  es: No hay entidades con la politica AWSSupportAccess vinculada

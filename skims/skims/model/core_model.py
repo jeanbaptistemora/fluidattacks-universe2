@@ -2364,6 +2364,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_HAS_NOT_SUPPORT_ROLE = MethodInfo(
+        file_name="aws",
+        name="has_not_support_role",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_DEFAULT_SECURITY_GROUP = MethodInfo(
         file_name="aws",
         name="use_default_security_group",
