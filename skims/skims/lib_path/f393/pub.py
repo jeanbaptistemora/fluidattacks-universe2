@@ -20,9 +20,7 @@ PUB_DEV_DEP: Pattern[str] = re.compile(
 
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.PUB, MethodsEnum.PUB_PUBSPEC_YAML_DEV)
-def pub_pubspec_yaml_dev(  # NOSONAR
-    content: str, path: str
-) -> Iterator[DependencyType]:
+def pub_pubspec_yaml_dev(content: str, path: str) -> Iterator[DependencyType]:
     line_deps: bool = False
     for line_number, line in enumerate(content.splitlines(), 1):
         if line.startswith("dev_dependencies:"):
@@ -36,5 +34,3 @@ def pub_pubspec_yaml_dev(  # NOSONAR
                 )
             elif not line:
                 break
-
-    return iter([({}, {})])
