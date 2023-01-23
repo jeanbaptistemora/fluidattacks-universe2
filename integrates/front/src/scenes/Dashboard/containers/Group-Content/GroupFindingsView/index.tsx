@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-unnecessary-condition:0 */
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
@@ -57,7 +57,7 @@ import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { FormikDropdown } from "utils/forms/fields";
-import { useStoredState } from "utils/hooks";
+import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
@@ -259,12 +259,11 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     variables: { groupName },
   });
 
-  const { data: vulnData, fetchMore } = useQuery<IGroupVulnerabilities>(
+  const [getVuln, { data: vulnData }] = useLazyQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
     {
       fetchPolicy: "cache-and-network",
       nextFetchPolicy: "cache-first",
-      variables: { first: 1200, groupName },
     }
   );
 
@@ -307,16 +306,8 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             }
           );
         });
-
-      if (vulnData.group.vulnerabilities.pageInfo.hasNextPage) {
-        void fetchMore({
-          variables: {
-            after: vulnData.group.vulnerabilities.pageInfo.endCursor,
-          },
-        });
-      }
     }
-  }, [vulnData, fetchMore]);
+  }, [vulnData]);
 
   const hasMachine = data?.group.hasMachine ?? false;
   const filledGroupInfo =
@@ -517,6 +508,10 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [handleRemoveFinding]
   );
 
+  const handleSearch = useDebouncedCallback((root: string): void => {
+    getVuln({ variables: { first: 1200, groupName, root } });
+  }, 500);
+
   const handleRowExpand = useCallback((row: Row<IFindingAttr>): JSX.Element => {
     return renderDescription(row.original);
   }, []);
@@ -573,6 +568,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         }
         id={"tblFindings"}
         onRowClick={goToFinding}
+        onSearch={handleSearch}
         rowSelectionSetter={
           permissions.can("api_mutations_remove_finding_mutate")
             ? setSelectedFindings

@@ -376,9 +376,6 @@ describe("groupFindingsView", (): void => {
       })
     );
 
-    await waitFor((): void => {
-      expect(screen.queryByText("test1@fluidattacks.com")).toBeInTheDocument();
-    });
     await userEvent.type(
       screen.getByText("group.findings.tableSet.modalTitle"),
       "{Escape}"
