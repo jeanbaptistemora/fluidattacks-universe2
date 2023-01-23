@@ -2,6 +2,7 @@ import authz
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    set_mocks_return_values,
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -36,6 +37,7 @@ from organizations.domain import (
     get_stakeholders_emails,
     has_access,
     has_group,
+    remove_organization,
     update_policies,
     validate_acceptance_severity_range,
     validate_inactivity_period,
@@ -297,6 +299,91 @@ async def test_has_user_access() -> None:
     non_existent_user = "madeupuser@gmail.com"
     assert await has_access(loaders, org_id, existing_user)
     assert not await has_access(loaders, org_id, non_existent_user)
+
+
+@pytest.mark.parametrize(
+    [
+        "organization_id",
+        "organization_name",
+        "email",
+    ],
+    [
+        [
+            "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de",
+            "tatsumi",
+            "org_testuser1@gmail.com",
+        ],
+    ],
+)
+@patch(get_mocked_path("orgs_model.remove"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("portfolios_model.remove_organization_portfolios"),
+    new_callable=AsyncMock,
+)
+@patch(
+    get_mocked_path("policies_model.remove_org_finding_policies"),
+    new_callable=AsyncMock,
+)
+@patch(
+    get_mocked_path("credentials_model.remove_organization_credentials"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("orgs_model.update_state"), new_callable=AsyncMock)
+@patch(get_mocked_path("remove_access"), new_callable=AsyncMock)
+@patch(get_mocked_path("get_stakeholders_emails"), new_callable=AsyncMock)
+async def test_remove_organization(  # pylint: disable=too-many-arguments
+    mock_get_stakeholders_emails: AsyncMock,
+    mock_remove_access: AsyncMock,
+    mock_orgs_model_update_state: AsyncMock,
+    mock_credentials_model_remove_organization_credentials: AsyncMock,
+    mock_policies_model_remove_org_finding_policies: AsyncMock,
+    mock_portfolios_model_remove_organization_portfolios: AsyncMock,
+    mock_orgs_model_remove: AsyncMock,
+    organization_id: str,
+    organization_name: str,
+    email: str,
+) -> None:
+
+    mocked_objects = [
+        mock_get_stakeholders_emails,
+        mock_remove_access,
+        mock_orgs_model_update_state,
+        mock_credentials_model_remove_organization_credentials,
+        mock_policies_model_remove_org_finding_policies,
+        mock_portfolios_model_remove_organization_portfolios,
+        mock_orgs_model_remove,
+    ]
+    mocked_paths = [
+        "get_stakeholders_emails",
+        "remove_access",
+        "orgs_model.update_state",
+        "credentials_model.remove_organization_credentials",
+        "policies_model.remove_org_finding_policies",
+        "portfolios_model.remove_organization_portfolios",
+        "orgs_model.remove",
+    ]
+    mocks_args = [
+        [organization_id],
+        [organization_id, email],
+        [organization_id, organization_name, email],
+        [organization_id],
+        [organization_name],
+        [organization_name],
+        [organization_id, organization_name],
+    ]
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
+    loaders: Dataloaders = get_new_context()
+    await remove_organization(
+        loaders=loaders,
+        modified_by=email,
+        organization_id=organization_id,
+        organization_name=organization_name,
+    )
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @pytest.mark.parametrize(

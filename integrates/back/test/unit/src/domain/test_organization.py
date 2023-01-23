@@ -5,7 +5,6 @@ from custom_exceptions import (
     InvalidAcceptanceSeverityRange,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
-    OrganizationNotFound,
     StakeholderNotInOrganization,
 )
 from dataloaders import (
@@ -42,23 +41,6 @@ from typing import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-@pytest.mark.changes_db
-async def test_remove_organization() -> None:
-    org_id = "ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"  # NOSONAR
-    org_name = "tatsumi"
-    email = "org_testuser1@gmail.com"
-    await orgs_domain.remove_organization(
-        loaders=get_new_context(),
-        modified_by=email,
-        organization_id=org_id,
-        organization_name=org_name,
-    )
-
-    loaders: Dataloaders = get_new_context()
-    with pytest.raises(OrganizationNotFound):
-        await loaders.organization.load(org_id)
 
 
 async def test_get_id_by_name() -> None:

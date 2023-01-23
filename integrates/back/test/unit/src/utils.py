@@ -141,12 +141,16 @@ from typing import (
     Dict,
     Optional,
 )
+from unittest.mock import (
+    AsyncMock,
+)
 import uuid
 
 mocked_paths: Dict[str, str] = {
     "add_stakeholder": "organizations.domain.add_stakeholder",
     "authz.grant_organization_level_role": "authz.grant_organization_level_role",  # noqa: E501 pylint: disable=line-too-long
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
+    "credentials_model.remove_organization_credentials": "db_model.credentials.remove_organization_credentials",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
@@ -165,6 +169,7 @@ mocked_paths: Dict[str, str] = {
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
     "get_group_names": "organizations.domain.get_group_names",
     "get_open_vulnerabilities": "findings.domain.core.get_open_vulnerabilities",  # noqa: E501 pylint: disable=line-too-long
+    "get_stakeholders_emails": "organizations.domain.get_stakeholders_emails",
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_domain.add_access": "group_access.domain.add_access",
@@ -184,7 +189,12 @@ mocked_paths: Dict[str, str] = {
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "orgs_model.add": "db_model.organizations.add",
+    "orgs_model.remove": "db_model.organizations.remove",
     "orgs_model.update_policies": "db_model.organizations.update_policies",
+    "orgs_model.update_state": "db_model.organizations.update_state",
+    "policies_model.remove_org_finding_policies": "db_model.organization_finding_policies.remove_org_finding_policies",  # noqa: E501 pylint: disable=line-too-long
+    "portfolios_model.remove_organization_portfolios": "db_model.portfolios.remove_organization_portfolios",  # noqa: E501 pylint: disable=line-too-long
+    "remove_access": "organizations.domain.remove_access",
     "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
@@ -241,6 +251,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
             ),
         ),
+    },
+    "db_model.credentials.remove_organization_credentials": {
+        '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"]': None,
     },
     "db_model.events.add": {
         '["unittesting", "unittesting@fluidattacks.com", '
@@ -1583,14 +1596,27 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             vulnerabilities_url=None,
         ),
     },
-    "db_model.organization_access.update_metadata": {
-        '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
-        '"org_testgroupmanager2@fluidattacks.com"]': None,
+    "db_model.organizations.remove": {
+        '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de", "tatsumi"]': None
     },
     "db_model.organizations.update_policies": {
         '["org_testuser1@gmail.com", '
         '"ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", "bulat", '
         '[21, 20, "8.3", 3, "2.2", "3.4", 17]]': None,
+    },
+    "db_model.organizations.update_state": {
+        '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de", '
+        '"tatsumi", "org_testuser1@gmail.com"]': None,
+    },
+    "db_model.organization_access.update_metadata": {
+        '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
+        '"org_testgroupmanager2@fluidattacks.com"]': None,
+    },
+    "db_model.organization_finding_policies.remove_org_finding_policies": {
+        '["tatsumi"]': None,
+    },
+    "db_model.portfolios.remove_organization_portfolios": {
+        '["tatsumi"]': None,
     },
     "db_model.roots.get.RootLoader.load": {
         '["unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19"]': GitRoot(
@@ -7421,6 +7447,15 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ["kurome", "sheele"]
         ),
     },
+    "organizations.domain.get_stakeholders_emails": {
+        '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"]': [
+            "org_testuser1@gmail.com"
+        ],
+    },
+    "organizations.domain.remove_access": {
+        '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de", '
+        '"org_testuser1@gmail.com"]': None,
+    },
     "organizations.domain.validate_acceptance_severity_range": {
         '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", '
         '[21, 20, "8.3", 3, "2.2", "3.4", 17]]': True,
@@ -7523,3 +7558,20 @@ def get_mock_response(used_mock: str, parameters: str) -> Any:
 
 def get_mocked_path(mocked_object: str) -> str:
     return mocked_paths[mocked_object]
+
+
+def set_mocks_return_values(
+    mocked_objects: list[AsyncMock],
+    paths_list: list[str],
+    mocks_args: list[list[Any]],
+) -> bool:
+    all_values_set = False
+    for mocked_object, mocked_path, arguments in zip(
+        mocked_objects, paths_list, mocks_args
+    ):
+        mocked_object.return_value = get_mock_response(
+            get_mocked_path(mocked_path),
+            json.dumps(arguments),
+        )
+    all_values_set = True
+    return all_values_set
