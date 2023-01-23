@@ -172,7 +172,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     },
   });
 
-  function finishTour(): void {
+  const finishTour = useCallback((): void => {
     void updateTours({
       variables: {
         newGroup: user.tours.newGroup,
@@ -180,7 +180,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       },
     });
     closeModal();
-  }
+  }, [closeModal, updateTours, user.tours.newGroup]);
 
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {
@@ -260,9 +260,9 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     };
   }
 
-  function closeEnvironmentModal(): void {
+  const closeEnvironmentModal = useCallback((): void => {
     setIsEnvironmentModalOpen(false);
-  }
+  }, []);
 
   const handleGitSubmit = useGitSubmit(
     addGitRoot,
@@ -341,20 +341,26 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       }
     );
 
-  function handleRowExpand(row: Row<IGitRootData>): JSX.Element {
-    return renderDescriptionComponent(row.original, groupName);
-  }
+  const handleRowExpand = useCallback(
+    (row: Row<IGitRootData>): JSX.Element => {
+      return renderDescriptionComponent(row.original, groupName);
+    },
+    [groupName]
+  );
 
-  function handleUrlRowExpand(
-    row: Row<{
-      createdAt: string;
-      id: string;
-      url: string;
-      repositoryUrls: string[];
-    }>
-  ): JSX.Element {
-    return renderEnvDescription(row.original);
-  }
+  const handleUrlRowExpand = useCallback(
+    (
+      row: Row<{
+        createdAt: string;
+        id: string;
+        url: string;
+        repositoryUrls: string[];
+      }>
+    ): JSX.Element => {
+      return renderEnvDescription(row.original);
+    },
+    []
+  );
 
   const managementInitialValues: IFormValues | undefined = _.isUndefined(
     currentRow
