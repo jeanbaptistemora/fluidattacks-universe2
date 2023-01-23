@@ -11,6 +11,8 @@ function main {
     && ./node_modules/.bin/vsce publish \
       -p "${AZURE_ACCESS_TOKEN}" \
       --allow-missing-repository \
+      --skip-duplicate \
+      minor \
     && popd \
     || return 1
 }

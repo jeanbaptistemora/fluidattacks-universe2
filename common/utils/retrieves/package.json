@@ -10,6 +10,10 @@
       {
         "command": "retrieves.clone",
         "title": "Clone"
+      },
+      {
+        "command": "retrieves.lines",
+        "title": "Attacked Lines"
       }
     ],
     "configuration": [
@@ -27,6 +31,20 @@
         {
           "command": "retrieves.clone",
           "when": "view == user_groups && viewItem == gitRoot"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "retrieves.clone",
+          "group": "git",
+          "when": "config.git.enabled"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "retrieves.clone",
+          "group": "git",
+          "when": "config.git.enabled && resourcePath =~ **/services/groups/([a-z]*)/fusion/([a-z]*)$/"
         }
       ]
     },
@@ -52,6 +70,8 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
+    "@types/vscode-webview": "^1.57.1",
+    "@vscode/webview-ui-toolkit": "^1.2.1",
     "cross-fetch": "^3.1.5",
     "glob": "^8.1.0",
     "graphql": "^16.6.0",
@@ -96,7 +116,7 @@
   "scripts": {
     "compile": "webpack",
     "compile-tests": "tsc -p . --outDir out",
-    "lint": "eslint src --ext ts",
+    "lint": "eslint . --ext '.ts' --fix",
     "package": "webpack --mode production --devtool hidden-source-map",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
