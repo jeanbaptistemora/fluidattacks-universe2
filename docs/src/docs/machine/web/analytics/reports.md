@@ -1,7 +1,7 @@
 ---
 id: reports
-title: Reports
-sidebar_label: Reports
+title: Analytics Report
+sidebar_label: Analytics Report
 slug: /machine/web/analytics/reports
 ---
 
