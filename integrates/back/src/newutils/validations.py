@@ -695,7 +695,6 @@ def get_attr_value(field: str, kwargs: dict, obj_type: Type[T]) -> T:
     for part in parts:
         value = getattr(obj, part)
         obj = value
-        print(part, value, obj)
     if not isinstance(value, obj_type):
         return cast(T, value)
     return value

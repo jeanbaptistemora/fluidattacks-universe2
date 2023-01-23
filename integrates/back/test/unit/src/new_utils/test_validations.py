@@ -1166,3 +1166,14 @@ def test_validate_update_severity_values_deco() -> None:
 
     with pytest.raises(InvalidSeverityUpdateValues):
         decorated_func(dictionary=my_dict_fail)
+
+
+def test_validate_chart_field_deco() -> None:
+    @validations.validate_chart_field_deco("value", "name")
+    def decorated_func(value: str, name: str) -> str:
+        return value + name
+
+    assert decorated_func(value="content", name="field")
+
+    with pytest.raises(InvalidChar):
+        decorated_func(value="content!", name="field")
