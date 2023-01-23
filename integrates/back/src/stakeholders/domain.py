@@ -160,7 +160,12 @@ async def remove(email: str) -> None:
 @validate_field_length_deco("responsibility", limit=50)
 @validate_alphanumeric_field_deco("responsibility")
 async def _update_information(
-    context: Any, email: str, group_name: str, responsibility: str, role: Any
+    *,
+    context: Any,
+    email: str,
+    group_name: str,
+    responsibility: str,
+    role: Any,
 ) -> None:
 
     await group_access_domain.update(
@@ -319,7 +324,8 @@ async def update_notification_preferences(
 @validate_email_address_deco("email")
 @validate_role_fluid_reqs_deco("email", "role")
 @validate_fluidattacks_staff_on_group_deco("group", "email", "role")
-async def update_invited_stakeholder(  # pylint: disable=too-many-arguments
+async def update_invited_stakeholder(
+    *,
     loaders: Dataloaders,
     email: str,
     responsibility: str,

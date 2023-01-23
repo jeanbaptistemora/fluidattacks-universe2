@@ -1160,6 +1160,7 @@ async def mask_files(
 @validate_field_length_deco("description", limit=200)
 @validate_file_name_deco("file_name")
 def validate_file_data(
+    *,
     description: str,
     file_name: str,
     email: str,
@@ -1175,6 +1176,7 @@ def validate_file_data(
 
 @validate_file_exists_deco("file_name", "group_files")
 def assign_files_to_update(
+    *,
     file_name: str,
     group_files: List[GroupFile],
 ) -> list[GroupFile]:
@@ -1606,7 +1608,8 @@ async def send_mail_unsubscribed(
 @validate_int_range_deco(
     "sprint_duration", lower_bound=1, upper_bound=10, inclusive=True
 )
-def assign_metadata(  # pylint:disable=too-many-arguments
+def assign_metadata(
+    *,
     business_id: Optional[Any],
     business_name: Optional[Any],
     description: str,

@@ -73,6 +73,8 @@ async def test_add_comment(
         get_mocked_path("group_comments_model.add"),
         json.dumps([comment_data], default=str),
     )
-    await add_comment(loaders, group_name, comment_data)
+    await add_comment(
+        loaders=loaders, group_name=group_name, comment_data=comment_data
+    )
     assert mock_authz_validate_handle_comment_scope.called is True
     assert mock_group_comments_model_add.called is True

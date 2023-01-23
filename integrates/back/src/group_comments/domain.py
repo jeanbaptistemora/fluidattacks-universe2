@@ -12,7 +12,7 @@ from db_model.group_comments.types import (
     GroupComment,
 )
 from newutils.validations import (
-    validate_field_length,
+    validate_field_length_deco,
 )
 
 
@@ -20,7 +20,9 @@ def is_scope_comment(comment: GroupComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
+@validate_field_length_deco("comment_data.content", limit=20000)
 async def add_comment(
+    *,
     loaders: Dataloaders,
     group_name: str,
     comment_data: GroupComment,
@@ -29,7 +31,6 @@ async def add_comment(
     parent_comment = comment_data.parent_id
     content = comment_data.content
     email = comment_data.email
-    validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
         loaders, content, email, group_name, parent_comment
     )

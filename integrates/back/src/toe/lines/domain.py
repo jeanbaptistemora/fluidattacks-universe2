@@ -96,6 +96,7 @@ def _validate_assign_attacked_lines(
 # pylint: disable=unused-argument
 @validate_email_address_deco("seen_first_time_by")
 def _validate_seen_first_time_by(
+    *,
     seen_first_time_by: str,
 ) -> None:
     return
@@ -151,7 +152,8 @@ def _assign_toe_lines(  # pylint: disable=too-many-arguments
 @validate_commit_hash_deco("last_commit")
 @validate_git_root_deco("root")
 @validate_active_root_deco("root")
-def _validate_assign_toe_lines(  # pylint: disable=too-many-arguments
+def _validate_assign_toe_lines(
+    *,
     attributes: ToeLinesAttributesToAdd,
     last_author: str,
     last_commit: str,
@@ -235,9 +237,7 @@ async def remove(
 # pylint: disable=unused-argument
 @validate_field_length_deco("comments", limit=200)
 @validate_sanitized_csv_input_deco(["comments"])
-def _validate_comments(
-    comments: str,
-) -> None:
+def _validate_comments(*, comments: str) -> None:
     return
 
 

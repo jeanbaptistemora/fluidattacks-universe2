@@ -66,7 +66,9 @@ async def mutate(
         parent_id=str(parameters.get("parent_comment")),
         email=user_email,
     )
-    await group_comments_domain.add_comment(loaders, group_name, comment_data)
+    await group_comments_domain.add_comment(
+        loaders=loaders, group_name=group_name, comment_data=comment_data
+    )
 
     logs_utils.cloudwatch_log(
         info.context,

@@ -253,6 +253,7 @@ async def add_stakeholder(
 
 @validate_email_address_deco("email")
 async def add_without_group(
+    *,
     email: str,
     role: str,
     is_register_after_complete: bool = False,
@@ -332,13 +333,13 @@ async def complete_register_for_organization_invitation(
 @validate_field_length_deco("password", limit=40, is_greater_than_limit=True)
 @validate_field_length_deco("password", limit=100, is_greater_than_limit=False)
 @validate_symbols_deco("password")
-def create_https_secret(user: str, password: str) -> HttpsSecret:
+def create_https_secret(*, user: str, password: str) -> HttpsSecret:
 
     return HttpsSecret(user=user, password=password)
 
 
 @validate_space_field_deco("token")
-def create_pat_secret(token: str) -> HttpsPatSecret:
+def create_pat_secret(*, token: str) -> HttpsPatSecret:
 
     return HttpsPatSecret(token=token)
 
@@ -577,6 +578,7 @@ async def has_access(
 @validate_email_address_deco("email")
 @validate_role_fluid_reqs_deco("email", "role")
 async def invite_to_organization(
+    *,
     loaders: Dataloaders,
     email: str,
     role: str,
