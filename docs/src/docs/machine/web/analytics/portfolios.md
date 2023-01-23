@@ -22,7 +22,7 @@ This section shows the
 percentages of closed,
 accepted and open vulnerabilities,
 and how your numbers are
-compared to  the average
+compared to the average
 and the worst portfolios
 of all organizations.
 
@@ -106,15 +106,6 @@ not been solved yet.
 The above chart shows you how
 many of these are in each of
 your groups.
-
-## Pending exposure by group
-
-![Pending cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1666189342/docs/web/analytics/portfolios/pending_cvssf_portfolio.png)
-
-This figure shows
-how much exposure is pending
-to find in the groups
-of your portfolio.
 
 ## Overall availability of groups
 

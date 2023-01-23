@@ -129,11 +129,3 @@ existence of the group.
 Here you can see the
 number of days since
 each event is unsolved.
-
-## Pending exposure
-
-![Pending cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1666189119/docs/web/analytics/groups/pending_cvssf_group.png)
-
-How much exposure
-[CVSSF](/about/faq/#severity-vs-vulnerabilities)
-is pending to find in the group.

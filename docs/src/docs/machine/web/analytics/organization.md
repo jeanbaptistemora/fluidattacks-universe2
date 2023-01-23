@@ -120,15 +120,6 @@ The percentage of open vulnerabilities
 that each group has compared with
 the whole organization.
 
-## Pending exposure by group
-
-![Pending cvssf](https://res.cloudinary.com/fluid-attacks/image/upload/v1666189291/docs/web/analytics/organizations/pending_cvssf_organization.png)
-
-This figure shows
-how much exposure is pending
-to find in the groups
-of your organization.
-
 ## Days since groups are failing
 
 ![Days since groups are failing](https://res.cloudinary.com/fluid-attacks/image/upload/v1658250090/docs/web/analytics/organizations/organization_oldest_event.png)
