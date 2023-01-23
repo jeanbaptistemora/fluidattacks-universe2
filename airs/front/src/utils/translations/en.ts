@@ -812,6 +812,63 @@ const pageTexts: ResourceKey = {
       "Fill out the form and one of our consultants will be in touch shortly.",
     title: "Have a question? We're here to help.",
   },
+  menu: {
+    platform: {
+      aSinglePane: {
+        ARMplatform: {
+          subtitle:
+            "Discover your organization’s attack surface and flaws " +
+            "in its attack prevention, detection and response.",
+          title: "Attack Resistance Management (ARM) platform",
+        },
+        platformOverview: {
+          subtitle:
+            "Get the results of all security tests, learn " +
+            "details about findings, manage vulnerabilities and " +
+            "track your progress reducing risk exposure, all on a single platform.",
+          title: "Platform overview",
+        },
+        title: "A single pane of glass",
+      },
+      products: {
+        links: {
+          dast: "Dynamic application security testing (DAST)",
+          mast: "Mobile application security testing (MAST)",
+          ptaas: "Penetration testing as a service (PTaaS)",
+          re: "Reverse engineering (RE)",
+          sast: "Static application security testing (SAST)",
+          sca: "Software composition analysis (SCA)",
+        },
+        title: "Scanning and analysis products",
+      },
+    },
+    services: {
+      allInOne: {
+        continuous: {
+          subtitle:
+            "We conduct accurate, comprehensive security testing to " +
+            "detect all vulnerabilities while you develop.",
+          title: "Continuous Hacking",
+        },
+        title: "All in one service",
+      },
+      solutions: {
+        applicationSec: {
+          subtitle:
+            "We offer various solutions to help you successfully " +
+            "integrate security into development.",
+          title: "Application security",
+        },
+        compliance: {
+          subtitle:
+            "We check that your technology complies with a rich " +
+            "set of security requirements based on industry standards.",
+          title: "Compliance",
+        },
+        title: "Solutions",
+      },
+    },
+  },
   numbersSection: {
     card1Description:
       "Remediation rate for critical vulnerabilities " +
