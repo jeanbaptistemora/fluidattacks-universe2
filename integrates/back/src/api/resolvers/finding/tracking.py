@@ -25,16 +25,20 @@ from graphql.type.definition import (
 async def _get_treatments(
     *, loaders: Dataloaders, vulnerabilities_id: tuple[str, ...]
 ) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
-    return await loaders.vulnerability_historic_treatment.load_many(
-        vulnerabilities_id
+    return tuple(
+        await loaders.vulnerability_historic_treatment.load_many(
+            vulnerabilities_id
+        )
     )
 
 
 async def _get_states(
     *, loaders: Dataloaders, vulnerabilities_id: tuple[str, ...]
 ) -> tuple[tuple[VulnerabilityState, ...], ...]:
-    return await loaders.vulnerability_historic_state.load_many(
-        vulnerabilities_id
+    return tuple(
+        await loaders.vulnerability_historic_state.load_many(
+            vulnerabilities_id
+        )
     )
 
 

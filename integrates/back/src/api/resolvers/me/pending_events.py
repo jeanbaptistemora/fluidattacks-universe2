@@ -32,7 +32,6 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[Event, ...]:
-
     user_email = str(parent["user_email"])
     results = await search(
         must_not_filters=[{"state.status": "SOLVED"}],
@@ -46,12 +45,10 @@ async def resolve(
             "a23457e2-f81f-44a2-867f-230082af676c",
         )
     )
-
     org_filtered = filter_event_non_in_test_orgs(
-        test_group_orgs=test_group_orgs,
+        test_group_orgs=tuple(test_group_orgs),
         events=tuple(format_event(result) for result in results.items),
     )
-
     stakeholder_groups = await get_stakeholder_groups_names(
         loaders, user_email, True
     )

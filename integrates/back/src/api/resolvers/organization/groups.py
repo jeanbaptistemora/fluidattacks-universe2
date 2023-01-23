@@ -27,17 +27,13 @@ async def resolve(
     **_kwargs: None,
 ) -> tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
-    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
+    session_info = await sessions_domain.get_jwt_content(info.context)
+    email: str = session_info["user_email"]
+    stakeholder_group_names = await groups_domain.get_groups_by_stakeholder(
+        loaders, email, organization_id=parent.id
     )
-    user_email: str = user_info["user_email"]
-    user_group_names: list[
-        str
-    ] = await groups_domain.get_groups_by_stakeholder(
-        loaders, user_email, organization_id=parent.id
-    )
-    user_groups: tuple[Group, ...] = await loaders.group.load_many(
-        user_group_names
+    stakeholder_groups: list[Group] = await loaders.group.load_many(
+        stakeholder_group_names
     )
 
-    return groups_utils.filter_active_groups(user_groups)
+    return groups_utils.filter_active_groups(tuple(stakeholder_groups))

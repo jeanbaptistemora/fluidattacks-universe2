@@ -24,9 +24,6 @@ from groups import (
 from newutils import (
     groups as groups_utils,
 )
-from typing import (
-    Tuple,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -36,7 +33,7 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Tuple[Group, ...]:
+) -> tuple[Group, ...]:
     loaders: Dataloaders = info.context.loaders
     user_email: str = kwargs["user_email"]
     active, inactive = await collect(
@@ -48,6 +45,6 @@ async def resolve(
         ]
     )
     user_groups = active + inactive
+    groups: list[Group] = await loaders.group.load_many(user_groups)
 
-    groups: Tuple[Group, ...] = await loaders.group.load_many(user_groups)
-    return groups_utils.filter_active_groups(groups)
+    return groups_utils.filter_active_groups(tuple(groups))

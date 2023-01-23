@@ -56,12 +56,10 @@ async def resolve(
             "a23457e2-f81f-44a2-867f-230082af676c",
         )
     )
-
     org_filtered = filter_findings_non_in_test_orgs(
-        test_group_orgs=test_group_orgs,
+        test_group_orgs=tuple(test_group_orgs),
         findings=tuple(format_finding(result) for result in results.items),
     )
-
     stakeholder_groups = await get_stakeholder_groups_names(
         loaders, user_email, True
     )

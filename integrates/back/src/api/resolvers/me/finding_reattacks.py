@@ -30,7 +30,6 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> tuple[Finding, ...]:
-
     not_zero_requested = {
         "unreliable_indicators.unreliable_verification_summary.requested": 0
     }
@@ -42,7 +41,6 @@ async def resolve(
         index="findings",
         limit=100,
     )
-
     loaders: Dataloaders = info.context.loaders
     test_group_orgs = await loaders.organization_groups.load_many(
         (
@@ -52,6 +50,6 @@ async def resolve(
     )
 
     return filter_findings_non_in_test_orgs(
-        test_group_orgs,
+        tuple(test_group_orgs),
         tuple(format_finding(result) for result in results.items),
     )

@@ -32,7 +32,6 @@ from roots import (
 from typing import (
     Any,
     Optional,
-    Tuple,
 )
 
 
@@ -50,8 +49,7 @@ async def mutate(
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["id"]
     commit: Optional[str] = kwargs.get("commit")
-
-    root: Tuple[Root] = loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load((group_name, root_id))
     if (
         commit is not None
         and isinstance(root, GitRoot)

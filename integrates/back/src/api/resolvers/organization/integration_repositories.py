@@ -41,8 +41,10 @@ from urllib.parse import (
 async def _get_repositories(
     *, loaders: Dataloaders, pat_credentials: tuple[Credentials, ...]
 ) -> tuple[tuple[GitRepository, ...], ...]:
-    return await loaders.organization_integration_repositories.load_many(
-        pat_credentials
+    return tuple(
+        await loaders.organization_integration_repositories.load_many(
+            pat_credentials
+        )
     )
 
 
