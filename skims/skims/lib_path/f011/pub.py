@@ -36,5 +36,3 @@ def pub_pubspec_yaml(  # NOSONAR
                 )
             elif not line:
                 break
-
-    return iter([({}, {})])
