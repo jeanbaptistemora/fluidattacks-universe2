@@ -12,6 +12,7 @@ import {
 } from "./utils";
 
 import { ExternalLink } from "components/ExternalLink";
+import { Editable, TextArea } from "components/Input";
 import { Tooltip } from "components/Tooltip";
 import { ActionButtons } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/ActionButtons";
 import type {
@@ -28,12 +29,7 @@ import {
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
-import {
-  EditableField,
-  FormikAutocompleteText,
-  FormikDropdown,
-  FormikTextArea,
-} from "utils/forms/fields";
+import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -185,37 +181,48 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
             ) : undefined}
           </Can>
           <Row>
-            <Col100>
-              <Can
-                do={"api_mutations_update_finding_description_mutate"}
-                passThrough={true}
-              >
-                {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
+            <Can
+              do={"api_mutations_update_finding_description_mutate"}
+              passThrough={true}
+            >
+              {(canEdit: boolean): JSX.Element => (
+                <Col100>
+                  <Editable
                     currentValue={dataset.description}
-                    id={"searchFindings.tabDescription.description.tooltip"}
-                    infoLink={`${baseCriteriaUrl}vulnerabilities/${findingNumber}`}
-                    infoLinkText={t(
-                      "searchFindings.tabDescription.description.infoLinkText"
-                    )}
+                    isEditing={isEditing && canEdit}
                     label={t("searchFindings.tabDescription.description.text")}
-                    name={"description"}
-                    renderAsEditable={isEditing}
                     tooltip={t(
                       "searchFindings.tabDescription.description.tooltip"
                     )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxDescriptionLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
-                )}
-              </Can>
-            </Col100>
+                  >
+                    <TextArea
+                      id={"searchFindings.tabDescription.description.tooltip"}
+                      label={t(
+                        "searchFindings.tabDescription.description.text"
+                      )}
+                      name={"description"}
+                      tooltip={t(
+                        "searchFindings.tabDescription.description.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxDescriptionLength,
+                      ])}
+                    />
+                  </Editable>
+                  {isEditing && canEdit ? undefined : (
+                    <ExternalLink
+                      href={`${baseCriteriaUrl}vulnerabilities/${findingNumber}`}
+                    >
+                      {t(
+                        "searchFindings.tabDescription.description.infoLinkText"
+                      )}
+                    </ExternalLink>
+                  )}
+                </Col100>
+              )}
+            </Can>
           </Row>
           <Row>
             <Col100>
@@ -264,26 +271,32 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 passThrough={true}
               >
                 {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
+                  <Editable
                     currentValue={dataset.attackVectorDescription}
-                    id={"searchFindings.tabDescription.attackVectors.tooltip"}
+                    isEditing={isEditing && canEdit}
                     label={t(
                       "searchFindings.tabDescription.attackVectors.text"
                     )}
-                    name={"attackVectorDescription"}
-                    renderAsEditable={isEditing}
                     tooltip={t(
                       "searchFindings.tabDescription.attackVectors.tooltip"
                     )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxImpactsLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
+                  >
+                    <TextArea
+                      id={"searchFindings.tabDescription.attackVectors.tooltip"}
+                      label={t(
+                        "searchFindings.tabDescription.attackVectors.text"
+                      )}
+                      name={"attackVectorDescription"}
+                      tooltip={t(
+                        "searchFindings.tabDescription.attackVectors.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxImpactsLength,
+                      ])}
+                    />
+                  </Editable>
                 )}
               </Can>
             </Col45>
@@ -295,22 +308,26 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 passThrough={true}
               >
                 {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
+                  <Editable
                     currentValue={dataset.threat}
-                    id={"searchFindings.tabDescription.threat.tooltip"}
+                    isEditing={isEditing && canEdit}
                     label={t("searchFindings.tabDescription.threat.text")}
-                    name={"threat"}
-                    renderAsEditable={isEditing}
                     tooltip={t("searchFindings.tabDescription.threat.tooltip")}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxThreatLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
+                  >
+                    <TextArea
+                      id={"searchFindings.tabDescription.threat.tooltip"}
+                      label={t("searchFindings.tabDescription.threat.text")}
+                      name={"threat"}
+                      tooltip={t(
+                        "searchFindings.tabDescription.threat.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxThreatLength,
+                      ])}
+                    />
+                  </Editable>
                 )}
               </Can>
             </Col45>
@@ -322,26 +339,34 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                 passThrough={true}
               >
                 {(canEdit: boolean): JSX.Element => (
-                  <EditableField
-                    component={FormikTextArea}
+                  <Editable
                     currentValue={dataset.recommendation}
-                    id={"searchFindings.tabDescription.recommendation.tooltip"}
+                    isEditing={isEditing && canEdit}
                     label={t(
                       "searchFindings.tabDescription.recommendation.text"
                     )}
-                    name={"recommendation"}
-                    renderAsEditable={isEditing}
                     tooltip={t(
                       "searchFindings.tabDescription.recommendation.tooltip"
                     )}
-                    type={"text"}
-                    validate={composeValidators([
-                      required,
-                      validTextField,
-                      maxRecommendationLength,
-                    ])}
-                    visibleWhileEditing={canEdit}
-                  />
+                  >
+                    <TextArea
+                      id={
+                        "searchFindings.tabDescription.recommendation.tooltip"
+                      }
+                      label={t(
+                        "searchFindings.tabDescription.recommendation.text"
+                      )}
+                      name={"recommendation"}
+                      tooltip={t(
+                        "searchFindings.tabDescription.recommendation.tooltip"
+                      )}
+                      validate={composeValidators([
+                        required,
+                        validTextField,
+                        maxRecommendationLength,
+                      ])}
+                    />
+                  </Editable>
                 )}
               </Can>
             </Col100>

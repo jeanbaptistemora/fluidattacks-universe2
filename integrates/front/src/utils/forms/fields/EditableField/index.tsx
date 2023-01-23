@@ -22,8 +22,6 @@ interface IEditableFieldProps extends FieldAttributes<any> {
   className?: string;
   currentValue: string;
   id?: string;
-  infoLink?: string;
-  infoLinkText?: string;
   label: string;
   renderAsEditable: boolean;
   tooltip?: string;
@@ -109,8 +107,6 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
 ): JSX.Element => {
   const {
     id = "editableField",
-    infoLink = "",
-    infoLinkText,
     label,
     currentValue,
     renderAsEditable,
@@ -152,9 +148,6 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
           </Tooltip>
           <br />
           {renderCurrentValue(currentValue)}
-          {infoLink ? (
-            <ExternalLink href={infoLink}>{infoLinkText}</ExternalLink>
-          ) : undefined}
         </React.Fragment>
       )}
     </FormGroup>
