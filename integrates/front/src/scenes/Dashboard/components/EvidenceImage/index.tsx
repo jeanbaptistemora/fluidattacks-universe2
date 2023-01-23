@@ -12,10 +12,11 @@ import { DescriptionContainer, ImageContainer } from "./styles";
 
 import { Button } from "components/Button/index";
 import { ExternalLink } from "components/ExternalLink";
+import { Editable, TextArea } from "components/Input";
 import { Tooltip } from "components/Tooltip";
 import type { IEvidenceItem } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/types";
 import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
-import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
+import { FormikFileInput } from "utils/forms/fields";
 import {
   composeValidators,
   getFileNameExtension,
@@ -83,25 +84,22 @@ const RenderForm: React.FC<Readonly<IEvidenceImageProps>> = ({
         shouldPreviewValidation={shouldPreviewValidation}
         validate={validate}
       />
-      {isDescriptionEditable ? (
-        <Tooltip
-          id={t("searchFindings.tabEvidence.descriptionTooltip.id")}
-          place={"right"}
-          tip={t("searchFindings.tabEvidence.descriptionTooltip")}
-        >
-          <Field
-            component={FormikTextArea}
-            name={getFieldName("description")}
-            validate={composeValidators([
-              maxDescriptionLength,
-              validEvidenceDescription,
-              validTextField,
-            ])}
-          />
-        </Tooltip>
-      ) : (
-        <p>{description}</p>
-      )}
+      <Editable
+        currentValue={description}
+        isEditing={isDescriptionEditable}
+        label={""}
+      >
+        <TextArea
+          label={"Description"}
+          name={getFieldName("description")}
+          tooltip={t("searchFindings.tabEvidence.descriptionTooltip")}
+          validate={composeValidators([
+            maxDescriptionLength,
+            validEvidenceDescription,
+            validTextField,
+          ])}
+        />
+      </Editable>
       {isRemovable ? (
         <Tooltip
           id={t("searchFindings.tabEvidence.removeTooltip.id")}

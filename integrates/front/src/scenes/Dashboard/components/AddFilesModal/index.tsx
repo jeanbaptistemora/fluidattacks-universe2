@@ -8,11 +8,11 @@ import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
 import { Alert } from "components/Alert";
-import { Label } from "components/Input";
+import { Label, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
-import { FormikFileInput, FormikTextArea } from "utils/forms/fields";
+import { FormikFileInput } from "utils/forms/fields";
 import {
   composeValidators,
   isValidFileSize,
@@ -88,13 +88,10 @@ const AddFilesModal: FC<IAddFilesModalProps> = ({
                   />
                 </div>
                 <div>
-                  <Label required={true}>
-                    {t("searchFindings.tabResources.description")}
-                  </Label>
-                  <Field
-                    component={FormikTextArea}
+                  <TextArea
+                    label={t("searchFindings.tabResources.description")}
                     name={"description"}
-                    type={"text"}
+                    required={true}
                     validate={composeValidators([
                       validField,
                       maxFileDescriptionLength,

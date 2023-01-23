@@ -4,11 +4,10 @@ import React, { Fragment, StrictMode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
-import { Select } from "components/Input";
+import { Select, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Text } from "components/Text";
-import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikText, FormikTextArea } from "utils/forms/fields";
+import { ControlLabel } from "styles/styledComponents";
+import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -128,20 +127,14 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
                   {t("searchFindings.servicesTable.deleteGroup.reason.other")}
                 </option>
               </Select>
-              <FormGroup>
-                <Text mb={2}>
-                  {t("searchFindings.servicesTable.modal.observations")}
-                </Text>
-                <Field
-                  component={FormikTextArea}
-                  name={"comments"}
-                  placeholder={t(
-                    "searchFindings.servicesTable.modal.observationsPlaceholder"
-                  )}
-                  type={"text"}
-                  validate={composeValidators([validTextField, maxLength250])}
-                />
-              </FormGroup>
+              <TextArea
+                label={t("searchFindings.servicesTable.modal.observations")}
+                name={"comments"}
+                placeholder={t(
+                  "searchFindings.servicesTable.modal.observationsPlaceholder"
+                )}
+                validate={composeValidators([validTextField, maxLength250])}
+              />
               <ModalConfirm
                 disabled={!dirty || !isValid}
                 onCancel={onClose}

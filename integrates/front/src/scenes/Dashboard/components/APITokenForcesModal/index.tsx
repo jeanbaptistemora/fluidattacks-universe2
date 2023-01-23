@@ -1,16 +1,16 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import { TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   useGetAPIToken,
   useUpdateAPIToken,
 } from "scenes/Dashboard/components/APITokenForcesModal/hooks";
-import { Col100, ControlLabel, Row } from "styles/styledComponents";
-import { FormikTextArea } from "utils/forms/fields";
+import { Col100, Row } from "styles/styledComponents";
 import { msgError, msgSuccess } from "utils/notifications";
 
 interface IAPITokenForcesModalProps {
@@ -71,16 +71,11 @@ const APITokenForcesModal: React.FC<IAPITokenForcesModalProps> = ({
         <Form>
           <Row>
             <Col100>
-              <ControlLabel>
-                <b>{t("updateForcesToken.accessToken")}</b>
-              </ControlLabel>
-              <Field
-                className={"noresize"} // eslint-disable-line react/forbid-component-props
-                component={FormikTextArea}
+              <TextArea
                 disabled={true}
+                label={t("updateForcesToken.accessToken")}
                 name={"sessionJwt"}
-                rows={"7"}
-                type={"text"}
+                rows={7}
               />
               <Button
                 disabled={_.isEmpty(currentToken)}

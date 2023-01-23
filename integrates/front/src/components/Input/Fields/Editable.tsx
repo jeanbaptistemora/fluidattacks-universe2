@@ -4,7 +4,6 @@ import { Label } from "../Label";
 import { ExternalLink } from "components/ExternalLink";
 
 interface IEditableProps {
-  children: JSX.Element;
   currentValue: string;
   isEditing: boolean;
   label: string;
@@ -19,7 +18,7 @@ const Editable: React.FC<Readonly<IEditableProps>> = ({
   tooltip,
 }): JSX.Element => {
   if (isEditing) {
-    return children;
+    return <div>{children}</div>;
   }
 
   return (

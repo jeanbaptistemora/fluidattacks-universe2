@@ -663,5 +663,5 @@ async def populate(data: dict[str, Any]) -> bool:
         coroutines.append(functions[f"populate_{name}"](dataset))
     results = all(await collect(coroutines))
     # Give OpenSearch some time to replicate
-    await asyncio.sleep(10)
+    await asyncio.sleep(30)
     return results
