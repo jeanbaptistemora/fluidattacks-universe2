@@ -7729,6 +7729,108 @@ F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insec_create
+F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,14,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
+   1 | // unsafe object
+   2 | const xhr = new XMLHttpRequest();
+   3 | xhr.open(""GET"", ""http://example.com/test"", true);
+   4 | xhr.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+  10 | localStorage.setItem(""unsafe"", xhr.response);
+  11 | localStorage.setItem(""anyKey"", xhr.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+> 14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 0
+",javascript.javascript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,11,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
+   1 | // unsafe object
+   2 | const xhr = new XMLHttpRequest();
+   3 | xhr.open(""GET"", ""http://example.com/test"", true);
+   4 | xhr.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+  10 | localStorage.setItem(""unsafe"", xhr.response);
+> 11 | localStorage.setItem(""anyKey"", xhr.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+  14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 0
+",javascript.javascript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
+   1 | // unsafe object
+   2 | const xhr = new XMLHttpRequest();
+   3 | xhr.open(""GET"", ""http://example.com/test"", true);
+   4 | xhr.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+> 10 | localStorage.setItem(""unsafe"", xhr.response);
+  11 | localStorage.setItem(""anyKey"", xhr.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+  14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 0
+",javascript.javascript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,14,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
+   1 | // unsafe object
+   2 | const res = new XMLHttpRequest();
+   3 | res.open(""GET"", ""http://example.com/test"", true);
+   4 | res.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+  10 | localStorage.setItem(""unsafe"", res.response);
+  11 | localStorage.setItem(""anyKey"", res.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+> 14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 0
+",typescript.typescript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,11,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
+   1 | // unsafe object
+   2 | const res = new XMLHttpRequest();
+   3 | res.open(""GET"", ""http://example.com/test"", true);
+   4 | res.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+  10 | localStorage.setItem(""unsafe"", res.response);
+> 11 | localStorage.setItem(""anyKey"", res.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+  14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 0
+",typescript.typescript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
+   1 | // unsafe object
+   2 | const res = new XMLHttpRequest();
+   3 | res.open(""GET"", ""http://example.com/test"", true);
+   4 | res.send(null);
+   5 |
+   6 | // strings storage is allowed (Safe line)
+   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   8 |
+   9 | // Direct storage with http obj MUST FAIL
+> 10 | localStorage.setItem(""unsafe"", res.response);
+  11 | localStorage.setItem(""anyKey"", res.responseText);
+  12 |
+  13 | // JSON.parse usage with http obj MUST FAIL
+  14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 0
+",typescript.typescript_local_storage_with_sensitive_data
 F085,lines,namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,"
   1 | localStorage.getItem('password');
   2 | localStorage.getItem('non-sensitive');
