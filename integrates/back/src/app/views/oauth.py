@@ -10,6 +10,12 @@ from authlib.integrations.base_client.errors import (
 from authlib.integrations.starlette_client import (
     OAuthError,
 )
+from contextlib import (
+    suppress,
+)
+from custom_exceptions import (
+    CredentialAlreadyExists,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -29,6 +35,9 @@ from db_model.credentials.types import (
 )
 from db_model.enums import (
     CredentialType,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from httpx import (
     ConnectTimeout,
@@ -99,8 +108,17 @@ async def do_gitlab_oauth(request: Request) -> Response:
     params = {"subject": organization_id}
     url = f"{redirect_uri}?{urlencode(params)}"
     gitlab = ROAUTH.create_client("gitlab")
+    with suppress(CredentialAlreadyExists):
+        await validate_credentials_oauth(
+            get_new_context(),
+            organization_id,
+            email,
+            OauthBitbucketSecret,
+        )
 
-    return await gitlab.authorize_redirect(request, url)
+        return await gitlab.authorize_redirect(request, url)
+
+    return RedirectResponse(url="/home")
 
 
 async def oauth_gitlab(request: Request) -> RedirectResponse:
@@ -163,14 +181,19 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
                 loaders, credential.organization_id, credential.state.name
             ),
             validate_credentials_oauth(
-                loaders, credential.organization_id, credential.owner
+                loaders,
+                credential.organization_id,
+                credential.owner,
+                OauthGitlabSecret,
             ),
         )
     )
     await credentials_model.add(credential=credential)
-    response = RedirectResponse(url="/home")
+    organization: Organization = await loaders.organization.load(
+        organization_id
+    )
 
-    return response
+    return RedirectResponse(url=f"/orgs/{organization.name}/credentials")
 
 
 async def do_github_oauth(request: Request) -> Response:
@@ -190,8 +213,17 @@ async def do_github_oauth(request: Request) -> Response:
         "localhost", "127.0.0.1"
     )
     github = ROAUTH.create_client("github")
+    with suppress(CredentialAlreadyExists):
+        await validate_credentials_oauth(
+            get_new_context(),
+            organization_id,
+            email,
+            OauthBitbucketSecret,
+        )
 
-    return await github.authorize_redirect(request, url)
+        return await github.authorize_redirect(request, url)
+
+    return RedirectResponse(url="/home")
 
 
 async def oauth_github(request: Request) -> RedirectResponse:
@@ -240,14 +272,19 @@ async def oauth_github(request: Request) -> RedirectResponse:
                 loaders, credential.organization_id, credential.state.name
             ),
             validate_credentials_oauth(
-                loaders, credential.organization_id, credential.owner
+                loaders,
+                credential.organization_id,
+                credential.owner,
+                OauthGithubSecret,
             ),
         )
     )
     await credentials_model.add(credential=credential)
-    response = RedirectResponse(url="/home")
+    organization: Organization = await loaders.organization.load(
+        organization_id
+    )
 
-    return response
+    return RedirectResponse(url=f"/orgs/{organization.name}/credentials")
 
 
 async def do_bitbucket_oauth(request: Request) -> Response:
@@ -265,8 +302,17 @@ async def do_bitbucket_oauth(request: Request) -> Response:
     params = {"subject": organization_id}
     url = f"{redirect_uri}?{urlencode(params)}"
     bitbucket = ROAUTH.create_client("bitbucket_repository")
+    with suppress(CredentialAlreadyExists):
+        await validate_credentials_oauth(
+            get_new_context(),
+            organization_id,
+            email,
+            OauthBitbucketSecret,
+        )
 
-    return await bitbucket.authorize_redirect(request, url)
+        return await bitbucket.authorize_redirect(request, url)
+
+    return RedirectResponse(url="/home")
 
 
 async def oauth_bitbucket(request: Request) -> RedirectResponse:
@@ -319,11 +365,16 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
                 loaders, credential.organization_id, credential.state.name
             ),
             validate_credentials_oauth(
-                loaders, credential.organization_id, credential.owner
+                loaders,
+                credential.organization_id,
+                credential.owner,
+                OauthBitbucketSecret,
             ),
         )
     )
     await credentials_model.add(credential=credential)
-    response = RedirectResponse(url="/home")
+    organization: Organization = await loaders.organization.load(
+        organization_id
+    )
 
-    return response
+    return RedirectResponse(url=f"/orgs/{organization.name}/credentials")

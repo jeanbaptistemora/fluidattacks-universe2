@@ -13,6 +13,10 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
 )
+from typing import (
+    Type,
+    Union,
+)
 
 
 async def validate_credentials_name_in_organization(
@@ -34,6 +38,11 @@ async def validate_credentials_oauth(
     loaders: Dataloaders,
     organization_id: str,
     user_email: str,
+    secret_type: Union[
+        Type[OauthBitbucketSecret],
+        Type[OauthGithubSecret],
+        Type[OauthGitlabSecret],
+    ],
 ) -> None:
     org_credentials: tuple[
         Credentials, ...
@@ -42,10 +51,7 @@ async def validate_credentials_oauth(
         credential.owner
         for credential in org_credentials
         if credential.state.type is CredentialType.OAUTH
-        and isinstance(
-            credential.state.secret,
-            (OauthBitbucketSecret, OauthGithubSecret, OauthGitlabSecret),
-        )
+        and isinstance(credential.state.secret, secret_type)
         and credential.owner.lower() == user_email.lower()
     }
     if credentials:

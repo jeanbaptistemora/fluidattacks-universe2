@@ -1,3 +1,4 @@
+# pylint:disable=too-many-lines
 from aioextensions import (
     collect,
 )
@@ -321,6 +322,36 @@ async def get_gitlab_credentials_authors(
     }
 
 
+async def get_github_credentials_authors(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+) -> set[str]:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_github_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return {
+        commit["_rawData"]["author"]["email"].lower()
+        for stat in filtered_stats
+        for commit in stat.commits
+    }
+
+
 async def update_organization_unreliable(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
@@ -421,6 +452,10 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
                 credentials=credentials,
                 urls=urls,
                 loaders=loaders,
+            ),
+            get_github_credentials_authors(
+                credentials=credentials,
+                urls=urls,
             ),
         ],
         workers=1,
