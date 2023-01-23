@@ -22,7 +22,7 @@
     };
   };
   amazon_kclpy = outputs."/integrates/streams/runtime/amazon_kclpy";
-  amazon_kclpy_package = "${amazon_kclpy}/lib/python3.9/site-packages";
+  amazon_kclpy_package = "${amazon_kclpy}/lib/python3.11/site-packages";
 in
   makeTemplate {
     name = "integrates-streams-runtime";

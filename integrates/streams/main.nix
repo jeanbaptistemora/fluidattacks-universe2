@@ -21,7 +21,7 @@ makeScript {
       # https://github.com/aws/aws-sdk-java/issues/2795#issuecomment-1226590872
       inputs.nixpkgs.jdk11_headless
       inputs.nixpkgs.jq
-      inputs.nixpkgs.python39
+      inputs.nixpkgs.python311
     ];
     source = [
       libGit

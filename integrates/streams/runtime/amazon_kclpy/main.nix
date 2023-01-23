@@ -1,8 +1,9 @@
 {inputs, ...}: let
-  # https://github.com/awslabs/dynamodb-streams-kinesis-adapter/blob/1.5.4/pom.xml
-  streams_adapter_version = "1.5.4";
-  kinesis_client_version = "1.13.3";
+  # https://github.com/awslabs/dynamodb-streams-kinesis-adapter/blob/1.6.0/pom.xml
+  streams_adapter_version = "1.6.0";
+  kinesis_client_version = "1.14.9";
   aws_sdk_version = "1.12.130";
+  jackson_databind_version = "2.12.7.1";
 
   # https://github.com/aws/aws-sdk-java/blob/1.12.130/pom.xml
   httpclient_version = "4.5.13";
@@ -13,7 +14,7 @@
   # https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Streams.KCLAdapter.html
   dynamodb_streams_kinesis_adapter_jar = inputs.nixpkgs.fetchurl {
     url = "https://search.maven.org/remotecontent?filepath=com/amazonaws/dynamodb-streams-kinesis-adapter/${streams_adapter_version}/dynamodb-streams-kinesis-adapter-${streams_adapter_version}.jar";
-    sha256 = "0rkybnaq07rdjyh7q1vrgl30hp6hy7z0sv32wr91l9y68g3vghb4";
+    sha256 = "1pl5lgn737zf7g4kzsx92y6srd582jbcj974adjky6i76b2aryyp";
   };
 
   # https://github.com/awslabs/amazon-kinesis-client/issues/761
@@ -25,7 +26,7 @@
   # https://github.com/awslabs/amazon-kinesis-client-python/blob/v1.5.1/setup.py
   amazon_kinesis_client_jar = inputs.nixpkgs.fetchurl {
     url = "https://search.maven.org/remotecontent?filepath=com/amazonaws/amazon-kinesis-client/${kinesis_client_version}/amazon-kinesis-client-${kinesis_client_version}.jar";
-    sha256 = "0h49rr8d1sfwq60gwfpiwwj00gi8lvhyydd2ww438r1a1h6wzbsb";
+    sha256 = "02vn567bgd8pvbqid0idmabrxh4kfswp168d118c74bhk9ij0cjb";
   };
   aws_java_sdk_dynamodb_jar = inputs.nixpkgs.fetchurl {
     url = "https://search.maven.org/remotecontent?filepath=com/amazonaws/aws-java-sdk-dynamodb/${aws_sdk_version}/aws-java-sdk-dynamodb-${aws_sdk_version}.jar";
@@ -60,8 +61,8 @@
     sha256 = "19bishkkp0y5p9cw1x2wq5kbqlc6fi0s0mrp5ay0mkhzb8h7n4hd";
   };
   jackson_databind_jar = inputs.nixpkgs.fetchurl {
-    url = "https://search.maven.org/remotecontent?filepath=com/fasterxml/jackson/core/jackson-databind/${jackson_version}/jackson-databind-${jackson_version}.jar";
-    sha256 = "08ysp2gvqgb9fy9sk1chrqf8413jwpyfm1cs5kzkvnig5h377ncl";
+    url = "https://search.maven.org/remotecontent?filepath=com/fasterxml/jackson/core/jackson-databind/${jackson_databind_version}/jackson-databind-${jackson_databind_version}.jar";
+    sha256 = "0bg0108a11ng0ihyr9y7bbrj4lsd910rbxjzcvandq2w82n4ql1z";
   };
   jackson_annotations_jar = inputs.nixpkgs.fetchurl {
     url = "https://search.maven.org/remotecontent?filepath=com/fasterxml/jackson/core/jackson-annotations/${jackson_version}/jackson-annotations-${jackson_version}.jar";
@@ -159,7 +160,7 @@
     commons_logging_jar
   ];
 in
-  inputs.nixpkgs.python39Packages.amazon_kclpy.overridePythonAttrs (_: rec {
+  inputs.nixpkgs.python311Packages.amazon_kclpy.overridePythonAttrs (_: rec {
     doCheck = false;
     prePatch = ''
       # Add the jars so it doesn't attempt to download them
@@ -179,10 +180,11 @@ in
         --replace "'4.5.5'" "'${httpclient_version}'" \
         --replace "'4.4.9'" "'${httpcore_version}'"  \
         --replace "'1.10'" "'${codec_version}'" \
-        --replace "'2.6.7.1'" "'${jackson_version}'" \
+        --replace "'2.6.7.1'" "'${jackson_databind_version}'" \
         --replace "'2.6.0'" "'${jackson_version}'" \
         --replace "'2.6.7'" "'${jackson_version}'"
     '';
+    propagatedBuildInputs = [];
     src = inputs.nixpkgs.fetchFromGitHub {
       owner = "awslabs";
       repo = "amazon-kinesis-client-python";
