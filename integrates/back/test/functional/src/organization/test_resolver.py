@@ -28,6 +28,7 @@ from datetime import (
     timedelta,
 )
 from db_model.azure_repositories.types import (
+    BasicRepoData,
     CredentialsGitRepository,
 )
 from db_model.integration_repositories.types import (
@@ -38,6 +39,7 @@ from db_model.roots.types import (
 )
 import glob
 from newutils.datetime import (
+    get_as_utc_iso_format,
     get_now_minus_delta,
 )
 import os
@@ -120,6 +122,45 @@ def get_repositories_stats(
         branches_count=1,
         commits_count=5,
         repository_id=f"{project_name}/{repository_id}",
+    )
+
+
+def get_lab_repositories_stats(
+    token: str,  # pylint: disable=unused-argument
+) -> tuple[BasicRepoData, ...]:
+    return tuple(
+        [
+            BasicRepoData(
+                id="123456789",
+                remote_url="ssh://git@test.com/testprojects/fourthtrepo",
+                ssh_url="https://git@test.com/testprojects/fourthtrepo.git",
+                web_url="https://test.com/testprojects/fourthtrepo",
+                branch="refs/heads/main",
+                last_activity_at=get_now_minus_delta(days=4),
+            )
+        ]
+    )
+
+
+def get_lab_commit_stats(
+    token: str,  # pylint: disable=unused-argument
+    project_id: str,  # pylint: disable=unused-argument
+) -> tuple[dict, ...]:
+    return tuple(
+        [
+            dict(
+                committed_date=get_as_utc_iso_format(
+                    get_now_minus_delta(days=5)
+                ),
+                author_email="testemail1@test.test",
+            ),
+            dict(
+                committed_date=get_as_utc_iso_format(
+                    get_now_minus_delta(days=4)
+                ),
+                author_email="testemail2@test.test",
+            ),
+        ]
     )
 
 
@@ -243,14 +284,14 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
-    assert len(result["data"]["organization"]["credentials"]) == 2
+    assert len(result["data"]["organization"]["credentials"]) == 3
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
     assert (
         result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
     )
-    assert result["data"]["organization"]["credentials"][0]["isPat"] is True
+    assert result["data"]["organization"]["credentials"][2]["isPat"] is True
     assert (
-        result["data"]["organization"]["credentials"][0]["name"] == "pat token"
+        result["data"]["organization"]["credentials"][2]["name"] == "pat token"
     )
 
     loaders: Dataloaders = get_new_context()
@@ -272,51 +313,70 @@ async def test_get_organization_ver_1(
         is None
     )
 
-    with mock.patch(
-        "db_model.azure_repositories.get._get_repositories",
-        side_effect=get_repositories,
-    ):
-        with mock.patch(
+    with (
+        mock.patch(
+            "db_model.azure_repositories.get._get_repositories",
+            side_effect=get_repositories,
+        ),
+        mock.patch(
             "db_model.azure_repositories.get._get_repositories_commits",
             side_effect=get_repositories_commits,
-        ):
-            with mock.patch(
-                "db_model.azure_repositories.get._get_repositories_stats",
-                side_effect=get_repositories_stats,
-            ):
-                await update_organization_repositories()
-
-    with mock.patch(
-        "azure_repositories.domain.pull_repositories",
-        side_effect=mocked_pull_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_repositories_stats",
+            side_effect=get_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_projects",
+            side_effect=get_lab_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_commit",
+            side_effect=get_lab_commit_stats,
+        ),
     ):
-        with mock.patch(
+        await update_organization_repositories()
+
+    with (
+        mock.patch(
+            "azure_repositories.domain.pull_repositories",
+            side_effect=mocked_pull_repositories,
+        ),
+        mock.patch(
             "azure_repositories.domain.get_covered_group",
             side_effect=get_covered_group,
-        ):
-            with mock.patch(
-                "azure_repositories.domain._get_missed_authors",
-                side_effect=_get_missed_authors,
-            ):
-                with mock.patch(
-                    "db_model.azure_repositories.get._get_repositories",
-                    side_effect=get_repositories,
-                ):
-                    with mock.patch(
-                        "db_model.azure_repositories.get."
-                        "_get_repositories_commits",
-                        side_effect=get_repositories_commits,
-                    ):
-                        await update_organization_overview()
+        ),
+        mock.patch(
+            "azure_repositories.domain._get_missed_authors",
+            side_effect=_get_missed_authors,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_repositories",
+            side_effect=get_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_repositories_commits",
+            side_effect=get_repositories_commits,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_projects",
+            side_effect=get_lab_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_commit",
+            side_effect=get_lab_commit_stats,
+        ),
+    ):
+        await update_organization_overview()
 
     result = await get_result(user=email, org=org_id)
     assert "errors" not in result
     assert result["data"]["organization"]["coveredAuthors"] == 1
     assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
-    assert result["data"]["organization"]["missedAuthors"] == 1
-    assert result["data"]["organization"]["missedCommits"] == 10
-    assert result["data"]["organization"]["missedRepositories"] == 2
+    assert result["data"]["organization"]["missedAuthors"] == 3
+    assert result["data"]["organization"]["missedCommits"] == 12
+    assert result["data"]["organization"]["missedRepositories"] == 3
 
     loaders.organization_unreliable_integration_repositories.clear_all()
     current_repositories = (
@@ -324,7 +384,7 @@ async def test_get_organization_ver_1(
             (org_id, None, None)
         )
     )
-    assert len(current_repositories) == 2
+    assert len(current_repositories) == 3
     assert (
         next(
             (
@@ -346,13 +406,22 @@ async def test_get_organization_ver_1(
     assert "success" in result_remove["data"]["removeCredentials"]
     assert result_remove["data"]["removeCredentials"]["success"]
 
+    result_remove = await remove_credentials(
+        user="user_manager@fluidattacks.com",
+        credentials_id="c9ecb25c-8d9f-422c-abc4-44c0c700a760",
+        organization_id=org_id,
+    )
+    assert "errors" not in result_remove
+    assert "success" in result_remove["data"]["removeCredentials"]
+    assert result_remove["data"]["removeCredentials"]["success"]
+
     loaders.organization_unreliable_integration_repositories.clear_all()
     current_repositories = (
         await loaders.organization_unreliable_integration_repositories.load(
             (org_id, None, None)
         )
     )
-    assert len(current_repositories) == 2
+    assert len(current_repositories) == 3
 
     await update_organization_repositories()
     with mock.patch(

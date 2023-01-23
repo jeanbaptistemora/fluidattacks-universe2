@@ -12,6 +12,7 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsState,
     HttpsPatSecret,
+    OauthGitlabSecret,
     SshSecret,
 )
 from db_model.enums import (
@@ -60,6 +61,9 @@ from db_model.types import (
 )
 from decimal import (
     Decimal,
+)
+from newutils.datetime import (
+    get_now_plus_delta,
 )
 import pytest
 import pytest_asyncio
@@ -298,6 +302,26 @@ async def populate(generic_data: dict[str, Any]) -> bool:
             ),
             Credentials(
                 id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-12T14:58:10+00:00"
+                    ),
+                    name="oauth lab token",
+                    type=CredentialType.OAUTH,
+                    secret=OauthGitlabSecret(
+                        refresh_token="UFUzdCBTU0gK",
+                        redirect_uri="",
+                        access_token="TETzdCBTU0gK",
+                        valid_until=get_now_plus_delta(hours=2),
+                    ),
+                    is_pat=False,
+                ),
+            ),
+            Credentials(
+                id="c9ecb25c-8d9f-422c-abc4-44c0c700a760",
                 organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
                 owner="admin@gmail.com",
                 state=CredentialsState(
