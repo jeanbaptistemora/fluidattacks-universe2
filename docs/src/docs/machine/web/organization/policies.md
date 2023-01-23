@@ -7,7 +7,8 @@ slug: /machine/web/organization/policies
 
 On the [Attack Resistance Management (ARM)](https://app.fluidattacks.com),
 you can set various policies for
-acceptance of vulnerabilities in
+acceptance of vulnerabilities and
+stakeholder access control in
 your organization to help you control
 the risks you are willing to take
 in your groups.
@@ -20,15 +21,17 @@ your organization's home page on ARM.
 In this section,
 you will find two tables.
 The first one allows you to define
-values for six policies within your
+values for seven policies within your
 organization.
 The first four policies specify
 the conditions for the temporary
 acceptance of vulnerabilities;
-the other two,
-for breaking the build.
+the next two,
+for breaking the build;
+and the last one, for defining an
+inactivity period for the platform usage.
 Below we explain each of the
-six policies you can set up.
+seven policies you can set up.
 You can hover your cursor over
 the icon with the letter _i_
 next to a policy to see the
@@ -107,6 +110,22 @@ temporarily accepted.
 This means that you can control
 the maximum risk you are willing
 to take.
+
+## Login inactivity: number of days for stakeholders inactivity period
+
+Here you define the number of days
+of allowed inactivity before a
+stakeholder is removed if there are
+no logins to the platform. The given
+stakeholder is removed completely
+and all the granted access to
+organizations and groups will be
+revoked. In case the user wants to
+access those resources again, once
+the removal due to inactivity has
+been performed, they
+have to request a new invitation to
+the organization or group manager.
 
 ## Permanent acceptance
 
