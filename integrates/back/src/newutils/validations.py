@@ -71,9 +71,7 @@ def validate_email_address_deco(field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             field_content = get_attr_value(
-                field=field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=field, kwargs=kwargs, obj_type=str
             )
             if "+" in field_content:
                 raise InvalidField("email address")
@@ -150,11 +148,7 @@ def validate_url_deco(url_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            url = get_attr_value(
-                field=url_field,
-                kwargs=kwargs,
-                obj_type=str,
-            )
+            url = get_attr_value(field=url_field, kwargs=kwargs, obj_type=str)
             validate_url(url=url)
             return func(*args, **kwargs)
 
@@ -167,6 +161,28 @@ def validate_chart_field(param_value: str, param_name: str) -> None:
     is_valid = bool(re.search("^[A-Za-z0-9 #_-]*$", str(param_value)))
     if not is_valid:
         raise InvalidChar(param_name)
+
+
+def validate_chart_field_deco(
+    param_value_field: str, param_name_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            param_value = get_attr_value(
+                field=param_value_field, kwargs=kwargs, obj_type=str
+            )
+            param_name = get_attr_value(
+                field=param_name_field, kwargs=kwargs, obj_type=str
+            )
+            is_valid = bool(re.search("^[A-Za-z0-9 #_-]*$", str(param_value)))
+            if not is_valid:
+                raise InvalidChar(param_name)
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_file_name(name: str) -> None:
@@ -191,11 +207,9 @@ def validate_file_name_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = getattr(obj, attr_name)
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             name_len = len(field_content.split("."))
             if name_len <= 2:
                 is_valid = bool(
@@ -236,18 +250,15 @@ def validate_file_exists_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            file_name = kwargs.get(field_name)
-            field_group = kwargs.get(field_group_files)
-            if "." in field_name:
-                obj_name, attr_name = field_name.split(".")
-                obj = kwargs.get(obj_name)
-                file_name = getattr(obj, attr_name)
-            if "." in field_group_files:
-                obj_name, attr_name = field_group_files.split(".")
-                obj = kwargs.get(obj_name)
-                field_group = getattr(obj, attr_name)
-            if field_group is not None:
-                group_files = cast(list[GroupFile], field_group)
+            file_name = get_attr_value(
+                field=field_name, kwargs=kwargs, obj_type=str
+            )
+            group_files = get_attr_value(
+                field=field_group_files,
+                kwargs=kwargs,
+                obj_type=list[GroupFile],
+            )
+            if group_files is not None:
                 file_to_check = next(
                     (
                         group_file
@@ -288,11 +299,9 @@ def validate_field_length_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = kwargs.get(field, "")
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = getattr(obj, attr_name)
+            field_content = get_attr_value(
+                field=field, kwargs=kwargs, obj_type=str
+            )
             if field_content is None:
                 return func(*args, **kwargs)
             if (len(field_content) > limit) != is_greater_than_limit:
@@ -317,11 +326,9 @@ def validate_finding_id_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not re.fullmatch(
                 r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"
                 r"[0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\d+",
@@ -344,11 +351,9 @@ def validate_group_language_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            language = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                language = str(getattr(obj, attr_name))
+            language = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if language.upper() not in {"EN", "ES"}:
                 raise InvalidField("group language")
             return func(*args, **kwargs)
@@ -367,11 +372,9 @@ def validate_group_name_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not field_content.isalnum():
                 raise InvalidField("group name")
             return func(*args, **kwargs)
@@ -441,9 +444,7 @@ def validate_markdown_deco(text_field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             text = get_attr_value(
-                field=text_field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=text_field, kwargs=kwargs, obj_type=str
             )
             allowed_tags = [
                 "a",
@@ -521,14 +522,10 @@ def validate_missing_severity_field_names_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             css_version = get_attr_value(
-                field=css_version_field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=css_version_field, kwargs=kwargs, obj_type=str
             )
             field_names = get_attr_value(
-                field=field_names_field,
-                kwargs=kwargs,
-                obj_type=set[str],
+                field=field_names_field, kwargs=kwargs, obj_type=set[str]
             )
             if css_version == FindingCvssVersion.V20.value:
                 missing_field_names = {
@@ -573,9 +570,7 @@ def validate_update_severity_values_deco(dictionary_field: str) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             dictionary = get_attr_value(
-                field=dictionary_field,
-                kwargs=kwargs,
-                obj_type=dict,
+                field=dictionary_field, kwargs=kwargs, obj_type=dict
             )
             if (
                 len(
@@ -605,11 +600,9 @@ def validate_space_field_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not re.search(r"\S", field_content):
                 raise InvalidSpacesField
             return func(*args, **kwargs)
@@ -636,11 +629,9 @@ def validate_string_length_between_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            string = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                string = str(getattr(obj, attr_name))
+            string = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if (
                 not inclusive_lower_bound
                 <= len(string)
@@ -666,11 +657,9 @@ def validate_alphanumeric_field_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             is_alnum = all(word.isalnum() for word in field_content.split())
             if is_alnum or field_content == "-" or not field_content:
                 return func(*args, **kwargs)
@@ -760,14 +749,10 @@ def validate_no_duplicate_drafts_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             new_title = get_attr_value(
-                field=new_title_field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=new_title_field, kwargs=kwargs, obj_type=str
             )
             drafts = get_attr_value(
-                field=drafts_field,
-                kwargs=kwargs,
-                obj_type=tuple[Finding, ...],
+                field=drafts_field, kwargs=kwargs, obj_type=tuple[Finding, ...]
             )
             findings = get_attr_value(
                 field=findings_field,
@@ -912,11 +897,9 @@ def validate_commit_hash_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            commit_hash = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                commit_hash = str(getattr(obj, attr_name))
+            commit_hash = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not (
                 # validate SHA-1
                 re.match(
@@ -954,11 +937,7 @@ def validate_int_range_deco(
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            value = cast(int, kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                value = cast(int, (getattr(obj, attr_name)))
+            value = get_attr_value(field=field, kwargs=kwargs, obj_type=int)
             if inclusive:
                 if not lower_bound <= value <= upper_bound:
                     raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
@@ -981,11 +960,9 @@ def validate_start_letter_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not field_content[0].isalpha():
                 raise InvalidReportFilter(
                     "Password should start with a letter"
@@ -1008,11 +985,9 @@ def validate_include_number_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             print(field, field_content)
             if not re.search(r"\d", field_content):
                 raise InvalidReportFilter(
@@ -1036,11 +1011,9 @@ def validate_include_lowercase_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not any(val.islower() for val in field_content):
                 raise InvalidReportFilter(
                     "Password should include lowercase characters"
@@ -1063,11 +1036,9 @@ def validate_include_uppercase_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            field_content = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                field_content = str(getattr(obj, attr_name))
+            field_content = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not any(val.isupper() for val in field_content):
                 raise InvalidReportFilter(
                     "Password should include uppercase characters"
@@ -1142,11 +1113,9 @@ def validate_sequence_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            value = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                value = str(getattr(obj, attr_name))
+            value = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if has_sequence(value):
                 raise InvalidReportFilter(
                     "Password should not include sequentials characters"
@@ -1167,11 +1136,9 @@ def validate_symbols_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            value = str(kwargs.get(field))
-            if "." in field:
-                obj_name, attr_name = field.split(".")
-                obj = kwargs.get(obj_name)
-                value = str(getattr(obj, attr_name))
+            value = str(
+                get_attr_value(field=field, kwargs=kwargs, obj_type=str)
+            )
             if not re.search(
                 r"[!\";#\$%&'\(\)\*\+,-./:<=>\?@\[\]^_`\{\|\}~]", value
             ):

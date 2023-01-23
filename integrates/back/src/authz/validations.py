@@ -66,19 +66,13 @@ def validate_fluidattacks_staff_on_group_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             group = get_attr_value(
-                field=group_field,
-                kwargs=kwargs,
-                obj_type=Group,
+                field=group_field, kwargs=kwargs, obj_type=Group
             )
             email = get_attr_value(
-                field=email_field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=email_field, kwargs=kwargs, obj_type=str
             )
             role = get_attr_value(
-                field=role_field,
-                kwargs=kwargs,
-                obj_type=str,
+                field=role_field, kwargs=kwargs, obj_type=str
             )
             print(email, role)
             enforcer = get_group_service_attributes_enforcer(group)
