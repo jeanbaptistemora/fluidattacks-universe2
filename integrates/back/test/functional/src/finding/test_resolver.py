@@ -281,7 +281,7 @@ async def test_get_finding(
         "vulnerabilitiesToReattackConnection"
     ] == {
         "edges": [],
-        "pageInfo": {"endCursor": "bnVsbA==", "hasNextPage": False},
+        "pageInfo": {"endCursor": "", "hasNextPage": False},
     }
     assert result["data"]["finding"]["zeroRiskConnection"] == {
         "edges": [
