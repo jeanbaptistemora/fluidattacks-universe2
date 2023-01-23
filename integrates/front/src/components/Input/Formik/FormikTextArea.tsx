@@ -3,8 +3,10 @@ import React from "react";
 import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase, useHandlers } from "../InputBase";
 import { StyledTextArea } from "../styles";
+import { Tag } from "components/Tag";
 
 interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
+  count?: boolean;
   placeholder?: string;
   rows?: number;
 }
@@ -12,6 +14,7 @@ interface ITextAreaProps extends IInputBase<HTMLTextAreaElement> {
 type TTextAreaProps = ITextAreaProps & TFieldProps;
 
 const FormikTextArea: React.FC<TTextAreaProps> = ({
+  count = false,
   disabled,
   field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
@@ -56,6 +59,11 @@ const FormikTextArea: React.FC<TTextAreaProps> = ({
         rows={rows}
         value={value}
       />
+      {count ? (
+        <div className={"self-end"}>
+          <Tag variant={"gray"}>{value.length}</Tag>
+        </div>
+      ) : undefined}
     </InputBase>
   );
 };

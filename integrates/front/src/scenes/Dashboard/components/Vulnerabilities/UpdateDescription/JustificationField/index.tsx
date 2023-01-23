@@ -5,8 +5,8 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IJustificationFieldProps } from "./types";
 
+import { Editable, TextArea } from "components/Input";
 import { authzPermissionsContext } from "utils/authz/config";
-import { EditableField, FormikTextArea } from "utils/forms/fields";
 import { translate } from "utils/translations/translate";
 import {
   composeValidators,
@@ -34,23 +34,25 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
 
   return (
     <div className={"nt2 w-100"}>
-      <EditableField
-        component={FormikTextArea}
+      <Editable
         currentValue={lastTreatment.justification as string}
+        isEditing={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
         label={translate.t("searchFindings.tabDescription.treatmentJust")}
-        name={"justification"}
-        renderAsEditable={canUpdateVulnsTreatment || canRequestZeroRiskVuln}
-        type={"text"}
-        validate={
-          isTreatmentPristine
-            ? undefined
-            : composeValidators([
-                required,
-                validTextField,
-                maxTreatmentJustificationLength,
-              ])
-        }
-      />
+      >
+        <TextArea
+          label={translate.t("searchFindings.tabDescription.treatmentJust")}
+          name={"justification"}
+          validate={
+            isTreatmentPristine
+              ? undefined
+              : composeValidators([
+                  required,
+                  validTextField,
+                  maxTreatmentJustificationLength,
+                ])
+          }
+        />
+      </Editable>
     </div>
   );
 };

@@ -1,13 +1,10 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
-import type { FC } from "react";
 import React, { Fragment, StrictMode } from "react";
 import type { ConfigurableValidator } from "revalidate";
 
-import { Label } from "components/Input";
+import { TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { FormGroup } from "styles/styledComponents";
-import { FormikTextArea } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -16,22 +13,22 @@ import {
   validTextField,
 } from "utils/validations";
 
-// ESLint annotations needed in order to avoid the mutations of defaultProps
 interface IAddRemediationProps {
-  additionalInfo?: string; // eslint-disable-line react/require-default-props
-  children?: React.ReactNode; // eslint-disable-line react/require-default-props
+  additionalInfo?: string;
+  children?: React.ReactNode;
   isLoading: boolean;
   isOpen: boolean;
-  maxJustificationLength?: number; // eslint-disable-line react/require-default-props
+  maxJustificationLength?: number;
   message: string;
   title: string;
   onClose: () => void;
-  onSubmit: (values: any) => void; // eslint-disable-line @typescript-eslint/no-explicit-any
+  onSubmit: (values: { treatmentJustification: string }) => void;
 }
 
 const MIN_LENGTH: number = 10;
 const minJustificationLength: ConfigurableValidator = minLength(MIN_LENGTH);
-const RemediationModal: FC<IAddRemediationProps> = ({
+
+const RemediationModal: React.FC<Readonly<IAddRemediationProps>> = ({
   additionalInfo,
   children,
   isLoading,
@@ -41,7 +38,7 @@ const RemediationModal: FC<IAddRemediationProps> = ({
   title,
   onClose,
   onSubmit,
-}: IAddRemediationProps): JSX.Element => {
+}): JSX.Element => {
   const justificationValidations: ConfigurableValidator[] = [
     required,
     validTextField,
@@ -67,17 +64,14 @@ const RemediationModal: FC<IAddRemediationProps> = ({
             <Form>
               <Fragment>
                 {children}
-                <FormGroup>
-                  <Label required={true}>{message}</Label>
-                  <Field
-                    component={FormikTextArea}
-                    name={"treatmentJustification"}
-                    rows={"6"}
-                    type={"text"}
-                    validate={composeValidators(justificationValidations)}
-                    withCount={true}
-                  />
-                </FormGroup>
+                <TextArea
+                  count={true}
+                  label={message}
+                  name={"treatmentJustification"}
+                  required={true}
+                  rows={6}
+                  validate={composeValidators(justificationValidations)}
+                />
                 {additionalInfo}
                 <ModalConfirm
                   disabled={!dirty || isLoading}

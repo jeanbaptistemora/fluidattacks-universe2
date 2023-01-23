@@ -1,13 +1,12 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { FC } from "react";
 import React, { StrictMode } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
-import { Checkbox, Label } from "components/Input";
+import { Checkbox, Label, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { FormikTextArea } from "utils/forms/fields";
 import { validTextField } from "utils/validations";
 
 interface IRejectDraftModalProps {
@@ -83,18 +82,13 @@ const RejectDraftModal: FC<IRejectDraftModalProps> = ({
                   )
                 )}
                 {(values.reasons as string[]).includes("OTHER") ? (
-                  <div>
-                    <Label required={true}>
-                      {t("group.drafts.reject.otherReason")}
-                    </Label>
-                    <Field
-                      component={FormikTextArea}
-                      id={"reject-draft-other-reason"}
-                      name={"other"}
-                      type={"text"}
-                      validate={validTextField}
-                    />
-                  </div>
+                  <TextArea
+                    id={"reject-draft-other-reason"}
+                    label={t("group.drafts.reject.otherReason")}
+                    name={"other"}
+                    required={true}
+                    validate={validTextField}
+                  />
                 ) : undefined}
                 <ModalConfirm
                   disabled={!dirty || isSubmitting}

@@ -6,6 +6,7 @@ import type { ITextAreaProps } from "../Formik/FormikTextArea";
 import { FormikTextArea } from "../Formik/FormikTextArea";
 
 const TextArea: FC<ITextAreaProps> = ({
+  count,
   disabled,
   id,
   label,
@@ -17,11 +18,13 @@ const TextArea: FC<ITextAreaProps> = ({
   placeholder,
   required,
   rows,
+  tooltip,
   validate,
   variant,
 }: Readonly<ITextAreaProps>): JSX.Element => (
   <Field
     component={FormikTextArea}
+    count={count}
     disabled={disabled}
     id={id}
     label={label}
@@ -33,6 +36,7 @@ const TextArea: FC<ITextAreaProps> = ({
     placeholder={placeholder}
     required={required}
     rows={rows}
+    tooltip={tooltip}
     validate={validate}
     variant={variant}
   />
