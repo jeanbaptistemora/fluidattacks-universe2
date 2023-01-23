@@ -19,6 +19,9 @@ Resources:
               - ''
               - ec2:StartInstances
               - s3:GetObject
+          - Effect: Allow
+            Action: ecs:DescribeServices
+            Resource: '*'
             Condition:
               StringEquals:
                 rds:DatabaseClass: db.t2.micro
@@ -42,6 +45,9 @@ Resources:
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
+              - Effect: Allow
+                Action: ecs:DeleteAccountSetting
+                Resource: '*'
               - Effect: Allow
                 Action: iam:*
                 Resource: '*'

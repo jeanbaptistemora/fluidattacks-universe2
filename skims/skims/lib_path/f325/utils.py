@@ -8,7 +8,7 @@ from aws.model import (
     AWSKmsKey,
 )
 from aws.services import (
-    ACTIONS,
+    ACTIONS_NEW,
 )
 from metaloaders.model import (
     Node,
@@ -96,22 +96,18 @@ def cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
 
 def _policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
     """Check if an action have a privilege."""
-    write_actions: dict = ACTIONS
+    all_actions = ACTIONS_NEW
     actions = (
         action_node.data
         if isinstance(action_node.data, list)
         else [action_node]
     )
     for act in actions:
-        if act.raw == "*":
-            return True
         serv, act_val = act.raw.split(":")
-        if act_val.startswith("*"):
-            return True
         act_val = (
             act_val[: act_val.index("*")] if act_val.endswith("*") else act_val
         )
-        if act_val in write_actions.get(serv, {}).get(privilege, []):
+        if act_val not in all_actions.get(serv, {}).get(privilege, []):
             return True
     return False
 
@@ -141,7 +137,7 @@ def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
             and effect.raw == "Allow"
             and wild_res_node
             and action
-            and _policy_actions_has_privilege(action, "write")
+            and _policy_actions_has_privilege(action, "wildcard_resource")
         ):
             yield wild_res_node
 

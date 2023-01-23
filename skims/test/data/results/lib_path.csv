@@ -3474,154 +3474,154 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   58 | }
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,40,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  27 |   RootRole:
-  28 |     Type: AWS::IAM::Role
-  29 |     Properties:
-  30 |       AssumeRolePolicyDocument:
-  31 |         Version: '2012-10-17'
-  32 |         Statement:
-  33 |           - Effect: Allow
-  34 |             NotPrincipal:
-  35 |               Service:
-  36 |                 - ec2.amazonaws.com
-> 37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
+  30 |   RootRole:
+  31 |     Type: AWS::IAM::Role
+  32 |     Properties:
+  33 |       AssumeRolePolicyDocument:
+  34 |         Version: '2012-10-17'
+  35 |         Statement:
+  36 |           - Effect: Allow
+  37 |             NotPrincipal:
+  38 |               Service:
+  39 |                 - ec2.amazonaws.com
+> 40 |             NotAction:
+  41 |               - sts:AssumeRole
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,54,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,59,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   44 |         ""AssumeRolePolicyDocument"": {
-   45 |           ""Version"": ""2012-10-17"",
-   46 |           ""Statement"": [
-   47 |             {
-   48 |               ""Effect"": ""Allow"",
-   49 |               ""NotPrincipal"": {
-   50 |                 ""Service"": [
-   51 |                   ""ec2.amazonaws.com""
-   52 |                 ]
-   53 |               },
->  54 |               ""NotAction"": [
-   55 |                 ""sts:AssumeRole""
-   56 |               ]
-   57 |             }
-   58 |           ]
-   59 |         },
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
+   49 |         ""AssumeRolePolicyDocument"": {
+   50 |           ""Version"": ""2012-10-17"",
+   51 |           ""Statement"": [
+   52 |             {
+   53 |               ""Effect"": ""Allow"",
+   54 |               ""NotPrincipal"": {
+   55 |                 ""Service"": [
+   56 |                   ""ec2.amazonaws.com""
+   57 |                 ]
+   58 |               },
+>  59 |               ""NotAction"": [
+   60 |                 ""sts:AssumeRole""
+   61 |               ]
+   62 |             }
+   63 |           ]
+   64 |         },
+   65 |         ""Path"": ""/"",
+   66 |         ""Policies"": [
+   67 |           {
+   68 |             ""PolicyName"": ""root"",
+   69 |             ""PolicyDocument"": {
       ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,60,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,66,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
-  58 |             Statement:
-  59 |               - Effect: Allow
-> 60 |                 NotAction: '*'
-  61 |                 NotResource: s3:GetObject
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
+  64 |             Statement:
+  65 |               - Effect: Allow
+> 66 |                 NotAction: '*'
+  67 |                 NotResource: s3:GetObject
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,95,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,105,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   85 |              ]
-   86 |            }
-   87 |          },
-   88 |          {
-   89 |            ""PolicyName"": ""root1"",
-   90 |            ""PolicyDocument"": {
-   91 |              ""Version"": ""2012-10-17"",
-   92 |              ""Statement"": [
-   93 |                {
-   94 |                  ""Effect"": ""Allow"",
->  95 |                  ""NotAction"": ""*"",
-   96 |                  ""NotResource"": ""s3:GetObject""
-   97 |                }
-   98 |              ]
-   99 |            }
-  100 |          }
-  101 |        ]
-  102 |      }
-  103 |    }
-  104 |  }
-  105 |
+   95 |              ]
+   96 |            }
+   97 |          },
+   98 |          {
+   99 |            ""PolicyName"": ""root1"",
+  100 |            ""PolicyDocument"": {
+  101 |              ""Version"": ""2012-10-17"",
+  102 |              ""Statement"": [
+  103 |                {
+  104 |                  ""Effect"": ""Allow"",
+> 105 |                  ""NotAction"": ""*"",
+  106 |                  ""NotResource"": ""s3:GetObject""
+  107 |                }
+  108 |              ]
+  109 |            }
+  110 |          }
+  111 |        ]
+  112 |      }
+  113 |    }
+  114 |  }
+  115 |
       ^ Col 1
 ",cloudformation.cfn_iam_permissions_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,34,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  24 |                 rds:DatabaseClass: db.t2.micro
-  25 |       Groups:
-  26 |         - TestDBGroup
-  27 |   RootRole:
-  28 |     Type: AWS::IAM::Role
-  29 |     Properties:
-  30 |       AssumeRolePolicyDocument:
-  31 |         Version: '2012-10-17'
-  32 |         Statement:
-  33 |           - Effect: Allow
-> 34 |             NotPrincipal:
-  35 |               Service:
-  36 |                 - ec2.amazonaws.com
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
+  27 |                 rds:DatabaseClass: db.t2.micro
+  28 |       Groups:
+  29 |         - TestDBGroup
+  30 |   RootRole:
+  31 |     Type: AWS::IAM::Role
+  32 |     Properties:
+  33 |       AssumeRolePolicyDocument:
+  34 |         Version: '2012-10-17'
+  35 |         Statement:
+  36 |           - Effect: Allow
+> 37 |             NotPrincipal:
+  38 |               Service:
+  39 |                 - ec2.amazonaws.com
+  40 |             NotAction:
+  41 |               - sts:AssumeRole
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_principal
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,49,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,54,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   39 |       }
-   40 |     },
-   41 |     ""RootRole"": {
-   42 |       ""Type"": ""AWS::IAM::Role"",
-   43 |       ""Properties"": {
-   44 |         ""AssumeRolePolicyDocument"": {
-   45 |           ""Version"": ""2012-10-17"",
-   46 |           ""Statement"": [
-   47 |             {
-   48 |               ""Effect"": ""Allow"",
->  49 |               ""NotPrincipal"": {
-   50 |                 ""Service"": [
-   51 |                   ""ec2.amazonaws.com""
-   52 |                 ]
-   53 |               },
-   54 |               ""NotAction"": [
-   55 |                 ""sts:AssumeRole""
-   56 |               ]
-   57 |             }
-   58 |           ]
-   59 |         },
+   44 |       }
+   45 |     },
+   46 |     ""RootRole"": {
+   47 |       ""Type"": ""AWS::IAM::Role"",
+   48 |       ""Properties"": {
+   49 |         ""AssumeRolePolicyDocument"": {
+   50 |           ""Version"": ""2012-10-17"",
+   51 |           ""Statement"": [
+   52 |             {
+   53 |               ""Effect"": ""Allow"",
+>  54 |               ""NotPrincipal"": {
+   55 |                 ""Service"": [
+   56 |                   ""ec2.amazonaws.com""
+   57 |                 ]
+   58 |               },
+   59 |               ""NotAction"": [
+   60 |                 ""sts:AssumeRole""
+   61 |               ]
+   62 |             }
+   63 |           ]
+   64 |         },
       ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_principal
 F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
@@ -3649,54 +3649,54 @@ F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileg
   33 |     ]
      ^ Col 0
 ",terraform.tfm_iam_role_is_over_privileged
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,61,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,67,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
-  58 |             Statement:
-  59 |               - Effect: Allow
-  60 |                 NotAction: '*'
-> 61 |                 NotResource: s3:GetObject
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
+  64 |             Statement:
+  65 |               - Effect: Allow
+  66 |                 NotAction: '*'
+> 67 |                 NotResource: s3:GetObject
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_allow_not_resource
-F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,96,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,106,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   85 |            ]
-   86 |          }
-   87 |        },
-   88 |        {
-   89 |          ""PolicyName"": ""root1"",
-   90 |          ""PolicyDocument"": {
-   91 |            ""Version"": ""2012-10-17"",
-   92 |            ""Statement"": [
-   93 |              {
-   94 |                ""Effect"": ""Allow"",
-   95 |                ""NotAction"": ""*"",
->  96 |                ""NotResource"": ""s3:GetObject""
-   97 |              }
-   98 |            ]
-   99 |          }
-  100 |        }
-  101 |      ]
-  102 |    }
-  103 |  }
-  104 |
-  105 |
+   95 |            ]
+   96 |          }
+   97 |        },
+   98 |        {
+   99 |          ""PolicyName"": ""root1"",
+  100 |          ""PolicyDocument"": {
+  101 |            ""Version"": ""2012-10-17"",
+  102 |            ""Statement"": [
+  103 |              {
+  104 |                ""Effect"": ""Allow"",
+  105 |                ""NotAction"": ""*"",
+> 106 |                ""NotResource"": ""s3:GetObject""
+  107 |              }
+  108 |            ]
+  109 |          }
+  110 |        }
+  111 |      ]
+  112 |    }
+  113 |  }
+  114 |
+  115 |
       ^ Col 3
 ",cloudformation.cfn_iam_permissions_policy_allow_not_resource
 F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf","
@@ -12729,100 +12729,100 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.t
   43 |         ""NotAction"": ""*"",
      ^ Col 0
 ",terraform.terraform_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  28 |     Type: AWS::IAM::Role
-  29 |     Properties:
-  30 |       AssumeRolePolicyDocument:
-  31 |         Version: '2012-10-17'
-  32 |         Statement:
-  33 |           - Effect: Allow
-  34 |             NotPrincipal:
-  35 |               Service:
-  36 |                 - ec2.amazonaws.com
-  37 |             NotAction:
-> 38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,41,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  31 |     Type: AWS::IAM::Role
+  32 |     Properties:
+  33 |       AssumeRolePolicyDocument:
+  34 |         Version: '2012-10-17'
+  35 |         Statement:
+  36 |           - Effect: Allow
+  37 |             NotPrincipal:
+  38 |               Service:
+  39 |                 - ec2.amazonaws.com
+  40 |             NotAction:
+> 41 |               - sts:AssumeRole
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,61,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
-  58 |             Statement:
-  59 |               - Effect: Allow
-  60 |                 NotAction: '*'
-> 61 |                 NotResource: s3:GetObject
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,67,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
+  64 |             Statement:
+  65 |               - Effect: Allow
+  66 |                 NotAction: '*'
+> 67 |                 NotResource: s3:GetObject
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,55,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   45 |           ""Version"": ""2012-10-17"",
-   46 |           ""Statement"": [
-   47 |             {
-   48 |               ""Effect"": ""Allow"",
-   49 |               ""NotPrincipal"": {
-   50 |                 ""Service"": [
-   51 |                   ""ec2.amazonaws.com""
-   52 |                 ]
-   53 |               },
-   54 |               ""NotAction"": [
->  55 |                 ""sts:AssumeRole""
-   56 |               ]
-   57 |             }
-   58 |           ]
-   59 |         },
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,60,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+   50 |           ""Version"": ""2012-10-17"",
+   51 |           ""Statement"": [
+   52 |             {
+   53 |               ""Effect"": ""Allow"",
+   54 |               ""NotPrincipal"": {
+   55 |                 ""Service"": [
+   56 |                   ""ec2.amazonaws.com""
+   57 |                 ]
+   58 |               },
+   59 |               ""NotAction"": [
+>  60 |                 ""sts:AssumeRole""
+   61 |               ]
+   62 |             }
+   63 |           ]
+   64 |         },
+   65 |         ""Path"": ""/"",
+   66 |         ""Policies"": [
+   67 |           {
+   68 |             ""PolicyName"": ""root"",
+   69 |             ""PolicyDocument"": {
+   70 |               ""Version"": ""2012-10-17"",
       ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,96,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   85 |            ]
-   86 |          }
-   87 |        },
-   88 |        {
-   89 |          ""PolicyName"": ""root1"",
-   90 |          ""PolicyDocument"": {
-   91 |            ""Version"": ""2012-10-17"",
-   92 |            ""Statement"": [
-   93 |              {
-   94 |                ""Effect"": ""Allow"",
-   95 |                ""NotAction"": ""*"",
->  96 |                ""NotResource"": ""s3:GetObject""
-   97 |              }
-   98 |            ]
-   99 |          }
-  100 |        }
-  101 |      ]
-  102 |    }
-  103 |  }
-  104 |
-  105 |
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,106,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+   95 |            ]
+   96 |          }
+   97 |        },
+   98 |        {
+   99 |          ""PolicyName"": ""root1"",
+  100 |          ""PolicyDocument"": {
+  101 |            ""Version"": ""2012-10-17"",
+  102 |            ""Statement"": [
+  103 |              {
+  104 |                ""Effect"": ""Allow"",
+  105 |                ""NotAction"": ""*"",
+> 106 |                ""NotResource"": ""s3:GetObject""
+  107 |              }
+  108 |            ]
+  109 |          }
+  110 |        }
+  111 |      ]
+  112 |    }
+  113 |  }
+  114 |
+  115 |
       ^ Col 3
 ",cloudformation.cfn_negative_statement
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,53,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
@@ -13580,57 +13580,57 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   19 |               - ''
   20 |               - ec2:StartInstances
   21 |               - s3:GetObject
-  22 |             Condition:
+  22 |           - Effect: Allow
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,46,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,52,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  36 |                 - ec2.amazonaws.com
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-> 46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+> 52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,59,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-> 53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
-  58 |             Statement:
-  59 |               - Effect: Allow
-  60 |                 NotAction: '*'
-  61 |                 NotResource: s3:GetObject
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+> 59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
+  64 |             Statement:
+  65 |               - Effect: Allow
+  66 |                 NotAction: '*'
+  67 |                 NotResource: s3:GetObject
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
@@ -13658,54 +13658,54 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    23 |               ""Resource"": [
       ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,69,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,79,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   59 |         },
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
-   66 |               ""Statement"": [
-   67 |                 {
-   68 |                   ""Effect"": ""Allow"",
->  69 |                   ""Action"": ""iam:*"",
-   70 |                   ""Resource"": ""*""
-   71 |                 }
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
+   69 |             ""PolicyDocument"": {
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+>  79 |                   ""Action"": ""iam:*"",
+   80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
       ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,82,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,92,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
-   80 |                 {
-   81 |                   ""Effect"": ""Allow"",
->  82 |                   ""Action"": ""*"",
-   83 |                   ""Resource"": ""s3:GetObject""
-   84 |                 }
-   85 |               ]
-   86 |             }
-   87 |           },
-   88 |           {
-   89 |             ""PolicyName"": ""root1"",
-   90 |             ""PolicyDocument"": {
-   91 |               ""Version"": ""2012-10-17"",
-   92 |               ""Statement"": [
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
+   90 |                 {
+   91 |                   ""Effect"": ""Allow"",
+>  92 |                   ""Action"": ""*"",
+   93 |                   ""Resource"": ""s3:GetObject""
+   94 |                 }
+   95 |               ]
+   96 |             }
+   97 |           },
+   98 |           {
+   99 |             ""PolicyName"": ""root1"",
+  100 |             ""PolicyDocument"": {
+  101 |               ""Version"": ""2012-10-17"",
+  102 |               ""Statement"": [
       ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,53,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
@@ -15587,52 +15587,52 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   66 |   }
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,47,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-> 47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+> 53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,70,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
-   66 |               ""Statement"": [
-   67 |                 {
-   68 |                   ""Effect"": ""Allow"",
-   69 |                   ""Action"": ""iam:*"",
->  70 |                   ""Resource"": ""*""
-   71 |                 }
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
-   80 |                 {
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,80,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+   79 |                   ""Action"": ""iam:*"",
+>  80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
+   90 |                 {
       ^ Col 0
 ",cloudformation.cfn_permissive_policy
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,47,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,"
@@ -15991,6 +15991,31 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   78 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,15,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+   5 |     Properties:
+   6 |       PolicyName: CFNUsers
+   7 |       PolicyDocument:
+   8 |         Version: '2012-10-17'
+   9 |         Statement:
+  10 |           - Effect: Allow
+  11 |             Action:
+  12 |               - cloudformation:Describe*
+  13 |               - ssm:*
+  14 |               - cloudformation:Get*
+> 15 |             Resource: '*'
+  16 |   CreateTestDBPolicy:
+  17 |     Type: AWS::IAM::ManagedPolicy
+  18 |     Properties:
+  19 |       Description: Policy for creating a test database
+  20 |       Path: /
+  21 |       PolicyDocument:
+  22 |         Version: '2012-10-17'
+  23 |         Statement:
+  24 |           - Effect: Allow
+  25 |             Action: ssm:*
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,26,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
   16 |   CreateTestDBPolicy:
@@ -16014,6 +16039,31 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   34 |               StringEquals:
   35 |                 rds:DatabaseClass: db.t2.micro
   36 |       Groups:
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+   7 |         ""PolicyDocument"": {
+   8 |           ""Version"": ""2012-10-17"",
+   9 |           ""Statement"": [
+  10 |             {
+  11 |               ""Effect"": ""Allow"",
+  12 |               ""Action"": [
+  13 |                 ""cloudformation:Describe*"",
+  14 |                 ""ssm:*"",
+  15 |                 ""cloudformation:Get*""
+  16 |               ],
+> 17 |               ""Resource"": ""*""
+  18 |             }
+  19 |           ]
+  20 |         }
+  21 |       }
+  22 |     },
+  23 |     ""CreateTestDBPolicy"": {
+  24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
+  25 |       ""Properties"": {
+  26 |         ""Description"": ""Policy for creating a test database"",
+  27 |         ""Path"": ""/"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16066,6 +16116,31 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                 Resource: arn:::ec2/specific
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,18,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+   8 |             Version: '2012-10-17'
+   9 |             Statement:
+  10 |               - Action:
+  11 |                   - ec2:*
+  12 |                   - autoscaling:*
+  13 |                   - eks:*
+  14 |                 Resource: '*'
+  15 |                 Effect: Allow
+  16 |               - Action:
+  17 |                   - ec2:Something
+> 18 |                 Resource: '*'
+  19 |                 Effect: Allow
+  20 |               - Action: '*'
+  21 |                 Resource: arn:::ec2/specific
+  22 |                 Effect: Allow
+  23 |               - Action: ec2:Something
+  24 |                 Resource: arn:::ec2/specific
+  25 |                 Effect: Allow
+  26 |       AssumeRolePolicyDocument:
+  27 |         Statement:
+  28 |           - Effect: Allow
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    7 |           {
@@ -16089,6 +16164,31 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   25 |                   ""Effect"": ""Allow""
   26 |                 },
   27 |                 {
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,24,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+  14 |                     ""autoscaling:*"",
+  15 |                     ""eks:*""
+  16 |                   ],
+  17 |                   ""Resource"": ""*"",
+  18 |                   ""Effect"": ""Allow""
+  19 |                 },
+  20 |                 {
+  21 |                   ""Action"": [
+  22 |                     ""ec2:Something""
+  23 |                   ],
+> 24 |                   ""Resource"": ""*"",
+  25 |                   ""Effect"": ""Allow""
+  26 |                 },
+  27 |                 {
+  28 |                   ""Action"": ""*"",
+  29 |                   ""Resource"": ""arn:::ec2/specific"",
+  30 |                   ""Effect"": ""Allow""
+  31 |                 },
+  32 |                 {
+  33 |                   ""Action"": ""ec2:Something"",
+  34 |                   ""Resource"": ""arn:::ec2/specific"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16366,54 +16466,104 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   78 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,47,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,24,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-> 47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
+  14 |               StringEquals:
+  15 |                 rds:DatabaseEngine: mysql
+  16 |           - Effect: Allow
+  17 |             Action: rds:CreateGlobalCluster
+  18 |             Resource:
+  19 |               - ''
+  20 |               - ec2:StartInstances
+  21 |               - s3:GetObject
+  22 |           - Effect: Allow
+  23 |             Action: ecs:DescribeServices
+> 24 |             Resource: '*'
+  25 |             Condition:
+  26 |               StringEquals:
+  27 |                 rds:DatabaseClass: db.t2.micro
+  28 |       Groups:
+  29 |         - TestDBGroup
+  30 |   RootRole:
+  31 |     Type: AWS::IAM::Role
+  32 |     Properties:
+  33 |       AssumeRolePolicyDocument:
+  34 |         Version: '2012-10-17'
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,70,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+> 53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,32,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
-   66 |               ""Statement"": [
-   67 |                 {
-   68 |                   ""Effect"": ""Allow"",
-   69 |                   ""Action"": ""iam:*"",
->  70 |                   ""Resource"": ""*""
-   71 |                 }
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
-   80 |                 {
+   22 |               ""Action"": ""rds:CreateGlobalCluster"",
+   23 |               ""Resource"": [
+   24 |                 """",
+   25 |                 ""ec2:StartInstances"",
+   26 |                 ""s3:GetObject""
+   27 |               ]
+   28 |             },
+   29 |             {
+   30 |               ""Effect"": ""Allow"",
+   31 |               ""Action"": ""ecs:DescribeServices"",
+>  32 |               ""Resource"": ""*"",
+   33 |               ""Condition"": {
+   34 |                 ""StringEquals"": {
+   35 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   36 |                 }
+   37 |               }
+   38 |             }
+   39 |           ]
+   40 |         },
+   41 |         ""Groups"": [
+   42 |           ""TestDBGroup""
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,80,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+   79 |                   ""Action"": ""iam:*"",
+>  80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
+   90 |                 {
       ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,47,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16465,206 +16615,6 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   79 |               ""Statement"": [
   80 |                 {
      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
-   12 |             Action: rds:CreateDBInstance
-   13 |             Condition:
-   14 |               StringEquals:
-   15 |                 rds:DatabaseEngine: mysql
-   16 |           - Effect: Allow
-   17 |             Action: rds:CreateGlobalCluster
-   18 |             Resource:
-   19 |               - ''
-   20 |               - ec2:StartInstances
-   21 |               - s3:GetObject
->  22 |               - '*'
-   23 |             Condition:
-   24 |               StringEquals:
-   25 |                 rds:DatabaseClass: db.t2.micro
-   26 |           - Effect: Allow
-   27 |             Action:
-   28 |               - rds:*
-   29 |             Resource:
-   30 |               - ''
-   31 |               - ec2:StartInstances
-   32 |               - s3:GetObject
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
-   23 |             Condition:
-   24 |               StringEquals:
-   25 |                 rds:DatabaseClass: db.t2.micro
-   26 |           - Effect: Allow
-   27 |             Action:
-   28 |               - rds:*
-   29 |             Resource:
-   30 |               - ''
-   31 |               - ec2:StartInstances
-   32 |               - s3:GetObject
->  33 |               - '*'
-   34 |             Condition:
-   35 |               StringEquals:
-   36 |                 rds:DatabaseClass: db.t2.micro
-   37 |           - Effect: Allow
-   38 |             Action:
-   39 |               - rds:ModifyDBCluster*
-   40 |             Resource:
-   41 |               - ''
-   42 |               - ec2:StartInstances
-   43 |               - s3:GetObject
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
-   34 |             Condition:
-   35 |               StringEquals:
-   36 |                 rds:DatabaseClass: db.t2.micro
-   37 |           - Effect: Allow
-   38 |             Action:
-   39 |               - rds:ModifyDBCluster*
-   40 |             Resource:
-   41 |               - ''
-   42 |               - ec2:StartInstances
-   43 |               - s3:GetObject
->  44 |               - '*'
-   45 |             Condition:
-   46 |               StringEquals:
-   47 |                 rds:DatabaseClass: db.t2.micro
-   48 |           - Effect: Allow
-   49 |             Action:
-   50 |               - rds:CreateDBSnapshot
-   51 |             Resource: '*'
-   52 |             Condition:
-   53 |               StringEquals:
-   54 |                 rds:DatabaseClass: db.t2.micro
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,77,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
-   67 |             Action:
-   68 |               - sts:AssumeRole
-   69 |       Path: /
-   70 |       Policies:
-   71 |         - PolicyName: root
-   72 |           PolicyDocument:
-   73 |             Version: '2012-10-17'
-   74 |             Statement:
-   75 |               - Effect: Allow
-   76 |                 Action: '*'
->  77 |                 Resource: '*'
-   78 |         - PolicyName: root
-   79 |           PolicyDocument:
-   80 |             Version: '2012-10-17'
-   81 |             Statement:
-   82 |               - Effect: Deny
-   83 |                 Action: '*'
-   84 |                 Resource: '*'
-   85 |         - PolicyName: root
-   86 |           PolicyDocument:
-   87 |             Version: '2012-10-17'
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
-   17 |                 }
-   18 |               }
-   19 |             },
-   20 |             {
-   21 |               ""Effect"": ""Allow"",
-   22 |               ""Action"": ""rds:CreateGlobalCluster"",
-   23 |               ""Resource"": [
-   24 |                 """",
-   25 |                 ""ec2:StartInstances"",
-   26 |                 ""s3:GetObject"",
->  27 |                 ""*""
-   28 |               ],
-   29 |               ""Condition"": {
-   30 |                 ""StringEquals"": {
-   31 |                   ""rds:DatabaseClass"": ""db.t2.micro""
-   32 |                 }
-   33 |               }
-   34 |             },
-   35 |             {
-   36 |               ""Effect"": ""Allow"",
-   37 |               ""Action"": [
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
-   34 |             },
-   35 |             {
-   36 |               ""Effect"": ""Allow"",
-   37 |               ""Action"": [
-   38 |                 ""rds:*""
-   39 |               ],
-   40 |               ""Resource"": [
-   41 |                 """",
-   42 |                 ""ec2:StartInstances"",
-   43 |                 ""s3:GetObject"",
->  44 |                 ""*""
-   45 |               ],
-   46 |               ""Condition"": {
-   47 |                 ""StringEquals"": {
-   48 |                   ""rds:DatabaseClass"": ""db.t2.micro""
-   49 |                 }
-   50 |               }
-   51 |             },
-   52 |             {
-   53 |               ""Effect"": ""Allow"",
-   54 |               ""Action"": [
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
-   51 |             },
-   52 |             {
-   53 |               ""Effect"": ""Allow"",
-   54 |               ""Action"": [
-   55 |                 ""rds:ModifyDBCluster*""
-   56 |               ],
-   57 |               ""Resource"": [
-   58 |                 """",
-   59 |                 ""ec2:StartInstances"",
-   60 |                 ""s3:GetObject"",
->  61 |                 ""*""
-   62 |               ],
-   63 |               ""Condition"": {
-   64 |                 ""StringEquals"": {
-   65 |                   ""rds:DatabaseClass"": ""db.t2.micro""
-   66 |                 }
-   67 |               }
-   68 |             },
-   69 |             {
-   70 |               ""Effect"": ""Allow"",
-   71 |               ""Action"": [
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,117,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
-  107 |         ""Path"": ""/"",
-  108 |         ""Policies"": [
-  109 |           {
-  110 |             ""PolicyName"": ""root"",
-  111 |             ""PolicyDocument"": {
-  112 |               ""Version"": ""2012-10-17"",
-  113 |               ""Statement"": [
-  114 |                 {
-  115 |                   ""Effect"": ""Allow"",
-  116 |                   ""Action"": ""*"",
-> 117 |                   ""Resource"": ""*""
-  118 |                 }
-  119 |               ]
-  120 |             }
-  121 |           },
-  122 |           {
-  123 |             ""PolicyName"": ""root"",
-  124 |             ""PolicyDocument"": {
-  125 |               ""Version"": ""2012-10-17"",
-  126 |               ""Statement"": [
-  127 |                 {
-      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
@@ -16741,6 +16691,56 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   54 |               - arn:aws:s3:::HRBucket/Payroll/*
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,51,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
+  41 |               - ''
+  42 |               - ec2:StartInstances
+  43 |               - s3:GetObject
+  44 |               - '*'
+  45 |             Condition:
+  46 |               StringEquals:
+  47 |                 rds:DatabaseClass: db.t2.micro
+  48 |           - Effect: Allow
+  49 |             Action:
+  50 |               - rds:CreateDBSnapshot
+> 51 |             Resource: '*'
+  52 |             NotResource:
+  53 |               - arn:aws:s3:::HRBucket/Payroll
+  54 |               - arn:aws:s3:::HRBucket/Payroll/*
+  55 |             Condition:
+  56 |               StringEquals:
+  57 |                 rds:DatabaseClass: db.t2.micro
+  58 |       Users:
+  59 |         - user1
+  60 |       Groups:
+  61 |         - TestDBGroup
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
+  57 |                 rds:DatabaseClass: db.t2.micro
+  58 |       Users:
+  59 |         - user1
+  60 |       Groups:
+  61 |         - TestDBGroup
+  62 |   Policy:
+  63 |     Type: AWS::IAM::Policy
+  64 |     Properties:
+  65 |       PolicyName: CFNUsers
+  66 |       PolicyDocument:
+  67 |         Version: '2012-10-17'
+  68 |         Statement:
+  69 |           - Effect: Allow
+  70 |             Action:
+  71 |               - cloudformation:Describe*
+  72 |               - cloudformation:List*
+  73 |               - cloudformation:Get*
+> 74 |             Resource: '*'
+  75 |             NotAction: iam:*
+  76 |       Groups:
+  77 |         - !Ref CFNUserGroup
+     ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    17 |                 }
@@ -16814,6 +16814,56 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    69 |             {
    70 |               ""Effect"": ""Allow"",
    71 |               ""Action"": [
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
+   64 |                 ""StringEquals"": {
+   65 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   66 |                 }
+   67 |               }
+   68 |             },
+   69 |             {
+   70 |               ""Effect"": ""Allow"",
+   71 |               ""Action"": [
+   72 |                 ""rds:CreateDBSnapshot""
+   73 |               ],
+>  74 |               ""Resource"": ""*"",
+   75 |               ""NotResource"": [
+   76 |                 ""arn:aws:s3:::HRBucket/Payroll"",
+   77 |                 ""arn:aws:s3:::HRBucket/Payroll/*""
+   78 |               ],
+   79 |               ""Condition"": {
+   80 |                 ""StringEquals"": {
+   81 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   82 |                 }
+   83 |               }
+   84 |             }
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,109,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
+   99 |         ""PolicyDocument"": {
+  100 |           ""Version"": ""2012-10-17"",
+  101 |           ""Statement"": [
+  102 |             {
+  103 |               ""Effect"": ""Allow"",
+  104 |               ""Action"": [
+  105 |                 ""cloudformation:Describe*"",
+  106 |                 ""cloudformation:List*"",
+  107 |                 ""cloudformation:Get*""
+  108 |               ],
+> 109 |               ""Resource"": ""*"",
+  110 |               ""NotAction"": ""iam:*""
+  111 |             }
+  112 |           ]
+  113 |         },
+  114 |         ""Groups"": [
+  115 |           {
+  116 |             ""Ref"": ""CFNUserGroup""
+  117 |           }
+  118 |         ]
+  119 |       }
       ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,23,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -17174,100 +17224,100 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 ",terraform.terraform_open_passrole
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,46,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
-  36 |                 - ec2.amazonaws.com
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-> 46 |                 Action: iam:*
-  47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,52,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+> 52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
      ^ Col 0
 ",cloudformation.cfn_open_passrole
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,47,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
-  37 |             NotAction:
-  38 |               - sts:AssumeRole
-  39 |       Path: /
-  40 |       Policies:
-  41 |         - PolicyName: root
-  42 |           PolicyDocument:
-  43 |             Version: '2012-10-17'
-  44 |             Statement:
-  45 |               - Effect: Allow
-  46 |                 Action: iam:*
-> 47 |                 Resource: '*'
-  48 |         - PolicyName: root
-  49 |           PolicyDocument:
-  50 |             Version: '2012-10-17'
-  51 |             Statement:
-  52 |               - Effect: Allow
-  53 |                 Action: '*'
-  54 |                 Resource: s3:GetObject
-  55 |         - PolicyName: root1
-  56 |           PolicyDocument:
-  57 |             Version: '2012-10-17'
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,"
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:DeleteAccountSetting
+  50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+> 53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
+  61 |         - PolicyName: root1
+  62 |           PolicyDocument:
+  63 |             Version: '2012-10-17'
      ^ Col 0
 ",cloudformation.cfn_open_passrole
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,69,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
-   59 |         },
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
-   66 |               ""Statement"": [
-   67 |                 {
-   68 |                   ""Effect"": ""Allow"",
->  69 |                   ""Action"": ""iam:*"",
-   70 |                   ""Resource"": ""*""
-   71 |                 }
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,79,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
+   69 |             ""PolicyDocument"": {
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+>  79 |                   ""Action"": ""iam:*"",
+   80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
       ^ Col 0
 ",cloudformation.cfn_open_passrole
-F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,70,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
-   60 |         ""Path"": ""/"",
-   61 |         ""Policies"": [
-   62 |           {
-   63 |             ""PolicyName"": ""root"",
-   64 |             ""PolicyDocument"": {
-   65 |               ""Version"": ""2012-10-17"",
-   66 |               ""Statement"": [
-   67 |                 {
-   68 |                   ""Effect"": ""Allow"",
-   69 |                   ""Action"": ""iam:*"",
->  70 |                   ""Resource"": ""*""
-   71 |                 }
-   72 |               ]
-   73 |             }
-   74 |           },
-   75 |           {
-   76 |             ""PolicyName"": ""root"",
-   77 |             ""PolicyDocument"": {
-   78 |               ""Version"": ""2012-10-17"",
-   79 |               ""Statement"": [
-   80 |                 {
+F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,80,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,"
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+   79 |                   ""Action"": ""iam:*"",
+>  80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
+   86 |             ""PolicyName"": ""root"",
+   87 |             ""PolicyDocument"": {
+   88 |               ""Version"": ""2012-10-17"",
+   89 |               ""Statement"": [
+   90 |                 {
       ^ Col 0
 ",cloudformation.cfn_open_passrole
 F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,47,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml,"

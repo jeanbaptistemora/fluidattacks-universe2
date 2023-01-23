@@ -15,7 +15,6 @@ from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.structure import (
-    iter_iam_managed_policies_and_roles,
     iter_iam_policies,
     iter_iam_roles,
     iter_kms_keys,
@@ -54,9 +53,7 @@ def cfn_iam_has_wildcard_resource_on_write_action(
         ),
         iterator=get_cloud_iterator(
             cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
-                iam_iterator=iter_iam_managed_policies_and_roles(
-                    template=template
-                ),
+                iam_iterator=iter_iam_policies(template=template),
             )
         ),
         path=path,
