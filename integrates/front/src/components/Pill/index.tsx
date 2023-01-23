@@ -6,7 +6,7 @@ import type { TColor } from "../Text";
 
 type TVariant = "darkRed" | "orange" | "red" | "yellow";
 
-interface ITagScoreProps {
+interface IPillProps {
   textL: string;
   textR: string;
   variant: TVariant;
@@ -41,11 +41,7 @@ const variants: Record<TVariant, IVariant> = {
   },
 };
 
-const Pill: React.FC<ITagScoreProps> = ({
-  textL,
-  textR,
-  variant,
-}): JSX.Element => {
+const Pill: React.FC<IPillProps> = ({ textL, textR, variant }): JSX.Element => {
   const { bgColor, border, tone } = variants[variant];
 
   return (
@@ -68,4 +64,5 @@ const Pill: React.FC<ITagScoreProps> = ({
   );
 };
 
+export type { IPillProps };
 export { Pill };
