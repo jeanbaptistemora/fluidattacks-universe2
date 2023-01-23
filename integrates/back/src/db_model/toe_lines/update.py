@@ -15,9 +15,6 @@ from boto3.dynamodb.conditions import (
 from custom_exceptions import (
     ToeLinesAlreadyUpdated,
 )
-from datetime import (
-    datetime,
-)
 from db_model.utils import (
     get_as_utc_iso_format,
     serialize,
@@ -54,20 +51,11 @@ async def update_state(
             "root_id": current_value.root_id,
         },
     )
-    base_item: Item = {
-        key: get_as_utc_iso_format(value)
-        if isinstance(value, datetime)
-        else value
-        for key, value in metadata._asdict().items()
-        if value is not None
-        and key
-        not in {
-            "clean_attacked_at",
-            "clean_be_present_until",
-            "clean_first_attack_at",
-            "state",
-        }
-    }
+    base_item = (
+        {"modified_date": get_as_utc_iso_format(metadata.modified_date)}
+        if metadata.modified_date
+        else {}
+    )
     state_item: Item = json.loads(json.dumps(new_state, default=serialize))
     if metadata.clean_attacked_at:
         state_item["attacked_at"] = None
@@ -75,17 +63,15 @@ async def update_state(
         state_item["be_present_until"] = None
     if metadata.clean_first_attack_at:
         state_item["first_attack_at"] = None
-    metadata_item = base_item | {
-        key: value
-        for key, value in state_item.items()
-        if key not in {"modified_by", "modified_date"}
-    }
-    metadata_item["state"] = {
-        "modified_by": new_state.modified_by,
-        "modified_date": get_as_utc_iso_format(new_state.modified_date)
-        if new_state.modified_date
-        else None,
-    }
+    metadata_item = (
+        base_item
+        | {
+            key: value
+            for key, value in state_item.items()
+            if key not in {"modified_by", "modified_date"}
+        }
+        | {"state": state_item}
+    )
 
     condition_expression = Attr(key_structure.partition_key).exists()
     if current_value.state.modified_date is None:
@@ -135,8 +121,8 @@ async def update_state(
             historic_key, key_structure, current_value
         )
         | base_item
+        | {"state": state_item}
     )
-    historic_item["state"] |= state_item
     await operations.put_item(
         facet=TABLE.facets["toe_lines_historic_metadata"],
         item=historic_item,
