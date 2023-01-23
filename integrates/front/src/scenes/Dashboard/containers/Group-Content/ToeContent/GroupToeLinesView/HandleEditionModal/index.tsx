@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HandleEditionModalForm } from "./form";
@@ -65,50 +65,60 @@ const HandleEditionModal: React.FC<IHandleEditionModalProps> = ({
       }
     );
 
-  const handleOnCompleted = (
-    result: FetchResult<IUpdateToeLinesAttackedLinesResultAttr>
-  ): void => {
-    if (
-      !_.isNil(result.data) &&
-      result.data.updateToeLinesAttackedLines.success
-    ) {
-      msgSuccess(
-        t("group.toe.lines.editModal.alerts.success"),
-        t("groupAlerts.updatedTitle")
+  const handleOnCompleted = useCallback(
+    (result: FetchResult<IUpdateToeLinesAttackedLinesResultAttr>): void => {
+      if (
+        !_.isNil(result.data) &&
+        result.data.updateToeLinesAttackedLines.success
+      ) {
+        msgSuccess(
+          t("group.toe.lines.editModal.alerts.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        refetchData();
+        setSelectedToeLinesDatas([]);
+        handleCloseModal();
+      }
+    },
+    [handleCloseModal, refetchData, setSelectedToeLinesDatas, t]
+  );
+
+  const handleSubmit = useCallback(
+    async (values: IFormValues): Promise<void> => {
+      const results = await Promise.all(
+        selectedToeLinesDatas.map(
+          async (
+            toeInputData: IToeLinesData
+          ): Promise<FetchResult<IUpdateToeLinesAttackedLinesResultAttr>> =>
+            handleUpdateToeLinesAttackedLines({
+              variables: {
+                attackedLines: _.isNumber(values.attackedLines)
+                  ? values.attackedLines
+                  : undefined,
+                comments: values.comments,
+                filename: toeInputData.filename,
+                groupName,
+                rootId: toeInputData.rootId,
+              },
+            })
+        )
       );
-      refetchData();
-      setSelectedToeLinesDatas([]);
-      handleCloseModal();
-    }
-  };
+      const errors = getErrors<IUpdateToeLinesAttackedLinesResultAttr>(results);
 
-  async function handleSubmit(values: IFormValues): Promise<void> {
-    const results = await Promise.all(
-      selectedToeLinesDatas.map(
-        async (
-          toeInputData: IToeLinesData
-        ): Promise<FetchResult<IUpdateToeLinesAttackedLinesResultAttr>> =>
-          handleUpdateToeLinesAttackedLines({
-            variables: {
-              attackedLines: _.isNumber(values.attackedLines)
-                ? values.attackedLines
-                : undefined,
-              comments: values.comments,
-              filename: toeInputData.filename,
-              groupName,
-              rootId: toeInputData.rootId,
-            },
-          })
-      )
-    );
-    const errors = getErrors<IUpdateToeLinesAttackedLinesResultAttr>(results);
-
-    if (!_.isEmpty(results) && _.isEmpty(errors)) {
-      handleOnCompleted(results[0]);
-    } else {
-      refetchData();
-    }
-  }
+      if (!_.isEmpty(results) && _.isEmpty(errors)) {
+        handleOnCompleted(results[0]);
+      } else {
+        refetchData();
+      }
+    },
+    [
+      groupName,
+      handleOnCompleted,
+      handleUpdateToeLinesAttackedLines,
+      refetchData,
+      selectedToeLinesDatas,
+    ]
+  );
 
   return (
     <React.StrictMode>

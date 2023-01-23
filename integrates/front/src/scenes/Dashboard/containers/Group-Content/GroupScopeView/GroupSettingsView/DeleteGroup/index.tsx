@@ -63,9 +63,9 @@ const DeleteGroup: React.FC = (): JSX.Element => {
     }
   );
 
-  function handleChange(): void {
+  const handleChange = useCallback((): void => {
     setIsModalOpen(!isModalOpen);
-  }
+  }, [isModalOpen]);
 
   const handleSubmit: (values: {
     comments: string;
