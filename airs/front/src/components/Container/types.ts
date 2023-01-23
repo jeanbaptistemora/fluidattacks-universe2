@@ -20,6 +20,8 @@ interface IContainerProps {
   children: React.ReactNode;
   direction?: TDirection;
   display?: TDisplay;
+  displayMd?: TDisplay;
+  displaySm?: TDisplay;
   height?: string;
   hoverColor?: string;
   hoverShadow?: boolean;

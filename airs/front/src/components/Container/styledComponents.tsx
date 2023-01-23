@@ -196,6 +196,8 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     borderHoverColor,
     direction = "unset",
     display = "block",
+    displayMd,
+    displaySm,
     height = "auto",
     hoverColor = "",
     hoverShadow = false,
@@ -250,6 +252,9 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
       ${getWidth(width, widthMd)}
       ${getJustify(justify, justifyMd)}
       ${getMinWidth(minWidth, minWidthMd)}
+      display: ${
+        displayMd === undefined ? displays[display] : displays[displayMd]
+      };
     }
 
     @media screen and (max-width: 30em) {
@@ -259,6 +264,9 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
         minWidthMd === undefined ? minWidth : minWidthMd,
         minWidthSm
       )}
+    display: ${
+      displaySm === undefined ? displays[display] : displays[displaySm]
+    };
     }
 
     :hover {

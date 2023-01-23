@@ -16,6 +16,8 @@ const Container: React.FC<IContainerProps> = ({
   children,
   direction,
   display,
+  displayMd,
+  displaySm,
   height,
   hoverColor,
   hoverShadow,
@@ -68,6 +70,8 @@ const Container: React.FC<IContainerProps> = ({
       center={center}
       direction={direction}
       display={display}
+      displayMd={displayMd}
+      displaySm={displaySm}
       height={height}
       hoverColor={hoverColor}
       hoverShadow={hoverShadow}
