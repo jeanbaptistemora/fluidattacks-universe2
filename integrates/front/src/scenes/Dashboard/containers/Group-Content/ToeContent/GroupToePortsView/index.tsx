@@ -10,7 +10,7 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -503,9 +503,9 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     void refetch();
   }, [refetch]);
 
-  function toggleAdd(): void {
+  const toggleAdd = useCallback((): void => {
     setIsAdding(!isAdding);
-  }
+  }, [isAdding]);
 
   const handleOnMarkAsAttackedCompleted = (
     result: FetchResult<IUpdateToePortResultAttr>
@@ -554,9 +554,9 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     setIsMarkingAsAttacked(false);
   }
 
-  function enabledRows(row: Row<IToePortData>): boolean {
+  const enabledRows = useCallback((row: Row<IToePortData>): boolean => {
     return row.original.bePresent;
-  }
+  }, []);
 
   return (
     <React.StrictMode>
