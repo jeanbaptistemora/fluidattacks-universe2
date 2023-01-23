@@ -292,7 +292,7 @@ export const enTranslations: ResourceKey = {
       yes: "Yes",
     },
     companyAlreadyInTrial:
-      "Your company is already in trial. Please contact your manager to request access.",
+      "Your company is already in trial and your user is not registered, Please contact your manager to request access.",
     corporateOnly:
       "Only corporate users are allowed. Please switch accounts and try again",
     credentials: {
