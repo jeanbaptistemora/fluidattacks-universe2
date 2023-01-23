@@ -687,14 +687,18 @@ def validate_finding_title_change_policy(
 
 
 def get_attr_value(field: str, kwargs: dict, obj_type: Type[T]) -> T:
-    if "." in field:
-        obj_name, attr_name = field.split(".")
-        obj = kwargs.get(obj_name)
-        value = getattr(obj, attr_name)
-        if not isinstance(value, obj_type):
-            return cast(T, value)
-        return value
-    return cast(T, kwargs.get(field))
+    if "." not in field:
+        return cast(T, kwargs.get(field))
+    obj_name, obj_attr = field.split(".", 1)
+    parts = obj_attr.split(".")
+    obj = kwargs.get(obj_name)
+    for part in parts:
+        value = getattr(obj, part)
+        obj = value
+        print(part, value, obj)
+    if not isinstance(value, obj_type):
+        return cast(T, value)
+    return value
 
 
 def validate_finding_title_change_policy_deco(
