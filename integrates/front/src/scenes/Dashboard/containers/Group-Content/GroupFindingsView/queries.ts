@@ -88,10 +88,11 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
     $after: String
     $first: Int
     $groupName: String!
+    $root: String
   ) {
     group(groupName: $groupName) {
       name
-      vulnerabilities(after: $after, first: $first) {
+      vulnerabilities(after: $after, first: $first, root: $root) {
         edges {
           node {
             findingId
