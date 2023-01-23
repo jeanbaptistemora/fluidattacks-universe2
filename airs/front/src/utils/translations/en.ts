@@ -813,6 +813,29 @@ const pageTexts: ResourceKey = {
     title: "Have a question? We're here to help.",
   },
   menu: {
+    company: {
+      fluid: {
+        about: {
+          subtitle:
+            "Learn about our team structure, purpose and long-term goals.",
+          title: "About us",
+        },
+        careers: {
+          subtitle: "Check out available positions to work at Fluid Attacks.",
+          title: "Careers",
+        },
+        certifications: {
+          subtitle:
+            "Explore the many certifications in offensive security earned by our team.",
+          title: "Certifications",
+        },
+        partners: {
+          subtitle: "Get to know our partner network and become a part of it.",
+          title: "Partners",
+        },
+        title: "Fluid Attacks",
+      },
+    },
     platform: {
       aSinglePane: {
         ARMplatform: {
@@ -840,6 +863,49 @@ const pageTexts: ResourceKey = {
           sca: "Software composition analysis (SCA)",
         },
         title: "Scanning and analysis products",
+      },
+    },
+    resources: {
+      help: {
+        documentation: {
+          subtitle:
+            "Browse information about using our platform and understand " +
+            "vulnerabilities, security requirements, standards and more.",
+          title: "Documentation",
+        },
+        faq: {
+          subtitle:
+            "Find the answers to the questions we get asked most frequently.",
+          title: "FAQs",
+        },
+        title: "Help",
+      },
+      learn: {
+        blog: {
+          subtitle:
+            "Read our content on cybersecurity concepts, " +
+            "approaches, trends, news, techniques and more.",
+          title: "Blog",
+        },
+        clients: {
+          subtitle:
+            "See which companies are already enjoying the " +
+            "benefits of Fluid Attacks’ Continuous Hacking.",
+          title: "Clients",
+        },
+        downloadables: {
+          subtitle:
+            "Access our informative documents and webinar " +
+            "recordings for free.",
+          title: "Downloadables",
+        },
+        events: {
+          subtitle:
+            "Learn about the events we are hosting or " +
+            "attending in the coming weeks.",
+          title: "Upcoming events",
+        },
+        title: "Learn and connect",
       },
     },
     services: {
