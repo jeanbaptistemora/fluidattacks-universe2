@@ -19,6 +19,9 @@ from syntax_graph.types import (
 from utils.graph import (
     adj_ast,
 )
+from utils.graph.text_nodes import (
+    node_to_str,
+)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
@@ -53,4 +56,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
         ]
         return build_array_node(args, valid_childs)
 
-    return args.n_id
+    return build_string_literal_node(
+        args, node_to_str(args.ast_graph, args.n_id)
+    )

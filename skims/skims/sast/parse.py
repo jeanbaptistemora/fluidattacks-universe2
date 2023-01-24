@@ -289,7 +289,6 @@ def _parse_one_cached(
         GraphShardMetadataLanguage.CSHARP,
         GraphShardMetadataLanguage.DART,
         GraphShardMetadataLanguage.GO,
-        GraphShardMetadataLanguage.HCL,
         GraphShardMetadataLanguage.JAVA,
         GraphShardMetadataLanguage.JAVASCRIPT,
         GraphShardMetadataLanguage.JSON,

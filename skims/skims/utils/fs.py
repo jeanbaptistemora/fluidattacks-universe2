@@ -63,7 +63,7 @@ language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
     GraphShardMetadataLanguage.RUBY: [".rb"],
     GraphShardMetadataLanguage.SCALA: [".sc", ".scala"],
     GraphShardMetadataLanguage.TYPESCRIPT: [".ts", ".tsx"],
-    GraphShardMetadataLanguage.YAML: [".yaml"],
+    GraphShardMetadataLanguage.YAML: [".yaml", ".yml"],
 }
 
 

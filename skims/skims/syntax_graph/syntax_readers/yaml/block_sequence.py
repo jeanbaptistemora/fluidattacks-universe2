@@ -35,7 +35,11 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     usable_childs = []
     for child in valid_childs:
-        curr_child = adj_ast(args.ast_graph, child)[1]
+        childs = adj_ast(args.ast_graph, child)
+        if len(childs) < 2:
+            continue
+        curr_child = childs[1]
+
         if args.ast_graph.nodes[curr_child]["label_type"] != "block_node":
             usable_childs.append(curr_child)
         else:
