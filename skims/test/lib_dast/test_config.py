@@ -9,6 +9,7 @@ from pytest_mock import (
 )
 import tempfile
 from test.lib_dast.mocks import (
+    f016,
     f024,
     f031,
 )
@@ -23,6 +24,7 @@ from typing import (
 )
 
 MOCKERS: dict[str, Callable] = {
+    "F016": f016.mock_data,
     "F024": f024.mock_data,
     "F031": f031.mock_data,
 }
@@ -111,6 +113,12 @@ def run_finding(finding: str, mocker: MockerFixture) -> None:
         assert "[INFO] Success: True" in stdout
         assert not stderr, stderr
         check_that_csv_results_match(finding)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("dast_f016")
+def test_dast_f016(mocker: MockerFixture) -> None:
+    run_finding("F016", mocker)
 
 
 @pytest.mark.flaky(reruns=0)

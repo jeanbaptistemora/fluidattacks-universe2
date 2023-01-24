@@ -11,6 +11,7 @@
   "benchmark_weakrand",
   "benchmark_xpathi",
   "benchmark_xss",
+  "dast_f016",
   "dast_f024",
   "dast_f031",
   "instance_references",

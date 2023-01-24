@@ -15,3 +15,75 @@ F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess: AttachmentCount/1 (name
   13 | }
      ^ Col 0
 ",aws.admin_policy_attached
+F031,inputs,arn:aws:iam::aws:user/user1 (namespace),/PolicyNames: inlinePolicy1,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role,"
+  30 |             ""Grantee"": {
+  31 |                 ""DisplayName"": ""string"",
+  32 |                 ""EmailAddress"": ""string"",
+  33 |                 ""ID"": ""string"",
+  34 |                 ""Type"": ""CanonicalUser"",
+  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
+  36 |             },
+  37 |             ""Permission"": ""FULL_CONTROL""
+  38 |         }
+  39 |     ],
+> 40 |     ""PolicyNames"": [
+  41 |         ""inlinePolicy1""
+  42 |     ],
+  43 |     ""Users"": [
+  44 |         {
+  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  47 |         }
+  48 |     ],
+  49 |     ""AttachedPolicies"": [
+  50 |         {
+     ^ Col 0
+",aws.user_with_inline_policies
+F031,inputs,arn:aws:s3:::bucket-018de572ae43404d8 (namespace),/Grants/0/Permission: FULL_CONTROL,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
+  27 |     },
+  28 |     ""Grants"": [
+  29 |         {
+  30 |             ""Grantee"": {
+  31 |                 ""DisplayName"": ""string"",
+  32 |                 ""EmailAddress"": ""string"",
+  33 |                 ""ID"": ""string"",
+  34 |                 ""Type"": ""CanonicalUser"",
+  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
+  36 |             },
+> 37 |             ""Permission"": ""FULL_CONTROL""
+  38 |         }
+  39 |     ],
+  40 |     ""PolicyNames"": [
+  41 |         ""inlinePolicy1""
+  42 |     ],
+  43 |     ""Users"": [
+  44 |         {
+  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  47 |         }
+     ^ Col 0
+",aws.public_buckets
+F031,inputs,arn:aws:iam::aws:user/user1 (namespace),"/AttachedPolicies: [{'PolicyName': 'inlinePolicy1', 'PolicyArn': 'policyArn'}]",250,skims,031. Excessive privileges - AWS,Users must not have policies directly attached.,"
+  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
+  36 |             },
+  37 |             ""Permission"": ""FULL_CONTROL""
+  38 |         }
+  39 |     ],
+  40 |     ""PolicyNames"": [
+  41 |         ""inlinePolicy1""
+  42 |     ],
+  43 |     ""Users"": [
+  44 |         {
+  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  47 |         }
+  48 |     ],
+> 49 |     ""AttachedPolicies"": [
+  50 |         {
+  51 |             ""PolicyName"": ""inlinePolicy1"",
+  52 |             ""PolicyArn"": ""policyArn""
+  53 |         }
+  54 |     ]
+  55 | }
+     ^ Col 0
+",aws.policies_attached_to_users
