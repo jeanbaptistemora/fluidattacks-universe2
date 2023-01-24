@@ -124,10 +124,54 @@ async def root_has_access_keys(
     return vulns
 
 
+async def has_not_support_role(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.AWS_IAM_HAS_NOT_SUPPORT_ROLE
+    vulns: core_model.Vulnerabilities = ()
+    attached_times: int = 0
+    policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
+    entities: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_entities_for_policy",
+        parameters={
+            "PolicyArn": policy_arn,
+        },
+    )
+
+    locations: List[Location] = []
+    attached_times = (
+        len(list(filter(None, entities["PolicyUsers"])))
+        + len(list(filter(None, entities["PolicyGroups"])))
+        + len(list(filter(None, entities["PolicyRoles"])))
+    )
+    if attached_times == 0:
+        locations = [
+            Location(
+                access_patterns=(),
+                arn=(f"{policy_arn}"),
+                values=(),
+                description=("src.lib_path.f165.has_not_support_role"),
+            ),
+        ]
+        vulns = (
+            *vulns,
+            *build_vulnerabilities(
+                locations=locations,
+                method=(method),
+                aws_response=entities,
+            ),
+        )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     users_with_multiple_access_keys,
     root_has_access_keys,
+    has_not_support_role,
 )
