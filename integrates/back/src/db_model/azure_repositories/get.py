@@ -69,26 +69,29 @@ BASE_URL = "https://dev.azure.com"
 
 async def get_repositories(
     *,
-    credentials: tuple[Credentials, ...],
-) -> tuple[tuple[GitRepository, ...], ...]:
-    return await collect(
-        tuple(
-            in_thread(
-                _get_repositories,
-                base_url=f"{BASE_URL}/{credential.state.azure_organization}",
-                access_token=credential.state.secret.token
-                if isinstance(credential.state.secret, HttpsPatSecret)
-                else "",
-            )
-            for credential in credentials
-        ),
-        workers=1,
+    credentials: list[Credentials],
+) -> list[list[GitRepository]]:
+    return list(
+        await collect(
+            tuple(
+                in_thread(
+                    _get_repositories,
+                    base_url=f"{BASE_URL}/"
+                    f"{credential.state.azure_organization}",
+                    access_token=credential.state.secret.token
+                    if isinstance(credential.state.secret, HttpsPatSecret)
+                    else "",
+                )
+                for credential in credentials
+            ),
+            workers=1,
+        )
     )
 
 
 def _get_repositories(
     *, base_url: str, access_token: str
-) -> tuple[GitRepository, ...]:
+) -> list[GitRepository]:
     credentials = BasicAuthentication("", access_token)
     connection = Connection(base_url=base_url, creds=credentials)
     try:
@@ -100,9 +103,9 @@ def _get_repositories(
         AzureDevOpsServiceError,
     ) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
-        return tuple()
+        return []
     else:
-        return tuple(repositories)
+        return repositories
 
 
 async def get_repositories_commits(
@@ -352,8 +355,8 @@ class OrganizationRepositoriesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        credentials: tuple[Credentials, ...],
-    ) -> tuple[tuple[GitRepository, ...], ...]:
+        credentials: list[Credentials],
+    ) -> list[list[GitRepository]]:
         return await get_repositories(credentials=credentials)
 
 

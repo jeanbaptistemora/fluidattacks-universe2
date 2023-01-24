@@ -39,12 +39,10 @@ from urllib.parse import (
 
 
 async def _get_repositories(
-    *, loaders: Dataloaders, pat_credentials: tuple[Credentials, ...]
-) -> tuple[tuple[GitRepository, ...], ...]:
-    return tuple(
-        await loaders.organization_integration_repositories.load_many(
-            pat_credentials
-        )
+    *, loaders: Dataloaders, pat_credentials: list[Credentials]
+) -> list[list[GitRepository]]:
+    return await loaders.organization_integration_repositories.load_many(
+        pat_credentials
     )
 
 
@@ -71,11 +69,7 @@ async def resolve(
     credentials: tuple[
         Credentials, ...
     ] = await loaders.organization_credentials.load(parent.id)
-
-    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
-        credentials
-    )
-
+    pat_credentials = list(filter_pat_credentials(credentials))
     repositories, roots_url = await collect(
         (
             _get_repositories(
@@ -84,7 +78,6 @@ async def resolve(
             _get_roots(loaders=loaders, organization_name=parent.name),
         )
     )
-
     urls = {
         unquote_plus(urlparse(url.lower()).path)
         for url in (roots_url if isinstance(roots_url, set) else set())

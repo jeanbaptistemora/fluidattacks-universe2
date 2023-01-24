@@ -251,11 +251,9 @@ async def get_pat_credentials_authors_stats(
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
-    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
-        credentials
-    )
+    pat_credentials = list(filter_pat_credentials(credentials))
     all_repositories: list[
-        tuple[GitRepository, ...]
+        list[GitRepository]
     ] = await loaders.organization_integration_repositories.load_many(
         pat_credentials
     )
@@ -844,11 +842,9 @@ async def get_pat_credentials_stats(
     loaders: Dataloaders,
     organization_id: str,
 ) -> RepositoriesStats:
-    pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
-        credentials
-    )
+    pat_credentials = list(filter_pat_credentials(credentials))
     all_repositories: list[
-        tuple[GitRepository, ...]
+        list[GitRepository]
     ] = await loaders.organization_integration_repositories.load_many(
         pat_credentials
     )
