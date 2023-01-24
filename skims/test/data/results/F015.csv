@@ -1,0 +1,343 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Property admin_ssh_key is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
+>  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
+   2 |   name           = ""example-machine""
+   3 |   size           = ""Standard_F2""
+   4 |   admin_username = ""adminuser""
+   5 |
+   6 | }
+   7 |
+   8 | resource ""azurerm_linux_virtual_machine"" ""not_vulnerable"" {
+   9 |   name           = ""example-machine""
+  10 |   size           = ""Standard_F2""
+  11 |   admin_username = ""adminuser""
+  12 |
+  13 |   admin_ssh_key {
+  14 |     username   = ""adminuser""
+  15 |     public_key = file(""~/.ssh/id_rsa.pub"")
+  16 |   }
+  17 | }
+     ^ Col 0
+",terraform.tfm_azure_linux_vm_insecure_authentication
+F015,lines,namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,8,287,skims,015. Insecure authentication method - Basic,Property ssh_keys is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_vm_ssh.tf,"
+   1 | resource ""azurerm_virtual_machine"" ""vulnerable"" {
+   2 |   name                  = ""${var.prefix}-vm""
+   3 |   location              = azurerm_resource_group.main.location
+   4 |   resource_group_name   = azurerm_resource_group.main.name
+   5 |   network_interface_ids = [azurerm_network_interface.main.id]
+   6 |   vm_size               = ""Standard_DS1_v2""
+   7 |
+>  8 |   os_profile_linux_config {
+   9 |     disable_password_authentication = false
+  10 |   }
+  11 | }
+  12 |
+  13 | resource ""azurerm_virtual_machine"" ""not_vulnerable"" {
+  14 |   name                  = ""${var.prefix}-vm""
+  15 |   location              = azurerm_resource_group.main.location
+  16 |   resource_group_name   = azurerm_resource_group.main.name
+  17 |   network_interface_ids = [azurerm_network_interface.main.id]
+  18 |   vm_size               = ""Standard_DS1_v2""
+  19 |
+  20 |   os_profile_linux_config {
+  21 |     disable_password_authentication = false
+     ^ Col 0
+",terraform.tfm_azure_virtual_machine_insecure_authentication
+F015,lines,namespace/skims/test/data/lib_path/f015/basic_auth_method.config,2,287,skims,015. Insecure authentication method - Basic,The basic method is used in the XML config in namespace/skims/test/data/lib_path/f015/basic_auth_method.config,"
+  1 | <login-config>
+> 2 |     <auth-method>BASIC</auth-method>
+  3 | </login-config>
+  4 |
+  5 | <login-config>
+  6 |     <auth-method>FORM</auth-method>
+  7 | </login-config>
+    ^ Col 0
+",conf_files.xml_basic_auth_method
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,273,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   263 |               <stringProp name=""outputFormat""></stringProp>
+   264 |               <boolProp name=""perThread"">true</boolProp>
+   265 |               <stringProp name=""randomSeed""></stringProp>
+   266 |               <stringProp name=""variableName"">counter</stringProp>
+   267 |             </RandomVariableConfig>
+   268 |             <hashTree/>
+   269 |             <HeaderManager guiclass=""HeaderPanel"" testclass=""HeaderManager"" testname=""HTTP Header Manager"" enabled=""true""
+   270 |               <collectionProp name=""HeaderManager.headers"">
+   271 |                 <elementProp name="""" elementType=""Header"">
+   272 |                   <stringProp name=""Header.name"">Authorization</stringProp>
+>  273 |                   <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+   274 |                 </elementProp>
+   275 |               </collectionProp>
+   276 |             </HeaderManager>
+   277 |             <hashTree/>
+   278 |             <BeanShellPreProcessor guiclass=""TestBeanGUI"" testclass=""BeanShellPreProcessor"" testname=""BeanShell PreProces
+   279 |               <stringProp name=""filename""></stringProp>
+   280 |               <stringProp name=""parameters""></stringProp>
+   281 |               <boolProp name=""resetInterpreter"">false</boolProp>
+   282 |               <stringProp name=""script"">import org.apache.commons.codec.binary.Base64;
+   283 | byte[] encodedUsernamePassword = Base64.encodeBase64(&quot;${adminusername}:${adminpassword}&quot;.getBytes());
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,510,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   500 |                   <elementProp name="""" elementType=""Header"">
+   501 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>
+   502 |                     <stringProp name=""Header.value"">urn:createApplication</stringProp>
+   503 |                   </elementProp>
+   504 |                   <elementProp name="""" elementType=""Header"">
+   505 |                     <stringProp name=""Header.name"">Content-Type</stringProp>
+   506 |                     <stringProp name=""Header.value"">text/xml</stringProp>
+   507 |                   </elementProp>
+   508 |                   <elementProp name="""" elementType=""Header"">
+   509 |                     <stringProp name=""Header.name"">Authorization</stringProp>
+>  510 |                     <stringProp name=""Header.value"">Basic 101jfaa{}][asdh</stringProp>
+   511 |                   </elementProp>
+   512 |                 </collectionProp>
+   513 |               </HeaderManager>
+   514 |               <hashTree/>
+   515 |               <ResponseAssertion guiclass=""AssertionGui"" testclass=""ResponseAssertion"" testname=""200 OK HTTP Code Respons
+   516 |                 <collectionProp name=""Asserion.test_strings"">
+   517 |                   <stringProp name=""-1606201635"">HTTP/1.1 200 OK</stringProp>
+   518 |                 </collectionProp>
+   519 |                 <stringProp name=""Assertion.test_field"">Assertion.response_headers</stringProp>
+   520 |                 <boolProp name=""Assertion.assume_success"">false</boolProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,569,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   559 |                   <elementProp name="""" elementType=""Header"">
+   560 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>
+   561 |                     <stringProp name=""Header.value"">urn:getServiceProviders</stringProp>
+   562 |                   </elementProp>
+   563 |                   <elementProp name="""" elementType=""Header"">
+   564 |                     <stringProp name=""Header.name"">Content-Type</stringProp>
+   565 |                     <stringProp name=""Header.value"">text/xml</stringProp>
+   566 |                   </elementProp>
+   567 |                   <elementProp name="""" elementType=""Header"">
+   568 |                     <stringProp name=""Header.name"">Authorization</stringProp>
+>  569 |                     <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+   570 |                   </elementProp>
+   571 |                 </collectionProp>
+   572 |               </HeaderManager>
+   573 |               <hashTree/>
+   574 |               <RegexExtractor guiclass=""RegexExtractorGui"" testclass=""RegexExtractor"" testname=""Service Index Extractor""
+   575 |                 <stringProp name=""RegexExtractor.useHeaders"">false</stringProp>
+   576 |                 <stringProp name=""RegexExtractor.refname"">serviceIndex</stringProp>
+   577 |                 <stringProp name=""RegexExtractor.regex"">attributeConsumingServiceIndex&gt;(.*?)&lt;/</stringProp>
+   578 |                 <stringProp name=""RegexExtractor.template"">$1$</stringProp>
+   579 |                 <stringProp name=""RegexExtractor.default"">NP_ServiceIndex</stringProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,641,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   631 |                   <elementProp name="""" elementType=""Header"">
+   632 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>
+   633 |                     <stringProp name=""Header.value"">urn:getApplication</stringProp>
+   634 |                   </elementProp>
+   635 |                   <elementProp name="""" elementType=""Header"">
+   636 |                     <stringProp name=""Header.name"">Content-Type</stringProp>
+   637 |                     <stringProp name=""Header.value"">text/xml</stringProp>
+   638 |                   </elementProp>
+   639 |                   <elementProp name="""" elementType=""Header"">
+   640 |                     <stringProp name=""Header.name"">Authorization</stringProp>
+>  641 |                     <stringProp name=""Header.value"">Basic 12jlkasd123{ada+</stringProp>
+   642 |                   </elementProp>
+   643 |                 </collectionProp>
+   644 |               </HeaderManager>
+   645 |               <hashTree/>
+   646 |               <RegexExtractor guiclass=""RegexExtractorGui"" testclass=""RegexExtractor"" testname=""Regular Expression Extrac
+   647 |                 <stringProp name=""RegexExtractor.useHeaders"">false</stringProp>
+   648 |                 <stringProp name=""RegexExtractor.refname"">appIDPlaygrnd</stringProp>
+   649 |                 <stringProp name=""RegexExtractor.regex"">applicationID&gt;(.*?)&lt;/</stringProp>
+   650 |                 <stringProp name=""RegexExtractor.template"">$1$</stringProp>
+   651 |                 <stringProp name=""RegexExtractor.default"">NP_AppID</stringProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,787,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   777 |                   <elementProp name="""" elementType=""Header"">
+   778 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>
+   779 |                     <stringProp name=""Header.value"">urn:updateApplication</stringProp>
+   780 |                   </elementProp>
+   781 |                   <elementProp name="""" elementType=""Header"">
+   782 |                     <stringProp name=""Header.name"">Content-Type</stringProp>
+   783 |                     <stringProp name=""Header.value"">text/xml</stringProp>
+   784 |                   </elementProp>
+   785 |                   <elementProp name="""" elementType=""Header"">
+   786 |                     <stringProp name=""Header.name"">Authorization</stringProp>
+>  787 |                     <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+   788 |                   </elementProp>
+   789 |                 </collectionProp>
+   790 |               </HeaderManager>
+   791 |               <hashTree/>
+   792 |               <ResponseAssertion guiclass=""AssertionGui"" testclass=""ResponseAssertion"" testname=""200 OK HTTP Code Respons
+   793 |                 <collectionProp name=""Asserion.test_strings"">
+   794 |                   <stringProp name=""-1606201635"">HTTP/1.1 200 OK</stringProp>
+   795 |                 </collectionProp>
+   796 |                 <stringProp name=""Assertion.test_field"">Assertion.response_headers</stringProp>
+   797 |                 <boolProp name=""Assertion.assume_success"">false</boolProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,825,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+   815 |             <hashTree/>
+   816 |             <CookieManager guiclass=""CookiePanel"" testclass=""CookieManager"" testname=""HTTP Cookie Manager"" enabled=""true""
+   817 |               <collectionProp name=""CookieManager.cookies""/>
+   818 |               <boolProp name=""CookieManager.clearEachIteration"">false</boolProp>
+   819 |             </CookieManager>
+   820 |             <hashTree/>
+   821 |             <HeaderManager guiclass=""HeaderPanel"" testclass=""HeaderManager"" testname=""HTTP Header Manager"" enabled=""true""
+   822 |               <collectionProp name=""HeaderManager.headers"">
+   823 |                 <elementProp name="""" elementType=""Header"">
+   824 |                   <stringProp name=""Header.name"">Authorization</stringProp>
+>  825 |                   <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+   826 |                 </elementProp>
+   827 |               </collectionProp>
+   828 |             </HeaderManager>
+   829 |             <hashTree/>
+   830 |             <HTTPSamplerProxy guiclass=""HttpTestSampleGui"" testclass=""HTTPSamplerProxy"" testname=""Creating a SP ( travelo
+   831 |               <boolProp name=""HTTPSampler.postBodyRaw"">true</boolProp>
+   832 |               <elementProp name=""HTTPsampler.Arguments"" elementType=""Arguments"">
+   833 |                 <collectionProp name=""Arguments.arguments"">
+   834 |                   <elementProp name="""" elementType=""HTTPArgument"">
+   835 |                     <boolProp name=""HTTPArgument.always_encode"">false</boolProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,1195,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+  1185 |               <stringProp name=""script"">import org.apache.commons.codec.binary.Base64;
+  1186 | byte[] encodedUsernamePassword = Base64.encodeBase64(&quot;${adminusername}:${adminpassword}&quot;.getBytes());
+  1187 | vars.put(&quot;base64HeaderValue&quot;,new String(encodedUsernamePassword));</stringProp>
+  1188 |               <stringProp name=""TestPlan.comments"">This is use to base64 encode the username and password</stringProp>
+  1189 |             </BeanShellPreProcessor>
+  1190 |             <hashTree/>
+  1191 |             <HeaderManager guiclass=""HeaderPanel"" testclass=""HeaderManager"" testname=""HTTP Header Manager"" enabled=""true""
+  1192 |               <collectionProp name=""HeaderManager.headers"">
+  1193 |                 <elementProp name="""" elementType=""Header"">
+  1194 |                   <stringProp name=""Header.name"">Authorization</stringProp>
+> 1195 |                   <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+  1196 |                 </elementProp>
+  1197 |               </collectionProp>
+  1198 |             </HeaderManager>
+  1199 |             <hashTree/>
+  1200 |             <HTTPSamplerProxy guiclass=""HttpTestSampleGui"" testclass=""HTTPSamplerProxy"" testname=""Delete User - SSO SP cr
+  1201 |               <boolProp name=""HTTPSampler.postBodyRaw"">true</boolProp>
+  1202 |               <elementProp name=""HTTPsampler.Arguments"" elementType=""Arguments"">
+  1203 |                 <collectionProp name=""Arguments.arguments"">
+  1204 |                   <elementProp name="""" elementType=""HTTPArgument"">
+  1205 |                     <boolProp name=""HTTPArgument.always_encode"">false</boolProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,1345,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+  1335 |               <stringProp name=""script"">import org.apache.commons.codec.binary.Base64;
+  1336 | byte[] encodedUsernamePassword = Base64.encodeBase64(&quot;${adminusername}:${adminpassword}&quot;.getBytes());
+  1337 | vars.put(&quot;base64HeaderValue&quot;,new String(encodedUsernamePassword));</stringProp>
+  1338 |               <stringProp name=""TestPlan.comments"">This is use to base64 encode the username and password</stringProp>
+  1339 |             </BeanShellPreProcessor>
+  1340 |             <hashTree/>
+  1341 |             <HeaderManager guiclass=""HeaderPanel"" testclass=""HeaderManager"" testname=""HTTP Header Manager"" enabled=""true""
+  1342 |               <collectionProp name=""HeaderManager.headers"">
+  1343 |                 <elementProp name="""" elementType=""Header"">
+  1344 |                   <stringProp name=""Header.name"">Authorization</stringProp>
+> 1345 |                   <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+  1346 |                 </elementProp>
+  1347 |               </collectionProp>
+  1348 |             </HeaderManager>
+  1349 |             <hashTree/>
+  1350 |             <HTTPSamplerProxy guiclass=""HttpTestSampleGui"" testclass=""HTTPSamplerProxy"" testname=""Delete Travelocity SP""
+  1351 |               <boolProp name=""HTTPSampler.postBodyRaw"">true</boolProp>
+  1352 |               <elementProp name=""HTTPsampler.Arguments"" elementType=""Arguments"">
+  1353 |                 <collectionProp name=""Arguments.arguments"">
+  1354 |                   <elementProp name="""" elementType=""HTTPArgument"">
+  1355 |                     <boolProp name=""HTTPArgument.always_encode"">false</boolProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,1465,287,skims,015. Insecure authentication method - Basic,The basic method is used in the headers in namespace/skims/test/data/lib_path/f015/jmx_header_basic.jmx,"
+  1455 |                   <elementProp name="""" elementType=""Header"">
+  1456 |                     <stringProp name=""Header.name"">SOAPAction</stringProp>
+  1457 |                     <stringProp name=""Header.value"">urn:deleteApplication</stringProp>
+  1458 |                   </elementProp>
+  1459 |                   <elementProp name="""" elementType=""Header"">
+  1460 |                     <stringProp name=""Header.name"">Content-Type</stringProp>
+  1461 |                     <stringProp name=""Header.value"">text/xml</stringProp>
+  1462 |                   </elementProp>
+  1463 |                   <elementProp name="""" elementType=""Header"">
+  1464 |                     <stringProp name=""Header.name"">Authorization</stringProp>
+> 1465 |                     <stringProp name=""Header.value"">Basic ${base64HeaderValue}</stringProp>
+  1466 |                   </elementProp>
+  1467 |                 </collectionProp>
+  1468 |               </HeaderManager>
+  1469 |               <hashTree/>
+  1470 |             </hashTree>
+  1471 |           </hashTree>
+  1472 |         </hashTree>
+  1473 |         <ResultCollector guiclass=""ViewResultsFullVisualizer"" testclass=""ResultCollector"" testname=""View Results Tree"" en
+  1474 |           <boolProp name=""ResultCollector.error_logging"">false</boolProp>
+  1475 |           <objProp>
+       ^ Col 0
+",conf_files.jmx_header_basic
+F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,9,287,skims,015. Insecure authentication method - Basic,The server uses Basic authentication over an insecure channel. in namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,"
+   1 | import AnyOtherClass;
+   2 |
+   3 | public class MustFail {
+   4 |   public void objectCreation() {
+   5 |     HttpHeaders instantiatedHeaders = new HttpHeaders();
+   6 |     instantiatedHeaders.setBasicAuth();
+   7 |   }
+   8 |   public void parameter(HttpHeaders parameterHeaders) {
+>  9 |     parameterHeaders.setBasicAuth();
+  10 |   }
+  11 |   public void fromGetHeaders(){
+  12 |     AnyClass anyObject;
+  13 |
+  14 |     anyObject = request.getHeaders();
+  15 |     anyObject.setBasicAuth();
+  16 |   }
+  17 | }
+  18 |
+  19 | public class MustNotFail {
+  20 |   public void objectCreation() {
+  21 |     AnyOtherClass instantiatedHeaders = new AnyOtherClass();
+     ^ Col 0
+",java.java_insecure_authentication
+F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,6,287,skims,015. Insecure authentication method - Basic,The server uses Basic authentication over an insecure channel. in namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,"
+   1 | import AnyOtherClass;
+   2 |
+   3 | public class MustFail {
+   4 |   public void objectCreation() {
+   5 |     HttpHeaders instantiatedHeaders = new HttpHeaders();
+>  6 |     instantiatedHeaders.setBasicAuth();
+   7 |   }
+   8 |   public void parameter(HttpHeaders parameterHeaders) {
+   9 |     parameterHeaders.setBasicAuth();
+  10 |   }
+  11 |   public void fromGetHeaders(){
+  12 |     AnyClass anyObject;
+  13 |
+  14 |     anyObject = request.getHeaders();
+  15 |     anyObject.setBasicAuth();
+  16 |   }
+  17 | }
+  18 |
+  19 | public class MustNotFail {
+  20 |   public void objectCreation() {
+  21 |     AnyOtherClass instantiatedHeaders = new AnyOtherClass();
+     ^ Col 0
+",java.java_insecure_authentication
+F015,lines,namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,15,287,skims,015. Insecure authentication method - Basic,The server uses Basic authentication over an insecure channel. in namespace/skims/test/data/lib_root/f015/java_insecure_authentication.java,"
+   5 |     HttpHeaders instantiatedHeaders = new HttpHeaders();
+   6 |     instantiatedHeaders.setBasicAuth();
+   7 |   }
+   8 |   public void parameter(HttpHeaders parameterHeaders) {
+   9 |     parameterHeaders.setBasicAuth();
+  10 |   }
+  11 |   public void fromGetHeaders(){
+  12 |     AnyClass anyObject;
+  13 |
+  14 |     anyObject = request.getHeaders();
+> 15 |     anyObject.setBasicAuth();
+  16 |   }
+  17 | }
+  18 |
+  19 | public class MustNotFail {
+  20 |   public void objectCreation() {
+  21 |     AnyOtherClass instantiatedHeaders = new AnyOtherClass();
+  22 |     instantiatedHeaders.setBasicAuth();
+  23 |   }
+  24 |   public void parameter(AnyOtherClass parameterHeaders) {
+  25 |     parameterHeaders.setBasicAuth();
+     ^ Col 0
+",java.java_insecure_authentication

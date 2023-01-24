@@ -145,6 +145,17 @@
     - /testPython/skims@benchmark_xpathi
     - /testPython/skims@benchmark_xss
     - /testPython/skims@instance_references
+    - /testPython/skims@f001
+    - /testPython/skims@f004
+    - /testPython/skims@f007
+    - /testPython/skims@f008
+    - /testPython/skims@f009
+    - /testPython/skims@f011
+    - /testPython/skims@f012
+    - /testPython/skims@f015
+    - /testPython/skims@f016
+    - /testPython/skims@f024
+    - /testPython/skims@f031
     - /testPython/skims@lib_apk
     - /testPython/skims@lib_http
     - /testPython/skims@lib_http_2
@@ -486,6 +497,14 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
 /testPython/skims@f001:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -506,6 +525,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f004:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -526,6 +553,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f007:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -546,6 +581,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f008:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -566,6 +609,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f009:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -586,6 +637,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f011:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -605,7 +664,71 @@
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
+/testPython/skims@f012:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f012
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
+/testPython/skims@f015:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f015
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
 /testPython/skims@f016:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -626,6 +749,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f024:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -646,6 +777,14 @@
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
 /testPython/skims@f031:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -663,8 +802,8 @@
   tags:
     - small
   variables:
-    GIT_DEPTH: 0
-    MAKES_GIT_DEPTH: 0
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testPython/skims@instance_references:
   after_script:
     - cp ~/.makes/provenance-* .
