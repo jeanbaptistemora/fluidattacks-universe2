@@ -3631,7 +3631,7 @@ class MethodsEnum(Enum):
     JSON_ANON_CONNECTION_CONFIG = MethodInfo(
         file_name="conf_files",
         name="json_anon_connection_config",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F056,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
