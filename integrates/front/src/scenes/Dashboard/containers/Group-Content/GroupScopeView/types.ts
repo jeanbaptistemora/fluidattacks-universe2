@@ -35,7 +35,7 @@ interface ICredentialsAttr {
   isPat: boolean;
   isToken: boolean;
   name: string;
-  type: "" | "HTTPS" | "SSH";
+  type: "" | "HTTPS" | "OAUTH" | "SSH";
 }
 
 declare type CloningStatusType = "FAIL" | "N/A" | "OK" | "QUEUED" | "UNKNOWN";

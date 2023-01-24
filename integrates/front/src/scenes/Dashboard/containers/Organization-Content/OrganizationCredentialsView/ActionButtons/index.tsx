@@ -59,7 +59,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           )}
         >
           <Button
-            disabled={disabled || _.isUndefined(selectedCredentials)}
+            disabled={
+              disabled ||
+              _.isUndefined(selectedCredentials) ||
+              selectedCredentials.type === "OAUTH"
+            }
             id={"editCredentials"}
             onClick={onEdit}
             variant={"secondary"}

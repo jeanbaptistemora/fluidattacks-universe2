@@ -11,7 +11,7 @@ interface ICredentialsAttr {
   isToken: boolean;
   name: string;
   owner: string;
-  type: "HTTPS" | "SSH";
+  type: "HTTPS" | "OAUTH" | "SSH";
 }
 
 interface ICredentialsData {
@@ -22,7 +22,7 @@ interface ICredentialsData {
   isToken: boolean;
   name: string;
   owner: string;
-  type: "HTTPS" | "SSH";
+  type: "HTTPS" | "OAUTH" | "SSH";
 }
 
 interface IOrganizationAttr {

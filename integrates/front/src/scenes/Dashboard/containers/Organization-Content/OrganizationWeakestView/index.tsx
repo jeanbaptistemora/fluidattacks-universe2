@@ -107,7 +107,10 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
       fetchPolicy: "cache-first",
       onError: ({ graphQLErrors }): void => {
         graphQLErrors.forEach((error): void => {
-          Logger.warning("An error occurred fetching user groups", error);
+          Logger.warning(
+            "An error occurred fetching organization groups",
+            error
+          );
         });
       },
       variables: {
@@ -137,7 +140,8 @@ export const OrganizationWeakest: React.FC<IOrganizationWeakestProps> = ({
       _.isUndefined(credentialsData)
         ? []
         : credentialsData.organization.credentials.filter(
-            (credential: ICredentialsAttr): boolean => credential.isPat
+            (credential: ICredentialsAttr): boolean =>
+              credential.isPat || credential.type === "OAUTH"
           ),
     [credentialsData]
   );
