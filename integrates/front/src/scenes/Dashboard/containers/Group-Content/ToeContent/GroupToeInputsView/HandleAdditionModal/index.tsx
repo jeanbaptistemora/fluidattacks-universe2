@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HandleAdditionModalForm } from "./form";
@@ -93,18 +93,21 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
     }
   );
 
-  function handleSubmit(values: IFormValues): void {
-    if (!_.isUndefined(host)) {
-      void handleAddToeInput({
-        variables: {
-          component: `${host}${values.path}`,
-          entryPoint: values.entryPoint,
-          groupName,
-          rootId: values.rootId,
-        },
-      });
-    }
-  }
+  const handleSubmit = useCallback(
+    (values: IFormValues): void => {
+      if (!_.isUndefined(host)) {
+        void handleAddToeInput({
+          variables: {
+            component: `${host}${values.path}`,
+            entryPoint: values.entryPoint,
+            groupName,
+            rootId: values.rootId,
+          },
+        });
+      }
+    },
+    [groupName, handleAddToeInput, host]
+  );
 
   return (
     <React.StrictMode>

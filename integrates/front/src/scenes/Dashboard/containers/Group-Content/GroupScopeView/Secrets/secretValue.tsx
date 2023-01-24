@@ -21,9 +21,9 @@ const SecretValue: React.FC<{
   secretValue: string;
   onEdit: (key: string, value: string, description: string) => void;
 }): JSX.Element => {
-  function handleOnEdit(): void {
+  const handleOnEdit = useCallback((): void => {
     onEdit(secretKey, secretValue, secretDescription);
-  }
+  }, [onEdit, secretDescription, secretKey, secretValue]);
 
   return (
     <div>
