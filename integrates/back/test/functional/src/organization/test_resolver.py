@@ -335,7 +335,16 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
     assert len(result["data"]["organization"]["credentials"]) == 4
+    assert (
+        result["data"]["organization"]["credentials"][0]["oauthType"]
+        == "GITLAB"
+    )
+    assert (
+        result["data"]["organization"]["credentials"][2]["oauthType"]
+        == "GITHUB"
+    )
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
+    assert result["data"]["organization"]["credentials"][1]["oauthType"] == ""
     assert (
         result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
     )
@@ -343,6 +352,7 @@ async def test_get_organization_ver_1(
     assert (
         result["data"]["organization"]["credentials"][3]["name"] == "pat token"
     )
+    assert result["data"]["organization"]["credentials"][3]["oauthType"] == ""
 
     loaders: Dataloaders = get_new_context()
     current_repositories: tuple[

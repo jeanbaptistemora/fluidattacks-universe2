@@ -37,9 +37,13 @@ const formatAuthCredentials = (value: ICredentialsAttr): "TOKEN" | "USER" => {
 };
 const formatTypeCredentials = (
   value: ICredentialsAttr
-): "SSH" | "TOKEN" | "USER" => {
+): "OAUTH" | "SSH" | "TOKEN" | "USER" => {
   if (value.type === "HTTPS") {
     return formatAuthCredentials(value);
+  }
+
+  if (value.type === "OAUTH") {
+    return "OAUTH";
   }
 
   return "SSH";

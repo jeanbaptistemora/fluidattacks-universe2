@@ -63,6 +63,7 @@ async def get_result(
                     azureOrganization
                     isPat
                     name
+                    oauthType
                     type
                 }}
                 permissions

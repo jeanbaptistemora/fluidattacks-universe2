@@ -4,6 +4,7 @@ from api.resolvers.credentials import (
     is_token,
     key,
     name,
+    oauth_type,
     organization,
     password,
     token,
@@ -20,6 +21,7 @@ CREDENTIALS.set_field("isPat", is_pat.resolve)
 CREDENTIALS.set_field("isToken", is_token.resolve)
 CREDENTIALS.set_field("key", key.resolve)
 CREDENTIALS.set_field("name", name.resolve)
+CREDENTIALS.set_field("oauthType", oauth_type.resolve)
 CREDENTIALS.set_field("organization", organization.resolve)
 CREDENTIALS.set_field("password", password.resolve)
 CREDENTIALS.set_field("token", token.resolve)

@@ -10,7 +10,7 @@ interface IFormValues {
   password: string | undefined;
   token: string | undefined;
   type: "HTTPS" | "OAUTH" | "SSH";
-  typeCredential: "SSH" | "TOKEN" | "USER";
+  typeCredential: "OAUTH" | "SSH" | "TOKEN" | "USER";
   user: string | undefined;
 }
 

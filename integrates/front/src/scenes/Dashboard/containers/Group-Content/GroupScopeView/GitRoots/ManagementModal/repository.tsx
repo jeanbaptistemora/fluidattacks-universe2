@@ -403,6 +403,11 @@ const Repository: FC<IRepositoryProps> = ({
                       <option value={"TOKEN"}>
                         {t("group.scope.git.repo.credentials.azureToken")}
                       </option>
+                      {disabledCredsEdit ? (
+                        <option value={"OAUTH"}>
+                          {t("group.scope.git.repo.credentials.oauth")}
+                        </option>
+                      ) : undefined}
                     </Select>
                   </Col>
                   <Col>

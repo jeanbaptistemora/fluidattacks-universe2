@@ -198,6 +198,7 @@ _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
         "name",
         "token",
         "is_token",
+        "oauth_type",
         "user",
         "key",
         "azure_organization",
