@@ -1,0 +1,100 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,11,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
+   1 | namespace Controllers
+   2 | {
+   3 |     public class Calculate
+   4 |     {
+   5 |         public static void ProcessRequest(HttpRequest req, HttpResponse res)
+   6 |         {
+   7 |             string name = req.QueryString[""name""];
+   8 |             res.Write(""Hello "" + name);
+   9 |
+  10 |             string value = req.QueryString[""value""];
+> 11 |             res.AddHeader(""X-Header"", value);
+  12 |         }
+  13 |     }
+  14 | }
+     ^ Col 0
+",c_sharp.c_sharp_insec_addheader_write
+F008,lines,namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/c_sharp_reflected_xss.cs","
+   1 | namespace Controllers
+   2 | {
+   3 |     public class Calculate
+   4 |     {
+   5 |         public static void ProcessRequest(HttpRequest req, HttpResponse res)
+   6 |         {
+   7 |             string name = req.QueryString[""name""];
+>  8 |             res.Write(""Hello "" + name);
+   9 |
+  10 |             string value = req.QueryString[""value""];
+  11 |             res.AddHeader(""X-Header"", value);
+  12 |         }
+  13 |     }
+  14 | }
+     ^ Col 0
+",c_sharp.c_sharp_insec_addheader_write
+F008,lines,namespace/skims/test/data/lib_root/f008/java_reflected_xss.java,10,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/java_reflected_xss.java","
+   1 | import java.io.IOException;
+   2 | import javax.servlet.http.HttpServletRequest;
+   3 |
+   4 | public class test08 extends HttpServlet {
+   5 |
+   6 |   public void runUnsafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   7 |
+   8 |     param = request.getHeader(""someheader"");
+   9 |     response.setHeader(""X-XSS-Protection"", ""0"");
+> 10 |     response.getWriter().format(param);
+  11 |
+  12 |   }
+  13 |
+  14 | }
+     ^ Col 0
+",java.java_unsafe_xss_content
+F008,lines,namespace/skims/test/data/lib_root/f008/js_reflected_xss.js,7,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/js_reflected_xss.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""test"", function (req, res) {
+   5 |   var user = req.params[""user""];
+   6 |   res.setHeader(""X-XSS-Protection"", ""0"");
+>  7 |   res.send(`
+   8 |     <!DOCTYPE html>
+   9 |     <html>
+  10 |       <body>
+  11 |         <h1>Hello ${user}</h1>
+  12 |       </body>
+  13 |     </html>
+  14 |     `
+  15 |   );
+  16 | });
+  17 |
+  18 | export default router;
+     ^ Col 0
+",javascript.javascript_unsafe_xss_content
+F008,lines,namespace/skims/test/data/lib_root/f008/ts_reflected_xss.ts,8,79,skims,008. Reflected cross-site scripting (XSS),"The web application dynamically generates web content without validating the source of the potentially untrusted data
+ in namespace/skims/test/data/lib_root/f008/ts_reflected_xss.ts","
+   1 | import { Router } from ""express"";
+   2 | import { reqData, resData } from ""types.ts"";
+   3 | var router = Router();
+   4 |
+   5 | router.get(""test008"", function (req: reqData, res: resData) {
+   6 |   var user: string = req.params[""user""];
+   7 |   res.setHeader(""X-XSS-Protection"", ""0"");
+>  8 |   res.send(`
+   9 |     <!DOCTYPE html>
+  10 |     <html>
+  11 |       <body>
+  12 |         <h1>Hello ${user}</h1>
+  13 |       </body>
+  14 |     </html>
+  15 |     `
+  16 |   );
+  17 | });
+  18 |
+  19 | export default router;
+     ^ Col 0
+",typescript.typescript_unsafe_xss_content

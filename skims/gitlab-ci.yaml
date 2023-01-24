@@ -505,6 +505,86 @@
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
+/testPython/skims@f004:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f004
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
+/testPython/skims@f007:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f007
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
+/testPython/skims@f008:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f008
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
+/testPython/skims@f009:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f009
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
 /testPython/skims@f011:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true

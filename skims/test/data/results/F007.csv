@@ -1,0 +1,49 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F007,lines,namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,11,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+  10 |         http.csrf().ignoringAntMatchers(""/route/"");
+> 11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",java.csrf_protections_disabled
+F007,lines,namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,10,352,skims,007. Cross-site request forgery,Disabling of protection mechanism against CSRF attacks in namespace/skims/test/data/lib_root/f007/java_csrf_protections_disabled.java,"
+   1 | import java.net.URI;
+   2 | import java.net.URISyntaxException;
+   3 | import java.util.Map;
+   4 | import java.util.Properties;
+   5 | import java.time.Duration;
+   6 |
+   7 | public class MainApplication implements CommandLineRunner {
+   8 |
+   9 |     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
+> 10 |         http.csrf().ignoringAntMatchers(""/route/"");
+  11 |         http.csrf().disable()
+  12 |             .headers(headerCustomizer -> {
+  13 |                 headerCustomizer.xssProtection().disable();
+  14 |                 headerCustomizer.contentSecurityPolicy(""frame-ancestors 'none'"");
+  15 |                 headerCustomizer.hsts()
+  16 |                     .includeSubdomains(true)
+  17 |                     .maxAge(Duration.ofDays(365));
+  18 |             });
+  19 |         return http.build();
+  20 |     }
+  21 | }
+     ^ Col 0
+",java.csrf_protections_disabled

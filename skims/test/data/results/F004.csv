@@ -1,0 +1,149 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs,13,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+  11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+> 13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs,11,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_1.cs","
+   1 | using System.Diagnostics;
+   2 |
+   3 | namespace Application
+   4 | {
+   5 |     public class Executor
+   6 |     {
+   7 |
+   8 |         public bool Execute(HttpRequest req)
+   9 |         {
+  10 |             string command = req.QueryString[""command""];
+> 11 |             var p = Diagnostics.Process.Start(command);
+  12 |             var executor = new Executor();
+  13 |             var result = executor.Execute(command);
+  14 |         }
+  15 |     }
+  16 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs,19,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/c_sharp_remote_command_2.cs","
+   6 |     public class RSPEC2076OSCommandInjectionNoncompliantController : Controller
+   7 |     {
+   8 |         public IActionResult Index()
+   9 |         {
+  10 |             Requires.NotNullOrEmpty(key, nameof(key));
+  11 |             return View();
+  12 |         }
+  13 |
+  14 |         public IActionResult Run(HttpRequest binary)
+  15 |         {
+  16 |             Process p = new Process();
+  17 |             p.StartInfo.FileName = binary;
+  18 |             p.StartInfo.RedirectStandardOutput = true;
+> 19 |             p.Start();
+  20 |             string output = p.StandardOutput.ReadToEnd();
+  21 |             p.Dispose();
+  22 |
+  23 |             return View();
+  24 |         }
+  25 |     }
+  26 | }
+     ^ Col 0
+",c_sharp.c_sharp_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/java_remote_command.java,10,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/java_remote_command.java","
+   1 | import java.io.IOException;
+   2 | import javax.servlet.http.HttpServletRequest;
+   3 |
+   4 | public class test extends HttpServlet {
+   5 |
+   6 |   public void runUnsafe(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   7 |
+   8 |     param = request.getHeader(""someheader"");
+   9 |     ProcessBuilder pb = new ProcessBuilder();
+> 10 |     pb.command(param);
+  11 |
+  12 |   }
+  13 |
+  14 | }
+     ^ Col 0
+",java.java_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/js_remote_command.js,6,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/js_remote_command.js","
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 |
+   4 | router.get(""test"", function (req, res) {
+   5 |   var user = req.params[""user""];
+>  6 |   exec(""ls target/user_files/"" + user + ""/"", (error, stdout, stderr) => {
+   7 |     res.json(data);
+   8 |   });
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+",javascript.javascript_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,8,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
+   1 | iant
+   2 |
+   3 | a = require('execa');
+   4 |
+   5 | tion injection_args(req, res) {
+   6 | d = ""ls -la ""+req.query.arg;
+   7 |
+>  8 | tdout} = await execa.command(cmd);
+   9 |
+  10 |
+  11 |  require('child_process');
+  12 |
+  13 | uln_injection_command(req, res) {
+  14 | d = 'ls '+req.query.arg;
+  15 |
+  16 | t = cp.execSync(cmd);
+  17 |
+  18 |
+  19 | t
+  20 |
+  21 | ec_injection_command(req, res) {
+     ^ Col 10
+",typescript.typescript_remote_command_execution
+F004,lines,namespace/skims/test/data/lib_root/f004/ts_remote_command.ts,16,78,skims,004. Remote command execution,"The system builds system commands using inputs that can be manipulated externally, it does not properly override special elements that could modify the system command.
+ in namespace/skims/test/data/lib_root/f004/ts_remote_command.ts","
+   6 |   const cmd = ""ls -la ""+req.query.arg;
+   7 |
+   8 |   const {stdout} = await execa.command(cmd);
+   9 | }
+  10 |
+  11 | const cp = require('child_process');
+  12 |
+  13 | function vuln_injection_command(req, res) {
+  14 |   const cmd = 'ls '+req.query.arg;
+  15 |
+> 16 |   const out = cp.execSync(cmd);
+  17 | }
+  18 |
+  19 | //Compliant
+  20 |
+  21 | function sec_injection_command(req, res) {
+  22 |   const out = cp.execFileSync(""ls"", [req.query.arg]); // Compliant
+  23 | }
+  24 |
+  25 |
+  26 | async function sec_injection_args(req, res) {
+     ^ Col 0
+",typescript.typescript_remote_command_execution

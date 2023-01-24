@@ -4,6 +4,70 @@ namespace: namespace
 output:
   file_path: skims/test/outputs/lib_root.csv
   format: CSV
+checks:
+  - F001
+  - F004
+  - F007
+  - F008
+  - F009
+  - F011
+  - F012
+  - F015
+  - F016
+  - F017
+  - F021
+  - F022
+  - F034
+  - F035
+  - F042
+  - F052
+  - F056
+  - F059
+  - F060
+  - F063
+  - F066
+  - F083
+  - F085
+  - F089
+  - F091
+  - F096
+  - F097
+  - F098
+  - F100
+  - F107
+  - F112
+  - F127
+  - F128
+  - F134
+  - F135
+  - F143
+  - F148
+  - F152
+  - F160
+  - F164
+  - F211
+  - F234
+  - F237
+  - F239
+  - F280
+  - F297
+  - F309
+  - F320
+  - F325
+  - F338
+  - F343
+  - F344
+  - F350
+  - F353
+  - F354
+  - F366
+  - F368
+  - F371
+  - F372
+  - F413
+  - F414
+  - F416
+  - F423
 path:
   exclude:
     - glob(integrates/**/*)

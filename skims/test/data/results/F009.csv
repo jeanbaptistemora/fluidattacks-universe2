@@ -1,0 +1,425 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | bda.credentials2.key       = AKIA0000000000000000
+   2 | zon.aws.accesskey          = AKIA0000000000000000
+   3 | zon.aws.accesskey          = #{aws_access_key}#
+>  4 | zon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 |  find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | onar.password = 123
+   9 | onar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | onar.password = ${env_var}
+  11 | onar.password = #{unknown_tool_trick}#
+  12 |
+  13 | rtifactory_password=
+  14 |
+  15 |  Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | wt_token = asdfasfa.sfasdf.asdfasdf
+  18 | wt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyf
+  19 | onfuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 1
+",aws.aws_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | mbda.credentials2.key       = AKIA0000000000000000
+>  2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",aws.aws_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/java.properties,"
+>  1 | mbda.credentials2.key       = AKIA0000000000000000
+   2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",aws.aws_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/secrets.yaml,"
+    | --- AKIA0000000000000000
+  2 | ...
+    ^ Col 0
+",aws.aws_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/secrets.yaml.json,1,798,skims,009. Sensitive information in source code,AWS credential in namespace/skims/test/data/lib_path/f009/secrets.yaml.json,"
+> 1 | ""AKIA0000000000000000""
+    ^ Col 0
+",aws.aws_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |
+   5 |   //Unsafe
+   6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+   7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+>  8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |
+   5 |   //Unsafe
+   6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+>  7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+   8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/js_uses_crypto_js_methods.js,"
+   1 | import * as CryptoJS from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg) {
+   4 |
+   5 |   //Unsafe
+>  6 |   const Utf16LE = CryptoJS.enc.Utf16LE.parse(""a23ijl"");
+   7 |   const Latin1 = CryptoJS.enc.Latin1.parse(""sec\""ret"");
+   8 |   const utf8 = CryptoJS.enc.Utf8.parse(""Fmljho"");
+   9 |
+  10 |   // Safe values
+  11 |   const initDate = format(parse(""hello""));
+  12 |   const base64 = CryptoJS.enc.base64.parse(arg);
+  13 | }
+     ^ Col 0
+",javascript.javascript_crypto_js_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,8,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+   6 |   const base64 = enc.Base64.parse(""danger_value"");
+   7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+>  8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,7,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+   6 |   const base64 = enc.Base64.parse(""danger_value"");
+>  7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+   8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
+F009,lines,namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,6,798,skims,009. Sensitive information in source code,CryptoJS plaintext data source in namespace/skims/test/data/lib_root/f009/ts_uses_crypto_js_methods.ts,"
+   1 | import {enc} from ""crypto-js"";
+   2 |
+   3 | function hasCrytoJsFunctions(arg: string) {
+   4 |
+   5 |   // Danger values
+>  6 |   const base64 = enc.Base64.parse(""danger_value"");
+   7 |   const Utf16 = enc.Utf16.parse(""danger_value"");
+   8 |   const hex = enc.Hex.parse(""danger_value"");
+   9 |
+  10 |   // Safe values
+  11 |   const Latin1 = enc.Latin1.parse(arg);
+  12 | }
+     ^ Col 0
+",typescript.typescript_crypto_ts_credentials
+F009,lines,namespace/skims/test/data/lib_path/f009/connection.config,5,798,skims,009. Sensitive information in source code,Database connection string in namespace/skims/test/data/lib_path/f009/connection.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <connectionStrings>
+  4 |       <add name=""ud_DEV""
+> 5 |        connectionString=""connectDB=uDB; uid=db2admin; password=7hgy7JIT57c; dbalias=uDB;""
+  6 |        providerName=""System.Data.Odbc"" />
+  7 |     </connectionStrings>
+  8 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_db_connection
+F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,10,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
+   1 | ENV API_KEY '123'
+   2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+> 10 | ENV NEW_USER='123'
+     ^ Col 0
+",docker.dockerfile_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,2,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
+   1 | ENV API_KEY '123'
+>  2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+  10 | ENV NEW_USER='123'
+     ^ Col 0
+",docker.dockerfile_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/Dockerfile,1,798,skims,009. Sensitive information in source code,Dockerfile credentials in namespace/skims/test/data/lib_path/f009/Dockerfile,"
+>  1 | ENV API_KEY '123'
+   2 | ENV API_KEY='123'
+   3 | ENV API_KEY ''
+   4 | ENV API_KEY
+   5 | ENV API_KEY_CLOUD_CLIENT_SECRET #{APIKEY_CLIENT_SECRET}#
+   6 | ENV API_KEY_CLOUD_CLIENT_ID #{APIKEY_CLIENT_ID}#
+   7 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_SECRET #{APIKEY_CLIENT_SECRET_ONPREMISE}#
+   8 | ENV API_KEY_CLOUD_ONPREMISE_CLIENT_ID #{APIKEY_CLIENT_ID_ONPREMISE}#
+   9 | ENV NEW_USER ${NEW_USER}
+  10 | ENV NEW_USER='123'
+     ^ Col 0
+",docker.dockerfile_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,15,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   5 |     build: .
+   6 |     ports:
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+> 15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+  22 |   db:
+  23 |     image: postgres:${POSTGRES_VERSION}
+  24 |     environment:
+  25 |       - API_PASSWORD=pass
+     ^ Col 0
+",docker.docker_compose_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/docker-compose.yml,25,798,skims,009. Sensitive information in source code,Environmental variables may have sensitive values in plain-text in namespace/skims/test/data/lib_path/f009/docker-compose.yml,"
+   7 |       - 5000:5000
+   8 |     volumes:
+   9 |       - .:/code
+  10 |       - logvolume01:/var/log
+  11 |     links:
+  12 |       - redis
+  13 |     environment:
+  14 |       - DEBUG=${VAR}
+  15 |       - API_KEY='123'
+  16 |       - API_KEY
+  17 |       - API_KEY_CLOUD_CLIENT_SECRET=${APIKEY_CLIENT_SECRET}
+  18 |   redis:
+  19 |     image: redis
+  20 |     environment:
+  21 |       - API_NAME=name1
+  22 |   db:
+  23 |     image: postgres:${POSTGRES_VERSION}
+  24 |     environment:
+> 25 |       - API_PASSWORD=pass
+  26 | volumes:
+  27 |   logvolume01: {}
+     ^ Col 0
+",docker.docker_compose_env_secrets
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,18,798,skims,009. Sensitive information in source code,JWT token in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | mbda.credentials2.key       = AKIA0000000000000000
+   2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+> 18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",conf_files.jwt_token
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,8,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | mbda.credentials2.key       = AKIA0000000000000000
+   2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+>  8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,4,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | mbda.credentials2.key       = AKIA0000000000000000
+   2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+>  4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/java.properties,2,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/java.properties,"
+   1 | mbda.credentials2.key       = AKIA0000000000000000
+>  2 | azon.aws.accesskey          = AKIA0000000000000000
+   3 | azon.aws.accesskey          = #{aws_access_key}#
+   4 | azon.aws.accesskey          = #AKIA0000000000000000
+   5 |
+   6 | # find . -wholename '*.properties' -type f -exec cat {} + | grep password | sort | uniq -c | sort -n
+   7 |
+   8 | sonar.password = 123
+   9 | sonar.password = ENC(something-base64-encoded-but-encrypted)
+  10 | sonar.password = ${env_var}
+  11 | sonar.password = #{unknown_tool_trick}#
+  12 |
+  13 | artifactory_password=
+  14 |
+  15 | # Fake jwt token, does not contain sensitive information and does not work for apis consumption
+  16 |
+  17 | jwt_token = asdfasfa.sfasdf.asdfasdf
+  18 | jwt_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIy
+  19 | confuse_token = es.ex.valle.recharges.transactional.domain1.domains.ResponseStatus
+     ^ Col 0
+",java.java_properties_sensitive_data
+F009,lines,namespace/skims/test/data/lib_path/f009/user.config,5,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/user.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <identity impersonate=""true""
+  4 |         userName=""MyDomain\UserAccount""
+> 5 |         password=""*****"" />
+  6 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_user_pass
+F009,lines,namespace/skims/test/data/lib_path/f009/user.config,4,798,skims,009. Sensitive information in source code,Sensitive information in namespace/skims/test/data/lib_path/f009/user.config,"
+  1 | <?xml version='1.0' encoding='utf-8'?>
+  2 |   <configuration>
+  3 |     <identity impersonate=""true""
+> 4 |         userName=""MyDomain\UserAccount""
+  5 |         password=""*****"" />
+  6 |   </configuration>
+    ^ Col 0
+",conf_files.web_config_user_pass
+F009,lines,namespace/skims/test/data/lib_path/f009/api_key.json,3,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/api_key.json,"
+  1 | {
+  2 |     ""current_key"": {
+> 3 |         ""api_key"": ""APIKEY""
+  4 |     }
+  5 | }
+    ^ Col 0
+",conf_files.sensitive_key_in_json
+F009,lines,namespace/skims/test/data/lib_path/f009/appsettings.json,9,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/appsettings.json,"
+   1 | {
+   2 |     ""Logging"": {
+   3 |         ""LogLevel"": {
+   4 |             ""Default"": ""Information"",
+   5 |             ""Microsoft"": ""Warning"",
+   6 |             ""Microsoft.Hosting.Lifetime"": ""Information""
+   7 |         }
+   8 |     },
+>  9 |     ""ConnectionStrings"": {
+  10 |         ""Claims"": ""Server=CO-PF27VZ7E;Initial Catalog=db-test-apps_3;User ID=adminuser;Password=7hgy7JIT57c""
+  11 |     },
+  12 |     ""AsureKeyVault"": {
+  13 |         ""KeyVaultConnection"": ""test-apps-connection"",
+  14 |         ""ClientId"": ""0846738-97dh37-848508-9972663-a2e43e8419ed"",
+  15 |         ""ClientSecret"": ""m0n~74hd7JD7isn358da3~S6a-zu4_MCdl5l""
+  16 |     }
+  17 | }
+     ^ Col 0
+",conf_files.sensitive_info_in_json
+F009,lines,namespace/skims/test/data/lib_path/f009/settings.json,18,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/settings.json,"
+   3 |         ""Authority"": ""https://azrawdv-webapp-tst122312.azurewebsites.net""
+   4 |     },
+   5 |     ""ApplicationInsights"": {
+   6 |         ""InstrumentationKey"": ""7777777777-5555555-888888-9999999-000""
+   7 |     },
+   8 |     ""ESB"": {
+   9 |         ""CrewProfileEndpoint"": ""https://azrav-webapp-tst122312.azurewebsites.net/api/Profile/"",
+  10 |         ""EmailEndpoint"": ""http://azrav-webapp-tst122312.azurewebsites.net/api/Mail"",
+  11 |         ""CrewMonthlyAssignementsEndpoint"": ""https://az-am-exp-use-qa.azure-api.net/example/example""
+  12 |     },
+  13 |     ""AzureAD"": {
+  14 |         ""TenantId"": ""n73nd728-8397-4579-ba30-j83h63g6a"",
+  15 |         ""ClientId"": ""h7893jd9-e1ec-4a72-9d49-nv738bvm7"",
+  16 |         ""Resource"": ""https://outlook.office365.com""
+  17 |     },
+> 18 |     ""OutlookServices"": {
+  19 |         ""SaveToSentItems"": true,
+  20 |         ""Email"": ""example@fluidattacks.com"",
+  21 |         ""Password"": ""84HCH6daj7""
+  22 |     }
+  23 | }
+     ^ Col 0
+",conf_files.sensitive_info_in_dotnet_json
