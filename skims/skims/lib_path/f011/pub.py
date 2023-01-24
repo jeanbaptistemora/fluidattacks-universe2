@@ -26,7 +26,7 @@ def pub_pubspec_yaml(content: str, path: str) -> Iterator[DependencyType]:
         if line.startswith("dependencies:"):
             line_deps = True
         elif line_deps:
-            if matched := re.match(PUB_DEP, line):
+            if matched := PUB_DEP.match(line):
                 pkg_name = matched.group("pkg")
                 pkg_version = matched.group("version")
                 yield format_pkg_dep(
