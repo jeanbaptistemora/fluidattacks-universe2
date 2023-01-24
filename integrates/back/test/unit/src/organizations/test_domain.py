@@ -6,6 +6,7 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
+    InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
@@ -42,6 +43,7 @@ from organizations.domain import (
     validate_acceptance_severity_range,
     validate_inactivity_period,
     validate_max_acceptance_days,
+    validate_max_acceptance_severity,
     validate_max_number_acceptances,
 )
 import pytest
@@ -507,6 +509,19 @@ def test_validate_max_acceptance_days(
 
     with pytest.raises(InvalidAcceptanceDays):
         validate_max_acceptance_days(max_acceptance_days)
+
+
+@pytest.mark.parametrize(
+    ["value_good", "value_bad"],
+    [[Decimal("10.0"), Decimal("-10.0")], [Decimal("5.3"), Decimal("10.1")]],
+)
+def test_validate_max_acceptance_severity(
+    value_good: Decimal,
+    value_bad: Decimal,
+) -> None:
+    assert validate_max_acceptance_severity(value=value_good)
+    with pytest.raises(InvalidAcceptanceSeverity):
+        validate_max_acceptance_severity(value=value_bad)
 
 
 @pytest.mark.parametrize(
