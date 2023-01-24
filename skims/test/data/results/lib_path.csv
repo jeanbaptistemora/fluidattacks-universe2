@@ -22300,29 +22300,6 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 ",generic.unverifiable_files
-F060,lines,namespace/skims/test/data/lib_path/f060/json_allowed_hosts.json,2,396,skims,060. Insecure service configuration - Host verification,Make sure the host property is different from  in namespace/skims/test/data/lib_path/f060/json_allowed_hosts.json,"
-   1 | {
->  2 |   ""AllowedHosts"": ""*"",
-   3 |   ""Serilog"": {
-   4 |     ""MinimumLevel"": {
-   5 |       ""Default"": ""Debug"",
-   6 |       ""Override"": {
-   7 |         ""Default"": ""Information"",
-   8 |         ""Microsoft"": ""Warning"",
-   9 |         ""Microsoft.Hosting.Lifetime"": ""Information""
-  10 |       }
-  11 |     },
-  12 |     ""Enrich"": [
-  13 |       ""FromLogContext"",
-  14 |       ""WithMachineName""
-  15 |     ],
-  16 |     ""Properties"": {
-  17 |       ""Application"": ""MultipleLogFilesSample""
-  18 |     }
-  19 |   }
-  20 | }
-     ^ Col 0
-",conf_files.json_allowed_hosts
 F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skims,060. Insecure service configuration - Host verification,"SSL is disabled in ApplicationHost.config, check the sslFlags attribute. in namespace/skims/test/data/lib_path/f060/apphostVuln.config","
   1 | <?xml version=""1.0"" encoding=""UTF-8""?>
   2 | <configuration>

@@ -37,6 +37,34 @@ def has_insecure_flag(graph: Graph, nid: NId, key: str) -> Iterator[NId]:
                 yield c_id
 
 
+def allowed_hosts(
+    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JSON_ALLOWED_HOSTS
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.JSON):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in g.matching_nodes(graph, label_type="Pair"):
+                key_id = graph.nodes[nid]["key_id"]
+                key = graph.nodes[key_id]["value"]
+                value_id = graph.nodes[nid]["value_id"]
+                value = graph.nodes[value_id].get("value")
+                if key == "AllowedHosts" and value == "*":
+                    yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f060.json_allowed_hosts",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def disable_host_check(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,

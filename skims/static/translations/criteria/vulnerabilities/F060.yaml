@@ -10,7 +10,7 @@ lib_path.dotnetconfig.has_ssl_disabled:
   es: >-
     SSl esta desabilitad en ApplicationHost.config,
     revisa el atributo sslFlags.
-lib_path.f060.json_allowed_hosts:
+lib_root.f060.json_allowed_hosts:
   en: Make sure the host property is different from *
   es: Asegurese de que la propiedad host sea diferente de *
 lib_root.f060.insecure_certificate_validation:

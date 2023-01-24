@@ -4880,6 +4880,29 @@ F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_c
   11 |   };
      ^ Col 0
 ",typescript.typescript_non_secure_construction_of_cookies
+F060,lines,namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,2,396,skims,060. Insecure service configuration - Host verification,Make sure the host property is different from  in namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,"
+   1 | {
+>  2 |   ""AllowedHosts"": ""*"",
+   3 |   ""Serilog"": {
+   4 |     ""MinimumLevel"": {
+   5 |       ""Default"": ""Debug"",
+   6 |       ""Override"": {
+   7 |         ""Default"": ""Information"",
+   8 |         ""Microsoft"": ""Warning"",
+   9 |         ""Microsoft.Hosting.Lifetime"": ""Information""
+  10 |       }
+  11 |     },
+  12 |     ""Enrich"": [
+  13 |       ""FromLogContext"",
+  14 |       ""WithMachineName""
+  15 |     ],
+  16 |     ""Properties"": {
+  17 |       ""Application"": ""MultipleLogFilesSample""
+  18 |     }
+  19 |   }
+  20 | }
+     ^ Col 0
+",conf_files.json_allowed_hosts
 F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,8,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,"
    1 | using System;
    2 | using System.IO;

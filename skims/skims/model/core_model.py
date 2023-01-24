@@ -3679,7 +3679,7 @@ class MethodsEnum(Enum):
     JSON_ALLOWED_HOSTS = MethodInfo(
         file_name="conf_files",
         name="json_allowed_hosts",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F060,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
