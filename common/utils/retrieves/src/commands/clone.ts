@@ -57,7 +57,7 @@ function clone(node: GitRootTreeItem): void {
     return;
   }
   const servicePath = workspace.workspaceFolders[0].uri.path;
-  const fusionPath = join(servicePath, "groups", node.groupName, "fusion");
+  const fusionPath = join(servicePath, node.groupName);
   if (!existsSync(fusionPath)) {
     mkdirSync(fusionPath, { recursive: true });
   }

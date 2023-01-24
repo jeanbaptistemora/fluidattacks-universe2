@@ -115,7 +115,7 @@
   "engines": {
     "vscode": "^1.74.0"
   },
-  "main": "./dist/extension.js",
+  "main": "./out/extension.js",
   "name": "retrieves",
   "publisher": "fluidattacks",
   "scripts": {
@@ -128,5 +128,5 @@
     "watch": "webpack --watch",
     "watch-tests": "tsc -p . -w --outDir out"
   },
-  "version": "0.4.0"
+  "version": "0.11.0"
 }

@@ -62,13 +62,7 @@ function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
         return;
       }
       const servicePath = workspace.workspaceFolders[0].uri.path;
-      const fusionPath = join(
-        servicePath,
-        "groups",
-        node.groupName,
-        "fusion",
-        node.nickname
-      );
+      const fusionPath = join(servicePath, node.groupName, node.nickname);
       ToeLinesPanel.render(context.extensionUri, fusionPath, _result);
     })
     .catch((_err): [] => {
