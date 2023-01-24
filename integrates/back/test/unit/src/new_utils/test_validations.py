@@ -545,6 +545,12 @@ def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
     assert validations.has_sequence(value, length) == should_fail
 
 
+def test_validate_sequence() -> None:
+    validations.validate_sequence(value="a1221b")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_sequence(value="aabcc")
+
+
 def test_validate_sequence_deco() -> None:
     @validations.validate_sequence_deco("value")
     def decorated_func(value: str) -> str:
@@ -917,6 +923,12 @@ def test_validate_commit_hash_deco() -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_start_letter() -> None:
+    validations.validate_start_letter("abc123")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_start_letter("123abc")
+
+
 def test_validate_start_letter_deco() -> None:
     @validations.validate_start_letter_deco(
         "field",
@@ -942,6 +954,12 @@ def test_validate_start_letter_deco() -> None:
     assert decorated_func_obj(test_obj=test_obj)
     with pytest.raises(InvalidReportFilter):
         decorated_func_obj(test_obj=test_obj_fail)
+
+
+def test_validate_include_number() -> None:
+    validations.validate_include_number("abc123")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_include_number("abcdef")
 
 
 def test_validate_include_number_deco() -> None:
@@ -971,6 +989,12 @@ def test_validate_include_number_deco() -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_include_lowercase() -> None:
+    validations.validate_include_lowercase("abc123")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_include_lowercase("ABC123")
+
+
 def test_validate_include_lowercase_deco() -> None:
     @validations.validate_include_lowercase_deco("field")
     def decorated_func(field: str) -> str:
@@ -994,6 +1018,12 @@ def test_validate_include_lowercase_deco() -> None:
     assert decorated_func_obj(test_obj=test_obj)
     with pytest.raises(InvalidReportFilter):
         decorated_func_obj(test_obj=test_obj_fail)
+
+
+def test_validate_include_uppercase() -> None:
+    validations.validate_include_uppercase("aBc123")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_include_uppercase("abc123")
 
 
 def test_validate_include_uppercase_deco() -> None:
