@@ -53,6 +53,9 @@ from dynamodb import (
 from itertools import (
     chain,
 )
+from typing import (
+    Any,
+)
 
 
 async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
@@ -330,7 +333,7 @@ class FindingVulnerabilitiesLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
-    def clear(self, key: str) -> DataLoader:
+    def clear(self, key: str) -> Any:
         self.dataloader.clear(key)
         return super().clear(key)
 
@@ -381,7 +384,7 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
-    def clear(self, key: str) -> DataLoader:
+    def clear(self, key: str) -> Any:
         self.dataloader.clear(key)
         return super().clear(key)
 
@@ -409,9 +412,9 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
 
     async def load_many_chained(
         self, finding_ids: list[str]
-    ) -> tuple[Vulnerability, ...]:
+    ) -> list[Vulnerability]:
         unchained_data = await self.load_many(finding_ids)
-        return tuple(chain.from_iterable(unchained_data))
+        return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(

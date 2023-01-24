@@ -234,7 +234,7 @@ async def update_finding_policy_in_groups(
 
 
 async def _apply_finding_policy(
-    vulns: tuple[Vulnerability, ...],
+    vulns: list[Vulnerability],
     status: PolicyStateStatus,
     email: str,
     tags: set[str],
@@ -267,7 +267,7 @@ async def _apply_finding_policy(
 async def _add_accepted_treatment(
     *,
     modified_date: datetime,
-    vulns: tuple[Vulnerability, ...],
+    vulns: list[Vulnerability],
     email: str,
 ) -> None:
     vulns_to_update = [
@@ -312,7 +312,7 @@ async def _add_accepted_treatment(
 
 async def _add_tags_to_vulnerabilities(
     *,
-    vulns: tuple[Vulnerability, ...],
+    vulns: list[Vulnerability],
     tags: set[str],
 ) -> None:
     if not tags:
@@ -329,7 +329,7 @@ async def _add_tags_to_vulnerabilities(
 async def _add_new_treatment(
     *,
     modified_date: datetime,
-    vulns: tuple[Vulnerability, ...],
+    vulns: list[Vulnerability],
     email: str,
 ) -> None:
     vulns_to_update = [

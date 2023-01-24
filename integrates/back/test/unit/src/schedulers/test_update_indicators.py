@@ -261,7 +261,7 @@ async def test_get_status_vulns_by_time_range(
         )
     assert mock_table_resource.called is True
     test_data = get_status_vulns_by_time_range(
-        vulnerabilities=vulnerabilities,
+        vulnerabilities=tuple(vulnerabilities),
         vulnerabilities_severity=vulnerabilities_severity,
         vulnerabilities_historic_states=tuple(historic_states),
         vulnerabilities_historic_treatments=tuple(historic_treatments),
