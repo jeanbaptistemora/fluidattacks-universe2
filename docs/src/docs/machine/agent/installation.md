@@ -47,7 +47,22 @@ in case you already generated one.
      the official guide:
      - <https://docs.docker.com/engine/install/>.
 
-## Options
+> **Note:** You can also run The Agent in one of
+> your CI/CD Pipelines on a third-party repository,
+> such as GitHub,
+> GitLab,
+> Azure,
+> and others,
+> without installing docker on your machine or premises.
+
+## Arguments to run your Agent
+
+When using The Agent,
+consider the use of these arguments
+according to your necessities,
+keep in mind that you can use this in your
+local or CI/CD executions.
+The arguments are:
 
 - `--token`: Your DevSecOps agent token (required).
 - `--dynamic / --static`: Check for only DAST / SAST vulnerabilities
@@ -67,12 +82,12 @@ in case you already generated one.
   This option takes values
   between 0.0 (recommended) all the way up to 10.0 (optional).
 
-Note: Strict mode customization like severity thresholds
-and grace periods for new vulnerabilities
-can also be set in the ARM organization's Policies tab.
-In the case of `--breaking`,
-the value passed to this CLI option takes
-precedence over the value set in ARM.
+> **Note:** Strict mode customization like severity thresholds
+> and grace periods for new vulnerabilities
+> can also be set in the ARM organization's Policies tab.
+> In the case of `--breaking`,
+> the value passed to this CLI option takes
+> precedence over the value set in ARM.
 
 ## Examples
 
