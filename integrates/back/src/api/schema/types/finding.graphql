@@ -144,3 +144,13 @@ type FindingEdge implements Edge {
   "The node with the payload"
   node: Finding!
 }
+
+"Findings Connection type definition"
+type FindingsConnection {
+  "A list of Findings edges"
+  edges: [FindingEdge]!
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+  "Total findings found"
+  total: Int
+}
