@@ -161,6 +161,19 @@ def cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
                 yield from _policy_statement_privilege(statements)
 
 
+def cfn_iam_has_wildcard_resource_on_write_action_trust_policies(
+    iam_iterator: Iterator[Node],
+) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+    for iam_res in iam_iterator:
+        if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
+            statements = (
+                assume_role_policy.inner.get("Statement")
+                if hasattr(assume_role_policy.inner, "get")
+                else None
+            )
+            yield from _policy_statement_privilege(statements)
+
+
 def policy_document_actions_wilrcard(stmt: Node) -> Iterator[Node]:
     effect = stmt.inner.get("Effect")
     if effect.raw == "Allow":

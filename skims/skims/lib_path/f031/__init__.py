@@ -9,7 +9,6 @@ from lib_path.f031.cloudformation import (
     cfn_iam_has_full_access_to_ssm,
     cfn_iam_user_missing_role_based_security,
     cfn_negative_statement,
-    cfn_open_passrole,
 )
 from lib_path.f031.terraform import (
     terraform_admin_policy_attached,
@@ -80,18 +79,6 @@ def run_cfn_negative_statement(
     return cfn_negative_statement(
         content=content, path=path, template=template
     )
-
-
-@SHIELD_BLOCKING
-def run_cfn_open_passrole(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    # cfn_nag F38 IAM role should not allow * resource with PassRole action
-    #             on its permissions policy
-    # cfn_nag F39 IAM policy should not allow * resource with PassRole action
-    # cfn_nag F40 IAM managed policy should not allow a * resource with
-    #             PassRole action
-    return cfn_open_passrole(content=content, path=path, template=template)
 
 
 @SHIELD_BLOCKING
@@ -208,7 +195,6 @@ def analyze(
                         run_cfn_bucket_policy_allows_public_access,
                         run_cfn_iam_user_missing_role_based_security,
                         run_cfn_negative_statement,
-                        run_cfn_open_passrole,
                         run_cfn_iam_has_full_access_to_ssm,
                     )
                 ),

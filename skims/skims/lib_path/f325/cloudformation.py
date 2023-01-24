@@ -4,6 +4,7 @@ from lib_path.common import (
 )
 from lib_path.f325.utils import (
     cfn_iam_has_wildcard_resource_on_write_action_iter_vulns,
+    cfn_iam_has_wildcard_resource_on_write_action_trust_policies,
     cfn_iam_is_policy_actions_wildcard,
     cfn_iam_permissions_policies_checks,
     cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns,
@@ -53,6 +54,24 @@ def cfn_iam_has_wildcard_resource_on_write_action(
         ),
         iterator=get_cloud_iterator(
             cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
+                iam_iterator=iter_iam_policies(template=template),
+            )
+        ),
+        path=path,
+        method=MethodsEnum.CFN_IAM_WILDCARD_WRITE,
+    )
+
+
+def cfn_iam_has_wildcard_resource_on_trust_policies(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return get_vulnerabilities_from_iterator_blocking(
+        content=content,
+        description_key=(
+            "src.lib_path.f325.iam_has_wildcard_resource_on_write_action"
+        ),
+        iterator=get_cloud_iterator(
+            cfn_iam_has_wildcard_resource_on_write_action_trust_policies(
                 iam_iterator=iter_iam_policies(template=template),
             )
         ),

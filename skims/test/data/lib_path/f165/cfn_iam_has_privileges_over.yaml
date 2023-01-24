@@ -25,6 +25,12 @@ Resources:
             Condition:
               StringEquals:
                 rds:DatabaseClass: db.t2.micro
+          - Effect: Allow
+            Action: ecs:CreateService
+            Resource: '*'
+            Condition:
+              StringEquals:
+                rds:DatabaseClass: db.t2.micro
       Groups:
         - TestDBGroup
   RootRole:

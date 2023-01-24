@@ -7,6 +7,7 @@ from lib_path.common import (
 from lib_path.f325.cloudformation import (
     cfn_iam_allow_wildcard_action_trust_policy,
     cfn_iam_allow_wildcard_actions_perms_policies,
+    cfn_iam_has_wildcard_resource_on_trust_policies,
     cfn_iam_has_wildcard_resource_on_write_action,
     cfn_iam_is_policy_actions_wildcards,
     cfn_kms_key_has_master_keys_exposed_to_everyone,
@@ -66,6 +67,15 @@ def run_cfn_kms_key_has_master_keys_exposed_to_everyone(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_kms_key_has_master_keys_exposed_to_everyone(
+        content=content, path=path, template=template
+    )
+
+
+@SHIELD_BLOCKING
+def run_cfn_iam_has_wildcard_resource_on_trust_policies(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return cfn_iam_has_wildcard_resource_on_trust_policies(
         content=content, path=path, template=template
     )
 
@@ -144,6 +154,9 @@ def analyze(
                     content, path, template
                 ),
                 run_cfn_iam_has_wildcard_resource_on_write_action(
+                    content, path, template
+                ),
+                run_cfn_iam_has_wildcard_resource_on_trust_policies(
                     content, path, template
                 ),
                 run_cfn_iam_allow_wildcard_actions_perms_policies(

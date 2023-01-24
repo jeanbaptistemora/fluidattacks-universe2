@@ -9,7 +9,6 @@ from lib_path.f031.utils import (
     admin_policies_attached_iterate_vulnerabilities,
     bucket_policy_allows_public_access_iterate_vulnerabilities,
     negative_statement_iterate_vulnerabilities,
-    open_passrole_iterate_vulnerabilities,
 )
 from metaloaders.model import (
     Node,
@@ -136,24 +135,6 @@ def cfn_negative_statement(
         ),
         path=path,
         method=MethodsEnum.CFN_NEGATIVE_STATEMENT,
-    )
-
-
-def cfn_open_passrole(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f031_aws.open_passrole",
-        iterator=get_cloud_iterator(
-            open_passrole_iterate_vulnerabilities(
-                statements_iterator=cfn_iterate_iam_policy_documents(
-                    template=template,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.CFN_OPEN_PASSROLE,
     )
 
 
