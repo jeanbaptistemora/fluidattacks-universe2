@@ -155,6 +155,7 @@ async def send_mail_async(  # pylint: disable=too-many-locals
     year = datetime_utils.get_as_str(datetime_utils.get_now(), "%Y")
     context["name"] = first_name
     context["year"] = year
+    context["mailto"] = email_to
     content = get_content(template_name, context)
     to_list: list[dict[str, Any]] = await get_recipients(
         loaders=loaders,
