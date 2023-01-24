@@ -24,6 +24,8 @@ from db_model.azure_repositories.get import (
     get_github_repos,
     get_github_repos_commits,
     get_gitlab_commit,
+    get_gitlab_commit_counts,
+    get_gitlab_last_commit,
     get_gitlab_projects,
     get_repositories_stats,
 )
@@ -301,6 +303,7 @@ async def get_gitlab_credentials_authors(
                         credential=credential,
                         urls=urls,
                         loaders=loaders,
+                        get_all=True,
                     )
                     for credential in credentials
                 ),
@@ -693,6 +696,7 @@ async def _get_gitlab_credential_stats(
     credential: Credentials,
     urls: set[str],
     loaders: Dataloaders,
+    get_all: bool = False,
 ) -> tuple[ProjectStats, ...]:
     if isinstance(credential.state.secret, OauthGitlabSecret):
         token: Optional[str] = credential.state.secret.access_token
@@ -714,10 +718,23 @@ async def _get_gitlab_credential_stats(
             > get_now_minus_delta(days=60).timestamp()
             and filter_urls(repository=project, urls=urls)
         )
-        commits: tuple[tuple[dict, ...], ...] = await get_gitlab_commit(
-            token=token,
-            projects=tuple(project.id for project in filtered_projects),
-        )
+        commits_count: tuple[int, ...]
+        commits: tuple[tuple[dict, ...], ...]
+        if get_all:
+            commits = await get_gitlab_commit(
+                token=token,
+                projects=tuple(project.id for project in filtered_projects),
+            )
+        else:
+            commits = await get_gitlab_last_commit(
+                token=token,
+                projects=tuple(project.id for project in filtered_projects),
+            )
+            commits_count = await get_gitlab_commit_counts(
+                token=token,
+                projects=tuple(project.id for project in filtered_projects),
+            )
+
         sorted_commits: tuple[tuple[dict, ...], ...] = tuple(
             tuple(
                 sorted(
@@ -726,12 +743,18 @@ async def _get_gitlab_credential_stats(
             )
             for p_commits in commits
         )
+        if get_all:
+            commits_count = tuple(len(p_commits) for p_commits in commits)
+
         return tuple(
             ProjectStats(
                 project=project,
                 commits=p_commits,
+                commits_count=ccount,
             )
-            for project, p_commits in zip(filtered_projects, sorted_commits)
+            for project, p_commits, ccount in zip(
+                filtered_projects, sorted_commits, commits_count
+            )
             if p_commits
             and parser.parse(p_commits[0]["committed_date"])
             .astimezone(timezone.utc)
@@ -823,6 +846,7 @@ async def _get_github_credential_stats(
             ProjectStats(
                 project=project,
                 commits=tuple(commit.__dict__ for commit in p_commits),
+                commits_count=len(p_commits),
             )
             for project, p_commits in zip(
                 filtered_repositories, sorted_commits

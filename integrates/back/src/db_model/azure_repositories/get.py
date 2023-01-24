@@ -266,6 +266,30 @@ def _get_gitlab_commit(token: str, project_id: str) -> tuple[dict, ...]:
         return tuple(commit.attributes for commit in commits)
 
 
+async def get_gitlab_last_commit(
+    *,
+    token: str,
+    projects: tuple[str, ...],
+) -> tuple[tuple[dict, ...], ...]:
+    return await collect(
+        tuple(
+            in_thread(
+                _get_gitlab_last_commit, token=token, project_id=project_id
+            )
+            for project_id in projects
+        ),
+        workers=1,
+    )
+
+
+def _get_gitlab_last_commit(token: str, project_id: str) -> tuple[dict, ...]:
+    with gitlab.Gitlab(oauth_token=token) as g_session:
+        project = g_session.projects.get(project_id)
+        commits = project.commits.list(per_page=1, page=1, order_by="default")
+
+        return tuple(commit.attributes for commit in commits)
+
+
 async def get_github_repos_commits(
     *, token: str, repositories: tuple[str, ...]
 ) -> tuple[tuple[GitHubCommit.GitCommit, ...], ...]:

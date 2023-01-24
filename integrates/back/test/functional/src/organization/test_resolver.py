@@ -184,6 +184,29 @@ def get_lab_commit_stats(
     )
 
 
+def get_lab_last_commit_stats(
+    token: str,  # pylint: disable=unused-argument
+    project_id: str,  # pylint: disable=unused-argument
+) -> tuple[dict, ...]:
+    return tuple(
+        [
+            dict(
+                committed_date=get_as_utc_iso_format(
+                    get_now_minus_delta(days=4)
+                ),
+                author_email="testemail2@test.test",
+            ),
+        ]
+    )
+
+
+def get_lab_commit_counts(
+    token: str,  # pylint: disable=unused-argument
+    project_id: str,  # pylint: disable=unused-argument
+) -> int:
+    return 2
+
+
 def get_hub_commit_stats(
     token: str,  # pylint: disable=unused-argument
     repo_id: str,  # pylint: disable=unused-argument
@@ -369,6 +392,14 @@ async def test_get_organization_ver_1(
             "db_model.azure_repositories.get._get_github_repos_commits",
             side_effect=get_hub_commit_stats,
         ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_last_commit",
+            side_effect=get_lab_last_commit_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_gitlab_commit_count",
+            side_effect=get_lab_commit_counts,
+        ),
     ):
         await update_organization_repositories()
 
@@ -418,7 +449,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
     assert result["data"]["organization"]["missedAuthors"] == 3
-    assert result["data"]["organization"]["missedCommits"] == 12
+    assert result["data"]["organization"]["missedCommits"] == 11
     assert result["data"]["organization"]["missedRepositories"] == 3
 
     loaders.organization_unreliable_integration_repositories.clear_all()

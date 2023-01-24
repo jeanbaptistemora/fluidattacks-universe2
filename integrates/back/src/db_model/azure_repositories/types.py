@@ -47,6 +47,7 @@ class BasicRepoData(NamedTuple):
 class ProjectStats(NamedTuple):
     project: BasicRepoData
     commits: tuple[dict, ...]
+    commits_count: int
 
 
 class RepositoriesStats(NamedTuple):
