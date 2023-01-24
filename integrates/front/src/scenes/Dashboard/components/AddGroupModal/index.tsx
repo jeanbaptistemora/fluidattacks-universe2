@@ -167,29 +167,21 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                 <LoadingOverlay active={submitting} spinner={<FadeLoader />} />
                 <Form>
                   <Col lg={33} md={33} sm={33}>
-                    <Text mb={1}>
-                      {t("organization.tabs.groups.newGroup.organization.text")}
-                    </Text>
-                    <Tooltip
-                      hide={runTour}
-                      id={
-                        "organization.tabs.groups.newGroup.organization.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                    <Input
+                      disabled={true}
+                      label={t(
+                        "organization.tabs.groups.newGroup.organization.text"
+                      )}
+                      name={"organization"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.organization.tooltip"
                       )}
-                    >
-                      <Input
-                        disabled={true}
-                        name={"organization"}
-                        validate={composeValidators([
-                          required,
-                          maxOrganizationLength,
-                          validTextField,
-                        ])}
-                      />
-                    </Tooltip>
+                      validate={composeValidators([
+                        required,
+                        maxOrganizationLength,
+                        validTextField,
+                      ])}
+                    />
                   </Col>
                   <Col lg={33} md={33} paddingTop={25} sm={33}>
                     <Text mb={1}>
