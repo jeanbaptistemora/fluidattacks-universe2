@@ -4928,6 +4928,44 @@ F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,13
   23 |     };
      ^ Col 0
 ",c_sharp.c_sharp_insecure_certificate_validation
+F060,lines,namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,7,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,"
+   1 | {
+   2 |   ""name"": ""holidays-component"",
+   3 |   ""version"": ""0.0.0"",
+   4 |   ""scripts"": {
+   5 |       ""ng"": ""ng"",
+   6 |       ""start"": ""ng serve --disable-host-check"",
+>  7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
+   8 |       ""build"": ""ng build"",
+   9 |       ""test"": ""ng test"",
+  10 |       ""lint"": ""ng lint"",
+  11 |       ""e2e"": ""ng e2e"",
+  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
+  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
+  14 |       ""npm-login"": ""node npm-login.js""
+  15 |   }
+  16 | }
+     ^ Col 0
+",conf_files.json_disable_host_check
+F060,lines,namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,6,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,"
+   1 | {
+   2 |   ""name"": ""holidays-component"",
+   3 |   ""version"": ""0.0.0"",
+   4 |   ""scripts"": {
+   5 |       ""ng"": ""ng"",
+>  6 |       ""start"": ""ng serve --disable-host-check"",
+   7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
+   8 |       ""build"": ""ng build"",
+   9 |       ""test"": ""ng test"",
+  10 |       ""lint"": ""ng lint"",
+  11 |       ""e2e"": ""ng e2e"",
+  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
+  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
+  14 |       ""npm-login"": ""node npm-login.js""
+  15 |   }
+  16 | }
+     ^ Col 0
+",conf_files.json_disable_host_check
 F060,lines,namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,2,396,skims,060. Insecure service configuration - Host verification,While performing communication between windows objects of different origins we must validate the identity of those origins. in namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,"
   1 | var iframe = document.getElementById(""testiframe"");
 > 2 | iframe.contentWindow.postMessage(""secret"", ""*""); // Noncompliant: * is used

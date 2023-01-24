@@ -3623,7 +3623,7 @@ class MethodsEnum(Enum):
     JSON_DISABLE_HOST_CHECK = MethodInfo(
         file_name="conf_files",
         name="json_disable_host_check",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F060,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,

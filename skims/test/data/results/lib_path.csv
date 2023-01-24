@@ -22335,44 +22335,6 @@ F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skim
   9 | </configuration>
     ^ Col 0
 ",dotnetconfig.dotnetconfig_has_ssl_disabled
-F060,lines,namespace/skims/test/data/lib_path/f060/json_disable_host_check.json,7,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_path/f060/json_disable_host_check.json,"
-   1 | {
-   2 |   ""name"": ""holidays-component"",
-   3 |   ""version"": ""0.0.0"",
-   4 |   ""scripts"": {
-   5 |       ""ng"": ""ng"",
-   6 |       ""start"": ""ng serve --disable-host-check"",
->  7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
-   8 |       ""build"": ""ng build"",
-   9 |       ""test"": ""ng test"",
-  10 |       ""lint"": ""ng lint"",
-  11 |       ""e2e"": ""ng e2e"",
-  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
-  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
-  14 |       ""npm-login"": ""node npm-login.js""
-  15 |   }
-  16 | }
-     ^ Col 0
-",conf_files.json_disable_host_check
-F060,lines,namespace/skims/test/data/lib_path/f060/json_disable_host_check.json,6,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_path/f060/json_disable_host_check.json,"
-   1 | {
-   2 |   ""name"": ""holidays-component"",
-   3 |   ""version"": ""0.0.0"",
-   4 |   ""scripts"": {
-   5 |       ""ng"": ""ng"",
->  6 |       ""start"": ""ng serve --disable-host-check"",
-   7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
-   8 |       ""build"": ""ng build"",
-   9 |       ""test"": ""ng test"",
-  10 |       ""lint"": ""ng lint"",
-  11 |       ""e2e"": ""ng e2e"",
-  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
-  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
-  14 |       ""npm-login"": ""node npm-login.js""
-  15 |   }
-  16 | }
-     ^ Col 0
-",conf_files.json_disable_host_check
 F381,lines,namespace/skims/test/data/lib_path/f381/tfm_check_required_version.tf,1,437,skims,381. Supply Chain Attack - Terraform,The required_version property is not set in namespace/skims/test/data/lib_path/f381/tfm_check_required_version.tf,"
 >  1 | terraform {
    2 |
