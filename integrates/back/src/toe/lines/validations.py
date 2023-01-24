@@ -18,10 +18,12 @@ from newutils import (
 from newutils.findings import (
     is_valid_finding_titles,
 )
+from newutils.validations import (
+    get_attr_value,
+)
 from typing import (
     Any,
     Callable,
-    cast,
 )
 
 
@@ -34,7 +36,9 @@ def validate_modified_date_deco(modified_date_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            modified_date = cast(datetime, kwargs.get(modified_date_field))
+            modified_date = get_attr_value(
+                field=modified_date_field, kwargs=kwargs, obj_type=datetime
+            )
             if modified_date > datetime_utils.get_now():
                 raise InvalidModifiedDate()
             res = func(*args, **kwargs)
@@ -54,7 +58,7 @@ def validate_loc_deco(loc_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            loc = cast(int, kwargs.get(loc_field))
+            loc = get_attr_value(field=loc_field, kwargs=kwargs, obj_type=int)
             if loc < 0:
                 raise InvalidLinesOfCode()
             res = func(*args, **kwargs)

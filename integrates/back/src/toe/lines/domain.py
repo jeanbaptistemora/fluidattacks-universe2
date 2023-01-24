@@ -62,35 +62,29 @@ def _get_optional_be_present_until(
 
 
 def _assign_attacked_lines(
+    *,
     filename: str,
-    loc: int,
-    modified_date: datetime,
-    attacked_at: Optional[datetime],
-    attacked_lines: int,
+    attributes: ToeLinesAttributesToAdd,
 ) -> int:
     if get_filename_extension(filename) in CHECKED_FILES:
-        return loc
-    if attacked_at and modified_date and attacked_at <= modified_date:
-        return attacked_lines
+        return attributes.loc
+    if (
+        attributes.attacked_at
+        and attributes.modified_date
+        and attributes.attacked_at <= attributes.modified_date
+    ):
+        return attributes.attacked_lines
     return 0
 
 
-@validate_loc_deco("loc")
-@validate_modified_date_deco("modified_date")
+@validate_loc_deco("attributes.loc")
+@validate_modified_date_deco("attributes.modified_date")
 def _validate_assign_attacked_lines(
+    *,
     filename: str,
-    loc: int,
-    modified_date: datetime,
-    attacked_at: datetime,
-    attacked_lines: int,
+    attributes: ToeLinesAttributesToAdd,
 ) -> int:
-    return _assign_attacked_lines(
-        filename=filename,
-        loc=loc,
-        modified_date=modified_date,
-        attacked_at=attacked_at,
-        attacked_lines=attacked_lines,
-    )
+    return _assign_attacked_lines(filename=filename, attributes=attributes)
 
 
 # pylint: disable=unused-argument
@@ -102,10 +96,9 @@ def _validate_seen_first_time_by(
     return
 
 
-def _assign_toe_lines(  # pylint: disable=too-many-arguments
+def _assign_toe_lines(
+    *,
     attributes: ToeLinesAttributesToAdd,
-    last_author: str,
-    last_commit: str,
     attacked_lines: int,
     filename: str,
     group_name: str,
@@ -138,8 +131,8 @@ def _assign_toe_lines(  # pylint: disable=too-many-arguments
             if attributes.seen_first_time_by
             else "machine@fluidattacks.com",
             modified_date=datetime_utils.get_utc_now(),
-            last_author=last_author,
-            last_commit=last_commit,
+            last_author=attributes.last_author,
+            last_commit=attributes.last_commit,
             loc=attributes.loc,
             seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
             sorts_risk_level=attributes.sorts_risk_level,
@@ -147,16 +140,14 @@ def _assign_toe_lines(  # pylint: disable=too-many-arguments
     )
 
 
-@validate_sanitized_csv_input_deco(["last_author", "filename"])
-@validate_email_address_deco("last_author")
-@validate_commit_hash_deco("last_commit")
+@validate_sanitized_csv_input_deco(["attributes.last_author", "filename"])
+@validate_email_address_deco("attributes.last_author")
+@validate_commit_hash_deco("attributes.last_commit")
 @validate_git_root_deco("root")
 @validate_active_root_deco("root")
 def _validate_assign_toe_lines(
     *,
     attributes: ToeLinesAttributesToAdd,
-    last_author: str,
-    last_commit: str,
     attacked_lines: int,
     filename: str,
     group_name: str,
@@ -164,8 +155,6 @@ def _validate_assign_toe_lines(
 ) -> ToeLines:
     return _assign_toe_lines(
         attributes=attributes,
-        last_author=last_author,
-        last_commit=last_commit,
         attacked_lines=attacked_lines,
         filename=filename,
         group_name=group_name,
@@ -188,16 +177,10 @@ async def add(  # pylint: disable=too-many-arguments
                 seen_first_time_by=attributes.seen_first_time_by
             )
         attacked_lines = _validate_assign_attacked_lines(
-            filename=filename,
-            loc=attributes.loc,
-            modified_date=attributes.modified_date,
-            attacked_at=attributes.attacked_at,
-            attacked_lines=attributes.attacked_lines,
+            filename=filename, attributes=attributes
         )
         toe_lines = _validate_assign_toe_lines(
             attributes=attributes,
-            last_author=attributes.last_author,
-            last_commit=attributes.last_commit,
             attacked_lines=attacked_lines,
             filename=filename,
             group_name=group_name,
@@ -205,16 +188,10 @@ async def add(  # pylint: disable=too-many-arguments
         )
     else:
         attacked_lines = _assign_attacked_lines(
-            filename=filename,
-            loc=attributes.loc,
-            modified_date=attributes.modified_date,
-            attacked_at=attributes.attacked_at,
-            attacked_lines=attributes.attacked_lines,
+            filename=filename, attributes=attributes
         )
         toe_lines = _assign_toe_lines(
             attributes=attributes,
-            last_author=attributes.last_author,
-            last_commit=attributes.last_commit,
             attacked_lines=attacked_lines,
             filename=filename,
             group_name=group_name,
