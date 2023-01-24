@@ -774,7 +774,8 @@ describe("Table", (): void => {
     expect.hasAssertions();
 
     render(
-      <TestComponent TData={data.slice(0, 2)} expandedRow={handleRowExpand} />
+      // eslint-disable-next-line
+      <TestComponent TData={data.slice(0, 2)} expandedRow={handleRowExpand} /> // NOSONAR
     );
 
     expect(screen.getByRole("table")).toBeInTheDocument();

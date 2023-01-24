@@ -88,24 +88,27 @@ const Secrets: React.FC<ISecretsProps> = ({
     []
   );
 
-  const secretsDataSet =
-    data === undefined
-      ? []
-      : data.root.secrets.map((item: ISecret): ISecretItem => {
-          return {
-            description: item.description,
-            element: (
-              <SecretValue
-                onEdit={editCurrentRow}
-                secretDescription={item.description}
-                secretKey={item.key}
-                secretValue={item.value}
-              />
-            ),
-            key: item.key,
-            value: item.value,
-          };
-        });
+  const secretsDataSet = useMemo(
+    (): ISecretItem[] =>
+      data === undefined
+        ? []
+        : data.root.secrets.map((item: ISecret): ISecretItem => {
+            return {
+              description: item.description,
+              element: (
+                <SecretValue
+                  onEdit={editCurrentRow}
+                  secretDescription={item.description}
+                  secretKey={item.key}
+                  secretValue={item.value}
+                />
+              ),
+              key: item.key,
+              value: item.value,
+            };
+          }),
+    [data, editCurrentRow]
+  );
 
   const closeModal = useCallback((): void => {
     setIsUpdate(false);
@@ -122,15 +125,18 @@ const Secrets: React.FC<ISecretsProps> = ({
     setAddSecretModalOpen(true);
   }, []);
 
-  function isSecretDuplicated(key: string): boolean {
-    return secretsDataSet.some((item): boolean => item.key === key);
-  }
+  const isSecretDuplicated = useCallback(
+    (key: string): boolean => {
+      return secretsDataSet.some((item): boolean => item.key === key);
+    },
+    [secretsDataSet]
+  );
 
-  function handleRowExpand(row: Row<ISecretItem>): JSX.Element {
+  const handleRowExpand = useCallback((row: Row<ISecretItem>): JSX.Element => {
     return renderSecretsDescription({
       description: [row.original.description],
     });
-  }
+  }, []);
 
   return (
     <React.StrictMode>
