@@ -5,7 +5,6 @@ from aioextensions import (
 import asyncio
 from azure.devops.v6_0.git.models import (
     GitCommit,
-    GitRepository,
     GitRepositoryStats,
 )
 from botocore.exceptions import (
@@ -252,10 +251,10 @@ async def get_pat_credentials_authors_stats(
     loaders: Dataloaders,
 ) -> set[str]:
     pat_credentials = list(filter_pat_credentials(credentials))
-    all_repositories: list[
-        list[GitRepository]
-    ] = await loaders.organization_integration_repositories.load_many(
-        pat_credentials
+    all_repositories = (
+        await loaders.organization_integration_repositories.load_many(
+            pat_credentials
+        )
     )
     repositories: tuple[CredentialsGitRepository, ...] = tuple(
         CredentialsGitRepository(
@@ -521,8 +520,8 @@ def _get_branch(repository: CredentialsGitRepository) -> str:
 async def _get_missed_authors(
     *, loaders: Dataloaders, repository: CredentialsGitRepository
 ) -> set[str]:
-    git_commits: tuple[
-        GitCommit, ...
+    git_commits: list[
+        GitCommit
     ] = await loaders.organization_integration_repositories_commits.load(
         CredentialsGitRepositoryCommit(
             credential=repository.credential,
@@ -541,13 +540,13 @@ async def _get_missed_authors(
 async def _get_commit_date(
     *, loaders: Dataloaders, repository: CredentialsGitRepository
 ) -> datetime:
-    git_commits: tuple[
-        GitCommit, ...
-    ] = await loaders.organization_integration_repositories_commits.load(
-        CredentialsGitRepositoryCommit(
-            credential=repository.credential,
-            project_name=repository.repository.project.name,
-            repository_id=repository.repository.id,
+    git_commits = (
+        await loaders.organization_integration_repositories_commits.load(
+            CredentialsGitRepositoryCommit(
+                credential=repository.credential,
+                project_name=repository.repository.project.name,
+                repository_id=repository.repository.id,
+            )
         )
     )
 
@@ -843,10 +842,10 @@ async def get_pat_credentials_stats(
     organization_id: str,
 ) -> RepositoriesStats:
     pat_credentials = list(filter_pat_credentials(credentials))
-    all_repositories: list[
-        list[GitRepository]
-    ] = await loaders.organization_integration_repositories.load_many(
-        pat_credentials
+    all_repositories = (
+        await loaders.organization_integration_repositories.load_many(
+            pat_credentials
+        )
     )
     repositories: tuple[CredentialsGitRepository, ...] = tuple(
         CredentialsGitRepository(

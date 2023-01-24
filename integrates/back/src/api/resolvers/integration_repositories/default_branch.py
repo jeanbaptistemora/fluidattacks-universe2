@@ -9,6 +9,7 @@ from graphql.type.definition import (
 async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> str:
     return (
         parent.repository.default_branch

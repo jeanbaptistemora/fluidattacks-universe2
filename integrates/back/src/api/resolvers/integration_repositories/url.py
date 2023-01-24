@@ -12,5 +12,6 @@ from urllib.parse import (
 async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> str:
     return unquote_plus(parent.repository.web_url)

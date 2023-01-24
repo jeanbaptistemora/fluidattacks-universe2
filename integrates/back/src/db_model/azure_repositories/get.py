@@ -110,9 +110,9 @@ def _get_repositories(
 
 async def get_repositories_commits(
     *,
-    repositories: tuple[CredentialsGitRepositoryCommit, ...],
-) -> tuple[tuple[GitCommit, ...], ...]:
-    repositories_commits: tuple[tuple[GitCommit, ...], ...] = await collect(
+    repositories: list[CredentialsGitRepositoryCommit],
+) -> list[list[GitCommit]]:
+    repositories_commits = await collect(
         tuple(
             in_thread(
                 _get_repositories_commits,
@@ -130,7 +130,7 @@ async def get_repositories_commits(
         workers=1,
     )
 
-    return repositories_commits
+    return list(repositories_commits)
 
 
 def _get_repositories_commits(
@@ -140,7 +140,7 @@ def _get_repositories_commits(
     repository_id: str,
     project_name: str,
     total: bool = False,
-) -> tuple[GitCommit, ...]:
+) -> list[GitCommit]:
     credentials = BasicAuthentication("", access_token)
     connection = Connection(
         base_url=f"{BASE_URL}/{organization}", creds=credentials
@@ -160,9 +160,9 @@ def _get_repositories_commits(
         AzureDevOpsServiceError,
     ) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
-        return tuple()
+        return []
     else:
-        return tuple(commits)
+        return commits
 
 
 async def get_repositories_stats(
@@ -364,6 +364,6 @@ class OrganizationRepositoriesCommitsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        repositories: tuple[CredentialsGitRepositoryCommit, ...],
-    ) -> tuple[tuple[GitCommit, ...], ...]:
+        repositories: list[CredentialsGitRepositoryCommit],
+    ) -> list[list[GitCommit]]:
         return await get_repositories_commits(repositories=repositories)

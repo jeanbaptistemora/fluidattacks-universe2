@@ -1,6 +1,3 @@
-from azure.devops.v6_0.git.models import (
-    GitCommit,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -19,15 +16,16 @@ from typing import (
 async def resolve(
     parent: CredentialsGitRepository,
     info: GraphQLResolveInfo,
+    **_kwargs: None,
 ) -> Optional[str]:
     loaders: Dataloaders = info.context.loaders
-    git_commits: tuple[
-        GitCommit, ...
-    ] = await loaders.organization_integration_repositories_commits.load(
-        CredentialsGitRepositoryCommit(
-            credential=parent.credential,
-            project_name=parent.repository.project.name,
-            repository_id=parent.repository.id,
+    git_commits = (
+        await loaders.organization_integration_repositories_commits.load(
+            CredentialsGitRepositoryCommit(
+                credential=parent.credential,
+                project_name=parent.repository.project.name,
+                repository_id=parent.repository.id,
+            )
         )
     )
 
