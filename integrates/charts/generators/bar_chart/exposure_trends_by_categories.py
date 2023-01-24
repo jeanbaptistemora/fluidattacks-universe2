@@ -114,16 +114,16 @@ async def get_data_vulnerabilities(
         for finding in findings
     }
 
-    vulnerabilities: tuple[
-        tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
-        [finding.id for finding in findings]
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many(
+            [finding.id for finding in findings]
+        )
     )
 
     return GroupInformation(
         categories=finding_category,
         cvssf=finding_cvssf,
-        finding_vulnerabilities=vulnerabilities,
+        finding_vulnerabilities=tuple(vulnerabilities),
         findings=findings,
     )
 

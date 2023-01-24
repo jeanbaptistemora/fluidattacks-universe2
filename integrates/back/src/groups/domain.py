@@ -186,9 +186,7 @@ from typing import (
     Any,
     Awaitable,
     Callable,
-    List,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -870,13 +868,11 @@ async def get_mean_remediate_severity_cvssf(
         )
         for finding in group_findings
     }
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities_cvssf(
-        findings_vulns,
+        tuple(findings_vulns),
         finding_cvssf,
         min_date,
     )
@@ -908,13 +904,11 @@ async def get_mean_remediate_non_treated_severity_cvssf(
         )
         for finding in group_findings
     }
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
     )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
-        findings_vulns
+        tuple(findings_vulns)
     )
     non_accepted_undefined_vulns = tuple(
         vuln
@@ -950,13 +944,11 @@ async def get_mean_remediate_severity(
             <= max_severity
         )
     ]
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
     )
     return vulns_utils.get_mean_remediate_vulnerabilities(
-        findings_vulns,
+        tuple(findings_vulns),
         min_date,
     )
 
@@ -980,13 +972,11 @@ async def get_mean_remediate_non_treated_severity(
             <= max_severity
         )
     ]
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         group_findings_ids
     )
     non_confirmed_zr_vulns = vulns_utils.filter_non_confirmed_zero_risk(
-        findings_vulns
+        tuple(findings_vulns)
     )
     non_accepted_undefined_vulns = tuple(
         vuln
@@ -1090,7 +1080,7 @@ async def invite_to_group(
 @validate_fluidattacks_staff_on_group_deco("group", "email", "role")
 def generate_invitation_token(
     group: Group, email: str, role: str
-) -> Tuple[int, str]:
+) -> tuple[int, str]:
     if role:
         expiration_time = datetime_utils.get_as_epoch(
             datetime_utils.get_now_plus_delta(weeks=1)
@@ -1178,7 +1168,7 @@ def validate_file_data(
 def assign_files_to_update(
     *,
     file_name: str,
-    group_files: List[GroupFile],
+    group_files: list[GroupFile],
 ) -> list[GroupFile]:
     if file_name and not group_files:
         files_to_update: list[GroupFile] = []

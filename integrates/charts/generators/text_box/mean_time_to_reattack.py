@@ -125,14 +125,12 @@ async def _get_mean_time_to_reattack(
     loaders: Dataloaders,
     current_date: datetime,
 ) -> Decimal:
-    historic_verifications: tuple[
-        tuple[VulnerabilityVerification, ...], ...
-    ] = await loaders.vulnerability_historic_verification.load_many(
-        vulnerability.id for vulnerability in filtered_vulnerabilities
+    historic_verifications = (
+        await loaders.vulnerability_historic_verification.load_many(
+            vulnerability.id for vulnerability in filtered_vulnerabilities
+        )
     )
-    historic_states: tuple[
-        tuple[VulnerabilityState, ...], ...
-    ] = await loaders.vulnerability_historic_state.load_many(
+    historic_states = await loaders.vulnerability_historic_state.load_many(
         vulnerability.id for vulnerability in filtered_vulnerabilities
     )
 

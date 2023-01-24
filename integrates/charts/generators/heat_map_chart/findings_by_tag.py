@@ -67,10 +67,10 @@ async def get_data(group: str) -> FindingsTags:
     finding_ids = [finding.id for finding in group_findings]
     findings = [finding.title for finding in group_findings]
 
-    vulnerabilities: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
-        finding_ids
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many(
+            finding_ids
+        )
     )
 
     findings_data = await collect(

@@ -330,6 +330,10 @@ class FindingVulnerabilitiesLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
+    def clear(self, key: str) -> DataLoader:
+        self.dataloader.clear(key)
+        return super().clear(key)
+
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: list[str]
@@ -351,21 +355,23 @@ class FindingVulnerabilitiesLoader(DataLoader):
 class FindingVulnerabilitiesDraftConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: tuple[FindingVulnerabilitiesRequest, ...]
-    ) -> tuple[VulnerabilitiesConnection, ...]:
-        return await collect(
-            tuple(
-                _get_finding_vulnerabilities_released_zr(
-                    is_released=False,
-                    is_zero_risk=False,
-                    request=FindingVulnerabilitiesZrRequest(
-                        finding_id=request.finding_id,
-                        after=request.after,
-                        first=request.first,
-                        paginate=request.paginate,
-                    ),
+        self, requests: list[FindingVulnerabilitiesRequest]
+    ) -> list[VulnerabilitiesConnection]:
+        return list(
+            await collect(
+                tuple(
+                    _get_finding_vulnerabilities_released_zr(
+                        is_released=False,
+                        is_zero_risk=False,
+                        request=FindingVulnerabilitiesZrRequest(
+                            finding_id=request.finding_id,
+                            after=request.after,
+                            first=request.first,
+                            paginate=request.paginate,
+                        ),
+                    )
+                    for request in requests
                 )
-                for request in requests
             )
         )
 
@@ -381,9 +387,9 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
 
     async def load_many_chained(
         self, finding_ids: list[str]
-    ) -> tuple[Vulnerability, ...]:
+    ) -> list[Vulnerability]:
         unchained_data = await self.load_many(finding_ids)
-        return tuple(chain.from_iterable(unchained_data))
+        return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(

@@ -110,12 +110,10 @@ async def _process_group(
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    group_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    group_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         list(finding.id for finding in findings)
     )
-    vulns_to_fix = _filter_vulns_by_datetime_str(group_vulns)
+    vulns_to_fix = _filter_vulns_by_datetime_str(tuple(group_vulns))
     if not vulns_to_fix:
         return
 

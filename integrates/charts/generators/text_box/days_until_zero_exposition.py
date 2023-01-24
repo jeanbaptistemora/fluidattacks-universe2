@@ -18,9 +18,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
     ROUND_CEILING,
@@ -35,10 +32,10 @@ async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
     findings_ids: tuple[str, ...] = tuple(
         finding.id for finding in group_findings
     )
-    finding_vulns: tuple[
-        tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
-        findings_ids
+    finding_vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many(
+            findings_ids
+        )
     )
 
     counter: Decimal = Decimal("0.0")

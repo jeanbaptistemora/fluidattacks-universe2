@@ -23,7 +23,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityMetadataToUpdate,
 )
 from db_model.vulnerabilities.update import (
@@ -35,7 +34,6 @@ from organizations import (
 import time
 from typing import (
     Dict,
-    Tuple,
 )
 from vulnerabilities.domain.utils import (
     get_hash_from_machine_vuln,
@@ -50,9 +48,7 @@ async def process_group(group: str) -> None:
         fin.id: fin
         for fin in (await loaders.group_drafts_and_findings.load(group))
     }
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings.values()]
     )
     vulns = [

@@ -18,9 +18,6 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from db_model.vulnerabilities.update import (
     update_historic_entry,
 )
@@ -43,9 +40,7 @@ async def process_group(group: str) -> None:
     findings: Tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group)
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings if "011" in fin.title]
     )
     duplicates = []

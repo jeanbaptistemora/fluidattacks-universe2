@@ -26,7 +26,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityMetadataToUpdate,
 )
 from db_model.vulnerabilities.update import (
@@ -54,9 +53,7 @@ async def main() -> None:
         findings: Tuple[
             Finding, ...
         ] = await loaders.group_drafts_and_findings.load(group)
-        vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load_many_chained(
+        vulns = await loaders.finding_vulnerabilities.load_many_chained(
             [fin.id for fin in findings]
         )
         vulns = tuple(

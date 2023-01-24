@@ -31,7 +31,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityState,
 )
 from git import (
@@ -181,9 +180,7 @@ async def process_group(group: str, fusion_path: str) -> None:
     findings: Tuple[
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group)
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings]
     )
     vulns = tuple(

@@ -24,9 +24,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from organizations.domain import (
     get_all_active_group_names,
 )
@@ -51,9 +48,7 @@ async def main() -> None:
         machine_drafts = [
             draft for draft in drafts if draft.state.source == Source.MACHINE
         ]
-        drafts_vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load_many_chained(
+        drafts_vulns = await loaders.finding_vulnerabilities.load_many_chained(
             [draft.id for draft in machine_drafts]
         )
         vulns_to_delete = [

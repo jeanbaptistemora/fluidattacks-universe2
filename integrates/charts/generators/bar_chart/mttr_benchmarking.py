@@ -50,9 +50,7 @@ async def get_data_one_group(
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
     historics_verification: tuple[
