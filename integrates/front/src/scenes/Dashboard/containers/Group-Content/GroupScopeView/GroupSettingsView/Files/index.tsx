@@ -57,15 +57,16 @@ const Files: React.FC<IFilesProps> = ({
 
   const [currentRow, setCurrentRow] = useState<Record<string, string>>({});
 
-  function handleRowClickz(
-    rowInfo: Row<IFile>
-  ): (event: React.FormEvent) => void {
-    return (event: React.FormEvent): void => {
-      setCurrentRow(rowInfo.original as unknown as Record<string, string>);
-      setIsOptionsModalOpen(true);
-      event.preventDefault();
-    };
-  }
+  const handleRowClickz = useCallback(
+    (rowInfo: Row<IFile>): ((event: React.FormEvent) => void) => {
+      return (event: React.FormEvent): void => {
+        setCurrentRow(rowInfo.original as unknown as Record<string, string>);
+        setIsOptionsModalOpen(true);
+        event.preventDefault();
+      };
+    },
+    []
+  );
 
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
   const disableButton: () => void = useCallback((): void => {

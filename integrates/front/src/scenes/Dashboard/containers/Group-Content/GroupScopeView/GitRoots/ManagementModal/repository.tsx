@@ -181,7 +181,7 @@ const Repository: FC<IRepositoryProps> = ({
         )
       : {};
 
-  function handleCheckAccessClick(): void {
+  const handleCheckAccessClick = useCallback((): void => {
     if (formRef.current !== null) {
       void validateGitAccess({
         variables: {
@@ -202,7 +202,7 @@ const Repository: FC<IRepositoryProps> = ({
         },
       });
     }
-  }
+  }, [validateGitAccess]);
 
   const submittableCredentials = (values: IFormValues): boolean => {
     if (values.useVpn || credExists) {
