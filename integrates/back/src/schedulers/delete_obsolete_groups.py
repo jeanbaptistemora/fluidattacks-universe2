@@ -137,7 +137,7 @@ async def delete_obsolete_groups() -> None:
         if not org_groups_names:
             continue
         groups = await loaders.group.load_many(org_groups_names)
-        active_groups = groups_utils.filter_active_groups(groups)
+        active_groups = groups_utils.filter_active_groups(tuple(groups))
         if not active_groups:
             continue
         info(f"Active groups for {org_name}: {len(active_groups)}")

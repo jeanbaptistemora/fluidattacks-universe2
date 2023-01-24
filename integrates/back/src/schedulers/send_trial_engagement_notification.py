@@ -8,9 +8,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.companies.types import (
-    Company,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -33,7 +30,6 @@ from organizations import (
 from typing import (
     Awaitable,
     Callable,
-    Optional,
 )
 
 mail_add_stakeholders_notification = retry_on_exceptions(
@@ -122,9 +118,7 @@ async def send_trial_engagement_notification() -> None:
     loaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
-    companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
-        domains
-    )
+    companies = await loaders.company.load_many(domains)
 
     await collect(
         tuple(

@@ -2,9 +2,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -29,9 +26,7 @@ from vulnerabilities.domain.utils import (
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     group_names = await orgs_domain.get_all_active_group_names(loaders)
-    groups_findings: tuple[
-        tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(group_names)
+    groups_findings = await loaders.group_findings.load_many(group_names)
 
     for group_name, findings in zip(group_names, groups_findings):
         info(f"Processing group {group_name}...")

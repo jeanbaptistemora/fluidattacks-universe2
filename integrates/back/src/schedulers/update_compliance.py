@@ -538,10 +538,10 @@ async def update_compliance_indicators(
     compliance_file: dict[str, Any],
 ) -> None:
     info("Update compliance indicators")
-    organizations_unreliable_indicators: tuple[
-        OrganizationUnreliableIndicators, ...
-    ] = await loaders.organization_unreliable_indicators.load_many(
-        tuple(organization.id for organization in organizations)
+    organizations_unreliable_indicators = (
+        await loaders.organization_unreliable_indicators.load_many(
+            [organization.id for organization in organizations]
+        )
     )
     compliances_level_by_standard: dict[str, set] = {}
     standard_names = tuple(

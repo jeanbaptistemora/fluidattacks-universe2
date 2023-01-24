@@ -287,10 +287,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    groups_findings: tuple[
-        tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(groups_names)
-
+    groups_findings = await loaders.group_findings.load_many(groups_names)
     findings_comments: tuple[
         dict[
             str, tuple[Union[GroupComment, EventComment, FindingComment], ...]

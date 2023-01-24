@@ -206,9 +206,7 @@ async def update_portfolios() -> None:
             "[scheduler]: working on organization",
             extra={"organization": org_name},
         )
-        org_groups: tuple[Group, ...] = await loaders.group.load_many(
-            org_group_names
-        )
+        org_groups = await loaders.group.load_many(org_group_names)
         tag_groups: tuple[Group, ...] = tuple(
             group
             for group in org_groups

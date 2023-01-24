@@ -18,7 +18,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from machine.jobs import (
     FINDINGS,
@@ -30,31 +29,24 @@ from organizations import (
 from schedulers.common import (
     info,
 )
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 
 
 async def main() -> None:
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
-    machine_groups: List[Group] = [
+    machine_groups: list[Group] = [
         group
         for group in groups
         if group.state.has_machine is True
         and group.state.managed in (GroupManaged.MANAGED, GroupManaged.TRIAL)
     ]
-    groups_roots: Tuple[
-        Tuple[Root, ...], ...
-    ] = await loaders.group_roots.load_many(
+    groups_roots = await loaders.group_roots.load_many(
         [group.name for group in machine_groups]
     )
 
-    queue: Dict[str, List[str]] = {}
+    queue: dict[str, list[str]] = {}
     for group, roots in zip(machine_groups, groups_roots):
-        valid_roots: List[str] = [
+        valid_roots: list[str] = [
             root.state.nickname
             for root in roots
             if (
@@ -71,7 +63,7 @@ async def main() -> None:
                 ", ".join(valid_roots),
             )
             queue.update({group.name: valid_roots})
-    finding_codes: List[str] = list(FINDINGS.keys())
+    finding_codes: list[str] = list(FINDINGS.keys())
     await collect(
         (
             queue_job_new(

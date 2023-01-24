@@ -1941,17 +1941,15 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
     force: bool,
     queue_with_vpn: bool,
 ) -> Tuple[GitRoot, ...]:
-    roots_credentials: Tuple[
-        Credentials, ...
-    ] = await loaders.credentials.load_many(
-        tuple(
+    roots_credentials = await loaders.credentials.load_many(
+        [
             CredentialsRequest(
                 id=root.state.credential_id,
                 organization_id=organization_id,
             )
             for root in roots
             if root.state.credential_id is not None
-        )
+        ]
     )
 
     last_root_commits_in_s3: Tuple[

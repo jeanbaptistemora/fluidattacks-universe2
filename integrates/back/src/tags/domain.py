@@ -43,7 +43,7 @@ async def filter_allowed_tags(
     organization_name: str,
     user_group_names: list[str],
 ) -> list[str]:
-    groups: tuple[Group, ...] = await loaders.group.load_many(user_group_names)
+    groups = await loaders.group.load_many(user_group_names)
     all_tags = {
         str(tag).lower()
         for group in groups
@@ -51,7 +51,7 @@ async def filter_allowed_tags(
         for tag in group.state.tags
     }
     are_tags_allowed = await collect(
-        is_tag_allowed(loaders, groups, organization_name, tag)
+        is_tag_allowed(loaders, tuple(groups), organization_name, tag)
         for tag in all_tags
     )
     tags = [

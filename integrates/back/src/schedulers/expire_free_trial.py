@@ -34,9 +34,6 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -86,9 +83,7 @@ async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
     domains = tuple(group.created_by.split("@")[1] for group in groups)
-    companies: tuple[Optional[Company], ...] = await loaders.company.load_many(
-        domains
-    )
+    companies = await loaders.company.load_many(domains)
 
     await collect(
         tuple(
