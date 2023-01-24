@@ -17,7 +17,7 @@ from sast.query import (
 )
 from typing import (
     Iterable,
-    Tuple,
+    Iterator,
 )
 from utils import (
     graph as g,
@@ -27,19 +27,21 @@ from utils.graph import (
 )
 
 
-def have_insecure_http_server(graph: Graph, nid: NId) -> Tuple[bool, NId]:
+def have_insecure_http_server(
+    graph: Graph, nid: NId, key: str
+) -> Iterator[NId]:
     required_flags = {" -S", " --tls", " --ssl"}
-    c_ids = adj_ast(graph, nid)
-    for c_id in c_ids:
-        value_id = graph.nodes[c_id]["value_id"]
-        value = graph.nodes[value_id].get("value")
-        if (
-            value
-            and "http-server" in value
-            and not any(flag in value for flag in required_flags)
-        ):
-            return True, c_id
-    return False, ""
+    if key == "scripts":
+        c_ids = adj_ast(graph, nid)
+        for c_id in c_ids:
+            value_id = graph.nodes[c_id]["value_id"]
+            value = graph.nodes[value_id].get("value")
+            if (
+                value
+                and "http-server" in value
+                and not any(flag in value for flag in required_flags)
+            ):
+                yield c_id
 
 
 def https_flag_missing(
@@ -58,13 +60,9 @@ def https_flag_missing(
                 key_id = graph.nodes[nid]["key_id"]
                 key = graph.nodes[key_id]["value"]
                 value_id = graph.nodes[nid]["value_id"]
-
-                if (
-                    key == "scripts"
-                    and (result := have_insecure_http_server(graph, value_id))
-                    and result[0]
-                ):
-                    yield shard, result[1]
+                result = have_insecure_http_server(graph, value_id, key)
+                for vuln in result:
+                    yield shard, vuln
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f372.json_https_flag_missing",
