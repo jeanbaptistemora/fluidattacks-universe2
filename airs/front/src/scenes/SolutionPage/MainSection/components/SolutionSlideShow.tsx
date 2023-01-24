@@ -84,6 +84,7 @@ const SolutionSlideShow: React.FC<ISolutionSlideShowProps> = ({
       "/blog/choosing-pentesting-team/",
       "/blog/what-is-ptaas/",
       "/blog/types-of-penetration-testing/",
+      "/blog/continuous-penetration-testing/",
       "/blog/what-is-manual-penetration-testing/",
     ],
     redTeaming: [
