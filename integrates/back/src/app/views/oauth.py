@@ -125,8 +125,13 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
     try:
         user_info = await get_jwt_content(request)
         email: str = user_info["user_email"]
-        organization_id: str = request.query_params["subject"]
-        code: str = request.query_params["code"]
+        try:
+            organization_id: str = request.query_params["subject"]
+            code: str = request.query_params["code"]
+        except KeyError as ex:
+            LOGGER.exception(ex, extra=dict(extra=locals()))
+            return RedirectResponse(url="/home")
+
         if not await has_access(
             loaders=get_new_context(),
             email=email,
@@ -230,8 +235,13 @@ async def oauth_github(request: Request) -> RedirectResponse:
     try:
         user_info = await get_jwt_content(request)
         email: str = user_info["user_email"]
-        organization_id: str = request.query_params["subject"]
-        code: str = request.query_params["code"]
+        try:
+            organization_id: str = request.query_params["subject"]
+            code: str = request.query_params["code"]
+        except KeyError as exc:
+            LOGGER.exception(exc, extra=dict(extra=locals()))
+            return RedirectResponse(url="/home")
+
         if not await has_access(
             loaders=get_new_context(),
             email=email,
