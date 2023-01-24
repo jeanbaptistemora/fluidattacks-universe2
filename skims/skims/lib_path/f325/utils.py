@@ -94,9 +94,8 @@ def cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
                 yield principal
 
 
-def _policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
+def _policy_actions_has_privilege(action_node: Node) -> bool:
     """Check if an action have a privilege."""
-    all_actions = ACTIONS_NEW
     actions = (
         action_node.data
         if isinstance(action_node.data, list)
@@ -104,10 +103,13 @@ def _policy_actions_has_privilege(action_node: Node, privilege: str) -> bool:
     )
     for act in actions:
         serv, act_val = act.raw.split(":")
-        act_val = (
+        act_value = (
             act_val[: act_val.index("*")] if act_val.endswith("*") else act_val
         )
-        if act_val not in all_actions.get(serv, {}).get(privilege, []):
+        if (
+            act_value in ACTIONS_NEW[serv].get("write", [])
+            or act_val.startswith("*")
+        ) and act_value not in ACTIONS_NEW[serv].get("wildcard_resource", []):
             return True
     return False
 
@@ -137,7 +139,7 @@ def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
             and effect.raw == "Allow"
             and wild_res_node
             and action
-            and _policy_actions_has_privilege(action, "wildcard_resource")
+            and _policy_actions_has_privilege(action)
         ):
             yield wild_res_node
 

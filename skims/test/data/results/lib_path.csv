@@ -3495,7 +3495,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_action
@@ -3528,7 +3528,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -3653,7 +3653,7 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -12735,7 +12735,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
      ^ Col 0
@@ -12743,7 +12743,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
 F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,67,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -13579,7 +13579,7 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
 > 52 |                 Action: iam:*
@@ -13599,7 +13599,7 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -13652,7 +13652,7 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    71 |               ""Statement"": [
    72 |                 {
    73 |                   ""Effect"": ""Allow"",
-   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   74 |                   ""Action"": ""ecs:CreateService"",
    75 |                   ""Resource"": ""*""
    76 |                 },
    77 |                 {
@@ -15581,7 +15581,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -15603,7 +15603,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    71 |               ""Statement"": [
    72 |                 {
    73 |                   ""Effect"": ""Allow"",
-   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   74 |                   ""Action"": ""ecs:CreateService"",
    75 |                   ""Resource"": ""*""
    76 |                 },
    77 |                 {
@@ -16103,31 +16103,6 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                 Resource: arn:::ec2/specific
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,18,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
-   8 |             Version: '2012-10-17'
-   9 |             Statement:
-  10 |               - Action:
-  11 |                   - ec2:*
-  12 |                   - autoscaling:*
-  13 |                   - eks:*
-  14 |                 Resource: '*'
-  15 |                 Effect: Allow
-  16 |               - Action:
-  17 |                   - ec2:Something
-> 18 |                 Resource: '*'
-  19 |                 Effect: Allow
-  20 |               - Action: '*'
-  21 |                 Resource: arn:::ec2/specific
-  22 |                 Effect: Allow
-  23 |               - Action: ec2:Something
-  24 |                 Resource: arn:::ec2/specific
-  25 |                 Effect: Allow
-  26 |       AssumeRolePolicyDocument:
-  27 |         Statement:
-  28 |           - Effect: Allow
-     ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
    7 |           {
@@ -16151,31 +16126,6 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   25 |                   ""Effect"": ""Allow""
   26 |                 },
   27 |                 {
-     ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,24,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
-  14 |                     ""autoscaling:*"",
-  15 |                     ""eks:*""
-  16 |                   ],
-  17 |                   ""Resource"": ""*"",
-  18 |                   ""Effect"": ""Allow""
-  19 |                 },
-  20 |                 {
-  21 |                   ""Action"": [
-  22 |                     ""ec2:Something""
-  23 |                   ],
-> 24 |                   ""Resource"": ""*"",
-  25 |                   ""Effect"": ""Allow""
-  26 |                 },
-  27 |                 {
-  28 |                   ""Action"": ""*"",
-  29 |                   ""Resource"": ""arn:::ec2/specific"",
-  30 |                   ""Effect"": ""Allow""
-  31 |                 },
-  32 |                 {
-  33 |                   ""Action"": ""ec2:Something"",
-  34 |                   ""Resource"": ""arn:::ec2/specific"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16453,29 +16403,29 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   78 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,24,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,50,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
-  14 |               StringEquals:
-  15 |                 rds:DatabaseEngine: mysql
-  16 |           - Effect: Allow
-  17 |             Action: rds:CreateGlobalCluster
-  18 |             Resource:
-  19 |               - ''
-  20 |               - ec2:StartInstances
-  21 |               - s3:GetObject
-  22 |           - Effect: Allow
-  23 |             Action: ecs:DescribeServices
-> 24 |             Resource: '*'
-  25 |             Condition:
-  26 |               StringEquals:
-  27 |                 rds:DatabaseClass: db.t2.micro
-  28 |       Groups:
-  29 |         - TestDBGroup
-  30 |   RootRole:
-  31 |     Type: AWS::IAM::Role
-  32 |     Properties:
-  33 |       AssumeRolePolicyDocument:
-  34 |         Version: '2012-10-17'
+  40 |             NotAction:
+  41 |               - sts:AssumeRole
+  42 |       Path: /
+  43 |       Policies:
+  44 |         - PolicyName: root
+  45 |           PolicyDocument:
+  46 |             Version: '2012-10-17'
+  47 |             Statement:
+  48 |               - Effect: Allow
+  49 |                 Action: ecs:CreateService
+> 50 |                 Resource: '*'
+  51 |               - Effect: Allow
+  52 |                 Action: iam:*
+  53 |                 Resource: '*'
+  54 |         - PolicyName: root
+  55 |           PolicyDocument:
+  56 |             Version: '2012-10-17'
+  57 |             Statement:
+  58 |               - Effect: Allow
+  59 |                 Action: '*'
+  60 |                 Resource: s3:GetObject
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,53,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16486,7 +16436,7 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -16503,29 +16453,29 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   63 |             Version: '2012-10-17'
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,32,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,75,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
-   22 |               ""Action"": ""rds:CreateGlobalCluster"",
-   23 |               ""Resource"": [
-   24 |                 """",
-   25 |                 ""ec2:StartInstances"",
-   26 |                 ""s3:GetObject""
-   27 |               ]
-   28 |             },
-   29 |             {
-   30 |               ""Effect"": ""Allow"",
-   31 |               ""Action"": ""ecs:DescribeServices"",
->  32 |               ""Resource"": ""*"",
-   33 |               ""Condition"": {
-   34 |                 ""StringEquals"": {
-   35 |                   ""rds:DatabaseClass"": ""db.t2.micro""
-   36 |                 }
-   37 |               }
-   38 |             }
-   39 |           ]
-   40 |         },
-   41 |         ""Groups"": [
-   42 |           ""TestDBGroup""
+   65 |         ""Path"": ""/"",
+   66 |         ""Policies"": [
+   67 |           {
+   68 |             ""PolicyName"": ""root"",
+   69 |             ""PolicyDocument"": {
+   70 |               ""Version"": ""2012-10-17"",
+   71 |               ""Statement"": [
+   72 |                 {
+   73 |                   ""Effect"": ""Allow"",
+   74 |                   ""Action"": ""ecs:CreateService"",
+>  75 |                   ""Resource"": ""*""
+   76 |                 },
+   77 |                 {
+   78 |                   ""Effect"": ""Allow"",
+   79 |                   ""Action"": ""iam:*"",
+   80 |                   ""Resource"": ""*""
+   81 |                 }
+   82 |               ]
+   83 |             }
+   84 |           },
+   85 |           {
       ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,80,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -16534,7 +16484,7 @@ F325,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    71 |               ""Statement"": [
    72 |                 {
    73 |                   ""Effect"": ""Allow"",
-   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   74 |                   ""Action"": ""ecs:CreateService"",
    75 |                   ""Resource"": ""*""
    76 |                 },
    77 |                 {
@@ -16703,31 +16653,6 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   61 |         - TestDBGroup
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
-  57 |                 rds:DatabaseClass: db.t2.micro
-  58 |       Users:
-  59 |         - user1
-  60 |       Groups:
-  61 |         - TestDBGroup
-  62 |   Policy:
-  63 |     Type: AWS::IAM::Policy
-  64 |     Properties:
-  65 |       PolicyName: CFNUsers
-  66 |       PolicyDocument:
-  67 |         Version: '2012-10-17'
-  68 |         Statement:
-  69 |           - Effect: Allow
-  70 |             Action:
-  71 |               - cloudformation:Describe*
-  72 |               - cloudformation:List*
-  73 |               - cloudformation:Get*
-> 74 |             Resource: '*'
-  75 |             NotAction: iam:*
-  76 |       Groups:
-  77 |         - !Ref CFNUserGroup
-     ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    17 |                 }
@@ -16826,31 +16751,6 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    82 |                 }
    83 |               }
    84 |             }
-      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,109,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
-   99 |         ""PolicyDocument"": {
-  100 |           ""Version"": ""2012-10-17"",
-  101 |           ""Statement"": [
-  102 |             {
-  103 |               ""Effect"": ""Allow"",
-  104 |               ""Action"": [
-  105 |                 ""cloudformation:Describe*"",
-  106 |                 ""cloudformation:List*"",
-  107 |                 ""cloudformation:Get*""
-  108 |               ],
-> 109 |               ""Resource"": ""*"",
-  110 |               ""NotAction"": ""iam:*""
-  111 |             }
-  112 |           ]
-  113 |         },
-  114 |         ""Groups"": [
-  115 |           {
-  116 |             ""Ref"": ""CFNUserGroup""
-  117 |           }
-  118 |         ]
-  119 |       }
       ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,23,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
@@ -17219,7 +17119,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
 > 52 |                 Action: iam:*
@@ -17242,7 +17142,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
   46 |             Version: '2012-10-17'
   47 |             Statement:
   48 |               - Effect: Allow
-  49 |                 Action: ecs:DeleteAccountSetting
+  49 |                 Action: ecs:CreateService
   50 |                 Resource: '*'
   51 |               - Effect: Allow
   52 |                 Action: iam:*
@@ -17265,7 +17165,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    71 |               ""Statement"": [
    72 |                 {
    73 |                   ""Effect"": ""Allow"",
-   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   74 |                   ""Action"": ""ecs:CreateService"",
    75 |                   ""Resource"": ""*""
    76 |                 },
    77 |                 {
@@ -17288,7 +17188,7 @@ F031,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    71 |               ""Statement"": [
    72 |                 {
    73 |                   ""Effect"": ""Allow"",
-   74 |                   ""Action"": ""ecs:DeleteAccountSetting"",
+   74 |                   ""Action"": ""ecs:CreateService"",
    75 |                   ""Resource"": ""*""
    76 |                 },
    77 |                 {
@@ -33608,7 +33508,7 @@ F011,lines,"namespace/skims/test/data/lib_path/f011/project.csproj (Wire v1.0.0)
   27 |     <PackageReference Include=""Microsoft.Data.Edm"" Version=""5.8.4"" />
      ^ Col 0
 ",nuget.nuget_csproj
-F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, CVE-2022-3704, GHSA-8xww-x3g3-6jcv, GHSA-9445-4cr6-336r, GHSA-9chr-4fjh-5rgw]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'CVE-2022-3704', 'GHSA-8xww-x3g3-6jcv', 'GHSA-9445-4cr6-336r', 'GHSA-9chr-4fjh-5rgw'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
+F011,lines,"namespace/skims/test/data/lib_path/f011/Gemfile.lock (actionpack v7.0.2.3) [CVE-2022-23633, CVE-2022-3704, GHSA-8xww-x3g3-6jcv, GHSA-9445-4cr6-336r, GHSA-9chr-4fjh-5rgw, GHSA-p84v-45xj-wwqj]",48,937,skims,011. Use of software with known vulnerabilities,"Use of actionpack at version 7.0.2.3 with ['CVE-2022-23633', 'CVE-2022-3704', 'GHSA-8xww-x3g3-6jcv', 'GHSA-9445-4cr6-336r', 'GHSA-9chr-4fjh-5rgw', 'GHSA-p84v-45xj-wwqj'] in namespace/skims/test/data/lib_path/f011/Gemfile.lock","
    38 |     actionmailer (7.0.2.3)
    39 |       actionpack (= 7.0.2.3)
    40 |       actionview (= 7.0.2.3)
