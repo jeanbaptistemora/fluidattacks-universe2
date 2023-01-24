@@ -8,6 +8,19 @@ interface ITodoFindingToReattackAttr {
   };
 }
 
+interface IFindingToReattackEdge {
+  node: ITodoFindingToReattackAttr;
+}
+
+interface IFindingToReattackConnection {
+  edges: IFindingToReattackEdge[];
+  pageInfo: {
+    endCursor: string;
+    hasNextPage: boolean;
+  };
+  total: number | undefined;
+}
+
 interface IGetTodoReattacks {
   me: {
     findingReattacks: ITodoFindingToReattackAttr[];
@@ -25,6 +38,11 @@ interface IVulnerabilityEdge {
 
 interface IVulnerabilitiesConnection {
   edges: IVulnerabilityEdge[];
+  pageInfo: {
+    endCursor: string;
+    hasNextPage: boolean;
+  };
+  total: number | undefined;
 }
 interface IFindingFormatted extends ITodoFindingToReattackAttr {
   oldestReattackRequestedDate: string;
@@ -33,6 +51,8 @@ interface IFindingFormatted extends ITodoFindingToReattackAttr {
 
 export type {
   IFindingFormatted,
+  IFindingToReattackConnection,
+  IFindingToReattackEdge,
   IGetTodoReattacks,
   ITodoFindingToReattackAttr,
   IVulnerabilityAttr,
