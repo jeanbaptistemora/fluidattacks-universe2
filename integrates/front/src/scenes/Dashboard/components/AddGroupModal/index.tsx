@@ -23,7 +23,6 @@ import { Tooltip } from "components/Tooltip";
 import { UPDATE_TOURS } from "components/Tour/queries";
 import { ADD_GROUP_MUTATION } from "scenes/Dashboard/components/AddGroupModal/queries";
 import type { IAddGroupModalProps } from "scenes/Dashboard/components/AddGroupModal/types";
-import { FormikText } from "utils/forms/fields";
 import { msgSuccess } from "utils/notifications";
 import {
   alphaNumeric,
@@ -181,11 +180,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                         "organization.tabs.groups.newGroup.organization.tooltip"
                       )}
                     >
-                      <Field
-                        component={FormikText}
+                      <Input
                         disabled={true}
                         name={"organization"}
-                        type={"text"}
                         validate={composeValidators([
                           required,
                           maxOrganizationLength,
@@ -212,30 +209,22 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                     />
                   </Col>
                   <Col lg={33} md={33} paddingTop={25} sm={33}>
-                    <Text mb={1}>
-                      {t("organization.tabs.groups.newGroup.description.text")}
-                    </Text>
-                    <Tooltip
-                      hide={runTour}
-                      id={
-                        "organization.tabs.groups.newGroup.description.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                    <Input
+                      id={"add-group-description"}
+                      label={t(
+                        "organization.tabs.groups.newGroup.description.text"
+                      )}
+                      name={"description"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.description.tooltip"
                       )}
-                    >
-                      <Input
-                        id={"add-group-description"}
-                        name={"description"}
-                        type={"text"}
-                        validate={composeValidators([
-                          required,
-                          maxDescriptionLength,
-                          validTextField,
-                        ])}
-                      />
-                    </Tooltip>
+                      type={"text"}
+                      validate={composeValidators([
+                        required,
+                        maxDescriptionLength,
+                        validTextField,
+                      ])}
+                    />
                   </Col>
                   <Col paddingTop={25}>
                     {t("organization.tabs.groups.newGroup.type.title")}
