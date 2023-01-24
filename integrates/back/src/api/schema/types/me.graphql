@@ -19,6 +19,19 @@ type Me {
   )
   "Stakeholder findings to reattack"
   findingReattacks: [Finding]!
+    @deprecated(
+      reason: """
+        This field will be removed after 2023/01/25.
+        Use the findingReattacksConnection field instead.
+      """
+    )
+  "Stakeholder findings to reattack"
+  findingReattacksConnection(
+    "The cursor for the forward pagination"
+    after: String
+    "The maximum amount of findings to return"
+    first: Int
+  ): FindingsConnection!
   "Indicates if user has rejected drafts"
   hasDraftsRejected: Boolean!
   "Indicator to see if there's more than one open session currently"
