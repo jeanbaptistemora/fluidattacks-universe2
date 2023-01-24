@@ -89,21 +89,32 @@ The arguments are:
 > the value passed to this CLI option takes
 > precedence over the value set in ARM.
 
-## Examples
+## Examples run The Agent on your local machine
+
+Here you will find some examples running
+the agent on your local machine;
+remember that you can use different
+arguments according to the need or
+context to visualize the execution.
+
+1. Once docker is successfully installed
+   on your local machine,
+   we need to Run the  **Docker image**,
+   which will help us to download all
+   the dependencies of forces.
+   You do it with the following command:
+
+```sh
+   docker pull fluidattacks/forces:new
+```
+
+To run the container. Here you have some examples:
 
 :::tip
 The `--rm` and
 `--ti` parameters are optional.
 Thus, you can define the best way according to your context.
 :::
-
-Run the Docker image:
-
-1. Pull the container image:
-
-   ```sh
-   docker pull fluidattacks/forces:new
-   ```
 
 1. Run the container image, for instance:
 
@@ -123,6 +134,12 @@ Run the Docker image:
 
      ```sh
      docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token>
+     ```
+
+   - Verify the vulnerabilities of a specific repository:
+
+     ```sh
+    docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --repo-name <nickname repo> --token <your-token>
      ```
 
    - To break the pipeline only if vulnerable finds
