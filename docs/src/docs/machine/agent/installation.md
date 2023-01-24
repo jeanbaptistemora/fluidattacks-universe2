@@ -57,7 +57,7 @@ in case you already generated one.
 
 ## Arguments to run your Agent
 
-When using The Agent,
+When using the Agent,
 consider the use of these arguments
 according to your necessities,
 keep in mind that you can use this in your
@@ -89,7 +89,7 @@ The arguments are:
 > the value passed to this CLI option takes
 > precedence over the value set in ARM.
 
-## Examples run The Agent on your local machine
+## Examples run the Agent on your local machine
 
 Here you will find some examples running
 the agent on your local machine;
@@ -97,12 +97,12 @@ remember that you can use different
 arguments according to the need or
 context to visualize the execution.
 
-1. Once docker is successfully installed
-   on your local machine,
-   we need to Run the  **Docker image**,
-   which will help us to download all
-   the dependencies of forces.
-   You do it with the following command:
+Once docker is successfully installed
+on your local machine,
+we need to Run the  **Docker image**,
+which will help us to download all
+the dependencies of forces.
+You do it with the following command:
 
 ```sh
    docker pull fluidattacks/forces:new
@@ -110,46 +110,48 @@ context to visualize the execution.
 
 To run the container. Here you have some examples:
 
+- To check `all` finds including static and dynamic:
+
+  ```sh
+  docker run --rm -ti fluidattacks/forces:new forces --token <your-token> -vvv
+  ```
+
+- To check only `static` vulnerabilities:
+
+  ```sh
+  docker run --rm -ti fluidattacks/forces:new forces --static --strict --token <your-token>
+  ```
+
+- To check only `dynamic` vulnerabilities:
+
+  ```sh
+  docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token>
+  ```
+
+- Verify the vulnerabilities of a specific repository:
+
+  ```sh
+  docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --repo-name <nickname repo> --token <your-token>
+  ```
+
+- To break the pipeline only if vulnerable finds
+  with a severity above 4.5 are found:
+
+  ```sh
+  docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token> --breaking 4.5
+  ```
+
 :::tip
 The `--rm` and
 `--ti` parameters are optional.
 Thus, you can define the best way according to your context.
 :::
 
-1. Run the container image, for instance:
+## Examples run the Agent on your CI/CD
 
-   - To check `all` finds including static and dynamic:
-
-     ```sh
-     docker run --rm -ti fluidattacks/forces:new forces --token <your-token> -vvv
-     ```
-
-   - To check only `static` vulnerabilities:
-
-     ```sh
-     docker run --rm -ti fluidattacks/forces:new forces --static --strict --token <your-token>
-     ```
-
-   - To check only `dynamic` vulnerabilities:
-
-     ```sh
-     docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token>
-     ```
-
-   - Verify the vulnerabilities of a specific repository:
-
-     ```sh
-    docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --repo-name <nickname repo> --token <your-token>
-     ```
-
-   - To break the pipeline only if vulnerable finds
-     with a severity above 4.5 are found:
-
-     ```sh
-     docker run --rm -ti fluidattacks/forces:new forces --dynamic --strict --token <your-token> --breaking 4.5
-     ```
-
-## Examples in some CI\CD
+If you want to run forces from your
+development infrastructure,
+we present the following examples:
 
 In `GitLab` add these lines to your `.gitlab-ci.yml`
 
@@ -196,6 +198,15 @@ pipeline {
   }
 }
 ```
+
+## Result of the execution of The Agent
+
+After any execution of the Agent,
+you can check out its logs on ARM as well,
+on the **DevSecOps** tab.
+Organization>Groups>GroupName>DevSecOps).
+For more information about this section,
+click [here](/machine/agent).
 
 ## Troubleshooting
 
