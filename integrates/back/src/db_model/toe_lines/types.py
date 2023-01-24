@@ -27,8 +27,8 @@ class ToeLinesState(NamedTuple):
     last_author: str
     last_commit: str
     loc: int
-    modified_by: Optional[str]
-    modified_date: Optional[datetime]
+    modified_by: str
+    modified_date: datetime
     seen_at: datetime
     sorts_risk_level: int
     sorts_risk_level_date: Optional[datetime] = None

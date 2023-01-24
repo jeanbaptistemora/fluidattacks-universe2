@@ -7,7 +7,7 @@ from .types import (
     ToeLinesState,
 )
 from .utils import (
-    format_historic_toe_lines_item,
+    format_toe_lines_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
@@ -73,13 +73,9 @@ async def update_state(
         | {"state": state_item}
     )
 
-    condition_expression = Attr(key_structure.partition_key).exists()
-    if current_value.state.modified_date is None:
-        condition_expression &= Attr("state.modified_date").not_exists()
-    else:
-        condition_expression &= Attr("state.modified_date").eq(
-            get_as_utc_iso_format(current_value.state.modified_date)
-        )
+    condition_expression = Attr(key_structure.partition_key).exists() & Attr(
+        "state.modified_date"
+    ).eq(get_as_utc_iso_format(current_value.state.modified_date))
 
     if "be_present" in metadata_item:
         gsi_2_key = keys.build_key(
@@ -110,16 +106,11 @@ async def update_state(
             "filename": current_value.filename,
             "group_name": current_value.group_name,
             "root_id": current_value.root_id,
-            # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(new_state.modified_date)
-            if new_state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(new_state.modified_date),
         },
     )
     historic_item = (
-        format_historic_toe_lines_item(
-            historic_key, key_structure, current_value
-        )
+        format_toe_lines_item(historic_key, key_structure, current_value)
         | base_item
         | {"state": state_item}
     )
