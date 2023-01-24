@@ -368,7 +368,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
     )
 
     loaders: Dataloaders = get_new_context()
-    roots: tuple[GitRoot, ...] = await loaders.root.load_many(
+    roots = await loaders.root.load_many(
         [
             ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
             ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
@@ -383,7 +383,7 @@ async def test_queue_sync_git_roots_already_in_queue_running(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
-            roots=roots,
+            roots=tuple(roots),
         )
 
 
@@ -509,7 +509,7 @@ async def test_queue_sync_git_roots(
     )
 
     loaders: Dataloaders = get_new_context()
-    roots: tuple[GitRoot, ...] = await loaders.root.load_many(
+    roots = await loaders.root.load_many(
         [
             ("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
             ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
@@ -524,7 +524,7 @@ async def test_queue_sync_git_roots(
             loaders=loaders,
             user_email=generic_data["global_vars"]["admin_email"],
             group_name="group1",
-            roots=roots,
+            roots=tuple(roots),
         )
         assert not must_rise
     except RootAlreadyCloning:

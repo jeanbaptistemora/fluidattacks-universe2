@@ -168,8 +168,8 @@ async def test_get_tracking_vulnerabilities() -> None:
         [vuln.id for vuln in vulns]
     )
     test_data = get_tracking_vulnerabilities(
-        vulns_state=vulns_state,
-        vulns_treatment=vulns_treatment,
+        vulns_state=tuple(vulns_state),
+        vulns_treatment=tuple(vulns_treatment),
     )
     expected_output = [
         Tracking(
@@ -244,8 +244,8 @@ async def test_get_tracking_vulnerabilities() -> None:
         [vuln.id for vuln in vulns]
     )
     test_data = get_tracking_vulnerabilities(
-        vulns_state=vulns_state,
-        vulns_treatment=vulns_treatment,
+        vulns_state=tuple(vulns_state),
+        vulns_treatment=tuple(vulns_treatment),
     )
     expected_output = [
         Tracking(
@@ -296,8 +296,8 @@ async def test_get_tracking_vulnerabilities() -> None:
         [vuln.id for vuln in vulns]
     )
     test_data = get_tracking_vulnerabilities(
-        vulns_state=vulns_state,
-        vulns_treatment=vulns_treatment,
+        vulns_state=tuple(vulns_state),
+        vulns_treatment=tuple(vulns_treatment),
     )
     expected_output = [
         Tracking(
@@ -324,8 +324,8 @@ async def test_get_tracking_vulnerabilities() -> None:
         [vuln.id for vuln in vulns]
     )
     test_data = get_tracking_vulnerabilities(
-        vulns_state=vulns_state,
-        vulns_treatment=vulns_treatment,
+        vulns_state=tuple(vulns_state),
+        vulns_treatment=tuple(vulns_treatment),
     )
     expected_output = [
         Tracking(

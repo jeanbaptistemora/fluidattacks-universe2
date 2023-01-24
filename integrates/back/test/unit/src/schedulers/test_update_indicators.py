@@ -263,8 +263,8 @@ async def test_get_status_vulns_by_time_range(
     test_data = get_status_vulns_by_time_range(
         vulnerabilities=vulnerabilities,
         vulnerabilities_severity=vulnerabilities_severity,
-        vulnerabilities_historic_states=historic_states,
-        vulnerabilities_historic_treatments=historic_treatments,
+        vulnerabilities_historic_states=tuple(historic_states),
+        vulnerabilities_historic_treatments=tuple(historic_treatments),
         first_day=first_day,
         last_day=last_day,
     )
