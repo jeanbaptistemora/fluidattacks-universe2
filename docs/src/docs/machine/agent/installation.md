@@ -14,15 +14,15 @@ that your software is built and shipped
 without previously reported vulnerabilities
 in our _ARM_.
 
-To install the agent
-you need to do the following:
+In order to use The Agent,
+there are some requirements:
 
 1. Make sure you have
    a DevSecOps agent token.
 
    This token can be generated
-   in our ARM scope section
-   (Organization>Groups>GroupName>Scope),
+   in our ARM [scope](/machine/web/groups/agent) section
+   **(Organization>Groups>GroupName>Scope),**
    where you will find
    the DevSecOps Agent Token section.
 
@@ -36,14 +36,16 @@ in case you already generated one.
 
 ![DevSevOps Generation Modal](https://res.cloudinary.com/fluid-attacks/image/upload/v1663687225/docs/machine/agent/installation/manage_toke.png)
 
-> **Note:** The DevSecOps token is valid for 180 days.
+> **Note:** The DevSecOps token is valid for **180 days.**
 
-1. Make sure your execution environment
-   has the required dependencies:
-   - Docker (>= 20.10.10)
-1. Install docker by following
-   the official guide:
-   - <https://docs.docker.com/engine/install/>.
+1. If you want to run The Agent on your local machine,
+   Docker MUST be installed.
+   - Make sure your execution environment
+     has the required dependencies:
+     - Docker (>= 20.10.10)
+   - Install docker by following
+     the official guide:
+     - <https://docs.docker.com/engine/install/>.
 
 ## Options
 
