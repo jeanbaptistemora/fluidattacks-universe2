@@ -11,6 +11,12 @@ function activate(_context: ExtensionContext): void {
   if (!workspace.workspaceFolders) {
     return;
   }
+  const currentWorkinDir = workspace.workspaceFolders[0].uri.path;
+  if (!currentWorkinDir.includes("groups")) {
+    void window.showWarningMessage("This doesn't look like a group directory");
+
+    return;
+  }
 
   _context.subscriptions.push(
     commands.registerCommand(

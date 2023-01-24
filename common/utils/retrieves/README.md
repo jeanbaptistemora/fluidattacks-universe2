@@ -14,9 +14,15 @@ So far, Retrieves will:
       - get toe lines
       - go to file from toe lines
 
+To use the extension, it must be used on a directory named `groups`,
+in this directory the repositories are cloned. You can open the subdirectories
+of `groups`, the extension still uses `groups` as the base directory.
+
 ## Installation
 
-Retrieves only requires the `INTEGRATES_API_TOKEN` as an environment variable, if it doesn't load the groups add the token manually, add the token to vscode settings `.vscode/settings.json`
+Retrieves only requires the `INTEGRATES_API_TOKEN` as an environment variable,
+if it doesn't load the groups add the token manually, add the token to
+vscode settings `.vscode/settings.json`
 ```json
 {
     "retrieves.api_token": "your token"

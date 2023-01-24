@@ -12,7 +12,7 @@ import { fileSync } from "tmp";
 import { window, workspace } from "vscode";
 
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
-import { ignoreFiles } from "../utils/file";
+import { getGroupsPath, ignoreFiles } from "../utils/file";
 
 function extractRoot(
   rootPath: string,
@@ -56,7 +56,7 @@ function clone(node: GitRootTreeItem): void {
   if (!workspace.workspaceFolders) {
     return;
   }
-  const servicePath = workspace.workspaceFolders[0].uri.path;
+  const servicePath = getGroupsPath();
   const fusionPath = join(servicePath, node.groupName);
   if (!existsSync(fusionPath)) {
     mkdirSync(fusionPath, { recursive: true });

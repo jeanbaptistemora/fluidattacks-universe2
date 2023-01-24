@@ -9,6 +9,7 @@ import { GET_TOE_LINES } from "../queries";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
 import type { IEdge, IToeLinesPaginator } from "../types";
 import { getClient } from "../utils/apollo";
+import { getGroupsPath } from "../utils/file";
 
 async function getToeLines(
   groupName: string,
@@ -61,7 +62,7 @@ function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
       if (!workspace.workspaceFolders) {
         return;
       }
-      const servicePath = workspace.workspaceFolders[0].uri.path;
+      const servicePath = getGroupsPath();
       const fusionPath = join(servicePath, node.groupName, node.nickname);
       ToeLinesPanel.render(context.extensionUri, fusionPath, _result);
     })

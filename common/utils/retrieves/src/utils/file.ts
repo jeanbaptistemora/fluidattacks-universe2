@@ -2,6 +2,8 @@ import { rmSync } from "fs";
 import { join } from "path";
 
 import { glob } from "glob";
+// eslint-disable-next-line import/no-unresolved
+import { workspace } from "vscode";
 
 function removeFilesCallback(err: Error | null, paths: string[]): void {
   paths.forEach((path: string): void => {
@@ -15,4 +17,16 @@ function ignoreFiles(path: string, patterns: string[]): void {
   });
 }
 
-export { ignoreFiles };
+function getGroupsPath(): string {
+  if (!workspace.workspaceFolders) {
+    return "";
+  }
+  const currentPath = workspace.workspaceFolders[0].uri.path;
+  if (!currentPath.includes("groups")) {
+    return "";
+  }
+
+  return join(currentPath.split("groups")[0], "groups");
+}
+
+export { ignoreFiles, getGroupsPath };
