@@ -347,10 +347,8 @@ async def get_last_closed_vulnerability_info(
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
     ]
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await finding_vulns_loader.load_many_chained(valid_findings_ids)
-    closed_vulns = vulns_utils.filter_closed_vulns(vulns)
+    vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
+    closed_vulns = vulns_utils.filter_closed_vulns(tuple(vulns))
     closing_vuln_dates = [
         vulns_utils.get_closing_date(vuln) for vuln in closed_vulns
     ]
@@ -1087,7 +1085,7 @@ async def get_oldest_no_treatment(
     vulns = await finding_vulns_loader.load_many_chained(
         [finding.id for finding in findings]
     )
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     no_treatment_vulns = vulns_utils.filter_no_treatment_vulns(open_vulns)
     if not no_treatment_vulns:
         return None

@@ -118,9 +118,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
     VulnerabilityVerificationStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
 )
@@ -760,13 +757,13 @@ async def get_closed_vulnerabilities(
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in group_findings]
+    findings_vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in group_findings]
+        )
     )
-
     last_approved_status = [vuln.state.status for vuln in findings_vulns]
+
     return last_approved_status.count(VulnerabilityStateStatus.SAFE)
 
 
@@ -807,11 +804,12 @@ async def get_vulnerabilities_with_pending_attacks(
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in findings]
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
+
     return len(
         tuple(
             vulnerability
@@ -1011,13 +1009,13 @@ async def get_open_vulnerabilities(
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in group_findings]
+    findings_vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in group_findings]
+        )
     )
-
     last_approved_status = [vuln.state.status for vuln in findings_vulns]
+
     return last_approved_status.count(VulnerabilityStateStatus.VULNERABLE)
 
 
@@ -1958,11 +1956,10 @@ async def get_treatment_summary(
         for finding in findings
         if not findings_domain.is_deleted(finding)
     )
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: tuple[
-        Vulnerability, ...
-    ] = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in non_deleted_findings]
+    vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in non_deleted_findings]
+        )
     )
     treatment_counter = Counter(
         vuln.treatment.status
