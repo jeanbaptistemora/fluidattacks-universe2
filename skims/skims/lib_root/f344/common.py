@@ -28,7 +28,22 @@ def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> bool:
     return False
 
 
-def local_storage_from_http(graph: Graph, method: MethodsEnum) -> Set[NId]:
+def is_vuln_assignment(
+    graph: Graph, method: MethodsEnum, n_id: NId
+) -> Set[NId]:
+    vuln_nodes: Set[NId] = set()
+    for path in get_backward_paths(graph, n_id):
+        if (
+            (evaluation := evaluate(method, graph, path, n_id))
+            and ("xml_instance" in evaluation.triggers)
+            and ("onload" in evaluation.triggers)
+        ):
+            evaluation.triggers.difference_update({"xml_instance", "onload"})
+            vuln_nodes.update(evaluation.triggers)
+    return vuln_nodes
+
+
+def ls_direct_usage(graph: Graph, method: MethodsEnum) -> Set[NId]:
     vuln_nodes: Set[NId] = set()
     for n_id in g.matching_nodes(
         graph, label_type="MethodInvocation", expression="localStorage.setItem"
@@ -39,6 +54,22 @@ def local_storage_from_http(graph: Graph, method: MethodsEnum) -> Set[NId]:
             and is_vuln(graph, method, value_n_id)
         ):
             vuln_nodes.add(n_id)
+    return vuln_nodes
+
+
+def xml_onload_assignment(graph: Graph, method: MethodsEnum) -> Set[NId]:
+    vuln_nodes: Set[NId] = set()
+    for n_id in g.matching_nodes(graph, label_type="Assignment"):
+        vuln_nodes.update(is_vuln_assignment(graph, method, n_id))
+    return vuln_nodes
+
+
+def local_storage_from_http(graph: Graph, method: MethodsEnum) -> Set[NId]:
+
+    vuln_nodes: Set[NId] = set()
+    vuln_nodes.update(ls_direct_usage(graph, method))
+    vuln_nodes.update(xml_onload_assignment(graph, method))
+
     return vuln_nodes
 
 
