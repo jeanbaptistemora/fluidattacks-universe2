@@ -6,6 +6,7 @@ from . import (
 from custom_exceptions import (
     InvalidCannotModifyNicknameWhenClosing,
     InvalidNewVulnState,
+    RootNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -435,6 +436,29 @@ async def test_upload_error(populate: bool, email: str) -> None:
         result["errors"][0]["message"]
         == InvalidCannotModifyNicknameWhenClosing.msg
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("upload_file")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@gmail.com"],
+        ["hacker@gmail.com"],
+        ["reattacker@gmail.com"],
+    ],
+)
+async def test_upload_error_root(populate: bool, email: str) -> None:
+    assert populate
+    finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
+    file_name = "test-vuln-error-root.yaml"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        finding=finding_id,
+        yaml_file_name=file_name,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(RootNotFound())
 
 
 @pytest.mark.asyncio
