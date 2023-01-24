@@ -6,4 +6,3 @@ export { FormikTagInput } from "utils/forms/fields/TagInput/FormikTagInput";
 export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { FormikDropdown } from "utils/forms/fields/Dropdown/FormikDropdown";
 export { FormikFileInput } from "utils/forms/fields/FileInput/FormikFileInput";
-export { FormikTextArea } from "utils/forms/fields/TextArea/FormikTextArea";

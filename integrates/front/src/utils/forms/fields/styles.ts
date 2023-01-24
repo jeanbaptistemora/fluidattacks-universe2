@@ -6,6 +6,7 @@ const baseInputStyles = css`
   color: #777;
   width: 100% !important;
   font-size: 16px !important;
+  background-color: white;
   border-style: solid !important;
   border-width: 0.125rem !important;
   border-radius: 0 !important;

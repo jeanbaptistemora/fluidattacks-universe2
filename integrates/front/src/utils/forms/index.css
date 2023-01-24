@@ -77,10 +77,6 @@
   background-color: #8e1616;
 }
 
-.text-area {
-  height: 100px !important;
-}
-
 .form-control {
   display: block;
   width: 100% !important;
@@ -114,21 +110,6 @@
 
 .form-control[disabled] {
   cursor: not-allowed;
-}
-
-.badge {
-  float: right;
-  min-width: 10px;
-  padding: 3px 7px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  line-height: 1;
-  vertical-align: middle;
-  white-space: nowrap;
-  text-align: center;
-  background-color: #777;
-  border-radius: 10px;
 }
 
 :local .inputTags {
