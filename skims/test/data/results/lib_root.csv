@@ -8007,52 +8007,52 @@ F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,10,92
   14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
      ^ Col 0
 ",typescript.typescript_local_storage_with_sensitive_data
-F344,lines,namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,22,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,"
-   3 | en(""GET"", ""http://example.com/test"", true);
-   4 | nd(null);
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,"
+   1 | e object
+   2 | ient = new XMLHttpRequest();
+   3 | pen(""GET"", ""http://example.com/test"", true);
+   4 | end(null);
    5 |
-   6 | on handler() {
-   7 | this.status == 200 && this.responseXML != null) {
-   8 | calStorage.setItem(""response"", this.responseXML);
-   9 |
-  10 |
-  11 |
-  12 | ient = new XMLHttpRequest();
+   6 | ndler = () =>  {
+   7 | lue = ""SafeValue"";
+   8 | is.status == 200 && this.responseXML != null) {
+   9 | ine 10 must be marked
+> 10 | lStorage.setItem(""response"", this.responseXML);
+  11 | lStorage.setItem(""safe"", value);
+  12 |
   13 |
-  14 | .onload = handler;
-  15 |
-  16 | .onload = () => {
-  17 | lStorage.setItem(""response"", this.responseXML);
-  18 |
-  19 |
-  20 | e
-  21 | .onload = () => {
-> 22 | lStorage.setItem(""response"", this.responseXML);
-  23 |
-     ^ Col 6
+  14 |
+  15 | nload = handler;
+  16 |
+  17 | nload = () => {
+  18 | e 19 must be marked
+  19 | torage.setItem(""response"", this.responseXML);
+  20 |
+  21 |
+     ^ Col 8
 ",typescript.typescript_local_storage_with_sensitive_data
-F344,lines,namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,17,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,"
-   3 | en(""GET"", ""http://example.com/test"", true);
-   4 | nd(null);
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,19,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,"
    5 |
-   6 | on handler() {
-   7 | this.status == 200 && this.responseXML != null) {
-   8 | calStorage.setItem(""response"", this.responseXML);
-   9 |
-  10 |
-  11 |
-  12 | ient = new XMLHttpRequest();
+   6 | handler = () =>  {
+   7 | value = ""SafeValue"";
+   8 | this.status == 200 && this.responseXML != null) {
+   9 |  line 10 must be marked
+  10 | calStorage.setItem(""response"", this.responseXML);
+  11 | calStorage.setItem(""safe"", value);
+  12 |
   13 |
-  14 | .onload = handler;
-  15 |
-  16 | .onload = () => {
-> 17 | lStorage.setItem(""response"", this.responseXML);
-  18 |
-  19 |
-  20 | e
-  21 | .onload = () => {
-  22 | lStorage.setItem(""response"", this.responseXML);
-  23 |
+  14 |
+  15 | .onload = handler;
+  16 |
+  17 | .onload = () => {
+  18 | ine 19 must be marked
+> 19 | lStorage.setItem(""response"", this.responseXML);
+  20 |
+  21 |
+  22 |
+  23 | torage.setItem(""safeKey"", ""safeValue"");
+  24 |
+  25 |
      ^ Col 6
 ",typescript.typescript_local_storage_with_sensitive_data
 F085,lines,namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,"

@@ -1,23 +1,25 @@
 // unsafe object
-const xhr = new XMLHttpRequest();
-xhr.open("GET", "http://example.com/test", true);
-xhr.send(null);
+const client = new XMLHttpRequest();
+client.open("GET", "http://example.com/test", true);
+client.send(null);
 
-function handler() {
+const handler = () =>  {
+  let value = "SafeValue";
   if (this.status == 200 && this.responseXML != null) {
+    // line 10 must be marked
     localStorage.setItem("response", this.responseXML);
+    localStorage.setItem("safe", value);
   }
 }
-
-var client = new XMLHttpRequest();
 
 client.onload = handler;
 
 client.onload = () => {
+  // Line 19 must be marked
   localStorage.setItem("response", this.responseXML);
 };
 
-// safe
-client.onload = () => {
-  localStorage.setItem("response", this.responseXML);
-};
+//Safe
+localStorage.setItem("safeKey", "safeValue");
+
+
