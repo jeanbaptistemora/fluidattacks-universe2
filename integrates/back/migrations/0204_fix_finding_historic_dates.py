@@ -114,7 +114,7 @@ async def process_finding(
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding.id)
     if vulns:
         vulns_oldest_report_date = await get_oldest_vulnerability_report_date(
-            vulns
+            tuple(vulns)
         )
         finding_approval_date = finding.approval.modified_date
         if vulns_oldest_report_date < finding_approval_date:

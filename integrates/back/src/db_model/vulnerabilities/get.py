@@ -419,9 +419,9 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: list[str]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
+    ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
-        return tuple(
+        return list(
             filter_released_and_non_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
         )

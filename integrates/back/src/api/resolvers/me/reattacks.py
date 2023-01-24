@@ -26,7 +26,6 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> VulnerabilitiesConnection:
-
     results = await search(
         must_filters=[
             {"verification.status": "REQUESTED"},
@@ -35,9 +34,8 @@ async def resolve(
         index="vulnerabilities",
         limit=100,
     )
-
     vulnerabilities = filter_released_and_non_zero_risk(
-        tuple(format_vulnerability(result) for result in results.items)
+        [format_vulnerability(result) for result in results.items]
     )
 
     return VulnerabilitiesConnection(

@@ -113,9 +113,9 @@ def filter_non_deleted(
 
 
 def filter_released_and_non_zero_risk(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: list[Vulnerability],
+) -> list[Vulnerability]:
+    return list(
         vuln
         for vuln in vulnerabilities
         if vuln.state.status in RELEASED_FILTER_STATUSES

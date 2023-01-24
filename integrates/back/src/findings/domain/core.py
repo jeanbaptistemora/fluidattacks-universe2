@@ -318,19 +318,13 @@ async def get_closed_vulnerabilities(
     loaders: Dataloaders,
     finding_id: str,
 ) -> int:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    return len(vulns_utils.filter_closed_vulns(vulns))
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    return len(vulns_utils.filter_closed_vulns(tuple(vulns)))
 
 
 async def get_finding_open_age(loaders: Dataloaders, finding_id: str) -> int:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     report_dates = vulns_utils.get_report_dates(open_vulns)
     if report_dates:
         oldest_report_date = min(report_dates)
@@ -343,11 +337,14 @@ async def get_last_closed_vulnerability_info(
     findings: Tuple[Finding, ...],
 ) -> Tuple[int, Optional[Vulnerability]]:
     """Get days since the last closed vulnerability and its metadata."""
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     valid_findings_ids = [
         finding.id for finding in findings if not is_deleted(finding)
     ]
-    vulns = await finding_vulns_loader.load_many_chained(valid_findings_ids)
+    vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            valid_findings_ids
+        )
+    )
     closed_vulns = vulns_utils.filter_closed_vulns(tuple(vulns))
     closing_vuln_dates = [
         vulns_utils.get_closing_date(vuln) for vuln in closed_vulns
@@ -397,12 +394,9 @@ async def get_newest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
 ) -> Optional[datetime]:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     report_dates = vulns_utils.get_report_dates(
-        vulns_utils.filter_released_vulns(vulns)
+        vulns_utils.filter_released_vulns(tuple(vulns))
     )
 
     return max(report_dates) if report_dates else None
@@ -411,11 +405,8 @@ async def get_newest_vulnerability_report_date(
 async def get_open_vulnerabilities(
     loaders: Dataloaders, finding_id: str
 ) -> int:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    return len(vulns_utils.filter_open_vulns(vulns))
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    return len(vulns_utils.filter_open_vulns(tuple(vulns)))
 
 
 async def _is_pending_verification(
@@ -474,13 +465,8 @@ def get_severity_score(
 
 
 async def get_status(loaders: Dataloaders, finding_id: str) -> str:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulns: Tuple[Vulnerability, ...] = vulns_utils.filter_open_vulns(
-        vulns
-    )
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     return "VULNERABLE" if open_vulns else "SAFE"
 
 
@@ -522,9 +508,12 @@ async def get_treatment_summary(
     loaders: Dataloaders,
     finding_id: str,
 ) -> Treatments:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    open_vulnerabilities = vulns_utils.filter_open_vulns(vulnerabilities)
+    vulnerabilities = await loaders.finding_vulnerabilities_released_nzr.load(
+        finding_id
+    )
+    open_vulnerabilities = vulns_utils.filter_open_vulns(
+        tuple(vulnerabilities)
+    )
     return vulns_domain.get_treatments_count(open_vulnerabilities)
 
 
@@ -532,19 +521,19 @@ async def get_verification_summary(
     loaders: Dataloaders,
     finding_id: str,
 ) -> Verifications:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulnerabilities = await finding_vulns_loader.load(finding_id)
-    return vulns_domain.get_verifications_count(vulnerabilities)
+    vulnerabilities = await loaders.finding_vulnerabilities_released_nzr.load(
+        finding_id
+    )
+    return vulns_domain.get_verifications_count(tuple(vulnerabilities))
 
 
 async def _get_wheres(
     loaders: Dataloaders, finding_id: str, limit: Optional[int] = None
-) -> List[str]:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    finding_vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
+) -> list[str]:
+    finding_vulns = await loaders.finding_vulnerabilities_released_nzr.load(
         finding_id
     )
-    open_vulns = vulns_utils.filter_open_vulns(finding_vulns)
+    open_vulns = vulns_utils.filter_open_vulns(tuple(finding_vulns))
     wheres: list[str] = list(set(vuln.state.where for vuln in open_vulns))
     if limit:
         wheres = wheres[:limit]
@@ -1081,9 +1070,10 @@ async def get_oldest_no_treatment(
     findings: Tuple[Finding, ...],
 ) -> Optional[Dict[str, Union[int, str]]]:
     """Get the finding with oldest "no treatment" vulnerability."""
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns = await finding_vulns_loader.load_many_chained(
-        [finding.id for finding in findings]
+    vulns = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
     open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     no_treatment_vulns = vulns_utils.filter_no_treatment_vulns(open_vulns)
@@ -1115,11 +1105,8 @@ async def get_oldest_open_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
 ) -> Optional[datetime]:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
-    open_vulns = vulns_utils.filter_open_vulns(vulns)
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    open_vulns = vulns_utils.filter_open_vulns(tuple(vulns))
     report_dates = vulns_utils.get_report_dates(open_vulns)
 
     return min(report_dates) if report_dates else None
@@ -1129,12 +1116,9 @@ async def get_oldest_vulnerability_report_date(
     loaders: Dataloaders,
     finding_id: str,
 ) -> Optional[datetime]:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    vulns: Tuple[Vulnerability, ...] = await finding_vulns_loader.load(
-        finding_id
-    )
+    vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
     report_dates = vulns_utils.get_report_dates(
-        vulns_utils.filter_released_vulns(vulns)
+        vulns_utils.filter_released_vulns(tuple(vulns))
     )
 
     return min(report_dates) if report_dates else None
@@ -1143,12 +1127,12 @@ async def get_oldest_vulnerability_report_date(
 async def get_vulnerabilities_to_reattack(
     loaders: Dataloaders,
     finding_id: str,
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     finding_vulns = await loaders.finding_vulnerabilities_released_nzr.load(
         finding_id
     )
     return vulns_utils.filter_open_vulns(
-        vulns_utils.filter_remediated(finding_vulns)
+        vulns_utils.filter_remediated(tuple(finding_vulns))
     )
 
 
