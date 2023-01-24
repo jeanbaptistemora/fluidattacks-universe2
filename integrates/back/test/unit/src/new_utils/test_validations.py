@@ -646,6 +646,20 @@ def test_validate_symbols_deco(value: str, should_fail: bool) -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_finding_id() -> None:
+    validations.validate_finding_id(
+        finding_id="3c475384-834c-47b0-ac71-a41a022e401c"
+    )
+
+    validations.validate_finding_id(finding_id="123456781234567812345678")
+
+    with pytest.raises(InvalidField):
+        validations.validate_finding_id(
+            finding_id="12345678-1234-1234-1234-1234567890a"
+        )
+        validations.validate_finding_id(finding_id="invalid_finding_id")
+
+
 def test_validate_finding_id_deco() -> None:
     @validations.validate_finding_id_deco("finding_id")
     def decorated_func(finding_id: str) -> str:
@@ -673,6 +687,16 @@ def test_validate_finding_id_deco() -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_group_language() -> None:
+    validations.validate_group_language(language="es")
+
+    validations.validate_group_language(language="EN")
+
+    with pytest.raises(InvalidField):
+        validations.validate_group_language(language="fr")
+        validations.validate_group_language(language="")
+
+
 @pytest.mark.parametrize(
     "language, should_fail",
     [
@@ -683,7 +707,9 @@ def test_validate_finding_id_deco() -> None:
         (123, True),
     ],
 )
-def test_validate_group_language(language: str, should_fail: bool) -> None:
+def test_validate_group_language_deco(
+    language: str, should_fail: bool
+) -> None:
     @validations.validate_group_language_deco("value")
     def decorated_func(value: str) -> str:
         return value
@@ -734,6 +760,18 @@ def test_validate_space_field_deco() -> None:
     assert decorated_func_obj(test_obj=test_obj)
     with pytest.raises(InvalidSpacesField):
         decorated_func_obj(test_obj=test_obj_fail)
+
+
+def test_validate_string_length_between() -> None:
+    # Test valid input
+    validations.validate_string_length_between(
+        "field", inclusive_lower_bound=4, inclusive_upper_bound=8
+    )
+    # Test invalid input
+    with pytest.raises(InvalidFieldLength):
+        validations.validate_string_length_between(
+            "longerfield", inclusive_lower_bound=4, inclusive_upper_bound=8
+        )
 
 
 def test_validate_string_length_between_deco() -> None:
@@ -1081,6 +1119,73 @@ def test_validate_no_duplicate_drafts_deco() -> None:
         )
 
 
+def test_validate_missing_severity_field_names() -> None:
+    fields_20_severity = {
+        "access_complexity",
+        "access_vector",
+        "authentication",
+        "availability_impact",
+        "availability_requirement",
+        "collateral_damage_potential",
+        "confidence_level",
+        "confidentiality_impact",
+        "confidentiality_requirement",
+        "exploitability",
+        "finding_distribution",
+        "integrity_impact",
+        "integrity_requirement",
+        "resolution_level",
+    }
+
+    fields_31_severity = {
+        "attack_complexity",
+        "attack_vector",
+        "availability_impact",
+        "availability_requirement",
+        "confidentiality_impact",
+        "confidentiality_requirement",
+        "exploitability",
+        "integrity_impact",
+        "integrity_requirement",
+        "modified_attack_complexity",
+        "modified_attack_vector",
+        "modified_availability_impact",
+        "modified_confidentiality_impact",
+        "modified_integrity_impact",
+        "modified_privileges_required",
+        "modified_user_interaction",
+        "modified_severity_scope",
+        "privileges_required",
+        "remediation_level",
+        "report_confidence",
+        "severity_scope",
+        "user_interaction",
+    }
+
+    validations.validate_missing_severity_field_names(
+        field_names=fields_20_severity,
+        css_version=FindingCvssVersion.V20.value,
+    )
+    validations.validate_missing_severity_field_names(
+        field_names=fields_31_severity,
+        css_version=FindingCvssVersion.V31.value,
+    )
+    with pytest.raises(IncompleteSeverity):
+        validations.validate_missing_severity_field_names(
+            field_names=fields_31_severity,
+            css_version=FindingCvssVersion.V20.value,
+        )
+        validations.validate_missing_severity_field_names(
+            field_names=fields_20_severity,
+            css_version=FindingCvssVersion.V31.value,
+        )
+    with pytest.raises(InvalidCvssVersion):
+        validations.validate_missing_severity_field_names(
+            field_names=fields_20_severity,
+            css_version="invalid Version",
+        )
+
+
 def test_validate_missing_severity_field_names_deco() -> None:
     @validations.validate_missing_severity_field_names_deco(
         "fields", "css_version_field"
@@ -1154,6 +1259,17 @@ def test_validate_missing_severity_field_names_deco() -> None:
         )
 
 
+def test_validate_update_severity_values() -> None:
+
+    my_dict = {"field1": 2, "field2": 6, "field3": 9}
+    my_dict_fail = {"field1": 2, "field2": 12, "field3": 9}
+
+    validations.validate_update_severity_values(dictionary=my_dict)
+
+    with pytest.raises(InvalidSeverityUpdateValues):
+        validations.validate_update_severity_values(dictionary=my_dict_fail)
+
+
 def test_validate_update_severity_values_deco() -> None:
     @validations.validate_update_severity_values_deco("dictionary")
     def decorated_func(dictionary: Dict) -> Dict:
@@ -1177,3 +1293,9 @@ def test_validate_chart_field_deco() -> None:
 
     with pytest.raises(InvalidChar):
         decorated_func(value="content!", name="field")
+
+
+def test_validate_chart_field() -> None:
+    validations.validate_chart_field("content", "field")
+    with pytest.raises(InvalidChar):
+        validations.validate_chart_field("content!", "field")
