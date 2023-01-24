@@ -94,9 +94,7 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
@@ -266,9 +264,7 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(loaders, group_name)
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
@@ -337,9 +333,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         Stakeholder, ...
     ] = await group_access_domain.get_group_stakeholders(loaders, group_name)
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

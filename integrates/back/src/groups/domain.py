@@ -1509,11 +1509,11 @@ async def remove_stakeholder(
     stakeholder_org_groups_names = set(stakeholder_groups_names).intersection(
         org_groups_names
     )
-    stakeholder_org_groups: tuple[Group, ...] = await loaders.group.load_many(
+    stakeholder_org_groups = await loaders.group.load_many(
         stakeholder_org_groups_names
     )
     has_groups_in_org = bool(
-        groups_utils.filter_active_groups(stakeholder_org_groups)
+        groups_utils.filter_active_groups(tuple(stakeholder_org_groups))
     )
     if has_org_access and not has_groups_in_org:
         await orgs_domain.remove_access(
@@ -1537,7 +1537,7 @@ async def remove_stakeholder(
         stakeholder_groups_names
     )
     all_active_groups_by_stakeholder = groups_utils.filter_active_groups(
-        all_groups_by_stakeholder
+        tuple(all_groups_by_stakeholder)
     )
     has_groups_in_asm = bool(all_active_groups_by_stakeholder)
     if not has_groups_in_asm:
@@ -1938,11 +1938,13 @@ async def request_upgrade(
     ):
         raise GroupNotFound()
 
-    groups: tuple[Group, ...] = await loaders.group.load_many(group_names)
+    groups = await loaders.group.load_many(group_names)
     if any(group.state.has_squad for group in groups):
         raise BillingSubscriptionSameActive()
 
-    await notifications_domain.request_groups_upgrade(loaders, email, groups)
+    await notifications_domain.request_groups_upgrade(
+        loaders, email, tuple(groups)
+    )
 
 
 async def get_treatment_summary(

@@ -540,7 +540,7 @@ async def get_stakeholders(
 ) -> tuple[Stakeholder, ...]:
     emails = await get_stakeholders_emails(loaders, organization_id)
 
-    return await loaders.stakeholder_with_fallback.load_many(emails)
+    return tuple(await loaders.stakeholder_with_fallback.load_many(emails))
 
 
 async def has_group(

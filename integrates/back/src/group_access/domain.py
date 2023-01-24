@@ -131,7 +131,7 @@ async def get_group_stakeholders(
 
     return tuple(
         await loaders.stakeholder_with_fallback.load_many(
-            tuple(access.email for access in stakeholders_access)
+            [access.email for access in stakeholders_access]
         )
     )
 

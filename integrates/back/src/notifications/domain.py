@@ -452,10 +452,9 @@ async def request_groups_upgrade(
     groups: tuple[Group, ...],
 ) -> None:
     organization_ids = set(group.organization_id for group in groups)
-    organizations: tuple[Organization] = await loaders.organization.load_many(
-        organization_ids
+    organizations = await loaders.organization.load_many(
+        list(organization_ids)
     )
-
     organizations_message = "".join(
         f"""
             - Organization {organization.name}:

@@ -15,9 +15,6 @@ from datetime import (
 from db_model.enums import (
     Notification,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -44,9 +41,7 @@ async def send_mail_updated_treatment(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     managers = await group_access_domain.get_managers(loaders, group_name)
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(managers)
+    stakeholders = await loaders.stakeholder.load_many(managers)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

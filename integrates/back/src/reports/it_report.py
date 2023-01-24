@@ -245,8 +245,10 @@ class ITReport:
     async def _get_findings_historics_verifications(
         self, findings_ids: tuple[str, ...]
     ) -> tuple[tuple[FindingVerification], ...]:
-        return await self.loaders.finding_historic_verification.load_many(
-            findings_ids
+        return tuple(
+            await self.loaders.finding_historic_verification.load_many(
+                findings_ids
+            )
         )
 
     def _get_filtered_findings(

@@ -17,9 +17,6 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from group_access.domain import (
     get_group_stakeholders_emails,
 )
@@ -64,9 +61,7 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     recipients: list[str] = await get_group_stakeholders_emails(
         loaders, group_name
     )
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
