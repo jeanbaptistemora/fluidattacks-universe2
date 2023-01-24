@@ -136,3 +136,11 @@ type Finding {
     state: VulnerabilityState
   ): VulnerabilitiesConnection!
 }
+
+"Finding Edge type definition"
+type FindingEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: Finding!
+}
