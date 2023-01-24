@@ -12,7 +12,8 @@ description: Peppermint 0.2.4 - 0 Click Account Takeover via unauthenticated IDO
 keywords: Fluid Attacks, Security, Vulnerabilities, Peppermint, Account Takeover
 banner: advisories-bg
 advise: yes
-template: advisory
+template: maskedAdvisory
+encrypted: yes
 ---
 
 ## Summary
