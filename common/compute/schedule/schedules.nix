@@ -757,7 +757,7 @@
       "batch"
     ];
 
-    schedule_expression = "cron(0 11,17,23 ? * 2-6 *)";
+    schedule_expression = "cron(0 1 ? * 2-6 *)";
     size = "integrates_medium";
     awsRole = "prod_integrates";
     attempts = 1;
@@ -785,7 +785,7 @@
       "prod"
     ];
 
-    schedule_expression = "cron(45 0,7 ? * 2-6 *)";
+    schedule_expression = "cron(45 3 ? * 2-6 *)";
     size = "integrates_small";
     awsRole = "prod_integrates";
     attempts = 1;
