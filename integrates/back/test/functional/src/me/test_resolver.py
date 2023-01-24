@@ -318,47 +318,82 @@ async def test_get_me_assigned(
     assert result["data"]["me"]["reattacks"]["edges"][0]["node"] == {
         "lastRequestedReattackDate": "2019-12-31 19:45:12"
     }
-    assert len(result["data"]["me"]["findingReattacks"]) == 2
-    assert result["data"]["me"]["findingReattacks"][0]["id"] == "475041521"
-    assert result["data"]["me"]["findingReattacks"][0]["state"] == "open"
     assert (
-        result["data"]["me"]["findingReattacks"][0]["status"] == "VULNERABLE"
+        len(result["data"]["me"]["findingReattacksConnection"]["edges"]) == 2
     )
     assert (
-        result["data"]["me"]["findingReattacks"][1]["id"]
+        result["data"]["me"]["findingReattacksConnection"]["edges"][0]["node"][
+            "id"
+        ]
+        == "475041521"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][0]["node"][
+            "state"
+        ]
+        == "open"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][0]["node"][
+            "status"
+        ]
+        == "VULNERABLE"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][1]["node"][
+            "id"
+        ]
         == "3c475384-834c-47b0-ac71-a41a022e401c"
     )
-    assert result["data"]["me"]["findingReattacks"][1]["state"] == "open"
     assert (
-        result["data"]["me"]["findingReattacks"][1]["status"] == "VULNERABLE"
-    )
-    assert result["data"]["me"]["findingReattacks"][0]["groupName"] == "group1"
-    assert result["data"]["me"]["findingReattacks"][1]["groupName"] == "group1"
-    assert (
-        result["data"]["me"]["findingReattacks"][0]["verificationSummary"][
-            "requested"
+        result["data"]["me"]["findingReattacksConnection"]["edges"][1]["node"][
+            "state"
         ]
+        == "open"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][1]["node"][
+            "status"
+        ]
+        == "VULNERABLE"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][0]["node"][
+            "groupName"
+        ]
+        == "group1"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][1]["node"][
+            "groupName"
+        ]
+        == "group1"
+    )
+    assert (
+        result["data"]["me"]["findingReattacksConnection"]["edges"][0]["node"][
+            "verificationSummary"
+        ]["requested"]
         == 3
     )
     assert (
-        result["data"]["me"]["findingReattacks"][1]["verificationSummary"][
-            "requested"
-        ]
+        result["data"]["me"]["findingReattacksConnection"]["edges"][1]["node"][
+            "verificationSummary"
+        ]["requested"]
         == 1
     )
     assert (
         len(
-            result["data"]["me"]["findingReattacks"][0][
-                "vulnerabilitiesToReattackConnection"
-            ]["edges"]
+            result["data"]["me"]["findingReattacksConnection"]["edges"][0][
+                "node"
+            ]["vulnerabilitiesToReattackConnection"]["edges"]
         )
         == 1
     )
     assert (
         len(
-            result["data"]["me"]["findingReattacks"][1][
-                "vulnerabilitiesToReattackConnection"
-            ]["edges"]
+            result["data"]["me"]["findingReattacksConnection"]["edges"][1][
+                "node"
+            ]["vulnerabilitiesToReattackConnection"]["edges"]
         )
         == 0
     )
