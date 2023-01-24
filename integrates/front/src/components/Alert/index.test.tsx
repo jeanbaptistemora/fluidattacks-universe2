@@ -29,13 +29,13 @@ describe("Alert", (): void => {
       </Alert>
     );
 
-    expect(container.querySelector(".BEBTs")).toBeInTheDocument();
+    expect(container.querySelector(".hgVEBv")).toBeInTheDocument();
 
     act((): void => {
       jest.runAllTimers();
     });
 
-    expect(container.querySelector(".BEBTs")).not.toBeInTheDocument();
+    expect(container.querySelector(".hgVEBv")).not.toBeInTheDocument();
 
     jest.useRealTimers();
   });
@@ -49,12 +49,12 @@ describe("Alert", (): void => {
       <Alert closable={true}>{"Alert message"}</Alert>
     );
 
-    expect(container.querySelector(".BEBTs")).toBeInTheDocument();
+    expect(container.querySelector(".hgVEBv")).toBeInTheDocument();
     expect(screen.queryByRole("button")).toBeInTheDocument();
 
     await user.click(screen.getByRole("button"));
     await waitFor((): void => {
-      expect(container.querySelector(".BEBTs")).not.toBeInTheDocument();
+      expect(container.querySelector(".hgVEBv")).not.toBeInTheDocument();
     });
   });
 });

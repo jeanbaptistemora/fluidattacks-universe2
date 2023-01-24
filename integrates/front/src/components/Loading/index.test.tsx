@@ -14,6 +14,6 @@ describe("Loading", (): void => {
 
     const { container } = render(<Loading />);
 
-    expect(container.querySelector(".sc-bczRLJ")).toBeInTheDocument();
+    expect(container.querySelector(".sc-bdvvtL")).toBeInTheDocument();
   });
 });

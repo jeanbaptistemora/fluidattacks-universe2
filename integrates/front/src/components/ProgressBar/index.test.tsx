@@ -15,7 +15,7 @@ describe("ProgressBar", (): void => {
 
     const { container } = render(<ProgressBar />);
 
-    expect(container.querySelector(".sc-bczRLJ")).toBeInTheDocument();
+    expect(container.querySelector(".sc-bdvvtL")).toBeInTheDocument();
   });
 
   it("should validate if statement", (): void => {
