@@ -76,9 +76,7 @@ async def get_data_one_group(group: str) -> Counter[str]:
     ]
 
     finding_vulns_loader = context.finding_vulnerabilities_released_nzr
-    finding_vulns: tuple[
-        tuple[Vulnerability, ...], ...
-    ] = await finding_vulns_loader.load_many(finding_ids)
+    finding_vulns = await finding_vulns_loader.load_many(finding_ids)
     severity_counter: Counter = Counter()
     for severity, vulns in zip(finding_severity_levels, finding_vulns):
         for vuln in vulns:

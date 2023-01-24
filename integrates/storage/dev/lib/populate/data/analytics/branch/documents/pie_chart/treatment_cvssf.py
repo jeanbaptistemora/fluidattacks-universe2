@@ -24,9 +24,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
 )
@@ -63,10 +60,10 @@ async def get_data_one_group(group: str) -> Treatment:
         for finding in group_findings
     }
 
-    vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        finding_ids
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            finding_ids
+        )
     )
 
     treatments: tuple[Counter[VulnerabilityTreatmentStatus], ...] = tuple(

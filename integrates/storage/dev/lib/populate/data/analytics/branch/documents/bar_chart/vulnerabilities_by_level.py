@@ -17,9 +17,6 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from typing import (
     Counter,
 )
@@ -33,10 +30,10 @@ async def get_data_one_group(group: str) -> Counter[str]:
     )
     finding_ids = [finding.id for finding in group_findings]
 
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await context.finding_vulnerabilities_released_nzr.load_many_chained(
-        finding_ids
+    vulnerabilities = (
+        await context.finding_vulnerabilities_released_nzr.load_many_chained(
+            finding_ids
+        )
     )
 
     return Counter(

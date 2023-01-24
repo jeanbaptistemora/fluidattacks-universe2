@@ -176,10 +176,10 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
     if not group_.state.has_squad:
         return Decimal("Infinity")
 
-    all_vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in findings]
+    all_vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         vulnerability

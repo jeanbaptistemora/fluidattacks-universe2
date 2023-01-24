@@ -33,9 +33,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus as StateStatus,
     VulnerabilityTreatmentStatus as TreatmentStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
 )
@@ -56,10 +53,10 @@ async def get_data_one_group(group: str) -> Counter[str]:
         group.lower()
     )
 
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await context.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in group_findings]
+    vulnerabilities = (
+        await context.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in group_findings]
+        )
     )
 
     temporarily = Counter(

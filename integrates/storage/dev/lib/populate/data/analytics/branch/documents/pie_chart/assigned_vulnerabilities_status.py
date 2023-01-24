@@ -27,9 +27,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from typing import (
     Counter,
 )
@@ -42,10 +39,10 @@ async def get_data_one_group(
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in findings]
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
 
     return Counter(

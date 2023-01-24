@@ -221,21 +221,21 @@ async def generate_one(
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings
     }
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        [finding.id for finding in findings]
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            [finding.id for finding in findings]
+        )
     )
 
     opened_current_sprint, closed_current_sprint = await get_totals_by_week(
-        vulnerabilities=vulnerabilities,
+        vulnerabilities=tuple(vulnerabilities),
         findings_cvssf=findings_cvssf,
         last_day=current_sprint_date,
         sprint=True,
     )
 
     total_current_open, total_current_closed = await get_totals_by_week(
-        vulnerabilities=vulnerabilities,
+        vulnerabilities=tuple(vulnerabilities),
         findings_cvssf=findings_cvssf,
         last_day=datetime.now(tz=timezone.utc),
     )

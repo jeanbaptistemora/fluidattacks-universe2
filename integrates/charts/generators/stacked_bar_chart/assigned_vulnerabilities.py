@@ -45,10 +45,10 @@ async def get_data_one_group(group: str) -> dict[str, list[Vulnerability]]:
         group.lower()
     )
     finding_ids = [finding.id for finding in group_findings]
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
-        finding_ids
+    vulnerabilities = (
+        await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
+            finding_ids
+        )
     )
 
     for vulnerability in vulnerabilities:
