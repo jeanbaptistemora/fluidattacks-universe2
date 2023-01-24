@@ -215,9 +215,7 @@ async def handle_vulnerabilities_acceptance(
     validations.validate_fields([justification])
     today = datetime_utils.get_utc_now()
 
-    all_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding_id)
+    all_vulns = await loaders.finding_vulnerabilities.load(finding_id)
     vulnerabilities = tuple(
         vuln
         for vuln in all_vulns

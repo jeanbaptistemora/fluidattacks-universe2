@@ -22,9 +22,6 @@ from db_model.enums import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from findings.domain import (
     remove_finding,
 )
@@ -35,9 +32,6 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityAttr,
 )
@@ -58,9 +52,7 @@ async def main() -> None:
     findings_009 = [
         finding for finding in findings if finding.title.startswith("009")
     ]
-    findings_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many(
         [finding.id for finding in findings_009]
     )
     total_findings = len(findings_009)

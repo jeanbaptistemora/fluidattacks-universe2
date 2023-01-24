@@ -55,9 +55,7 @@ async def process_vulnerability(vulnerability: Vulnerability) -> None:
 
 
 async def process_finding(loaders: Dataloaders, finding: Finding) -> None:
-    vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
+    vulns = await loaders.finding_vulnerabilities_all.load(finding.id)
     await collect(
         tuple(process_vulnerability(vuln) for vuln in vulns),
         workers=16,

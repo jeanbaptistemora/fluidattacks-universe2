@@ -56,9 +56,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
                 }
             },
         )
-        vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(finding.id)
+        vulns = await loaders.finding_vulnerabilities.load(finding.id)
         LOGGER_CONSOLE.info(
             "Vulns loaded",
             extra={

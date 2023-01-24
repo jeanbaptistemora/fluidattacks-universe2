@@ -48,7 +48,6 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityVerification,
 )
 from decimal import (
@@ -82,9 +81,7 @@ async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
     group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group.lower()
     )
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load_many_chained(
+    vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )
     historics_verification: tuple[

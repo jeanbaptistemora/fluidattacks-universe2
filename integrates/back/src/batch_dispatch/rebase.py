@@ -93,10 +93,8 @@ async def _get_vulnerabilities_to_rebase(
     findings: tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    findings_vulns: tuple[
-        tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
-        tuple(find.id for find in findings)
+    findings_vulns = await loaders.finding_vulnerabilities.load_many(
+        [find.id for find in findings]
     )
     vulnerabilities: tuple[Vulnerability, ...] = tuple(
         vuln
@@ -252,11 +250,11 @@ async def rebase_root(
         ]
     )
     loaders.vulnerability.clear_all()
-    vulnerabilities = await loaders.vulnerability.load_many(
+    vulnerabilities_snippet = await loaders.vulnerability.load_many(
         [vuln.id for vuln in vulnerabilities]
     )
     futures = []
-    for vuln in vulnerabilities:
+    for vuln in vulnerabilities_snippet:
         if (not vuln.state.snippet) and (
             snippet := generate_snippet(vuln.state, repo)
         ):

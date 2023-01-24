@@ -233,9 +233,7 @@ async def main() -> None:
     total_groups = len(groups)
     for idx, (group, findings) in enumerate(zip(groups, groups_findings)):
         print(f"Processing group {group} ({idx+1}/{total_groups})...")
-        findings_vulns: Tuple[
-            Tuple[Vulnerability, ...], ...
-        ] = await loaders.finding_vulnerabilities.load_many(
+        findings_vulns = await loaders.finding_vulnerabilities.load_many(
             [fin.id for fin in findings]
         )
 

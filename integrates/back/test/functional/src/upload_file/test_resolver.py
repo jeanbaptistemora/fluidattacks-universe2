@@ -62,9 +62,7 @@ async def _get_vulns(
     finding_id: str,
     group_name: str,
 ) -> list[dict[str, Any]]:
-    finding_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding_id)
+    finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
     roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
     roots_nickname: dict[str, str] = {
         root.id: root.state.nickname for root in roots
@@ -73,7 +71,7 @@ async def _get_vulns(
         (
             dict(
                 commit_hash=vuln.state.commit,
-                repo_nickname=roots_nickname[vuln.root_id],  # type: ignore
+                repo_nickname=roots_nickname[vuln.root_id],
                 specific=vuln.state.specific,
                 state_status=vuln.state.status.value,
                 stream=vuln.stream,

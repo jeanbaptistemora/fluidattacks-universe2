@@ -433,9 +433,7 @@ async def test_approval(populate: bool) -> None:
         assert f_117.severity.confidentiality_impact == Decimal("0.22")
         assert f_237 is None
 
-        f_117_vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(f_117.id)
+        f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
         assert len(f_117_vulns) == 1
         assert (f_117_vulns[0].state.where, f_117_vulns[0].state.specific) == (
             ".project",
@@ -460,9 +458,7 @@ async def test_approval(populate: bool) -> None:
 
         f_117_vulns = await loaders.finding_vulnerabilities.load(f_117.id)
         f_011_vulns = await loaders.finding_vulnerabilities.load(f_011.id)
-        f_237_vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(f_237.id)
+        f_237_vulns = await loaders.finding_vulnerabilities.load(f_237.id)
         assert len(f_117_vulns) == 3
         assert len(f_237_vulns) == 3
         assert len(f_011_vulns) == 2

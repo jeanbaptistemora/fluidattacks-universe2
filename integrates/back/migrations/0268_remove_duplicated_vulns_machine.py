@@ -112,9 +112,7 @@ async def process_group(  # pylint: disable=too-many-locals
     )
 
     for finding in findings:
-        vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(finding.id)
+        vulns = await loaders.finding_vulnerabilities.load(finding.id)
         vulns = tuple(
             vuln for vuln in vulns if vuln.state.source == Source.MACHINE
         )

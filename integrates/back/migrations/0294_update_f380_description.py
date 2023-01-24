@@ -15,9 +15,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -36,7 +33,6 @@ from organizations import (
 import time
 from typing import (
     Dict,
-    Tuple,
 )
 
 
@@ -59,9 +55,7 @@ async def main() -> None:
     loaders = get_new_context()
     criteria = await findings_utils.get_vulns_file()
     groups = await orgs_domain.get_all_active_groups(loaders)
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(
+    groups_findings = await loaders.group_findings.load_many(
         [group.name for group in groups]
     )
     await collect(

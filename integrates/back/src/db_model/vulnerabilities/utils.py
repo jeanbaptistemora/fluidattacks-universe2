@@ -99,9 +99,9 @@ def get_inverted_state_converted(state: str) -> str:
 
 
 def filter_non_deleted(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: list[Vulnerability],
+) -> list[Vulnerability]:
+    return list(
         vuln
         for vuln in vulnerabilities
         if vuln.state.status

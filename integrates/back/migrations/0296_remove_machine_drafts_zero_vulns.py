@@ -18,14 +18,8 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from findings.domain import (
     remove_finding,
@@ -34,26 +28,19 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 
 async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
-    groups_drafts: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_drafts.load_many(groups)
+    groups_drafts = await loaders.group_drafts.load_many(groups)
     total_groups: int = len(groups)
     for idx, (group, drafts) in enumerate(zip(groups, groups_drafts)):
         print(f"Processing {group} {idx+1}/{total_groups}...")
         machine_drafts = [
             draft for draft in drafts if draft.state.source == Source.MACHINE
         ]
-        drafts_vulns: Tuple[
-            Tuple[Vulnerability, ...], ...
-        ] = await loaders.finding_vulnerabilities.load_many(
+        drafts_vulns = await loaders.finding_vulnerabilities.load_many(
             [draft.id for draft in machine_drafts]
         )
         drafts_to_delete = []

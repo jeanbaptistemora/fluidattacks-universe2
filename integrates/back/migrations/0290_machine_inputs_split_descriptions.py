@@ -236,10 +236,10 @@ async def main() -> None:
         ]
         if input_findings:
             vulns_to_delete: List[Vulnerability] = []
-            input_findings_vulns: Tuple[
-                Tuple[Vulnerability, ...], ...
-            ] = await loaders.finding_vulnerabilities.load_many(
-                [finding.id for finding in input_findings]
+            input_findings_vulns = (
+                await loaders.finding_vulnerabilities.load_many(
+                    [finding.id for finding in input_findings]
+                )
             )
             for finding, vulns in zip(input_findings, input_findings_vulns):
                 machine_vulns: List[Vulnerability] = [

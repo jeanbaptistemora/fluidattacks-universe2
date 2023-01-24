@@ -66,9 +66,7 @@ async def main() -> None:
         for finding in groups_findings
         if finding.title[:3] in APK_FINDINGS
     ]
-    apk_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
+    apk_vulns = await loaders.finding_vulnerabilities.load_many(
         [finding.id for finding in apk_findings]
     )
     total_findings = len(apk_findings)

@@ -71,7 +71,7 @@ async def _fill_vuln_info(
     loaders: Dataloaders,
     comment: FindingComment,
     vulns_ids: set[str],
-    vulns: tuple[Vulnerability, ...],
+    vulns: list[Vulnerability],
 ) -> FindingComment:
     """Adds the «Regarding vulnerabilities...» header to comments answering a
     solicited reattack."""
@@ -184,9 +184,7 @@ async def get_comments(
         verification_comment_ids: set[str] = {
             verification.comment_id for verification in verified
         }
-        vulns: tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(finding_id)
+        vulns = await loaders.finding_vulnerabilities.load(finding_id)
 
         reattack_comments, non_reattack_comments = filter_reattack_comments(
             comments, verification_comment_ids

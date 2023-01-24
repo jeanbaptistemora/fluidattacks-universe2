@@ -17,9 +17,6 @@ from dataloaders import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from machine.jobs import (
     queue_job_new,
 )
@@ -27,9 +24,6 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityAttr,
 )
@@ -50,9 +44,7 @@ async def main() -> None:
     findings_418 = [
         finding for finding in findings if finding.title.startswith("418")
     ]
-    findings_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
+    findings_vulns = await loaders.finding_vulnerabilities.load_many(
         [finding.id for finding in findings_418]
     )
     total_findings = len(findings_418)

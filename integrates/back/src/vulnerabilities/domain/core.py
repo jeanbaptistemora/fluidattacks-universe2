@@ -296,9 +296,7 @@ async def get_by_finding_and_vuln_ids(
     finding_id: str,
     vuln_ids: set[str],
 ) -> tuple[Vulnerability, ...]:
-    finding_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding_id)
+    finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
     filtered_vulns = tuple(
         vuln for vuln in finding_vulns if vuln.id in vuln_ids
     )

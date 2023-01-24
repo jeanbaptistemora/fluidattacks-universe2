@@ -158,9 +158,7 @@ async def main() -> None:
         not in [FindingStateStatus.DELETED, FindingStateStatus.MASKED]
         and any(finding.title.startswith(code) for code in ["011", "393"])
     ]
-    sca_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities_released_nzr.load_many(
+    sca_vulns = await loaders.finding_vulnerabilities_released_nzr.load_many(
         [finding.id for finding in sca_findings]
     )
     num_findings: int = len(sca_findings)

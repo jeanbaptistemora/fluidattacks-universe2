@@ -28,7 +28,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityTreatment,
 )
 from decimal import (
@@ -101,9 +100,7 @@ async def process_finding(
     loaders: Dataloaders,
     finding_id: str,
 ) -> None:
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding_id)
+    vulns = await loaders.finding_vulnerabilities.load(finding_id)
     await collect(
         tuple(
             process_vuln(

@@ -29,9 +29,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from findings.domain import (
     remove_finding,
 )
@@ -41,7 +38,6 @@ from organizations.domain import (
 import time
 from typing import (
     List,
-    Tuple,
 )
 from vulnerabilities.domain import (
     remove_vulnerability,
@@ -61,9 +57,7 @@ async def main() -> None:
         not in [FindingStateStatus.DELETED, FindingStateStatus.MASKED]
         and finding.title.startswith("419")
     ]
-    f419_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
+    f419_vulns = await loaders.finding_vulnerabilities.load_many(
         [finding.id for finding in f419_findings]
     )
     total_findings: int = len(f419_findings)

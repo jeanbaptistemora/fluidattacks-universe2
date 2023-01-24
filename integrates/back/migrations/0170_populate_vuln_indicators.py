@@ -175,9 +175,9 @@ async def populate_indicators_by_vuln(
 )
 async def populate_indicators_by_finding(finding: Finding) -> None:
     loaders = get_new_context()
-    vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
+    vulnerabilities = await loaders.finding_vulnerabilities_all.load(
+        finding.id
+    )
     await collect(
         tuple(
             populate_indicators_by_vuln(

@@ -23,9 +23,6 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -73,9 +70,7 @@ async def process_finding(
     loaders: Dataloaders,
     finding: Finding,
 ) -> None:
-    vulns: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
+    vulns = await loaders.finding_vulnerabilities_all.load(finding.id)
     vulns_to_update = [
         vuln
         for vuln in vulns

@@ -19,7 +19,6 @@ from db_model.findings.types import (
     Finding,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityMetadataToUpdate,
 )
 from db_model.vulnerabilities.update import (
@@ -46,9 +45,7 @@ async def main() -> None:
         for finding in groups_findings
         if any(finding.title.startswith(code) for code in ["011", "393"])
     ]
-    sca_vulns: Tuple[
-        Tuple[Vulnerability, ...], ...
-    ] = await loaders.finding_vulnerabilities.load_many(
+    sca_vulns = await loaders.finding_vulnerabilities.load_many(
         [finding.id for finding in sca_findings]
     )
 

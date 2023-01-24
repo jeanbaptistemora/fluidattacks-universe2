@@ -48,7 +48,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityState,
 )
 from decimal import (
@@ -240,9 +239,7 @@ async def _draft_content(
     group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
     for draft in group_drafts:
         cvss: Decimal = findings_domain.get_severity_score(draft.severity)
-        vulns: Tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities.load(draft.id)
+        vulns = await loaders.finding_vulnerabilities.load(draft.id)
         for vuln in vulns:
             if draft.state.status in [
                 FindingStateStatus.CREATED,
@@ -382,9 +379,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
         return None
 
     cvss: Decimal = findings_domain.get_severity_score(finding.severity)
-    vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities.load(finding.id)
+    vulnerabilities = await loaders.finding_vulnerabilities.load(finding.id)
     historic_state_loader = loaders.vulnerability_historic_state
 
     for vuln in vulnerabilities:

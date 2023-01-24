@@ -31,7 +31,6 @@ from db_model.findings.enums import (
     UserInteraction,
 )
 from db_model.findings.types import (
-    Finding,
     Finding31Severity,
 )
 from decimal import (
@@ -48,18 +47,13 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 
 async def main() -> None:
     loaders = get_new_context()
     criteria = await get_vulns_file()
     groups = await get_all_active_group_names(loaders)
-    groups_drafts: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_drafts.load_many(groups)
+    groups_drafts = await loaders.group_drafts.load_many(groups)
 
     total_groups: int = len(groups)
     for idx, (group, drafts) in enumerate(zip(groups, groups_drafts)):
