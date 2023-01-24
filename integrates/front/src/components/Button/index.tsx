@@ -20,6 +20,7 @@ interface IButtonProps
     ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   icon?: IconProp;
+  iconSide?: "left" | "right";
   id?: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   tooltip?: string;
@@ -30,6 +31,7 @@ const Button: FC<IButtonProps> = ({
   disabled,
   disp = "inline-block",
   icon,
+  iconSide = "left",
   id,
   name,
   onClick,
@@ -51,13 +53,29 @@ const Button: FC<IButtonProps> = ({
       value={value}
       variant={variant}
     >
-      {icon === undefined ? undefined : (
-        <FontAwesomeIcon
-          className={children === undefined ? undefined : "mr2"}
-          icon={icon}
-        />
+      {icon === undefined ? (
+        children
+      ) : (
+        <div>
+          {iconSide === "left" ? (
+            <React.Fragment>
+              <FontAwesomeIcon
+                className={children === undefined ? undefined : "mr2"}
+                icon={icon}
+              />
+              {children}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              {children}
+              <FontAwesomeIcon
+                className={children === undefined ? undefined : "ml2"}
+                icon={icon}
+              />
+            </React.Fragment>
+          )}
+        </div>
       )}
-      {children}
     </StyledButton>
   );
 
