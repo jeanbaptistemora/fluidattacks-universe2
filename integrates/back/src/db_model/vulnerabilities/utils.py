@@ -101,7 +101,7 @@ def get_inverted_state_converted(state: str) -> str:
 def filter_non_deleted(
     vulnerabilities: list[Vulnerability],
 ) -> list[Vulnerability]:
-    return list(
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status
@@ -109,13 +109,13 @@ def filter_non_deleted(
             VulnerabilityStateStatus.DELETED,
             VulnerabilityStateStatus.MASKED,
         }
-    )
+    ]
 
 
 def filter_released_and_non_zero_risk(
     vulnerabilities: list[Vulnerability],
 ) -> list[Vulnerability]:
-    return list(
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status in RELEASED_FILTER_STATUSES
@@ -123,18 +123,18 @@ def filter_released_and_non_zero_risk(
             not vuln.zero_risk
             or vuln.zero_risk.status not in ZR_FILTER_STATUSES
         )
-    )
+    ]
 
 
 def filter_released_and_zero_risk(
-    vulnerabilities: tuple[Vulnerability, ...],
-) -> tuple[Vulnerability, ...]:
-    return tuple(
+    vulnerabilities: list[Vulnerability],
+) -> list[Vulnerability]:
+    return [
         vuln
         for vuln in vulnerabilities
         if vuln.state.status in RELEASED_FILTER_STATUSES
         and (vuln.zero_risk and vuln.zero_risk.status in ZR_FILTER_STATUSES)
-    )
+    ]
 
 
 def format_vulnerability(item: Item) -> Vulnerability:

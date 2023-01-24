@@ -399,10 +399,10 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
         self, finding_ids: list[str]
     ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
-        return list(
+        return [
             filter_non_deleted(finding_vulns)
             for finding_vulns in findings_vulns
-        )
+        ]
 
 
 class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
@@ -421,23 +421,25 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
         self, finding_ids: list[str]
     ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
-        return list(
+        return [
             filter_released_and_non_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
-        )
+        ]
 
 
 class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
-    ) -> tuple[VulnerabilitiesConnection, ...]:
-        return await collect(
-            tuple(
-                _get_finding_vulnerabilities_released_zr(
-                    is_released=True, is_zero_risk=False, request=request
+        self, requests: list[FindingVulnerabilitiesZrRequest]
+    ) -> list[VulnerabilitiesConnection]:
+        return list(
+            await collect(
+                tuple(
+                    _get_finding_vulnerabilities_released_zr(
+                        is_released=True, is_zero_risk=False, request=request
+                    )
+                    for request in requests
                 )
-                for request in requests
             )
         )
 
@@ -450,12 +452,12 @@ class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: list[str]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
+    ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
-        return tuple(
+        return [
             filter_released_and_zero_risk(finding_vulns)
             for finding_vulns in findings_vulns
-        )
+        ]
 
 
 class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
