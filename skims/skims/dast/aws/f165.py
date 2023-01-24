@@ -167,6 +167,58 @@ async def has_not_support_role(
     return vulns
 
 
+async def has_root_active_signing_certificates(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    method = (
+        core_model.MethodsEnum.AWS_IAM_HAS_ROOT_ACTIVE_SIGNING_CERTIFICATES
+    )
+    await run_boto3_fun(
+        credentials, service="iam", function="generate_credential_report"
+    )
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="get_credential_report"
+    )
+    vulns: core_model.Vulnerabilities = ()
+    users_csv = StringIO(response.get("Content", b"").decode())
+    credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
+    root_user = credentials_report[0]
+    root_arn = root_user["arn"]
+    root_has_active_signing_certs: bool = any(
+        (
+            root_user["cert_1_active"] == "true",
+            root_user["cert_2_active"] == "true",
+        )
+    )
+    locations: List[Location] = []
+    if root_has_active_signing_certs:
+        key_names = ("cert_1_active", "cert_2_active")
+        for index, name in enumerate(key_names):
+            if root_user[name] == "true":
+                locations = [
+                    *locations,
+                    Location(
+                        access_patterns=(f"/{key_names[index]}",),
+                        arn=(f"{root_arn}"),
+                        values=(root_user[key_names[index]],),
+                        description=(
+                            "src.lib_path.f165."
+                            "has_root_active_signing_certificates"
+                        ),
+                    ),
+                ]
+    vulns = (
+        *vulns,
+        *build_vulnerabilities(
+            locations=locations,
+            method=(method),
+            aws_response=root_user,
+        ),
+    )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -174,4 +226,5 @@ CHECKS: Tuple[
     users_with_multiple_access_keys,
     root_has_access_keys,
     has_not_support_role,
+    has_root_active_signing_certificates,
 )
