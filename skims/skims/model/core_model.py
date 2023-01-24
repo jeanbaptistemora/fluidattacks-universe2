@@ -2364,6 +2364,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_HAS_ROOT_ACTIVE_SIGNING_CERTIFICATES = MethodInfo(
+        file_name="aws",
+        name="has_root_active_signing_certificates",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_IAM_HAS_NOT_SUPPORT_ROLE = MethodInfo(
         file_name="aws",
         name="has_not_support_role",
