@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { Select } from "components/Input";
+import { Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -23,7 +23,7 @@ import type {
 } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
 import { FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText, FormikTextArea } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import {
   composeValidators,
@@ -184,25 +184,21 @@ const ServicesForm: React.FC<IServicesFormProps> = (
           )}
         </div>
         <FormGroup>
-          <Text mb={2}>
-            {t("searchFindings.servicesTable.modal.observations")}
-          </Text>
-          <Field
-            component={FormikTextArea}
+          <TextArea
+            label={t("searchFindings.servicesTable.modal.observations")}
             name={"comments"}
             placeholder={t(
               "searchFindings.servicesTable.modal.observationsPlaceholder"
             )}
-            type={"text"}
             validate={composeValidators([validTextField, maxLength250])}
           />
         </FormGroup>
         {isDowngradingServices(data, values) ? (
           <FormGroup>
-            <Text mb={2}>
-              {t("searchFindings.servicesTable.modal.downgrading")}
-            </Text>
-            <Select name={"reason"}>
+            <Select
+              label={t("searchFindings.servicesTable.modal.downgrading")}
+              name={"reason"}
+            >
               {downgradeReasons.map(
                 (reason: string): JSX.Element => (
                   <option key={reason} value={reason}>

@@ -13,9 +13,10 @@ import type { BaseSchema } from "yup";
 import { ADD_SECRET, REMOVE_SECRET } from "../queries";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { TextArea } from "components/Input";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText, FormikTextArea } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
@@ -180,24 +181,18 @@ const AddSecret: React.FC<ISecretsProps> = ({
                   />
                 </div>
                 <div className={"mt3"}>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {t("group.scope.git.repo.credentials.secrets.value")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikTextArea}
+                  <TextArea
+                    label={t("group.scope.git.repo.credentials.secrets.value")}
                     name={"value"}
-                    type={"text"}
+                    required={true}
                   />
                 </div>
                 <div className={"mt3"}>
-                  <ControlLabel>
-                    {t("group.scope.git.repo.credentials.secrets.description")}
-                  </ControlLabel>
-                  <Field
-                    component={FormikTextArea}
+                  <TextArea
+                    label={t(
+                      "group.scope.git.repo.credentials.secrets.description"
+                    )}
                     name={"description"}
-                    type={"text"}
                   />
                 </div>
                 <div className={"mt3"}>

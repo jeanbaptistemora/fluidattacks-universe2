@@ -13,6 +13,7 @@ import {
 
 import { ExternalLink } from "components/ExternalLink";
 import { Editable, TextArea } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { ActionButtons } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/ActionButtons";
 import type {
@@ -20,13 +21,7 @@ import type {
   IFindingDescriptionData,
 } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { validateNotEmpty } from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/utils";
-import {
-  Col100,
-  Col45,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
+import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
 import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
@@ -140,20 +135,20 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
         <div>
           <Row>
             <Can do={"api_resolvers_finding_hacker_resolve"}>
-              <Col45>
+              <Col lg={45} md={45} sm={45}>
                 <FormGroup>
                   <ControlLabel>
                     <b>{t("searchFindings.tabDescription.hacker")}</b>
                   </ControlLabel>
                   <p className={"ma0"}>{dataset.hacker}</p>
                 </FormGroup>
-              </Col45>
+              </Col>
             </Can>
           </Row>
           <Can do={"api_mutations_update_finding_description_mutate"}>
             {isEditing && isDraft ? (
               <Row>
-                <Col100>
+                <Col>
                   <Tooltip
                     id={"searchFindings.tabDescription.title.tooltip"}
                     tip={t("searchFindings.tabDescription.title.tooltip")}
@@ -176,7 +171,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       />
                     </FormGroup>
                   </Tooltip>
-                </Col100>
+                </Col>
               </Row>
             ) : undefined}
           </Can>
@@ -186,7 +181,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
               passThrough={true}
             >
               {(canEdit: boolean): JSX.Element => (
-                <Col100>
+                <Col>
                   <Editable
                     currentValue={dataset.description}
                     isEditing={isEditing && canEdit}
@@ -220,12 +215,13 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       )}
                     </ExternalLink>
                   )}
-                </Col100>
+                </Col>
               )}
             </Can>
           </Row>
+          <br />
           <Row>
-            <Col100>
+            <Col>
               <Tooltip
                 id={"searchFindings.tabDescription.requirements.tooltip.id"}
                 tip={t("searchFindings.tabDescription.requirements.tooltip")}
@@ -262,10 +258,10 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                   )}
                 </FormGroup>
               </Tooltip>
-            </Col100>
+            </Col>
           </Row>
           <Row>
-            <Col45>
+            <Col lg={45} md={45} sm={45}>
               <Can
                 do={"api_mutations_update_finding_description_mutate"}
                 passThrough={true}
@@ -299,10 +295,11 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                   </Editable>
                 )}
               </Can>
-            </Col45>
+            </Col>
           </Row>
+          <br />
           <Row>
-            <Col45>
+            <Col lg={45} md={45} sm={45}>
               <Can
                 do={"api_mutations_update_finding_description_mutate"}
                 passThrough={true}
@@ -330,10 +327,11 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                   </Editable>
                 )}
               </Can>
-            </Col45>
+            </Col>
           </Row>
+          <br />
           <Row>
-            <Col100>
+            <Col>
               <Can
                 do={"api_mutations_update_finding_description_mutate"}
                 passThrough={true}
@@ -369,12 +367,13 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                   </Editable>
                 )}
               </Can>
-            </Col100>
+            </Col>
           </Row>
+          <br />
           <Can do={"api_mutations_update_finding_description_mutate"}>
             {isEditing ? (
               <Row>
-                <Col45>
+                <Col lg={45} md={45} sm={45}>
                   <Tooltip
                     id={"searchFindings.tabDescription.sorts.tooltip"}
                     tip={t("searchFindings.tabDescription.sorts.tooltip")}
@@ -400,7 +399,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       </Field>
                     </FormGroup>
                   </Tooltip>
-                </Col45>
+                </Col>
               </Row>
             ) : undefined}
           </Can>

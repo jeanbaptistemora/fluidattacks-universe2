@@ -17,7 +17,7 @@ import type {
   IFinding,
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
-import { InputDateTime } from "components/Input";
+import { InputDateTime, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   Col100,
@@ -32,7 +32,6 @@ import {
   FormikAutocompleteText,
   FormikDropdown,
   FormikFileInput,
-  FormikTextArea,
 } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import { Logger } from "utils/logger";
@@ -260,13 +259,8 @@ const AddModal: React.FC<IAddModalProps> = ({
               <Row>
                 <Col100>
                   <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.form.details")}
-                    </ControlLabel>
-                    <Field
-                      // eslint-disable-next-line react/forbid-component-props
-                      className={"noResize"}
-                      component={FormikTextArea}
+                    <TextArea
+                      label={t("group.events.form.details")}
                       name={"detail"}
                       validate={composeValidators([
                         required,

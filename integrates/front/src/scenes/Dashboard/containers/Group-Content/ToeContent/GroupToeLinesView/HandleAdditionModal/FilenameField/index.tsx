@@ -1,9 +1,8 @@
-import { Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikTextArea } from "utils/forms/fields";
+import { TextArea } from "components/Input";
+import { FormGroup } from "styles/styledComponents";
 import {
   composeValidators,
   required,
@@ -16,13 +15,9 @@ const FilenameField: React.FC = (): JSX.Element => {
 
   return (
     <FormGroup>
-      <ControlLabel>
-        <b>{t("group.toe.lines.addModal.fields.filename")} </b>
-      </ControlLabel>
-      <Field
-        component={FormikTextArea}
+      <TextArea
+        label={t("group.toe.lines.addModal.fields.filename")}
         name={"filename"}
-        type={"text"}
         validate={composeValidators([required, validCsvInput, validTextField])}
       />
     </FormGroup>

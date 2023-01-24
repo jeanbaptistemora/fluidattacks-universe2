@@ -7,9 +7,10 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IJustificationFieldProps } from "./types";
 
+import { TextArea } from "components/Input";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikDropdown, FormikTextArea } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -84,10 +85,8 @@ const JustificationField: React.FC<IJustificationFieldProps> = ({
           ) : undefined}
         </Field>
       ) : (
-        <Field
-          component={FormikTextArea}
+        <TextArea
           name={"justification"}
-          type={"text"}
           validate={composeValidators([
             required,
             validTextField,
