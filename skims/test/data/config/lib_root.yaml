@@ -8,7 +8,6 @@ path:
   exclude:
     - glob(integrates/**/*)
   include:
-    - skims/test/data/lib_path
     - skims/test/data/lib_root
     - integrates/
   lib_root: true

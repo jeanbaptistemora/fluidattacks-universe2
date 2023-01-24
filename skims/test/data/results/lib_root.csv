@@ -1503,6 +1503,26 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063
   18 | });
      ^ Col 0
 ",typescript.ts_zip_slip
+F325,lines,namespace/skims/test/data/lib_root/f325/json_principal_wildcard.json,8,250,skims,325. Excessive privileges - Wildcards,"The wildcard () is used to give access to any user, including anonymous users.
+ in namespace/skims/test/data/lib_root/f325/json_principal_wildcard.json","
+   1 | {
+   2 |   ""Statement"": [
+   3 |     {
+   4 |       ""Action"": [
+   5 |         ""s3:GetObject""
+   6 |       ],
+   7 |       ""Effect"": ""Allow"",
+>  8 |       ""Principal"": ""*"",
+   9 |       ""Resource"": [
+  10 |         ""arn:aws:s3:::bgx-digital-onboarding-frontend/*""
+  11 |       ],
+  12 |       ""Sid"": ""AddPerm""
+  13 |     }
+  14 |   ],
+  15 |   ""Version"": ""2012-10-17""
+  16 | }
+     ^ Col 0
+",cloudformation.json_principal_wildcard
 F056,lines,namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,5,284,skims,056. Anonymous connection,Anonymous connection is allowed in the app settings in namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,"
    1 | {
    2 |     ""$schema"": ""http://json.schemastore.org/launchsettings.json"",

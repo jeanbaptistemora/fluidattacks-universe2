@@ -1,6 +1,5 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_JSON,
     EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
@@ -12,9 +11,6 @@ from lib_path.f325.cloudformation import (
     cfn_iam_is_policy_actions_wildcards,
     cfn_kms_key_has_master_keys_exposed_to_everyone,
     cfn_permissive_policy,
-)
-from lib_path.f325.conf_files import (
-    json_principal_wildcard,
 )
 from lib_path.f325.terraform import (
     terraform_permissive_policy,
@@ -126,15 +122,6 @@ def run_terraform_permissive_policy(
 
 
 @SHIELD_BLOCKING
-def run_json_principal_wildcard(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return json_principal_wildcard(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -163,17 +150,11 @@ def analyze(
                     content, path, template
                 ),
                 run_cfn_iam_is_policy_miss_configured(content, path, template),
-                run_json_principal_wildcard(content, path, template),
                 run_cfn_iam_allow_wildcard_action_trust_policy(
                     content, path, template
                 ),
                 run_cfn_permissive_policy(content, path, template),
             )
-            if file_extension in EXTENSIONS_JSON:
-                results = (
-                    *results,
-                    run_json_principal_wildcard(content, path, template),
-                )
 
     elif file_extension in EXTENSIONS_TERRAFORM:
         model = load_terraform(stream=content, default=[])

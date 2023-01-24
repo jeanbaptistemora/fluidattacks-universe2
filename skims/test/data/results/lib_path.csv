@@ -15814,26 +15814,6 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_po
   35 |     },
      ^ Col 0
 ",terraform.tfm_iam_excessive_role_policy
-F325,lines,namespace/skims/test/data/lib_path/f325/json_principal_wildcard.json,8,250,skims,325. Excessive privileges - Wildcards,"The wildcard () is used to give access to any user, including anonymous users.
- in namespace/skims/test/data/lib_path/f325/json_principal_wildcard.json","
-   1 | {
-   2 |   ""Statement"": [
-   3 |     {
-   4 |       ""Action"": [
-   5 |         ""s3:GetObject""
-   6 |       ],
-   7 |       ""Effect"": ""Allow"",
->  8 |       ""Principal"": ""*"",
-   9 |       ""Resource"": [
-  10 |         ""arn:aws:s3:::bgx-digital-onboarding-frontend/*""
-  11 |       ],
-  12 |       ""Sid"": ""AddPerm""
-  13 |     }
-  14 |   ],
-  15 |   ""Version"": ""2012-10-17""
-  16 | }
-     ^ Col 0
-",cloudformation.json_principal_wildcard
 F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
    3 |   MyPolicy:
    4 |     Type: AWS::IAM::Policy
