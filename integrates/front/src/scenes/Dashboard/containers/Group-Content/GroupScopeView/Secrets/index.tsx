@@ -6,7 +6,7 @@ import { useAbility } from "@casl/react";
 import type { Row } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { AddSecret } from "./addSecret";
@@ -59,7 +59,9 @@ const Secrets: React.FC<ISecretsProps> = ({
   });
   const [showAlert, setShowAlert] = useState(false);
 
-  const defaultCurrentRow: ISecret = { description: "", key: "", value: "" };
+  const defaultCurrentRow: ISecret = useMemo((): ISecret => {
+    return { description: "", key: "", value: "" };
+  }, []);
   const [currentRow, setCurrentRow] = useState(defaultCurrentRow);
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -72,20 +74,19 @@ const Secrets: React.FC<ISecretsProps> = ({
     },
     variables: { groupName, rootId: gitRootId },
   });
-  function editCurrentRow(
-    key: string,
-    value: string,
-    description: string
-  ): void {
-    setShowAlert(false);
-    setModalMessages({
-      message: "",
-      type: "success",
-    });
-    setCurrentRow({ description, key, value });
-    setIsUpdate(true);
-    setAddSecretModalOpen(true);
-  }
+  const editCurrentRow = useCallback(
+    (key: string, value: string, description: string): void => {
+      setShowAlert(false);
+      setModalMessages({
+        message: "",
+        type: "success",
+      });
+      setCurrentRow({ description, key, value });
+      setIsUpdate(true);
+      setAddSecretModalOpen(true);
+    },
+    []
+  );
 
   const secretsDataSet =
     data === undefined
@@ -105,19 +106,22 @@ const Secrets: React.FC<ISecretsProps> = ({
             value: item.value,
           };
         });
-  function closeModal(): void {
+
+  const closeModal = useCallback((): void => {
     setIsUpdate(false);
     setCurrentRow(defaultCurrentRow);
     setAddSecretModalOpen(false);
-  }
-  function openModal(): void {
+  }, [defaultCurrentRow]);
+
+  const openModal = useCallback((): void => {
     setShowAlert(false);
     setModalMessages({
       message: "",
       type: "success",
     });
     setAddSecretModalOpen(true);
-  }
+  }, []);
+
   function isSecretDuplicated(key: string): boolean {
     return secretsDataSet.some((item): boolean => item.key === key);
   }
