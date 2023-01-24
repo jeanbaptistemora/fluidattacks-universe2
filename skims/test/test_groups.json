@@ -11,6 +11,7 @@
   "benchmark_weakrand",
   "benchmark_xpathi",
   "benchmark_xss",
+  "f001",
   "f016",
   "f024",
   "f031",

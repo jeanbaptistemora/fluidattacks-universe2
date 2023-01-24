@@ -16,6 +16,7 @@ from test.test_z_functional import (
 from typing import (
     Any,
     Callable,
+    Optional,
 )
 
 MOCKERS: dict[str, Callable] = {
@@ -36,11 +37,11 @@ def create_config(
         return content
 
 
-def get_mock_info(finding: str) -> dict[str, Any]:
+def get_mock_info(finding: str) -> Optional[dict[str, Any]]:
     data = MOCKERS.get(finding)
     if data:
         return data()
-    return {}
+    return None
 
 
 def run_finding(finding: str, mocker: MockerFixture) -> None:
@@ -48,18 +49,28 @@ def run_finding(finding: str, mocker: MockerFixture) -> None:
         path = os.path.join(tmp_dir, f"{finding}.yaml")
         with open(path, "w", encoding="utf-8") as tmpfile:
             tmpfile.write(create_config(finding))
-        mock_data = get_mock_info(finding)
-        with mocker.patch(
-            f"dast.aws.{finding.lower()}.run_boto3_fun",
-            return_value=mock_data,
-        ):
+
+        if mock_data := get_mock_info(finding):
+            with mocker.patch(
+                f"dast.aws.{finding.lower()}.run_boto3_fun",
+                return_value=mock_data,
+            ):
+                code, stdout, stderr = skims("scan", path)
+        else:
             code, stdout, stderr = skims("scan", path)
+
         assert code == 0, stdout
         assert "[INFO] Startup work dir is:" in stdout
         assert "[INFO] An output file has been written:" in stdout
         assert "[INFO] Success: True" in stdout
         assert not stderr, stderr
         check_that_csv_results_match(finding)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f001")
+def test_f001(mocker: MockerFixture) -> None:
+    run_finding("F001", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
