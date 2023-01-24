@@ -641,102 +641,6 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to
   108 |             ""TargetSG"",
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,27,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml,"
-  17 |           ToPort: 22
-  18 |           CidrIp: 0.0.0.0/0
-  19 |   InstanceSecurityGroup2:
-  20 |     Type: AWS::EC2::SecurityGroup
-  21 |     Properties:
-  22 |       GroupDescription: Allow http to client host
-  23 |       VpcId:
-  24 |         Ref: myVPC
-  25 |       SecurityGroupIngress:
-  26 |         - IpProtocol: tcp
-> 27 |           FromPort: 50
-  28 |           ToPort: 60
-  29 |           CidrIp: 0.0.0.0/0
-  30 |       SecurityGroupEgress:
-  31 |         - IpProtocol: tcp
-  32 |           FromPort: 20
-  33 |           ToPort: 21
-  34 |           CidrIp: 172.16.0.0/12
-  35 |   OutboundRule:
-  36 |     Type: AWS::EC2::SecurityGroupEgress
-  37 |     Properties:
-     ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,38,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_security_groups_ip_ranges_in_rfc1918.yaml.json,"
-   28 |     ""InstanceSecurityGroup2"": {
-   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
-   30 |       ""Properties"": {
-   31 |         ""GroupDescription"": ""Allow http to client host"",
-   32 |         ""VpcId"": {
-   33 |           ""Ref"": ""myVPC""
-   34 |         },
-   35 |         ""SecurityGroupIngress"": [
-   36 |           {
-   37 |             ""IpProtocol"": ""tcp"",
->  38 |             ""FromPort"": 50,
-   39 |             ""ToPort"": 60,
-   40 |             ""CidrIp"": ""0.0.0.0/0""
-   41 |           }
-   42 |         ],
-   43 |         ""SecurityGroupEgress"": [
-   44 |           {
-   45 |             ""IpProtocol"": ""tcp"",
-   46 |             ""FromPort"": 20,
-   47 |             ""ToPort"": 21,
-   48 |             ""CidrIp"": ""172.16.0.0/12""
-      ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,"
-   1 | ---
-   2 | Resources:
-   3 |   InstanceSecurityGroup:
-   4 |     Type: AWS::EC2::SecurityGroup
-   5 |     Properties:
-   6 |       GroupDescription: Allow http to client host
-   7 |       VpcId:
-   8 |         Ref: myVPC
-   9 |       SecurityGroupIngress:
-  10 |         - IpProtocol: tcp
-> 11 |           FromPort: 40
-  12 |           ToPort: 55
-  13 |           CidrIp: 0.0.0.0/0
-  14 |       SecurityGroupEgress:
-  15 |         - IpProtocol: tcp
-  16 |           FromPort: 80
-  17 |           ToPort: 80
-  18 |           CidrIp: 0.0.0.0/0
-  19 |   InstanceSecurityGroup2:
-  20 |     Type: AWS::EC2::SecurityGroup
-  21 |     Properties:
-     ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,"
-  22 |       GroupDescription: Allow http to client host
-  23 |       VpcId:
-  24 |         Ref: myVPC
-  25 |       SecurityGroupIngress:
-  26 |         - IpProtocol: tcp
-  27 |           FromPort: 80
-  28 |           ToPort: 80
-  29 |           CidrIp: 0.0.0.0/0
-  30 |       SecurityGroupEgress:
-  31 |         - IpProtocol: tcp
-> 32 |           FromPort: 50
-  33 |           ToPort: 60
-  34 |           CidrIp: 0.0.0.0/0
-  35 |   OutboundRule:
-  36 |     Type: AWS::EC2::SecurityGroupEgress
-  37 |     Properties:
-  38 |       IpProtocol: tcp
-  39 |       FromPort: 49
-  40 |       ToPort: 53
-  41 |       CidrIp: 0.0.0.0/0
-  42 |       DestinationSecurityGroupId:
-     ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,68,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml,"
   58 |           - TargetSG
   59 |           - GroupId
@@ -761,54 +665,6 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_
   78 |   InboundRule2:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,13,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,"
-    3 |     ""InstanceSecurityGroup"": {
-    4 |       ""Type"": ""AWS::EC2::SecurityGroup"",
-    5 |       ""Properties"": {
-    6 |         ""GroupDescription"": ""Allow http to client host"",
-    7 |         ""VpcId"": {
-    8 |           ""Ref"": ""myVPC""
-    9 |         },
-   10 |         ""SecurityGroupIngress"": [
-   11 |           {
-   12 |             ""IpProtocol"": ""tcp"",
->  13 |             ""FromPort"": 40,
-   14 |             ""ToPort"": 55,
-   15 |             ""CidrIp"": ""0.0.0.0/0""
-   16 |           }
-   17 |         ],
-   18 |         ""SecurityGroupEgress"": [
-   19 |           {
-   20 |             ""IpProtocol"": ""tcp"",
-   21 |             ""FromPort"": 80,
-   22 |             ""ToPort"": 80,
-   23 |             ""CidrIp"": ""0.0.0.0/0""
-      ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,46,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,"
-   36 |           {
-   37 |             ""IpProtocol"": ""tcp"",
-   38 |             ""FromPort"": 80,
-   39 |             ""ToPort"": 80,
-   40 |             ""CidrIp"": ""0.0.0.0/0""
-   41 |           }
-   42 |         ],
-   43 |         ""SecurityGroupEgress"": [
-   44 |           {
-   45 |             ""IpProtocol"": ""tcp"",
->  46 |             ""FromPort"": 50,
-   47 |             ""ToPort"": 60,
-   48 |             ""CidrIp"": ""0.0.0.0/0""
-   49 |           }
-   50 |         ]
-   51 |       }
-   52 |     },
-   53 |     ""OutboundRule"": {
-   54 |       ""Type"": ""AWS::EC2::SecurityGroupEgress"",
-   55 |       ""Properties"": {
-   56 |         ""IpProtocol"": ""tcp"",
-      ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,98,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_access.yaml.json,"
    88 |             ""SourceSG"",
    89 |             ""GroupId""
@@ -831,54 +687,6 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_dns_
   106 |         ""GroupId"": {
   107 |           ""Fn::GetAtt"": [
   108 |             ""TargetSG"",
-      ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ftp_access.yaml,27,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ftp_access.yaml,"
-  17 |           ToPort: 22
-  18 |           CidrIp: 0.0.0.0/0
-  19 |   InstanceSecurityGroup2:
-  20 |     Type: AWS::EC2::SecurityGroup
-  21 |     Properties:
-  22 |       GroupDescription: Allow http to client host
-  23 |       VpcId:
-  24 |         Ref: myVPC
-  25 |       SecurityGroupIngress:
-  26 |         - IpProtocol: tcp
-> 27 |           FromPort: 50
-  28 |           ToPort: 60
-  29 |           CidrIp: 0.0.0.0/0
-  30 |       SecurityGroupEgress:
-  31 |         - IpProtocol: tcp
-  32 |           FromPort: 20
-  33 |           ToPort: 21
-  34 |           CidrIp: 0.0.0.0/0
-  35 |   OutboundRule:
-  36 |     Type: AWS::EC2::SecurityGroupEgress
-  37 |     Properties:
-     ^ Col 0
-",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ftp_access.yaml.json,38,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ftp_access.yaml.json,"
-   28 |     ""InstanceSecurityGroup2"": {
-   29 |       ""Type"": ""AWS::EC2::SecurityGroup"",
-   30 |       ""Properties"": {
-   31 |         ""GroupDescription"": ""Allow http to client host"",
-   32 |         ""VpcId"": {
-   33 |           ""Ref"": ""myVPC""
-   34 |         },
-   35 |         ""SecurityGroupIngress"": [
-   36 |           {
-   37 |             ""IpProtocol"": ""tcp"",
->  38 |             ""FromPort"": 50,
-   39 |             ""ToPort"": 60,
-   40 |             ""CidrIp"": ""0.0.0.0/0""
-   41 |           }
-   42 |         ],
-   43 |         ""SecurityGroupEgress"": [
-   44 |           {
-   45 |             ""IpProtocol"": ""tcp"",
-   46 |             ""FromPort"": 20,
-   47 |             ""ToPort"": 21,
-   48 |             ""CidrIp"": ""0.0.0.0/0""
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ports.yaml,39,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_unrestricted_ports.yaml,"
@@ -1385,7 +1193,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   65 |     to_port         = 8080
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,"
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -1409,7 +1217,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,38,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,38,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,"
   28 |           ToPort: 22
   29 |       SecurityGroupEgress:
   30 |         - CidrIp: 34.229.161.227/16
@@ -1433,7 +1241,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   48 |       GroupId:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,56,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,56,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,"
   46 |       CidrIp: 34.229.161.227/16
   47 |       FromPort: 8022
   48 |       GroupId:
@@ -1457,7 +1265,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   66 |       CidrIp:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,77,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,77,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,"
   61 |         Ref: IpInsecureProtocol
   62 |       ToPort: 8080
   63 |     Type: AWS::EC2::SecurityGroupIngress
@@ -1481,7 +1289,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   81 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,"
     1 | {
     2 |   ""Resources"": {
     3 |     ""securityGroup1"": {
@@ -1505,7 +1313,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
    21 |         ]
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,"
    46 |             ""IpProtocol"": ""tcp"",
    47 |             ""ToPort"": 8080
    48 |           }
@@ -1529,7 +1337,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
    66 |       ""Properties"": {
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,80,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,80,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,"
    70 |           ""Ref"": ""securityGroup2""
    71 |         },
    72 |         ""IpProtocol"": ""tcp"",
@@ -1553,7 +1361,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
    90 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
       ^ Col 0
 ",cloudformation.cfn_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,109,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,109,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,"
    97 |         ""FromPort"": 8080,
    98 |         ""GroupName"": ""securityGroup2"",
    99 |         ""IpProtocol"": ""tcp"",
@@ -1794,7 +1602,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_pro
   27 |   ami           = data.aws_ami.ubuntu.id
      ^ Col 0
 ",terraform.tfm_ec2_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -1818,7 +1626,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -3424,8 +3232,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_dns_access
-F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F165,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,37,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
   20 |
   21 |           - Effect: Allow
   22 |             NotAction: s3:ListBucket
@@ -3449,8 +3257,8 @@ F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   40 | ...
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_action
-F165,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F165,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,50,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   38 |               ""Effect"": ""Allow"",
   39 |               ""Principal"": {
   40 |                 ""Service"": [
@@ -3723,7 +3531,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/aws_ec2_without_egress.tf,1,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_allows_all_outbound_traffic
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
    9 |           IpProtocol: tcp
   10 |           ToPort: 8888
   11 |       SecurityGroupEgress:
@@ -3747,7 +3555,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   29 |     Type: AWS::EC2::SecurityGroup
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,23,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,23,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
   13 |           FromPort: 8080
   14 |           IpProtocol: tcp
   15 |           ToPort: 8080
@@ -3771,7 +3579,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   33 |       FromPort: 27017
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   16 |             ""CidrIp"": ""34.229.161.227/16"",
   17 |             ""FromPort"": 8080,
   18 |             ""IpProtocol"": ""tcp"",
@@ -3795,7 +3603,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   36 |             ""CidrIp"": ""0.0.0.0/0"",
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,32,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,32,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   22 |       },
   23 |       ""Type"": ""AWS::EC2::SecurityGroup""
   24 |     },
@@ -3819,7 +3627,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   42 |       },
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
    9 |           IpProtocol: '-1'
   10 |           ToPort: 443
   11 |       SecurityGroupEgress:
@@ -3843,7 +3651,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   29 |       SecurityGroupEgress:
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    16 |             ""CidrIp"": ""34.229.161.227/16"",
    17 |             ""FromPort"": 8080,
    18 |             ""IpProtocol"": ""tcp"",
@@ -3867,7 +3675,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    36 |             ""CidrIp"": ""34.229.161.227/16"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml","
    9 |           IpProtocol: tcp
   10 |           ToPort: 65535
   11 |       SecurityGroupEgress:
@@ -3891,7 +3699,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
   29 |       SecurityGroupEgress:
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f047/cnf_unrestricted_ports.yaml.json","
    16 |             ""CidrIp"": ""34.229.161.227/16"",
    17 |             ""FromPort"": 8080,
    18 |             ""IpProtocol"": ""tcp"",
@@ -3915,7 +3723,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cnf_unrestricted_ports.ya
    36 |             ""CidrIp"": ""34.229.161.227/16"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cfn_groups_without_egress.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055/cfn_groups_without_egress.yaml","
    6 |       SecurityGroupIngress:
    7 |         - CidrIp: 34.229.161.227/16
    8 |           FromPort: 443
@@ -3939,7 +3747,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress
   26 |     Type: AWS::EC2::SecurityGroup
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cfn_groups_without_egress.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055/cfn_groups_without_egress.yaml.json","
   16 |             ""CidrIp"": ""34.229.161.227/16"",
   17 |             ""FromPort"": 8080,
   18 |             ""IpProtocol"": ""tcp"",
@@ -3963,7 +3771,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_groups_without_egress
   36 |       },
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml","
    9 |           IpProtocol: tcp
   10 |           ToPort: 443
   11 |       SecurityGroupEgress:
@@ -3987,7 +3795,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   29 |       SecurityGroupEgress:
      ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,26,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json","
    16 |             ""CidrIp"": ""34.229.161.227/16"",
    17 |             ""FromPort"": 8080,
    18 |             ""IpProtocol"": ""tcp"",
@@ -4536,7 +4344,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdow
   26 |
      ^ Col 17
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,29,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,29,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
   13 |       DeleteOnTermination: 'false'
   14 |       VolumeSize: '20'
   15 |   - DeviceName: /dev/sdk
@@ -4560,7 +4368,7 @@ F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   33 | pe: AWS::EC2::Instance
      ^ Col 6
 ",cloudformation.cfn_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,42,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,42,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
   32 | ""LaunchTemplateName"": ""launchTemplate"",
   33 | ""Version"": {
   34 |   ""Fn::GetAtt"": [
@@ -4824,7 +4632,7 @@ F333,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_pro
   27 |   ami           = data.aws_ami.ubuntu.id
      ^ Col 0
 ",terraform.tfm_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -4848,7 +4656,7 @@ F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -6973,8 +6781,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   52 |   description = ""Allow TLS inbound traffic""
      ^ Col 0
 ",terraform.tfm_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -6998,8 +6806,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,8,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -7023,8 +6831,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
   18 |     Properties:
@@ -7048,8 +6856,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   36 |       GroupName: securityGroup2
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
   18 |     Properties:
   19 |       GroupDescription: groupDescription2
   20 |     Type: AWS::EC2::SecurityGroup
@@ -7073,8 +6881,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   38 |         Ref: IpInsecureProtocol
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,33,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,33,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
   23 |       GroupDescription: groupDescription1
   24 |       SecurityGroupIngress:
   25 |         - CidrIp: 0.0.0.0/0
@@ -7098,8 +6906,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   43 |       CidrIp:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml","
   29 |     Type: AWS::EC2::SecurityGroup
   30 |   securityGroupIngress1:
   31 |     Properties:
@@ -7123,8 +6931,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   49 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,11,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -7148,8 +6956,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -7173,8 +6981,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   27 |         ""GroupDescription"": ""groupDescription2""
   28 |       },
   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
@@ -7198,8 +7006,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   47 |         ""CidrIpv6"": ""::/0"",
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   29 |       ""Type"": ""AWS::EC2::SecurityGroup""
   30 |     },
   31 |     ""securityGroup3"": {
@@ -7223,8 +7031,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   49 |         ""GroupId"": {
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,48,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,48,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   38 |             ""IpProtocol"": ""tcp"",
   39 |             ""ToPort"": 22
   40 |           }
@@ -7248,8 +7056,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   58 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json","
   46 |       ""Properties"": {
   47 |         ""CidrIpv6"": ""::/0"",
   48 |         ""FromPort"": 27017,
@@ -7273,8 +7081,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   66 |         ""GroupName"": ""securityGroup2"",
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,26,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml","
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
   18 |     Properties:
@@ -7298,8 +7106,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   36 |     Properties:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,28,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml","
   18 |     Properties:
   19 |       GroupDescription: groupDescription2
   20 |     Type: AWS::EC2::SecurityGroup
@@ -7323,8 +7131,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   38 |       FromPort: 1434
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,56,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml","
   46 |       CidrIpv6: ::/0
   47 |       FromPort: 8022
   48 |       GroupId:
@@ -7348,8 +7156,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   66 |       CidrIp:
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,62,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,62,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml","
   52 |     Type: AWS::EC2::SecurityGroupEgress
   53 |   securityGroupIngress1:
   54 |     Properties:
@@ -7373,8 +7181,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   72 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,37,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json","
    27 |         ""GroupDescription"": ""groupDescription2""
    28 |       },
    29 |       ""Type"": ""AWS::EC2::SecurityGroup""
@@ -7398,8 +7206,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    47 |             ""ToPort"": 8080
       ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,39,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json","
    29 |       ""Type"": ""AWS::EC2::SecurityGroup""
    30 |     },
    31 |     ""securityGroup3"": {
@@ -7423,8 +7231,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    49 |         ]
       ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,80,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,80,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json","
    70 |           ""Ref"": ""securityGroup2""
    71 |         },
    72 |         ""IpProtocol"": ""tcp"",
@@ -7448,8 +7256,8 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    90 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
       ^ Col 0
 ",cloudformation.cfn_allows_anyone_to_admin_ports
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,88,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
- in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,88,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
+ in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json","
    78 |       ""Properties"": {
    79 |         ""CidrIpv6"": ""::/0"",
    80 |         ""FromPort"": 22,
@@ -7773,8 +7581,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   68 |     prefix_list_ids = [""pl-12c4e678""]
      ^ Col 0
 ",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -7798,8 +7606,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,27,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,27,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   17 |   securityGroup2:
   18 |     Properties:
   19 |       GroupDescription: groupDescription2
@@ -7823,8 +7631,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   37 |       CidrIpv6: 2002::1234:abcd:ffff:c0a8:101/64
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   22 |     Properties:
   23 |       GroupDescription: groupDescription1
   24 |       SecurityGroupIngress:
@@ -7848,8 +7656,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   42 |       ToPort: 1434
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,41,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,41,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   31 |           FromPort: 8080
   32 |           IpProtocol: '-1'
   33 |           ToPort: 8080
@@ -7873,8 +7681,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   51 |       ToPort: 8022
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,50,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,50,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   40 |         Ref: securityGroup2
   41 |       IpProtocol: '-1'
   42 |       ToPort: 1434
@@ -7898,8 +7706,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   60 |       IpProtocol:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,70,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,70,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   60 |       IpProtocol:
   61 |         Ref: IpInsecureProtocol
   62 |       ToPort: 22
@@ -7923,8 +7731,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   80 |       ToPort: 8080
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml,79,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml,79,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml","
   61 |         Ref: IpInsecureProtocol
   62 |       ToPort: 22
   63 |     Type: AWS::EC2::SecurityGroupIngress
@@ -7948,8 +7756,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   81 |     Type: AWS::EC2::SecurityGroupIngress
      ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
     1 | {
     2 |   ""Resources"": {
     3 |     ""securityGroup1"": {
@@ -7973,8 +7781,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    21 |         ]
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,38,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,38,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    28 |       },
    29 |       ""Type"": ""AWS::EC2::SecurityGroup""
    30 |     },
@@ -7998,8 +7806,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    48 |           }
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,46,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,46,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    36 |             ""CidrIp"": ""34.229.161.227/16"",
    37 |             ""FromPort"": 22,
    38 |             ""IpProtocol"": ""-1"",
@@ -8023,8 +7831,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    56 |         ""FromPort"": 1434,
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,60,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,60,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    50 |       },
    51 |       ""Type"": ""AWS::EC2::SecurityGroup""
    52 |     },
@@ -8048,8 +7856,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    70 |           ""Ref"": ""securityGroup2""
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,72,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,72,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    62 |       },
    63 |       ""Type"": ""AWS::EC2::SecurityGroupEgress""
    64 |     },
@@ -8073,8 +7881,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
    82 |           ""Ref"": ""securityGroup2""
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,99,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,99,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    89 |       },
    90 |       ""Type"": ""AWS::EC2::SecurityGroupIngress""
    91 |     },
@@ -8098,8 +7906,8 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocol
   109 |         ""FromPort"": 8080,
       ^ Col 0
 ",cloudformation.cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json,111,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f047_aws/cfn_unrestricted_protocols.yaml.json","
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json,111,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_path/f047/cfn_unrestricted_protocols.yaml.json","
    97 |         ""FromPort"": 8080,
    98 |         ""GroupName"": ""securityGroup2"",
    99 |         ""IpProtocol"": ""-1"",
@@ -9059,7 +8867,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   70 |
      ^ Col 0
 ",terraform.tfm_aws_ec2_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,"
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -9083,7 +8891,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,"
   15 |           ToPort: 8080
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
@@ -9107,7 +8915,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   35 |         Ref: securityGroup2
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,32,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml,"
   22 |     Properties:
   23 |       GroupDescription: groupDescription1
   24 |       SecurityGroupIngress:
@@ -9131,7 +8939,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   42 |     Properties:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""securityGroup1"": {
@@ -9155,7 +8963,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   21 |         ]
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,"
   26 |       ""Properties"": {
   27 |         ""GroupDescription"": ""groupDescription2""
   28 |       },
@@ -9179,7 +8987,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   46 |       ""Properties"": {
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,47,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admin_ports.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,47,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f047/cfn_allows_anyone_to_admin_ports.yaml.json,"
   37 |             ""FromPort"": 22,
   38 |             ""IpProtocol"": ""tcp"",
   39 |             ""ToPort"": 22
@@ -9203,7 +9011,7 @@ F024,lines,namespace/skims/test/data/lib_path/f047_aws/cfn_allows_anyone_to_admi
   57 |       },
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,"
    1 | ---
    2 | Resources:
    3 |   securityGroup1:
@@ -9227,7 +9035,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   21 |   securityGroup3:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,25,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,"
   15 |           ToPort: 8080
   16 |     Type: AWS::EC2::SecurityGroup
   17 |   securityGroup2:
@@ -9251,7 +9059,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   35 |   securityGroupEgress1:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,55,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,55,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml,"
   45 |     Properties:
   46 |       CidrIpv6: ::/0
   47 |       FromPort: 8022
@@ -9275,7 +9083,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
   65 |     Properties:
      ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,8,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,"
     1 | {
     2 |   ""Resources"": {
     3 |     ""securityGroup1"": {
@@ -9299,7 +9107,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    21 |         ]
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,36,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,"
    26 |       ""Properties"": {
    27 |         ""GroupDescription"": ""groupDescription2""
    28 |       },
@@ -9323,7 +9131,7 @@ F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.ya
    46 |             ""IpProtocol"": ""tcp"",
       ^ Col 0
 ",cloudformation.cfn_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,79,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055_aws/cnf_unrestricted_cidrs.yaml.json,"
+F024,lines,namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,79,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f055/cnf_unrestricted_cidrs.yaml.json,"
    69 |         ""GroupId"": {
    70 |           ""Ref"": ""securityGroup2""
    71 |         },
@@ -12404,7 +12212,7 @@ F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escal
   42 |   }
      ^ Col 0
 ",kubernetes.k8s_check_seccomp_profile
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,15,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
    5 |     Type: AWS::IAM::ManagedPolicy
    6 |     Properties:
    7 |       PolicyDocument:
@@ -12428,7 +12236,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   25 |   AWS_IAM_Role_1:
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,18,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,18,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
    8 |         Statement:
    9 |           - Effect: Allow
   10 |             NotAction: '*'
@@ -12452,7 +12260,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   28 |       AssumeRolePolicyDocument:
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,22,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,22,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
   12 |
   13 |           - Effect: Allow
   14 |             NotAction: '*'
@@ -12476,7 +12284,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   32 |               Service:
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
   13 |           - Effect: Allow
   14 |             NotAction: '*'
   15 |             NotResource: something
@@ -12500,7 +12308,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   33 |                 - ec2.amazonaws.com
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
   20 |
   21 |           - Effect: Allow
   22 |             NotAction: s3:ListBucket
@@ -12524,7 +12332,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   40 | ...
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml,37,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml,37,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml","
   20 |
   21 |           - Effect: Allow
   22 |             NotAction: s3:ListBucket
@@ -12548,7 +12356,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   40 | ...
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,16,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,16,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
    6 |         ""PolicyDocument"": {
    7 |           ""Statement"": [
    8 |             {
@@ -12572,7 +12380,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   26 |               ""NotResource"": ""something""
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,20,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,20,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   10 |               ""NotAction"": ""*"",
   11 |               ""NotResource"": ""*""
   12 |             },
@@ -12596,7 +12404,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   30 |       }
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,25,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,25,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   15 |               ""NotAction"": ""*"",
   16 |               ""NotResource"": ""something""
   17 |             },
@@ -12620,7 +12428,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   35 |         ""AssumeRolePolicyDocument"": {
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,26,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,26,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   16 |               ""NotResource"": ""something""
   17 |             },
   18 |             {
@@ -12644,7 +12452,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   36 |           ""Statement"": [
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,51,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,51,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   38 |               ""Effect"": ""Allow"",
   39 |               ""Principal"": {
   40 |                 ""Service"": [
@@ -12668,7 +12476,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   58 | }
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json,50,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json,50,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/cfn_negative_statement.yaml.json","
   38 |               ""Effect"": ""Allow"",
   39 |               ""Principal"": {
   40 |                 ""Service"": [
@@ -12692,7 +12500,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_negative_statement.ya
   58 | }
      ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf","
+F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements in namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf","
   23 |       }
   24 |     ]
   25 |   }
@@ -12908,7 +12716,7 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    87 |         ""Users"": [
       ^ Col 0
 ",cloudformation.cfn_negative_statement
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -12922,7 +12730,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
 > 11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -12936,7 +12744,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -12950,7 +12758,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   11 |         - arn:aws:iam::aws:policy/PowerUserAccess
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -12969,7 +12777,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,9,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -12988,7 +12796,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached.yaml.json","
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json,7,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -13007,7 +12815,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_admin_policy_attached
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
   13 |           ""Effect"": ""Allow"",
   14 |           ""Sid"": """"
   15 |         }
@@ -13031,7 +12839,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attache
   33 |   policy_arn = ""arn:aws:iam::aws:policy/IAMFullAccess""
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
   19 | }
   20 |
   21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {
@@ -13055,7 +12863,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attache
   39 | }
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
   19 | }
   20 |
   21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {
@@ -13079,7 +12887,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_admin_policy_attache
   39 | }
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_privileges.tf,12,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_privileges.tf","
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_privileges.tf,12,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_privileges.tf","
    1 | resource ""aws_iam_role"" ""safe_role_1"" {
    2 |   name = ""safe_role_1""
    3 |   managed_policy_arns = [
@@ -13145,8 +12953,8 @@ F031,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   58 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml","
    3 |   MyPolicy:
    4 |     Type: AWS::IAM::Policy
    5 |     Properties:
@@ -13170,8 +12978,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   23 |         Statement:
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml","
   15 |             Resource: '*'
   16 |   CreateTestDBPolicy:
   17 |     Type: AWS::IAM::ManagedPolicy
@@ -13195,8 +13003,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   35 |                 rds:DatabaseClass: db.t2.micro
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json","
    4 |       ""Type"": ""AWS::IAM::Policy"",
    5 |       ""Properties"": {
    6 |         ""PolicyName"": ""CFNUsers"",
@@ -13220,8 +13028,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json","
   23 |     ""CreateTestDBPolicy"": {
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
   25 |       ""Properties"": {
@@ -13245,8 +13053,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   43 |               ""Action"": ""ssm:*"",
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,16,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,16,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml","
    6 |       Path: /
    7 |       LoginProfile:
    8 |         Password: myP@ssW0rd
@@ -13270,8 +13078,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   26 |             Version: '2012-10-17'
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,30,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,30,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml","
   17 |                 Resource:
   18 |                   - !GetAtt myqueue.Arn
   19 |               - Effect: Deny
@@ -13295,8 +13103,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   37 |                   - !Ref mytopic
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,19,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,19,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json","
    9 |         },
   10 |         ""Policies"": [
   11 |           {
@@ -13320,8 +13128,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   29 |                 },
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,55,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,55,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json","
   45 |             }
   46 |           },
   47 |           {
@@ -13345,8 +13153,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   65 |                   ""Action"": [
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,11,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,11,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -13370,8 +13178,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   21 |                 Resource: arn:::ec2/specific
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,12,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,12,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
    2 | Resources:
    3 |   AWS_IAM_Role_1:
    4 |     Type: AWS::IAM::Role
@@ -13395,8 +13203,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   22 |                 Effect: Allow
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
    3 |   AWS_IAM_Role_1:
    4 |     Type: AWS::IAM::Role
    5 |     Properties:
@@ -13420,8 +13228,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   23 |               - Action: ec2:Something
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,20,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,20,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   10 |               - Action:
   11 |                   - ec2:*
   12 |                   - autoscaling:*
@@ -13445,8 +13253,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   30 |               Service:
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,13,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
    3 |     ""AWS_IAM_Role_1"": {
    4 |       ""Type"": ""AWS::IAM::Role"",
    5 |       ""Properties"": {
@@ -13470,8 +13278,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   23 |                   ],
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,14,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
    4 |       ""Type"": ""AWS::IAM::Role"",
    5 |       ""Properties"": {
    6 |         ""Policies"": [
@@ -13495,8 +13303,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                   ""Resource"": ""*"",
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,15,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,15,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
    5 |       ""Properties"": {
    6 |         ""Policies"": [
    7 |           {
@@ -13520,8 +13328,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   25 |                   ""Effect"": ""Allow""
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,28,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,28,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its permissions policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   18 |                   ""Effect"": ""Allow""
   19 |                 },
   20 |                 {
@@ -14095,8 +13903,8 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   54 |         ]
      ^ Col 0
 ",cloudformation.cfn_iam_permissions_policy_wildcard_actions
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,43,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,43,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -14120,8 +13928,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,38,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,38,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -14145,8 +13953,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,37,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -14170,8 +13978,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,36,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,36,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -14195,8 +14003,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,57,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,57,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   47 |                   ""ec2.amazonaws.com""
   48 |                 ]
   49 |               },
@@ -14220,8 +14028,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   67 |               },
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,58,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,58,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   48 |                 ]
   49 |               },
   50 |               ""Action"": [
@@ -14245,8 +14053,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   68 |               ""Action"": ""kms:*"",
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,59,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,59,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   49 |               },
   50 |               ""Action"": [
   51 |                 ""sts:AssumeRole""
@@ -14270,8 +14078,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   69 |               ""Resource"": ""*""
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,68,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,68,250,skims,325. Excessive privileges - Wildcards,"IAM Role is miss configured: - Should not allow  action on its trust policy
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   56 |               ""Action"": [
   57 |                 ""ec2:*"",
   58 |                 ""autoscaling:*"",
@@ -14295,7 +14103,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   76 | }
      ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_wildcard_action
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
    1 | ---
    2 | Resources:
    3 |   myuser:
@@ -14319,7 +14127,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   21 |                   - sqs:*
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,24,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,24,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
   14 |               - Effect: Allow
   15 |                 Action:
   16 |                   - sqs:*
@@ -14343,7 +14151,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   34 |                 Action:
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,12,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,12,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
    2 |   ""Resources"": {
    3 |     ""myuser"": {
    4 |       ""Type"": ""AWS::IAM::User"",
@@ -14367,7 +14175,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   22 |                     {
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,48,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role_based_security.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,48,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml.json,"
   38 |                         ""myqueue"",
   39 |                         ""Arn""
   40 |                       ]
@@ -14391,7 +14199,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_user_missing_role
   58 |                     {
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_user_missing_role_based_security.tf,15,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_user_missing_role_based_security.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_user_missing_role_based_security.tf,15,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/tfm_iam_user_missing_role_based_security.tf,"
    5 |   tags = {
    6 |     tag-key = ""tag-value""
    7 |   }
@@ -14974,7 +14782,7 @@ F266,lines,namespace/skims/test/data/lib_path/f418/docker_compose_read_only/dock
   29 |     depends_on:
      ^ Col 0
 ",docker.docker_compose_without_user
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,41,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,41,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,"
   31 |           - Action:
   32 |               - s3:DeleteObject
   33 |               - s3:DeleteObjectVersion
@@ -14998,7 +14806,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
   51 |       PolicyDocument:
      ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,79,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,79,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,"
   64 |             Principal: '*'
   65 |             Condition:
   66 |               StringLike:
@@ -15022,7 +14830,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
   84 |                   - http://example.net/*
      ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,59,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml.json,59,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml.json,"
    49 |               ],
    50 |               ""Effect"": ""Allow"",
    51 |               ""Resource"": [
@@ -15046,7 +14854,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
    69 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,119,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_public_access.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml.json,119,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml.json,"
   109 |               ],
   110 |               ""Effect"": ""Allow"",
   111 |               ""Resource"": [
@@ -15070,7 +14878,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_bucket_policy_allows_
   129 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,5,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,5,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,"
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""
    3 |   role = aws_iam_role.test_role.id
@@ -15094,7 +14902,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   21 |           ""ec2:Something""
      ^ Col 0
 ",terraform.tfm_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,54,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,54,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,"
   44 |       ""ec2:*"",
   45 |       ""autoscaling:*"",
   46 |       ""eks:*""
@@ -15310,7 +15118,7 @@ F031,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
   126 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,15,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,15,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"
    5 |     Properties:
    6 |       PolicyName: CFNUsers
    7 |       PolicyDocument:
@@ -15334,7 +15142,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   25 |             Action: ssm:*
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
    7 |         ""PolicyDocument"": {
    8 |           ""Version"": ""2012-10-17"",
    9 |           ""Statement"": [
@@ -15358,7 +15166,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   27 |         ""Path"": ""/"",
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,14,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,14,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,"
    4 |     Type: AWS::IAM::Role
    5 |     Properties:
    6 |       Policies:
@@ -15382,7 +15190,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                 Resource: arn:::ec2/specific
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,39,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,39,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,"
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -15406,7 +15214,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,17,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,"
    7 |           {
    8 |             ""PolicyDocument"": {
    9 |               ""Version"": ""2012-10-17"",
@@ -15430,7 +15238,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   27 |                 {
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,61,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,61,250,skims,031. Excessive privileges - AWS,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,"
   51 |                 ""sts:AssumeRole""
   52 |               ]
   53 |             },
@@ -15454,7 +15262,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   71 |           ]
      ^ Col 0
 ",cloudformation.cfn_permissive_policy
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,"
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,"
   27 |       }
   28 |     ]
   29 |   }
@@ -15478,7 +15286,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   47 |         ""Resource"": ""*"",
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,"
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,73,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,"
   63 |         ""Action"": ""ec2:Something"",
   64 |         ""Resource"": ""arn:::ec2/specific"",
   65 |         ""Effect"": ""Allow""
@@ -15502,7 +15310,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   83 |   }
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,42,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,"
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,42,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,"
   32 |         ""Action"": ""ec2:Something"",
   33 |         ""Resource"": ""arn:::ec2/specific"",
   34 |         ""Effect"": ""Allow""
@@ -15526,7 +15334,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   52 |   }
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
   27 |       }
   28 |     ]
   29 |   }
@@ -15550,7 +15358,7 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   47 |         ""Resource"": ""*"",
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,56,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,56,250,skims,325. Excessive privileges - Wildcards,Should not allow  resource. in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
   46 |         ],
   47 |         ""Resource"": ""*"",
   48 |         ""Effect"": ""Allow""
@@ -15790,7 +15598,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,53,250,skims,325
   63 |
      ^ Col 0
 ",terraform.terraform_permissive_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_policy.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,"
   15 |     }
   16 |   ]
   17 | }
@@ -15814,7 +15622,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_excessive_role_po
   35 |     },
      ^ Col 0
 ",terraform.tfm_iam_excessive_role_policy
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,13,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"
    3 |   MyPolicy:
    4 |     Type: AWS::IAM::Policy
    5 |     Properties:
@@ -15838,7 +15646,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   23 |         Statement:
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,25,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,"
   15 |             Resource: '*'
   16 |   CreateTestDBPolicy:
   17 |     Type: AWS::IAM::ManagedPolicy
@@ -15862,7 +15670,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   35 |                 rds:DatabaseClass: db.t2.micro
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,14,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
    4 |       ""Type"": ""AWS::IAM::Policy"",
    5 |       ""Properties"": {
    6 |         ""PolicyName"": ""CFNUsers"",
@@ -15886,7 +15694,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,"
+F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,33,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,"
   23 |     ""CreateTestDBPolicy"": {
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
   25 |       ""Properties"": {
@@ -15910,7 +15718,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   43 |               ""Action"": ""ssm:*"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
   27 |       }
   28 |     ]
   29 |   }
@@ -15934,7 +15742,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   47 |         ""Resource"": ""*"",
      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
   58 |       ""ec2:*"",
   59 |       ""autoscaling:*"",
   60 |       ""eks:*""
@@ -15958,8 +15766,8 @@ F031,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   78 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,15,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,15,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml","
    5 |     Properties:
    6 |       PolicyName: CFNUsers
    7 |       PolicyDocument:
@@ -15983,8 +15791,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   25 |             Action: ssm:*
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml,26,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml,26,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml","
   16 |   CreateTestDBPolicy:
   17 |     Type: AWS::IAM::ManagedPolicy
   18 |     Properties:
@@ -16008,8 +15816,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   36 |       Groups:
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json","
    7 |         ""PolicyDocument"": {
    8 |           ""Version"": ""2012-10-17"",
    9 |           ""Statement"": [
@@ -16033,8 +15841,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   27 |         ""Path"": ""/"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_to_ssm.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json,34,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ssm.yaml.json","
   24 |       ""Type"": ""AWS::IAM::ManagedPolicy"",
   25 |       ""Properties"": {
   26 |         ""Description"": ""Policy for creating a test database"",
@@ -16058,8 +15866,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_iam_has_full_access_t
   44 |               ""Resource"": ""*"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,10,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_open_passrole.yaml,10,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_open_passrole.yaml","
    1 | ---
    2 | Resources:
    3 |   AWS_IAM_Role_1:
@@ -16081,8 +15889,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml,10
   19 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json,11,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_open_passrole.yaml.json,11,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_open_passrole.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""AWS_IAM_Role_1"": {
@@ -16106,8 +15914,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_open_passrole.yaml.js
   21 |               ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,14,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,14,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
    4 |     Type: AWS::IAM::Role
    5 |     Properties:
    6 |       Policies:
@@ -16131,8 +15939,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   24 |                 Resource: arn:::ec2/specific
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -16156,8 +15964,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
 > 44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml,39,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml,39,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml","
   24 |                 Resource: arn:::ec2/specific
   25 |                 Effect: Allow
   26 |       AssumeRolePolicyDocument:
@@ -16181,8 +15989,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   44 |             Resource: '*'
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,17,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
    7 |           {
    8 |             ""PolicyDocument"": {
    9 |               ""Version"": ""2012-10-17"",
@@ -16206,8 +16014,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   27 |                 {
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   51 |                 ""sts:AssumeRole""
   52 |               ]
   53 |             },
@@ -16231,8 +16039,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   71 |           ]
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json,69,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yaml.json","
+F325,lines,namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json,69,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/cfn_permissive_policy.yaml.json","
   56 |               ""Action"": [
   57 |                 ""ec2:*"",
   58 |                 ""autoscaling:*"",
@@ -16256,8 +16064,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/cfn_permissive_policy.yam
   76 | }
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf","
   23 |       }
   24 |     ]
   25 |   }
@@ -16281,8 +16089,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_negative_statement.t
   43 |         ""NotAction"": ""*"",
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,5,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf","
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""
    3 |   role = aws_iam_role.test_role.id
@@ -16306,8 +16114,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,2
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,37,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf","
   27 |       }
   28 |     ]
   29 |   }
@@ -16331,8 +16139,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   47 |         ""Resource"": ""*"",
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,73,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,73,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf","
   63 |         ""Action"": ""ec2:Something"",
   64 |         ""Resource"": ""arn:::ec2/specific"",
   65 |         ""Effect"": ""Allow""
@@ -16356,8 +16164,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   83 |   }
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf,85,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf,85,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/hcl2_permissive_policy.tf","
   75 |       ""ec2:*"",
   76 |       ""autoscaling:*"",
   77 |       ""eks:*""
@@ -16381,8 +16189,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_permissive_policy.tf
   95 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,5,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,5,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf","
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""
    3 |   role = aws_iam_role.test_role.id
@@ -16406,8 +16214,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   21 |           ""ec2:Something""
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,42,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,42,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf","
   32 |         ""Action"": ""ec2:Something"",
   33 |         ""Resource"": ""arn:::ec2/specific"",
   34 |         ""Effect"": ""Allow""
@@ -16431,8 +16239,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   52 |   }
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf,54,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_public_access.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,54,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf","
   44 |       ""ec2:*"",
   45 |       ""autoscaling:*"",
   46 |       ""eks:*""
@@ -16456,8 +16264,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_bucket_policy_allows_
   64 |       ""s3:DeleteObjectVersion"",
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf","
   27 |       }
   28 |     ]
   29 |   }
@@ -16481,8 +16289,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   47 |         ""Resource"": ""*"",
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,56,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,56,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf","
   46 |         ],
   47 |         ""Resource"": ""*"",
   48 |         ""Effect"": ""Allow""
@@ -16506,8 +16314,8 @@ F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_t
   66 |   }
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F325,lines,namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
- in namespace/skims/test/data/lib_path/f031_aws/tfm_iam_has_full_access_to_ssm.tf","
+F325,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf","
   58 |       ""ec2:*"",
   59 |       ""autoscaling:*"",
   60 |       ""eks:*""
@@ -17081,7 +16889,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,64,250,skims,325
   74 |       }
      ^ Col 0
 ",terraform.tfm_iam_has_wildcard_resource_on_write_action
-F031,lines,namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,5,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f031_aws/hcl2_open_passrole.tf,"
+F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,5,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,"
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""
    3 |   role = aws_iam_role.test_role.id
@@ -17828,8 +17636,8 @@ F070,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protoc
   19 | }
      ^ Col 0
 ",terraform.tfm_lb_target_group_insecure_port
-F346,lines,namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
- in namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml","
+F346,lines,namespace/skims/test/data/lib_path/f055/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
+ in namespace/skims/test/data/lib_path/f055/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve
 >  2 |     <uses-permission android:name=""android.permission.SEND_SMS""/>
    3 |     <application android:label=""@7F040001"" android:icon=""@7F020002"">
@@ -18379,7 +18187,7 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,sk
   68 |     <uses-permission android:name=""com.huawei.android.launcher.permission.CHANGE_BADGE""/>
      ^ Col 0
 ",android.has_dangerous_permissions
-F203,lines,namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f055_aws/hcl2_public_buckets.tf,"
+F203,lines,namespace/skims/test/data/lib_path/f055/hcl2_public_buckets.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f055/hcl2_public_buckets.tf,"
   14 |       apply_server_side_encryption_by_default {
   15 |         kms_master_key_id = aws_kms_key.mykey.arn
   16 |         sse_algorithm     = ""aws:kms""
@@ -21059,7 +20867,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_
   28 | }
      ^ Col 0
 ",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -21083,7 +20891,7 @@ F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -21932,7 +21740,7 @@ F381,lines,namespace/skims/test/data/lib_path/f381/tfm_check_required_version.tf
   21 | }
      ^ Col 0
 ",terraform.check_required_version
-F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -21956,7 +21764,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    8 |       BlockDeviceMappings:
    9 |         - DeviceName: /dev/sdm
   10 |           Ebs:
@@ -21980,7 +21788,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   28 |       NetworkInterfaces:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -22004,7 +21812,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
   16 |             }
   17 |           },
   18 |           {
@@ -24452,7 +24260,7 @@ F055,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,0,530,ski
   16 | </manifest>
      ^ Col 0
 ",android.apk_backups_enabled
-F055,lines,namespace/skims/test/data/lib_path/f055_apk/AndroidManifest.xml,0,530,skims,055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
+F055,lines,namespace/skims/test/data/lib_path/f055/AndroidManifest.xml,0,530,skims,055. Insecure service configuration - ADB Backups,"application.android:allowBackup is enabled by default unless its value is set to False.
 ","
    1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
      | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
@@ -25120,8 +24928,8 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protoc
   19 | }
      ^ Col 0
 ",terraform.tfm_elb2_uses_insecure_protocol
-F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml","
+F109,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml","
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -25145,8 +24953,8 @@ F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_use_default_security_group
-F109,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json","
+F109,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -30421,7 +30229,7 @@ F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_pro
   34 | }
      ^ Col 0
 ",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -30445,7 +30253,7 @@ F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,18,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml,"
+F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,18,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
    8 |       BlockDeviceMappings:
    9 |         - DeviceName: /dev/sdm
   10 |           Ebs:
@@ -30469,7 +30277,7 @@ F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   28 |       NetworkInterfaces:
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -30493,7 +30301,7 @@ F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_pro
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055_aws/cfn_instances_without_profile.yaml.json,"
+F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
   16 |             }
   17 |           },
   18 |           {

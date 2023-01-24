@@ -121,7 +121,7 @@ def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
             hasattr(from_port, "raw")
             and hasattr(to_port, "raw")
             and int(from_port.raw) != int(to_port.raw)
-            and abs(int(to_port.raw) - int(from_port.raw)) >= 5
+            and abs(int(to_port.raw) - int(from_port.raw)) > 25
         ):
             yield from_port
 
