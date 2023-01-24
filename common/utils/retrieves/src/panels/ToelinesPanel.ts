@@ -1,5 +1,7 @@
 /* eslint-disable fp/no-mutation */
 import { randomUUID } from "crypto";
+import { existsSync } from "fs";
+import { join } from "path";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
@@ -47,7 +49,7 @@ function getHeaders(): IHtmlItem {
   };
 }
 
-function formatToeLines(toeLines: IEdge[]): IHtmlItem[] {
+function formatToeLines(rootPath: string, toeLines: IEdge[]): IHtmlItem[] {
   return toeLines.map((item): IHtmlItem => {
     const columns = [
       item.node.filename,
@@ -62,7 +64,18 @@ function formatToeLines(toeLines: IEdge[]): IHtmlItem[] {
       content: columns.map((row, index: number): IHtmlItem => {
         return {
           attributes: { "grid-column": String(index + 1) },
-          content: String(row),
+          content:
+            index === 0 && existsSync(join(rootPath, String(row)))
+              ? [
+                  {
+                    attributes: {
+                      href: `file://${join(rootPath, String(row))}`,
+                    },
+                    content: String(row),
+                    type: "vscode-link",
+                  },
+                ]
+              : String(row),
           type: "vscode-data-grid-cell",
         };
       }),
@@ -79,6 +92,7 @@ export class ToeLinesPanel {
   private constructor(
     private readonly currentPanel: WebviewPanel,
     extensionUri: Uri,
+    rootPath: string,
     toeLines: IEdge[]
   ) {
     this.currentPanel.onDidDispose(
@@ -92,11 +106,17 @@ export class ToeLinesPanel {
     this.currentPanel.webview.html = this.getWebviewContent(
       this.currentPanel.webview,
       extensionUri,
+      rootPath,
       toeLines
     );
+    this.setWebviewMessageListener(this.currentPanel.webview);
   }
 
-  public static render(extensionUri: Uri, toeLines: IEdge[]): void {
+  public static render(
+    extensionUri: Uri,
+    rootPath: string,
+    toeLines: IEdge[]
+  ): void {
     if (ToeLinesPanel.currentPanel) {
       ToeLinesPanel.currentPanel.currentPanel.reveal(ViewColumn.One);
     } else {
@@ -113,6 +133,7 @@ export class ToeLinesPanel {
       ToeLinesPanel.currentPanel = new ToeLinesPanel(
         panel,
         extensionUri,
+        rootPath,
         toeLines
       );
     }
@@ -135,9 +156,10 @@ export class ToeLinesPanel {
   private getWebviewContent(
     webview: Webview,
     extensionUri: Uri,
+    rootPath: string,
     toeLines: IEdge[]
   ): string {
-    const lines = formatToeLines(toeLines);
+    const lines = formatToeLines(rootPath, toeLines);
     const nonce = randomUUID();
     const webviewUri = getUri(webview, extensionUri, [
       "out",
@@ -189,5 +211,18 @@ export class ToeLinesPanel {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return html.renderHTML();
+  }
+
+  private setWebviewMessageListener(webview: Webview): void {
+    webview.onDidReceiveMessage(
+      async (message: { command: string; link: string }): Promise<void> => {
+        if (message.command === "openFile") {
+          const uri = Uri.parse(message.link);
+          await window.showTextDocument(uri);
+        }
+      },
+      undefined,
+      this.disposables
+    );
   }
 }
