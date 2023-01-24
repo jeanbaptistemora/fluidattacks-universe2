@@ -541,7 +541,7 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testPython/skims@dast_f016:
+/testPython/skims@f016:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -554,14 +554,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
-    - m . /testPython/skims@dast_f016
+    - m . /testPython/skims@f016
   stage: test-code
   tags:
     - small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
-/testPython/skims@dast_f024:
+/testPython/skims@f024:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -574,14 +574,14 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
-    - m . /testPython/skims@dast_f024
+    - m . /testPython/skims@f024
   stage: test-code
   tags:
     - small
   variables:
     GIT_DEPTH: 0
     MAKES_GIT_DEPTH: 0
-/testPython/skims@dast_f031:
+/testPython/skims@f031:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs: []
@@ -594,7 +594,7 @@
       when: never
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
-    - m . /testPython/skims@dast_f031
+    - m . /testPython/skims@f031
   stage: test-code
   tags:
     - small

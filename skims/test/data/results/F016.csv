@@ -1,0 +1,423 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_service_point_manager_disabled.cs,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,"A AppContext.SetSwitch method call sets Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols to true
+ in namespace/skims/test/data/lib_root/f016/c_sharp_service_point_manager_disabled.cs","
+  1 | using System;
+  2 |
+  3 | public class ExampleClass
+  4 | {
+  5 |     public void ExampleMethod()
+  6 |     {
+> 7 |         AppContext.SetSwitch(""Switch.System.ServiceModel.DisableUsingServicePointManagerSecurityProtocols"", true);
+  8 |     }
+  9 | }
+    ^ Col 0
+",c_sharp.c_sharp_service_point_manager_disabled
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yaml,5,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yaml,"
+   1 | Resources:
+   2 |   listener1:
+   3 |     Type: AWS::ElasticLoadBalancingV2::Listener
+   4 |     Properties:
+>  5 |       DefaultActions:
+   6 |         - Type: redirect
+   7 |           RedirectConfig:
+   8 |             Protocol: HTTPS
+   9 |             Port: 443
+  10 |             Host: ""#{host}""
+  11 |             Path: /#{path}
+  12 |             Query: ""#{query}""
+  13 |             StatusCode: HTTP_301
+  14 |       LoadBalancerArn: myLoadBalancer
+  15 |       Port: 80
+  16 |       Protocol: HTTPS
+     ^ Col 0
+",cloudformation.cfn_elb_without_sslpolicy
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yaml.json,5,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""listener1"": {
+   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+>  5 |       ""Properties"": {
+   6 |         ""DefaultActions"": [
+   7 |           {
+   8 |             ""Type"": ""redirect"",
+   9 |             ""RedirectConfig"": {
+  10 |               ""Protocol"": ""HTTPS"",
+  11 |               ""Port"": 443,
+  12 |               ""Host"": ""#{host}"",
+  13 |               ""Path"": ""/#{path}"",
+  14 |               ""Query"": ""#{query}"",
+  15 |               ""StatusCode"": ""HTTP_301""
+  16 |             }
+  17 |           }
+  18 |         ],
+  19 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  20 |         ""Port"": 80,
+  21 |         ""Protocol"": ""HTTPS""
+     ^ Col 0
+",cloudformation.cfn_elb_without_sslpolicy
+F016,lines,namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,1,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,"
+>  1 | resource ""aws_lb_listener"" ""front_end"" {
+   2 |   load_balancer_arn = aws_lb.front_end.arn
+   3 |   port              = ""443""
+   4 |   protocol          = ""HTTPS""
+   5 |   certificate_arn   = ""arn:aws:acm:eu-west-2:999999999:certificate/77777777-5d4a-457f-8888-02550c8c9244""
+   6 |
+   7 |   default_action {
+   8 |     type             = ""forward""
+   9 |     target_group_arn = aws_lb_target_group.front_end.arn
+  10 |   }
+  11 | }
+     ^ Col 0
+",terraform.tfm_aws_elb_without_sslpolicy
+F016,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
+   1 | resource ""azurerm_storage_account"" ""example"" {
+   2 |   name                     = ""storageaccountname""
+   3 |   resource_group_name      = azurerm_resource_group.example.name
+   4 |   location                 = azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+>  7 |   min_tls_version          = ""TLS1_0""
+   8 |
+   9 |   tags = {
+  10 |     environment = ""staging""
+  11 |   }
+  12 | }
+     ^ Col 0
+",terraform.tfm_azure_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,17,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+   7 |         Enabled: 'true'
+   8 |         DefaultCacheBehavior:
+   9 |           TargetOriginId: def1
+  10 |           ForwardedValues:
+  11 |             QueryString: 'false'
+  12 |             Cookies:
+  13 |               Forward: all
+  14 |         Origins:
+  15 |           - CustomOriginConfig:
+  16 |               OriginSSLProtocols:
+> 17 |                 - SSLv3
+  18 |                 - TLSv1
+  19 |                 - TLSv1.1
+  20 |                 - TLSv1.2
+  21 |   distribution2:
+  22 |     Type: AWS::CloudFront::Distribution
+  23 |     Properties:
+  24 |       DistributionConfig:
+  25 |         Enabled: 'true'
+  26 |         DefaultCacheBehavior:
+  27 |           TargetOriginId: def2
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,18,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+   8 |         DefaultCacheBehavior:
+   9 |           TargetOriginId: def1
+  10 |           ForwardedValues:
+  11 |             QueryString: 'false'
+  12 |             Cookies:
+  13 |               Forward: all
+  14 |         Origins:
+  15 |           - CustomOriginConfig:
+  16 |               OriginSSLProtocols:
+  17 |                 - SSLv3
+> 18 |                 - TLSv1
+  19 |                 - TLSv1.1
+  20 |                 - TLSv1.2
+  21 |   distribution2:
+  22 |     Type: AWS::CloudFront::Distribution
+  23 |     Properties:
+  24 |       DistributionConfig:
+  25 |         Enabled: 'true'
+  26 |         DefaultCacheBehavior:
+  27 |           TargetOriginId: def2
+  28 |           ForwardedValues:
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,19,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+   9 |           TargetOriginId: def1
+  10 |           ForwardedValues:
+  11 |             QueryString: 'false'
+  12 |             Cookies:
+  13 |               Forward: all
+  14 |         Origins:
+  15 |           - CustomOriginConfig:
+  16 |               OriginSSLProtocols:
+  17 |                 - SSLv3
+  18 |                 - TLSv1
+> 19 |                 - TLSv1.1
+  20 |                 - TLSv1.2
+  21 |   distribution2:
+  22 |     Type: AWS::CloudFront::Distribution
+  23 |     Properties:
+  24 |       DistributionConfig:
+  25 |         Enabled: 'true'
+  26 |         DefaultCacheBehavior:
+  27 |           TargetOriginId: def2
+  28 |           ForwardedValues:
+  29 |             QueryString: 'false'
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,33,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml,"
+  13 |           Forward: all
+  14 |     Origins:
+  15 |       - CustomOriginConfig:
+  16 |           OriginSSLProtocols:
+  17 |             - SSLv3
+  18 |             - TLSv1
+  19 |             - TLSv1.1
+  20 |             - TLSv1.2
+  21 | stribution2:
+  22 | Type: AWS::CloudFront::Distribution
+  23 | Properties:
+  24 |   DistributionConfig:
+  25 |     Enabled: 'true'
+  26 |     DefaultCacheBehavior:
+  27 |       TargetOriginId: def2
+  28 |       ForwardedValues:
+  29 |         QueryString: 'false'
+  30 |         Cookies:
+  31 |           Forward: all
+  32 |     ViewerCertificate:
+> 33 |       MinimumProtocolVersion: TLSv1
+     ^ Col 4
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,21,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  11 |               ""QueryString"": ""false"",
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+> 21 |                   ""SSLv3"",
+  22 |                   ""TLSv1"",
+  23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,22,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  12 |               ""Cookies"": {
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+> 22 |                   ""TLSv1"",
+  23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,23,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  13 |                 ""Forward"": ""all""
+  14 |               }
+  15 |             }
+  16 |           },
+  17 |           ""Origins"": [
+  18 |             {
+  19 |               ""CustomOriginConfig"": {
+  20 |                 ""OriginSSLProtocols"": [
+  21 |                   ""SSLv3"",
+  22 |                   ""TLSv1"",
+> 23 |                   ""TLSv1.1"",
+  24 |                   ""TLSv1.2""
+  25 |                 ]
+  26 |               }
+  27 |             }
+  28 |           ]
+  29 |         }
+  30 |       }
+  31 |     },
+  32 |     ""distribution2"": {
+  33 |       ""Type"": ""AWS::CloudFront::Distribution"",
+     ^ Col 0
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,47,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insecure_protocols.yaml.json,"
+  33 | ype"": ""AWS::CloudFront::Distribution"",
+  34 | roperties"": {
+  35 | ""DistributionConfig"": {
+  36 |   ""Enabled"": ""true"",
+  37 |   ""DefaultCacheBehavior"": {
+  38 |     ""TargetOriginId"": ""def2"",
+  39 |     ""ForwardedValues"": {
+  40 |       ""QueryString"": ""false"",
+  41 |       ""Cookies"": {
+  42 |         ""Forward"": ""all""
+  43 |       }
+  44 |     }
+  45 |   },
+  46 |   ""ViewerCertificate"": {
+> 47 |     ""MinimumProtocolVersion"": ""TLSv1""
+  48 |   }
+  49 | }
+  50 |
+  51 |
+  52 |
+  53 |
+     ^ Col 8
+",cloudformation.cfn_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
+   1 | resource ""aws_cloudfront_distribution"" ""my_distribution"" {
+   2 |
+   3 |   origin {
+   4 |     domain_name = aws_s3_bucket.b.bucket_regional_domain_name
+   5 |     origin_id   = local.s3_origin_id
+   6 |
+   7 |     custom_origin_config {
+   8 |       origin_protocol_policy = ""match-viewer""
+>  9 |       origin_ssl_protocols   = [""TLSv1"", ""TLSv1.1"", ""TLSv1.2""]
+  10 |     }
+  11 |   }
+  12 |
+  13 |   enabled             = true
+  14 |   is_ipv6_enabled     = true
+  15 |   comment             = ""Some comment""
+  16 |   default_root_object = ""index.html""
+  17 |
+  18 |   logging_config {
+  19 |     include_cookies = false
+  20 |     bucket          = ""mylogs.s3.amazonaws.com""
+  21 |     prefix          = ""myprefix""
+     ^ Col 0
+",terraform.tfm_aws_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
+   8 |       origin_protocol_policy = ""match-viewer""
+   9 |       origin_ssl_protocols   = [""TLSv1"", ""TLSv1.1"", ""TLSv1.2""]
+  10 |     }
+  11 |   }
+  12 |
+  13 |   enabled             = true
+  14 |   is_ipv6_enabled     = true
+  15 |   comment             = ""Some comment""
+  16 |   default_root_object = ""index.html""
+  17 |
+  18 |   logging_config {
+  19 |     include_cookies = false
+  20 |     bucket          = ""mylogs.s3.amazonaws.com""
+  21 |     prefix          = ""myprefix""
+  22 |   }
+  23 |
+  24 |   viewer_certificate {
+  25 |     cloudfront_default_certificate = true
+> 26 |     minimum_protocol_version       = ""TLSv1""
+  27 |   }
+  28 | }
+     ^ Col 0
+",terraform.tfm_aws_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls),10,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of the Tls protocol which is insecure in namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,"
+   1 |
+   2 |
+   3 |
+   4 |
+   5 | eService
+   6 |
+   7 |
+   8 | ervice()
+   9 |
+> 10 | ntManager.SecurityProtocol = SecurityProtocolType.Tls;
+  11 |
+  12 |
+  13 |
+  14 |
+     ^ Col 22
+",c_sharp.c_sharp_weak_protocol
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_httpclient_no_revocation_list.cs,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Usar System.Net.Http.HttpClient con su propiedad CheckCertificateRevocationList no establecida en true permitirá que HttpClient acepte los certificados revocados como válidos.
+ in namespace/skims/test/data/lib_root/f016/c_sharp_httpclient_no_revocation_list.cs","
+   1 | ng System.Net.Http;
+   2 |
+   3 | ss ExampleClass
+   4 |
+   5 |  void ExampleMethod()
+   6 |  {
+   7 |      WinHttpHandler winHttpHandler = new WinHttpHandler();
+   8 |      winHttpHandler.CheckCertificateRevocationList = false;
+>  9 |      HttpClient httpClient = new HttpClient(winHttpHandler);
+  10 |  }
+  11 |
+     ^ Col 3
+",c_sharp.c_sharp_httpclient_no_revocation_list
+F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_access_protocol.cs,11,326,skims,016. Insecure encryption algorithm - SSL/TLS,"Using the GetSharedAccessSignature method to generate a Shared Access Signature (SAS) with specifying protocols as HttpsOrHttp.
+ in namespace/skims/test/data/lib_root/f016/c_sharp_insecure_shared_access_protocol.cs","
+   1 | using System;
+   2 | using Microsoft.WindowsAzure.Storage;
+   3 | using Microsoft.WindowsAzure.Storage.File;
+   4 |
+   5 | class ExampleClass
+   6 | {
+   7 |     public void ExampleMethod(SharedAccessFilePolicy policy, SharedAccessFileHeaders headers, string groupPolicyIdentifie
+   8 |     {
+   9 |         CloudFile cloudFile = new CloudFile(null);
+  10 |         SharedAccessProtocol protocols = SharedAccessProtocol.HttpsOrHttp;
+> 11 |         cloudFile.GetSharedAccessSignature(policy, headers, groupPolicyIdentifier, protocols, ipAddressOrRange);
+  12 |     }
+  13 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_shared_access_protocol
+F016,inputs,arn:aws:iam::aws:distribution/mylist: (namespace),/ViewerCertificate/MinimumProtocolVersion: SSLv3,326,skims,016. Insecure encryption algorithm - SSL/TLS,src.lib_path.f016.serves_content_over_insecure_protocols,"
+   4 |         ""Quantity"": 1,
+   5 |         ""Items"": [
+   6 |             ""item1""
+   7 |         ]
+   8 |     },
+   9 |     ""ViewerCertificate"": {
+  10 |         ""CloudFrontDefaultCertificate"": true,
+  11 |         ""IAMCertificateId"": ""myiamid"",
+  12 |         ""ACMCertificateArn"": ""myid"",
+  13 |         ""SSLSupportMethod"": ""sni-only"",
+> 14 |         ""MinimumProtocolVersion"": ""SSLv3"",
+  15 |         ""Certificate"": ""string"",
+  16 |         ""CertificateSource"": ""cloudfront""
+  17 |     },
+  18 |     ""Origins"": {
+  19 |         ""Quantity"": 123,
+  20 |         ""Items"": [
+  21 |             {
+  22 |                 ""Id"": ""domainId"",
+  23 |                 ""DomainName"": ""mydomain"",
+  24 |                 ""CustomOriginConfig"": {
+     ^ Col 0
+",aws.serves_content_over_insecure_protocols
+F016,inputs,arn:aws:iam::aws:distribution/mylist: (namespace),/Origins/Items/0/CustomOriginConfig/OriginSslProtocols/Items: TLSv1,326,skims,016. Insecure encryption algorithm - SSL/TLS,src.lib_path.f016.serves_content_over_insecure_protocols,"
+  20 |         ""Items"": [
+  21 |             {
+  22 |                 ""Id"": ""domainId"",
+  23 |                 ""DomainName"": ""mydomain"",
+  24 |                 ""CustomOriginConfig"": {
+  25 |                     ""HTTPPort"": 123,
+  26 |                     ""HTTPSPort"": 123,
+  27 |                     ""OriginProtocolPolicy"": ""https-only"",
+  28 |                     ""OriginSslProtocols"": {
+  29 |                         ""Quantity"": 123,
+> 30 |                         ""Items"": [
+  31 |                             ""TLSv1""
+  32 |                         ]
+  33 |                     },
+  34 |                     ""OriginReadTimeout"": 123,
+  35 |                     ""OriginKeepaliveTimeout"": 123
+  36 |                 },
+  37 |                 ""ConnectionAttempts"": 123,
+  38 |                 ""ConnectionTimeout"": 123,
+  39 |                 ""OriginShield"": {
+  40 |                     ""Enabled"": true,
+     ^ Col 0
+",aws.serves_content_over_insecure_protocols
