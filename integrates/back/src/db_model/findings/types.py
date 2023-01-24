@@ -15,6 +15,9 @@ from db_model.enums import (
 from decimal import (
     Decimal,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     NamedTuple,
     Optional,
@@ -186,6 +189,17 @@ class Finding(NamedTuple):
         FindingUnreliableIndicators()
     )
     verification: Optional[FindingVerification] = None
+
+
+class FindingEdge(NamedTuple):
+    node: Finding
+    cursor: str
+
+
+class FindingsConnection(NamedTuple):
+    edges: tuple[FindingEdge, ...]
+    page_info: PageInfo
+    total: Optional[int] = None
 
 
 class FindingEvidenceToUpdate(NamedTuple):
