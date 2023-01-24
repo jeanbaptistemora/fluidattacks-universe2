@@ -37,6 +37,9 @@ from db_model.integration_repositories.types import (
 from db_model.roots.types import (
     GitRoot,
 )
+from github import (
+    GitCommit as GitHubCommit,
+)
 import glob
 from newutils.datetime import (
     get_as_utc_iso_format,
@@ -142,6 +145,23 @@ def get_lab_repositories_stats(
     )
 
 
+def get_hub_repositories_stats(
+    token: str,  # pylint: disable=unused-argument
+) -> tuple[BasicRepoData, ...]:
+    return tuple(
+        [
+            BasicRepoData(
+                id="234567890",
+                remote_url="ssh://git@test.com/testprojects/fifthtrepo",
+                ssh_url="https://git@test.com/testprojects/fifthtrepo.git",
+                web_url="https://test.com/testprojects/fifthtrepo",
+                branch="refs/heads/dev",
+                last_activity_at=get_now_minus_delta(days=6),
+            )
+        ]
+    )
+
+
 def get_lab_commit_stats(
     token: str,  # pylint: disable=unused-argument
     project_id: str,  # pylint: disable=unused-argument
@@ -162,6 +182,13 @@ def get_lab_commit_stats(
             ),
         ]
     )
+
+
+def get_hub_commit_stats(
+    token: str,  # pylint: disable=unused-argument
+    repo_id: str,  # pylint: disable=unused-argument
+) -> tuple[GitHubCommit.GitCommit, ...]:
+    return tuple()
 
 
 async def get_covered_group(
@@ -284,14 +311,14 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
-    assert len(result["data"]["organization"]["credentials"]) == 3
+    assert len(result["data"]["organization"]["credentials"]) == 4
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
     assert (
         result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
     )
-    assert result["data"]["organization"]["credentials"][2]["isPat"] is True
+    assert result["data"]["organization"]["credentials"][3]["isPat"] is True
     assert (
-        result["data"]["organization"]["credentials"][2]["name"] == "pat token"
+        result["data"]["organization"]["credentials"][3]["name"] == "pat token"
     )
 
     loaders: Dataloaders = get_new_context()
@@ -334,6 +361,14 @@ async def test_get_organization_ver_1(
             "db_model.azure_repositories.get._get_gitlab_commit",
             side_effect=get_lab_commit_stats,
         ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_github_repos",
+            side_effect=get_hub_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_github_repos_commits",
+            side_effect=get_hub_commit_stats,
+        ),
     ):
         await update_organization_repositories()
 
@@ -365,6 +400,14 @@ async def test_get_organization_ver_1(
         mock.patch(
             "db_model.azure_repositories.get._get_gitlab_commit",
             side_effect=get_lab_commit_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_github_repos",
+            side_effect=get_hub_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_github_repos_commits",
+            side_effect=get_hub_commit_stats,
         ),
     ):
         await update_organization_overview()
@@ -409,6 +452,15 @@ async def test_get_organization_ver_1(
     result_remove = await remove_credentials(
         user="user_manager@fluidattacks.com",
         credentials_id="c9ecb25c-8d9f-422c-abc4-44c0c700a760",
+        organization_id=org_id,
+    )
+    assert "errors" not in result_remove
+    assert "success" in result_remove["data"]["removeCredentials"]
+    assert result_remove["data"]["removeCredentials"]["success"]
+
+    result_remove = await remove_credentials(
+        user="user_manager@fluidattacks.com",
+        credentials_id="5b81d698-a5bc-4dda-bdf9-40d0725358b4",
         organization_id=org_id,
     )
     assert "errors" not in result_remove

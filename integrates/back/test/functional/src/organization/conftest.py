@@ -12,6 +12,7 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsState,
     HttpsPatSecret,
+    OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
 )
@@ -334,6 +335,23 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=CredentialType.HTTPS,
                     secret=HttpsPatSecret(token="VGVzdCBTU0gK"),
                     is_pat=True,
+                ),
+            ),
+            Credentials(
+                id="5b81d698-a5bc-4dda-bdf9-40d0725358b4",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2022-06-12T14:58:10+00:00"
+                    ),
+                    name="oauth hub token",
+                    type=CredentialType.OAUTH,
+                    secret=OauthGithubSecret(
+                        access_token="SDSzdCBTU0gK",
+                    ),
+                    is_pat=False,
                 ),
             ),
         ),
