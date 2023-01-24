@@ -160,7 +160,7 @@ async def _get_historic_zero_risk(
 
 async def _get_finding_vulnerabilities(
     *, finding_id: str
-) -> tuple[Vulnerability, ...]:
+) -> list[Vulnerability]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"finding_id": finding_id},
@@ -180,7 +180,7 @@ async def _get_finding_vulnerabilities(
         index=index,
     )
 
-    return tuple(format_vulnerability(item) for item in response.items)
+    return list(format_vulnerability(item) for item in response.items)
 
 
 async def _get_finding_vulnerabilities_released_zr(
@@ -266,12 +266,10 @@ async def _get_root_vulnerabilities(
     return tuple(format_vulnerability(item) for item in response.items)
 
 
-async def _get_assigned_vulnerabilities(
-    *, user_email: str
-) -> tuple[Vulnerability, ...]:
+async def _get_assigned_vulnerabilities(*, email: str) -> list[Vulnerability]:
     primary_key = keys.build_key(
         facet=ASSIGNED_INDEX_METADATA,
-        values={"email": user_email},
+        values={"email": email},
     )
 
     index = TABLE.indexes["gsi_3"]
@@ -286,7 +284,7 @@ async def _get_assigned_vulnerabilities(
         index=index,
     )
 
-    return tuple(format_vulnerability(item) for item in response.items)
+    return list(format_vulnerability(item) for item in response.items)
 
 
 async def _get_affected_reattacks(
@@ -315,12 +313,14 @@ async def _get_affected_reattacks(
 class AssignedVulnerabilitiesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: tuple[str, ...]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
-        return await collect(
-            tuple(
-                _get_assigned_vulnerabilities(user_email=user_email)
-                for user_email in emails
+        self, emails: list[str]
+    ) -> list[list[Vulnerability]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_assigned_vulnerabilities(email=email)
+                    for email in emails
+                )
             )
         )
 
@@ -332,12 +332,14 @@ class FindingVulnerabilitiesLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: tuple[str, ...]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
-        vulns = await collect(
-            tuple(
-                _get_finding_vulnerabilities(finding_id=finding_id)
-                for finding_id in finding_ids
+        self, finding_ids: list[str]
+    ) -> list[list[Vulnerability]]:
+        vulns = list(
+            await collect(
+                tuple(
+                    _get_finding_vulnerabilities(finding_id=finding_id)
+                    for finding_id in finding_ids
+                )
             )
         )
         for finding_vulns in vulns:

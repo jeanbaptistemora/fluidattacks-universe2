@@ -19,9 +19,6 @@ from db_model.findings.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
 )
@@ -74,9 +71,9 @@ async def mutate(
     try:
         loaders: Dataloaders = info.context.loaders
         finding: Finding = await loaders.finding.load(finding_id)
-        vulnerabilities: tuple[
-            Vulnerability, ...
-        ] = await loaders.finding_vulnerabilities_all.load(finding_id)
+        vulnerabilities = await loaders.finding_vulnerabilities_all.load(
+            finding_id
+        )
         severity_score: Decimal = findings_domain.get_severity_score(
             finding.severity
         )

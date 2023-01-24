@@ -32,9 +32,6 @@ from db_model.findings.types import (
 from db_model.utils import (
     get_datetime_with_offset,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decimal import (
     Decimal,
 )
@@ -56,10 +53,7 @@ from newutils.validations import (
     validate_field_length,
 )
 from typing import (
-    List,
     Optional,
-    Set,
-    Tuple,
 )
 import uuid
 from vulnerabilities import (
@@ -121,9 +115,9 @@ async def approve_draft(
             ),
         )
     )
-    finding_vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
+    finding_vulnerabilities = await loaders.finding_vulnerabilities_all.load(
+        finding_id
+    )
     await collect(
         vulns_domain.update_historics_dates(
             loaders=loaders,
@@ -137,7 +131,7 @@ async def approve_draft(
     return new_state.modified_date
 
 
-def validate_draft_inputs(*, kwargs: List[str]) -> None:
+def validate_draft_inputs(*, kwargs: list[str]) -> None:
     for value in kwargs:
         if isinstance(value, str):
             validate_field_length(value, 5000)
@@ -179,7 +173,7 @@ async def add_draft(
 async def reject_draft(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
-    reasons: Set[DraftRejectionReason],
+    reasons: set[DraftRejectionReason],
     other: Optional[str],
     reviewer_email: str,
     source: Source,

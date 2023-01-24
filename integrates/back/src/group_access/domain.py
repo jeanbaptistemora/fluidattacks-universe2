@@ -47,9 +47,6 @@ from db_model.group_access.utils import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from db_model.vulnerabilities.update import (
     update_assigned_index,
 )
@@ -132,8 +129,10 @@ async def get_group_stakeholders(
         GroupAccess, ...
     ] = await loaders.group_stakeholders_access.load(group_name)
 
-    return await loaders.stakeholder_with_fallback.load_many(
-        tuple(access.email for access in stakeholders_access)
+    return tuple(
+        await loaders.stakeholder_with_fallback.load_many(
+            tuple(access.email for access in stakeholders_access)
+        )
     )
 
 
@@ -228,9 +227,9 @@ async def get_stakeholders_email_by_preferences(
         group_name=group_name,
         roles=roles,
     )
-    stakeholders_data: tuple[
-        Stakeholder, ...
-    ] = await loaders.stakeholder_with_fallback.load_many(email_list)
+    stakeholders_data = await loaders.stakeholder_with_fallback.load_many(
+        email_list
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders_data
@@ -281,11 +280,9 @@ async def remove_access(
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
 
-    me_vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.me_vulnerabilities.load(email)
+    me_vulnerabilities = await loaders.me_vulnerabilities.load(email)
     findings_ids: set[str] = {finding.id for finding in all_findings}
-    group_vulnerabilities: tuple[Vulnerability, ...] = tuple(
+    group_vulnerabilities = list(
         vulnerability
         for vulnerability in me_vulnerabilities
         if vulnerability.finding_id in findings_ids

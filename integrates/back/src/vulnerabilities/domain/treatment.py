@@ -429,9 +429,7 @@ async def validate_and_send_notification_request(
     vulnerabilities: list[str],
 ) -> None:
     # Validate finding with vulns in group
-    finding_vulns: tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
+    finding_vulns = await loaders.finding_vulnerabilities_all.load(finding.id)
     assigned_vulns = list(
         vuln
         for vuln in finding_vulns

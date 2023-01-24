@@ -293,22 +293,22 @@ async def remove_vulnerabilities(
     loaders: Dataloaders,
     finding_id: str,
     justification: VulnerabilityStateReason,
-    user_email: str,
+    email: str,
 ) -> None:
-    vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.finding_vulnerabilities_all.load(finding_id)
+    vulnerabilities = await loaders.finding_vulnerabilities_all.load(
+        finding_id
+    )
     await collect(
         tuple(
             vulns_domain.remove_vulnerability(
-                loaders,
-                finding_id,
-                vuln.id,
-                justification,
-                user_email,
+                loaders=loaders,
+                finding_id=finding_id,
+                vulnerability_id=vulnerability.id,
+                justification=justification,
+                email=email,
                 include_closed_vuln=True,
             )
-            for vuln in vulnerabilities
+            for vulnerability in vulnerabilities
         ),
         workers=8,
     )
@@ -578,8 +578,7 @@ async def mask_finding(
     await comments_domain.remove_comments(finding_id=finding.id)
     await remove_all_evidences(finding.id, finding.group_name)
 
-    finding_all_vulns_loader = loaders.finding_vulnerabilities_all
-    vulns: Tuple[Vulnerability, ...] = await finding_all_vulns_loader.load(
+    vulnerabilities = await loaders.finding_vulnerabilities_all.load(
         finding.id
     )
     await collect(
@@ -588,9 +587,9 @@ async def mask_finding(
                 loaders=loaders,
                 email=email,
                 finding_id=finding.id,
-                vulnerability=vuln,
+                vulnerability=vulnerability,
             )
-            for vuln in vulns
+            for vulnerability in vulnerabilities
         ),
         workers=8,
     )
@@ -998,17 +997,15 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # All vulns must be open before verifying them
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
-    finding_loader = loaders.finding
-    finding_loader.clear(finding_id)
-    finding: Finding = await finding_loader.load(finding_id)
+    loaders.finding.clear(finding_id)
+    finding: Finding = await loaders.finding.load(finding_id)
     if context and not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
 
-    vulnerability_loader = loaders.finding_vulnerabilities_all
     vulnerability_ids: list[str] = open_vulns_ids + closed_vulns_ids
     vulnerabilities = [
         vuln
-        for vuln in await vulnerability_loader.load(finding_id)
+        for vuln in await loaders.finding_vulnerabilities_all.load(finding_id)
         if vuln.id in vulnerability_ids
     ]
     # Sometimes vulns on hold end up being closed before the event is solved
@@ -1043,18 +1040,17 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         verification=verification,
     )
 
-    vulnerability_loader = loaders.vulnerability
     open_vulnerabilities: Tuple[Vulnerability, ...] = ()
     for vuln_id in open_vulns_ids:
         open_vulnerabilities = (
             *open_vulnerabilities,
-            await vulnerability_loader.load(vuln_id),
+            await loaders.vulnerability.load(vuln_id),
         )
     closed_vulnerabilities: Tuple[Vulnerability, ...] = ()
     for vuln_id in closed_vulns_ids:
         closed_vulnerabilities = (
             *closed_vulnerabilities,
-            await vulnerability_loader.load(vuln_id),
+            await loaders.vulnerability.load(vuln_id),
         )
     if is_reattack_open is None:
         await add_reattack_justification(

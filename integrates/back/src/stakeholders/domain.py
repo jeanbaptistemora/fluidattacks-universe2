@@ -51,9 +51,6 @@ from db_model.stakeholders.types import (
 from db_model.subscriptions.types import (
     Subscription,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -122,9 +119,7 @@ async def remove(email: str) -> None:
         ),
         workers=8,
     )
-    me_vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.me_vulnerabilities.load(email)
+    me_vulnerabilities = await loaders.me_vulnerabilities.load(email)
     await collect(
         tuple(
             vulns_model.update_assigned_index(
