@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ControlLabel, FormGroup } from "styles/styledComponents";
@@ -13,16 +13,19 @@ import {
 
 const LinesOfCodeField: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
-    if (
-      event.key.length > 1 ||
-      /\d/u.test(event.key) ||
-      event.key === "Control" ||
-      event.key.toLocaleLowerCase() === "v"
-    )
-      return;
-    event.preventDefault();
-  }
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      if (
+        event.key.length > 1 ||
+        /\d/u.test(event.key) ||
+        event.key === "Control" ||
+        event.key.toLocaleLowerCase() === "v"
+      )
+        return;
+      event.preventDefault();
+    },
+    []
+  );
 
   return (
     <FormGroup>

@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HandleAdditionModalForm } from "./form";
@@ -72,15 +72,18 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
     }
   );
 
-  function handleSubmit(values: IFormValues): void {
-    void handleAddToeLines({
-      variables: {
-        ...values,
-        groupName,
-        modifiedDate: values.modifiedDate?.toISOString(),
-      },
-    });
-  }
+  const handleSubmit = useCallback(
+    (values: IFormValues): void => {
+      void handleAddToeLines({
+        variables: {
+          ...values,
+          groupName,
+          modifiedDate: values.modifiedDate?.toISOString(),
+        },
+      });
+    },
+    [groupName, handleAddToeLines]
+  );
 
   return (
     <React.StrictMode>
