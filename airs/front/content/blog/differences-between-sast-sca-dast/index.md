@@ -37,10 +37,11 @@ static application security testing ([SAST](../../categories/sast/)),
 software composition analysis ([SCA](../../categories/sca/))
 and dynamic application security testing ([DAST](../../categories/dast/)).
 We will see their differences
-and talk about how they complement each other and,
-very importantly,
-how they reach their peak potential
-when also performed manually by human experts.
+and talk about how they complement each other.
+Further,
+we also argue that they reach their peak potential
+when performed by automated security testing tools
+*and* manually by human experts.
 
 ## What's the difference between SAST, SCA and DAST?
 
@@ -81,12 +82,12 @@ it has stored in a database.
 
 It is not a secret
 that commercial static application security testing tools generate reports
-that contain high rates of false positives (lies).
+that contain high rates of false positives.
 This is why human verification is always needed.
 Experts are responsible for reviewing the results
 to determine if they are real issues.
 So,
-the deployment of these tools should be done
+the deployment of SAST tools should be done
 along with manual work.
 Manual SAST is done
 by security testers who understand the application's context
@@ -109,8 +110,7 @@ generates more accurate results.
 ### Why is SAST important?
 
 It's very important to look at the source code
-performing static application security testing
-manually alongside automated tools.
+performing SAST manually alongside automated security testing tools.
 To give you an idea,
 our [2022 State of Attacks](https://try.fluidattacks.tech/state-of-attacks-2022/)
 shows
@@ -118,7 +118,7 @@ that "[Non-encrypted confidential information](https://docs.fluidattacks.com/cri
 and "[Sensitive information in source code](https://docs.fluidattacks.com/criteria/vulnerabilities/009/)"
 are among the top five types of vulnerabilities
 causing the most risk exposure
-to the systems `Fluid Attacks` assessed during 2021.
+to the systems Fluid Attacks assessed during 2021.
 
 ### What are the benefits of SAST?
 
@@ -139,7 +139,7 @@ of static application security testing:
 - The earlier you remediate,
   the more you save on economic costs.
 
-- When done manually in combination with tools,
+- When done manually in combination with SAST tools,
   it yields results with low rates of false positives and false negatives.
 
 ### What is SCA?
@@ -154,8 +154,8 @@ that do similar stuff
 but have licenses compatible with your organization's policies
 in order to prevent legal risk.
 Further,
-both manually and aided by tools,
-SCA points at those components
+both manually and aided by SCA tools,
+this method points at those components
 that have vulnerabilities
 that are listed in public databases
 or have been disclosed by security testers,
@@ -188,7 +188,7 @@ that "[Use of software with known vulnerabilities](https://docs.fluidattacks.com
 is the type of vulnerability
 that generated the most risk exposure
 and was also present in most systems
-`Fluid Attacks` assessed during 2021.
+Fluid Attacks assessed during 2021.
 
 Don't get us wrong, though.
 We don't think open-source is bad.
@@ -224,7 +224,7 @@ of software composition analysis:
   determined by component quality factors
   like license, version and vulnerabilities.
 
-- When done manually in combination with tools,
+- When done manually in combination with SCA tools,
   it yields results with low rates of false positives and false negatives.
 
 <cta-banner
@@ -275,7 +275,7 @@ it may produce reports with high rates of false positives (lies)
 and miss actual vulnerabilities.
 But the way to overcome false positives
 and false negatives
-is combining the use of tools with manual work.
+is combining the use of DAST tools with manual work.
 When DAST is done manually,
 the attack surface may be more accurately defined,
 and the attacks may be specially crafted
@@ -313,7 +313,7 @@ of dynamic application security testing are the following:
 
 - It allows you to simulate attacks by malicious hackers.
 
-- When done manually in combination with tools,
+- When done manually in combination with DAST tools,
   the attacks can be custom made and more clever,
   yielding results with low rates of false positives
   and false negatives.
@@ -365,8 +365,8 @@ in your organization.
 
 ## Enjoy Fluid Attacks' comprehensive security testing
 
-At `Fluid Attacks`,
-we offer automated and manual [SAST](../../categories/sast/),
+At Fluid Attacks,
+we offer [SAST](../../categories/sast/),
 [SCA](../../categories/sca/)
 and [DAST](../../categories/dast/)
 throughout the entire SDLC,
@@ -374,7 +374,7 @@ all in a single solution:
 [Continuous Hacking](../../services/continuous-hacking/).
 Our [highly certified](../../about-us/certifications/)
 [ethical hackers](../what-is-ethical-hacking/)
-work continuously alongside tools
+work continuously alongside security testing tools
 to detect all the vulnerabilities in the assessed systems.
 We are constantly expanding the types of vulnerabilities
 that the tools are able to detect,
