@@ -18,6 +18,6 @@ lib_apk.analyze_bytecodes.uses_http_resources:
 lib_path.f372.tfm_aws_sec_group_using_http:
   en: An insecure protocol (HTTP) is being used
   es: Se esta usando un protocolo inseguro (HTTP)
-lib_path.f372.json_https_flag_missing:
+lib_root.f372.json_https_flag_missing:
   en: Secure request serving with TLS/SSL (HTTPS) flag is either set to false or missing.
   es: La flag de manejo seguro de peticiones con TLS/SSL (HTTPS) se establecio como falsa o no esta presente.

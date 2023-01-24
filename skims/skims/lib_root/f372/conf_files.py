@@ -67,7 +67,7 @@ def https_flag_missing(
                     yield shard, result[1]
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_path.f372.json_https_flag_missing",
+        desc_key="lib_root.f372.json_https_flag_missing",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

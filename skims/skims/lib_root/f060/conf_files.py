@@ -61,7 +61,7 @@ def disable_host_check(
                     yield shard, vuln[1]
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_path.f060.json_disable_host_check",
+        desc_key="lib_root.f060.json_disable_host_check",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

@@ -16,7 +16,7 @@ lib_path.f060.json_allowed_hosts:
 lib_root.f060.insecure_certificate_validation:
   en: Server certificates should be verified during SSL/TLS connections
   es: Certificados de servidores deberian ser validados en conexiones SSL/TLS
-lib_path.f060.json_disable_host_check:
+lib_root.f060.json_disable_host_check:
   en: The host check is disabled in config file.
   es: El chequeo de hosts esta desabilitado en el archivo de configuracion.
 lib_root.f060.common_unsafe_origin:

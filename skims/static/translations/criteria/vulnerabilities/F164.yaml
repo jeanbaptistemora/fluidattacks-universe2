@@ -1,4 +1,4 @@
 ---
-lib_path.f164.json_ssl_port_missing:
+lib_root.f164.json_ssl_port_missing:
   en: Ssl port was not configured properly, so the server will use a randomly available port to establish the connection.
   es: El puerto ssl no fue configurado correctamente, por ende el servidor va a usar un puerto aleatorio para la conexión.

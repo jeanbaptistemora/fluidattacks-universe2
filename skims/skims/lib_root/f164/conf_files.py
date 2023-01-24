@@ -69,7 +69,7 @@ def ssl_port_missing(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_path.f164.json_ssl_port_missing",
+        desc_key="lib_root.f164.json_ssl_port_missing",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
