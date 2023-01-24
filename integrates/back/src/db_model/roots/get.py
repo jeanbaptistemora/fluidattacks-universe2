@@ -59,6 +59,7 @@ from s3.resource import (
     get_s3_resource,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -117,6 +118,12 @@ async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:
 
 
 class GroupRootsLoader(DataLoader):
+    async def load_many_chained(
+        self, group_names: Iterable[str]
+    ) -> tuple[Root, ...]:
+        unchained_data = await self.load_many(group_names)
+        return tuple(chain.from_iterable(unchained_data))
+
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, group_names: list[str]

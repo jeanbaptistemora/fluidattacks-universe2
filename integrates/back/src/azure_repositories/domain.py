@@ -254,8 +254,8 @@ async def get_pat_credentials_authors_stats(
     pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
         credentials
     )
-    all_repositories: tuple[
-        tuple[GitRepository, ...], ...
+    all_repositories: list[
+        tuple[GitRepository, ...]
     ] = await loaders.organization_integration_repositories.load_many(
         pat_credentials
     )
@@ -847,8 +847,8 @@ async def get_pat_credentials_stats(
     pat_credentials: tuple[Credentials, ...] = filter_pat_credentials(
         credentials
     )
-    all_repositories: tuple[
-        tuple[GitRepository, ...], ...
+    all_repositories: list[
+        tuple[GitRepository, ...]
     ] = await loaders.organization_integration_repositories.load_many(
         pat_credentials
     )
@@ -946,17 +946,16 @@ async def update_organization_repositories(
         Credentials, ...
     ] = await loaders.organization_credentials.load(organization.id)
     groups_roots: tuple[
-        tuple[Root, ...], ...
-    ] = await loaders.group_roots.load_many(organization_group_names)
-    roots: tuple[Root, ...] = tuple(chain.from_iterable(groups_roots))
+        Root, ...
+    ] = await loaders.group_roots.load_many_chained(organization_group_names)
     urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)
-        for root in roots
+        for root in groups_roots
         if isinstance(root, GitRoot)
     }
     active_urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)
-        for root in roots
+        for root in groups_roots
         if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     }
     repositories_stats: tuple[RepositoriesStats, ...] = await collect(
