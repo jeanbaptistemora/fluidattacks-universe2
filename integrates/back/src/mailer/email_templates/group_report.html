@@ -19,4 +19,22 @@
       {% include 'layouts/components/footer.html' %}
 
     </div>
+    <div class="unsubscribe">
+      This email was sent to
+      <a
+        href="mailto:{{ mailto }}"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {{ mailto -}}
+      </a>
+      |
+      <a
+        href="{%- raw -%}{{unsub}}{%- endraw -%}"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+      Unsubscribe from this list
+      </a>
+    </div>
   {% endblock %}
