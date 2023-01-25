@@ -1623,7 +1623,7 @@ class MethodsEnum(Enum):
     SENSITIVE_INFO_JSON = MethodInfo(
         file_name="conf_files",
         name="sensitive_info_in_json",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

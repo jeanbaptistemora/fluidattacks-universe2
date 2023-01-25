@@ -10,7 +10,6 @@ from lib_path.f009.aws import (
 from lib_path.f009.conf_files import (
     jwt_token,
     sensitive_info_in_dotnet_json,
-    sensitive_info_in_json,
     sensitive_key_in_json,
     web_config_db_connection,
     web_config_user_pass,
@@ -71,15 +70,6 @@ def run_sensitive_info_in_dotnet_json(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
     return sensitive_info_in_dotnet_json(
-        content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_sensitive_info_in_json(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return sensitive_info_in_json(
         content=content, path=path, template=template
     )
 
@@ -154,7 +144,6 @@ def analyze(
                 *results,
                 run_sensitive_key_in_json(content, path),
                 run_sensitive_info_in_dotnet_json(content, path, template),
-                run_sensitive_info_in_json(content, path, template),
             )
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
         results = (
