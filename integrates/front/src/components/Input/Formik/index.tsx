@@ -12,6 +12,8 @@ import type { IInputNumberProps } from "./FormikNumber";
 import { FormikNumber } from "./FormikNumber";
 import type { ISelectProps } from "./FormikSelect";
 import { FormikSelect } from "./FormikSelect";
+import type { IInputTagsProps } from "./FormikTags";
+import { FormikTags } from "./FormikTags";
 import type { ITextAreaProps } from "./FormikTextArea";
 import { FormikTextArea } from "./FormikTextArea";
 
@@ -22,6 +24,7 @@ export type {
   IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
+  IInputTagsProps,
   ISelectProps,
   ITextAreaProps,
 };
@@ -33,5 +36,6 @@ export {
   FormikInput,
   FormikNumber,
   FormikSelect,
+  FormikTags,
   FormikTextArea,
 };

@@ -7,6 +7,7 @@ import { InputArray } from "./Fields/InputArray";
 import { InputDate } from "./Fields/InputDate";
 import { InputDateTime } from "./Fields/InputDateTime";
 import { InputNumber } from "./Fields/InputNumber";
+import { InputTags } from "./Fields/InputTags";
 import { Select } from "./Fields/Select";
 import { TextArea } from "./Fields/TextArea";
 import type {
@@ -16,6 +17,7 @@ import type {
   IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
+  IInputTagsProps,
   ISelectProps,
   ITextAreaProps,
 } from "./Formik";
@@ -24,11 +26,12 @@ import { Label } from "./Label";
 export type {
   ICheckboxProps,
   IEditableProps,
+  IInputArrayProps,
   IInputDateProps,
   IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
-  IInputArrayProps,
+  IInputTagsProps,
   ISelectProps,
   ITextAreaProps,
 };
@@ -37,10 +40,11 @@ export {
   DataList,
   Editable,
   Input,
+  InputArray,
   InputDate,
   InputDateTime,
   InputNumber,
-  InputArray,
+  InputTags,
   Label,
   Select,
   TextArea,

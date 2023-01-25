@@ -1,6 +1,7 @@
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useCallback, useState } from "react";
+import styled from "styled-components";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
@@ -8,17 +9,24 @@ import { StyledInput } from "../styles";
 import { Button } from "components/Button";
 import { Tag } from "components/Tag";
 
-type IInputTagsProps = IInputBase<HTMLInputElement>;
+interface IInputTagsProps extends IInputBase<HTMLInputElement> {
+  onRemove?: (tag: string) => void;
+}
 
 type TInputTagsProps = IInputTagsProps & TFieldProps;
 
-const FormikTags: React.FC<TInputTagsProps> = ({
+const TagInput = styled(StyledInput)`
+  flex: 1;
+`;
+
+const FormikTags: React.FC<Readonly<TInputTagsProps>> = ({
   disabled,
   field: { name, onBlur, onChange, value },
   form,
   id,
   label,
   onFocus,
+  onRemove,
   required,
   tooltip,
   variant = "solid",
@@ -32,7 +40,7 @@ const FormikTags: React.FC<TInputTagsProps> = ({
     []
   );
 
-  const tags = value.split(",");
+  const tags = value.split(",").filter(Boolean);
 
   const setTags = useCallback(
     (values: string[]): void => {
@@ -66,19 +74,21 @@ const FormikTags: React.FC<TInputTagsProps> = ({
         tags.length
       ) {
         event.preventDefault();
+        onRemove?.(tags[tags.length - 1]);
         setTags(tags.slice(0, -1));
       }
     },
-    [inputValue, setTags, tags]
+    [inputValue, onRemove, setTags, tags]
   );
 
   const removeTag = useCallback(
     (tag: string): VoidFunction => {
       return (): void => {
+        onRemove?.(tag);
         setTags(tags.filter((currentValue): boolean => currentValue !== tag));
       };
     },
-    [setTags, tags]
+    [onRemove, setTags, tags]
   );
 
   return (
@@ -91,29 +101,31 @@ const FormikTags: React.FC<TInputTagsProps> = ({
       tooltip={tooltip}
       variant={variant}
     >
-      {tags.map(
-        (tag): JSX.Element => (
-          <Tag key={tag} variant={"gray"}>
-            {tag}&nbsp;
-            <Button onClick={removeTag(tag)} size={"text"}>
-              <FontAwesomeIcon icon={faClose} />
-            </Button>
-          </Tag>
-        )
-      )}
-      <StyledInput
-        aria-label={name}
-        autoComplete={"off"}
-        disabled={disabled}
-        id={id}
-        name={name}
-        onBlur={onBlur}
-        onChange={handleInputChange}
-        onFocus={onFocus}
-        onKeyDown={handleKeyDown}
-        type={"text"}
-        value={inputValue}
-      />
+      <div className={"flex flex-wrap"}>
+        {tags.map(
+          (tag): JSX.Element => (
+            <Tag key={tag} variant={"gray"}>
+              {tag}&nbsp;
+              <Button onClick={removeTag(tag)} size={"text"}>
+                <FontAwesomeIcon icon={faClose} />
+              </Button>
+            </Tag>
+          )
+        )}
+        <TagInput
+          aria-label={name}
+          autoComplete={"off"}
+          disabled={disabled}
+          id={id}
+          name={name}
+          onBlur={onBlur}
+          onChange={handleInputChange}
+          onFocus={onFocus}
+          onKeyDown={handleKeyDown}
+          type={"text"}
+          value={inputValue}
+        />
+      </div>
     </InputBase>
   );
 };

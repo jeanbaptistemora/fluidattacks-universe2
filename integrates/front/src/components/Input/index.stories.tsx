@@ -6,15 +6,15 @@ import { Form, Formik } from "formik";
 import React from "react";
 import { object, string } from "yup";
 
-import type { IInputDateTimeProps } from "./Formik";
-
 import type {
   ICheckboxProps,
   IEditableProps,
   IInputArrayProps,
   IInputDateProps,
+  IInputDateTimeProps,
   IInputNumberProps,
   IInputProps,
+  IInputTagsProps,
   ISelectProps,
   ITextAreaProps,
 } from ".";
@@ -27,6 +27,7 @@ import {
   InputDate as InputDateComp,
   InputDateTime as InputDateTimeComp,
   InputNumber as InputNumberComp,
+  InputTags as InputTagsComp,
   Select as SelectComp,
   TextArea as TextAreaComp,
 } from ".";
@@ -186,6 +187,18 @@ const StoryInputDateTime: Story<IInputDateTimeProps> = (props): JSX.Element => (
   </Formik>
 );
 
+const StoryInputTags: Story<IInputTagsProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+  >
+    <Form id={"exampleForm"}>
+      <InputTagsComp {...props} id={"ExInput"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
 const Default = StoryDefault.bind({});
 Default.args = {
   disabled: false,
@@ -282,6 +295,15 @@ InputDateTime.args = {
   variant: "solid",
 };
 
+const InputTags = StoryInputTags.bind({});
+InputTags.args = {
+  disabled: false,
+  label: "ExampleLabel",
+  required: false,
+  tooltip: "Example tooltip",
+  variant: "solid",
+};
+
 export {
   Default,
   Checkbox,
@@ -290,6 +312,7 @@ export {
   InputDate,
   InputDateTime,
   InputNumber,
+  InputTags,
   Search,
   Select,
   TextArea,
