@@ -1,0 +1,2468 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypto.cs,7,310,skims,052. Insecure encryption algorithm,A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto to true in namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypto.cs,"
+  1 | using System;
+  2 |
+  3 | public class ExampleClass
+  4 | {
+  5 |     public void ExampleMethod()
+  6 |     {
+> 7 |         AppContext.SetSwitch(""Switch.System.Net.DontEnableSchUseStrongCrypto"", true);
+  8 |     }
+  9 | }
+    ^ Col 0
+",c_sharp.c_sharp_disabled_strong_crypto
+F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
+  1 | ibm.mq.use_ssl=true
+  2 | ibm.mq.use_ssl=false
+  3 |  ibm.mq.use_ssl = false
+> 4 |  ibm.mq.use_ssl = false # comment
+  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
+  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
+  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
+  8 | ibm.mq.cipher.suite=X
+    ^ Col 0
+",java.java_properties_missing_ssl
+F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,3,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
+  1 | ibm.mq.use_ssl=true
+  2 | ibm.mq.use_ssl=false
+> 3 |  ibm.mq.use_ssl = false
+  4 |  ibm.mq.use_ssl = false # comment
+  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
+  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
+  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
+  8 | ibm.mq.cipher.suite=X
+    ^ Col 0
+",java.java_properties_missing_ssl
+F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,2,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
+  1 | ibm.mq.use_ssl=true
+> 2 | ibm.mq.use_ssl=false
+  3 |  ibm.mq.use_ssl = false
+  4 |  ibm.mq.use_ssl = false # comment
+  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
+  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
+  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
+  8 | ibm.mq.cipher.suite=X
+    ^ Col 0
+",java.java_properties_missing_ssl
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivation.cs,12,310,skims,052. Insecure encryption algorithm,"PasswordDeriveBytes is used to generate a weak key derivation
+ in namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivation.cs","
+   1 |  System;
+   2 |  TestClass
+   3 |
+   4 | ublic void TestMethod(Rfc2898DeriveBytes rfc2898DeriveBytes, string algname, string alghashname, int keySize, byte[] rgbI
+   5 |
+   6 |    System.Security.Cryptography.rfc2898DeriveBytes.CryptDeriveKey(algname, alghashname, keySize, rgbIV);
+   7 |
+   8 |    byte[] pwd = Encoding.Unicode.GetBytes(Console.ReadLine());
+   9 |
+  10 |    byte[] salt = CreateRandomSalt(7);
+  11 |
+> 12 |    PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt);
+  13 |
+  14 |
+     ^ Col 5
+",c_sharp.c_sharp_obsolete_key_derivation
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivation.cs,6,310,skims,052. Insecure encryption algorithm,"System.Security.Cryptography.rfc2898DeriveBytes.CryptDeriveKey is used to generate a weak key derivation
+ in namespace/skims/test/data/lib_root/f052/c_sharp_obsolete_key_derivation.cs","
+   1 | using System;
+   2 | class TestClass
+   3 | {
+   4 |     public void TestMethod(Rfc2898DeriveBytes rfc2898DeriveBytes, string algname, string alghashname, int keySize, byte[]
+   5 |     {
+>  6 |         System.Security.Cryptography.rfc2898DeriveBytes.CryptDeriveKey(algname, alghashname, keySize, rgbIV);
+   7 |
+   8 |         byte[] pwd = Encoding.Unicode.GetBytes(Console.ReadLine());
+   9 |
+  10 |         byte[] salt = CreateRandomSalt(7);
+  11 |
+  12 |         PasswordDeriveBytes pdb = new PasswordDeriveBytes(pwd, salt);
+  13 |     }
+  14 | }
+     ^ Col 0
+",c_sharp.c_sharp_obsolete_key_derivation
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,6,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,"
+   1 | @Component
+   2 | public class InsecureConnection {
+   3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
+   4 |  public void TlsVerification() {
+   5 |   try {
+>  6 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+   7 |          .tlsVersions(TlsVersion.TLS_1_1) // Noncompliant
+   8 |          .build();
+   9 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  10 |         //Do something
+  11 |   }
+  12 |   try {
+  13 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  14 |          .tlsVersions(TLS_1_1) // Noncompliant
+  15 |          .build();
+  16 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  17 |    //Do something
+  18 |   }
+  19 |  }
+  20 | }
+  21 |
+     ^ Col 0
+",java.java_insecure_connection
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure TLS version in connection spec in namespace/skims/test/data/lib_root/f052/java_insecure_connection.java,"
+   3 |  private static final String TLS_1_1=TlsVersion.TLS_1_1;
+   4 |  public void TlsVerification() {
+   5 |   try {
+   6 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+   7 |          .tlsVersions(TlsVersion.TLS_1_1) // Noncompliant
+   8 |          .build();
+   9 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  10 |         //Do something
+  11 |   }
+  12 |   try {
+> 13 |    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  14 |          .tlsVersions(TLS_1_1) // Noncompliant
+  15 |          .build();
+  16 |   } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  17 |    //Do something
+  18 |   }
+  19 |  }
+  20 | }
+  21 |
+  22 | @Component
+  23 | public class SecureConnection {
+     ^ Col 0
+",java.java_insecure_connection
+F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,7,310,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
+  1 | ibm.mq.use_ssl=true
+  2 | ibm.mq.use_ssl=false
+  3 |  ibm.mq.use_ssl = false
+  4 |  ibm.mq.use_ssl = false # comment
+  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
+  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
+> 7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
+  8 | ibm.mq.cipher.suite=X
+    ^ Col 0
+",java.java_properties_weak_cipher_suite
+F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
+  1 | ibm.mq.use_ssl=true
+  2 | ibm.mq.use_ssl=false
+  3 |  ibm.mq.use_ssl = false
+  4 |  ibm.mq.use_ssl = false # comment
+  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
+> 6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
+  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
+  8 | ibm.mq.cipher.suite=X
+    ^ Col 0
+",java.java_properties_weak_cipher_suite
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |    public static void insecure() {
+   6 |       AesManaged aes_insecure = new AesManaged
+   7 |       {
+   8 |          KeySize = 128,
+   9 |          BlockSize = 128,
+> 10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+  10 |          Mode = CipherMode.CBC,
+  11 |          Padding = PaddingMode.PKCS7
+  12 |       };
+  13 |
+  14 |       var cipher_mode = CipherMode.OFB;
+  15 |
+  16 |       AesManaged aes_insecure1 = new AesManaged
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+> 20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+  27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_aes_managed.cs,"
+  17 |       {
+  18 |          KeySize = 128,
+  19 |          BlockSize = 128,
+  20 |          Mode = cipher_mode,
+  21 |          Padding = PaddingMode.PKCS7
+  22 |       };
+  23 |
+  24 |       AesManaged aes_insecure2 = new AesManaged();
+  25 |       aes_insecure2.BlockSize = 128;
+  26 |       aes_insecure2.KeySize = 128;
+> 27 |       aes_insecure2.Mode = cipher_mode;
+  28 |
+  29 |    }
+  30 |
+  31 |    public static void secure() {
+  32 |       AesManaged aes_secure = new AesManaged
+  33 |       {
+  34 |          KeySize = 128,
+  35 |          BlockSize = 128,
+  36 |          Mode = CipherMode.CTS,
+  37 |          Padding = PaddingMode.PKCS7
+     ^ Col 0
+",c_sharp.c_sharp_managed_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | ng System.Security.Cryptography;
+   2 |
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+  14 |          var hashProvider3 = new SHA1Managed();
+> 15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | sing System.Security.Cryptography;
+   2 |
+   3 | amespace Cypher_Example
+   4 |
+   5 |    class CypherExample
+   6 |    {
+   7 |        public static void Main()
+   8 |        {
+   9 |            MD5 myAes = MD5.Create();
+  10 |            SHA1 myAes = SHA1.Create();
+  11 |            HMACMD5 myAes = HMACMD5.Create();
+  12 |            DES myAes = DES.Create();
+> 13 |            TripleDES myAes = TripleDES.Create();
+  14 |            var hashProvider3 = new SHA1Managed();
+  15 |            var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |        }
+  17 |    }
+  18 |
+     ^ Col 1
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+> 12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+> 15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+> 13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+   6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+>  9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_keys.cs,"
+   1 | using System;
+   2 | class cipher{
+   3 |
+   4 |    public void Encrypt()
+   5 |  {
+>  6 |       var insecure_rsa = new RSACryptoServiceProvider();
+   7 |       var secure_rsa = new RSACryptoServiceProvider(2048);
+   8 |
+   9 |   var insecure_dsa = new DSACng(1024);
+  10 |       var secure_dsa = new DSACng();
+  11 |       var secure_dsa2 = new DSACng(2048);
+  12 |
+  13 |       var insecure_rsa = new RSACng(1024);
+  14 |       int key = 1024;
+  15 |       var insecure_rsa2 = new RSACng(key);
+  16 |       var secure_rsa = new RSACng();
+  17 |       int secure_key = 2048;
+  18 |       var secure_rsa2 = new RSACng(secure_key);
+  19 |  }
+  20 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rijndael.cs,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rijndael.cs,"
+   1 | tem;
+   2 | tem.IO;
+   3 | tem.Security.Cryptography;
+   4 |
+   5 | t {
+   6 |  static void Main() {
+>  7 | ndaelManaged aes_insecure3 = new RijndaelManaged
+   8 |
+   9 | KeySize = 128,
+  10 | BlockSize = 128,
+  11 | Mode = CipherMode.CTS,
+  12 | Padding = PaddingMode.PKCS7
+  13 |
+  14 |
+  15 |
+     ^ Col 9
+",c_sharp.c_sharp_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+   6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+>  9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | ystem;
+   2 | wtbuild {
+   3 |
+   4 | ic static void Main() {
+   5 |
+>  6 | CryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |  secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 | CryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |  insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |  key_eval = false;
+  13 | insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.c_sharp_insecure_keys
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+  10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+> 13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
+     ^ Col 0
+",c_sharp.c_sharp_rsa_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,"
+   1 | using System;
+   2 | class jwtbuild {
+   3 |
+   4 |    public static void Main() {
+   5 |
+   6 |     RSACryptoServiceProvider RSA2 = new RSACryptoServiceProvider();
+   7 |     var secure_enc = RSA2.Encrypt(dataToEncrypt, true);
+   8 |
+   9 |     RSACryptoServiceProvider RSA3 = new RSACryptoServiceProvider();
+> 10 |     var insecure_enc = RSA3.Encrypt(dataToEncrypt, false);
+  11 |
+  12 |    bool key_eval = false;
+  13 |    var insecure_enc2 = RSA3.Encrypt(dataToEncrypt, key_eval);
+  14 |    }
+  15 | }
+     ^ Col 0
+",c_sharp.c_sharp_rsa_secure_mode
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+> 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,"
+   1 | import com.ibm.mq.*;
+   2 | import com.ibm.mq.jmqi.JmqiUtils;
+   3 | import org.apache.log4j.Logger;
+   4 |
+   5 | class Test {
+   6 |
+   7 |  private final String cipherSuite = ""TLS_RSA_WITH_AES_128_CBC_SHA256"";
+   8 |
+   9 |  public void insecure() {
+> 10 |   JmqiUtils.toCipherSuite(cipherSuite);
+  11 |  }
+  12 |
+  13 |  public void secure() {
+  14 |   String safeSuite = ""TLS_ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256"";
+  15 |   JmqiUtils.toCipherSuite(safeSuite);
+  16 |  }
+  17 |
+  18 | }
+     ^ Col 0
+",java.java_insecure_cipher_jmqi
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_cipher.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_cipher.java,"
+   1 | mport javax.net.ssl.SSLContext;
+   2 | mport javax.net.ssl.SSLSession;
+   3 |
+   4 | Component
+   5 | ublic class SslInsecure {
+   6 | private static final String SSL=""SSL"";
+   7 | public void SslVerification(boolean disable) {
+   8 |  try {
+>  9 |   SSLContext unsafecontext = SSLContext.getInstance(SSL);
+  10 |  } catch (NoSuchAlgorithmException | KeyManagementException e) {
+  11 |      //Do something
+  12 |  }
+  13 | }
+  14 |
+  15 |
+  16 | Component
+  17 | ublic class SslSecure {
+  18 | private static final String SSL=""TLSv1.2"";
+  19 | public void SslVerification(boolean disable) {
+  20 |  try {
+  21 |   SSLContext safecontext = SSLContext.getInstance(SSL);
+     ^ Col 1
+",java.java_insecure_cipher_ssl
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+> 11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+> 10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+>  9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+>  8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   1 | import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+>  7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,12,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   2 |
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+> 12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   3 | public class Main {
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+> 13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,14,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   4 |
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+> 14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   5 |     public static void unsafe(String[] args) {
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+> 15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   6 |
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+> 16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   7 |         Cipher c = Cipher.getInstance(""DES"");//
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+> 17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   8 |         Cipher c = Cipher.getInstance(""DESede"");//
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+> 18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,19,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+   9 |         Cipher c = Cipher.getInstance(""RSA"");//
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+> 19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  10 |         Cipher c = Cipher.getInstance(""AES/CBC/PKCS5Padding"");//
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+> 20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  11 |         Cipher c = Cipher.getInstance(""AES/ECB/NoPadding"");//
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+> 21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  12 |         Cipher c = Cipher.getInstance(""AES/ECB/PKCS5Padding"");//
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+> 22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+     ^ Col 0
+",java.java_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  13 |         Cipher c = Cipher.getInstance(""DES/CBC/NoPadding"");//
+  14 |         Cipher c = Cipher.getInstance(""DES/CBC/PKCS5Padding"");//
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+> 23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+     ^ Col 0
+",java.java_insecure_cipher_ssl
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
+   1 | function insecureModes() {
+   2 |     var unsafe_1 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CBC,
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.ECB
+>  8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+  13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,2,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
+   1 | function insecureModes() {
+>  2 |     var unsafe_1 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   3 |         mode: CryptoJS.mode.CBC,
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.ECB
+   8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+  13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,13,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_cipher.js,"
+   3 |         mode: CryptoJS.mode.CBC,
+   4 |         padding: CryptoJS.pad.AnsiX923
+   5 |     });
+   6 |
+   7 |     var crypto = CryptoJS.mode.ECB
+   8 |     var unsafe_2 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+   9 |         mode: crypto,
+  10 |         padding: CryptoJS.pad.AnsiX923
+  11 |     });
+  12 |
+> 13 |     var unsafe_3 = CryptoJS.AES.encrypt(""Message"", ""Secret Passphrase"", {
+  14 |         padding: CryptoJS.pad.AnsiX923
+  15 |     });
+  16 | }
+  17 |
+  18 | function secureMode() {
+  19 |     var safe_mode = CryptoJS.mode.CTR
+  20 |     var safe = CryptoJS.AES.encrypt(""Message"", ""passphrase"", {
+  21 |         mode: safe_mode,
+  22 |         padding: CryptoJS.pad.AnsiX923
+  23 |     });
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_create_cipher.js,"
+   1 | const crypto = require(""crypto"");
+   2 |
+   3 | let keyString = ""*4wQZgn+U2RW_mb="";
+   4 | const key = Buffer.from(keyString.substring(0, 8), ""utf8"");
+   5 |
+>  6 | const cipher = crypto.createCipheriv(""des-ecb"", key, """");
+   7 |
+   8 | let encrypted = """";
+   9 | cipher.on(""readable"", () => {
+  10 |   let chunk;
+  11 |   while (null !== (chunk = cipher.read())) {
+  12 |     encrypted += chunk.toString(""hex"");
+  13 |   }
+  14 | });
+  15 | cipher.on(""end"", () => {
+  16 |   console.log(encrypted);
+  17 | });
+  18 |
+  19 | cipher.write(""some clear text data"");
+  20 | cipher.end();
+     ^ Col 0
+",javascript.javascript_insecure_create_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,"
+   1 | import { Router } from ""express"";
+   2 | let CryptoJS = require(""crypto-js"");
+   3 | let router = Router();
+   4 |
+   5 | router.get(""/test120/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,"
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+  11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+> 16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+  26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,"
+  11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+> 21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+  26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+  27 |     mode: CryptoJS.mode.CBC,
+  28 |     padding: CryptoJS.pad.NoPadding,
+  29 |   }).toString();
+  30 |   res.json({ encryptedRSA: encryptedRSA });
+  31 | });
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_encrypt.js,"
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+> 26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+  27 |     mode: CryptoJS.mode.CBC,
+  28 |     padding: CryptoJS.pad.NoPadding,
+  29 |   }).toString();
+  30 |   res.json({ encryptedRSA: encryptedRSA });
+  31 | });
+  32 |
+  33 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_hash.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/js_insecure_hash.js,"
+   1 | import { Router } from ""express"";
+   2 | import crypto from ""crypto"";
+   3 |
+   4 | const router = Router();
+   5 |
+   6 | router.get(""/test139/:target"", function (req, res) {
+   7 |   let target = req.params[""target""];
+>  8 |   const hash = crypto.createHash(""RSA-MD4"");
+   9 |
+  10 |   hash.on(""readable"", () => {
+  11 |     const data = hash.read();
+  12 |     if (data) {
+  13 |       res.json({ hash: data.toString(""hex"") });
+  14 |     }
+  15 |   });
+  16 |   hash.write(target);
+  17 |   hash.end();
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,15,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+   5 | import java.security.spec.ECGenParameterSpec
+   6 | import java.security.spec.RSAKeyGenParameterSpec
+   7 | import javax.crypto.Cipher
+   8 | import javax.crypto.NoSuchPaddingException
+   9 |
+  10 | class test {
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+> 15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+   6 | import java.security.spec.RSAKeyGenParameterSpec
+   7 | import javax.crypto.Cipher
+   8 | import javax.crypto.NoSuchPaddingException
+   9 |
+  10 | class test {
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+> 16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,17,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+   7 | import javax.crypto.Cipher
+   8 | import javax.crypto.NoSuchPaddingException
+   9 |
+  10 | class test {
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+> 17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,18,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+   8 | import javax.crypto.NoSuchPaddingException
+   9 |
+  10 | class test {
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+> 18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,20,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  10 | class test {
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+> 20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  11 |     fun main(args: Array<String>) {
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+> 21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  12 |         try {
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+> 22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,23,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  13 |             val c1 = Cipher.getInstance(""AES"")
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+> 23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,24,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  14 |             val cipher_ins = ""DES""
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+> 24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,25,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  15 |             val c2 = Cipher.getInstance(cipher_ins)
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+> 25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  16 |             val c3 = Cipher.getInstance(""DESede"")
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+> 26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  17 |             val c4 = Cipher.getInstance(""RSA"")
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+> 27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,28,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  18 |             val c5 = Cipher.getInstance(""AES/CBC/PKCS5Padding"")
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+> 28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,29,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  19 |             val c6 = Cipher.getInstance(""AES/CBC/NoPadding"")
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+> 29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,30,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  20 |             val c7 = Cipher.getInstance(""AES/ECB/NoPadding"")
+  21 |             val c8 = Cipher.getInstance(""AES/ECB/PKCS5Padding"")
+  22 |             val c9 = Cipher.getInstance(""DES/CBC/NoPadding"")
+  23 |             val c10 = Cipher.getInstance(""DES/CBC/PKCS5Padding"")
+  24 |             val c11 = Cipher.getInstance(""DES/ECB/NoPadding"")
+  25 |             val c12 = Cipher.getInstance(""DES/ECB/PKCS5Padding"")
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+> 30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+  40 |             val spec1: ConnectionSpec = (
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,41,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+  40 |             val spec1: ConnectionSpec = (
+> 41 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  42 |                     .tlsVersions(TlsVersion.TLS_1_1)
+  43 |                     .build()
+  44 |             )
+  45 |             val spec2: ConnectionSpec = (
+  46 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  47 |                     .tlsVersions(TlsVersion.TLS_1_2)
+  48 |                     .build()
+  49 |             )
+  50 |
+  51 |             val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+     ^ Col 0
+",kotlin.kotlin_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,"
+   1 | import crypto from 'crypto';
+   2 |
+   3 | function unsafe_encrypt(password:string, algorithm: string = 'aes-256-cbc'): string {
+   4 |     var cipher = crypto.createCipher(algorithm, password);
+   5 |     return cipher;
+   6 | }
+   7 |
+   8 | function unsafe_decrypt(password:string): string {
+   9 |     const algo:string = 'rc4'
+> 10 |     var decipher = crypto.createDecipher(algo, password);
+  11 |     return decipher;
+  12 | }
+  13 |
+  14 |
+  15 | function safe_decrypt(password:string): string {
+  16 |     const algo:string = 'ecdsa-aria-128-gcm'
+  17 |     var decipher = crypto.createDecipher(algo, password);
+  18 |     return decipher;
+  19 | }
+     ^ Col 0
+",typescript.ts_insecure_create_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,4,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_cipher.ts,"
+   1 | import crypto from 'crypto';
+   2 |
+   3 | function unsafe_encrypt(password:string, algorithm: string = 'aes-256-cbc'): string {
+>  4 |     var cipher = crypto.createCipher(algorithm, password);
+   5 |     return cipher;
+   6 | }
+   7 |
+   8 | function unsafe_decrypt(password:string): string {
+   9 |     const algo:string = 'rc4'
+  10 |     var decipher = crypto.createDecipher(algo, password);
+  11 |     return decipher;
+  12 | }
+  13 |
+  14 |
+  15 | function safe_decrypt(password:string): string {
+  16 |     const algo:string = 'ecdsa-aria-128-gcm'
+  17 |     var decipher = crypto.createDecipher(algo, password);
+  18 |     return decipher;
+  19 | }
+     ^ Col 0
+",typescript.ts_insecure_create_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,"
+   1 | import * as CryptoJS from 'crypto-js';
+   2 |
+   3 | export class EncryptionService {
+   4 |   constructor() {}
+   5 |
+   6 |  unsafe1(plainText: string, key: string) {
+>  7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+  16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_ciphers.ts,"
+   6 |  unsafe1(plainText: string, key: string) {
+   7 |     const encrypted = CryptoJS.RC4.encrypt(plainText, key, {
+   8 |       mode: CryptoJS.mode.ECB,
+   9 |     });
+  10 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  11 |   }
+  12 |
+  13 |   unsafe2(plainText: string, key: string) {
+  14 |   const cipher_mode = CryptoJS.mode.CBC;
+  15 |   const config = {mode: cipher_mode, padding: CryptoJS.pad.NoPadding};
+> 16 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, config);
+  17 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  18 |   }
+  19 |
+  20 |  safe(plainText: string, key: string) {
+  21 |     const encrypted = CryptoJS.AES.encrypt(plainText, key, {
+  22 |       mode: CryptoJS.mode.GCM,
+  23 |     });
+  24 |     return encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+  25 |   }
+  26 |
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,11,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,"
+   1 | import { Router } from ""express"";
+   2 | let CryptoJS = require(""crypto-js"");
+   3 | let router = Router();
+   4 |
+   5 | router.get(""/test120/:target"", function (req, res) {
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+> 11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,16,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,"
+   6 |   const keyString = ""*4wQZgn+U2RW_mb="";
+   7 |
+   8 |   let parameters = req.params;
+   9 |   let target = parameters[""target""];
+  10 |
+  11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+> 16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+  26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,21,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,"
+  11 |   let encryptedAES = CryptoJS.AES.encrypt(target, keyString, {
+  12 |     mode: CryptoJS.mode.CBC,
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+> 21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+  26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+  27 |     mode: CryptoJS.mode.CBC,
+  28 |     padding: CryptoJS.pad.NoPadding,
+  29 |   }).toString();
+  30 |   res.json({ encryptedRSA: encryptedRSA });
+  31 | });
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_encrypt.ts,"
+  13 |     padding: CryptoJS.pad.NoPadding,
+  14 |   }).toString();
+  15 |   res.json({ encryptedAES: encryptedAES });
+  16 |   let encryptedDES = CryptoJS.DES.encrypt(target, keyString, {
+  17 |     mode: CryptoJS.mode.CBC,
+  18 |     padding: CryptoJS.pad.NoPadding,
+  19 |   }).toString();
+  20 |   res.json({ encryptedDES: encryptedDES });
+  21 |   let encryptedRC4 = CryptoJS.RC4.encrypt(target, keyString, {
+  22 |     mode: CryptoJS.mode.CBC,
+  23 |     padding: CryptoJS.pad.NoPadding,
+  24 |   }).toString();
+  25 |   res.json({ encryptedRC4: encryptedRC4 });
+> 26 |   let encryptedRSA = CryptoJS.RSA.encrypt(target, keyString, {
+  27 |     mode: CryptoJS.mode.CBC,
+  28 |     padding: CryptoJS.pad.NoPadding,
+  29 |   }).toString();
+  30 |   res.json({ encryptedRSA: encryptedRSA });
+  31 | });
+  32 |
+  33 | export default router;
+     ^ Col 0
+",typescript.typescript_insecure_encrypt
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_hash.ts,9,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/ts_insecure_hash.ts,"
+   1 | import { Router } from ""express"";
+   2 | import crypto from ""crypto"";
+   3 |
+   4 |
+   5 | const router = Router();
+   6 |
+   7 | router.get(""/test139/:target"", function (req, res) {
+   8 |   let target = req.params[""target""];
+>  9 |   const hash = crypto.createHash(""RSA-MD4"");
+  10 |
+  11 |   hash.on(""readable"", () => {
+  12 |     const data = hash.read();
+  13 |     if (data) {
+  14 |       res.json({ hash: data.toString(""hex"") });
+  15 |     }
+  16 |   });
+  17 |   hash.write(target);
+  18 |   hash.end();
+  19 | });
+  20 |
+  21 | export default router
+     ^ Col 0
+",Typescript.typescript_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | ng System.Security.Cryptography;
+   2 |
+   3 | espace Cypher_Example
+   4 |
+   5 |  class CypherExample
+   6 |  {
+   7 |      public static void Main()
+   8 |      {
+   9 |          MD5 myAes = MD5.Create();
+  10 |          SHA1 myAes = SHA1.Create();
+  11 |          HMACMD5 myAes = HMACMD5.Create();
+  12 |          DES myAes = DES.Create();
+  13 |          TripleDES myAes = TripleDES.Create();
+> 14 |          var hashProvider3 = new SHA1Managed();
+  15 |          var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |      }
+  17 |  }
+  18 |
+     ^ Col 3
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,11,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+> 11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+   9 |             MD5 myAes = MD5.Create();
+> 10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,"
+   1 | using System.Security.Cryptography;
+   2 |
+   3 | namespace Cypher_Example
+   4 | {
+   5 |     class CypherExample
+   6 |     {
+   7 |         public static void Main()
+   8 |         {
+>  9 |             MD5 myAes = MD5.Create();
+  10 |             SHA1 myAes = SHA1.Create();
+  11 |             HMACMD5 myAes = HMACMD5.Create();
+  12 |             DES myAes = DES.Create();
+  13 |             TripleDES myAes = TripleDES.Create();
+  14 |             var hashProvider3 = new SHA1Managed();
+  15 |             var hashProvider3 = new RC2CryptoServiceProvider();
+  16 |         }
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+> 17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,16,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+> 16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,15,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+  14 |  Hripemd:= ripemd160.New()
+> 15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   3 | import (
+   4 |  ""crypto/des""
+   5 |  ""crypto/md4""
+   6 |  ""crypto/md5""
+   7 |  ""golang.org/x/crypto/ripemd160""
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 | )
+  11 |
+  12 | func main() {
+  13 |
+> 14 |  Hripemd:= ripemd160.New()
+  15 |  Hmd4 = md4.New()
+  16 |  Hmd5 = md5.New()
+  17 |  Hsha1 := sha1.New()
+  18 |  Hsha512 := sha512.New()
+  19 |
+  20 |  ede2Key := []byte(""example key 1234"")
+  21 |
+  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  23 | }
+     ^ Col 0
+",go.go_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  15 |         Cipher c = Cipher.getInstance(""DES/ECB/NoPadding"");//
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+> 25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+     ^ Col 0
+",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,26,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  16 |         Cipher c = Cipher.getInstance(""DES/ECB/PKCS5Padding"");//
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+> 26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+     ^ Col 0
+",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,27,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  17 |         Cipher c = Cipher.getInstance(""DESede/CBC/NoPadding"");//
+  18 |         Cipher c = Cipher.getInstance(""DESede/CBC/PKCS5Padding"");//
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+> 27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+     ^ Col 0
+",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,29,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  19 |         Cipher c = Cipher.getInstance(""DESede/ECB/NoPadding"");//
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+> 29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+     ^ Col 0
+",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,30,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  20 |         Cipher c = Cipher.getInstance(""DESede/ECB/PKCS5Padding"");//
+  21 |         Cipher c = Cipher.getInstance(""RSA/ECB/PKCS1Padding"");//
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+> 30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+  40 |
+     ^ Col 0
+",java.java_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,"
+  1 | const sha1 = require(""js-sha1"")
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+> 9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,"
+  1 | const sha1 = require(""js-sha1"")
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+> 8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,"
+  1 | const sha1 = require(""js-sha1"")
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+> 7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,"
+  1 | const sha1 = require(""js-sha1"")
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+> 6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,5,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_require.js,"
+  1 | const sha1 = require(""js-sha1"")
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+> 5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+> 9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,8,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+> 8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,7,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+> 7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+> 6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,5,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/js_insecure_sha1_use.js,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+> 5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,51,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  37 |     val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |     val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+  40 |     val spec1: ConnectionSpec = (
+  41 |         ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  42 |             .tlsVersions(TlsVersion.TLS_1_1)
+  43 |             .build()
+  44 |     )
+  45 |     val spec2: ConnectionSpec = (
+  46 |         ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  47 |             .tlsVersions(TlsVersion.TLS_1_2)
+  48 |             .build()
+  49 |     )
+  50 |
+> 51 |     val md2: MessageDigest = MessageDigest.getInstance(""SHA1"")
+  52 |     val md3: MessageDigest = MessageDigest.getInstance(""SHA-512"")
+  53 | } catch (e: NoSuchAlgorithmException) {
+  54 | } catch (e: NoSuchPaddingException) {
+  55 | }
+  56 |
+  57 |
+     ^ Col 8
+",kotlin.kotlin_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+> 34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+  40 |
+  41 |     public static void safe(String[] args) {
+  42 |
+  43 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
+  44 |
+     ^ Col 0
+",java.java_insecure_key_ec
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,32,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  22 |         javax.crypto.KeyGenerator.getInstance(""DES"").generateKey();//
+  23 |         SSLContext.getInstance(""SSLv3"");//
+  24 |
+  25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
+  26 |         MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 |         MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+> 32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+  40 |
+  41 |     public static void safe(String[] args) {
+  42 |
+     ^ Col 0
+",java.java_insecure_key_rsa
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  28 |
+  29 |         DigestUtils.sha1Hex(""test""); //
+  30 |         Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 |         new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 |         new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+  36 |         ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+> 38 |         SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |     }
+  40 |
+  41 |     public static void safe(String[] args) {
+  42 |
+  43 |         MessageDigest md = MessageDigest.getInstance(""ShA-256"");
+  44 |
+  45 |         DigestUtils.sha3_256(""test"");
+  46 |         Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
+  47 |
+  48 |         Cipher c = Cipher.getInstance(""AES"");
+     ^ Col 0
+",java.java_insecure_key_secret
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/js_insecure_ec_keypair.js,"
+   1 | import { Router } from ""express"";
+   2 | const router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | function test(req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",javascript.javascript_insecure_ec_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_ecdh.js,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/js_insecure_ecdh.js,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | const router = Router();
+   4 |
+   5 | router.get(""/test127"", function (req, res) {
+>  6 |   const bob = crypto.createECDH(""c2pnb163v2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+",javascript.javascript_insecure_ecdh_key
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,20,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/js_insecure_rsa_keypair.js,"
+  10 |       type: ""pkcs1"",
+  11 |       format: ""pem"",
+  12 |     },
+  13 |     privateKeyEncoding: {
+  14 |       type: ""pkcs1"",
+  15 |       format: ""pem"",
+  16 |       //cipher: ""aes-256-cbc"", //Optional
+  17 |       //passphrase: """", //Optional
+  18 |     },
+  19 |   };
+> 20 |   generateKeyPair(
+  21 |     ""rsa"",
+  22 |     key_options,
+  23 |     (err, publicKey, _privateKey) => {
+  24 |       if (err) console.log(""Error!"", err);
+  25 |       res.send(publicKey);
+  26 |     }
+  27 |   );
+  28 | }
+  29 |
+  30 | router.get(""/test130"", test);
+     ^ Col 0
+",javascript.javascript_insecure_rsa_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,36,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  26 |             val c13 = Cipher.getInstance(""DESede/CBC/NoPadding"")
+  27 |             val c14 = Cipher.getInstance(""DESede/CBC/PKCS5Padding"")
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+> 36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+  38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+  40 |             val spec1: ConnectionSpec = (
+  41 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  42 |                     .tlsVersions(TlsVersion.TLS_1_1)
+  43 |                     .build()
+  44 |             )
+  45 |             val spec2: ConnectionSpec = (
+  46 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+     ^ Col 0
+",kotlin.kotlin_insecure_key
+F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,38,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,"
+  28 |             val c15 = Cipher.getInstance(""DESede/ECB/NoPadding"")
+  29 |             val c16 = Cipher.getInstance(""DESede/ECB/PKCS5Padding"")
+  30 |             val c17 = Cipher.getInstance(""RSA/ECB/PKCS1Padding"")
+  31 |             val c18 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-1AndMGF1Padding"")
+  32 |             val c19 = Cipher.getInstance(""RSA/ECB/OAEPWithSHA-256AndMGF1Padding"")
+  33 |
+  34 |             val k1 = RSAKeyGenParameterSpec(2048, RSAKeyGenParameterSpec.F4)
+  35 |             val key = 2047
+  36 |             val k2 = RSAKeyGenParameterSpec(key, RSAKeyGenParameterSpec.F4)
+  37 |             val k3 = ECGenParameterSpec(""secp521r1"")
+> 38 |             val k4 = ECGenParameterSpec(""c2pnb208w1"")
+  39 |
+  40 |             val spec1: ConnectionSpec = (
+  41 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  42 |                     .tlsVersions(TlsVersion.TLS_1_1)
+  43 |                     .build()
+  44 |             )
+  45 |             val spec2: ConnectionSpec = (
+  46 |                 ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
+  47 |                     .tlsVersions(TlsVersion.TLS_1_2)
+  48 |                     .build()
+     ^ Col 0
+",kotlin.kotlin_insecure_key
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ec_keypair.ts,"
+   1 | import { Router } from ""express"";
+   2 | const router = Router();
+   3 | const { generateKeyPair } = require(""crypto"");
+   4 |
+   5 | function test(req, res) {
+>  6 |   generateKeyPair(
+   7 |     ""ec"",
+   8 |     {
+   9 |       namedCurve: ""secp192k1"",
+  10 |       publicKeyEncoding: {
+  11 |         type: ""spki"",
+  12 |         format: ""pem"",
+  13 |       },
+  14 |       privateKeyEncoding: {
+  15 |         type: ""pkcs8"",
+  16 |         format: ""pem"",
+  17 |       },
+  18 |     },
+  19 |     (err, publicKey, privateKey) => {
+  20 |       if (err) console.log(""Error!"", err);
+  21 |       res.send(publicKey);
+     ^ Col 0
+",typescript.typescript_insecure_ec_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_ecdh.ts,"
+   1 | import { Router } from ""express"";
+   2 | import * as crypto from ""crypto"";
+   3 | const router = Router();
+   4 |
+   5 | router.get(""/test127"", function test (req, res) {
+>  6 |   const bob = crypto.createECDH(""c2pnb163v2"");
+   7 |   const bobKey = bob.generateKeys();
+   8 |   res.send(bobKey.toString(""hex""));
+   9 | });
+  10 |
+  11 | export default router;
+     ^ Col 0
+",typescript.ts_insecure_ecdh_key
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,20,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/ts_insecure_rsa_keypair.ts,"
+   6 | router.get(""/test130"", (_req, res) => {
+   7 |   let key_options = {
+   8 |     modulusLength: 1024,
+   9 |     publicKeyEncoding: {
+  10 |       type: ""pkcs1"",
+  11 |       format: ""pem"",
+  12 |     },
+  13 |     privateKeyEncoding: {
+  14 |       type: ""pkcs1"",
+  15 |       format: ""pem"",
+  16 |       //cipher: ""aes-256-cbc"", //Optional
+  17 |       //passphrase: """", //Optional
+  18 |     },
+  19 |   };
+> 20 |   generateKeyPair(""rsa"", key_options, (err: any, publicKey: any, _privateKey: any) => {
+  21 |     if (err) console.log(""Error!"", err);
+  22 |     res.send(publicKey);
+  23 |   });
+  24 | });
+  25 |
+  26 | export default router;
+     ^ Col 0
+",typescript.ts_insecure_rsa_keypair
+F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,36,310,skims,052. Insecure encryption algorithm,Use of insecure password encoder in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
+  26 | MessageDigest md = MessageDigest.getInstance(""mD5""); //
+  27 | MessageDigest md = MessageDigest.getInstance(""Md2""); //
+  28 |
+  29 | DigestUtils.sha1Hex(""test""); //
+  30 | Hashing.md5().hashString(password,StandardCharsets.UTF_8).toString(); //
+  31 |
+  32 | new RSAKeyGenParameterSpec(2047, RSAKeyGenParameterSpec.F4);//
+  33 |
+  34 | new ECGenParameterSpec(""c2pnb208w1"");//
+  35 |
+> 36 | ShaPasswordEncoder encoder = new ShaPasswordEncoder(12);//
+  37 |
+  38 | SecretKey key = new SecretKeySpec(somekeyBytes, ""DESede"");//
+  39 |
+  40 |
+  41 | ic static void safe(String[] args) {
+  42 |
+  43 | MessageDigest md = MessageDigest.getInstance(""ShA-256"");
+  44 |
+  45 | DigestUtils.sha3_256(""test"");
+  46 | Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
+     ^ Col 8
+",java.java_insecure_pass

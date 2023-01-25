@@ -1322,7 +1322,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_terminate_shutdow
   26 |
      ^ Col 17
 ",cloudformation.cfn_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,29,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
+F333,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,29,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
   13 |       DeleteOnTermination: 'false'
   14 |       VolumeSize: '20'
   15 |   - DeviceName: /dev/sdk
@@ -1346,7 +1346,7 @@ F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   33 | pe: AWS::EC2::Instance
      ^ Col 6
 ",cloudformation.cfn_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,42,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
+F333,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,42,16,skims,333. Insecure service configuration - EC2,Property NetworkInterfaces.AssociatePublicIpAddress is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
   32 | ""LaunchTemplateName"": ""launchTemplate"",
   33 | ""Version"": {
   34 |   ""Fn::GetAtt"": [
@@ -1586,6 +1586,54 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instan
   38 | }
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
+F333,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   EC2Instance:
+   4 |     Type: AWS::EC2::Instance
+>  5 |     Properties:
+   6 |       ImageId: ami-79fd7eee
+   7 |       KeyName: testkey
+   8 |       BlockDeviceMappings:
+   9 |         - DeviceName: /dev/sdm
+  10 |           Ebs:
+  11 |             VolumeType: io1
+  12 |             Iops: '200'
+  13 |             DeleteOnTermination: 'false'
+  14 |             VolumeSize: '20'
+  15 |         - DeviceName: /dev/sdk
+  16 |           NoDevice: {}
+  17 |   EC2Instance2:
+  18 |     Properties:
+  19 |       IamInstanceProfile: iamInstanceProfile1
+  20 |       LaunchTemplate:
+  21 |         LaunchTemplateId:
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
+F333,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
    7 |   }
    8 |
@@ -1610,54 +1658,6 @@ F333,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_pro
   27 |   ami           = data.aws_ami.ubuntu.id
      ^ Col 0
 ",terraform.tfm_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
-   1 | ---
-   2 | Resources:
-   3 |   EC2Instance:
-   4 |     Type: AWS::EC2::Instance
->  5 |     Properties:
-   6 |       ImageId: ami-79fd7eee
-   7 |       KeyName: testkey
-   8 |       BlockDeviceMappings:
-   9 |         - DeviceName: /dev/sdm
-  10 |           Ebs:
-  11 |             VolumeType: io1
-  12 |             Iops: '200'
-  13 |             DeleteOnTermination: 'false'
-  14 |             VolumeSize: '20'
-  15 |         - DeviceName: /dev/sdk
-  16 |           NoDevice: {}
-  17 |   EC2Instance2:
-  18 |     Properties:
-  19 |       IamInstanceProfile: iamInstanceProfile1
-  20 |       LaunchTemplate:
-  21 |         LaunchTemplateId:
-     ^ Col 0
-",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""EC2Instance"": {
-   4 |       ""Type"": ""AWS::EC2::Instance"",
->  5 |       ""Properties"": {
-   6 |         ""ImageId"": ""ami-79fd7eee"",
-   7 |         ""KeyName"": ""testkey"",
-   8 |         ""BlockDeviceMappings"": [
-   9 |           {
-  10 |             ""DeviceName"": ""/dev/sdm"",
-  11 |             ""Ebs"": {
-  12 |               ""VolumeType"": ""io1"",
-  13 |               ""Iops"": ""200"",
-  14 |               ""DeleteOnTermination"": ""false"",
-  15 |               ""VolumeSize"": ""20""
-  16 |             }
-  17 |           },
-  18 |           {
-  19 |             ""DeviceName"": ""/dev/sdk"",
-  20 |             ""NoDevice"": {}
-  21 |           }
-     ^ Col 0
-",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
 F333,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
    1 |
 >  2 | resource ""aws_instance"" ""foo"" {
@@ -11716,30 +11716,6 @@ F346,lines,namespace/skims/test/data/lib_path/f346/AndroidManifest.xml,58,272,sk
   68 |     <uses-permission android:name=""com.huawei.android.launcher.permission.CHANGE_BADGE""/>
      ^ Col 0
 ",android.has_dangerous_permissions
-F203,lines,namespace/skims/test/data/lib_path/f055/hcl2_public_buckets.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f055/hcl2_public_buckets.tf,"
-  14 |       apply_server_side_encryption_by_default {
-  15 |         kms_master_key_id = aws_kms_key.mykey.arn
-  16 |         sse_algorithm     = ""aws:kms""
-  17 |       }
-  18 |     }
-  19 |   }
-  20 | }
-  21 |
-  22 | resource ""aws_s3_bucket"" ""public"" {
-  23 |   bucket = ""my-tf-test-bucket""
-> 24 |   acl    = ""public-read-write""
-  25 |
-  26 |   server_side_encryption_configuration {
-  27 |     rule {
-  28 |       apply_server_side_encryption_by_default {
-  29 |         kms_master_key_id = aws_kms_key.mykey.arn
-  30 |         sse_algorithm     = ""aws:kms""
-  31 |       }
-  32 |     }
-  33 |   }
-  34 | }
-     ^ Col 0
-",terraform.tfm_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
    1 | ---
    2 | Resources:
@@ -11858,6 +11834,30 @@ F203,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,3,284,s
   19 |     target_bucket = aws_s3_bucket.log_bucket.id
   20 |     target_prefix = ""log/""
   21 |   }
+     ^ Col 0
+",terraform.tfm_public_buckets
+F203,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets_2.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/tfm_public_buckets_2.tf,"
+  14 |       apply_server_side_encryption_by_default {
+  15 |         kms_master_key_id = aws_kms_key.mykey.arn
+  16 |         sse_algorithm     = ""aws:kms""
+  17 |       }
+  18 |     }
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_s3_bucket"" ""public"" {
+  23 |   bucket = ""my-tf-test-bucket""
+> 24 |   acl    = ""public-read-write""
+  25 |
+  26 |   server_side_encryption_configuration {
+  27 |     rule {
+  28 |       apply_server_side_encryption_by_default {
+  29 |         kms_master_key_id = aws_kms_key.mykey.arn
+  30 |         sse_algorithm     = ""aws:kms""
+  31 |       }
+  32 |     }
+  33 |   }
+  34 | }
      ^ Col 0
 ",terraform.tfm_public_buckets
 F203,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,11,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabled.yaml,"
@@ -12256,61 +12256,6 @@ F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,sk
   16 | </manifest>
      ^ Col 0
 ",android.apk_exported_cp
-F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
-  1 | ibm.mq.use_ssl=true
-  2 | ibm.mq.use_ssl=false
-  3 |  ibm.mq.use_ssl = false
-> 4 |  ibm.mq.use_ssl = false # comment
-  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
-  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
-  8 | ibm.mq.cipher.suite=X
-    ^ Col 0
-",java.java_properties_missing_ssl
-F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,3,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
-  1 | ibm.mq.use_ssl=true
-  2 | ibm.mq.use_ssl=false
-> 3 |  ibm.mq.use_ssl = false
-  4 |  ibm.mq.use_ssl = false # comment
-  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
-  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
-  8 | ibm.mq.cipher.suite=X
-    ^ Col 0
-",java.java_properties_missing_ssl
-F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,2,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
-  1 | ibm.mq.use_ssl=true
-> 2 | ibm.mq.use_ssl=false
-  3 |  ibm.mq.use_ssl = false
-  4 |  ibm.mq.use_ssl = false # comment
-  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
-  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
-  8 | ibm.mq.cipher.suite=X
-    ^ Col 0
-",java.java_properties_missing_ssl
-F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,7,310,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
-  1 | ibm.mq.use_ssl=true
-  2 | ibm.mq.use_ssl=false
-  3 |  ibm.mq.use_ssl = false
-  4 |  ibm.mq.use_ssl = false # comment
-  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
-  6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-> 7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
-  8 | ibm.mq.cipher.suite=X
-    ^ Col 0
-",java.java_properties_weak_cipher_suite
-F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,6,310,skims,052. Insecure encryption algorithm,Use of insecure cipher suite in namespace/skims/test/data/lib_path/f052/java.properties,"
-  1 | ibm.mq.use_ssl=true
-  2 | ibm.mq.use_ssl=false
-  3 |  ibm.mq.use_ssl = false
-  4 |  ibm.mq.use_ssl = false # comment
-  5 | ibm.mq.use_ssl=#{imb_mq_use_ssl}#
-> 6 | ibm.mq.cipher.suite=TLS_SRP_SHA_WITH_AES_256_CBC_SHA
-  7 | ibm.mq.cipher.suite=TLS_RSA_WITH_AES_128_CBC_SHA256
-  8 | ibm.mq.cipher.suite=X
-    ^ Col 0
-",java.java_properties_weak_cipher_suite
 F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,21,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
   11 |        - s3:GetObject
   12 |      Effect: Allow
@@ -14126,7 +14071,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_
   28 | }
      ^ Col 0
 ",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
+F250,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -14150,7 +14095,7 @@ F250,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
+F250,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -14643,7 +14588,7 @@ F381,lines,namespace/skims/test/data/lib_path/f381/tfm_check_required_version.tf
   21 | }
      ^ Col 0
 ",terraform.check_required_version
-F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
+F257,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -14667,7 +14612,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
+F257,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,18,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
    8 |       BlockDeviceMappings:
    9 |         - DeviceName: /dev/sdm
   10 |           Ebs:
@@ -14691,7 +14636,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   28 |       NetworkInterfaces:
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
+F257,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,5,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -14715,7 +14660,7 @@ F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
+F257,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
   16 |             }
   17 |           },
   18 |           {
@@ -17831,8 +17776,8 @@ F372,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protoc
   19 | }
      ^ Col 0
 ",terraform.tfm_elb2_uses_insecure_protocol
-F109,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml","
+F109,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml","
    1 | ---
    2 | Resources:
    3 |   EC2Instance:
@@ -17856,8 +17801,8 @@ F109,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile
   21 |         LaunchTemplateId:
      ^ Col 0
 ",cloudformation.cfn_ec2_use_default_security_group
-F109,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json","
+F109,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,5,681,skims,109. Unrestricted access between network segments - RDS,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json","
    1 | {
    2 |   ""Resources"": {
    3 |     ""EC2Instance"": {
@@ -23084,6 +23029,102 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf
   22 | }
      ^ Col 0
 ",terraform.tfm_trails_not_multiregion
+F400,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   EC2Instance:
+   4 |     Type: AWS::EC2::Instance
+>  5 |     Properties:
+   6 |       ImageId: ami-79fd7eee
+   7 |       KeyName: testkey
+   8 |       BlockDeviceMappings:
+   9 |         - DeviceName: /dev/sdm
+  10 |           Ebs:
+  11 |             VolumeType: io1
+  12 |             Iops: '200'
+  13 |             DeleteOnTermination: 'false'
+  14 |             VolumeSize: '20'
+  15 |         - DeviceName: /dev/sdk
+  16 |           NoDevice: {}
+  17 |   EC2Instance2:
+  18 |     Properties:
+  19 |       IamInstanceProfile: iamInstanceProfile1
+  20 |       LaunchTemplate:
+  21 |         LaunchTemplateId:
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,18,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
+   8 |       BlockDeviceMappings:
+   9 |         - DeviceName: /dev/sdm
+  10 |           Ebs:
+  11 |             VolumeType: io1
+  12 |             Iops: '200'
+  13 |             DeleteOnTermination: 'false'
+  14 |             VolumeSize: '20'
+  15 |         - DeviceName: /dev/sdk
+  16 |           NoDevice: {}
+  17 |   EC2Instance2:
+> 18 |     Properties:
+  19 |       IamInstanceProfile: iamInstanceProfile1
+  20 |       LaunchTemplate:
+  21 |         LaunchTemplateId:
+  22 |           Ref: launchTemplate
+  23 |         LaunchTemplateName: launchTemplate
+  24 |         Version:
+  25 |           Fn::GetAtt:
+  26 |             - launchTemplate
+  27 |             - LatestVersionNumber
+  28 |       NetworkInterfaces:
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""EC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+>  5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+  11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
+F400,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml.json,"
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           }
+  22 |         ]
+  23 |       }
+  24 |     },
+  25 |     ""EC2Instance2"": {
+> 26 |       ""Properties"": {
+  27 |         ""IamInstanceProfile"": ""iamInstanceProfile1"",
+  28 |         ""LaunchTemplate"": {
+  29 |           ""LaunchTemplateId"": {
+  30 |             ""Ref"": ""launchTemplate""
+  31 |           },
+  32 |           ""LaunchTemplateName"": ""launchTemplate"",
+  33 |           ""Version"": {
+  34 |             ""Fn::GetAtt"": [
+  35 |               ""launchTemplate"",
+  36 |               ""LatestVersionNumber""
+     ^ Col 0
+",cloudformation.cfn_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
    7 |   }
    8 |
@@ -23132,102 +23173,6 @@ F400,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_pro
   34 | }
      ^ Col 0
 ",terraform.tfm_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
-   1 | ---
-   2 | Resources:
-   3 |   EC2Instance:
-   4 |     Type: AWS::EC2::Instance
->  5 |     Properties:
-   6 |       ImageId: ami-79fd7eee
-   7 |       KeyName: testkey
-   8 |       BlockDeviceMappings:
-   9 |         - DeviceName: /dev/sdm
-  10 |           Ebs:
-  11 |             VolumeType: io1
-  12 |             Iops: '200'
-  13 |             DeleteOnTermination: 'false'
-  14 |             VolumeSize: '20'
-  15 |         - DeviceName: /dev/sdk
-  16 |           NoDevice: {}
-  17 |   EC2Instance2:
-  18 |     Properties:
-  19 |       IamInstanceProfile: iamInstanceProfile1
-  20 |       LaunchTemplate:
-  21 |         LaunchTemplateId:
-     ^ Col 0
-",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,18,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml,"
-   8 |       BlockDeviceMappings:
-   9 |         - DeviceName: /dev/sdm
-  10 |           Ebs:
-  11 |             VolumeType: io1
-  12 |             Iops: '200'
-  13 |             DeleteOnTermination: 'false'
-  14 |             VolumeSize: '20'
-  15 |         - DeviceName: /dev/sdk
-  16 |           NoDevice: {}
-  17 |   EC2Instance2:
-> 18 |     Properties:
-  19 |       IamInstanceProfile: iamInstanceProfile1
-  20 |       LaunchTemplate:
-  21 |         LaunchTemplateId:
-  22 |           Ref: launchTemplate
-  23 |         LaunchTemplateName: launchTemplate
-  24 |         Version:
-  25 |           Fn::GetAtt:
-  26 |             - launchTemplate
-  27 |             - LatestVersionNumber
-  28 |       NetworkInterfaces:
-     ^ Col 0
-",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,5,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
-   1 | {
-   2 |   ""Resources"": {
-   3 |     ""EC2Instance"": {
-   4 |       ""Type"": ""AWS::EC2::Instance"",
->  5 |       ""Properties"": {
-   6 |         ""ImageId"": ""ami-79fd7eee"",
-   7 |         ""KeyName"": ""testkey"",
-   8 |         ""BlockDeviceMappings"": [
-   9 |           {
-  10 |             ""DeviceName"": ""/dev/sdm"",
-  11 |             ""Ebs"": {
-  12 |               ""VolumeType"": ""io1"",
-  13 |               ""Iops"": ""200"",
-  14 |               ""DeleteOnTermination"": ""false"",
-  15 |               ""VolumeSize"": ""20""
-  16 |             }
-  17 |           },
-  18 |           {
-  19 |             ""DeviceName"": ""/dev/sdk"",
-  20 |             ""NoDevice"": {}
-  21 |           }
-     ^ Col 0
-",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,26,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f055/cfn_instances_without_profile.yaml.json,"
-  16 |             }
-  17 |           },
-  18 |           {
-  19 |             ""DeviceName"": ""/dev/sdk"",
-  20 |             ""NoDevice"": {}
-  21 |           }
-  22 |         ]
-  23 |       }
-  24 |     },
-  25 |     ""EC2Instance2"": {
-> 26 |       ""Properties"": {
-  27 |         ""IamInstanceProfile"": ""iamInstanceProfile1"",
-  28 |         ""LaunchTemplate"": {
-  29 |           ""LaunchTemplateId"": {
-  30 |             ""Ref"": ""launchTemplate""
-  31 |           },
-  32 |           ""LaunchTemplateName"": ""launchTemplate"",
-  33 |           ""Version"": {
-  34 |             ""Fn::GetAtt"": [
-  35 |               ""launchTemplate"",
-  36 |               ""LatestVersionNumber""
-     ^ Col 0
-",cloudformation.cfn_ec2_monitoring_disabled
 F400,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,"
    1 |
 >  2 | resource ""aws_instance"" ""foo"" {
