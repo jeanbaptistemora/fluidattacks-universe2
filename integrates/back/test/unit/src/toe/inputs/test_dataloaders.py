@@ -179,7 +179,7 @@ async def test_get_by_group() -> None:
         )
     )
     if historic_toe_inputs:
-        assert historic_toe_inputs == (
+        assert historic_toe_inputs == [
             ToeInput(
                 component="https://test.com/test2/test.aspx",
                 entry_point="-",
@@ -206,6 +206,6 @@ async def test_get_by_group() -> None:
                     unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 ),
             ),
-        )
+        ]
     else:
         raise ToeInputNotFound()

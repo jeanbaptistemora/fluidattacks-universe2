@@ -103,7 +103,7 @@ async def test_delete() -> None:
         )
     )
     if historic_value:
-        assert historic_value == (
+        assert historic_value == [
             ToeInput(
                 component="https://test.com/test/new.aspx",
                 entry_point="btnTest",
@@ -130,7 +130,7 @@ async def test_delete() -> None:
                     unreliable_root_id="",
                 ),
             ),
-        )
+        ]
 
     await toe_inputs_domain.remove(current_value)
     group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(

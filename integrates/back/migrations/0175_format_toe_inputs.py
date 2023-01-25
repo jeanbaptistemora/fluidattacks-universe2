@@ -36,7 +36,6 @@ from db_model.roots.types import (
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
-    ToeInputsConnection,
     ToeInputState,
 )
 from decorators import (
@@ -149,9 +148,7 @@ async def main() -> None:
         Tuple[RootItem, ...], ...
     ] = await loaders.group_roots.load_many(group_names)
     LOGGER_CONSOLE.info("Getting inputs")
-    groups_toe_input_connections: Tuple[
-        ToeInputsConnection, ...
-    ] = await loaders.group_toe_inputs.load_many(
+    groups_toe_input_connections = await loaders.group_toe_inputs.load_many(
         [
             GroupToeInputsRequest(group_name=group_name)
             for group_name in group_names

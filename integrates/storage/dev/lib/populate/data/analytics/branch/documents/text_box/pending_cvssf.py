@@ -24,7 +24,6 @@ from db_model.groups.types import (
 )
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
-    ToeInput,
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
@@ -49,9 +48,7 @@ async def generate_one(
             group_name=group_name,
         )
     )
-    toe_inputs: tuple[
-        ToeInput, ...
-    ] = await loaders.group_toe_inputs.load_nodes(
+    toe_inputs = await loaders.group_toe_inputs.load_nodes(
         GroupToeInputsRequest(
             group_name=group_name,
         )

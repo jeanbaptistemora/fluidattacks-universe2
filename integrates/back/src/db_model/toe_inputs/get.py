@@ -35,14 +35,11 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
 
-async def _get_toe_inputs(
-    requests: tuple[ToeInputRequest, ...]
-) -> tuple[ToeInput, ...]:
+async def _get_toe_inputs(requests: list[ToeInputRequest]) -> list[ToeInput]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_input_metadata"],
@@ -76,20 +73,20 @@ async def _get_toe_inputs(
         )
     }
 
-    return tuple(response[request] for request in requests)
+    return [response[request] for request in requests]
 
 
 class ToeInputLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[ToeInputRequest]
-    ) -> Iterable[ToeInput]:
-        return await _get_toe_inputs(tuple(requests))
+        self, requests: list[ToeInputRequest]
+    ) -> list[ToeInput]:
+        return await _get_toe_inputs(requests)
 
 
 async def _get_historic_toe_input(
     request: ToeInputRequest,
-) -> Optional[tuple[ToeInput, ...]]:
+) -> Optional[list[ToeInput]]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_historic_metadata"],
         values={
@@ -110,18 +107,21 @@ async def _get_historic_toe_input(
     )
     if not response.items:
         return None
-    return tuple(
+
+    return [
         format_toe_input(request.group_name, item) for item in response.items
-    )
+    ]
 
 
 class ToeInputHistoricLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[ToeInputRequest]
-    ) -> tuple[Optional[tuple[ToeInput, ...]], ...]:
-        return await collect(
-            tuple(_get_historic_toe_input(request) for request in requests)
+        self, requests: list[ToeInputRequest]
+    ) -> list[Optional[list[ToeInput]]]:
+        return list(
+            await collect(
+                tuple(_get_historic_toe_input(request) for request in requests)
+            )
         )
 
 
@@ -179,15 +179,17 @@ async def _get_toe_inputs_by_group(
 class GroupToeInputsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupToeInputsRequest]
-    ) -> tuple[Optional[ToeInputsConnection], ...]:
-        return await collect(tuple(map(_get_toe_inputs_by_group, requests)))
+        self, requests: list[GroupToeInputsRequest]
+    ) -> list[Optional[ToeInputsConnection]]:
+        return list(
+            await collect(tuple(map(_get_toe_inputs_by_group, requests)))
+        )
 
     async def load_nodes(
         self, request: GroupToeInputsRequest
-    ) -> tuple[ToeInput, ...]:
+    ) -> list[ToeInput]:
         connection: ToeInputsConnection = await self.load(request)
-        return tuple(edge.node for edge in connection.edges)
+        return [edge.node for edge in connection.edges]
 
 
 async def _get_toe_inputs_by_root(
@@ -245,12 +247,14 @@ async def _get_toe_inputs_by_root(
 class RootToeInputsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[RootToeInputsRequest]
-    ) -> tuple[Optional[ToeInputsConnection], ...]:
-        return await collect(tuple(map(_get_toe_inputs_by_root, requests)))
+        self, requests: list[RootToeInputsRequest]
+    ) -> list[Optional[ToeInputsConnection]]:
+        return list(
+            await collect(tuple(map(_get_toe_inputs_by_root, requests)))
+        )
 
     async def load_nodes(
         self, request: RootToeInputsRequest
-    ) -> tuple[ToeInput, ...]:
+    ) -> list[ToeInput]:
         connection: ToeInputsConnection = await self.load(request)
-        return tuple(edge.node for edge in connection.edges)
+        return [edge.node for edge in connection.edges]
