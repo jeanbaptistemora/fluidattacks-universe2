@@ -3612,6 +3612,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.BRIAM_AGUDELO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    YML_SERVERLES_CORS = MethodInfo(
+        file_name="yaml",
+        name="json_ssl_port_missing",
+        module="lib_root",
+        finding=FindingEnum.F134,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JSON_SSL_PORT_MISSING = MethodInfo(
         file_name="conf_files",
         name="json_ssl_port_missing",
