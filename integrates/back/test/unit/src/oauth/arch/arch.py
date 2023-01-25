@@ -9,7 +9,7 @@ from typing import (
 )
 
 _dag: Dict[str, Tuple[Union[Tuple[str, ...], str], ...]] = {
-    "oauth": ("bitbucket", "github", "gitlab"),
+    "oauth": ("azure", "bitbucket", "github", "gitlab"),
 }
 
 

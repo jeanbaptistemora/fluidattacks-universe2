@@ -17,6 +17,7 @@ from db_model.credentials.types import (
     CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
+    OauthAzureSecret,
     OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
@@ -86,6 +87,7 @@ async def validate_git_access(
     secret: Union[
         HttpsSecret,
         HttpsPatSecret,
+        OauthAzureSecret,
         OauthBitbucketSecret,
         OauthGithubSecret,
         OauthGitlabSecret,
@@ -493,6 +495,7 @@ async def validate_git_credentials(
     secret: Union[
         HttpsSecret,
         HttpsPatSecret,
+        OauthAzureSecret,
         OauthBitbucketSecret,
         OauthGithubSecret,
         OauthGitlabSecret,

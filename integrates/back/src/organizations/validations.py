@@ -6,6 +6,7 @@ from dataloaders import (
 )
 from db_model.credentials.types import (
     Credentials,
+    OauthAzureSecret,
     OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
@@ -39,6 +40,7 @@ async def validate_credentials_oauth(
     organization_id: str,
     user_email: str,
     secret_type: Union[
+        Type[OauthAzureSecret],
         Type[OauthBitbucketSecret],
         Type[OauthGithubSecret],
         Type[OauthGitlabSecret],

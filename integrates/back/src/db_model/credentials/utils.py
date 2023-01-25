@@ -9,6 +9,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthAzureSecret,
     OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
@@ -25,11 +26,13 @@ from typing import (
 )
 
 
+# pylint: disable=too-many-return-statements
 def format_secret(
     credential_type: CredentialType, item: Item
 ) -> Union[
     HttpsPatSecret,
     HttpsSecret,
+    OauthAzureSecret,
     OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
@@ -56,6 +59,13 @@ def format_secret(
     if credential_type is CredentialType.OAUTH and "refresh_token" in item:
         return OauthGitlabSecret(
             refresh_token=item["refresh_token"],
+            redirect_uri=item["redirect_uri"],
+            access_token=item["access_token"],
+            valid_until=datetime.fromisoformat(item["valid_until"]),
+        )
+    if credential_type is CredentialType.OAUTH and "arefresh_token" in item:
+        return OauthAzureSecret(
+            arefresh_token=item["arefresh_token"],
             redirect_uri=item["redirect_uri"],
             access_token=item["access_token"],
             valid_until=datetime.fromisoformat(item["valid_until"]),

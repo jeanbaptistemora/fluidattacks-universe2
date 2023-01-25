@@ -27,6 +27,13 @@ class OauthGitlabSecret(NamedTuple):
     valid_until: datetime
 
 
+class OauthAzureSecret(NamedTuple):
+    arefresh_token: str
+    redirect_uri: str
+    access_token: str
+    valid_until: datetime
+
+
 class OauthBitbucketSecret(NamedTuple):
     brefresh_token: str
 
@@ -48,6 +55,7 @@ class CredentialsState(NamedTuple):
     secret: Union[
         HttpsSecret,
         HttpsPatSecret,
+        OauthAzureSecret,
         OauthBitbucketSecret,
         OauthGithubSecret,
         OauthGitlabSecret,
