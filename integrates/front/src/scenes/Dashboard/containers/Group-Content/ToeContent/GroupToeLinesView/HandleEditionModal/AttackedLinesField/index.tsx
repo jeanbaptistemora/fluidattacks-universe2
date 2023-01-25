@@ -1,6 +1,6 @@
 import { Field } from "formik";
 import { min } from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IAttackedLinesFieldProps } from "./types";
@@ -27,10 +27,13 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
       )
     ) ?? 1;
 
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>): void {
-    if (event.key.length > 1 || /\d/u.test(event.key)) return;
-    event.preventDefault();
-  }
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      if (event.key.length > 1 || /\d/u.test(event.key)) return;
+      event.preventDefault();
+    },
+    []
+  );
 
   return (
     <FormGroup>

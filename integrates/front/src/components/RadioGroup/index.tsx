@@ -1,6 +1,5 @@
-/* eslint-disable react/jsx-no-bind */
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { Radio, RadioLabel, SwitchItem } from "styles/styledComponents";
 
@@ -25,20 +24,24 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
 
   const [select, setSelect] = useState(initialState);
 
-  function handleSelectChange(label: string): void {
-    setSelect(label);
-    if (label === labels[0]) {
-      if (!_.isUndefined(onSelect)) {
-        onSelect(true);
-      }
-      selected(true);
-    } else {
-      if (!_.isUndefined(onSelect)) {
-        onSelect(false);
-      }
-      selected(false);
-    }
-  }
+  const handleSelectChange = useCallback(
+    (label: string): (() => void) =>
+      (): void => {
+        setSelect(label);
+        if (label === labels[0]) {
+          if (!_.isUndefined(onSelect)) {
+            onSelect(true);
+          }
+          selected(true);
+        } else {
+          if (!_.isUndefined(onSelect)) {
+            onSelect(false);
+          }
+          selected(false);
+        }
+      },
+    [labels, onSelect, selected]
+  );
 
   const listItems: JSX.Element[] = labels.map(
     (label): JSX.Element => (
@@ -46,16 +49,12 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
         <Radio
           aria-label={label}
           checked={select === label}
-          onChange={(): void => {
-            handleSelectChange(label);
-          }}
+          onChange={handleSelectChange(label)}
           value={label}
         />
         <RadioLabel
           id={label}
-          onClick={(): void => {
-            handleSelectChange(label);
-          }}
+          onClick={handleSelectChange(label)}
           theme={{ color: switchColor, on: select === label }}
         >
           {label}
