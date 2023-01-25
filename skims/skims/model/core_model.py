@@ -5742,6 +5742,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_LOCAL_STORAGE_SENS_DATA_ASYNC = MethodInfo(
+        file_name="javascript",
+        name="javascript_local_storage_sensitive_data_async",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_LOCAL_STORAGE_SENS_DATA_ASYNC = MethodInfo(
+        file_name="typescript",
+        name="typescript_local_storage_sensitive_data_async",
+        module="lib_root",
+        finding=FindingEnum.F344,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_LOCAL_STORAGE_SENS_DATA_CALLBACK = MethodInfo(
         file_name="javascript",
         name="javascript_local_storage_sens_data_callback",
