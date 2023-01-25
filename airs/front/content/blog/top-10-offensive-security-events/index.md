@@ -60,7 +60,7 @@ to host their own local event,
 which they call "Unconference Events."
 Although structured,
 these events are comparatively more laid back than the other ones
-in this top 10.
+in this top 10 list.
 For example,
 you may organize a session for the event
 (even come up with it the very same day)
@@ -87,7 +87,8 @@ reverse engineering,
 pentesting,
 exploit writing,
 and static and dynamic analysis
-are among the many topics discussed and learned hands-on at the conference.
+are among the many topics discussed and learned hands-on
+at this hacker conference.
 Ekoparty also hosts intensive training courses
 in the two to four days leading up to the main events.
 And in case you were wondering:
@@ -145,7 +146,7 @@ in widely used software and mobile devices.
 ### 5 - TyphoonCon (since 2018)
 
 [TyphoonCon](https://typhooncon.com/)
-is an annual conference held in Seoul
+is an annual hacker conference held in Seoul
 that focuses on highly technical offensive security issues.
 It offers a space of two days for researchers
 to share their work with about 150 other attendees.
@@ -222,7 +223,7 @@ and wireless hacking.
 is an international security conference held in Berlin
 featuring highly technical content focusing exclusively on offensive security.
 This year the turnout was about 1,200 attendees.
-This is the go-to conference if you are interested in high-quality,
+This is the go-to hacker conference if you are interested in high-quality,
 deep technical talks.
 The topics discussed in the talks are vulnerability discovery,
 advanced exploitation techniques,
