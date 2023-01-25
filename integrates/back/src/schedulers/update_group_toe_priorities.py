@@ -1,9 +1,19 @@
 from aioextensions import (
     collect,
 )
+from aiohttp import (
+    ClientConnectorError,
+)
+from aiohttp.client_exceptions import (
+    ClientPayloadError,
+    ServerTimeoutError,
+)
 import boto3
 from botocore.exceptions import (
     ClientError,
+    ConnectTimeoutError,
+    HTTPClientError,
+    ReadTimeoutError,
 )
 from context import (
     FI_FERNET_TOKEN,
@@ -12,6 +22,9 @@ from cryptography.fernet import (
     Fernet,
 )
 import csv
+from custom_exceptions import (
+    ToeLinesAlreadyUpdated,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -19,12 +32,16 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model import (
+    toe_lines as toe_lines_model,
+)
 from db_model.roots.types import (
-    Root,
+    GitRoot,
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
+    ToeLinesMetadataToUpdate,
 )
 from decorators import (
     retry_on_exceptions,
@@ -34,6 +51,7 @@ from dynamodb.exceptions import (
 )
 from newutils import (
     bugsnag as bugsnag_utils,
+    datetime as datetime_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -43,12 +61,6 @@ from schedulers.common import (
     info,
 )
 import tempfile
-from toe.lines import (
-    domain as toe_lines_domain,
-)
-from toe.lines.types import (
-    ToeLinesAttributesToUpdate,
-)
 
 # Constants
 FERNET = Fernet(FI_FERNET_TOKEN)
@@ -61,14 +73,34 @@ bugsnag_utils.start_scheduler_session()
 
 
 @retry_on_exceptions(
-    exceptions=(UnavailabilityError,),
+    exceptions=(
+        ClientConnectorError,
+        ClientError,
+        ClientPayloadError,
+        ConnectionResetError,
+        ConnectTimeoutError,
+        UnavailabilityError,
+        HTTPClientError,
+        ReadTimeoutError,
+        ServerTimeoutError,
+        ToeLinesAlreadyUpdated,
+    ),
+    sleep_seconds=20,
+    max_attempts=10,
 )
 async def update_toe_lines(
-    current_value: ToeLines, attributes: ToeLinesAttributesToUpdate
+    current_value: ToeLines,
+    sorts_risk_level: int,
+    sorts_risk_level_date: datetime,
 ) -> None:
-    await toe_lines_domain.update(
-        current_value,
-        attributes,
+    await toe_lines_model.update_state(
+        current_value=current_value,
+        new_state=current_value.state._replace(
+            modified_date=datetime_utils.get_utc_now(),
+            sorts_risk_level=sorts_risk_level,
+            sorts_risk_level_date=sorts_risk_level_date,
+        ),
+        metadata=ToeLinesMetadataToUpdate(),
     )
 
 
@@ -79,6 +111,7 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     predicted_files: csv.DictReader,
 ) -> None:
     loaders: Dataloaders = get_new_context()
+    all_roots: tuple[GitRoot, ...] = await loaders.group_roots.load(group_name)
     in_scope_toes = []
     updates = []
     in_scope_count = 0
@@ -94,38 +127,31 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
         predicted_file_prob = int(float(predicted_file["prob_vuln"]))
 
         for toe_line in group_toe_lines:
-            root: Root = await loaders.root.load(
-                (group_name, toe_line.root_id)
+            root_nickname = next(
+                (
+                    root.state.nickname
+                    for root in all_roots
+                    if root.id == toe_line.root_id
+                ),
+                None,
             )
-            root_nickname = root.state.nickname
             if (
                 toe_line.filename == predicted_filename
                 and root_nickname == predicted_nickname
             ):
                 updates.append(
                     update_toe_lines(
-                        toe_line,
-                        ToeLinesAttributesToUpdate(
-                            sorts_risk_level=predicted_file_prob,
-                            sorts_risk_level_date=current_date,
-                        ),
-                    )
+                        toe_line, predicted_file_prob, current_date
+                    ),
                 )
                 in_scope_toes.append(toe_line)
                 in_scope_count += 1
+                break
 
     for toe_line in group_toe_lines:
-        if (
-            toe_line not in in_scope_toes
-            and toe_line.state.sorts_risk_level_date != datetime(1970, 1, 1)
-        ):
+        if toe_line not in in_scope_toes:
             updates.append(
-                update_toe_lines(
-                    toe_line,
-                    ToeLinesAttributesToUpdate(
-                        sorts_risk_level_date=datetime(1970, 1, 1),
-                    ),
-                )
+                update_toe_lines(toe_line, int(-1), datetime(1970, 1, 1))
             )
             out_scope_count += 1
 
@@ -161,10 +187,28 @@ async def process_group(group_name: str, current_date: datetime) -> None:
 
         with open(local_file, "r", encoding="utf8") as csv_file:
             reader = csv.DictReader(csv_file)
-            await update_toe_lines_priority(
-                group_name, current_date, group_toe_lines, reader
-            )
-            info(f"ToeLines's sortsFileRisk for {group_name} updated")
+            try:
+                await update_toe_lines_priority(
+                    group_name, current_date, group_toe_lines, reader
+                )
+            except (
+                ClientConnectorError,
+                ClientError,
+                ClientPayloadError,
+                ConnectionResetError,
+                ConnectTimeoutError,
+                UnavailabilityError,
+                HTTPClientError,
+                ReadTimeoutError,
+                ServerTimeoutError,
+                ToeLinesAlreadyUpdated,
+            ) as exc:
+                info(
+                    f"Group {group_name} could not be updated",
+                    extra={"extra": {"error": exc}},
+                )
+            else:
+                info(f"ToeLines's sortsFileRisk for {group_name} updated")
 
 
 async def main() -> None:
@@ -180,5 +224,5 @@ async def main() -> None:
             process_group(group_name, current_date)
             for group_name in group_names
         ),
-        workers=8,
+        workers=1,
     )
