@@ -14,9 +14,6 @@ from datetime import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from forces.domain import (
     is_forces_user,
 )
@@ -61,9 +58,7 @@ async def main() -> None:
             deprecations
         )
         # Find users with generated tokens
-        all_stakeholders: tuple[
-            Stakeholder, ...
-        ] = await stakeholders_model.get_all_stakeholders()
+        all_stakeholders = await stakeholders_model.get_all_stakeholders()
         users_with_tokens: set[str] = {
             stakeholder.email
             for stakeholder in all_stakeholders

@@ -10,7 +10,6 @@ from db_model.stakeholders import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
-    StakeholderState,
 )
 from decimal import (
     Decimal,
@@ -70,7 +69,5 @@ async def test_update_notification_preferences(
         stakeholder.state.notifications_preferences.parameters.min_severity
         == Decimal("6.7")
     )
-    historic_state: tuple[StakeholderState, ...] = await get_historic_state(
-        email=email
-    )
+    historic_state = await get_historic_state(email=email)
     assert stakeholder.state == historic_state[-1]

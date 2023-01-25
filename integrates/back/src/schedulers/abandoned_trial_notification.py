@@ -11,9 +11,6 @@ from db_model import (
 from db_model.enrollment.types import (
     Enrollment,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -40,12 +37,7 @@ mail_abandoned_trial_notification = retry_on_exceptions(
 
 async def send_abandoned_trial_notification() -> None:
     loaders: Dataloaders = get_new_context()
-
-    stakeholders: tuple[
-        Stakeholder, ...
-    ] = await stakeholders_model.get_all_stakeholders()
-
-    for stakeholder in stakeholders:
+    for stakeholder in await stakeholders_model.get_all_stakeholders():
         enrollment: Enrollment = await loaders.enrollment.load(
             stakeholder.email
         )

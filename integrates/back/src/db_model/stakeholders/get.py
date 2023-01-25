@@ -32,12 +32,11 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
 
-async def get_all_stakeholders() -> tuple[Stakeholder, ...]:
+async def get_all_stakeholders() -> list[Stakeholder]:
     primary_key = keys.build_key(
         facet=ALL_STAKEHOLDERS_INDEX_METADATA,
         values={"all": "all"},
@@ -57,12 +56,10 @@ async def get_all_stakeholders() -> tuple[Stakeholder, ...]:
     if not response.items:
         raise ErrorLoadingStakeholders()
 
-    return tuple(format_stakeholder(item) for item in response.items)
+    return [format_stakeholder(item) for item in response.items]
 
 
-async def _get_stakeholder_items(
-    *, emails: tuple[str, ...]
-) -> tuple[Item, ...]:
+async def _get_stakeholder_items(*, emails: list[str]) -> list[Item]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["stakeholder_metadata"],
@@ -71,10 +68,12 @@ async def _get_stakeholder_items(
         for email in emails
     )
 
-    return await operations.batch_get_item(keys=primary_keys, table=TABLE)
+    return list(
+        await operations.batch_get_item(keys=primary_keys, table=TABLE)
+    )
 
 
-async def get_historic_state(*, email: str) -> tuple[StakeholderState, ...]:
+async def get_historic_state(*, email: str) -> list[StakeholderState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_historic_state"],
         values={
@@ -92,34 +91,34 @@ async def get_historic_state(*, email: str) -> tuple[StakeholderState, ...]:
         table=TABLE,
     )
 
-    return tuple(format_state(state) for state in response.items)
+    return [format_state(state) for state in response.items]
 
 
 async def _get_stakeholders_no_fallback(
-    *, emails: tuple[str, ...]
-) -> tuple[Stakeholder, ...]:
-    emails = tuple(email.lower().strip() for email in emails)
+    *, emails: list[str]
+) -> list[Stakeholder]:
+    emails = [email.lower().strip() for email in emails]
     items = await _get_stakeholder_items(emails=emails)
 
     if len(items) != len(emails):
         raise StakeholderNotFound()
 
-    return tuple(
+    return [
         next(
             format_stakeholder(item)
             for item in items
             if (item.get("email") or str(item["pk"]).split("#")[1]) == email
         )
         for email in emails
-    )
+    ]
 
 
 async def _get_stakeholders_with_fallback(
     *,
     stakeholder_dataloader: DataLoader,
-    emails: tuple[str, ...],
-) -> tuple[Stakeholder, ...]:
-    emails = tuple(email.lower().strip() for email in emails)
+    emails: list[str],
+) -> list[Stakeholder]:
+    emails = [email.lower().strip() for email in emails]
     items = await _get_stakeholder_items(emails=emails)
 
     stakeholders: list[Stakeholder] = []
@@ -138,15 +137,13 @@ async def _get_stakeholders_with_fallback(
             stakeholder = Stakeholder(email=email)
         stakeholders.append(stakeholder)
 
-    return tuple(stakeholders)
+    return stakeholders
 
 
 class StakeholderLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[Stakeholder, ...]:
-        return await _get_stakeholders_no_fallback(emails=tuple(emails))
+    async def batch_load_fn(self, emails: list[str]) -> list[Stakeholder]:
+        return await _get_stakeholders_no_fallback(emails=emails)
 
 
 class StakeholderWithFallbackLoader(DataLoader):
@@ -155,9 +152,7 @@ class StakeholderWithFallbackLoader(DataLoader):
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[Stakeholder, ...]:
+    async def batch_load_fn(self, emails: list[str]) -> list[Stakeholder]:
         return await _get_stakeholders_with_fallback(
-            stakeholder_dataloader=self.dataloader, emails=tuple(emails)
+            stakeholder_dataloader=self.dataloader, emails=emails
         )

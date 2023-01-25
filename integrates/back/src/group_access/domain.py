@@ -124,15 +124,13 @@ async def get_reattackers(
 async def get_group_stakeholders(
     loaders: Dataloaders,
     group_name: str,
-) -> tuple[Stakeholder, ...]:
+) -> list[Stakeholder]:
     stakeholders_access: tuple[
         GroupAccess, ...
     ] = await loaders.group_stakeholders_access.load(group_name)
 
-    return tuple(
-        await loaders.stakeholder_with_fallback.load_many(
-            [access.email for access in stakeholders_access]
-        )
+    return await loaders.stakeholder_with_fallback.load_many(
+        [access.email for access in stakeholders_access]
     )
 
 

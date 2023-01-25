@@ -9,9 +9,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -75,9 +72,7 @@ async def send_users_weekly_report() -> None:
     users: dict[str, list[str]] = {}
 
     for group_name in group_names:
-        group_stakeholders: tuple[
-            Stakeholder, ...
-        ] = await group_access_domain.get_group_stakeholders(
+        group_stakeholders = await group_access_domain.get_group_stakeholders(
             loaders, group_name
         )
         for stakeholder in group_stakeholders:

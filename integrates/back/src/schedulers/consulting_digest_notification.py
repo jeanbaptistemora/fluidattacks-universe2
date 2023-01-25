@@ -242,14 +242,16 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    groups_stakeholders: tuple[tuple[Stakeholder, ...], ...] = await collect(
-        [
-            group_access_domain.get_group_stakeholders(
-                loaders,
-                group_name,
-            )
-            for group_name in groups_names
-        ]
+    groups_stakeholders: list[list[Stakeholder]] = list(
+        await collect(
+            [
+                group_access_domain.get_group_stakeholders(
+                    loaders,
+                    group_name,
+                )
+                for group_name in groups_names
+            ]
+        )
     )
 
     group_stakeholders_email: tuple[tuple[str, ...], ...] = tuple(

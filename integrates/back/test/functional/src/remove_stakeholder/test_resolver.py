@@ -22,7 +22,6 @@ from db_model.stakeholders.get import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
-    StakeholderState,
 )
 from decimal import (
     Decimal,
@@ -78,9 +77,7 @@ async def test_remove_stakeholder(
     assert result["data"]["updateNotificationsPreferences"]["success"]
     old_loaders: Dataloaders = get_new_context()
     old_stakeholder: Stakeholder = await old_loaders.stakeholder.load(email)
-    historic_state: tuple[StakeholderState, ...] = await get_historic_state(
-        email=email
-    )
+    historic_state = await get_historic_state(email=email)
     assert old_stakeholder.email == email
     assert old_stakeholder.state is not None
     assert (

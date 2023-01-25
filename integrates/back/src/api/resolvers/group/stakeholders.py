@@ -34,7 +34,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Stakeholder, ...]:
+) -> list[Stakeholder]:
     loaders: Dataloaders = info.context.loaders
     # The store is needed to resolve stakeholder's role
     request_store = sessions_domain.get_request_store(info.context)
@@ -44,16 +44,14 @@ async def resolve(
         info.context
     )
     user_email: str = user_data["user_email"]
-    stakeholders: tuple[Stakeholder, ...] = await get_group_stakeholders(
-        loaders, parent.name
-    )
+    stakeholders = await get_group_stakeholders(loaders, parent.name)
 
     exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
     if exclude_fluid_staff:
-        stakeholders = tuple(
+        stakeholders = [
             stakeholder
             for stakeholder in stakeholders
             if not stakeholders_domain.is_fluid_staff(stakeholder.email)
-        )
+        ]
 
     return stakeholders

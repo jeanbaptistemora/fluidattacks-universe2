@@ -329,9 +329,9 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     )
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
-    group_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await group_access_domain.get_group_stakeholders(loaders, group_name)
+    group_stakeholders = await group_access_domain.get_group_stakeholders(
+        loaders, group_name
+    )
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
     stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [

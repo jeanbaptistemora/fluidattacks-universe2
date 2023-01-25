@@ -17,9 +17,6 @@ from db_model.groups.enums import (
 from db_model.roots.types import (
     Root,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -64,10 +61,9 @@ async def _send_mail_report(
     group: str,
     group_date_delta: int,
 ) -> None:
-    group_stakeholders: Tuple[
-        Stakeholder, ...
-    ] = await group_access_domain.get_group_stakeholders(loaders, group)
-
+    group_stakeholders = await group_access_domain.get_group_stakeholders(
+        loaders, group
+    )
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in group_stakeholders

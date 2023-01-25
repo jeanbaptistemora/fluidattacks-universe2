@@ -26,7 +26,7 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Stakeholder, ...]:
+) -> list[Stakeholder]:
     loaders: Dataloaders = info.context.loaders
     # The store is needed to resolve stakeholder's role
     request_store = sessions_domain.get_request_store(info.context)

@@ -538,10 +538,10 @@ async def get_stakeholders_emails(
 
 async def get_stakeholders(
     loaders: Dataloaders, organization_id: str
-) -> tuple[Stakeholder, ...]:
+) -> list[Stakeholder]:
     emails = await get_stakeholders_emails(loaders, organization_id)
 
-    return tuple(await loaders.stakeholder_with_fallback.load_many(emails))
+    return await loaders.stakeholder_with_fallback.load_many(emails)
 
 
 async def has_group(
@@ -1009,9 +1009,7 @@ async def send_mail_policies(
         "responsible": responsible,
         "date": modified_date,
     }
-    org_stakeholders: tuple[Stakeholder, ...] = await get_stakeholders(
-        loaders, organization_id
-    )
+    org_stakeholders = await get_stakeholders(loaders, organization_id)
     stakeholders_emails = [
         stakeholder.email
         for stakeholder in org_stakeholders

@@ -8,9 +8,6 @@ from dataloaders import (
 from db_model.organizations.types import (
     Organization,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.types import (
     PoliciesToUpdate,
 )
@@ -37,9 +34,7 @@ async def test_remove_inactive_stakeholders() -> None:
     loaders: Dataloaders = get_new_context()
     organization: Organization = await loaders.organization.load(org_name)
     org_id = organization.id
-    org_stakeholders: tuple[
-        Stakeholder, ...
-    ] = await orgs_domain.get_stakeholders(loaders, org_id)
+    org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [
         stakeholder.email for stakeholder in org_stakeholders
     ]
