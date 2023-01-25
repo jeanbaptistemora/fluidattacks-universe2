@@ -146,6 +146,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.injection,
         requirements=[173, 265],
     )
+    F005: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F004",
+        cwe=78,
+        execution_queue=ExecutionQueue.injection,
+        requirements=[35],
+    )
     F007: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F007",

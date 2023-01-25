@@ -15,6 +15,14 @@
       "title": "004. Remote command execution"
     }
   },
+  "F005": {
+    "EN": {
+      "title": "004. Remote command execution"
+    },
+    "ES": {
+      "title": "004. Remote command execution"
+    }
+  },
   "F007": {
     "EN": {
       "title": "007. Cross-site request forgery"
