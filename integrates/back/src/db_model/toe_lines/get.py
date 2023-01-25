@@ -9,7 +9,6 @@ from .types import (
     ToeLinesRequest,
 )
 from .utils import (
-    format_historic_toe_lines,
     format_toe_lines,
     format_toe_lines_edge,
 )
@@ -227,7 +226,7 @@ async def _get_historic_toe_lines(
     if not response.items:
         return None
 
-    return [format_historic_toe_lines(item) for item in response.items]
+    return [format_toe_lines(item) for item in response.items]
 
 
 class ToeLinesHistoricLoader(DataLoader):

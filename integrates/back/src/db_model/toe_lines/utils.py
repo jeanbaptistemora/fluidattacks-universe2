@@ -93,54 +93,6 @@ def format_toe_lines(item: Item) -> ToeLines:
         raise
 
 
-def format_historic_toe_lines(historic_item: Item) -> ToeLines:
-    state_item: Item = historic_item["state"]
-    return ToeLines(
-        filename=historic_item["filename"],
-        group_name=historic_item["group_name"],
-        modified_date=datetime.fromisoformat(historic_item["modified_date"]),
-        root_id=historic_item["root_id"],
-        seen_first_time_by=historic_item.get("seen_first_time_by"),
-        state=ToeLinesState(
-            attacked_at=datetime.fromisoformat(state_item["attacked_at"])
-            if state_item.get("attacked_at")
-            else None,
-            attacked_by=state_item["attacked_by"],
-            attacked_lines=int(state_item["attacked_lines"]),
-            be_present=state_item["be_present"],
-            be_present_until=datetime.fromisoformat(
-                state_item["be_present_until"]
-            )
-            if state_item.get("be_present_until")
-            else None,
-            comments=state_item["comments"],
-            first_attack_at=datetime.fromisoformat(
-                state_item["first_attack_at"]
-            )
-            if state_item.get("first_attack_at")
-            else None,
-            has_vulnerabilities=state_item.get("has_vulnerabilities"),
-            last_author=state_item["last_author"],
-            last_commit=state_item["last_commit"],
-            loc=int(state_item["loc"]),
-            modified_by=state_item["modified_by"],
-            modified_date=datetime.fromisoformat(state_item["modified_date"]),
-            seen_at=datetime.fromisoformat(state_item["seen_at"]),
-            sorts_risk_level=int(state_item["sorts_risk_level"]),
-            sorts_risk_level_date=datetime.fromisoformat(
-                state_item["sorts_risk_level_date"]
-            )
-            if state_item.get("sorts_risk_level_date")
-            else None,
-            sorts_suggestions=format_toe_lines_sorts_suggestions(
-                state_item["sorts_suggestions"]
-            )
-            if state_item.get("sorts_suggestions")
-            else None,
-        ),
-    )
-
-
 def format_toe_lines_edge(
     index: Optional[Index],
     item: Item,
