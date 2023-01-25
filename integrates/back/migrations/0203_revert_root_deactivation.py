@@ -82,9 +82,7 @@ async def process_vuln(loaders: Dataloaders, vuln: Vulnerability) -> None:
 
 
 async def process_root(loaders: Dataloaders, root_id: str) -> None:
-    vulns: Tuple[Vulnerability, ...] = await loaders.root_vulnerabilities.load(
-        root_id
-    )
+    vulns = await loaders.root_vulnerabilities.load(root_id)
     LOGGER.info(
         "Processing root",
         extra={"extra": {"root_id": root_id, "vulns": len(vulns)}},

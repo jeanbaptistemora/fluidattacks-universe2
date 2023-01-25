@@ -45,7 +45,6 @@ from db_model.toe_ports.types import (
     ToePort,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityMetadataToUpdate,
 )
 import itertools
@@ -150,9 +149,7 @@ async def merge_roots(
             for event in root_events
         )
     )
-    vulnerabilities: tuple[
-        Vulnerability, ...
-    ] = await loaders.root_vulnerabilities.load(ip_root.id)
+    vulnerabilities = await loaders.root_vulnerabilities.load(ip_root.id)
     await collect(
         tuple(
             vulnerabilities_model.update_metadata(

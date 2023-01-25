@@ -36,9 +36,6 @@ from db_model.roots.types import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -70,9 +67,7 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
-    Tuple,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -112,11 +107,9 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         last_clone_date_msg = str(root.cloning.modified_date.date())
         last_root_state = root.cloning.status.value
 
-    root_vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.root_vulnerabilities.load(root.id)
+    root_vulnerabilities = await loaders.root_vulnerabilities.load(root.id)
     root_vulnerabilities_nzr = filter_non_zero_risk(
-        filter_non_deleted(root_vulnerabilities)
+        filter_non_deleted(tuple(root_vulnerabilities))
     )
     sast_vulns = [
         vuln
@@ -258,7 +251,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     email: str = user_info["user_email"]

@@ -70,9 +70,8 @@ async def process_vulnerability(vulnerability: Vulnerability) -> None:
 async def get_root_vulnerabilities(
     loaders: Dataloaders,
     root_id: str,
-) -> tuple[Vulnerability, ...]:
-    vulnerabilities = await loaders.root_vulnerabilities.load(root_id)
-    return vulnerabilities
+) -> list[Vulnerability]:
+    return await loaders.root_vulnerabilities.load(root_id)
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:

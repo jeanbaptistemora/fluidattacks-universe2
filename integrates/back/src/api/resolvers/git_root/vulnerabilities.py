@@ -14,17 +14,13 @@ from newutils.vulnerabilities import (
     filter_non_deleted,
     filter_non_zero_risk,
 )
-from typing import (
-    List,
-    Tuple,
-)
 
 
 async def resolve(
     parent: Root, info: GraphQLResolveInfo
-) -> List[Vulnerability]:
+) -> list[Vulnerability]:
     loaders: Dataloaders = info.context.loaders
-    root_vulnerabilities: Tuple[
-        Vulnerability, ...
-    ] = await loaders.root_vulnerabilities.load(parent.id)
-    return list(filter_non_zero_risk(filter_non_deleted(root_vulnerabilities)))
+    root_vulnerabilities = await loaders.root_vulnerabilities.load(parent.id)
+    return list(
+        filter_non_zero_risk(filter_non_deleted(tuple(root_vulnerabilities)))
+    )

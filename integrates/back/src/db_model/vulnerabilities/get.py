@@ -183,7 +183,7 @@ async def _get_finding_vulnerabilities(
         index=index,
     )
 
-    return list(format_vulnerability(item) for item in response.items)
+    return [format_vulnerability(item) for item in response.items]
 
 
 async def _get_finding_vulnerabilities_released_zr(
@@ -246,9 +246,7 @@ async def _get_finding_vulnerabilities_released_zr(
     )
 
 
-async def _get_root_vulnerabilities(
-    *, root_id: str
-) -> tuple[Vulnerability, ...]:
+async def _get_root_vulnerabilities(*, root_id: str) -> list[Vulnerability]:
     primary_key = keys.build_key(
         facet=ROOT_INDEX_METADATA,
         values={"root_id": root_id},
@@ -266,7 +264,7 @@ async def _get_root_vulnerabilities(
         index=index,
     )
 
-    return tuple(format_vulnerability(item) for item in response.items)
+    return [format_vulnerability(item) for item in response.items]
 
 
 async def _get_assigned_vulnerabilities(*, email: str) -> list[Vulnerability]:
@@ -287,7 +285,7 @@ async def _get_assigned_vulnerabilities(*, email: str) -> list[Vulnerability]:
         index=index,
     )
 
-    return list(format_vulnerability(item) for item in response.items)
+    return [format_vulnerability(item) for item in response.items]
 
 
 async def _get_affected_reattacks(
@@ -463,14 +461,16 @@ class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
 class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: tuple[FindingVulnerabilitiesZrRequest, ...]
-    ) -> tuple[VulnerabilitiesConnection, ...]:
-        return await collect(
-            tuple(
-                _get_finding_vulnerabilities_released_zr(
-                    is_released=True, is_zero_risk=True, request=request
+        self, requests: list[FindingVulnerabilitiesZrRequest]
+    ) -> list[VulnerabilitiesConnection]:
+        return list(
+            await collect(
+                tuple(
+                    _get_finding_vulnerabilities_released_zr(
+                        is_released=True, is_zero_risk=True, request=request
+                    )
+                    for request in requests
                 )
-                for request in requests
             )
         )
 
@@ -478,25 +478,27 @@ class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
 class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: tuple[FindingVulnerabilitiesRequest, ...]
-    ) -> tuple[VulnerabilitiesConnection, ...]:
-        return await collect(
-            tuple(
-                _get_finding_vulnerabilities_released_zr(
-                    is_released=True,
-                    is_zero_risk=False,
-                    request=FindingVulnerabilitiesZrRequest(
-                        finding_id=request.finding_id,
-                        after=request.after,
-                        first=request.first,
-                        paginate=request.paginate,
-                        state_status=VulnerabilityStateStatus.VULNERABLE,
-                        verification_status=(
-                            VulnerabilityVerificationStatus.REQUESTED
+        self, requests: list[FindingVulnerabilitiesRequest]
+    ) -> list[VulnerabilitiesConnection]:
+        return list(
+            await collect(
+                tuple(
+                    _get_finding_vulnerabilities_released_zr(
+                        is_released=True,
+                        is_zero_risk=False,
+                        request=FindingVulnerabilitiesZrRequest(
+                            finding_id=request.finding_id,
+                            after=request.after,
+                            first=request.first,
+                            paginate=request.paginate,
+                            state_status=VulnerabilityStateStatus.VULNERABLE,
+                            verification_status=(
+                                VulnerabilityVerificationStatus.REQUESTED
+                            ),
                         ),
-                    ),
+                    )
+                    for request in requests
                 )
-                for request in requests
             )
         )
 
@@ -504,10 +506,13 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
 class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: tuple[str, ...]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
-        return await collect(
-            _get_root_vulnerabilities(root_id=id) for id in ids
+        self, root_ids: list[str]
+    ) -> list[list[Vulnerability]]:
+        return list(
+            await collect(
+                _get_root_vulnerabilities(root_id=root_id)
+                for root_id in root_ids
+            )
         )
 
 
