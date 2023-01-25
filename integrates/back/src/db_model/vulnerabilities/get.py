@@ -288,9 +288,7 @@ async def _get_assigned_vulnerabilities(*, email: str) -> list[Vulnerability]:
     return [format_vulnerability(item) for item in response.items]
 
 
-async def _get_affected_reattacks(
-    *, event_id: str
-) -> tuple[Vulnerability, ...]:
+async def _get_affected_reattacks(*, event_id: str) -> list[Vulnerability]:
     primary_key = keys.build_key(
         facet=EVENT_INDEX_METADATA,
         values={"event_id": event_id},
@@ -308,7 +306,7 @@ async def _get_affected_reattacks(
         index=index,
     )
 
-    return tuple(format_vulnerability(item) for item in response.items)
+    return [format_vulnerability(item) for item in response.items]
 
 
 class AssignedVulnerabilitiesLoader(DataLoader):
@@ -519,10 +517,13 @@ class RootVulnerabilitiesLoader(DataLoader):
 class EventVulnerabilitiesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: tuple[str, ...]
-    ) -> tuple[tuple[Vulnerability, ...], ...]:
-        return await collect(
-            _get_affected_reattacks(event_id=id) for id in ids
+        self, event_ids: list[str]
+    ) -> list[list[Vulnerability]]:
+        return list(
+            await collect(
+                _get_affected_reattacks(event_id=event_id)
+                for event_id in event_ids
+            )
         )
 
 

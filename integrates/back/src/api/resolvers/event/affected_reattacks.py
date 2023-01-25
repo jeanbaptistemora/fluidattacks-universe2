@@ -19,6 +19,5 @@ async def resolve(
 ) -> list[Vulnerability]:
     event_id = parent.id
     loaders: Dataloaders = info.context.loaders
-    vulns = await loaders.event_vulnerabilities_loader.load((event_id))
 
-    return list(vulns) if vulns else []
+    return await loaders.event_vulnerabilities_loader.load(event_id)

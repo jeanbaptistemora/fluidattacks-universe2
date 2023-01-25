@@ -396,9 +396,9 @@ async def solve_event(  # pylint: disable=too-many-locals
     if reason not in SOLUTION_REASON_BY_EVENT_TYPE[event.type]:
         raise InvalidEventSolvingReason()
 
-    affected_reattacks: tuple[
-        Vulnerability, ...
-    ] = await loaders.event_vulnerabilities_loader.load((event_id))
+    affected_reattacks = await loaders.event_vulnerabilities_loader.load(
+        event_id
+    )
     has_reattacks: bool = len(affected_reattacks) > 0
     if has_reattacks:
         user_info = await sessions_domain.get_jwt_content(info.context)
