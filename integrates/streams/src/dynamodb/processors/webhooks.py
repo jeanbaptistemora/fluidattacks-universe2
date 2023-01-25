@@ -26,7 +26,9 @@ from typing import (
     Any,
     Optional,
 )
+import uuid
 
+CLOUDWATCH_LOGGER = logging.getLogger("cloudwatch")
 LOGGER = logging.getLogger(__name__)
 
 
@@ -106,7 +108,15 @@ def _is_released(group_name: str, finding_id: str) -> bool:
 
 def _notify_client(vuln_id: str, group: str, event: HookEvent) -> None:
     try:
-        requests.post(
+        request_id = uuid.uuid4()
+        CLOUDWATCH_LOGGER.info(
+            "Notifying event %s for vulnerability %s in group %s",
+            event.name,
+            vuln_id,
+            group,
+            extra={"request_id": request_id},
+        )
+        response = requests.post(
             FI_WEBHOOK_POC_URL,
             headers={"x-api-key": FI_WEBHOOK_POC_KEY},
             json={
@@ -116,10 +126,10 @@ def _notify_client(vuln_id: str, group: str, event: HookEvent) -> None:
             },
             timeout=3,
         )
-        LOGGER.info(
-            "[POC] Notified event `%s` for vulnerability %s",
-            event.value,
-            vuln_id,
+        CLOUDWATCH_LOGGER.info(
+            "Notification request finished with status %s",
+            response.status_code,
+            extra={"request_id": request_id},
         )
     except requests.exceptions.RequestException as ex:
         LOGGER.exception(ex)

@@ -14,6 +14,7 @@ closure:
   s3transfer: 0.6.0
   six: 1.16.0
   urllib3: 1.26.14
+  watchtower: 3.0.0
   webob: 1.8.7
 links:
   - name: boto3-1.24.44-py3-none-any.whl
@@ -103,6 +104,12 @@ links:
   - name: urllib3-1.26.14.tar.gz
     sha256: 0wjgrzpb7d9vjm8my4iwf5z2ykasc8b16ir8fzkwsmfkiyzhfs87
     url: https://files.pythonhosted.org/packages/c5/52/fe421fb7364aa738b3506a2d99e4f3a56e079c0a798e9f4fa5e14c60922f/urllib3-1.26.14.tar.gz
+  - name: watchtower-3.0.0-py3-none-any.whl
+    sha256: 0k5zmkn6y725jvgw8pn117qfrasvms7sdsaca38alsvk9qd42lbz
+    url: https://files.pythonhosted.org/packages/ad/bc/fd5d97ba3b65060f3526549b99c106ef0442a7c196fe3c71cd9cd9e54c0f/watchtower-3.0.0-py3-none-any.whl
+  - name: watchtower-3.0.0.tar.gz
+    sha256: 0a1wlpqdrw6gdjsnagcghxsr3vylv9829cb5fpfz28mgnkpq6qn6
+    url: https://files.pythonhosted.org/packages/0e/0f/19227a14da782c597aca3ef10bf6bb7b0af7a60ea97c87a60484cf8b7169/watchtower-3.0.0.tar.gz
   - name: WebOb-1.8.7-py2.py3-none-any.whl
     sha256: 16zqij909ys74l0fq6wcq8hf8q0rldf8nvwm7gx18719b41y7akk
     url: https://files.pythonhosted.org/packages/62/9c/e94a9982e9f31fc35cf46cdc543a6c2c26cb7174635b5fd25b0bbc6a7bc0/WebOb-1.8.7-py2.py3-none-any.whl

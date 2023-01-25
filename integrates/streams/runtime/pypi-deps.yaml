@@ -5,3 +5,4 @@ more-itertools: 8.14.0
 opensearch-py: 2.0.0
 requests: 2.28.1
 psycopg2: 2.9.3
+watchtower: 3.0.0
