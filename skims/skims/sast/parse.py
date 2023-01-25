@@ -16,9 +16,6 @@ from model.graph_model import (
     GraphSyntax,
 )
 import os
-from sast_transformations import (
-    styles,
-)
 from syntax_cfg.generate import (
     add_syntax_cfg,
 )
@@ -47,6 +44,7 @@ from utils.fs import (
 )
 from utils.graph import (
     copy_ast,
+    styles,
     to_svg,
 )
 from utils.logs import (
