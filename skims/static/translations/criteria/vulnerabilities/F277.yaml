@@ -1,7 +1,10 @@
 ---
-src.lib_path.f363.have_old_creds_enabled:
+src.lib_path.f277.have_old_creds_enabled:
   en: Users have unused passwords (last 90 days)
   es: El usuario tiene contraseñas sin usar (ultimos 90 dias)
-src.lib_path.f363.have_old_access_keys:
+src.lib_path.f277.have_old_access_keys:
   en: User access keys have not been rotated in the last 90 days
   es: el IAM access key del usuario no se ha rotaso en  los ultimos 90 dias
+src.lib_path.f277.has_old_ssh_public_keys:
+  en: There are users with old SSH public keys (older than 90 days).
+  es: Hay usuarios con llaves publicas SSH antiguas (mayores a 90 dias),
