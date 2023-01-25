@@ -10,18 +10,19 @@ import _ from "lodash";
 import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ActionButtons } from "./ActionButtons";
-import { CredentialsModal } from "./CredentialsModal";
-import { GET_ORGANIZATION_CREDENTIALS, REMOVE_CREDENTIALS } from "./queries";
+import { Table } from "components/Table";
+import { ActionButtons } from "scenes/Dashboard/containers/Organization-Content/OrganizationCredentialsView/ActionButtons";
+import { CredentialsModal } from "scenes/Dashboard/containers/Organization-Content/OrganizationCredentialsView/CredentialsModal";
+import {
+  GET_ORGANIZATION_CREDENTIALS,
+  REMOVE_CREDENTIALS,
+} from "scenes/Dashboard/containers/Organization-Content/OrganizationCredentialsView/queries";
 import type {
   ICredentialsAttr,
   ICredentialsData,
   IOrganizationCredentialsProps,
   IRemoveCredentialsResultAttr,
-} from "./types";
-
-import { GET_ROOTS } from "../../Group-Content/GroupScopeView/queries";
-import { Table } from "components/Table";
+} from "scenes/Dashboard/containers/Organization-Content/OrganizationCredentialsView/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -71,7 +72,14 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
           }
         });
       },
-      refetchQueries: [GET_ORGANIZATION_CREDENTIALS, GET_ROOTS],
+      refetchQueries: [
+        {
+          query: GET_ORGANIZATION_CREDENTIALS,
+          variables: {
+            organizationId,
+          },
+        },
+      ],
     });
 
   // GraphQl queries
@@ -162,9 +170,9 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     setIsEditing(false);
   }, []);
 
-  const removeCredentials = useCallback((): void => {
+  const removeCredentials = useCallback(async (): Promise<void> => {
     if (!_.isUndefined(selectedCredentials)) {
-      void handleRemoveCredentials({
+      await handleRemoveCredentials({
         variables: {
           credentialsId: selectedCredentials[0].id,
           organizationId,
