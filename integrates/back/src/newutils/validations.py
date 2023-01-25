@@ -766,7 +766,6 @@ def validate_no_duplicate_drafts_deco(
                 if new_title == draft.title:
                     raise DuplicateDraftFound(kind="draft")
             for finding in findings:
-                print(new_title, finding.title)
                 if new_title == finding.title:
                     raise DuplicateDraftFound(kind="finding")
             return func(*args, **kwargs)
@@ -991,7 +990,6 @@ def validate_include_number_deco(field: str) -> Callable:
             field_content = str(
                 get_attr_value(field=field, kwargs=kwargs, obj_type=str)
             )
-            print(field, field_content)
             if not re.search(r"\d", field_content):
                 raise InvalidReportFilter(
                     "Password should include at least one number"

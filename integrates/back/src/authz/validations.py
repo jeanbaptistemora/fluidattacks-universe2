@@ -74,7 +74,6 @@ def validate_fluidattacks_staff_on_group_deco(
             role = get_attr_value(
                 field=role_field, kwargs=kwargs, obj_type=str
             )
-            print(email, role)
             enforcer = get_group_service_attributes_enforcer(group)
             is_user_at_fluidattacks: bool = email.endswith(
                 FLUIDATTACKS_EMAIL_SUFFIX
