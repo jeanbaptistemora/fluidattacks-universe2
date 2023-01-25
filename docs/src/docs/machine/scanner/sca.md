@@ -14,14 +14,16 @@ their security.
 The package handlers supported
 by each language are as follows:
 
-| Language   | Package handler    |
-|------------|--------------------|
-| Python     | pip                |
-| Javascript | NPM, Yarn          |
-| Java       | Maven, Gradle, SBT |
-| CSharp     | NuGet              |
-| Go         | Go                 |
-| Ruby       | Rubygems           |
+| Language          | Package handler    |
+|-------------------|--------------------|
+| CSharp            | NuGet              |
+| Dart              | Pub                |
+| Go                | Go                 |
+| Java              | Maven, Gradle, SBT |
+| Javascript/NodeJS | NPM, Yarn          |
+| PHP               | Composer           |
+| Python            | pip                |
+| Ruby              | Rubygems           |
 
 With these languages, we apply the following rules:
 
