@@ -27,9 +27,6 @@ import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
-from db_model.vulnerabilities.types import (
-    VulnerabilityTreatment,
-)
 from decimal import (
     Decimal,
 )
@@ -59,9 +56,9 @@ async def process_vuln(
     finding_id: str,
     vuln_id: str,
 ) -> None:
-    historic_treatment: Tuple[
-        VulnerabilityTreatment, ...
-    ] = await loaders.vulnerability_historic_treatment.load(vuln_id)
+    historic_treatment = await loaders.vulnerability_historic_treatment.load(
+        vuln_id
+    )
     is_to_be_updated = False
     fixed_historic = []
     for treatment in historic_treatment:

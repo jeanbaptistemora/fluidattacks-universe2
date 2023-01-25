@@ -670,7 +670,8 @@ class ITReport:
     ) -> None:
 
         first_treatment = self.get_first_treatment(historic_treatment)
-        current_treatment_exp_date: Union[str, datetime] = EMPTY
+        current_treatment_data: dict[str, str] = {}
+        current_treatment_exp_date = EMPTY
         if vuln.treatment:
             if vuln.treatment.accepted_until:
                 current_treatment_exp_date = datetime_utils.get_as_str(
@@ -733,8 +734,10 @@ class ITReport:
     async def _get_historic_treatment(
         self, vulnerability_id: str
     ) -> tuple[VulnerabilityTreatment, ...]:
-        return await self.loaders.vulnerability_historic_treatment.load(
-            vulnerability_id
+        return tuple(
+            await self.loaders.vulnerability_historic_treatment.load(
+                vulnerability_id
+            )
         )
 
     async def _get_historic_verification(
