@@ -64,7 +64,7 @@ toe_ports_update = retry_on_exceptions(
 
 def get_non_present_toe_ports_to_update(
     root: IPRoot,
-    root_toe_ports: tuple[ToePort, ...],
+    root_toe_ports: list[ToePort],
 ) -> tuple[tuple[ToePort, ToePortAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting non present toe ports to update",
@@ -107,7 +107,7 @@ def get_toe_ports_to_remove(
 
 def get_present_toe_ports_to_update(
     root: IPRoot,
-    root_toe_ports: tuple[ToePort, ...],
+    root_toe_ports: list[ToePort],
 ) -> tuple[tuple[ToePort, ToePortAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting present toe ports to update",

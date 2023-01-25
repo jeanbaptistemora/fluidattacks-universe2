@@ -38,14 +38,11 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
-    Iterable,
     Union,
 )
 
 
-async def _get_toe_ports(
-    requests: tuple[ToePortRequest, ...]
-) -> tuple[ToePort, ...]:
+async def _get_toe_ports(requests: list[ToePortRequest]) -> list[ToePort]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_port_metadata"],
@@ -73,20 +70,20 @@ async def _get_toe_ports(
         for toe_port in tuple(format_toe_port(item) for item in items)
     }
 
-    return tuple(response[request] for request in requests)
+    return [response[request] for request in requests]
 
 
 class ToePortLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[ToePortRequest]
-    ) -> Iterable[ToePort]:
-        return await _get_toe_ports(tuple(requests))
+        self, requests: list[ToePortRequest]
+    ) -> list[ToePort]:
+        return await _get_toe_ports(requests)
 
 
 async def _get_historic_state(
     request: ToePortRequest,
-) -> tuple[ToePortState, ...]:
+) -> list[ToePortState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_port_historic_state"],
         values={
@@ -105,16 +102,19 @@ async def _get_historic_state(
         facets=(TABLE.facets["toe_port_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, response.items))
+
+    return list(map(format_state, response.items))
 
 
 class ToePortHistoricStateLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[ToePortRequest]
-    ) -> tuple[tuple[ToePortState, ...], ...]:
-        return await collect(
-            tuple(_get_historic_state(request) for request in requests)
+        self, requests: list[ToePortRequest]
+    ) -> list[list[ToePortState]]:
+        return list(
+            await collect(
+                tuple(_get_historic_state(request) for request in requests)
+            )
         )
 
 
@@ -169,15 +169,15 @@ async def _get_toe_ports_by_group(
 class GroupToePortsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupToePortsRequest]
-    ) -> Iterable[ToePortsConnection]:
-        return await collect(tuple(map(_get_toe_ports_by_group, requests)))
+        self, requests: list[GroupToePortsRequest]
+    ) -> list[ToePortsConnection]:
+        return list(
+            await collect(tuple(map(_get_toe_ports_by_group, requests)))
+        )
 
-    async def load_nodes(
-        self, request: GroupToePortsRequest
-    ) -> tuple[ToePort, ...]:
+    async def load_nodes(self, request: GroupToePortsRequest) -> list[ToePort]:
         connection: ToePortsConnection = await self.load(request)
-        return tuple(edge.node for edge in connection.edges)
+        return list(edge.node for edge in connection.edges)
 
 
 async def _get_toe_ports_by_root(
@@ -234,12 +234,12 @@ async def _get_toe_ports_by_root(
 class RootToePortsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[RootToePortsRequest]
-    ) -> Iterable[Union[ToePortsConnection, None]]:
-        return await collect(tuple(map(_get_toe_ports_by_root, requests)))
+        self, requests: list[RootToePortsRequest]
+    ) -> list[Union[ToePortsConnection, None]]:
+        return list(
+            await collect(tuple(map(_get_toe_ports_by_root, requests)))
+        )
 
-    async def load_nodes(
-        self, request: RootToePortsRequest
-    ) -> tuple[ToePort, ...]:
+    async def load_nodes(self, request: RootToePortsRequest) -> list[ToePort]:
         connection: ToePortsConnection = await self.load(request)
-        return tuple(edge.node for edge in connection.edges)
+        return list(edge.node for edge in connection.edges)

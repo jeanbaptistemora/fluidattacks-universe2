@@ -12,7 +12,6 @@ from db_model.toe_ports.types import (
     GroupToePortsRequest,
     ToePort,
     ToePortRequest,
-    ToePortState,
 )
 import pytest
 
@@ -52,9 +51,7 @@ async def test_remove_toe_port(
     )
     toe_port: ToePort = await loaders.toe_port.load(request)
     assert toe_port.address == address
-    historic: tuple[
-        ToePortState, ...
-    ] = await loaders.toe_port_historic_state.load(request)
+    historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 1
     await toe_ports_model.remove(
         group_name=group_name, address=address, port=port, root_id=root_id
@@ -76,9 +73,7 @@ async def test_remove_group_toe_ports(
     group_name: str = "group2"
     loaders: Dataloaders = get_new_context()
     group_request = GroupToePortsRequest(group_name=group_name)
-    toe_ports: tuple[ToePort, ...] = await loaders.group_toe_ports.load_nodes(
-        group_request
-    )
+    toe_ports = await loaders.group_toe_ports.load_nodes(group_request)
     assert len(toe_ports) == 3
     request = ToePortRequest(
         group_name=group_name,
@@ -86,9 +81,7 @@ async def test_remove_group_toe_ports(
         port=toe_ports[1].port,
         root_id=toe_ports[1].root_id,
     )
-    historic: tuple[
-        ToePortState, ...
-    ] = await loaders.toe_port_historic_state.load(request)
+    historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 1
     await toe_ports_model.remove_group_toe_ports(group_name=group_name)
     loaders.group_toe_ports.clear(group_request)

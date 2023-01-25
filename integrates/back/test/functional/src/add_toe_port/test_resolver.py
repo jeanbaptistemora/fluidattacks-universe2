@@ -8,12 +8,10 @@ from dataloaders import (
 from db_model.toe_ports.types import (
     ToePort,
     ToePortRequest,
-    ToePortState,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -45,7 +43,7 @@ async def test_add_toe_port(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -65,9 +63,7 @@ async def test_add_toe_port(
     assert toe_port.port == port
     assert toe_port.root_id == root_id
     assert toe_port.seen_first_time_by == email
-    historic: tuple[
-        ToePortState, ...
-    ] = await loaders.toe_port_historic_state.load(
+    historic = await loaders.toe_port_historic_state.load(
         ToePortRequest(
             group_name=group_name, address=address, port=port, root_id=root_id
         )
@@ -97,7 +93,7 @@ async def test_add_toe_port_already_exists(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -138,7 +134,7 @@ async def test_add_toe_port_root_not_found(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -180,7 +176,7 @@ async def test_add_toe_port_ip_and_port_do_not_exist(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -216,7 +212,7 @@ async def test_add_toe_port_invalid_port(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -249,7 +245,7 @@ async def test_add_toe_port_access_denied(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,

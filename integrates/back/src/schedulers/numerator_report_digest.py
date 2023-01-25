@@ -516,7 +516,7 @@ async def _toe_port_content(
     loaders: Dataloaders,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     users_email: List[str],
 ) -> None:
     group_toe_ports: ToePortsConnection = await loaders.group_toe_ports.load(
