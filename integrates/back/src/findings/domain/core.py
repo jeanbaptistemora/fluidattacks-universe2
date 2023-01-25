@@ -972,11 +972,11 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     *,
     context: Optional[Any] = None,
     finding_id: str,
-    user_info: Dict[str, str],
+    user_info: dict[str, str],
     justification: str,
-    open_vulns_ids: List[str],
-    closed_vulns_ids: List[str],
-    vulns_to_close_from_file: List[Vulnerability],
+    open_vulns_ids: list[str],
+    closed_vulns_ids: list[str],
+    vulns_to_close_from_file: list[Vulnerability],
     loaders: Dataloaders,
     is_reattack_open: Optional[bool] = None,
     is_closing_event: bool = False,
@@ -1010,12 +1010,12 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
 
     comment_id = str(round(time() * 1000))
     today = datetime_utils.get_utc_now()
-    user_email = user_info["user_email"]
+    modified_by = user_info["user_email"]
 
     # Modify the verification state to mark the finding as verified
     verification = FindingVerification(
         comment_id=comment_id,
-        modified_by=user_email,
+        modified_by=modified_by,
         modified_date=today,
         status=FindingVerificationStatus.VERIFIED,
         vulnerability_ids=set(vulnerability_ids),
@@ -1027,26 +1027,20 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
         verification=verification,
     )
 
-    open_vulnerabilities: Tuple[Vulnerability, ...] = ()
-    for vuln_id in open_vulns_ids:
-        open_vulnerabilities = (
-            *open_vulnerabilities,
-            await loaders.vulnerability.load(vuln_id),
-        )
-    closed_vulnerabilities: Tuple[Vulnerability, ...] = ()
-    for vuln_id in closed_vulns_ids:
-        closed_vulnerabilities = (
-            *closed_vulnerabilities,
-            await loaders.vulnerability.load(vuln_id),
-        )
     if is_reattack_open is None:
+        open_vulnerabilities = await loaders.vulnerability.load_many(
+            open_vulns_ids
+        )
+        closed_vulnerabilities = await loaders.vulnerability.load_many(
+            closed_vulns_ids
+        )
         await add_reattack_justification(
-            loaders,
-            finding_id,
-            open_vulnerabilities,
-            closed_vulnerabilities,
+            loaders=loaders,
+            finding_id=finding_id,
+            open_vulnerabilities=tuple(open_vulnerabilities),
+            closed_vulnerabilities=tuple(closed_vulnerabilities),
             comment_type=CommentType.VERIFICATION,
-            email=user_email,
+            email=modified_by,
             full_name=" ".join(
                 [user_info["first_name"], user_info["last_name"]]
             ),

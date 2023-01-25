@@ -530,10 +530,13 @@ class EventVulnerabilitiesLoader(DataLoader):
 class VulnerabilityLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: tuple[str, ...]
-    ) -> tuple[Vulnerability, ...]:
-        return await collect(
-            tuple(_get_vulnerability(vulnerability_id=id) for id in ids)
+        self, vulnerability_ids: list[str]
+    ) -> list[Vulnerability]:
+        return list(
+            await collect(
+                _get_vulnerability(vulnerability_id=vulnerability_id)
+                for vulnerability_id in vulnerability_ids
+            )
         )
 
 
