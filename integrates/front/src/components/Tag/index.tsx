@@ -46,8 +46,9 @@ const variants: Record<TVariant, IVariant> = {
 };
 
 const Tag = styled.span<ITagProps>`
-  display: inline-block;
+  align-items: center;
   border-radius: 50px;
+  display: inline-flex;
   font-weight: 400;
   padding: 4px 12px;
   text-align: center;
