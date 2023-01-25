@@ -37,6 +37,57 @@ from typing import (
 )
 
 
+async def has_old_ssh_public_keys(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.AWS_IAM_HAS_OLD_SSH_PUBLIC_KEYS
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="iam",
+        function="list_users",
+    )
+    vulns: core_model.Vulnerabilities = ()
+    three_months_ago = datetime.now() - timedelta(days=90)
+    three_months_ago = three_months_ago.replace(tzinfo=pytz.UTC)
+    users = response.get("Users", [])
+
+    if users:
+        for user in users:
+            access_keys: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_ssh_public_keys",
+                parameters={
+                    "UserName": user["UserName"],
+                },
+            )
+            keys = access_keys["SSHPublicKeys"]
+            locations: List[Location] = []
+            for index, key in enumerate(keys):
+                if key["UploadDate"] < three_months_ago:
+                    locations = [
+                        *locations,
+                        Location(
+                            access_patterns=(f"/{index}/UploadDate",),
+                            arn=(f"arn:aws:iam:::{user['UserName']}"),
+                            values=(keys[index]["UploadDate"],),
+                            description=(
+                                "src.lib_path.f277.has_old_ssh_public_keys"
+                            ),
+                        ),
+                    ]
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=keys,
+                ),
+            )
+
+    return vulns
+
+
 async def have_old_creds_enabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -73,7 +124,7 @@ async def have_old_creds_enabled(
                         arn=(f"{user_arn}"),
                         values=(user_pass_last_used,),
                         description=(
-                            "src.lib_path.f363.have_old_creds_enabled"
+                            "src.lib_path.f277.have_old_creds_enabled"
                         ),
                     ),
                 ]
@@ -133,7 +184,7 @@ async def have_old_access_keys(
                             arn=(f"{user_arn}"),
                             values=(user[key_names[index]],),
                             description=(
-                                "src.lib_path.f363.have_old_access_keys"
+                                "src.lib_path.f277.have_old_access_keys"
                             ),
                         ),
                     ]
@@ -155,7 +206,4 @@ async def have_old_access_keys(
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (
-    have_old_creds_enabled,
-    have_old_access_keys,
-)
+] = (has_old_ssh_public_keys,)
