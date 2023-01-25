@@ -1,17 +1,16 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "target": "ES2020",
-    "lib": [
-      "ES2020",
-      "DOM"
-    ],
-    "sourceMap": false,
-    "rootDir": "src",
-    "strict": true
-  },
-  "exclude": [
-    "node_modules",
-    ".vscode-test",
-  ]
+	"compilerOptions": {
+    "esModuleInterop": true,
+		"module": "commonjs",
+		"target": "ES2020",
+		"lib": [
+			"ES2020",
+			"DOM"
+		],
+		"sourceMap": true,
+		"rootDir": "src",
+		"strict": true,
+		"jsx": "react"
+	},
+  "exclude": ["src/test"]
 }

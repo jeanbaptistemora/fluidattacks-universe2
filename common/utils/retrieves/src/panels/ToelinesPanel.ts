@@ -1,3 +1,4 @@
+/* eslint-disable fp/no-this */
 /* eslint-disable fp/no-mutation */
 import { randomUUID } from "crypto";
 import { existsSync } from "fs";
@@ -5,8 +6,7 @@ import { join } from "path";
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
-// eslint-disable-next-line import/no-extraneous-dependencies, import/no-namespace
-import * as HtmlCreator from "html-creator";
+import HtmlCreator from "html-creator";
 import type { Disposable, Webview, WebviewPanel } from "vscode";
 // eslint-disable-next-line import/no-unresolved
 import { Uri, ViewColumn, window } from "vscode";
@@ -144,7 +144,9 @@ export class ToeLinesPanel {
 
     this.currentPanel.dispose();
 
+    // eslint-disable-next-line fp/no-loops
     while (this.disposables.length) {
+      // eslint-disable-next-line fp/no-mutating-methods
       const disposable = this.disposables.pop();
       if (disposable) {
         disposable.dispose();
@@ -192,7 +194,12 @@ export class ToeLinesPanel {
         attributes: { style: "padding: 1rem" },
         content: [
           {
-            attributes: { "aria-label": "Basic" },
+            attributes: { appearance: "primary", id: "hiddenButton" },
+            content: "Hidden attacked",
+            type: "vscode-button",
+          },
+          {
+            attributes: { "aria-label": "Basic", id: "toeLinesDataGrid" },
             content: [getHeaders(), ...lines],
             type: "vscode-data-grid",
           },

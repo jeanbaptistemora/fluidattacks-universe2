@@ -5,7 +5,7 @@ import { glob } from "glob";
 // eslint-disable-next-line import/no-unresolved
 import { workspace } from "vscode";
 
-function removeFilesCallback(err: Error | null, paths: string[]): void {
+function removeFilesCallback(_err: Error | null, paths: string[]): void {
   paths.forEach((path: string): void => {
     rmSync(path, { force: true, recursive: true });
   });

@@ -18,15 +18,19 @@ module.exports = {
     "import",
     "jsx-a11y",
     "prettier",
-    "eslint-plugin-import",
+    "react",
+    "react-hooks",
   ],
   extends: [
     "eslint:all",
     "plugin:@typescript-eslint/all",
+    "plugin:fp/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
     "plugin:jsx-a11y/strict",
     "plugin:prettier/recommended",
+    "plugin:react/all",
+    "plugin:storybook/recommended",
     "prettier",
   ],
   settings: {
@@ -34,34 +38,24 @@ module.exports = {
       "@typescript-eslint/parser": [".ts", ".tsx"],
     },
     "import/resolver": {
-      typescript: {}
+      typescript: {},
     },
   },
+  ignorePatterns: [".eslintrc.js"],
   rules: {
     "capitalized-comments": [
       "error",
       "always",
-      {
-        ignoreConsecutiveComments: true,
-      },
+      { ignoreConsecutiveComments: true },
     ],
     eqeqeq: ["error", "smart"],
-    "func-style": [
-      "error",
-      "declaration",
-      {
-        allowArrowFunctions: true,
-      },
-    ],
+    "func-style": ["error", "declaration", { allowArrowFunctions: true }],
     /*
      * Given exceptions for lodash, jquery and translation wildcard "t"
      */
     "id-length": [
       "error",
-      {
-        exceptions: ["_", "$", "t"],
-        properties: "never",
-      },
+      { exceptions: ["_", "$", "t"], properties: "never" },
     ],
     "line-comment-position": ["error", "above"],
     /*
@@ -98,33 +92,14 @@ module.exports = {
     /*
      * Exception to the next rule: The variable "__typename" is required by Apollo Library
      */
-    "no-underscore-dangle": [
-      "error",
-      {
-        allow: ["__typename"],
-      },
-    ],
-    "no-void": [
-      "error",
-      {
-        allowAsStatement: true,
-      },
-    ],
+    "no-underscore-dangle": ["error", { allow: ["__typename"] }],
+    "no-void": ["error", { allowAsStatement: true }],
     "one-var": ["error", "never"],
     "padding-line-between-statements": [
       "error",
-      {
-        blankLine: "always",
-        prev: "*",
-        next: "return",
-      },
+      { blankLine: "always", prev: "*", next: "return" },
     ],
-    "sort-imports": [
-      "error",
-      {
-        ignoreDeclarationSort: true,
-      },
-    ],
+    "sort-imports": ["error", { ignoreDeclarationSort: true }],
     "prettier/prettier": [
       "error",
       {},
@@ -134,9 +109,7 @@ module.exports = {
     ],
     "@typescript-eslint/ban-ts-comment": [
       "error",
-      {
-        "ts-expect-error": "allow-with-description",
-      },
+      { "ts-expect-error": "allow-with-description" },
     ],
     /*
      * Useful when migrating from TSLint to ESLint
@@ -212,12 +185,7 @@ module.exports = {
      */
     "@typescript-eslint/no-unsafe-argument": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        argsIgnorePattern: "^_",
-      },
-    ],
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     /*
      * This rule must be disabled as it can report incorrect errors in conflict
      * with with rule eslint/object-curly-spacing. Official plugin doc
@@ -260,24 +228,15 @@ module.exports = {
     "fp/no-unused-expression": "off",
     "fp/no-nil": "off",
     "fp/no-class": "off",
+    "fp/no-this": "off",
     "import/default": "error",
     "import/export": "error",
     "import/exports-last": "error",
     "import/first": "error",
     "import/group-exports": "error",
     "import/newline-after-import": "error",
-    "import/no-absolute-path": [
-      "error",
-      {
-        commonjs: false,
-      },
-    ],
-    "import/no-cycle": [
-      "error",
-      {
-        ignoreExternal: true,
-      },
-    ],
+    "import/no-absolute-path": ["error", { commonjs: false }],
+    "import/no-cycle": ["error", { ignoreExternal: true }],
     "import/no-default-export": "error",
     "import/no-deprecated": "error",
     /*
@@ -288,9 +247,7 @@ module.exports = {
     "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": [
       "error",
-      {
-        optionalDependencies: false,
-      },
+      { optionalDependencies: false },
     ],
     "import/no-named-as-default": "error",
     "import/no-named-as-default-member": "error",
@@ -298,20 +255,12 @@ module.exports = {
     "import/no-namespace": "error",
     "import/no-self-import": "error",
     "import/no-unresolved": "error",
-    "import/no-useless-path-segments": [
-      "error",
-      {
-        noUselessIndex: true,
-      },
-    ],
+    "import/no-useless-path-segments": ["error", { noUselessIndex: true }],
     "import/no-webpack-loader-syntax": "error",
     "import/order": [
       "error",
       {
-        alphabetize: {
-          order: "asc",
-          caseInsensitive: true,
-        },
+        alphabetize: { order: "asc", caseInsensitive: true },
         groups: ["builtin", "external", "sibling"],
         "newlines-between": "always",
       },
@@ -327,6 +276,45 @@ module.exports = {
      * https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/master/docs/rules/no-onchange.md
      */
     "jsx-a11y/no-onchange": "off",
+    /*
+     * This rule requires the type attribute to be a string literal, because of
+     * that it has a conflic with react/jsx-curly-brace-presence
+     */
+    "react/button-has-type": "off",
+    "react/jsx-boolean-value": ["error", "always"],
+    "react/jsx-curly-brace-presence": ["error", "always"],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        extensions: [".tsx"],
+      },
+    ],
+    "react/jsx-fragments": ["error", "element"],
+    "react/jsx-max-depth": "off",
+    "react/jsx-no-bind": [
+      "error",
+      {
+        allowFunctions: true,
+      },
+    ],
+    /*
+     * Turned off until an easy way to exclude context provider values in
+     * tests is found
+     */
+    "react/jsx-no-constructed-context-values": "off",
+    /*
+     * "allowedStrings" is not working once the @typescript-eslint@4.15.2
+     * plugin is updated. Affected string changed by its Unicode equivalent
+     */
+    "react/jsx-no-literals": ["error"],
+    "react/function-component-definition": [
+      "error",
+      {
+        namedComponents: "arrow-function",
+      },
+    ],
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error",
     "@typescript-eslint/parameter-properties": [
       1,
       {

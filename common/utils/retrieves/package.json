@@ -1,12 +1,16 @@
 {
   "activationEvents": [
-    "onCommand:retrieves.helloWorld"
+    "onCommand:vscode-react-webview-starter.openWebview"
   ],
   "categories": [
     "Other"
   ],
   "contributes": {
     "commands": [
+      {
+        "command": "vscode-react-webview-starter.openWebview",
+        "title": "React Webview: Open webview"
+      },
       {
         "command": "retrieves.clone",
         "title": "Clone"
@@ -27,16 +31,6 @@
       }
     ],
     "menus": {
-      "view/item/context": [
-        {
-          "command": "retrieves.clone",
-          "when": "view == user_groups && viewItem == gitRoot"
-        },
-        {
-          "command": "retrieves.lines",
-          "when": "view == user_groups && viewItem == gitRoot"
-        }
-      ],
       "editor/title/context": [
         {
           "command": "retrieves.clone",
@@ -49,6 +43,16 @@
           "command": "retrieves.clone",
           "group": "git",
           "when": "config.git.enabled && resourcePath =~ **/services/groups/([a-z]*)/fusion/([a-z]*)$/"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "retrieves.clone",
+          "when": "view == user_groups && viewItem == gitRoot"
+        },
+        {
+          "command": "retrieves.lines",
+          "when": "view == user_groups && viewItem == gitRoot"
         }
       ]
     },
@@ -80,53 +84,83 @@
     "glob": "^8.1.0",
     "graphql": "^16.6.0",
     "html-creator": "^0.6.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "simple-git": "^3.15.1",
     "tar-stream": "^3.0.0",
     "tmp": "^0.2.1"
   },
   "description": "",
   "devDependencies": {
-    "@types/glob": "^8.0.0",
-    "@types/mocha": "^10.0.1",
+    "@estruyf/vscode": "^1.1.0",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
     "@types/tar-stream": "^2.2.2",
     "@types/tmp": "^0.2.3",
-    "@types/vscode": "^1.74.0",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "@typescript-eslint/parser": "5.41.0",
-    "@vscode/test-electron": "^2.2.0",
+    "@types/uuid": "^8.3.4",
+    "@types/vscode": "^1.71.0",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "@vscode/test-electron": "^2.1.5",
     "@vscode/vsce": "^2.16.0",
-    "eslint": "8.14.0",
+    "css-loader": "^6.7.1",
+    "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-formatter-codeframe": "^7.32.1",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-import": "^2.27.4",
+    "eslint-plugin-jest": "^27.2.1",
+    "eslint-plugin-jest-formatting": "^3.1.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "mocha": "^10.1.0",
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.6.10",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss-loader": "^7.0.1",
     "prettier": "^2.8.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^3.0.2",
+    "style-loader": "^3.3.1",
     "ts-loader": "^9.4.1",
-    "typescript": "^4.9.3",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "typescript": "^4.7.4",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "displayName": "retrieves",
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.71.0"
   },
-  "main": "./out/extension.js",
+  "main": "./dist/extension.js",
   "name": "retrieves",
   "publisher": "fluidattacks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/estruyf/vscode-react-webview-template"
+  },
   "scripts": {
+    "clean": "rimraf dist",
     "compile": "webpack",
     "compile-tests": "tsc -p . --outDir out",
-    "lint": "eslint . --ext '.ts' --fix",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts,tsx --fix --format codeframe",
+    "package": "npm run clean && npm-run-all --parallel package:*",
+    "package:ext": "webpack --mode production --config ./webpack/extension.config.js",
+    "package:wv": "webpack --mode production --config ./webpack/webview.config.js",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
-    "watch": "webpack --watch",
-    "watch-tests": "tsc -p . -w --outDir out"
+    "vscode:prepublish": "npm run package",
+    "watch": "npm-run-all --parallel watch:*",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
+    "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.11.0"
+  "version": "0.0.1"
 }

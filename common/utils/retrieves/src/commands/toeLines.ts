@@ -27,8 +27,11 @@ async function getToeLines(
       })
   );
 
+  // eslint-disable-next-line fp/no-let
   let { edges } = result;
+  // eslint-disable-next-line fp/no-let
   let { hasNextPage } = result.pageInfo;
+  // eslint-disable-next-line fp/no-loops
   while (hasNextPage) {
     // eslint-disable-next-line no-await-in-loop
     const next = await Promise.resolve(
