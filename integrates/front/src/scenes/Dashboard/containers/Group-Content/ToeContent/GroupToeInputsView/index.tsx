@@ -10,7 +10,7 @@ import type {
 } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
@@ -495,9 +495,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     void refetch();
   }, [refetch]);
 
-  function toggleAdd(): void {
+  const toggleAdd = useCallback((): void => {
     setIsAdding(!isAdding);
-  }
+  }, [isAdding]);
 
   const handleOnMarkAsAttackedCompleted = (
     result: FetchResult<IUpdateToeInputResultAttr>
@@ -546,9 +546,9 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     setIsMarkingAsAttacked(false);
   }
 
-  function enabledRows(row: Row<IToeInputData>): boolean {
+  const enabledRows = useCallback((row: Row<IToeInputData>): boolean => {
     return row.original.bePresent;
-  }
+  }, []);
 
   return (
     <React.StrictMode>
