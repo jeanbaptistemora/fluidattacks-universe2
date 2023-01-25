@@ -42,9 +42,15 @@ from github import (
     GitCommit as GitHubCommit,
     Github,
 )
+from github.GithubException import (
+    BadCredentialsException,
+)
 import gitlab
 from gitlab.const import (
     AccessLevel,
+)
+from gitlab.exceptions import (
+    GitlabAuthenticationError,
 )
 from itertools import (
     chain,
@@ -226,15 +232,21 @@ async def get_gitlab_commit_counts(
     projects: tuple[str, ...],
 ) -> tuple[int, ...]:
 
-    return await collect(
-        tuple(
-            in_thread(
-                _get_gitlab_commit_count, token=token, project_id=project_id
-            )
-            for project_id in projects
-        ),
-        workers=1,
-    )
+    try:
+        return await collect(
+            tuple(
+                in_thread(
+                    _get_gitlab_commit_count,
+                    token=token,
+                    project_id=project_id,
+                )
+                for project_id in projects
+            ),
+            workers=1,
+        )
+    except GitlabAuthenticationError as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_gitlab_commit_count(token: str, project_id: str) -> int:
@@ -249,13 +261,19 @@ async def get_gitlab_commit(
     token: str,
     projects: tuple[str, ...],
 ) -> tuple[tuple[dict, ...], ...]:
-    return await collect(
-        tuple(
-            in_thread(_get_gitlab_commit, token=token, project_id=project_id)
-            for project_id in projects
-        ),
-        workers=1,
-    )
+    try:
+        return await collect(
+            tuple(
+                in_thread(
+                    _get_gitlab_commit, token=token, project_id=project_id
+                )
+                for project_id in projects
+            ),
+            workers=1,
+        )
+    except GitlabAuthenticationError as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_gitlab_commit(token: str, project_id: str) -> tuple[dict, ...]:
@@ -271,15 +289,19 @@ async def get_gitlab_last_commit(
     token: str,
     projects: tuple[str, ...],
 ) -> tuple[tuple[dict, ...], ...]:
-    return await collect(
-        tuple(
-            in_thread(
-                _get_gitlab_last_commit, token=token, project_id=project_id
-            )
-            for project_id in projects
-        ),
-        workers=1,
-    )
+    try:
+        return await collect(
+            tuple(
+                in_thread(
+                    _get_gitlab_last_commit, token=token, project_id=project_id
+                )
+                for project_id in projects
+            ),
+            workers=1,
+        )
+    except GitlabAuthenticationError as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_gitlab_last_commit(token: str, project_id: str) -> tuple[dict, ...]:
@@ -293,13 +315,19 @@ def _get_gitlab_last_commit(token: str, project_id: str) -> tuple[dict, ...]:
 async def get_github_repos_commits(
     *, token: str, repositories: tuple[str, ...]
 ) -> tuple[tuple[GitHubCommit.GitCommit, ...], ...]:
-    return await collect(
-        tuple(
-            in_thread(_get_github_repos_commits, token=token, repo_id=repo_id)
-            for repo_id in repositories
-        ),
-        workers=1,
-    )
+    try:
+        return await collect(
+            tuple(
+                in_thread(
+                    _get_github_repos_commits, token=token, repo_id=repo_id
+                )
+                for repo_id in repositories
+            ),
+            workers=1,
+        )
+    except BadCredentialsException as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_github_repos_commits(
@@ -313,7 +341,11 @@ def _get_github_repos_commits(
 
 
 async def get_github_repos(*, token: str) -> tuple[BasicRepoData, ...]:
-    return await in_thread(_get_github_repos, token=token)
+    try:
+        return await in_thread(_get_github_repos, token=token)
+    except BadCredentialsException as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_github_repos(token: str) -> tuple[BasicRepoData, ...]:
@@ -338,7 +370,11 @@ def _get_github_repos(token: str) -> tuple[BasicRepoData, ...]:
 
 
 async def get_gitlab_projects(*, token: str) -> tuple[BasicRepoData, ...]:
-    return await in_thread(_get_gitlab_projects, token=token)
+    try:
+        return await in_thread(_get_gitlab_projects, token=token)
+    except GitlabAuthenticationError as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+    return tuple()
 
 
 def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
