@@ -23,6 +23,7 @@ PLATFORMS = {
     "gem": "gem",
     "go": "go",
     "packagist": "composer",
+    "conan": "conan",
 }
 ALLOWED_RANGES = ("=", "<", ">", ">=", "<=")
 
