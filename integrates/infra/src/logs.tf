@@ -9,6 +9,11 @@ resource "aws_cloudwatch_log_group" "fluid" {
   }
 }
 
+resource "aws_cloudwatch_log_stream" "streams" {
+  name           = "streams_hooks"
+  log_group_name = aws_cloudwatch_log_group.fluid.name
+}
+
 data "aws_iam_policy_document" "opensearch-log-policy" {
   statement {
     actions = [
