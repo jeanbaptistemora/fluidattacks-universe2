@@ -57,9 +57,7 @@ async def test_add() -> None:
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
-    historic_toe_lines: tuple[
-        ToeLines, ...
-    ] = await loaders.toe_lines_historic.clear_all().load(
+    historic_toe_lines = await loaders.toe_lines_historic.clear_all().load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
@@ -131,9 +129,7 @@ async def test_update() -> None:
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
-    historic_toe_lines: tuple[
-        ToeLines, ...
-    ] = await loaders.toe_lines_historic.load(
+    historic_toe_lines = await loaders.toe_lines_historic.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
@@ -186,9 +182,7 @@ async def test_remove() -> None:
         )
     )
     assert current_value
-    historic_toe_lines: tuple[
-        ToeLines, ...
-    ] = await loaders.toe_lines_historic.load(
+    historic_toe_lines = await loaders.toe_lines_historic.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )

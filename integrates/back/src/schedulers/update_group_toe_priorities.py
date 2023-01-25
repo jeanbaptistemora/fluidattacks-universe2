@@ -107,7 +107,7 @@ async def update_toe_lines(
 async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     group_name: str,
     current_date: datetime,
-    group_toe_lines: tuple[ToeLines, ...],
+    group_toe_lines: list[ToeLines],
     predicted_files: csv.DictReader,
 ) -> None:
     loaders: Dataloaders = get_new_context()

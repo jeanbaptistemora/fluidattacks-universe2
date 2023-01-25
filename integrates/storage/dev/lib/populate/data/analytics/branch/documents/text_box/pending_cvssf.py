@@ -28,7 +28,6 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
-    ToeLines,
 )
 from decimal import (
     Decimal,
@@ -45,7 +44,7 @@ async def generate_one(
     group_name: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
     group: Group = await loaders.group.load(group_name)
-    toe_lines: tuple[ToeLines, ...] = await loaders.group_toe_lines.load_nodes(
+    toe_lines = await loaders.group_toe_lines.load_nodes(
         GroupToeLinesRequest(
             group_name=group_name,
         )

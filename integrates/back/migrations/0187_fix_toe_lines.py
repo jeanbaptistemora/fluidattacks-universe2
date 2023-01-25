@@ -28,7 +28,6 @@ from db_model import (
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
-    ToeLinesConnection,
     ToeLinesMetadataToUpdate,
 )
 from decorators import (
@@ -47,9 +46,6 @@ from newutils import (
 )
 from settings import (
     LOGGING,
-)
-from typing import (
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -84,9 +80,7 @@ async def main() -> None:
         for group in await groups_domain.get_all(attributes=["project_name"])
     )
     LOGGER_CONSOLE.info("Getting lines", extra={"extra": {}})
-    groups_toe_lines_connections: Tuple[
-        ToeLinesConnection, ...
-    ] = await loaders.group_toe_lines.load_many(
+    groups_toe_lines_connections = await loaders.group_toe_lines.load_many(
         [
             GroupToeLinesRequest(group_name=group_name)
             for group_name in group_names
