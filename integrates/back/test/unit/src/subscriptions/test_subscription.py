@@ -69,7 +69,7 @@ async def test_update() -> None:
 
     assert await get_all_subscriptions(
         frequency=SubscriptionFrequency.HOURLY
-    ) == (
+    ) == [
         Subscription(
             email="integratesmanager@gmail.com",
             entity=SubscriptionEntity.GROUP,
@@ -81,10 +81,10 @@ async def test_update() -> None:
                 )
             ),
         ),
-    )
+    ]
     assert await get_all_subscriptions(
         frequency=SubscriptionFrequency.DAILY
-    ) == (
+    ) == [
         Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
@@ -96,10 +96,10 @@ async def test_update() -> None:
                 )
             ),
         ),
-    )
+    ]
     assert await get_all_subscriptions(
         frequency=SubscriptionFrequency.WEEKLY
-    ) == (
+    ) == [
         Subscription(
             email="test_user_email@test.com",
             entity=SubscriptionEntity.ORGANIZATION,
@@ -111,10 +111,10 @@ async def test_update() -> None:
                 )
             ),
         ),
-    )
+    ]
     assert await get_all_subscriptions(
         frequency=SubscriptionFrequency.MONTHLY
-    ) == (
+    ) == [
         Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
@@ -137,11 +137,11 @@ async def test_update() -> None:
                 )
             ),
         ),
-    )
+    ]
 
     loaders = get_new_context()
 
-    assert await loaders.stakeholder_subscriptions.load(test_data_1.email) == (
+    assert await loaders.stakeholder_subscriptions.load(test_data_1.email) == [
         Subscription(
             email="test_user_email@test.com",
             entity=SubscriptionEntity.ORGANIZATION,
@@ -152,9 +152,9 @@ async def test_update() -> None:
                     "2022-10-27T20:07:57+00:00"
                 )
             ),
-        ),
-    )
-    assert await loaders.stakeholder_subscriptions.load(test_data_2.email) == (
+        )
+    ]
+    assert await loaders.stakeholder_subscriptions.load(test_data_2.email) == [
         Subscription(
             email="test_user_email2@test.com",
             entity=SubscriptionEntity.GROUP,
@@ -165,11 +165,11 @@ async def test_update() -> None:
                     "2022-10-27T20:07:57+00:00"
                 )
             ),
-        ),
-    )
+        )
+    ]
     assert await loaders.stakeholder_subscriptions.load(
         "integratesmanager@gmail.com",
-    ) == (
+    ) == [
         Subscription(
             email="integratesmanager@gmail.com",
             entity=SubscriptionEntity.GROUP,
@@ -180,11 +180,11 @@ async def test_update() -> None:
                     "2022-02-22T20:07:57+00:00"
                 )
             ),
-        ),
-    )
+        )
+    ]
     assert await loaders.stakeholder_subscriptions.load(
         "integratesmanager@fluidattacks.com",
-    ) == (
+    ) == [
         Subscription(
             email="integratesmanager@fluidattacks.com",
             entity=SubscriptionEntity.GROUP,
@@ -207,7 +207,7 @@ async def test_update() -> None:
                 )
             ),
         ),
-    )
+    ]
 
 
 @pytest.mark.changes_db
@@ -241,7 +241,7 @@ async def test_historic_sub_add_and_delete() -> None:
             test_data_1.entity,
             test_data_1.subject,
         )
-    ) == (test_data_1,)
+    ) == [test_data_1]
 
     assert await loaders.stakeholder_historic_subscription.load(
         (
@@ -249,7 +249,7 @@ async def test_historic_sub_add_and_delete() -> None:
             test_data_2.entity,
             test_data_2.subject,
         )
-    ) == (test_data_2,)
+    ) == [test_data_2]
 
     await remove(
         email=test_data_1.email,
@@ -265,7 +265,7 @@ async def test_historic_sub_add_and_delete() -> None:
                 test_data_1.subject,
             )
         )
-        == tuple()
+        == []
     )
 
     assert await loaders.stakeholder_historic_subscription.load(
@@ -274,4 +274,4 @@ async def test_historic_sub_add_and_delete() -> None:
             test_data_2.entity,
             test_data_2.subject,
         )
-    ) == (test_data_2,)
+    ) == [test_data_2]

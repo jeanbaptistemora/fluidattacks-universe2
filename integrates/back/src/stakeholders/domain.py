@@ -48,9 +48,6 @@ from db_model.stakeholders.types import (
     StakeholderState,
     StakeholderTours,
 )
-from db_model.subscriptions.types import (
-    Subscription,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -105,9 +102,7 @@ async def acknowledge_concurrent_session(email: str) -> None:
 
 async def remove(email: str) -> None:
     loaders: Dataloaders = get_new_context()
-    subscriptions: tuple[
-        Subscription, ...
-    ] = await loaders.stakeholder_subscriptions.load(email)
+    subscriptions = await loaders.stakeholder_subscriptions.load(email)
     await collect(
         tuple(
             subscriptions_model.remove(
@@ -183,7 +178,7 @@ async def update_information(
     role = modified_data["role"]
     if responsibility:
         try:
-            _update_information(
+            await _update_information(
                 context=context,
                 email=email,
                 group_name=group_name,
@@ -415,7 +410,7 @@ async def verify(
     ):
         raise SamePhoneNumber()
 
-    if phone_to_verify is new_phone:
+    if new_phone and phone_to_verify is new_phone:
         await verify_operations.validate_mobile(
             phone_number=get_international_format_phone_number(new_phone)
         )

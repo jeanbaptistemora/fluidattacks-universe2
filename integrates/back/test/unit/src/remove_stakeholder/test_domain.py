@@ -176,4 +176,4 @@ async def test_remove_stakeholder() -> None:
     await remove_stakeholder_all_organizations(
         email=email, modified_by=modified_by
     )
-    assert await loaders.stakeholder_subscriptions.load(email) == ()
+    assert await loaders.stakeholder_subscriptions.load(email) == []

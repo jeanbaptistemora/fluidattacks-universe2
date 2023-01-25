@@ -117,7 +117,7 @@ async def can_subscribe(
 
 async def get_all_subscriptions(
     *, frequency: SubscriptionFrequency
-) -> tuple[Subscription, ...]:
+) -> list[Subscription]:
     return await subscriptions_model.get_all_subscriptions(frequency=frequency)
 
 

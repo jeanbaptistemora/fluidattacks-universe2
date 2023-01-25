@@ -28,14 +28,9 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
-async def _get_stakeholder_subscriptions(
-    *, email: str
-) -> tuple[Subscription, ...]:
+async def _get_stakeholder_subscriptions(*, email: str) -> list[Subscription]:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_subscription"],
         values={"email": email},
@@ -50,12 +45,12 @@ async def _get_stakeholder_subscriptions(
         table=TABLE,
     )
 
-    return tuple(format_subscriptions(item) for item in response.items)
+    return [format_subscriptions(item) for item in response.items]
 
 
 async def get_all_subscriptions(
     *, frequency: SubscriptionFrequency
-) -> tuple[Subscription, ...]:
+) -> list[Subscription]:
     primary_key = keys.build_key(
         facet=ALL_SUBSCRIPTIONS_INDEX_METADATA,
         values={
@@ -75,7 +70,7 @@ async def get_all_subscriptions(
         index=index,
     )
 
-    return tuple(format_subscriptions(item) for item in response.items)
+    return [format_subscriptions(item) for item in response.items]
 
 
 async def _get_historic_subscription(
@@ -83,7 +78,7 @@ async def _get_historic_subscription(
     email: str,
     entity: SubscriptionEntity,
     subject: str,
-) -> tuple[Subscription, ...]:
+) -> list[Subscription]:
     primary_key = keys.build_key(
         facet=TABLE.facets["stakeholder_historic_subscription"],
         values={
@@ -102,16 +97,18 @@ async def _get_historic_subscription(
         table=TABLE,
     )
 
-    return tuple(format_subscriptions(item) for item in response.items)
+    return [format_subscriptions(item) for item in response.items]
 
 
 class StakeholderSubscriptionsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[tuple[Subscription, ...], ...]:
-        return await collect(
-            _get_stakeholder_subscriptions(email=email) for email in emails
+        self, emails: list[str]
+    ) -> list[list[Subscription]]:
+        return list(
+            await collect(
+                _get_stakeholder_subscriptions(email=email) for email in emails
+            )
         )
 
 
@@ -119,13 +116,15 @@ class StakeholderHistoricSubscriptionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        requests: Iterable[tuple[str, SubscriptionEntity, str]],
-    ) -> tuple[tuple[Subscription, ...], ...]:
-        return await collect(
-            _get_historic_subscription(
-                email=email,
-                entity=entity,
-                subject=subject,
+        requests: list[tuple[str, SubscriptionEntity, str]],
+    ) -> list[list[Subscription]]:
+        return list(
+            await collect(
+                _get_historic_subscription(
+                    email=email,
+                    entity=entity,
+                    subject=subject,
+                )
+                for email, entity, subject in requests
             )
-            for email, entity, subject in requests
         )
