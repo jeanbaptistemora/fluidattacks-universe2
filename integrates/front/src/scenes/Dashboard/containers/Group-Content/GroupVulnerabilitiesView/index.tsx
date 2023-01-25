@@ -57,6 +57,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
   const [requirementData, setRequirementData] = useState<
     Record<string, IRequirementData> | undefined
   >();
+
   const openRemediationModal = useCallback(
     (
       selectedVulnerabilities: IVulnRowAttr[],
@@ -66,17 +67,20 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     },
     []
   );
-  function closeRemediationModal(): void {
+
+  const closeRemediationModal = useCallback((): void => {
     setIsOpen(false);
-  }
+  }, []);
+
   const [isVerifying, setIsVerifying] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const toggleEdit = useCallback((): void => {
     setIsEditing(!isEditing);
   }, [isEditing]);
-  function handleCloseUpdateModal(): void {
+
+  const handleCloseUpdateModal = useCallback((): void => {
     setIsEditing(false);
-  }
+  }, []);
 
   const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
     useState(false);
@@ -129,9 +133,10 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     }
   }, [data, fetchMore]);
 
-  function toggleModal(): void {
+  const toggleModal = useCallback((): void => {
     setIsOpen(true);
-  }
+  }, []);
+
   const toggleRequestVerify = useCallback((): void => {
     if (isRequestingVerify) {
       setIsRequestingVerify(!isRequestingVerify);
