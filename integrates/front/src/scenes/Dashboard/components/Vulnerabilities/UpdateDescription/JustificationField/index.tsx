@@ -33,7 +33,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = (
   );
 
   return (
-    <div className={"nt2 w-100"}>
+    <div className={"mb3 nt2 w-100"}>
       <Editable
         currentValue={lastTreatment.justification as string}
         isEditing={canUpdateVulnsTreatment || canRequestZeroRiskVuln}

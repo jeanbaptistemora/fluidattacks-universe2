@@ -36,7 +36,7 @@ const ExternalBtsField: React.FC<IExternalBtsFieldProps> = (
       isAcceptedUndefinedSelected ||
       isInProgressSelected ||
       !hasNewVulnSelected ? (
-        <div className={"nt2 w-100"}>
+        <div className={"mb3 nt2 w-100"}>
           <EditableField
             component={FormikText}
             currentValue={groupExternalBugTrackingSystem(vulnerabilities)}

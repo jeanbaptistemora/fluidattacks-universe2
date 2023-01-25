@@ -98,7 +98,7 @@ const FormikTags: React.FC<Readonly<TInputTagsProps>> = ({
       tooltip={tooltip}
       variant={variant}
     >
-      <div className={"flex flex-wrap"}>
+      <div className={"flex flex-wrap w-100"}>
         {tags.map(
           (tag): JSX.Element => (
             <Tag key={tag} variant={"gray"}>
