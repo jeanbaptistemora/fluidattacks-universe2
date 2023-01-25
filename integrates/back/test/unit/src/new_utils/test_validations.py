@@ -91,6 +91,7 @@ def test_validate_email_address() -> None:
     assert validations.validate_email_address("test@unittesting.com")
     with pytest.raises(InvalidField):
         assert validations.validate_email_address("testunittesting.com")
+    with pytest.raises(InvalidField):
         assert validations.validate_email_address("test+1@unittesting.com")
 
 
@@ -111,8 +112,8 @@ def test_validate_email_address_deco() -> None:
     email = Email(address="test@unittesting.com")
     assert decorated_func_obj(email_test=email)
     with pytest.raises(InvalidField):
-
         decorated_func(email="testunittesting.com")
+    with pytest.raises(InvalidField):
         decorated_func(email="test+1@unittesting.com")
 
 
@@ -137,6 +138,7 @@ def test_validate_field_length_deco() -> None:
         return test_string
 
     assert decorated_func(test_string="testlength")
+    decorated_func(test_string=None)
     with pytest.raises(InvalidFieldLength):
 
         @validations.validate_field_length_deco(
@@ -307,9 +309,10 @@ def test_validate_file_exists_deco() -> None:
 def test_validate_file_name() -> None:
     validations.validate_file_name("test123.py")
     with pytest.raises(InvalidChar):
-        assert validations.validate_file_name("test.test.py")  # type: ignore
-        assert validations.validate_file_name(  # type: ignore
-            "test=$invalidname!.py",
+        validations.validate_file_name("test.test.py")
+    with pytest.raises(InvalidChar):
+        validations.validate_file_name(
+            "test|=$invalidname!.py",
         )
 
 
@@ -320,8 +323,8 @@ def test_validate_file_name_deco() -> None:
 
     assert decorated_func(file_name="test123.py")
     with pytest.raises(InvalidChar):
-
-        decorated_func(file_name="test123.py")
+        decorated_func(file_name="test|=$invalidname!.py")
+    with pytest.raises(InvalidChar):
         decorated_func(file_name="test.test.py")
 
     class TestClass(NamedTuple):
@@ -518,6 +521,30 @@ def test_validate_sanitized_csv_input_deco(
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_sequence_decreasing() -> None:
+    assert validations.sequence_decreasing(
+        "a", ord("a"), [ord("c"), ord("b")], False
+    ) == [ord("c"), ord("b"), ord("a")]
+    assert validations.sequence_decreasing(
+        "c", ord("c"), [ord("a"), ord("b")], True
+    ) == [ord("c")]
+    assert validations.sequence_decreasing(
+        "$", ord("$"), [ord("c"), ord("b")], False
+    ) == [ord("$")]
+
+
+def test_sequence_increasing() -> None:
+    assert validations.sequence_increasing(
+        "c", ord("c"), [ord("a"), ord("b")], True
+    ) == [ord("a"), ord("b"), ord("c")]
+    assert validations.sequence_increasing(
+        "a", ord("a"), [ord("c"), ord("b")], False
+    ) == [ord("a")]
+    assert validations.sequence_increasing(
+        "$", ord("$"), [ord("a"), ord("b")], True
+    ) == [ord("$")]
+
+
 @pytest.mark.parametrize(
     ["value", "length", "should_fail"],
     [
@@ -547,8 +574,11 @@ def test_has_sequence(value: str, length: int, should_fail: bool) -> None:
 
 def test_validate_sequence() -> None:
     validations.validate_sequence(value="a1221b")
+    validations.validate_sequence(value="no")
     with pytest.raises(InvalidReportFilter):
         validations.validate_sequence(value="aabcc")
+    with pytest.raises(InvalidReportFilter):
+        validations.validate_sequence(value="6543221")
 
 
 def test_validate_sequence_deco() -> None:
@@ -1071,6 +1101,15 @@ def test_validate_url_deco() -> None:
         )
 
 
+def test_validate_markdown() -> None:
+    validations.validate_markdown(text="<h1>Heading level\t 1</h1>")
+    validations.validate_markdown(
+        text="ftp://user:password@ftp.example.com:21/path/to/file"
+    )
+    with pytest.raises(InvalidMarkdown):
+        validations.validate_markdown(text="<span>Example Text</span>")
+
+
 def test_validate_markdown_deco() -> None:
     @validations.validate_markdown_deco("text")
     def decorated_func(text: str) -> str:
@@ -1258,6 +1297,12 @@ def test_validate_no_duplicate_drafts_deco() -> None:
             title_field="001. SQL injection - C Sharp SQL API",
             drafts_field=(),
             findings_field=test_finding,
+        )
+    with pytest.raises(DuplicateDraftFound):
+        decorated_func(
+            title_field="001. SQL injection - C Sharp SQL API",
+            drafts_field=test_finding,
+            findings_field=(),
         )
 
 
@@ -1449,4 +1494,5 @@ def test_check_and_set_min_time_to_remediate() -> None:
     assert validations.check_and_set_min_time_to_remediate("10") == 10
     with pytest.raises(InvalidMinTimeToRemediate):
         validations.check_and_set_min_time_to_remediate("-5")
+    with pytest.raises(InvalidMinTimeToRemediate):
         validations.check_and_set_min_time_to_remediate("abc")
