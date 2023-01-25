@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-no-bind */
+/* eslint @typescript-eslint/no-unsafe-member-access: 0*/
 import type { FC, ReactNode } from "react";
-import React from "react";
+import React, { useCallback } from "react";
 import ReactTooltip from "react-tooltip";
 
 import type { ITooltipBoxProps } from "./styles";
@@ -24,40 +24,41 @@ const Tooltip: FC<ITooltipProps> = ({
   place,
   tip = "",
   hide = tip === "",
-}: Readonly<ITooltipProps>): JSX.Element => (
-  <TooltipBox disp={disp} effect={effect} id={id} place={place} tip={tip}>
-    {children}
-    {hide ? undefined : (
-      <ReactTooltip
-        delayShow={500}
-        effect={effect}
-        id={id}
-        overridePosition={(
-          { left, top }: ITooltipPosition,
-          _currentEvent,
-          _currentTarget,
-          node
-        ): ITooltipPosition => {
-          if (node === null) {
-            return { left, top };
-          }
-          const doc = document.documentElement;
+}: Readonly<ITooltipProps>): JSX.Element => {
+  const handleOverridePosition = useCallback(
+    (
+      { left, top }: ITooltipPosition,
+      _currentEvent,
+      _currentTarget,
+      node
+    ): ITooltipPosition => {
+      if (node === null) {
+        return { left, top };
+      }
+      const doc = document.documentElement;
 
-          return {
-            left: Math.min(
-              Math.max(left, 0),
-              doc.clientWidth - node.clientWidth
-            ),
-            top: Math.min(
-              Math.max(top, 0),
-              doc.clientHeight - node.clientHeight
-            ),
-          };
-        }}
-      />
-    )}
-  </TooltipBox>
-);
+      return {
+        left: Math.min(Math.max(left, 0), doc.clientWidth - node.clientWidth),
+        top: Math.min(Math.max(top, 0), doc.clientHeight - node.clientHeight),
+      };
+    },
+    []
+  );
+
+  return (
+    <TooltipBox disp={disp} effect={effect} id={id} place={place} tip={tip}>
+      {children}
+      {hide ? undefined : (
+        <ReactTooltip
+          delayShow={500}
+          effect={effect}
+          id={id}
+          overridePosition={handleOverridePosition}
+        />
+      )}
+    </TooltipBox>
+  );
+};
 
 export type { ITooltipProps };
 export { Tooltip };
