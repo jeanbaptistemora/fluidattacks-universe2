@@ -80,9 +80,9 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
 
   const [isHandleAcceptanceModalOpen, setIsHandleAcceptanceModalOpen] =
     useState(false);
-  function toggleHandleAcceptanceModal(): void {
+  const toggleHandleAcceptanceModal = useCallback((): void => {
     setIsHandleAcceptanceModalOpen(!isHandleAcceptanceModalOpen);
-  }
+  }, [isHandleAcceptanceModalOpen]);
 
   // GraphQL operations
   const { data: vulnsZeroRisk } = useQuery<IGroupVulnerabilities>(
@@ -154,7 +154,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
     }
   }, [isRequestingVerify, remediationModal, t, vulnerabilities]);
 
-  function toggleVerify(): void {
+  const toggleVerify = useCallback((): void => {
     if (isVerifying) {
       setIsVerifying(!isVerifying);
     } else {
@@ -174,7 +174,7 @@ const GroupVulnerabilitiesView: React.FC = (): JSX.Element => {
         setIsVerifying(!isVerifying);
       }
     }
-  }
+  }, [isVerifying, remediationModal, t, vulnerabilities]);
 
   useEffect((): void => {
     const filterToSearch = vulnFilters.reduce(
