@@ -112,19 +112,27 @@ async def _resolve_from_event_id(context: Any, identifier: str) -> str:
 
 
 @validations.validate_finding_id_deco("identifier")
-async def _resolve_from_finding_id(*, context: Any, identifier: str) -> str:
+async def _resolve_from_finding_id(
+    *, context: Any, identifier: str
+) -> Optional[str]:
     finding_loader = context.loaders.finding
-    finding: Finding = await finding_loader.load(identifier)
-    return finding.group_name
+    finding: Optional[Finding] = await finding_loader.load(identifier)
+    if finding:
+        return finding.group_name
+    raise FindingNotFound()
 
 
-async def _resolve_from_vuln_id(context: Any, identifier: str) -> str:
+async def _resolve_from_vuln_id(
+    context: Any, identifier: str
+) -> Optional[str]:
     loaders = context.loaders
     vulnerability: Vulnerability = await loaders.vulnerability.load(identifier)
     group_name = await _resolve_from_finding_id(
         context=context, identifier=vulnerability.finding_id
     )
-    return group_name
+    if group_name:
+        return group_name
+    raise FindingNotFound()
 
 
 def authenticate_session(func: TFun) -> TFun:
@@ -449,7 +457,10 @@ def require_service_white(func: TVar) -> TVar:
 @validations.validate_finding_id_deco("finding_id")
 async def _get_finding_id(*, context: Any, finding_id: str) -> None:
     finding_loader = context.loaders.finding
-    await finding_loader.load(finding_id)
+    if finding_loader:
+        await finding_loader.load(finding_id)
+    else:
+        raise FindingNotFound()
 
 
 def require_finding_access(func: TVar) -> TVar:

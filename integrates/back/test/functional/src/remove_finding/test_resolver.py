@@ -1,9 +1,6 @@
 from . import (
     get_result,
 )
-from custom_exceptions import (
-    FindingNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -36,8 +33,7 @@ async def test_remove_finding(
     assert result["data"]["removeFinding"]["success"]
 
     loaders.finding.clear(finding_id)
-    with pytest.raises(FindingNotFound):
-        assert await loaders.finding.load(finding_id)
+    assert not await loaders.finding.load(finding_id)
 
 
 @pytest.mark.asyncio

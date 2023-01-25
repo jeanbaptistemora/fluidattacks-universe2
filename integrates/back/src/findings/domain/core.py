@@ -14,6 +14,7 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
+    FindingNotFound,
     InvalidCommentParent,
     MachineCanNotOperate,
     PermissionDenied,
@@ -549,10 +550,14 @@ async def get_where(loaders: Dataloaders, finding_id: str) -> str:
 
 async def has_access_to_finding(
     loaders: Dataloaders, email: str, finding_id: str
-) -> bool:
+) -> Optional[bool]:
     """Verify if the user has access to a finding submission."""
-    finding: Finding = await loaders.finding.load(finding_id)
-    return await authz.has_access_to_group(loaders, email, finding.group_name)
+    finding: Optional[Finding] = await loaders.finding.load(finding_id)
+    if finding:
+        return await authz.has_access_to_group(
+            loaders, email, finding.group_name
+        )
+    raise FindingNotFound()
 
 
 def is_deleted(finding: Finding) -> bool:

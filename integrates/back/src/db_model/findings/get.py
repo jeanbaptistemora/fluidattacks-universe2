@@ -21,9 +21,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    FindingNotFound,
-)
 from db_model import (
     TABLE,
 )
@@ -39,10 +36,11 @@ from itertools import (
 )
 from typing import (
     Iterable,
+    Optional,
 )
 
 
-async def _get_finding_by_id(finding_id: str) -> Finding:
+async def _get_finding_by_id(finding_id: str) -> Optional[Finding]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"id": finding_id},
@@ -60,7 +58,7 @@ async def _get_finding_by_id(finding_id: str) -> Finding:
     )
 
     if not response.items:
-        raise FindingNotFound()
+        return None
 
     return format_finding(response.items[0])
 
@@ -201,7 +199,7 @@ class FindingLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
-    ) -> tuple[Finding, ...]:
+    ) -> tuple[Optional[Finding], ...]:
         return await collect(tuple(map(_get_finding_by_id, finding_ids)))
 
 
