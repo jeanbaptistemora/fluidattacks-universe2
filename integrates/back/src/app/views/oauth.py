@@ -10,6 +10,17 @@ from authlib.integrations.base_client.errors import (
 from authlib.integrations.starlette_client import (
     OAuthError,
 )
+from authz.enforcer import (
+    get_organization_level_enforcer,
+)
+from batch.dal import (
+    IntegratesBatchQueue,
+    put_action,
+)
+from batch.enums import (
+    Action,
+    Product,
+)
 from contextlib import (
     suppress,
 )
@@ -42,6 +53,7 @@ from db_model.organizations.types import (
 from httpx import (
     ConnectTimeout,
 )
+import json
 import logging
 import logging.config
 from newutils.datetime import (
@@ -94,11 +106,15 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def do_gitlab_oauth(request: Request) -> Response:
+    loaders: Dataloaders = get_new_context()
     organization_id: str = request.query_params["subject"]
     user_info = await get_jwt_content(request)
     email: str = user_info["user_email"]
-    if not await has_access(
-        loaders=get_new_context(),
+    enforcer = await get_organization_level_enforcer(loaders, email)
+    if not enforcer(
+        organization_id, "api_mutations_add_credentials_mutate"
+    ) or not await has_access(
+        loaders=loaders,
         email=email,
         organization_id=organization_id,
     ):
@@ -121,8 +137,11 @@ async def do_gitlab_oauth(request: Request) -> Response:
     return RedirectResponse(url="/home")
 
 
-async def oauth_gitlab(request: Request) -> RedirectResponse:
+async def oauth_gitlab(  # pylint: disable=too-many-locals
+    request: Request,
+) -> RedirectResponse:
     try:
+        loaders: Dataloaders = get_new_context()
         user_info = await get_jwt_content(request)
         email: str = user_info["user_email"]
         try:
@@ -132,12 +151,16 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
             LOGGER.exception(ex, extra=dict(extra=locals()))
             return RedirectResponse(url="/home")
 
-        if not await has_access(
-            loaders=get_new_context(),
+        enforcer = await get_organization_level_enforcer(loaders, email)
+        if not enforcer(
+            organization_id, "api_mutations_add_credentials_mutate"
+        ) or not await has_access(
+            loaders=loaders,
             email=email,
             organization_id=organization_id,
         ):
             raise PermissionError("Access denied")
+
         redirect = get_redirect_url(request, "oauth_gitlab")
         params = {"subject": organization_id}
         url = f"{redirect}?{urlencode(params)}"
@@ -155,10 +178,10 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
         response = RedirectResponse(url="/home")
         return response
 
-    loaders: Dataloaders = get_new_context()
     name = f'Gitlab OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
-        id=(str(uuid.uuid4())),
+        id=credentials_id,
         organization_id=organization_id,
         owner=user_info["user_email"],
         state=CredentialsState(
@@ -197,15 +220,29 @@ async def oauth_gitlab(request: Request) -> RedirectResponse:
     organization: Organization = await loaders.organization.load(
         organization_id
     )
+    await put_action(
+        action=Action.UPDATE_ORGANIZATION_REPOSITORIES,
+        vcpus=2,
+        product_name=Product.INTEGRATES,
+        queue=IntegratesBatchQueue.SMALL,
+        additional_info=json.dumps({"credentials_id": credentials_id}),
+        entity=organization_id.lower().lstrip("org#"),
+        attempt_duration_seconds=7200,
+        subject="integrates@fluidattacks.com",
+    )
 
     return RedirectResponse(url=f"/orgs/{organization.name}/credentials")
 
 
 async def do_github_oauth(request: Request) -> Response:
+    loaders: Dataloaders = get_new_context()
     organization_id: str = request.query_params["subject"]
     user_info = await get_jwt_content(request)
     email: str = user_info["user_email"]
-    if not await has_access(
+    enforcer = await get_organization_level_enforcer(loaders, email)
+    if not enforcer(
+        organization_id, "api_mutations_add_credentials_mutate"
+    ) or not await has_access(
         loaders=get_new_context(),
         email=email,
         organization_id=organization_id,
@@ -233,6 +270,7 @@ async def do_github_oauth(request: Request) -> Response:
 
 async def oauth_github(request: Request) -> RedirectResponse:
     try:
+        loaders: Dataloaders = get_new_context()
         user_info = await get_jwt_content(request)
         email: str = user_info["user_email"]
         try:
@@ -242,8 +280,11 @@ async def oauth_github(request: Request) -> RedirectResponse:
             LOGGER.exception(exc, extra=dict(extra=locals()))
             return RedirectResponse(url="/home")
 
-        if not await has_access(
-            loaders=get_new_context(),
+        enforcer = await get_organization_level_enforcer(loaders, email)
+        if not enforcer(
+            organization_id, "api_mutations_add_credentials_mutate"
+        ) or not await has_access(
+            loaders=loaders,
             email=email,
             organization_id=organization_id,
         ):
@@ -257,10 +298,10 @@ async def oauth_github(request: Request) -> RedirectResponse:
         response = RedirectResponse(url="/home")
         return response
 
-    loaders: Dataloaders = get_new_context()
     name = f'Github OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
+    credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
-        id=(str(uuid.uuid4())),
+        id=credentials_id,
         organization_id=organization_id,
         owner=user_info["user_email"],
         state=CredentialsState(
@@ -292,6 +333,16 @@ async def oauth_github(request: Request) -> RedirectResponse:
     await credentials_model.add(credential=credential)
     organization: Organization = await loaders.organization.load(
         organization_id
+    )
+    await put_action(
+        action=Action.UPDATE_ORGANIZATION_REPOSITORIES,
+        vcpus=2,
+        product_name=Product.INTEGRATES,
+        queue=IntegratesBatchQueue.SMALL,
+        additional_info=json.dumps({"credentials_id": credentials_id}),
+        entity=organization_id.lower().lstrip("org#"),
+        attempt_duration_seconds=7200,
+        subject="integrates@fluidattacks.com",
     )
 
     return RedirectResponse(url=f"/orgs/{organization.name}/credentials")
