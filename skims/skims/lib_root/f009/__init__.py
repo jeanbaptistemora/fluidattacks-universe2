@@ -1,4 +1,5 @@
 from lib_root.f009.conf_files import (
+    sensitive_info_in_dotnet as json_sensitive_info_in_dotnet,
     sensitive_info_json as json_sensitive_info,
 )
 from lib_root.f009.javascript import (
@@ -16,5 +17,6 @@ FINDING: core_model.FindingEnum = core_model.FindingEnum.F009
 QUERIES: graph_model.Queries = (
     (FINDING, javascript_crypto_js_credentials),
     (FINDING, json_sensitive_info),
+    (FINDING, json_sensitive_info_in_dotnet),
     (FINDING, typescript_crypto_ts_credentials),
 )

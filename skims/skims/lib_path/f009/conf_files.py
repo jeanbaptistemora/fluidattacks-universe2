@@ -6,10 +6,6 @@ from jose.jwt import (
 )
 from lib_path.common import (
     get_vulnerabilities_blocking,
-    get_vulnerabilities_from_iterator_blocking,
-)
-from metaloaders.model import (
-    Type as ModelType,
 )
 from model.core_model import (
     MethodsEnum,
@@ -20,10 +16,6 @@ from pyparsing import (
     Regex,
 )
 import re
-from typing import (
-    Any,
-    Iterator,
-)
 
 
 def _validate_jwt(token: str) -> bool:
@@ -117,39 +109,4 @@ def web_config_user_pass(content: str, path: str) -> Vulnerabilities:
         grammar=Regex(r'(username|password)=".+?"', flags=re.IGNORECASE),
         path=path,
         method=MethodsEnum.WEB_USER_PASS,
-    )
-
-
-def _sensitive_info_in_dotnet_json(
-    template: Any,
-) -> Iterator[Any]:
-    if template.data_type == ModelType.OBJECT:
-        regex_email = re.compile(
-            r"([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+"
-        )
-        services = template.inner.get("OutlookServices")
-        if (
-            services
-            and services.inner.get("Email")
-            and services.inner.get("Password")
-            and isinstance(services.inner.get("Email").data, str)
-            and re.fullmatch(
-                regex_email,
-                services.inner.get("Email").data,
-            )
-        ):
-            yield services.start_line, services.start_column
-
-
-def sensitive_info_in_dotnet_json(
-    content: str, path: str, template: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f009.sensitive_key_in_json.description",
-        iterator=_sensitive_info_in_dotnet_json(
-            template=template,
-        ),
-        path=path,
-        method=MethodsEnum.SENSITIVE_INFO_DOTNET_JSON,
     )
