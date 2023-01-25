@@ -24,25 +24,29 @@ describe("TodoReattacksView", (): void => {
     result: {
       data: {
         me: {
-          findingReattacks: [
-            {
-              groupName: "group1",
-              id: "436992569",
-              title: "038. Business information leak",
-              verificationSummary: {
-                requested: 1,
-              },
-              vulnerabilitiesToReattackConnection: {
-                edges: [
-                  {
-                    node: {
-                      lastRequestedReattackDate: "2022-07-12 16:42:53",
-                    },
+          findingReattacksConnection: {
+            edges: [
+              {
+                node: {
+                  groupName: "group1",
+                  id: "436992569",
+                  title: "038. Business information leak",
+                  verificationSummary: {
+                    requested: 1,
                   },
-                ],
+                  vulnerabilitiesToReattackConnection: {
+                    edges: [
+                      {
+                        node: {
+                          lastRequestedReattackDate: "2022-07-12 16:42:53",
+                        },
+                      },
+                    ],
+                  },
+                },
               },
-            },
-          ],
+            ],
+          },
           userEmail: "test@fluidattacks.com",
         },
       },

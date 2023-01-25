@@ -50,7 +50,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
   const dataset: IFindingFormatted[] = formatFindings(
     _.isUndefined(data) || _.isEmpty(data)
       ? []
-      : _.flatten(data.me.findingReattacks)
+      : _.flatten(data.me.findingReattacksConnection.edges)
   );
 
   const goToFinding = useCallback(

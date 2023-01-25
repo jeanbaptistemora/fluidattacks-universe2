@@ -23,7 +23,7 @@ interface IFindingToReattackConnection {
 
 interface IGetTodoReattacks {
   me: {
-    findingReattacks: ITodoFindingToReattackAttr[];
+    findingReattacksConnection: IFindingToReattackConnection;
   };
 }
 

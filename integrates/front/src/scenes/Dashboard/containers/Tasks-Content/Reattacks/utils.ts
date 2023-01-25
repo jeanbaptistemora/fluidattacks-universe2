@@ -2,6 +2,7 @@ import _ from "lodash";
 
 import type {
   IFindingFormatted,
+  IFindingToReattackEdge,
   ITodoFindingToReattackAttr,
   IVulnerabilityEdge,
 } from "scenes/Dashboard/containers/Tasks-Content/Reattacks/types";
@@ -26,17 +27,19 @@ const noDate = (finding: IFindingFormatted): IFindingFormatted | undefined => {
 };
 
 const formatFindings = (
-  findings: ITodoFindingToReattackAttr[]
+  findings: IFindingToReattackEdge[]
 ): IFindingFormatted[] => {
-  const formatted = findings.map(
-    (finding): IFindingFormatted => ({
-      ...finding,
-      oldestReattackRequestedDate: getOldestRequestedReattackDate(
-        finding.vulnerabilitiesToReattackConnection.edges
-      ),
-      url: `https://app.fluidattacks.com/groups/${finding.groupName}/vulns/${finding.id}/locations`,
-    })
-  );
+  const formatted = findings
+    .map((edge): ITodoFindingToReattackAttr => edge.node)
+    .map(
+      (finding): IFindingFormatted => ({
+        ...finding,
+        oldestReattackRequestedDate: getOldestRequestedReattackDate(
+          finding.vulnerabilitiesToReattackConnection.edges
+        ),
+        url: `https://app.fluidattacks.com/groups/${finding.groupName}/vulns/${finding.id}/locations`,
+      })
+    );
 
   const fmtd = formatted.filter(noDate);
 
