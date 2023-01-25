@@ -1,6 +1,6 @@
 import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { Fragment, useEffect, useState } from "react";
@@ -19,7 +19,6 @@ import type {
   IStakeholderAttrs,
 } from "scenes/Dashboard/components/AddUserModal/types";
 import { Can } from "utils/authz/Can";
-import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import { validTextField } from "utils/validations";
@@ -239,8 +238,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                         </Text>
                         {t("userModal.responsibility")}
                       </Text>
-                      <Field
-                        component={FormikText}
+                      <Input
                         name={"responsibility"}
                         placeholder={t("userModal.responsibilityPlaceholder")}
                         type={"text"}
