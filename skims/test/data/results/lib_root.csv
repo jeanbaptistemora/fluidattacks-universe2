@@ -4351,56 +4351,176 @@ F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insec_create
+F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,16,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
+   1 | axiosAlias = require(""axios"");
+   2 |  kyAlias from ""ky"";
+   3 |
+   4 | getData = async () => {
+   5 | ould fail line 6
+   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
+   7 | lStorage.setItem(""axiosKey"", axiosResponse);
+   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
+   9 |
+  10 | ould fail line 10
+  11 | t fetchResponse = await fetch(""/movies"");
+  12 | lStorage.setItem(""fetchKey"", fetchResponse);
+  13 |
+  14 | ould fail line 10
+  15 | t kyResponse = await kyAlias(""/movies"");
+> 16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
+  17 |
+  18 | ouldn't fail
+  19 | t safeVar = await otherFunction(""/example"");
+  20 | lStorage.setItem(""safe"", safeVar);
+  21 |
+     ^ Col 6
+",javascript.javascript_local_storage_sensitive_data_async
+F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,12,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
+   1 | axiosAlias = require(""axios"");
+   2 |  kyAlias from ""ky"";
+   3 |
+   4 | getData = async () => {
+   5 | ould fail line 6
+   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
+   7 | lStorage.setItem(""axiosKey"", axiosResponse);
+   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
+   9 |
+  10 | ould fail line 10
+  11 | t fetchResponse = await fetch(""/movies"");
+> 12 | lStorage.setItem(""fetchKey"", fetchResponse);
+  13 |
+  14 | ould fail line 10
+  15 | t kyResponse = await kyAlias(""/movies"");
+  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
+  17 |
+  18 | ouldn't fail
+  19 | t safeVar = await otherFunction(""/example"");
+  20 | lStorage.setItem(""safe"", safeVar);
+  21 |
+     ^ Col 6
+",javascript.javascript_local_storage_sensitive_data_async
+F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,8,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
+   1 | axiosAlias = require(""axios"");
+   2 |  kyAlias from ""ky"";
+   3 |
+   4 | getData = async () => {
+   5 | ould fail line 6
+   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
+   7 | lStorage.setItem(""axiosKey"", axiosResponse);
+>  8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
+   9 |
+  10 | ould fail line 10
+  11 | t fetchResponse = await fetch(""/movies"");
+  12 | lStorage.setItem(""fetchKey"", fetchResponse);
+  13 |
+  14 | ould fail line 10
+  15 | t kyResponse = await kyAlias(""/movies"");
+  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
+  17 |
+  18 | ouldn't fail
+  19 | t safeVar = await otherFunction(""/example"");
+  20 | lStorage.setItem(""safe"", safeVar);
+  21 |
+     ^ Col 6
+",javascript.javascript_local_storage_sensitive_data_async
+F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,7,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
+   1 | axiosAlias = require(""axios"");
+   2 |  kyAlias from ""ky"";
+   3 |
+   4 | getData = async () => {
+   5 | ould fail line 6
+   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
+>  7 | lStorage.setItem(""axiosKey"", axiosResponse);
+   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
+   9 |
+  10 | ould fail line 10
+  11 | t fetchResponse = await fetch(""/movies"");
+  12 | lStorage.setItem(""fetchKey"", fetchResponse);
+  13 |
+  14 | ould fail line 10
+  15 | t kyResponse = await kyAlias(""/movies"");
+  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
+  17 |
+  18 | ouldn't fail
+  19 | t safeVar = await otherFunction(""/example"");
+  20 | lStorage.setItem(""safe"", safeVar);
+  21 |
+     ^ Col 6
+",javascript.javascript_local_storage_sensitive_data_async
+F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_callback.js,23,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_callback.js,"
+   7 |
+   8 | ly the request above could also be done as
+   9 |
+  10 | er"", {
+  11 |  {
+  12 | 2345,
+  13 |
+  14 |
+  15 | ction (res) {
+  16 | orage.setItem(""sensDataII"", res);
+  17 |
+  18 |
+  19 | ait implementation
+  20 | ion getUser() {
+  21 |
+  22 | esponseIII = await axios.get(""/user?ID=12345"");
+> 23 | orage.setItem(""sensDataIII"", responseIII);
+  24 | error) {
+  25 | .error(error);
+  26 |
+  27 |
+     ^ Col 11
+",javascript.javascript_local_storage_sensitive_data_async
 F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,14,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
-   1 | // unsafe object
-   2 | const xhr = new XMLHttpRequest();
-   3 | xhr.open(""GET"", ""http://example.com/test"", true);
-   4 | xhr.send(null);
+   1 |  unsafe object
+   2 | nst xhr = new XMLHttpRequest();
+   3 | r.open(""GET"", ""http://example.com/test"", true);
+   4 | r.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-  10 | localStorage.setItem(""unsafe"", xhr.response);
-  11 | localStorage.setItem(""anyKey"", xhr.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+  10 | calStorage.setItem(""unsafe"", xhr.response);
+  11 | calStorage.setItem(""anyKey"", xhr.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-> 14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+> 14 | calStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 2
 ",javascript.javascript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,11,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
-   1 | // unsafe object
-   2 | const xhr = new XMLHttpRequest();
-   3 | xhr.open(""GET"", ""http://example.com/test"", true);
-   4 | xhr.send(null);
+   1 |  unsafe object
+   2 | nst xhr = new XMLHttpRequest();
+   3 | r.open(""GET"", ""http://example.com/test"", true);
+   4 | r.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-  10 | localStorage.setItem(""unsafe"", xhr.response);
-> 11 | localStorage.setItem(""anyKey"", xhr.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+  10 | calStorage.setItem(""unsafe"", xhr.response);
+> 11 | calStorage.setItem(""anyKey"", xhr.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-  14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+  14 | calStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 2
 ",javascript.javascript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
-   1 | // unsafe object
-   2 | const xhr = new XMLHttpRequest();
-   3 | xhr.open(""GET"", ""http://example.com/test"", true);
-   4 | xhr.send(null);
+   1 |  unsafe object
+   2 | nst xhr = new XMLHttpRequest();
+   3 | r.open(""GET"", ""http://example.com/test"", true);
+   4 | r.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-> 10 | localStorage.setItem(""unsafe"", xhr.response);
-  11 | localStorage.setItem(""anyKey"", xhr.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+> 10 | calStorage.setItem(""unsafe"", xhr.response);
+  11 | calStorage.setItem(""anyKey"", xhr.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-  14 | localStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+  14 | calStorage.setItem(""unsafe"", JSON.stringify(xhr.response));
+     ^ Col 2
 ",javascript.javascript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/js_xmlhttpreq_callback.js,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_xmlhttpreq_callback.js,"
    1 | e object
@@ -4450,56 +4570,80 @@ F344,lines,namespace/skims/test/data/lib_root/f344/js_xmlhttpreq_callback.js,19,
   25 |
      ^ Col 6
 ",javascript.javascript_local_storage_with_sensitive_data
+F344,lines,namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,12,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,"
+   1 |  axios from ""axios"";
+   2 |  ky from ""ky"";
+   3 |
+   4 | getData = async () => {
+   5 | ould fail line 6
+   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
+   7 | lStorage.setItem(""axiosKey"", axiosResponse);
+   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
+   9 |
+  10 | ould fail line 10
+  11 | t fetchResponse = await fetch(""/movies"");
+> 12 | lStorage.setItem(""fetchKey"", fetchResponse);
+  13 |
+  14 | ould fail line 10
+  15 | t kyResponse = await kyAlias(""/movies"");
+  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
+  17 |
+  18 | ouldn't fail
+  19 | t safeVar = await otherFunction(""/example"");
+  20 | lStorage.setItem(""safe"", safeVar);
+  21 |
+     ^ Col 6
+",typescript.typescript_local_storage_sensitive_data_async
 F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,14,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
-   1 | // unsafe object
-   2 | const res = new XMLHttpRequest();
-   3 | res.open(""GET"", ""http://example.com/test"", true);
-   4 | res.send(null);
+   1 |  unsafe object
+   2 | nst res = new XMLHttpRequest();
+   3 | s.open(""GET"", ""http://example.com/test"", true);
+   4 | s.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-  10 | localStorage.setItem(""unsafe"", res.response);
-  11 | localStorage.setItem(""anyKey"", res.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+  10 | calStorage.setItem(""unsafe"", res.response);
+  11 | calStorage.setItem(""anyKey"", res.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-> 14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+> 14 | calStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 2
 ",typescript.typescript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,11,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
-   1 | // unsafe object
-   2 | const res = new XMLHttpRequest();
-   3 | res.open(""GET"", ""http://example.com/test"", true);
-   4 | res.send(null);
+   1 |  unsafe object
+   2 | nst res = new XMLHttpRequest();
+   3 | s.open(""GET"", ""http://example.com/test"", true);
+   4 | s.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-  10 | localStorage.setItem(""unsafe"", res.response);
-> 11 | localStorage.setItem(""anyKey"", res.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+  10 | calStorage.setItem(""unsafe"", res.response);
+> 11 | calStorage.setItem(""anyKey"", res.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-  14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+  14 | calStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 2
 ",typescript.typescript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_insecure_ls_usage.ts,"
-   1 | // unsafe object
-   2 | const res = new XMLHttpRequest();
-   3 | res.open(""GET"", ""http://example.com/test"", true);
-   4 | res.send(null);
+   1 |  unsafe object
+   2 | nst res = new XMLHttpRequest();
+   3 | s.open(""GET"", ""http://example.com/test"", true);
+   4 | s.send(null);
    5 |
-   6 | // strings storage is allowed (Safe line)
-   7 | localStorage.setItem(""anyKey"", ""anyStringValue"");
+   6 |  strings storage is allowed (Safe line)
+   7 | calStorage.setItem(""anyKey"", ""anyStringValue"");
    8 |
-   9 | // Direct storage with http obj MUST FAIL
-> 10 | localStorage.setItem(""unsafe"", res.response);
-  11 | localStorage.setItem(""anyKey"", res.responseText);
+   9 |  Direct storage with http obj MUST FAIL
+> 10 | calStorage.setItem(""unsafe"", res.response);
+  11 | calStorage.setItem(""anyKey"", res.responseText);
   12 |
-  13 | // JSON.parse usage with http obj MUST FAIL
-  14 | localStorage.setItem(""unsafe"", JSON.stringify(res.response));
-     ^ Col 0
+  13 |  JSON.parse usage with http obj MUST FAIL
+  14 | calStorage.setItem(""unsafe"", JSON.stringify(res.response));
+     ^ Col 2
 ",typescript.typescript_local_storage_with_sensitive_data
 F344,lines,namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,10,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_xmlhttpreq_callback.ts,"
    1 | e object

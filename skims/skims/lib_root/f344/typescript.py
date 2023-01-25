@@ -51,8 +51,6 @@ def ts_local_storage_sens_data_async(
     shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method: MethodsEnum = MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_ASYNC
-
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
@@ -60,7 +58,7 @@ def ts_local_storage_sens_data_async(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in local_storage_from_async(graph, method):
+            for n_id in local_storage_from_async(graph):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
