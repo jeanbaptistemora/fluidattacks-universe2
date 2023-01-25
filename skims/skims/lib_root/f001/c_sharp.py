@@ -4,9 +4,6 @@ from lib_root.utilities.c_sharp import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -71,7 +68,6 @@ def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 
 
 def sql_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {"ExecuteSqlCommand"}
@@ -101,7 +97,6 @@ def sql_injection(
 
 
 def sql_user_params(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_UNSAFE_SQL_STATEMENT

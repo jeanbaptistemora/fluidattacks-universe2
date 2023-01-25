@@ -1,9 +1,6 @@
 from lib_root.f021.common import (
     insecure_dynamic_xpath,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def javascript_dynamic_xpath(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_DYNAMIC_X_PATH

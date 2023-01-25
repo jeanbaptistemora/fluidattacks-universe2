@@ -2,9 +2,6 @@ from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
     yield_syntax_graph_object_creation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -79,7 +76,6 @@ def is_type_handle_dangerous(
 
 # https://docs.microsoft.com/en-us/dotnet/standard/serialization/binaryformatter-security-guide
 def insecure_deserialization(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_objects = {
@@ -111,7 +107,6 @@ def insecure_deserialization(
 
 
 def check_xml_serializer(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
@@ -136,7 +131,6 @@ def check_xml_serializer(
 
 
 def js_deserialization(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
@@ -161,7 +155,6 @@ def js_deserialization(
 
 
 def type_name_handling(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP

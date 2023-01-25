@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -70,7 +67,6 @@ def analyze_insecure_cookie(graph: Graph, obj_id: NId, al_id: NId) -> bool:
 
 
 def java_insecure_cookie(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_COOKIE

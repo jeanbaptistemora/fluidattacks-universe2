@@ -1,9 +1,6 @@
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -45,7 +42,6 @@ def eval_insecure_assembly(graph: Graph, n_id: NId) -> bool:
 
 
 def insecure_assembly_load(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP

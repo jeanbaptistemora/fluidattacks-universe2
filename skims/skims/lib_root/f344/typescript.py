@@ -3,9 +3,6 @@ from lib_root.f344.common import (
     local_storage_from_callback,
     local_storage_from_http,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -24,7 +21,6 @@ from typing import (
 
 
 def ts_local_storage_with_sensitive_data(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method: MethodsEnum = MethodsEnum.TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA
@@ -48,7 +44,6 @@ def ts_local_storage_with_sensitive_data(
 
 
 def ts_local_storage_sens_data_async(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:
@@ -70,7 +65,6 @@ def ts_local_storage_sens_data_async(
 
 
 def ts_local_storage_sens_data_callback(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method: MethodsEnum = MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_CALLBACK

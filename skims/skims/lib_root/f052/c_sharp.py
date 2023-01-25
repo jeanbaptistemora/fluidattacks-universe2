@@ -5,9 +5,6 @@ from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -138,7 +135,6 @@ def is_managed_mode_insecure(graph: Graph, n_id: NId) -> Optional[NId]:
 
 
 def c_sharp_insecure_keys(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_KEYS
@@ -164,7 +160,6 @@ def c_sharp_insecure_keys(
 
 
 def c_sharp_rsa_secure_mode(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_RSA_SECURE_MODE
@@ -201,7 +196,6 @@ def c_sharp_rsa_secure_mode(
 
 
 def c_sharp_managed_secure_mode(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_objects = {"AesManaged"}
@@ -229,7 +223,6 @@ def c_sharp_managed_secure_mode(
 
 
 def c_sharp_insecure_cipher(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphShardMetadataLanguage.CSHARP
@@ -267,7 +260,6 @@ def c_sharp_insecure_cipher(
 
 
 def c_sharp_insecure_hash(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphShardMetadataLanguage.CSHARP
@@ -309,7 +301,6 @@ def c_sharp_insecure_hash(
 
 
 def c_sharp_disabled_strong_crypto(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_DISABLED_STRONG_CRYPTO
@@ -342,7 +333,6 @@ def c_sharp_disabled_strong_crypto(
 
 
 def c_sharp_obsolete_key_derivation(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_OBSOLETE_KEY_DERIVATION

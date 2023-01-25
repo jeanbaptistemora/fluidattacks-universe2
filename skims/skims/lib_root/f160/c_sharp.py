@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -25,7 +22,6 @@ from utils.string import (
 
 
 def c_sharp_file_create_temp_file(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_CREATE_TEMP_FILE

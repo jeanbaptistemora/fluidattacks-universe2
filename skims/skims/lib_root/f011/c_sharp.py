@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -53,7 +50,6 @@ def is_insec_squema(
 
 
 def xsl_transform_object(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XSL_TRANSFORM_OBJECT
@@ -83,7 +79,6 @@ def xsl_transform_object(
 
 
 def schema_by_url(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_SCHEMA_BY_URL

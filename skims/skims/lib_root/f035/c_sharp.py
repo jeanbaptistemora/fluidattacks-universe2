@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -111,7 +108,6 @@ def get_eval_danger(graph: Graph, n_id: NId) -> bool:
 
 # https://docs.microsoft.com/es-es/aspnet/core/security/authentication/identity-configuration
 def weak_credential_policy(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:
@@ -134,7 +130,6 @@ def weak_credential_policy(
 
 
 def no_password(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_NO_PASSWORD

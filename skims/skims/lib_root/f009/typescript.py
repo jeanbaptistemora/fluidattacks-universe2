@@ -1,9 +1,6 @@
 from lib_root.f009.common import (
     crypto_credentials,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def ts_crypto_js_credentials(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:

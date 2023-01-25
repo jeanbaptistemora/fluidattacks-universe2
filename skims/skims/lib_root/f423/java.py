@@ -1,9 +1,6 @@
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
 )
@@ -37,7 +34,6 @@ def get_parent_method_name(graph: Graph, n_id: str) -> str:
 
 
 def uses_exit_method(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JAVA_USES_SYSTEM_EXIT

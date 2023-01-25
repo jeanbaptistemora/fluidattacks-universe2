@@ -7,9 +7,6 @@ from lib_root.f052.common import (
     insecure_hash_library,
     insecure_rsa_keypair,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -28,7 +25,6 @@ from typing import (
 
 
 def javascript_insecure_hash(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_HASH
@@ -53,7 +49,6 @@ def javascript_insecure_hash(
 
 
 def javascript_insecure_create_cipher(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_CREATE_CIPHER
@@ -77,7 +72,6 @@ def javascript_insecure_create_cipher(
 
 
 def javascript_insecure_encrypt(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_ENCRYPT
@@ -101,7 +95,6 @@ def javascript_insecure_encrypt(
 
 
 def javascript_insecure_ecdh_key(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_ECDH_KEY
@@ -125,7 +118,6 @@ def javascript_insecure_ecdh_key(
 
 
 def javascript_insecure_rsa_keypair(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_RSA_KEYPAIR
@@ -149,7 +141,6 @@ def javascript_insecure_rsa_keypair(
 
 
 def javascript_insecure_ec_keypair(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_EC_KEYPAIR
@@ -173,7 +164,6 @@ def javascript_insecure_ec_keypair(
 
 
 def javascript_insecure_hash_library(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_HASH_LIBRARY

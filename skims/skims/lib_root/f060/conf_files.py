@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -38,7 +35,6 @@ def has_insecure_flag(graph: Graph, nid: NId, key: str) -> Iterator[NId]:
 
 
 def allowed_hosts(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_ALLOWED_HOSTS
@@ -66,7 +62,6 @@ def allowed_hosts(
 
 
 def disable_host_check(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_DISABLE_HOST_CHECK

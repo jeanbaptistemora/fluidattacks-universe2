@@ -1,9 +1,6 @@
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
     graph_model,
@@ -77,7 +74,6 @@ def is_session_vuln(
 
 
 def host_key_checking(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     java = GraphLanguage.JAVA

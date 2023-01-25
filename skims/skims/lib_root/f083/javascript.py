@@ -1,9 +1,6 @@
 from lib_root.f083.common import (
     get_vuln_nodes,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def xml_parser(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_XML_PARSER

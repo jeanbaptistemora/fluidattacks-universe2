@@ -1,9 +1,6 @@
 from lib_root.f353.common import (
     insecure_jwt_decode,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
 )
@@ -21,7 +18,6 @@ from typing import (
 
 
 def decode_insecure_jwt_token(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JS_DECODE_INSECURE_JWT_TOKEN

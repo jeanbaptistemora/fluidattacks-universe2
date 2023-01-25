@@ -1,9 +1,6 @@
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -81,7 +78,6 @@ def is_insecure_protocol(
 
 
 def weak_protocol(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_WEAK_PROTOCOL
@@ -122,7 +118,6 @@ def weak_protocol(
 
 
 def service_point_manager_disabled(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
@@ -151,7 +146,6 @@ def service_point_manager_disabled(
 
 
 def insecure_shared_access_protocol(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
@@ -181,7 +175,6 @@ def insecure_shared_access_protocol(
 
 
 def httpclient_no_revocation_list(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_HTTPCLIENT_NO_REVOCATION_LIST

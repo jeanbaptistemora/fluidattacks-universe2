@@ -3,9 +3,6 @@ from lib_root.f371.common import (
     has_innerhtml,
     has_set_inner_html,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
 )
@@ -27,7 +24,6 @@ from typing import (
 
 
 def uses_innerhtml(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JS_USES_INNERHTML
@@ -50,7 +46,6 @@ def uses_innerhtml(
 
 
 def js_bypass_security_trust_url(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_USES_BYPASS_SECURITY_TRUST_URL
@@ -73,7 +68,6 @@ def js_bypass_security_trust_url(
 
 
 def js_dangerously_set_innerhtml(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_USES_DANGEROUSLY_SET_HTML

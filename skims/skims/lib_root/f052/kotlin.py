@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -39,7 +36,6 @@ def get_eval_result(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def kotlin_insecure_hash(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = complete_attrs_on_set(
@@ -91,7 +87,6 @@ def kotlin_insecure_hash(
 
 
 def kotlin_insecure_hash_instance(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_HASH
@@ -129,7 +124,6 @@ def kotlin_insecure_hash_instance(
 
 
 def kotlin_insecure_cipher(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_CIPHER
@@ -168,7 +162,6 @@ def kotlin_insecure_cipher(
 
 
 def kotlin_insecure_cipher_ssl(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_CIPHER_SSL
@@ -204,7 +197,6 @@ def kotlin_insecure_cipher_ssl(
 
 
 def kotlin_insecure_cipher_http(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_CIPHER_HTTP
@@ -238,7 +230,6 @@ def kotlin_insecure_cipher_http(
 
 
 def kotlin_insecure_key_rsa(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_KEY
@@ -274,7 +265,6 @@ def kotlin_insecure_key_rsa(
 
 
 def kotlin_insecure_key_ec(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.KT_INSECURE_KEY_EC

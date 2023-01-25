@@ -4,9 +4,6 @@ from lib_root.utilities.c_sharp import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -51,7 +48,6 @@ def is_node_vuln(
 
 
 def open_redirect(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
@@ -82,7 +78,6 @@ def open_redirect(
 
 
 def unsafe_path_traversal(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_UNSAFE_PATH_TRAVERSAL

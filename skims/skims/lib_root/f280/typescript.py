@@ -2,9 +2,6 @@ from lib_root.f280.common import (
     has_dangerous_param,
     is_insec_invocation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -23,7 +20,6 @@ from typing import (
 
 
 def non_secure_construction_of_cookies(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_NON_SECURE_CONSTRUCTION_OF_COOKIES

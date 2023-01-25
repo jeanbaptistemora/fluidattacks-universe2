@@ -146,5 +146,5 @@ MetadataGraphShardNodes = Iterable[MetadataGraphShardNode]
 GraphShardNode = Tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
-Query = Callable[[ShardDb, GraphDB], core_model.Vulnerabilities]
+Query = Callable[[GraphDB], core_model.Vulnerabilities]
 Queries = Tuple[Tuple[core_model.FindingEnum, Query], ...]

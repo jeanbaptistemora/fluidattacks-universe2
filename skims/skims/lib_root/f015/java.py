@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -39,7 +36,6 @@ def get_eval_danger(graph: Graph, n_id: NId) -> bool:
 
 
 def insecure_authentication(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_AUTHENTICATION

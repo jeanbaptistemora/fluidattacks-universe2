@@ -1,9 +1,6 @@
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -134,7 +131,6 @@ def eval_regex_injection(graph: Graph, n_id: NId) -> bool:
 
 
 def vuln_regular_expression(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_VULN_REGEX
@@ -163,7 +159,6 @@ def vuln_regular_expression(
 
 
 def regex_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_REGEX_INJETCION

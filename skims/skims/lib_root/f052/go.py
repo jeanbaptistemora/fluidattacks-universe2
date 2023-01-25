@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -20,7 +17,6 @@ import utils.graph as g
 
 
 def go_insecure_hash(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {"md4", "md5", "ripemd160", "sha1"}
@@ -51,7 +47,6 @@ def go_insecure_hash(
 
 
 def go_insecure_cipher(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {

@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -42,7 +39,6 @@ def is_insec_input(graph: Graph, n_id: NId) -> bool:
 
 
 def unsafe_xpath_injeciton(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {"evaluate"}

@@ -1,9 +1,6 @@
 from lib_root.f066.common import (
     nid_uses_console_log,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def ts_uses_console_log(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_USES_CONSOLE_LOG

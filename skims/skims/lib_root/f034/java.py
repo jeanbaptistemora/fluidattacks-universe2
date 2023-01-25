@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -66,7 +63,6 @@ def is_weak_random(graph: Graph, obj_id: NId, al_id: NId) -> bool:
 
 
 def java_weak_random(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_WEAK_RANDOM_COOKIE

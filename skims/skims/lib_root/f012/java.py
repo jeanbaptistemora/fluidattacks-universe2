@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -102,7 +99,6 @@ def analyze_jpa_node(graph: Graph, annotation_id: str) -> bool:
 
 
 def jpa_like(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_decorators = complete_attrs_on_set(

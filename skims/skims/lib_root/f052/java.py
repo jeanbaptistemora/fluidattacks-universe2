@@ -4,9 +4,6 @@ from lib_root.utilities.common import (
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -45,7 +42,6 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def java_insecure_pass(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     framework = "org.springframework.security"
@@ -83,7 +79,6 @@ def java_insecure_pass(
 
 
 def java_insecure_key_rsa(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_KEY_RSA
@@ -118,7 +113,6 @@ def java_insecure_key_rsa(
 
 
 def java_insecure_key_ec(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_KEY_EC
@@ -153,7 +147,6 @@ def java_insecure_key_ec(
 
 
 def java_insecure_key_secret(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_KEY_SECRET
@@ -189,7 +182,6 @@ def java_insecure_key_secret(
 
 
 def java_insecure_hash(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     insecure_digests_1 = complete_attrs_on_set(
@@ -239,7 +231,6 @@ def java_insecure_hash(
 
 
 def java_insecure_hash_argument(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_HASH
@@ -274,7 +265,6 @@ def java_insecure_hash_argument(
 
 
 def java_insecure_cipher(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_CIPHER
@@ -312,7 +302,6 @@ def java_insecure_cipher(
 
 
 def java_insecure_cipher_ssl(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_CIPHER_SSL
@@ -347,7 +336,6 @@ def java_insecure_cipher_ssl(
 
 
 def java_insecure_cipher_jmqi(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_CIPHER_JMQI
@@ -384,7 +372,6 @@ def java_insecure_cipher_jmqi(
 
 
 def java_insecure_connection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_CONNECTION

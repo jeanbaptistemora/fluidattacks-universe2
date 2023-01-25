@@ -2,9 +2,6 @@ from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -60,7 +57,6 @@ def is_insecure_cookie_object(graph: Graph, object_nid: str) -> Optional[NId]:
 
 
 def insecurely_generated_cookies(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSEC_COOKIES

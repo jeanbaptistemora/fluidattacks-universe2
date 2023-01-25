@@ -1,9 +1,6 @@
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_object_creation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -39,7 +36,6 @@ def eval_hashes_salt(graph: Graph, n_id: NId) -> bool:
 
 
 def check_hashes_salt(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP

@@ -1,9 +1,6 @@
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -44,7 +41,6 @@ def is_log_sensitive(graph: Graph, n_id: str) -> bool:
 
 
 def sensitive_log_info(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_SENSITIVE_INFO_IN_LOGS

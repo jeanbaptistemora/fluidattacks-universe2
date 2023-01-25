@@ -1,9 +1,6 @@
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -43,7 +40,6 @@ def is_node_danger(graph: Graph, nid: NId) -> bool:
 
 
 def ldap_connections_authenticated(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_LDAP_CONN_AUTH

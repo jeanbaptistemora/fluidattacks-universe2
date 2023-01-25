@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -54,7 +51,6 @@ def analyze_method_vuln(graph: Graph, method_id: NId) -> bool:
 
 
 def java_vuln_regular_expression(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_VULN_REGEX

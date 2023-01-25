@@ -196,7 +196,7 @@ def analyze(
             _graph = get_graph_db(paths=(path,))
             futures = []
             for _, query in queries:
-                future = worker.submit(query, None, _graph)
+                future = worker.submit(query, _graph)
                 future.add_done_callback(
                     partial(_store_results_callback, stores)
                 )

@@ -5,9 +5,6 @@ from lib_root.f063.common import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -26,7 +23,6 @@ from typing import (
 
 
 def typescript_insecure_path_traversal(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_PATH_TRAVERSAL
@@ -51,7 +47,6 @@ def typescript_insecure_path_traversal(
 
 
 def zip_slip_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_ZIP_SLIP

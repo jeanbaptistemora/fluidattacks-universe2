@@ -1,9 +1,6 @@
 from lib_root.f152.common import (
     insecure_http_headers,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def typescript_insecure_header_xframe_options(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_UNSAFE_HTTP_X_FRAME_OPTIONS

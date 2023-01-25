@@ -1,9 +1,6 @@
 from itertools import (
     chain,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -83,7 +80,6 @@ def is_insecure_logging(graph: Graph, n_id: NId) -> bool:
 
 
 def insecure_logging(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP

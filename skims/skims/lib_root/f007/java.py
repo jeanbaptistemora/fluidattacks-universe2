@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
     graph_model,
@@ -17,7 +14,6 @@ from utils import (
 
 
 def csrf_protections_disabled(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     def n_ids() -> Iterable[graph_model.GraphShardNode]:

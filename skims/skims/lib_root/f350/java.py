@@ -1,9 +1,6 @@
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -39,7 +36,6 @@ def eval_trust_manager(graph: Graph, n_id: NId) -> bool:
 
 
 def use_insecure_trust_manager(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:

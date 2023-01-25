@@ -4,9 +4,6 @@ from itertools import (
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -149,7 +146,6 @@ def is_vulnerable_origin(graph: Graph, nid: NId, expr: str) -> bool:
 
 
 def insecure_cors(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
@@ -182,7 +178,6 @@ def insecure_cors(
 
 
 def insecure_cors_origin(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_CORS_ORIGIN

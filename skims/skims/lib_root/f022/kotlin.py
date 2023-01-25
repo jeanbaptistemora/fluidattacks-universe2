@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -36,7 +33,6 @@ def is_unsafe_param(graph: Graph, n_id: NId) -> bool:
 
 
 def unencrypted_channel(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     danger_methods = {"FTPClient", "SMTPClient", "TelnetClient"}

@@ -4,9 +4,6 @@ from lib_root.f211.common import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
     graph_model,
@@ -27,7 +24,6 @@ from typing import (
 
 
 def regex_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
     typescript = GraphLanguage.TYPESCRIPT

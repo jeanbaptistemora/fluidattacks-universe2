@@ -4,9 +4,6 @@ from itertools import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -61,7 +58,6 @@ def search_member_accessed(graph: Graph, members: Set[str]) -> Iterator[NId]:
 
 
 def insec_addheader_write(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSEC_ADDHEADER_WRITE

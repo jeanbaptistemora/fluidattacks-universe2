@@ -4,9 +4,6 @@ from lib_root.f309.common import (
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model import (
     core_model,
 )
@@ -24,7 +21,6 @@ from typing import (
 
 
 def uses_insecure_jwt_token(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.JS_INSECURE_JWT_TOKEN

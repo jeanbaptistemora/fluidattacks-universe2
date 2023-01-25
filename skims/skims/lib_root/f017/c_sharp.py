@@ -2,9 +2,6 @@ from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -68,7 +65,6 @@ def check_pred(graph: Graph, depth: int = 1, elem_jwt: str = "0") -> bool:
 
 
 def verify_decoder(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_VERIFY_DECODER
@@ -96,7 +92,6 @@ def verify_decoder(
 
 
 def jwt_signed(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     c_sharp = GraphShardMetadataLanguage.CSHARP

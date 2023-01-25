@@ -1,9 +1,6 @@
 from lib_root.f343.common import (
     webpack_insecure_compression,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -22,7 +19,6 @@ from typing import (
 
 
 def ts_insecure_compression(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method: MethodsEnum = MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM

@@ -1,9 +1,6 @@
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -40,7 +37,6 @@ def is_node_danger(graph: Graph, n_id: NId) -> bool:
 
 
 def info_leak_errors(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INFO_LEAK_ERRORS

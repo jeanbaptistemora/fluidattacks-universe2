@@ -4,9 +4,6 @@ from lib_root.utilities.c_sharp import (
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -51,7 +48,6 @@ def is_insec_input(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 
 
 def xpath_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XPATH_INJECTION
@@ -83,7 +79,6 @@ def xpath_injection(
 
 
 def xpath_injection_evaluate(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_XPATH_INJECTION_EVALUATE

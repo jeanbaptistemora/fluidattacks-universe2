@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -71,7 +68,6 @@ def get_vuln_nodes(graph: Graph) -> List[str]:
 
 
 def insecure_file_upload_size(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:

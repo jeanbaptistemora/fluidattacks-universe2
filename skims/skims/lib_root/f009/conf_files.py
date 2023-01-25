@@ -1,6 +1,3 @@
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -68,7 +65,6 @@ def _sensitive_info_in_dotnet(
 
 
 def sensitive_info_in_dotnet(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.SENSITIVE_INFO_DOTNET_JSON
@@ -117,7 +113,6 @@ def _sensitive_info_json(
 
 
 def sensitive_info_json(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.SENSITIVE_INFO_JSON

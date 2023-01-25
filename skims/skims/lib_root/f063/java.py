@@ -1,9 +1,6 @@
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
-from lib_sast.types import (
-    ShardDb,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -69,7 +66,6 @@ def is_file_injection(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def zip_slip_injection(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_ZIP_SLIP_PATH_INJECTION
@@ -99,7 +95,6 @@ def zip_slip_injection(
 
 
 def unsafe_path_traversal(
-    shard_db: ShardDb,  # NOSONAR # pylint: disable=unused-argument
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_UNSAFE_PATH_TRAVERSAL
