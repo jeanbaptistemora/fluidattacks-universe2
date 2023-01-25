@@ -150,6 +150,7 @@ mocked_paths: Dict[str, str] = {
     "add_stakeholder": "organizations.domain.add_stakeholder",
     "authz.grant_organization_level_role": "authz.grant_organization_level_role",  # noqa: E501 pylint: disable=line-too-long
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
+    "comments_domain.remove_comments": "finding_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "credentials_model.remove_organization_credentials": "db_model.credentials.remove_organization_credentials",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
     "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
@@ -164,6 +165,7 @@ mocked_paths: Dict[str, str] = {
     "events_model.update_evidence": "db_model.events.update_evidence",
     "exists": "organizations.domain.exists",
     "files_utils.assert_uploaded_file_mime": "newutils.files.assert_uploaded_file_mime",  # noqa: E501 pylint: disable=line-too-long
+    "findings_model.remove": "db_model.findings.remove",
     "findings_storage.download_evidence": "findings.storage.download_evidence",
     "findings_storage.search_evidence": "findings.storage.search_evidence",
     "finding_vulns_loader.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesReleasedNonZeroRiskLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
@@ -180,6 +182,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.event_vulnerabilities_loader.load": "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.finding_vulnerabilities.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonDeletedLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.finding_vulnerabilities_all.load": "db_model.vulnerabilities.get.FindingVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group_findings.load": "db_model.findings.get.GroupFindingsLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -197,6 +200,7 @@ mocked_paths: Dict[str, str] = {
     "policies_model.remove_org_finding_policies": "db_model.organization_finding_policies.remove_org_finding_policies",  # noqa: E501 pylint: disable=line-too-long
     "portfolios_model.remove_organization_portfolios": "db_model.portfolios.remove_organization_portfolios",  # noqa: E501 pylint: disable=line-too-long
     "remove_access": "organizations.domain.remove_access",
+    "remove_all_evidences": "findings.domain.core.remove_all_evidences",
     "remove_file_evidence": "events.domain.remove_file_evidence",
     "replace_different_format": "events.domain.replace_different_format",
     "save_evidence": "events.domain.save_evidence",
@@ -210,6 +214,7 @@ mocked_paths: Dict[str, str] = {
     "update_state": "groups.domain.update_state",
     "validate_acceptance_severity_range": "organizations.domain.validate_acceptance_severity_range",  # noqa: E501 pylint: disable=line-too-long
     "validate_evidence": "events.domain.validate_evidence",
+    "vulns_domain.mask_vulnerability": "vulnerabilities.domain.mask_vulnerability",  # noqa: E501 pylint: disable=line-too-long
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -433,6 +438,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 full_name="John Doe",
             ),
         )
+    },
+    "db_model.findings.remove": {
+        '["unittesting", "457497316"]': None,
     },
     "db_model.groups.get.GroupLoader.load": {
         '["unittesting"]': Group(
@@ -2025,6 +2033,71 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load": {
         '["418900978"]': tuple(),
         '["538745942"]': tuple(),
+    },
+    "db_model.vulnerabilities.get.FindingVulnerabilitiesLoader.load": {
+        '["457497316"]': [
+            Vulnerability(
+                created_by="unittest@fluidattacks.com",
+                created_date=datetime.fromisoformat(
+                    "2018-11-27T19:54:08+00:00"
+                ),
+                finding_id="457497316",
+                group_name="unittesting",
+                hacker_email="unittest@fluidattacks.com",
+                id="6192c72f-2e10-4259-9207-717b2d90d8d2",
+                state=VulnerabilityState(
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-09-16T14:40:37+00:00"
+                    ),
+                    source=Source.ASM,
+                    specific="userToken",
+                    status=VulnerabilityStateStatus.SAFE,
+                    where="https://10.1.1.1/",
+                    commit=None,
+                    reasons=None,
+                    other_reason=None,
+                    tool=None,
+                    snippet=None,
+                ),
+                type=VulnerabilityType.INPUTS,
+                bug_tracking_system_url=None,
+                custom_severity=None,
+                developer=None,
+                event_id=None,
+                hash=None,
+                root_id=None,
+                skims_method=None,
+                skims_technique=None,
+                stream=None,
+                tags=None,
+                treatment=VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat(
+                        "2018-11-27T19:54:08+00:00"
+                    ),
+                    status=VulnerabilityTreatmentStatus.UNTREATED,
+                    acceptance_status=None,
+                    accepted_until=None,
+                    justification=None,
+                    assigned=None,
+                    modified_by=None,
+                ),
+                unreliable_indicators=VulnerabilityUnreliableIndicators(
+                    unreliable_closing_date=datetime.fromisoformat(
+                        "2019-09-16T14:40:37+00:00"
+                    ),
+                    unreliable_source=Source.ASM,
+                    unreliable_efficacy=Decimal("0"),
+                    unreliable_last_reattack_date=None,
+                    unreliable_last_reattack_requester=None,
+                    unreliable_last_requested_reattack_date=None,
+                    unreliable_reattack_cycles=0,
+                    unreliable_treatment_changes=0,
+                ),
+                verification=None,
+                zero_risk=None,
+            ),
+        ]
     },
     "db_model.vulnerabilities.get.FindingVulnerabilitiesNonDeletedLoader.load_many_chained": {  # noqa: E501 pylint: disable=line-too-long
         '["unittesting", "0.0", "10.0"]': tuple(
@@ -7382,6 +7455,12 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["418900978"]': None,
         '["538745942"]': None,
     },
+    "finding_comments.domain.remove_comments": {
+        '["457497316"]': None,
+    },
+    "findings.domain.core.remove_all_evidences": {
+        '["457497316", "unittesting"]': None,
+    },
     "findings.domain.evidence.download_evidence_file": {
         '["unittesting", "422286126",'
         ' "unittesting-422286126-evidence_file.csv"]': os.path.join(
@@ -7492,6 +7571,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["billing-test-file.png"]': None,
         '["test-vulns.yaml"]': None,
         '["unittesting-test-file.csv"]': None,
+    },
+    "vulnerabilities.domain.mask_vulnerability": {
+        '["457497316"]': None,
     },
 }
 
