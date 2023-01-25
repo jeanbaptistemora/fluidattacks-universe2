@@ -36,6 +36,7 @@ from db_model import (
     organization_access as org_access_model,
     organization_finding_policies as policies_model,
     organizations as orgs_model,
+    portfolios as portfolios_model,
     roots as roots_model,
     stakeholders as stakeholders_model,
     toe_inputs as toe_inputs_model,
@@ -653,6 +654,13 @@ async def populate_compliances(data: list[dict[str, Any]]) -> bool:
 
 async def populate_companies(data: list[Company]) -> bool:
     await collect(companies_model.add(company=company) for company in data)
+    return True
+
+
+async def populate_portfolios(data: list[Any]) -> bool:
+    await collect(
+        portfolios_model.update(portfolio=item["portfolio"]) for item in data
+    )
     return True
 
 
