@@ -1,0 +1,313 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F134,lines,namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,56,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,"
+  46 |                               ""*""
+  47 |                           ],
+  48 |                           ""AllowedMethods"": [
+  49 |                               ""GET"",
+  50 |                               ""HEAD"",
+  51 |                               ""PUT"",
+  52 |                               ""POST"",
+  53 |                               ""DELETE""
+  54 |                           ],
+  55 |                           ""AllowedOrigins"": [
+> 56 |                               ""*""
+  57 |                           ],
+  58 |                           ""ExposedHeaders"": [
+  59 |                               ""x-amz-server-side-encryption"",
+  60 |                               ""x-amz-request-id"",
+  61 |                               ""x-amz-id-2"",
+  62 |                               ""ETag""
+  63 |                           ],
+  64 |                           ""Id"": ""S3CORSRuleId1"",
+  65 |                           ""MaxAge"": ""3000""
+  66 |                       }
+     ^ Col 2
+",cloudformation.cfn_wildcard_in_allowed_origins
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,14,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
+   4 | {
+   5 |     public class Controllers
+   6 |     {
+   7 |         public void Configure(IApplicationBuilder app)
+   8 |         {
+   9 |             // Should report
+  10 |
+  11 |             var corsBuilder = new CorsPolicyBuilder();
+  12 |             corsBuilder.AllowAnyHeader();
+  13 |             corsBuilder.AllowAnyMethod();
+> 14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+  17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+  23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+     ^ Col 0
+",c_sharp.csharp_insecure_cors
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,17,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
+   7 |         public void Configure(IApplicationBuilder app)
+   8 |         {
+   9 |             // Should report
+  10 |
+  11 |             var corsBuilder = new CorsPolicyBuilder();
+  12 |             corsBuilder.AllowAnyHeader();
+  13 |             corsBuilder.AllowAnyMethod();
+  14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+> 17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+  23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+  25 |             app.UseCors( cors => cors
+  26 |                 .AllowAnyMethod()
+  27 |                 .AllowAnyOrigin());
+     ^ Col 0
+",c_sharp.csharp_insecure_cors
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,23,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
+  13 |             corsBuilder.AllowAnyMethod();
+  14 |             corsBuilder.AllowAnyOrigin();
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+  17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+> 23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+  25 |             app.UseCors( cors => cors
+  26 |                 .AllowAnyMethod()
+  27 |                 .AllowAnyOrigin());
+  28 |
+  29 |
+  30 |             // Should not report
+  31 |             var SecCorsBuilder = new CorsPolicyBuilder();
+  32 |             SecCorsBuilder.AllowAnyHeader();
+  33 |             SecCorsBuilder.AllowAnyMethod();
+     ^ Col 0
+",c_sharp.csharp_insecure_cors
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors.cs,"
+  15 |
+  16 |             var policyBuilder = new CorsPolicyBuilder();
+  17 |             var policy = policyBuilder
+  18 |                 .AllowAnyOrigin()
+  19 |                 .AllowAnyHeader()
+  20 |                 .AllowAnyMethod()
+  21 |                 .Build();
+  22 |
+  23 |             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+  24 |
+> 25 |             app.UseCors( cors => cors
+  26 |                 .AllowAnyMethod()
+  27 |                 .AllowAnyOrigin());
+  28 |
+  29 |
+  30 |             // Should not report
+  31 |             var SecCorsBuilder = new CorsPolicyBuilder();
+  32 |             SecCorsBuilder.AllowAnyHeader();
+  33 |             SecCorsBuilder.AllowAnyMethod();
+  34 |
+  35 |             var SecPolicyBuilder = new CorsPolicyBuilder();
+     ^ Col 0
+",c_sharp.csharp_insecure_cors
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+   3 |
+   4 | namespace AspNet5SQLite
+   5 | {
+   6 |     public class Startup
+   7 |     {
+   8 |         // Setting an insecure cors policy attribute
+   9 |         public void ConfigureServices(IServiceCollection services)
+  10 |         {
+  11 |             var policy = new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicy();
+  12 |             policy.Headers.Add(""*"");
+> 13 |             policy.Origins.Add(""*"");
+  14 |             policy.SupportsCredentials = true;
+  15 |
+  16 |         }
+  17 |     }
+  18 |
+  19 |     public class Startup2
+  20 |     {
+  21 |         //Setting the insecure cors policy directly
+  22 |         public void ConfigureServices(IServiceCollection services)
+  23 |         {
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,26,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  16 |         }
+  17 |     }
+  18 |
+  19 |     public class Startup2
+  20 |     {
+  21 |         //Setting the insecure cors policy directly
+  22 |         public void ConfigureServices(IServiceCollection services)
+  23 |         {
+  24 |             services.AddCors(options =>
+  25 |             {
+> 26 |                 options.AddPolicy(name: ""corsGlobalPolicy"",
+  27 |                     builder =>
+  28 |                     {
+  29 |                         builder.WithOrigins(Configuration[""Origins:localdev""])
+  30 |                             .AllowAnyOrigin()
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,40,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  30 |                             .AllowAnyOrigin()
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+> 40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+  46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,46,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/c_sharp_insecure_cors_origin.cs,"
+  31 |                             .AllowAnyMethod();
+  32 |                     });
+  33 |             });
+  34 |         }
+  35 |
+  36 |         public void ConfigureServices(IServiceCollection services)
+  37 |         {
+  38 |             services.AddCors(c =>
+  39 |             {
+  40 |                 c.AddPolicy(""AllowOrigin"", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
+  41 |             });
+  42 |         }
+  43 |     }
+  44 |
+  45 |     //Enabling insecure cors policy via attribute
+> 46 |     [EnableCors(origins: ""*"", headers: ""*"", methods: ""*"")]
+  47 |     public class ItemsController : ApiController
+  48 |     {
+  49 |         public HttpResponseMessage GetAll() {}
+  50 |     }
+  51 | }
+     ^ Col 0
+",c_sharp.csharp_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,13,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+   3 |
+   4 |  private static final String ALL_ORIGINS = ""*"";
+   5 |
+   6 |  public WebFilter insecure1(){
+   7 |   return (ServerWebExchange ctx, WebFilterChain chain)-> {
+   8 |    ServerHttpRequest req = ctx.getRequest();
+   9 |
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+> 13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,20,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+  10 |    if (CorsUtils.isCorsRequest(request)){
+  11 |     ServerHttpResponse req = ctx.getResponse();
+  12 |     HttpHeaders headers = response.getHeaders();
+  13 |     headers.add(""Access-Control-Allow-Origin"", ALL_ORIGINS);  // Sensitive
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+> 20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+  25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,25,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,"
+  14 |    }
+  15 |    return chain.filter(ctx);
+  16 |   };
+  17 |  }
+  18 |
+  19 |   public void insecure2(CorsRegistry registry) {
+  20 |     registry.addMapping(""/**"").allowedOrigins(""*""); // Sensitive
+  21 |   }
+  22 |
+  23 |  public void insecure3() {
+  24 |     CorsConfiguration config = new CorsConfiguration();
+> 25 |   config.addAllowedOrigin(ALL_ORIGINS); // Sensitive
+  26 |   }
+  27 |
+  28 |  public void secure() {
+  29 |   String ALLOWED_ORIGIN = ""www.mytrustedorigin.com"";
+  30 |     CorsConfiguration config = new CorsConfiguration();
+  31 |   config.addAllowedOrigin(ALLOWED_ORIGIN); // Safe
+  32 |   }
+  33 |
+  34 | }
+     ^ Col 0
+",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
+   72 |       TRANSACTION_TABLE: ${self:custom.TRANSACTION_TABLE.${self:provider.stage}}
+   73 |       SQS_URL: ${self:custom.SQS_URL.${self:provider.stage}}
+   74 |       SQS_DELAY: ${self:custom.SQS_DELAY.${self:provider.stage}}
+   75 |       SQS_COMPLIANCE: ${self:custom.SQS_COMPLIANCE.${self:provider.stage}}
+   76 |       DOCUMENT_SQS: ${self:custom.SQS_DOCUMENTS.${self:provider.stage}}
+   77 |       DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+   78 |     events:
+   79 |       - http:
+   80 |           path: transactions/dynamo/
+   81 |           method: post
+>  82 |           cors: true
+   83 |           authorizer:
+   84 |             name: ${self:custom.AUTHORIZER_NAME}
+   85 |             arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
+   86 |   transaction-validation:
+   87 |     ## warmup: true
+   88 |     handler: api/transaction-validation.handler
+   89 |     role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
+   90 |     timeout: 30
+   91 |     memorySize: 2048
+   92 |     package:
+      ^ Col 0
+",yaml.json_ssl_port_missing

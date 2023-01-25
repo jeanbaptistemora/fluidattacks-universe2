@@ -2,6 +2,9 @@ from lib_root.f134.c_sharp import (
     insecure_cors as csharp_insecure_cors,
     insecure_cors_origin as csharp_insecure_cors_origin,
 )
+from lib_root.f134.conf_files import (
+    serverles_cors_true,
+)
 from lib_root.f134.java import (
     insecure_cors_origin as java_insecure_cors_origin,
 )
@@ -15,4 +18,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, csharp_insecure_cors),
     (FINDING, csharp_insecure_cors_origin),
     (FINDING, java_insecure_cors_origin),
+    (FINDING, serverles_cors_true),
 )

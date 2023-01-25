@@ -10,7 +10,7 @@
       owner = "androguard";
       repo = "androguard";
       rev = "8d091cbb309c0c50bf239f805cc1e0931b8dcddc";
-      sha256 = "IdN5CNBgVqFWSZk/nwX11KE5llLxQ2Hyrb69P3uXRuA=";
+      sha256 = "sSNs51JvBAAEUmMY84wlmuB0nVdIyc+sBTFjr1nZl7g=";
     };
     skimsBenchmarkOwasp = fetchGithub {
       owner = "OWASP-Benchmark";

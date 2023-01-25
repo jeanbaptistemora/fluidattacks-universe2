@@ -600,6 +600,30 @@ F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,25,16
   34 | }
      ^ Col 0
 ",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
+   72 |       TRANSACTION_TABLE: ${self:custom.TRANSACTION_TABLE.${self:provider.stage}}
+   73 |       SQS_URL: ${self:custom.SQS_URL.${self:provider.stage}}
+   74 |       SQS_DELAY: ${self:custom.SQS_DELAY.${self:provider.stage}}
+   75 |       SQS_COMPLIANCE: ${self:custom.SQS_COMPLIANCE.${self:provider.stage}}
+   76 |       DOCUMENT_SQS: ${self:custom.SQS_DOCUMENTS.${self:provider.stage}}
+   77 |       DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+   78 |     events:
+   79 |       - http:
+   80 |           path: transactions/dynamo/
+   81 |           method: post
+>  82 |           cors: true
+   83 |           authorizer:
+   84 |             name: ${self:custom.AUTHORIZER_NAME}
+   85 |             arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
+   86 |   transaction-validation:
+   87 |     ## warmup: true
+   88 |     handler: api/transaction-validation.handler
+   89 |     role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
+   90 |     timeout: 30
+   91 |     memorySize: 2048
+   92 |     package:
+      ^ Col 0
+",yaml.json_ssl_port_missing
 F066,lines,namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
  in namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs","
    1 | using System;

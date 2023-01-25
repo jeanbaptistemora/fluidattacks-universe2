@@ -1,0 +1,121 @@
+# This file is the main config file for your service.
+service: moneytransfer-viaone
+configValidationMode: error
+
+# app and org for use with dashboard.serverless.com
+org: viamericas
+
+# provider global configuration
+provider:
+  name: aws
+  runtime: nodejs14.x
+  stage: ${opt:stage, 'dev'} # Change this as required
+  region: ${opt:region, self:custom.DEFAULT_REGION}
+  deploymentBucket: ${self:custom.DEPLOYMENT_BUCKET.${self:provider.stage}}
+  tracing:
+    apiGateway: false
+    lambda: false
+  vpc:
+    securityGroupIds:
+      - ${self:custom.SECURITY_GROUP_ID_1.${self:provider.stage}}
+    subnetIds:
+      - ${self:custom.SUBNET_ID_1.${self:provider.stage}}
+      - ${self:custom.SUBNET_ID_2.${self:provider.stage}}
+  apiGateway:
+    request:
+      schemas:
+        post-transactions-duplicated-log-model:
+          name: TransactionsDuplicatedLogModel
+          schema: ${file(schemas/transactionsDuplicatedLogRequest.json)}
+          description: "A Model validation for logging of duplicated transactions"
+
+# you can add packaging information here
+package:
+  individually: true #Create a seperate lambda for each file/endpoint
+  patterns:
+    - "!api/**"
+    - "!.github/**"
+    - "!resources/**"
+    - "!node_modules/**"
+    - "!README.md"
+    - "!.gitignore"
+    - "!package-lock.json"
+    - "!package.json"
+    - "!buildspec.yml"
+    - "!schemas/**"
+    - "!templates/**"
+    - "!workers/**"
+    - "!controllers/**"
+    - "!serverless.us-east-1.yml"
+    - "!serverless.us-east-2.yml"
+
+# pluggins used on
+plugins:
+  - serverless-plugin-ifelse
+functions:
+  transaction-dynamo:
+    ## warmup: true
+    handler: api/transaction-dynamo.handler
+    role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
+    timeout: 30
+    memorySize: 2048
+    package:
+      individually: true
+      patterns:
+        - "api/transaction-dynamo.js"
+    layers:
+      - ${self:custom.XRAY-LAYER.${self:provider.stage}}
+      - ${self:custom.JWT_LAYER.${self:provider.stage}}
+      - ${self:custom.SQLSERVER_LAYER.${self:provider.stage}}
+    environment:
+      CUSTOMER_TABLE: ${self:custom.CUSTOMER_TABLE.${self:provider.stage}}
+      TRANSACTION_TABLE: ${self:custom.TRANSACTION_TABLE.${self:provider.stage}}
+      SQS_URL: ${self:custom.SQS_URL.${self:provider.stage}}
+      SQS_DELAY: ${self:custom.SQS_DELAY.${self:provider.stage}}
+      SQS_COMPLIANCE: ${self:custom.SQS_COMPLIANCE.${self:provider.stage}}
+      DOCUMENT_SQS: ${self:custom.SQS_DOCUMENTS.${self:provider.stage}}
+      DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+    events:
+      - http:
+          path: transactions/dynamo/
+          method: post
+          cors: true
+          authorizer:
+            name: ${self:custom.AUTHORIZER_NAME}
+            arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
+  transaction-validation:
+    ## warmup: true
+    handler: api/transaction-validation.handler
+    role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
+    timeout: 30
+    memorySize: 2048
+    package:
+      individually: true
+      patterns:
+        - "api/transaction-validation.js"
+        - "controllers/insertCustomerToEnvio.js"
+    layers:
+      - ${self:custom.SQLSERVER_LAYER.${self:provider.stage}}
+      - ${self:custom.XRAY-LAYER.${self:provider.stage}}
+      - ${self:custom.JWT_LAYER.${self:provider.stage}}
+      - ${self:custom.SYNC_UTILS_LAYER.${self:provider.stage}}
+    environment:
+      CUSTOMER_TABLE: ${self:custom.CUSTOMER_TABLE.${self:provider.stage}}
+      DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+    events:
+      - http:
+          path: transactions/validations
+          method: post
+          cors:
+            origin: "*" # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          authorizer:
+            name: ${self:custom.AUTHORIZER_NAME}
+            arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
