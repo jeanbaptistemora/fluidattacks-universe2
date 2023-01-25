@@ -1,13 +1,12 @@
-import { Field, Formik } from "formik";
+import { Formik } from "formik";
 import type { FC } from "react";
 import React, { Fragment, StrictMode, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
-import { Select, TextArea } from "components/Input";
+import { Input, Select, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -84,8 +83,7 @@ const DeleteGroupModal: FC<IDeleteGroupModalProps> = ({
               <ControlLabel>
                 {t("searchFindings.servicesTable.deleteGroup.typeGroupName")}
               </ControlLabel>
-              <Field
-                component={FormikText}
+              <Input
                 name={"confirmation"}
                 placeholder={groupName.toLowerCase()}
                 type={"text"}
