@@ -1,7 +1,4 @@
 ---
-src.lib_path.f024.has_default_security_groups_in_use:
-  en: Default security groups are in use.
-  es: Security groups por defecto estan siendo usados.
 src.lib_path.f024.ec2_has_unrestricted_ports:
   en: Avoid SecurityGroup ingress/egress rules with port ranges
   es: Evite las reglas de entrada/salida de SecurityGroup con rangos de puertos

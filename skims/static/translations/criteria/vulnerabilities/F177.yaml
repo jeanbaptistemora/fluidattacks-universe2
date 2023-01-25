@@ -1,4 +1,7 @@
 ---
+src.lib_path.f177.has_default_security_groups_in_use:
+  en: Default security groups are in use.
+  es: Security groups por defecto estan siendo usados.
 lib_path.f177.ec2_using_default_security_group:
   en: >
     EC2 Instances or Launch Templates are using the default security group

@@ -678,48 +678,6 @@ async def default_seggroup_allows_all_traffic(
     return vulns
 
 
-async def has_default_security_groups_in_use(
-    credentials: AwsCredentials,
-) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
-        credentials, service="ec2", function="describe_instances"
-    )
-    instances = response.get("Reservations", []) if response else []
-    vulns: core_model.Vulnerabilities = ()
-    method = core_model.MethodsEnum.AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE
-    for i in instances:
-        for instance in i["Instances"]:
-            locations: List[Location] = []
-            for index, security_group in enumerate(instance["SecurityGroups"]):
-                group_name = security_group["GroupName"]
-                if "default" in group_name:
-                    locations = [
-                        *[
-                            Location(
-                                access_patterns=(
-                                    f"/SecurityGroups/{index}/GroupName",
-                                ),
-                                arn=(f"arn:aws:ec2::{instance['InstanceId']}"),
-                                values=(instance["SecurityGroups"],),
-                                description=t(
-                                    "src.lib_path.f024."
-                                    "has_default_security_groups_in_use"
-                                ),
-                            )
-                        ],
-                    ]
-
-            vulns = (
-                *vulns,
-                *build_vulnerabilities(
-                    locations=locations,
-                    method=method,
-                    aws_response=instance,
-                ),
-            )
-    return vulns
-
-
 async def instances_without_profile(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -831,5 +789,4 @@ CHECKS: Tuple[
     default_seggroup_allows_all_traffic,
     instances_without_profile,
     insecure_port_range_in_security_group,
-    has_default_security_groups_in_use,
 )

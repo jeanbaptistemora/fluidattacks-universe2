@@ -2175,7 +2175,7 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="has_default_security_groups_in_use",
         module="dast",
-        finding=FindingEnum.F024,
+        finding=FindingEnum.F177,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
