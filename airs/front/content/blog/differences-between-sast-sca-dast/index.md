@@ -52,7 +52,7 @@ and not from the outside
 while the application is running.
 Further,
 DAST and SAST are often pitted against each other.
-The difference in names (i.e., "static," "dynamic")
+The difference in names (i.e., "dynamic," "static")
 usually inspires the question
 "Which one is better?"
 However,
@@ -241,7 +241,7 @@ That is,
 these applications are already on a web server,
 a virtual machine
 or a container and working.
-This method does not require access to the source code
+Contrary to SAST, DAST does not require access to the source code
 but rather assesses the application's behavior
 from the user side,
 so to speak.
@@ -271,7 +271,7 @@ as a shared limitation
 with static application security testing
 and software composition analysis,
 when done with tools only,
-it may produce reports with high rates of false positives (lies)
+it may produce reports with high rates of false positives
 and miss actual vulnerabilities.
 But the way to overcome false positives
 and false negatives
@@ -326,7 +326,7 @@ of common comparisons like SAST vs SCA
 and SAST vs DAST?
 Which one is best?
 It's plain to see
-that these methods are executed with different scopes
+that SAST, DAST and SCA are executed with different scopes
 within the same object of assessment.
 They each benefit software security in their own way
 and offer their own advantages.
@@ -353,7 +353,7 @@ you are broadening your scope,
 having a better chance
 of identifying risk exposure more accurately.
 Moreover,
-we urge you to apply these methods continuously across the SDLC,
+we urge you to apply SAST, DAST and SCA continuously across the SDLC,
 introduce them as soon as possible
 and combine the manual work with automated testing through it all.
 The idea is to maintain a strong remediation practice
