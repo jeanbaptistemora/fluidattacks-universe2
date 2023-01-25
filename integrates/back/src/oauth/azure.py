@@ -24,10 +24,11 @@ logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
 AZURE_REFRESH_URL = "https://app.vssps.visualstudio.com/oauth2/token"
-AZURE_AUTHZ_URL = "https://bitbucket.org/site/oauth2/authorize"
+AZURE_AUTHZ_URL = "https://app.vssps.visualstudio.com/oauth2/authorize"
 
 AZURE_REPOSITORY_ARGS = dict(
     name="azure_repository",
+    response_type="Assertion",
     authorize_url=AZURE_AUTHZ_URL,
     client_id=FI_AZURE_OAUTH2_REPOSITORY_APP_ID,
     client_kwargs={"scope": "vso.project vso.code"},
