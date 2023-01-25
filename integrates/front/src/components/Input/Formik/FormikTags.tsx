@@ -6,6 +6,7 @@ import styled from "styled-components";
 import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledInput } from "../styles";
+import { createEvent } from "../utils";
 import { Button } from "components/Button";
 import { Tag } from "components/Tag";
 
@@ -44,11 +45,7 @@ const FormikTags: React.FC<Readonly<TInputTagsProps>> = ({
 
   const setTags = useCallback(
     (values: string[]): void => {
-      const changeEvent = new Event("change");
-      // eslint-disable-next-line fp/no-mutating-methods
-      Object.defineProperty(changeEvent, "target", {
-        value: { name, value: values.join(",") },
-      });
+      const changeEvent = createEvent("change", name, values.join(","));
 
       onChange(changeEvent);
     },

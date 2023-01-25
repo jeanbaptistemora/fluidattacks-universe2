@@ -1,14 +1,12 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
 import type { ITagFieldProps } from "./types";
 
-import { ControlLabel } from "styles/styledComponents";
+import { InputTags } from "components/Input";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikTagInput } from "utils/forms/fields";
 
 const TagField: React.FC<ITagFieldProps> = ({
   handleDeletion,
@@ -33,16 +31,11 @@ const TagField: React.FC<ITagFieldProps> = ({
       isInProgressSelected ||
       !hasNewVulnSelected ? (
         <div className={"mb3 nt2 w-100"}>
-          <ControlLabel>
-            <b>{t("searchFindings.tabDescription.tag")}</b>
-          </ControlLabel>
-          <Field
-            component={FormikTagInput}
+          <InputTags
             disabled={!(canUpdateVulnsTreatment && canDeleteVulnsTags)}
+            label={t("searchFindings.tabDescription.tag")}
             name={"tag"}
-            onDeletion={handleDeletion}
-            placeholder={""}
-            type={"text"}
+            onRemove={handleDeletion}
           />
         </div>
       ) : undefined}

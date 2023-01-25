@@ -7,6 +7,7 @@ import React, { useCallback } from "react";
 import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase, useHandlers } from "../InputBase";
 import { StyledInput } from "../styles";
+import { createEvent } from "../utils";
 
 type IInputDateTimeProps = IInputBase<HTMLInputElement>;
 type TInputDateTimeProps = IInputDateTimeProps & TFieldProps;
@@ -84,11 +85,8 @@ const FormikDateTime: React.FC<TInputDateTimeProps> = (props): JSX.Element => {
 
   const handleChange = useCallback(
     (dateValue: Dayjs | null): void => {
-      const changeEvent = new Event("change");
-      // eslint-disable-next-line fp/no-mutating-methods
-      Object.defineProperty(changeEvent, "target", {
-        value: { name, value: dateValue },
-      });
+      const changeEvent = createEvent("change", name, dateValue);
+
       onChange(changeEvent);
     },
     [name, onChange]

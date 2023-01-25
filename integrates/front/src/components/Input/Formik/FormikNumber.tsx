@@ -6,6 +6,7 @@ import React, { useCallback } from "react";
 import type { IInputBase, TFieldProps } from "../InputBase";
 import { InputBase } from "../InputBase";
 import { StyledInput } from "../styles";
+import { createEvent } from "../utils";
 import { Button } from "components/Button";
 
 interface IInputNumberProps extends IInputBase<HTMLInputElement> {
@@ -42,14 +43,11 @@ const FormikNumber: FC<TInputNumberProps> = ({
 
   const changeValue = useCallback(
     (targetValue: number): void => {
-      const changeEvent = new Event("change");
-      // eslint-disable-next-line fp/no-mutating-methods
-      Object.defineProperty(changeEvent, "target", {
-        value: { value: String(targetValue) },
-      });
+      const changeEvent = createEvent("change", name, String(targetValue));
+
       onChange(changeEvent);
     },
-    [onChange]
+    [name, onChange]
   );
 
   const handleClickMinus = useCallback(
