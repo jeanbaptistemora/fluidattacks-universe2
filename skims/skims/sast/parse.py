@@ -9,7 +9,6 @@ import json
 from model.graph_model import (
     Graph,
     GraphDB,
-    GraphDBContext,
     GraphShard,
     GraphShardCacheable,
     GraphShardMetadata,
@@ -17,9 +16,6 @@ from model.graph_model import (
     GraphSyntax,
 )
 import os
-from sast.context import (
-    java_resources,
-)
 from sast_transformations import (
     styles,
 )
@@ -308,7 +304,10 @@ def _parse_one_cached(
         language=language,
     )
 
-    styles.add(graph)
+    if CTX.debug:
+        styles.add(graph)
+        if syntax_graph:
+            styles.add(syntax_graph)
 
     return GraphShardCacheable(
         graph=graph,
@@ -356,6 +355,8 @@ def parse_one(
     if CTX.debug:
         output = get_debug_path("tree-sitter-" + path)
         to_svg(copy_ast(graph.graph), f"{output}.ast")
+        if graph.syntax_graph:
+            to_svg(graph.syntax_graph, f"{output}.syntax_graph")
 
     return GraphShard(
         graph=graph.graph,
@@ -393,32 +394,17 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
 def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
     # Reproducibility
     paths = tuple(sorted(paths))
-    available_languages = {"java", "c_sharp"}
 
     graph_db = GraphDB(
-        context=GraphDBContext(
-            java_resources=java_resources.load(paths),
-        ),
+        context={},
         shards=[],
-        shards_by_language_class={
-            language: {} for language in available_languages
-        },
+        shards_by_language_class={},
         shards_by_path={},
     )
 
     for index, shard in enumerate(parse_many(paths), start=1):
         graph_db.shards.append(shard)
         graph_db.shards_by_path[shard.path] = index - 1
-
-    for shard in graph_db.shards:
-        for language in ("java", "c_sharp"):
-            if shard.metadata.language.value == language:
-                graph_db.shards_by_language_class[language].update(
-                    {
-                        _class: shard.path
-                        for _class in getattr(shard.metadata, language).classes
-                    }
-                )
 
     if CTX.debug:
         output = get_debug_path("tree-sitter")

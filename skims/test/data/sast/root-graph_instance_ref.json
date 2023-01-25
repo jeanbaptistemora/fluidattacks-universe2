@@ -1,7 +1,5 @@
 {
-  "context": {
-    "java_resources": {}
-  },
+  "context": {},
   "shards": [
     {
       "graph": {
@@ -10223,19 +10221,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "java"
       },
       "path": "skims/test/data/benchmark/instance_references/src/App.java",
@@ -15594,19 +15579,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "java"
       },
       "path": "skims/test/data/benchmark/instance_references/src/User.java",
@@ -16364,10 +16336,7 @@
       }
     }
   ],
-  "shards_by_language_class": {
-    "c_sharp": {},
-    "java": {}
-  },
+  "shards_by_language_class": {},
   "shards_by_path": {
     "skims/test/data/benchmark/instance_references/src/App.java": 0,
     "skims/test/data/benchmark/instance_references/src/User.java": 1

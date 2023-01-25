@@ -1,7 +1,5 @@
 {
-  "context": {
-    "java_resources": {}
-  },
+  "context": {},
   "shards": [
     {
       "graph": {
@@ -4255,19 +4253,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "c_sharp"
       },
       "path": "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs",
@@ -17399,19 +17384,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "c_sharp"
       },
       "path": "skims/test/data/benchmark/nist/HouseController.cs",
@@ -27504,19 +27476,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "c_sharp"
       },
       "path": "skims/test/data/benchmark/nist/StudentController.cs",
@@ -31537,19 +31496,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "c_sharp"
       },
       "path": "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
@@ -32100,10 +32046,7 @@
       }
     }
   ],
-  "shards_by_language_class": {
-    "c_sharp": {},
-    "java": {}
-  },
+  "shards_by_language_class": {},
   "shards_by_path": {
     "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": 0,
     "skims/test/data/benchmark/nist/HouseController.cs": 1,

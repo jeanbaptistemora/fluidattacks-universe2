@@ -131,42 +131,13 @@ def _side_effects() -> None:
         graph_model.GraphShardCacheable,
         graph_model.GraphShard,
         graph_model.GraphShardMetadata,
-        graph_model.GraphShardMetadataCSharp,
-        graph_model.GraphShardMetadataJava,
         graph_model.GraphShardMetadataClass,
         graph_model.GraphShardMetadataClassField,
         graph_model.GraphShardMetadataClassMethod,
         graph_model.GraphVulnerabilityParameters,
-        graph_model.SyntaxStepArrayAccess,
-        graph_model.SyntaxStepArrayInstantiation,
-        graph_model.SyntaxStepArrayInitialization,
-        graph_model.SyntaxStepAssignment,
-        graph_model.SyntaxStepBinaryExpression,
-        graph_model.SyntaxStepCastExpression,
-        graph_model.SyntaxStepInstanceofExpression,
-        graph_model.SyntaxStepCatchClause,
-        graph_model.SyntaxStepDeclaration,
-        graph_model.SyntaxStepIf,
-        graph_model.SyntaxStepLoop,
-        graph_model.SyntaxStepLiteral,
-        graph_model.SyntaxStepMethodInvocation,
-        graph_model.SyntaxStepMethodInvocationChain,
-        graph_model.SyntaxStepNoOp,
-        graph_model.SyntaxStepObjectInstantiation,
-        graph_model.SyntaxStepReturn,
-        graph_model.SyntaxStepSwitch,
-        graph_model.SyntaxStepSwitchLabelCase,
-        graph_model.SyntaxStepSwitchLabelDefault,
-        graph_model.SyntaxStepParenthesizedExpression,
-        graph_model.SyntaxStepSymbolLookup,
-        graph_model.SyntaxStepTernary,
-        graph_model.SyntaxStepUnaryExpression,
         Node,
     ):
         safe_pickle.register_namedtuple(factory)
-
-    for factory in (graph_model.SyntaxStepMeta,):  # type: ignore
-        safe_pickle.register_dataclass(factory)
 
     for factory, dumper, loader in (
         (graph_model.Graph, _dump_graph, _load_graph),

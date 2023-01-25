@@ -1,7 +1,5 @@
 {
-  "context": {
-    "java_resources": {}
-  },
+  "context": {},
   "shards": [
     {
       "graph": {
@@ -12363,19 +12361,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "c_sharp"
       },
       "path": "skims/test/data/sast/test_cfg.cs",
@@ -34323,19 +34308,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "dart"
       },
       "path": "skims/test/data/sast/test_cfg.dart",
@@ -60326,19 +60298,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "go"
       },
       "path": "skims/test/data/sast/test_cfg.go",
@@ -92158,19 +92117,6 @@
         }
       },
       "metadata": {
-        "c_sharp": {
-          "classes": {},
-          "package": ""
-        },
-        "go": {
-          "imports": [],
-          "package": "",
-          "sink_functions": {}
-        },
-        "java": {
-          "classes": {},
-          "package": ""
-        },
         "language": "kotlin"
       },
       "path": "skims/test/data/sast/test_cfg.kt",
@@ -97844,10 +97790,7 @@
       }
     }
   ],
-  "shards_by_language_class": {
-    "c_sharp": {},
-    "java": {}
-  },
+  "shards_by_language_class": {},
   "shards_by_path": {
     "skims/test/data/sast/test_cfg.cs": 0,
     "skims/test/data/sast/test_cfg.dart": 1,
