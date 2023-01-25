@@ -1090,9 +1090,7 @@ async def get_last_requested_reattack_date(
     if vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED:
         return vuln.verification.modified_date
 
-    historic: tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    historic = await loaders.vulnerability_historic_verification.load(vuln.id)
 
     return next(
         (
@@ -1113,9 +1111,7 @@ async def get_last_reattack_date(
     if vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED:
         return vuln.verification.modified_date
 
-    historic: tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    historic = await loaders.vulnerability_historic_verification.load(vuln.id)
 
     return next(
         (

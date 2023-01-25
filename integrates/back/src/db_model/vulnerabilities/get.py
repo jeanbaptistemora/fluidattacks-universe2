@@ -119,13 +119,14 @@ async def _get_historic_treatment(
         facets=(TABLE.facets["vulnerability_historic_treatment"],),
         table=TABLE,
     )
+
     return list(map(format_treatment, response.items))
 
 
 async def _get_historic_verification(
     *,
     vulnerability_id: str,
-) -> tuple[VulnerabilityVerification, ...]:
+) -> list[VulnerabilityVerification]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_verification"],
         values={"id": vulnerability_id},
@@ -139,13 +140,14 @@ async def _get_historic_verification(
         facets=(TABLE.facets["vulnerability_historic_verification"],),
         table=TABLE,
     )
-    return tuple(map(format_verification, response.items))
+
+    return list(map(format_verification, response.items))
 
 
 async def _get_historic_zero_risk(
     *,
     vulnerability_id: str,
-) -> tuple[VulnerabilityZeroRisk, ...]:
+) -> list[VulnerabilityZeroRisk]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_zero_risk"],
         values={"id": vulnerability_id},
@@ -159,7 +161,8 @@ async def _get_historic_zero_risk(
         facets=(TABLE.facets["vulnerability_historic_zero_risk"],),
         table=TABLE,
     )
-    return tuple(map(format_zero_risk, response.items))
+
+    return list(map(format_zero_risk, response.items))
 
 
 async def _get_finding_vulnerabilities(
@@ -582,24 +585,26 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
 class VulnerabilityHistoricVerificationLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: tuple[str, ...]
-    ) -> tuple[tuple[VulnerabilityVerification, ...], ...]:
-        return await collect(
-            tuple(
-                _get_historic_verification(vulnerability_id=id)
-                for id in vulnerability_ids
-            ),
-            workers=32,
+        self, vulnerability_ids: list[str]
+    ) -> list[list[VulnerabilityVerification]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_historic_verification(vulnerability_id=id)
+                    for id in vulnerability_ids
+                ),
+                workers=32,
+            )
         )
 
 
 class VulnerabilityHistoricZeroRiskLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: tuple[str, ...]
-    ) -> tuple[tuple[VulnerabilityZeroRisk, ...], ...]:
-        return await collect(
-            tuple(
+        self, vulnerability_ids: list[str]
+    ) -> list[list[VulnerabilityZeroRisk]]:
+        return list(
+            await collect(
                 _get_historic_zero_risk(vulnerability_id=id)
                 for id in vulnerability_ids
             )

@@ -7,13 +7,9 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityVerification,
 )
 from decimal import (
     Decimal,
-)
-from typing import (
-    Tuple,
 )
 
 
@@ -46,9 +42,8 @@ async def get_reattack_cycles(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> int:
-    historic: Tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
+    historic = await loaders.vulnerability_historic_verification.load(vuln.id)
+
     return len(
         [
             verification

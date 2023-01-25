@@ -40,8 +40,10 @@ from typing import (
 async def get_historic_verification(
     loaders: Dataloaders, vulnerability_id: str
 ) -> tuple[VulnerabilityVerification, ...]:
-    return await loaders.vulnerability_historic_verification.load(
-        vulnerability_id
+    return tuple(
+        await loaders.vulnerability_historic_verification.load(
+            vulnerability_id
+        )
     )
 
 

@@ -743,8 +743,10 @@ class ITReport:
     async def _get_historic_verification(
         self, vulnerability_id: str
     ) -> tuple[VulnerabilityVerification, ...]:
-        return await self.loaders.vulnerability_historic_verification.load(
-            vulnerability_id
+        return tuple(
+            await self.loaders.vulnerability_historic_verification.load(
+                vulnerability_id
+            )
         )
 
     @retry_on_exceptions(
