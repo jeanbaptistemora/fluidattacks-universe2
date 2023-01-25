@@ -18,7 +18,7 @@ const CloseTag: FC<ICloseTagProps> = ({ text, onClose }): JSX.Element => {
     <Container display={"inline-block"}>
       <Container
         align={"center"}
-        bgColor={"#ffe5e7"}
+        bgColor={"#d2d2da"}
         br={"3px"}
         display={"flex"}
         pb={"4px"}
