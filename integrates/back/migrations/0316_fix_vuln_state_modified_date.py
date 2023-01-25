@@ -27,7 +27,6 @@ from db_model.findings.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from decorators import (
     retry_on_exceptions,
@@ -70,17 +69,14 @@ async def _process_vuln(
     group_name: str,
     vuln: Vulnerability,
 ) -> None:
-    historic_state: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    historic_state = await loaders.vulnerability_historic_state.load(vuln.id)
     fixed_historic_state = tuple(
         entry
-        if entry.modified_date.endswith(  # type: ignore
+        if entry.modified_date.endswith(
             ISO8601_TZ_SUFFIX,
         )
         else entry._replace(
-            modified_date=f"{entry.modified_date}"  # type: ignore
-            f"{ISO8601_TZ_SUFFIX}",
+            modified_date=f"{entry.modified_date}" f"{ISO8601_TZ_SUFFIX}",
         )
         for entry in historic_state
     )

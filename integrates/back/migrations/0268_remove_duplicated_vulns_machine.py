@@ -39,7 +39,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from db_model.vulnerabilities.update import (
     update_historic_entry,
@@ -180,9 +179,7 @@ async def process_group(  # pylint: disable=too-many-locals
             and vuln.treatment.status == VulnerabilityTreatmentStatus.UNTREATED
         ]
         for vuln in closed_duplicates:
-            states: Tuple[
-                VulnerabilityState, ...
-            ] = await loaders.vulnerability_historic_state.load(vuln.id)
+            states = await loaders.vulnerability_historic_state.load(vuln.id)
             await update_historic_entry(
                 current_value=vuln,
                 finding_id=finding.id,

@@ -138,9 +138,9 @@ async def process_vulnerability(
     loaders: Dataloaders, vulnerability: Vulnerability
 ) -> None:
     last_specific = str(vulnerability.specific)
-    historic: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vulnerability.id)
+    historic = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
     states_to_update = []
     for state in reversed(historic):
         if isinstance(state.specific, Decimal):

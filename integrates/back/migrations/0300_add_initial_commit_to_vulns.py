@@ -30,9 +30,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
 )
-from db_model.vulnerabilities.types import (
-    VulnerabilityState,
-)
 from git import (
     Repo,
 )
@@ -220,9 +217,7 @@ async def process_group(group: str, fusion_path: str) -> None:
         if not vuln.root_id:
             continue
         repo = repos_dict[vuln.root_id]
-        vulns_states: Tuple[
-            VulnerabilityState
-        ] = await loaders.vulnerability_historic_state.load(vuln.id)
+        vulns_states = await loaders.vulnerability_historic_state.load(vuln.id)
         try:
             first_commit = repo.git.log(
                 "--pretty=format:%H",

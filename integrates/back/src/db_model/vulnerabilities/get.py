@@ -84,7 +84,7 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
 async def _get_historic_state(
     *,
     vulnerability_id: str,
-) -> tuple[VulnerabilityState, ...]:
+) -> list[VulnerabilityState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_historic_state"],
         values={"id": vulnerability_id},
@@ -98,7 +98,8 @@ async def _get_historic_state(
         facets=(TABLE.facets["vulnerability_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, response.items))
+
+    return list(map(format_state, response.items))
 
 
 async def _get_historic_treatment(
@@ -542,17 +543,20 @@ class VulnerabilityLoader(DataLoader):
 
 class VulnerabilityHistoricStateLoader(DataLoader):
     async def load_many_chained(
-        self, ids: list[str]
-    ) -> tuple[VulnerabilityState, ...]:
-        unchained_data = await self.load_many(ids)
-        return tuple(chain.from_iterable(unchained_data))
+        self, vulnerability_ids: list[str]
+    ) -> list[VulnerabilityState]:
+        unchained_data = await self.load_many(vulnerability_ids)
+        return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: tuple[str, ...]
-    ) -> tuple[tuple[VulnerabilityState, ...], ...]:
-        return await collect(
-            tuple(_get_historic_state(vulnerability_id=id) for id in ids)
+        self, vulnerability_ids: list[str]
+    ) -> list[list[VulnerabilityState]]:
+        return list(
+            await collect(
+                _get_historic_state(vulnerability_id=id)
+                for id in vulnerability_ids
+            )
         )
 
 

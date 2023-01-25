@@ -27,7 +27,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from dynamodb import (
     operations,
@@ -43,7 +42,6 @@ import simplejson as json
 import time
 from typing import (
     List,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -53,9 +51,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def process_vuln(loaders: Dataloaders, vuln: Vulnerability) -> None:
     LOGGER.info("Processing vuln", extra={"extra": {"vuln_id": vuln.id}})
-    historic_state: Tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vuln.id)
+    historic_state = await loaders.vulnerability_historic_state.load(vuln.id)
     previous_state = historic_state[-2]
 
     await operations.update_item(

@@ -29,9 +29,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
 )
-from db_model.vulnerabilities.types import (
-    VulnerabilityState,
-)
 from db_model.vulnerabilities.update import (
     update_historic_entry,
 )
@@ -87,9 +84,9 @@ async def process_group(group: str) -> None:
     ):
         open_vuln = open_hash[duplicated_hash]
         closed_vuln = closed_hash[duplicated_hash]
-        states: Tuple[
-            VulnerabilityState,
-        ] = await loaders.vulnerability_historic_state.load(closed_vuln.id)
+        states = await loaders.vulnerability_historic_state.load(
+            closed_vuln.id
+        )
         if len(states) < 2:
             continue
         await update_historic_entry(

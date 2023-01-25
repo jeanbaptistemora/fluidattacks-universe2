@@ -193,7 +193,10 @@ async def _rebase_vulnerability_integrates(
 async def _vulnerability_historic_state(
     loaders: Dataloaders, vuln_id: str
 ) -> tuple[str, tuple[VulnerabilityState, ...]]:
-    return (vuln_id, await loaders.vulnerability_historic_state.load(vuln_id))
+    return (
+        vuln_id,
+        tuple(await loaders.vulnerability_historic_state.load(vuln_id)),
+    )
 
 
 async def rebase_root(

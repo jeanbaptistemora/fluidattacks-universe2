@@ -50,9 +50,9 @@ LOGGER = logging.getLogger(__name__)
 async def process_vulnerability(
     loaders: Dataloaders, vulnerability: Vulnerability
 ) -> None:
-    vuln_historic_states: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vulnerability.id)
+    vuln_historic_states = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
 
     first_state: VulnerabilityState = vuln_historic_states[0]
 

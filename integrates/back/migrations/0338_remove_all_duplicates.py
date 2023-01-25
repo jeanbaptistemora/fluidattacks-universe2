@@ -38,7 +38,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
 )
 from db_model.vulnerabilities.update import (
     update_historic_entry,
@@ -132,9 +131,9 @@ async def process_group(group: str) -> None:
             vulns_to_delete = vulns[1:]
 
         if closed_vuln:
-            states: Tuple[
-                VulnerabilityState,
-            ] = await loaders.vulnerability_historic_state.load(closed_vuln.id)
+            states = await loaders.vulnerability_historic_state.load(
+                closed_vuln.id
+            )
             states = [
                 state for state in states if state.source == Source.MACHINE
             ]

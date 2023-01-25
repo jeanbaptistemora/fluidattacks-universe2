@@ -259,7 +259,9 @@ async def _get_historic_treatment(
 async def _get_historic_state(
     loaders: Dataloaders, vulnerability_id: str
 ) -> tuple[VulnerabilityState, ...]:
-    return await loaders.vulnerability_historic_state.load(vulnerability_id)
+    return tuple(
+        await loaders.vulnerability_historic_state.load(vulnerability_id)
+    )
 
 
 async def _get_vulnerability_data(

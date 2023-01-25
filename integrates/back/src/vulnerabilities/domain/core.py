@@ -793,9 +793,9 @@ async def update_historics_dates(
 ) -> None:
     """Set all state and treatment dates to finding's approval date."""
     loaders.vulnerability_historic_state.clear(vulnerability_id)
-    historic_state: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
+    historic_state = await loaders.vulnerability_historic_state.load(
+        vulnerability_id
+    )
     historic_state = cast(
         tuple[VulnerabilityState, VulnerabilityState],
         db_model_utils.adjust_historic_dates(

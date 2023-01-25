@@ -36,9 +36,6 @@ from newutils.vulnerabilities import (
 from settings.logger import (
     LOGGING,
 )
-from typing import (
-    Tuple,
-)
 from vulnerabilities.domain.utils import (
     get_hash,
     get_hash_from_machine_vuln,
@@ -61,7 +58,7 @@ async def rebase(
     *,
     loaders: Dataloaders,
     finding_id: str,
-    finding_vulns_data: Tuple[Vulnerability, ...],
+    finding_vulns_data: tuple[Vulnerability, ...],
     vulnerability_commit: str,
     vulnerability_id: str,
     vulnerability_where: str,
@@ -146,9 +143,9 @@ async def rebase(
                 raise exc
 
     validate_where(vulnerability_where)
-    vulns_states: Tuple[
-        VulnerabilityState
-    ] = await loaders.vulnerability_historic_state.load(vulnerability_id)
+    vulns_states = await loaders.vulnerability_historic_state.load(
+        vulnerability_id
+    )
     last_state = vulns_states[-1]._replace(
         commit=vulnerability_commit,
         specific=vulnerability_specific,

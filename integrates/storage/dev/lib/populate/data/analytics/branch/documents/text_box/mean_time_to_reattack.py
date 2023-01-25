@@ -60,8 +60,8 @@ def _get_next_open(
     historic_state: tuple[VulnerabilityState, ...]
 ) -> Optional[datetime]:
     for state in historic_state:
-        if state.status == VulnerabilityStateStatus.OPEN:
-            return get_datetime_from_iso_str(state.modified_date)
+        if state.status == VulnerabilityStateStatus.VULNERABLE:
+            return state.modified_date
     return None
 
 
@@ -73,7 +73,7 @@ def _get_in_between_state(
     after_limit = get_plus_delta(verification, minutes=30)
     for index, state in enumerate(reverse_historic_state):
         if (
-            state.status == VulnerabilityStateStatus.CLOSED
+            state.status == VulnerabilityStateStatus.SAFE
             and before_limit
             <= get_datetime_from_iso_str(state.modified_date)
             <= after_limit
@@ -125,14 +125,12 @@ async def _get_mean_time_to_reattack(
     loaders: Dataloaders,
     current_date: datetime,
 ) -> Decimal:
-    historic_verifications: tuple[
-        tuple[VulnerabilityVerification, ...], ...
-    ] = await loaders.vulnerability_historic_verification.load_many(
-        vulnerability.id for vulnerability in filtered_vulnerabilities
+    historic_verifications = (
+        await loaders.vulnerability_historic_verification.load_many(
+            vulnerability.id for vulnerability in filtered_vulnerabilities
+        )
     )
-    historic_states: tuple[
-        tuple[VulnerabilityState, ...], ...
-    ] = await loaders.vulnerability_historic_state.load_many(
+    historic_states = await loaders.vulnerability_historic_state.load_many(
         vulnerability.id for vulnerability in filtered_vulnerabilities
     )
 
@@ -219,7 +217,7 @@ async def generate_one(group: str, loaders: Dataloaders) -> Decimal:
                         end=current_date,
                     )
                     if vulnerability.state.status
-                    == VulnerabilityStateStatus.OPEN
+                    == VulnerabilityStateStatus.VULNERABLE
                     else get_diff(
                         start=get_datetime_from_iso_str(
                             vulnerability.created_date

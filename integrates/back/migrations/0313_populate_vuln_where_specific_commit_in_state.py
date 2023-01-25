@@ -105,9 +105,9 @@ async def process_vulnerability(
     initial_commit = vulnerability.commit
     initial_specific = vulnerability.specific
     initial_where = vulnerability.where
-    historic: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vulnerability.id)
+    historic = await loaders.vulnerability_historic_state.load(
+        vulnerability.id
+    )
     for state in historic:
         if state.where is not None and state.specific is not None:
             initial_commit = state.commit

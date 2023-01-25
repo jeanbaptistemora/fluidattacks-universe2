@@ -72,10 +72,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
-    VulnerabilityTreatment,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
 )
 from decorators import (
     retry_on_exceptions,
@@ -121,9 +117,6 @@ from toe.ports.types import (
     ToePortAttributesToAdd,
     ToePortAttributesToUpdate,
 )
-from typing import (
-    List,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -160,18 +153,16 @@ async def _process_vuln(
             }
         },
     )
-    historic_state: tuple[
-        VulnerabilityState, ...
-    ] = await loaders.vulnerability_historic_state.load(vuln.id)
-    historic_treatment: tuple[
-        VulnerabilityTreatment, ...
-    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
-    historic_verification: tuple[
-        VulnerabilityVerification, ...
-    ] = await loaders.vulnerability_historic_verification.load(vuln.id)
-    historic_zero_risk: tuple[
-        VulnerabilityZeroRisk, ...
-    ] = await loaders.vulnerability_historic_zero_risk.load(vuln.id)
+    historic_state = await loaders.vulnerability_historic_state.load(vuln.id)
+    historic_treatment = await loaders.vulnerability_historic_treatment.load(
+        vuln.id
+    )
+    historic_verification = (
+        await loaders.vulnerability_historic_verification.load(vuln.id)
+    )
+    historic_zero_risk = await loaders.vulnerability_historic_zero_risk.load(
+        vuln.id
+    )
     new_id = str(uuid.uuid4())
     await vulns_model.add(
         vulnerability=vuln._replace(
@@ -194,28 +185,28 @@ async def _process_vuln(
     new_vulnerability = await loaders.vulnerability.load(new_id)
     await vulns_model.update_historic(
         current_value=new_vulnerability,
-        historic=historic_state or (vuln.state,),
+        historic=tuple(historic_state) or (vuln.state,),
     )
     if historic_treatment:
         loaders.vulnerability.clear(vuln.id)
         new_vulnerability = await loaders.vulnerability.load(new_id)
         await vulns_model.update_historic(
             current_value=new_vulnerability,
-            historic=historic_treatment,
+            historic=tuple(historic_treatment),
         )
     if historic_verification:
         loaders.vulnerability.clear(vuln.id)
         new_vulnerability = await loaders.vulnerability.load(new_id)
         await vulns_model.update_historic(
             current_value=new_vulnerability,
-            historic=historic_verification,
+            historic=tuple(historic_verification),
         )
     if historic_zero_risk:
         loaders.vulnerability.clear(vuln.id)
         new_vulnerability = await loaders.vulnerability.load(new_id)
         await vulns_model.update_historic(
             current_value=new_vulnerability,
-            historic=historic_zero_risk,
+            historic=tuple(historic_zero_risk),
         )
     await vulns_domain.close_by_exclusion(
         vulnerability=vuln,
@@ -593,10 +584,10 @@ async def _process_toe_port(
 
 async def get_recipients(
     loaders: Dataloaders,
-    email_to: List[str],
+    email_to: list[str],
     source_group_name: str,
     target_group_name: str,
-) -> List[str]:
+) -> list[str]:
     stakeholder: Stakeholder = await loaders.stakeholder.load(email_to[0])
     if (
         Notification.ROOT_UPDATE

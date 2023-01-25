@@ -47,9 +47,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    VulnerabilityState,
-)
 from decimal import (
     Decimal,
 )
@@ -384,9 +381,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
 
     for vuln in vulnerabilities:
         historic_state_loader.clear(vuln.id)
-        historic_state: Tuple[
-            VulnerabilityState, ...
-        ] = await historic_state_loader.load(vuln.id)
+        historic_state = await historic_state_loader.load(vuln.id)
         for state in historic_state:
             if state.status == VulnerabilityStateStatus.VULNERABLE:
                 _common_generate_count_report(

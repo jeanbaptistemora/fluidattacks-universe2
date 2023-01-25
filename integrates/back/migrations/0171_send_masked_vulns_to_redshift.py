@@ -40,10 +40,6 @@ from db_model.vulnerabilities.enums import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-    VulnerabilityState,
-    VulnerabilityTreatment,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
 )
 from decorators import (
     retry_on_exceptions,
@@ -114,18 +110,10 @@ async def send_vulns_to_redshift(
     treatment_loader = loaders.vulnerability_historic_treatment
     verification_loader = loaders.vulnerability_historic_verification
     zero_risk_loader = loaders.vulnerability_historic_zero_risk
-    vulns_state: Tuple[
-        Tuple[VulnerabilityState, ...], ...
-    ] = await state_loader.load_many(vulns_to_store_id)
-    vulns_treatment: Tuple[
-        Tuple[VulnerabilityTreatment, ...], ...
-    ] = await treatment_loader.load_many(vulns_to_store_id)
-    vulns_verification: Tuple[
-        Tuple[VulnerabilityVerification, ...], ...
-    ] = await verification_loader.load_many(vulns_to_store_id)
-    vulns_zero_risk: Tuple[
-        Tuple[VulnerabilityZeroRisk, ...], ...
-    ] = await zero_risk_loader.load_many(vulns_to_store_id)
+    vulns_state = await state_loader.load_many(vulns_to_store_id)
+    vulns_treatment = await treatment_loader.load_many(vulns_to_store_id)
+    vulns_verification = await verification_loader.load_many(vulns_to_store_id)
+    vulns_zero_risk = await zero_risk_loader.load_many(vulns_to_store_id)
 
     await insert_batch_metadata(
         vulnerabilities=vulns_to_store,
