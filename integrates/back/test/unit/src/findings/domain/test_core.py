@@ -1,9 +1,9 @@
-# pylint: disable=import-error
-from back.test.unit.src.utils import (
+from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_info,
     create_dummy_session,
     get_mock_response,
     get_mocked_path,
+    set_mocks_return_values,
 )
 from custom_exceptions import (
     FindingNotFound,
@@ -15,6 +15,10 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
+from db_model.enums import (
+    Source,
+    StateRemovalJustification,
+)
 from db_model.finding_comments.enums import (
     CommentType,
 )
@@ -22,8 +26,20 @@ from db_model.finding_comments.types import (
     FindingComment,
     FindingCommentsRequest,
 )
+from db_model.findings.enums import (
+    FindingSorts,
+    FindingStateStatus,
+    FindingStatus,
+)
 from db_model.findings.types import (
     Finding,
+    Finding31Severity,
+    FindingEvidence,
+    FindingEvidences,
+    FindingState,
+    FindingTreatmentSummary,
+    FindingUnreliableIndicators,
+    FindingVerificationSummary,
 )
 from decimal import (
     Decimal,
@@ -67,8 +83,9 @@ from typing import (
     List,
     Tuple,
 )
-from unittest import (
-    mock,
+from unittest.mock import (
+    AsyncMock,
+    patch,
 )
 from vulnerabilities.types import (
     Treatments,
@@ -79,9 +96,9 @@ pytestmark = [
 ]
 
 
-@mock.patch(
+@patch(
     get_mocked_path("finding_vulns_loader.load_many_chained"),
-    new_callable=mock.AsyncMock,
+    new_callable=AsyncMock,
 )
 @pytest.mark.parametrize(
     ["findings"],
@@ -90,7 +107,7 @@ pytestmark = [
     ],
 )
 async def test_get_last_closed_vulnerability(
-    mock_load_many_chained: mock.AsyncMock,
+    mock_load_many_chained: AsyncMock,
     findings: List,
     findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
@@ -115,9 +132,7 @@ async def test_get_last_closed_vulnerability(
     assert last_closed_vuln.finding_id == "463558592"  # type: ignore
 
 
-@mock.patch(
-    get_mocked_path("get_open_vulnerabilities"), new_callable=mock.AsyncMock
-)
+@patch(get_mocked_path("get_open_vulnerabilities"), new_callable=AsyncMock)
 @pytest.mark.parametrize(
     ["findings"],
     [
@@ -125,7 +140,7 @@ async def test_get_last_closed_vulnerability(
     ],
 )
 async def test_get_max_open_severity(
-    mock_get_open_vulnerabilities: mock.AsyncMock,
+    mock_get_open_vulnerabilities: AsyncMock,
     findings: List,
     findings_data: Dict[str, Tuple[Finding, ...]],
 ) -> None:
@@ -379,15 +394,15 @@ async def test_has_access_to_finding(dynamo_resource: ServiceResource) -> None:
     loaders = get_new_context()
     wrong_data = ["unittest@fluidattacks.com", "000000000"]
     right_data = ["unittest@fluidattacks.com", "422286126"]
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    with patch(
+        "dynamodb.operations.get_table_resource", new_callable=AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
 
         with pytest.raises(FindingNotFound):
             await has_access_to_finding(loaders, wrong_data[0], wrong_data[1])
-        with mock.patch(
-            "dynamodb.operations.get_resource", new_callable=mock.AsyncMock
+        with patch(
+            "dynamodb.operations.get_resource", new_callable=AsyncMock
         ) as mock_resource:
             mock_resource.return_value.batch_get_item.side_effect = (
                 mock_batch_get_item
@@ -460,16 +475,199 @@ async def test_add_comment() -> None:
     assert new_finding_comments[-1].parent_id == str(comment_id)
 
 
-@pytest.mark.changes_db
-async def test_mask_finding() -> None:
-    finding_id = "475041524"
-    email = "unittest@fluidattacks.com"
+@pytest.mark.parametrize(
+    ("email", "finding"),
+    (
+        (
+            "unittest@fluidattacks.com",
+            Finding(
+                hacker_email="unittest@fluidattacks.com",
+                group_name="unittesting",
+                id="457497316",
+                state=FindingState(
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-11-27T05:00:00+00:00"
+                    ),
+                    source=Source.ASM,
+                    status=FindingStateStatus.APPROVED,
+                    rejection=None,
+                    justification=StateRemovalJustification.NO_JUSTIFICATION,
+                ),
+                title="037. Technical information leak",
+                approval=FindingState(
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-11-27T05:00:00+00:00"
+                    ),
+                    source=Source.ASM,
+                    status=FindingStateStatus.APPROVED,
+                    rejection=None,
+                    justification=StateRemovalJustification.NO_JUSTIFICATION,
+                ),
+                attack_vector_description="Test description",
+                creation=FindingState(
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-04-08T00:43:18+00:00"
+                    ),
+                    source=Source.ASM,
+                    status=FindingStateStatus.CREATED,
+                    rejection=None,
+                    justification=StateRemovalJustification.NO_JUSTIFICATION,
+                ),
+                description="Descripción de fuga de información técnica",
+                evidences=FindingEvidences(
+                    animation=None,
+                    evidence1=None,
+                    evidence2=FindingEvidence(
+                        description="Test description",
+                        modified_date=datetime.fromisoformat(
+                            "2018-11-27T05:00:00+00:00"
+                        ),
+                        url="unittesting-457497316-evidence_route_2.jpg",
+                    ),
+                    evidence3=FindingEvidence(
+                        description="Comentario",
+                        modified_date=datetime.fromisoformat(
+                            "2018-11-27T05:00:00+00:00"
+                        ),
+                        url="unittesting-457497316-evidence_route_3.png",
+                    ),
+                    evidence4=None,
+                    evidence5=None,
+                    exploitation=None,
+                    records=None,
+                ),
+                min_time_to_remediate=18,
+                recommendation="Eliminar el banner de los servicios con "
+                "fuga de información, Verificar que los encabezados HTTP "
+                "no expongan ningún nombre o versión.",
+                requirements="REQ.0077. La aplicación no debe revelar "
+                "detalles del sistema interno como stack traces, "
+                "fragmentos de sentencias SQL y nombres de base de datos "
+                "o tablas. REQ.0176. El sistema debe restringir el acceso "
+                "a objetos del sistema que tengan contenido sensible. "
+                "Sólo permitirá su acceso a usuarios autorizados.",
+                severity=Finding31Severity(
+                    attack_complexity=Decimal("0.44"),
+                    attack_vector=Decimal("0.62"),
+                    availability_impact=Decimal("0.22"),
+                    availability_requirement=Decimal("1"),
+                    confidentiality_impact=Decimal("0.22"),
+                    confidentiality_requirement=Decimal("1"),
+                    exploitability=Decimal("0.94"),
+                    integrity_impact=Decimal("0.22"),
+                    integrity_requirement=Decimal("1"),
+                    modified_attack_complexity=Decimal("0.44"),
+                    modified_attack_vector=Decimal("0.62"),
+                    modified_availability_impact=Decimal("0.22"),
+                    modified_confidentiality_impact=Decimal("0.22"),
+                    modified_integrity_impact=Decimal("0.22"),
+                    modified_privileges_required=Decimal("0.62"),
+                    modified_user_interaction=Decimal("0.85"),
+                    modified_severity_scope=Decimal("0"),
+                    privileges_required=Decimal("0.62"),
+                    remediation_level=Decimal("0.96"),
+                    report_confidence=Decimal("0.92"),
+                    severity_scope=Decimal("0"),
+                    user_interaction=Decimal("0.85"),
+                ),
+                sorts=FindingSorts.NO,
+                submission=FindingState(
+                    modified_by="integratesmanager@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:11+00:00"
+                    ),
+                    source=Source.ASM,
+                    status=FindingStateStatus.SUBMITTED,
+                    rejection=None,
+                    justification=StateRemovalJustification.NO_JUSTIFICATION,
+                ),
+                threat="Amenaza.",
+                unreliable_indicators=FindingUnreliableIndicators(
+                    unreliable_closed_vulnerabilities=1,
+                    unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                        "2018-11-27T19:54:08+00:00"
+                    ),
+                    unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                        "2018-11-27T19:54:08+00:00"
+                    ),
+                    unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                        "2018-11-27T19:54:08+00:00"
+                    ),
+                    unreliable_open_vulnerabilities=0,
+                    unreliable_status=FindingStatus.SAFE,
+                    unreliable_treatment_summary=FindingTreatmentSummary(
+                        accepted=0,
+                        accepted_undefined=0,
+                        in_progress=0,
+                        untreated=0,
+                    ),
+                    unreliable_verification_summary=FindingVerificationSummary(
+                        requested=0, on_hold=0, verified=0
+                    ),
+                    unreliable_where="",
+                ),
+                verification=None,
+            ),
+        ),
+    ),
+)
+@patch(get_mocked_path("findings_model.remove"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("vulns_domain.mask_vulnerability"), new_callable=AsyncMock
+)
+@patch(
+    get_mocked_path("loaders.finding_vulnerabilities_all.load"),
+    new_callable=AsyncMock,
+)
+@patch(get_mocked_path("remove_all_evidences"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("comments_domain.remove_comments"), new_callable=AsyncMock
+)
+async def test_mask_finding(  # pylint: disable=too-many-arguments
+    mock_comments_domain_remove_comments: AsyncMock,
+    mock_remove_all_evidences: AsyncMock,
+    mock_loaders_finding_vulnerabilities_all: AsyncMock,
+    mock_vulns_domain_mask_vulnerability: AsyncMock,
+    mock_findings_model_remove: AsyncMock,
+    email: str,
+    finding: Finding,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_comments_domain_remove_comments,
+            mock_remove_all_evidences,
+            mock_loaders_finding_vulnerabilities_all,
+            mock_vulns_domain_mask_vulnerability,
+            mock_findings_model_remove,
+        ],
+        [
+            "comments_domain.remove_comments",
+            "remove_all_evidences",
+            "loaders.finding_vulnerabilities_all.load",
+            "vulns_domain.mask_vulnerability",
+            "findings_model.remove",
+        ],
+        [
+            [finding.id],
+            [finding.id, finding.group_name],
+            [finding.id],
+            [email, finding.id],
+            [finding.group_name, finding.id],
+        ],
+    ]
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
+
     loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
     await mask_finding(loaders, finding, email)
-    loaders.finding.clear(finding_id)
-    with pytest.raises(FindingNotFound):
-        await loaders.finding.load(finding_id)
+
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @freeze_time("2021-05-27")
@@ -485,8 +683,8 @@ async def test_get_oldest_no_treatment(
     findings: Tuple[Finding, ...] = await loaders.group_findings.load(
         group_name
     )
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    with patch(
+        "dynamodb.operations.get_table_resource", new_callable=AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
         oldest_findings = await get_oldest_no_treatment(loaders, findings)
@@ -505,8 +703,8 @@ async def test_get_treatment_summary(dynamo_resource: ServiceResource) -> None:
 
     loaders = get_new_context()
     finding_id = "475041513"
-    with mock.patch(
-        "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
+    with patch(
+        "dynamodb.operations.get_table_resource", new_callable=AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
         oldest_findings = await get_treatment_summary(loaders, finding_id)

@@ -7573,7 +7573,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittesting-test-file.csv"]': None,
     },
     "vulnerabilities.domain.mask_vulnerability": {
-        '["457497316"]': None,
+        '["unittest@fluidattacks.com", "457497316"]': None,
     },
 }
 
