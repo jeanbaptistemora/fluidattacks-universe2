@@ -23,8 +23,8 @@ lib_path.f333.has_instances_using_unapproved_amis:
   en: EC2 has instances using unapproved AMI's.
   es: EC2 tiene instancia usando AMI's no aprovadas
 lib_path.f333.has_unencrypted_snapshots:
-  en: EC2 has publicly shared amis
-  es: EC2 tiene amis publicamentente compartidas
+  en: EC2 has unencrypted snapshots
+  es: EC2 tiene snapshots no encriptados
 lib_path.f333.cfn_ec2_allows_shutdown_command:
   en: Property LaunchTemplateData.InstanceInitiatedShutdownBehavior is either missing
     or misconfigured

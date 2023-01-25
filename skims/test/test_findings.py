@@ -8,6 +8,7 @@ from test.data.lib_dast import (
     f016,
     f024,
     f031,
+    f333,
 )
 from test.test_z_functional import (
     check_that_csv_results_match,
@@ -23,6 +24,7 @@ MOCKERS: dict[str, Callable] = {
     "F016": f016.mock_data,
     "F024": f024.mock_data,
     "F031": f031.mock_data,
+    "F333": f333.mock_data,
 }
 
 
@@ -161,3 +163,9 @@ def test_f134(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f052")
 def test_f052(mocker: MockerFixture) -> None:
     run_finding("F052", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f333")
+def test_f333(mocker: MockerFixture) -> None:
+    run_finding("F333", mocker)

@@ -270,7 +270,7 @@ async def has_unused_seggroups(
                 locations = [
                     *[
                         Location(
-                            access_patterns=("/NetworkInterfaces",),
+                            access_patterns=(),
                             arn=(
                                 f"arn:aws:ec2::{group['OwnerId']}:"
                                 f"security-group/{group['GroupId']}"
@@ -313,7 +313,7 @@ async def has_unencrypted_amis(
             locations: List[Location] = []
             for index, block in enumerate(image["BlockDeviceMappings"]):
                 with suppress(KeyError):
-                    if not block["Ebs"]["Encrypted"]:
+                    if not block["Ebs"].get("Encrypted", True):
                         locations = [
                             *locations,
                             *[
@@ -385,11 +385,15 @@ async def has_publicly_shared_amis(
 async def has_unencrypted_snapshots(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
+    vulns: core_model.Vulnerabilities = ()
     response: Dict[str, Any] = await run_boto3_fun(
         credentials,
         service="sts",
         function="get_caller_identity",
     )
+
+    if not response.get("Account", False):
+        return vulns
 
     describe_snapshots: Dict[str, Any] = await run_boto3_fun(
         credentials,
@@ -398,18 +402,17 @@ async def has_unencrypted_snapshots(
         parameters={"OwnerIds": [response["Account"]]},
     )
     snapshots = describe_snapshots.get("Snapshots", [])
-    vulns: core_model.Vulnerabilities = ()
     method = core_model.MethodsEnum.AWS_EC2_HAS_UNENCRYPTED_SNAPSHOTS
     locations: List[Location] = []
     if snapshots:
         for snapshot in snapshots:
             snapshot_id = snapshot["SnapshotId"]
-            if not snapshot["Encrypted"]:
+            if not snapshot.get("Encrypted", True):
                 locations = [
                     Location(
                         arn=(f"arn:aws:ec2::Snapshot:{snapshot_id}"),
                         description=t(
-                            "lib_path.f333.has_publicly_shared_amis"
+                            "lib_path.f333.has_unencrypted_snapshots"
                         ),
                         values=(snapshot["Encrypted"],),
                         access_patterns=("/Encrypted",),
@@ -457,12 +460,12 @@ async def has_defined_user_data(
                         "InstanceId": instance["InstanceId"],
                     },
                 )
-                user_data = describe_instance_attribute["UserData"]
+                user_data = describe_instance_attribute.get("UserData")
                 if not user_data:
                     locations = [
                         *locations,
                         Location(
-                            access_patterns=("/UserData",),
+                            access_patterns=(),
                             arn=(
                                 f"arn:aws:ec2::{instances['OwnerId']}:"
                                 f"instance-id/{instance['InstanceId']}"
