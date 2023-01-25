@@ -1,0 +1,141 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,4,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
+   1 | bg.ws.endpoint =  http://www.test.com
+   2 | bg.ws.endpoint = https://www.test.com
+   3 | bg.ws.endpoint = ftps://www.test.com
+>  4 | bg.ws.endpoint =  ftp://www.test.com
+   5 | bg.ws.endpoint = # http://www.test.com
+   6 | bg.ws.endpoint = # www.test.com
+   7 |
+   8 | # This ones are safe, they are encrypted
+   9 | # Let's try to mischief the parser
+  10 | bg.ws.endpoint = #{http://www.test.com}#
+  11 | bg.ws.endpoint = ${http://www.test.com}
+  12 | bg.ws.endpoint = ENC(http://www.test.com)
+  13 | # bg.ws.endpoint =  http://www.test.com
+  14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
+     ^ Col 0
+",java.java_properties_unencrypted_transport
+F022,lines,namespace/skims/test/data/lib_path/f022/java.properties,1,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_path/f022/java.properties,"
+>  1 | bg.ws.endpoint =  http://www.test.com
+   2 | bg.ws.endpoint = https://www.test.com
+   3 | bg.ws.endpoint = ftps://www.test.com
+   4 | bg.ws.endpoint =  ftp://www.test.com
+   5 | bg.ws.endpoint = # http://www.test.com
+   6 | bg.ws.endpoint = # www.test.com
+   7 |
+   8 | # This ones are safe, they are encrypted
+   9 | # Let's try to mischief the parser
+  10 | bg.ws.endpoint = #{http://www.test.com}#
+  11 | bg.ws.endpoint = ${http://www.test.com}
+  12 | bg.ws.endpoint = ENC(http://www.test.com)
+  13 | # bg.ws.endpoint =  http://www.test.com
+  14 |
+  15 | # These ones are safe, localhost, loopback and host
+  16 | bg.ws.endpoint = http://localhost
+  17 | bg.ws.endpoint = ftp://127.0.0.1
+  18 | bg.ws.endpoint = http://0.0.0.0
+  19 | sonar.host.url=http://localhost:9000
+     ^ Col 0
+",java.java_properties_unencrypted_transport
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,10,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
+   1 | package f022
+   2 |
+   3 | import org.apache.commons.net.ftp.FTPClient
+   4 | import org.apache.commons.net.ftp.FTPSClient
+   5 | import org.apache.commons.net.smtp.SMTPClient
+   6 | import org.apache.commons.net.smtp.SMTPSClient
+   7 | import org.apache.commons.net.telnet.TelnetClient
+   8 |
+   9 | fun main() {
+> 10 |     val telnet = TelnetClient()
+  11 |
+  12 |     val ftpClient = FTPClient()
+  13 |     val ftpsClient = FTPSClient()
+  14 |
+  15 |     val smtpClient = SMTPClient()
+  16 |     val smtpsClient = SMTPSClient()
+  17 |
+  18 |     val spec1: ConnectionSpec = ConnectionSpec.Builder(
+  19 |         ConnectionSpec.CLEARTEXT
+  20 |     )
+  21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
+     ^ Col 0
+",kotlin.kotlin_unencrypted_channel
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,12,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
+   2 |
+   3 | import org.apache.commons.net.ftp.FTPClient
+   4 | import org.apache.commons.net.ftp.FTPSClient
+   5 | import org.apache.commons.net.smtp.SMTPClient
+   6 | import org.apache.commons.net.smtp.SMTPSClient
+   7 | import org.apache.commons.net.telnet.TelnetClient
+   8 |
+   9 | fun main() {
+  10 |     val telnet = TelnetClient()
+  11 |
+> 12 |     val ftpClient = FTPClient()
+  13 |     val ftpsClient = FTPSClient()
+  14 |
+  15 |     val smtpClient = SMTPClient()
+  16 |     val smtpsClient = SMTPSClient()
+  17 |
+  18 |     val spec1: ConnectionSpec = ConnectionSpec.Builder(
+  19 |         ConnectionSpec.CLEARTEXT
+  20 |     )
+  21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
+  22 |         ConnectionSpec.MODERN_TLS
+     ^ Col 0
+",kotlin.kotlin_unencrypted_channel
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,15,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
+   4 | import org.apache.commons.net.ftp.FTPSClient
+   5 | import org.apache.commons.net.smtp.SMTPClient
+   6 | import org.apache.commons.net.smtp.SMTPSClient
+   7 | import org.apache.commons.net.telnet.TelnetClient
+   8 |
+   9 | fun main() {
+  10 |     val telnet = TelnetClient()
+  11 |
+  12 |     val ftpClient = FTPClient()
+  13 |     val ftpsClient = FTPSClient()
+  14 |
+> 15 |     val smtpClient = SMTPClient()
+  16 |     val smtpsClient = SMTPSClient()
+  17 |
+  18 |     val spec1: ConnectionSpec = ConnectionSpec.Builder(
+  19 |         ConnectionSpec.CLEARTEXT
+  20 |     )
+  21 |     val spec2: ConnectionSpec = ConnectionSpec.Builder(
+  22 |         ConnectionSpec.MODERN_TLS
+  23 |     )
+  24 | }
+     ^ Col 0
+",kotlin.kotlin_unencrypted_channel
+F022,lines,namespace/skims/test/data/lib_root/f022/kotlin.kt,18,319,skims,022. Use of an insecure channel,Use of unencrypted protocol in namespace/skims/test/data/lib_root/f022/kotlin.kt,"
+   4 | ort org.apache.commons.net.ftp.FTPSClient
+   5 | ort org.apache.commons.net.smtp.SMTPClient
+   6 | ort org.apache.commons.net.smtp.SMTPSClient
+   7 | ort org.apache.commons.net.telnet.TelnetClient
+   8 |
+   9 |  main() {
+  10 |  val telnet = TelnetClient()
+  11 |
+  12 |  val ftpClient = FTPClient()
+  13 |  val ftpsClient = FTPSClient()
+  14 |
+  15 |  val smtpClient = SMTPClient()
+  16 |  val smtpsClient = SMTPSClient()
+  17 |
+> 18 |  val spec1: ConnectionSpec = ConnectionSpec.Builder(
+  19 |      ConnectionSpec.CLEARTEXT
+  20 |  )
+  21 |  val spec2: ConnectionSpec = ConnectionSpec.Builder(
+  22 |      ConnectionSpec.MODERN_TLS
+  23 |  )
+  24 |
+     ^ Col 3
+",kotlin.kotlin_unencrypted_channel
