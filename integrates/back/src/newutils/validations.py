@@ -314,7 +314,7 @@ def validate_field_length_deco(
 
 
 def validate_finding_id(finding_id: str) -> None:
-    if not re.match(
+    if not re.fullmatch(
         r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"
         r"[0-9A-Za-z]{3}-[0-9A-Za-z]{12}|\d+",
         finding_id,

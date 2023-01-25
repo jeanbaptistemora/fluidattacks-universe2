@@ -45,6 +45,7 @@ from newutils import (
 )
 import pytest
 from typing import (
+    Any,
     Dict,
     NamedTuple,
     Optional,
@@ -60,7 +61,7 @@ pytestmark = [
 def test_validate_alphanumeric_field() -> None:
     assert validations.validate_alphanumeric_field("one test")
     with pytest.raises(InvalidField):
-        assert validations.validate_alphanumeric_field("=test2@")
+        validations.validate_alphanumeric_field("=test2@")
 
 
 def test_validate_alphanumeric_field_deco() -> None:
@@ -124,6 +125,7 @@ def test_validate_field_length() -> None:
     )
     with pytest.raises(InvalidFieldLength):
         validations.validate_field_length("testlength", limit=9)
+    with pytest.raises(InvalidFieldLength):
         validations.validate_field_length(
             "testlength", limit=11, is_greater_than_limit=True
         )
@@ -213,8 +215,11 @@ def test_validate_fields_deco() -> None:
     assert decorated_func(field1="testfield", field2="testfield2")
     with pytest.raises(InvalidChar):
         decorated_func(field1="valid", field2=" =invalid")
+    with pytest.raises(InvalidChar):
         decorated_func(field1="=testfield", field2="testfield2")
+    with pytest.raises(InvalidChar):
         decorated_func(field1="testfield", field2="testfiel`d")
+    with pytest.raises(InvalidChar):
         decorated_func(field1="testfield", field2="<testfield2")
 
 
@@ -241,11 +246,12 @@ def test_validate_file_exists() -> None:
         group_files=group_files,
     )
     with pytest.raises(ErrorFileNameAlreadyExists):
-        assert validations.validate_file_exists(  # type: ignore
+        validations.validate_file_exists(
             "test2.txt",
             group_files,
         )
-        assert validations.validate_file_exists(  # type: ignore
+    with pytest.raises(ErrorFileNameAlreadyExists):
+        validations.validate_file_exists(
             "test3.txt",
             group_files,
         )
@@ -284,8 +290,8 @@ def test_validate_file_exists_deco() -> None:
         group_files=group_files,
     )
     with pytest.raises(ErrorFileNameAlreadyExists):
-
         decorated_func_group(file_name="test2.txt", group_files=group_files)
+    with pytest.raises(ErrorFileNameAlreadyExists):
         decorated_func_group(file_name="test3.txt", group_files=group_files)
 
     class TestClass(NamedTuple):
@@ -344,7 +350,7 @@ def test_validate_file_name_deco() -> None:
 def test_validate_group_name() -> None:
     assert not bool(validations.validate_group_name("test"))  # type: ignore
     with pytest.raises(InvalidField):
-        assert validations.validate_group_name("=test2@")  # type: ignore
+        validations.validate_group_name("=test2@")
 
 
 def test_validate_group_name_deco() -> None:
@@ -354,7 +360,6 @@ def test_validate_group_name_deco() -> None:
 
     assert decorated_func(group="test")
     with pytest.raises(InvalidField):
-
         decorated_func(group="=test2@")
 
     class TestClass(NamedTuple):
@@ -383,8 +388,8 @@ def test_validate_int_range(
     value: int, lower_bound: int, upper_bound: int, inclusive: bool
 ) -> None:
     with pytest.raises(NumberOutOfRange):
-        assert validations.validate_int_range(
-            value, lower_bound, upper_bound, inclusive  # type: ignore
+        validations.validate_int_range(
+            value, lower_bound, upper_bound, inclusive
         )
 
 
@@ -445,7 +450,7 @@ def test_validate_sanitized_csv_input(field: str) -> None:
         "http://localhost/bWAPP/sqli_1.php",
     )
     with pytest.raises(UnsanitizedInputFound):
-        assert validations.validate_sanitized_csv_input(field)  # type: ignore
+        validations.validate_sanitized_csv_input(field)
 
 
 @pytest.mark.parametrize(
@@ -591,14 +596,14 @@ def test_validate_sequence_deco() -> None:
         decorated_func(value="aabcc")
 
     class TestClass(NamedTuple):
-        value: str
+        value: Any
 
     @validations.validate_sequence_deco("test_obj.value")
     def decorated_func_obj(test_obj: TestClass) -> TestClass:
         return test_obj
 
     test_obj = TestClass(value="a1221b")
-    test_obj_fail = TestClass(value="aabcc")
+    test_obj_fail = TestClass(value=54321)
 
     assert decorated_func_obj(test_obj=test_obj)
     with pytest.raises(InvalidReportFilter):
@@ -694,6 +699,7 @@ def test_validate_finding_id() -> None:
         validations.validate_finding_id(
             finding_id="12345678-1234-1234-1234-1234567890a"
         )
+    with pytest.raises(InvalidField):
         validations.validate_finding_id(finding_id="invalid_finding_id")
 
 
@@ -707,6 +713,7 @@ def test_validate_finding_id_deco() -> None:
 
     with pytest.raises(InvalidField):
         decorated_func(finding_id="12345678-1234-1234-1234-1234567890a")
+    with pytest.raises(InvalidField):
         decorated_func(finding_id="invalid_finding_id")
 
     class TestClass(NamedTuple):
@@ -726,9 +733,7 @@ def test_validate_finding_id_deco() -> None:
 
 def test_validate_group_language() -> None:
     validations.validate_group_language(language="es")
-
     validations.validate_group_language(language="EN")
-
     with pytest.raises(InvalidField):
         validations.validate_group_language(language="fr")
         validations.validate_group_language(language="")
@@ -1102,8 +1107,8 @@ def test_validate_url_deco() -> None:
 
 
 def test_validate_markdown() -> None:
-    validations.validate_markdown(text="<h1>Heading level\t 1</h1>")
-    validations.validate_markdown(
+    assert validations.validate_markdown(text="<h1>Heading level\t 1</h1>")
+    assert validations.validate_markdown(
         text="ftp://user:password@ftp.example.com:21/path/to/file"
     )
     with pytest.raises(InvalidMarkdown):
@@ -1362,6 +1367,7 @@ def test_validate_missing_severity_field_names() -> None:
             field_names=fields_31_severity,
             css_version=FindingCvssVersion.V20.value,
         )
+    with pytest.raises(IncompleteSeverity):
         validations.validate_missing_severity_field_names(
             field_names=fields_20_severity,
             css_version=FindingCvssVersion.V31.value,
@@ -1435,6 +1441,7 @@ def test_validate_missing_severity_field_names_deco() -> None:
             fields=fields_31_severity,
             css_version_field=FindingCvssVersion.V20.value,
         )
+    with pytest.raises(IncompleteSeverity):
         decorated_func(
             fields=fields_20_severity,
             css_version_field=FindingCvssVersion.V31.value,
