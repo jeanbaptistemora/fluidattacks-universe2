@@ -73,15 +73,6 @@ const Col33: StyledComponent<
   className: "ph1-5 w-33-ns",
 })``;
 
-const Col45: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 w-45-ns",
-})``;
-
 const Col50: StyledComponent<
   "div",
   Record<string, unknown>
@@ -89,15 +80,6 @@ const Col50: StyledComponent<
   className: string;
 }>({
   className: "ph1-5 w-50-ns",
-})``;
-
-const Col60: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs<{
-  className: string;
-}>({
-  className: "ph1-5 w-60-ns",
 })``;
 
 const Col80: StyledComponent<
@@ -313,13 +295,6 @@ const RowCenter: StyledComponent<
   className: "flex flex-wrap justify-center",
 })``;
 
-const Small: StyledComponent<
-  "small",
-  Record<string, unknown>
-> = styled.small.attrs({
-  className: "justify-center ph1 pv0",
-})``;
-
 const SwitchItem: StyledComponent<
   "li",
   Record<string, unknown>
@@ -341,9 +316,7 @@ export {
   CheckBoxOption,
   Col100,
   Col33,
-  Col45,
   Col50,
-  Col60,
   Col80,
   ControlLabel,
   EditableFieldContent,
@@ -369,7 +342,6 @@ export {
   RequiredField,
   Row,
   RowCenter,
-  Small,
   SwitchItem,
   TabContent,
 };

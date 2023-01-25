@@ -110,11 +110,6 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
-  .noResize {
-    resize: none;
-    min-height: 100px !important;
-  }
-
   .no-data {
     color: lightgray;
     font-size: 40px;
@@ -196,10 +191,6 @@ const GlobalStyle = createGlobalStyle`
     grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
   }
 
-  .noresize {
-    resize: none;
-  }
-
   .orgred {
     color: #ff3435;
   }
@@ -224,12 +215,6 @@ const GlobalStyle = createGlobalStyle`
 
   .ws-pre-wrap {
     white-space: pre-wrap;
-  }
-
-  @media (min-width: 768px) {
-    .w-45-ns {
-      width: 45%;
-    }
   }
 `;
 
