@@ -2,6 +2,7 @@ from arch_lint.dag import (
     DAG,
 )
 from typing import (
+    cast,
     FrozenSet,
     Tuple,
 )
@@ -62,7 +63,4 @@ _dag: Tuple[FrozenSet[str], ...] = (
 
 
 def project_dag() -> DAG:
-    result = DAG.new(_dag)
-    if isinstance(result, Exception):
-        raise result
-    return result
+    return cast(DAG, DAG.new(_dag))

@@ -2,6 +2,7 @@ from arch_lint.dag import (
     DagMap,
 )
 from typing import (
+    cast,
     Union,
 )
 
@@ -237,7 +238,4 @@ _dag: dict[str, tuple[Union[tuple[str, ...], str], ...]] = {
 
 
 def project_dag() -> DagMap:
-    result = DagMap.new(_dag)
-    if isinstance(result, Exception):
-        raise result
-    return result
+    return cast(DagMap, DagMap.new(_dag))
