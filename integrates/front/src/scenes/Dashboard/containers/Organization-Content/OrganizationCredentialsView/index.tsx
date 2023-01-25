@@ -7,7 +7,7 @@ import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ActionButtons } from "./ActionButtons";
@@ -22,6 +22,8 @@ import type {
 
 import { GET_ROOTS } from "../../Group-Content/GroupScopeView/queries";
 import { Table } from "components/Table";
+import type { IAuthContext } from "utils/auth";
+import { authContext } from "utils/auth";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -30,6 +32,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   organizationId,
 }: IOrganizationCredentialsProps): JSX.Element => {
   const { t } = useTranslation();
+  const { userEmail }: IAuthContext = useContext(authContext);
 
   // Permissions
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -111,15 +114,38 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
   );
 
   // Format data
-  const credentialsAttrs = _.isUndefined(data)
-    ? []
-    : data.organization.credentials;
+  const credentialsAttrs = useMemo(
+    (): ICredentialsAttr[] =>
+      _.isUndefined(data) ? [] : data.organization.credentials,
+    [data]
+  );
   const credentials: ICredentialsData[] = credentialsAttrs.map(
     (credentialAttr: ICredentialsAttr): ICredentialsData => ({
       ...credentialAttr,
       formattedType: formatType(credentialAttr),
     })
   );
+  const shouldDisplayGithubButton = useMemo((): boolean => {
+    return (
+      credentialsAttrs.filter(
+        (credential: ICredentialsAttr): boolean =>
+          credential.type === "OAUTH" &&
+          credential.oauthType === "GITHUB" &&
+          credential.owner.toLowerCase() === userEmail.toLowerCase()
+      ).length === 0
+    );
+  }, [credentialsAttrs, userEmail]);
+
+  const shouldDisplayGitlabButton = useMemo((): boolean => {
+    return (
+      credentialsAttrs.filter(
+        (credential: ICredentialsAttr): boolean =>
+          credential.type === "OAUTH" &&
+          credential.oauthType === "GITLAB" &&
+          credential.owner.toLowerCase() === userEmail.toLowerCase()
+      ).length === 0
+    );
+  }, [credentialsAttrs, userEmail]);
 
   // Handle actions
   const openCredentialsModalToAdd = useCallback((): void => {
@@ -176,7 +202,10 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
             onAdd={openCredentialsModalToAdd}
             onEdit={openCredentialsModalToEdit}
             onRemove={removeCredentials}
+            organizationId={organizationId}
             selectedCredentials={selectedCredentials[0]}
+            shouldDisplayGithubButton={shouldDisplayGithubButton}
+            shouldDisplayGitlabButton={shouldDisplayGitlabButton}
           />
         }
         id={"tblOrganizationCredentials"}

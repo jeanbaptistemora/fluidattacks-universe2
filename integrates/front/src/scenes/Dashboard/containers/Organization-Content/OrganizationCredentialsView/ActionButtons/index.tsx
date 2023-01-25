@@ -1,7 +1,7 @@
 import { faPen, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IActionButtonsProps } from "./types";
@@ -10,6 +10,7 @@ import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
+import { openUrl } from "utils/resourceHelpers";
 
 const ActionButtons: React.FC<IActionButtonsProps> = ({
   isAdding,
@@ -18,11 +19,36 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   onAdd,
   onEdit,
   onRemove,
+  organizationId,
   selectedCredentials,
+  shouldDisplayGithubButton,
+  shouldDisplayGitlabButton,
 }: IActionButtonsProps): JSX.Element | null => {
   const { t } = useTranslation();
 
   const disabled = isAdding || isEditing || isRemoving;
+
+  const labUrl = useMemo((): string => {
+    const oauthUrl: URL = new URL("/dgitlab", window.location.origin);
+    oauthUrl.searchParams.set("subject", organizationId);
+
+    return oauthUrl.toString();
+  }, [organizationId]);
+
+  const hubUrl = useMemo((): string => {
+    const oauthUrl: URL = new URL("/dgithub", window.location.origin);
+    oauthUrl.searchParams.set("subject", organizationId);
+
+    return oauthUrl.toString();
+  }, [organizationId]);
+
+  const openLabUrl = useCallback((): void => {
+    openUrl(labUrl, false);
+  }, [labUrl]);
+
+  const openHubUrl = useCallback((): void => {
+    openUrl(hubUrl, false);
+  }, [hubUrl]);
 
   return (
     <React.StrictMode>
@@ -116,6 +142,58 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           }}
         </ConfirmDialog>
       </Can>
+      {shouldDisplayGithubButton ? (
+        <Can do={"api_mutations_add_credentials_mutate"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={
+              "organization.tabs.credentials.actionButtons.githubButton.tooltip.id"
+            }
+            tip={t(
+              "organization.tabs.credentials.actionButtons.githubButton.tooltip"
+            )}
+          >
+            <Button
+              disabled={disabled}
+              id={"githubButtonCredentials"}
+              onClick={openHubUrl}
+              variant={"secondary"}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              &nbsp;
+              {t(
+                "organization.tabs.credentials.actionButtons.githubButton.text"
+              )}
+            </Button>
+          </Tooltip>
+        </Can>
+      ) : undefined}
+      {shouldDisplayGitlabButton ? (
+        <Can do={"api_mutations_add_credentials_mutate"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={
+              "organization.tabs.credentials.actionButtons.gitlabButton.tooltip.id"
+            }
+            tip={t(
+              "organization.tabs.credentials.actionButtons.gitlabButton.tooltip"
+            )}
+          >
+            <Button
+              disabled={disabled}
+              id={"gitlabButtonCredentials"}
+              onClick={openLabUrl}
+              variant={"secondary"}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              &nbsp;
+              {t(
+                "organization.tabs.credentials.actionButtons.gitlabButton.text"
+              )}
+            </Button>
+          </Tooltip>
+        </Can>
+      ) : undefined}
     </React.StrictMode>
   );
 };

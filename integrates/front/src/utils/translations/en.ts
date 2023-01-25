@@ -2031,6 +2031,14 @@ export const enTranslations: ResourceKey = {
             text: "Edit",
             tooltip: "Edit credentials of the organization",
           },
+          githubButton: {
+            text: "GitHub OAuth",
+            tooltip: "Add GitHub OAuth organization credentials",
+          },
+          gitlabButton: {
+            text: "GitLab OAuth",
+            tooltip: "Add GitLab OAuth organization credentials",
+          },
           removeButton: {
             confirmMessage:
               "{{credentialName}} will be removed from the organization",
@@ -2404,7 +2412,7 @@ export const enTranslations: ResourceKey = {
         buttons: {
           add: {
             text: "Integrate",
-            tooltip: "Integrate with Azure DevOps by adding PAT credentials",
+            tooltip: "Integrate by adding PAT or OAuth credentials",
           },
           addRepositories: {
             text: "Add new roots",

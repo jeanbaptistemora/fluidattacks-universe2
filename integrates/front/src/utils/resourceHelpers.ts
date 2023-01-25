@@ -1,9 +1,12 @@
 import _ from "lodash";
 
-export const openUrl: (url: string) => void = (url: string): void => {
+export const openUrl: (url: string, openANewTab?: boolean) => void = (
+  url: string,
+  openANewTab: boolean = true
+): void => {
   const newTab: Window | null = window.open(
     url,
-    undefined,
+    openANewTab ? undefined : "_self",
     "noopener,noreferrer,"
   );
   if (_.isObject(newTab)) {

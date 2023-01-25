@@ -24,6 +24,7 @@ const GET_ORGANIZATION_CREDENTIALS: DocumentNode = gql`
         isPat
         isToken
         name
+        oauthType
         owner
         type
       }
