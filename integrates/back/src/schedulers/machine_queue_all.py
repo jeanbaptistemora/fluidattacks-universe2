@@ -38,7 +38,7 @@ async def main() -> None:
         group
         for group in groups
         if group.state.has_machine is True
-        and group.state.managed in (GroupManaged.MANAGED, GroupManaged.TRIAL)
+        and group.state.managed != GroupManaged.UNDER_REVIEW
     ]
     groups_roots = await loaders.group_roots.load_many(
         [group.name for group in machine_groups]
