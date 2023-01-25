@@ -1,0 +1,9 @@
+procs:
+  back:
+    cmd: ["integrates-back", "dev"]
+  db:
+    cmd: ["integrates-db"]
+  front:
+    cmd: ["integrates-front"]
+  storage:
+    cmd: ["integrates-storage-dev"]
