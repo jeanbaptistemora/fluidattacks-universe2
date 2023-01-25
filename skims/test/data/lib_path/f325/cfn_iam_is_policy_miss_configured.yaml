@@ -75,3 +75,74 @@ Resources:
             NotAction: iam:*
       Groups:
         - !Ref CFNUserGroup
+  CreateTestDABPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      Description: Policy for creating a test database
+      Path: /
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: iam:*
+            Condition:
+              StringEquals:
+                rds:DatabaseEngine: mysql
+          - Effect: Allow
+            Action: rds:CreateGlobalCluster
+            Resource:
+              - ''
+              - ec2:StartInstances
+              - s3:GetObject
+          - Effect: Allow
+            Action: ecs:DescribeServices
+            Resource: '*'
+            Condition:
+              StringEquals:
+                rds:DatabaseClass: db.t2.micro
+          - Effect: Allow
+            Action: ecs:CreateService
+            Resource: '*'
+            Condition:
+              StringEquals:
+                rds:DatabaseClass: db.t2.micro
+      Groups:
+        - TestDBGroup
+  RootRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            NotPrincipal:
+              Service:
+                - ec2.amazonaws.com
+            NotAction:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: ecs:CreateService
+                Resource: '*'
+              - Effect: Allow
+                Action: iam:*
+                Resource: '*'
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: '*'
+                Resource: s3:GetObject
+        - PolicyName: root1
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                NotAction: '*'
+                NotResource: s3:GetObject
