@@ -3,16 +3,16 @@
 Move migrated attributes from the ToeLines Item into the State
 
 TOE Lines State Standardization
-Execution Time:    2023-01-20 at 21:00:45 UTC
-Finalization Time: 2023-01-20 at 22:01:59 UTC
+Execution Time:    2023-01-24 at 05:42:55 UTC
+Finalization Time: 2023-01-24 at 07:01:15 UTC
 
 TOE Lines Check
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-24 at 07:02:02 UTC
+Finalization Time: 2023-01-24 at 07:46:26 UTC
 
 Deletion of duplicate data
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-26 at 00:25:28 UTC
+Finalization Time: 2023-01-26 at 03:06:11 UTC
 """
 from aioextensions import (
     collect,
@@ -53,6 +53,7 @@ MIGRATED_ATTRS = {
     "attacked_at",
     "first_attack_at",
     "be_present",
+    "be_present_until",
     "attacked_by",
     "attacked_lines",
     "seen_at",
@@ -60,16 +61,12 @@ MIGRATED_ATTRS = {
     "modified_date",
 }
 MIGRATE = False
+DELETE = True
+MISSING_GROUPS: set[str] = set()
 
 
-def check_item_state_shape(item: Item, state_item: Item) -> None:
-    if lacking_attrs := (MIGRATED_ATTRS & item.keys()) - state_item.keys():
-        print(f"Found an item/state mismatch:{lacking_attrs}")
-        print(f"Item: {item}")
-    if any(
-        attr not in state_item for attr in ("modified_by", "modified_date")
-    ):
-        print("State missing some attrs")
+def check_item_state_shape(state_item: Item) -> bool:
+    return {"modified_by", "modified_date"} >= state_item.keys()
 
 
 async def get_toe_lines_by_group(
@@ -97,8 +94,11 @@ async def get_toe_lines_by_group(
 
 async def delete_duplicate_data(item: Item) -> None:
     to_delete: Item = {
-        key: None for key in (MIGRATED_ATTRS - {"modified_date"})
+        key: None
+        for key in ((MIGRATED_ATTRS & item.keys()) - {"modified_date"})
     }
+    if not to_delete:
+        return
 
     key_structure = TABLE.primary_key
     primary_key = PrimaryKey(
@@ -158,9 +158,17 @@ async def process_group(group_name: str, progress: float) -> None:
             tuple(process_toe_lines_item(item) for item in group_toe_lines),
             workers=64,
         )
+    elif DELETE:
+        await collect(
+            tuple(delete_duplicate_data(item) for item in group_toe_lines),
+            workers=64,
+        )
     else:
         for item in group_toe_lines:
-            check_item_state_shape(item, item["state"])
+            if check_item_state_shape(item["state"]):
+                print(f"Found mismatch in {group_name}")
+                MISSING_GROUPS.add(group_name)
+                return
 
 
 async def main() -> None:
@@ -179,6 +187,8 @@ async def main() -> None:
         ),
         workers=1,
     )
+    if not MIGRATE:
+        print(MISSING_GROUPS)
 
 
 if __name__ == "__main__":
