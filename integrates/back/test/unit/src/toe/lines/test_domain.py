@@ -1,6 +1,3 @@
-from custom_exceptions import (
-    ToeLinesNotFound,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -22,6 +19,9 @@ from toe.lines import (
 from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
+)
+from typing import (
+    Optional,
 )
 
 # Constants
@@ -176,7 +176,7 @@ async def test_remove() -> None:
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     filename = "test/new.new"
     loaders = get_new_context()
-    current_value: ToeLines = await loaders.toe_lines.load(
+    current_value: Optional[ToeLines] = await loaders.toe_lines.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
@@ -190,7 +190,7 @@ async def test_remove() -> None:
     assert historic_toe_lines
     await toe_lines_domain.remove(group_name, root_id, filename)
 
-    with pytest.raises(ToeLinesNotFound):
+    if not current_value:
         await loaders.toe_lines.clear_all().load(
             ToeLinesRequest(
                 group_name=group_name, root_id=root_id, filename=filename

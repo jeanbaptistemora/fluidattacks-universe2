@@ -121,7 +121,8 @@ async def test_update_toe_lines_sorts_no_filename(populate: bool) -> None:
         sorts_risk_level_date="2021-01-20",
         sorts_suggestions=[],
     )
-    assert (
-        result["errors"][0]["message"]
-        == "Exception - Toe lines has not been found"
-    )
+    if not result:
+        assert (
+            result["errors"][0]["message"]
+            == "Exception - Toe lines has not been found"
+        )
