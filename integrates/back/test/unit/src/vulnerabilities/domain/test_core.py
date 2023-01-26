@@ -34,22 +34,15 @@ from decimal import (
 from freezegun import (
     freeze_time,
 )
-from mypy_boto3_dynamodb import (
-    DynamoDBServiceResource as ServiceResource,
-)
 from newutils.datetime import (
     get_now_minus_delta,
 )
 import pytest
 from typing import (
-    Any,
     Dict,
     List,
     Tuple,
     Union,
-)
-from unittest import (
-    mock,
 )
 from unittest.mock import (
     AsyncMock,
@@ -73,13 +66,74 @@ pytestmark = [
 ]
 
 
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
 @pytest.mark.parametrize(
     ["finding_id", "expected"],
     [
+        [
+            "422286126",
+            {
+                "ports_vulnerabilities": (),
+                "lines_vulnerabilities": (
+                    Vulnerability(
+                        created_by="unittest@fluidattacks.com",
+                        created_date=datetime.fromisoformat(
+                            "2020-01-03T17:46:10+00:00"
+                        ),
+                        finding_id="422286126",
+                        group_name="unittesting",
+                        hacker_email="unittest@fluidattacks.com",
+                        id="0a848781-b6a4-422e-95fa-692151e6a98z",
+                        state=VulnerabilityState(
+                            commit="ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
+                            modified_by="unittest@fluidattacks.com",
+                            modified_date=datetime.fromisoformat(
+                                "2020-01-03T17:46:10+00:00"
+                            ),
+                            source=Source.ASM,
+                            specific="12",
+                            status=VulnerabilityStateStatus.VULNERABLE,
+                            reasons=None,
+                            tool=VulnerabilityTool(
+                                name="tool-2",
+                                impact=VulnerabilityToolImpact.INDIRECT,
+                            ),
+                            where="test/data/lib_path/f060/csharp.cs",
+                        ),
+                        type=VulnerabilityType.LINES,
+                        bug_tracking_system_url=None,
+                        custom_severity=None,
+                        hash=None,
+                        stream=None,
+                        tags=None,
+                        treatment=VulnerabilityTreatment(
+                            modified_date=datetime.fromisoformat(
+                                "2020-01-03T17:46:10+00:00"
+                            ),
+                            status=VulnerabilityTreatmentStatus.IN_PROGRESS,
+                            acceptance_status=None,
+                            accepted_until=None,
+                            justification="test justification",
+                            assigned="integratesuser2@gmail.com",
+                            modified_by="integratesuser@gmail.com",
+                        ),
+                        unreliable_indicators=(
+                            VulnerabilityUnreliableIndicators(
+                                unreliable_efficacy=Decimal("0"),
+                                unreliable_last_reattack_date=None,
+                                unreliable_last_reattack_requester=None,
+                                unreliable_last_requested_reattack_date=None,
+                                unreliable_reattack_cycles=0,
+                                unreliable_source=Source.ASM,
+                                unreliable_treatment_changes=1,
+                            )
+                        ),
+                        verification=None,
+                        zero_risk=None,
+                    ),
+                ),
+                "inputs_vulnerabilities": (),
+            },
+        ],
         [
             "988493279",
             {
@@ -152,90 +206,35 @@ pytestmark = [
                 "inputs_vulnerabilities": (),
             },
         ],
-        [
-            "422286126",
-            {
-                "ports_vulnerabilities": (),
-                "lines_vulnerabilities": (
-                    Vulnerability(
-                        created_by="unittest@fluidattacks.com",
-                        created_date=datetime.fromisoformat(
-                            "2020-01-03T17:46:10+00:00"
-                        ),
-                        finding_id="422286126",
-                        group_name="unittesting",
-                        hacker_email="unittest@fluidattacks.com",
-                        id="0a848781-b6a4-422e-95fa-692151e6a98z",
-                        state=VulnerabilityState(
-                            commit="ea871eee64cfd5ce293411efaf4d3b446d04eb4a",
-                            modified_by="unittest@fluidattacks.com",
-                            modified_date=datetime.fromisoformat(
-                                "2020-01-03T17:46:10+00:00"
-                            ),
-                            source=Source.ASM,
-                            specific="12",
-                            status=VulnerabilityStateStatus.VULNERABLE,
-                            reasons=None,
-                            tool=VulnerabilityTool(
-                                name="tool-2",
-                                impact=VulnerabilityToolImpact.INDIRECT,
-                            ),
-                            where="test/data/lib_path/f060/csharp.cs",
-                        ),
-                        type=VulnerabilityType.LINES,
-                        bug_tracking_system_url=None,
-                        custom_severity=None,
-                        hash=None,
-                        stream=None,
-                        tags=None,
-                        treatment=VulnerabilityTreatment(
-                            modified_date=datetime.fromisoformat(
-                                "2020-01-03T17:46:10+00:00"
-                            ),
-                            status=VulnerabilityTreatmentStatus.IN_PROGRESS,
-                            acceptance_status=None,
-                            accepted_until=None,
-                            justification="test justification",
-                            assigned="integratesuser2@gmail.com",
-                            modified_by="integratesuser@gmail.com",
-                        ),
-                        unreliable_indicators=(
-                            VulnerabilityUnreliableIndicators(
-                                unreliable_efficacy=Decimal("0"),
-                                unreliable_last_reattack_date=None,
-                                unreliable_last_reattack_requester=None,
-                                unreliable_last_requested_reattack_date=None,
-                                unreliable_reattack_cycles=0,
-                                unreliable_source=Source.ASM,
-                                unreliable_treatment_changes=1,
-                            )
-                        ),
-                        verification=None,
-                        zero_risk=None,
-                    ),
-                ),
-                "inputs_vulnerabilities": (),
-            },
-        ],
     ],
 )
+@patch(
+    get_mocked_path("loaders.finding_vulnerabilities_released_nzr.load"),
+    new_callable=AsyncMock,
+)
 async def test_get_open_vulnerabilities_specific_by_type(
-    mock_table_resource: AsyncMock,
+    mock_loaders_finding_vulnerabilities_released_nzr: AsyncMock,
     finding_id: str,
     expected: Dict[str, Tuple[Dict[str, str], ...]],
-    dynamo_resource: ServiceResource,
 ) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        table_name = "integrates_vms"
-        return dynamo_resource.Table(table_name).query(**kwargs)
 
+    mocked_objects, mocked_paths, mocks_args = [
+        [mock_loaders_finding_vulnerabilities_released_nzr],
+        ["loaders.finding_vulnerabilities_released_nzr.load"],
+        [[finding_id]],
+    ]
+
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
     loaders: Dataloaders = get_new_context()
-    mock_table_resource.return_value.query.side_effect = mock_query
-    results = await get_open_vulnerabilities_specific_by_type(
+    result = await get_open_vulnerabilities_specific_by_type(
         loaders, finding_id
     )
-    assert mock_table_resource.called is True
-    assert results == expected  # type: ignore
+    assert all(mock_object.called is True for mock_object in mocked_objects)
+    assert result == expected  # type: ignore
 
 
 async def test_get_reattack_requester() -> None:
