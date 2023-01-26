@@ -3,6 +3,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from db_model.toe_ports.types import (
     ToePort,
@@ -15,11 +16,17 @@ from typing import (
 )
 
 
-async def resolve(parent: ToePort, info: GraphQLResolveInfo) -> Optional[Root]:
+async def resolve(
+    parent: ToePort,
+    info: GraphQLResolveInfo,
+    **_kwargs: None,
+) -> Optional[Root]:
     loaders: Dataloaders = info.context.loaders
     if parent.root_id:
         root: Root = await loaders.root.load(
-            (parent.group_name, parent.root_id)
+            RootRequest(parent.group_name, parent.root_id)
         )
+
         return root
+
     return None

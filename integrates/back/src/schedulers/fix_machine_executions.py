@@ -22,6 +22,7 @@ from db_model.roots.get import (
 from db_model.roots.types import (
     GitRoot,
     RootMachineExecution,
+    RootRequest,
 )
 from more_itertools import (
     collapse,
@@ -35,7 +36,6 @@ from schedulers.common import (
 from typing import (
     Any,
     Optional,
-    Tuple,
 )
 
 
@@ -47,7 +47,9 @@ async def process_item(
 ) -> bool:
     group_name = job.name.split("-")[-1]
     try:
-        git_root: GitRoot = await loaders.root.load((group_name, job.root_id))
+        git_root: GitRoot = await loaders.root.load(
+            RootRequest(group_name, job.root_id)
+        )
     except RootNotFound:
         return False
     result_objects = (
@@ -113,7 +115,7 @@ async def main() -> None:
             )
             next_token = response.get("nextToken")
 
-    jobs_in_db: Tuple[RootMachineExecution, ...] = tuple(
+    jobs_in_db: tuple[RootMachineExecution, ...] = tuple(
         collapse(
             await collect(
                 [

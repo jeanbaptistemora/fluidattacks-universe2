@@ -43,6 +43,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     Root,
+    RootRequest,
     URLRoot,
 )
 from db_model.stakeholders.types import (
@@ -629,7 +630,9 @@ async def move_root(*, item: BatchProcessing) -> None:
     loaders: Dataloaders = get_new_context()
 
     LOGGER.info("Moving root", extra={"extra": info})
-    root: Root = await loaders.root.load((source_group_name, source_root_id))
+    root: Root = await loaders.root.load(
+        RootRequest(source_group_name, source_root_id)
+    )
     root_vulnerabilities = await loaders.root_vulnerabilities.load(root.id)
     vulns_by_finding = itertools.groupby(
         sorted(root_vulnerabilities, key=attrgetter("finding_id")),
@@ -660,7 +663,7 @@ async def move_root(*, item: BatchProcessing) -> None:
     )
     LOGGER.info("Moving completed")
     target_root: Root = await loaders.root.load(
-        (target_group_name, target_root_id)
+        RootRequest(target_group_name, target_root_id)
     )
     if isinstance(root, (GitRoot, URLRoot)):
         LOGGER.info("Updating ToE inputs")

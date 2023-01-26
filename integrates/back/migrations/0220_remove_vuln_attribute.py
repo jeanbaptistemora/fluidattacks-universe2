@@ -31,6 +31,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
     RootState,
 )
 from dynamodb import (
@@ -108,10 +109,12 @@ async def process_vulnerability(
     if not root_id or not root_id_pk:
         return
 
-    root_by_pk: Root = await loaders.root.load((group_name, root_id_pk))
+    root_by_pk: Root = await loaders.root.load(
+        RootRequest(group_name, root_id_pk)
+    )
     root_by_id: Root = root_by_pk
     if root_id:
-        root_by_id = await loaders.root.load((group_name, root_id))
+        root_by_id = await loaders.root.load(RootRequest(group_name, root_id))
 
     LOGGER_CONSOLE.info(
         "Processing vulnerability",

@@ -36,6 +36,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
     RootUnreliableIndicatorsToUpdate,
 )
 from db_model.vulnerabilities.types import (
@@ -65,10 +66,7 @@ from settings import (
 from typing import (
     Any,
     cast,
-    List,
     Optional,
-    Set,
-    Tuple,
 )
 from unreliable_indicators.enums import (
     Entity,
@@ -178,8 +176,8 @@ def _format_unreliable_verification_summary(
 
 
 async def update_findings_unreliable_indicators(
-    finding_ids: List[str],
-    attrs_to_update: Set[EntityAttr],
+    finding_ids: list[str],
+    attrs_to_update: set[EntityAttr],
 ) -> None:
     await collect(
         tuple(
@@ -202,7 +200,7 @@ async def update_findings_unreliable_indicators(
 )
 async def update_finding_unreliable_indicators(  # noqa: C901
     finding_id: str,
-    attrs_to_update: Set[EntityAttr],
+    attrs_to_update: set[EntityAttr],
 ) -> None:
     loaders: Dataloaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
@@ -312,8 +310,8 @@ async def update_finding_unreliable_indicators(  # noqa: C901
 
 
 async def update_vulnerabilities_unreliable_indicators(
-    vulnerability_ids: List[str],
-    attrs_to_update: Set[EntityAttr],
+    vulnerability_ids: list[str],
+    attrs_to_update: set[EntityAttr],
 ) -> None:
     # Placed the loader here since the same finding_historic_verification is
     # shared by many vulnerabilities
@@ -333,10 +331,11 @@ async def update_vulnerabilities_unreliable_indicators(
 
 async def update_root_unreliable_indicators(
     loaders: Dataloaders,
-    root_id: Tuple[str, str],
-    attrs_to_update: Set[EntityAttr],
+    group_name: str,
+    root_id: str,
+    attrs_to_update: set[EntityAttr],
 ) -> None:
-    root: Root = await loaders.root.load(root_id)
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     indicators = {}
 
     if EntityAttr.last_status_update in attrs_to_update:
@@ -358,18 +357,19 @@ async def update_root_unreliable_indicators(
 
 
 async def update_roots_unreliable_indicators(
-    root_ids: List[Tuple[str, str]],
-    attrs_to_update: Set[EntityAttr],
+    root_ids: list[tuple[str, str]],
+    attrs_to_update: set[EntityAttr],
 ) -> None:
     loaders = get_new_context()
     await collect(
         tuple(
             update_root_unreliable_indicators(
                 loaders,
+                group_name,
                 root_id,
                 attrs_to_update,
             )
-            for root_id in set(root_ids)
+            for group_name, root_id in set(root_ids)
         )
     )
 
@@ -385,7 +385,7 @@ async def update_roots_unreliable_indicators(
 async def update_vulnerability_unreliable_indicators(
     loaders: Dataloaders,
     vulnerability_id: str,
-    attrs_to_update: Set[EntityAttr],
+    attrs_to_update: set[EntityAttr],
 ) -> None:
     try:
         vulnerability: Vulnerability = await loaders.vulnerability.load(
@@ -472,7 +472,7 @@ async def update_vulnerability_unreliable_indicators(
 
 
 async def update_unreliable_indicators_by_deps(
-    dependency: EntityDependency, **args: List[Any]
+    dependency: EntityDependency, **args: list[Any]
 ) -> None:
     entities_to_update = (
         unreliable_indicators_model.get_entities_to_update_by_dependency(
@@ -501,7 +501,7 @@ async def update_unreliable_indicators_by_deps(
         updates.append(
             update_roots_unreliable_indicators(
                 cast(
-                    List[Tuple[str, str]],
+                    list[tuple[str, str]],
                     entities_to_update[Entity.root].entity_ids[EntityId.ids],
                 ),
                 entities_to_update[Entity.root].attributes_to_update,

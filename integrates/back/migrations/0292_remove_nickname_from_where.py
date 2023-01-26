@@ -21,6 +21,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
@@ -64,7 +65,7 @@ async def main() -> None:
             for root in (
                 await loaders.root.load_many(
                     [
-                        (group, vuln)
+                        RootRequest(group, vuln)
                         for vuln in {vuln.root_id for vuln in vulns}
                     ]
                 )

@@ -1,5 +1,4 @@
 # pylint:disable=too-many-lines
-
 from . import (
     datetime as datetime_utils,
 )
@@ -41,6 +40,7 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+    RootRequest,
 )
 from db_model.toe_inputs.types import (
     ToeInput,
@@ -313,7 +313,7 @@ async def format_vulnerabilities(
         if vuln.root_id:
             with suppress(RootNotFound):
                 root: Root = await loaders.root.load(
-                    (group_name, vuln.root_id)
+                    RootRequest(group_name, vuln.root_id)
                 )
                 finding[vuln_type][-1]["repo_nickname"] = root.state.nickname
     return finding
@@ -688,7 +688,7 @@ async def validate_requested_verification(
     if vulnerability.type == VulnerabilityType.LINES and vulnerability.root_id:
         with suppress(RootNotFound):
             root: GitRoot = await loaders.root.load(
-                (vulnerability.group_name, vulnerability.root_id)
+                RootRequest(vulnerability.group_name, vulnerability.root_id)
             )
             if (
                 isinstance(root, GitRoot)

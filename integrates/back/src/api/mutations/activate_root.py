@@ -20,6 +20,7 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
+    RootRequest,
     URLRoot,
 )
 from decorators import (
@@ -40,7 +41,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -108,12 +108,14 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
-    root = await loaders.root.load((kwargs["group_name"], kwargs["id"]))
+    group_name = kwargs["group_name"]
+    root_id = kwargs["id"]
+    root = await loaders.root.load(RootRequest(group_name, root_id))
 
     if isinstance(root, GitRoot):
         await activate_git_root(

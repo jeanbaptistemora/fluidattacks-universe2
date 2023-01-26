@@ -7,6 +7,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 import pytest
 from roots.validations import (
@@ -26,11 +27,11 @@ pytestmark = [
 async def test_validate_active_root() -> None:
     loaders = get_new_context()
     active_root: Root = await loaders.root.load(
-        ("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
     )
     validate_active_root(active_root)
     inactive_root: Root = await loaders.root.load(
-        ("asgard", "814addf0-316c-4415-850d-21bd3783b011")
+        RootRequest("asgard", "814addf0-316c-4415-850d-21bd3783b011")
     )
     with pytest.raises(InactiveRoot):
         validate_active_root(inactive_root)
@@ -39,19 +40,19 @@ async def test_validate_active_root() -> None:
 async def test_validate_component() -> None:
     loaders = get_new_context()
     git_root: Root = await loaders.root.load(
-        ("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
     )
     await validate_component(
         loaders, git_root, "https://app.fluidattacks.com/test"
     )
     url_root: Root = await loaders.root.load(
-        ("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
     )
     await validate_component(
         loaders, url_root, "https://app.fluidattacks.com:443/test"
     )
     ip_root: Root = await loaders.root.load(
-        ("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
     )
     await validate_component(loaders, ip_root, "127.0.0.1:8080/test")
     with pytest.raises(InvalidRootComponent):

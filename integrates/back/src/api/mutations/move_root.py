@@ -18,6 +18,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     Root,
+    RootRequest,
     URLRoot,
 )
 from decorators import (
@@ -39,9 +40,6 @@ from roots import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -54,7 +52,7 @@ from typing import (
     {"group_name": "target_group_name", "source_group_name": "group_name"}
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     user_info = await sessions_domain.get_jwt_content(info.context)
@@ -85,7 +83,7 @@ async def mutate(
         queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if isinstance(root, GitRoot):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,

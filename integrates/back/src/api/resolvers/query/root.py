@@ -6,6 +6,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -15,9 +16,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -26,11 +24,11 @@ from typing import (
     enforce_group_level_auth_async,
 )
 async def resolve(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> Root:
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["root_id"]
     loaders: Dataloaders = info.context.loaders
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
 
     return root

@@ -4,10 +4,12 @@ from . import (
 from dataloaders import (
     get_new_context,
 )
+from db_model.roots.types import (
+    RootRequest,
+)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -24,7 +26,7 @@ async def test_sync_git_root(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         root_id=root_id,
@@ -33,7 +35,7 @@ async def test_sync_git_root(
     assert result["data"]["syncGitRoot"]["success"]
 
     loaders = get_new_context()
-    root = await loaders.root.load((group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.cloning.status.value == expected_status
 
 
@@ -54,7 +56,7 @@ async def test_sync_git_root_error(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         root_id=root_id,

@@ -13,6 +13,7 @@ from dataloaders import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -30,7 +31,6 @@ from roots import (
     domain as roots_domain,
 )
 from typing import (
-    Any,
     Optional,
 )
 
@@ -47,10 +47,10 @@ async def mutate(  # pylint: disable = too-many-arguments
     url_type: str,
     root_id: str,
     cloud_name: Optional[str] = None,
-    **_kwargs: Any,
+    **_kwargs: None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if not isinstance(root, GitRoot):
         raise InvalidRootType()
     await roots_domain.add_root_environment_url(

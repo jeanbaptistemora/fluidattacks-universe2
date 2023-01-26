@@ -183,3 +183,8 @@ class RootMachineExecution(NamedTuple):
     commit: Optional[str] = None
     success: bool = True
     status: Optional[str] = None
+
+
+class RootRequest(NamedTuple):
+    group_name: str
+    root_id: str

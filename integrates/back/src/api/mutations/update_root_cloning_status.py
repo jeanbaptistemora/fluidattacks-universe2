@@ -13,6 +13,7 @@ from db_model.enums import (
 from db_model.roots.types import (
     GitRoot,
     Root,
+    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -49,7 +50,7 @@ async def mutate(
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["id"]
     commit: Optional[str] = kwargs.get("commit")
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if (
         commit is not None
         and isinstance(root, GitRoot)

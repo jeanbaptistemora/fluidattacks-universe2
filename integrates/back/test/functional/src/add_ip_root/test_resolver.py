@@ -6,11 +6,11 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     IPRoot,
+    RootRequest,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -39,7 +39,7 @@ async def test_add_ip_root(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,
@@ -50,7 +50,7 @@ async def test_add_ip_root(
 
     loaders = get_new_context()
     root_id = result["data"]["addIpRoot"]["rootId"]
-    root: IPRoot = await loaders.root.load((group_name, root_id))
+    root: IPRoot = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.state.nickname == nickname
     assert root.state.address == address
 
@@ -75,7 +75,7 @@ async def test_add_ip_root_fail_1(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,
@@ -108,7 +108,7 @@ async def test_add_ip_root_fail_2(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,
@@ -151,7 +151,7 @@ async def test_add_ip_root_fail_3(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,

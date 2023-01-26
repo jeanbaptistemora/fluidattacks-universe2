@@ -24,6 +24,7 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from newutils.datetime import (
     get_as_epoch,
@@ -48,7 +49,7 @@ async def test_clone_roots(
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: GitRoot = await loaders.root.load(
-        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
     mocker.patch.object(
@@ -75,7 +76,7 @@ async def test_clone_roots(
     await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
-        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.OK
     assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
@@ -99,7 +100,7 @@ async def test_clone_roots_failed(
 ) -> None:
     loaders: Dataloaders = get_new_context()
     root_1: GitRoot = await loaders.root.load(
-        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.OK
     assert root_1.cloning.commit == "6d4519f5d5b97235feb65fcbc8af68e8ef9964b3"
@@ -123,7 +124,7 @@ async def test_clone_roots_failed(
     await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
-        ("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
     )
     assert root_1.cloning.status == GitCloningStatus.FAILED
     assert root_1.cloning.commit is None
@@ -148,7 +149,7 @@ async def test_clone_roots_real_https(
     await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
-        ("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
+        RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
     assert root_1.cloning.status == GitCloningStatus.OK
     assert root_1.cloning.commit == "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b"
@@ -174,7 +175,7 @@ async def test_clone_roots_real_ssh(
     await clone_roots.clone_roots(item=action)
     loaders.root.clear_all()
     root_1 = await loaders.root.load(
-        ("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
+        RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
     assert root_1.cloning.status == GitCloningStatus.OK
     assert root_1.cloning.commit == "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b"

@@ -7,11 +7,11 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -28,7 +28,7 @@ async def test_update_root_cloning_status(populate: bool, email: str) -> None:
     root_id: str = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
     group_name: str = "group2"
     loaders: Dataloaders = get_new_context()
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         root_id=root_id,
@@ -38,7 +38,7 @@ async def test_update_root_cloning_status(populate: bool, email: str) -> None:
     assert "success" in result["data"]["updateRootCloningStatus"]
     assert result["data"]["updateRootCloningStatus"]["success"]
 
-    root: GitRoot = await loaders.root.load((group_name, root_id))
+    root: GitRoot = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.cloning.status == "OK"
 
 
@@ -57,7 +57,7 @@ async def test_update_root_cloning_status_fail_1(
     assert populate
     root_id: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         root_id=root_id,
@@ -87,7 +87,7 @@ async def test_update_root_cloning_status_fail_2(
     assert populate
     root_id: str = "4039d098-ffc5-4984-8ed3-eb17bca98e199"
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         root_id=root_id,

@@ -38,6 +38,7 @@ from db_model.roots.types import (
     RootEnvironmentUrl,
     RootEnvironmentUrlType,
     RootMachineExecution,
+    RootRequest,
     RootState,
     Secret,
 )
@@ -64,30 +65,28 @@ from typing import (
 )
 
 
-async def _get_roots(*, root_ids: list[tuple[str, str]]) -> tuple[Root, ...]:
+async def _get_roots(*, requests: list[RootRequest]) -> list[Root]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["git_root_metadata"],
-            values={"name": group_name, "uuid": root_id},
+            values={"name": request.group_name, "uuid": request.root_id},
         )
-        for group_name, root_id in root_ids
+        for request in requests
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(root_ids):
-        return tuple(format_root(item) for item in items)
+    if len(items) == len(requests):
+        return [format_root(item) for item in items]
 
     raise RootNotFound()
 
 
 class RootLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: list[tuple[str, str]]
-    ) -> tuple[Root, ...]:
-        roots = {root.id: root for root in await _get_roots(root_ids=root_ids)}
+    async def batch_load_fn(self, requests: list[RootRequest]) -> list[Root]:
+        roots = {root.id: root for root in await _get_roots(requests=requests)}
 
-        return tuple(roots[root_id] for _, root_id in root_ids)
+        return [roots[request.root_id] for request in requests]
 
 
 async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:

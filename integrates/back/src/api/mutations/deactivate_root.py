@@ -31,6 +31,7 @@ from db_model.roots.types import (
     GitRoot,
     IPRoot,
     Root,
+    RootRequest,
     URLRoot,
 )
 from db_model.vulnerabilities.enums import (
@@ -256,7 +257,9 @@ async def mutate(
     )
     email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
-    root = await loaders.root.load((kwargs["group_name"], kwargs["id"]))
+    root = await loaders.root.load(
+        RootRequest(kwargs["group_name"], kwargs["id"])
+    )
 
     if isinstance(root, GitRoot):
         await require_service_white(deactivate_root)(

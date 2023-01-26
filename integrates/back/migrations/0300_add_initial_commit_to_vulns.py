@@ -25,6 +25,7 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -193,7 +194,7 @@ async def process_group(group: str, fusion_path: str) -> None:
         for root in (
             await loaders.root.load_many(
                 [
-                    (group, vuln)
+                    RootRequest(group, vuln)
                     for vuln in {
                         vuln.root_id for vuln in vulns if vuln.root_id
                     }

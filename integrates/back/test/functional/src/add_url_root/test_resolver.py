@@ -5,12 +5,12 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.roots.types import (
+    RootRequest,
     URLRoot,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -42,7 +42,7 @@ async def test_add_url_root(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,
@@ -53,7 +53,7 @@ async def test_add_url_root(
 
     loaders = get_new_context()
     root_id = result["data"]["addUrlRoot"]["rootId"]
-    root: URLRoot = await loaders.root.load((group_name, root_id))
+    root: URLRoot = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.state.nickname == nickname
     assert root.state.query == query
 
@@ -80,7 +80,7 @@ async def test_add_url_root_fail_1(
 ) -> None:
     assert populate
     group_name: str = "group2"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname=nickname,
@@ -106,7 +106,7 @@ async def test_add_url_root_fail_1(
 async def test_add_url_root_fail_2(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
         nickname="nickname",

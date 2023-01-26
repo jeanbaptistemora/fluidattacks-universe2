@@ -17,6 +17,7 @@ from db_model import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -170,7 +171,7 @@ async def add(  # pylint: disable=too-many-arguments
     attributes: ToeLinesAttributesToAdd,
     is_moving_toe_lines: bool = False,
 ) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if is_moving_toe_lines is False:
         if attributes.seen_first_time_by is not None:
             _validate_seen_first_time_by(

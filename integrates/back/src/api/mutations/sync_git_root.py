@@ -9,6 +9,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -28,10 +29,6 @@ from roots import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Any,
-    Dict,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -41,15 +38,17 @@ from typing import (
     require_service_white,
 )
 async def mutate(
-    _parent: None, info: GraphQLResolveInfo, **kwargs: Any
+    _parent: None, info: GraphQLResolveInfo, **kwargs: str
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
-    root: GitRoot = await loaders.root.load((group_name, kwargs["root_id"]))
+    root: GitRoot = await loaders.root.load(
+        RootRequest(group_name, kwargs["root_id"])
+    )
     await roots_domain.queue_sync_git_roots(
         loaders=loaders,
         roots=(root,),

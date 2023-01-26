@@ -46,7 +46,10 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 async def process_root(loaders: Dataloaders, root: RootItem) -> None:
     await update_root_unreliable_indicators(
-        loaders, (root.group_name, root.id), {EntityAttr.last_status_update}
+        loaders,
+        root.group_name,
+        root.id,
+        {EntityAttr.last_status_update},
     )
 
 

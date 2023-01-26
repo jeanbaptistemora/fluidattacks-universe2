@@ -97,6 +97,7 @@ from db_model.roots.types import (
     RootEnvironmentUrl,
     RootEnvironmentUrlType,
     RootMachineExecution,
+    RootRequest,
     RootState,
     RootUnreliableIndicators,
     Secret,
@@ -598,7 +599,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     reason: Optional[str],
     other: Optional[str],
 ) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
@@ -728,7 +729,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group.load(group_name)
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
@@ -858,7 +859,7 @@ async def update_ip_root(
     root_id: str,
     nickname: str,
 ) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if not (
         isinstance(root, IPRoot) and root.state.status == RootStatus.ACTIVE
     ):
@@ -908,7 +909,7 @@ async def update_url_root(
     root_id: str,
     nickname: str,
 ) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if not (
         isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE
     ):
@@ -1002,7 +1003,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     commit_date: Optional[datetime] = None,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
@@ -1027,8 +1028,10 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
         )
     except ConditionalCheckFailedException:
         await sleep(1.0)
-        loaders.root.clear((group_name, root_id))
-        rroot: GitRoot = await loaders.root.load((group_name, root_id))
+        loaders.root.clear(RootRequest(group_name, root_id))
+        rroot: GitRoot = await loaders.root.load(
+            RootRequest(group_name, root_id)
+        )
         await roots_model.update_git_root_cloning(
             current_value=rroot.cloning,
             cloning=GitRootCloning(
@@ -1497,7 +1500,7 @@ async def move_root(
     root_id: str,
     target_group_name: str,
 ) -> str:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     source_group: Group = await loaders.group.load(group_name)
     source_org_id = source_group.organization_id
     target_group: Group = await loaders.group.load(target_group_name)
@@ -1647,7 +1650,7 @@ async def add_secret(  # pylint: disable=too-many-arguments
     value: str,
     description: Optional[str] = None,
 ) -> bool:
-    await loaders.root.load((group_name, root_id))
+    await loaders.root.load(RootRequest(group_name, root_id))
     secret = Secret(key=key, value=value, description=description)
     return await roots_model.add_secret(root_id, secret)
 
@@ -1698,7 +1701,7 @@ async def add_root_environment_url(  # pylint: disable=too-many-arguments
     except KeyError as exc:
         raise InvalidField("urlType") from exc
 
-    await loaders.root.load((group_name, root_id))
+    await loaders.root.load(RootRequest(group_name, root_id))
     environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),

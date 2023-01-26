@@ -24,6 +24,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -59,7 +60,9 @@ async def get_vuln_nickname(
     vuln: Vulnerability,
 ) -> str:
     try:
-        root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
+        root: Root = await loaders.root.load(
+            RootRequest(vuln.group_name, vuln.root_id or "")
+        )
         if vuln.type == "LINES":
             return f"  {root.state.nickname}/{vuln.state.where}"
     except RootNotFound:

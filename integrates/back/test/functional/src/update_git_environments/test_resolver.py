@@ -25,6 +25,7 @@ from datetime import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
     Secret,
 )
 from db_model.toe_inputs.types import (
@@ -72,7 +73,7 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
     env_urls = ["https://nice-env.com", "https://nice-helper-site.co.uk"]
 
     loaders = get_new_context()
-    root: GitRoot = await loaders.root.load((group_name, root_id))
+    root: GitRoot = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.state.modified_date == datetime.fromisoformat(
         "2022-02-10T14:58:10+00:00"
     )
@@ -88,7 +89,9 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
     assert result["data"]["updateGitEnvironments"]["success"]
 
     loaders.root.clear_all()
-    changed_root: GitRoot = await loaders.root.load((group_name, root_id))
+    changed_root: GitRoot = await loaders.root.load(
+        RootRequest(group_name, root_id)
+    )
     assert changed_root.state.modified_date.date() == datetime.now().date()
     assert changed_root.state.environment_urls == env_urls
 
@@ -108,7 +111,7 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     env_urls = ["https://nice-env.net", "https://mistaken-site.ru"]
 
     loaders = get_new_context()
-    root: GitRoot = await loaders.root.load((group_name, root_id))
+    root: GitRoot = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.state.environment_urls == env_urls
 
     with suppress(InvalidParameter):
@@ -143,7 +146,9 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     assert result["data"]["updateGitEnvironments"]["success"]
 
     loaders.root.clear_all()
-    changed_root: GitRoot = await loaders.root.load((group_name, root_id))
+    changed_root: GitRoot = await loaders.root.load(
+        RootRequest(group_name, root_id)
+    )
     assert changed_root.state.environment_urls == [env_urls[0]]
 
 

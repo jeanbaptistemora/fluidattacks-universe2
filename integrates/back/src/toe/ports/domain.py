@@ -18,6 +18,7 @@ from db_model import (
 from db_model.roots.types import (
     IPRoot,
     Root,
+    RootRequest,
 )
 from db_model.toe_ports.types import (
     ToePort,
@@ -57,7 +58,7 @@ async def add(  # pylint: disable=too-many-arguments
     modified_by: str,
     is_moving_toe_port: bool = False,
 ) -> None:
-    root: Root = await loaders.root.load((group_name, root_id))
+    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
     if not isinstance(root, IPRoot):
         raise InvalidRootType()
     if is_moving_toe_port is False:

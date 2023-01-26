@@ -59,6 +59,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootState,
     Root,
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
@@ -725,7 +726,9 @@ async def repo_subtitle(
     repo = "Vulnerabilities"
     if vuln.root_id is not None:
         try:
-            root: Root = await loaders.root.load((group_name, vuln.root_id))
+            root: Root = await loaders.root.load(
+                RootRequest(group_name, vuln.root_id)
+            )
             nickname = (
                 root.state.nickname
                 if isinstance(root.state.nickname, str)
@@ -875,7 +878,9 @@ async def get_vuln_nickname(
 ) -> str:
     result: str = f"{vuln.state.where} ({vuln.state.specific})"
     try:
-        root: Root = await loaders.root.load((vuln.group_name, vuln.root_id))
+        root: Root = await loaders.root.load(
+            RootRequest(vuln.group_name, vuln.root_id or "")
+        )
         if vuln.type == "LINES":
             return f"  {root.state.nickname}/{result}"
     except RootNotFound:

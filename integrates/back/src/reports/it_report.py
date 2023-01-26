@@ -34,6 +34,7 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -826,7 +827,7 @@ class ITReport:
         if row.root_id:
             try:
                 root: Root = await self.loaders.root.load(
-                    (finding.group_name, row.root_id)
+                    RootRequest(finding.group_name, row.root_id)
                 )
                 nickname = root.state.nickname
             except RootNotFound as ex:

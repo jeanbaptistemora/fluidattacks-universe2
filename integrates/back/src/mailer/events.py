@@ -16,6 +16,7 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from group_access.domain import (
     get_group_stakeholders_emails,
@@ -90,7 +91,11 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
         "VPN_ISSUES": "VPN issues",
     }
 
-    root = await loaders.root.load((group_name, root_id)) if root_id else None
+    root = (
+        await loaders.root.load(RootRequest(group_name, root_id))
+        if root_id
+        else None
+    )
     root_url: Optional[str] = (
         root.state.url if root and isinstance(root, GitRoot) else None
     )

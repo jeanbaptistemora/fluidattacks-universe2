@@ -14,6 +14,9 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
 )
+from db_model.roots.types import (
+    RootRequest,
+)
 import pytest
 
 
@@ -55,7 +58,7 @@ async def test_add_git_root(populate: bool, email: str) -> None:
 
     loaders = get_new_context()
     root_id = result["data"]["addGitRoot"]["rootId"]
-    root = await loaders.root.load((group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
     assert root.cloning.status.value == "QUEUED"
     assert root.cloning.reason == "Cloning queued..."
 

@@ -69,6 +69,7 @@ from db_model.organizations.types import (
 )
 from db_model.roots.types import (
     Root,
+    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -199,7 +200,7 @@ async def add_event(
         group.organization_id
     )
     if root_id:
-        root: Root = await loaders.root.load((group_name, root_id))
+        root: Root = await loaders.root.load(RootRequest(group_name, root_id))
         root_id = root.id
         if root.state.status != "ACTIVE":
             raise InvalidParameter(field="rootId")
