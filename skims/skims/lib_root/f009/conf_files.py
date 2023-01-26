@@ -1,3 +1,6 @@
+from lib_root.utilities.json import (
+    is_parent,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -47,19 +50,11 @@ def _sensitive_info_in_dotnet(
     graph: Graph, nid: NId, key_pair: str, value: str
 ) -> bool:
     correct_parents = ["OutlookServices"]
-    last_nid = nid
-    if key_pair == "Email" and correct_email(value):
-        for correct_parent in correct_parents:
-            parent = g.search_pred_until_type(graph, last_nid, {"Pair"})
-            parent_id = parent[0] if parent != ("", "") else None
-            if parent_id:
-                key_id = graph.nodes[parent_id]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                if key == correct_parent:
-                    last_nid = parent_id
-                    continue
-                return False
-            return False
+    if (
+        key_pair == "Email"
+        and correct_email(value)
+        and is_parent(graph, nid, correct_parents)
+    ):
         return True
     return False
 
@@ -95,19 +90,11 @@ def _sensitive_info_json(
     graph: Graph, nid: NId, key_pair: str, value: str
 ) -> bool:
     correct_parents = ["ConnectionStrings"]
-    last_nid = nid
-    if key_pair == "Claims" and has_password(value):
-        for correct_parent in correct_parents:
-            parent = g.search_pred_until_type(graph, last_nid, {"Pair"})
-            parent_id = parent[0] if parent != ("", "") else None
-            if parent_id:
-                key_id = graph.nodes[parent_id]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                if key == correct_parent:
-                    last_nid = parent_id
-                    continue
-                return False
-            return False
+    if (
+        key_pair == "Claims"
+        and has_password(value)
+        and is_parent(graph, nid, correct_parents)
+    ):
         return True
     return False
 
