@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   image: public.ecr.aws/aws-observability/aws-otel-collector:latest
-  mode: daemonset
+  mode: deployment
   serviceAccount: monitoring
   config: |
     extensions:
@@ -39,3 +39,6 @@ spec:
         metrics:
           receivers: [prometheus]
           exporters: [prometheusremotewrite]
+      telemetry:
+        logs:
+          level: debug

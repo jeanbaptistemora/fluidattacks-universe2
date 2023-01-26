@@ -26,10 +26,6 @@ terraform {
       source  = "okta/okta"
       version = "~> 3.22.0"
     }
-    time = {
-      source  = "hashicorp/time"
-      version = "0.9.1"
-    }
   }
 
   backend "s3" {

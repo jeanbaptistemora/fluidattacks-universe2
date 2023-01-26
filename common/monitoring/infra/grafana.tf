@@ -29,15 +29,7 @@ resource "aws_grafana_workspace_api_key" "monitoring" {
   key_name        = "terraform"
   key_role        = "ADMIN"
   seconds_to_live = 2592000 # 30 Days
-  workspace_id    = time_rotating.grafana_api_key.triggers.workspace_id
-}
-
-resource "time_rotating" "grafana_api_key" {
-  rotation_days = 7
-
-  triggers = {
-    workspace_id = aws_grafana_workspace.monitoring.id
-  }
+  workspace_id    = aws_grafana_workspace.monitoring.id
 }
 
 resource "grafana_folder" "monitoring" {

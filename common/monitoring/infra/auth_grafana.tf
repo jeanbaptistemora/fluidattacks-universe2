@@ -121,10 +121,31 @@ data "aws_iam_policy_document" "grafana_redshift_access" {
   }
 }
 
+data "aws_iam_policy_document" "grafana_prometheus_access" {
+  statement {
+    actions   = ["aps:ListWorkspaces"]
+    effect    = "Allow"
+    resources = ["*"]
+  }
+
+  statement {
+    actions = [
+      "aps:DescribeWorkspace",
+      "aps:QueryMetrics",
+      "aps:GetLabels",
+      "aps:GetSeries",
+      "aps:GetMetricMetadata"
+    ]
+    effect    = "Allow"
+    resources = [aws_prometheus_workspace.monitoring.arn]
+  }
+}
+
 data "aws_iam_policy_document" "grafana" {
   source_policy_documents = [
     data.aws_iam_policy_document.grafana_athena_access.json,
-    data.aws_iam_policy_document.grafana_redshift_access.json
+    data.aws_iam_policy_document.grafana_redshift_access.json,
+    data.aws_iam_policy_document.grafana_prometheus_access.json
   ]
 }
 
