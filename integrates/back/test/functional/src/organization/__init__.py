@@ -15,6 +15,7 @@ async def get_result(
     *,
     user: str,
     org: str,
+    should_get_token: bool = False,
 ) -> dict[str, Any]:
     query: str = f"""
         query {{
@@ -64,6 +65,7 @@ async def get_result(
                     isPat
                     name
                     oauthType
+                    token @include(if: {str(should_get_token).lower()})
                     type
                 }}
                 permissions
