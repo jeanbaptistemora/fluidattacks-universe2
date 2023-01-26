@@ -779,7 +779,7 @@ export const enTranslations: ResourceKey = {
           nonVerifiedStakeholder: "Try again in a few minutes",
         },
         btn: {
-          text: "Reports",
+          text: "Generate report",
           tooltip: "Generate a report of findings and send it to your email",
         },
         cert: "  Certificate",
