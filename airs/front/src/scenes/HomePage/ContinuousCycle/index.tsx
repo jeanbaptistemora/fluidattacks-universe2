@@ -146,69 +146,80 @@ const ContinuousCycle: React.FC = (): JSX.Element => {
   }
 
   return (
-    <Container bgColor={"#ffffff"} ph={6} pv={5}>
-      <Container display={"flex"} justify={"end"}>
-        <Container
-          align={"center"}
-          display={"flex"}
-          justify={"end"}
-          maxWidth={"1420px"}
-          mr={0}
-          wrap={"wrap"}
-        >
-          <Container pv={5} width={"70%"} widthMd={"100%"}>
-            <Title color={"#bf0b1a"} level={3} mb={3} size={"small"}>
-              {translate.t("home.continuousCycle.subtitle")}
-            </Title>
-            <Title color={"#11111"} level={1} size={"medium"}>
-              {translate.t("home.continuousCycle.title")}
-            </Title>
+    <Container bgColor={"#ffffff"} justify={"center"} ph={6} pv={5}>
+      <Container
+        align={"center"}
+        bgColor={"#ffffff"}
+        center={true}
+        display={"flex"}
+        justify={"center"}
+        maxWidth={"1440px"}
+        pv={5}
+        wrap={"wrap"}
+      >
+        <Container display={"flex"} justify={"end"}>
+          <Container
+            align={"center"}
+            display={"flex"}
+            justify={"end"}
+            maxWidth={"1420px"}
+            mr={0}
+            wrap={"wrap"}
+          >
+            <Container pv={5} width={"70%"} widthMd={"100%"}>
+              <Title color={"#bf0b1a"} level={3} mb={3} size={"small"}>
+                {translate.t("home.continuousCycle.subtitle")}
+              </Title>
+              <Title color={"#11111"} level={1} size={"medium"}>
+                {translate.t("home.continuousCycle.title")}
+              </Title>
+            </Container>
+            <div style={{ width: "30%" }} />
           </Container>
-          <div style={{ width: "30%" }} />
         </Container>
+        <Grid columns={2} columnsMd={1} columnsSm={1} gap={"7rem"}>
+          <Container display={"flex"} justify={"end"} wrap={"wrap"}>
+            {[...Array(6).keys()].map(
+              (el: number): JSX.Element => (
+                <Container
+                  bgColor={"#ffffff"}
+                  display={"flex"}
+                  height={"153px"}
+                  key={`cycle${el}`}
+                  maxWidth={"555px"}
+                  wrap={"wrap"}
+                >
+                  <Container bgColor={"#DDDDE3"} width={"5px"}>
+                    <ProgressBar width={getProgress(el)} />
+                  </Container>
+                  <SlideHook id={"solutionsSlides"} />
+                  <Container maxWidth={"90%"} pl={3} pt={2}>
+                    <Title color={"#2e2e38"} level={4} size={"small"}>
+                      {translate.t(`home.continuousCycle.cycle${el}.title`)}
+                    </Title>
+                    <Text color={"#535365"}>
+                      {translate.t(`home.continuousCycle.cycle${el}.subtitle`)}
+                    </Text>
+                  </Container>
+                </Container>
+              )
+            )}
+          </Container>
+          <Container
+            align={"center"}
+            center={true}
+            display={"flex"}
+            justify={"center"}
+          >
+            <Container>
+              <CloudImage
+                alt={"cycle-image"}
+                src={`airs/home/ContinuousCycle/ciclo-hc-fluid-${cycle}.png`}
+              />
+            </Container>
+          </Container>
+        </Grid>
       </Container>
-      <Grid columns={2} columnsMd={1} columnsSm={1} gap={"7rem"}>
-        <Container display={"flex"} justify={"end"} wrap={"wrap"}>
-          {[...Array(6).keys()].map(
-            (el: number): JSX.Element => (
-              <Container
-                bgColor={"#ffffff"}
-                display={"flex"}
-                height={"153px"}
-                key={`cycle${el}`}
-                maxWidth={"555px"}
-                wrap={"wrap"}
-              >
-                <Container bgColor={"#DDDDE3"} width={"5px"}>
-                  <ProgressBar width={getProgress(el)} />
-                </Container>
-                <SlideHook id={"solutionsSlides"} />
-                <Container maxWidth={"90%"} pl={3} pt={2}>
-                  <Title color={"#2e2e38"} level={4} size={"small"}>
-                    {translate.t(`home.continuousCycle.cycle${el}.title`)}
-                  </Title>
-                  <Text color={"#535365"}>
-                    {translate.t(`home.continuousCycle.cycle${el}.subtitle`)}
-                  </Text>
-                </Container>
-              </Container>
-            )
-          )}
-        </Container>
-        <Container
-          align={"center"}
-          center={true}
-          display={"flex"}
-          justify={"center"}
-        >
-          <Container>
-            <CloudImage
-              alt={"cycle-image"}
-              src={`airs/home/ContinuousCycle/ciclo-hc-fluid-${cycle}.png`}
-            />
-          </Container>
-        </Container>
-      </Grid>
     </Container>
   );
 };
