@@ -20,7 +20,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     IPRoot,
-    Root,
 )
 from db_model.toe_ports.types import (
     RootToePortsRequest,
@@ -45,7 +44,6 @@ from toe.ports.types import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -216,7 +214,7 @@ async def refresh_root_toe_ports(
     group_name: str, optional_repo_nickname: Optional[str], modified_by: str
 ) -> None:
     loaders = get_new_context()
-    roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     # There are roots with the same nickname
     # then it is going to take the last modified root
     sorted_roots = sorted(

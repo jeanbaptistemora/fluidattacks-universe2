@@ -60,7 +60,6 @@ from s3.resource import (
     get_s3_resource,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -89,7 +88,7 @@ class RootLoader(DataLoader):
         return [roots[request.root_id] for request in requests]
 
 
-async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:
+async def _get_group_roots(*, group_name: str) -> list[Root]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],
         values={"name": group_name},
@@ -113,23 +112,21 @@ async def _get_group_roots(*, group_name: str) -> tuple[Root, ...]:
         table=TABLE,
     )
 
-    return tuple(format_root(item) for item in response.items)
+    return [format_root(item) for item in response.items]
 
 
 class GroupRootsLoader(DataLoader):
-    async def load_many_chained(
-        self, group_names: Iterable[str]
-    ) -> tuple[Root, ...]:
+    async def load_many_chained(self, group_names: list[str]) -> list[Root]:
         unchained_data = await self.load_many(group_names)
-        return tuple(chain.from_iterable(unchained_data))
+        return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, group_names: list[str]
-    ) -> tuple[tuple[Root, ...], ...]:
-        return await collect(
-            _get_group_roots(group_name=group_name)
-            for group_name in group_names
+    async def batch_load_fn(self, group_names: list[str]) -> list[list[Root]]:
+        return list(
+            await collect(
+                _get_group_roots(group_name=group_name)
+                for group_name in group_names
+            )
         )
 
 

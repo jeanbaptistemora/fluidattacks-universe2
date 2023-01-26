@@ -56,7 +56,6 @@ from db_model.findings.types import (
     FindingVerification,
 )
 from db_model.roots.types import (
-    GitRoot,
     GitRootState,
     Root,
     RootRequest,
@@ -651,9 +650,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
         for vuln in vulnerabilities
         if vuln.root_id and not check_hold(vuln)
     }
-    roots: Tuple[GitRoot, ...] = await loaders.group_roots.load(
-        finding.group_name
-    )
+    roots = await loaders.group_roots.load(finding.group_name)
     root_nicknames: Tuple[str, ...] = tuple(
         root.state.nickname for root in roots if root.id in root_ids
     )

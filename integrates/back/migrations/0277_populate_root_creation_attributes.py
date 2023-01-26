@@ -73,9 +73,8 @@ async def process_root(loaders: Dataloaders, root: Root) -> None:
 async def get_group_roots(
     loaders: Dataloaders,
     group_name: str,
-) -> tuple[Root, ...]:
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
-    return roots
+) -> list[Root]:
+    return await loaders.group_roots.load(group_name)
 
 
 async def main() -> None:  # noqa: MC0001

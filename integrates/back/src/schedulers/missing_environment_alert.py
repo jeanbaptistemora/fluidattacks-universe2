@@ -14,9 +14,6 @@ from db_model.groups.enums import (
     GroupSubscriptionType,
     GroupTier,
 )
-from db_model.roots.types import (
-    Root,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -36,7 +33,6 @@ from settings import (
 from typing import (
     Any,
     Dict,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -49,7 +45,7 @@ async def has_environment(
     loaders: Dataloaders,
     group: str,
 ) -> bool:
-    roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
+    roots = await loaders.group_roots.load(group)
     git_roots = await loaders.root_environment_urls.load_many_chained(
         [root.id for root in roots]
     )

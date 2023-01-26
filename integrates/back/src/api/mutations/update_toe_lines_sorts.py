@@ -16,9 +16,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.roots.types import (
-    Root,
-)
 from db_model.toe_lines.types import (
     SortsSuggestion,
     ToeLines,
@@ -110,9 +107,9 @@ async def mutate(  # pylint: disable=too-many-arguments
 
     try:
         loaders: Dataloaders = info.context.loaders
-        roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+        roots = await loaders.group_roots.load(group_name)
         root_id = roots_domain.get_root_id_by_nickname(
-            root_nickname, roots, only_git_roots=True
+            root_nickname, tuple(roots), only_git_roots=True
         )
         toe_lines: ToeLines = await loaders.toe_lines.load(
             ToeLinesRequest(

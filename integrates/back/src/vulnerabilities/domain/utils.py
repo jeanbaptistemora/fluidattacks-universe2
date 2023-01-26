@@ -12,7 +12,6 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -208,10 +207,9 @@ async def get_root_nicknames_for_skims(
     )
     if len(vulnerabilities) == len(root_ids):
         non_duplicate_root_ids: set[str] = set(root_ids)
-        roots: Tuple[Root, ...] = await loaders.group_roots.load(group)
         root_nicknames.update(
             root.state.nickname
-            for root in roots
+            for root in await loaders.group_roots.load(group)
             if root.id in non_duplicate_root_ids
         )
     else:

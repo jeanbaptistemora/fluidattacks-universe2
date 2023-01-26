@@ -181,7 +181,7 @@ async def process_group(
         },
     )
     await _process_group(loaders=loaders, group_name=group_name)
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     await collect(
         tuple(process_root(root=root) for root in roots),
         workers=2,

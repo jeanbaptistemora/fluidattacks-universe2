@@ -94,7 +94,7 @@ async def remove_input(
 
 
 async def process_input(
-    current_toe_input: ToeInput, roots: tuple[Root, ...]
+    current_toe_input: ToeInput, roots: list[Root]
 ) -> None:
     root_id = current_toe_input.state.unreliable_root_id
     root = next(
@@ -136,7 +136,7 @@ async def main() -> None:
                 GroupToeInputsRequest(group_name=group_name)
             )
         )
-        roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+        roots = await loaders.group_roots.load(group_name)
         await collect(
             tuple(
                 process_input(toe_input, roots)

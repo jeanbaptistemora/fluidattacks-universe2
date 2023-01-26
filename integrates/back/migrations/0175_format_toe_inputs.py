@@ -144,9 +144,7 @@ async def main() -> None:
     LOGGER_CONSOLE.info("Getting groups")
     groups: Tuple[Group, ...] = await loaders.group.load_many(group_names)
     LOGGER_CONSOLE.info("Getting roots")
-    groups_roots: Tuple[
-        Tuple[RootItem, ...], ...
-    ] = await loaders.group_roots.load_many(group_names)
+    groups_roots = await loaders.group_roots.load_many(group_names)
     LOGGER_CONSOLE.info("Getting inputs")
     groups_toe_input_connections = await loaders.group_toe_inputs.load_many(
         [

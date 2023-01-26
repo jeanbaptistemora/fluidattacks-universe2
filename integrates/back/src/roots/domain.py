@@ -281,7 +281,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     )
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        nickname, tuple(await loaders.group_roots.load(group_name))
     )
 
     includes_health_check = kwargs["includes_health_check"]
@@ -406,7 +406,7 @@ async def add_ip_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        nickname, tuple(await loaders.group_roots.load(group_name))
     )
 
     modified_date = datetime_utils.get_utc_now()
@@ -501,7 +501,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     loaders.group_roots.clear(group_name)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        nickname, tuple(await loaders.group_roots.load(group_name))
     )
 
     modified_date = datetime_utils.get_utc_now()
@@ -751,7 +751,8 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         validation_utils.validate_sanitized_csv_input(kwargs["nickname"])
         validations.validate_nickname(kwargs["nickname"])
         validations.validate_nickname_is_unique(
-            kwargs["nickname"], await loaders.group_roots.load(group_name)
+            kwargs["nickname"],
+            tuple(await loaders.group_roots.load(group_name)),
         )
         nickname = kwargs["nickname"]
 
@@ -871,7 +872,7 @@ async def update_ip_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        nickname, tuple(await loaders.group_roots.load(group_name))
     )
     new_state: IPRootState = IPRootState(
         address=root.state.address,
@@ -921,7 +922,7 @@ async def update_url_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+        nickname, tuple(await loaders.group_roots.load(group_name))
     )
     new_state: URLRootState = URLRootState(
         host=root.state.host,
@@ -1514,16 +1515,14 @@ async def move_root(
     ):
         raise InvalidParameter()
 
-    target_group_roots: tuple[Root, ...] = await loaders.group_roots.load(
-        target_group_name
-    )
+    target_group_roots = await loaders.group_roots.load(target_group_name)
 
     if isinstance(root, GitRoot):
         if not validations.is_git_unique(
             root.state.url,
             root.state.branch,
             target_group_name,
-            target_group_roots,
+            tuple(target_group_roots),
             include_inactive=True,
         ):
             raise RepeatedRoot()

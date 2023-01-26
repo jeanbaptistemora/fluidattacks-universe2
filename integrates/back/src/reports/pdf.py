@@ -20,7 +20,6 @@ from db_model.roots.types import (
     GitRootState,
     IPRoot,
     IPRootState,
-    Root,
     RootEnvironmentUrl,
     RootEnvironmentUrlType,
     URLRoot,
@@ -199,7 +198,7 @@ async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
 
 
 async def format_scope(loaders: Dataloaders, group_name: str) -> dict:
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     git_roots: tuple[GitRoot, ...] = tuple(
         root for root in roots if isinstance(root, GitRoot)
     )

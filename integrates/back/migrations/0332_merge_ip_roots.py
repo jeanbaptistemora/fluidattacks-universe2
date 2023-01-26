@@ -34,7 +34,6 @@ from db_model.events.types import (
 )
 from db_model.roots.types import (
     IPRoot,
-    Root,
 )
 from db_model.toe_inputs.types import (
     RootToeInputsRequest,
@@ -202,7 +201,7 @@ async def process_group(
     ],
 ) -> None:
     loaders = get_new_context()
-    group_roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    group_roots = await loaders.group_roots.load(group_name)
     group_ip_roots = sorted(
         list(root for root in group_roots if isinstance(root, IPRoot)),
         key=lambda x: x.state.address,

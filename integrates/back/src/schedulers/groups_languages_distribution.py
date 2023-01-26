@@ -224,7 +224,7 @@ async def update_language_indicators(
 async def main() -> None:
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_group_names(loaders)
-    groups_roots = await loaders.group_roots.load_many(groups)
+    groups_roots = await loaders.group_roots.load_many(list(groups))
     for group, roots in zip(groups, groups_roots):
         active_git_roots: List[GitRoot] = [
             root

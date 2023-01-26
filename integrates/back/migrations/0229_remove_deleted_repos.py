@@ -24,9 +24,6 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.roots.types import (
-    Root,
-)
 import logging
 from organizations.domain import (
     get_all_deleted_groups,
@@ -40,7 +37,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def process_group(
     loaders: Dataloaders, group: Group, progress: float
 ) -> None:
-    group_roots: tuple[Root, ...] = await loaders.group_roots.load(group.name)
+    group_roots = await loaders.group_roots.load(group.name)
     success: bool
     if group_roots:
         root_removal = await put_action(

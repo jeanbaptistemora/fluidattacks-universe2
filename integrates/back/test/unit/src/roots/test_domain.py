@@ -18,7 +18,7 @@ async def test_get_root_id_by_nickname() -> None:
     group_roots_loader = loaders.group_roots
     group_roots = await group_roots_loader.load(group_name)
     root_id = roots_domain.get_root_id_by_nickname(
-        "universe", group_roots, only_git_roots=True
+        "universe", tuple(group_roots), only_git_roots=True
     )
     assert root_id == "4039d098-ffc5-4984-8ed3-eb17bca98e19"
 

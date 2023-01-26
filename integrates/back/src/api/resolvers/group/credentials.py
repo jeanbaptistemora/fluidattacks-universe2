@@ -10,7 +10,6 @@ from db_model.groups.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -26,7 +25,7 @@ async def resolve(
     **_kwargs: None,
 ) -> tuple[Credentials, ...]:
     loaders: Dataloaders = info.context.loaders
-    group_roots: tuple[Root, ...] = await loaders.group_roots.load(parent.name)
+    group_roots = await loaders.group_roots.load(parent.name)
     group_credential_ids = {
         root.state.credential_id
         for root in group_roots

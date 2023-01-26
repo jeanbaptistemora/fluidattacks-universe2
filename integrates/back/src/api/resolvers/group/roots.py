@@ -16,9 +16,8 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Root, ...]:
+) -> list[Root]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
 
-    return roots
+    return await loaders.group_roots.load(group_name)

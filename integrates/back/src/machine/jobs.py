@@ -39,7 +39,6 @@ from db_model.roots.get import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
     RootMachineExecution,
 )
 import json
@@ -251,9 +250,7 @@ async def queue_job_new(  # pylint: disable=too-many-arguments
         group.state.has_machine
         and group.state.managed != GroupManaged.UNDER_REVIEW
     ):
-        group_roots: Tuple[Root, ...] = await dataloaders.group_roots.load(
-            group_name
-        )
+        group_roots = await dataloaders.group_roots.load(group_name)
         group_git_roots: List[GitRoot] = [
             root
             for root in group_roots

@@ -14,9 +14,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.roots.types import (
-    Root,
-)
 from groups import (
     domain as groups_domain,
 )
@@ -41,9 +38,6 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
     )
 
     loaders: Dataloaders = get_new_context()
-    # Get root info
-    group_roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
-
     success: bool = True
     await groups_domain.remove_resources(
         loaders=loaders,
@@ -53,6 +47,7 @@ async def remove_group_resources(*, item: BatchProcessing) -> None:
         in item.additional_info,
     )
     # Delete roots and related cloned repos
+    group_roots = await loaders.group_roots.load(group_name)
     if group_roots:
         root_removal = await put_action(
             action=Action.REMOVE_ROOTS,

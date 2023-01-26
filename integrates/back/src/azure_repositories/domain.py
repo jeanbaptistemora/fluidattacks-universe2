@@ -75,7 +75,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from dynamodb.exceptions import (
     UnavailabilityError,
@@ -1205,9 +1204,9 @@ async def update_organization_repositories(
     credentials: tuple[
         Credentials, ...
     ] = await loaders.organization_credentials.load(organization.id)
-    groups_roots: tuple[
-        Root, ...
-    ] = await loaders.group_roots.load_many_chained(organization_group_names)
+    groups_roots = await loaders.group_roots.load_many_chained(
+        list(organization_group_names)
+    )
     urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)
         for root in groups_roots

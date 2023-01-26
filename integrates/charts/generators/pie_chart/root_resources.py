@@ -78,12 +78,11 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
         sorted(await orgs_domain.get_all_active_group_names(loaders))
     )
     async for group in utils.iterate_groups():
-        group_roots = await loaders.group_roots.load(group)
         document = format_data(
             data=format_resources(
                 [
                     root
-                    for root in group_roots
+                    for root in await loaders.group_roots.load(group)
                     if isinstance(root, GitRoot)
                     and root.state.status == RootStatus.ACTIVE
                 ]
@@ -106,7 +105,9 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 if isinstance(root, GitRoot)
                 and root.state.status == RootStatus.ACTIVE
             ]
-            for group_roots in await loaders.group_roots.load_many(org_groups)
+            for group_roots in await loaders.group_roots.load_many(
+                list(org_groups)
+            )
         ]
         org_roots = [
             root for group_roots in grouped_roots for root in group_roots
@@ -130,7 +131,7 @@ async def generate_all() -> None:  # pylint: disable=too-many-locals
                 and root.state.status == RootStatus.ACTIVE
             ]
             for group_roots in await loaders.group_roots.load_many(
-                valid_org_groups
+                list(valid_org_groups)
             )
         ]
 

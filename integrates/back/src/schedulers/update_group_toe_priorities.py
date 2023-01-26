@@ -35,9 +35,6 @@ from datetime import (
 from db_model import (
     toe_lines as toe_lines_model,
 )
-from db_model.roots.types import (
-    GitRoot,
-)
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
     ToeLines,
@@ -111,7 +108,7 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     predicted_files: csv.DictReader,
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    all_roots: tuple[GitRoot, ...] = await loaders.group_roots.load(group_name)
+    all_roots = await loaders.group_roots.load(group_name)
     in_scope_toes = []
     updates = []
     in_scope_count = 0

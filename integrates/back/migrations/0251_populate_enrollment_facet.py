@@ -136,7 +136,7 @@ async def process_stakeholder(
     stakeholder_roots: tuple[Root, ...] = tuple(
         chain.from_iterable(
             await loaders.group_roots.load_many(
-                {group.name for group in stakeholder_groups}
+                list({group.name for group in stakeholder_groups})
             )
         )
     )

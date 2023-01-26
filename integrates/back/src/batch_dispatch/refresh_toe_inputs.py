@@ -20,7 +20,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
     URLRoot,
 )
 from db_model.toe_inputs.types import (
@@ -241,7 +240,7 @@ async def refresh_root_toe_inputs(
     group_name: str, optional_repo_nickname: Optional[str]
 ) -> None:
     loaders = get_new_context()
-    roots: Tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     # There are roots with the same nickname
     # then it is going to take the last modified root
     sorted_roots = sorted(

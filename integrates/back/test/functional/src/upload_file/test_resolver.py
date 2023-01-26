@@ -30,9 +30,6 @@ from db_model.findings.types import (
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
-from db_model.roots.types import (
-    Root,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -63,7 +60,7 @@ async def _get_vulns(
     group_name: str,
 ) -> list[dict[str, Any]]:
     finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     roots_nickname: dict[str, str] = {
         root.id: root.state.nickname for root in roots
     }

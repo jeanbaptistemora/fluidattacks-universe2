@@ -23,9 +23,6 @@ from db_model import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.roots.types import (
-    Root,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -79,7 +76,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
         Finding, ...
     ] = await loaders.group_drafts_and_findings.load(group_name)
     finding_ids = {finding.id for finding in findings}
-    roots: tuple[Root, ...] = await loaders.group_roots.load(group_name)
+    roots = await loaders.group_roots.load(group_name)
     vulnerabilities = tuple(
         chain.from_iterable(
             await collect(
