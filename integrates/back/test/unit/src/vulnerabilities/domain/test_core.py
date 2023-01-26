@@ -1,3 +1,7 @@
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_mocked_path,
+    set_mocks_return_values,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -13,6 +17,7 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityToolImpact,
     VulnerabilityType,
+    VulnerabilityZeroRiskStatus,
 )
 from db_model.vulnerabilities.types import (  # type: ignore
     Vulnerability,
@@ -21,6 +26,7 @@ from db_model.vulnerabilities.types import (  # type: ignore
     VulnerabilityTreatment,
     VulnerabilityTreatmentStatus,
     VulnerabilityUnreliableIndicators,
+    VulnerabilityZeroRisk,
 )
 from decimal import (
     Decimal,
@@ -47,6 +53,7 @@ from unittest import (
 )
 from unittest.mock import (
     AsyncMock,
+    patch,
 )
 from vulnerabilities.domain import (
     get_open_vulnerabilities_specific_by_type,
@@ -401,26 +408,123 @@ async def test_group_vulnerabilities() -> None:
     assert test_data == expected_output
 
 
-@pytest.mark.changes_db
-async def test_mask_vulnerability() -> None:
-    vuln_id = "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
-    loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.specific == "phone"
-    assert vuln.state.where == "https://example.com"
-    assert vuln.treatment == VulnerabilityTreatment(
-        justification="This is a treatment justification",
-        assigned="integratesuser@gmail.com",
-        modified_by="integratesuser2@gmail.com",
-        modified_date=datetime.fromisoformat("2020-11-23T17:46:10+00:00"),
-        status=VulnerabilityTreatmentStatus.IN_PROGRESS,
+@pytest.mark.parametrize(
+    ["email", "vulnerability"],
+    [
+        [
+            "integratesuser@gmail.com",
+            Vulnerability(
+                created_by="test@unittesting.com",
+                created_date=datetime.fromisoformat(
+                    "2020-09-09T21:01:26+00:00"
+                ),
+                finding_id="422286126",
+                group_name="unittesting",
+                hacker_email="test@unittesting.com",
+                id="80d6a69f-a376-46be-98cd-2fdedcffdcc0",
+                state=VulnerabilityState(
+                    modified_by="test@unittesting.com",
+                    modified_date=datetime.fromisoformat(
+                        "2020-09-09T21:01:26+00:00"
+                    ),
+                    source=Source.ASM,
+                    specific="phone",
+                    status=VulnerabilityStateStatus.VULNERABLE,
+                    where="https://example.com",
+                    commit=None,
+                    reasons=None,
+                    other_reason=None,
+                    tool=VulnerabilityTool(
+                        name="tool-2",
+                        impact=VulnerabilityToolImpact.INDIRECT,
+                    ),
+                    snippet=None,
+                ),
+                type=VulnerabilityType.INPUTS,
+                bug_tracking_system_url=None,
+                custom_severity=None,
+                developer=None,
+                event_id=None,
+                hash=None,
+                root_id=None,
+                skims_method=None,
+                skims_technique=None,
+                stream=None,
+                tags=None,
+                treatment=VulnerabilityTreatment(
+                    modified_date=datetime.fromisoformat(
+                        "2020-11-23T17:46:10+00:00"
+                    ),
+                    status=VulnerabilityTreatmentStatus.IN_PROGRESS,
+                    acceptance_status=None,
+                    accepted_until=None,
+                    justification="This is a treatment justification",
+                    assigned="integratesuser@gmail.com",
+                    modified_by="integratesuser2@gmail.com",
+                ),
+                unreliable_indicators=VulnerabilityUnreliableIndicators(
+                    unreliable_closing_date=None,
+                    unreliable_source=Source.ASM,
+                    unreliable_efficacy=Decimal("0"),
+                    unreliable_last_reattack_date=None,
+                    unreliable_last_reattack_requester=None,
+                    unreliable_last_requested_reattack_date=None,
+                    unreliable_reattack_cycles=0,
+                    unreliable_treatment_changes=1,
+                ),
+                verification=None,
+                zero_risk=VulnerabilityZeroRisk(
+                    comment_id="123456",
+                    modified_by="test@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2020-09-09T21:01:26+00:00"
+                    ),
+                    status=VulnerabilityZeroRiskStatus.CONFIRMED,
+                ),
+            ),
+        ],
+    ],
+)
+@patch(get_mocked_path("vulns_model.remove"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.finding.load"), new_callable=AsyncMock)
+async def test_mask_vulnerability(
+    mock_loaders_finding: AsyncMock,
+    mock_vulns_model_remove: AsyncMock,
+    email: str,
+    vulnerability: Vulnerability,
+) -> None:
+
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_loaders_finding,
+            mock_vulns_model_remove,
+        ],
+        [
+            "loaders.finding.load",
+            "vulns_model.remove",
+        ],
+        [
+            [vulnerability.finding_id],
+            [vulnerability.id],
+        ],
+    ]
+
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
     )
+
+    loaders: Dataloaders = get_new_context()
+
     await mask_vulnerability(
         loaders=loaders,
-        email="integratesuser@gmail.com",
-        finding_id=vuln.finding_id,
-        vulnerability=vuln,
+        email=email,
+        finding_id=vulnerability.finding_id,
+        vulnerability=vulnerability,
     )
+
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @freeze_time("2020-10-08")
