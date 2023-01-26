@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import type { IActionButtonsProps } from "./types";
 
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
@@ -49,6 +50,14 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   const openHubUrl = useCallback((): void => {
     openUrl(hubUrl, false);
   }, [hubUrl]);
+
+  const handleClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm(onRemove);
+      },
+    [onRemove]
+  );
 
   return (
     <React.StrictMode>
@@ -111,10 +120,6 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
           )}
         >
           {(confirm): React.ReactNode => {
-            function handleClick(): void {
-              confirm(onRemove);
-            }
-
             return (
               <Tooltip
                 disp={"inline-block"}
@@ -128,7 +133,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
                 <Button
                   disabled={disabled || _.isUndefined(selectedCredentials)}
                   id={"removeCredentials"}
-                  onClick={handleClick}
+                  onClick={handleClick(confirm)}
                   variant={"secondary"}
                 >
                   <FontAwesomeIcon icon={faTrashAlt} />
