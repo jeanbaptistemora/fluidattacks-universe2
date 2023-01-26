@@ -1,9 +1,20 @@
 ---
 id: live-chat
-title: Live Chat
-sidebar_label: Live Chat
+title: Support channels
+sidebar_label: Support channels
 slug: /machine/web/support/live-chat
 ---
+
+In our help button on the top right,
+you can find our support channels
+that you can use in our machine plan:
+Live chat,
+email help,
+and documentation.
+
+![Help Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1674762369/docs/web/support/help_button.png)
+
+## Live Chat
 
 If you have a question about any
 feature of the ARM or need help
@@ -18,20 +29,7 @@ necessary to schedule a video call
 [Talk to Hacker](/squad/support/talk-hacker)
 option would apply).
 
-To find the **Live Chat** option,
-go to the top-right corner of the
-ARM and click on the question
-mark icon.
-
-![Icon Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1663079208/docs/web/support/livechat_option.png)
-
-A pop-up window will appear
-where you will find Live chat
-next to our other support options.
-Here is how it is shown to
-Machine Plan customers:
-
-![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1663079208/docs/web/support/popup_window.png)
+![Liva Chat](https://res.cloudinary.com/fluid-attacks/image/upload/v1674764206/docs/web/support/livechat.png)
 
 After you click on Live Chat,
 a chat box will appear in the
@@ -64,6 +62,15 @@ to your message via email as
 soon as possible.
 
 ![Instant Live Chat](https://res.cloudinary.com/fluid-attacks/image/upload/v1672165984/docs/web/support/leave_ms.png)
+
+## Email
+
+Also,
+you can write to us our email help@fluidattacks.com.
+Here we will take your request or questions,
+replying to your petition for up to 1 hour.
+
+![Help email](https://res.cloudinary.com/fluid-attacks/image/upload/v1674765264/docs/web/support/helpemail.png)
 
 :::tip free trial
 **Search for vulnerabilities in your apps for free
