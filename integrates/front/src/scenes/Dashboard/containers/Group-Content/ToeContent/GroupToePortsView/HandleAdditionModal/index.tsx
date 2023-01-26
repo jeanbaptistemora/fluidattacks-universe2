@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
@@ -88,17 +88,45 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
   });
 
   // Handle actions
-  function handleSubmit(values: IFormValues): void {
-    setIsSubmitting(true);
-    void handleAddToePort({
-      variables: {
-        address: activeIPRootAddress[values.rootId],
-        groupName,
-        port: _.toInteger(values.port),
-        rootId: values.rootId,
-      },
-    });
-  }
+  const handleSubmit = useCallback(
+    (values: IFormValues): void => {
+      setIsSubmitting(true);
+      void handleAddToePort({
+        variables: {
+          address: activeIPRootAddress[values.rootId],
+          groupName,
+          port: _.toInteger(values.port),
+          rootId: values.rootId,
+        },
+      });
+    },
+    [activeIPRootAddress, groupName, handleAddToePort]
+  );
+
+  const handleInteger = useCallback(
+    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+      if (
+        event.key.length > 1 ||
+        /\d/u.test(event.key) ||
+        event.key === "Control" ||
+        event.key.toLocaleLowerCase() === "c" ||
+        event.key.toLocaleLowerCase() === "v"
+      )
+        return;
+      event.preventDefault();
+    },
+    []
+  );
+
+  const handleIntegerPaste = useCallback(
+    (event: React.ClipboardEvent<HTMLInputElement>): void => {
+      const data = event.clipboardData.getData("Text");
+      if (/^\d*$/u.test(data)) return;
+
+      event.preventDefault();
+    },
+    []
+  );
 
   return (
     <React.StrictMode>
@@ -131,29 +159,6 @@ const HandleAdditionModal: React.FC<IHandleAdditionModalProps> = ({
             })}
           >
             {({ dirty }): JSX.Element => {
-              function handleInteger(
-                event: React.KeyboardEvent<HTMLInputElement>
-              ): void {
-                if (
-                  event.key.length > 1 ||
-                  /\d/u.test(event.key) ||
-                  event.key === "Control" ||
-                  event.key.toLocaleLowerCase() === "c" ||
-                  event.key.toLocaleLowerCase() === "v"
-                )
-                  return;
-                event.preventDefault();
-              }
-
-              function handleIntegerPaste(
-                event: React.ClipboardEvent<HTMLInputElement>
-              ): void {
-                const data = event.clipboardData.getData("Text");
-                if (/^\d*$/u.test(data)) return;
-
-                event.preventDefault();
-              }
-
               return (
                 <Form id={"addToePort"}>
                   <Row>
