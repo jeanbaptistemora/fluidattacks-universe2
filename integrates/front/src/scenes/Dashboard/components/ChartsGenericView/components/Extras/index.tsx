@@ -128,42 +128,43 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
   );
 
   const subscribeDropdownOnSelect = useCallback(
-    (key: string): void => {
-      mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
-      void subscribe({
-        variables: {
-          frequency: key.toUpperCase(),
-          reportEntity: entity.toUpperCase(),
-          reportSubject: subject,
-        },
-      }).then(
-        async (
-          value: ExecutionResult<{
-            subscribeToEntityReport: { success: boolean };
-          }>
-        ): Promise<void> => {
-          if (
-            // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
-            value.data !== null &&
-            value.data !== undefined &&
-            value.data.subscribeToEntityReport.success
-          ) {
-            if (key.toLowerCase() === "never") {
-              msgSuccess(
-                t("analytics.sections.extras.unsubscribedSuccessfully.msg"),
-                t("analytics.sections.extras.unsubscribedSuccessfully.title")
-              );
-            } else {
-              msgSuccess(
-                t("analytics.sections.extras.subscribedSuccessfully.msg"),
-                t("analytics.sections.extras.subscribedSuccessfully.title")
-              );
+    (key: string): (() => void) =>
+      (): void => {
+        mixpanel.track(`Analytics${key === "never" ? "Uns" : "S"}ubscribe`);
+        void subscribe({
+          variables: {
+            frequency: key.toUpperCase(),
+            reportEntity: entity.toUpperCase(),
+            reportSubject: subject,
+          },
+        }).then(
+          async (
+            value: ExecutionResult<{
+              subscribeToEntityReport: { success: boolean };
+            }>
+          ): Promise<void> => {
+            if (
+              // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+              value.data !== null &&
+              value.data !== undefined &&
+              value.data.subscribeToEntityReport.success
+            ) {
+              if (key.toLowerCase() === "never") {
+                msgSuccess(
+                  t("analytics.sections.extras.unsubscribedSuccessfully.msg"),
+                  t("analytics.sections.extras.unsubscribedSuccessfully.title")
+                );
+              } else {
+                msgSuccess(
+                  t("analytics.sections.extras.subscribedSuccessfully.msg"),
+                  t("analytics.sections.extras.subscribedSuccessfully.title")
+                );
+              }
+              await refetchSubscriptions();
             }
-            await refetchSubscriptions();
           }
-        }
-      );
-    },
+        );
+      },
     [entity, refetchSubscriptions, subject, subscribe, t]
   );
 
@@ -214,11 +215,7 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                 tip={translateFrequencyArrivalTime(freq)}
               >
                 <div className={"flex flex-column"}>
-                  <Button
-                    onClick={function fn2(): void {
-                      subscribeDropdownOnSelect(freq);
-                    }}
-                  >
+                  <Button onClick={subscribeDropdownOnSelect(freq)}>
                     {translateFrequency(freq, "action")}
                   </Button>
                 </div>
