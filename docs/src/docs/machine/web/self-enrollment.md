@@ -28,7 +28,7 @@ Start free trial button.
 Click on it to access the
 free trial landing page.
 
-![Fluid Attacks Homepage](https://res.cloudinary.com/fluid-attacks/image/upload/v1663009959/docs/web/enrollment/home_page_fluid.png)
+![Fluid Attacks Homepage](https://res.cloudinary.com/fluid-attacks/image/upload/v1674728062/docs/web/enrollment/home_page.png)
 
 The landing page states that
 self-enrollment is for a 21-day
@@ -36,7 +36,7 @@ free trial of the Continuous
 Hacking Machine Plan and lists
 this plan’s benefits.
 To proceed,
-click on Start your Machine Plan.
+click on **Start your Machine Plan**.
 
 ![Fluid Attacks Landing Page](https://res.cloudinary.com/fluid-attacks/image/upload/v1672081278/docs/web/enrollment/start_free_trail.png)
 
@@ -52,7 +52,7 @@ and only one user per organization
 is allowed to complete the free
 trial registration.
 
-![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1672068642/docs/web/enrollment/login_arm.png)
+![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1674728390/docs/web/enrollment/arm_page.png)
 
 As we said,
 only new users can create an
@@ -69,9 +69,9 @@ you are asked to enter the
 details about the repository
 you want us to assess.
 Once you have filled out the fields,
-click on the Check access button.
+click on the **Check access button**.
 
-![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1672069350/docs/web/enrollment/add_repo.png)
+![Info Repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1674728624/docs/web/enrollment/set_up_repo.png)
 
 If the details you
 provided are valid,
