@@ -8,7 +8,7 @@ slug: /machine/scanner/benchmark
 At Fluid Attacks,
 we care about the accuracy of security testing results.
 This means we want to make sure
-that automated tools and security analysts involved
+that the automated tools and security analysts involved
 make as few mistakes as possible in their reports.
 To the purpose of checking tool accuracy,
 Fluid Attacks uses the Benchmark
@@ -27,7 +27,7 @@ and benefit from the information available.
 The [OWASP Benchmark Project](https://owasp.org/www-project-benchmark/)
 is a free Java test suite
 created in 2015 to assess the accuracy,
-speed, and coverage of automated
+speed and coverage of automated
 software vulnerability detection tools.
 It helps determine the strengths
 and weaknesses of different
@@ -39,7 +39,7 @@ over the OWASP benchmark
 we can put under evaluation different
 open-source or commercial
 static ([SAST](https://www.gartner.com/en/information-technology/glossary/static-application-security-testing-sast)),
-dynamic ([DAST](https://www.gartner.com/en/information-technology/glossary/dynamic-application-security-testing-dast)),
+dynamic ([DAST](https://www.gartner.com/en/information-technology/glossary/dynamic-application-security-testing-dast))
 and interactive ([IAST](https://www.comparitech.com/net-admin/what-is-iast/))
 software vulnerability detection tools.
 A tool's score will depend on the amount of truthful
@@ -50,6 +50,6 @@ whereas an erroneous claim can be either a false positive or a false negative.
 
 By comparing the results of different products
 offered in the market,
-we get an **important indicator
+we get an important indicator
 for choosing what tool to include
-in our Software Development Lifecycle**.
+in our software development lifecycle.
