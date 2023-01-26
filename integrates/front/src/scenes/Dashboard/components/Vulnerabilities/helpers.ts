@@ -123,20 +123,8 @@ const handleDeleteVulnerabilityHelper = (
   }
 };
 
-const setColumnHelper = (
-  isEditing: boolean,
-  columnHelper: () => JSX.Element
-): JSX.Element | undefined => {
-  if (isEditing) {
-    return columnHelper();
-  }
-
-  return undefined;
-};
-
 export {
   errorMessageHelper,
   handleDeleteVulnerabilityHelper,
   onRemoveVulnResultHelper,
-  setColumnHelper,
 };

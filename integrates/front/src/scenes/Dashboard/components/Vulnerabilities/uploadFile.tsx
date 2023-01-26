@@ -13,6 +13,7 @@ import { errorMessageHelper } from "./helpers";
 
 import { Button } from "components/Button";
 import { InputFile } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import {
   DOWNLOAD_VULNERABILITIES,
@@ -25,7 +26,6 @@ import type {
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
-import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
@@ -263,9 +263,8 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
     >
       {({ dirty }): React.ReactNode => (
         <Form>
-          <br />
-          <RowCenter>
-            <Col33>
+          <Row justify={"center"}>
+            <Col lg={40} md={40}>
               <Tooltip
                 id={t(
                   "searchFindings.tabDescription.downloadVulnerabilitiesTooltip.id"
@@ -284,18 +283,16 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   {t("searchFindings.tabDescription.downloadVulnerabilities")}
                 </Button>
               </Tooltip>
-            </Col33>
-            <div className={"ph1-5 w-25-ns upload-file"}>
-              <FormGroup>
-                <InputFile
-                  accept={".yaml,.yml"}
-                  id={"filename"}
-                  name={"filename"}
-                  validate={composeValidators([isValidVulnsFile])}
-                />
-              </FormGroup>
-            </div>
-            <Col33>
+            </Col>
+            <Col lg={20} md={20}>
+              <InputFile
+                accept={".yaml,.yml"}
+                id={"filename"}
+                name={"filename"}
+                validate={composeValidators([isValidVulnsFile])}
+              />
+            </Col>
+            <Col lg={40} md={40}>
               <Tooltip
                 id={t(
                   "searchFindings.tabDescription.updateVulnerabilitiesTooltip.id"
@@ -314,8 +311,8 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
                   {t("searchFindings.tabDescription.updateVulnerabilities")}
                 </Button>
               </Tooltip>
-            </Col33>
-          </RowCenter>
+            </Col>
+          </Row>
         </Form>
       )}
     </Formik>

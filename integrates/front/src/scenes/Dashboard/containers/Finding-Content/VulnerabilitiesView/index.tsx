@@ -16,7 +16,6 @@ import { filterDate } from "components/Table/filters/filterFunctions/filterDate"
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
-import { setColumnHelper } from "scenes/Dashboard/components/Vulnerabilities/helpers";
 import type { IVulnRowAttr } from "scenes/Dashboard/components/Vulnerabilities/types";
 import { UpdateDescription } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription";
 import { UploadVulnerabilities } from "scenes/Dashboard/components/Vulnerabilities/uploadFile";
@@ -455,22 +454,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     void zrRefetch();
   }
 
-  function columnHelper(): JSX.Element {
-    return (
-      <Col100>
-        <Have I={"can_report_vulnerabilities"}>
-          <Can do={"api_mutations_upload_file_mutate"}>
-            <UploadVulnerabilities
-              findingId={findingId}
-              groupName={groupName}
-              refetchData={refetchVulnsData}
-            />
-          </Can>
-        </Have>
-      </Col100>
-    );
-  }
-
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
       accessorKey: "where",
@@ -529,10 +512,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
     },
   ];
 
-  function setColumn(): JSX.Element | undefined {
-    return setColumnHelper(true, columnHelper);
-  }
-
   return (
     <React.StrictMode>
       <React.Fragment>
@@ -584,7 +563,18 @@ export const VulnsView: React.FC = (): JSX.Element => {
                 vulnerabilities={filterZeroRisk(filteredVulnerabilities)}
               />
             </div>
-            {setColumn()}
+            <br />
+            <Col100>
+              <Have I={"can_report_vulnerabilities"}>
+                <Can do={"api_mutations_upload_file_mutate"}>
+                  <UploadVulnerabilities
+                    findingId={findingId}
+                    groupName={groupName}
+                    refetchData={refetchVulnsData}
+                  />
+                </Can>
+              </Have>
+            </Col100>
           </div>
         </div>
         {isOpen && (

@@ -99,17 +99,6 @@ const GlobalStyle = createGlobalStyle`
     height: 162px;
   }
 
-  .upload-file {
-    margin-right: 40px;
-    margin-left: 40px;
-  }
-
-  @media (max-width: 479px) {
-    .upload-file {
-      margin-top: 20px;
-    }
-  }
-
   .no-data {
     color: lightgray;
     font-size: 40px;

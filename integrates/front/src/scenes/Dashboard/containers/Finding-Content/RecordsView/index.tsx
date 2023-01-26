@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
 import { InputFile } from "components/Input";
+import { Col, Row } from "components/Layout";
 import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import {
@@ -28,12 +29,6 @@ import {
 } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/queries";
 import { GET_FINDING_RECORDS } from "scenes/Dashboard/containers/Finding-Content/RecordsView/queries";
 import type { IGetFindingRecords } from "scenes/Dashboard/containers/Finding-Content/RecordsView/types";
-import {
-  ButtonToolbarRow,
-  Col100,
-  Row,
-  RowCenter,
-} from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -156,10 +151,9 @@ const RecordsView: React.FC = (): JSX.Element => {
     <React.StrictMode>
       <React.Fragment>
         <Can do={"api_mutations_update_evidence_mutate"}>
-          <Row>
-            {/* eslint-disable-next-line react/forbid-component-props */}
-            <Col100 className={"pa0"}>
-              <ButtonToolbarRow>
+          <Row justify={"end"}>
+            <Col>
+              <div>
                 <Tooltip
                   id={t("searchFindings.tabRecords.editableTooltip.id")}
                   tip={t("searchFindings.tabRecords.editableTooltip")}
@@ -169,8 +163,8 @@ const RecordsView: React.FC = (): JSX.Element => {
                     &nbsp;{t("searchFindings.tabRecords.editable")}
                   </Button>
                 </Tooltip>
-              </ButtonToolbarRow>
-            </Col100>
+              </div>
+            </Col>
           </Row>
         </Can>
         <br />
@@ -183,35 +177,37 @@ const RecordsView: React.FC = (): JSX.Element => {
           >
             {({ dirty }): React.ReactNode => (
               <Form id={"records"}>
-                {/* eslint-disable-next-line react/forbid-component-props */}
-                <ButtonToolbarRow className={"mb3"}>
-                  <InputFile
-                    accept={".csv"}
-                    id={"recordsFile"}
-                    name={"filename"}
-                    validate={composeValidators([
-                      required,
-                      validEvidenceName,
-                      validRecordsFile,
-                    ])}
-                  />
-                  <Button
-                    disabled={!dirty || updateRes.loading}
-                    type={"submit"}
-                    variant={"secondary"}
-                  >
-                    <FontAwesomeIcon icon={faCloudUploadAlt} />
-                    &nbsp;{t("searchFindings.tabEvidence.update")}
-                  </Button>
-                </ButtonToolbarRow>
+                <Row justify={"end"}>
+                  <Col lg={15} md={15}>
+                    <InputFile
+                      accept={".csv"}
+                      id={"recordsFile"}
+                      name={"filename"}
+                      validate={composeValidators([
+                        required,
+                        validEvidenceName,
+                        validRecordsFile,
+                      ])}
+                    />
+                  </Col>
+                  <Col lg={5} md={5}>
+                    <Button
+                      disabled={!dirty || updateRes.loading}
+                      type={"submit"}
+                      variant={"secondary"}
+                    >
+                      <FontAwesomeIcon icon={faCloudUploadAlt} />
+                      &nbsp;{t("searchFindings.tabEvidence.update")}
+                    </Button>
+                  </Col>
+                </Row>
               </Form>
             )}
           </Formik>
         ) : undefined}
         {isEditing && !_.isEmpty(JSON.parse(data.finding.records)) ? (
           <Row>
-            {/* eslint-disable-next-line react/forbid-component-props */}
-            <Col100 className={"pa0"}>
+            <Col>
               <Button
                 disabled={removeRes.loading}
                 onClick={handleRemoveClick}
@@ -220,10 +216,10 @@ const RecordsView: React.FC = (): JSX.Element => {
                 <FontAwesomeIcon icon={faTrashAlt} />
                 &nbsp;{t("searchFindings.tabEvidence.remove")}
               </Button>
-            </Col100>
+            </Col>
           </Row>
         ) : undefined}
-        <RowCenter>
+        <Row justify={"center"}>
           {_.isEmpty(JSON.parse(data.finding.records)) ? (
             <div className={"no-data"}>
               <FontAwesomeIcon icon={faList} size={"3x"} />
@@ -236,7 +232,7 @@ const RecordsView: React.FC = (): JSX.Element => {
               id={"tblRecords"}
             />
           )}
-        </RowCenter>
+        </Row>
       </React.Fragment>
     </React.StrictMode>
   );
