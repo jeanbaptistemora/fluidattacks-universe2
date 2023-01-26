@@ -476,6 +476,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     return ({}, {})
 
 
+@validations.validate_fields_deco(["comments"])
 async def reject_solution(
     loaders: Dataloaders,
     event_id: str,
@@ -483,7 +484,6 @@ async def reject_solution(
     stakeholder_email: str,
     stakeholder_full_name: str,
 ) -> None:
-    validations.validate_fields([comments])
     event: Event = await loaders.event.load(event_id)
     if event.state.status is not EventStateStatus.VERIFICATION_REQUESTED:
         raise EventVerificationNotRequested()
@@ -519,6 +519,7 @@ async def reject_solution(
     )
 
 
+@validations.validate_fields_deco(["comments"])
 async def request_verification(
     loaders: Dataloaders,
     event_id: str,
@@ -526,7 +527,6 @@ async def request_verification(
     stakeholder_email: str,
     stakeholder_full_name: str,
 ) -> None:
-    validations.validate_fields([comments])
     event: Event = await loaders.event.load(event_id)
     if event.state.status is EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
@@ -723,6 +723,8 @@ async def update_solving_reason(
     )
 
 
+@validations.validate_file_name_deco("file.filename")
+@validations.validate_fields_deco(["file.content_type"])
 async def validate_evidence(
     *,
     group_name: str,
@@ -731,8 +733,6 @@ async def validate_evidence(
     file: UploadFile,
 ) -> None:
     mib = 1048576
-    validations.validate_file_name(file.filename)
-    validations.validate_fields([file.content_type])
 
     if evidence_id in IMAGE_EVIDENCE_IDS:
         allowed_mimes = ["image/jpeg", "image/png", "video/webm"]
