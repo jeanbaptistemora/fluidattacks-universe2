@@ -132,17 +132,3 @@ def local_storage_from_async(graph: Graph) -> Set[NId]:
         ):
             vuln_nodes.update(suspicious_names[var_name])
     return vuln_nodes
-
-
-def local_storage_from_callback(graph: Graph, method: MethodsEnum) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
-    for n_id in g.matching_nodes(
-        graph, label_type="Placeholder", expression="PlaceHolder"
-    ):
-        if (
-            (parameters_n_id := g.match_ast_d(graph, n_id, "PlaceHolder"))
-            and (value_n_id := g.adj(graph, parameters_n_id)[1])
-            and is_vuln(graph, method, value_n_id)
-        ):
-            vuln_nodes.add(n_id)
-    return vuln_nodes

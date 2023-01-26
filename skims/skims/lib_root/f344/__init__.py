@@ -1,11 +1,9 @@
 from lib_root.f344.javascript import (
     js_local_storage_sens_data_async,
-    js_local_storage_sens_data_callback,
     js_local_storage_with_sensitive_data as js_local_storage_sensitive_data,
 )
 from lib_root.f344.typescript import (
     ts_local_storage_sens_data_async,
-    ts_local_storage_sens_data_callback,
     ts_local_storage_with_sensitive_data as ts_local_storage_sensitive_data,
 )
 from model import (
@@ -19,6 +17,4 @@ QUERIES: graph_model.Queries = (
     (FINDING, ts_local_storage_sensitive_data),
     (FINDING, js_local_storage_sens_data_async),
     (FINDING, ts_local_storage_sens_data_async),
-    (FINDING, js_local_storage_sens_data_callback),
-    (FINDING, ts_local_storage_sens_data_callback),
 )
