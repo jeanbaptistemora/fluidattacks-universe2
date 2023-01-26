@@ -29,18 +29,19 @@ from typing import (
 async def resolve(
     _parent: dict[str, Any],
     info: GraphQLResolveInfo,
-    **_kwargs: None,
+    **kwargs: Any,
 ) -> FindingsConnection:
     not_zero_requested = {
         "unreliable_indicators.unreliable_verification_summary.requested": 0
     }
     results = await search(
+        after=kwargs.get("after"),
         must_filters=[
             {"unreliable_indicators.unreliable_status": "VULNERABLE"},
         ],
         must_not_filters=[not_zero_requested],
         index="findings",
-        limit=100,
+        limit=kwargs.get("first", 100),
     )
     loaders: Dataloaders = info.context.loaders
     test_group_orgs = await loaders.organization_groups.load_many(
