@@ -35,7 +35,7 @@ describe("TodoReattacksView", (): void => {
                   id: "436992569",
                   title: "038. Business information leak",
                   verificationSummary: {
-                    requested: 1,
+                    requested: 23,
                   },
                   vulnerabilitiesToReattackConnection: {
                     edges: [
@@ -67,7 +67,28 @@ describe("TodoReattacksView", (): void => {
     expect(typeof TasksReattacks).toBe("function");
   });
 
-  it("should render a component and its colunms and data", async (): Promise<void> => {
+  it("should render table colunms", (): void => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/todos/reattacks"]}>
+        <MockedProvider addTypename={true} mocks={[mocksReattacks]}>
+          <Route component={TasksReattacks} path={"/todos/reattacks"} />
+        </MockedProvider>
+      </MemoryRouter>
+    );
+
+    expect(screen.queryAllByRole("table")).toHaveLength(1);
+
+    expect(screen.getByText("Type")).toBeInTheDocument();
+    expect(screen.getByText("Requested Vulns")).toBeInTheDocument();
+    expect(screen.getByText("Group Name")).toBeInTheDocument();
+    expect(screen.getByText("Reattack Date")).toBeInTheDocument();
+
+    jest.clearAllMocks();
+  });
+
+  it("should render table data", async (): Promise<void> => {
     expect.hasAssertions();
 
     render(
@@ -84,12 +105,10 @@ describe("TodoReattacksView", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.queryAllByRole("table")).toHaveLength(1);
-
-    expect(screen.getByText("Type")).toBeInTheDocument();
-    expect(screen.getByText("Requested Vulns")).toBeInTheDocument();
-    expect(screen.getByText("Group Name")).toBeInTheDocument();
-    expect(screen.getByText("Reattack Date")).toBeInTheDocument();
     expect(screen.getByText("2022-07-12 16:42:53")).toBeInTheDocument();
+    expect(screen.getByText("23")).toBeInTheDocument();
+    expect(screen.getByText("group1")).toBeInTheDocument();
+
+    jest.clearAllMocks();
   });
 });
