@@ -39032,3 +39032,62 @@
     metadata:
       en:
         details: __empty__
+'431':
+    en:
+      title: Supply Chain Attack - NPM
+      description: >
+        NPM dependencies do not have a software integrity definition file to use, allowing third party
+        actors to change or inject malicious software.
+      impact: >
+        Override depdendencies or component with malicious content.
+      recommendation: >
+        Pin your version numbers in package.json
+        Use a package-lock.json and install with npm ci
+      threat: >
+        Anonymous attacker from Internet
+        with write access to the provider releases.
+    category: Functionality Abuse
+    examples:
+      non_compliant: |
+        There are docker dependencies not pinned
+        ```json
+       
+        ```
+      compliant: |
+        All docker dependencies are pinned using secure mechanisms
+        ```json
+        
+        ```
+    remediation_time: '15'
+    es:
+      title: Supply Chain Attack - NPM
+      description: >
+        Las dependencias de NPM no cuentan con un archivo de definición de integridad del software a usar, 
+        permitiendo a actores terceros cambiar o inyectar software malicioso.
+      impact: >
+        Sobreescribir dependencias o componentes con contenido malicioso.
+      recommendation: >
+        Fija tus números de versión enpackage.json
+        Usar package-lock.jsone instalar connpm ci
+      threat: >
+        Atacante anónimo desde Internet
+        con acceso de escritura a los releasers del proveedor.
+    score:
+      base:
+        attack_vector: N
+        attack_complexity: H
+        privileges_required: N
+        user_interaction: R
+        scope: U
+        confidentiality: N
+        integrity: L
+        availability: N
+      temporal:
+        exploit_code_maturity: U
+        remediation_level: O
+        report_confidence: R
+    requirements: ['266']
+    metadata:
+      en:
+        details: __empty__
+        
