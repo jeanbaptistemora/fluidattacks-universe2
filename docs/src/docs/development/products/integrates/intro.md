@@ -142,6 +142,14 @@ and when prompted for a Development Environment, pick `integratesBack`.
 
 ### Local Environment
 
+Two approaches for deploying
+a local environment of Integrates
+are described below.
+Either of them will launch a replica
+of [app.fluidattacks.com](https://fluidattacks.com)
+and `app.fluidattacks.com/api`
+on `localhost:8001`.
+
 #### Basic approach
 
 Run each of the following commands in different terminals:
@@ -154,11 +162,6 @@ universe $ m . /integrates/storage/dev
 ```
 
 Each terminal will serve a key component of Integrates.
-
-This will launch a replica of
-[app.fluidattacks.com](https://fluidattacks.com)
-and `app.fluidattacks.com/api`
-on your `localhost:8001`.
 
 #### Using mprocs
 
