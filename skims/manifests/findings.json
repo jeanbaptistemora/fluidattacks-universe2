@@ -663,6 +663,14 @@
       "title": "183. Debugging enabled in production"
     }
   },
+  "F188": {
+    "EN": {
+      "title": "188. Lack of data validation - Modify DOM Elements"
+    },
+    "ES": {
+      "title": "188. Lack of data validation - Modify DOM Elements"
+    }
+  },
   "F192": {
     "EN": {
       "title": "192. Lack of data validation - Reflected Parameters"

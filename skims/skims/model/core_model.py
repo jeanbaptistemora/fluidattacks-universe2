@@ -734,6 +734,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.leak,
         requirements=[77, 78],
     )
+    F188: FindingMetadata = FindingMetadata.new(
+        auto_approve=True,
+        code="F188",
+        cwe=489,
+        execution_queue=ExecutionQueue.leak,
+        requirements=[173, 320, 342],
+    )
     F192: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F192",
@@ -3201,6 +3208,14 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F183,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
+        file_name="typescript",
+        name="tsx_lack_of_validation_event_listener",
+        module="lib_root",
+        finding=FindingEnum.F188,
+        developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     DOTNETCONFIG_NOT_CUSTOM_ERRORS = MethodInfo(
