@@ -80,7 +80,6 @@ from lib_path import (
     f418,
     f426,
     f427,
-    f428,
 )
 from lib_sast.types import (
     Paths,
@@ -193,7 +192,6 @@ CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F418, f418.analyze),
     (core_model.FindingEnum.F426, f426.analyze),
     (core_model.FindingEnum.F427, f427.analyze),
-    (core_model.FindingEnum.F428, f428.analyze),
 )
 
 

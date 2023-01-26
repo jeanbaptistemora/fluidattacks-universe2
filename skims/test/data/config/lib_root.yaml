@@ -55,6 +55,7 @@ checks:
   - F414
   - F416
   - F423
+  - F428
 path:
   exclude:
     - glob(integrates/**/*)

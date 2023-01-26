@@ -5686,9 +5686,9 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     JSON_INAPPROPRIATE_ELEMENTS = MethodInfo(
-        file_name="json_files",
+        file_name="conf_files",
         name="json_inappropriate_elements",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F428,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
