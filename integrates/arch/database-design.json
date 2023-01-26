@@ -23740,44 +23740,11 @@
           },
           "TableData": [
             {
-              "loc": {
-                "N": "180"
-              },
-              "comments": {
-                "S": "comment 1"
-              },
-              "sorts_risk_level": {
-                "N": "80"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-02-20T05:00:00+00:00"
-              },
-              "last_commit": {
-                "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "last_author": {
-                "S": "user@gmail.com"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-02-20T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
-              },
-              "attacked_by": {
-                "S": "test2@test.com"
-              },
-              "attacked_lines": {
-                "N": "4"
               },
               "filename": {
                 "S": "test/test#.config"
@@ -23791,41 +23758,11 @@
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
-              "first_attack_at": {
-                "S": "2020-02-19T15:41:04+00:00"
-              },
               "pk": {
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
                 "S": "LINES#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#test/test#.config"
-              },
-              "seen_at": {
-                "S": "2020-02-01T15:41:04+00:00"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "083. XML injection (XXE)"
-                      },
-                      "probability": {
-                        "N": "90"
-                      }
-                    }
-                  },
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "033. Password change without identity check"
-                      },
-                      "probability": {
-                        "N": "50"
-                      }
-                    }
-                  }
-                ]
               },
               "state": {
                 "M": {
@@ -23902,44 +23839,11 @@
               }
             },
             {
-              "loc": {
-                "N": "350"
-              },
-              "comments": {
-                "S": "comment 1"
-              },
-              "sorts_risk_level": {
-                "N": "80"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-03-30T05:00:00+00:00"
-              },
-              "last_commit": {
-                "S": "e17059d1e17059d1e17059d1e17059d1e17059d1"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "last_author": {
-                "S": "user@gmail.com"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-02-20T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
               "modified_date": {
                 "S": "2020-11-15T15:41:04+00:00"
-              },
-              "attacked_by": {
-                "S": "test2@test.com"
-              },
-              "attacked_lines": {
-                "N": "4"
               },
               "filename": {
                 "S": "path/to/file3.ext"
@@ -23953,41 +23857,11 @@
               "root_id": {
                 "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
-              "first_attack_at": {
-                "S": "2020-02-19T15:41:04+00:00"
-              },
               "pk": {
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
                 "S": "LINES#PRESENT#true#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#FILENAME#path/to/file3.ext"
-              },
-              "seen_at": {
-                "S": "2020-02-01T15:41:04+00:00"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "083. XML injection (XXE)"
-                      },
-                      "probability": {
-                        "N": "90"
-                      }
-                    }
-                  },
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "033. Password change without identity check"
-                      },
-                      "probability": {
-                        "N": "50"
-                      }
-                    }
-                  }
-                ]
               },
               "state": {
                 "M": {
@@ -24064,47 +23938,11 @@
               }
             },
             {
-              "loc": {
-                "N": "172"
-              },
-              "comments": {
-                "S": "comment 2"
-              },
-              "sorts_risk_level": {
-                "N": "0"
-              },
-              "sorts_risk_level_date": {
-                "S": "2021-04-10T05:00:00+00:00"
-              },
-              "last_commit": {
-                "S": "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "last_author": {
-                "S": "user@gmail.com"
-              },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-01-20T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": false
-              },
               "modified_date": {
                 "S": "2020-11-16T15:41:04+00:00"
-              },
-              "attacked_by": {
-                "S": "test@test.com"
-              },
-              "be_present_until": {
-                "S": "2021-01-01T15:41:04+00:00"
-              },
-              "attacked_lines": {
-                "N": "120"
               },
               "filename": {
                 "S": "test2/test.sh"
@@ -24118,31 +23956,11 @@
               "root_id": {
                 "S": "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
               },
-              "first_attack_at": {
-                "S": "2020-01-19T15:41:04+00:00"
-              },
               "pk": {
                 "S": "GROUP#unittesting"
               },
               "sk_2": {
                 "S": "LINES#PRESENT#false#ROOT#765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a#FILENAME#test2/test.sh"
-              },
-              "seen_at": {
-                "S": "2020-01-01T15:41:04+00:00"
-              },
-              "sorts_suggestions": {
-                "L": [
-                  {
-                    "M": {
-                      "finding_title": {
-                        "S": "027. Insecure file upload"
-                      },
-                      "probability": {
-                        "N": "100"
-                      }
-                    }
-                  }
-                ]
               },
               "state": {
                 "M": {
@@ -24214,28 +24032,13 @@
           ],
           "NonKeyAttributes": [
             "modified_date",
-            "comments",
-            "loc",
             "seen_first_time_by",
-            "sorts_risk_level",
             "group_name",
-            "first_attack_at",
-            "attacked_lines",
-            "attacked_at",
-            "seen_at",
-            "be_present",
-            "attacked_by",
             "filename",
             "root_id",
-            "be_present_until",
             "pk_2",
             "sk_2",
-            "state",
-            "has_vulnerabilities",
-            "last_author",
-            "last_commit",
-            "sorts_suggestions",
-            "sorts_risk_level_date"
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
