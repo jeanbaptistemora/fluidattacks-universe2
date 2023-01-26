@@ -1,14 +1,14 @@
 ---
 slug: advisories/sharp/
-title: VitalPBX 3.0.4-1 - Account Takeover via CSRF
+title: VitalPBX 3.2.3-8 - Account Takeover via CSRF
 authors: Carlos Bello
 writer: cbello
 codename: sharp
-product: VitalPBX 3.0.4-1
+product: VitalPBX 3.2.3-8
 date: 2023-02-06 12:00 COT
 cveid: CVE-2023-0480
 severity: 6.5
-description: VitalPBX 3.0.4-1     -    Account Takeover via CSRF
+description: VitalPBX 3.2.3-8     -    Account Takeover via CSRF
 keywords: Fluid Attacks, Security, Vulnerabilities, Vital PBX, Account Takeover
 banner: advisories-bg
 advise: yes
@@ -20,10 +20,10 @@ encrypted: yes
 
 |                       |                                                                      |
 | --------------------- | -------------------------------------------------------------------- |
-| **Name**              | VitalPBX 3.0.4-1     -    Account Takeover via CSRF                  |
+| **Name**              | VitalPBX 3.2.3-8     -    Account Takeover via CSRF                  |
 | **Code name**         | [Sharp](https://en.wikipedia.org/wiki/Ten_Sharp)                     |
 | **Product**           | VitalPBX                                                             |
-| **Affected versions** | 3.0.4-1                                                              |
+| **Affected versions** | 3.2.3-8                                                              |
 | **State**             | Public                                                               |
 | **Release Date**      | 2023-02-06                                                           |
 
@@ -41,7 +41,7 @@ encrypted: yes
 
 ## Description
 
-VitalPBX version 3.0.4-1 allows an unauthenticated external attacker to
+VitalPBX version 3.2.3-8 allows an unauthenticated external attacker to
 obtain the instance administrator's account. This is possible because the
 application is vulnerable to CSRF.
 
@@ -98,7 +98,7 @@ We have reserved the ID CVE-2023-0480 to refer to this issue from now on.
 
 ## System Information
 
-* Version: VitalPBX 3.0.4-1
+* Version: VitalPBX 3.2.3-8
 
 * Operating System: GNU/Linux
 
