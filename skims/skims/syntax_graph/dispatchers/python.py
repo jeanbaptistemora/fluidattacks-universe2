@@ -1,4 +1,6 @@
 from syntax_graph.syntax_readers.python import (
+    argument_list as python_argument_list,
+    assignment as python_assignment,
     function_definition as python_function_definition,
     identifier as python_identifier,
     import_statement as python_import_statement,
@@ -33,5 +35,17 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "module",
         },
         syntax_reader=python_module.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "argument_list",
+        },
+        syntax_reader=python_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assignment",
+        },
+        syntax_reader=python_assignment.reader,
     ),
 )
