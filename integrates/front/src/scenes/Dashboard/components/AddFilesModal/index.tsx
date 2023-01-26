@@ -1,5 +1,4 @@
-import { Field, Form, Formik } from "formik";
-import type { FieldValidator } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 import type { FC, ReactNode } from "react";
 import React, { StrictMode } from "react";
@@ -8,11 +7,10 @@ import type { ConfigurableValidator } from "revalidate";
 import { mixed, object, string } from "yup";
 
 import { Alert } from "components/Alert";
-import { Label, TextArea } from "components/Input";
+import { InputFile, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IAddFilesModalProps } from "scenes/Dashboard/components/AddFilesModal/types";
-import { FormikFileInput } from "utils/forms/fields";
 import {
   composeValidators,
   isValidFileSize,
@@ -33,7 +31,7 @@ const AddFilesModal: FC<IAddFilesModalProps> = ({
   const { t } = useTranslation();
 
   const MAX_FILE_SIZE: number = 5000;
-  const maxFileSize: FieldValidator = isValidFileSize(MAX_FILE_SIZE);
+  const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
 
   const addFilesModalSchema = object().shape({
     description: string().required(t("validations.required")),
@@ -79,11 +77,10 @@ const AddFilesModal: FC<IAddFilesModalProps> = ({
             <Form>
               <Gap disp={"block"} mh={0} mv={12}>
                 <div>
-                  <Label required={true} />
-                  <Field
-                    component={FormikFileInput}
+                  <InputFile
                     id={"file"}
                     name={"file"}
+                    required={true}
                     validate={maxFileSize}
                   />
                 </div>

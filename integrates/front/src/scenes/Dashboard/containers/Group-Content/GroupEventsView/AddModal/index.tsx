@@ -17,7 +17,7 @@ import type {
   IFinding,
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
-import { InputDateTime, TextArea } from "components/Input";
+import { InputDateTime, InputFile, TextArea } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
   Col100,
@@ -28,11 +28,7 @@ import {
 } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
-import {
-  FormikAutocompleteText,
-  FormikDropdown,
-  FormikFileInput,
-} from "utils/forms/fields";
+import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import { Logger } from "utils/logger";
 import {
@@ -274,13 +270,10 @@ const AddModal: React.FC<IAddModalProps> = ({
               <Row>
                 <Col50>
                   <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.form.evidence")}
-                    </ControlLabel>
-                    <Field
+                    <InputFile
                       accept={"image/png,video/webm"}
-                      component={FormikFileInput}
                       id={"images"}
+                      label={t("group.events.form.evidence")}
                       multiple={true}
                       name={"images"}
                       validate={composeValidators([
@@ -294,15 +287,12 @@ const AddModal: React.FC<IAddModalProps> = ({
                 </Col50>
                 <Col50>
                   <FormGroup>
-                    <ControlLabel>
-                      {t("group.events.form.evidenceFile")}
-                    </ControlLabel>
-                    <Field
+                    <InputFile
                       accept={
                         "application/pdf,application/zip,text/csv,text/plain"
                       }
-                      component={FormikFileInput}
                       id={"files"}
+                      label={t("group.events.form.evidenceFile")}
                       name={"files"}
                       validate={composeValidators([
                         validEventFile,

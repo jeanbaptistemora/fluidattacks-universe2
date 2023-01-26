@@ -6,6 +6,7 @@ import type { IInputFileProps } from "../Formik/FormikFile";
 import { FormikFile } from "../Formik/FormikFile";
 
 const InputFile: FC<IInputFileProps> = ({
+  accept,
   disabled,
   id,
   label,
@@ -22,6 +23,7 @@ const InputFile: FC<IInputFileProps> = ({
   variant,
 }: Readonly<IInputFileProps>): JSX.Element => (
   <Field
+    accept={accept}
     component={FormikFile}
     disabled={disabled}
     id={id}

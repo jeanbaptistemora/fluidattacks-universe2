@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
 import { Button } from "components/Button";
-import { Input, Select } from "components/Input";
+import { Input, InputFile, Select } from "components/Input";
 import { Gap, Hr } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import { Text } from "components/Text";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
-import { FormikFileInput } from "utils/forms/fields";
 import { validEmail } from "utils/validations";
 
 interface IAddOtherMethodModalProps {
@@ -228,41 +226,31 @@ export const AddOtherMethodModal = ({
                       validate={validEmail}
                     />
                     <div>
-                      <Text mb={1}>
-                        <Text disp={"inline-block"} mr={1} tone={"red"}>
-                          {"*"}
-                        </Text>
-                        {t(
-                          "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
-                        )}
-                      </Text>
-                      <Field
+                      <InputFile
                         accept={
                           "application/pdf,application/zip,image/gif,image/jpg,image/png"
                         }
-                        component={FormikFileInput}
                         id={"rut"}
+                        label={t(
+                          "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                        )}
                         name={"rutList"}
+                        required={true}
                       />
                     </div>
                   </Fragment>
                 ) : (
                   <div>
-                    <Text mb={1}>
-                      <Text disp={"inline-block"} mr={1} tone={"red"}>
-                        {"*"}
-                      </Text>
-                      {t(
-                        "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
-                      )}
-                    </Text>
-                    <Field
+                    <InputFile
                       accept={
                         "application/pdf,application/zip,image/gif,image/jpg,image/png"
                       }
-                      component={FormikFileInput}
                       id={"taxId"}
+                      label={t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
+                      )}
                       name={"taxIdList"}
+                      required={true}
                     />
                   </div>
                 )}

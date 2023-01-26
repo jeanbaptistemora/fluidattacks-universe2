@@ -9,7 +9,7 @@ import { createEvent } from "../utils";
 import { Button } from "components/Button";
 
 interface IInputFileProps extends IInputBase<HTMLInputElement> {
-  accept: string;
+  accept?: string;
   multiple?: boolean;
 }
 
@@ -101,6 +101,7 @@ const FormikFile: React.FC<TInputFileProps> = ({
       <FileInput
         accept={accept}
         aria-label={name}
+        data-testid={name}
         disabled={disabled}
         id={id}
         multiple={multiple}

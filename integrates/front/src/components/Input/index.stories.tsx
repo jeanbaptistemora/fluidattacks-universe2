@@ -320,8 +320,10 @@ InputTags.args = {
 
 const InputFile = StoryInputFile.bind({});
 InputFile.args = {
+  accept: "image/*",
   disabled: false,
   label: "ExampleLabel",
+  multiple: false,
   required: false,
   tooltip: "Example tooltip",
   variant: "solid",

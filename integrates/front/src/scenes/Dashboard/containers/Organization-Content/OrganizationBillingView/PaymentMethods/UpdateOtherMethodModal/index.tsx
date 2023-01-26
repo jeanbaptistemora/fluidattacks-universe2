@@ -4,15 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
+import { InputFile } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
-import {
-  FormikDropdown,
-  FormikFileInput,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikDropdown, FormikText } from "utils/forms/fields";
 
 interface IUpdateOtherMethodModalProps {
   onClose: () => void;
@@ -239,37 +236,31 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                     />
                   </div>
                   <div>
-                    <ControlLabel>
-                      <RequiredField>{"*"}&nbsp;</RequiredField>
-                      {t(
-                        "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
-                      )}
-                    </ControlLabel>
-                    <Field
+                    <InputFile
                       accept={
                         "application/pdf,application/zip,image/gif,image/jpg,image/png"
                       }
-                      component={FormikFileInput}
                       id={"rut"}
+                      label={t(
+                        "organization.tabs.billing.paymentMethods.add.otherMethods.rut"
+                      )}
                       name={"rutList"}
+                      required={true}
                     />
                   </div>
                 </React.Fragment>
               ) : (
                 <div>
-                  <ControlLabel>
-                    <RequiredField>{"*"}&nbsp;</RequiredField>
-                    {t(
-                      "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
-                    )}
-                  </ControlLabel>
-                  <Field
+                  <InputFile
                     accept={
                       "application/pdf,application/zip,image/gif,image/jpg,image/png"
                     }
-                    component={FormikFileInput}
                     id={"taxId"}
+                    label={t(
+                      "organization.tabs.billing.paymentMethods.add.otherMethods.taxId"
+                    )}
                     name={"taxIdList"}
+                    required={true}
                   />
                 </div>
               )}

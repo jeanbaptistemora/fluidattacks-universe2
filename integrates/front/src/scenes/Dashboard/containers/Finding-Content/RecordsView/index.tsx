@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -19,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components/Button";
+import { InputFile } from "components/Input";
 import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import {
@@ -34,7 +35,6 @@ import {
   RowCenter,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
-import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
 import {
@@ -185,11 +185,8 @@ const RecordsView: React.FC = (): JSX.Element => {
               <Form id={"records"}>
                 {/* eslint-disable-next-line react/forbid-component-props */}
                 <ButtonToolbarRow className={"mb3"}>
-                  <Field
+                  <InputFile
                     accept={".csv"}
-                    // eslint-disable-next-line react/forbid-component-props
-                    className={"fr"}
-                    component={FormikFileInput}
                     id={"recordsFile"}
                     name={"filename"}
                     validate={composeValidators([

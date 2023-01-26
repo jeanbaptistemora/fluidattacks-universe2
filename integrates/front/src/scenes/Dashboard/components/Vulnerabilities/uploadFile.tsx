@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import { faDownload, faUpload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FormikHelpers } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback } from "react";
@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { errorMessageHelper } from "./helpers";
 
 import { Button } from "components/Button";
+import { InputFile } from "components/Input";
 import { Tooltip } from "components/Tooltip";
 import {
   DOWNLOAD_VULNERABILITIES,
@@ -25,7 +26,6 @@ import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Col33, FormGroup, RowCenter } from "styles/styledComponents";
-import { FormikFileInput } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgErrorStick, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
@@ -287,9 +287,8 @@ const UploadVulnerabilities: React.FC<IUploadVulnProps> = ({
             </Col33>
             <div className={"ph1-5 w-25-ns upload-file"}>
               <FormGroup>
-                <Field
-                  accept={".yaml, .yml"}
-                  component={FormikFileInput}
+                <InputFile
+                  accept={".yaml,.yml"}
                   id={"filename"}
                   name={"filename"}
                   validate={composeValidators([isValidVulnsFile])}
