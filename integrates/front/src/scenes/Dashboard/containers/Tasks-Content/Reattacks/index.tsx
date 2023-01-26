@@ -45,6 +45,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
         );
       });
     },
+    variables: { first: 150 },
   });
 
   const dataset: IFindingFormatted[] = formatFindings(

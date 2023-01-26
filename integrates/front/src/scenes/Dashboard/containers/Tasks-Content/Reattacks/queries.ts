@@ -2,9 +2,9 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 export const GET_TODO_REATTACKS: DocumentNode = gql`
-  query GetTodoReattacksVulnerable {
+  query GetTodoReattacksVulnerable($after: String, $first: Int) {
     me {
-      findingReattacksConnection {
+      findingReattacksConnection(after: $after, first: $first) {
         edges {
           node {
             groupName

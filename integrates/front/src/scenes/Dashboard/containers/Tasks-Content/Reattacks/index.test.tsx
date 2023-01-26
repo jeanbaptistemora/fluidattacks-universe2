@@ -20,6 +20,9 @@ describe("TodoReattacksView", (): void => {
   const mocksReattacks: MockedResponse = {
     request: {
       query: GET_TODO_REATTACKS,
+      variables: {
+        first: 150,
+      },
     },
     result: {
       data: {
@@ -46,6 +49,11 @@ describe("TodoReattacksView", (): void => {
                 },
               },
             ],
+            pageInfo: {
+              endCursor: "bnVsbA==",
+              hasNextPage: false,
+            },
+            total: 1,
           },
           userEmail: "test@fluidattacks.com",
         },
