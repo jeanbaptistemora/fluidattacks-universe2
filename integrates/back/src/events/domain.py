@@ -184,6 +184,8 @@ async def add_comment(
     await event_comments_domain.add(comment_data)
 
 
+@validations.validate_field_length_deco("detail", limit=300)
+@validations.validate_fields_deco(["detail", "root_id"])
 async def add_event(
     loaders: Dataloaders,
     hacker_email: str,
@@ -192,8 +194,6 @@ async def add_event(
     image: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> str:
-    validations.validate_fields([kwargs["detail"], kwargs["root_id"]])
-    validations.validate_field_length(kwargs["detail"], 300)
     root_id: Optional[str] = kwargs.get("root_id")
     group: Group = await loaders.group.load(group_name)
     organization: Organization = await loaders.organization.load(
