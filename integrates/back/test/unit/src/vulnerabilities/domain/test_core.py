@@ -34,15 +34,13 @@ from mypy_boto3_dynamodb import (
 from newutils.datetime import (
     get_now_minus_delta,
 )
-from newutils.vulnerabilities import (
-    format_vulnerabilities,
-)
 import pytest
 from typing import (
     Any,
     Dict,
     List,
     Tuple,
+    Union,
 )
 from unittest import (
     mock,
@@ -58,6 +56,9 @@ from vulnerabilities.domain import (
     group_vulnerabilities,
     mask_vulnerability,
     send_treatment_change_mail,
+)
+from vulnerabilities.types import (
+    ToolItem,
 )
 
 pytestmark = [
@@ -260,16 +261,39 @@ async def test_get_treatments(finding_id: str, expected: List[int]) -> None:
     assert treatments.untreated == expected[3]
 
 
-@pytest.mark.changes_db
-async def test_get_updated_manager_mail_content() -> None:
-    finding_id = "422286126"
-    loaders = get_new_context()
-    finding_vulns = await loaders.finding_vulnerabilities_all.load(finding_id)
-    grouped_vulns = group_vulnerabilities(finding_vulns)
-    vulns_data = await format_vulnerabilities(
-        "unittesting", loaders, grouped_vulns
-    )
-    test_data = get_updated_manager_mail_content(vulns_data)
+@pytest.mark.parametrize(
+    ("vulnerabilities"),
+    (
+        (
+            dict(
+                ports=[],
+                lines=[
+                    dict(
+                        path="test/data/lib_path/f060/csharp.cs",
+                        line="12",
+                        state="open",
+                        source="analyst",
+                        tool=ToolItem(name="tool-2", impact="indirect"),
+                        commit_hash="ea871ee",
+                    )
+                ],
+                inputs=[
+                    dict(
+                        url="https://example.com",
+                        field="phone",
+                        state="open",
+                        source="analyst",
+                        tool=ToolItem(name="tool-2", impact="indirect"),
+                    )
+                ],
+            )
+        ),
+    ),
+)
+async def test_get_updated_manager_mail_content(
+    vulnerabilities: dict[str, list[dict[str, Union[str, ToolItem]]]],
+) -> None:
+    test_data = get_updated_manager_mail_content(vulnerabilities)
     expected_output = "test/data/lib_path/f060/csharp.cs (12)\nhttps://example.com (phone)\n"  # noqa: E501 pylint: disable=line-too-long
     assert test_data == expected_output
 
