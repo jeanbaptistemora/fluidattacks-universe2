@@ -58,6 +58,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     HttpsSecret,
+    OauthAzureSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -1837,7 +1838,9 @@ async def get_unsolved_events_by_root(
     }
 
 
-async def _ls_remote_root(root: GitRoot, cred: Credentials) -> Optional[str]:
+async def _ls_remote_root(
+    root: GitRoot, cred: Credentials, loaders: Dataloaders
+) -> Optional[str]:
     last_commit: Optional[str]
 
     if root.state.use_vpn:
@@ -1857,7 +1860,15 @@ async def _ls_remote_root(root: GitRoot, cred: Credentials) -> Optional[str]:
             repo_url=root.state.url,
             token=cred.state.secret.token,
         )
-    elif isinstance(cred.state.secret, (OauthGithubSecret, OauthGitlabSecret)):
+    elif isinstance(
+        cred.state.secret,
+        (OauthGithubSecret, OauthAzureSecret, OauthGitlabSecret),
+    ):
+        await validations.get_cred_token(
+            loaders=loaders,
+            organization_id=cred.organization_id,
+            credential_id=cred.id,
+        )
         last_commit = await git_self.https_ls_remote(
             repo_url=root.state.url,
             token=cred.state.secret.access_token,
@@ -1959,7 +1970,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
             roots,
             tuple(
                 await collect(
-                    _ls_remote_root(root, credential)
+                    _ls_remote_root(root, credential, loaders)
                     for root, credential in zip(roots, roots_credentials)
                 )
             ),

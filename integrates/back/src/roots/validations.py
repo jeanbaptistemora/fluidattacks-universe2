@@ -48,6 +48,9 @@ from ipaddress import (
 from newutils.datetime import (
     get_utc_now,
 )
+from oauth.azure import (
+    get_azure_token,
+)
 from oauth.gitlab import (
     get_token,
 )
@@ -427,13 +430,12 @@ async def _validate_git_credentials_ssh(
         raise BranchNotFound()
 
 
-async def _validate_git_credentials_oauth(
-    repo_url: str,
-    branch: str,
-    loaders: Dataloaders,
+async def get_cred_token(
+    *,
     credential_id: str,
     organization_id: str,
-) -> None:
+    loaders: Dataloaders,
+) -> Optional[str]:
     token: Optional[str] = None
     _credential: Credentials = await loaders.credentials.load(
         CredentialsRequest(
@@ -448,6 +450,28 @@ async def _validate_git_credentials_oauth(
         token = _credential.state.secret.access_token
         if _credential.state.secret.valid_until <= get_utc_now():
             token = await get_token(credential=_credential, loaders=loaders)
+
+    if isinstance(_credential.state.secret, OauthAzureSecret):
+        token = _credential.state.secret.access_token
+        if _credential.state.secret.valid_until <= get_utc_now():
+            token = await get_azure_token(
+                credential=_credential, loaders=loaders
+            )
+    return token
+
+
+async def validate_git_credentials_oauth(
+    repo_url: str,
+    branch: str,
+    loaders: Dataloaders,
+    credential_id: str,
+    organization_id: str,
+) -> None:
+    token: Optional[str] = await get_cred_token(
+        credential_id=credential_id,
+        organization_id=organization_id,
+        loaders=loaders,
+    )
 
     if token is None:
         raise InvalidGitCredentials()
@@ -524,11 +548,13 @@ async def validate_git_credentials(
             password=secret.password,
         )
     elif (
-        isinstance(secret, (OauthGithubSecret, OauthGitlabSecret))
+        isinstance(
+            secret, (OauthGithubSecret, OauthAzureSecret, OauthGitlabSecret)
+        )
         and organization_id
         and credential_id
     ):
-        await _validate_git_credentials_oauth(
+        await validate_git_credentials_oauth(
             repo_url,
             branch=branch,
             loaders=loaders,

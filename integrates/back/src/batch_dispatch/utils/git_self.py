@@ -19,6 +19,7 @@ from db_model.credentials.types import (
     CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
+    OauthAzureSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -36,6 +37,9 @@ import git_self as git_utils
 import logging
 from newutils.datetime import (
     get_utc_now,
+)
+from oauth.azure import (
+    get_azure_token,
 )
 from oauth.gitlab import (
     get_token,
@@ -72,6 +76,15 @@ async def _get_token(
             return await get_token(credential=credential, loaders=loaders)
 
         return credential.state.secret.access_token
+
+    if isinstance(credential.state.secret, OauthAzureSecret):
+        if credential.state.secret.valid_until <= get_utc_now():
+            return await get_azure_token(
+                credential=credential, loaders=loaders
+            )
+
+        return credential.state.secret.access_token
+
     return None
 
 
@@ -84,6 +97,8 @@ async def clone_root(
     cred: Credentials,
     loaders: Dataloaders,
 ) -> CloneResult:
+    token: Optional[str] = None
+    _credential: Credentials
     with tempfile.TemporaryDirectory() as temp_dir:
         if isinstance(cred.state.secret, SshSecret):
             folder_to_clone_root, stderr = await git_utils.ssh_clone(
@@ -110,9 +125,10 @@ async def clone_root(
                 token=None,
                 user=cred.state.secret.user,
             )
-        elif isinstance(cred.state.secret, OauthGitlabSecret):
-            token: Optional[str] = None
-            _credential: Credentials = await loaders.credentials.load(
+        elif isinstance(
+            cred.state.secret, (OauthAzureSecret, OauthGitlabSecret)
+        ):
+            _credential = await loaders.credentials.load(
                 CredentialsRequest(
                     id=cred.id,
                     organization_id=cred.organization_id,

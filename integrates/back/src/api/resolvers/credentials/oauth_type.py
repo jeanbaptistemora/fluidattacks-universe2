@@ -1,5 +1,6 @@
 from db_model.credentials.types import (
     Credentials,
+    OauthAzureSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -14,5 +15,8 @@ def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str:
 
     if isinstance(parent.state.secret, OauthGitlabSecret):
         return "GITLAB"
+
+    if isinstance(parent.state.secret, OauthAzureSecret):
+        return "AZURE"
 
     return ""

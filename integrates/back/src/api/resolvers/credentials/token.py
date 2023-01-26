@@ -1,6 +1,7 @@
 from db_model.credentials.types import (
     Credentials,
     HttpsPatSecret,
+    OauthAzureSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -13,6 +14,9 @@ from graphql.type.definition import (
 from newutils.datetime import (
     get_utc_now,
 )
+from oauth.azure import (
+    get_azure_token,
+)
 from oauth.gitlab import (
     get_token,
 )
@@ -22,7 +26,7 @@ from typing import (
 
 
 @enforce_owner
-async def resolve(
+async def resolve(  # pylint: disable=too-many-return-statements
     parent: Credentials, info: GraphQLResolveInfo
 ) -> Optional[str]:
     if isinstance(parent.state.secret, HttpsPatSecret):
@@ -34,6 +38,15 @@ async def resolve(
     if isinstance(parent.state.secret, OauthGitlabSecret):
         if parent.state.secret.valid_until <= get_utc_now():
             return await get_token(
+                credential=parent,
+                loaders=info.context.loaders,
+            )
+
+        return parent.state.secret.access_token
+
+    if isinstance(parent.state.secret, OauthAzureSecret):
+        if parent.state.secret.valid_until <= get_utc_now():
+            return await get_azure_token(
                 credential=parent,
                 loaders=info.context.loaders,
             )

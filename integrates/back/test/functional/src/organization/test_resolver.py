@@ -352,6 +352,10 @@ async def test_get_organization_ver_1(
         == "GITLAB"
     )
     assert (
+        result["data"]["organization"]["credentials"][2]["oauthType"]
+        == "AZURE"
+    )
+    assert (
         result["data"]["organization"]["credentials"][3]["oauthType"]
         == "GITHUB"
     )
