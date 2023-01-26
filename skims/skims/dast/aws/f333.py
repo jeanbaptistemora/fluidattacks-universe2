@@ -375,7 +375,7 @@ async def has_publicly_shared_amis(
             *vulns,
             *build_vulnerabilities(
                 locations=locations,
-                method=(core_model.MethodsEnum.AWS_HAS_PUBLICY_SHARED_AMIS),
+                method=(core_model.MethodsEnum.AWS_HAS_PUBLICLY_SHARED_AMIS),
                 aws_response=image,
             ),
         )

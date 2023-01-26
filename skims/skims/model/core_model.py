@@ -2251,6 +2251,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_ALLOWS_PRIV_ESCALATION_BY_POLICIES_VERSIONS = MethodInfo(
+        file_name="aws",
+        name="allows_priv_escalation_by_policies_versions",
+        module="dast",
+        finding=FindingEnum.F005,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_OPEN_PASSROLE = MethodInfo(
         file_name="aws",
         name="open_passrole",
@@ -2755,7 +2763,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
-    AWS_HAS_PUBLICY_SHARED_AMIS = MethodInfo(
+    AWS_HAS_PUBLICLY_SHARED_AMIS = MethodInfo(
         file_name="aws",
         name="has_publicly_shared_amis",
         module="dast",
