@@ -371,14 +371,6 @@ F009,lines,namespace/skims/test/data/lib_path/f009/user.config,4,798,skims,009. 
   6 |   </configuration>
     ^ Col 0
 ",conf_files.web_config_user_pass
-F009,lines,namespace/skims/test/data/lib_path/f009/api_key.json,3,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_path/f009/api_key.json,"
-  1 | {
-  2 |     ""current_key"": {
-> 3 |         ""api_key"": ""APIKEY""
-  4 |     }
-  5 | }
-    ^ Col 0
-",conf_files.sensitive_key_in_json
 F009,lines,namespace/skims/test/data/lib_root/f009/json_sensitive_info.json,10,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_root/f009/json_sensitive_info.json,"
    1 | {
    2 |     ""Logging"": {
@@ -423,3 +415,11 @@ F009,lines,namespace/skims/test/data/lib_root/f009/json_sensitive_info_in_dotnet
   23 | }
      ^ Col 0
 ",conf_files.sensitive_info_in_dotnet_json
+F009,lines,namespace/skims/test/data/lib_root/f009/json_sensitive_key.json,3,798,skims,009. Sensitive information in source code,Sensitive key value in namespace/skims/test/data/lib_root/f009/json_sensitive_key.json,"
+  1 | {
+  2 |     ""current_key"": {
+> 3 |         ""api_key"": ""APIKEY""
+  4 |     }
+  5 | }
+    ^ Col 0
+",conf_files.sensitive_key_in_json

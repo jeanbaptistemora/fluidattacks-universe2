@@ -59,6 +59,57 @@ def _sensitive_info_in_dotnet(
     return False
 
 
+def _sensitive_info_json(
+    graph: Graph, nid: NId, key_pair: str, value: str
+) -> bool:
+    correct_parents = ["ConnectionStrings"]
+    if (
+        key_pair == "Claims"
+        and has_password(value)
+        and is_parent(graph, nid, correct_parents)
+    ):
+        return True
+    return False
+
+
+def _sensitive_key_in_json(key_pair: str, value: str) -> bool:
+    key_smell = {
+        "api_key",
+        "current_key",
+    }
+    grammar = re.compile(r"[A-Za-z0-9]{5,}")
+    if key_pair in key_smell and re.fullmatch(grammar, value):
+        return True
+    return False
+
+
+def sensitive_key_in_json(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.SENSITIVE_KEY_JSON
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.JSON):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+            for nid in g.matching_nodes(graph, label_type="Pair"):
+                key_id = graph.nodes[nid]["key_id"]
+                key = graph.nodes[key_id]["value"]
+                value_id = graph.nodes[nid]["value_id"]
+                value = get_value(graph, value_id)
+
+                if _sensitive_key_in_json(key, value):
+                    yield shard, nid
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_root.f009.sensitive_key_in_json.description",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def sensitive_info_in_dotnet(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -79,24 +130,11 @@ def sensitive_info_in_dotnet(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f009.sensitive_key_in_json.description",
+        desc_key="src.lib_root.f009.sensitive_key_in_json.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
     )
-
-
-def _sensitive_info_json(
-    graph: Graph, nid: NId, key_pair: str, value: str
-) -> bool:
-    correct_parents = ["ConnectionStrings"]
-    if (
-        key_pair == "Claims"
-        and has_password(value)
-        and is_parent(graph, nid, correct_parents)
-    ):
-        return True
-    return False
 
 
 def sensitive_info_json(
@@ -120,7 +158,7 @@ def sensitive_info_json(
                     yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f009.sensitive_key_in_json.description",
+        desc_key="src.lib_root.f009.sensitive_key_in_json.description",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

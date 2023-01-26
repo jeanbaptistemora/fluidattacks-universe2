@@ -17,7 +17,7 @@ src.lib_path.f009.crypto_js_credentials.description:
 src.lib_path.f009.dockerfile_env_secrets.description:
   en: Dockerfile credentials
   es: Credenciales de Docker
-src.lib_path.f009.sensitive_key_in_json.description:
+src.lib_root.f009.sensitive_key_in_json.description:
   en: Sensitive key value
   es: Credenciales almacenadas
 src.lib_path.f009.web_config_db_connection.description:

@@ -9,7 +9,6 @@ from lib_path.f009.aws import (
 )
 from lib_path.f009.conf_files import (
     jwt_token,
-    sensitive_key_in_json,
     web_config_db_connection,
     web_config_user_pass,
 )
@@ -57,11 +56,6 @@ def run_java_properties_sensitive_data(
     content: str, path: str
 ) -> Vulnerabilities:
     return java_properties_sensitive_data(content=content, path=path)
-
-
-@SHIELD_BLOCKING
-def run_sensitive_key_in_json(content: str, path: str) -> Vulnerabilities:
-    return sensitive_key_in_json(content=content, path=path)
 
 
 @SHIELD_BLOCKING
@@ -127,9 +121,6 @@ def analyze(
 
     elif file_extension in EXTENSIONS_JAVA_PROPERTIES:
         results = (*results, run_java_properties_sensitive_data(content, path))
-
-    elif file_extension in {"json"}:
-        results = (*results, run_sensitive_key_in_json(content, path))
     elif file_extension in {"config", "httpsF5", "json", "settings"}:
         results = (
             *results,
