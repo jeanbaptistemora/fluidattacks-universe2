@@ -59,9 +59,14 @@ const FormikFile: React.FC<TInputFileProps> = ({
 
   const handleClick = useCallback((): void => {
     if (inputRef.current) {
+      const changeEvent = createEvent("change", name, undefined);
+
+      onChange(changeEvent);
+      // eslint-disable-next-line fp/no-mutation
+      inputRef.current.value = "";
       inputRef.current.click();
     }
-  }, []);
+  }, [name, onChange]);
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
