@@ -777,7 +777,7 @@ describe("Filters", (): void => {
     }
 
     const filters: IFilter<IRandomData>[] = [
-      { id: "name", key: customFilterFn },
+      { id: "name", key: customFilterFn, label: "name" },
     ];
 
     render(<TestComponent data={dataset} filters={filters} />);

@@ -16,7 +16,7 @@ interface IFilter<IData extends object> {
         value?: string,
         rangeValues?: [string, string]
       ) => boolean);
-  label?: string;
+  label: string;
   rangeValues?: [string, string];
   selectOptions?:
     | { header: string; value: string }[]
