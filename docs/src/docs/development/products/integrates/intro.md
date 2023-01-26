@@ -142,6 +142,8 @@ and when prompted for a Development Environment, pick `integratesBack`.
 
 ### Local Environment
 
+#### Basic approach
+
 Run each of the following commands in different terminals:
 
 ```sh
@@ -151,7 +153,17 @@ universe $ m . /integrates/front
 universe $ m . /integrates/storage/dev
 ```
 
+Each terminal will serve a key component of Integrates.
+
 This will launch a replica of
 [app.fluidattacks.com](https://fluidattacks.com)
 and `app.fluidattacks.com/api`
 on your `localhost:8001`.
+
+#### Using mprocs
+
+You can also use [mprocs](https://github.com/pvolok/mprocs)
+for handling all components in a single terminal:
+
+1. Install mprocs with `nix-env -i mprocs`.
+1. Run `mprocs --config integrates/mprocs.yaml`.
