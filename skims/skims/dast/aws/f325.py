@@ -91,10 +91,7 @@ async def iam_has_privileges_over_iam(
                         locations = [
                             *locations,
                             Location(
-                                access_patterns=(
-                                    f"/Document/Statement/{index}/Effect",
-                                    f"/Document/Statement/{index}/Action",
-                                ),
+                                access_patterns=(),
                                 arn=(f"{policy['Arn']}"),
                                 values=(
                                     policy_statements[index]["Effect"],
@@ -243,7 +240,7 @@ def get_locations(
     policy_statements: List, policy: Dict[str, Any]
 ) -> List[Location]:
     locations: List[Location] = []
-    for index, item in enumerate(policy_statements):
+    for item in policy_statements:
         item = ast.literal_eval(str(item))
         if (
             item["Effect"] == "Allow"
@@ -255,11 +252,7 @@ def get_locations(
                 locations = [
                     *locations,
                     Location(
-                        access_patterns=(
-                            f"/{index}/Effect",
-                            f"/{index}/Resource",
-                            f"/{index}/Action",
-                        ),
+                        access_patterns=(),
                         arn=(f"{policy['Arn']}"),
                         values=(
                             item["Effect"],
@@ -340,10 +333,7 @@ def _get_wildcard_nodes(
             locations = [
                 *locations,
                 Location(
-                    access_patterns=(
-                        f"/Document/Statement/{index}/Effect",
-                        f"/Document/Statement/{index}/Action",
-                    ),
+                    access_patterns=(),
                     arn=(f"{policy['Arn']}"),
                     values=(
                         policy_statements[index]["Effect"],
@@ -375,9 +365,7 @@ def _is_statement_miss_configured(
             locations = [
                 *locations,
                 Location(
-                    access_patterns=(
-                        f"/Document/Statement/{index}/NotAction",
-                    ),
+                    access_patterns=(),
                     arn=(f"{policy['Arn']}"),
                     values=(no_action,),
                     description=t(
@@ -390,9 +378,7 @@ def _is_statement_miss_configured(
             locations = [
                 *locations,
                 Location(
-                    access_patterns=(
-                        f"/Document/Statement/{index}/NotResource",
-                    ),
+                    access_patterns=(),
                     arn=(f"{policy['Arn']}"),
                     values=(no_resource,),
                     description=t(

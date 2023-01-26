@@ -8,6 +8,7 @@ from test.data.lib_dast import (
     f016,
     f024,
     f031,
+    f325,
     f333,
     f400,
 )
@@ -25,6 +26,7 @@ MOCKERS: dict[str, Callable] = {
     "F016": f016.mock_data,
     "F024": f024.mock_data,
     "F031": f031.mock_data,
+    "F325": f325.mock_data,
     "F333": f333.mock_data,
     "F400": f400.mock_data,
 }
@@ -165,6 +167,12 @@ def test_f052(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f134")
 def test_f134(mocker: MockerFixture) -> None:
     run_finding("F134", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f325")
+def test_f325(mocker: MockerFixture) -> None:
+    run_finding("F325", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
