@@ -18,7 +18,7 @@ in the top bar or follow
 [this link](https://app.fluidattacks.com/todos)
 (/todos).
 
-![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1666266012/docs/web/vulnerabilities/management/todo_list.png)
+![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1674755953/docs/web/vulnerabilities/management/todo_list.png)
 
 However,
 an initial question could be:
@@ -83,7 +83,7 @@ you must select it in the
 check box on the left,
 followed by the **Edit button**.
 
-![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267252/docs/web/vulnerabilities/management/edit_todo_list.png)
+![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1674756200/docs/web/vulnerabilities/management/edit_action.png)
 
 A pop-up window will appear
 for you to edit the vulnerability,
@@ -93,7 +93,7 @@ and the other fields that compose it.
 To save the changes you have made,
 click on the **Confirm button**.
 
-![Edit window](https://res.cloudinary.com/fluid-attacks/image/upload/v1665056701/docs/web/vulnerabilities/management/edit_vulnerability.png)
+![Edit window](https://res.cloudinary.com/fluid-attacks/image/upload/v1674756505/docs/web/vulnerabilities/management/edit_pop_up.png)
 
 Remember that for any change you make,
 you will receive a notification of these;
@@ -126,7 +126,7 @@ to validate by clicking
 on the check box on the left,
 followed by the **Reattack button**.
 
-![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267352/docs/web/vulnerabilities/management/reattack_todo_list.png)
+![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1674756950/docs/web/vulnerabilities/management/reattack.png)
 
 A pop-up window will appear asking
 you for the justification you applied
@@ -136,7 +136,7 @@ is composed of 10 or more characters.
 When you have typed the validation,
 click on the **Confirm button**.
 
-![Justification ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1665060354/docs/web/vulnerabilities/management/justification_todolist.png)
+![Justification ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1674757123/docs/web/vulnerabilities/management/reattack_justification.png)
 
 Here this vulnerability enters
 in **Requested** status waiting
@@ -154,7 +154,7 @@ The filters in this section are
 located on the right side next
 to the search bar.
 
-![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267669/docs/web/vulnerabilities/management/filters_todo_list.png)
+![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1674758006/docs/web/vulnerabilities/management/filter_todo.png)
 
 Here you can filter by **Organization**,
 **Group name**,
@@ -177,7 +177,7 @@ you can do so with the button
 on the left next to the
 reattack button.
 
-![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1666267848/docs/web/vulnerabilities/management/refresh.png)
+![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1674758071/docs/web/vulnerabilities/management/refrest.png)
 
 ### Search bar
 

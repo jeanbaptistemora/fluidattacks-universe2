@@ -52,7 +52,7 @@ The second way to subscribe is through are ARM.
   over the “megaphone icon” will say:
   “Latest updates about ARM”.
 
-![Subscription Icons](https://res.cloudinary.com/fluid-attacks/image/upload/v1643676383/docs/web/news/subscription/subscription_megaphone.png)
+![Subscription Icons](https://res.cloudinary.com/fluid-attacks/image/upload/v1674755472/docs/web/news/subscription/news_platform.png)
 
 - You will see a pop-up window where
   you can view our News channel and
