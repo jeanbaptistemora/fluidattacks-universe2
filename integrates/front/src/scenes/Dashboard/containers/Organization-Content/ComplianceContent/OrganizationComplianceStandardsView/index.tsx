@@ -30,6 +30,7 @@ import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import { GET_ORGANIZATION_GROUP_NAMES } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
+import type { IVerifyFn } from "scenes/Dashboard/components/VerifyDialog/types";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
@@ -149,18 +150,36 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
     function onSubmit(): void {
       // OnSubmit
     }
-    function handleRequestUnfulfilledStandardReport(
-      verificationCode: string
-    ): void {
-      setDisableVerify(true);
-      requestUnfulfilledStandardReport({
-        variables: {
-          groupName: selectedGroupName,
-          verificationCode,
+
+    const handleRequestUnfulfilledStandardReport = useCallback(
+      (verificationCode: string): void => {
+        setDisableVerify(true);
+        requestUnfulfilledStandardReport({
+          variables: {
+            groupName: selectedGroupName,
+            verificationCode,
+          },
+        });
+        mixpanel.track("UnfulfilledStandardReportRequest");
+      },
+      [requestUnfulfilledStandardReport, selectedGroupName]
+    );
+
+    const onRequestReport = useCallback(
+      (setVerifyCallbacks: IVerifyFn): (() => void) =>
+        (): void => {
+          setVerifyCallbacks(
+            (verificationCode: string): void => {
+              handleRequestUnfulfilledStandardReport(verificationCode);
+            },
+            (): void => {
+              setIsVerifyDialogOpen(false);
+            }
+          );
+          setIsVerifyDialogOpen(true);
         },
-      });
-      mixpanel.track("UnfulfilledStandardReportRequest");
-    }
+      [handleRequestUnfulfilledStandardReport]
+    );
 
     return (
       <React.StrictMode>
@@ -203,20 +222,6 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
             <div className={"flex flex-row  justify-end items-end "}>
               <VerifyDialog disable={disableVerify} isOpen={isVerifyDialogOpen}>
                 {(setVerifyCallbacks): JSX.Element => {
-                  function onRequestReport(): void {
-                    setVerifyCallbacks(
-                      (verificationCode: string): void => {
-                        handleRequestUnfulfilledStandardReport(
-                          verificationCode
-                        );
-                      },
-                      (): void => {
-                        setIsVerifyDialogOpen(false);
-                      }
-                    );
-                    setIsVerifyDialogOpen(true);
-                  }
-
                   return (
                     <Tooltip
                       id={
@@ -228,7 +233,7 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
                     >
                       <Button
                         id={"unfulfilled-standard-report-pdf"}
-                        onClick={onRequestReport}
+                        onClick={onRequestReport(setVerifyCallbacks)}
                         variant={"primary"}
                       >
                         {t(
