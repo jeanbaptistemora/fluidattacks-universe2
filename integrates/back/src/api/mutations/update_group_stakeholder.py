@@ -6,7 +6,8 @@ from ariadne import (
 )
 import authz
 from authz.validations import (
-    validate_role_fluid_reqs,
+    validate_fluidattacks_staff_on_group_deco,
+    validate_role_fluid_reqs_deco,
 )
 from custom_exceptions import (
     InvalidRoleProvided,
@@ -53,14 +54,21 @@ from stakeholders import (
 LOGGER = logging.getLogger(__name__)
 
 
+@validate_fluidattacks_staff_on_group_deco(
+    "group", "modified_email", "modified_role"
+)
+@validate_role_fluid_reqs_deco(
+    email_field="modified_email", role_field="modified_role"
+)
 async def _update_stakeholder(
+    *,
     info: GraphQLResolveInfo,
     updated_data: dict[str, str],
+    modified_role: str,
+    modified_email: str,
     group: Group,
 ) -> None:
     loaders: Dataloaders = info.context.loaders
-    modified_role = map_roles(updated_data["role"])
-    modified_email = updated_data["email"]
 
     if not await exists(loaders, group.name, modified_email):
         raise StakeholderNotFound()
@@ -68,8 +76,6 @@ async def _update_stakeholder(
     group_access: GroupAccess = await loaders.group_access.load(
         GroupAccessRequest(group_name=group.name, email=modified_email)
     )
-    # Validate role requirements before changing anything
-    validate_role_fluid_reqs(modified_email, modified_role)
 
     invitation = group_access.invitation
     email = updated_data["email"]
@@ -112,9 +118,6 @@ async def mutate(
 
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(group_name)
-    authz.validate_fluidattacks_staff_on_group(
-        group, modified_email, modified_role
-    )
 
     allowed_roles_to_grant = (
         await authz.get_group_level_roles_a_user_can_grant(
@@ -136,7 +139,13 @@ async def mutate(
         )
         raise InvalidRoleProvided(role=modified_role)
 
-    await _update_stakeholder(info, updated_data, group)
+    await _update_stakeholder(
+        info=info,
+        updated_data=updated_data,
+        modified_role=modified_role,
+        modified_email=modified_email,
+        group=group,
+    )
     msg = (
         f"Security: Modified stakeholder data: {modified_email} "
         f"in {group_name} group successfully"
