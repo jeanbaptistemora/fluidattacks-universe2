@@ -68,6 +68,7 @@ const About = [
           "about/security/authorization/internal",
           "about/security/authorization/secret-rotation",
           "about/security/authorization/access-revocation",
+          "about/security/authorization/secure-laptops",
           "about/security/authorization/secure-mobile-policies",
         ],
       },
