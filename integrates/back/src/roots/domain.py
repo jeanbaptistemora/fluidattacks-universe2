@@ -305,7 +305,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             url,
             branch,
             group_name,
-            await loaders.organization_roots.load(organization.name),
+            tuple(await loaders.organization_roots.load(organization.name)),
             include_inactive=True,
         )
     ):
@@ -395,7 +395,7 @@ async def add_ip_root(
         and group.state.type != GroupSubscriptionType.ONESHOT
         and not validations.is_ip_unique(
             address,
-            await loaders.organization_roots.load(organization_name),
+            tuple(await loaders.organization_roots.load(organization_name)),
             include_inactive=True,
         )
     ):
@@ -492,7 +492,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
             port,
             protocol,
             query,
-            await loaders.organization_roots.load(organization_name),
+            tuple(await loaders.organization_roots.load(organization_name)),
             include_inactive=True,
         )
     ):
@@ -767,7 +767,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
             url,
             branch,
             group_name,
-            await loaders.organization_roots.load(organization_name),
+            tuple(await loaders.organization_roots.load(organization_name)),
             include_inactive=True,
         ):
             raise RepeatedRoot()
@@ -1168,7 +1168,10 @@ async def activate_root(
 
         if isinstance(root, GitRoot):
             if not validations.is_git_unique(
-                root.state.url, root.state.branch, root.group_name, org_roots
+                root.state.url,
+                root.state.branch,
+                root.group_name,
+                tuple(org_roots),
             ):
                 raise RepeatedRoot()
 

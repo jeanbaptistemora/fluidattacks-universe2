@@ -24,7 +24,6 @@ from db_model.organizations.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -49,9 +48,9 @@ async def _get_repositories(
 async def _get_roots(
     *, loaders: Dataloaders, organization_name: str
 ) -> set[str]:
-    organization_roots: tuple[
-        Root, ...
-    ] = await loaders.organization_roots.load(organization_name)
+    organization_roots = await loaders.organization_roots.load(
+        organization_name
+    )
 
     return {
         root.state.url

@@ -130,9 +130,7 @@ class GroupRootsLoader(DataLoader):
         )
 
 
-async def _get_organization_roots(
-    *, organization_name: str
-) -> tuple[Root, ...]:
+async def _get_organization_roots(*, organization_name: str) -> list[Root]:
     primary_key = keys.build_key(
         facet=ORG_INDEX_METADATA,
         values={"name": organization_name},
@@ -154,17 +152,19 @@ async def _get_organization_roots(
         table=TABLE,
     )
 
-    return tuple(format_root(item) for item in response.items)
+    return [format_root(item) for item in response.items]
 
 
 class OrganizationRootsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_names: list[str]
-    ) -> tuple[tuple[Root, ...], ...]:
-        return await collect(
-            _get_organization_roots(organization_name=organization_name)
-            for organization_name in organization_names
+    ) -> list[list[Root]]:
+        return list(
+            await collect(
+                _get_organization_roots(organization_name=organization_name)
+                for organization_name in organization_names
+            )
         )
 
 

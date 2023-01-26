@@ -25,7 +25,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRootState,
-    Root,
     RootState,
 )
 from dynamodb import (
@@ -42,9 +41,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    cast,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -86,9 +82,8 @@ async def process_organization(
     loaders: Dataloaders,
     organization_name: str,
 ) -> None:
-    organization_roots = cast(
-        tuple[Root, ...],
-        await loaders.organization_roots.load(organization_name),
+    organization_roots = await loaders.organization_roots.load(
+        organization_name
     )
     for organization_root in organization_roots:
         if (

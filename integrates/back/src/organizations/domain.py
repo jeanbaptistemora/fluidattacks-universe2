@@ -95,7 +95,6 @@ from db_model.organizations.utils import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -656,9 +655,9 @@ async def remove_credentials(
     organization: Organization = await loaders.organization.load(
         organization_id
     )
-    organization_roots: tuple[
-        Root, ...
-    ] = await loaders.organization_roots.load(organization.name)
+    organization_roots = await loaders.organization_roots.load(
+        organization.name
+    )
     await collect(
         roots_model.update_root_state(
             current_value=root.state,

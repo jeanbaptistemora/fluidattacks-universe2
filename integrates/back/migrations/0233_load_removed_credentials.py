@@ -24,7 +24,6 @@ from db_model.credentials.types import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
 )
 from itertools import (
     chain,
@@ -42,7 +41,6 @@ from settings import (
 )
 import time
 from typing import (
-    cast,
     Union,
 )
 
@@ -71,9 +69,8 @@ async def set_org_credential_to_roots(
             ]
         )
     )
-    organization_roots = cast(
-        tuple[Root, ...],
-        await loaders.organization_roots.load(organization_name),
+    organization_roots = await loaders.organization_roots.load(
+        organization_name
     )
     org_new_credentials: tuple[
         Credential, ...
