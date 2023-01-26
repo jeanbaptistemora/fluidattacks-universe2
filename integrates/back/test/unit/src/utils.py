@@ -181,6 +181,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.event_vulnerabilities_loader.load": "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.finding.load": "db_model.findings.get.FindingLoader.load",
     "loaders.finding_vulnerabilities.load_many_chained": "db_model.vulnerabilities.get.FindingVulnerabilitiesNonDeletedLoader.load_many_chained",  # noqa: E501 pylint: disable=line-too-long
     "loaders.finding_vulnerabilities_all.load": "db_model.vulnerabilities.get.FindingVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
@@ -215,6 +216,7 @@ mocked_paths: Dict[str, str] = {
     "validate_acceptance_severity_range": "organizations.domain.validate_acceptance_severity_range",  # noqa: E501 pylint: disable=line-too-long
     "validate_evidence": "events.domain.validate_evidence",
     "vulns_domain.mask_vulnerability": "vulnerabilities.domain.mask_vulnerability",  # noqa: E501 pylint: disable=line-too-long
+    "vulns_model.remove": "db_model.vulnerabilities.remove",
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
@@ -439,80 +441,175 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
         )
     },
-    "db_model.findings.remove": {
-        '["unittesting", "457497316"]': None,
-    },
-    "db_model.groups.get.GroupLoader.load": {
-        '["unittesting"]': Group(
-            created_by="unknown",
-            created_date=datetime.fromisoformat("2018-03-08T00:43:18+00:00"),
-            description="Integrates unit test group",
-            language=GroupLanguage.EN,
-            name="unittesting",
-            organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
-            state=GroupState(
-                has_machine=True,
-                has_squad=True,
-                managed=GroupManaged.NOT_MANAGED,
-                modified_by="unknown",
+    "db_model.findings.get.FindingLoader.load": {
+        '["422286126"]': Finding(
+            hacker_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            id="422286126",
+            state=FindingState(
+                modified_by="integratesmanager@gmail.com",
                 modified_date=datetime.fromisoformat(
-                    "2018-03-08T00:43:18+00:00"
+                    "2018-07-09T05:00:00+00:00"
                 ),
-                status=GroupStateStatus.ACTIVE,
-                tier=GroupTier.MACHINE,
-                type=GroupSubscriptionType.CONTINUOUS,
-                tags={"test-updates", "test-tag", "test-groups"},
-                comments=None,
-                justification=None,
-                payment_id=None,
-                pending_deletion_date=None,
-                service=GroupService.WHITE,
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
-            agent_token=None,
-            business_id="14441323",
-            business_name="Testing Company and Sons",
-            context="Group context test",
-            disambiguation="Disambiguation test",
-            files=[
-                GroupFile(
-                    description="Test",
-                    file_name="test.zip",
-                    modified_by="unittest@fluidattacks.com",
-                    modified_date=datetime.fromisoformat(
-                        "2019-03-01T20:21:00+00:00"
-                    ),
+            title="060. Insecure service configuration - Host verification",
+            approval=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-07-09T05:00:00+00:00"
                 ),
-                GroupFile(
-                    description="shell",
-                    file_name="shell.exe",
-                    modified_by="unittest@fluidattacks.com",
-                    modified_date=datetime.fromisoformat(
-                        "2019-04-24T19:56:00+00:00"
-                    ),
-                ),
-                GroupFile(
-                    description="shell2",
-                    file_name="shell2.exe",
-                    modified_by="unittest@fluidattacks.com",
-                    modified_date=datetime.fromisoformat(
-                        "2019-04-24T19:56:00+00:00"
-                    ),
-                ),
-                GroupFile(
-                    description="eerweterterter",
-                    file_name="asdasd.py",
-                    modified_by="unittest@fluidattacks.com",
-                    modified_date=datetime.fromisoformat(
-                        "2019-08-06T19:28:00+00:00"
-                    ),
-                ),
-            ],
-            policies=None,
-            sprint_duration=2,
-            sprint_start_date=datetime.fromisoformat(
-                "2022-08-06T19:28:00+00:00"
+                source=Source.ASM,
+                status=FindingStateStatus.APPROVED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
-        )
+            attack_vector_description="This is an attack vector",
+            creation=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:43:18+00:00"
+                ),
+                source=Source.ASM,
+                status=FindingStateStatus.CREATED,
+                rejection=None,
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+            ),
+            description="The source code uses generic exceptions to "
+            "handle unexpected errors. Catching generic exceptions "
+            "obscures the problem that caused the error and promotes "
+            "a generic way to handle different categories or sources "
+            "of error. This may cause security vulnerabilities to "
+            "materialize, as some special flows go unnoticed.",
+            evidences=FindingEvidences(
+                animation=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="Test description",
+                    url="unittesting-422286126-animation.gif",
+                ),
+                evidence1=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="this is a test description",
+                    url="unittesting-422286126-evidence_route_1.png",
+                ),
+                evidence2=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="exception",
+                    url="unittesting-422286126-evidence_route_2.jpg",
+                ),
+                evidence3=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="Description",
+                    url="unittesting-422286126-evidence_route_3.png",
+                ),
+                evidence4=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="changed for testing purposes",
+                    url="unittesting-422286126-evidence_route_4.png",
+                ),
+                evidence5=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="Test description",
+                    url="unittesting-422286126-evidence_route_5.png",
+                ),
+                exploitation=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="test",
+                    url="unittesting-422286126-exploitation.png",
+                ),
+                records=FindingEvidence(
+                    modified_date=datetime.fromisoformat(
+                        "2018-07-09T05:00:00+00:00"
+                    ),
+                    description="test",
+                    url="unittesting-422286126-evidence_file.csv",
+                ),
+            ),
+            min_time_to_remediate=18,
+            recommendation="Implement password policies with the best "
+            "practicies for strong passwords.",
+            requirements="R359. Avoid using generic exceptions.",
+            severity=Finding31Severity(
+                attack_complexity=Decimal("0.77"),
+                integrity_impact=Decimal("0.22"),
+                integrity_requirement=Decimal("1"),
+                modified_confidentiality_impact=Decimal("0"),
+                modified_user_interaction=Decimal("0.85"),
+                modified_severity_scope=Decimal("0"),
+                modified_availability_impact=Decimal("0"),
+                report_confidence=Decimal("0.92"),
+                modified_integrity_impact=Decimal("0.22"),
+                attack_vector=Decimal("0.62"),
+                modified_attack_complexity=Decimal("0.77"),
+                privileges_required=Decimal("0.62"),
+                availability_impact=Decimal("0"),
+                modified_privileges_required=Decimal("0.62"),
+                confidentiality_requirement=Decimal("1"),
+                modified_attack_vector=Decimal("0.62"),
+                user_interaction=Decimal("0.85"),
+                confidentiality_impact=Decimal("0"),
+                exploitability=Decimal("0.91"),
+                remediation_level=Decimal("0.97"),
+                severity_scope=Decimal("0"),
+                availability_requirement=Decimal("1"),
+            ),
+            sorts=FindingSorts.NO,
+            submission=FindingState(
+                modified_by="integratesmanager@gmail.com",
+                justification=StateRemovalJustification.NO_JUSTIFICATION,
+                source=Source.ASM,
+                modified_date=datetime.fromisoformat(
+                    "2018-04-08T00:45:11+00:00"
+                ),
+                status=FindingStateStatus.SUBMITTED,
+            ),
+            threat="An attacker can get passwords of users and "
+            "impersonate them or used the credentials for practices "
+            "malicious.",
+            unreliable_indicators=FindingUnreliableIndicators(
+                unreliable_closed_vulnerabilities=0,
+                unreliable_newest_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                ),
+                unreliable_oldest_open_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                ),
+                unreliable_oldest_vulnerability_report_date=(
+                    datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                ),
+                unreliable_open_vulnerabilities=1,
+                unreliable_status=FindingStatus.VULNERABLE,
+                unreliable_treatment_summary=FindingTreatmentSummary(
+                    accepted=0,
+                    untreated=0,
+                    in_progress=1,
+                    accepted_undefined=0,
+                ),
+                unreliable_verification_summary=FindingVerificationSummary(
+                    verified=0,
+                    requested=0,
+                    on_hold=0,
+                ),
+                unreliable_where="test/data/lib_path/f060/csharp.cs",
+            ),
+        ),
     },
     "db_model.findings.get.GroupFindingsLoader.load": {
         '["unittesting"]': tuple(
@@ -1426,6 +1523,81 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     verification=None,
                 ),
             ]
+        )
+    },
+    "db_model.findings.remove": {
+        '["unittesting", "457497316"]': None,
+    },
+    "db_model.groups.get.GroupLoader.load": {
+        '["unittesting"]': Group(
+            created_by="unknown",
+            created_date=datetime.fromisoformat("2018-03-08T00:43:18+00:00"),
+            description="Integrates unit test group",
+            language=GroupLanguage.EN,
+            name="unittesting",
+            organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            state=GroupState(
+                has_machine=True,
+                has_squad=True,
+                managed=GroupManaged.NOT_MANAGED,
+                modified_by="unknown",
+                modified_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                status=GroupStateStatus.ACTIVE,
+                tier=GroupTier.MACHINE,
+                type=GroupSubscriptionType.CONTINUOUS,
+                tags={"test-updates", "test-tag", "test-groups"},
+                comments=None,
+                justification=None,
+                payment_id=None,
+                pending_deletion_date=None,
+                service=GroupService.WHITE,
+            ),
+            agent_token=None,
+            business_id="14441323",
+            business_name="Testing Company and Sons",
+            context="Group context test",
+            disambiguation="Disambiguation test",
+            files=[
+                GroupFile(
+                    description="Test",
+                    file_name="test.zip",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-03-01T20:21:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="shell",
+                    file_name="shell.exe",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-24T19:56:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="shell2",
+                    file_name="shell2.exe",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-04-24T19:56:00+00:00"
+                    ),
+                ),
+                GroupFile(
+                    description="eerweterterter",
+                    file_name="asdasd.py",
+                    modified_by="unittest@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2019-08-06T19:28:00+00:00"
+                    ),
+                ),
+            ],
+            policies=None,
+            sprint_duration=2,
+            sprint_start_date=datetime.fromisoformat(
+                "2022-08-06T19:28:00+00:00"
+            ),
         )
     },
     "db_model.group_access.get.GroupAccessLoader.load": {
@@ -7417,6 +7589,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
             )
         )
+    },
+    "db_model.vulnerabilities.remove": {
+        '["80d6a69f-a376-46be-98cd-2fdedcffdcc0"]': None,
     },
     "events.domain.remove_file_evidence": {
         '["418900978", "oneshottest"]': None,
