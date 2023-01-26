@@ -5781,3 +5781,19 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
+        file_name="javascript",
+        name="javascript_json_parse_unvalidated_data",
+        module="lib_root",
+        finding=FindingEnum.F089,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_JSON_PARSE_UNVALIDATED_DATA = MethodInfo(
+        file_name="typescript",
+        name="typescript_json_parse_unvalidated_data",
+        module="lib_root",
+        finding=FindingEnum.F089,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
