@@ -48,9 +48,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_root(loaders: Dataloaders, root: Root) -> None:
-    historic: tuple[RootState, ...] = await loaders.root_historic_states.load(
-        root.id
-    )
+    historic = await loaders.root_historic_states.load(root.id)
     creation_state: RootState = historic[0]
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_metadata"],

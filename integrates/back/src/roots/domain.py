@@ -1399,9 +1399,7 @@ async def get_last_status_update(
 
     ACTIVE, [ACTIVE], INACTIVE, ACTIVE
     """
-    historic_state: tuple[
-        RootState, ...
-    ] = await loaders.root_historic_states.load(root_id)
+    historic_state = await loaders.root_historic_states.load(root_id)
     status_changes = tuple(
         tuple(group)
         for _, group in groupby(historic_state, key=attrgetter("status"))

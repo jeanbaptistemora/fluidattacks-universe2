@@ -25,7 +25,6 @@ from db_model.roots.enums import (
 )
 from db_model.roots.types import (
     GitRootState,
-    RootState,
 )
 from dynamodb import (
     keys,
@@ -91,9 +90,9 @@ async def process_organization(
             and organization_root.state.modified_by
             == "aaguirre@fluidattacks.com"
         ):
-            historic_state: tuple[
-                RootState, ...
-            ] = await loaders.root_historic_states.load(organization_root.id)
+            historic_state = await loaders.root_historic_states.load(
+                organization_root.id
+            )
             sorted_historic = sorted(
                 historic_state,
                 key=lambda state: datetime.fromisoformat(state.modified_date),

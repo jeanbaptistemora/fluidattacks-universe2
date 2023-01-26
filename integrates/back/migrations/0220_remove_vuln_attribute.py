@@ -32,7 +32,6 @@ from db_model.findings.types import (
 from db_model.roots.types import (
     Root,
     RootRequest,
-    RootState,
 )
 from dynamodb import (
     keys,
@@ -139,10 +138,8 @@ async def process_vulnerability(
         )
         return
 
-    historic_root_by_pk: tuple[
-        RootState, ...
-    ] = await loaders.root_historic_states.load(root_id_pk)
-    historic_root_by_id: tuple[RootState, ...] = historic_root_by_pk
+    historic_root_by_pk = await loaders.root_historic_states.load(root_id_pk)
+    historic_root_by_id = historic_root_by_pk
     if root_id:
         historic_root_by_id = await loaders.root_historic_states.load(root_id)
 

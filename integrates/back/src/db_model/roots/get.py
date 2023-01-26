@@ -168,7 +168,7 @@ class OrganizationRootsLoader(DataLoader):
         )
 
 
-async def _get_historic_state(*, root_id: str) -> tuple[RootState, ...]:
+async def _get_historic_state(*, root_id: str) -> list[RootState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_state"],
         values={"uuid": root_id},
@@ -188,7 +188,7 @@ async def _get_historic_state(*, root_id: str) -> tuple[RootState, ...]:
         table=TABLE,
     )
 
-    return tuple(
+    return [
         RootState(
             modified_by=state["modified_by"],
             modified_date=datetime.fromisoformat(state["modified_date"]),
@@ -198,7 +198,19 @@ async def _get_historic_state(*, root_id: str) -> tuple[RootState, ...]:
             status=RootStatus[state["status"]],
         )
         for state in response.items
-    )
+    ]
+
+
+class RootHistoricStatesLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: list[str]
+    ) -> list[list[RootState]]:
+        return list(
+            await collect(
+                _get_historic_state(root_id=root_id) for root_id in root_ids
+            )
+        )
 
 
 async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
@@ -218,16 +230,6 @@ async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
     )
 
     return tuple(format_cloning(state) for state in response.items)
-
-
-class RootHistoricStatesLoader(DataLoader):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: list[str]
-    ) -> tuple[tuple[RootState, ...], ...]:
-        return await collect(
-            _get_historic_state(root_id=root_id) for root_id in root_ids
-        )
 
 
 class RootHistoricCloningLoader(DataLoader):
