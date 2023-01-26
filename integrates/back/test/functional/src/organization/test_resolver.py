@@ -63,8 +63,18 @@ from unittest import (
 )
 
 
+def get_account_names(
+    *,
+    tokens: tuple[str, ...],  # pylint: disable=unused-argument
+) -> tuple[tuple[str, ...], ...]:
+    return tuple([tuple(["testorg1"])])
+
+
 def get_repositories(
-    *, base_url: str, access_token: str  # pylint: disable=unused-argument
+    *,
+    base_url: str,  # pylint: disable=unused-argument
+    access_token: str,  # pylint: disable=unused-argument
+    is_oauth: bool = False,  # pylint: disable=unused-argument
 ) -> tuple[GitRepository, ...]:
     return tuple(
         [
@@ -104,6 +114,7 @@ def get_repositories_commits(
     access_token: str,  # pylint: disable=unused-argument
     repository_id: str,  # pylint: disable=unused-argument
     project_name: str,  # pylint: disable=unused-argument
+    is_oauth: bool = False,  # pylint: disable=unused-argument
 ) -> tuple[GitCommit, ...]:
 
     return tuple(
@@ -120,6 +131,7 @@ def get_repositories_stats(
     access_token: str,  # pylint: disable=unused-argument
     repository_id: str,
     project_name: str,
+    is_oauth: bool = False,  # pylint: disable=unused-argument
 ) -> GitRepositoryStats:
     return GitRepositoryStats(
         branches_count=1,
@@ -334,13 +346,13 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
-    assert len(result["data"]["organization"]["credentials"]) == 4
+    assert len(result["data"]["organization"]["credentials"]) == 5
     assert (
         result["data"]["organization"]["credentials"][0]["oauthType"]
         == "GITLAB"
     )
     assert (
-        result["data"]["organization"]["credentials"][2]["oauthType"]
+        result["data"]["organization"]["credentials"][3]["oauthType"]
         == "GITHUB"
     )
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
@@ -348,11 +360,11 @@ async def test_get_organization_ver_1(
     assert (
         result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
     )
-    assert result["data"]["organization"]["credentials"][3]["isPat"] is True
+    assert result["data"]["organization"]["credentials"][4]["isPat"] is True
     assert (
-        result["data"]["organization"]["credentials"][3]["name"] == "pat token"
+        result["data"]["organization"]["credentials"][4]["name"] == "pat token"
     )
-    assert result["data"]["organization"]["credentials"][3]["oauthType"] == ""
+    assert result["data"]["organization"]["credentials"][4]["oauthType"] == ""
 
     loaders: Dataloaders = get_new_context()
     current_repositories: tuple[
@@ -410,6 +422,10 @@ async def test_get_organization_ver_1(
             "db_model.azure_repositories.get._get_gitlab_commit_count",
             side_effect=get_lab_commit_counts,
         ),
+        mock.patch(
+            "azure_repositories.domain.get_account_names",
+            side_effect=get_account_names,
+        ),
     ):
         await update_organization_repositories()
 
@@ -459,7 +475,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
     assert result["data"]["organization"]["missedAuthors"] == 3
-    assert result["data"]["organization"]["missedCommits"] == 11
+    assert result["data"]["organization"]["missedCommits"] == 21
     assert result["data"]["organization"]["missedRepositories"] == 3
 
     loaders.organization_unreliable_integration_repositories.clear_all()
@@ -502,6 +518,15 @@ async def test_get_organization_ver_1(
     result_remove = await remove_credentials(
         user="user_manager@fluidattacks.com",
         credentials_id="5b81d698-a5bc-4dda-bdf9-40d0725358b4",
+        organization_id=org_id,
+    )
+    assert "errors" not in result_remove
+    assert "success" in result_remove["data"]["removeCredentials"]
+    assert result_remove["data"]["removeCredentials"]["success"]
+
+    result_remove = await remove_credentials(
+        user="user_manager@fluidattacks.com",
+        credentials_id="5990e0ec-dc8f-4c9a-82cc-9da9fbb35c11",
         organization_id=org_id,
     )
     assert "errors" not in result_remove

@@ -21,18 +21,24 @@ from dateutil import (
     parser,
 )
 from db_model.azure_repositories.get import (
+    get_account_names,
     get_github_repos,
     get_github_repos_commits,
     get_gitlab_commit,
     get_gitlab_commit_counts,
     get_gitlab_last_commit,
     get_gitlab_projects,
+    get_oauth_repositories,
+    get_oauth_repositories_commits,
+    get_oauth_repositories_stats,
     get_repositories_stats,
 )
 from db_model.azure_repositories.types import (
     BasicRepoData,
     CredentialsGitRepository,
     CredentialsGitRepositoryCommit,
+    GitRepositoryCommit,
+    OGitRepository,
     ProjectStats,
     RepositoriesStats,
 )
@@ -41,6 +47,7 @@ from db_model.azure_repositories.utils import (
 )
 from db_model.credentials.types import (
     Credentials,
+    OauthAzureSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -94,6 +101,9 @@ from newutils.datetime import (
     get_now_minus_delta,
     get_utc_now,
 )
+from oauth.azure import (
+    get_azure_token,
+)
 from oauth.gitlab import (
     get_token,
 )
@@ -108,6 +118,7 @@ from settings import (
 import tempfile
 from typing import (
     Optional,
+    Union,
 )
 from urllib.parse import (
     unquote_plus,
@@ -502,7 +513,9 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
     )
 
 
-def _get_id(repository: CredentialsGitRepository) -> str:
+def _get_id(
+    repository: Union[CredentialsGitRepository, OGitRepository]
+) -> str:
     return hashlib.sha256(
         repository.repository.web_url.lower().encode("utf-8")
     ).hexdigest()
@@ -512,7 +525,9 @@ def __get_id(url: str) -> str:
     return hashlib.sha256(url.lower().encode("utf-8")).hexdigest()
 
 
-def _get_branch(repository: CredentialsGitRepository) -> str:
+def _get_branch(
+    repository: Union[CredentialsGitRepository, OGitRepository]
+) -> str:
     return str(
         repository.repository.default_branch
         if repository.repository.default_branch is not None
@@ -610,9 +625,7 @@ async def _update(
         organization_id=organization_id,
         organization_name=organization_name,
         indicators=OrganizationUnreliableIndicatorsToUpdate(
-            missed_repositories=sum(
-                repository.missed_repositories for repository in repositories
-            ),
+            missed_repositories=len(org_repositories),
             missed_commits=sum(
                 repository.missed_commits for repository in repositories
             ),
@@ -688,6 +701,148 @@ async def get_gitlab_credentials_stats(
         ),
         missed_repositories=len(filtered_stats),
         missed_commits=sum(len(stat.commits) for stat in filtered_stats),
+    )
+
+
+async def _get_azure_credentials_tokens(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+) -> str:
+    if isinstance(credential.state.secret, OauthAzureSecret):
+        token: str = credential.state.secret.access_token
+        if credential.state.secret.valid_until <= get_utc_now():
+            updated_token: Optional[str] = await get_azure_token(
+                credential=credential,
+                loaders=loaders,
+            )
+            if updated_token:
+                return updated_token
+
+        return token
+    return ""
+
+
+async def _get_oauth_repository_count(*, repository: OGitRepository) -> int:
+    repo_stats: tuple[
+        Optional[GitRepositoryStats], ...
+    ] = await get_oauth_repositories_stats(
+        repositories=[
+            GitRepositoryCommit(
+                account_name=repository.account_name,
+                access_token=repository.token,
+                project_name=repository.repository.project.name,
+                repository_id=repository.repository.id,
+            )
+        ]
+    )
+
+    if repo_stats and repo_stats[0] is not None:
+        return repo_stats[0].commits_count
+
+    return 0
+
+
+async def _get_oauth_commit_date(*, repository: OGitRepository) -> datetime:
+    git_commits = await get_oauth_repositories_commits(
+        repositories=[
+            GitRepositoryCommit(
+                account_name=repository.account_name,
+                access_token=repository.token,
+                project_name=repository.repository.project.name,
+                repository_id=repository.repository.id,
+            )
+        ]
+    )
+
+    if git_commits and git_commits[0]:
+        return git_commits[0][0].committer.date
+
+    return datetime.fromisoformat(DEFAULT_ISO_STR)
+
+
+async def get_azure_credentials_stats(
+    *,
+    credentials: tuple[Credentials, ...],
+    loaders: Dataloaders,
+    urls: set[str],
+    organization_id: str,
+) -> RepositoriesStats:
+    ouath_tokens: tuple[str, ...] = await collect(
+        tuple(
+            _get_azure_credentials_tokens(
+                credential=credential, loaders=loaders
+            )
+            for credential in credentials
+            if isinstance(credential.state.secret, OauthAzureSecret)
+        ),
+        workers=1,
+    )
+    accounts_names: tuple[tuple[str, ...], ...] = await get_account_names(
+        tokens=ouath_tokens
+    )
+    all_repositories: tuple[
+        list[list[GitRepositoryCommit]], ...
+    ] = await collect(
+        tuple(
+            get_oauth_repositories(token=token, accounts_names=_accounts_names)
+            for token, _accounts_names in zip(ouath_tokens, accounts_names)
+        ),
+        workers=1,
+    )
+    repositories: tuple[OGitRepository, ...] = tuple(
+        OGitRepository(
+            token=token, repository=repository, account_name=account_name
+        )
+        for token, _accounts_names, _all_repositories in zip(
+            ouath_tokens, accounts_names, all_repositories
+        )
+        for _repositories, account_name in zip(
+            _all_repositories, _accounts_names
+        )
+        for repository in _repositories
+        if filter_urls(
+            repository=repository,
+            urls=urls,
+        )
+    )
+    repositories_dates: tuple[datetime, ...] = await collect(
+        tuple(
+            _get_oauth_commit_date(repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
+    repositories_stats: tuple[int, ...] = await collect(
+        tuple(
+            _get_oauth_repository_count(repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
+    commit_counts = [
+        commit_count
+        for date, commit_count in zip(repositories_dates, repositories_stats)
+        if date.timestamp() > get_now_minus_delta(days=60).timestamp()
+    ]
+
+    return RepositoriesStats(
+        repositories=tuple(
+            OrganizationIntegrationRepository(
+                id=_get_id(repository),
+                organization_id=organization_id,
+                branch=_get_branch(repository),
+                last_commit_date=date,
+                url=repository.repository.web_url,
+                commit_count=commit_count,
+            )
+            for repository, date, commit_count in zip(
+                repositories, repositories_dates, repositories_stats
+            )
+            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
+        ),
+        missed_repositories=len(commit_counts),
+        missed_commits=sum(commit_counts),
     )
 
 
@@ -977,6 +1132,9 @@ async def update_organization_repositories(
         for root in groups_roots
         if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     }
+    if not credentials:
+        return
+
     repositories_stats: tuple[RepositoriesStats, ...] = await collect(
         [
             get_pat_credentials_stats(
@@ -993,6 +1151,12 @@ async def update_organization_repositories(
             ),
             get_github_credentials_stats(
                 credentials=credentials,
+                urls=urls,
+                organization_id=organization.id,
+            ),
+            get_azure_credentials_stats(
+                credentials=credentials,
+                loaders=loaders,
                 urls=urls,
                 organization_id=organization.id,
             ),
