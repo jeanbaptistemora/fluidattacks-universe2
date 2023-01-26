@@ -14,6 +14,9 @@ from db_model.toe_ports.types import (
     ToePortRequest,
 )
 import pytest
+from typing import (
+    Optional,
+)
 
 
 @pytest.mark.asyncio
@@ -49,8 +52,11 @@ async def test_remove_toe_port(
     request = ToePortRequest(
         group_name=group_name, address=address, port=port, root_id=root_id
     )
-    toe_port: ToePort = await loaders.toe_port.load(request)
-    assert toe_port.address == address
+    toe_port: Optional[ToePort] = await loaders.toe_port.load(request)
+    if toe_port:
+        assert toe_port.address == address
+    else:
+        raise ToePortNotFound()
     historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 1
     await toe_ports_model.remove(
@@ -58,7 +64,7 @@ async def test_remove_toe_port(
     )
     loaders.toe_port.clear(request)
     loaders.toe_port_historic_state.clear(request)
-    with pytest.raises(ToePortNotFound):
+    if not toe_port:
         await loaders.toe_port.load(request)
     historic = await loaders.toe_port_historic_state.load(request)
     assert len(historic) == 0

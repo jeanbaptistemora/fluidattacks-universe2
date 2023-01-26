@@ -25,7 +25,6 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     InvalidBePresentFilterCursor,
-    ToePortNotFound,
 )
 from dynamodb import (
     keys,
@@ -38,11 +37,13 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
-    Union,
+    Optional,
 )
 
 
-async def _get_toe_ports(requests: list[ToePortRequest]) -> list[ToePort]:
+async def _get_toe_ports(
+    requests: list[ToePortRequest],
+) -> Optional[list[ToePort]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_port_metadata"],
@@ -58,7 +59,7 @@ async def _get_toe_ports(requests: list[ToePortRequest]) -> list[ToePort]:
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
     if len(items) != len(requests):
-        raise ToePortNotFound()
+        return None
 
     response = {
         ToePortRequest(
@@ -77,7 +78,7 @@ class ToePortLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[ToePortRequest]
-    ) -> list[ToePort]:
+    ) -> Optional[list[ToePort]]:
         return await _get_toe_ports(requests)
 
 
@@ -182,7 +183,7 @@ class GroupToePortsLoader(DataLoader):
 
 async def _get_toe_ports_by_root(
     request: RootToePortsRequest,
-) -> Union[ToePortsConnection, None]:
+) -> Optional[ToePortsConnection]:
     if request.be_present is None:
         facet = TABLE.facets["toe_port_metadata"]
         primary_key = keys.build_key(
@@ -235,7 +236,7 @@ class RootToePortsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[RootToePortsRequest]
-    ) -> list[Union[ToePortsConnection, None]]:
+    ) -> list[Optional[ToePortsConnection]]:
         return list(
             await collect(tuple(map(_get_toe_ports_by_root, requests)))
         )
