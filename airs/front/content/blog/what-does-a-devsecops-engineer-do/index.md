@@ -46,12 +46,13 @@ and information technology (IT) infrastructure.
 [Much like](https://devops.com/how-to-become-a-devsecops-engineer/)
 individuals in other IT security roles,
 a DevSecOps engineer has knowledge of cybersecurity software
-and [DevSecOps best practices](../devsecops-best-practices/),
-such as conducting risk assessments and threat modeling.
+and [DevSecOps best practices](../devsecops-best-practices/).
+The latter include enabling collaboration
+and conducting risk assessments and threat modeling.
 
 This DevSecOps specialist promotes cybersecurity awareness
 and is there to empower the rest of the team
-to generate the greatest value in the shortest possible time.
+to generate the most value in the shortest possible time.
 In the process,
 they ask themselves the following questions:
 
@@ -160,7 +161,7 @@ they become part of your [DevSecOps tools](../devsecops-tools/),
 so to speak.
 Keep in mind,
 though,
-that at `Fluid Attacks`
+that at Fluid Attacks
 we know
 automated tools generate reports with high rates of false positives
 and false negatives.
@@ -215,7 +216,7 @@ As a result,
 they keep the organization's digital assets safe.
 
 [It has been said that](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer),
-DevSecOps engineers often have to work
+DevSecOps engineers often have to work in collaboration
 "with colleagues who are skeptical or uninformed about \[their\] role."
 This may be because they are challenged
 by the organization's transition [from DevOps to DevSecOps](../what-is-devsecops/).
@@ -272,7 +273,9 @@ a degree in math is also mentioned as an option.
 
 Some skills listed above can be self-taught.
 That is the case for proficiency in programming languages or development tools.
-Others can be nurtured [in formal employment](https://devops.com/how-to-become-a-devsecops-engineer/)
+Others,
+like those necessarily involving collaboration,
+can be nurtured [in formal employment](https://devops.com/how-to-become-a-devsecops-engineer/)
 or through an internship.
 In fact,
 it has been advised
@@ -285,7 +288,8 @@ For example,
 prospective DevSecOps engineers would benefit a lot
 from [taking secure coding courses](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer).
 
-Yet another step is to become certified.
+Yet another step
+to get fit for the role of DevSecOps engineer is to become certified.
 We'll get to a list of certifications in a moment.
 A prospective DevSecOps engineer should first think of training
 and acquiring knowledge.
@@ -298,14 +302,15 @@ and Cisco Certified Network Associate ([CCNA](https://www.cisco.com/c/en/us/trai
 
 ## What are a DevSecOps engineer's certifications?
 
-Certifications help stand out from other candidates
+Certifications help you stand out from other candidates
 when you apply for a job.
 But they also can be pursued out of love for the challenge.
 Indeed,
 they put a candidate's patience
 and stamina to the test.
 
-It is [advisable](https://devops.com/how-to-become-a-devsecops-engineer/)
+To show you are right for the role of DevSecOps engineer,
+it is [advisable](https://devops.com/how-to-become-a-devsecops-engineer/)
 to get certified by the [DevOps Institute](https://www.devopsinstitute.com/certifications/)
 with certifications like DevOps Foundation,
 DevSecOps Engineering (DSOE)
@@ -357,14 +362,16 @@ without stopping the generation of value.
 
 ## Do you want to know more about DevSecOps?
 
-At `Fluid Attacks`,
+At Fluid Attacks,
 we help enterprises integrate security into DevOps
 from the very beginning of the software development lifecycle.
 Our [DevSecOps solution](../../solutions/devsecops/) is fueled
 by our most trusted method: [ethical hacking](../../solutions/ethical-hacking/).
 This method
 comprises the manual use of different tools
-(e.g., SAST, DAST, [SCA](../../categories/sca/)).
+(e.g., [SAST](../../categories/sast/),
+[DAST](../../categories/dast/),
+[SCA](../../categories/sca/)).
 It allows us to detect the most intricate and severe vulnerabilities.
 Additionally,
 our solution offers an automated DevSecOps agent,
