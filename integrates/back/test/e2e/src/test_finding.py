@@ -313,6 +313,16 @@ def test_finding_reattack(
         "192.168.1.20",
         timeout,
     )
+    utils.wait_for_id(
+        driver,
+        "close-filters",
+        timeout,
+    ).click()
+    utils.wait_for_id(
+        driver,
+        "vulnItem",
+        timeout,
+    ).click()
     start_reattack.click()
 
     assert utils.wait_for_text(

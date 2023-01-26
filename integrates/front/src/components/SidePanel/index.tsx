@@ -25,7 +25,7 @@ const SidePanel = ({
         <Container width={width}>
           {onClose ? (
             <div className={"tr"}>
-              <Button onClick={onClose} size={"sm"}>
+              <Button id={"close-filters"} onClick={onClose} size={"sm"}>
                 <FontAwesomeIcon icon={faClose} />
               </Button>
             </div>
