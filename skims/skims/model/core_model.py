@@ -1614,7 +1614,7 @@ class MethodsEnum(Enum):
     SENSITIVE_KEY_JSON = MethodInfo(
         file_name="conf_files",
         name="sensitive_key_in_json",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.ALEJANDRO_SALGADO,
         technique=TechniqueEnum.BASIC_SAST,
@@ -1622,7 +1622,7 @@ class MethodsEnum(Enum):
     SENSITIVE_INFO_DOTNET_JSON = MethodInfo(
         file_name="conf_files",
         name="sensitive_info_in_dotnet_json",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F009,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
@@ -5031,7 +5031,7 @@ class MethodsEnum(Enum):
     JSON_PRINCIPAL_WILDCARD = MethodInfo(
         file_name="cloudformation",
         name="json_principal_wildcard",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

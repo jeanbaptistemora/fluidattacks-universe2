@@ -14,6 +14,7 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     valid_parameters = {
+        "comment",
         "pair",
     }
     graph = args.ast_graph

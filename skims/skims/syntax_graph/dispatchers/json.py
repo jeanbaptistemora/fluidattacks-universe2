@@ -1,6 +1,7 @@
 from syntax_graph.syntax_readers.json import (
     array as json_array,
     boolean as json_boolean,
+    comment as json_comment,
     document as json_document,
     number as json_number,
     object as json_object,
@@ -25,6 +26,12 @@ JSON_DISPATCHERS: Dispatchers = (
             "true",
         },
         syntax_reader=json_boolean.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "comment",
+        },
+        syntax_reader=json_comment.reader,
     ),
     Dispatcher(
         applicable_types={
