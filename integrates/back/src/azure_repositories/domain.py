@@ -363,6 +363,68 @@ async def get_github_credentials_authors(
     }
 
 
+async def get_azure_credentials_authors_stats(
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+) -> set[str]:
+    ouath_tokens: tuple[str, ...] = await collect(
+        tuple(
+            _get_azure_credentials_tokens(
+                credential=credential, loaders=loaders
+            )
+            for credential in credentials
+            if isinstance(credential.state.secret, OauthAzureSecret)
+        ),
+        workers=1,
+    )
+    accounts_names: tuple[tuple[str, ...], ...] = await get_account_names(
+        tokens=ouath_tokens
+    )
+    all_repositories: tuple[
+        list[list[GitRepositoryCommit]], ...
+    ] = await collect(
+        tuple(
+            get_oauth_repositories(token=token, accounts_names=_accounts_names)
+            for token, _accounts_names in zip(ouath_tokens, accounts_names)
+        ),
+        workers=1,
+    )
+    repositories: tuple[OGitRepository, ...] = tuple(
+        OGitRepository(
+            token=token, repository=repository, account_name=account_name
+        )
+        for token, _accounts_names, _all_repositories in zip(
+            ouath_tokens, accounts_names, all_repositories
+        )
+        for _repositories, account_name in zip(
+            _all_repositories, _accounts_names
+        )
+        for repository in _repositories
+        if filter_urls(
+            repository=repository,
+            urls=urls,
+        )
+    )
+    repositories_dates: tuple[datetime, ...] = await collect(
+        tuple(
+            _get_oauth_commit_date(repository=repository)
+            for repository in repositories
+        ),
+        workers=1,
+    )
+    repositories_authors: tuple[set[str], ...] = await collect(
+        tuple(
+            _get_oauth_missed_authors(repository=repository)
+            for repository, date in zip(repositories, repositories_dates)
+            if date.timestamp() > get_now_minus_delta(days=60).timestamp()
+        ),
+        workers=1,
+    )
+
+    return set().union(*list(repositories_authors))
+
+
 async def update_organization_unreliable(  # pylint: disable=too-many-locals
     *,
     organization: Organization,
@@ -467,6 +529,11 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
             get_github_credentials_authors(
                 credentials=credentials,
                 urls=urls,
+            ),
+            get_azure_credentials_authors_stats(
+                credentials=credentials,
+                urls=urls,
+                loaders=loaders,
             ),
         ],
         workers=1,
@@ -741,6 +808,25 @@ async def _get_oauth_repository_count(*, repository: OGitRepository) -> int:
         return repo_stats[0].commits_count
 
     return 0
+
+
+async def _get_oauth_missed_authors(*, repository: OGitRepository) -> set[str]:
+    git_commits = await get_oauth_repositories_commits(
+        repositories=[
+            GitRepositoryCommit(
+                account_name=repository.account_name,
+                access_token=repository.token,
+                project_name=repository.repository.project.name,
+                repository_id=repository.repository.id,
+                total=True,
+            )
+        ]
+    )
+
+    if git_commits and git_commits[0]:
+        return {commit.author.email.lower() for commit in git_commits[0]}
+
+    return set()
 
 
 async def _get_oauth_commit_date(*, repository: OGitRepository) -> datetime:

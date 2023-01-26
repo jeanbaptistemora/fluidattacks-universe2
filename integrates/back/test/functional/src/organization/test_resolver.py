@@ -30,6 +30,7 @@ from datetime import (
 from db_model.azure_repositories.types import (
     BasicRepoData,
     CredentialsGitRepository,
+    OGitRepository,
 )
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
@@ -241,6 +242,13 @@ async def _get_missed_authors(
     repository: CredentialsGitRepository,  # pylint: disable=unused-argument
 ) -> set[str]:
     return {"devtest2@test.com"}
+
+
+async def _get_oauth_missed_authors(
+    *,
+    repository: OGitRepository,  # pylint: disable=unused-argument
+) -> set[str]:
+    return {"devtest7@test.com"}
 
 
 def mocked_pull_repositories(
@@ -470,6 +478,14 @@ async def test_get_organization_ver_1(
             "db_model.azure_repositories.get._get_github_repos_commits",
             side_effect=get_hub_commit_stats,
         ),
+        mock.patch(
+            "azure_repositories.domain.get_account_names",
+            side_effect=get_account_names,
+        ),
+        mock.patch(
+            "azure_repositories.domain._get_oauth_missed_authors",
+            side_effect=_get_oauth_missed_authors,
+        ),
     ):
         await update_organization_overview()
 
@@ -478,7 +494,7 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["coveredAuthors"] == 1
     assert result["data"]["organization"]["coveredCommits"] == 12
     assert result["data"]["organization"]["coveredRepositories"] == 1
-    assert result["data"]["organization"]["missedAuthors"] == 3
+    assert result["data"]["organization"]["missedAuthors"] == 4
     assert result["data"]["organization"]["missedCommits"] == 21
     assert result["data"]["organization"]["missedRepositories"] == 3
 
