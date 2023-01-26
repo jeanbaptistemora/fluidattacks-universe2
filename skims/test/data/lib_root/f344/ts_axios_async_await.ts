@@ -1,5 +1,5 @@
-import axios from "axios";
-import ky from "ky";
+import axiosAlias from "axios";
+import kyAlias from "ky";
 
 const getData = async () => {
   //Should fail line 6
