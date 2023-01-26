@@ -36,7 +36,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
     },
   ];
 
-  const { data } = useQuery<IGetTodoReattacks>(GET_TODO_REATTACKS, {
+  const { data, fetchMore } = useQuery<IGetTodoReattacks>(GET_TODO_REATTACKS, {
     onError: ({ graphQLErrors }): void => {
       graphQLErrors.forEach((error): void => {
         Logger.warning(
@@ -53,6 +53,17 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
       ? []
       : _.flatten(data.me.findingReattacksConnection.edges)
   );
+
+  const handleNextPage = useCallback(async (): Promise<void> => {
+    const pageInfo =
+      data === undefined
+        ? { endCursor: "", hasNextPage: false }
+        : data.me.findingReattacksConnection.pageInfo;
+
+    if (pageInfo.hasNextPage) {
+      await fetchMore({ variables: { after: pageInfo.endCursor } });
+    }
+  }, [data, fetchMore]);
 
   const goToFinding = useCallback(
     (rowInfo: Row<IFindingFormatted>): ((event: React.FormEvent) => void) => {
@@ -73,6 +84,7 @@ export const TasksReattacks: React.FC = (): JSX.Element => {
         data={dataset}
         exportCsv={true}
         id={"tblTodoReattacks"}
+        onNextPage={handleNextPage}
         onRowClick={goToFinding}
       />
     </React.StrictMode>
