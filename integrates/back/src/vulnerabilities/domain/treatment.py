@@ -312,38 +312,45 @@ async def send_treatment_report_mail(
     vulnerability_id: str,
     is_approved: bool = False,
 ) -> None:
-    old_vuln_values: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
-    finding: Finding = await loaders.finding.load(old_vuln_values.finding_id)
-    roles: set[str] = {
-        "resourcer",
-        "customer_manager",
-        "user_manager",
-        "vulnerability_manager",
-    }
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=finding.group_name,
-            notification=Notification.UPDATED_TREATMENT,
-            roles=roles,
+    old_vuln_values: Optional[
+        Vulnerability
+    ] = await loaders.vulnerability.load(vulnerability_id)
+    if old_vuln_values:
+        finding: Finding = await loaders.finding.load(
+            old_vuln_values.finding_id
         )
-    )
-    managers_email = await get_managers_by_size(loaders, finding.group_name, 3)
-    await vulns_mailer.send_mail_treatment_report(
-        loaders=loaders,
-        finding_id=old_vuln_values.finding_id,
-        finding_title=finding.title,
-        group_name=finding.group_name,
-        justification=justification,
-        managers_email=managers_email,
-        modified_by=modified_by,
-        modified_date=datetime_utils.get_utc_now(),
-        location=old_vuln_values.state.where,
-        email_to=users_email,
-        is_approved=is_approved,
-    )
+        roles: set[str] = {
+            "resourcer",
+            "customer_manager",
+            "user_manager",
+            "vulnerability_manager",
+        }
+        users_email = (
+            await group_access_domain.get_stakeholders_email_by_preferences(
+                loaders=loaders,
+                group_name=finding.group_name,
+                notification=Notification.UPDATED_TREATMENT,
+                roles=roles,
+            )
+        )
+        managers_email = await get_managers_by_size(
+            loaders, finding.group_name, 3
+        )
+        await vulns_mailer.send_mail_treatment_report(
+            loaders=loaders,
+            finding_id=old_vuln_values.finding_id,
+            finding_title=finding.title,
+            group_name=finding.group_name,
+            justification=justification,
+            managers_email=managers_email,
+            modified_by=modified_by,
+            modified_date=datetime_utils.get_utc_now(),
+            location=old_vuln_values.state.where,
+            email_to=users_email,
+            is_approved=is_approved,
+        )
+    else:
+        raise VulnNotFound()
 
 
 async def get_managers_by_size(

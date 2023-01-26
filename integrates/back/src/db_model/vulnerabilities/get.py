@@ -30,7 +30,6 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     RequiredStateStatus,
-    VulnNotFound,
 )
 from db_model import (
     TABLE,
@@ -55,10 +54,13 @@ from itertools import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
-async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
+async def _get_vulnerability(
+    *, vulnerability_id: str
+) -> Optional[Vulnerability]:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"id": vulnerability_id},
@@ -76,7 +78,7 @@ async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability:
     )
 
     if not response.items:
-        raise VulnNotFound()
+        return None
 
     return format_vulnerability(response.items[0])
 
@@ -535,7 +537,7 @@ class VulnerabilityLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: list[str]
-    ) -> list[Vulnerability]:
+    ) -> list[Optional[Vulnerability]]:
         return list(
             await collect(
                 _get_vulnerability(vulnerability_id=vulnerability_id)
