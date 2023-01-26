@@ -44,7 +44,7 @@ def _cfn_elb2_has_not_deletion_protection_iterate_vulnerabilities(
                 attr
                 for attr in attrs.data
                 if hasattr(attr, "raw")
-                and attr.raw["Key"] == "deletion_protection.enabled"
+                and attr.raw.get("Key") == "deletion_protection.enabled"
             ]
             if key_vals:
                 key = key_vals[0]

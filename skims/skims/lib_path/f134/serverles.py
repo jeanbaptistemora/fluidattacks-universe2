@@ -50,10 +50,11 @@ def _docker_compose_env_secrets_iterate_vulnerabilities(
 ) -> Iterator[Tuple[int, int]]:
     for env_var in env_vars_iterator:
         if http := env_var.inner.get("http"):
-            cors = http.inner["cors"]
+            cors = http.inner.get("cors")
             if (
                 cors.data_type == Type.OBJECT
-                and (origin := cors.inner["origin"])
+                and (origin := cors.inner.get("origin"))
+                and origin
                 and origin.raw == "*"
             ):
                 yield origin
