@@ -16,9 +16,7 @@ from typing import (
 
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_JSON_DEV)
-def composer_json_dev(  # NOSONAR
-    content: str, path: str
-) -> Iterator[DependencyType]:
+def composer_json_dev(content: str, path: str) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
 
     dependencies: Iterator[DependencyType] = (
@@ -33,9 +31,7 @@ def composer_json_dev(  # NOSONAR
 
 # pylint: disable=unused-argument
 @pkg_deps_to_vulns(Platform.COMPOSER, MethodsEnum.COMPOSER_LOCK_DEV)
-def composer_lock_dev(  # NOSONAR
-    content: str, path: str
-) -> Iterator[DependencyType]:
+def composer_lock_dev(content: str, path: str) -> Iterator[DependencyType]:
     content_json = json_loads_blocking(content, default={})
     for key in content_json:
         if key["item"] == "packages-dev":
