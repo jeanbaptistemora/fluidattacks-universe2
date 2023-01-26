@@ -1,10 +1,6 @@
 from lib_path.common import (
-    EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_YAML,
     SHIELD_BLOCKING,
-)
-from lib_path.f134.cloudformation import (
-    cfn_wildcard_in_allowed_origins,
 )
 from lib_path.f134.serverles import (
     severles_cors_wildcard,
@@ -32,15 +28,6 @@ def run_severles_cors_wildcard(
 
 
 @SHIELD_BLOCKING
-def run_cfn_wildcard_in_allowed_origins(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_wildcard_in_allowed_origins(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -49,14 +36,6 @@ def analyze(
 ) -> Tuple[Vulnerabilities, ...]:
     results: Tuple[Vulnerabilities, ...] = ()
 
-    if file_extension in EXTENSIONS_CLOUDFORMATION:
-        content = content_generator()
-        for template in load_templates_blocking(content, fmt=file_extension):
-            results = (
-                run_cfn_wildcard_in_allowed_origins(
-                    content, file_extension, path, template
-                ),
-            )
     if file_extension in EXTENSIONS_YAML:
         content = content_generator()
         for template in load_templates_blocking(content, fmt=file_extension):

@@ -1426,30 +1426,6 @@ F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,
   4 | }
     ^ Col 0
 ",terraform.tfm_aws_efs_unencrypted
-F134,lines,namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,56,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,"
-  46 |                               ""*""
-  47 |                           ],
-  48 |                           ""AllowedMethods"": [
-  49 |                               ""GET"",
-  50 |                               ""HEAD"",
-  51 |                               ""PUT"",
-  52 |                               ""POST"",
-  53 |                               ""DELETE""
-  54 |                           ],
-  55 |                           ""AllowedOrigins"": [
-> 56 |                               ""*""
-  57 |                           ],
-  58 |                           ""ExposedHeaders"": [
-  59 |                               ""x-amz-server-side-encryption"",
-  60 |                               ""x-amz-request-id"",
-  61 |                               ""x-amz-id-2"",
-  62 |                               ""ETag""
-  63 |                           ],
-  64 |                           ""Id"": ""S3CORSRuleId1"",
-  65 |                           ""MaxAge"": ""3000""
-  66 |                       }
-     ^ Col 2
-",cloudformation.cfn_wildcard_in_allowed_origins
 F176,lines,namespace/skims/test/data/lib_path/f176/Dockerfile,7,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/Dockerfile,"
   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
   2 | ARG DEBIAN_FRONTEND=noninteractive
@@ -8526,30 +8502,6 @@ F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,
   21 |   }
      ^ Col 0
 ",terraform.tfm_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,"
-   1 | {
-   2 |     ""Resources"": {
-   3 |         ""S3Bucket"": {
-   4 |             ""Type"": ""AWS::S3::Bucket"",
-   5 |             ""DeletionPolicy"" : ""Retain"",
->  6 |             ""Properties"": {
-   7 |                 ""BucketName"": {
-   8 |                     ""Fn::If"": [
-   9 |                         ""ShouldNotCreateEnvResources"",
-  10 |                         {
-  11 |                             ""Ref"": ""bucketName""
-  12 |                         },
-  13 |                         {
-  14 |                             ""Fn::Join"": [
-  15 |                                 """",
-  16 |                                 [
-  17 |                                     {
-  18 |                                         ""Ref"": ""bucketName""
-  19 |                                     },
-  20 |                                     {
-  21 |                                       ""Fn::Select"": [
-     ^ Col 0
-",cloudformation.cfn_unencrypted_buckets
 F099,lines,namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,14,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f203/tfm_public_buckets.tf,"
    2 |   bucket = ""s3-website-test.hashicorp.com""
    3 |   acl    = ""public-read-write""
@@ -18322,30 +18274,6 @@ F335,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.
   20 |               }
   21 |             }
   22 |           ]
-     ^ Col 0
-",cloudformation.cfn_s3_bucket_versioning_disabled
-F335,lines,namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,6,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f134/json_wildcard_in_allowed_origins.json,"
-   1 | {
-   2 |     ""Resources"": {
-   3 |         ""S3Bucket"": {
-   4 |             ""Type"": ""AWS::S3::Bucket"",
-   5 |             ""DeletionPolicy"" : ""Retain"",
->  6 |             ""Properties"": {
-   7 |                 ""BucketName"": {
-   8 |                     ""Fn::If"": [
-   9 |                         ""ShouldNotCreateEnvResources"",
-  10 |                         {
-  11 |                             ""Ref"": ""bucketName""
-  12 |                         },
-  13 |                         {
-  14 |                             ""Fn::Join"": [
-  15 |                                 """",
-  16 |                                 [
-  17 |                                     {
-  18 |                                         ""Ref"": ""bucketName""
-  19 |                                     },
-  20 |                                     {
-  21 |                                       ""Fn::Select"": [
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
 F335,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,6,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"

@@ -1902,7 +1902,7 @@ class MethodsEnum(Enum):
     CFN_WILDCARD_IN_ALLOWED_ORIGINS = MethodInfo(
         file_name="cloudformation",
         name="cfn_wildcard_in_allowed_origins",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F134,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,

@@ -8,6 +8,9 @@ from typing import (
 from utils import (
     graph as g,
 )
+from utils.graph import (
+    adj_ast,
+)
 
 
 def is_parent(graph: Graph, nid: NId, parents: List[str]) -> bool:
@@ -24,3 +27,12 @@ def is_parent(graph: Graph, nid: NId, parents: List[str]) -> bool:
             return False
         return False
     return True
+
+
+def list_has_string(graph: Graph, nid: NId, value: str) -> bool:
+    child_ids = adj_ast(graph, nid)
+    for c_id in child_ids:
+        curr_value = graph.nodes[c_id].get("value")
+        if curr_value and curr_value == value:
+            return True
+    return False

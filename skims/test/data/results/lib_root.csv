@@ -615,6 +615,30 @@ F134,lines,namespace/skims/test/data/lib_root/f134/java_insecure_cors.java,25,16
   34 | }
      ^ Col 0
 ",java.java_insecure_cors_origin
+F134,lines,namespace/skims/test/data/lib_root/f134/json_wildcard_in_allowed_origins.json,55,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/json_wildcard_in_allowed_origins.json,"
+  45 |                             ""AllowedHeaders"": [
+  46 |                                 ""*""
+  47 |                             ],
+  48 |                             ""AllowedMethods"": [
+  49 |                                 ""GET"",
+  50 |                                 ""HEAD"",
+  51 |                                 ""PUT"",
+  52 |                                 ""POST"",
+  53 |                                 ""DELETE""
+  54 |                             ],
+> 55 |                             ""AllowedOrigins"": [
+  56 |                                 ""*""
+  57 |                             ],
+  58 |                             ""ExposedHeaders"": [
+  59 |                                 ""x-amz-server-side-encryption"",
+  60 |                                 ""x-amz-request-id"",
+  61 |                                 ""x-amz-id-2"",
+  62 |                                 ""ETag""
+  63 |                             ],
+  64 |                             ""Id"": ""S3CORSRuleId1"",
+  65 |                             ""MaxAge"": ""3000""
+     ^ Col 0
+",cloudformation.cfn_wildcard_in_allowed_origins
 F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
    72 |       TRANSACTION_TABLE: ${self:custom.TRANSACTION_TABLE.${self:provider.stage}}
    73 |       SQS_URL: ${self:custom.SQS_URL.${self:provider.stage}}
