@@ -27,7 +27,6 @@ const parameters: Parameters = {
       type: "dynamic",
     },
   },
-  viewMode: "docs",
 };
 
 export { parameters };

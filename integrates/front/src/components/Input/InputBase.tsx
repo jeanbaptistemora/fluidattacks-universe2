@@ -41,6 +41,7 @@ interface IInputBase<T = HTMLElement> extends IInput, IFormikHandlers<T> {
   onFocus?: (event: FocusEvent<T>) => void;
   onKeyDown?: (event: KeyboardEvent<T>) => void;
   onPaste?: (event: ClipboardEvent<T>) => void;
+  placeholder?: string;
   validate?: (value: unknown) => string | undefined;
 }
 

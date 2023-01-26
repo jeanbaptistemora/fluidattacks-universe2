@@ -23,6 +23,7 @@ def initialize_settings() -> None:
         project_root=os.path.dirname(os.path.abspath(__file__)),
         release_stage=os.environ["ENVIRONMENT"],
     )
+    bugsnag.start_session()
     logging.config.dictConfig(
         {
             "filters": {
