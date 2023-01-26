@@ -11,72 +11,24 @@ from model import (
 )
 import networkx as nx
 from typing import (
-    Any,
     Callable,
     Dict,
     Iterable,
-    Iterator,
     List,
     NamedTuple,
     Optional,
-    Set,
     Tuple,
-    Union,
 )
 
 NAttrs = Dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 NId = str
 NIdPredicateFunction = Callable[[str], bool]
-
-ShardDb = Any
-
-SyntaxStep = Any
-SyntaxSteps = List[SyntaxStep]
-SyntaxStepsLazy = Iterator[SyntaxStep]
-
-
-class CurrentInstance(NamedTuple):
-    fields: Dict[str, Any] = {}
+GraphSyntax = Dict[str, str]
 
 
 class Graph(nx.DiGraph):
     pass
-
-
-GraphSyntax = Dict[NId, SyntaxSteps]
-
-
-class GraphShardMetadataClassField(NamedTuple):
-    n_id: NId
-    var: str
-    var_type: str
-    static: bool = False
-
-
-class GraphShardMetadataParameter(NamedTuple):
-    n_id: NId
-    name: str
-    type_name: str
-    attributes: Optional[List[str]] = None
-
-
-class GraphShardMetadataClassMethod(NamedTuple):
-    n_id: NId
-    class_name: Optional[str] = None
-    name: Optional[str] = None
-    parameters: Optional[Dict[str, GraphShardMetadataParameter]] = None
-    return_type: Optional[str] = None
-    static: bool = False
-    attributes: Optional[List[str]] = None
-
-
-class GraphShardMetadataClass(NamedTuple):
-    fields: Dict[str, GraphShardMetadataClassField]
-    methods: Dict[str, GraphShardMetadataClassMethod]
-    n_id: NId
-    attributes: Optional[List[str]] = None
-    inherit: Optional[Union[Set[str], str]] = None
 
 
 class GraphShardMetadataLanguage(Enum):
@@ -114,11 +66,6 @@ class GraphShard(NamedTuple):
     path: str
     syntax: GraphSyntax
     syntax_graph: Optional[Graph]
-
-
-class GraphVulnerabilityParameters(NamedTuple):
-    desc_key: str
-    desc_params: Dict[str, str]
 
 
 class GraphDB(NamedTuple):

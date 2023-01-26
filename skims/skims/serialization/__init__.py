@@ -131,10 +131,6 @@ def _side_effects() -> None:
         graph_model.GraphShardCacheable,
         graph_model.GraphShard,
         graph_model.GraphShardMetadata,
-        graph_model.GraphShardMetadataClass,
-        graph_model.GraphShardMetadataClassField,
-        graph_model.GraphShardMetadataClassMethod,
-        graph_model.GraphVulnerabilityParameters,
         Node,
     ):
         safe_pickle.register_namedtuple(factory)
