@@ -3,8 +3,7 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import type {
   ColumnDef,
   Row,
@@ -527,20 +526,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         expandedRow={handleRowExpand}
         extraButtons={
           <React.Fragment>
-            <Can I={"api_resolvers_query_report__get_url_group_report"}>
-              <Tooltip
-                id={"group.findings.report.btn.tooltip.id"}
-                tip={t("group.findings.report.btn.tooltip")}
-              >
-                <Button
-                  id={"reports"}
-                  onClick={openReportsModal}
-                  variant={"primary"}
-                >
-                  {t("group.findings.report.btn.text")}
-                </Button>
-              </Tooltip>
-            </Can>
             <Can do={"api_mutations_remove_finding_mutate"}>
               <Tooltip
                 id={"searchFindings.delete.btn.tooltip"}
@@ -548,11 +533,26 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               >
                 <Button
                   disabled={selectedFindings.length === 0 || deleting}
+                  icon={faTrashAlt}
                   onClick={openDeleteModal}
-                  variant={"secondary"}
                 >
-                  <FontAwesomeIcon icon={faTrashAlt} />
-                  &nbsp;{t("searchFindings.delete.btn.text")}
+                  {t("searchFindings.delete.btn.text")}
+                </Button>
+              </Tooltip>
+            </Can>
+            <Can I={"api_resolvers_query_report__get_url_group_report"}>
+              <Tooltip
+                id={"group.findings.report.btn.tooltip.id"}
+                tip={t("group.findings.report.btn.tooltip")}
+              >
+                <Button
+                  icon={faArrowRight}
+                  iconSide={"right"}
+                  id={"reports"}
+                  onClick={openReportsModal}
+                  variant={"primary"}
+                >
+                  {t("group.findings.report.btn.text")}
                 </Button>
               </Tooltip>
             </Can>
