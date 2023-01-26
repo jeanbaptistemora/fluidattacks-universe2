@@ -56,6 +56,34 @@ const Pagination = <TData extends RowData>({
     table.previousPage();
   }, [table]);
 
+  const handleClickFilter = useCallback(
+    (el: number): (() => void) =>
+      (): void => {
+        if (el === lastPage && onNextPage) {
+          void onNextPage().finally((): void => {
+            table.setPageSize(el);
+          });
+        } else {
+          table.setPageSize(el);
+        }
+      },
+    [lastPage, onNextPage, table]
+  );
+
+  const handleClickIndexes = useCallback(
+    (el: number): (() => void) =>
+      (): void => {
+        if (el === pageCount - 1 && onNextPage) {
+          void onNextPage().finally((): void => {
+            table.setPageIndex(el);
+          });
+        } else {
+          table.setPageIndex(el);
+        }
+      },
+    [onNextPage, pageCount, table]
+  );
+
   return (
     <PaginationBox>
       {[10, 20, 50, lastPage]
@@ -64,15 +92,7 @@ const Pagination = <TData extends RowData>({
           (el: number): JSX.Element => (
             <Button
               key={el}
-              onClick={function fn(): void {
-                if (el === lastPage && onNextPage) {
-                  void onNextPage().finally((): void => {
-                    table.setPageSize(el);
-                  });
-                } else {
-                  table.setPageSize(el);
-                }
-              }}
+              onClick={handleClickFilter(el)}
               size={"sm"}
               variant={el === pageSize ? "selected" : "secondary"}
             >
@@ -98,15 +118,7 @@ const Pagination = <TData extends RowData>({
         (el: number): JSX.Element => (
           <Button
             key={el}
-            onClick={function fn(): void {
-              if (el === pageCount - 1 && onNextPage) {
-                void onNextPage().finally((): void => {
-                  table.setPageIndex(el);
-                });
-              } else {
-                table.setPageIndex(el);
-              }
-            }}
+            onClick={handleClickIndexes(el)}
             size={"sm"}
             variant={el === pageIndex ? "selected" : "secondary"}
           >
