@@ -6,7 +6,7 @@ import type { IInputDateProps } from "../Formik/FormikDate";
 import { FormikDate } from "../Formik/FormikDate";
 
 const InputDate: FC<IInputDateProps> = ({
-  disabled = false,
+  disabled,
   id,
   label,
   max,
@@ -16,10 +16,11 @@ const InputDate: FC<IInputDateProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  placeholder,
   required,
   tooltip,
   validate,
-  variant = "solid",
+  variant,
 }: Readonly<IInputDateProps>): JSX.Element => (
   <Field
     component={FormikDate}
@@ -33,6 +34,7 @@ const InputDate: FC<IInputDateProps> = ({
     onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    placeholder={placeholder}
     required={required}
     tooltip={tooltip}
     validate={validate}

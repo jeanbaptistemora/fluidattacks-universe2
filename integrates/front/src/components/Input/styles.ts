@@ -43,9 +43,7 @@ const sharedStyles = css`
   }
 `;
 
-const InputBox = styled.div.attrs({
-  className: "comp-input",
-})<IInputContainerProps>`
+const InputBox = styled.div<IInputContainerProps>`
   width: 100%;
 
   > .comp-alert {

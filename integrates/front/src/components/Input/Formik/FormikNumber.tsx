@@ -18,7 +18,7 @@ interface IInputNumberProps extends IInputBase<HTMLInputElement> {
 type TInputNumberProps = IInputNumberProps & TFieldProps;
 
 const FormikNumber: FC<TInputNumberProps> = ({
-  disabled,
+  disabled = false,
   field: { name, onBlur: onBlurField, onChange, value },
   form,
   id,

@@ -6,6 +6,7 @@ import { Input } from "./Fields/Input";
 import { InputArray } from "./Fields/InputArray";
 import { InputDate } from "./Fields/InputDate";
 import { InputDateTime } from "./Fields/InputDateTime";
+import { InputFile } from "./Fields/InputFile";
 import { InputNumber } from "./Fields/InputNumber";
 import { InputTags } from "./Fields/InputTags";
 import { Select } from "./Fields/Select";
@@ -15,6 +16,7 @@ import type {
   IInputArrayProps,
   IInputDateProps,
   IInputDateTimeProps,
+  IInputFileProps,
   IInputNumberProps,
   IInputProps,
   IInputTagsProps,
@@ -29,6 +31,7 @@ export type {
   IInputArrayProps,
   IInputDateProps,
   IInputDateTimeProps,
+  IInputFileProps,
   IInputNumberProps,
   IInputProps,
   IInputTagsProps,
@@ -43,6 +46,7 @@ export {
   InputArray,
   InputDate,
   InputDateTime,
+  InputFile,
   InputNumber,
   InputTags,
   Label,

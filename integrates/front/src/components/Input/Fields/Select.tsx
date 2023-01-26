@@ -15,6 +15,7 @@ const Select: FC<ISelectProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  placeholder,
   required,
   tooltip,
   validate,
@@ -30,6 +31,7 @@ const Select: FC<ISelectProps> = ({
     onChange={onChange}
     onFocus={onFocus}
     onKeyDown={onKeyDown}
+    placeholder={placeholder}
     required={required}
     tooltip={tooltip}
     type={"text"}

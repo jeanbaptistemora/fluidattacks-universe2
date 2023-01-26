@@ -28,7 +28,7 @@ const FormikTextArea: React.FC<TTextAreaProps> = ({
   required,
   rows = 3,
   tooltip,
-  variant,
+  variant = "solid",
 }: Readonly<TTextAreaProps>): JSX.Element => {
   const [handleBlur, handleChange] = useHandlers(
     { onBlur: fieldBlur, onChange: fieldChange },

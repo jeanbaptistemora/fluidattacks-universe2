@@ -5,7 +5,7 @@ import type { IInputTagsProps } from "../Formik/FormikTags";
 import { FormikTags } from "../Formik/FormikTags";
 
 const InputTags: React.FC<IInputTagsProps> = ({
-  disabled = false,
+  disabled,
   id,
   label,
   name,
@@ -14,10 +14,11 @@ const InputTags: React.FC<IInputTagsProps> = ({
   onFocus,
   onKeyDown,
   onRemove,
+  placeholder,
   required,
   tooltip,
   validate,
-  variant = "solid",
+  variant,
 }): JSX.Element => (
   <Field
     component={FormikTags}
@@ -30,6 +31,7 @@ const InputTags: React.FC<IInputTagsProps> = ({
     onFocus={onFocus}
     onKeyDown={onKeyDown}
     onRemove={onRemove}
+    placeholder={placeholder}
     required={required}
     tooltip={tooltip}
     validate={validate}

@@ -19,12 +19,11 @@ interface IInnerInputProps {
     value?: string;
   };
   InputProps?: { endAdornment?: React.ReactNode };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  inputRef?: React.Ref<any>;
+  inputRef?: React.Ref<HTMLInputElement>;
 }
 
 function renderInput({
-  disabled,
+  disabled = false,
   form,
   field: { name, onBlur: fieldBlur },
   id,

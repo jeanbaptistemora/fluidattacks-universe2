@@ -6,6 +6,8 @@ import type { IInputDateProps } from "./FormikDate";
 import { FormikDate } from "./FormikDate";
 import type { IInputDateTimeProps } from "./FormikDateTime";
 import { FormikDateTime } from "./FormikDateTime";
+import type { IInputFileProps } from "./FormikFile";
+import { FormikFile } from "./FormikFile";
 import type { IInputProps } from "./FormikInput";
 import { FormikInput } from "./FormikInput";
 import type { IInputNumberProps } from "./FormikNumber";
@@ -22,6 +24,7 @@ export type {
   IInputArrayProps,
   IInputDateProps,
   IInputDateTimeProps,
+  IInputFileProps,
   IInputNumberProps,
   IInputProps,
   IInputTagsProps,
@@ -33,6 +36,7 @@ export {
   FormikCheckbox,
   FormikDate,
   FormikDateTime,
+  FormikFile,
   FormikInput,
   FormikNumber,
   FormikSelect,

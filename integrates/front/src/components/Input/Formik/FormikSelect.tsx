@@ -22,6 +22,7 @@ const FormikSelect: FC<TSelectProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  placeholder,
   required,
   tooltip,
   variant,
@@ -51,6 +52,7 @@ const FormikSelect: FC<TSelectProps> = ({
         onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
+        placeholder={placeholder}
         value={value}
       >
         {children}

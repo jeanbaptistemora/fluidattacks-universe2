@@ -2,15 +2,14 @@ import { Field } from "formik";
 import type { FC } from "react";
 import React from "react";
 
-import type { IInputNumberProps } from "../Formik/FormikNumber";
-import { FormikNumber } from "../Formik/FormikNumber";
+import type { IInputFileProps } from "../Formik/FormikFile";
+import { FormikFile } from "../Formik/FormikFile";
 
-const InputNumber: FC<IInputNumberProps> = ({
+const InputFile: FC<IInputFileProps> = ({
   disabled,
   id,
   label,
-  max,
-  min,
+  multiple,
   name,
   onBlur,
   onChange,
@@ -21,14 +20,13 @@ const InputNumber: FC<IInputNumberProps> = ({
   tooltip,
   validate,
   variant,
-}: Readonly<IInputNumberProps>): JSX.Element => (
+}: Readonly<IInputFileProps>): JSX.Element => (
   <Field
-    component={FormikNumber}
+    component={FormikFile}
     disabled={disabled}
     id={id}
     label={label}
-    max={max}
-    min={min}
+    multiple={multiple}
     name={name}
     onBlur={onBlur}
     onChange={onChange}
@@ -42,4 +40,4 @@ const InputNumber: FC<IInputNumberProps> = ({
   />
 );
 
-export { InputNumber };
+export { InputFile };

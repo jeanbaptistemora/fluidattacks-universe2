@@ -21,13 +21,14 @@ const TagInput = styled(StyledInput)`
 `;
 
 const FormikTags: React.FC<Readonly<TInputTagsProps>> = ({
-  disabled,
+  disabled = false,
   field: { name, onBlur, onChange, value },
   form,
   id,
   label,
   onFocus,
   onRemove,
+  placeholder,
   required,
   tooltip,
   variant = "solid",
@@ -119,6 +120,7 @@ const FormikTags: React.FC<Readonly<TInputTagsProps>> = ({
           onChange={handleInputChange}
           onFocus={onFocus}
           onKeyDown={handleKeyDown}
+          placeholder={placeholder}
           type={"text"}
           value={inputValue}
         />

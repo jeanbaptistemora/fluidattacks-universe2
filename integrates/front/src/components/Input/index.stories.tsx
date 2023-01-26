@@ -12,6 +12,7 @@ import type {
   IInputArrayProps,
   IInputDateProps,
   IInputDateTimeProps,
+  IInputFileProps,
   IInputNumberProps,
   IInputProps,
   IInputTagsProps,
@@ -26,6 +27,7 @@ import {
   InputArray as InputArrayComp,
   InputDate as InputDateComp,
   InputDateTime as InputDateTimeComp,
+  InputFile as InputFileComp,
   InputNumber as InputNumberComp,
   InputTags as InputTagsComp,
   Select as SelectComp,
@@ -199,6 +201,18 @@ const StoryInputTags: Story<IInputTagsProps> = (props): JSX.Element => (
   </Formik>
 );
 
+const StoryInputFile: Story<IInputFileProps> = (props): JSX.Element => (
+  <Formik
+    initialValues={{ exampleName: "" }}
+    name={"exampleForm"}
+    onSubmit={handleSubmit}
+  >
+    <Form id={"exampleForm"}>
+      <InputFileComp {...props} id={"ExInput"} name={"exampleName"} />
+    </Form>
+  </Formik>
+);
+
 const Default = StoryDefault.bind({});
 Default.args = {
   disabled: false,
@@ -304,6 +318,15 @@ InputTags.args = {
   variant: "solid",
 };
 
+const InputFile = StoryInputFile.bind({});
+InputFile.args = {
+  disabled: false,
+  label: "ExampleLabel",
+  required: false,
+  tooltip: "Example tooltip",
+  variant: "solid",
+};
+
 export {
   Default,
   Checkbox,
@@ -311,6 +334,7 @@ export {
   InputArray,
   InputDate,
   InputDateTime,
+  InputFile,
   InputNumber,
   InputTags,
   Search,

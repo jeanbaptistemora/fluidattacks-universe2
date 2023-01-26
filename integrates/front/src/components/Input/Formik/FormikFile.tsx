@@ -57,14 +57,13 @@ const FormikFile: React.FC<TInputFileProps> = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleClick = useCallback((): void => {
+  const handleInputClick = useCallback((): void => {
     if (inputRef.current) {
       const changeEvent = createEvent("change", name, undefined);
 
       onChange(changeEvent);
       // eslint-disable-next-line fp/no-mutation
       inputRef.current.value = "";
-      inputRef.current.click();
     }
   }, [name, onChange]);
 
@@ -81,6 +80,12 @@ const FormikFile: React.FC<TInputFileProps> = ({
     },
     [name, onChange]
   );
+
+  const handleButtonClick = useCallback((): void => {
+    if (inputRef.current) {
+      inputRef.current.click();
+    }
+  }, []);
 
   return (
     <InputBase
@@ -102,6 +107,7 @@ const FormikFile: React.FC<TInputFileProps> = ({
         name={name}
         onBlur={onBlur}
         onChange={handleInputChange}
+        onClick={handleInputClick}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
         placeholder={placeholder}
@@ -110,8 +116,9 @@ const FormikFile: React.FC<TInputFileProps> = ({
       />
       <SelectFile>
         <Button
+          disabled={disabled}
           icon={faSearch}
-          onClick={handleClick}
+          onClick={handleButtonClick}
           size={"sm"}
           variant={"primary"}
         >

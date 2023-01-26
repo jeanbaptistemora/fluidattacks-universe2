@@ -13,7 +13,7 @@ interface IInputDateProps extends IInputBase<HTMLInputElement> {
 type TInputDateProps = IInputDateProps & TFieldProps;
 
 const FormikDate: FC<TInputDateProps> = ({
-  disabled,
+  disabled = false,
   field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
@@ -24,6 +24,7 @@ const FormikDate: FC<TInputDateProps> = ({
   onChange,
   onFocus,
   onKeyDown,
+  placeholder,
   required,
   tooltip,
   variant = "solid",
@@ -55,6 +56,7 @@ const FormikDate: FC<TInputDateProps> = ({
         onChange={handleChange}
         onFocus={onFocus}
         onKeyDown={onKeyDown}
+        placeholder={placeholder}
         type={"date"}
         value={value}
       />
