@@ -4,7 +4,6 @@ from api.resolvers.me import (
     credentials,
     drafts,
     enrollment,
-    finding_reattacks,
     finding_reattacks_connection,
     has_drafts_rejected,
     is_concurrent_session,
@@ -31,7 +30,6 @@ ME.set_field("company", company.resolve)
 ME.set_field("credentials", credentials.resolve)
 ME.set_field("drafts", drafts.resolve)
 ME.set_field("enrollment", enrollment.resolve)
-ME.set_field("findingReattacks", finding_reattacks.resolve)
 ME.set_field(
     "findingReattacksConnection", finding_reattacks_connection.resolve
 )

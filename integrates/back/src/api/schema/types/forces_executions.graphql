@@ -18,22 +18,6 @@ type ForcesExecutions {
         This field will be removed after 2023/03/28.
       """
     )
-  "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
-  fromDate: String!
-    @deprecated(
-      reason: """
-        This field has no effect
-        This field will be removed after 2023/01/25.
-      """
-    )
   "Name of the group where Forces was executed"
   groupName: String!
-  "End date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
-  toDate: String!
-    @deprecated(
-      reason: """
-        This field has no effect
-        This field will be removed after 2023/01/25.
-      """
-    )
 }

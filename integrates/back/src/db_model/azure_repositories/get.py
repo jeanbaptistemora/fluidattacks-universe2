@@ -15,6 +15,12 @@ from azure.devops.exceptions import (
     AzureDevOpsClientRequestError,
     AzureDevOpsServiceError,
 )
+from azure.devops.v6_0.accounts.accounts_client import (
+    AccountsClient,
+)
+from azure.devops.v6_0.accounts.models import (
+    Account,
+)
 from azure.devops.v6_0.git.git_client import (
     GitClient,
 )
@@ -23,6 +29,15 @@ from azure.devops.v6_0.git.models import (
     GitQueryCommitsCriteria,
     GitRepository,
     GitRepositoryStats,
+)
+from azure.devops.v6_0.profile.models import (
+    Profile,
+)
+from azure.devops.v6_0.profile.profile_client import (
+    ProfileClient,
+)
+from context import (
+    FI_AZURE_OAUTH2_REPOSITORY_APP_ID,
 )
 from datetime import (
     timezone,
@@ -33,6 +48,7 @@ from dateutil import (
 from db_model.azure_repositories.types import (
     BasicRepoData,
     CredentialsGitRepositoryCommit,
+    GitRepositoryCommit,
 )
 from db_model.credentials.types import (
     Credentials,
@@ -59,18 +75,21 @@ import logging
 import logging.config
 from msrest.authentication import (
     BasicAuthentication,
+    OAuthTokenAuthentication,
 )
 from settings import (
     LOGGING,
 )
 from typing import (
     Optional,
+    Union,
 )
 
 logging.config.dictConfig(LOGGING)
 
 LOGGER = logging.getLogger(__name__)
 BASE_URL = "https://dev.azure.com"
+PROFILE_BASE_URL = "https://app.vssps.visualstudio.com"
 
 
 async def get_repositories(
@@ -96,9 +115,15 @@ async def get_repositories(
 
 
 def _get_repositories(
-    *, base_url: str, access_token: str
+    *, base_url: str, access_token: str, is_oauth: bool = False
 ) -> list[GitRepository]:
-    credentials = BasicAuthentication("", access_token)
+    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+    if is_oauth:
+        credentials = OAuthTokenAuthentication(
+            FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
+        )
+    else:
+        credentials = BasicAuthentication("", access_token)
     connection = Connection(base_url=base_url, creds=credentials)
     try:
         git_client: GitClient = connection.clients.get_git_client()
@@ -112,6 +137,128 @@ def _get_repositories(
         return []
     else:
         return repositories
+
+
+async def get_oauth_repositories(
+    *,
+    token: str,
+    accounts_names: tuple[str, ...],
+) -> list[list[GitRepository]]:
+    return list(
+        await collect(
+            tuple(
+                in_thread(
+                    _get_repositories,
+                    base_url=f"{BASE_URL}/{account_name}",
+                    access_token=token,
+                    is_oauth=True,
+                )
+                for account_name in accounts_names
+            ),
+            workers=1,
+        )
+    )
+
+
+async def get_account_names(
+    *,
+    tokens: tuple[str, ...],
+) -> tuple[tuple[str, ...], ...]:
+    profiles: tuple[Profile, ...] = await collect(
+        tuple(
+            in_thread(
+                _get_profile, base_url=PROFILE_BASE_URL, access_token=token
+            )
+            for token in tokens
+        ),
+        workers=1,
+    )
+
+    accounts = await collect(
+        tuple(
+            in_thread(
+                _get_account,
+                base_url=PROFILE_BASE_URL,
+                access_token=token,
+                public_alias=profile.additional_properties["publicAlias"],
+            )
+            for profile, token in zip(profiles, tokens)
+        ),
+        workers=1,
+    )
+
+    return tuple(
+        tuple(account.account_name for account in _accounts)
+        for _accounts in accounts
+    )
+
+
+def _get_account(
+    *, base_url: str, access_token: str, public_alias: str
+) -> tuple[Account, ...]:
+    credentials = OAuthTokenAuthentication(
+        FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
+    )
+    connection = Connection(base_url=base_url, creds=credentials)
+    try:
+        account_client: AccountsClient = (
+            connection.clients_v6_0.get_accounts_client()
+        )
+        account: list[Account] = account_client.get_accounts(
+            None, public_alias
+        )
+    except (
+        AzureDevOpsClientRequestError,
+        AzureDevOpsAuthenticationError,
+        AzureDevOpsServiceError,
+    ) as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+        return tuple()
+    else:
+        return tuple(account)
+
+
+def _get_profile(*, base_url: str, access_token: str) -> Profile:
+    credentials = OAuthTokenAuthentication(
+        FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
+    )
+    connection = Connection(base_url=base_url, creds=credentials)
+    try:
+        profile_client: ProfileClient = (
+            connection.clients_v6_0.get_profile_client()
+        )
+        profile: Profile = profile_client.get_profile("me")
+    except (
+        AzureDevOpsClientRequestError,
+        AzureDevOpsAuthenticationError,
+        AzureDevOpsServiceError,
+    ) as exc:
+        LOGGER.exception(exc, extra=dict(extra=locals()))
+        return None
+    else:
+        return profile
+
+
+async def get_oauth_repositories_commits(
+    *,
+    repositories: list[GitRepositoryCommit],
+) -> list[list[GitCommit]]:
+    repositories_commits = await collect(
+        tuple(
+            in_thread(
+                _get_repositories_commits,
+                organization=repository.account_name,
+                access_token=repository.access_token,
+                repository_id=repository.repository_id,
+                project_name=repository.project_name,
+                is_oauth=True,
+            )
+            for repository in repositories
+        ),
+        workers=1,
+    )
+
+    return list(repositories_commits)
 
 
 async def get_repositories_commits(
@@ -146,8 +293,15 @@ def _get_repositories_commits(
     repository_id: str,
     project_name: str,
     total: bool = False,
+    is_oauth: bool = False,
 ) -> list[GitCommit]:
-    credentials = BasicAuthentication("", access_token)
+    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+    if is_oauth:
+        credentials = OAuthTokenAuthentication(
+            FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
+        )
+    else:
+        credentials = BasicAuthentication("", access_token)
     connection = Connection(
         base_url=f"{BASE_URL}/{organization}", creds=credentials
     )
@@ -198,14 +352,45 @@ async def get_repositories_stats(
     return repositories_stats
 
 
+async def get_oauth_repositories_stats(
+    *,
+    repositories: list[GitRepositoryCommit],
+) -> tuple[Optional[GitRepositoryStats], ...]:
+    repositories_stats: tuple[
+        Optional[GitRepositoryStats], ...
+    ] = await collect(
+        tuple(
+            in_thread(
+                _get_repositories_stats,
+                organization=repository.account_name,
+                access_token=repository.access_token,
+                repository_id=repository.repository_id,
+                project_name=repository.project_name,
+                is_oauth=True,
+            )
+            for repository in repositories
+        ),
+        workers=1,
+    )
+
+    return repositories_stats
+
+
 def _get_repositories_stats(
     *,
     organization: str,
     access_token: str,
     repository_id: str,
     project_name: str,
+    is_oauth: bool = False,
 ) -> Optional[GitRepositoryStats]:
-    credentials = BasicAuthentication("", access_token)
+    credentials: Union[BasicAuthentication, OAuthTokenAuthentication]
+    if is_oauth:
+        credentials = OAuthTokenAuthentication(
+            FI_AZURE_OAUTH2_REPOSITORY_APP_ID, {"access_token": access_token}
+        )
+    else:
+        credentials = BasicAuthentication("", access_token)
     connection = Connection(
         base_url=f"{BASE_URL}/{organization}", creds=credentials
     )

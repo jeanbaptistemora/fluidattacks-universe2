@@ -52,22 +52,6 @@ type Query {
   forcesExecutions(
     "Name of the group where Forces was executed"
     groupName: String
-    "Start date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
-    fromDate: DateTime
-      @deprecated(
-        reason: """
-          This field has no effect
-          This field will be removed after 2023/01/25.
-        """
-      )
-    "End date of the query interval in yyyy-mm-ddThh:mm:ssZ format"
-    toDate: DateTime
-      @deprecated(
-        reason: """
-          This field has no effect
-          This field will be removed after 2023/01/25.
-        """
-      )
   ): ForcesExecutions
 
   "Group entity"

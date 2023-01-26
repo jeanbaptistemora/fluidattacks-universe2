@@ -29,6 +29,20 @@ class CredentialsGitRepositoryCommit(NamedTuple):
     total: bool = False
 
 
+class OGitRepository(NamedTuple):
+    account_name: str
+    token: str
+    repository: GitRepository
+
+
+class GitRepositoryCommit(NamedTuple):
+    account_name: str
+    access_token: str
+    project_name: str
+    repository_id: str
+    total: bool = False
+
+
 class CredentialsGitRepositoryResolver(NamedTuple):
     credential: Optional[Credentials] = None
     repository: Optional[GitRepository] = None

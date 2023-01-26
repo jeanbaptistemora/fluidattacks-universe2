@@ -18,14 +18,6 @@ type Me {
     """
   )
   "Stakeholder findings to reattack"
-  findingReattacks: [Finding]!
-    @deprecated(
-      reason: """
-        This field will be removed after 2023/01/25.
-        Use the findingReattacksConnection field instead.
-      """
-    )
-  "Stakeholder findings to reattack"
   findingReattacksConnection(
     "The cursor for the forward pagination"
     after: String
