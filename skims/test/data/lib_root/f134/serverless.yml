@@ -83,6 +83,43 @@ functions:
           authorizer:
             name: ${self:custom.AUTHORIZER_NAME}
             arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
+  transaction-output:
+    ## warmup: true
+    handler: api/transaction-validation.handler
+    role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
+    timeout: 30
+    memorySize: 2048
+    package:
+      individually: true
+      patterns:
+        - "api/transaction-validation.js"
+        - "controllers/insertCustomerToEnvio.js"
+    layers:
+      - ${self:custom.SQLSERVER_LAYER.${self:provider.stage}}
+      - ${self:custom.XRAY-LAYER.${self:provider.stage}}
+      - ${self:custom.JWT_LAYER.${self:provider.stage}}
+      - ${self:custom.SYNC_UTILS_LAYER.${self:provider.stage}}
+    environment:
+      CUSTOMER_TABLE: ${self:custom.CUSTOMER_TABLE.${self:provider.stage}}
+      DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+    events:
+      - http:
+          path: transactions/validations
+          method: post
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+          authorizer:
+            name: ${self:custom.AUTHORIZER_NAME}
+            arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
+  ##SAFE
   transaction-validation:
     ## warmup: true
     handler: api/transaction-validation.handler
@@ -107,8 +144,10 @@ functions:
           path: transactions/validations
           method: post
           cors:
-            origin: "*" # <-- Specify allowed origin
-            headers: # <-- Specify allowed headers
+            origin:
+              - http://example.com
+              - http://example2.com
+            headers:
               - Content-Type
               - X-Amz-Date
               - Authorization

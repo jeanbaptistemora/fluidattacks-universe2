@@ -630,7 +630,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,13
    83 |           authorizer:
    84 |             name: ${self:custom.AUTHORIZER_NAME}
    85 |             arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
-   86 |   transaction-validation:
+   86 |   transaction-output:
    87 |     ## warmup: true
    88 |     handler: api/transaction-validation.handler
    89 |     role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}

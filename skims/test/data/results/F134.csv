@@ -302,7 +302,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,13
    83 |           authorizer:
    84 |             name: ${self:custom.AUTHORIZER_NAME}
    85 |             arn: ${self:custom.COGNITO_POOL_ARN.${self:provider.stage}}
-   86 |   transaction-validation:
+   86 |   transaction-output:
    87 |     ## warmup: true
    88 |     handler: api/transaction-validation.handler
    89 |     role: ${self:custom.LAMBDA_VPC_ROL.${self:provider.stage}}
@@ -311,3 +311,27 @@ F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,13
    92 |     package:
       ^ Col 0
 ",yaml.json_ssl_port_missing
+F009,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,110,798,skims,009. Sensitive information in source code,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
+  100 |       - ${self:custom.JWT_LAYER.${self:provider.stage}}
+  101 |       - ${self:custom.SYNC_UTILS_LAYER.${self:provider.stage}}
+  102 |     environment:
+  103 |       CUSTOMER_TABLE: ${self:custom.CUSTOMER_TABLE.${self:provider.stage}}
+  104 |       DB_PARAMETERS: ${self:custom.DB_PARAMETERS.${self:provider.stage}}
+  105 |     events:
+  106 |       - http:
+  107 |           path: transactions/validations
+  108 |           method: post
+  109 |           cors:
+> 110 |             origin: ""*""
+  111 |             headers:
+  112 |               - Content-Type
+  113 |               - X-Amz-Date
+  114 |               - Authorization
+  115 |               - X-Api-Key
+  116 |               - X-Amz-Security-Token
+  117 |               - X-Amz-User-Agent
+  118 |             allowCredentials: false
+  119 |           authorizer:
+  120 |             name: ${self:custom.AUTHORIZER_NAME}
+      ^ Col 0
+",docker.docker_compose_env_secrets

@@ -1,9 +1,13 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
+    EXTENSIONS_YAML,
     SHIELD_BLOCKING,
 )
 from lib_path.f134.cloudformation import (
     cfn_wildcard_in_allowed_origins,
+)
+from lib_path.f134.serverles import (
+    severles_cors_wildcard,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -16,6 +20,15 @@ from typing import (
     Callable,
     Tuple,
 )
+
+
+@SHIELD_BLOCKING
+def run_severles_cors_wildcard(
+    content: str, path: str, template: Any
+) -> Vulnerabilities:
+    return severles_cors_wildcard(
+        content=content, path=path, template=template
+    )
 
 
 @SHIELD_BLOCKING
@@ -44,5 +57,9 @@ def analyze(
                     content, file_extension, path, template
                 ),
             )
+    if file_extension in EXTENSIONS_YAML:
+        content = content_generator()
+        for template in load_templates_blocking(content, fmt=file_extension):
+            results = (run_severles_cors_wildcard(content, path, template),)
 
     return results
