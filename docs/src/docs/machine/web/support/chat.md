@@ -8,8 +8,8 @@ slug: /machine/web/support/live-chat
 In our help button on the top right,
 you can find our support channels
 that you can use in our machine plan:
-Live chat,
-email help,
+[Live chat](/machine/web/support/live-chat#live-chat),
+[email help](/machine/web/support/live-chat#email),
 and documentation.
 
 ![Help Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1674762369/docs/web/support/help_button.png)

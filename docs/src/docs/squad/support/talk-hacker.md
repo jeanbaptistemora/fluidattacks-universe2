@@ -18,19 +18,13 @@ In this way, we facilitate our communication
 and can respond to you as quickly as possible.
 
 1. To find this option,
-  you need to enter one of your
-  groups on the ARM and click on
-  the question mark icon on the
-  top-right corner of the screen.
+  you must enter your interest group with
+  the **squad plan** and click on the help
+  button in the top-right corner of the
+  screen or the button located in the
+  bottom corner that says **Talk to a Hacker**.
 
-  ![Talk to Hacker Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1661263456/docs/squad/support/talk_hacker_option.png)
-
-1. A pop-up window will appear
-  where you will find
-  **Talk to Hacker** next to
-  our other support options.
-
-  ![Pop Up Window](https://res.cloudinary.com/fluid-attacks/image/upload/v1661263455/docs/squad/support/support_options.png)
+  ![Talk to Hacker Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1674768141/docs/squad/support/hacker_option.png)
 
 1. By clicking there, you can see
   calendar availability and schedule a
