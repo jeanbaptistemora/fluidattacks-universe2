@@ -21,7 +21,7 @@ according to the information you want
 to see using the [columns filter](/machine/web/groups/vulnerabilities/#filtering-your-vulnerabilities-table)
 button.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673904828/docs/web/groups/vulnerabilities/vulnerabilities_view.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774100/docs/web/groups/vulnerabilities/vulnerabilities.png)
 
 In total,
 we have fourteen columns which are
@@ -104,7 +104,7 @@ upon click,
 you will find the information that
 the column filter offers you.
 
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1673907188/docs/web/groups/vulnerabilities/down_row.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774426/docs/web/groups/vulnerabilities/down_row.png)
 
 ## Functionalities
 
@@ -130,7 +130,7 @@ Here you will have the activated
 filters that you have at the same
 time activated in the column filter.
 
-![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1673907407/docs/web/groups/vulnerabilities/filter_general.png)
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774600/docs/web/groups/vulnerabilities/filters.png)
 
 ### Search bar
 

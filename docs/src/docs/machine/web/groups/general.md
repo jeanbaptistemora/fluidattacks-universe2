@@ -28,7 +28,7 @@ information on the total of repositories
 and authors you have in the ARM.
 You will find the following fields:
 
-![scope overview box](https://res.cloudinary.com/fluid-attacks/image/upload/v1671556478/docs/web/groups/general/scope_overview.png)
+![scope overview box](https://res.cloudinary.com/fluid-attacks/image/upload/v1674771851/docs/web/groups/general/scope_overview.png)
 
 - **Covered autors:**
   Total number of authors who
@@ -67,7 +67,7 @@ ascending or descending) if
 you click on the arrows next
 to each title.
 
-![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555319/docs/web/groups/general/groups_table.png)
+![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1674771987/docs/web/groups/general/groups_table.png)
 
 You find the following information:
 
@@ -107,17 +107,15 @@ You find the following information:
   we invite you to
   [click here](/machine/web/groups/general#unsolved-events)).
 
-:::note
-When you enter a group,
-following the link in its name,
-you can see its detailed information
-in different subsections,
-which will vary depending on
-your role and the plan you have
-for that group.
-:::
+> **Note:** When you enter a group,
+> following the link in its name,
+> you can see its detailed information
+> in different subsections,
+> which will vary depending on
+> your role and the plan you have
+> for that group.
 
-![Group Table Columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1667252083/docs/web/groups/general/group_options.png)
+![Vulnerabilities view](https://res.cloudinary.com/fluid-attacks/image/upload/v1674772147/docs/web/groups/general/vulnerabilities_view.png)
 
 ## Functionalities
 
@@ -128,7 +126,7 @@ you need to click on the
 **New group** button in the
 main screen of your organization.
 
-![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555420/docs/web/groups/general/create_new_group.png)
+![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1674772472/docs/web/groups/general/create_new_group.png)
 
 A pop-up window will appear
 to set up the characteristics
@@ -207,7 +205,7 @@ you can discover how many
 unsolved events need your
 attention in each of your groups.
 
-![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671555625/docs/web/groups/general/report_event.png)
+![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674773702/docs/web/groups/general/open_event.png)
 
 When you enter one of the
 groups with at least one
