@@ -19,6 +19,7 @@ from typing import (
     Tuple,
 )
 from urllib.parse import (
+    ParseResult,
     quote,
     quote_plus,
     urlparse,
@@ -171,12 +172,32 @@ async def ssh_ls_remote(
         return stdout.decode().split("\t")[0]
 
 
+def _format_token(
+    parsed_url: ParseResult,
+    token: str,
+    host: str,
+    is_oauth: bool,
+    provider: str,
+) -> str:
+    url = (parsed_url._replace(netloc=f"{token}@{host}")).geturl()
+    if is_oauth:
+        url = (parsed_url._replace(netloc=f"oauth2:{token}@{host}")).geturl()
+        if provider == "BITBUCKET":
+            url = (
+                parsed_url._replace(netloc=f"x-token-auth:{token}@{host}")
+            ).geturl()
+
+    return url
+
+
 def _format_https_url(
+    *,
     repo_url: str,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
     is_oauth: bool = False,
+    provider: str = "",
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
@@ -188,11 +209,7 @@ def _format_https_url(
         host = host.split("@")[-1]
 
     if token is not None:
-        url = (parsed_url._replace(netloc=f"{token}@{host}")).geturl()
-        if is_oauth:
-            url = (
-                parsed_url._replace(netloc=f"oauth2:{token}@{host}")
-            ).geturl()
+        url = _format_token(parsed_url, token, host, is_oauth, provider)
     elif user is not None and password is not None:
         url = (
             parsed_url._replace(netloc=f"{user}:{password}@{host}")
@@ -210,8 +227,16 @@ async def https_ls_remote(  # pylint: disable=too-many-arguments
     token: Optional[str] = None,
     branch: str = "HEAD",
     is_oauth: bool = False,
+    provider: str = "",
 ) -> Optional[str]:
-    url = _format_https_url(repo_url, user, password, token, is_oauth)
+    url = _format_https_url(
+        repo_url=repo_url,
+        user=user,
+        password=password,
+        token=token,
+        is_oauth=is_oauth,
+        provider=provider,
+    )
 
     proc = await asyncio.create_subprocess_exec(
         "git",
@@ -311,8 +336,16 @@ async def https_clone(
     token: Optional[str] = None,
     user: Optional[str] = None,
     is_oauth: bool = False,
+    provider: str = "",
 ) -> Tuple[Optional[str], Optional[str]]:
-    url = _format_https_url(repo_url, user, password, token, is_oauth)
+    url = _format_https_url(
+        repo_url=repo_url,
+        user=user,
+        password=password,
+        token=token,
+        is_oauth=is_oauth,
+        provider=provider,
+    )
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
         "git",
