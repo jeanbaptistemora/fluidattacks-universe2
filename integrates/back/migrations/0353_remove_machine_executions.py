@@ -33,14 +33,11 @@ from organizations.domain import (
     get_all_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
     roots = await loaders.group_roots.load(group_name)
-    executions: Tuple[RootMachineExecution, ...] = tuple(
+    executions: list[RootMachineExecution] = list(
         flatten(
             await loaders.root_machine_executions.load_many(
                 [root.id for root in roots]

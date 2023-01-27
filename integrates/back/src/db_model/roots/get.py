@@ -213,7 +213,7 @@ class RootHistoricStatesLoader(DataLoader):
         )
 
 
-async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
+async def _get_historic_cloning(*, root_id: str) -> list[GitRootCloning]:
     primary_key = keys.build_key(
         facet=TABLE.facets["git_root_historic_cloning"],
         values={"uuid": root_id},
@@ -229,22 +229,24 @@ async def _get_historic_cloning(*, root_id: str) -> tuple[GitRootCloning, ...]:
         table=TABLE,
     )
 
-    return tuple(format_cloning(state) for state in response.items)
+    return [format_cloning(state) for state in response.items]
 
 
 class RootHistoricCloningLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
-    ) -> tuple[tuple[GitRootCloning, ...], ...]:
-        return await collect(
-            _get_historic_cloning(root_id=root_id) for root_id in root_ids
+    ) -> list[list[GitRootCloning]]:
+        return list(
+            await collect(
+                _get_historic_cloning(root_id=root_id) for root_id in root_ids
+            )
         )
 
 
 async def get_machine_executions(
     *, root_id: str, job_id: Optional[str] = None
-) -> tuple[RootMachineExecution, ...]:
+) -> list[RootMachineExecution]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"uuid": root_id, **({"job_id": job_id} if job_id else {})},
@@ -264,7 +266,7 @@ async def get_machine_executions(
         facets=(TABLE.facets["machine_git_root_execution"],),
         table=TABLE,
     )
-    result: tuple[RootMachineExecution, ...] = tuple()
+    result: list[RootMachineExecution] = []
     for item in response.items:
         findings = []
         with suppress(TypeError):
@@ -276,8 +278,7 @@ async def get_machine_executions(
                 )
                 for x in item["findings_executed"]
             ]
-            result = (
-                *result,
+            result.append(
                 RootMachineExecution(
                     job_id=item["sk"].split("#")[-1],
                     created_at=datetime.fromisoformat(
@@ -307,15 +308,13 @@ async def get_machine_executions(
 
 async def get_machine_executions_by_job_id(
     *, job_id: str, root_id: Optional[str] = None
-) -> tuple[RootMachineExecution, ...]:
+) -> list[RootMachineExecution]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
         values={"job_id": job_id, **({"uuid": root_id} if root_id else {})},
     )
-
     index = TABLE.indexes["inverted_index"]
     key_structure = TABLE.primary_key
-
     response = await operations.query(
         condition_expression=(
             Key(key_structure.sort_key).eq(primary_key.sort_key)
@@ -327,7 +326,8 @@ async def get_machine_executions_by_job_id(
         table=TABLE,
         index=index,
     )
-    return tuple(
+
+    return [
         RootMachineExecution(
             job_id=item["sk"].split("#")[-1],
             created_at=datetime.fromisoformat(item["created_at"]).astimezone(
@@ -358,19 +358,19 @@ async def get_machine_executions_by_job_id(
             status=item.get("status"),
         )
         for item in response.items
-    )
+    ]
 
 
 class RootMachineExecutionsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: list[str]
-    ) -> tuple[tuple[RootMachineExecution, ...], ...]:
+    ) -> list[list[RootMachineExecution]]:
         machine_executions = await collect(
             get_machine_executions(root_id=root_id) for root_id in root_ids
         )
-        return tuple(
-            tuple(sorted(execution, key=lambda x: x.created_at, reverse=True))
+        return list(
+            list(sorted(execution, key=lambda x: x.created_at, reverse=True))
             for execution in machine_executions
         )
 

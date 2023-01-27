@@ -1422,11 +1422,8 @@ async def historic_cloning_grouped(
     loaders: Dataloaders, root_id: str
 ) -> tuple[tuple[GitRootCloning, ...], ...]:
     """Returns the history of cloning failures and successes grouped"""
-
     loaders.root_historic_cloning.clear(root_id)
-    historic_cloning: tuple[
-        GitRootCloning, ...
-    ] = await loaders.root_historic_cloning.load(root_id)
+    historic_cloning = await loaders.root_historic_cloning.load(root_id)
     filtered_historic_cloning: tuple[GitRootCloning, ...] = tuple(
         filter(
             lambda cloning: cloning.status
@@ -1440,6 +1437,7 @@ async def historic_cloning_grouped(
             filtered_historic_cloning, key=attrgetter("status")
         )
     )
+
     return grouped_historic_cloning
 
 
@@ -1486,9 +1484,7 @@ async def is_failed_cloning(loaders: Dataloaders, root_id: str) -> bool:
 async def get_first_cloning_date(
     loaders: Dataloaders, root_id: str
 ) -> datetime:
-    historic_cloning: tuple[
-        GitRootCloning, ...
-    ] = await loaders.root_historic_cloning.load(root_id)
+    historic_cloning = await loaders.root_historic_cloning.load(root_id)
     first_root: GitRootCloning = historic_cloning[0]
 
     return first_root.modified_date
