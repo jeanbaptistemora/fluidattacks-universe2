@@ -73,10 +73,8 @@ async def get_organization_groups_by_stakeholder(
     ] = await groups_domain.get_groups_by_stakeholder(
         loaders, stakeholder.email, organization_id=organization.id
     )
-    stakeholder_groups: tuple[Group, ...] = await loaders.group.load_many(
-        stakeholder_group_names
-    )
-    return groups_utils.filter_active_groups(stakeholder_groups)
+    stakeholder_groups = await loaders.group.load_many(stakeholder_group_names)
+    return groups_utils.filter_active_groups(tuple(stakeholder_groups))
 
 
 async def get_stakeholder_organizations(

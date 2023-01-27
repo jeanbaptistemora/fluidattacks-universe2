@@ -18,9 +18,6 @@ from aioextensions import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.groups.types import (
-    Group,
-)
 from groups import (
     domain as groups_domain,
 )
@@ -41,9 +38,7 @@ async def main() -> None:
     loaders = get_new_context()
 
     groups_name = ["eval", "integration", "lgray", "mondtic"]
-    groups_to_migrate: tuple[Group] = await loaders.group.load_many(
-        groups_name
-    )
+    groups_to_migrate = await loaders.group.load_many(groups_name)
 
     for group in groups_to_migrate:
         new_state = group.state._replace(managed="TRIAL")

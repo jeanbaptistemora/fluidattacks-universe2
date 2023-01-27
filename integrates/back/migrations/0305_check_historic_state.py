@@ -21,9 +21,6 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.group_access.get import (
-    GroupStakeholdersAccessLoader,
-)
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
@@ -152,9 +149,8 @@ async def process_root(*, root: Root) -> None:  # noqa: MC0001
 
 
 async def _process_group(*, loaders: Dataloaders, group_name: str) -> None:
-    historic: tuple[GroupStakeholdersAccessLoader, ...] = tuple()
     try:
-        historic = await loaders.group_historic_state.load(group_name)
+        await loaders.group_historic_state.load(group_name)
     except IndexError as exc:
         LOGGER_CONSOLE.info(
             "Error loading group historic_state",
@@ -162,7 +158,6 @@ async def _process_group(*, loaders: Dataloaders, group_name: str) -> None:
                 "extra": {
                     "ex": exc,
                     "group_name": group_name,
-                    "historic": historic,
                 }
             },
         )

@@ -142,7 +142,7 @@ async def main() -> None:
         for group in await groups_domain.get_all(attributes=["project_name"])
     )
     LOGGER_CONSOLE.info("Getting groups")
-    groups: Tuple[Group, ...] = await loaders.group.load_many(group_names)
+    groups: list[Group] = await loaders.group.load_many(group_names)
     LOGGER_CONSOLE.info("Getting roots")
     groups_roots = await loaders.group_roots.load_many(group_names)
     LOGGER_CONSOLE.info("Getting inputs")

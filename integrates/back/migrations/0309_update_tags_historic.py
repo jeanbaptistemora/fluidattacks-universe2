@@ -187,9 +187,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
-        group_name
-    )
+    historic = await loaders.group_historic_state.load(group_name)
     group: Group = await loaders.group.load(group_name)
     if group.tags is None:
         return

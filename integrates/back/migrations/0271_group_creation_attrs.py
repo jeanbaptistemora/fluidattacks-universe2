@@ -49,7 +49,7 @@ LOGGER = logging.getLogger(__name__)
 async def process_group(
     loaders: Dataloaders, group_name: str, org_id: str
 ) -> None:
-    historic: tuple[GroupState, ...] = await loaders.group_historic_state.load(
+    historic: list[GroupState] = await loaders.group_historic_state.load(
         group_name
     )
     created_by = historic[0].modified_by

@@ -23,7 +23,6 @@ from db_model.groups.enums import (
 )
 from db_model.groups.types import (
     Group,
-    GroupState,
 )
 from dynamodb import (
     operations,
@@ -53,10 +52,7 @@ async def process_group(
     group: Group = await loaders.group.load(group_name)
 
     if group.state.status == GroupStateStatus.DELETED:
-        historic: tuple[
-            GroupState, ...
-        ] = await loaders.group_historic_state.load(group_name)
-
+        historic = await loaders.group_historic_state.load(group_name)
         if historic[-2].status == GroupStateStatus.DELETED:
             LOGGER.info("Fixing %s", group.name)
             await operations.update_item(
