@@ -23,7 +23,7 @@ from dynamodb import (
 )
 from typing import (
     Iterable,
-    Union,
+    Optional,
 )
 
 
@@ -68,9 +68,9 @@ async def _get_organization_portfolios(
 
 
 async def _get_portfolios(
-    *, requests: tuple[PortfolioRequest, ...]
-) -> Union[tuple[Portfolio, ...], None]:
-    requests = tuple(
+    *, requests: list[PortfolioRequest]
+) -> list[Optional[Portfolio]]:
+    requests = list(
         request._replace(
             organization_name=request.organization_name.lower().strip()
         )
@@ -88,17 +88,15 @@ async def _get_portfolios(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
-        response = {
-            PortfolioRequest(
-                organization_name=portfolio.organization_name,
-                portfolio_id=portfolio.id,
-            ): portfolio
-            for portfolio in tuple(format_portfolio(item) for item in items)
-        }
-        return tuple(response[request] for request in requests)
+    response = {
+        PortfolioRequest(
+            organization_name=portfolio.organization_name,
+            portfolio_id=portfolio.id,
+        ): portfolio
+        for portfolio in [format_portfolio(item) for item in items]
+    }
 
-    return None
+    return list(response.get(request) for request in requests)
 
 
 class OrganizationPortfoliosLoader(DataLoader):
@@ -124,6 +122,6 @@ class OrganizationPortfoliosLoader(DataLoader):
 class PortfolioLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[PortfolioRequest]
-    ) -> Union[tuple[Portfolio, ...], None]:
-        return await _get_portfolios(requests=tuple(requests))
+        self, requests: list[PortfolioRequest]
+    ) -> list[Optional[Portfolio]]:
+        return await _get_portfolios(requests=requests)
