@@ -3,8 +3,8 @@ F128,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -17,8 +17,8 @@ F128,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -31,8 +31,8 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -47,8 +47,8 @@ F128,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -61,8 +61,8 @@ F128,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -75,8 +75,8 @@ F128,inputs,http://localhost:48000/f042_samesite_2 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -89,8 +89,8 @@ F128,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -103,8 +103,8 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -119,8 +119,8 @@ F128,inputs,http://localhost:48000/f042_secure_0 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -133,8 +133,8 @@ F128,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -147,8 +147,8 @@ F128,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -161,8 +161,8 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -177,8 +177,8 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -193,8 +193,8 @@ F128,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missi
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -209,8 +209,8 @@ F128,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missi
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -225,8 +225,8 @@ F128,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -241,8 +241,8 @@ F128,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -257,8 +257,8 @@ F129,inputs,http://localhost:48000/f042_httponly_0 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -271,8 +271,8 @@ F129,inputs,http://localhost:48000/f042_httponly_2 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -285,8 +285,8 @@ F129,inputs,http://localhost:48000/f042_httponly_4 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -299,8 +299,8 @@ F129,inputs,http://localhost:48000/f042_httponly_5 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -315,8 +315,8 @@ F129,inputs,http://localhost:48000/f042_samesite_1 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -329,8 +329,8 @@ F129,inputs,http://localhost:48000/f042_samesite_2 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -343,8 +343,8 @@ F129,inputs,http://localhost:48000/f042_samesite_3 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -357,8 +357,8 @@ F129,inputs,http://localhost:48000/f042_samesite_5 (namespace),session does not 
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -373,8 +373,8 @@ F129,inputs,http://localhost:48000/f042_secure_0 (namespace),session does not ha
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -387,8 +387,8 @@ F129,inputs,http://localhost:48000/f042_secure_2 (namespace),session does not ha
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -401,8 +401,8 @@ F129,inputs,http://localhost:48000/f042_secure_4 (namespace),session does not ha
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -415,8 +415,8 @@ F129,inputs,http://localhost:48000/f042_secure_5 (namespace),session does not ha
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -431,8 +431,8 @@ F129,inputs,http://localhost:48000/f042_secure_6 (namespace),session does not ha
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -447,8 +447,8 @@ F129,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 does not
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -463,8 +463,8 @@ F129,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 does not
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -479,8 +479,8 @@ F129,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 does not h
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -495,8 +495,8 @@ F129,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 does not h
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -511,8 +511,8 @@ F015,inputs,http://localhost:48000/f015_dast_basic_2 (namespace),The application
    1 | > GET http://localhost:48000/f015_dast_basic_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < WWW-Authenticate: Basic realm=host.com
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -525,8 +525,8 @@ F015,inputs,http://localhost:48000/f015_dast_basic_3 (namespace),The application
    1 | > GET http://localhost:48000/f015_dast_basic_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < WWW-Authenticate: Basic realm=host.com, charset=""UTF-8""
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -647,8 +647,8 @@ F343,inputs,http://localhost:48000/f343_breach_possible_0 (namespace),"Server is
    1 | > GET http://localhost:48000/f343_breach_possible_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < content-encoding: compress, gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -663,8 +663,8 @@ F343,inputs,http://localhost:48000/f343_breach_possible_1 (namespace),"Server is
    1 | > GET http://localhost:48000/f343_breach_possible_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < content-encoding: gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -677,8 +677,8 @@ F023,inputs,http://localhost:48000/f023_0 (namespace),Redirection due to Host he
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost:48000/
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -691,8 +691,8 @@ F130,inputs,http://localhost:48000/f042_httponly_0 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -705,8 +705,8 @@ F130,inputs,http://localhost:48000/f042_httponly_2 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -719,8 +719,8 @@ F130,inputs,http://localhost:48000/f042_httponly_4 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -733,8 +733,8 @@ F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -749,8 +749,8 @@ F130,inputs,http://localhost:48000/f042_samesite_0 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -763,8 +763,8 @@ F130,inputs,http://localhost:48000/f042_samesite_1 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -777,8 +777,8 @@ F130,inputs,http://localhost:48000/f042_samesite_3 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -791,8 +791,8 @@ F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session is missin
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -807,8 +807,8 @@ F130,inputs,http://localhost:48000/f042_secure_2 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -821,8 +821,8 @@ F130,inputs,http://localhost:48000/f042_secure_4 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -835,8 +835,8 @@ F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -851,8 +851,8 @@ F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session is missing 
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -867,8 +867,8 @@ F130,inputs,http://localhost:48000/f042_httponly_5 (namespace),session2 is missi
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -883,8 +883,8 @@ F130,inputs,http://localhost:48000/f042_samesite_5 (namespace),session2 is missi
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -899,8 +899,8 @@ F130,inputs,http://localhost:48000/f042_secure_5 (namespace),session2 is missing
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -915,8 +915,8 @@ F130,inputs,http://localhost:48000/f042_secure_6 (namespace),session2 is missing
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
 >  7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -931,8 +931,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),.yandex.ru hosts 
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -945,8 +945,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Could not found 
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -959,8 +959,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Could not found 
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -973,8 +973,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -987,8 +987,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'unsafe-eval'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1001,8 +1001,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'unsafe-inline'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1015,8 +1015,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1029,8 +1029,8 @@ F043,inputs,http://localhost:48000/ (namespace),Could not found upgrade-insecure
    1 | > GET http://localhost:48000/
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:17 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:44 GMT
    6 | < Content-Type: text/html
    7 | < Content-Length: 7172
    8 | < Connection: close
@@ -1042,8 +1042,8 @@ F043,inputs,http://localhost:48000/f023_0 (namespace),Could not found upgrade-in
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost:48000/
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1056,8 +1056,8 @@ F043,inputs,http://localhost:48000/f023_1 (namespace),Could not found upgrade-in
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1070,8 +1070,8 @@ F043,inputs,http://localhost:48000/f036_0 (namespace),Could not found upgrade-in
    1 | > GET http://localhost:48000/f036_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 407
    8 | < Connection: close
@@ -1083,8 +1083,8 @@ F043,inputs,http://localhost:48000/f042_httponly_0 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -1097,8 +1097,8 @@ F043,inputs,http://localhost:48000/f042_httponly_1 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -1111,8 +1111,8 @@ F043,inputs,http://localhost:48000/f042_httponly_2 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -1125,8 +1125,8 @@ F043,inputs,http://localhost:48000/f042_httponly_3 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -1139,8 +1139,8 @@ F043,inputs,http://localhost:48000/f042_httponly_4 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -1153,8 +1153,8 @@ F043,inputs,http://localhost:48000/f042_httponly_5 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -1169,8 +1169,8 @@ F043,inputs,http://localhost:48000/f042_samesite_0 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -1183,8 +1183,8 @@ F043,inputs,http://localhost:48000/f042_samesite_1 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -1197,8 +1197,8 @@ F043,inputs,http://localhost:48000/f042_samesite_2 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -1211,8 +1211,8 @@ F043,inputs,http://localhost:48000/f042_samesite_3 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -1225,8 +1225,8 @@ F043,inputs,http://localhost:48000/f042_samesite_4 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test4; Path=/
    8 | < Content-Length: 0
@@ -1239,8 +1239,8 @@ F043,inputs,http://localhost:48000/f042_samesite_5 (namespace),Could not found u
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -1255,8 +1255,8 @@ F043,inputs,http://localhost:48000/f042_secure_0 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -1269,8 +1269,8 @@ F043,inputs,http://localhost:48000/f042_secure_1 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    8 | < Content-Length: 0
@@ -1283,8 +1283,8 @@ F043,inputs,http://localhost:48000/f042_secure_2 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -1297,8 +1297,8 @@ F043,inputs,http://localhost:48000/f042_secure_3 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -1311,8 +1311,8 @@ F043,inputs,http://localhost:48000/f042_secure_4 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -1325,8 +1325,8 @@ F043,inputs,http://localhost:48000/f042_secure_5 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -1341,8 +1341,8 @@ F043,inputs,http://localhost:48000/f042_secure_6 (namespace),Could not found upg
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -1357,8 +1357,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1371,8 +1371,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Could not found 
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1385,8 +1385,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.domain.com;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1399,8 +1399,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1413,8 +1413,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1427,8 +1427,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1441,8 +1441,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1455,8 +1455,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Could not found up
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1469,8 +1469,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Could not found up
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1483,8 +1483,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Could not found up
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, unsafe-url, same-origin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1497,8 +1497,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Could not found up
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, same-origin, unsafe-url
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1511,8 +1511,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1525,8 +1525,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31535999
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1539,8 +1539,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_sts_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31536000
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1553,8 +1553,8 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Could not found 
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1567,8 +1567,8 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Could not found 
    1 | > GET http://localhost:48000/f043_dast_xcto_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options: nosniff
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1581,8 +1581,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1595,8 +1595,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: deny
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1609,8 +1609,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: sameorigin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1623,8 +1623,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Could not found u
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: allow-from: DOMAIN
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1637,8 +1637,8 @@ F043,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Could not fou
    1 | > GET http://localhost:48000/f064_server_clock_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Date:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1651,9 +1651,9 @@ F043,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Could not fou
    1 | > GET http://localhost:48000/f064_server_clock_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
-   6 | < Date: Mon, 23 Jan 2023 19:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
+   6 | < Date: Fri, 27 Jan 2023 13:12:52 GMT
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
    9 | < Connection: close
@@ -1665,8 +1665,8 @@ F043,inputs,http://localhost:48000/f086_0 (namespace),Could not found upgrade-in
    1 | > GET http://localhost:48000/f086_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 599
    8 | < Connection: close
@@ -1678,8 +1678,8 @@ F043,inputs,http://localhost:48000/f343_breach_possible_0 (namespace),Could not 
    1 | > GET http://localhost:48000/f343_breach_possible_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: compress, gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1692,8 +1692,8 @@ F043,inputs,http://localhost:48000/f343_breach_possible_1 (namespace),Could not 
    1 | > GET http://localhost:48000/f343_breach_possible_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1706,8 +1706,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Directive script-
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1720,8 +1720,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Directive script-
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1734,8 +1734,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Directive script-
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1748,8 +1748,8 @@ F043,inputs,http://localhost:48000/ (namespace),Missing Content-Security-Policy,
    1 | > GET http://localhost:48000/
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:17 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:44 GMT
    6 | < Content-Type: text/html
    7 | < Content-Length: 7172
    8 | < Connection: close
@@ -1761,8 +1761,8 @@ F043,inputs,http://localhost:48000/f023_0 (namespace),Missing Content-Security-P
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost:48000/
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1775,8 +1775,8 @@ F043,inputs,http://localhost:48000/f023_1 (namespace),Missing Content-Security-P
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -1789,8 +1789,8 @@ F043,inputs,http://localhost:48000/f036_0 (namespace),Missing Content-Security-P
    1 | > GET http://localhost:48000/f036_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 407
    8 | < Connection: close
@@ -1802,8 +1802,8 @@ F043,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -1816,8 +1816,8 @@ F043,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -1830,8 +1830,8 @@ F043,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -1844,8 +1844,8 @@ F043,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -1858,8 +1858,8 @@ F043,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -1872,8 +1872,8 @@ F043,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -1888,8 +1888,8 @@ F043,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -1902,8 +1902,8 @@ F043,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -1916,8 +1916,8 @@ F043,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -1930,8 +1930,8 @@ F043,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -1944,8 +1944,8 @@ F043,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test4; Path=/
    8 | < Content-Length: 0
@@ -1958,8 +1958,8 @@ F043,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -1974,8 +1974,8 @@ F043,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -1988,8 +1988,8 @@ F043,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    8 | < Content-Length: 0
@@ -2002,8 +2002,8 @@ F043,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -2016,8 +2016,8 @@ F043,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -2030,8 +2030,8 @@ F043,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -2044,8 +2044,8 @@ F043,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -2060,8 +2060,8 @@ F043,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Content-Sec
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -2076,8 +2076,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Content-Se
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2090,8 +2090,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Content-Se
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2104,8 +2104,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Content-Se
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, unsafe-url, same-origin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2118,8 +2118,8 @@ F043,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Content-Se
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, same-origin, unsafe-url
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2132,8 +2132,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2146,8 +2146,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31535999
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2160,8 +2160,8 @@ F043,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_sts_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31536000
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2174,8 +2174,8 @@ F043,inputs,http://localhost:48000/f043_dast_upgrade_insecure_0 (namespace),Miss
    1 | > GET http://localhost:48000/f043_dast_upgrade_insecure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < upgrade-insecure-requests: 1
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2188,8 +2188,8 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Content-
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2202,8 +2202,8 @@ F043,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Content-
    1 | > GET http://localhost:48000/f043_dast_xcto_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options: nosniff
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2216,8 +2216,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2230,8 +2230,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: deny
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2244,8 +2244,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: sameorigin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2258,8 +2258,8 @@ F043,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Content-S
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: allow-from: DOMAIN
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2272,8 +2272,8 @@ F043,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Conte
    1 | > GET http://localhost:48000/f064_server_clock_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Date:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2286,9 +2286,9 @@ F043,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Conte
    1 | > GET http://localhost:48000/f064_server_clock_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
-   6 | < Date: Mon, 23 Jan 2023 19:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
+   6 | < Date: Fri, 27 Jan 2023 13:12:52 GMT
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
    9 | < Connection: close
@@ -2300,8 +2300,8 @@ F043,inputs,http://localhost:48000/f086_0 (namespace),Missing Content-Security-P
    1 | > GET http://localhost:48000/f086_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 599
    8 | < Connection: close
@@ -2313,8 +2313,8 @@ F043,inputs,http://localhost:48000/f343_breach_possible_0 (namespace),Missing Co
    1 | > GET http://localhost:48000/f343_breach_possible_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: compress, gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2327,8 +2327,8 @@ F043,inputs,http://localhost:48000/f343_breach_possible_1 (namespace),Missing Co
    1 | > GET http://localhost:48000/f343_breach_possible_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2341,8 +2341,8 @@ F071,inputs,http://localhost:48000/ (namespace),Missing Referrer-Policy,644,"hom
    1 | > GET http://localhost:48000/
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:17 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:44 GMT
    6 | < Content-Type: text/html
    7 | < Content-Length: 7172
    8 | < Connection: close
@@ -2354,8 +2354,8 @@ F071,inputs,http://localhost:48000/f036_0 (namespace),Missing Referrer-Policy,64
    1 | > GET http://localhost:48000/f036_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 407
    8 | < Connection: close
@@ -2367,8 +2367,8 @@ F071,inputs,http://localhost:48000/f086_0 (namespace),Missing Referrer-Policy,64
    1 | > GET http://localhost:48000/f086_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 599
    8 | < Connection: close
@@ -2380,8 +2380,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: frame-ancestors 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2394,8 +2394,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: frame-ancestors 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2408,8 +2408,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_14 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_csp_14
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy:
    7 |     frame-src 'self' 'unsafe-inline' 'unsafe-eval';script-src 'self' 'sha256-/VMQIr9hp56zmea0sU1b7cNYQX0vlTIj1CFg=';fram
    8 |     e-ancestors: 'none'; object-src: 'none';upgrade-insecure-requests=1;
@@ -2424,8 +2424,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2438,8 +2438,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'unsafe-eval'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2452,8 +2452,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'unsafe-inline'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2466,8 +2466,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2480,8 +2480,8 @@ F131,inputs,http://localhost:48000/ (namespace),Missing Strict-Transport-Securit
    1 | > GET http://localhost:48000/
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:17 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:44 GMT
    6 | < Content-Type: text/html
    7 | < Content-Length: 7172
    8 | < Connection: close
@@ -2493,8 +2493,8 @@ F131,inputs,http://localhost:48000/f023_0 (namespace),Missing Strict-Transport-S
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost:48000/
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2507,8 +2507,8 @@ F131,inputs,http://localhost:48000/f023_1 (namespace),Missing Strict-Transport-S
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2521,8 +2521,8 @@ F131,inputs,http://localhost:48000/f036_0 (namespace),Missing Strict-Transport-S
    1 | > GET http://localhost:48000/f036_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 407
    8 | < Connection: close
@@ -2534,8 +2534,8 @@ F131,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -2548,8 +2548,8 @@ F131,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -2562,8 +2562,8 @@ F131,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -2576,8 +2576,8 @@ F131,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -2590,8 +2590,8 @@ F131,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -2604,8 +2604,8 @@ F131,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -2620,8 +2620,8 @@ F131,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -2634,8 +2634,8 @@ F131,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -2648,8 +2648,8 @@ F131,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -2662,8 +2662,8 @@ F131,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -2676,8 +2676,8 @@ F131,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test4; Path=/
    8 | < Content-Length: 0
@@ -2690,8 +2690,8 @@ F131,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -2706,8 +2706,8 @@ F131,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -2720,8 +2720,8 @@ F131,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    8 | < Content-Length: 0
@@ -2734,8 +2734,8 @@ F131,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -2748,8 +2748,8 @@ F131,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -2762,8 +2762,8 @@ F131,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -2776,8 +2776,8 @@ F131,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -2792,8 +2792,8 @@ F131,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing Strict-Tran
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -2808,8 +2808,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2822,8 +2822,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: upgrade-insecure-requests;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2836,8 +2836,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2850,8 +2850,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src *.domain.com;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2864,8 +2864,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2878,8 +2878,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2892,8 +2892,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2906,8 +2906,8 @@ F131,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2920,8 +2920,8 @@ F131,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing Strict-Tra
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2934,8 +2934,8 @@ F131,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing Strict-Tra
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2948,8 +2948,8 @@ F131,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing Strict-Tra
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, unsafe-url, same-origin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2962,8 +2962,8 @@ F131,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing Strict-Tra
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, same-origin, unsafe-url
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2976,8 +2976,8 @@ F131,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -2990,8 +2990,8 @@ F131,inputs,http://localhost:48000/f043_dast_upgrade_insecure_0 (namespace),Miss
    1 | > GET http://localhost:48000/f043_dast_upgrade_insecure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < upgrade-insecure-requests: 1
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3004,8 +3004,8 @@ F131,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3018,8 +3018,8 @@ F131,inputs,http://localhost:48000/f043_dast_xcto_1 (namespace),Missing Strict-T
    1 | > GET http://localhost:48000/f043_dast_xcto_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options: nosniff
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3032,8 +3032,8 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3046,8 +3046,8 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: deny
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3060,8 +3060,8 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: sameorigin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3074,8 +3074,8 @@ F131,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing Strict-Tr
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: allow-from: DOMAIN
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3088,8 +3088,8 @@ F131,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing Stric
    1 | > GET http://localhost:48000/f064_server_clock_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Date:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3102,9 +3102,9 @@ F131,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing Stric
    1 | > GET http://localhost:48000/f064_server_clock_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
-   6 | < Date: Mon, 23 Jan 2023 19:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
+   6 | < Date: Fri, 27 Jan 2023 13:12:52 GMT
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
    9 | < Connection: close
@@ -3116,8 +3116,8 @@ F131,inputs,http://localhost:48000/f086_0 (namespace),Missing Strict-Transport-S
    1 | > GET http://localhost:48000/f086_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 599
    8 | < Connection: close
@@ -3129,8 +3129,8 @@ F131,inputs,http://localhost:48000/f343_breach_possible_0 (namespace),Missing St
    1 | > GET http://localhost:48000/f343_breach_possible_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: compress, gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3143,8 +3143,8 @@ F131,inputs,http://localhost:48000/f343_breach_possible_1 (namespace),Missing St
    1 | > GET http://localhost:48000/f343_breach_possible_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3157,8 +3157,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing X-Conten
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: frame-ancestors 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3171,8 +3171,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing X-Conten
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: frame-ancestors 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3185,8 +3185,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_14 (namespace),Missing X-Conten
    1 | > GET http://localhost:48000/f043_dast_csp_14
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy:
    7 |     frame-src 'self' 'unsafe-inline' 'unsafe-eval';script-src 'self' 'sha256-/VMQIr9hp56zmea0sU1b7cNYQX0vlTIj1CFg=';fram
    8 |     e-ancestors: 'none'; object-src: 'none';upgrade-insecure-requests=1;
@@ -3201,8 +3201,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3215,8 +3215,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'unsafe-eval'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3229,8 +3229,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'unsafe-inline'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3243,8 +3243,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: default-src 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3257,8 +3257,8 @@ F132,inputs,http://localhost:48000/ (namespace),Missing X-Content-Type-Options,6
    1 | > GET http://localhost:48000/
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:17 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:44 GMT
    6 | < Content-Type: text/html
    7 | < Content-Length: 7172
    8 | < Connection: close
@@ -3270,8 +3270,8 @@ F132,inputs,http://localhost:48000/f023_0 (namespace),Missing X-Content-Type-Opt
    1 | > GET http://localhost:48000/f023_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost:48000/
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3284,8 +3284,8 @@ F132,inputs,http://localhost:48000/f023_1 (namespace),Missing X-Content-Type-Opt
    1 | > GET http://localhost:48000/f023_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Location: http://localhost
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3298,8 +3298,8 @@ F132,inputs,http://localhost:48000/f036_0 (namespace),Missing X-Content-Type-Opt
    1 | > GET http://localhost:48000/f036_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 407
    8 | < Connection: close
@@ -3311,8 +3311,8 @@ F132,inputs,http://localhost:48000/f042_httponly_0 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -3325,8 +3325,8 @@ F132,inputs,http://localhost:48000/f042_httponly_1 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; HttpOnly; Path=/
    8 | < Content-Length: 0
@@ -3339,8 +3339,8 @@ F132,inputs,http://localhost:48000/f042_httponly_2 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -3353,8 +3353,8 @@ F132,inputs,http://localhost:48000/f042_httponly_3 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -3367,8 +3367,8 @@ F132,inputs,http://localhost:48000/f042_httponly_4 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -3381,8 +3381,8 @@ F132,inputs,http://localhost:48000/f042_httponly_5 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_httponly_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; HttpOnly; Path=/
@@ -3397,8 +3397,8 @@ F132,inputs,http://localhost:48000/f042_samesite_0 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Path=/; SameSite=Strict
    8 | < Content-Length: 0
@@ -3411,8 +3411,8 @@ F132,inputs,http://localhost:48000/f042_samesite_1 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test1; Path=/; SameSite=Lax
    8 | < Content-Length: 0
@@ -3425,8 +3425,8 @@ F132,inputs,http://localhost:48000/f042_samesite_2 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Secure; Path=/; SameSite=None
    8 | < Content-Length: 0
@@ -3439,8 +3439,8 @@ F132,inputs,http://localhost:48000/f042_samesite_3 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test3; Path=/
    8 | < Content-Length: 0
@@ -3453,8 +3453,8 @@ F132,inputs,http://localhost:48000/f042_samesite_4 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test4; Path=/
    8 | < Content-Length: 0
@@ -3467,8 +3467,8 @@ F132,inputs,http://localhost:48000/f042_samesite_5 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f042_samesite_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=test5; Path=/
@@ -3483,8 +3483,8 @@ F132,inputs,http://localhost:48000/f042_secure_0 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test0; Secure; Path=/
    8 | < Content-Length: 0
@@ -3497,8 +3497,8 @@ F132,inputs,http://localhost:48000/f042_secure_1 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test1; Secure; Path=/
    8 | < Content-Length: 0
@@ -3511,8 +3511,8 @@ F132,inputs,http://localhost:48000/f042_secure_2 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test2; Path=/
    8 | < Content-Length: 0
@@ -3525,8 +3525,8 @@ F132,inputs,http://localhost:48000/f042_secure_3 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: google_analytics=test3; Path=/
    8 | < Content-Length: 0
@@ -3539,8 +3539,8 @@ F132,inputs,http://localhost:48000/f042_secure_4 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=; Path=/
    8 | < Content-Length: 0
@@ -3553,8 +3553,8 @@ F132,inputs,http://localhost:48000/f042_secure_5 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session=test5; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Secure; Path=/
@@ -3569,8 +3569,8 @@ F132,inputs,http://localhost:48000/f042_secure_6 (namespace),Missing X-Content-T
    1 | > GET http://localhost:48000/f042_secure_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Set-Cookie: session2=test52; Path=/
    8 | < Set-Cookie: google_analytics=1asdf345; Path=/
@@ -3585,8 +3585,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3599,8 +3599,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing X-Conten
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: upgrade-insecure-requests;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3613,8 +3613,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing X-Conten
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3627,8 +3627,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src *.domain.com;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3641,8 +3641,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3655,8 +3655,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3669,8 +3669,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3683,8 +3683,8 @@ F132,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3697,8 +3697,8 @@ F132,inputs,http://localhost:48000/f043_dast_rp_0 (namespace),Missing X-Content-
    1 | > GET http://localhost:48000/f043_dast_rp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3711,8 +3711,8 @@ F132,inputs,http://localhost:48000/f043_dast_rp_1 (namespace),Missing X-Content-
    1 | > GET http://localhost:48000/f043_dast_rp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3725,8 +3725,8 @@ F132,inputs,http://localhost:48000/f043_dast_rp_2 (namespace),Missing X-Content-
    1 | > GET http://localhost:48000/f043_dast_rp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, unsafe-url, same-origin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3739,8 +3739,8 @@ F132,inputs,http://localhost:48000/f043_dast_rp_3 (namespace),Missing X-Content-
    1 | > GET http://localhost:48000/f043_dast_rp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Referrer-Policy: out-of-spec, same-origin, unsafe-url
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3753,8 +3753,8 @@ F132,inputs,http://localhost:48000/f043_dast_sts_0 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_sts_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3767,8 +3767,8 @@ F132,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31535999
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3781,8 +3781,8 @@ F132,inputs,http://localhost:48000/f043_dast_sts_2 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_sts_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31536000
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3795,8 +3795,8 @@ F132,inputs,http://localhost:48000/f043_dast_upgrade_insecure_0 (namespace),Miss
    1 | > GET http://localhost:48000/f043_dast_upgrade_insecure_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < upgrade-insecure-requests: 1
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3809,8 +3809,8 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_0 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_xfo_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3823,8 +3823,8 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_1 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_xfo_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: deny
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3837,8 +3837,8 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_2 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_xfo_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: sameorigin
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3851,8 +3851,8 @@ F132,inputs,http://localhost:48000/f043_dast_xfo_3 (namespace),Missing X-Content
    1 | > GET http://localhost:48000/f043_dast_xfo_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Frame-Options: allow-from: DOMAIN
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3865,8 +3865,8 @@ F132,inputs,http://localhost:48000/f064_server_clock_0 (namespace),Missing X-Con
    1 | > GET http://localhost:48000/f064_server_clock_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Date:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3879,9 +3879,9 @@ F132,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Missing X-Con
    1 | > GET http://localhost:48000/f064_server_clock_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
-   6 | < Date: Mon, 23 Jan 2023 19:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
+   6 | < Date: Fri, 27 Jan 2023 13:12:52 GMT
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
    9 | < Connection: close
@@ -3893,8 +3893,8 @@ F132,inputs,http://localhost:48000/f086_0 (namespace),Missing X-Content-Type-Opt
    1 | > GET http://localhost:48000/f086_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Content-Type: text/html; charset=utf-8
    7 | < Content-Length: 599
    8 | < Connection: close
@@ -3906,8 +3906,8 @@ F132,inputs,http://localhost:48000/f343_breach_possible_0 (namespace),Missing X-
    1 | > GET http://localhost:48000/f343_breach_possible_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: compress, gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3920,8 +3920,8 @@ F132,inputs,http://localhost:48000/f343_breach_possible_1 (namespace),Missing X-
    1 | > GET http://localhost:48000/f343_breach_possible_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < content-encoding: gzip
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3934,8 +3934,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_2 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_2
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3948,8 +3948,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_3 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_3
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'unsafe-eval'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3962,8 +3962,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'unsafe-inline'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3976,8 +3976,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_5 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_5
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -3990,8 +3990,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4004,8 +4004,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing frame-an
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: upgrade-insecure-requests;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4018,8 +4018,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing frame-an
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4032,8 +4032,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.domain.com;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4046,8 +4046,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4060,8 +4060,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4074,8 +4074,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4088,8 +4088,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing frame-anc
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4102,8 +4102,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing object-s
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4116,8 +4116,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing object-s
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4130,8 +4130,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_0 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4144,8 +4144,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing object-s
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: upgrade-insecure-requests;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4158,8 +4158,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing object-s
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4172,8 +4172,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_1 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.domain.com;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4186,8 +4186,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_6 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_6
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src data:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4200,8 +4200,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_7 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_7
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src http:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4214,8 +4214,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_8 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_8
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src https:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4228,8 +4228,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_9 (namespace),Missing object-sr
    1 | > GET http://localhost:48000/f043_dast_csp_9
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: script-src *.yandex.ru;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4242,8 +4242,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_10 (namespace),Missing script-s
    1 | > GET http://localhost:48000/f043_dast_csp_10
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'none'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4256,8 +4256,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_11 (namespace),Missing script-s
    1 | > GET http://localhost:48000/f043_dast_csp_11
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: frame-ancestors 'self'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4270,8 +4270,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_12 (namespace),Missing script-s
    1 | > GET http://localhost:48000/f043_dast_csp_12
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: upgrade-insecure-requests;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4284,8 +4284,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),Missing script-s
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4298,8 +4298,8 @@ F132,inputs,http://localhost:48000/f043_dast_xcto_0 (namespace),Value is not nos
    1 | > GET http://localhost:48000/f043_dast_xcto_0
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < X-Content-Type-Options:
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4312,8 +4312,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_13 (namespace),block-all-mixed-
    1 | > GET http://localhost:48000/f043_dast_csp_13
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: block-all-mixed-content;
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4326,8 +4326,8 @@ F131,inputs,http://localhost:48000/f043_dast_sts_1 (namespace),max-age less than
    1 | > GET http://localhost:48000/f043_dast_sts_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
    6 | < Strict-Transport-Security: max-age=31535999
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4340,8 +4340,8 @@ F043,inputs,http://localhost:48000/f043_dast_csp_4 (namespace),script-src has un
    1 | > GET http://localhost:48000/f043_dast_csp_4
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
-   5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+   5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
 >  6 | < Content-Security-Policy: default-src 'unsafe-inline'
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
@@ -4354,9 +4354,9 @@ F064,inputs,http://localhost:48000/f064_server_clock_1 (namespace),Server clock 
    1 | > GET http://localhost:48000/f064_server_clock_1
    2 | > ...
    3 |
-   4 | < Server: Werkzeug/2.1.2 Python/3.8.13
->  5 | < Date: Mon, 23 Jan 2023 20:54:24 GMT
-   6 | < Date: Mon, 23 Jan 2023 19:54:24 GMT
+   4 | < Server: Werkzeug/2.2.2 Python/3.8.15
+>  5 | < Date: Fri, 27 Jan 2023 14:12:52 GMT
+   6 | < Date: Fri, 27 Jan 2023 13:12:52 GMT
    7 | < Content-Type: text/html; charset=utf-8
    8 | < Content-Length: 0
    9 | < Connection: close
