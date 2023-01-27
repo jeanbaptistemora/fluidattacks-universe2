@@ -1,0 +1,10 @@
+---
+lib_path.f005.allows_priv_escalation_by_policies_versions:
+  en: >
+    A policy document with both iam:CreatePolicyVersion and
+    iam:SetDefaultPolicyVersion allows grantees to get full administrative
+    access over the AWS tenant.
+  es: >-
+    Un documento de política con iam:CreatePolicyVersion y
+    iam:SetDefaultPolicyVersion permite obtener acceso administrativo completo
+    acceso sobre AWS.

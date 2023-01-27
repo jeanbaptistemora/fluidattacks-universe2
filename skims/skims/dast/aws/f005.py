@@ -94,8 +94,9 @@ async def allows_priv_escalation_by_policies_versions(
                                         policy_statements[index]["Action"],
                                     ),
                                     description=t(
-                                        "src.lib_path."
-                                        "f031_aws.permissive_policy"
+                                        "lib_path.f005"
+                                        ".allows_priv_escalation_by_policies_"
+                                        "versions"
                                     ),
                                 )
                             ],
