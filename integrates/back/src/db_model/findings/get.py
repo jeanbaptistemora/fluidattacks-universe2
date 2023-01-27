@@ -198,9 +198,13 @@ class GroupFindingsLoader(DataLoader):
 class FindingLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Iterable[str]
-    ) -> tuple[Optional[Finding], ...]:
-        return await collect(tuple(map(_get_finding_by_id, finding_ids)))
+        self, finding_ids: list[str]
+    ) -> list[Optional[Finding]]:
+        return list(
+            await collect(
+                tuple(_get_finding_by_id(find_id) for find_id in finding_ids)
+            )
+        )
 
 
 async def _get_historic_verification(
