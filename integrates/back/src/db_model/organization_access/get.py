@@ -27,18 +27,15 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
 async def _get_organization_access(
-    *, requests: tuple[OrganizationAccessRequest, ...]
-) -> tuple[OrganizationAccess, ...]:
-    requests = tuple(
+    *, requests: list[OrganizationAccessRequest]
+) -> list[OrganizationAccess]:
+    requests = [
         request._replace(email=request.email.lower().strip())
         for request in requests
-    )
+    ]
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["organization_access"],
@@ -60,7 +57,7 @@ async def _get_organization_access(
                 format_organization_access(item) for item in items
             )
         }
-        return tuple(response[request] for request in requests)
+        return [response[request] for request in requests]
 
     raise StakeholderNotInOrganization()
 
@@ -69,7 +66,7 @@ async def _get_organization_stakeholders_access(
     *,
     access_dataloader: DataLoader,
     organization_id: str,
-) -> tuple[OrganizationAccess, ...]:
+) -> list[OrganizationAccess]:
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
         values={
@@ -102,14 +99,14 @@ async def _get_organization_stakeholders_access(
             access,
         )
 
-    return tuple(access_list)
+    return access_list
 
 
 async def _get_stakeholder_organizations_access(
     *,
     access_dataloader: DataLoader,
     email: str,
-) -> tuple[OrganizationAccess, ...]:
+) -> list[OrganizationAccess]:
     email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_access"],
@@ -139,15 +136,15 @@ async def _get_stakeholder_organizations_access(
             access,
         )
 
-    return tuple(access_list)
+    return access_list
 
 
 class OrganizationAccessLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[OrganizationAccessRequest]
-    ) -> tuple[OrganizationAccess, ...]:
-        return await _get_organization_access(requests=tuple(requests))
+        self, requests: list[OrganizationAccessRequest]
+    ) -> list[OrganizationAccess]:
+        return await _get_organization_access(requests=requests)
 
 
 class OrganizationStakeholdersAccessLoader(DataLoader):
@@ -157,15 +154,17 @@ class OrganizationStakeholdersAccessLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: Iterable[str]
-    ) -> tuple[tuple[OrganizationAccess, ...], ...]:
-        return await collect(
-            tuple(
-                _get_organization_stakeholders_access(
-                    access_dataloader=self.dataloader,
-                    organization_id=organization_id,
+        self, organization_ids: list[str]
+    ) -> list[list[OrganizationAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_organization_stakeholders_access(
+                        access_dataloader=self.dataloader,
+                        organization_id=organization_id,
+                    )
+                    for organization_id in organization_ids
                 )
-                for organization_id in organization_ids
             )
         )
 
@@ -177,14 +176,16 @@ class StakeholderOrganizationsAccessLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[tuple[OrganizationAccess, ...], ...]:
-        return await collect(
-            tuple(
-                _get_stakeholder_organizations_access(
-                    access_dataloader=self.dataloader,
-                    email=email,
+        self, emails: list[str]
+    ) -> list[list[OrganizationAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_stakeholder_organizations_access(
+                        access_dataloader=self.dataloader,
+                        email=email,
+                    )
+                    for email in emails
                 )
-                for email in emails
             )
         )

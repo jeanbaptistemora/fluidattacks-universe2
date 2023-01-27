@@ -94,7 +94,7 @@ async def test_get_stakeholder_organizations() -> None:
         await loaders.stakeholder_organizations_access.load(
             "madeupstakeholder@gmail.com"
         )
-        == ()  # NOSONAR
+        == []  # NOSONAR
     )
 
 

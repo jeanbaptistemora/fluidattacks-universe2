@@ -29,9 +29,6 @@ from db_model.enrollment.types import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organization_access.types import (
-    OrganizationAccess,
-)
 from db_model.organizations.types import (
     Organization,
 )
@@ -87,9 +84,9 @@ async def get_stakeholder_organizations(
     stakeholder: Stakeholder,
     org_ids: set,
 ) -> tuple[Organization, ...]:
-    stakeholder_orgs: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.stakeholder_organizations_access.load(stakeholder.email)
+    stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
+        stakeholder.email
+    )
     organization_ids: list[str] = [
         org.organization_id
         for org in stakeholder_orgs

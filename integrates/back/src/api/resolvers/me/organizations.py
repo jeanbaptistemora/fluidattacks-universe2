@@ -1,9 +1,6 @@
 from dataloaders import (
     Dataloaders,
 )
-from db_model.organization_access.types import (
-    OrganizationAccess,
-)
 from db_model.organizations.types import (
     Organization,
 )
@@ -25,9 +22,9 @@ async def resolve(
 ) -> tuple[Organization, ...]:
     loaders: Dataloaders = info.context.loaders
     user_email = str(parent["user_email"])
-    stakeholder_orgs: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.stakeholder_organizations_access.load(user_email)
+    stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
+        user_email
+    )
     organization_ids: list[str] = [
         org.organization_id for org in stakeholder_orgs
     ]

@@ -17,9 +17,6 @@ from db_model.group_access.types import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organization_access.types import (
-    OrganizationAccess,
-)
 from typing import (
     Callable,
 )
@@ -76,9 +73,7 @@ async def get_organization_level_enforcer(
     Return a filtered organization-level authorization
     for the provided email.
     """
-    orgs_access: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.stakeholder_organizations_access.load(email)
+    orgs_access = await loaders.stakeholder_organizations_access.load(email)
     roles = get_organization_level_roles_model(email)
     user_level_role = await get_user_level_role(loaders, email)
 

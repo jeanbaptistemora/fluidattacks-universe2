@@ -23,9 +23,6 @@ from db_model.group_access.types import (
     GroupAccessState,
     GroupConfirmDeletion,
 )
-from db_model.organization_access.types import (
-    OrganizationAccess,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -98,12 +95,11 @@ async def remove_stakeholder_all_organizations(
     )
 
     loaders = get_new_context()
-    organizations: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.stakeholder_organizations_access.load(email)
-
+    organizations_access = await loaders.stakeholder_organizations_access.load(
+        email
+    )
     organizations_ids: list[str] = [
-        org.organization_id for org in organizations
+        org.organization_id for org in organizations_access
     ]
     await collect(
         tuple(

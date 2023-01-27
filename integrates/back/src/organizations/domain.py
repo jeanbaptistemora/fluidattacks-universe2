@@ -528,9 +528,9 @@ async def get_stakeholder_role(
 async def get_stakeholders_emails(
     loaders: Dataloaders, organization_id: str
 ) -> list[str]:
-    stakeholders_access: tuple[
-        OrganizationAccess, ...
-    ] = await loaders.organization_stakeholders_access.load(organization_id)
+    stakeholders_access = await loaders.organization_stakeholders_access.load(
+        organization_id
+    )
 
     return [access.email for access in stakeholders_access]
 
