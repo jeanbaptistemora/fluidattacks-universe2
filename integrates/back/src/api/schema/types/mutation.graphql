@@ -1271,6 +1271,8 @@ type Mutation {
     message: String!
     "Full SHA-1 hash of the cloned repo"
     commit: String
+    "Boolean to check if Machine should be executed depending on the update"
+    queueMachine: Boolean
   ): SimplePayload!
 
   "Updates the severity of a Finding"

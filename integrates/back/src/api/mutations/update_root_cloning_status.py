@@ -12,7 +12,6 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
     RootRequest,
 )
 from decorators import (
@@ -50,18 +49,19 @@ async def mutate(
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["id"]
     commit: Optional[str] = kwargs.get("commit")
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
-    if (
-        commit is not None
-        and isinstance(root, GitRoot)
-        and commit != root.cloning.commit
-    ):
-        await queue_job_new(
-            group_name=group_name,
-            dataloaders=loaders,
-            finding_codes=tuple(FINDINGS.keys()),
-            roots=[root.state.nickname],
+    queue_machine: bool = kwargs.get("queue_machine", False)
+    root = await loaders.root.load(RootRequest(group_name, root_id))
+    if commit is not None and queue_machine and isinstance(root, GitRoot):
+        last_commit = await roots_domain.get_commit_last_sucessful_clone(
+            loaders=loaders, root=root
         )
+        if commit != last_commit:
+            await queue_job_new(
+                group_name=group_name,
+                dataloaders=loaders,
+                finding_codes=tuple(FINDINGS.keys()),
+                roots=[root.state.nickname],
+            )
 
     await roots_domain.update_root_cloning_status(
         loaders=loaders,

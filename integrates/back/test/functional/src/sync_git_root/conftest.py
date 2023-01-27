@@ -38,14 +38,18 @@ async def populate(generic_data: dict[str, Any]) -> bool:
         "actions": (
             {
                 "action_name": "clone_roots",
-                "additional_info": "nickname5",
+                "additional_info": (
+                    '{"group_name": "group1", "roots": ["nickname5"]}'
+                ),
                 "entity": "group1",
                 "subject": "admin@gmail.com",
                 "time": "1644596859",
             },
             {
                 "action_name": "clone_roots",
-                "additional_info": "nickname5",
+                "additional_info": (
+                    '{"group_name": "group1", "roots": ["nickname5"]}'
+                ),
                 "entity": "group1",
                 "subject": "admin@gmail.com",
                 "time": "1644596852",

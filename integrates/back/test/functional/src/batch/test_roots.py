@@ -158,7 +158,9 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
                 entity="group1",
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
-                additional_info="nickname1",
+                additional_info=(
+                    '{"group_name": "group1", "roots": ["nickname1"]}'
+                ),
                 queue="small",
                 batch_job_id="1",
                 running=False,
@@ -348,7 +350,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
                 additional_info=(
-                    "nickname1,nickname2,nickname3,nickname6,nickname8"
+                    '{"group_name": "group1", '
+                    '"roots": ["nickname1", "nickname2", "nickname3", '
+                    '"nickname6", "nickname8"]}'
                 ),
                 queue="small",
                 batch_job_id="1",
@@ -360,7 +364,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                 entity="group1",
                 subject=generic_data["global_vars"]["admin_email"],
                 time="1",
-                additional_info="nickname1",
+                additional_info=(
+                    '{"group_name": "group1", "roots": ["nickname1"]}'
+                ),
                 queue="small",
                 batch_job_id="1",
                 running=True,
@@ -402,7 +408,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info=(
-                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                        '{"group_name": "group1", '
+                        '"roots": ["nickname1", "nickname2", "nickname3", '
+                        '"nickname6", "nickname8"]}'
                     ),
                     queue="small",
                     batch_job_id="1",
@@ -420,7 +428,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info=(
-                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                        '{"group_name": "group1", '
+                        '"roots": ["nickname1", "nickname2", "nickname3", '
+                        '"nickname6", "nickname8"]}'
                     ),
                     queue="small",
                     batch_job_id="1",
@@ -438,7 +448,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     subject="any",
                     time="1",
                     additional_info=(
-                        "nickname1,nickname2,nickname3,nickname6,nickname8"
+                        '{"group_name": "group1", '
+                        '"roots": ["nickname1", "nickname2", "nickname3", '
+                        '"nickname6", "nickname8"]}'
                     ),
                     queue="small",
                     batch_job_id="1",
@@ -450,7 +462,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1",
+                    additional_info=(
+                        '{"group_name": "group1", "roots": ["nickname1"]}'
+                    ),
                     queue="small",
                     batch_job_id="1",
                     running=True,
@@ -466,7 +480,9 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1",
+                    additional_info=(
+                        '{"group_name": "group1", "roots": ["nickname1"]}'
+                    ),
                     queue="small",
                     batch_job_id="1",
                     running=True,
@@ -482,7 +498,10 @@ async def test_queue_sync_git_roots_already_in_queue_running(
                     entity="group1",
                     subject="any",
                     time="1",
-                    additional_info="nickname1,nickname2",
+                    additional_info=(
+                        '{"group_name": "group1", '
+                        '"roots": ["nickname1", "nickname2"]}'
+                    ),
                     queue="small",
                     batch_job_id="1",
                     running=False,

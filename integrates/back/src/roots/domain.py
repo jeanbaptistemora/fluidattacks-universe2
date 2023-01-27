@@ -1932,7 +1932,10 @@ async def _filter_roots_already_in_queue(
     clone_queue = await get_actions_by_name("clone_roots", group_name)
     root_nicknames_in_queue = set(
         chain.from_iterable(
-            [clone_job.additional_info.split(",") for clone_job in clone_queue]
+            [
+                json.loads(clone_job.additional_info)["roots"]
+                for clone_job in clone_queue
+            ]
         )
     )
     valid_roots: tuple[GitRoot, ...] = tuple(
@@ -1964,12 +1967,20 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
             if root.state.credential_id is not None
         ]
     )
+    roots_last_commits = await collect(
+        (
+            get_commit_last_sucessful_clone(loaders=loaders, root=root)
+            for root in roots
+        ),
+        workers=15,
+    )
 
     last_root_commits_in_s3: tuple[
-        tuple[GitRoot, Optional[str], bool], ...
+        tuple[GitRoot, Optional[str], Optional[str], bool], ...
     ] = tuple(
         zip(
             roots,
+            roots_last_commits,
             tuple(
                 await collect(
                     _ls_remote_root(root, credential, loaders)
@@ -1984,9 +1995,9 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         )
     )
 
-    roots_with_issues: tuple[GitRoot, ...] = tuple(
-        root
-        for root, commit, _ in last_root_commits_in_s3
+    roots_with_issues: tuple[tuple[GitRoot, Optional[str]], ...] = tuple(
+        (root, last_commit)
+        for root, last_commit, commit, _ in last_root_commits_in_s3
         if commit is None and not root.state.use_vpn
     )
     await collect(
@@ -1997,18 +2008,23 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
                 root_id=root.id,
                 status=GitCloningStatus.FAILED,
                 message="Credentials does not work",
-                commit=root.cloning.commit,
+                commit=last_commit,
             )
-            for root in roots_with_issues
+            for root, last_commit in roots_with_issues
         ]
     )
 
-    unchanged_roots: tuple[GitRoot, ...] = tuple(
-        root
-        for root, commit, has_mirror_in_s3 in last_root_commits_in_s3
+    unchanged_roots: tuple[tuple[GitRoot, Optional[str]], ...] = tuple(
+        (root, last_commit)
+        for (
+            root,
+            last_commit,
+            commit,
+            has_mirror_in_s3,
+        ) in last_root_commits_in_s3
         if (
             commit is not None
-            and commit == root.cloning.commit
+            and commit == last_commit
             and has_mirror_in_s3
             and force is False
         )
@@ -2021,21 +2037,24 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
                 root_id=root.id,
                 status=root.cloning.status,
                 message=root.cloning.reason,
-                commit=root.cloning.commit,
+                commit=last_commit,
             )
-            for root in unchanged_roots
+            for root, last_commit in unchanged_roots
         ]
     )
 
     valid_roots = tuple(
         root
-        for root, commit, has_mirror_in_s3 in last_root_commits_in_s3
+        for (
+            root,
+            last_commit,
+            commit,
+            has_mirror_in_s3,
+        ) in last_root_commits_in_s3
         if (
             commit is not None
             and (
-                commit != root.cloning.commit
-                or not has_mirror_in_s3
-                or force is True
+                commit != last_commit or not has_mirror_in_s3 or force is True
             )
         )
         or (queue_with_vpn and root.state.use_vpn)
@@ -2151,3 +2170,19 @@ async def queue_sync_git_roots(
 
         return result_clone
     return None
+
+
+async def get_commit_last_sucessful_clone(
+    loaders: Dataloaders, root: GitRoot
+) -> Optional[str]:
+    commit = root.cloning.commit
+    if commit is None:
+        clone_history: list[
+            GitRootCloning
+        ] = await loaders.root_historic_cloning.load(root.id)
+        for clone_state in reversed(clone_history):
+            if clone_state.status == GitCloningStatus.OK:
+                commit = clone_state.commit
+                break
+
+    return commit
