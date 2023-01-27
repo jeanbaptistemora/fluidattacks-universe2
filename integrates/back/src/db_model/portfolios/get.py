@@ -22,7 +22,6 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -31,13 +30,12 @@ async def _get_organization_portfolios(
     *,
     organization_name: str,
     portfolio_dataloader: DataLoader,
-) -> tuple[Portfolio, ...]:
+) -> list[Portfolio]:
     organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["portfolio_metadata"],
         values={"name": organization_name},
     )
-
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
     response = await operations.query(
@@ -64,7 +62,7 @@ async def _get_organization_portfolios(
             portfolio,
         )
 
-    return tuple(portfolio_list)
+    return portfolio_list
 
 
 async def _get_portfolios(
@@ -106,10 +104,10 @@ class OrganizationPortfoliosLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_names: Iterable[str]
-    ) -> tuple[tuple[Portfolio, ...], ...]:
-        return await collect(
-            tuple(
+        self, organization_names: list[str]
+    ) -> list[list[Portfolio]]:
+        return list(
+            await collect(
                 _get_organization_portfolios(
                     organization_name=organization_name,
                     portfolio_dataloader=self.dataloader,

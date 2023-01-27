@@ -8,9 +8,6 @@ from dataloaders import (
 from db_model.groups.enums import (
     GroupSubscriptionType,
 )
-from db_model.portfolios.types import (
-    Portfolio,
-)
 from decimal import (
     Decimal,
     ROUND_CEILING,
@@ -56,9 +53,7 @@ def get_result_path(name: str) -> str:
 
 async def get_portfolios_groups(org_name: str) -> list[PortfoliosGroups]:
     loaders: Dataloaders = get_new_context()
-    portfolios: tuple[
-        Portfolio, ...
-    ] = await loaders.organization_portfolios.load(org_name)
+    portfolios = await loaders.organization_portfolios.load(org_name)
 
     return [
         PortfoliosGroups(

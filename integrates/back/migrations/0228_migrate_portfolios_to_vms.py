@@ -17,9 +17,6 @@ from dataloaders import (
 from db_model import (
     portfolios as portfolios_model,
 )
-from db_model.portfolios.types import (
-    Portfolio,
-)
 import logging
 import logging.config
 from organizations import (
@@ -41,9 +38,9 @@ async def process_organization(
     loaders: Dataloaders,
     organization_name: str,
 ) -> None:
-    org_portfolios: tuple[
-        Portfolio, ...
-    ] = await loaders.organization_portfolios.load(organization_name)
+    org_portfolios = await loaders.organization_portfolios.load(
+        organization_name
+    )
 
     await collect(
         tuple(

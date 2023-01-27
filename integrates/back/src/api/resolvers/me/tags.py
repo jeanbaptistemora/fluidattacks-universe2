@@ -24,14 +24,13 @@ from groups import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 @convert_kwargs_to_snake_case
 @require_organization_access
 async def resolve(
-    parent: Dict[str, Any],
+    parent: dict[str, Any],
     info: GraphQLResolveInfo,
     **kwargs: str,
 ) -> list[Portfolio]:
@@ -44,9 +43,7 @@ async def resolve(
     organization: Organization = await organization_loader.load(
         organization_id
     )
-    org_tags: tuple[Portfolio, ...] = await organization_tags_loader.load(
-        organization.name
-    )
+    org_tags = await organization_tags_loader.load(organization.name)
     user_groups = await groups_domain.get_groups_by_stakeholder(
         loaders, user_email, organization_id=organization_id
     )
