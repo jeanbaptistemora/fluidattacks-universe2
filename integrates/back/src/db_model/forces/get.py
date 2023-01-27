@@ -27,7 +27,7 @@ from dynamodb import (
 )
 from typing import (
     Iterable,
-    Union,
+    Optional,
 )
 
 
@@ -73,8 +73,8 @@ async def _get_group_executions(
 
 
 async def _get_executions(
-    *, requests: Iterable[ForcesExecutionRequest]
-) -> Union[tuple[ForcesExecution, ...], None]:
+    *, requests: list[ForcesExecutionRequest]
+) -> list[Optional[ForcesExecution]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["forces_execution"],
@@ -84,25 +84,20 @@ async def _get_executions(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):  # type: ignore
-        response = {
-            ForcesExecutionRequest(
-                group_name=execution.group_name, execution_id=execution.id
-            ): execution
-            for execution in tuple(
-                format_forces_execution(item) for item in items
-            )
-        }
-        return tuple(response[request] for request in requests)
-
-    return None
+    response = {
+        ForcesExecutionRequest(
+            group_name=execution.group_name, execution_id=execution.id
+        ): execution
+        for execution in [format_forces_execution(item) for item in items]
+    }
+    return list(response[request] for request in requests)
 
 
 class ForcesExecutionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[ForcesExecutionRequest]
-    ) -> Union[tuple[ForcesExecution, ...], None]:
+        self, requests: list[ForcesExecutionRequest]
+    ) -> list[Optional[ForcesExecution]]:
         return await _get_executions(requests=requests)
 
 
