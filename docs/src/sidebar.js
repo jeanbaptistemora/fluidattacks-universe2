@@ -153,6 +153,7 @@ const About = [
       "about/compare/veracode",
     ],
   },
+  "about/awareness",
 ];
 
 const Criteria = [
