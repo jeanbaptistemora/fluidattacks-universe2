@@ -61,9 +61,9 @@ async def get_finding_policy_by_name(
     finding_name: str,
     organization_name: str,
 ) -> Optional[OrgFindingPolicy]:
-    org_finding_policies: tuple[
-        OrgFindingPolicy, ...
-    ] = await loaders.organization_finding_policies.load(organization_name)
+    org_finding_policies = await loaders.organization_finding_policies.load(
+        organization_name
+    )
 
     return next(
         (

@@ -49,7 +49,7 @@ async def test_get_finding_policies_by_org_name() -> None:
     org_findings_policies = await loaders.organization_finding_policies.load(
         org_name
     )
-    assert org_findings_policies == (
+    assert org_findings_policies == [
         OrgFindingPolicy(
             id="8b35ae2a-56a1-4f64-9da7-6a552683bf46",
             organization_name="okada",
@@ -63,4 +63,4 @@ async def test_get_finding_policies_by_org_name() -> None:
             ),
             tags=set(),
         ),
-    )
+    ]

@@ -22,7 +22,6 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -60,7 +59,7 @@ async def _get_organization_finding_policies(
     *,
     policy_dataloader: DataLoader,
     organization_name: str,
-) -> tuple[OrgFindingPolicy, ...]:
+) -> list[OrgFindingPolicy]:
     primary_key = keys.build_key(
         facet=TABLE.facets["org_finding_policy_metadata"],
         values={
@@ -93,7 +92,7 @@ async def _get_organization_finding_policies(
             policy,
         )
 
-    return tuple(policies_list)
+    return policies_list
 
 
 class OrganizationFindingPolicyLoader(DataLoader):
@@ -111,10 +110,10 @@ class OrganizationFindingPoliciesLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_names: Iterable[str]
-    ) -> tuple[tuple[OrgFindingPolicy, ...], ...]:
-        return await collect(
-            tuple(
+        self, organization_names: list[str]
+    ) -> list[list[OrgFindingPolicy]]:
+        return list(
+            await collect(
                 _get_organization_finding_policies(
                     policy_dataloader=self.dataloader,
                     organization_name=organization_name,

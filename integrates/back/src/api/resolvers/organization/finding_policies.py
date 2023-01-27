@@ -27,9 +27,9 @@ class OrgFindingPolicyApi(NamedTuple):
 
 
 def _format_policies_for_resolver(
-    finding_policies: tuple[OrgFindingPolicy, ...]
-) -> tuple[OrgFindingPolicyApi, ...]:
-    return tuple(
+    finding_policies: list[OrgFindingPolicy],
+) -> list[OrgFindingPolicyApi]:
+    return [
         OrgFindingPolicyApi(
             id=policy.id,
             last_status_update=policy.state.modified_date,
@@ -38,14 +38,14 @@ def _format_policies_for_resolver(
             tags=set(policy.tags),
         )
         for policy in finding_policies
-    )
+    ]
 
 
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[OrgFindingPolicyApi, ...]:
+) -> list[OrgFindingPolicyApi]:
     loaders: Dataloaders = info.context.loaders
     finding_policies = await loaders.organization_finding_policies.load(
         parent.name
