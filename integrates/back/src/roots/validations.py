@@ -435,9 +435,10 @@ async def get_cred_token(
     credential_id: str,
     organization_id: str,
     loaders: Dataloaders,
+    credential: Optional[Credentials] = None,
 ) -> Optional[str]:
     token: Optional[str] = None
-    _credential: Credentials = await loaders.credentials.load(
+    _credential: Credentials = credential or await loaders.credentials.load(
         CredentialsRequest(
             id=credential_id,
             organization_id=organization_id,

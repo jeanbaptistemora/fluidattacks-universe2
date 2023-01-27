@@ -394,12 +394,10 @@ async def test_get_organization_ver_1(
     org_name: str = "orgtest"
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result: dict[str, Any] = await get_result(
             user=email, org=org_id, should_get_token=True
@@ -562,12 +560,10 @@ async def test_get_organization_ver_1(
 
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result = await get_result(user=email, org=org_id)
     assert "errors" not in result
@@ -638,12 +634,10 @@ async def test_get_organization_ver_2(
     ]
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
@@ -819,12 +813,10 @@ async def test_get_organization_ver_2(
 
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result = await get_result(user=email, org=org_id)
     assert "errors" not in result
@@ -918,12 +910,10 @@ async def test_get_organization_ver_2(
 
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result = await get_result(user=email, org=org_id)
     assert "errors" not in result
@@ -961,12 +951,10 @@ async def test_get_organization_ver_3(
     ]
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
@@ -1003,12 +991,10 @@ async def test_get_organization_default_values(
     ]
     with (
         mock.patch(
-            "api.resolvers.credentials.token.get_azure_token",
+            "roots.validations.get_azure_token",
             side_effect=get_azure_token,
         ),
-        mock.patch(
-            "api.resolvers.credentials.token.get_token", side_effect=get_token
-        ),
+        mock.patch("roots.validations.get_token", side_effect=get_token),
     ):
         result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
