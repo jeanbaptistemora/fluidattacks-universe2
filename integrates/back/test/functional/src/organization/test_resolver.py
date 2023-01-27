@@ -41,9 +41,6 @@ from db_model.credentials.types import (
 from db_model.credentials.update import (
     update_credential_state,
 )
-from db_model.integration_repositories.types import (
-    OrganizationIntegrationRepository,
-)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -453,10 +450,10 @@ async def test_get_organization_ver_1(
     )
 
     loaders: Dataloaders = get_new_context()
-    current_repositories: tuple[
-        OrganizationIntegrationRepository, ...
-    ] = await loaders.organization_unreliable_integration_repositories.load(
-        (org_id, None, None)
+    current_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (org_id, None, None)
+        )
     )
     assert len(current_repositories) == 1
     assert (
@@ -721,10 +718,10 @@ async def test_get_organization_ver_2(
     assert result["data"]["organization"]["credentials"][5]["oauthType"] == ""
 
     loaders: Dataloaders = get_new_context()
-    current_repositories: tuple[
-        OrganizationIntegrationRepository, ...
-    ] = await loaders.organization_unreliable_integration_repositories.load(
-        (org_id, None, None)
+    current_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (org_id, None, None)
+        )
     )
     assert len(current_repositories) == 2
 
@@ -912,10 +909,10 @@ async def test_get_organization_ver_2(
     loaders.organization_credentials.clear_all()
     loaders.group_roots.clear_all()
 
-    updated_repositories: tuple[
-        OrganizationIntegrationRepository, ...
-    ] = await loaders.organization_unreliable_integration_repositories.load(
-        (org_id, None, None)
+    updated_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (org_id, None, None)
+        )
     )
     assert len(updated_repositories) == 0
 

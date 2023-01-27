@@ -27,7 +27,6 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -36,7 +35,7 @@ async def _get_unreliable_integration_repositories(
     organization_id: str,
     url_id: Optional[str] = None,
     branch: Optional[str] = None,
-) -> tuple[OrganizationIntegrationRepository, ...]:
+) -> list[OrganizationIntegrationRepository]:
     organization_id = remove_org_id_prefix(organization_id)
     key_structure = TABLE.primary_key
     primary_key = keys.build_key(
@@ -65,12 +64,12 @@ async def _get_unreliable_integration_repositories(
     )
 
     if not response.items:
-        return tuple()
+        return []
 
-    return tuple(
+    return [
         format_organization_integration_repository(item)
         for item in response.items
-    )
+    ]
 
 
 async def _get_organization_unreliable_integration_repositories(
@@ -114,16 +113,18 @@ async def _get_organization_unreliable_integration_repositories(
 class OrganizationUnreliableRepositoriesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: Iterable[tuple[str, str, str]]
-    ) -> tuple[tuple[OrganizationIntegrationRepository, ...], ...]:
-        return await collect(
-            tuple(
-                _get_unreliable_integration_repositories(
-                    organization_id=organization_id,
-                    url_id=url_id,
-                    branch=branch,
+        self, ids: list[tuple[str, str, str]]
+    ) -> list[list[OrganizationIntegrationRepository]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_unreliable_integration_repositories(
+                        organization_id=organization_id,
+                        url_id=url_id,
+                        branch=branch,
+                    )
+                    for organization_id, url_id, branch in ids
                 )
-                for organization_id, url_id, branch in ids
             )
         )
 
@@ -131,11 +132,15 @@ class OrganizationUnreliableRepositoriesLoader(DataLoader):
 class OrganizationUnreliableRepositoriesConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: tuple[OrganizationIntegrationRepositoryRequest, ...]
-    ) -> tuple[OrganizationIntegrationRepositoryConnection, ...]:
-        return await collect(
-            tuple(
-                _get_organization_unreliable_integration_repositories(request)
-                for request in requests
+        self, requests: list[OrganizationIntegrationRepositoryRequest]
+    ) -> list[OrganizationIntegrationRepositoryConnection]:
+        return list(
+            await collect(
+                tuple(
+                    _get_organization_unreliable_integration_repositories(
+                        request
+                    )
+                    for request in requests
+                )
             )
         )

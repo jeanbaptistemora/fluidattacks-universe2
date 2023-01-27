@@ -706,10 +706,10 @@ async def _remove(
     valid_repositories_ids: set[str],
     loaders: Dataloaders,
 ) -> None:
-    current_unreliable_repositories: tuple[
-        OrganizationIntegrationRepository, ...
-    ] = await loaders.organization_unreliable_integration_repositories.load(
-        (organization_id, None, None)
+    current_unreliable_repositories = (
+        await loaders.organization_unreliable_integration_repositories.load(
+            (organization_id, None, None)
+        )
     )
     to_remove: tuple[OrganizationIntegrationRepository, ...] = tuple(
         repository

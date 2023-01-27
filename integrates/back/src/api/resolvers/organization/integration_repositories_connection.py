@@ -22,16 +22,16 @@ async def resolve(
     after: Optional[str] = None,
     first: Optional[int] = None,
     **_kwargs: None,
-) -> tuple[OrganizationIntegrationRepositoryConnection, ...]:
+) -> list[OrganizationIntegrationRepositoryConnection]:
     loaders: Dataloaders = info.context.loaders
-    current_repositories: tuple[
-        OrganizationIntegrationRepositoryConnection, ...
-    ] = await loaders.organization_unreliable_integration_repositories_c.load(
-        OrganizationIntegrationRepositoryRequest(
-            organization_id=parent.id,
-            after=after,
-            first=first,
-            paginate=True,
+    current_repositories = (
+        await loaders.organization_unreliable_integration_repositories_c.load(
+            OrganizationIntegrationRepositoryRequest(
+                organization_id=parent.id,
+                after=after,
+                first=first,
+                paginate=True,
+            )
         )
     )
 
