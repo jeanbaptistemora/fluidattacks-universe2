@@ -1,4 +1,5 @@
 from lib_root.utilities.json import (
+    get_value,
     is_parent,
 )
 from model.core_model import (
@@ -22,11 +23,6 @@ from typing import (
 from utils import (
     graph as g,
 )
-
-
-def get_value(graph: Graph, nid: NId) -> str:
-    value = graph.nodes[nid]["value"] if graph.nodes[nid].get("value") else ""
-    return value
 
 
 def has_password(value: str) -> bool:

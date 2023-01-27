@@ -42,11 +42,6 @@ def has_wildcard(graph: Graph, nid: NId, key_dict: str, value_id: NId) -> bool:
     return False
 
 
-def get_value(graph: Graph, nid: NId) -> str:
-    value = graph.nodes[nid]["value"] if graph.nodes[nid].get("value") else ""
-    return value
-
-
 def wildcard_in_allowed_origins(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

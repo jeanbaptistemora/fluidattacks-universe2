@@ -13,6 +13,11 @@ from utils.graph import (
 )
 
 
+def get_value(graph: Graph, nid: NId) -> str:
+    value = graph.nodes[nid]["value"] if graph.nodes[nid].get("value") else ""
+    return value
+
+
 def is_parent(graph: Graph, nid: NId, parents: List[str]) -> bool:
     last_nid = nid
     for correct_parent in parents:

@@ -1,4 +1,5 @@
 from lib_root.utilities.json import (
+    get_value,
     is_parent,
 )
 from model.core_model import (
@@ -32,11 +33,6 @@ def is_in_path(graph: Graph, nid: NId, key_pair: str, value: str) -> bool:
     ):
         return True
     return False
-
-
-def get_value(graph: Graph, nid: NId) -> str:
-    value = graph.nodes[nid]["value"] if graph.nodes[nid].get("value") else ""
-    return value
 
 
 def principal_wildcard(
