@@ -97,9 +97,12 @@ def _iterate_locations(
             ),
         ]
 
-    if "CacheBehaviors" in distribution_config:
-        cache_behaviors = distribution_config["CacheBehaviors"]
-        for index, cache_b in enumerate(cache_behaviors):
+    if (
+        "CacheBehaviors" in distribution_config
+        and (cache_behaviors := distribution_config["CacheBehaviors"])
+        and cache_behaviors["Quantity"] > 0
+    ):
+        for index, cache_b in enumerate(cache_behaviors["Items"]):
             if (
                 "ViewerProtocolPolicy" in cache_b
                 and cache_b["ViewerProtocolPolicy"] == "allow-all"
@@ -114,8 +117,8 @@ def _iterate_locations(
                         values=(def_cache_beh["ViewerProtocolPolicy"],),
                         access_patterns=(
                             (
-                                f"/DistributionConfig/{index}/"
-                                "CacheBehaviors/ViewerProtocolPolicy"
+                                "/DistributionConfig/CacheBehaviors/"
+                                f"Items/{index}/ViewerProtocolPolicy"
                             ),
                         ),
                     ),

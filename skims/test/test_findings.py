@@ -10,6 +10,7 @@ from test.data.lib_dast import (
     f031,
     f325,
     f333,
+    f372,
     f400,
 )
 from test.test_z_functional import (
@@ -28,6 +29,7 @@ MOCKERS: dict[str, Callable] = {
     "F031": f031.mock_data,
     "F325": f325.mock_data,
     "F333": f333.mock_data,
+    "F372": f372.mock_data,
     "F400": f400.mock_data,
 }
 
@@ -179,6 +181,12 @@ def test_f325(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f333")
 def test_f333(mocker: MockerFixture) -> None:
     run_finding("F333", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f372")
+def test_f372(mocker: MockerFixture) -> None:
+    run_finding("F372", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
