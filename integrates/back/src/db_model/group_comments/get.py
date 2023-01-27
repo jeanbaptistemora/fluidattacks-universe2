@@ -20,12 +20,9 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
-async def _get_comments(*, group_name: str) -> tuple[GroupComment, ...]:
+async def _get_comments(*, group_name: str) -> list[GroupComment]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_comment"],
         values={"name": group_name},
@@ -43,17 +40,19 @@ async def _get_comments(*, group_name: str) -> tuple[GroupComment, ...]:
         table=TABLE,
     )
 
-    return tuple(format_group_comments(item) for item in response.items)
+    return [format_group_comments(item) for item in response.items]
 
 
 class GroupCommentsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> tuple[tuple[GroupComment, ...], ...]:
-        return await collect(
-            tuple(
-                _get_comments(group_name=group_name)
-                for group_name in group_names
+        self, group_names: list[str]
+    ) -> list[list[GroupComment]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_comments(group_name=group_name)
+                    for group_name in group_names
+                )
             )
         )

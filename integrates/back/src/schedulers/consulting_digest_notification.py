@@ -121,7 +121,7 @@ async def group_comments(
     loaders: Dataloaders, group_name: str
 ) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments = await loaders.group_comments.load(group_name)
-    return last_comments(comments)
+    return last_comments(tuple(comments))
 
 
 async def instance_comments(

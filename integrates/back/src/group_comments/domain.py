@@ -52,11 +52,11 @@ async def get_comments(
     loaders: Dataloaders, group_name: str, email: str
 ) -> tuple[GroupComment, ...]:
     enforcer = await authz.get_group_level_enforcer(loaders, email)
-    comments: tuple[GroupComment, ...] = await loaders.group_comments.load(
+    comments: list[GroupComment] = await loaders.group_comments.load(
         group_name
     )
 
     if enforcer(group_name, "handle_comment_scope"):
-        return comments
+        return tuple(comments)
 
     return tuple(filter(is_scope_comment, comments))
