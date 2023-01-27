@@ -154,9 +154,7 @@ from settings.various import (
 from typing import (
     Any,
     DefaultDict,
-    Dict,
     Optional,
-    Tuple,
     Union,
 )
 from urllib3.exceptions import (
@@ -1762,9 +1760,7 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
 async def remove_environment_url_id(
     *, loaders: Dataloaders, root_id: str, url_id: str
 ) -> str:
-    urls: tuple[
-        RootEnvironmentUrl, ...
-    ] = await loaders.root_environment_urls.load((root_id))
+    urls = await loaders.root_environment_urls.load(root_id)
     url: Optional[str] = next(
         (env_url.url for env_url in urls if env_url.id == url_id),
         None,
@@ -1880,9 +1876,9 @@ async def _ls_remote_root(
 
 
 def _filter_active_roots_with_credentials(
-    roots: Tuple[GitRoot, ...], use_vpn: bool
-) -> Tuple[GitRoot, ...]:
-    valid_roots: Tuple[GitRoot, ...] = tuple(
+    roots: tuple[GitRoot, ...], use_vpn: bool
+) -> tuple[GitRoot, ...]:
+    valid_roots: tuple[GitRoot, ...] = tuple(
         root
         for root in roots
         if (
@@ -1897,12 +1893,12 @@ def _filter_active_roots_with_credentials(
 
 
 async def _filter_roots_unsolved_events(
-    roots: Tuple[GitRoot, ...], loaders: Dataloaders, group_name: str
-) -> Tuple[GitRoot, ...]:
-    unsolved_events_by_root: Dict[
-        str, Tuple[Event, ...]
+    roots: tuple[GitRoot, ...], loaders: Dataloaders, group_name: str
+) -> tuple[GitRoot, ...]:
+    unsolved_events_by_root: dict[
+        str, tuple[Event, ...]
     ] = await get_unsolved_events_by_root(loaders, group_name)
-    roots_with_unsolved_events: Tuple[str, ...] = tuple(
+    roots_with_unsolved_events: tuple[str, ...] = tuple(
         root.id for root in roots if root.id in unsolved_events_by_root
     )
     await collect(
@@ -1924,15 +1920,15 @@ async def _filter_roots_unsolved_events(
 
 
 async def _filter_roots_already_in_queue(
-    roots: Tuple[GitRoot, ...], group_name: str
-) -> Tuple[GitRoot, ...]:
+    roots: tuple[GitRoot, ...], group_name: str
+) -> tuple[GitRoot, ...]:
     clone_queue = await get_actions_by_name("clone_roots", group_name)
     root_nicknames_in_queue = set(
         chain.from_iterable(
             [clone_job.additional_info.split(",") for clone_job in clone_queue]
         )
     )
-    valid_roots: Tuple[GitRoot, ...] = tuple(
+    valid_roots: tuple[GitRoot, ...] = tuple(
         root
         for root in roots
         if root.state.nickname not in root_nicknames_in_queue
@@ -1944,13 +1940,13 @@ async def _filter_roots_already_in_queue(
 
 
 async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
-    roots: Tuple[GitRoot, ...],
+    roots: tuple[GitRoot, ...],
     loaders: Dataloaders,
     group_name: str,
     organization_id: str,
     force: bool,
     queue_with_vpn: bool,
-) -> Tuple[GitRoot, ...]:
+) -> tuple[GitRoot, ...]:
     roots_credentials = await loaders.credentials.load_many(
         [
             CredentialsRequest(
@@ -1962,8 +1958,8 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         ]
     )
 
-    last_root_commits_in_s3: Tuple[
-        Tuple[GitRoot, Optional[str], bool], ...
+    last_root_commits_in_s3: tuple[
+        tuple[GitRoot, Optional[str], bool], ...
     ] = tuple(
         zip(
             roots,
@@ -1981,7 +1977,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         )
     )
 
-    roots_with_issues: Tuple[GitRoot, ...] = tuple(
+    roots_with_issues: tuple[GitRoot, ...] = tuple(
         root
         for root, commit, _ in last_root_commits_in_s3
         if commit is None and not root.state.use_vpn
@@ -2000,7 +1996,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         ]
     )
 
-    unchanged_roots: Tuple[GitRoot, ...] = tuple(
+    unchanged_roots: tuple[GitRoot, ...] = tuple(
         root
         for root, commit, has_mirror_in_s3 in last_root_commits_in_s3
         if (
@@ -2046,7 +2042,7 @@ async def queue_sync_git_roots(
     loaders: Dataloaders,
     user_email: str,
     group_name: str,
-    roots: Optional[Tuple[GitRoot, ...]] = None,
+    roots: Optional[tuple[GitRoot, ...]] = None,
     check_existing_jobs: bool = True,
     force: bool = False,
     queue_with_vpn: bool = False,

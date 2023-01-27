@@ -15,7 +15,6 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRoot,
-    RootEnvironmentUrl,
 )
 import logging
 import logging.config
@@ -56,9 +55,9 @@ async def main() -> None:
         for root in roots:
             if not isinstance(root, GitRoot):
                 continue
-            environment_urls: list[
-                RootEnvironmentUrl
-            ] = await loaders.root_environment_urls.load(root.id)
+            environment_urls = await loaders.root_environment_urls.load(
+                root.id
+            )
             await collect(
                 [
                     add_root_environment_url(

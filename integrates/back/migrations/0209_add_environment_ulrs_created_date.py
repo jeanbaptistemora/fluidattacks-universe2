@@ -17,7 +17,6 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRootItem,
-    RootEnvironmentUrl,
 )
 from groups.dal import (  # pylint: disable=import-error
     get_all as get_all_groups,
@@ -62,9 +61,9 @@ async def main() -> None:
         for root in roots:
             if not isinstance(root, GitRootItem):
                 continue
-            environment_urls: list[
-                RootEnvironmentUrl
-            ] = await loaders.root_environment_urls.load(root.id)
+            environment_urls = await loaders.root_environment_urls.load(
+                root.id
+            )
             await collect(
                 [
                     add_root_environment_url(

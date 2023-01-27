@@ -32,7 +32,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -68,7 +67,7 @@ async def _send_mail_report(
         )
         in ["customer_manager", "user_manager", "vulnerability_manager"]
     ]
-    context: Dict[str, Any] = {
+    context: dict[str, Any] = {
         "group": group,
         "group_date": group_date_delta,
     }

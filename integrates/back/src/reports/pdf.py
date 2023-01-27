@@ -190,9 +190,7 @@ def _format_url(root_url: RootEnvironmentUrl) -> str:
 
 
 async def _get_urls(loaders: Dataloaders, root_id: str) -> Tuple[str, ...]:
-    urls: tuple[
-        RootEnvironmentUrl, ...
-    ] = await loaders.root_environment_urls.load((root_id))
+    urls = await loaders.root_environment_urls.load((root_id))
 
     return tuple(_format_url(url) for url in urls)
 

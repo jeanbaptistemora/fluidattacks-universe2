@@ -65,7 +65,6 @@ from roots import (
 from typing import (
     Any,
     Callable,
-    cast,
     Optional,
     Union,
 )
@@ -289,7 +288,7 @@ def validate_active_root_deco(root_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            root = cast(Root, kwargs.get(root_field))
+            root: Root = kwargs[root_field]
             if root.state.status == RootStatus.ACTIVE:
                 res = func(*args, **kwargs)
                 return res
@@ -315,9 +314,7 @@ async def validate_git_root_component(
 ) -> None:
     if not isinstance(root, GitRoot):
         return
-    env_urls: list[
-        RootEnvironmentUrl
-    ] = await loaders.root_environment_urls.load(root.id)
+    env_urls = await loaders.root_environment_urls.load(root.id)
     env_urls = [*env_urls, *root.state.git_environment_urls]
     if (
         component not in [x.url for x in env_urls]
@@ -399,7 +396,7 @@ def validate_git_root_deco(root_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            root = cast(Root, kwargs.get(root_field))
+            root: Root = kwargs[root_field]
             if root.type != RootType.GIT:
                 raise InvalidGitRoot()
             res = func(*args, **kwargs)

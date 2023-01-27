@@ -306,6 +306,20 @@ async def get_machine_executions(
     return result
 
 
+class RootMachineExecutionsLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: list[str]
+    ) -> list[list[RootMachineExecution]]:
+        machine_executions = await collect(
+            get_machine_executions(root_id=root_id) for root_id in root_ids
+        )
+        return list(
+            list(sorted(execution, key=lambda x: x.created_at, reverse=True))
+            for execution in machine_executions
+        )
+
+
 async def get_machine_executions_by_job_id(
     *, job_id: str, root_id: Optional[str] = None
 ) -> list[RootMachineExecution]:
@@ -359,20 +373,6 @@ async def get_machine_executions_by_job_id(
         )
         for item in response.items
     ]
-
-
-class RootMachineExecutionsLoader(DataLoader):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: list[str]
-    ) -> list[list[RootMachineExecution]]:
-        machine_executions = await collect(
-            get_machine_executions(root_id=root_id) for root_id in root_ids
-        )
-        return list(
-            list(sorted(execution, key=lambda x: x.created_at, reverse=True))
-            for execution in machine_executions
-        )
 
 
 async def get_download_url(
@@ -524,9 +524,9 @@ class GitEnvironmentSecretsLoader(DataLoader):
         )
 
 
-async def get_git_environment_urls(
+async def _get_git_environment_urls(
     *, root_id: str, url_id: Optional[str] = None
-) -> tuple[RootEnvironmentUrl, ...]:
+) -> list[RootEnvironmentUrl]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_url"],
         values={
@@ -549,7 +549,7 @@ async def get_git_environment_urls(
         facets=(TABLE.facets["root_environment_url"],),
         table=TABLE,
     )
-    return tuple(
+    return [
         RootEnvironmentUrl(
             url=item["url"],
             id=item["sk"].split("URL#")[-1],
@@ -564,7 +564,26 @@ async def get_git_environment_urls(
             else None,
         )
         for item in response.items
-    )
+    ]
+
+
+class RootEnvironmentUrlsLoader(DataLoader):
+    async def load_many_chained(
+        self, root_ids: list[str]
+    ) -> list[RootEnvironmentUrl]:
+        unchained_data = await self.load_many(root_ids)
+        return list(chain.from_iterable(unchained_data))
+
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self, root_ids: list[str]
+    ) -> list[list[RootEnvironmentUrl]]:
+        return list(
+            await collect(
+                _get_git_environment_urls(root_id=root_id)
+                for root_id in root_ids
+            )
+        )
 
 
 async def get_git_environment_url_by_id(
@@ -608,19 +627,3 @@ async def get_git_environment_url_by_id(
         if "cloud_name" in item
         else None,
     )
-
-
-class RootEnvironmentUrlsLoader(DataLoader):
-    async def load_many_chained(
-        self, root_ids: list[str]
-    ) -> tuple[RootEnvironmentUrl, ...]:
-        unchained_data = await self.load_many(root_ids)
-        return tuple(chain.from_iterable(unchained_data))
-
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: list[str]
-    ) -> tuple[tuple[RootEnvironmentUrl, ...], ...]:
-        return await collect(
-            get_git_environment_urls(root_id=root_id) for root_id in root_ids
-        )
