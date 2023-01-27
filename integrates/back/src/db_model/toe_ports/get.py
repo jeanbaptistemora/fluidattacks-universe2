@@ -43,7 +43,7 @@ from typing import (
 
 async def _get_toe_ports(
     requests: list[ToePortRequest],
-) -> Optional[list[ToePort]]:
+) -> list[Optional[ToePort]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_port_metadata"],
@@ -58,9 +58,6 @@ async def _get_toe_ports(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) != len(requests):
-        return None
-
     response = {
         ToePortRequest(
             address=toe_port.address,
@@ -68,17 +65,17 @@ async def _get_toe_ports(
             port=toe_port.port,
             root_id=toe_port.root_id,
         ): toe_port
-        for toe_port in tuple(format_toe_port(item) for item in items)
+        for toe_port in [format_toe_port(item) for item in items]
     }
 
-    return [response[request] for request in requests]
+    return list(response[request] for request in requests)
 
 
 class ToePortLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[ToePortRequest]
-    ) -> Optional[list[ToePort]]:
+    ) -> list[Optional[ToePort]]:
         return await _get_toe_ports(requests)
 
 
