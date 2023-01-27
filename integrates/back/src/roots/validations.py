@@ -51,6 +51,9 @@ from newutils.datetime import (
 from oauth.azure import (
     get_azure_token,
 )
+from oauth.bitbucket import (
+    get_bitbucket_token,
+)
 from oauth.gitlab import (
     get_token,
 )
@@ -454,6 +457,14 @@ async def get_cred_token(
             token = await get_azure_token(
                 credential=_credential, loaders=loaders
             )
+
+    if isinstance(_credential.state.secret, OauthBitbucketSecret):
+        token = _credential.state.secret.access_token
+        if _credential.state.secret.valid_until <= get_utc_now():
+            token = await get_bitbucket_token(
+                credential=_credential, loaders=loaders
+            )
+
     return token
 
 

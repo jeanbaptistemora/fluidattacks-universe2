@@ -20,6 +20,7 @@ from db_model.credentials.types import (
     HttpsPatSecret,
     HttpsSecret,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -40,6 +41,9 @@ from newutils.datetime import (
 )
 from oauth.azure import (
     get_azure_token,
+)
+from oauth.bitbucket import (
+    get_bitbucket_token,
 )
 from oauth.gitlab import (
     get_token,
@@ -66,7 +70,7 @@ cloned_repo_to_s3_tar = retry_on_exceptions(
 )(upload_cloned_repo_to_s3_tar)
 
 
-async def _get_token(
+async def _get_token(  # pylint: disable=too-many-return-statements
     *,
     credential: Credentials,
     loaders: Dataloaders,
@@ -80,6 +84,14 @@ async def _get_token(
     if isinstance(credential.state.secret, OauthAzureSecret):
         if credential.state.secret.valid_until <= get_utc_now():
             return await get_azure_token(
+                credential=credential, loaders=loaders
+            )
+
+        return credential.state.secret.access_token
+
+    if isinstance(credential.state.secret, OauthBitbucketSecret):
+        if credential.state.secret.valid_until <= get_utc_now():
+            return await get_bitbucket_token(
                 credential=credential, loaders=loaders
             )
 

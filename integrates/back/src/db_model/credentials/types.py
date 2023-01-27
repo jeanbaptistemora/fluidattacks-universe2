@@ -36,6 +36,8 @@ class OauthAzureSecret(NamedTuple):
 
 class OauthBitbucketSecret(NamedTuple):
     brefresh_token: str
+    access_token: str
+    valid_until: datetime
 
 
 class OauthGithubSecret(NamedTuple):

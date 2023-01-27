@@ -396,12 +396,12 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
             loaders=loaders, email=email, organization_id=organization_id
         )
         redirect = get_redirect_url(request, "oauth_bitbucket")
-        token: Optional[str] = await get_bitbucket_refresh_token(
+        token_data: Optional[dict] = await get_bitbucket_refresh_token(
             code=code,
             subject=organization_id,
             redirect_uri=redirect,
         )
-        if not token:
+        if not token_data:
             raise OAuthError()
     except (KeyError, ConnectTimeout, MismatchingStateError, OAuthError) as ex:
         LOGGER.exception(ex, extra=dict(extra=locals()))
@@ -419,7 +419,12 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
             modified_date=get_utc_now(),
             name=name,
             secret=OauthBitbucketSecret(
-                brefresh_token=token,
+                brefresh_token=token_data["refresh_token"],
+                access_token=token_data["access_token"],
+                valid_until=get_plus_delta(
+                    get_minus_delta(get_utc_now(), seconds=60),
+                    seconds=int(token_data["expires_in"]),
+                ),
             ),
             type=CredentialType.OAUTH,
             is_pat=False,

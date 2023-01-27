@@ -13,6 +13,7 @@ from db_model.credentials.types import (
     CredentialsState,
     HttpsPatSecret,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -66,6 +67,7 @@ from decimal import (
 )
 from newutils.datetime import (
     get_now_minus_delta,
+    get_now_plus_delta,
 )
 import pytest
 import pytest_asyncio
@@ -371,6 +373,25 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         redirect_uri="",
                         access_token="DEDzdCBTU0gK",
                         valid_until=get_now_minus_delta(hours=1),
+                    ),
+                    is_pat=False,
+                ),
+            ),
+            Credentials(
+                id="158d1f7f-65c5-4c79-85e3-de3acfe03774",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2022-05-12T14:58:10+00:00"
+                    ),
+                    name="oauth ket token",
+                    type=CredentialType.OAUTH,
+                    secret=OauthBitbucketSecret(
+                        brefresh_token="SFSzdCBTU0gK",
+                        access_token="QEQzdCBTU0gK",
+                        valid_until=get_now_plus_delta(hours=2),
                     ),
                     is_pat=False,
                 ),

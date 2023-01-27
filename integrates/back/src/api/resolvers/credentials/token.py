@@ -2,6 +2,7 @@ from db_model.credentials.types import (
     Credentials,
     HttpsPatSecret,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -16,6 +17,9 @@ from newutils.datetime import (
 )
 from oauth.azure import (
     get_azure_token,
+)
+from oauth.bitbucket import (
+    get_bitbucket_token,
 )
 from oauth.gitlab import (
     get_token,
@@ -47,6 +51,15 @@ async def resolve(  # pylint: disable=too-many-return-statements
     if isinstance(parent.state.secret, OauthAzureSecret):
         if parent.state.secret.valid_until <= get_utc_now():
             return await get_azure_token(
+                credential=parent,
+                loaders=info.context.loaders,
+            )
+
+        return parent.state.secret.access_token
+
+    if isinstance(parent.state.secret, OauthBitbucketSecret):
+        if parent.state.secret.valid_until <= get_utc_now():
+            return await get_bitbucket_token(
                 credential=parent,
                 loaders=info.context.loaders,
             )

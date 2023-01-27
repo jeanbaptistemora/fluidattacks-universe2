@@ -429,22 +429,26 @@ async def test_get_organization_ver_1(
     assert result["data"]["organization"]["missedAuthors"] == 0
     assert result["data"]["organization"]["missedCommits"] == 0
     assert result["data"]["organization"]["missedRepositories"] == 0
-    assert len(result["data"]["organization"]["credentials"]) == 5
+    assert len(result["data"]["organization"]["credentials"]) == 6
     assert (
         result["data"]["organization"]["credentials"][0]["token"]
+        == "QEQzdCBTU0gK"
+    )
+    assert (
+        result["data"]["organization"]["credentials"][1]["token"]
         == "TETzdCBTU0gK"
     )
-    assert result["data"]["organization"]["credentials"][1]["token"] is None
+    assert result["data"]["organization"]["credentials"][2]["token"] is None
     assert (
-        result["data"]["organization"]["credentials"][2]["token"]
+        result["data"]["organization"]["credentials"][3]["token"]
         == "DEDzdCBTU0gK"
     )
     assert (
-        result["data"]["organization"]["credentials"][3]["token"]
+        result["data"]["organization"]["credentials"][4]["token"]
         == "SDSzdCBTU0gK"
     )
     assert (
-        result["data"]["organization"]["credentials"][4]["token"]
+        result["data"]["organization"]["credentials"][5]["token"]
         == "VGVzdCBTU0gK"
     )
 
@@ -684,33 +688,37 @@ async def test_get_organization_ver_2(
     assert result["data"]["organization"]["missedAuthors"] == 2
     assert result["data"]["organization"]["missedCommits"] == 20
     assert result["data"]["organization"]["missedRepositories"] == 2
-    assert len(result["data"]["organization"]["credentials"]) == 5
+    assert len(result["data"]["organization"]["credentials"]) == 6
     assert (
         result["data"]["organization"]["credentials"][0]["oauthType"]
-        == "GITLAB"
+        == "BITBUCKET"
     )
     assert (
-        result["data"]["organization"]["credentials"][2]["oauthType"]
+        result["data"]["organization"]["credentials"][1]["oauthType"]
+        == "GITLAB"
+    )
+    assert result["data"]["organization"]["credentials"][2]["oauthType"] == ""
+    assert (
+        result["data"]["organization"]["credentials"][3]["oauthType"]
         == "AZURE"
     )
     assert (
-        result["data"]["organization"]["credentials"][3]["oauthType"]
+        result["data"]["organization"]["credentials"][4]["oauthType"]
         == "GITHUB"
     )
     assert result["data"]["organization"]["credentials"][1]["isPat"] is False
-    assert result["data"]["organization"]["credentials"][1]["oauthType"] == ""
     assert (
-        result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
+        result["data"]["organization"]["credentials"][2]["name"] == "SSH Key"
     )
-    assert result["data"]["organization"]["credentials"][1]["isToken"] is False
-    assert result["data"]["organization"]["credentials"][1]["key"] is not None
-    assert result["data"]["organization"]["credentials"][4]["isPat"] is True
-    assert result["data"]["organization"]["credentials"][4]["isToken"] is True
-    assert result["data"]["organization"]["credentials"][4]["key"] is None
+    assert result["data"]["organization"]["credentials"][2]["isToken"] is False
+    assert result["data"]["organization"]["credentials"][2]["key"] is not None
+    assert result["data"]["organization"]["credentials"][5]["isPat"] is True
+    assert result["data"]["organization"]["credentials"][5]["isToken"] is True
+    assert result["data"]["organization"]["credentials"][5]["key"] is None
     assert (
-        result["data"]["organization"]["credentials"][4]["name"] == "pat token"
+        result["data"]["organization"]["credentials"][5]["name"] == "pat token"
     )
-    assert result["data"]["organization"]["credentials"][4]["oauthType"] == ""
+    assert result["data"]["organization"]["credentials"][5]["oauthType"] == ""
 
     loaders: Dataloaders = get_new_context()
     current_repositories: tuple[

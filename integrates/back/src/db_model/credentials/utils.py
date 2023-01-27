@@ -48,7 +48,11 @@ def format_secret(
         )
 
     if credential_type is CredentialType.OAUTH and "brefresh_token" in item:
-        return OauthBitbucketSecret(brefresh_token=item["brefresh_token"])
+        return OauthBitbucketSecret(
+            brefresh_token=item["brefresh_token"],
+            access_token=item["access_token"],
+            valid_until=datetime.fromisoformat(item["valid_until"]),
+        )
 
     if credential_type is CredentialType.OAUTH and "refresh_token" in item:
         return OauthGitlabSecret(

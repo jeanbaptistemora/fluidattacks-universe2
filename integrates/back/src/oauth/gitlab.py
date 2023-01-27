@@ -120,7 +120,7 @@ async def get_token(
                         access_token=result["access_token"],
                         valid_until=(
                             datetime.utcfromtimestamp(result["created_at"])
-                            + timedelta(seconds=result["expires_in"])
+                            + timedelta(seconds=int(result["expires_in"]))
                         ),
                     ),
                     is_pat=credential.state.is_pat,
