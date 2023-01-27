@@ -53,10 +53,10 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
 
   const dataset = data.group;
 
-  return (
-    <React.StrictMode>
-      <Form id={"editDisambiguationInfo"}>
-        {isEditing ? (
+  if (isEditing) {
+    return (
+      <React.StrictMode>
+        <Form id={"editDisambiguationInfo"}>
           <Field name={"disambiguation"} validate={maxDisambiguationInfoLength}>
             {({
               field,
@@ -85,7 +85,25 @@ const DisambiguationForm: React.FC<IDisambiguationForm> = ({
               );
             }}
           </Field>
-        ) : dataset.disambiguation ? (
+          <ActionButtons
+            editTooltip={t(
+              "searchFindings.groupAccessInfoSection.tooltips.editDisambiguationInfo"
+            )}
+            isEditing={isEditing}
+            isPristine={isDisambiguationInfoPristine}
+            onEdit={toggleEdit}
+            onUpdate={handleSubmit}
+            permission={"api_mutations_update_group_disambiguation_mutate"}
+          />
+        </Form>
+      </React.StrictMode>
+    );
+  }
+
+  return (
+    <React.StrictMode>
+      <Form id={"editDisambiguationInfo"}>
+        {dataset.disambiguation ? (
           <MDEditor.Markdown prefixCls={""} source={dataset.disambiguation} />
         ) : (
           <Text mb={2}>
