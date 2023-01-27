@@ -10,12 +10,12 @@ In the
 section,
 you can request vulnerability
 reports by clicking on the
-**Reports** button that
+**Generate reports** button that
 appears at the top left,
 as you can see in the
 following screenshot:
 
-![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1671651481/docs/web/groups/reports/reports.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777434/docs/web/groups/reports/generate_report.png)
 
 The available report options
 have either summarized and

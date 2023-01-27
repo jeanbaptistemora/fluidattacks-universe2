@@ -205,7 +205,7 @@ you can discover how many
 unsolved events need your
 attention in each of your groups.
 
-![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674773702/docs/web/groups/general/open_event.png)
+![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777697/docs/web/groups/general/open_even.png)
 
 When you enter one of the
 groups with at least one
@@ -216,7 +216,7 @@ which works as a warning
 signal that something
 requires your intervention.
 
-![Warning Signal](https://res.cloudinary.com/fluid-attacks/image/upload/v1667309874/docs/web/groups/general/event_tab.png)
+![Warning Signal](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777821/docs/web/groups/general/event_alert.png)
 
 When you click that tab,
 you see the event table
@@ -225,4 +225,7 @@ for each event whether it is
 solved (in green), unsolved
 (in red) or pending (in yellow).
 
-![Status Column](https://res.cloudinary.com/fluid-attacks/image/upload/v1667310448/docs/web/groups/general/event_view.png)
+![Status Column](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777920/docs/web/groups/general/status_event.png)
+
+If you want to know more about the event section,
+you can enter [here](/machine/web/groups/events)
