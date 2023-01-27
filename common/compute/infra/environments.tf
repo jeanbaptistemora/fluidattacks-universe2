@@ -116,15 +116,18 @@ locals {
     )
     skims_small = merge(
       local.machine_sizes.small,
-      local.config.skims
+      local.config.skims,
+      { max_vcpus = 0 }
     )
     skims_medium = merge(
       local.machine_sizes.medium,
-      local.config.skims
+      local.config.skims,
+      { max_vcpus = 0 }
     )
     skims_large = merge(
       local.machine_sizes.large,
       local.config.skims,
+      { max_vcpus = 0 }
     )
     sorts_small = merge(
       local.machine_sizes.small,
