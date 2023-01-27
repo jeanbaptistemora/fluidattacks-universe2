@@ -5,6 +5,7 @@ import {
   faChartSimple,
   faFileLines,
   faFolder,
+  faIdCard,
   faMoneyBill,
   faShield,
   faUsers,
@@ -73,6 +74,11 @@ const OrganizationTabs: FC = (): JSX.Element => {
         icon={faBriefcase}
         tip={t("organization.tabs.portfolios.text")}
         to={`/orgs/${org}/portfolios`}
+      />
+      <SideBarTab
+        icon={faIdCard}
+        tip={t("organization.tabs.credentials.text")}
+        to={`/orgs/${org}/credentials`}
       />
       <SideBarTab
         icon={faFileLines}
