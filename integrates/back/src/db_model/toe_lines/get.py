@@ -38,7 +38,7 @@ from typing import (
 
 async def _get_toe_lines(
     requests: list[ToeLinesRequest],
-) -> Optional[list[ToeLines]]:
+) -> list[Optional[ToeLines]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_lines_metadata"],
@@ -52,26 +52,23 @@ async def _get_toe_lines(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) != len(requests):
-        return None
-
     response = {
         ToeLinesRequest(
             filename=toe_lines.filename,
             group_name=toe_lines.group_name,
             root_id=toe_lines.root_id,
         ): toe_lines
-        for toe_lines in tuple(format_toe_lines(item) for item in items)
+        for toe_lines in [format_toe_lines(item) for item in items]
     }
 
-    return [response[request] for request in requests]
+    return list(response[request] for request in requests)
 
 
 class ToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[ToeLinesRequest]
-    ) -> Optional[list[ToeLines]]:
+    ) -> list[Optional[ToeLines]]:
         return await _get_toe_lines(requests)
 
 
