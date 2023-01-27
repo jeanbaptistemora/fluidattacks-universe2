@@ -3,6 +3,7 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     set_mocks_return_values,
 )
 from forces.domain import (
+    is_forces_user,
     update_token,
 )
 import pytest
@@ -12,6 +13,21 @@ from unittest.mock import (
 )
 
 pytestmark = pytest.mark.asyncio
+
+
+@pytest.mark.parametrize(
+    [
+        "email",
+        "expected_result",
+    ],
+    [
+        ["forces.unittesting@fluidattacks.com", True],
+        ["unittesting@fluidattacks.com", False],
+    ],
+)
+def test_is_forces_user(email: str, expected_result: bool) -> None:
+    result = is_forces_user(email)
+    assert result == expected_result
 
 
 @pytest.mark.parametrize(
