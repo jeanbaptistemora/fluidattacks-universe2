@@ -388,7 +388,7 @@ async def get_all_active_groups(
         org_groups = await loaders.organization_groups.load(organization.id)
         org_active_groups = list(
             groups_utils.exclude_review_groups(
-                groups_utils.filter_active_groups(org_groups)
+                groups_utils.filter_active_groups(tuple(org_groups))
             )
         )
         active_groups.extend(org_active_groups)
@@ -401,7 +401,9 @@ async def get_all_trial_groups(
     trial_groups = []
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
-        org_trial_groups = list(groups_utils.filter_trial_groups(org_groups))
+        org_trial_groups = list(
+            groups_utils.filter_trial_groups(tuple(org_groups))
+        )
         trial_groups.extend(org_trial_groups)
     return tuple(trial_groups)
 
@@ -421,7 +423,7 @@ async def get_all_deleted_groups(
     async for organization in iterate_organizations():
         org_groups = await loaders.organization_groups.load(organization.id)
         org_deleted_groups = list(
-            groups_utils.filter_deleted_groups(org_groups)
+            groups_utils.filter_deleted_groups(tuple(org_groups))
         )
         deleted_groups.extend(org_deleted_groups)
     return tuple(deleted_groups)
@@ -430,7 +432,7 @@ async def get_all_deleted_groups(
 async def get_group_names(
     loaders: Dataloaders, organization_id: str
 ) -> tuple[str, ...]:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization_id
     )
     return tuple(group.name for group in org_groups)

@@ -1140,9 +1140,7 @@ async def get_organization_billing(
     org: Organization,
     loaders: Dataloaders,
 ) -> OrganizationBilling:
-    groups_total: tuple[Group, ...] = await loaders.organization_groups.load(
-        org.id,
-    )
+    groups_total: list[Group] = await loaders.organization_groups.load(org.id)
     groups_machine: frozenset[str] = frozenset(
         group.name
         for group in groups_total

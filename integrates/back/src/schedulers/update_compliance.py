@@ -144,7 +144,7 @@ async def get_organization_compliance_level(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> Decimal:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
     findings: tuple[
@@ -208,7 +208,7 @@ async def get_organization_compliance_weekly_trend(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> Decimal:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
     findings: tuple[
@@ -293,7 +293,7 @@ async def get_organization_estimated_days_to_full_compliance(
     vulnerabilities_file: dict[str, Any],
     default_average_minutes_to_remediate_vulnerability: Decimal,
 ) -> Decimal:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
     findings: tuple[
@@ -338,7 +338,7 @@ async def get_organization_standard_compliances(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> list[OrganizationStandardCompliance]:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
     findings: tuple[
@@ -455,7 +455,7 @@ async def update_groups_standard_fulfillment(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> None:
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
     await collect(

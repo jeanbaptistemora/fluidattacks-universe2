@@ -96,10 +96,10 @@ async def _process_organization(
 ) -> list[dict[str, Any]]:
     print(f"Working on {org_name=}...")
     organization: Organization = await loaders.organization.load(org_name)
-    org_groups: tuple[Group, ...] = await loaders.organization_groups.load(
+    org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
-    active_groups = groups_utils.filter_active_groups(org_groups)
+    active_groups = groups_utils.filter_active_groups(tuple(org_groups))
     print(f"{org_name=}, {len(active_groups)=}")
 
     results: list[dict[str, Any]] = []

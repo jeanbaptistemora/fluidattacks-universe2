@@ -28,27 +28,16 @@ from dynamodb.types import (
 import simplejson as json
 
 
-def filter_event_non_in_test_orgs(
+def filter_events_not_in_groups(
     *,
-    test_group_orgs: tuple[tuple[Group, ...], ...],
-    events: tuple[Event, ...],
-) -> tuple[Event, ...]:
-    test_group_names = tuple(
-        tuple(group.name for group in groups) for groups in test_group_orgs
-    )
-    return tuple(
+    groups: list[Group],
+    events: list[Event],
+) -> list[Event]:
+    return [
         event
         for event in events
-        if not any(
-            event.group_name in group_name for group_name in test_group_names
-        )
-    )
-
-
-def filter_event_stakeholder_groups(
-    group_names: list[str], events: tuple[Event, ...]
-) -> tuple[Event, ...]:
-    return tuple(event for event in events if event.group_name in group_names)
+        if event.group_name not in set(group.name for group in groups)
+    ]
 
 
 def format_evidences(evidences: Item) -> EventEvidences:

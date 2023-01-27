@@ -101,7 +101,7 @@ async def _get_organization_groups(
     *,
     group_dataloader: DataLoader,
     organization_id: str,
-) -> tuple[Group, ...]:
+) -> list[Group]:
     primary_key = keys.build_key(
         facet=TABLE.facets["group_metadata"],
         values={"organization_id": remove_org_id_prefix(organization_id)},
@@ -127,7 +127,7 @@ async def _get_organization_groups(
         groups.append(group)
         group_dataloader.prime(group.name, group)
 
-    return tuple(groups)
+    return groups
 
 
 class GroupLoader(DataLoader):
@@ -178,14 +178,16 @@ class OrganizationGroupsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: Iterable[str]
-    ) -> tuple[tuple[Group, ...], ...]:
-        return await collect(
-            tuple(
-                _get_organization_groups(
-                    group_dataloader=self.dataloader,
-                    organization_id=organization_id,
+        self, organization_ids: list[str]
+    ) -> list[list[Group]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_organization_groups(
+                        group_dataloader=self.dataloader,
+                        organization_id=organization_id,
+                    )
+                    for organization_id in organization_ids
                 )
-                for organization_id in organization_ids
             )
         )

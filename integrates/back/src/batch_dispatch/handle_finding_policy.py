@@ -78,10 +78,10 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
             organization_name
         )
         organization_id: str = organization.id
-        groups: tuple[Group, ...] = await loaders.organization_groups.load(
+        groups: list[Group] = await loaders.organization_groups.load(
             organization_id
         )
-        active_groups = groups_utils.filter_active_groups(groups)
+        active_groups = groups_utils.filter_active_groups(tuple(groups))
         active_group_names = [group.name for group in active_groups]
         finding_name: str = finding_policy.name.lower()
         (
