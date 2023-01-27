@@ -38,6 +38,7 @@ import type {
   ISubscriptionsToEntityReport,
 } from "scenes/Dashboard/components/ChartsGenericView/types";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
+import type { IVerifyFn } from "scenes/Dashboard/components/VerifyDialog/types";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -168,6 +169,22 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
     [entity, refetchSubscriptions, subject, subscribe, t]
   );
 
+  const onRequestReport = useCallback(
+    (setVerifyCallbacks: IVerifyFn): (() => void) =>
+      (): void => {
+        setVerifyCallbacks(
+          (verificationCode: string): void => {
+            getVulnerabilitiesUrl(verificationCode);
+          },
+          (): void => {
+            setIsVerifyDialogOpen(false);
+          }
+        );
+        setIsVerifyDialogOpen(true);
+      },
+    [getVulnerabilitiesUrl]
+  );
+
   if (_.isUndefined(dataSubscriptions) || _.isEmpty(dataSubscriptions)) {
     return <div />;
   }
@@ -227,18 +244,6 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
           <Can do={"api_resolvers_organization_vulnerabilities_url_resolve"}>
             <VerifyDialog isOpen={isVerifyDialogOpen}>
               {(setVerifyCallbacks): JSX.Element => {
-                function onRequestReport(): void {
-                  setVerifyCallbacks(
-                    (verificationCode: string): void => {
-                      getVulnerabilitiesUrl(verificationCode);
-                    },
-                    (): void => {
-                      setIsVerifyDialogOpen(false);
-                    }
-                  );
-                  setIsVerifyDialogOpen(true);
-                }
-
                 return (
                   <Tooltip
                     disp={"inline-block"}
@@ -248,7 +253,10 @@ const ChartsGenericViewExtras: React.FC<IChartsGenericViewProps> = ({
                       "analytics.sections.extras.vulnerabilitiesUrl.tooltip"
                     )}
                   >
-                    <Button onClick={onRequestReport} variant={"secondary"}>
+                    <Button
+                      onClick={onRequestReport(setVerifyCallbacks)}
+                      variant={"secondary"}
+                    >
                       <FontAwesomeIcon icon={faFileCsv} />
                       &nbsp;
                       {t("analytics.sections.extras.vulnerabilitiesUrl.text")}

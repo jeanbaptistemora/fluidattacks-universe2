@@ -19,6 +19,7 @@ import {
 } from "../../queries";
 import type { IBasicEnvironmentUrl, IFormValues } from "../../types";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
@@ -97,6 +98,16 @@ const Environments: FC<IEnvironmentsProps> = ({
     [groupName, initialValues.id, removeEnvironmentUrl]
   );
 
+  const onConfirmDelete = useCallback(
+    (confirm: IConfirmFn, gitEnvironment: IBasicEnvironmentUrl): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          handleRemoveClick(gitEnvironment.id);
+        });
+      },
+    [handleRemoveClick]
+  );
+
   const gitEnvironmentUrls = useMemo((): IEnvironmentUrlItem[] => {
     if (_.isUndefined(data) || _.isNull(data)) {
       return [];
@@ -109,16 +120,10 @@ const Environments: FC<IEnvironmentsProps> = ({
           element: (
             <ConfirmDialog title={t("group.scope.git.removeEnvironment.title")}>
               {(confirm): JSX.Element => {
-                function onConfirmDelete(): void {
-                  confirm((): void => {
-                    handleRemoveClick(gitEnvironment.id);
-                  });
-                }
-
                 return (
                   <Button
                     id={"git-root-remove-environment-url"}
-                    onClick={onConfirmDelete}
+                    onClick={onConfirmDelete(confirm, gitEnvironment)}
                     variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faTrashAlt} />
@@ -130,7 +135,7 @@ const Environments: FC<IEnvironmentsProps> = ({
         };
       }
     );
-  }, [data, handleRemoveClick, t]);
+  }, [data, onConfirmDelete, t]);
 
   return (
     <Fragment>
