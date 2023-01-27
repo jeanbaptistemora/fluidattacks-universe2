@@ -18,7 +18,7 @@ can see a cumulative record of
 solved and unsolved events in
 your group is the Events section.
 
-![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1667995580/docs/web/groups/events/events_tab.png)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1674845796/docs/web/groups/events/events_tab.png)
 
 ## Events Table
 
@@ -73,7 +73,7 @@ First,
 when an event is opened,
 it will have the status **Unsolved**.
 
-![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1667995864/docs/web/groups/events/unsolved_status.png)
+![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1674845936/docs/web/groups/events/unsolved_status.png)
 
 Here you have to give the
 solution to this created event.
@@ -84,7 +84,7 @@ When you do this,
 the **Request Verification** option
 will be activated immediately.
 
-![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1667996015/docs/web/groups/events/request_verification.png)
+![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846162/docs/web/groups/events/request_verification.png)
 
 When you click on it,
 you will get a pop-up window
@@ -103,7 +103,7 @@ where we will be waiting
 for the verification that
 the supplied solution is effective.
 
-![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1667996150/docs/web/groups/events/pending.png)
+![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846460/docs/web/groups/events/pending.png)
 
 When validated and the
 solution successful,
@@ -137,7 +137,7 @@ the Columns button and toggling
 the on/off button in front
 of each column name.
 
-![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1661272950/docs/web/groups/events/funct_filter_columns.png)
+![Columns Filter](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846579/docs/web/groups/events/funct_filter_columns.png)
 
 ### Filters
 
@@ -147,7 +147,7 @@ options corresponding to the
 variables that give columns
 their names.
 
-![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1667997971/docs/web/groups/events/filters.png)
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846869/docs/web/groups/events/filters.png)
 
 ### Search bar
 
@@ -166,7 +166,7 @@ its ID,
 the date it was reported
 and its current status.
 
-![Event Details Header](https://res.cloudinary.com/fluid-attacks/image/upload/v1667998513/docs/web/groups/events/header.png)
+![Event Details Header](https://res.cloudinary.com/fluid-attacks/image/upload/v1674847263/docs/web/groups/events/header.png)
 
 You can see three tabs
 under the header: Description,
@@ -180,7 +180,7 @@ the site where it is
 present and the number
 of components affected.
 
-![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1671735482/docs/web/groups/events/description_tab.png)
+![Event Details Description](https://res.cloudinary.com/fluid-attacks/image/upload/v1674847360/docs/web/groups/events/description_tab.png)
 
 In **Evidence**,
 you find images with **.png** and
@@ -199,7 +199,7 @@ company's staff and
 project managers about the event.
 You can leave your comments there.
 
-![Event Details Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1671736248/docs/web/groups/events/consulting_view.png)
+![Event Details Consulting](https://res.cloudinary.com/fluid-attacks/image/upload/v1674847565/docs/web/groups/events/consulting_view.png)
 
 ## Types of events
 
