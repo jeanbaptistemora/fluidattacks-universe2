@@ -19,9 +19,9 @@ interface IFilter<IData extends object> {
   label: string;
   rangeValues?: [string, string];
   selectOptions?:
-    | { header: string; value: string }[]
+    | ISelectedOptions[]
     | string[]
-    | ((arg0: IData[]) => { header: string; value: string }[])
+    | ((arg0: IData[]) => ISelectedOptions[])
     | ((arg0: IData[]) => string[]);
   type?:
     | "checkBoxes"
@@ -31,6 +31,11 @@ interface IFilter<IData extends object> {
     | "select"
     | "text";
   value?: string;
+}
+
+interface ISelectedOptions {
+  header: string;
+  value: string;
 }
 
 interface IFilterComp<IData extends object> extends IFilter<IData> {
@@ -51,4 +56,10 @@ interface IFiltersProps<IData extends object> {
   setFilters: Dispatch<SetStateAction<IFilter<IData>[]>>;
 }
 
-export type { IFilter, IFilterComp, IFiltersProps, IPermanentData };
+export type {
+  IFilter,
+  IFilterComp,
+  IFiltersProps,
+  IPermanentData,
+  ISelectedOptions,
+};

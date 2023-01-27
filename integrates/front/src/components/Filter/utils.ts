@@ -1,14 +1,9 @@
-import type { IFilter } from "./types";
+import type { IFilter, ISelectedOptions } from "./types";
 
 function getMappedOptions(
   filter: IFilter<object>,
   dataset?: object[]
-):
-  | {
-      header: string;
-      value: string;
-    }[]
-  | undefined {
+): ISelectedOptions[] | undefined {
   const options =
     typeof filter.selectOptions === "function"
       ? filter.selectOptions(dataset ?? [])
