@@ -27,6 +27,8 @@ import React, {
   useState,
 } from "react";
 
+import { GraphicIframe } from "./styles";
+
 import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip/index";
@@ -205,10 +207,10 @@ export const Graphic: React.FC<IGraphicProps> = (
   const panelOnMouseLeave = useCallback((): void => {
     setExpanded(reportMode);
   }, [reportMode]);
-  function frameOnLoad(): void {
+  const frameOnLoad = useCallback((): void => {
     setIframeState("ready");
     secureStore.storeIframeContent(bodyRef);
-  }
+  }, [secureStore]);
   const frameOnFullScreen = useCallback((): void => {
     setFullScreen(true);
   }, []);
@@ -228,10 +230,10 @@ export const Graphic: React.FC<IGraphicProps> = (
       });
     }
   }, []);
-  function modalFrameOnLoad(): void {
+  const modalFrameOnLoad = useCallback((): void => {
     setModalIframeState("ready");
     secureStore.storeIframeContent(modalBodyRef);
-  }
+  }, [secureStore]);
   const modalFrameOnRefresh = useCallback((): void => {
     if (modalBodyRef.current?.contentWindow !== null) {
       setModalIframeState("loading");
@@ -473,7 +475,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                 />
                 {!_.isUndefined(infoLink) && shouldDisplayUrl ? (
                   <ExternalLink
-                    className={"g-a"}
                     href={
                       infoLink +
                       getAdditionalInfoLink(documentName, documentType)
@@ -493,7 +494,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                   </ExternalLink>
                 ) : undefined}
                 <ExternalLink
-                  className={"g-a"}
                   download={csvFileName}
                   href={buildCsvUrl(
                     {
@@ -517,7 +517,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                   </Tooltip>
                 </ExternalLink>
                 <ExternalLink
-                  className={"g-a"}
                   download={buildFileName(modalSize)}
                   href={buildUrl(
                     {
@@ -558,8 +557,7 @@ export const Graphic: React.FC<IGraphicProps> = (
         }
       >
         <div ref={modalRef} style={{ height: bigGraphicSize.height }}>
-          <iframe
-            className={styles.frame}
+          <GraphicIframe
             frameBorder={"no"}
             key={modalIFrameKey}
             onLoad={modalFrameOnLoad}
@@ -640,7 +638,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                       />
                       {!_.isUndefined(infoLink) && shouldDisplayUrl ? (
                         <ExternalLink
-                          className={"g-a"}
                           href={
                             infoLink +
                             getAdditionalInfoLink(documentName, documentType)
@@ -662,7 +659,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                       {documentType === "textBox" ? undefined : (
                         <React.Fragment>
                           <ExternalLink
-                            className={"g-a"}
                             download={csvFileName}
                             href={buildCsvUrl(
                               {
@@ -688,7 +684,6 @@ export const Graphic: React.FC<IGraphicProps> = (
                             </Tooltip>
                           </ExternalLink>
                           <ExternalLink
-                            className={"g-a"}
                             download={buildFileName(bigGraphicSize)}
                             href={buildUrl(
                               {
@@ -747,8 +742,7 @@ export const Graphic: React.FC<IGraphicProps> = (
           </div>
           <GraphicPanelCollapseBody>
             <div style={{ height: bsHeight }}>
-              <iframe
-                className={styles.frame}
+              <GraphicIframe
                 frameBorder={"no"}
                 key={iFrameKey}
                 loading={reportMode ? "eager" : "lazy"}
@@ -779,7 +773,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                   ) : (
                     <React.Fragment>
                       <FontAwesomeIcon icon={faWrench} />
-                      <p className={styles.emptyChart}>
+                      <p className={"black f5 ma0 tc"}>
                         {translate.t("analytics.emptyChart.text")}
                       </p>
                     </React.Fragment>

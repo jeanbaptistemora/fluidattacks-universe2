@@ -8,15 +8,15 @@ import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+import { PoliciesLink } from "./styles";
+
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { ExternalLink } from "components/ExternalLink";
 import { Label } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
-import styles from "scenes/Dashboard/containers/Organization-Content/PoliciesView/index.css";
 import type { IPolicies } from "scenes/Dashboard/containers/Organization-Content/PoliciesView/types";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -105,8 +105,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"maxAcceptanceDays"}>
                   {t(`${translationStart}policies.maxAcceptanceDays`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#maximum-number-of-calendar-days-a-finding-can-be-temporarily-accepted`}
                   >
                     <Tooltip
@@ -117,7 +116,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -139,8 +138,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"maxNumberAcceptances"}>
                   {t(`${translationStart}policies.maxNumberAcceptances`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#maximum-number-of-times-a-finding-can-be-accepted`}
                   >
                     <Tooltip
@@ -151,7 +149,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -173,8 +171,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"vulnerabilityGracePeriod"}>
                   {t(`${translationStart}policies.vulnerabilityGracePeriod`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#grace-period-where-newly-reported-vulnerabilities-wont-break-the-build`}
                   >
                     <Tooltip
@@ -185,7 +182,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -211,8 +208,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"minAcceptanceSeverity"}>
                   {t(`${translationStart}policies.minAcceptanceSeverity`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#temporal-acceptance-minimum-cvss-31-score-allowed-for-assignment`}
                   >
                     <Tooltip
@@ -223,7 +219,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -250,8 +246,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"maxAcceptanceSeverity"}>
                   {t(`${translationStart}policies.maxAcceptanceSeverity`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#temporal-acceptance-maximum-cvss-31-score-allowed-for-assignment`}
                   >
                     <Tooltip
@@ -262,7 +257,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -289,8 +284,7 @@ const Policies: React.FC<IPolicies> = ({
               <Card>
                 <Label htmlFor={"minBreakingSeverity"}>
                   {t(`${translationStart}policies.minBreakingSeverity`)}
-                  <ExternalLink
-                    className={`${styles["link-to-policies-docs"]} f7`}
+                  <PoliciesLink
                     href={`${policiesUrl}#minimum-cvss-31-score-of-an-open-vulnerability-for-devsecops`}
                   >
                     <Tooltip
@@ -301,7 +295,7 @@ const Policies: React.FC<IPolicies> = ({
                     >
                       <FontAwesomeIcon icon={faExternalLinkAlt} />
                     </Tooltip>
-                  </ExternalLink>
+                  </PoliciesLink>
                 </Label>
                 <Tooltip
                   disp={"inline"}
@@ -329,8 +323,7 @@ const Policies: React.FC<IPolicies> = ({
                 <Card>
                   <Label htmlFor={"inactivityPeriod"}>
                     {t(`${translationStart}policies.inactivityPeriod`)}
-                    <ExternalLink
-                      className={`${styles["link-to-policies-docs"]} f7`}
+                    <PoliciesLink
                       href={`${policiesUrl}#login-inactivity-number-of-days-for-stakeholders-inactivity-period`}
                     >
                       <Tooltip
@@ -341,7 +334,7 @@ const Policies: React.FC<IPolicies> = ({
                       >
                         <FontAwesomeIcon icon={faExternalLinkAlt} />
                       </Tooltip>
-                    </ExternalLink>
+                    </PoliciesLink>
                   </Label>
                   <Tooltip
                     disp={"inline"}

@@ -53,14 +53,6 @@ const GlobalStyle = createGlobalStyle`
     border-color: #ccc;
   }
 
-  .g-a,
-  .g-a:hover,
-  .g-a:focus,
-  .g-a:visited {
-    color: #333;
-    text-decoration: none;
-  }
-
   .questionBtn {
     border: 0 !important;
     color: #ff3435;

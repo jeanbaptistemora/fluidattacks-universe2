@@ -6,7 +6,6 @@ import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/components/ChartsGenericView/components/Extras";
-import styles from "scenes/Dashboard/components/ChartsGenericView/index.css";
 import type {
   EntityType,
   IChartsGenericViewProps,
@@ -931,7 +930,7 @@ export const ChartsView: React.FC<IChartsGenericViewProps> = ({
                 </PanelCollapseHeader>
               </Col100>
             </RowCenter>
-            <div className={styles.separatorTitleFromCharts} />
+            <div className={"pt4"} />
             <RowCenter>
               <Col33>
                 <Graphic

@@ -12,7 +12,6 @@ import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tab, Tabs } from "components/Tabs";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
-import styles from "scenes/Dashboard/containers/Group-Content/GroupForcesView/index.css";
 import { GET_FORCES_EXECUTION } from "scenes/Dashboard/containers/Group-Content/GroupForcesView/queries";
 import type {
   IExecution,
@@ -277,7 +276,7 @@ const Execution: React.FC<IExecution> = (
           </p>
         </Col33>
         <Col33>
-          <p className={styles.wrapped}>
+          <p className={"word-wrap"}>
             {getVulnerabilitySummaries(execution.foundVulnerabilities)}
           </p>
         </Col33>
