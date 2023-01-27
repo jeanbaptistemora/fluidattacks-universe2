@@ -165,7 +165,7 @@ async def do_gitlab_oauth(request: Request) -> Response:
             get_new_context(),
             organization_id,
             email,
-            OauthBitbucketSecret,
+            OauthGitlabSecret,
         )
 
         return await gitlab.authorize_redirect(request, url)
@@ -278,7 +278,7 @@ async def do_github_oauth(request: Request) -> Response:
             get_new_context(),
             organization_id,
             email,
-            OauthBitbucketSecret,
+            OauthGithubSecret,
         )
 
         return await github.authorize_redirect(request, url)
@@ -409,7 +409,7 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
         return response
 
     name = f'BitBucket OAUTH {str(uuid.uuid4()).split("-", maxsplit=1)[0]}'
-    credentials_id: str = str(uuid.uuid4)
+    credentials_id: str = str(uuid.uuid4())
     credential = Credentials(
         id=credentials_id,
         organization_id=organization_id,
@@ -549,7 +549,7 @@ async def oauth_azure(
                 loaders,
                 credential.organization_id,
                 credential.owner,
-                OauthGitlabSecret,
+                OauthAzureSecret,
             ),
         )
     )

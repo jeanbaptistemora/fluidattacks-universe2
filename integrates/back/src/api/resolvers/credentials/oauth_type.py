@@ -1,26 +1,13 @@
 from db_model.credentials.types import (
     Credentials,
-    OauthAzureSecret,
-    OauthBitbucketSecret,
-    OauthGithubSecret,
-    OauthGitlabSecret,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from roots.utils import (
+    get_oauth_type,
+)
 
 
 def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str:
-    if isinstance(parent.state.secret, OauthGithubSecret):
-        return "GITHUB"
-
-    if isinstance(parent.state.secret, OauthGitlabSecret):
-        return "GITLAB"
-
-    if isinstance(parent.state.secret, OauthAzureSecret):
-        return "AZURE"
-
-    if isinstance(parent.state.secret, OauthBitbucketSecret):
-        return "BITBUCKET"
-
-    return ""
+    return get_oauth_type(parent)

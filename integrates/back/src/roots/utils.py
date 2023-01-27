@@ -1,3 +1,10 @@
+from db_model.credentials.types import (
+    Credentials,
+    OauthAzureSecret,
+    OauthBitbucketSecret,
+    OauthGithubSecret,
+    OauthGitlabSecret,
+)
 import re
 from urllib3.util.url import (
     parse_url,
@@ -19,3 +26,21 @@ def format_git_repo_url(raw_url: str) -> str:
         else raw_url
     )
     return unquote(url).rstrip(" /")
+
+
+def get_oauth_type(
+    credential: Credentials,
+) -> str:
+    if isinstance(credential.state.secret, OauthGithubSecret):
+        return "GITHUB"
+
+    if isinstance(credential.state.secret, OauthGitlabSecret):
+        return "GITLAB"
+
+    if isinstance(credential.state.secret, OauthAzureSecret):
+        return "AZURE"
+
+    if isinstance(credential.state.secret, OauthBitbucketSecret):
+        return "BITBUCKET"
+
+    return ""

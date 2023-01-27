@@ -483,6 +483,12 @@ async def validate_git_credentials_oauth(
     if token is None:
         raise InvalidGitCredentials()
 
+    credential: Credentials = await loaders.credentials.load(
+        CredentialsRequest(
+            id=credential_id,
+            organization_id=organization_id,
+        )
+    )
     last_commit = await git_self.https_ls_remote(
         branch=branch,
         repo_url=repo_url,
@@ -490,6 +496,7 @@ async def validate_git_credentials_oauth(
         token=token,
         user=None,
         is_oauth=True,
+        provider=roots_utils.get_oauth_type(credential),
     )
     if last_commit is None:
         raise InvalidGitCredentials()

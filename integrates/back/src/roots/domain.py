@@ -59,6 +59,7 @@ from db_model.credentials.types import (
     HttpsPatSecret,
     HttpsSecret,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
@@ -1857,17 +1858,23 @@ async def _ls_remote_root(
         )
     elif isinstance(
         cred.state.secret,
-        (OauthGithubSecret, OauthAzureSecret, OauthGitlabSecret),
+        (
+            OauthGithubSecret,
+            OauthAzureSecret,
+            OauthGitlabSecret,
+            OauthBitbucketSecret,
+        ),
     ):
-        await validations.get_cred_token(
+        token = await validations.get_cred_token(
             loaders=loaders,
             organization_id=cred.organization_id,
             credential_id=cred.id,
         )
         last_commit = await git_self.https_ls_remote(
             repo_url=root.state.url,
-            token=cred.state.secret.access_token,
+            token=token,
             is_oauth=True,
+            provider=roots_utils.get_oauth_type(cred),
         )
     else:
         raise InvalidParameter()

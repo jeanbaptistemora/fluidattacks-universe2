@@ -48,6 +48,9 @@ from oauth.bitbucket import (
 from oauth.gitlab import (
     get_token,
 )
+from roots.utils import (
+    get_oauth_type,
+)
 from settings.logger import (
     LOGGING,
 )
@@ -138,7 +141,8 @@ async def clone_root(
                 user=cred.state.secret.user,
             )
         elif isinstance(
-            cred.state.secret, (OauthAzureSecret, OauthGitlabSecret)
+            cred.state.secret,
+            (OauthAzureSecret, OauthGitlabSecret, OauthBitbucketSecret),
         ):
             _credential = await loaders.credentials.load(
                 CredentialsRequest(
@@ -155,6 +159,7 @@ async def clone_root(
                 token=token,
                 user=None,
                 is_oauth=True,
+                provider=get_oauth_type(_credential),
             )
         elif isinstance(cred.state.secret, OauthGithubSecret):
             folder_to_clone_root, stderr = await git_utils.https_clone(
