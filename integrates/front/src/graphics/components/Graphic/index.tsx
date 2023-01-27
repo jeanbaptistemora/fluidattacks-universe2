@@ -27,7 +27,14 @@ import React, {
   useState,
 } from "react";
 
-import { GraphicIframe } from "./styles";
+import {
+  GraphicButton,
+  GraphicIframe,
+  GraphicLoading,
+  GraphicPanelCollapse,
+  GraphicPanelCollapseBody,
+  GraphicPanelCollapseHeader,
+} from "./styles";
 
 import { ExternalLink } from "components/ExternalLink";
 import { Modal } from "components/Modal";
@@ -39,15 +46,8 @@ import {
   mergedDocuments,
 } from "graphics/components/Graphic/ctx";
 import { FilterButton } from "graphics/components/Graphic/filterButton";
-import styles from "graphics/components/Graphic/index.css";
 import { hasIFrameError } from "graphics/components/Graphic/utils";
 import type { IGraphicProps } from "graphics/types";
-import {
-  GraphicButton,
-  GraphicPanelCollapse,
-  GraphicPanelCollapseBody,
-  GraphicPanelCollapseHeader,
-} from "styles/styledComponents";
 import type { ISecureStoreConfig } from "utils/secureStore";
 import { secureStoreContext } from "utils/secureStore";
 import { translate } from "utils/translations/translate";
@@ -571,8 +571,7 @@ export const Graphic: React.FC<IGraphicProps> = (
             title={currentTitle}
           />
           {modalIframeState === "ready" ? undefined : (
-            <div
-              className={styles.loadingComponent}
+            <GraphicLoading
               style={{
                 fontSize: glyphSize,
                 top: glyphSizeTop,
@@ -585,7 +584,7 @@ export const Graphic: React.FC<IGraphicProps> = (
               ) : (
                 <div />
               )}
-            </div>
+            </GraphicLoading>
           )}
         </div>
       </Modal>
@@ -761,8 +760,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 title={currentTitle}
               />
               {iframeState === "ready" ? undefined : (
-                <div
-                  className={styles.loadingComponent}
+                <GraphicLoading
                   style={{
                     fontSize: glyphSize,
                     top: glyphSizeTop,
@@ -778,7 +776,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                       </p>
                     </React.Fragment>
                   )}
-                </div>
+                </GraphicLoading>
               )}
             </div>
           </GraphicPanelCollapseBody>

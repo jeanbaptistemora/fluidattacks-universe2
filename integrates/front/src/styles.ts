@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
   body,
   #root {
     height: 100%;
+    overflow: hidden;
   }
 
   ::selection {
@@ -45,12 +46,6 @@ const GlobalStyle = createGlobalStyle`
   .breadcrumb > li:not(:last-child)::after {
     content: "/";
     padding: 0 4px;
-  }
-
-  .g-btn {
-    color: #333;
-    border: 1px solid transparent;
-    border-color: #ccc;
   }
 
   .questionBtn {

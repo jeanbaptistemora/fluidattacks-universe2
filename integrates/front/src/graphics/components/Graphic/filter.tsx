@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 
+import { GraphicButton } from "./styles";
+
 import { Tooltip } from "components/Tooltip/index";
-import { GraphicButton } from "styles/styledComponents";
 import { translate } from "utils/translations/translate";
 
 interface IDropdownFilterProps {

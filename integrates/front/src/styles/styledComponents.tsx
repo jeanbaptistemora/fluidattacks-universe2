@@ -163,44 +163,6 @@ const HintFieldText: StyledComponent<
   className: "w-auto mb1 mh1",
 })``;
 
-const GraphicButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `dim dib g-btn pointer pr3 pl3 pt2 pb2 outline-0 ${
-      className ?? ""
-    }`,
-    type: type ?? "button",
-  })
-)``;
-
-const GraphicPanelCollapse: StyledComponent<
-  "div",
-  Record<string, boolean>
-> = styled.div.attrs({
-  className: "mb4 items-center",
-})``;
-
-const GraphicPanelCollapseBody: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "pa2 items-center panel-cb",
-})``;
-
-const GraphicPanelCollapseHeader: StyledComponent<
-  "div",
-  Record<string, unknown>
-> = styled.div.attrs({
-  className: "ph3 flex items-center panel-ch",
-})`
-  height: 67px;
-`;
-
 const InputGroup: StyledComponent<
   "span",
   Record<string, unknown>
@@ -328,10 +290,6 @@ export {
   EvidenceDescription,
   FormGroup,
   HintFieldText,
-  GraphicButton,
-  GraphicPanelCollapse,
-  GraphicPanelCollapseBody,
-  GraphicPanelCollapseHeader,
   InputGroup,
   PanelCollapseBody,
   PanelCollapseHeader,

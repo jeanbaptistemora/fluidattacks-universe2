@@ -1,6 +1,5 @@
-/* eslint-disable react/forbid-component-props, react/no-multi-comp
+/* eslint-disable react/no-multi-comp
 --------
-  We need className to override default styles
   Needed to declare various small helpers components
 */
 import React, { useCallback, useMemo } from "react";
@@ -10,10 +9,9 @@ import type { IDocumentValues } from "./ctx";
 import { mergedDocuments } from "./ctx";
 import { DropdownFilter } from "./filter";
 import { DaysLabel, DocumentMerged } from "./helpers";
+import { GraphicButton } from "./styles";
 
 import { Tooltip } from "components/Tooltip";
-import styles from "graphics/components/Graphic/index.css";
-import { GraphicButton } from "styles/styledComponents";
 
 interface ITimeFilterButton {
   shouldDisplayAll: boolean | undefined;
@@ -57,7 +55,7 @@ const GButton: React.FC<IGButton> = ({
       id={alternative.tooltip.split(" ").join("_")}
       tip={alternative.tooltip}
     >
-      <GraphicButton className={styles.buttonSize} onClick={onClick}>
+      <GraphicButton onClick={onClick}>
         <DocumentMerged
           isEqual={alternative.documentName === currentDocumentName}
           label={alternative.label}
@@ -89,10 +87,7 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
         id={"analytics.limitData.thirtyDays.tooltip.id"}
         tip={t("analytics.limitData.thirtyDays.tooltip")}
       >
-        <GraphicButton
-          className={styles.buttonSize}
-          onClick={changeToThirtyDays}
-        >
+        <GraphicButton onClick={changeToThirtyDays}>
           <DaysLabel
             days={"30"}
             isEqual={
@@ -108,10 +103,7 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
           id={"analytics.limitData.sixtyDays.tooltip.id"}
           tip={t("analytics.limitData.sixtyDays.tooltip")}
         >
-          <GraphicButton
-            className={styles.buttonSize}
-            onClick={changeToSixtyDays}
-          >
+          <GraphicButton onClick={changeToSixtyDays}>
             <DaysLabel days={"60"} isEqual={subjectName === `${subject}_60`} />
           </GraphicButton>
         </Tooltip>
@@ -120,7 +112,7 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
         id={"analytics.limitData.ninetyDays.tooltip.id"}
         tip={t("analytics.limitData.ninetyDays.tooltip")}
       >
-        <GraphicButton className={styles.buttonSize} onClick={changeToNinety}>
+        <GraphicButton onClick={changeToNinety}>
           <DaysLabel days={"90"} isEqual={subjectName === `${subject}_90`} />
         </GraphicButton>
       </Tooltip>
@@ -129,10 +121,7 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
           id={"analytics.limitData.oneHundredEighty.tooltip.id"}
           tip={t("analytics.limitData.oneHundredEighty.tooltip")}
         >
-          <GraphicButton
-            className={styles.buttonSize}
-            onClick={changeToOneHundredEighty}
-          >
+          <GraphicButton onClick={changeToOneHundredEighty}>
             <DaysLabel
               days={"180"}
               isEqual={subjectName === `${subject}_180`}
@@ -145,7 +134,7 @@ const TimeFilterButton: React.FC<ITimeFilterButton> = ({
           id={"analytics.limitData.all.tooltip.id"}
           tip={t("analytics.limitData.all.tooltip")}
         >
-          <GraphicButton className={styles.buttonSize} onClick={changeToAll}>
+          <GraphicButton onClick={changeToAll}>
             <DaysLabel days={"allTime"} isEqual={subjectName === subject} />
           </GraphicButton>
         </Tooltip>
@@ -174,7 +163,7 @@ const TypeFilterButton: React.FC<ITypeFilterButton> = ({
   return (
     <React.StrictMode>
       <Tooltip id={tooltip.split(" ").join("_")} tip={tooltip}>
-        <GraphicButton className={styles.buttonSize} onClick={changeToDefault}>
+        <GraphicButton onClick={changeToDefault}>
           <DocumentMerged
             isEqual={documentName === currentDocumentName}
             label={mergedDocuments[documentName].default.label}

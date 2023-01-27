@@ -34,7 +34,6 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
-import { GraphicButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -488,15 +487,20 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
     ];
 
-    const downloadFormatter = (value: string): JSX.Element => {
-      async function onClick(): Promise<void> {
-        await handleDownload(value);
-      }
+    const handleDownloadClick = useCallback(
+      (value: string): VoidFunction => {
+        return (): void => {
+          void handleDownload(value);
+        };
+      },
+      [handleDownload]
+    );
 
+    const downloadFormatter = (value: string): JSX.Element => {
       return (
-        <GraphicButton onClick={onClick}>
+        <Button onClick={handleDownloadClick(value)} variant={"secondary"}>
           <FontAwesomeIcon icon={faDownload} />
-        </GraphicButton>
+        </Button>
       );
     };
 
