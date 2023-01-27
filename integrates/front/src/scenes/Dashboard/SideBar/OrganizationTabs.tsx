@@ -1,6 +1,7 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import {
+  faBriefcase,
   faChartSimple,
   faFileLines,
   faFolder,
@@ -67,6 +68,11 @@ const OrganizationTabs: FC = (): JSX.Element => {
         icon={faUsers}
         tip={t("organization.tabs.users.text")}
         to={`/orgs/${org}/stakeholders`}
+      />
+      <SideBarTab
+        icon={faBriefcase}
+        tip={t("organization.tabs.portfolios.text")}
+        to={`/orgs/${org}/portfolios`}
       />
       <SideBarTab
         icon={faFileLines}
