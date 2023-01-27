@@ -1,6 +1,7 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    set_mocks_return_values,
 )
 from dataloaders import (
     Dataloaders,
@@ -45,6 +46,7 @@ from groups.domain import (
     is_valid,
     remove_group,
     remove_pending_deletion_date,
+    send_mail_devsecops_agent,
     set_pending_deletion_date,
     update_group,
     validate_group_tags,
@@ -61,6 +63,8 @@ from organizations import (
 )
 import pytest
 from typing import (
+    Any,
+    List,
     Optional,
 )
 from unittest.mock import (
@@ -488,6 +492,70 @@ async def test_remove_pending_deletion_date(
     await remove_pending_deletion_date(group=group, modified_by=user_email)
 
     assert mock_groups_domain_update_state.called is True
+
+
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "responsible",
+        "had_token",
+    ],
+    [
+        [
+            "unittesting",
+            "integratesmanager@gmail.com",
+            True,
+        ],
+        [
+            "unittesting",
+            "integratesmanager@gmail.com",
+            False,
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("groups_mail.send_mail_devsecops_agent_token"),
+    new_callable=AsyncMock,
+)
+@patch(
+    get_mocked_path(
+        "group_access_domain.get_stakeholders_email_by_preferences"
+    ),
+    new_callable=AsyncMock,
+)
+async def test_send_mail_devsecops_agent(
+    mock_group_access_domain_get_stakeholders_email_by_preferences: AsyncMock,
+    mock_groups_mail_send_mail_devsecops_agent_token: AsyncMock,
+    group_name: str,
+    responsible: str,
+    had_token: bool,
+) -> None:
+
+    mocks_args: List[List[Any]]
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_group_access_domain_get_stakeholders_email_by_preferences,
+            mock_groups_mail_send_mail_devsecops_agent_token,
+        ],
+        [
+            "group_access_domain.get_stakeholders_email_by_preferences",
+            "groups_mail.send_mail_devsecops_agent_token",
+        ],
+        [[group_name], [responsible, group_name, had_token]],
+    ]
+
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
+    await send_mail_devsecops_agent(
+        loaders=get_new_context(),
+        group_name=group_name,
+        responsible=responsible,
+        had_token=had_token,
+    )
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @pytest.mark.parametrize(

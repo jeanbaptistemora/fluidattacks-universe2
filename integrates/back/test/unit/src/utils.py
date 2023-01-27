@@ -139,6 +139,7 @@ from settings import (
 from typing import (
     Any,
     Dict,
+    List,
     Optional,
 )
 from unittest.mock import (
@@ -176,9 +177,11 @@ mocked_paths: Dict[str, str] = {
     "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_domain.add_access": "group_access.domain.add_access",
     "group_access_domain.get_managers": "group_access.domain.get_managers",
+    "group_access_domain.get_stakeholders_email_by_preferences": "group_access.domain.get_stakeholders_email_by_preferences",  # noqa: E501 pylint: disable=line-too-long
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
     "groups_domain.update_metadata": "groups.domain.update_metadata",
+    "groups_mail.send_mail_devsecops_agent_token": "mailer.groups.send_mail_devsecops_agent_token",  # noqa: E501 pylint: disable=line-too-long
     "loaders.company.load": "db_model.companies.get.CompanyLoader.load",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -7909,6 +7912,19 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             "integratesuser@gmail.com",
         ],
     },
+    "group_access.domain.get_stakeholders_email_by_preferences": {
+        '["unittesting"]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "customer_manager@fluidattacks.com",
+            "integratesuser@gmail.com",
+            "unittest2@fluidattacks.com",
+        ],
+    },
+    "mailer.groups.send_mail_devsecops_agent_token": {
+        '["integratesmanager@gmail.com", "unittesting", true]': None,
+        '["integratesmanager@gmail.com", "unittesting", false]': None,
+    },
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,
         '["test-big-image.jpg", "images"]': True,
@@ -8044,9 +8060,9 @@ def get_mocked_path(mocked_object: str) -> str:
 
 
 def set_mocks_return_values(
-    mocked_objects: list[AsyncMock],
-    paths_list: list[str],
-    mocks_args: list[list[Any]],
+    mocked_objects: List[AsyncMock],
+    paths_list: List[str],
+    mocks_args: List[List[Any]],
 ) -> bool:
     all_values_set = False
     for mocked_object, mocked_path, arguments in zip(

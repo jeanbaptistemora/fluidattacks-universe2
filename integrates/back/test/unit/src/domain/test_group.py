@@ -18,9 +18,6 @@ from findings.domain import (
 from group_comments.domain import (
     get_comments,
 )
-from groups.domain import (
-    send_mail_devsecops_agent,
-)
 from newutils.group_comments import (
     format_group_consulting_resolve,
 )
@@ -85,36 +82,3 @@ async def test_get_pending_verification_findings() -> None:
     assert findings[0].title == "038. Business information leak"
     assert findings[0].id == "436992569"
     assert findings[0].group_name == "unittesting"
-
-
-@pytest.mark.changes_db
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "responsible",
-        "had_token",
-    ],
-    [
-        [
-            "unittesting",
-            "integratesmanager@gmail.com",
-            True,
-        ],
-        [
-            "unittesting",
-            "integratesmanager@gmail.com",
-            False,
-        ],
-    ],
-)
-async def test_send_mail_devsecops_agent(
-    group_name: str,
-    responsible: str,
-    had_token: bool,
-) -> None:
-    await send_mail_devsecops_agent(
-        loaders=get_new_context(),
-        group_name=group_name,
-        responsible=responsible,
-        had_token=had_token,
-    )
