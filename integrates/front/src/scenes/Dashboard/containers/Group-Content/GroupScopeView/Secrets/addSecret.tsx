@@ -12,6 +12,7 @@ import type { BaseSchema } from "yup";
 
 import { ADD_SECRET, REMOVE_SECRET } from "../queries";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { TextArea } from "components/Input";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
@@ -147,9 +148,19 @@ const AddSecret: React.FC<ISecretsProps> = ({
     [addSecret, groupName, rootId]
   );
 
-  function handleRemoveClick(): void {
+  const handleRemoveClick = useCallback((): void => {
     void removeSecret({ variables: { groupName, key: secretKey, rootId } });
-  }
+  }, [groupName, removeSecret, rootId, secretKey]);
+
+  const onConfirmDelete = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          handleRemoveClick();
+        });
+      },
+    [handleRemoveClick]
+  );
 
   return (
     <div>
@@ -213,16 +224,10 @@ const AddSecret: React.FC<ISecretsProps> = ({
                       )}
                     >
                       {(confirm): JSX.Element => {
-                        function onConfirmDelete(): void {
-                          confirm((): void => {
-                            handleRemoveClick();
-                          });
-                        }
-
                         return (
                           <Button
                             id={"git-root-remove-secret"}
-                            onClick={onConfirmDelete}
+                            onClick={onConfirmDelete(confirm)}
                             variant={"secondary"}
                           >
                             <FontAwesomeIcon icon={faTrashAlt} />
