@@ -293,8 +293,7 @@ def validate_active_root_deco(root_field: str) -> Callable:
         def decorated(*args: Any, **kwargs: Any) -> Any:
             root: Root = kwargs[root_field]
             if root.state.status == RootStatus.ACTIVE:
-                res = func(*args, **kwargs)
-                return res
+                return func(*args, **kwargs)
             raise InactiveRoot()
 
         return decorated
@@ -402,8 +401,7 @@ def validate_git_root_deco(root_field: str) -> Callable:
             root: Root = kwargs[root_field]
             if root.type != RootType.GIT:
                 raise InvalidGitRoot()
-            res = func(*args, **kwargs)
-            return res
+            return func(*args, **kwargs)
 
         return decorated
 

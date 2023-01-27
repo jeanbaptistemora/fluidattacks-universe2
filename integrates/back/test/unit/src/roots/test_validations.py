@@ -1,5 +1,6 @@
 from custom_exceptions import (
     InactiveRoot,
+    InvalidGitRoot,
     InvalidRootComponent,
 )
 from dataloaders import (
@@ -16,7 +17,10 @@ from roots.validations import (
     is_valid_ip,
     is_valid_url,
     validate_active_root,
+    validate_active_root_deco,
     validate_component,
+    validate_git_root,
+    validate_git_root_deco,
 )
 
 pytestmark = [
@@ -35,6 +39,25 @@ async def test_validate_active_root() -> None:
     )
     with pytest.raises(InactiveRoot):
         validate_active_root(inactive_root)
+
+
+async def test_validate_active_root_deco() -> None:
+    @validate_active_root_deco("root")
+    def decorated_func(root: Root) -> Root:
+        return root
+
+    loaders = get_new_context()
+    active_root: Root = await loaders.root.load(
+        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    )
+
+    assert decorated_func(root=active_root)
+
+    inactive_root: Root = await loaders.root.load(
+        RootRequest("asgard", "814addf0-316c-4415-850d-21bd3783b011")
+    )
+    with pytest.raises(InactiveRoot):
+        decorated_func(root=inactive_root)
 
 
 async def test_validate_component() -> None:
@@ -89,3 +112,36 @@ def test_is_exclude_valid() -> None:
     )
     assert not is_exclude_valid(["Universe/test.py"], repo_url)
     assert not is_exclude_valid(["universe/**/test.py"], repo_url)
+
+
+async def test_valid_git_root() -> None:
+
+    loaders = get_new_context()
+    root: Root = await loaders.root.load(
+        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    )
+    validate_git_root(root)
+    ip_root: Root = await loaders.root.load(
+        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    )
+    with pytest.raises(InvalidGitRoot):
+        validate_git_root(ip_root)
+
+
+async def test_valid_git_root_deco() -> None:
+    @validate_git_root_deco("root")
+    def decorated_func(root: Root) -> Root:
+        return root
+
+    loaders = get_new_context()
+    root: Root = await loaders.root.load(
+        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    )
+
+    assert decorated_func(root=root)
+
+    ip_root: Root = await loaders.root.load(
+        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    )
+    with pytest.raises(InvalidGitRoot):
+        decorated_func(root=ip_root)
