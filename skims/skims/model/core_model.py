@@ -2258,7 +2258,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
-    AWS_IAM_ALLOWS_PRIV_ESCALATION_BY_POLICIES_VERSIONS = MethodInfo(
+    AWS_ALLOWS_PRIV_ESCALATION_BY_POLICIES_VERSIONS = MethodInfo(
         file_name="aws",
         name="allows_priv_escalation_by_policies_versions",
         module="dast",
