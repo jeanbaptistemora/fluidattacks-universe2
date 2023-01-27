@@ -140,9 +140,11 @@ class EventLoader(DataLoader):
     async def batch_load_fn(
         self,
         event_keys: Iterable[str],
-    ) -> tuple[Optional[Event], ...]:
-        return await collect(
-            tuple(_get_event(event_id=event_id) for event_id in event_keys)
+    ) -> list[Optional[Event]]:
+        return list(
+            await collect(
+                tuple(_get_event(event_id=event_id) for event_id in event_keys)
+            )
         )
 
 

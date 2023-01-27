@@ -32,7 +32,7 @@ from typing import (
 
 async def _get_credentials(
     *, requests: list[CredentialsRequest]
-) -> Optional[tuple[Credentials, ...]]:
+) -> list[Optional[Credentials]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["credentials_metadata"],
@@ -45,24 +45,20 @@ async def _get_credentials(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
-        response = {
-            (credential.id, credential.organization_id): credential
-            for credential in tuple(format_credential(item) for item in items)
-        }
-        return tuple(
-            response[(request.id, request.organization_id)]
-            for request in requests
-        )
-
-    return None
+    response = {
+        (credential.id, credential.organization_id): credential
+        for credential in [format_credential(item) for item in items]
+    }
+    return list(
+        response[(request.id, request.organization_id)] for request in requests
+    )
 
 
 class CredentialsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[CredentialsRequest]
-    ) -> Optional[tuple[Credentials, ...]]:
+    ) -> list[Optional[Credentials]]:
         return await _get_credentials(requests=requests)
 
 
