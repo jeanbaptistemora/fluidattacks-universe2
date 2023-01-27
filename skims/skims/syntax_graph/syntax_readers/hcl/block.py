@@ -23,8 +23,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
     }
     graph = args.ast_graph
 
-    name_id = match_ast_d(graph, args.n_id, "identifier")
-    name = node_to_str(graph, str(name_id))
+    name_id = match_ast_d(graph, args.n_id, "string_lit")
+    name = ""
+    if name_id:
+        name = node_to_str(graph, str(name_id))[1:-1]
+    else:
+        name_id = match_ast_d(graph, args.n_id, "identifier")
+        name = node_to_str(graph, str(name_id))
 
     body_id = match_ast_d(graph, args.n_id, "body")
 

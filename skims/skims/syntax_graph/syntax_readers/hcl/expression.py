@@ -70,4 +70,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
             args, expr, str(expr_id), args_id, None
         )
     literal_text = node_to_str(graph, child_id)
+    if literal_text[0] == '"':
+        literal_text = literal_text[1:-1]
     return build_string_literal_node(args, literal_text)
