@@ -118,19 +118,19 @@ async def test_add_comment(  # pylint: disable=too-many-arguments
     loaders = get_new_context()
 
     await add_comment(
-        loaders,
-        comment_data,
-        comment_data.email,
-        comment_data.event_id,
-        comment_data.parent_id,
+        loaders=loaders,
+        comment_data=comment_data,
+        email=comment_data.email,
+        event_id=comment_data.event_id,
+        parent_comment=comment_data.parent_id,
     )
 
     with pytest.raises(InvalidCommentParent):
         await add_comment(
-            loaders,
-            comment_data,
-            comment_data.email,
-            comment_data.event_id,
+            loaders=loaders,
+            comment_data=comment_data,
+            email=comment_data.email,
+            event_id=comment_data.event_id,
             parent_comment=str(int(comment_data.parent_id) + 1),
         )
 
@@ -522,11 +522,11 @@ async def test_update_evidence(  # pylint: disable=too-many-arguments
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(file_name, test_file, "text/csv")
         await update_evidence(
-            loaders,
-            event_id,
-            evidence_type,
-            uploaded_file,
-            update_date,
+            loaders=loaders,
+            event_id=event_id,
+            evidence_id=evidence_type,
+            file=uploaded_file,
+            update_date=update_date,
         )
     assert mock_event_loader.called is True
     assert mock_save_evidence.called is True
@@ -574,11 +574,11 @@ async def test_update_evidence_invalid(  # pylint: disable=too-many-arguments
         uploaded_file = UploadFile(file_name, test_file, "text/csv")
         with pytest.raises(UnsanitizedInputFound):
             await update_evidence(
-                loaders,
-                event_id,
-                evidence_type,
-                uploaded_file,
-                update_date,
+                loaders=loaders,
+                event_id=event_id,
+                evidence_id=evidence_type,
+                file=uploaded_file,
+                update_date=update_date,
             )
 
 

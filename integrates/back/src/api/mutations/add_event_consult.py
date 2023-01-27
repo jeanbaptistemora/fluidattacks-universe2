@@ -64,7 +64,11 @@ async def mutate(
         full_name=stakeholders_utils.get_full_name(user_info),
     )
     await events_domain.add_comment(
-        info.context.loaders, comment_data, email, event_id, parent_comment
+        loaders=info.context.loaders,
+        comment_data=comment_data,
+        email=email,
+        event_id=event_id,
+        parent_comment=parent_comment,
     )
     logs_utils.cloudwatch_log(
         info.context,

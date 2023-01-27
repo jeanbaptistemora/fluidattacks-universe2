@@ -158,7 +158,9 @@ async def remove_file_evidence(file_name: str) -> None:
     await s3_ops.remove_file(file_name)
 
 
+@validations.validate_field_length_deco("comment_data.content", limit=20000)
 async def add_comment(
+    *,
     loaders: Dataloaders,
     comment_data: EventComment,
     email: str,
@@ -170,7 +172,6 @@ async def add_comment(
     event: Event = await loaders.event.load(event_id)
     group_name = event.group_name
 
-    validations.validate_field_length(content, 20000)
     await authz.validate_handle_comment_scope(
         loaders, content, email, group_name, parent_comment
     )
@@ -256,11 +257,19 @@ async def add_event(
 
     if file:
         await update_evidence(
-            loaders, event.id, EventEvidenceId.FILE_1, file, event_date
+            loaders=loaders,
+            event_id=event.id,
+            evidence_id=EventEvidenceId.FILE_1,
+            file=file,
+            update_date=event_date,
         )
     if image:
         await update_evidence(
-            loaders, event.id, EventEvidenceId.IMAGE_1, image, event_date
+            loaders=loaders,
+            event_id=event.id,
+            evidence_id=EventEvidenceId.IMAGE_1,
+            file=image,
+            update_date=event_date,
         )
 
     schedule(
@@ -638,14 +647,30 @@ async def replace_different_format(
             await remove_file_evidence(old_full_name)
 
 
+def _get_file_name(
+    group_name: str, event_id: str, value: str, extension: str
+) -> str:
+    return f"{group_name}_{event_id}_evidence_{value}{extension}"
+
+
+@validations.validate_sanitized_csv_input_deco(
+    ["group_name", "event_id", "file_name"]
+)
+def _get_full_name(group_name: str, event_id: str, file_name: str) -> str:
+    return f"{group_name}/{event_id}/{file_name}"
+
+
+@validations.validate_sanitized_csv_input_deco(
+    ["event_id", "file.filename", "file.content_type"]
+)
 async def update_evidence(
+    *,
     loaders: Dataloaders,
     event_id: str,
     evidence_id: EventEvidenceId,
     file: UploadFile,
     update_date: datetime,
 ) -> None:
-    validations.validate_sanitized_csv_input(event_id)
     event: Event = await loaders.event.load(event_id)
     if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
@@ -660,13 +685,14 @@ async def update_evidence(
         "video/webm": ".webm",
     }.get(file.content_type, "")
     group_name = event.group_name
-    file_name = (
-        f"{group_name}_{event_id}_evidence_"
-        f"{str(evidence_id.value).lower()}{extension}"
+    file_name = _get_file_name(
+        group_name=group_name,
+        event_id=event_id,
+        value=str(evidence_id.value).lower(),
+        extension=extension,
     )
-    full_name = f"{group_name}/{event_id}/{file_name}"
-    validations.validate_sanitized_csv_input(
-        file.filename, file.content_type, full_name
+    full_name = _get_full_name(
+        group_name=group_name, event_id=event_id, file_name=file_name
     )
 
     await collect(

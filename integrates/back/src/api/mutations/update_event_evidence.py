@@ -67,11 +67,11 @@ async def mutate(
     )
 
     await events_domain.update_evidence(
-        loaders,
-        event_id,
-        evidence_id,
-        file,
-        get_now(),
+        loaders=loaders,
+        event_id=event_id,
+        evidence_id=evidence_id,
+        file=file,
+        update_date=get_now(),
     )
     loaders.event.clear(event_id)
 
