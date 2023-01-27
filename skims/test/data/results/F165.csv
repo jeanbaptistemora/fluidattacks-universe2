@@ -1,0 +1,292 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,46,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  36 |   RootRole:
+  37 |     Type: AWS::IAM::Role
+  38 |     Properties:
+  39 |       AssumeRolePolicyDocument:
+  40 |         Version: '2012-10-17'
+  41 |         Statement:
+  42 |           - Effect: Allow
+  43 |             NotPrincipal:
+  44 |               Service:
+  45 |                 - ec2.amazonaws.com
+> 46 |             NotAction:
+  47 |               - sts:AssumeRole
+  48 |       Path: /
+  49 |       Policies:
+  50 |         - PolicyName: root
+  51 |           PolicyDocument:
+  52 |             Version: '2012-10-17'
+  53 |             Statement:
+  54 |               - Effect: Allow
+  55 |                 Action: ecs:CreateService
+  56 |                 Resource: '*'
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_not_action
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,69,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction on trust policy
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+   59 |         ""AssumeRolePolicyDocument"": {
+   60 |           ""Version"": ""2012-10-17"",
+   61 |           ""Statement"": [
+   62 |             {
+   63 |               ""Effect"": ""Allow"",
+   64 |               ""NotPrincipal"": {
+   65 |                 ""Service"": [
+   66 |                   ""ec2.amazonaws.com""
+   67 |                 ]
+   68 |               },
+>  69 |               ""NotAction"": [
+   70 |                 ""sts:AssumeRole""
+   71 |               ]
+   72 |             }
+   73 |           ]
+   74 |         },
+   75 |         ""Path"": ""/"",
+   76 |         ""Policies"": [
+   77 |           {
+   78 |             ""PolicyName"": ""root"",
+   79 |             ""PolicyDocument"": {
+      ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_not_action
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,72,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  53 |             Statement:
+  54 |               - Effect: Allow
+  55 |                 Action: ecs:CreateService
+  56 |                 Resource: '*'
+  57 |               - Effect: Allow
+  58 |                 Action: iam:*
+  59 |                 Resource: '*'
+  60 |         - PolicyName: root
+  61 |           PolicyDocument:
+  62 |             Version: '2012-10-17'
+  63 |             Statement:
+  64 |               - Effect: Allow
+  65 |                 Action: '*'
+  66 |                 Resource: s3:GetObject
+  67 |         - PolicyName: root1
+  68 |           PolicyDocument:
+  69 |             Version: '2012-10-17'
+  70 |             Statement:
+  71 |               - Effect: Allow
+> 72 |                 NotAction: '*'
+  73 |                 NotResource: s3:GetObject
+     ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_allow_not_action
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,115,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotAction
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+  105 |              ]
+  106 |            }
+  107 |          },
+  108 |          {
+  109 |            ""PolicyName"": ""root1"",
+  110 |            ""PolicyDocument"": {
+  111 |              ""Version"": ""2012-10-17"",
+  112 |              ""Statement"": [
+  113 |                {
+  114 |                  ""Effect"": ""Allow"",
+> 115 |                  ""NotAction"": ""*"",
+  116 |                  ""NotResource"": ""s3:GetObject""
+  117 |                }
+  118 |              ]
+  119 |            }
+  120 |          }
+  121 |        ]
+  122 |      }
+  123 |    }
+  124 |  }
+  125 |
+      ^ Col 1
+",cloudformation.cfn_iam_permissions_policy_allow_not_action
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,43,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  33 |                 rds:DatabaseClass: db.t2.micro
+  34 |       Groups:
+  35 |         - TestDBGroup
+  36 |   RootRole:
+  37 |     Type: AWS::IAM::Role
+  38 |     Properties:
+  39 |       AssumeRolePolicyDocument:
+  40 |         Version: '2012-10-17'
+  41 |         Statement:
+  42 |           - Effect: Allow
+> 43 |             NotPrincipal:
+  44 |               Service:
+  45 |                 - ec2.amazonaws.com
+  46 |             NotAction:
+  47 |               - sts:AssumeRole
+  48 |       Path: /
+  49 |       Policies:
+  50 |         - PolicyName: root
+  51 |           PolicyDocument:
+  52 |             Version: '2012-10-17'
+  53 |             Statement:
+     ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_not_principal
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,64,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+   54 |       }
+   55 |     },
+   56 |     ""RootRole"": {
+   57 |       ""Type"": ""AWS::IAM::Role"",
+   58 |       ""Properties"": {
+   59 |         ""AssumeRolePolicyDocument"": {
+   60 |           ""Version"": ""2012-10-17"",
+   61 |           ""Statement"": [
+   62 |             {
+   63 |               ""Effect"": ""Allow"",
+>  64 |               ""NotPrincipal"": {
+   65 |                 ""Service"": [
+   66 |                   ""ec2.amazonaws.com""
+   67 |                 ]
+   68 |               },
+   69 |               ""NotAction"": [
+   70 |                 ""sts:AssumeRole""
+   71 |               ]
+   72 |             }
+   73 |           ]
+   74 |         },
+      ^ Col 0
+",cloudformation.cfn_iam_trust_policy_allow_not_principal
+F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+ in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
+  13 |         }
+  14 |       }
+  15 |     ]
+  16 |   }
+  17 |   EOF
+  18 | }
+  19 |
+  20 | resource ""aws_iam_role"" ""vuln_role_1"" {
+  21 |   name = ""vuln_role_1""
+  22 |
+> 23 |   assume_role_policy = jsonencode({
+  24 |     Version = ""2012-10-17""
+  25 |     Statement = [
+  26 |       {
+  27 |         Action = ""sts:AssumeRole""
+  28 |         Effect = ""Allow""
+  29 |         NotPrincipal = {
+  30 |           Servive = ""ec2.amazonaws.com""
+  31 |         }
+  32 |       },
+  33 |     ]
+     ^ Col 0
+",terraform.tfm_iam_role_is_over_privileged
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,73,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml","
+  53 |             Statement:
+  54 |               - Effect: Allow
+  55 |                 Action: ecs:CreateService
+  56 |                 Resource: '*'
+  57 |               - Effect: Allow
+  58 |                 Action: iam:*
+  59 |                 Resource: '*'
+  60 |         - PolicyName: root
+  61 |           PolicyDocument:
+  62 |             Version: '2012-10-17'
+  63 |             Statement:
+  64 |               - Effect: Allow
+  65 |                 Action: '*'
+  66 |                 Resource: s3:GetObject
+  67 |         - PolicyName: root1
+  68 |           PolicyDocument:
+  69 |             Version: '2012-10-17'
+  70 |             Statement:
+  71 |               - Effect: Allow
+  72 |                 NotAction: '*'
+> 73 |                 NotResource: s3:GetObject
+     ^ Col 0
+",cloudformation.cfn_iam_permissions_policy_allow_not_resource
+F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json,116,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource
+ in namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml.json","
+  105 |            ]
+  106 |          }
+  107 |        },
+  108 |        {
+  109 |          ""PolicyName"": ""root1"",
+  110 |          ""PolicyDocument"": {
+  111 |            ""Version"": ""2012-10-17"",
+  112 |            ""Statement"": [
+  113 |              {
+  114 |                ""Effect"": ""Allow"",
+  115 |                ""NotAction"": ""*"",
+> 116 |                ""NotResource"": ""s3:GetObject""
+  117 |              }
+  118 |            ]
+  119 |          }
+  120 |        }
+  121 |      ]
+  122 |    }
+  123 |  }
+  124 |
+  125 |
+      ^ Col 3
+",cloudformation.cfn_iam_permissions_policy_allow_not_resource
+F165,inputs,arn:aws:iam::aws:policy/AWSSupportAccess (namespace),src.lib_path.f165.has_not_support_role,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.has_not_support_role,"
+   1 | {
+   2 |     ""Users"": [
+   3 |         {
+   4 |             ""UserName"": ""myUser"",
+   5 |             ""UserId"": ""1234"",
+   6 |             ""Arn"": ""arn:aws:iam::123456789012:user/myUser""
+   7 |         }
+   8 |     ],
+   9 |     ""AccessKeyMetadata"": [
+  10 |         {
+  11 |             ""UserName"": ""myUser"",
+  12 |             ""AccessKeyId"": ""108745"",
+  13 |             ""Status"": ""Active""
+  14 |         },
+  15 |         {
+  16 |             ""UserName"": ""myUser"",
+  17 |             ""AccessKeyId"": ""37856"",
+  18 |             ""Status"": ""Active""
+  19 |         }
+  20 |     ],
+  21 |     ""State"": ""STARTED"",
+     ^ Col 0
+",aws.has_not_support_role
+F165,inputs,myUser (namespace),/cert_1_active: true,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.has_root_active_signing_certificates,"
+  1 | {
+  2 |     ""arn"": ""myUser"",
+  3 |     ""access_key_1_active"": ""true"",
+  4 |     ""access_key_2_active"": ""true"",
+> 5 |     ""cert_1_active"": ""true""
+  6 | }
+    ^ Col 0
+",aws.has_root_active_signing_certificates
+F165,inputs,myUser (namespace),/access_key_2_active: true,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.root_has_access_keys,"
+  1 | {
+  2 |     ""arn"": ""myUser"",
+  3 |     ""access_key_1_active"": ""true"",
+> 4 |     ""access_key_2_active"": ""true"",
+  5 |     ""cert_1_active"": ""true""
+  6 | }
+    ^ Col 0
+",aws.root_has_access_keys
+F165,inputs,myUser (namespace),/access_key_1_active: true,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.root_has_access_keys,"
+  1 | {
+  2 |     ""arn"": ""myUser"",
+> 3 |     ""access_key_1_active"": ""true"",
+  4 |     ""access_key_2_active"": ""true"",
+  5 |     ""cert_1_active"": ""true""
+  6 | }
+    ^ Col 0
+",aws.root_has_access_keys
+F165,inputs,arn:aws:iam:::myUser (namespace),src.lib_path.f165.users_with_multiple_access_keys,16,skims,165. Insecure service configuration - AWS,src.lib_path.f165.users_with_multiple_access_keys,"
+   1 | [
+   2 |     {
+   3 |         ""UserName"": ""myUser"",
+   4 |         ""AccessKeyId"": ""108745"",
+   5 |         ""Status"": ""Active""
+   6 |     },
+   7 |     {
+   8 |         ""UserName"": ""myUser"",
+   9 |         ""AccessKeyId"": ""37856"",
+  10 |         ""Status"": ""Active""
+  11 |     }
+  12 | ]
+     ^ Col 0
+",aws.users_with_multiple_access_keys

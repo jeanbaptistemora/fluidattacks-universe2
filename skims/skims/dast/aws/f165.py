@@ -102,7 +102,7 @@ async def root_has_access_keys(
     key_names = ("access_key_1_active", "access_key_2_active")
     with suppress(KeyError):
         for index, name in enumerate(key_names):
-            if root_user[name] == "true":
+            if root_user.get(name) == "true":
                 locations = [
                     *locations,
                     Location(
@@ -186,15 +186,15 @@ async def has_root_active_signing_certificates(
     root_arn = root_user["arn"]
     root_has_active_signing_certs: bool = any(
         (
-            root_user["cert_1_active"] == "true",
-            root_user["cert_2_active"] == "true",
+            root_user.get("cert_1_active") == "true",
+            root_user.get("cert_2_active") == "true",
         )
     )
     locations: List[Location] = []
     if root_has_active_signing_certs:
         key_names = ("cert_1_active", "cert_2_active")
         for index, name in enumerate(key_names):
-            if root_user[name] == "true":
+            if root_user.get(name) == "true":
                 locations = [
                     *locations,
                     Location(
