@@ -19,6 +19,7 @@ from typing import (
 
 class Platform(Enum):
     COMPOSER: str = "COMPOSER"
+    CONAN: str = "CONAN"
     PIP: str = "PIP"
     NPM: str = "NPM"
     MAVEN: str = "MAVEN"
