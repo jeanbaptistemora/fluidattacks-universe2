@@ -427,9 +427,9 @@ async def get_upload_url_post(
     )
 
 
-async def get_secrets(
+async def _get_secrets(
     *, root_id: str, secret_key: Optional[str] = None
-) -> tuple[Secret, ...]:
+) -> list[Secret]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_secret"],
         values={
@@ -452,19 +452,33 @@ async def get_secrets(
         facets=(TABLE.facets["root_secret"],),
         table=TABLE,
     )
-    return tuple(
+
+    return [
         Secret(
             key=item["key"],
             value=item["value"],
             description=item.get("description"),
         )
         for item in response.items
-    )
+    ]
 
 
-async def get_environment_secrets(
+class RootSecretsLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(
+        self,
+        root_ids: list[str],
+    ) -> list[list[Secret]]:
+        return list(
+            await collect(
+                _get_secrets(root_id=root_id) for root_id in root_ids
+            )
+        )
+
+
+async def _get_environment_secrets(
     *, url_id: str, secret_key: Optional[str] = None
-) -> tuple[Secret, ...]:
+) -> list[Secret]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_secret"],
         values={
@@ -487,7 +501,7 @@ async def get_environment_secrets(
         facets=(TABLE.facets["root_environment_secret"],),
         table=TABLE,
     )
-    return tuple(
+    return [
         Secret(
             key=item["key"],
             value=item["value"],
@@ -497,7 +511,17 @@ async def get_environment_secrets(
             else None,
         )
         for item in response.items
-    )
+    ]
+
+
+class GitEnvironmentSecretsLoader(DataLoader):
+    # pylint: disable=method-hidden
+    async def batch_load_fn(self, urls_ids: list[str]) -> list[list[Secret]]:
+        return list(
+            await collect(
+                _get_environment_secrets(url_id=url_id) for url_id in urls_ids
+            )
+        )
 
 
 async def get_git_environment_urls(
@@ -584,26 +608,6 @@ async def get_git_environment_url_by_id(
         if "cloud_name" in item
         else None,
     )
-
-
-class RootSecretsLoader(DataLoader):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, root_ids: list[str]
-    ) -> tuple[tuple[Secret, ...], ...]:
-        return await collect(
-            get_secrets(root_id=root_id) for root_id in root_ids
-        )
-
-
-class GitEnvironmentSecretsLoader(DataLoader):
-    # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, urls_ids: list[str]
-    ) -> tuple[tuple[Secret, ...], ...]:
-        return await collect(
-            get_environment_secrets(url_id=url_id) for url_id in urls_ids
-        )
 
 
 class RootEnvironmentUrlsLoader(DataLoader):

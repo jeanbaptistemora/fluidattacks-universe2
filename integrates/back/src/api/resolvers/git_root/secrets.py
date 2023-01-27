@@ -3,6 +3,7 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     GitRoot,
+    Secret,
     URLRoot,
 )
 from decorators import (
@@ -19,6 +20,6 @@ from typing import (
 @enforce_group_level_auth_async
 async def resolve(
     parent: Union[GitRoot, URLRoot], info: GraphQLResolveInfo
-) -> str:
+) -> list[Secret]:
     loaders: Dataloaders = info.context.loaders
-    return await loaders.root_secrets.load((parent.id))
+    return await loaders.root_secrets.load(parent.id)

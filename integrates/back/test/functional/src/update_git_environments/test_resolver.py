@@ -224,7 +224,7 @@ async def test_add_git_environment_url_secret(
     assert result["data"]["addGitEnvironmentSecret"]["success"]
 
     loaders = get_new_context()
-    secrets = await loaders.environment_secrets.load((url_id))
+    secrets = await loaders.environment_secrets.load(url_id)
     assert len(secrets) > 0
 
     secret: Secret = secrets[0]
@@ -290,5 +290,5 @@ async def test_remove_environment_url_secret(
     assert result["data"]["removeEnvironmentUrlSecret"]["success"]
 
     loaders = get_new_context()
-    secrets = await loaders.environment_secrets.load((url_id))
+    secrets = await loaders.environment_secrets.load(url_id)
     assert len(secrets) == 0

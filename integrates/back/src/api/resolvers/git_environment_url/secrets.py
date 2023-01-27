@@ -16,6 +16,6 @@ from graphql.type.definition import (
 @enforce_group_level_auth_async
 async def resolve(
     parent: RootEnvironmentUrl, info: GraphQLResolveInfo, **__: None
-) -> tuple[Secret, ...]:
+) -> list[Secret]:
     loaders: Dataloaders = info.context.loaders
-    return await loaders.environment_secrets.load((parent.id))
+    return await loaders.environment_secrets.load(parent.id)
