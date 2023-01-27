@@ -168,5 +168,6 @@ Each terminal will serve a key component of Integrates.
 You can also use [mprocs](https://github.com/pvolok/mprocs)
 for handling all components in a single terminal:
 
-1. Install mprocs with `nix-env -i mprocs`.
-1. Run `mprocs --config integrates/mprocs.yaml`.
+- Run `m . /integrates`.
+- Jobs can be restarted using `r`.
+- Jobs can be stopped using `x`.
