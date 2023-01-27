@@ -54,6 +54,24 @@ const renderHorizontal: (props: IEditableFieldProps) => JSX.Element = (
     ...fieldProps // eslint-disable-line fp/no-rest-parameters
   } = props;
 
+  if (renderAsEditable) {
+    return (
+      <FormGroup>
+        <Row>
+          <EditableFieldTitle25>
+            <ControlLabel>
+              <b>{label}</b>
+            </ControlLabel>
+          </EditableFieldTitle25>
+          <EditableFieldContent>
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <Field {...fieldProps} />
+          </EditableFieldContent>
+        </Row>
+      </FormGroup>
+    );
+  }
+
   return (
     <FormGroup>
       <Row>
@@ -63,9 +81,7 @@ const renderHorizontal: (props: IEditableFieldProps) => JSX.Element = (
           </ControlLabel>
         </EditableFieldTitle25>
         <EditableFieldContent>
-          {renderAsEditable ? (
-            <Field {...fieldProps} /> // eslint-disable-line react/jsx-props-no-spreading
-          ) : _.isUndefined(tooltip) || _.isEmpty(tooltip) ? (
+          {_.isUndefined(tooltip) || _.isEmpty(tooltip) ? (
             renderCurrentValue(currentValue)
           ) : (
             <Tooltip disp={"block"} id={id} place={"right"} tip={tooltip}>
@@ -114,9 +130,9 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
     ...fieldProps // eslint-disable-line fp/no-rest-parameters
   } = props;
 
-  return (
-    <FormGroup>
-      {_.isUndefined(tooltip) ? (
+  if (_.isUndefined(tooltip)) {
+    return (
+      <FormGroup>
         <React.Fragment>
           <ControlLabel>
             <b>{label}</b>
@@ -128,7 +144,13 @@ const renderVertical: (props: IEditableFieldProps) => JSX.Element = (
             renderCurrentValue(currentValue)
           )}
         </React.Fragment>
-      ) : renderAsEditable ? (
+      </FormGroup>
+    );
+  }
+
+  return (
+    <FormGroup>
+      {renderAsEditable ? (
         <React.Fragment>
           <ControlLabel>
             <b>{label}</b>
