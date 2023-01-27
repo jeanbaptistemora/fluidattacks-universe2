@@ -28,6 +28,9 @@ from lib_path.f393.composer import (
     composer_json_dev,
     composer_lock_dev,
 )
+from lib_path.f393.gem import (
+    gem_gemfile_dev,
+)
 from lib_path.f393.pub import (
     pub_pubspec_yaml_dev,
 )
@@ -61,6 +64,40 @@ def test_gem_gemfile() -> None:
     )
     assertion: bool = True
     lines_prod_deps = [*range(116), 130, 133, 136, 139, *range(148, 182)]
+    for line_num in lines_prod_deps:
+        if matched := re.search(gemfile_dep, content[line_num]):
+            pkg_name: str = matched.group("name")
+
+            try:
+                line, item = itemgetter("line", "item")(next(generator_gem)[0])
+            except StopIteration:
+                assertion = not assertion
+                break
+            equal_props: bool = pkg_name == item and line_num + 1 == line
+            if not equal_props:
+                assertion = not assertion
+                break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_gem_gemfile_dev() -> None:
+    path: str = "skims/test/data/lib_path/f011/Gemfile"
+    gemfile_dep: Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_contents: str = file_handle.read(-1)
+    gem_gemfile_fun = gem_gemfile_dev.__wrapped__  # type: ignore
+    content: List[str] = file_contents.splitlines()
+    generator_gem: Iterator[DependencyType] = gem_gemfile_fun(
+        file_contents, path
+    )
+    assertion: bool = True
+    lines_prod_deps = [*range(117, 127), 131, 132, *range(142, 145)]
     for line_num in lines_prod_deps:
         if matched := re.search(gemfile_dep, content[line_num]):
             pkg_name: str = matched.group("name")
