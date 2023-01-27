@@ -1,7 +1,7 @@
 import type { ApolloError } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { FormikProps } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
@@ -16,10 +16,10 @@ import type {
   IVerifyStakeholderResultAttr,
 } from "./types";
 
+import { Input } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { BaseStep, Tour } from "components/Tour";
 import { Col100, ControlLabel, Row } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
@@ -149,8 +149,7 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
                     <ControlLabel>
                       <b>{t("verifyDialog.fields.verificationCode")}</b>
                     </ControlLabel>
-                    <Field
-                      component={FormikText}
+                    <Input
                       name={"verificationCode"}
                       type={"text"}
                       validate={required}
