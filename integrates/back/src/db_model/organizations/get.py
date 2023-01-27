@@ -39,7 +39,7 @@ from typing import (
 )
 
 
-async def get_all_organizations() -> tuple[Organization, ...]:
+async def get_all_organizations() -> list[Organization]:
     primary_key = keys.build_key(
         facet=ALL_ORGANIZATIONS_INDEX_METADATA,
         values={"all": "all"},
@@ -59,7 +59,7 @@ async def get_all_organizations() -> tuple[Organization, ...]:
     if not response.items:
         raise ErrorLoadingOrganizations()
 
-    return tuple(format_organization(item) for item in response.items)
+    return [format_organization(item) for item in response.items]
 
 
 async def iterate_organizations() -> AsyncIterator[Organization]:
@@ -126,10 +126,10 @@ async def _get_organization(*, organization_key: str) -> Organization:
 class OrganizationLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_keys: Iterable[str]
-    ) -> tuple[Organization, ...]:
+        self, organization_keys: list[str]
+    ) -> list[Organization]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
-        organizations: tuple[Organization, ...] = await collect(
+        organizations = await collect(
             tuple(
                 _get_organization(organization_key=key)
                 for key in organization_keys
@@ -139,7 +139,7 @@ class OrganizationLoader(DataLoader):
             self.prime(organization.id, organization)
             self.prime(organization.name, organization)
 
-        return organizations
+        return list(organizations)
 
 
 async def _get_organization_unreliable_indicators(

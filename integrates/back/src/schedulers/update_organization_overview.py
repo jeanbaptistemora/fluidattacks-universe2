@@ -11,9 +11,6 @@ from dataloaders import (
 from db_model.organizations.get import (
     get_all_organizations,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from operator import (
     attrgetter,
 )
@@ -24,7 +21,7 @@ from organizations.domain import (
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    organizations: tuple[Organization, ...] = await get_all_organizations()
+    organizations = await get_all_organizations()
     all_group_names: set[str] = set(await get_all_active_group_names(loaders))
     all_group_names = {group.lower() for group in all_group_names}
     organizations_sorted_by_name = sorted(
