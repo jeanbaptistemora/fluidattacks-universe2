@@ -52,11 +52,27 @@ const OrganizationTabs: FC = (): JSX.Element => {
           <GroupTabs />
         </Route>
       </SideBarSubTabs>
-      <SideBarTab icon={faChartSimple} to={`/orgs/${org}/analytics`} />
-      <SideBarTab icon={faShield} to={`/orgs/${org}/policies`} />
-      <SideBarTab icon={faFileLines} to={`/orgs/${org}/compliance`} />
+      <SideBarTab
+        icon={faChartSimple}
+        tip={t("organization.tabs.analytics.text")}
+        to={`/orgs/${org}/analytics`}
+      />
+      <SideBarTab
+        icon={faShield}
+        tip={t("organization.tabs.policies.text")}
+        to={`/orgs/${org}/policies`}
+      />
+      <SideBarTab
+        icon={faFileLines}
+        tip={t("organization.tabs.compliance.text")}
+        to={`/orgs/${org}/compliance`}
+      />
       <Can do={"api_resolvers_organization_billing_resolve"}>
-        <SideBarTab icon={faMoneyBill} to={`/orgs/${org}/billing`} />
+        <SideBarTab
+          icon={faMoneyBill}
+          tip={t("organization.tabs.billing.text")}
+          to={`/orgs/${org}/billing`}
+        />
       </Can>
     </Fragment>
   );
