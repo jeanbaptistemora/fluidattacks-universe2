@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import _ from "lodash";
 
 import type { ISelectedOptions } from "../types";
 
@@ -6,6 +7,10 @@ function formatValue(
   value: string | undefined,
   mappedOptions: ISelectedOptions[] | undefined
 ): string | undefined {
+  if (_.isEmpty(value)) {
+    return undefined;
+  }
+
   const formattedValue =
     mappedOptions === undefined
       ? value
@@ -33,7 +38,12 @@ function formatCheckValues(
   return formattedCheckValues;
 }
 
-function formatNumberRange(rangeValues: string[]): string | undefined {
+function formatNumberRange(
+  rangeValues: string[] | undefined
+): string | undefined {
+  if (rangeValues === undefined) {
+    return undefined;
+  }
   if (rangeValues[0] !== "" && rangeValues[1] !== "") {
     return `${rangeValues[0]} - ${rangeValues[1]}`;
   }
@@ -47,7 +57,12 @@ function formatNumberRange(rangeValues: string[]): string | undefined {
   return undefined;
 }
 
-function formatDateRange(rangeValues: string[]): string | undefined {
+function formatDateRange(
+  rangeValues: string[] | undefined
+): string | undefined {
+  if (rangeValues === undefined) {
+    return undefined;
+  }
   if (rangeValues[0] !== "" && rangeValues[1] !== "") {
     return `${dayjs(rangeValues[0]).format("LL")} - ${dayjs(
       rangeValues[1]
