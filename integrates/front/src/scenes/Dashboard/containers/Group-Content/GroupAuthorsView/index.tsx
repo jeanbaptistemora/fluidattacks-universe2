@@ -29,19 +29,19 @@ import type {
 import { Button } from "components/Button";
 import type { IFilter } from "components/Filter";
 import { Filters } from "components/Filter";
+import { FormikSelect } from "components/Input/Formik";
+import { Col, Row } from "components/Layout";
 import { Table } from "components/Table/index";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
 import type { IStakeholderAttr } from "scenes/Dashboard/components/Vulnerabilities/UpdateDescription/types";
-import styles from "scenes/Dashboard/containers/Group-Content/GroupAuthorsView/index.css";
 import { GET_BILLING } from "scenes/Dashboard/containers/Group-Content/GroupAuthorsView/queries";
 import type {
   IAuthors,
   IData,
   IGroupAuthor,
 } from "scenes/Dashboard/containers/Group-Content/GroupAuthorsView/types";
-import { Col100, Row } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
@@ -65,7 +65,7 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
 
   const formatText: (value: string) => ReactElement<Text> = (
     value: string
-  ): ReactElement<Text> => <p className={styles.wrapped}>{value}</p>;
+  ): ReactElement<Text> => <p className={"word-wrap"}>{value}</p>;
 
   const formatDate: (date: Date) => string = (date: Date): string => {
     const month: number = date.getMonth() + 1;
@@ -83,12 +83,10 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
   const formatCommit: (value: string) => ReactElement<Text> = (
     value: string
   ): ReactElement<Text> => (
-    <p className={styles.wrapped}>{commitFormatter(value)}</p>
+    <p className={"word-wrap"}>{commitFormatter(value)}</p>
   );
 
-  const handleDateChange: (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => void = useCallback(
+  const handleDateChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>): void => {
       setBillingDate(event.target.value);
     },
@@ -359,38 +357,36 @@ const GroupAuthorsView: React.FC = (): JSX.Element => {
     [dataset, formatInvitation]
   );
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
-
   return (
     <React.StrictMode>
       <Row>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col100 className={"pl0"}>
+        <Col>
           <p>{t("group.authors.tableAdvice")}</p>
-        </Col100>
+        </Col>
       </Row>
       <Row>
-        {/* eslint-disable-next-line react/forbid-component-props */}
-        <Col100 className={styles.dateCol}>
-          <select className={styles.selectDate} onChange={handleDateChange}>
+        <Col lg={10} md={10}>
+          <FormikSelect
+            field={{
+              name: "billingDate",
+              onBlur: (): void => undefined,
+              onChange: handleDateChange,
+              value: billingDate,
+            }}
+            form={{ errors: {}, touched: {} }}
+            name={"billingDate"}
+          >
             {dateRange.map(
-              (date: Date, index: number): JSX.Element => (
-                <option
-                  // Dates have no unique components unfortunately
-                  // eslint-disable-next-line
-                  key={index.toString()} // NOSONAR
-                  selected={date.toISOString() === billingDate}
-                  value={date.toISOString()}
-                >
+              (date: Date): JSX.Element => (
+                <option key={date.toISOString()} value={date.toISOString()}>
                   {formatDate(date)}
                 </option>
               )
             )}
-          </select>
-        </Col100>
+          </FormikSelect>
+        </Col>
       </Row>
+      <br />
       <Table
         columnVisibilitySetter={setColumnVisibility}
         columnVisibilityState={columnVisibility}

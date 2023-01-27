@@ -445,7 +445,7 @@ export const Graphic: React.FC<IGraphicProps> = (
         open={fullScreen}
         title={
           <div className={"flex justify-between w-100"}>
-            <div className={`${styles.titleBar} w-50`}>{currentTitle}</div>
+            <div>{currentTitle}</div>
             <div className={"w-50 pr2"}>
               <div className={"f6 fr"}>
                 <FilterButton
@@ -597,7 +597,7 @@ export const Graphic: React.FC<IGraphicProps> = (
         >
           <div className={"report-title-pad"} ref={headRef}>
             <GraphicPanelCollapseHeader>
-              <div className={` ${styles.titleBar} w-100`}>
+              <div className={"w-100"}>
                 <div
                   className={
                     "w-100 report-title flex flex-wrap justify-between items-center"
@@ -738,7 +738,7 @@ export const Graphic: React.FC<IGraphicProps> = (
                 </div>
               </div>
             </GraphicPanelCollapseHeader>
-            <hr className={styles.tinyLine} />
+            <hr className={"ma0 pa0"} />
           </div>
           <GraphicPanelCollapseBody>
             <div style={{ height: bsHeight }}>
