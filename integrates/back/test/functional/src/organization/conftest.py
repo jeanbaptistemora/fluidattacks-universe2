@@ -65,7 +65,7 @@ from decimal import (
     Decimal,
 )
 from newutils.datetime import (
-    get_now_plus_delta,
+    get_now_minus_delta,
 )
 import pytest
 import pytest_asyncio
@@ -317,7 +317,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         refresh_token="UFUzdCBTU0gK",
                         redirect_uri="",
                         access_token="TETzdCBTU0gK",
-                        valid_until=get_now_plus_delta(hours=2),
+                        valid_until=get_now_minus_delta(hours=2),
                     ),
                     is_pat=False,
                 ),
@@ -370,7 +370,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         arefresh_token="CFCzdCBTU0gK",
                         redirect_uri="",
                         access_token="DEDzdCBTU0gK",
-                        valid_until=get_now_plus_delta(hours=1),
+                        valid_until=get_now_minus_delta(hours=1),
                     ),
                     is_pat=False,
                 ),

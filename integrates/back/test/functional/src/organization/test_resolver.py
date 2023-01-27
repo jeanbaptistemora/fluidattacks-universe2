@@ -1,4 +1,4 @@
-# pylint: disable=too-many-statements, import-error
+# pylint: disable=too-many-lines,too-many-statements, import-error
 from . import (
     get_result,
     get_vulnerabilities_url,
@@ -32,6 +32,15 @@ from db_model.azure_repositories.types import (
     CredentialsGitRepository,
     OGitRepository,
 )
+from db_model.credentials.types import (
+    Credentials,
+    CredentialsState,
+    OauthAzureSecret,
+    OauthGitlabSecret,
+)
+from db_model.credentials.update import (
+    update_credential_state,
+)
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
@@ -51,9 +60,11 @@ import glob
 from newutils.datetime import (
     get_as_utc_iso_format,
     get_now_minus_delta,
+    get_now_plus_delta,
 )
 import os
 import pytest
+import pytz
 from schedulers.update_organization_overview import (
     main as update_organization_overview,
 )
@@ -261,6 +272,72 @@ def _get_lab_commit_stats(token: str, project_id: str) -> tuple[dict, ...]:
     raise GitlabAuthenticationError("")
 
 
+async def get_azure_token(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+) -> Optional[str]:
+    if not isinstance(credential.state.secret, OauthAzureSecret):
+        return None
+    new_state = CredentialsState(
+        modified_by=credential.state.modified_by,
+        modified_date=datetime.now(tz=pytz.timezone("UTC")),
+        name=credential.state.name,
+        secret=OauthAzureSecret(
+            redirect_uri=credential.state.secret.redirect_uri,
+            arefresh_token="CFCzdCBTU0gK",
+            access_token="DEDzdCBTU0gK",
+            valid_until=get_now_plus_delta(hours=2),
+        ),
+        is_pat=credential.state.is_pat,
+        azure_organization=credential.state.azure_organization,
+        type=credential.state.type,
+    )
+    await update_credential_state(
+        current_value=credential.state,
+        credential_id=credential.id,
+        organization_id=credential.organization_id,
+        state=new_state,
+        force_update_owner=False,
+    )
+    loaders.credentials.clear_all()
+    loaders.organization_credentials.clear(credential.organization_id)
+    return "DEDzdCBTU0gK"
+
+
+async def get_token(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+) -> Optional[str]:
+    if not isinstance(credential.state.secret, OauthGitlabSecret):
+        return None
+    new_state = CredentialsState(
+        modified_by=credential.state.modified_by,
+        modified_date=datetime.now(tz=pytz.timezone("UTC")),
+        name=credential.state.name,
+        secret=OauthGitlabSecret(
+            redirect_uri=credential.state.secret.redirect_uri,
+            refresh_token="UFUzdCBTU0gK",
+            access_token="TETzdCBTU0gK",
+            valid_until=get_now_plus_delta(hours=2),
+        ),
+        is_pat=credential.state.is_pat,
+        azure_organization=credential.state.azure_organization,
+        type=credential.state.type,
+    )
+    await update_credential_state(
+        current_value=credential.state,
+        credential_id=credential.id,
+        organization_id=credential.organization_id,
+        state=new_state,
+        force_update_owner=False,
+    )
+    loaders.credentials.clear_all()
+    loaders.organization_credentials.clear(credential.organization_id)
+    return "TETzdCBTU0gK"
+
+
 async def get_covered_group(
     path: str,  # pylint: disable=unused-argument
     folder: str,  # pylint: disable=unused-argument
@@ -318,9 +395,18 @@ async def test_get_organization_ver_1(
     assert populate
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
-    result: dict[str, Any] = await get_result(
-        user=email, org=org_id, should_get_token=True
-    )
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result: dict[str, Any] = await get_result(
+            user=email, org=org_id, should_get_token=True
+        )
     assert "errors" not in result
     assert result["data"]["organization"]["id"] == org_id
     assert result["data"]["organization"]["name"] == org_name.lower()
@@ -473,7 +559,16 @@ async def test_get_organization_ver_1(
     ):
         await update_organization_overview()
 
-    result = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result = await get_result(user=email, org=org_id)
     assert "errors" not in result
     assert result["data"]["organization"]["coveredAuthors"] == 1
     assert result["data"]["organization"]["coveredCommits"] == 12
@@ -540,7 +635,16 @@ async def test_get_organization_ver_2(
         "vulnerability_manager@fluidattacks.com",
         "vulnerability_manager@gmail.com",
     ]
-    result: dict[str, Any] = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
@@ -598,7 +702,11 @@ async def test_get_organization_ver_2(
     assert (
         result["data"]["organization"]["credentials"][1]["name"] == "SSH Key"
     )
+    assert result["data"]["organization"]["credentials"][1]["isToken"] is False
+    assert result["data"]["organization"]["credentials"][1]["key"] is not None
     assert result["data"]["organization"]["credentials"][4]["isPat"] is True
+    assert result["data"]["organization"]["credentials"][4]["isToken"] is True
+    assert result["data"]["organization"]["credentials"][4]["key"] is None
     assert (
         result["data"]["organization"]["credentials"][4]["name"] == "pat token"
     )
@@ -704,7 +812,16 @@ async def test_get_organization_ver_2(
     ):
         await update_organization_overview()
 
-    result = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result = await get_result(user=email, org=org_id)
     assert "errors" not in result
     assert result["data"]["organization"]["coveredAuthors"] == 1
     assert result["data"]["organization"]["coveredCommits"] == 12
@@ -794,7 +911,16 @@ async def test_get_organization_ver_2(
     )
     assert len(updated_repositories) == 0
 
-    result = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result = await get_result(user=email, org=org_id)
     assert "errors" not in result
     assert result["data"]["organization"]["coveredAuthors"] == 0
     assert result["data"]["organization"]["coveredCommits"] == 0
@@ -828,7 +954,16 @@ async def test_get_organization_ver_3(
     org_groups: list[str] = [
         "group1",
     ]
-    result: dict[str, Any] = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]
@@ -861,7 +996,16 @@ async def test_get_organization_default_values(
     org_stakeholders: list[str] = [
         "admin@gmail.com",
     ]
-    result: dict[str, Any] = await get_result(user=email, org=org_id)
+    with (
+        mock.patch(
+            "api.resolvers.credentials.token.get_azure_token",
+            side_effect=get_azure_token,
+        ),
+        mock.patch(
+            "api.resolvers.credentials.token.get_token", side_effect=get_token
+        ),
+    ):
+        result: dict[str, Any] = await get_result(user=email, org=org_id)
     groups: list[str] = [
         group["name"] for group in result["data"]["organization"]["groups"]
     ]

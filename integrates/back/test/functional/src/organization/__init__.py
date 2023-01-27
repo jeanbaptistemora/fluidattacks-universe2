@@ -63,8 +63,14 @@ async def get_result(
                 credentials {{
                     azureOrganization
                     isPat
+                    key
+                    isToken
                     name
                     oauthType
+                    password
+                    owner
+                    organization {{id}}
+                    user
                     token @include(if: {str(should_get_token).lower()})
                     type
                 }}

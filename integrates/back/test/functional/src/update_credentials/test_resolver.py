@@ -1,6 +1,10 @@
 from . import (
     get_result,
 )
+from custom_exceptions import (
+    CredentialAlreadyExists,
+    InvalidParameter,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -16,6 +20,141 @@ from typing import (
     Any,
     Dict,
 )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_credentials")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "organization_id",
+        "credentials_id",
+        "edited_credentials",
+        "parameter",
+    ],
+    [
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
+            dict(
+                name="cred2",
+                type="HTTPS",
+                user="user user",
+            ),
+            "password",
+        ],
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
+            dict(
+                name="cred2",
+                type="HTTPS",
+                password="lorem.ipsum,Dolor.sit:am3t;t]{3[s.T}/l;u=r<w>oiu(p",
+            ),
+            "user",
+        ],
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "42143c0c-a12c-4774-9d02-285b94e698e4",
+            dict(
+                name="cred4",
+                type="HTTPS",
+                isPat=True,
+                token="token test",
+            ),
+            "azure_organization",
+        ],
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "42143c0c-a12c-4774-9d02-285b94e698e4",
+            dict(
+                name="cred4",
+                type="HTTPS",
+                isPat=False,
+                azureOrganization="orgcred5",
+                token="token test",
+            ),
+            "azure_organization",
+        ],
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+            dict(
+                name="cred4",
+                type="HTTPS",
+                azureOrganization="orgcred5",
+                isPat=True,
+                token="token test",
+            ),
+            "type",
+        ],
+    ],
+)
+# pylint: disable=too-many-arguments
+async def test_update_credentials_fail_1(
+    populate: bool,
+    email: str,
+    organization_id: str,
+    credentials_id: str,
+    edited_credentials: dict,
+    parameter: str,
+) -> None:
+    assert populate
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials_id=credentials_id,
+        credentials=edited_credentials,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(InvalidParameter(parameter))
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("update_credentials")
+@pytest.mark.parametrize(
+    [
+        "email",
+        "organization_id",
+        "credentials_id",
+        "edited_credentials",
+    ],
+    [
+        [
+            "user@fluidattacks.com",
+            "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            "9edc56a8-2743-437e-a6a9-4847b28e1fd5",
+            dict(
+                name="Ssh key",
+                type="HTTPS",
+                azureOrganization="orgcred5",
+                isPat=True,
+                token="token test",
+            ),
+        ],
+    ],
+)
+async def test_update_credentials_fail_2(
+    populate: bool,
+    email: str,
+    organization_id: str,
+    credentials_id: str,
+    edited_credentials: dict,
+) -> None:
+    assert populate
+    result: Dict[str, Any] = await get_result(
+        user=email,
+        organization_id=organization_id,
+        credentials_id=credentials_id,
+        credentials=edited_credentials,
+    )
+    assert "errors" in result
+    assert result["errors"][0]["message"] == str(CredentialAlreadyExists())
 
 
 @pytest.mark.asyncio

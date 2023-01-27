@@ -10,6 +10,10 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
+from db_model.credentials.types import (
+    Credentials,
+    CredentialsRequest,
+)
 from db_model.enums import (
     CredentialType,
 )
@@ -63,6 +67,15 @@ async def mutate(
         validate_space_field(credentials["azure_organization"])
     if not is_pat and "azure_organization" in credentials:
         raise InvalidParameter("azure_organization")
+
+    current_credentials: Credentials = await loaders.credentials.load(
+        CredentialsRequest(
+            id=credentials_id,
+            organization_id=organization_id,
+        )
+    )
+    if current_credentials.state.type is CredentialType.OAUTH:
+        raise InvalidParameter("type")
     await orgs_domain.update_credentials(
         loaders,
         CredentialAttributesToUpdate(
