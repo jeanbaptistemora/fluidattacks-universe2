@@ -116,7 +116,7 @@ calendar days to confirm,
 after which the invitation
 will expire.
 
-![Access Granted](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083296/docs/web/notifications/notif_access_granted.png)
+![Access Granted](https://res.cloudinary.com/fluid-attacks/image/upload/v1674850881/docs/web/notifications/access_granted.png)
 
 ### Root updates (root added)
 
@@ -129,7 +129,7 @@ fields validated to make a root.
 The role that will receive
 this notification is User Manager.
 
-![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1663173706/docs/web/notifications/root_added.png)
+![Root Added](https://res.cloudinary.com/fluid-attacks/image/upload/v1674851138/docs/web/notifications/root_added.png)
 
 ### Root updates (root moved)
 
@@ -243,7 +243,7 @@ it will send you to the
 reported type of
 vulnerability on the ARM.
 
-![Vulnerability Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1664798430/docs/web/notifications/vulnerability_reported.png)
+![Vulnerability Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1674851559/docs/web/notifications/vulnerability_alert.png)
 
 ### Event alert
 
