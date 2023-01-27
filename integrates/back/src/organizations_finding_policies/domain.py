@@ -3,6 +3,7 @@ from aioextensions import (
 )
 from custom_exceptions import (
     InvalidFindingNamePolicy,
+    OrgFindingPolicyNotFound,
     PolicyAlreadyHandled,
     RepeatedFindingNamePolicy,
 )
@@ -115,14 +116,16 @@ async def handle_finding_policy_acceptance(
     organization_name: str,
     status: PolicyStateStatus,
 ) -> None:
-    finding_policy: OrgFindingPolicy = (
-        await loaders.organization_finding_policy.load(
-            OrgFindingPolicyRequest(
-                organization_name=organization_name,
-                policy_id=finding_policy_id,
-            )
+    finding_policy: Optional[
+        OrgFindingPolicy
+    ] = await loaders.organization_finding_policy.load(
+        OrgFindingPolicyRequest(
+            organization_name=organization_name,
+            policy_id=finding_policy_id,
         )
     )
+    if not finding_policy:
+        raise OrgFindingPolicyNotFound()
     if finding_policy.state.status != PolicyStateStatus.SUBMITTED:
         raise PolicyAlreadyHandled()
 
@@ -144,14 +147,16 @@ async def submit_finding_policy(
     finding_policy_id: str,
     organization_name: str,
 ) -> None:
-    finding_policy: OrgFindingPolicy = (
-        await loaders.organization_finding_policy.load(
-            OrgFindingPolicyRequest(
-                organization_name=organization_name,
-                policy_id=finding_policy_id,
-            )
+    finding_policy: Optional[
+        OrgFindingPolicy
+    ] = await loaders.organization_finding_policy.load(
+        OrgFindingPolicyRequest(
+            organization_name=organization_name,
+            policy_id=finding_policy_id,
         )
     )
+    if not finding_policy:
+        raise OrgFindingPolicyNotFound()
     if finding_policy.state.status not in {
         PolicyStateStatus.INACTIVE,
         PolicyStateStatus.REJECTED,
@@ -176,14 +181,16 @@ async def deactivate_finding_policy(
     finding_policy_id: str,
     organization_name: str,
 ) -> None:
-    finding_policy: OrgFindingPolicy = (
-        await loaders.organization_finding_policy.load(
-            OrgFindingPolicyRequest(
-                organization_name=organization_name,
-                policy_id=finding_policy_id,
-            )
+    finding_policy: Optional[
+        OrgFindingPolicy
+    ] = await loaders.organization_finding_policy.load(
+        OrgFindingPolicyRequest(
+            organization_name=organization_name,
+            policy_id=finding_policy_id,
         )
     )
+    if not finding_policy:
+        raise OrgFindingPolicyNotFound()
     if finding_policy.state.status != PolicyStateStatus.APPROVED:
         raise PolicyAlreadyHandled()
 

@@ -29,8 +29,8 @@ from typing import (
 
 async def _get_organization_finding_policy(
     *,
-    requests: tuple[OrgFindingPolicyRequest, ...],
-) -> Optional[tuple[OrgFindingPolicy, ...]]:
+    requests: list[OrgFindingPolicyRequest],
+) -> list[Optional[OrgFindingPolicy]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["org_finding_policy_metadata"],
@@ -43,19 +43,17 @@ async def _get_organization_finding_policy(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
-        response = {
-            OrgFindingPolicyRequest(
-                organization_name=policy.organization_name,
-                policy_id=policy.id,
-            ): policy
-            for policy in tuple(
-                format_organization_finding_policy(item) for item in items
-            )
-        }
-        return tuple(response[request] for request in requests)
+    response = {
+        OrgFindingPolicyRequest(
+            organization_name=policy.organization_name,
+            policy_id=policy.id,
+        ): policy
+        for policy in tuple(
+            format_organization_finding_policy(item) for item in items
+        )
+    }
 
-    return None
+    return [response.get(request) for request in requests]
 
 
 async def _get_organization_finding_policies(
@@ -101,9 +99,9 @@ async def _get_organization_finding_policies(
 class OrganizationFindingPolicyLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[OrgFindingPolicyRequest]
-    ) -> Optional[tuple[OrgFindingPolicy, ...]]:
-        return await _get_organization_finding_policy(requests=tuple(requests))
+        self, requests: list[OrgFindingPolicyRequest]
+    ) -> list[Optional[OrgFindingPolicy]]:
+        return await _get_organization_finding_policy(requests=requests)
 
 
 class OrganizationFindingPoliciesLoader(DataLoader):

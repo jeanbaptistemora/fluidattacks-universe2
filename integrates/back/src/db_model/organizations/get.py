@@ -35,7 +35,6 @@ from dynamodb import (
 )
 from typing import (
     AsyncIterator,
-    Iterable,
 )
 
 
@@ -168,10 +167,10 @@ async def _get_organization_unreliable_indicators(
 class OrganizationUnreliableIndicatorsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: Iterable[str]
-    ) -> tuple[OrganizationUnreliableIndicators, ...]:
-        return await collect(
-            tuple(
+        self, organization_ids: list[str]
+    ) -> list[OrganizationUnreliableIndicators]:
+        return list(
+            await collect(
                 _get_organization_unreliable_indicators(
                     organization_id=organization_id
                 )

@@ -4,6 +4,9 @@ from batch.dal import (
 from batch.types import (
     BatchProcessing,
 )
+from custom_exceptions import (
+    OrgFindingPolicyNotFound,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -32,6 +35,9 @@ from organizations_finding_policies.domain import (
 from settings import (
     LOGGING,
 )
+from typing import (
+    Optional,
+)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -55,13 +61,15 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
 
     organization_name = item.additional_info
     loaders: Dataloaders = get_new_context()
-    finding_policy: OrgFindingPolicy = (
-        await loaders.organization_finding_policy.load(
-            OrgFindingPolicyRequest(
-                organization_name=organization_name, policy_id=item.entity
-            )
+    finding_policy: Optional[
+        OrgFindingPolicy
+    ] = await loaders.organization_finding_policy.load(
+        OrgFindingPolicyRequest(
+            organization_name=organization_name, policy_id=item.entity
         )
     )
+    if not finding_policy:
+        raise OrgFindingPolicyNotFound()
     if finding_policy.state.status in {
         PolicyStateStatus.APPROVED,
         PolicyStateStatus.INACTIVE,
