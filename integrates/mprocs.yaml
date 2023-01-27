@@ -1,9 +1,0 @@
-procs:
-  back:
-    cmd: ["m", ".", "/integrates/back", "dev"]
-  db:
-    cmd: ["m", ".", "/integrates/db"]
-  front:
-    cmd: ["m", ".", "/integrates/front"]
-  storage:
-    cmd: ["m", ".", "/integrates/storage/dev"]
