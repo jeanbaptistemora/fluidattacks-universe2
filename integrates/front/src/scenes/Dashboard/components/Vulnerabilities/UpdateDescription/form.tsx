@@ -514,13 +514,7 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
             </Row>
             <Row>
               <Col100>
-                <TagField
-                  handleDeletion={handleDeletion}
-                  hasNewVulnSelected={hasNewVulns}
-                  isAcceptedSelected={isAcceptedSelected}
-                  isAcceptedUndefinedSelected={isAcceptedUndefinedSelected}
-                  isInProgressSelected={isInProgressSelected}
-                />
+                <TagField handleDeletion={handleDeletion} />
               </Col100>
             </Row>
             {(isAcceptedSelected ||

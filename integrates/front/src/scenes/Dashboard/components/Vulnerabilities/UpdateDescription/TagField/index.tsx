@@ -10,10 +10,6 @@ import { authzPermissionsContext } from "utils/authz/config";
 
 const TagField: React.FC<ITagFieldProps> = ({
   handleDeletion,
-  hasNewVulnSelected,
-  isAcceptedSelected,
-  isAcceptedUndefinedSelected,
-  isInProgressSelected,
 }: ITagFieldProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
@@ -26,19 +22,14 @@ const TagField: React.FC<ITagFieldProps> = ({
 
   return (
     <React.StrictMode>
-      {isAcceptedSelected ||
-      isAcceptedUndefinedSelected ||
-      isInProgressSelected ||
-      !hasNewVulnSelected ? (
-        <div className={"mb3 nt2 w-100"}>
-          <InputTags
-            disabled={!(canUpdateVulnsTreatment && canDeleteVulnsTags)}
-            label={t("searchFindings.tabDescription.tag")}
-            name={"tag"}
-            onRemove={handleDeletion}
-          />
-        </div>
-      ) : undefined}
+      <div className={"mb3 nt2 w-100"}>
+        <InputTags
+          disabled={!(canUpdateVulnsTreatment && canDeleteVulnsTags)}
+          label={t("searchFindings.tabDescription.tag")}
+          name={"tag"}
+          onRemove={handleDeletion}
+        />
+      </div>
     </React.StrictMode>
   );
 };

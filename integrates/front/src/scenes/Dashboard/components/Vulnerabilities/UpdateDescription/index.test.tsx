@@ -252,7 +252,7 @@ describe("Update Description component", (): void => {
       ).toHaveLength(1);
     });
 
-    expect(screen.queryAllByRole("textbox")).toHaveLength(1);
+    expect(screen.queryAllByRole("textbox")).toHaveLength(2);
 
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "treatment" }),
