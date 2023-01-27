@@ -8,3 +8,12 @@ lib_path.f005.allows_priv_escalation_by_policies_versions:
     Un documento de política con iam:CreatePolicyVersion y
     iam:SetDefaultPolicyVersion permite obtener acceso administrativo completo
     acceso sobre AWS.
+lib_path.f005.allows_priv_escalation_by_attach_policy:
+  en: >
+    A policy document with both iam:AttachUserPolicy allows grantees to
+    attach any policy to the designed users, including a policy with full
+    administrator rights.
+  es: >-
+    Un documento de política con iam:AttachUserPolicy permite que se
+    adjunte cualquier política a los usuarios diseñados, incluida una política
+    con derechos de administrador.

@@ -2267,6 +2267,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_ALLOWS_PRIV_ESCALATION_BY_ATTACH_POLICY = MethodInfo(
+        file_name="aws",
+        name="allows_priv_escalation_by_attach_policy",
+        module="dast",
+        finding=FindingEnum.F005,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_OPEN_PASSROLE = MethodInfo(
         file_name="aws",
         name="open_passrole",
