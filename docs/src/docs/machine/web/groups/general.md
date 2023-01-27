@@ -228,4 +228,4 @@ solved (in green), unsolved
 ![Status Column](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777920/docs/web/groups/general/status_event.png)
 
 If you want to know more about the event section,
-you can enter [here](/machine/web/groups/events)
+you can enter [here.](/machine/web/groups/events)

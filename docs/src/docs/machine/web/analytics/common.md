@@ -430,9 +430,9 @@ you can see the files are
 reported with open vulnerabilities
 and the total number of these.
 The X-axis represents
-the registered files,
-and the total number of
-vulnerabilities on the Y-axis.
+the total number of vulnerabilities
+and on the Y-axis you can see the
+name of the registered files.
 
 ## Exposure benchmark
 
