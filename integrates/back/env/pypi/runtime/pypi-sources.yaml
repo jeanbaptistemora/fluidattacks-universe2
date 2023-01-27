@@ -14,6 +14,7 @@ closure:
   asgiref: 3.6.0
   async-lru: 1.0.2
   async-timeout: 4.0.2
+  atlassian-python-api: 3.32.2
   attrs: 22.2.0
   authlib: 0.15.6
   azure-devops: 6.0.0b4
@@ -26,7 +27,7 @@ closure:
   boto3-type-annotations: 0.3.1
   botocore: 1.27.59
   bracex: 2.3.post1
-  cachetools: 5.2.1
+  cachetools: 5.3.0
   celery: 5.2.7
   certifi: 2022.12.7
   cffi: 1.15.1
@@ -115,7 +116,7 @@ closure:
   pyparsing: 3.0.9
   pypdf4: 1.27.0
   python-dateutil: 2.8.2
-  python-dotenv: 0.21.0
+  python-dotenv: 0.21.1
   python-gitlab: 3.12.0
   python-magic: 0.4.18
   python-multipart: 0.0.5
@@ -279,6 +280,9 @@ links:
   - name: async-timeout-4.0.2.tar.gz
     sha256: 05bbjz16n1a7m1s3lmcwri2x5rc7hnh6f2hdr2lbflnv1mjf2qr1
     url: https://files.pythonhosted.org/packages/54/6e/9678f7b2993537452710ffb1750c62d2c26df438aa621ad5fa9d1507a43a/async-timeout-4.0.2.tar.gz
+  - name: atlassian-python-api-3.32.2.tar.gz
+    sha256: 0v40278dcwjrafg25axb8kz379mdawnpsnws34jpdldn2ygkmbh6
+    url: https://files.pythonhosted.org/packages/a7/0d/af2919f215facf280b562138ab0a4027e652c779887c949a20300716f38d/atlassian-python-api-3.32.2.tar.gz
   - name: attrs-22.2.0-py3-none-any.whl
     sha256: 0dh84hdmdqvlyjqw0dqfbvfg6y4gh7w9h3qp96yqv1kqcxzmrs99
     url: https://files.pythonhosted.org/packages/fb/6e/6f83bf616d2becdf333a1640f1d463fef3150e2e926b7010cb0f81c95e88/attrs-22.2.0-py3-none-any.whl
@@ -345,12 +349,12 @@ links:
   - name: bracex-2.3.post1.tar.gz
     sha256: 14qnsxpwb9h3zw0pjqbaw2adm794rfzalav9q3gd61ndnb43zcp7
     url: https://files.pythonhosted.org/packages/b3/96/d53e290ddf6215cfb24f93449a1835eff566f79a1f332cf046a978df0c9e/bracex-2.3.post1.tar.gz
-  - name: cachetools-5.2.1-py3-none-any.whl
-    sha256: 1nj71r2pxff2mxbwxjb0rwp0nd31mib7rhm861ad45bc7azywql4
-    url: https://files.pythonhosted.org/packages/a4/7e/9a87d3b3ca48e253b5c0e114a6601160b9b29f175f4268cb30e21d9e8b63/cachetools-5.2.1-py3-none-any.whl
-  - name: cachetools-5.2.1.tar.gz
-    sha256: 1zn13hq7n6bp56b5a7f295m68xmwnsjmq6fk32v9ncd1107br4ar
-    url: https://files.pythonhosted.org/packages/3d/cf/8bab81474cb9ec7879ba28aef71c8351db92cd03587d9eac8e908b2c1c23/cachetools-5.2.1.tar.gz
+  - name: cachetools-5.3.0-py3-none-any.whl
+    sha256: 1m793lns2a17x4vkxvzfcfbnlpdnk15mv8ssr2k8w02whhg1m7j2
+    url: https://files.pythonhosted.org/packages/db/14/2b48a834d349eee94677e8702ea2ef98b7c674b090153ea8d3f6a788584e/cachetools-5.3.0-py3-none-any.whl
+  - name: cachetools-5.3.0.tar.gz
+    sha256: 051cizaj2mw01jwqx9fz3hplmsg6giasdps0m4hqr4yzp33xvpqk
+    url: https://files.pythonhosted.org/packages/4d/91/5837e9f9e77342bb4f3ffac19ba216eef2cd9b77d67456af420e7bafe51d/cachetools-5.3.0.tar.gz
   - name: celery-5.2.7-py3-none-any.whl
     sha256: 050f5hq7bl9lcdnd7rgxgapkkzcivazbcmv2grqdcn6d4302110k
     url: https://files.pythonhosted.org/packages/1d/99/21fe9d1829cab4fc77d18f89d0c4cbcfe754e95f8b8f4af64fe4997c442f/celery-5.2.7-py3-none-any.whl
@@ -1125,12 +1129,12 @@ links:
   - name: python-dateutil-2.8.2.tar.gz
     sha256: 11iy7m4bp2lgfkcl0r6xzf34bvk7ppjmsyn2ygfikbi72v6cl8q1
     url: https://files.pythonhosted.org/packages/4c/c4/13b4776ea2d76c115c1d1b84579f3764ee6d57204f6be27119f13a61d0a9/python-dateutil-2.8.2.tar.gz
-  - name: python_dotenv-0.21.0-py3-none-any.whl
-    sha256: 1rd76i399q23gzkmv5lrmlklal8mk1cidq1ydjv65m3dcd2fp10n
-    url: https://files.pythonhosted.org/packages/2d/10/ff4f2f5b2a420fd09e1331d63cc87cf4367c5745c0a4ce99cea92b1cbacb/python_dotenv-0.21.0-py3-none-any.whl
-  - name: python-dotenv-0.21.0.tar.gz
-    sha256: 0ichsy8w34jj1pypaymynw20zpv6iq0cg9nz8m0x7qrr8qkhhzdp
-    url: https://files.pythonhosted.org/packages/87/8d/ab7352188f605e3f663f34692b2ed7457da5985857e9e4c2335cd12fb3c9/python-dotenv-0.21.0.tar.gz
+  - name: python_dotenv-0.21.1-py3-none-any.whl
+    sha256: 16jlrf8h62czsmyh99ba39r23b90ipdx95sdrjgqbg5y301jxqa1
+    url: https://files.pythonhosted.org/packages/64/62/f19d1e9023aacb47241de3ab5a5d5fedf32c78a71a9e365bb2153378c141/python_dotenv-0.21.1-py3-none-any.whl
+  - name: python-dotenv-0.21.1.tar.gz
+    sha256: 0j8w2nl1y5br95sc65gjh9df9dj0wk81ha19fzikrpkccf7xx4qw
+    url: https://files.pythonhosted.org/packages/f5/d7/d548e0d5a68b328a8d69af833a861be415a17cb15ce3d8f0cd850073d2e1/python-dotenv-0.21.1.tar.gz
   - name: python_gitlab-3.12.0-py3-none-any.whl
     sha256: 1hdjc7c6fbzqmmyjhfyjmg8xpfqx4pap8ripcd2s7zc3jys3dsx5
     url: https://files.pythonhosted.org/packages/2a/26/497b2a2d8b4853a194937807555094dae876a22135673b609581ebd3cd12/python_gitlab-3.12.0-py3-none-any.whl

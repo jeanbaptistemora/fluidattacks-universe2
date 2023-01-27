@@ -5,6 +5,12 @@ from aioextensions import (
     collect,
     in_thread,
 )
+from atlassian.bitbucket import (
+    Cloud,
+)
+from atlassian.bitbucket.cloud.repositories.commits import (
+    Commits,
+)
 from azure.devops.client import (
     AzureDevOpsAuthenticationError,
 )
@@ -38,8 +44,10 @@ from azure.devops.v6_0.profile.profile_client import (
 )
 from context import (
     FI_AZURE_OAUTH2_REPOSITORY_APP_ID,
+    FI_BITBUCKET_OAUTH2_REPOSITORY_APP_ID,
 )
 from datetime import (
+    datetime,
     timezone,
 )
 from dateutil import (
@@ -83,6 +91,9 @@ from settings import (
 from typing import (
     Optional,
     Union,
+)
+from urllib3.util.url import (
+    parse_url,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -158,6 +169,91 @@ async def get_oauth_repositories(
             workers=1,
         )
     )
+
+
+async def get_bitbucket_commits(
+    *, token: str, repos_ids: tuple[str, ...]
+) -> tuple[tuple[Commits, ...], ...]:
+    return await collect(
+        tuple(
+            in_thread(_get_bitbucket_commits, token=token, repo_id=repo_id)
+            for repo_id in repos_ids
+        )
+    )
+
+
+def _get_bitbucket_commits(*, token: str, repo_id: str) -> tuple[Commits, ...]:
+    oauth2_dict = {
+        "client_id": FI_BITBUCKET_OAUTH2_REPOSITORY_APP_ID,
+        "token": {"access_token": token},
+    }
+    bitbucket_cloud = Cloud(oauth2=oauth2_dict)
+    _workspace, _project_and_slug = repo_id.rsplit("#WORKSPACE#", 1)
+    _project, _slug = _project_and_slug.rsplit("#PROJECT#", 1)
+    workspace = bitbucket_cloud.workspaces.get(_workspace)
+    project = workspace.projects.get(_project, "name")
+    repo = project.repositories.get(_slug)
+
+    commits: list[Commits] = []
+    for commit in repo.commits.each():
+        commits.append(commit)
+
+    return tuple(commits)
+
+
+async def get_bitbucket_repositories(
+    *, token: str
+) -> tuple[BasicRepoData, ...]:
+    return await in_thread(_get_bitbucket_repositories, token=token)
+
+
+def _get_bitbucket_repositories(*, token: str) -> tuple[BasicRepoData, ...]:
+    repos: list[BasicRepoData] = []
+    oauth2_dict = {
+        "client_id": FI_BITBUCKET_OAUTH2_REPOSITORY_APP_ID,
+        "token": {"access_token": token},
+    }
+    bitbucket_cloud = Cloud(oauth2=oauth2_dict)
+    for workspace in bitbucket_cloud.workspaces.each():
+        for project in workspace.projects.each():
+            for repo in project.repositories.each():
+                main_branch = repo.__dict__["_BitbucketBase__data"][
+                    "mainbranch"
+                ]["name"]
+                default_branch = (
+                    f'refs/heads/{main_branch.rstrip().lstrip("refs/heads/")}'
+                )
+                repos.append(
+                    BasicRepoData(
+                        id=(
+                            f"{workspace.uuid}#WORKSPACE#"
+                            f"{project.name}#PROJECT#{repo.slug}"
+                        ),
+                        remote_url=parse_url(
+                            repo.__dict__["_BitbucketBase__data"]["links"][
+                                "clone"
+                            ][0]["href"],
+                        )
+                        ._replace(auth=None)
+                        .url,
+                        ssh_url=repo.__dict__["_BitbucketBase__data"]["links"][
+                            "clone"
+                        ][1]["href"],
+                        web_url=repo.__dict__["_BitbucketBase__data"]["links"][
+                            "html"
+                        ]["href"],
+                        branch=default_branch,
+                        last_activity_at=datetime.fromisoformat(
+                            "2000-01-01T05:00:00+00:00"
+                        )
+                        if repo.updated_on == "never updated"
+                        else parser.parse(
+                            repo.updated_on,
+                        ).astimezone(timezone.utc),
+                    )
+                )
+
+    return tuple(repos)
 
 
 async def get_account_names(

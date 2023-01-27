@@ -11,6 +11,7 @@ ariadne:
   extras:
     - file-uploads
 async-lru: 1.0.2
+atlassian-python-api: 3.32.2
 Authlib: 0.15.6
 azure-devops: 6.0.0b4
 backports.csv: 1.0.7
