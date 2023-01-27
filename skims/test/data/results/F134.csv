@@ -311,7 +311,7 @@ F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,82,16,skims,13
    92 |     package:
       ^ Col 0
 ",yaml.json_ssl_port_missing
-F009,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,110,798,skims,009. Sensitive information in source code,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
+F134,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,110,16,skims,134. Insecure or unset HTTP headers - CORS,The cors policy allows any origin in namespace/skims/test/data/lib_root/f134/serverless.yml,"
   100 |       - ${self:custom.JWT_LAYER.${self:provider.stage}}
   101 |       - ${self:custom.SYNC_UTILS_LAYER.${self:provider.stage}}
   102 |     environment:
@@ -334,4 +334,4 @@ F009,lines,namespace/skims/test/data/lib_root/f134/serverless.yml,110,798,skims,
   119 |           authorizer:
   120 |             name: ${self:custom.AUTHORIZER_NAME}
       ^ Col 0
-",docker.docker_compose_env_secrets
+",yaml.json_ssl_port_missing
