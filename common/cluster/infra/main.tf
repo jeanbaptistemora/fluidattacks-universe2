@@ -4,7 +4,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.18.0"
+      version = "~> 4.52.0"
     }
     cloudinit = {
       source  = "hashicorp/cloudinit"
@@ -12,19 +12,19 @@ terraform {
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "~> 2.5.1"
+      version = "~> 2.8.0"
     }
     http = {
       source  = "hashicorp/http"
-      version = "~> 2.2.0"
+      version = "~> 3.2.1"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "~> 2.11.0"
+      version = "~> 2.17.0"
     }
     tls = {
       source  = "hashicorp/tls"
-      version = "~> 3.4.0"
+      version = "~> 4.0.4"
     }
   }
 
@@ -47,7 +47,7 @@ provider "helm" {
     cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
 
     exec {
-      api_version = "client.authentication.k8s.io/v1alpha1"
+      api_version = "client.authentication.k8s.io/v1beta1"
       command     = "aws"
       args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
     }
@@ -58,7 +58,7 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(module.cluster.cluster_certificate_authority_data)
 
   exec {
-    api_version = "client.authentication.k8s.io/v1alpha1"
+    api_version = "client.authentication.k8s.io/v1beta1"
     command     = "aws"
     args        = ["eks", "get-token", "--cluster-name", module.cluster.cluster_id]
   }
