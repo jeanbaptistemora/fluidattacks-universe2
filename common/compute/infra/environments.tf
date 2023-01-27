@@ -116,18 +116,15 @@ locals {
     )
     skims_small = merge(
       local.machine_sizes.small,
-      local.config.skims,
-      { max_vcpus = 0 }
+      local.config.skims
     )
     skims_medium = merge(
       local.machine_sizes.medium,
-      local.config.skims,
-      { max_vcpus = 0 }
+      local.config.skims
     )
     skims_large = merge(
       local.machine_sizes.large,
-      local.config.skims,
-      { max_vcpus = 0 }
+      local.config.skims
     )
     sorts_small = merge(
       local.machine_sizes.small,
@@ -209,7 +206,7 @@ resource "aws_batch_compute_environment" "main" {
   compute_environment_name_prefix = "${each.key}_"
 
   service_role = data.aws_iam_role.main["prod_common"].arn
-  state        = "ENABLED"
+  state        = each.value.product != "skims" ? "ENABLED" : "DISABLED"
   type         = "MANAGED"
 
   compute_resources {
