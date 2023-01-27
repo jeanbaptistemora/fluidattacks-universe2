@@ -3,16 +3,16 @@
 Move migrated attributes from the ToeInputs Item into the State
 
 TOE Inputs State Standardization
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-27 at 20:34:35 UTC
+Finalization Time: 2023-01-27 at 20:46:02 UTC
 
 TOE Inputs Check
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-27 at 20:47:00 UTC
+Finalization Time: 2023-01-27 at 20:50:10 UTC
 
 Deletion of duplicate data
-Execution Time:
-Finalization Time:
+Execution Time:    2023-01-27 at 23:03:37 UTC
+Finalization Time: 2023-01-27 at 23:14:08 UTC
 """
 from aioextensions import (
     collect,
@@ -42,6 +42,9 @@ from dynamodb.model import (
 from dynamodb.types import (
     Item,
     PrimaryKey,
+)
+from newutils.datetime import (
+    get_iso_date,
 )
 from organizations import (
     domain as orgs_domain,
@@ -73,7 +76,7 @@ async def get_toe_inputs_by_group(
     group_name: str,
 ) -> tuple[Item, ...]:
     primary_key = keys.build_key(
-        facet=TABLE.facets["toe_inputs_metadata"],
+        facet=TABLE.facets["toe_input_metadata"],
         values={"group_name": group_name},
     )
     key_structure = TABLE.primary_key
@@ -81,10 +84,10 @@ async def get_toe_inputs_by_group(
         condition_expression=(
             Key(key_structure.partition_key).eq(primary_key.partition_key)
             & Key(key_structure.sort_key).begins_with(
-                primary_key.sort_key.replace("#ROOT#FILENAME", "")
+                primary_key.sort_key.replace("#ROOT#COMPONENT#ENTRYPOINT", "")
             )
         ),
-        facets=(TABLE.facets["toe_inputs_metadata"],),
+        facets=(TABLE.facets["toe_input_metadata"],),
         index=None,
         table=TABLE,
     )
@@ -93,11 +96,8 @@ async def get_toe_inputs_by_group(
 
 
 async def delete_duplicate_data(item: Item) -> None:
-    to_delete: Item = {
-        key: None
-        for key in ((MIGRATED_ATTRS & item.keys()) - {"modified_date"})
-    }
-    if not to_delete:
+    to_delete: Item = {key: None for key in (MIGRATED_ATTRS & item.keys())}
+    if check_item_state_shape(item["state"]) or not to_delete:
         return
 
     key_structure = TABLE.primary_key
@@ -121,7 +121,7 @@ async def process_toe_inputs_item(group_name: str, item: Item) -> None:
     )
 
     if state_item.get("modified_date") is None:
-        state_item["modified_date"] = "a"
+        state_item["modified_date"] = get_iso_date()
     if state_item.get("modified_by") is None:
         state_item["modified_by"] = "machine@fluidattacks.com"
 
