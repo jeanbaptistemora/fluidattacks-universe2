@@ -175,6 +175,7 @@ mocked_paths: Dict[str, str] = {
     "get_user_level_role": "authz.policy.get_user_level_role",
     "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_domain.add_access": "group_access.domain.add_access",
+    "group_access_domain.get_managers": "group_access.domain.get_managers",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
     "loaders.company.load": "db_model.companies.get.CompanyLoader.load",
@@ -7891,6 +7892,17 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["org_testgroupmanager2@fluidattacks.com", '
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
         '"customer_manager"]': None,
+    },
+    "group_access.domain.get_managers": {
+        '["unittesting", 2]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+        ],
+        '["unittesting", 3]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "integratesuser@gmail.com",
+        ],
     },
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,
