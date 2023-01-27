@@ -6,6 +6,7 @@ import {
   faFolder,
   faMoneyBill,
   faShield,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import type { GraphQLError } from "graphql";
 import React, { Fragment } from "react";
@@ -61,6 +62,11 @@ const OrganizationTabs: FC = (): JSX.Element => {
         icon={faShield}
         tip={t("organization.tabs.policies.text")}
         to={`/orgs/${org}/policies`}
+      />
+      <SideBarTab
+        icon={faUsers}
+        tip={t("organization.tabs.users.text")}
+        to={`/orgs/${org}/stakeholders`}
       />
       <SideBarTab
         icon={faFileLines}
