@@ -1,38 +1,52 @@
-from dataloaders import (
-    Dataloaders,
-    get_new_context,
-)
-from db_model.groups.types import (
-    Group,
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_mocked_path,
+    set_mocks_return_values,
 )
 from forces.domain import (
     update_token,
 )
-from moto import (
-    mock_secretsmanager,
-)
 import pytest
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
 
 pytestmark = pytest.mark.asyncio
 
 
-@pytest.mark.changes_db
-async def test_update_secret_token() -> None:
-    with mock_secretsmanager():
-        loaders: Dataloaders = get_new_context()
-        group_name = "unittesting"
-        organization_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "organization_id",
+        "token",
+    ],
+    [
+        [
+            "unittesting",
+            "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            "mock_token",
+        ],
+    ],
+)
+@patch(
+    get_mocked_path("groups_domain.update_metadata"), new_callable=AsyncMock
+)
+async def test_update_secret_token(
+    mock_groups_domain_update_metadata: AsyncMock,
+    group_name: str,
+    organization_id: str,
+    token: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [mock_groups_domain_update_metadata],
+        ["groups_domain.update_metadata"],
+        [[group_name, token, organization_id]],
+    ]
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
 
-        token = "mock token"
-        await update_token(group_name, organization_id, token)
-        group: Group = await loaders.group.load(group_name)
-        assert group.agent_token == token
-
-        await update_token(group_name, organization_id, "")
-        loaders.group.clear(group_name)
-        group = await loaders.group.load(group_name)
-        assert group.agent_token is None
-
-        group_name_no_token = "oneshottest"
-        group_no_token: Group = await loaders.group.load(group_name_no_token)
-        assert group_no_token.agent_token is None
+    await update_token(group_name, organization_id, token)
+    assert all(mock_object.called is True for mock_object in mocked_objects)

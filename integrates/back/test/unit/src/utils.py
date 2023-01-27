@@ -178,6 +178,7 @@ mocked_paths: Dict[str, str] = {
     "group_access_domain.get_managers": "group_access.domain.get_managers",
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_comments_model.add": "db_model.group_comments.add",
+    "groups_domain.update_metadata": "groups.domain.update_metadata",
     "loaders.company.load": "db_model.companies.get.CompanyLoader.load",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -7882,6 +7883,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     },
     "findings.domain.core.get_open_vulnerabilities": {
         '["463558592", "422286126"]': 1
+    },
+    "groups.domain.update_metadata": {
+        '["unittesting", "mock_token", '
+        '"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"]': None,
     },
     "groups.domain.update_state": {
         '["unittesting", "integratesmanager@gmail.com"]': None,
