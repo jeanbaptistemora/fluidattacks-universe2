@@ -242,7 +242,9 @@ describe("ForcesView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
   });
 
   it("should render filter status", async (): Promise<void> => {
@@ -259,9 +261,11 @@ describe("ForcesView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await userEvent.click(screen.getByRole("combobox", { name: "status" }));
 
@@ -282,7 +286,7 @@ describe("ForcesView", (): void => {
       </MemoryRouter>
     );
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await userEvent.click(screen.getByRole("combobox", { name: "strictness" }));
 
@@ -303,7 +307,7 @@ describe("ForcesView", (): void => {
       </MemoryRouter>
     );
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await userEvent.click(screen.getByRole("combobox", { name: "kind" }));
 
@@ -322,7 +326,7 @@ describe("ForcesView", (): void => {
       </MemoryRouter>
     );
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     expect(
       screen.getByRole("textbox", { name: "gitRepo" })

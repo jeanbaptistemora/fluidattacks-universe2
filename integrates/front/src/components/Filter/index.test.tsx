@@ -305,9 +305,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     expect(
       screen.getByRole("button", { name: "Clear filters" })
@@ -325,7 +327,9 @@ describe("Filters", (): void => {
       })
     );
 
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
   });
 
   it("should mantain many filters", async (): Promise<void> => {
@@ -350,9 +354,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -411,9 +417,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -447,9 +455,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -496,9 +506,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -532,9 +544,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -580,9 +594,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -614,9 +630,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -658,9 +676,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(document.querySelectorAll(`input[name="date"]`)).toHaveLength(2);
@@ -699,9 +719,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -750,9 +772,11 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("button", { name: "Filter" }));
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
 
     await waitFor((): void => {
       expect(
@@ -783,10 +807,65 @@ describe("Filters", (): void => {
     render(<TestComponent data={dataset} filters={filters} />);
 
     expect(screen.getByRole("table")).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
     await waitFor((): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(6);
     });
+  });
+
+  it("should select filter include tag", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const filters: IFilter<IRandomData>[] = [
+      {
+        filterFn: "includesInArray",
+        id: "colors",
+        key: "colors",
+        label: "Colors",
+        selectOptions: [
+          "red",
+          "orange",
+          "yellow",
+          "green",
+          "blue",
+          "indigo",
+          "violet",
+          "white",
+          "brown",
+          "black",
+          "aquamarine",
+          "deep blue",
+          "chocolate",
+          "transparent",
+        ],
+        type: "select",
+      },
+    ];
+
+    render(<TestComponent data={dataset} filters={filters} />);
+
+    expect(screen.getByRole("table")).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    await waitFor((): void => {
+      expect(
+        screen.queryByRole("combobox", { name: "colors" })
+      ).toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByRole("combobox", { name: "colors" }), {
+      target: { value: "transparent" },
+    });
+
+    expect(screen.getByText("| Filters applied:")).toBeInTheDocument();
+
+    expect(screen.getByText("Colors = transparent")).toBeInTheDocument();
   });
 });

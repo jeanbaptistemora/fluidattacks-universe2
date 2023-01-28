@@ -370,7 +370,7 @@ const Filters = <IData extends object>({
             onClick={openPanel}
             variant={"ghost"}
           >
-            {"Filter"}
+            {"Add filter"}
           </Button>
         </Container>
         <AppliedFilters

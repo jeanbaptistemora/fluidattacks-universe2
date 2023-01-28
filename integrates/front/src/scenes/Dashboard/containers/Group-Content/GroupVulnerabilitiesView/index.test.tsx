@@ -356,7 +356,9 @@ describe("GroupVulnerabilitiesView", (): void => {
       expect(screen.queryByRole("table")).toBeInTheDocument();
     });
 
-    expect(screen.getByRole("button", { name: "Filter" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -374,7 +376,7 @@ describe("GroupVulnerabilitiesView", (): void => {
         </MockedProvider>
       </MemoryRouter>
     );
-    await userEvent.click(screen.getByText("Filter"));
+    await userEvent.click(screen.getByText("Add filter"));
 
     expect(screen.getByText("Root")).toBeInTheDocument();
     expect(screen.getByText("Source")).toBeInTheDocument();
