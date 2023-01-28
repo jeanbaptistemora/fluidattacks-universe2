@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F015,lines,namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Property admin_ssh_key is either missing or misconfigured in namespace/skims/test/data/lib_path/f015/azure_linux_vm_ssh.tf,"
+F015,lines,namespace/skims/test/data/lib_root/f015/azure_linux_vm_ssh.tf,1,287,skims,015. Insecure authentication method - Basic,Property admin_ssh_key is either missing or misconfigured in namespace/skims/test/data/lib_root/f015/azure_linux_vm_ssh.tf,"
 >  1 | resource ""azurerm_linux_virtual_machine"" ""vulnerable"" {
    2 |   name           = ""example-machine""
    3 |   size           = ""Standard_F2""

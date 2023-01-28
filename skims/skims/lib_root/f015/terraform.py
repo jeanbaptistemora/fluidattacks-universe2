@@ -24,6 +24,15 @@ from utils.graph import (
 )
 
 
+def _azure_linux_vm_insecure_authentication(
+    graph: Graph, nid: NId
+) -> Optional[NId]:
+    expected_block = "admin_ssh_key"
+    if len(adj_ast(graph, nid, name=expected_block)) == 0:
+        return nid
+    return None
+
+
 def _azure_virtual_machine_insecure_authentication(
     graph: Graph, nid: NId
 ) -> Optional[NId]:
@@ -54,9 +63,35 @@ def tfm_azure_virtual_machine_insecure_authentication(
 
     return get_vulnerabilities_from_n_ids(
         desc_key=(
-            "lib_root.f015"
-            ".tfm_azure_virtual_machine_insecure_authentication"
+            "lib_root.f015.tfm_azure_virtual_machine_insecure_authentication"
         ),
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def tfm_azure_linux_vm_insecure_authentication(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_LNX_VM_INSEC_AUTH
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(
+                graph, "azurerm_linux_virtual_machine"
+            ):
+                if report := _azure_linux_vm_insecure_authentication(
+                    graph, nid
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key=("lib_root.f015.tfm_azure_linux_vm_insecure_authentication"),
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

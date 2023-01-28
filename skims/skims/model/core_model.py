@@ -1854,7 +1854,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_VM_INSEC_AUTH = MethodInfo(
         file_name="terraform",
         name="tfm_azure_virtual_machine_insecure_authentication",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F015,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
@@ -1862,7 +1862,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_LNX_VM_INSEC_AUTH = MethodInfo(
         file_name="terraform",
         name="tfm_azure_linux_vm_insecure_authentication",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F015,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
