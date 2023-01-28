@@ -1,16 +1,18 @@
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 import React, { useCallback, useEffect, useState } from "react";
 
+import { AppliedFilters } from "./AppliedFilters";
 import type {
   IFilter,
   IFilterComp,
   IFiltersProps,
   IPermanentData,
 } from "./types";
+import { getMappedOptions } from "./utils";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { Label } from "components/Input";
 import {
   FormikCheckbox,
@@ -178,6 +180,46 @@ const Filters = <IData extends object>({
     );
   }
 
+  const removeFilter = useCallback(
+    (filterToReset: IFilter<IData>): (() => void) => {
+      return (): void => {
+        setFilters(
+          filters.map((filter: IFilter<IData>): IFilter<IData> => {
+            if (filter.id === filterToReset.id) {
+              return {
+                ...filter,
+                checkValues: [],
+                rangeValues: ["", ""],
+                value: "",
+              };
+            }
+
+            return {
+              ...filter,
+            };
+          })
+        );
+        setPermaValues?.(
+          permaValues.map((permadata): IPermanentData => {
+            if (permadata.id === filterToReset.id) {
+              return {
+                ...permadata,
+                checkValues: [],
+                rangeValues: ["", ""],
+                value: "",
+              };
+            }
+
+            return {
+              ...permadata,
+            };
+          })
+        );
+      };
+    },
+    [filters, permaValues, setFilters, setPermaValues]
+  );
+
   function resetFiltersHandler(): (event: React.FormEvent) => void {
     return (event: React.FormEvent): void => {
       setFilters(
@@ -320,25 +362,29 @@ const Filters = <IData extends object>({
 
   return (
     <React.Fragment>
-      <Button id={"filter-config"} onClick={openPanel} variant={"ghost"}>
-        <div style={{ width: "55px" }} />
-        <FontAwesomeIcon icon={faFilter} />
-        &nbsp;
-        {"Filter"}
-      </Button>
+      <Container align={"center"} display={"flex"} pb={"4px"} wrap={"wrap"}>
+        <Container pr={"4px"}>
+          <Button
+            icon={faFilter}
+            id={"filter-config"}
+            onClick={openPanel}
+            variant={"ghost"}
+          >
+            {"Filter"}
+          </Button>
+        </Container>
+        <AppliedFilters
+          dataset={dataset}
+          filters={filters as IFilter<object>[]}
+          onClose={removeFilter}
+        />
+      </Container>
       <SidePanel onClose={closePanel} open={open}>
         <React.Fragment>
           {filters.map((filter: IFilter<IData>): JSX.Element => {
-            const options =
-              typeof filter.selectOptions === "function"
-                ? filter.selectOptions(dataset ?? [])
-                : filter.selectOptions;
-
-            const mappedOptions = options?.map(
-              (option): { header: string; value: string } =>
-                typeof option === "string"
-                  ? { header: option, value: option }
-                  : option
+            const mappedOptions = getMappedOptions(
+              filter as IFilter<object>,
+              dataset
             );
 
             switch (filter.type) {

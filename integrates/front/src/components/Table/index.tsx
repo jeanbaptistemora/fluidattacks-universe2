@@ -1,4 +1,4 @@
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faFileExport } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getCoreRowModel,
@@ -14,9 +14,9 @@ import type {
   ColumnFiltersState,
   FilterFn,
   PaginationState,
-  Row,
   RowData,
   SortingState,
+  Row as TableRow,
 } from "@tanstack/react-table";
 import _ from "lodash";
 import type { ChangeEvent, ChangeEventHandler } from "react";
@@ -33,8 +33,9 @@ import { TableContainer } from "./styles";
 import type { ITableProps } from "./types";
 
 import { Button } from "components/Button";
+import { Container } from "components/Container";
 import { FormikInput } from "components/Input/Formik";
-import { Gap } from "components/Layout/Gap";
+import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { flattenData } from "utils/formatHelpers";
 import { useStoredState } from "utils/hooks";
@@ -91,7 +92,7 @@ const Table = <TData extends RowData>({
   );
 
   const radioSelectionhandler = useCallback(
-    (row: Row<TData>): ChangeEventHandler =>
+    (row: TableRow<TData>): ChangeEventHandler =>
       (event: ChangeEvent<HTMLInputElement>): void => {
         event.stopPropagation();
         setRowSelection({});
@@ -101,7 +102,7 @@ const Table = <TData extends RowData>({
   );
 
   const filterFun: FilterFn<TData> = (
-    row: Row<TData>,
+    row: TableRow<TData>,
     columnId: string,
     filterValue: string
   ): boolean => {
@@ -171,7 +172,7 @@ const Table = <TData extends RowData>({
     if (rowSelectionState === undefined) {
       return undefined;
     }
-    table.getRowModel().rows.forEach((row: Row<TData>): void => {
+    table.getRowModel().rows.forEach((row: TableRow<TData>): void => {
       if (
         _.some(rowSelectionState, (selected): boolean =>
           _.isEqualWith(row.original, selected, helper)
@@ -199,7 +200,7 @@ const Table = <TData extends RowData>({
     rowSelectionSetter?.(
       table
         .getSelectedRowModel()
-        .flatRows.map((row: Row<TData>): TData => row.original)
+        .flatRows.map((row: TableRow<TData>): TData => row.original)
     );
   }, [rowSelection, rowSelectionSetter, table]);
 
@@ -211,42 +212,58 @@ const Table = <TData extends RowData>({
 
   return (
     <div className={"w-100"} id={id}>
-      <div className={"flex justify-between"}>
-        <div>
-          <Gap>
-            {extraButtons}
-            {columnToggle ? <ToggleFunction table={table} /> : undefined}
-            {exportCsv ? (
-              <CSVLink data={flattenData(data as object[])} filename={csvName}>
-                <Button variant={"ghost"}>
-                  <Text bright={3}>
-                    <FontAwesomeIcon icon={faDownload} />
-                    &nbsp;
-                    {t("group.findings.exportCsv.text")}
-                  </Text>
-                </Button>
-              </CSVLink>
+      <Container scroll={"none"}>
+        <Row justify={"end"}>
+          <Col lg={20}>
+            {enableSearchBar ? (
+              <Container>
+                <FormikInput
+                  field={{
+                    name: "search",
+                    onBlur: (): void => undefined,
+                    onChange: globalFilterHandler,
+                    value: globalFilter,
+                  }}
+                  form={{ errors: {}, touched: {} }}
+                  name={"search"}
+                  placeholder={t("table.search")}
+                />
+              </Container>
             ) : undefined}
-          </Gap>
-        </div>
-        <div className={"flex justify-between"}>
-          {enableSearchBar ? (
-            <FormikInput
-              field={{
-                name: "search",
-                onBlur: (): void => undefined,
-                onChange: globalFilterHandler,
-                value: globalFilter,
-              }}
-              form={{ errors: {}, touched: {} }}
-              name={"search"}
-              placeholder={t("table.search")}
-            />
-          ) : undefined}
-          {enableColumnFilters ? <Filters table={table} /> : undefined}
-          {filters}
-        </div>
-      </div>
+          </Col>
+        </Row>
+        <Row align={"center"}>
+          <Col lg={50} md={100} sm={100}>
+            {filters}
+          </Col>
+          <Col lg={50} md={100} sm={100}>
+            <Container
+              align={"center"}
+              display={"flex"}
+              justify={"end"}
+              scroll={"none"}
+            >
+              {columnToggle ? <ToggleFunction table={table} /> : undefined}
+              {exportCsv ? (
+                <CSVLink
+                  data={flattenData(data as object[])}
+                  filename={csvName}
+                >
+                  <Button variant={"ghost"}>
+                    <Text bright={3}>
+                      <FontAwesomeIcon icon={faFileExport} />
+                      &nbsp;
+                      {t("group.findings.exportCsv.text")}
+                    </Text>
+                  </Button>
+                </CSVLink>
+              ) : undefined}
+              {extraButtons}
+            </Container>
+          </Col>
+        </Row>
+        {enableColumnFilters ? <Filters table={table} /> : undefined}
+      </Container>
       <TableContainer clickable={onRowClick !== undefined}>
         <table>
           <Head

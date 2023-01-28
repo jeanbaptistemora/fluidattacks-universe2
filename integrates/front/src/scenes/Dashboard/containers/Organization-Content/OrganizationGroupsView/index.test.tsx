@@ -143,7 +143,7 @@ describe("Organization groups view", (): void => {
 
     const UNIT_TESTING_ROW_AT = 1;
 
-    expect(screen.getAllByRole("button")[0].textContent).toMatch(
+    expect(screen.getAllByRole("button")[1].textContent).toMatch(
       /organization.tabs.groups.newGroup.new.text/u
     );
     expect(screen.getAllByRole("row")[2].textContent).toContain("Oneshottest");
