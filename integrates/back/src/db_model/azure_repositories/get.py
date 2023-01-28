@@ -239,9 +239,11 @@ def _get_bitbucket_repositories(*, token: str) -> tuple[BasicRepoData, ...]:
                         ssh_url=repo.__dict__["_BitbucketBase__data"]["links"][
                             "clone"
                         ][1]["href"],
-                        web_url=repo.__dict__["_BitbucketBase__data"]["links"][
-                            "html"
-                        ]["href"],
+                        web_url=parse_url(
+                            repo.__dict__["_BitbucketBase__data"]["links"][
+                                "html"
+                            ]["href"]
+                        ).url,
                         branch=default_branch,
                         last_activity_at=datetime.fromisoformat(
                             "2000-01-01T05:00:00+00:00"
@@ -636,9 +638,9 @@ def _get_github_repos(token: str) -> tuple[BasicRepoData, ...]:
             repos.append(
                 BasicRepoData(
                     id=str(repo.id),
-                    remote_url=repo.clone_url,
+                    remote_url=parse_url(repo.clone_url).url,
                     ssh_url=repo.git_url,
-                    web_url=repo.html_url,
+                    web_url=parse_url(repo.html_url).url,
                     branch=(
                         "refs/heads/"
                         f'{repo.default_branch.rstrip().lstrip("refs/heads/")}'
@@ -665,7 +667,7 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
             chain.from_iterable(
                 tuple(
                     group.projects.list(
-                        min_access_level=AccessLevel.REPORTER.value,
+                        min_access_level=AccessLevel.GUEST.value,
                     )
                     for group in groups
                 )
@@ -675,9 +677,11 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
         return tuple(
             BasicRepoData(
                 id=gproject.id,
-                remote_url=gproject.attributes["http_url_to_repo"],
+                remote_url=parse_url(
+                    gproject.attributes["http_url_to_repo"]
+                ).url,
                 ssh_url=gproject.attributes["ssh_url_to_repo"],
-                web_url=gproject.attributes["web_url"],
+                web_url=parse_url(gproject.attributes["web_url"]).url,
                 branch=(
                     "refs/heads/"
                     + gproject.attributes["default_branch"]

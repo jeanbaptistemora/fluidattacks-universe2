@@ -3,6 +3,9 @@ from aioextensions import (
     collect,
 )
 import asyncio
+from atlassian.bitbucket.cloud.repositories.commits import (
+    Commits,
+)
 from azure.devops.v6_0.git.models import (
     GitCommit,
     GitRepositoryStats,
@@ -22,6 +25,8 @@ from dateutil import (
 )
 from db_model.azure_repositories.get import (
     get_account_names,
+    get_bitbucket_commits,
+    get_bitbucket_repositories,
     get_github_repos,
     get_github_repos_commits,
     get_gitlab_commit,
@@ -48,6 +53,7 @@ from db_model.azure_repositories.utils import (
 from db_model.credentials.types import (
     Credentials,
     OauthAzureSecret,
+    OauthBitbucketSecret,
     OauthGithubSecret,
     OauthGitlabSecret,
 )
@@ -103,6 +109,9 @@ from newutils.datetime import (
 from oauth.azure import (
     get_azure_token,
 )
+from oauth.bitbucket import (
+    get_bitbucket_token,
+)
 from oauth.gitlab import (
     get_token,
 )
@@ -118,6 +127,9 @@ import tempfile
 from typing import (
     Optional,
     Union,
+)
+from urllib3.util.url import (
+    parse_url,
 )
 from urllib.parse import (
     unquote_plus,
@@ -362,6 +374,41 @@ async def get_github_credentials_authors(
     }
 
 
+async def get_bitbucket_credentials_authors(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+) -> set[str]:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_bitbucket_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                        loaders=loaders,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return {
+        commit["_BitbucketBase__data"]["author"]["raw"][
+            commit["_BitbucketBase__data"]["author"]["raw"].find("<")
+            + 1 : commit["_BitbucketBase__data"]["author"]["raw"].find(">")
+        ].lower()
+        for stat in filtered_stats
+        for commit in stat.commits
+    }
+
+
 async def get_azure_credentials_authors_stats(
     credentials: tuple[Credentials, ...],
     urls: set[str],
@@ -534,6 +581,11 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
                 urls=urls,
                 loaders=loaders,
             ),
+            get_bitbucket_credentials_authors(
+                credentials=credentials,
+                urls=urls,
+                loaders=loaders,
+            ),
         ],
         workers=1,
     )
@@ -583,7 +635,9 @@ def _get_id(
     repository: Union[CredentialsGitRepository, OGitRepository]
 ) -> str:
     return hashlib.sha256(
-        repository.repository.web_url.lower().encode("utf-8")
+        str(parse_url(repository.repository.web_url).url)
+        .lower()
+        .encode("utf-8")
     ).hexdigest()
 
 
@@ -918,7 +972,7 @@ async def get_azure_credentials_stats(
                 organization_id=organization_id,
                 branch=_get_branch(repository),
                 last_commit_date=date,
-                url=repository.repository.web_url,
+                url=parse_url(repository.repository.web_url).url,
                 commit_count=commit_count,
             )
             for repository, date, commit_count in zip(
@@ -1050,6 +1104,118 @@ async def get_github_credentials_stats(
     )
 
 
+async def get_bitbucket_credentials_stats(
+    *,
+    credentials: tuple[Credentials, ...],
+    urls: set[str],
+    loaders: Dataloaders,
+    organization_id: str,
+) -> RepositoriesStats:
+    stats: tuple[ProjectStats, ...] = tuple(
+        chain.from_iterable(
+            await collect(
+                tuple(
+                    _get_bitbucket_credential_stats(
+                        credential=credential,
+                        urls=urls,
+                        loaders=loaders,
+                    )
+                    for credential in credentials
+                ),
+                workers=1,
+            )
+        )
+    )
+
+    filtered_stats: tuple[ProjectStats, ...] = tuple(
+        {stat.project.id: stat for stat in stats}.values()
+    )
+
+    return RepositoriesStats(
+        repositories=tuple(
+            OrganizationIntegrationRepository(
+                id=__get_id(stat.project.remote_url),
+                organization_id=organization_id,
+                branch=stat.project.branch,
+                last_commit_date=parser.parse(
+                    stat.commits[0]["_BitbucketBase__data"]["date"]
+                ).astimezone(timezone.utc)
+                if stat.commits
+                else stat.project.last_activity_at,
+                url=stat.project.remote_url,
+                commit_count=len(stat.commits),
+            )
+            for stat in filtered_stats
+        ),
+        missed_repositories=len(filtered_stats),
+        missed_commits=sum(len(stat.commits) for stat in filtered_stats),
+    )
+
+
+async def _get_bitbucket_credential_stats(
+    *,
+    credential: Credentials,
+    loaders: Dataloaders,
+    urls: set[str],
+) -> tuple[ProjectStats, ...]:
+    if isinstance(credential.state.secret, OauthBitbucketSecret):
+        token: Optional[str] = credential.state.secret.access_token
+        if credential.state.secret.valid_until <= get_utc_now():
+            token = await get_bitbucket_token(
+                credential=credential,
+                loaders=loaders,
+            )
+        if not token:
+            return tuple()
+
+        repositories: tuple[
+            BasicRepoData, ...
+        ] = await get_bitbucket_repositories(token=token)
+        filtered_repositories = tuple(
+            repository
+            for repository in repositories
+            if repository.last_activity_at.timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+            and filter_urls(repository=repository, urls=urls)
+        )
+        commits: tuple[tuple[Commits, ...], ...] = await get_bitbucket_commits(
+            token=token,
+            repos_ids=tuple(
+                repository.id for repository in filtered_repositories
+            ),
+        )
+        sorted_commits: tuple[tuple[Commits, ...], ...] = tuple(
+            tuple(
+                sorted(
+                    p_commits,
+                    key=lambda x: x.__dict__["_BitbucketBase__data"]["date"],
+                    reverse=True,
+                )
+            )
+            for p_commits in commits
+        )
+
+        return tuple(
+            ProjectStats(
+                project=project,
+                commits=tuple(commit.__dict__ for commit in p_commits),
+                commits_count=len(p_commits),
+            )
+            for project, p_commits in zip(
+                filtered_repositories, sorted_commits
+            )
+            if p_commits
+            and parser.parse(
+                p_commits[0].__dict__["_BitbucketBase__data"]["date"]
+            )
+            .astimezone(timezone.utc)
+            .timestamp()
+            > get_now_minus_delta(days=60).timestamp()
+        )
+
+    return tuple()
+
+
 async def _get_github_credential_stats(
     *,
     credential: Credentials,
@@ -1150,7 +1316,7 @@ async def get_pat_credentials_stats(
                 organization_id=organization_id,
                 branch=_get_branch(repository),
                 last_commit_date=date,
-                url=repository.repository.web_url,
+                url=parse_url(repository.repository.web_url).url,
                 commit_count=commit_count,
             )
             for repository, date, commit_count in zip(
@@ -1240,6 +1406,12 @@ async def update_organization_repositories(
                 organization_id=organization.id,
             ),
             get_azure_credentials_stats(
+                credentials=credentials,
+                loaders=loaders,
+                urls=urls,
+                organization_id=organization.id,
+            ),
+            get_bitbucket_credentials_stats(
                 credentials=credentials,
                 loaders=loaders,
                 urls=urls,

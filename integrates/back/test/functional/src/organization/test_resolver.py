@@ -3,6 +3,9 @@ from . import (
     get_result,
     get_vulnerabilities_url,
 )
+from atlassian.bitbucket.cloud.repositories.commits import (
+    Commits,
+)
 from azure.devops.v6_0.git.models import (
     GitCommit,
     GitRepository,
@@ -85,6 +88,32 @@ def get_account_names(
     return tuple([tuple(["testorg1"])])
 
 
+def _get_bitbucket_repositories(
+    *,
+    token: str,  # pylint: disable=unused-argument
+) -> tuple[BasicRepoData, ...]:
+    return tuple(
+        [
+            BasicRepoData(
+                id="678912345",
+                ssh_url="ssh://git@test.com/testprojects/sixthtrepo",
+                remote_url="https://git@test.com/testprojects/sixthtrepo.git",
+                web_url="https://test.com/testprojects/sixthtrepo",
+                branch="refs/heads/main",
+                last_activity_at=get_now_minus_delta(days=10),
+            )
+        ]
+    )
+
+
+def _get_bitbucket_commits(
+    *,
+    token: str,  # pylint: disable=unused-argument
+    repo_id: str,  # pylint: disable=unused-argument
+) -> tuple[Commits, ...]:
+    return tuple()
+
+
 def get_repositories(
     *,
     base_url: str,  # pylint: disable=unused-argument
@@ -101,11 +130,11 @@ def get_repositories(
                 default_branch="refs/head/main",
                 id="2",
                 remote_url=(
-                    "ssh://git@test.com:v3/testprojects/_git/secondrepor"
+                    "https://test.com/testprojects/_git/secondrepor.git"
                 ),
                 ssh_url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
-                url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
-                web_url="ssh://git@test.com:v3/testprojects/_git/secondrepor",
+                url="https://test.com/testprojects/_git/secondrepor",
+                web_url="https://test.com/testprojects/_git/secondrepor",
             ),
             GitRepository(
                 project=TeamProjectReference(
@@ -114,10 +143,12 @@ def get_repositories(
                 ),
                 default_branch="refs/head/trunk",
                 id="1",
-                remote_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
                 ssh_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
-                url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
-                web_url="ssh://git@test.com:v3/testprojects/_git/firstrepo",
+                remote_url=(
+                    "https://git@test.com/testprojects/_git/firstrepo.git"
+                ),
+                url="https://test.com/testprojects/_git/firstrepo",
+                web_url="https://test.com/testprojects/_git/firstrepo",
             ),
         ]
     )
@@ -162,8 +193,8 @@ def get_lab_repositories_stats(
         [
             BasicRepoData(
                 id="123456789",
-                remote_url="ssh://git@test.com/testprojects/fourthtrepo",
-                ssh_url="https://git@test.com/testprojects/fourthtrepo.git",
+                ssh_url="ssh://git@test.com/testprojects/fourthtrepo",
+                remote_url="https://git@test.com/testprojects/fourthtrepo.git",
                 web_url="https://test.com/testprojects/fourthtrepo",
                 branch="refs/heads/main",
                 last_activity_at=get_now_minus_delta(days=4),
@@ -179,8 +210,8 @@ def get_hub_repositories_stats(
         [
             BasicRepoData(
                 id="234567890",
-                remote_url="ssh://git@test.com/testprojects/fifthtrepo",
-                ssh_url="https://git@test.com/testprojects/fifthtrepo.git",
+                ssh_url="ssh://git@test.com/testprojects/fifthtrepo",
+                remote_url="https://git@test.com/testprojects/fifthtrepo.git",
                 web_url="https://test.com/testprojects/fifthtrepo",
                 branch="refs/heads/dev",
                 last_activity_at=get_now_minus_delta(days=6),
@@ -480,6 +511,14 @@ async def test_get_organization_ver_1(
             side_effect=get_repositories_stats,
         ),
         mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_repositories",
+            side_effect=_get_bitbucket_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_commits",
+            side_effect=_get_bitbucket_commits,
+        ),
+        mock.patch(
             "db_model.azure_repositories.get._get_gitlab_projects",
             side_effect=_get_lab_repositories_stats,
         ),
@@ -534,6 +573,14 @@ async def test_get_organization_ver_1(
         mock.patch(
             "db_model.azure_repositories.get._get_gitlab_projects",
             side_effect=_get_lab_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_repositories",
+            side_effect=_get_bitbucket_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_commits",
+            side_effect=_get_bitbucket_commits,
         ),
         mock.patch(
             "db_model.azure_repositories.get._get_gitlab_commit",
@@ -669,7 +716,7 @@ async def test_get_organization_ver_2(
         result["data"]["organization"]["integrationRepositoriesConnection"][
             "edges"
         ][0]["node"]["url"]
-        == "ssh://git@test.com:v3/testprojects/_git/secondrepor"
+        == "https://test.com/testprojects/_git/secondrepor"
     )
     assert len(result["data"]["organization"]["permissions"]) == permissions
     assert result["data"]["organization"]["userRole"] == role
@@ -731,6 +778,14 @@ async def test_get_organization_ver_2(
         mock.patch(
             "db_model.azure_repositories.get._get_repositories_stats",
             side_effect=get_repositories_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_repositories",
+            side_effect=_get_bitbucket_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_commits",
+            side_effect=_get_bitbucket_commits,
         ),
         mock.patch(
             "db_model.azure_repositories.get._get_gitlab_projects",
@@ -799,6 +854,14 @@ async def test_get_organization_ver_2(
         mock.patch(
             "db_model.azure_repositories.get._get_github_repos_commits",
             side_effect=get_hub_commit_stats,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_repositories",
+            side_effect=_get_bitbucket_repositories,
+        ),
+        mock.patch(
+            "db_model.azure_repositories.get._get_bitbucket_commits",
+            side_effect=_get_bitbucket_commits,
         ),
         mock.patch(
             "azure_repositories.domain.get_account_names",
@@ -876,6 +939,15 @@ async def test_get_organization_ver_2(
     result_remove = await remove_credentials(
         user="user_manager@fluidattacks.com",
         credentials_id="5990e0ec-dc8f-4c9a-82cc-9da9fbb35c11",
+        organization_id=org_id,
+    )
+    assert "errors" not in result_remove
+    assert "success" in result_remove["data"]["removeCredentials"]
+    assert result_remove["data"]["removeCredentials"]["success"]
+
+    result_remove = await remove_credentials(
+        user="user_manager@fluidattacks.com",
+        credentials_id="158d1f7f-65c5-4c79-85e3-de3acfe03774",
         organization_id=org_id,
     )
     assert "errors" not in result_remove

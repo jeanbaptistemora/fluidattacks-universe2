@@ -40,6 +40,7 @@ from typing import (
 )
 from urllib3.util.url import (
     parse_url,
+    Url,
 )
 from urllib.parse import (
     quote_plus,
@@ -148,6 +149,7 @@ async def get_roots(
                   credentials {
                     id
                     user
+                    oauthType
                     password
                     token
                     type
@@ -291,20 +293,35 @@ async def submit_group_machine_execution(
     return result
 
 
+def _format_token(
+    parsed_url: Url,
+    token: str,
+    is_oauth: bool,
+    provider: str,
+) -> str:
+    url = str(parsed_url._replace(auth=token))
+    if is_oauth:
+        url = str(parsed_url._replace(auth=f"oauth2:{token}"))
+        if provider == "BITBUCKET":
+            url = str(parsed_url._replace(auth=f"x-token-auth:{token}"))
+
+    return url
+
+
 def _format_https_url(
+    *,
     repo_url: str,
     user: Optional[str] = None,
     password: Optional[str] = None,
     token: Optional[str] = None,
     is_oauth: bool = False,
+    provider: str = "",
 ) -> str:
     user = quote_plus(user) if user is not None else user
     password = quote_plus(password) if password is not None else password
     parsed_url = parse_url(repo_url)
     if token is not None:
-        url = str(parsed_url._replace(auth=token))
-        if is_oauth:
-            url = str(parsed_url._replace(auth=f"oauth2:{token}"))
+        url = _format_token(parsed_url, token, is_oauth, provider)
     elif user is not None and password is not None:
         url = str(parsed_url._replace(auth=f"{user}:{password}"))
 
@@ -368,8 +385,16 @@ async def https_clone(
     token: Optional[str] = None,
     user: Optional[str] = None,
     is_oauth: bool = False,
+    provider: str = "",
 ) -> Tuple[Optional[str], Optional[str]]:
-    url = _format_https_url(repo_url, user, password, token, is_oauth)
+    url = _format_https_url(
+        repo_url=repo_url,
+        user=user,
+        password=password,
+        token=token,
+        is_oauth=is_oauth,
+        provider=provider,
+    )
     folder_to_clone_root = f"{temp_dir}/{uuid.uuid4()}"
     proc = await asyncio.create_subprocess_exec(
         "git",
@@ -459,6 +484,7 @@ async def clone_root(
                 token=token,
                 user=None,
                 is_oauth=cred.get("type", "") == "OAUTH",
+                provider=cred.get("oauthType", ""),
             )
         elif (user := cred.get("user")) and (password := cred.get("password")):
             folder_to_clone_root, stderr = await https_clone(
