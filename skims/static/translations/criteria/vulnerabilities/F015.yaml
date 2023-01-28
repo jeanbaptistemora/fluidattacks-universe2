@@ -1,5 +1,5 @@
 ---
-lib_path.f015.tfm_azure_virtual_machine_insecure_authentication:
+lib_root.f015.tfm_azure_virtual_machine_insecure_authentication:
   en: Property ssh_keys is either missing or misconfigured
   es: Falta la propiedad ssh_keys o está mal configurada
 lib_path.f015.tfm_azure_linux_vm_insecure_authentication:
