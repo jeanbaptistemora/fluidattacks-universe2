@@ -127,13 +127,11 @@
     "postcss": "8.4.12",
     "prettier": "2.4.1",
     "stylelint": "13.13.1",
-    "stylelint-config-css-modules": "2.3.0",
     "stylelint-config-standard": "22.0.0",
     "terser-webpack-plugin": "5.2.5",
     "ts-jest": "29.0.3",
     "ts-loader": "9.4.1",
     "ts-node": "10.9.1",
-    "typed-css-modules": "0.7.0",
     "typescript": "4.8.4",
     "webpack": "5.63.0",
     "webpack-cli": "4.10.0",
@@ -159,15 +157,14 @@
     "url": "git+https://gitlab.com/fluidattacks/universe.git"
   },
   "scripts": {
-    "build": "npm run css && webpack --config webpack.prod.config.ts",
+    "build": "webpack --config webpack.prod.config.ts",
     "build-storybook": "build-storybook",
-    "css": "tcm src/ --silent",
-    "lint:eslint": "npm run css && tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
+    "lint:eslint": "tsc -p tsconfig.json && eslint . --ext .js,.ts,.tsx --format codeframe",
     "lint:stylelint": "stylelint '**/*.css' --output-file",
     "plot": "ts-node src/graphics/cli.ts",
     "start": "webpack-cli serve --config webpack.dev.config.ts",
     "storybook": "start-storybook -p 6006",
-    "test": "npm run css && jest"
+    "test": "jest"
   },
   "version": "1.0.0"
 }

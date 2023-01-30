@@ -14,9 +14,8 @@ function main {
       copy "$(realpath "node_modules/.bin/${bin}")" "node_modules/.bin/${bin}2" \
         && mv "node_modules/.bin/${bin}"{2,}
     done \
-    && tcm src/ --silent \
-    && webpack-cli \
-      --config webpack.prod.config.ts \
+    && npm run build \
+      -- \
       --env CI_COMMIT_REF_NAME="${CI_COMMIT_REF_NAME}" \
       --env CI_COMMIT_SHA="${CI_COMMIT_SHA}" \
       --env CI_COMMIT_SHORT_SHA="${CI_COMMIT_SHORT_SHA}" \

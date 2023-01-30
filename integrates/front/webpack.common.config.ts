@@ -35,21 +35,6 @@ export const commonConfig: Configuration = {
         ],
       },
       {
-        exclude: /node_modules/u,
-        test: /\.css$/u,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-            },
-          },
-        ],
-      },
-      {
         generator: {
           filename: "img/[hash][ext]",
         },
@@ -88,9 +73,6 @@ export const commonConfig: Configuration = {
     alias: {
       components: path.join(__dirname, "src", "components"),
       graphics: path.join(__dirname, "src", "graphics"),
-      // https://github.com/react-bootstrap-table/react-bootstrap-table2/issues/1520
-      "react-bootstrap-table2-toolkit":
-        "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min.js",
       resources: path.join(__dirname, "src", "resources"),
       scenes: path.join(__dirname, "src", "scenes"),
       store: path.join(__dirname, "src", "store"),
