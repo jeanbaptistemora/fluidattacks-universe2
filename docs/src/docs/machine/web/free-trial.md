@@ -54,15 +54,6 @@ trial registration.
 
 ![Log In](https://res.cloudinary.com/fluid-attacks/image/upload/v1674728390/docs/web/enrollment/arm_page.png)
 
-As we said,
-only new users can create an
-account and log in.
-If so,
-you will be welcome and encouraged
-to start the free trial.
-
-![welcome log in](https://res.cloudinary.com/fluid-attacks/image/upload/v1672069211/docs/web/enrollment/welcome_page.png)
-
 Having logged in,
 you will see a window where
 you are asked to enter the
