@@ -34,11 +34,7 @@ interface IEvidenceImageProps {
   isEditing: boolean;
   isRemovable?: boolean;
   name: string;
-  /*
-   * Can also be of types FieldValidator | FieldValidator[] from the Formik
-   * library but the unknown type overrides it
-   */
-  validate?: unknown;
+  validate?: (value: unknown) => string | undefined;
   onClick: () => void;
   onDelete?: () => void;
   shouldPreviewValidation: FieldValidator[];
@@ -162,3 +158,4 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
 };
 
 export { EvidenceImage };
+export type { IEvidenceImageProps };
