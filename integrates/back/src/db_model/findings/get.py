@@ -86,7 +86,7 @@ async def _get_me_drafts(*, user_email: str) -> tuple[Finding, ...]:
 
 async def _get_drafts_and_findings_by_group(
     group_name: str,
-) -> tuple[Finding, ...]:
+) -> list[Finding]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_metadata"],
         values={"group_name": group_name},
@@ -105,7 +105,7 @@ async def _get_drafts_and_findings_by_group(
         table=TABLE,
     )
 
-    return tuple(format_finding(item) for item in response.items)
+    return [format_finding(item) for item in response.items]
 
 
 class GroupDraftsAndFindingsLoader(DataLoader):
@@ -115,10 +115,12 @@ class GroupDraftsAndFindingsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> tuple[tuple[Finding, ...], ...]:
-        return await collect(
-            tuple(map(_get_drafts_and_findings_by_group, group_names))
+        self, group_names: list[str]
+    ) -> list[list[Finding]]:
+        return list(
+            await collect(
+                tuple(map(_get_drafts_and_findings_by_group, group_names))
+            )
         )
 
 

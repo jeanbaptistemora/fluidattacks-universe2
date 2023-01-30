@@ -16,9 +16,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.roots.types import (
     GitRoot,
     RootRequest,
@@ -39,7 +36,6 @@ import time
 from typing import (
     Any,
     Coroutine,
-    Tuple,
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,
@@ -51,9 +47,7 @@ async def main() -> None:
     groups = await orgs_domain.get_all_active_group_names(loaders=loaders)
     for group in groups:
         print(f"Processing group {group}")
-        findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load(group)
+        findings = await loaders.group_drafts_and_findings.load(group)
         vulns = await loaders.finding_vulnerabilities.load_many_chained(
             [fin.id for fin in findings]
         )

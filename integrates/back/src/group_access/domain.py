@@ -272,9 +272,7 @@ async def exists(loaders: Dataloaders, group_name: str, email: str) -> bool:
 async def remove_access(
     loaders: Dataloaders, email: str, group_name: str
 ) -> None:
-    all_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    all_findings = await loaders.group_drafts_and_findings.load(group_name)
 
     me_vulnerabilities = await loaders.me_vulnerabilities.load(email)
     findings_ids: set[str] = {finding.id for finding in all_findings}

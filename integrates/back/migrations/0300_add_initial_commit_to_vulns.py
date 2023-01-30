@@ -17,9 +17,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -175,9 +172,7 @@ async def get_repos(roots: list[GitRoot], fusion_path: str) -> dict[str, Repo]:
 async def process_group(group: str, fusion_path: str) -> None:
     loaders: Dataloaders = get_new_context()
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group)
+    findings = await loaders.group_drafts_and_findings.load(group)
     vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings]
     )

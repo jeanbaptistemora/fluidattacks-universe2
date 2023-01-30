@@ -19,9 +19,6 @@ from dataloaders import (
 from db_model import (
     findings as findings_model,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.utils import (
     adjust_historic_dates,
 )
@@ -71,9 +68,7 @@ async def _process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
             _process_finding(

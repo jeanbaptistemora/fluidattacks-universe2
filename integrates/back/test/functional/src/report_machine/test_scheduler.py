@@ -67,9 +67,9 @@ async def test_persist_result(populate: bool) -> None:
             await process_execution("group1_1234345")
 
             loaders = get_new_context()
-            group_findings: Tuple[
-                Finding, ...
-            ] = await loaders.group_drafts_and_findings.load("group1")
+            group_findings = await loaders.group_drafts_and_findings.load(
+                "group1"
+            )
             finding_001: Optional[Finding] = next(
                 (
                     finding
@@ -267,9 +267,7 @@ async def test_duplicated_reports(populate: bool) -> None:
         await process_execution("group1_")
 
         loaders = get_new_context()
-        group_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load("group1")
+        group_findings = await loaders.group_drafts_and_findings.load("group1")
         finding_011: Optional[Finding] = next(
             (finding for finding in group_findings if "011" in finding.title),
             None,
@@ -348,9 +346,7 @@ async def test_updated_advisory_report(populate: bool) -> None:
         await process_execution("group1_")
 
         loaders = get_new_context()
-        group_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load("group1")
+        group_findings = await loaders.group_drafts_and_findings.load("group1")
         finding_011: Optional[Finding] = next(
             (finding for finding in group_findings if "011" in finding.title),
             None,
@@ -417,9 +413,7 @@ async def test_approval(populate: bool) -> None:
         side_effect=mock.AsyncMock(return_value=sarif_report),
     ):
         loaders = get_new_context()
-        findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load("group1")
+        findings = await loaders.group_drafts_and_findings.load("group1")
         f_117: Optional[Finding] = next(
             (fin for fin in findings if fin.title.startswith("117")), None
         )
@@ -565,9 +559,7 @@ async def test_has_redirect_url_report(populate: bool) -> None:
         await process_execution("group1_")
 
         loaders = get_new_context()
-        group_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load("group1")
+        group_findings = await loaders.group_drafts_and_findings.load("group1")
         finding_043: Optional[Finding] = next(
             (finding for finding in group_findings if "043" in finding.title),
             None,

@@ -27,9 +27,6 @@ from dataloaders import (
 from db_model.enums import (
     Source,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityMetadataToUpdate,
@@ -1898,9 +1895,7 @@ async def main() -> None:
     total_groups: int = len(groups)
     for idx, group in enumerate(groups):
         print(f"Processing group {group} ({idx+1}/{total_groups})...")
-        findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load(group)
+        findings = await loaders.group_drafts_and_findings.load(group)
         vulns = await loaders.finding_vulnerabilities.load_many_chained(
             [fin.id for fin in findings]
         )

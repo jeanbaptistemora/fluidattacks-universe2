@@ -166,9 +166,9 @@ async def process_group(
     progress: float,
 ) -> None:
     try:
-        group_drafts_and_findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load(group_name)
+        group_drafts_and_findings = (
+            await loaders.group_drafts_and_findings.load(group_name)
+        )
         group_removed_findings: Tuple[
             Finding, ...
         ] = await loaders.group_removed_findings.load(group_name)

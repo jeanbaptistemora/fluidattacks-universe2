@@ -155,9 +155,9 @@ async def process_group(
     progress: float,
 ) -> None:
     # Get findings with their current state status as DELETED
-    group_drafts_and_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_drafts_and_findings = await loaders.group_drafts_and_findings.load(
+        group_name
+    )
     findings_removed_status = tuple(
         finding
         for finding in group_drafts_and_findings

@@ -24,9 +24,6 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
@@ -171,9 +168,7 @@ async def get_finding_vulnerabilities(
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     vulnerabilities = tuple(
         chain.from_iterable(
             await collect(

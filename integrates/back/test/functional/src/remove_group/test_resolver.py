@@ -6,9 +6,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.enums import (
     GroupStateJustification,
 )
@@ -46,9 +43,7 @@ async def test_remove_group(populate: bool, email: str) -> None:
     )
 
     loaders: Dataloaders = get_new_context()
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     assert not findings
 
 

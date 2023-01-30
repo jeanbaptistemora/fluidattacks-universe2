@@ -12,9 +12,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.organizations.get import (
     iterate_organizations,
 )
@@ -40,9 +37,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 async def process_group(group_name: str) -> None:
     loaders: Dataloaders = get_new_context()
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
 
     await collect(
         tuple(

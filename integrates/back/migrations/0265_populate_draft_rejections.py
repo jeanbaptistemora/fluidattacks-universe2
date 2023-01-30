@@ -43,7 +43,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     DraftRejection,
-    Finding,
     FindingState,
 )
 from db_model.findings.utils import (
@@ -319,9 +318,7 @@ async def handle_group(
     group_name: str,
     rejections: dict[str, deque[RejectionHelper]],
 ) -> None:
-    all_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    all_findings = await loaders.group_drafts_and_findings.load(group_name)
 
     if FILL_BLANKS:
         await collect(

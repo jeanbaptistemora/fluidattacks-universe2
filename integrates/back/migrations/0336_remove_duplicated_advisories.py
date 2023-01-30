@@ -15,9 +15,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.update import (
     update_historic_entry,
 )
@@ -28,18 +25,13 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 
 async def process_group(group: str) -> None:
     print(f"Processing {group}")
     loaders: Dataloaders = get_new_context()
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group)
+    findings = await loaders.group_drafts_and_findings.load(group)
     vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings if "011" in fin.title]
     )

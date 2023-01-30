@@ -99,9 +99,7 @@ async def get_vulns(finding: Finding) -> tuple[dict[str, Any]]:
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
-    group_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_findings = await loaders.group_drafts_and_findings.load(group_name)
     vulnerabilities = [
         vuln
         for finding_vulns in await collect(

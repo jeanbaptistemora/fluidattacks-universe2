@@ -29,7 +29,6 @@ from organizations import (
 import time
 from typing import (
     List,
-    Tuple,
 )
 
 
@@ -38,9 +37,7 @@ async def main() -> None:
     groups = await orgs_domain.get_all_active_group_names(loaders=loaders)
     for group in groups:
         print(f"Processing group {group}")
-        findings: Tuple[
-            Finding, ...
-        ] = await loaders.group_drafts_and_findings.load(group)
+        findings = await loaders.group_drafts_and_findings.load(group)
         findings_to_update: List[Finding] = [
             fin
             for fin in findings

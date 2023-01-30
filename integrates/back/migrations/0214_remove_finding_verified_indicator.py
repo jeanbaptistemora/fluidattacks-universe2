@@ -44,9 +44,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -83,9 +80,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
             process_finding(

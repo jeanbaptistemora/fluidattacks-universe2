@@ -62,7 +62,6 @@ from settings import (
 import time
 from typing import (
     Dict,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -172,9 +171,7 @@ async def populate_zr_by_finding(finding: Finding) -> None:
 async def populate_zr_index_by_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
-    all_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    all_findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         populate_zr_by_finding(finding=finding) for finding in all_findings
     )

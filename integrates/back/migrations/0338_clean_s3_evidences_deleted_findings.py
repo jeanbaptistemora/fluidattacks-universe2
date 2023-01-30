@@ -27,9 +27,6 @@ from db_model.events.types import (
     Event,
     GroupEventsRequest,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from organizations import (
     domain as orgs_domain,
 )
@@ -48,9 +45,7 @@ async def process_group(
     if not evidence_file_names:
         return
 
-    group_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_findings = await loaders.group_drafts_and_findings.load(group_name)
     finding_ids = [finding.id for finding in group_findings]
 
     group_events: tuple[Event, ...] = await loaders.group_events.load(

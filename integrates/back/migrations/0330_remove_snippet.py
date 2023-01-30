@@ -17,16 +17,10 @@ from dataloaders import (
 from db_model.enums import (
     Source,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Tuple,
-)
 from vulnerabilities.domain.snippet import (
     set_snippet,
 )
@@ -36,9 +30,7 @@ async def process_group(group: str) -> None:
     print(f"Processing {group}")
     loaders: Dataloaders = get_new_context()
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group)
+    findings = await loaders.group_drafts_and_findings.load(group)
     vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings]
     )

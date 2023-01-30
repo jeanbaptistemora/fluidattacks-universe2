@@ -19,9 +19,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -52,9 +49,7 @@ async def _process_group(
     loaders: Dataloaders, group_name: str, org_name: str
 ) -> list[dict[str, Any]]:
     print(f"Working on {org_name} : {group_name}...")
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     filtered = tuple(
         finding
         for finding in findings

@@ -24,9 +24,6 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.constants import (
     ASSIGNED_INDEX_METADATA,
 )
@@ -143,9 +140,7 @@ async def _process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    findings = await loaders.group_drafts_and_findings.load(group_name)
     await collect(
         tuple(
             _process_finding(

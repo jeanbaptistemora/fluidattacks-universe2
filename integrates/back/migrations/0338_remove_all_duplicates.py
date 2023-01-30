@@ -27,9 +27,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
     VulnerabilityStateStatus,
@@ -49,7 +46,6 @@ import time
 from typing import (
     Dict,
     List,
-    Tuple,
 )
 from vulnerabilities.domain.core import (
     remove_vulnerability,
@@ -63,9 +59,7 @@ async def process_group(group: str) -> None:
     print(f"Processing {group}")
     loaders: Dataloaders = get_new_context()
 
-    findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group)
+    findings = await loaders.group_drafts_and_findings.load(group)
     vulns = await loaders.finding_vulnerabilities.load_many_chained(
         [fin.id for fin in findings]
     )

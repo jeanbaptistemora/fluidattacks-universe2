@@ -578,9 +578,7 @@ async def process_group(
     organization: Organization = await loaders.organization.load(
         group.organization_id
     )
-    group_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_findings = await loaders.group_drafts_and_findings.load(group_name)
 
     await collect(
         tuple(

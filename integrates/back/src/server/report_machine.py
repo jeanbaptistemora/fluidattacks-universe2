@@ -1217,9 +1217,7 @@ async def process_execution(
         for item in results["runs"][0]["tool"]["driver"]["rules"]
     }
 
-    group_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_findings = await loaders.group_drafts_and_findings.load(group_name)
     rules_finding: Tuple[Tuple[str, Optional[Finding]], ...] = ()
     for criteria_vuln_id in rules_id:
         for finding in group_findings:

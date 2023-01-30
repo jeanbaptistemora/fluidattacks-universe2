@@ -196,9 +196,9 @@ async def populate_indicators_by_finding(finding: Finding) -> None:
 async def populate_indicators_by_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
-    group_drafts_and_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load(group_name)
+    group_drafts_and_findings = await loaders.group_drafts_and_findings.load(
+        group_name
+    )
     group_removed_findings: Tuple[
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
