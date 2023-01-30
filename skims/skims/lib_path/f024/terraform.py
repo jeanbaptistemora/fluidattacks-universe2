@@ -240,17 +240,6 @@ def _tfm_ec2_has_open_all_ports_to_the_public_iter_vulns(
             yield from_port
 
 
-def _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        if not get_argument(
-            key="egress",
-            body=resource.data,
-        ):
-            yield resource
-
-
 def _cfn_unrest_ipprot_awsec2_vulnerabilities(
     resource: Any,
 ) -> Iterator[Any]:
@@ -509,26 +498,6 @@ def tfm_ec2_has_open_all_ports_to_the_public(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_OPEN_ALL_PORTS_PUBLIC,
-    )
-
-
-def tfm_aws_ec2_allows_all_outbound_traffic(
-    content: str,
-    path: str,
-    model: Any,
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f024_aws.security_group_without_egress"
-        ),
-        iterator=get_cloud_iterator(
-            _tfm_aws_ec2_allows_all_outbound_traffic_iterate_vulnerabilities(
-                resource_iterator=iter_aws_security_group(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AWS_EC2_ALL_TRAFFIC,
     )
 
 

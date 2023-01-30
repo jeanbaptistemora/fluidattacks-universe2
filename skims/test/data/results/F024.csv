@@ -839,7 +839,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   65 |     to_port         = 8080
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ports
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,6,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,"
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,6,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges in namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,"
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
    3 |   description = ""Allow TLS inbound traffic""
@@ -2199,7 +2199,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cnf_ec2_unrestricted_cidrs.ya
    36 |             ""CidrIp"": ""0.0.0.0/0"",
       ^ Col 0
 ",cloudformation.cfn_groups_without_egress
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf","
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,1,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf","
 >  1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
    3 |   description = ""Allow TLS inbound traffic""
@@ -4639,8 +4639,8 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   68 |     prefix_list_ids = [""pl-12c4e678""]
      ^ Col 0
 ",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
- in namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf","
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,9,16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+ in namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf","
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
    3 |   description = ""Allow TLS inbound traffic""
@@ -5890,7 +5890,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   70 |
      ^ Col 0
 ",terraform.tfm_aws_ec2_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,11,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,"
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,11,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,"
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
    3 |   description = ""Allow TLS inbound traffic""
@@ -5914,7 +5914,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,11,
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_unrestricted_cidrs
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,10,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/tfm_ec2_without_egress.tf,"
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,10,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,"
    1 | resource ""aws_security_group"" ""insecure"" {
    2 |   name        = ""allow_tls""
    3 |   description = ""Allow TLS inbound traffic""

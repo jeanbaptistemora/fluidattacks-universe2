@@ -1,4 +1,5 @@
 from lib_root.f024.terraform import (
+    tfm_aws_ec2_allows_all_outbound_traffic,
     tfm_ec2_instances_without_profile,
 )
 from model import (
@@ -7,4 +8,7 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F024
-QUERIES: graph_model.Queries = ((FINDING, tfm_ec2_instances_without_profile),)
+QUERIES: graph_model.Queries = (
+    (FINDING, tfm_aws_ec2_allows_all_outbound_traffic),
+    (FINDING, tfm_ec2_instances_without_profile),
+)

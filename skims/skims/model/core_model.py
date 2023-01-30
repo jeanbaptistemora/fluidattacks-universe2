@@ -2950,7 +2950,7 @@ class MethodsEnum(Enum):
     TFM_AWS_EC2_ALL_TRAFFIC = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_allows_all_outbound_traffic",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -17,7 +17,6 @@ from lib_path.f024.cloudformation import (
 )
 from lib_path.f024.terraform import (
     tfm_aws_allows_anyone_to_admin_ports,
-    tfm_aws_ec2_allows_all_outbound_traffic,
     tfm_aws_ec2_cfn_unrestricted_ip_protocols,
     tfm_aws_ec2_unrestricted_cidrs,
     tfm_ec2_has_open_all_ports_to_the_public,
@@ -98,15 +97,6 @@ def run_cfn_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return cfn_ec2_has_unrestricted_ports(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_aws_ec2_allows_all_outbound_traffic(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_aws_ec2_allows_all_outbound_traffic(
-        content=content, path=path, model=model
     )
 
 
@@ -262,7 +252,6 @@ def analyze(
                 for fun in (
                     run_tfm_aws_allows_anyone_to_admin_ports,
                     run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
-                    run_tfm_aws_ec2_allows_all_outbound_traffic,
                     run_tfm_aws_ec2_cfn_unrestricted_ip_protocols,
                     run_tfm_aws_ec2_unrestricted_cidrs,
                     run_tfm_ec2_has_unrestricted_ports,
