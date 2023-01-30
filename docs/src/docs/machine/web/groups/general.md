@@ -82,7 +82,7 @@ You find the following information:
   **Subscribed** is when the method
   of payment is valid, **Free-trial**
   you find it when the group is
-  part of [Enrollment](/machine/web/self-enrollment)
+  part of [Enrollment](/machine/web/free-trial)
   and **Suspended** means
   payment methods are being analyzed,
   or the Free-trial has been completed.

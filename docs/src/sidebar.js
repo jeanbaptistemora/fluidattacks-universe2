@@ -626,7 +626,7 @@ const Machine = [
     label: "Web",
     items: [
       "machine/web/arm",
-      "machine/web/self-enrollment",
+      "machine/web/free-trial",
       "machine/web/creating-organization",
       "machine/web/user",
       "machine/web/export",

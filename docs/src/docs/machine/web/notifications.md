@@ -341,7 +341,7 @@ which will be generated when
 any of the Services fields
 in the Scope tab are modified.
 
-![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1664797274/docs/web/notifications/services_updated.png)
+![Updated Services](https://res.cloudinary.com/fluid-attacks/image/upload/v1675089816/docs/web/notifications/update_service.png)
 
 ### File report
 
@@ -476,7 +476,7 @@ the organization and the group.
 ### Abandoned trial
 
 If you are a user who started the ARM
-[free trial registration](/machine/web/self-enrollment)
+[free trial registration](/machine/web/free-trial)
 you will receive this notification
 reminding you that you are just a
 few steps away from completing
@@ -489,7 +489,7 @@ platform free of charge for 21 days.
 ### Add repositories
 
 If you are a user who successfully
-completed the ARM [free trial registration](/machine/web/self-enrollment)
+completed the ARM [free trial registration](/machine/web/free-trial)
 you will receive this notification
 telling you that you can add more
 [repositories](/machine/web/groups/scope/roots)
@@ -500,7 +500,7 @@ for vulnerability scanning of these.
 ### Add stakeholders
 
 If you are a user who completed the ARM
-[free trial registration](/machine/web/self-enrollment)
+[free trial registration](/machine/web/free-trial)
 successfully,
 you will receive this notification
 informing you that you can add more
@@ -515,7 +515,7 @@ vulnerability fixes.
 
 This notification will be sent to
 you if you are a user who has completed
-the ARM [free trial registration](/machine/web/self-enrollment)
+the ARM [free trial registration](/machine/web/free-trial)
 letting you know what information
 you can find in the ARM
 [Analytics](/machine/web/analytics),
@@ -527,7 +527,7 @@ encouraging you to explore this section.
 
 This notification will be sent to
 you if you are a user who has completed
-the ARM [free trial registration](/machine/web/self-enrollment)
+the ARM [free trial registration](/machine/web/free-trial)
 encouraging you to apply the
 different [treatments](/machine/web/vulnerabilities/management/treatments)
 to your vulnerabilities to orderly
@@ -539,7 +539,7 @@ manage them.
 
 This notification will be sent to
 you if you are a user who completed
-the ARM [free trial registration](/machine/web/self-enrollment)
+the ARM [free trial registration](/machine/web/free-trial)
 We recommend that users install the
 [agent](/machine/agent/installation)
 on their CI to avoid passing to open

@@ -1,8 +1,8 @@
 ---
-id: self-enrollment
-title: Self-enrollment
-sidebar_label: Enrollment
-slug: /machine/web/self-enrollment
+id: free-trial
+title: Free trial
+sidebar_label: Free trial
+slug: /machine/web/free-trial
 ---
 
 Self-enrollment is aimed at `Fluid Attacks'`
