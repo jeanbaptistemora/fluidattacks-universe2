@@ -12,7 +12,6 @@ from dataloaders import (
 )
 from datetime import (
     datetime,
-    timedelta,
     timezone,
 )
 from db_model.findings.types import (
@@ -138,18 +137,6 @@ async def mutate(
                 justification=justification,
                 vulnerability_id=vulnerability_id,
             )
-
-        loaders.finding_vulnerabilities_all.clear(finding_id)
-        await vulns_domain.send_treatment_change_mail(
-            loaders=loaders,
-            assigned=assigned,
-            finding_id=finding_id,
-            finding_title=finding.title,
-            group_name=finding.group_name,
-            justification=justification,
-            min_date=datetime.now(timezone.utc) - timedelta(days=1),
-            modified_by=user_email,
-        )
 
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(

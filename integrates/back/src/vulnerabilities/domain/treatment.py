@@ -14,6 +14,7 @@ from dataloaders import (
 from datetime import (
     datetime,
     timedelta,
+    timezone,
 )
 from db_model import (
     utils as db_model_utils,
@@ -432,8 +433,10 @@ async def validate_and_send_notification_request(
     vulnerabilities: list[str],
 ) -> None:
     # Validate finding with vulns in group
-    finding_vulns = await loaders.finding_vulnerabilities_all.load(finding.id)
-    assigned_vulns = list(
+    finding_vulns: list[
+        Vulnerability
+    ] = await loaders.finding_vulnerabilities_all.load(finding.id)
+    assigned_vulns: list[Vulnerability] = list(
         vuln
         for vuln in finding_vulns
         for vulnerability_id in vulnerabilities
@@ -446,6 +449,7 @@ async def validate_and_send_notification_request(
     # Validate assigned
     if assigned_vulns[0].treatment:
         assigned = str(assigned_vulns[0].treatment.assigned)
+        justification = str(assigned_vulns[0].treatment.justification)
         if not assigned:
             raise InvalidNotificationRequest(
                 "Some of the provided vulns don't have any assigned hackers"
@@ -470,6 +474,16 @@ async def validate_and_send_notification_request(
     )
 
     stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
+    await send_treatment_change_mail(
+        loaders=loaders,
+        assigned=assigned,
+        finding_id=finding.id,
+        finding_title=finding.title,
+        group_name=finding.group_name,
+        justification=justification,
+        min_date=datetime.now(timezone.utc) - timedelta(days=1),
+        modified_by=responsible,
+    )
     if (
         Notification.VULNERABILITY_ASSIGNED
         in stakeholder.state.notifications_preferences.email
