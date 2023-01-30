@@ -168,11 +168,15 @@ async def test_group_access_changes() -> None:
     assert historic_access == []
 
 
+@pytest.mark.parametrize(
+    ["email", "group_name"],
+    [
+        ["unittest@fluidattacks.com", "unittesting"],
+    ],
+)
 @pytest.mark.changes_db
-async def test_remove_access() -> None:
+async def test_remove_access(email: str, group_name: str) -> None:
     loaders: Dataloaders = get_new_context()
-    email = "unittest@fluidattacks.com"
-    group_name = "unittesting"
     assert await exists(loaders, group_name, email)
     await remove_access(loaders, email, group_name)
 

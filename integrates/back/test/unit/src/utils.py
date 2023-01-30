@@ -32,12 +32,14 @@ from db_model.events.types import (
     EventUnreliableIndicators,
 )
 from db_model.findings.enums import (
+    DraftRejectionReason,
     FindingSorts,
     FindingStateStatus,
     FindingStatus,
     FindingVerificationStatus,
 )
 from db_model.findings.types import (
+    DraftRejection,
     Finding,
     Finding31Severity,
     FindingEvidence,
@@ -192,7 +194,9 @@ mocked_paths: Dict[str, str] = {
     "loaders.finding_vulnerabilities_all.load": "db_model.vulnerabilities.get.FindingVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group.load": "db_model.groups.get.GroupLoader.load",
     "loaders.group_access.load": "db_model.group_access.get.GroupAccessLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.group_drafts_and_findings.load": "db_model.findings.get.GroupDraftsAndFindingsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.group_findings.load": "db_model.findings.get.GroupFindingsLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.me_vulnerabilities.load": "db_model.vulnerabilities.get.AssignedVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -616,6 +620,1131 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 unreliable_where="test/data/lib_path/f060/csharp.cs",
             ),
         ),
+    },
+    "db_model.findings.get.GroupDraftsAndFindingsLoader.load": {
+        '["unittesting"]': tuple(
+            [
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="422286126",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-07-09T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="060. Insecure service configuration - Host "
+                    "verification",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-07-09T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="This is an attack vector",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:43:18+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="The source code uses generic exceptions to "
+                    "handle unexpected errors. Catching generic exceptions "
+                    "obscures the problem that caused the error and promotes "
+                    "a generic way to handle different categories or sources "
+                    "of error. This may cause security vulnerabilities to "
+                    "materialize, as some special flows go unnoticed.",
+                    evidences=FindingEvidences(
+                        animation=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="Test description",
+                            url="unittesting-422286126-animation.gif",
+                        ),
+                        evidence1=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="this is a test description",
+                            url="unittesting-422286126-evidence_route_1.png",
+                        ),
+                        evidence2=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="exception",
+                            url="unittesting-422286126-evidence_route_2.jpg",
+                        ),
+                        evidence3=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="Description",
+                            url="unittesting-422286126-evidence_route_3.png",
+                        ),
+                        evidence4=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="changed for testing purposes",
+                            url="unittesting-422286126-evidence_route_4.png",
+                        ),
+                        evidence5=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="Test description",
+                            url="unittesting-422286126-evidence_route_5.png",
+                        ),
+                        exploitation=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="test",
+                            url="unittesting-422286126-exploitation.png",
+                        ),
+                        records=FindingEvidence(
+                            modified_date=datetime.fromisoformat(
+                                "2018-07-09T05:00:00+00:00"
+                            ),
+                            description="test",
+                            url="unittesting-422286126-evidence_file.csv",
+                        ),
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="Implement password policies with the best "
+                    "practicies for strong passwords.",
+                    requirements="R359. Avoid using generic exceptions.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.77"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1"),
+                        modified_confidentiality_impact=Decimal("0"),
+                        modified_user_interaction=Decimal("0.85"),
+                        modified_severity_scope=Decimal("0"),
+                        modified_availability_impact=Decimal("0"),
+                        report_confidence=Decimal("0.92"),
+                        modified_integrity_impact=Decimal("0.22"),
+                        attack_vector=Decimal("0.62"),
+                        modified_attack_complexity=Decimal("0.77"),
+                        privileges_required=Decimal("0.62"),
+                        availability_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.62"),
+                        confidentiality_requirement=Decimal("1"),
+                        modified_attack_vector=Decimal("0.62"),
+                        user_interaction=Decimal("0.85"),
+                        confidentiality_impact=Decimal("0"),
+                        exploitability=Decimal("0.91"),
+                        remediation_level=Decimal("0.97"),
+                        severity_scope=Decimal("0"),
+                        availability_requirement=Decimal("1"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                        source=Source.ASM,
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        status=FindingStateStatus.SUBMITTED,
+                    ),
+                    threat="An attacker can get passwords of users and "
+                    "impersonate them or used the credentials for practices "
+                    "malicious.",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=0,
+                        unreliable_newest_vulnerability_report_date=(
+                            datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=(
+                            datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                        ),
+                        unreliable_oldest_vulnerability_report_date=(
+                            datetime.fromisoformat("2020-01-03T17:46:10+00:00")
+                        ),
+                        unreliable_open_vulnerabilities=1,
+                        unreliable_status=FindingStatus.VULNERABLE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            untreated=0,
+                            in_progress=1,
+                            accepted_undefined=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            verified=0,
+                            requested=0,
+                            on_hold=0,
+                        ),
+                        unreliable_where="test/data/lib_path/f060/csharp.cs",
+                    ),
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="436992569",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="038. Business information leak",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="Attack vector",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="Se obtiene información de negocio, como: "
+                    "lista de usuarios, información estratégica, "
+                    "información de empleados, información de clientes, "
+                    "información de proveedores",
+                    evidences=FindingEvidences(
+                        animation=FindingEvidence(
+                            description="Animation descriptions",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-animation.webm",
+                        ),
+                        evidence1=FindingEvidence(
+                            description="Comm1",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-evidence_route_1.png",
+                        ),
+                        evidence2=FindingEvidence(
+                            description="Comm2",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-evidence_route_2.jpg",
+                        ),
+                        evidence3=FindingEvidence(
+                            description="Comm3",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-evidence_route_3.png",
+                        ),
+                        evidence4=FindingEvidence(
+                            description="Comm4",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-evidence_route_4.png",
+                        ),
+                        evidence5=FindingEvidence(
+                            description="Comm5",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-evidence_route_5.png",
+                        ),
+                        exploitation=FindingEvidence(
+                            description="Exploitation description",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T05:00:00+00:00"
+                            ),
+                            url="unittesting-436992569-exploitation.png",
+                        ),
+                        records=None,
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="De acuerdo a la clasificación de la "
+                    "información encontrada, establecer los controles "
+                    "necesarios para que la información sea accesible sólo a "
+                    "las personas indicadas.",
+                    requirements="REQ.0176. El sistema debe restringir el "
+                    "acceso a objetos del sistema que tengan contenido "
+                    "sensible. Sólo permitirá su acceso a usuarios "
+                    "autorizados.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.62"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1.5"),
+                        confidentiality_impact=Decimal("0"),
+                        confidentiality_requirement=Decimal("1.5"),
+                        exploitability=Decimal("0.97"),
+                        integrity_impact=Decimal("0"),
+                        integrity_requirement=Decimal("0.5"),
+                        modified_attack_complexity=Decimal("0.77"),
+                        modified_attack_vector=Decimal("0.85"),
+                        modified_availability_impact=Decimal("0"),
+                        modified_confidentiality_impact=Decimal("0"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.85"),
+                        modified_user_interaction=Decimal("0.85"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.85"),
+                        remediation_level=Decimal("0.97"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("1"),
+                        user_interaction=Decimal("0.62"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    threat="Risk.",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=4,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-16T21:01:24+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-08-30T14:30:13+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-08-30T14:30:13+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=24,
+                        unreliable_status=FindingStatus.VULNERABLE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=24,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=1,
+                            on_hold=2,
+                            verified=1,
+                        ),
+                        unreliable_where="192.168.1.10, 192.168.1.12, "
+                        "192.168.1.13, 192.168.1.14, 192.168.1.15, "
+                        "192.168.1.16, 192.168.1.17, 192.168.1.2, 192.168.1.3,"
+                        " 192.168.1.4, 192.168.1.5, 192.168.1.6, 192.168.1.7, "
+                        "192.168.1.8, 192.168.1.9, 192.168.100.101, "
+                        "192.168.100.104, 192.168.100.105, 192.168.100.108, "
+                        "192.168.100.111",
+                    ),
+                    verification=FindingVerification(
+                        comment_id="1558048727111",
+                        modified_by="integrateshacker@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2020-02-21T15:41:04+00:00"
+                        ),
+                        status=FindingVerificationStatus.VERIFIED,
+                        vulnerability_ids={
+                            "15375781-31f2-4953-ac77-f31134225747"
+                        },
+                    ),
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="457497316",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-11-27T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="037. Technical information leak",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-11-27T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="Test description",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:43:18+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="Descripción de fuga de información técnica",
+                    evidences=FindingEvidences(
+                        animation=None,
+                        evidence1=None,
+                        evidence2=FindingEvidence(
+                            description="Test description",
+                            modified_date=datetime.fromisoformat(
+                                "2018-11-27T05:00:00+00:00"
+                            ),
+                            url="unittesting-457497316-evidence_route_2.jpg",
+                        ),
+                        evidence3=FindingEvidence(
+                            description="Comentario",
+                            modified_date=datetime.fromisoformat(
+                                "2018-11-27T05:00:00+00:00"
+                            ),
+                            url="unittesting-457497316-evidence_route_3.png",
+                        ),
+                        evidence4=None,
+                        evidence5=None,
+                        exploitation=None,
+                        records=None,
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="Eliminar el banner de los servicios con "
+                    "fuga de información, Verificar que los encabezados HTTP "
+                    "no expongan ningún nombre o versión.",
+                    requirements="REQ.0077. La aplicación no debe revelar "
+                    "detalles del sistema interno como stack traces, "
+                    "fragmentos de sentencias SQL y nombres de base de datos "
+                    "o tablas. REQ.0176. El sistema debe restringir el acceso "
+                    "a objetos del sistema que tengan contenido sensible. "
+                    "Sólo permitirá su acceso a usuarios autorizados.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.62"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("1"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_attack_vector=Decimal("0.62"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        modified_integrity_impact=Decimal("0.22"),
+                        modified_privileges_required=Decimal("0.62"),
+                        modified_user_interaction=Decimal("0.85"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.62"),
+                        remediation_level=Decimal("0.96"),
+                        report_confidence=Decimal("0.92"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.85"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    threat="Amenaza.",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=1,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2018-11-27T19:54:08+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2018-11-27T19:54:08+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2018-11-27T19:54:08+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=0,
+                        unreliable_status=FindingStatus.SAFE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="",
+                    ),
+                    verification=None,
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="463461507",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-10T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="083. XML injection (XXE)",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-01-10T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="Test attack vector.",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:43:18+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="La aplicacion afectada permite la inyecion "
+                    "de codigo XML que es ejecutado de forma remota y permite "
+                    "la exfiltracion de archivos o ejecucioemota de comandos "
+                    "en el servidor.",
+                    evidences=FindingEvidences(
+                        animation=FindingEvidence(
+                            description="Animation test",
+                            modified_date=datetime.fromisoformat(
+                                "2019-01-10T05:00:00+00:00"
+                            ),
+                            url="unittesting-463461507-animation.webm",
+                        ),
+                        evidence1=None,
+                        evidence2=FindingEvidence(
+                            description="A2 test",
+                            modified_date=datetime.fromisoformat(
+                                "2019-01-10T05:00:00+00:00"
+                            ),
+                            url="unittesting-463461507-evidence_route_2.jpg",
+                        ),
+                        evidence3=FindingEvidence(
+                            description="123A",
+                            modified_date=datetime.fromisoformat(
+                                "2019-01-10T05:00:00+00:00"
+                            ),
+                            url="unittesting-463461507-evidence_route_3.png",
+                        ),
+                        evidence4=FindingEvidence(
+                            description="AAA1",
+                            modified_date=datetime.fromisoformat(
+                                "2019-01-10T05:00:00+00:00"
+                            ),
+                            url="unittesting-463461507-evidence_route_4.png",
+                        ),
+                        evidence5=FindingEvidence(
+                            description="sdasdasda",
+                            modified_date=datetime.fromisoformat(
+                                "2019-01-10T05:00:00+00:00"
+                            ),
+                            url="unittesting-463461507-evidence_route_5.png",
+                        ),
+                        exploitation=None,
+                        records=None,
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="Filtrar la informacioue recibe y envia la "
+                    "aplicacioor medio de listas blancas",
+                    requirements="REQ.0173. El sistema debe descartar toda la "
+                    "informacion potencialmente insegura que sea recibida "
+                    "por entradas de datos.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.62"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("1.5"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0"),
+                        integrity_requirement=Decimal("1"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_attack_vector=Decimal("0.62"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.85"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.85"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.62"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    threat="Test threat",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=0,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-13T14:58:38+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=2,
+                        unreliable_status=FindingStatus.VULNERABLE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=1,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=1,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="192.168.1.18, 192.168.100.105",
+                    ),
+                    verification=None,
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="463558592",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-12-17T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="007. Cross-site request forgery",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-12-17T05:00:00+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="Test description",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:43:18+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="La aplicación permite engañar a un usuario "
+                    "autenticado por medio de links manipulados para ejecutar "
+                    "acciones sobre la aplicación sin su consentimiento.",
+                    evidences=FindingEvidences(
+                        animation=None,
+                        evidence1=FindingEvidence(
+                            description="This is test description",
+                            modified_date=datetime.fromisoformat(
+                                "2018-12-17T05:00:00+00:00"
+                            ),
+                            url="unittesting-463558592-evidence_route_1.png",
+                        ),
+                        evidence2=FindingEvidence(
+                            description="Test descrip",
+                            modified_date=datetime.fromisoformat(
+                                "2018-12-17T05:00:00+00:00"
+                            ),
+                            url="unittesting-463558592-evidence_route_2.jpg",
+                        ),
+                        evidence3=FindingEvidence(
+                            description="Test description number 3",
+                            modified_date=datetime.fromisoformat(
+                                "2018-12-17T05:00:00+00:00"
+                            ),
+                            url="unittesting-463558592-evidence_route_3.png",
+                        ),
+                        evidence4=FindingEvidence(
+                            description="An error",
+                            modified_date=datetime.fromisoformat(
+                                "2018-12-17T05:00:00+00:00"
+                            ),
+                            url="unittesting-463558592-evidence_route_4.png",
+                        ),
+                        evidence5=FindingEvidence(
+                            description="Test descip 4",
+                            modified_date=datetime.fromisoformat(
+                                "2018-12-17T05:00:00+00:00"
+                            ),
+                            url="unittesting-463558592-evidence_route_5.png",
+                        ),
+                        exploitation=None,
+                        records=None,
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="Hacer uso de tokens en los formularios "
+                    "para la verificación de las peticiones realizadas por "
+                    "usuarios legítimos.",
+                    requirements="REQ.0174. La aplicación debe garantizar que "
+                    "las peticiones que ejecuten transacciones no sigan un "
+                    "patrón discernible.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.62"),
+                        availability_impact=Decimal("0"),
+                        availability_requirement=Decimal("1"),
+                        confidentiality_impact=Decimal("0.56"),
+                        confidentiality_requirement=Decimal("1"),
+                        exploitability=Decimal("0.91"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1.5"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_attack_vector=Decimal("0.62"),
+                        modified_availability_impact=Decimal("0"),
+                        modified_confidentiality_impact=Decimal("0.56"),
+                        modified_integrity_impact=Decimal("0.22"),
+                        modified_privileges_required=Decimal("0.62"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.62"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.62"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    threat="Test.",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=1,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-01-15T16:04:14+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-01-15T16:04:14+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-01-15T16:04:14+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=1,
+                        unreliable_status=FindingStatus.VULNERABLE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=1,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="path/to/file2.ext",
+                    ),
+                    verification=FindingVerification(
+                        comment_id="1558048727999",
+                        modified_by="integratesuser@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2020-01-19T15:41:04+00:00"
+                        ),
+                        status=FindingVerificationStatus.REQUESTED,
+                        vulnerability_ids={
+                            "74632c0c-db08-47c2-b013-c70e5b67c49f",
+                            "3bcdb384-5547-4170-a0b6-3b397a245465",
+                        },
+                    ),
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="560175507",
+                    state=FindingState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-02-07T17:46:10+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.REJECTED,
+                        rejection=DraftRejection(
+                            other="Test",
+                            reasons={DraftRejectionReason.OMISSION},
+                            rejected_by="customer_manager@fluidattacks.com",
+                            rejection_date=datetime.fromisoformat(
+                                "2019-02-07T17:46:10+00:00"
+                            ),
+                            submitted_by="unittest@fluidattacks.com",
+                        ),
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="006. Authentication mechanism absence or evasion",
+                    approval=None,
+                    attack_vector_description="Test attack vector.",
+                    creation=FindingState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-02-07T17:46:10+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="La aplicación afectada permite la inyeccion "
+                    "de XML que es ejecutado de forma remota y permite la "
+                    "exfiltracion de archivos o ejecucio remota de comandos "
+                    "en el servidor.",
+                    evidences=FindingEvidences(
+                        animation=None,
+                        evidence1=None,
+                        evidence2=None,
+                        evidence3=None,
+                        evidence4=None,
+                        evidence5=None,
+                        exploitation=None,
+                        records=None,
+                    ),
+                    min_time_to_remediate=18,
+                    recommendation="Filtrar la informacion recibe y envia la "
+                    "aplicacion medio de listas blancas",
+                    requirements="REQ.0173. El sistema debe descartar toda la "
+                    "informacion potencialmente insegura que sea recibida por "
+                    "entradas de datos.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.62"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("1.5"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0"),
+                        integrity_requirement=Decimal("1"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_attack_vector=Decimal("0.62"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.85"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.85"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.62"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=None,
+                    threat="Test threat",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=0,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-13T14:58:38+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2020-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2020-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=0,
+                        unreliable_status=FindingStatus.SAFE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="",
+                    ),
+                    verification=None,
+                ),
+                Finding(
+                    hacker_email="unittest@fluidattacks.com",
+                    group_name="unittesting",
+                    id="563827909",
+                    state=FindingState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-08-22T17:46:10+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="379. Inappropriate coding practices - "
+                    "Unnecessary imports",
+                    approval=None,
+                    attack_vector_description="Test attack vector.",
+                    creation=FindingState(
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2022-08-22T17:46:10+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="The application imports modules that are not "
+                    "used. This is a bad practice because it loads modules "
+                    "that will not be used, and doing so unnecessarily "
+                    "increases the load.",
+                    evidences=FindingEvidences(
+                        animation=None,
+                        evidence1=None,
+                        evidence2=None,
+                        evidence3=None,
+                        evidence4=None,
+                        evidence5=None,
+                        exploitation=None,
+                        records=None,
+                    ),
+                    min_time_to_remediate=15,
+                    recommendation="Import only the modules necessary for the "
+                    "correct functionality of the application.",
+                    requirements="158. System source code must be implemented "
+                    "in a stable, updated, tested and free of known "
+                    "vulnerabilities version of the chosen programming "
+                    "language.",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.44"),
+                        attack_vector=Decimal("0.85"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("1"),
+                        confidentiality_impact=Decimal("0"),
+                        confidentiality_requirement=Decimal("1.5"),
+                        exploitability=Decimal("0.91"),
+                        integrity_impact=Decimal("0"),
+                        integrity_requirement=Decimal("1"),
+                        modified_attack_complexity=Decimal("0.44"),
+                        modified_attack_vector=Decimal("0.62"),
+                        modified_availability_impact=Decimal("0.22"),
+                        modified_confidentiality_impact=Decimal("0.22"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.85"),
+                        modified_user_interaction=Decimal("0.62"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.62"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.85"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=None,
+                    threat="Authorized attacker from the Internet with access "
+                    "to the application.",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=0,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-09-13T14:58:38+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2020-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2020-09-12T13:45:48+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=0,
+                        unreliable_status=FindingStatus.SAFE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            accepted_undefined=0,
+                            in_progress=0,
+                            untreated=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="",
+                    ),
+                    verification=None,
+                ),
+                Finding(
+                    hacker_email="integratesmanager@gmail.com",
+                    group_name="unittesting",
+                    id="988493279",
+                    state=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T00:45:15+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    title="014. Insecure functionality",
+                    approval=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T00:45:15+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.APPROVED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    attack_vector_description="Test description",
+                    creation=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T00:43:18+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.CREATED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    description="Insecure funtionality",
+                    evidences=FindingEvidences(
+                        animation=None,
+                        evidence1=None,
+                        evidence2=None,
+                        evidence3=None,
+                        evidence4=None,
+                        evidence5=None,
+                        exploitation=FindingEvidence(
+                            description="Exploitation description",
+                            modified_date=datetime.fromisoformat(
+                                "2019-04-08T00:45:15+00:00"
+                            ),
+                            url="unittesting-988493279-exploitation.png",
+                        ),
+                        records=None,
+                    ),
+                    min_time_to_remediate=20,
+                    recommendation="Test recomendation",
+                    requirements="REQ.0266. La organización debe deshabilitar "
+                    "las funciones inseguras de un sistema. "
+                    "(hardening de sistemas)",
+                    severity=Finding31Severity(
+                        attack_complexity=Decimal("0.77"),
+                        attack_vector=Decimal("0.85"),
+                        availability_impact=Decimal("0.22"),
+                        availability_requirement=Decimal("0.5"),
+                        confidentiality_impact=Decimal("0.22"),
+                        confidentiality_requirement=Decimal("1.5"),
+                        exploitability=Decimal("0.94"),
+                        integrity_impact=Decimal("0.22"),
+                        integrity_requirement=Decimal("1"),
+                        modified_attack_complexity=Decimal("0.77"),
+                        modified_attack_vector=Decimal("0.55"),
+                        modified_availability_impact=Decimal("0"),
+                        modified_confidentiality_impact=Decimal("0"),
+                        modified_integrity_impact=Decimal("0"),
+                        modified_privileges_required=Decimal("0.62"),
+                        modified_user_interaction=Decimal("0.85"),
+                        modified_severity_scope=Decimal("0"),
+                        privileges_required=Decimal("0.85"),
+                        remediation_level=Decimal("0.95"),
+                        report_confidence=Decimal("0.96"),
+                        severity_scope=Decimal("0"),
+                        user_interaction=Decimal("0.85"),
+                    ),
+                    sorts=FindingSorts.NO,
+                    submission=FindingState(
+                        modified_by="integratesmanager@gmail.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-08T00:45:11+00:00"
+                        ),
+                        source=Source.ASM,
+                        status=FindingStateStatus.SUBMITTED,
+                        rejection=None,
+                        justification=StateRemovalJustification.NO_JUSTIFICATION,  # noqa: E501 pylint: disable=line-too-long
+                    ),
+                    threat="Test threat",
+                    unreliable_indicators=FindingUnreliableIndicators(
+                        unreliable_closed_vulnerabilities=1,
+                        unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-04-08T00:45:15+00:00"
+                        ),
+                        unreliable_oldest_open_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-04-08T00:45:15+00:00"
+                        ),
+                        unreliable_oldest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
+                            "2019-04-08T00:45:15+00:00"
+                        ),
+                        unreliable_open_vulnerabilities=1,
+                        unreliable_status=FindingStatus.VULNERABLE,
+                        unreliable_treatment_summary=FindingTreatmentSummary(
+                            accepted=0,
+                            accepted_undefined=1,
+                            in_progress=0,
+                            untreated=0,
+                        ),
+                        unreliable_verification_summary=FindingVerificationSummary(  # noqa: E501 pylint: disable=line-too-long
+                            requested=0, on_hold=0, verified=0
+                        ),
+                        unreliable_where="192.168.1.19",
+                    ),
+                    verification=None,
+                ),
+            ]
+        )
     },
     "db_model.findings.get.GroupFindingsLoader.load": {
         '["unittesting"]': tuple(
@@ -2207,6 +3336,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["integratesuser@gmail.com"]': None,
         '["test_email@test.com", "user"]': None,
         '["test_email@test.com", "admin"]': None,
+    },
+    "db_model.vulnerabilities.get.AssignedVulnerabilitiesLoader.load": {
+        '["unittest@fluidattacks.com"]': [],
     },
     "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load": {
         '["418900978"]': tuple(),
