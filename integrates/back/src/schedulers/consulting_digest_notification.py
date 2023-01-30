@@ -102,7 +102,7 @@ class CommentsDataType(TypedDict):
     ]
 
 
-def _get_days_since_comment(date: datetime) -> int:
+def get_days_since_comment(date: datetime) -> int:
     return (datetime_utils.get_utc_now() - date).days
 
 
@@ -113,7 +113,7 @@ def last_comments(
     return tuple(
         comment
         for comment in comments
-        if _get_days_since_comment(comment.creation_date) < comments_age
+        if get_days_since_comment(comment.creation_date) < comments_age
     )
 
 

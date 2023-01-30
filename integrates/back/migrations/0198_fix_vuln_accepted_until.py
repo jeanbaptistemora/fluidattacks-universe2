@@ -20,9 +20,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 import db_model.vulnerabilities as vulns_model
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
@@ -40,9 +37,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -117,9 +111,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     await collect(
         tuple(
             process_finding(

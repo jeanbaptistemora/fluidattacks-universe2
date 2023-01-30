@@ -23,9 +23,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
@@ -226,9 +223,7 @@ def get_open_with_zr_duplicates(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_group_names(loaders=loaders)
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(groups)
+    groups_findings = await loaders.group_findings.load_many(groups)
 
     total_groups = len(groups)
     for idx, (group, findings) in enumerate(zip(groups, groups_findings)):

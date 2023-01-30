@@ -26,9 +26,6 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.roots.types import (
     Root,
     RootRequest,
@@ -224,9 +221,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     await collect(
         tuple(
             process_finding(

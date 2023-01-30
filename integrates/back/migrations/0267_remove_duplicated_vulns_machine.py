@@ -23,9 +23,6 @@ from datetime import (
 from db_model.enums import (
     Source,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -58,9 +55,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
 
     for index, finding in enumerate(findings):
         LOGGER_CONSOLE.info(

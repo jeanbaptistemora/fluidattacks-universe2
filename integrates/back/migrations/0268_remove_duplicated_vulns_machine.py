@@ -29,9 +29,6 @@ from db_model import (
 from db_model.enums import (
     Source,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
     VulnerabilityStateStatus,
@@ -60,7 +57,6 @@ from settings import (
 import time
 from typing import (
     List,
-    Tuple,
 )
 from vulnerabilities.domain.core import (
     remove_vulnerability,
@@ -106,9 +102,7 @@ async def process_group(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     group_name: str,
 ) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
 
     for finding in findings:
         vulns = await loaders.finding_vulnerabilities.load(finding.id)

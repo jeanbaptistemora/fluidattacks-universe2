@@ -16,9 +16,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.remove import (
     remove,
 )
@@ -32,7 +29,6 @@ from settings import (
 import time
 from typing import (
     List,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -42,9 +38,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
 
     for index, finding in enumerate(findings):
         LOGGER_CONSOLE.info(

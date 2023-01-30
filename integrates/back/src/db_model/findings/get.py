@@ -175,24 +175,26 @@ class GroupFindingsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> tuple[tuple[Finding, ...], ...]:
+        self, group_names: list[str]
+    ) -> list[list[Finding]]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
         )
-        return tuple(
-            filter_non_state_status_findings(
-                drafts_and_findings,
-                {
-                    FindingStateStatus.CREATED,
-                    FindingStateStatus.DELETED,
-                    FindingStateStatus.MASKED,
-                    FindingStateStatus.REJECTED,
-                    FindingStateStatus.SUBMITTED,
-                },
+        return [
+            list(
+                filter_non_state_status_findings(
+                    drafts_and_findings,
+                    {
+                        FindingStateStatus.CREATED,
+                        FindingStateStatus.DELETED,
+                        FindingStateStatus.MASKED,
+                        FindingStateStatus.REJECTED,
+                        FindingStateStatus.SUBMITTED,
+                    },
+                )
             )
             for drafts_and_findings in drafts_and_findings_by_groups
-        )
+        ]
 
 
 class FindingLoader(DataLoader):

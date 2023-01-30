@@ -24,11 +24,11 @@ from pytz import (
     UTC,
 )
 from schedulers.consulting_digest_notification import (
-    _get_days_since_comment,
     CommentsDataType,
     digest_comments,
     finding_comments,
     format_comment,
+    get_days_since_comment,
     group_comments,
     group_instance_comments,
     instance_comments,
@@ -48,7 +48,7 @@ pytestmark = [
 @freeze_time("2022-12-07T00:00:00.0")
 def test_get_days_since_comment() -> None:
     assert (
-        _get_days_since_comment(datetime(2022, 12, 1).replace(tzinfo=UTC)) == 6
+        get_days_since_comment(datetime(2022, 12, 1).replace(tzinfo=UTC)) == 6
     )
 
 

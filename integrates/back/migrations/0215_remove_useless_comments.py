@@ -17,9 +17,6 @@ from db_model.finding_comments.enums import (
 from db_model.finding_comments.types import (
     FindingCommentsRequest,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from finding_comments import (
     domain as comments_domain,
 )
@@ -33,9 +30,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -55,9 +49,7 @@ async def main() -> None:  # noqa: MC0001
     )
 
     for group in groups:
-        findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-            group
-        )
+        findings = await loaders.group_findings.load(group)
 
         for finding_id in [finding.id for finding in findings]:
             comments = await loaders.finding_comments.load(

@@ -38,9 +38,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -82,9 +79,7 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     await collect(
         tuple(
             process_finding(

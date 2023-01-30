@@ -217,9 +217,7 @@ def get_vulns_with_description_issues(
 async def main() -> None:
     loaders = get_new_context()
     groups = await orgs_domain.get_all_active_group_names(loaders)
-    groups_findings: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_findings.load_many(groups)
+    groups_findings = await loaders.group_findings.load_many(groups)
     total_groups: int = len(groups)
     machine_input_findings: List[str] = [
         key[1:] for key in INPUT_FINDINGS_DESCRIPTIONS

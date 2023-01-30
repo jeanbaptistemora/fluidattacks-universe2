@@ -22,9 +22,6 @@ from dataloaders import (
 from db_model import (
     vulnerabilities as vulns_model,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -103,9 +100,7 @@ async def _process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     group_vulns = await loaders.finding_vulnerabilities.load_many_chained(
         list(finding.id for finding in findings)
     )

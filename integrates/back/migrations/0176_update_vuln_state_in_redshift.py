@@ -208,12 +208,10 @@ async def process_group(
     group_name: str,
     progress: float,
 ) -> None:
-    group_findings: Tuple[Finding, ...] = await loaders.group_findings.load(
+    group_findings = await loaders.group_findings.load(group_name)
+    group_removed_findings = await loaders.group_removed_findings.load(
         group_name
     )
-    group_removed_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_removed_findings.load(group_name)
     all_findings = group_findings + group_removed_findings
     vulns_items_to_store: List[Item] = list(
         chain.from_iterable(
