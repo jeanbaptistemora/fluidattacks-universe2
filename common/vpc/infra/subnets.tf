@@ -95,7 +95,7 @@ locals {
     },
     {
       name                    = "k8s_4"
-      availability_zone       = "us-east-1c"
+      availability_zone       = "us-east-1f"
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
@@ -145,7 +145,7 @@ locals {
     },
     {
       name                    = "k8s_9"
-      availability_zone       = "us-east-1c"
+      availability_zone       = "us-east-1f"
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
