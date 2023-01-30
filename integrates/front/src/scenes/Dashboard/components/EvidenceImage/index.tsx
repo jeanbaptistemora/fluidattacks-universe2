@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events, react/jsx-props-no-spreading, react/no-multi-comp */
-import { faFile, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { FieldValidator } from "formik";
 import { Field, useField, useFormikContext } from "formik";
@@ -8,10 +8,10 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
+import { DisplayImage } from "./DisplayImage";
 import { DescriptionContainer, ImageContainer } from "./styles";
 
 import { Button } from "components/Button/index";
-import { ExternalLink } from "components/ExternalLink";
 import { Editable, TextArea } from "components/Input";
 import { Tooltip } from "components/Tooltip";
 import type { IEvidenceItem } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/types";
@@ -115,45 +115,6 @@ const RenderForm: React.FC<Readonly<IEvidenceImageProps>> = ({
   );
 };
 
-const DisplayImage: React.FC<
-  Pick<Readonly<IEvidenceImageProps>, "content" | "name" | "onClick">
-> = ({ content, name, onClick }): JSX.Element => {
-  const { t } = useTranslation();
-
-  if (content === "") {
-    return <div />;
-  }
-
-  if (content === "file") {
-    return (
-      <div onClick={onClick} role={"button"} tabIndex={0}>
-        <FontAwesomeIcon icon={faFile} size={"1x"} />
-      </div>
-    );
-  }
-
-  if (getFileNameExtension(content) === "webm") {
-    return (
-      <video controls={true} muted={true}>
-        <source src={content} type={"video/webm"} />
-        <p>
-          {t("searchFindings.tabEvidence.altVideo.first")}&nbsp;
-          <ExternalLink href={content}>
-            {t("searchFindings.tabEvidence.altVideo.second")}
-          </ExternalLink>
-          &nbsp;{t("searchFindings.tabEvidence.altVideo.third")}
-        </p>
-      </video>
-    );
-  }
-
-  return (
-    <div onClick={onClick} role={"button"} tabIndex={0}>
-      <img alt={name} src={content} />
-    </div>
-  );
-};
-
 const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
   props
 ): JSX.Element => {
@@ -165,7 +126,12 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
       <Col33>
         <div>
           <ImageContainer>
-            <DisplayImage content={content} name={name} onClick={onClick} />
+            <DisplayImage
+              content={content}
+              extension={getFileNameExtension(content)}
+              name={name}
+              onClick={onClick}
+            />
           </ImageContainer>
           <DescriptionContainer>
             <Row>
