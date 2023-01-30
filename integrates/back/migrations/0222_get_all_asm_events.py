@@ -36,9 +36,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Any,
-)
 
 
 async def process_group(
@@ -48,9 +45,7 @@ async def process_group(
         group.organization_id
     )
     event_ids = await list_group_events(group.name)
-    group_events: list[dict[str, Any]] = await loaders.event.load_many(
-        event_ids
-    )
+    group_events = await loaders.event.load_many(event_ids)
 
     return [
         {

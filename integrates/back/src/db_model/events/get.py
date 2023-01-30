@@ -105,7 +105,7 @@ async def _get_group_events(
 async def _get_historic_state(
     *,
     event_id: str,
-) -> tuple[EventState, ...]:
+) -> list[EventState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_historic_state"],
         values={"id": event_id},
@@ -119,18 +119,20 @@ async def _get_historic_state(
         facets=(TABLE.facets["event_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, response.items))
+    return list(map(format_state, response.items))
 
 
 class EventsHistoricStateLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, event_ids: Iterable[str]
-    ) -> tuple[tuple[EventState, ...], ...]:
-        return await collect(
-            tuple(
-                _get_historic_state(event_id=event_id)
-                for event_id in event_ids
+        self, event_ids: list[str]
+    ) -> list[list[EventState]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_historic_state(event_id=event_id)
+                    for event_id in event_ids
+                )
             )
         )
 
@@ -139,7 +141,7 @@ class EventLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        event_keys: Iterable[str],
+        event_keys: list[str],
     ) -> list[Optional[Event]]:
         return list(
             await collect(

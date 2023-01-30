@@ -66,9 +66,7 @@ async def remove_state(
 
 
 async def process_event(loaders: Dataloaders, event: Event) -> None:
-    historic_states: tuple[
-        EventState, ...
-    ] = await loaders.event_historic_state.load(event.id)
+    historic_states = await loaders.event_historic_state.load(event.id)
     for state in historic_states:
         if state.status == EventStateStatus.CLOSED:
             await remove_state(event.id, state)

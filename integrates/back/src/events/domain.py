@@ -313,9 +313,7 @@ async def get_evidence_link(
 async def get_solving_state(
     loaders: Dataloaders, event_id: str
 ) -> Optional[EventState]:
-    historic_states: tuple[
-        EventState, ...
-    ] = await loaders.event_historic_state.load(event_id)
+    historic_states = await loaders.event_historic_state.load(event_id)
     for state in sorted(
         historic_states,
         key=lambda state: state.modified_date,

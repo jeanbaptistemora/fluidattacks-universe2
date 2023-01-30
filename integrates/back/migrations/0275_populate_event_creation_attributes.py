@@ -61,9 +61,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_event(loaders: Dataloaders, event: Event) -> None:
-    historic: tuple[EventState, ...] = await loaders.event_historic_state.load(
-        event.id
-    )
+    historic = await loaders.event_historic_state.load(event.id)
     creation_state: Optional[EventState] = None
     for state in historic:
         if state.status is EventStateStatus.CREATED:
