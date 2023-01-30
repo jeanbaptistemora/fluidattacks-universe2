@@ -1,3 +1,4 @@
+/* eslint react/jsx-no-bind:0 */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -354,7 +355,8 @@ const Files: React.FC<IFilesProps> = ({
         isOpen={isAddModalOpen}
         isUploading={isButtonEnabled}
         onClose={closeAddModal}
-        onSubmit={handleUpload} // eslint-disable-line react/jsx-no-bind -- Unexpected behaviour with no-bind
+        // eslint-disable-next-line
+        onSubmit={handleUpload} // NOSONAR -- Unexpected behaviour with no-bind
       />
       <Can do={"api_mutations_remove_files_mutate"} passThrough={true}>
         {(canRemove: boolean): JSX.Element => (

@@ -1,12 +1,36 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
 
 describe("ConfirmDialog", (): void => {
   const btnCancel = "components.modal.cancel";
+  const confirmCallback: jest.Mock = jest.fn();
+  const cancelCallback: jest.Mock = jest.fn();
+  const TestComponent: React.FC = (): JSX.Element => {
+    const handleClick = useCallback(
+      (confirm: IConfirmFn): (() => void) =>
+        (): void => {
+          confirm(confirmCallback, cancelCallback);
+        },
+      []
+    );
+
+    return (
+      <ConfirmDialog title={"Title test"}>
+        {(confirm): React.ReactNode => {
+          return (
+            <Button onClick={handleClick(confirm)} variant={"primary"}>
+              {"Test"}
+            </Button>
+          );
+        }}
+      </ConfirmDialog>
+    );
+  };
 
   it("should return a function", (): void => {
     expect.hasAssertions();
@@ -16,23 +40,7 @@ describe("ConfirmDialog", (): void => {
   it("should handle cancel", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const confirmCallback: jest.Mock = jest.fn();
-    const cancelCallback: jest.Mock = jest.fn();
-    render(
-      <ConfirmDialog title={"Title test"}>
-        {(confirm): React.ReactNode => {
-          function handleClick(): void {
-            confirm(confirmCallback, cancelCallback);
-          }
-
-          return (
-            <Button onClick={handleClick} variant={"primary"}>
-              {"Test"}
-            </Button>
-          );
-        }}
-      </ConfirmDialog>
-    );
+    render(<TestComponent />);
 
     expect(screen.queryByRole("button")).toBeInTheDocument();
     expect(screen.queryByText("Title test")).not.toBeInTheDocument();
