@@ -18,8 +18,8 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
   const { width } = useWindowSize();
 
   return (
-    <Container bgColor={"#ffffff"} display={width > 1200 ? display : "none"}>
-      <Container display={"flex"} height={"230px"} justify={"center"}>
+    <Container bgColor={"#ffffff"} display={display}>
+      <Container display={"flex"} height={"230px"} justify={"center"} ph={4}>
         <Container maxWidth={"960px"} mr={4}>
           <Container
             borderBottomColor={"#b0b0bf"}
@@ -31,14 +31,18 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               {translate.t("menu.company.fluid.title")}
             </Text>
           </Container>
-          <Grid columns={4} gap={"1.4rem"}>
+          <Grid
+            columns={width > 1200 ? 4 : 2}
+            columnsMd={1}
+            gap={width > 1200 ? "1.4rem" : "0.5rem"}
+          >
             <Container>
               <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
                 <Text color={"#121216"} mb={3} weight={"bold"}>
                   {translate.t("menu.company.fluid.about.title")}
                 </Text>
               </AirsLink>
-              <Text color={"#535365"} mb={3} size={"small"}>
+              <Text color={"#535365"} size={"small"}>
                 {translate.t("menu.company.fluid.about.subtitle")}
               </Text>
             </Container>
