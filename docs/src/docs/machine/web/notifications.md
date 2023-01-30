@@ -471,7 +471,7 @@ when the user completes the
 process of creating the repository,
 the organization and the group.
 
-![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1675074441/docs/web/notifications/free_trial_start.pngg)
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1675074441/docs/web/notifications/free_trial_start.png)
 
 ### Abandoned trial
 

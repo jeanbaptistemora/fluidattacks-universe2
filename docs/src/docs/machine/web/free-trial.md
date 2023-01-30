@@ -100,7 +100,7 @@ notification via email,
 where we welcome you to
 the Machine Plan free trial.
 
-![Enrollment Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1672072885/docs/web/enrollment/welcome_mail.png)
+![Enrollment Notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1675096872/docs/web/enrollment/free_trial_start.png)
 
 You can also access your
 organization and group on
@@ -108,31 +108,6 @@ the ARM and start exploring
 the platform.
 
 ![Access Platform](https://res.cloudinary.com/fluid-attacks/image/upload/v1672073424/docs/web/enrollment/group.png)
-
-Once vulnerabilities
-start being detected,
-you will be receiving
-notifications in your email.
-
-![Vulnerabilities Alert](https://res.cloudinary.com/fluid-attacks/image/upload/v1672073524/docs/web/enrollment/vulnerabilite_detecte.png)
-
-By clicking the
-**Go to type of vulnerability** button,
-you will be directed to the
-[Vulnerabilities](/machine/web/groups/vulnerabilities)
-section of your group.
-There you can select any of the
-types of vulnerabilities and view
-their [locations](/machine/web/vulnerabilities/management)
-to know where you need to
-initiate remediation.
-We invite you to follow
-[this link](/machine/web/vulnerabilities/management)
-for more information about
-managing your vulnerabilities
-from the ARM.
-
-![Management](https://res.cloudinary.com/fluid-attacks/image/upload/v1672074011/docs/web/enrollment/vulnerabilities_view.png)
 
 When your 21-day free trial
 is about to run out,
@@ -148,7 +123,7 @@ comprehensive and more accurate
 Squad Plan (automated and manual
 testing service).
 
-![End Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1672074379/docs/web/enrollment/next_setp.png)
+![End Free Trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1675097510/docs/web/enrollment/free_trial_over.png)
 
 If you found our services helpful
 and want to continue with our
