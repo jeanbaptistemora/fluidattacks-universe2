@@ -244,33 +244,25 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 </Col>
                 <Col lg={33} md={50} sm={100}>
                   <Card>
-                    <Text mb={2}>
-                      {t("organization.tabs.groups.newGroup.description.text")}
-                    </Text>
-                    <Tooltip
-                      id={
-                        "organization.tabs.groups.newGroup.description.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                    <Input
+                      disabled={permissions.cannot(
+                        "api_mutations_update_group_stakeholder_mutate"
+                      )}
+                      id={"add-group-description"}
+                      label={t(
+                        "organization.tabs.groups.newGroup.description.text"
+                      )}
+                      name={"description"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.description.tooltip"
                       )}
-                    >
-                      <Field
-                        component={FormikText}
-                        disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
-                        )}
-                        id={"add-group-description"}
-                        name={"description"}
-                        type={"text"}
-                        validate={composeValidators([
-                          required,
-                          maxDescriptionLength,
-                          validTextField,
-                        ])}
-                      />
-                    </Tooltip>
+                      type={"text"}
+                      validate={composeValidators([
+                        required,
+                        maxDescriptionLength,
+                        validTextField,
+                      ])}
+                    />
                   </Card>
                 </Col>
                 <Col lg={33} md={50} sm={100}>
