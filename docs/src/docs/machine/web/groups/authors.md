@@ -16,7 +16,7 @@ You can access the
 **Authors** section when you
 enter one of your groups.
 
-![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1665687647/docs/web/groups/authors/authors_table.png)
+![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1675108456/docs/web/groups/authors/authors_table.png)
 
 ## Authors table
 
@@ -67,17 +67,14 @@ the **Export** button.
 
 By clicking the **Filters** button,
 which you can find on the
-upper right-hand side,
-next to the search bar;
-you have six filters enabled to
+upper left-hand side,
+you have three filters enabled to
 apply to your listing:
 **Author**,
 **Groups Contributed**,
-**Commit**,
-**Repository**,
-**Registration status**.
+**Repository**.
 
-![Filter List Authors](https://res.cloudinary.com/fluid-attacks/image/upload/v1665672117/docs/web/groups/authors/filters.png)
+![Filter List Authors](https://res.cloudinary.com/fluid-attacks/image/upload/v1675108766/docs/web/groups/authors/filters.png)
 
 ### Search bar
 
@@ -98,7 +95,7 @@ invitations to contributors
 who do not have an ARM account yet
 by clicking the **Invite** button.
 
-![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1665687817/docs/web/groups/authors/invite_authors.png)
+![Authors Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1675116938/docs/web/groups/authors/invite_authors.png)
 
 The ARM will email the author
 showing them two possible options:
@@ -110,7 +107,7 @@ you will see the Registration status
 column showing a Pending status
 for the author in question.
 
-![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1665687906/docs/web/groups/authors/pending_status.png)
+![Authors Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1675117042/docs/web/groups/authors/pending_status.png)
 
 If the author rejects
 the invitation,

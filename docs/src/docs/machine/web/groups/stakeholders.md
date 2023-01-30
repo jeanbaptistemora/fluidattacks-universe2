@@ -23,7 +23,7 @@ you have to go to the
 **Stakeholders** section
 in your group.
 
-![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1661373759/docs/web/groups/stakeholders/stakeholders_section.png)
+![Stakeholders Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1675107238/docs/web/groups/stakeholders/stakeholders_vies.png)
 
 ## Stakeholders table
 
@@ -111,14 +111,14 @@ clicking on the checkbox on the left,
 where you can mark all the participants
 to be removed from the group.
 
-![Remove Checkbox](https://res.cloudinary.com/fluid-attacks/image/upload/v1661361374/docs/web/groups/stakeholders/remove_checkbox.png)
+![Remove Checkbox](https://res.cloudinary.com/fluid-attacks/image/upload/v1675107586/docs/web/groups/stakeholders/remove_stakeholder.png)
 
 After selecting, you go to the Remove button,
 where you will get a pop-up window
 where you confirm if you want to
 remove these participants.
 
-![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1661361374/docs/web/groups/stakeholders/remove_button.png)
+![Remove Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675107659/docs/web/groups/stakeholders/confirm_remove.png)
 
 Clicking this will automatically remove
 the selected people from the group.
@@ -127,10 +127,10 @@ the selected people from the group.
 
 In this section,
 you can find the filters on the
-right side of the search bar by
+left side of the search bar by
 clicking on the filters icon.
 
-![Filters Icon](https://res.cloudinary.com/fluid-attacks/image/upload/v1661375344/docs/web/groups/stakeholders/filters_icon.png)
+![Filters Icon](https://res.cloudinary.com/fluid-attacks/image/upload/v1675108155/docs/web/groups/stakeholders/filters_stakeholders.png)
 
 Two filters are available
 for the table: Role and

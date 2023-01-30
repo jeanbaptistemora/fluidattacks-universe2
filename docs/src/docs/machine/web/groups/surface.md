@@ -24,7 +24,7 @@ such as URLs/IPs,
 and **Languages** identify the different
 languages used in your code.
 
-![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1671705522/docs/web/groups/surface/surface_view.png)
+![Surface Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1675117549/docs/web/groups/surface/surface.png)
 
 ## Lines
 
@@ -36,7 +36,7 @@ filenames that compose them,
 being the ToE that the
 Hackers will validate.
 
-![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1671705822/docs/web/groups/surface/surface_lines.png)
+![Surface Lines](https://res.cloudinary.com/fluid-attacks/image/upload/v1675117657/docs/web/groups/surface/surface_lines.png)
 
 This section shows a table providing
 the following information:
@@ -52,7 +52,7 @@ the following information:
   How many lines of code
   does this file have in total.
 - **Status:**
-  If the file is vulnerable.
+  If the file is vulnerable or safe.
 - **Modified date:**
   The last time the
   file was modified.
@@ -96,7 +96,7 @@ section in Environment URLs/IP,
 giving us the entry points that
 the Hackers will validate.
 
-![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1671804633/docs/web/groups/surface/inputs_view.png)
+![Surface Inputs](https://res.cloudinary.com/fluid-attacks/image/upload/v1675118213/docs/web/groups/surface/inputs_view.png)
 
 This section shows a table
 providing the following information:
@@ -114,7 +114,7 @@ providing the following information:
   tested by the Hacker.
 - **Status:**
   If the component is
-  vulnerable.
+  vulnerable or safe.
 - **Seen at:**
   The date the component
   was added.
@@ -142,7 +142,7 @@ so this section will have content if
 your group's service is
 [black](/about/glossary/#black-box).
 
-![Ports view](https://res.cloudinary.com/fluid-attacks/image/upload/v1671706201/docs/web/groups/surface/ports.png)
+![Ports view](https://res.cloudinary.com/fluid-attacks/image/upload/v1675118603/docs/web/groups/surface/ports.png)
 
 This section shows these items,
 providing the following information:
@@ -176,7 +176,7 @@ the search bar.
 Here you can see the
 languages used in your repositories.
 
-![Surface Languages](https://res.cloudinary.com/fluid-attacks/image/upload/v1671707420/docs/web/groups/surface/code_languajes.png)
+![Surface Languages](https://res.cloudinary.com/fluid-attacks/image/upload/v1675118930/docs/web/groups/surface/code_languajes.png)
 
 This section shows a table
 providing the following information:
