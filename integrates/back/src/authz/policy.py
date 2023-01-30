@@ -163,16 +163,11 @@ async def get_organization_level_role(
 ) -> str:
     organization_role: str = ""
     # Admins are granted access to all organizations
-    with suppress(StakeholderNotInOrganization):
-        org_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=organization_id, email=email
-                )
-            )
-        )
-        if org_access.role:
-            organization_role = org_access.role
+    org_access = await loaders.organization_access.load(
+        OrganizationAccessRequest(organization_id=organization_id, email=email)
+    )
+    if org_access and org_access.role:
+        organization_role = org_access.role
 
     # Please always make the query at the end
     if (

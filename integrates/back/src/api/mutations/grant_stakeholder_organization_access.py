@@ -21,7 +21,6 @@ from db_model.organization_access.enums import (
     OrganizationInvitiationState,
 )
 from db_model.organization_access.types import (
-    OrganizationAccess,
     OrganizationAccessRequest,
 )
 from db_model.organizations.types import (
@@ -77,14 +76,12 @@ async def mutate(
     stakeholder_role: str = map_roles(str(parameters.get("role")).lower())
 
     with suppress(StakeholderNotInOrganization):
-        organization_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=organization_id, email=stakeholder_email
-                )
+        organization_access = await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=stakeholder_email
             )
         )
-        if organization_access.has_access:
+        if organization_access and organization_access.has_access:
             raise StakeholderHasOrganizationAccess()
         with suppress(StakeholderNotFound):
             stakeholder: Stakeholder = await loaders.stakeholder.load(
@@ -97,7 +94,7 @@ async def mutate(
             if invitation_state == OrganizationInvitiationState.REGISTERED:
                 raise StakeholderHasOrganizationAccess()
         # Too soon to send another email invitation to the same stakeholder
-        if organization_access.expiration_time:
+        if organization_access and organization_access.expiration_time:
             validate_new_invitation_time_limit(
                 organization_access.expiration_time
             )

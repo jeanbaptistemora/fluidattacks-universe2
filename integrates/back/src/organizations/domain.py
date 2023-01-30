@@ -566,15 +566,11 @@ async def has_access(
     ):
         return True
 
-    try:
-        await loaders.organization_access.load(
-            OrganizationAccessRequest(
-                organization_id=organization_id, email=email
-            )
-        )
+    if await loaders.organization_access.load(
+        OrganizationAccessRequest(organization_id=organization_id, email=email)
+    ):
         return True
-    except StakeholderNotInOrganization:
-        return False
+    return False
 
 
 @validate_email_address_deco("email")

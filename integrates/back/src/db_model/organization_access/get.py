@@ -14,9 +14,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    StakeholderNotInOrganization,
-)
 from db_model import (
     TABLE,
 )
@@ -27,11 +24,14 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Optional,
+)
 
 
 async def _get_organization_access(
     *, requests: list[OrganizationAccessRequest]
-) -> list[OrganizationAccess]:
+) -> list[Optional[OrganizationAccess]]:
     requests = [
         request._replace(email=request.email.lower().strip())
         for request in requests
@@ -48,18 +48,13 @@ async def _get_organization_access(
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
-        response = {
-            OrganizationAccessRequest(
-                organization_id=access.organization_id, email=access.email
-            ): access
-            for access in tuple(
-                format_organization_access(item) for item in items
-            )
-        }
-        return [response[request] for request in requests]
-
-    raise StakeholderNotInOrganization()
+    response = {
+        OrganizationAccessRequest(
+            organization_id=access.organization_id, email=access.email
+        ): access
+        for access in [format_organization_access(item) for item in items]
+    }
+    return list(response.get(request) for request in requests)
 
 
 async def _get_organization_stakeholders_access(
@@ -143,7 +138,7 @@ class OrganizationAccessLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[OrganizationAccessRequest]
-    ) -> list[OrganizationAccess]:
+    ) -> list[Optional[OrganizationAccess]]:
         return await _get_organization_access(requests=requests)
 
 
