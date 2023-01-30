@@ -290,7 +290,7 @@ async def add_event(
 async def get_unsolved_events(
     loaders: Dataloaders, group_name: str
 ) -> list[Event]:
-    events: tuple[Event, ...] = await loaders.group_events.load(
+    events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     unsolved: list[Event] = [

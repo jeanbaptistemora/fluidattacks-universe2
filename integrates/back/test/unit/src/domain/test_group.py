@@ -6,7 +6,6 @@ from datetime import (
     datetime,
 )
 from db_model.events.types import (
-    Event,
     GroupEventsRequest,
 )
 from db_model.group_comments.types import (
@@ -68,7 +67,7 @@ async def test_list_events() -> None:
         "540462638",
     ]
     loaders: Dataloaders = get_new_context()
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
+    events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     assert expected_output == sorted([event.id for event in events_group])

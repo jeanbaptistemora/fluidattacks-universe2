@@ -27,7 +27,6 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -59,7 +58,7 @@ async def _get_group_events(
     *,
     event_dataloader: DataLoader,
     request: GroupEventsRequest,
-) -> tuple[Event, ...]:
+) -> list[Event]:
     if request.is_solved is None:
         facet = TABLE.facets["event_metadata"]
         primary_key = keys.build_key(
@@ -99,7 +98,7 @@ async def _get_group_events(
         events.append(event)
         event_dataloader.prime(event.id, event)
 
-    return tuple(events)
+    return events
 
 
 async def _get_historic_state(
@@ -157,10 +156,10 @@ class GroupEventsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupEventsRequest]
-    ) -> tuple[tuple[Event, ...], ...]:
-        return await collect(
-            tuple(
+        self, requests: list[GroupEventsRequest]
+    ) -> list[list[Event]]:
+        return list(
+            await collect(
                 _get_group_events(
                     event_dataloader=self.dataloader,
                     request=request,

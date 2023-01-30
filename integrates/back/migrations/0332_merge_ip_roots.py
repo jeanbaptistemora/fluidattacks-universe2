@@ -28,7 +28,6 @@ from db_model import (
     vulnerabilities as vulnerabilities_model,
 )
 from db_model.events.types import (
-    Event,
     EventMetadataToUpdate,
     GroupEventsRequest,
 )
@@ -132,7 +131,7 @@ async def merge_roots(
         )
         for toe_port in toe_ports
     )
-    group_events: tuple[Event, ...] = await loaders.group_events.load(
+    group_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=ip_root.group_name)
     )
     root_events = tuple(

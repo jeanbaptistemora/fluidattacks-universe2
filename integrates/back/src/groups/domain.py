@@ -68,7 +68,6 @@ from db_model.enums import (
     Notification,
 )
 from db_model.events.types import (
-    Event,
     GroupEventsRequest,
 )
 from db_model.group_access.types import (
@@ -1411,7 +1410,7 @@ async def remove_resources(
         ),
         workers=4,
     )
-    group_events: tuple[Event, ...] = await loaders.group_events.load(
+    group_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     await collect(

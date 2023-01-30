@@ -41,7 +41,7 @@ async def test_add_event(
     assert populate
     group_name: str = "group1"
     loaders: Dataloaders = get_new_context()
-    group_events: tuple[Event, ...] = await loaders.group_events.load(
+    group_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     assert len(group_events) == events_in_db

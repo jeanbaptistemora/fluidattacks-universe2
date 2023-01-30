@@ -250,11 +250,10 @@ async def process_event(event: Event) -> None:  # noqa: MC0001
 
 async def get_group_events(
     loaders: Dataloaders, group_name: str
-) -> tuple[Event, ...]:
-    events = await loaders.group_events.load(
+) -> list[Event]:
+    return await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
-    return events
 
 
 async def main() -> None:  # noqa: MC0001

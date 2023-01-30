@@ -24,7 +24,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.events.types import (
-    Event,
     GroupEventsRequest,
 )
 from organizations import (
@@ -48,7 +47,7 @@ async def process_group(
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
     finding_ids = [finding.id for finding in group_findings]
 
-    group_events: tuple[Event, ...] = await loaders.group_events.load(
+    group_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     event_ids = [event.id for event in group_events]

@@ -623,7 +623,7 @@ async def process_group(
         workers=1,
     )
 
-    group_events: tuple[Event, ...] = await loaders.group_events.load(
+    group_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     await collect(

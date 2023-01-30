@@ -1822,7 +1822,7 @@ async def get_unsolved_events_by_root(
     unsolved_events_by_root: DefaultDict[
         Optional[str], list[Event]
     ] = defaultdict(list[Event])
-    unsolved_events: tuple[Event, ...] = await loaders.group_events.load(
+    unsolved_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name, is_solved=False)
     )
     for event in unsolved_events:

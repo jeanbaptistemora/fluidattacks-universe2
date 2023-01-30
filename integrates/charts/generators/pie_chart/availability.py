@@ -55,7 +55,7 @@ async def get_data_one_group(
     current_date: date = get_utc_now().date()
     group: Group = await loaders.group.load(group_name)
     creation_date = group.created_date.date()
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
+    events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
     sorted_events: tuple[Event, ...] = tuple(

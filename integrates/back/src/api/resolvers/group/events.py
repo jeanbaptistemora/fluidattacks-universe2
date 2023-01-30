@@ -26,7 +26,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Event, ...]:
+) -> list[Event]:
     loaders: Dataloaders = info.context.loaders
     events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=parent.name)

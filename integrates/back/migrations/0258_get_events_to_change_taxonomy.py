@@ -38,13 +38,10 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-async def process_group(
-    loaders: Dataloaders, group_name: str
-) -> tuple[Event, ...]:
-    events = await loaders.group_events.load(
+async def process_group(loaders: Dataloaders, group_name: str) -> list[Event]:
+    return await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
-    return events
 
 
 async def main() -> None:  # noqa: MC0001

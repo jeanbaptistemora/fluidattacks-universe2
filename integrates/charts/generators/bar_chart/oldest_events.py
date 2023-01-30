@@ -30,7 +30,6 @@ from db_model.events.enums import (
     EventStateStatus,
 )
 from db_model.events.types import (
-    Event,
     GroupEventsRequest,
 )
 from decimal import (
@@ -57,7 +56,7 @@ class EventsInfo(NamedTuple):
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> tuple[EventsInfo, ...]:
-    events_group: tuple[Event, ...] = await loaders.group_events.load(
+    events_group = await loaders.group_events.load(
         GroupEventsRequest(group_name=group)
     )
 
