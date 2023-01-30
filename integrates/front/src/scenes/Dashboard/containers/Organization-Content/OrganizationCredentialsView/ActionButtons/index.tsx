@@ -22,6 +22,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   onRemove,
   organizationId,
   selectedCredentials,
+  shouldDisplayBitbucketButton,
   shouldDisplayGithubButton,
   shouldDisplayGitlabButton,
 }: IActionButtonsProps): JSX.Element | null => {
@@ -43,6 +44,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     return oauthUrl.toString();
   }, [organizationId]);
 
+  const ketUrl = useMemo((): string => {
+    const oauthUrl: URL = new URL("/dbitbucket", window.location.origin);
+    oauthUrl.searchParams.set("subject", organizationId);
+
+    return oauthUrl.toString();
+  }, [organizationId]);
+
   const openLabUrl = useCallback((): void => {
     openUrl(labUrl, false);
   }, [labUrl]);
@@ -50,6 +58,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   const openHubUrl = useCallback((): void => {
     openUrl(hubUrl, false);
   }, [hubUrl]);
+
+  const openKetUrl = useCallback((): void => {
+    openUrl(ketUrl, false);
+  }, [ketUrl]);
 
   const handleClick = useCallback(
     (confirm: IConfirmFn): (() => void) =>
@@ -194,6 +206,32 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               &nbsp;
               {t(
                 "organization.tabs.credentials.actionButtons.gitlabButton.text"
+              )}
+            </Button>
+          </Tooltip>
+        </Can>
+      ) : undefined}
+      {shouldDisplayBitbucketButton ? (
+        <Can do={"api_mutations_add_credentials_mutate"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={
+              "organization.tabs.credentials.actionButtons.bitbucketButton.tooltip.id"
+            }
+            tip={t(
+              "organization.tabs.credentials.actionButtons.bitbucketButton.tooltip"
+            )}
+          >
+            <Button
+              disabled={disabled}
+              id={"bitbucketButtonCredentials"}
+              onClick={openKetUrl}
+              variant={"secondary"}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              &nbsp;
+              {t(
+                "organization.tabs.credentials.actionButtons.bitbucketButton.text"
               )}
             </Button>
           </Tooltip>

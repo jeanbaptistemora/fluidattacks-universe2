@@ -9,6 +9,7 @@ interface IActionButtonsProps {
   onRemove: () => void;
   organizationId: string;
   selectedCredentials: ICredentialsData | undefined;
+  shouldDisplayBitbucketButton: boolean;
   shouldDisplayGithubButton: boolean;
   shouldDisplayGitlabButton: boolean;
 }
