@@ -17,6 +17,9 @@ from batch.enums import (
     Action,
     Product,
 )
+from contextlib import (
+    suppress,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -56,6 +59,7 @@ from mailer import (
 from newutils import (
     logs as logs_utils,
 )
+import re
 from roots import (
     domain as roots_domain,
 )
@@ -67,6 +71,12 @@ from sessions import (
 )
 from typing import (
     Any,
+)
+from urllib3.exceptions import (
+    LocationParseError,
+)
+from urllib3.util.url import (
+    parse_url,
 )
 
 
@@ -159,19 +169,27 @@ async def mutate(
                 ],
             )
 
-    await remove(
-        repository=OrganizationIntegrationRepository(
-            id=hashlib.sha256(kwargs["url"].encode("utf-8")).hexdigest(),
-            organization_id=group.organization_id,
-            branch=(
-                "refs/heads/"
-                f'{kwargs["branch"].rstrip().lstrip("refs/heads/")}'
-            ),
-            last_commit_date=None,
-            url=format_git_repo_url(kwargs["url"]),
-            commit_count=0,
+    with suppress(LocationParseError):
+        await remove(
+            repository=OrganizationIntegrationRepository(
+                id=hashlib.sha256(
+                    (
+                        kwargs["url"]
+                        if kwargs["url"].startswith("ssh://")
+                        or bool(re.match(r"^\w+@.*", kwargs["url"]))
+                        else parse_url(kwargs["url"])._replace(auth=None).url
+                    ).encode("utf-8")
+                ).hexdigest(),
+                organization_id=group.organization_id,
+                branch=(
+                    "refs/heads/"
+                    f'{kwargs["branch"].rstrip().lstrip("refs/heads/")}'
+                ),
+                last_commit_date=None,
+                url=format_git_repo_url(kwargs["url"]),
+                commit_count=0,
+            )
         )
-    )
 
     schedule(
         groups_mail.send_mail_added_root(
