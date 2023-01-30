@@ -1,9 +1,10 @@
 import { faCheck, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Tooltip } from "components/Tooltip";
 import { Can } from "utils/authz/Can";
@@ -32,6 +33,16 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
   const { t } = useTranslation();
   const canApprove: boolean = hasVulns && hasSubmission;
 
+  const handleClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          onApprove();
+        });
+      },
+    [onApprove]
+  );
+
   return (
     <div className={"fr"}>
       {isDraft ? (
@@ -56,12 +67,6 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
           <Can do={"api_mutations_approve_draft_mutate"}>
             <ConfirmDialog title={t("group.drafts.approve.title")}>
               {(confirm): React.ReactNode => {
-                function handleClick(): void {
-                  confirm((): void => {
-                    onApprove();
-                  });
-                }
-
                 return (
                   <Tooltip
                     disp={"inline-block"}
@@ -70,7 +75,7 @@ const FindingActions: React.FC<IFindingActionsProps> = ({
                   >
                     <Button
                       disabled={!canApprove || loading}
-                      onClick={handleClick}
+                      onClick={handleClick(confirm)}
                       variant={"secondary"}
                     >
                       <FontAwesomeIcon icon={faCheck} />
