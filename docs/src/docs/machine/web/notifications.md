@@ -471,7 +471,7 @@ when the user completes the
 process of creating the repository,
 the organization and the group.
 
-![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1664470209/docs/web/notifications/free_trail.png)
+![Trial Start](https://res.cloudinary.com/fluid-attacks/image/upload/v1675074441/docs/web/notifications/free_trial_start.pngg)
 
 ### Abandoned trial
 
@@ -484,7 +484,7 @@ the **self-enrollment** where you can use
 and enjoy all the benefits of the
 platform free of charge for 21 days.
 
-![Abandoned trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1666783386/docs/web/notifications/abandoned_free_trail.png)
+![Abandoned trial](https://res.cloudinary.com/fluid-attacks/image/upload/v1675074789/docs/web/notifications/abandoned_trial.png)
 
 ### Add repositories
 
@@ -495,7 +495,7 @@ telling you that you can add more
 [repositories](/machine/web/groups/scope/roots)
 for vulnerability scanning of these.
 
-![Add repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1666783857/docs/web/notifications/add_repositories.png)
+![Add repositories](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075096/docs/web/notifications/add_repositories.png)
 
 ### Add stakeholders
 
@@ -509,7 +509,7 @@ can use the platform to review
 vulnerabilities and contribute to
 vulnerability fixes.
 
-![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1666784358/docs/web/notifications/add_stakeholders.png)
+![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075293/docs/web/notifications/add_stakeholders.pngg)
 
 ### Analytics notification
 
@@ -521,7 +521,7 @@ you can find in the ARM
 [Analytics](/machine/web/analytics),
 encouraging you to explore this section.
 
-![Analytics notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1666784705/docs/web/notifications/analytics_free_trail.png)
+![Analytics notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075728/docs/web/notifications/analytics_free_trail.png)
 
 ### Define treatments
 
@@ -533,7 +533,7 @@ different [treatments](/machine/web/vulnerabilities/management/treatments)
 to your vulnerabilities to orderly
 manage them.
 
-![Define treatments](https://res.cloudinary.com/fluid-attacks/image/upload/v1666785236/docs/web/notifications/define_treatments.png)
+![Define treatments](https://res.cloudinary.com/fluid-attacks/image/upload/v1675076256/docs/web/notifications/define_treatments.png)
 
 ### Devsecops agent
 
@@ -545,7 +545,7 @@ We recommend that users install the
 on their CI to avoid passing to open
 production vulnerabilities.
 
-![Devsecops agent](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789273/docs/web/notifications/devsecops_agent.png)
+![Devsecops agent](https://res.cloudinary.com/fluid-attacks/image/upload/v1675076465/docs/web/notifications/devsecops_agent.png)
 
 ### Trial reports
 
@@ -557,7 +557,7 @@ where we remind you that you can
 download the [reports](/machine/web/groups/reports)
 with information about your vulnerabilities.
 
-![Reports](https://res.cloudinary.com/fluid-attacks/image/upload/v1666791001/docs/web/notifications/trial_reports.png)
+![Reports](https://res.cloudinary.com/fluid-attacks/image/upload/v1675076735/docs/web/notifications/trial_reports.png)
 
 ### Free trial over
 
@@ -570,7 +570,7 @@ by contacting a salesperson or having
 a CS section to give us feedback on
 your experience using the platform.
 
-![Free trial over](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789419/docs/web/notifications/free_trial_over.png)
+![Free trial over](https://res.cloudinary.com/fluid-attacks/image/upload/v1675077367/docs/web/notifications/free_trial_over.png)
 
 ### CS Improve
 
@@ -583,7 +583,7 @@ how they have experienced the platform,
 improvement areas,
 and features to highlight.
 
-![CS section](https://res.cloudinary.com/fluid-attacks/image/upload/v1666789677/docs/web/notifications/cs_feedback.png)
+![CS section](https://res.cloudinary.com/fluid-attacks/image/upload/v1675079281/docs/web/notifications/cs_feedback.png)
 
 ### Support channels
 
@@ -597,7 +597,7 @@ you can use when you have questions,
 concerns,
 or need help on the platform.
 
-![Support](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790540/docs/web/notifications/support_channels.png)
+![Support](https://res.cloudinary.com/fluid-attacks/image/upload/v1675079857/docs/web/notifications/support_channels.png)
 
 ### Trial ended
 
@@ -614,7 +614,7 @@ information on the vulnerabilities
 reported in that time of usability
 of the platform.
 
-![Trial done](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790699/docs/web/notifications/trial_ended.png)
+![Trial done](https://res.cloudinary.com/fluid-attacks/image/upload/v1675080278/docs/web/notifications/trial_ended.png)
 
 ### Trial ending
 
@@ -625,7 +625,7 @@ Here you have two options: Contact
 a salesperson or download all the
 vulnerabilities reported in that time.
 
-![Trial ending soon](https://res.cloudinary.com/fluid-attacks/image/upload/v1666790815/docs/web/notifications/trial_ending.png)
+![Trial ending soon](https://res.cloudinary.com/fluid-attacks/image/upload/v1675080463/docs/web/notifications/trial_ending.png)
 
 ### Upgrade squad
 
@@ -636,7 +636,7 @@ inviting our new users to include
 this plan in the vulnerability
 validation of their software.
 
-![Squad](https://res.cloudinary.com/fluid-attacks/image/upload/v1666791130/docs/web/notifications/upgrade_squad.png)
+![Squad](https://res.cloudinary.com/fluid-attacks/image/upload/v1675080989/docs/web/notifications/upgrade_squad.png)
 
 ## Notifications exclusive to Fluid Attacks staff
 
