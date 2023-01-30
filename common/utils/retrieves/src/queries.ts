@@ -66,4 +66,22 @@ const GET_TOE_LINES = gql`
     }
   }
 `;
-export { GET_GROUPS, GET_GIT_ROOTS, GET_TOE_LINES };
+
+const UPDATE_TOE_LINES_ATTACKED = gql`
+  mutation UpdateToeLinesAttackedLines(
+    $groupName: String!
+    $fileName: String!
+    $rootId: String!
+    $comments: String!
+  ) {
+    updateToeLinesAttackedLines(
+      groupName: $groupName
+      filename: $fileName
+      rootId: $rootId
+      comments: $comments
+    ) {
+      success
+    }
+  }
+`;
+export { GET_GROUPS, GET_GIT_ROOTS, GET_TOE_LINES, UPDATE_TOE_LINES_ATTACKED };
