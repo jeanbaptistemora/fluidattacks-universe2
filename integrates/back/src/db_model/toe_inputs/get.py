@@ -21,9 +21,6 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
-from custom_exceptions import (
-    ToeInputNotFound,
-)
 from dynamodb import (
     keys,
     operations,
@@ -39,7 +36,9 @@ from typing import (
 )
 
 
-async def _get_toe_inputs(requests: list[ToeInputRequest]) -> list[ToeInput]:
+async def _get_toe_inputs(
+    requests: list[ToeInputRequest],
+) -> list[Optional[ToeInput]]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_input_metadata"],
@@ -54,9 +53,6 @@ async def _get_toe_inputs(requests: list[ToeInputRequest]) -> list[ToeInput]:
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) != len(requests):
-        raise ToeInputNotFound()
-
     response = {
         ToeInputRequest(
             component=toe_input.component,
@@ -64,7 +60,7 @@ async def _get_toe_inputs(requests: list[ToeInputRequest]) -> list[ToeInput]:
             group_name=toe_input.group_name,
             root_id=toe_input.state.unreliable_root_id,
         ): toe_input
-        for toe_input in tuple(
+        for toe_input in list(
             format_toe_input(
                 item[TABLE.primary_key.partition_key].split("#")[1],
                 item,
@@ -73,14 +69,14 @@ async def _get_toe_inputs(requests: list[ToeInputRequest]) -> list[ToeInput]:
         )
     }
 
-    return [response[request] for request in requests]
+    return [response.get(request) for request in requests]
 
 
 class ToeInputLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[ToeInputRequest]
-    ) -> list[ToeInput]:
+    ) -> list[Optional[ToeInput]]:
         return await _get_toe_inputs(requests)
 
 
