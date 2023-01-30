@@ -50,11 +50,12 @@ async def add(*, toe_lines: ToeLines) -> None:
         },
     )
     toe_lines_item = format_toe_lines_item(
-        toe_lines_key,
-        key_structure,
-        toe_lines,
-        gsi_2_index,
-        gsi_2_key,
+        primary_key=toe_lines_key,
+        key_structure=key_structure,
+        toe_lines=toe_lines,
+        add_observes_compatibility=True,
+        gsi_2_index=gsi_2_index,
+        gsi_2_key=gsi_2_key,
     )
     condition_expression = Attr(key_structure.partition_key).not_exists()
     try:
@@ -80,7 +81,10 @@ async def add(*, toe_lines: ToeLines) -> None:
         },
     )
     historic_item = format_toe_lines_item(
-        historic_key, key_structure, toe_lines
+        primary_key=historic_key,
+        key_structure=key_structure,
+        toe_lines=toe_lines,
+        add_observes_compatibility=False,
     )
     try:
         await operations.put_item(

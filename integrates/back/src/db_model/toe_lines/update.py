@@ -66,9 +66,13 @@ async def update_state(
     metadata_item = (
         base_item
         | {
-            key: value
-            for key, value in state_item.items()
-            if key not in {"modified_by", "modified_date"}
+            key: state_item.get(key)
+            for key in (
+                "loc",
+                "sorts_risk_level",
+                "sorts_risk_level_date",
+                "sorts_suggestions",
+            )
         }
         | {"state": state_item}
     )
@@ -77,11 +81,11 @@ async def update_state(
         "state.modified_date"
     ).eq(get_as_utc_iso_format(current_value.state.modified_date))
 
-    if "be_present" in metadata_item:
+    if "be_present" in state_item:
         gsi_2_key = keys.build_key(
             facet=GSI_2_FACET,
             values={
-                "be_present": str(metadata_item["be_present"]).lower(),
+                "be_present": str(state_item["be_present"]).lower(),
                 "filename": current_value.filename,
                 "group_name": current_value.group_name,
                 "root_id": current_value.root_id,
@@ -110,7 +114,12 @@ async def update_state(
         },
     )
     historic_item = (
-        format_toe_lines_item(historic_key, key_structure, current_value)
+        format_toe_lines_item(
+            primary_key=historic_key,
+            key_structure=key_structure,
+            toe_lines=current_value,
+            add_observes_compatibility=False,
+        )
         | base_item
         | {"state": state_item}
     )

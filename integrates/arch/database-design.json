@@ -24048,7 +24048,11 @@
             "root_id",
             "pk_2",
             "sk_2",
-            "state"
+            "state",
+            "loc",
+            "sorts_risk_level",
+            "sorts_risk_level_date",
+            "sorts_suggestions"
           ],
           "DataAccess": {
             "MySql": {}
