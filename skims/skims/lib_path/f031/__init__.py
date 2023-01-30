@@ -15,7 +15,6 @@ from lib_path.f031.terraform import (
     terraform_negative_statement,
     terraform_open_passrole,
     tfm_bucket_policy_allows_public_access,
-    tfm_iam_excessive_privileges,
     tfm_iam_excessive_role_policy,
     tfm_iam_has_full_access_to_ssm,
 )
@@ -156,15 +155,6 @@ def run_terraform_open_passrole(
 
 
 @SHIELD_BLOCKING
-def run_tfm_iam_excessive_privileges(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_excessive_privileges(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -201,7 +191,6 @@ def analyze(
                     run_terraform_admin_policy_attached,
                     run_tfm_bucket_policy_allows_public_access,
                     run_tfm_iam_excessive_role_policy,
-                    run_tfm_iam_excessive_privileges,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
                     run_tfm_iam_has_full_access_to_ssm,

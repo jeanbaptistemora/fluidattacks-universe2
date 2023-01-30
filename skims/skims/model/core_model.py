@@ -3078,7 +3078,7 @@ class MethodsEnum(Enum):
     TFM_ADMIN_MANAGED_POLICIES = MethodInfo(
         file_name="terraform",
         name="terraform_iam_excessive_privileges",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,

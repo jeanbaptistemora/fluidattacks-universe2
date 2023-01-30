@@ -1,6 +1,5 @@
 from aws.model import (
     AWSIamPolicyStatement,
-    AWSIamRole,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -25,7 +24,6 @@ from parse_hcl2.common import (
     iterate_resources,
 )
 from parse_hcl2.structure.aws import (
-    iter_aws_iam_role,
     iterate_iam_policy_documents as terraform_iterate_iam_policy_documents,
     iterate_managed_policy_arns as terraform_iterate_managed_policy_arns,
 )
@@ -135,24 +133,6 @@ def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
         actions = stmt_raw.get("Action", [])
         if effect == "Allow" and action_has_full_access_to_ssm(actions):
             yield stmt
-
-
-def _has_admin_access(managed_policies: List[Any]) -> bool:
-    if managed_policies:
-        for man_pol in managed_policies:
-            # IAM role should not have AdministratorAccess policy
-            if "AdministratorAccess" in str(man_pol):
-                return True
-    return False
-
-
-def _tfm_iam_excessive_privileges_iter_vulns(
-    role_iterator: Iterator[AWSIamRole],
-) -> Iterator[Any]:
-    for res in role_iterator:
-        managed_policies = get_attribute(res.data, "managed_policy_arns")
-        if managed_policies and _has_admin_access(managed_policies.val):
-            yield managed_policies
 
 
 def terraform_admin_policy_attached(
@@ -269,20 +249,4 @@ def tfm_iam_excessive_role_policy(
         ),
         path=path,
         method=MethodsEnum.TFM_IAM_EXCESSIVE_ROLE_POLICY,
-    )
-
-
-def tfm_iam_excessive_privileges(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("src.lib_path.f031_aws.permissive_policy"),
-        iterator=get_cloud_iterator(
-            _tfm_iam_excessive_privileges_iter_vulns(
-                role_iterator=iter_aws_iam_role(model=model),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_ADMIN_MANAGED_POLICIES,
     )

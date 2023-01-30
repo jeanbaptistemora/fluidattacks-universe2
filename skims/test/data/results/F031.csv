@@ -482,7 +482,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf
   39 | }
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_privileges.tf,12,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_privileges.tf","
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_privileges.tf,13,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/tfm_iam_excessive_privileges.tf","
    1 | resource ""aws_iam_role"" ""safe_role_1"" {
    2 |   name = ""safe_role_1""
    3 |   managed_policy_arns = [
@@ -494,8 +494,8 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_privileges.
    9 | resource ""aws_iam_role"" ""vuln_role_1"" {
   10 |   name = ""vuln_role_1""
   11 |
-> 12 |   managed_policy_arns = [
-  13 |     ""arn:aws:iam::aws:policy/AdministratorAccess""
+  12 |   managed_policy_arns = [
+> 13 |     ""arn:aws:iam::aws:policy/AdministratorAccess""
   14 |   ]
   15 | }
      ^ Col 0
