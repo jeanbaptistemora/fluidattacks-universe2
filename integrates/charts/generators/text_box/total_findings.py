@@ -14,18 +14,14 @@ from charts.generators.text_box.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 
 
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str) -> int:
-    context = get_new_context()
-    group_findings: tuple[Finding, ...] = await context.group_findings.load(
-        group
-    )
+    loaders = get_new_context()
+    group_findings = await loaders.group_findings.load(group)
     count = len(group_findings)
+
     return count
 
 

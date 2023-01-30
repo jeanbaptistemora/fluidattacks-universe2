@@ -11,9 +11,6 @@ from charts.generators.heat_map_chart.common import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -60,10 +57,7 @@ async def get_data_finding(
 
 async def get_data(group: str) -> FindingsTags:
     loaders = get_new_context()
-    group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     findings = [finding.title for finding in group_findings]
 

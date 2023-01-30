@@ -47,9 +47,7 @@ from typing import (
 )
 
 
-def get_finding_severity(
-    findings: tuple[Finding, ...], finding_id: str
-) -> Decimal:
+def get_finding_severity(findings: list[Finding], finding_id: str) -> Decimal:
     return findings_domain.get_severity_score(
         next(
             finding for finding in findings if finding.id == finding_id
@@ -59,9 +57,7 @@ def get_finding_severity(
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many(

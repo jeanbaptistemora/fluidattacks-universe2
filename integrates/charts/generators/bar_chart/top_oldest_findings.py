@@ -27,9 +27,6 @@ from charts.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decimal import (
     Decimal,
 )
@@ -48,9 +45,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     loaders = get_new_context()
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     findings_open_age = await collect(
         tuple(
             get_finding_open_age(loaders, finding.id)

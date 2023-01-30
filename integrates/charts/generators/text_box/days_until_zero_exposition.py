@@ -12,9 +12,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -26,9 +23,7 @@ from decimal import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group_name: str, loaders: Dataloaders) -> Decimal:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     findings_ids: tuple[str, ...] = tuple(
         finding.id for finding in group_findings
     )

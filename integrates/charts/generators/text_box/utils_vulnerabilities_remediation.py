@@ -33,9 +33,6 @@ from datetime import (
 from db_model import (
     utils as db_model_utils,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -214,9 +211,7 @@ async def generate_one(
         sprint_start_date=group.sprint_start_date,
         sprint_length=group.sprint_duration,
     )
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     findings_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings

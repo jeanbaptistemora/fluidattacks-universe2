@@ -29,9 +29,6 @@ from dataloaders import (
 from datetime import (
     date as datetype,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -383,9 +380,7 @@ def format_vulnerabilities_by_data(
 
 async def _get_oldest_open_age(*, group: str, loaders: Dataloaders) -> Decimal:
     group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group.lower()
-    )
+    group_findings = await group_findings_loader.load(group.lower())
     findings_open_age = await collect(
         tuple(
             get_finding_open_age(loaders, finding.id)

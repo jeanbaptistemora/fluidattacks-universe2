@@ -24,9 +24,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -52,9 +49,7 @@ async def get_data_one_group(
     assigned: dict[str, list[tuple[Vulnerability, Decimal]]] = defaultdict(
         list
     )
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]

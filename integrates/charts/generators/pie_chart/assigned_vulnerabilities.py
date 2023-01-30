@@ -15,9 +15,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -34,9 +31,7 @@ class AssignedVulnerabilities(NamedTuple):
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> AssignedVulnerabilities:
     loaders: Dataloaders = get_new_context()
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(

@@ -102,7 +102,7 @@ async def get_data_vulnerabilities(
     group: str,
     loaders: Dataloaders,
 ) -> GroupInformation:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = tuple(await loaders.group_findings.load(group))
     finding_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings

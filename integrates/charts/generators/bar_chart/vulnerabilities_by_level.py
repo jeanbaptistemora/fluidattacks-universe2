@@ -14,9 +14,6 @@ from charts.generators.bar_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from typing import (
     Counter,
 )
@@ -25,9 +22,7 @@ from typing import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> Counter[str]:
     context = get_new_context()
-    group_findings: tuple[Finding, ...] = await context.group_findings.load(
-        group.lower()
-    )
+    group_findings = await context.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
 
     vulnerabilities = (

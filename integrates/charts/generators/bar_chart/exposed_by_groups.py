@@ -25,9 +25,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -49,9 +46,7 @@ from typing import (
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> PortfoliosGroupsInfo:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_cvssf: dict[str, Decimal] = {
         finding.id: utils.get_cvssf(get_severity_score(finding.severity))

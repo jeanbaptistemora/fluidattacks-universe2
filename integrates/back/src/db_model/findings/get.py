@@ -169,11 +169,9 @@ class GroupFindingsLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
-    async def load_many_chained(
-        self, group_names: Iterable[str]
-    ) -> tuple[Finding, ...]:
+    async def load_many_chained(self, group_names: list[str]) -> list[Finding]:
         unchained_data = await self.load_many(group_names)
-        return tuple(chain.from_iterable(unchained_data))
+        return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(

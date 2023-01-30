@@ -25,9 +25,6 @@ from charts.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -45,9 +42,7 @@ from typing import (
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Counter[str]:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_ids = [finding.id for finding in group_findings]
     finding_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many(

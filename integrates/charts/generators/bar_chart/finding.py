@@ -24,9 +24,6 @@ from charts.generators.pie_chart.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decimal import (
     Decimal,
 )
@@ -38,9 +35,7 @@ from operator import (
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str) -> PortfoliosGroupsInfo:
     context = get_new_context()
-    group_findings: tuple[Finding, ...] = await context.group_findings.load(
-        group.lower()
-    )
+    group_findings = await context.group_findings.load(group.lower())
     findings_found = len(group_findings)
 
     return PortfoliosGroupsInfo(

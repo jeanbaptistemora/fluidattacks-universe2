@@ -30,16 +30,15 @@ from organizations.domain import (
 import time
 from typing import (
     List,
-    Tuple,
 )
 
 
 async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
-    groups_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load_many_chained(groups)
+    groups_findings = await loaders.group_findings.load_many_chained(
+        list(groups)
+    )
     sca_findings: List[Finding] = [
         finding
         for finding in groups_findings

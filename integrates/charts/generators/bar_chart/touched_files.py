@@ -29,9 +29,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityType,
@@ -60,9 +57,7 @@ def format_where(where: str) -> str:
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders, date_minus_delta: datetime
 ) -> Counter[str]:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]

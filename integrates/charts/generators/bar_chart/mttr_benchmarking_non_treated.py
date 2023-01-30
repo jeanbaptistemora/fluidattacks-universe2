@@ -17,9 +17,6 @@ from dataloaders import (
 from datetime import (
     date as datetype,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
 )
@@ -51,9 +48,7 @@ async def get_historic_verification(
 async def get_data_one_group(
     group: str, loaders: Dataloaders, min_date: Optional[datetype]
 ) -> Benchmarking:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]

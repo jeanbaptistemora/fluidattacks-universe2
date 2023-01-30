@@ -44,9 +44,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.types import (
     VulnerabilityVerification,
 )
@@ -78,9 +75,7 @@ def format_max_value(data: tuple[Decimal, ...]) -> Decimal:
 
 @alru_cache(maxsize=None, typed=True)
 async def get_data_one_group(group: str, loaders: Dataloaders) -> Benchmarking:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in group_findings]
     )

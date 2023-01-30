@@ -21,9 +21,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
@@ -53,9 +50,7 @@ def _get_technique(
 async def get_data_one_group(
     *, group: str, loaders: Dataloaders
 ) -> Counter[str]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    findings = await loaders.group_findings.load(group.lower())
     findings_title: dict[str, str] = {
         finding.id: finding.title for finding in findings
     }

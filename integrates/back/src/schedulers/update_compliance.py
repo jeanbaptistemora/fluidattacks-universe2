@@ -147,10 +147,8 @@ async def get_organization_compliance_level(
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load_many_chained(
-        tuple(group.name for group in org_groups)
+    findings = await loaders.group_findings.load_many_chained(
+        [group.name for group in org_groups]
     )
     findings_open_vulnerabilities = await collect(
         tuple(
@@ -211,10 +209,8 @@ async def get_organization_compliance_weekly_trend(
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load_many_chained(
-        tuple(group.name for group in org_groups)
+    findings = await loaders.group_findings.load_many_chained(
+        [group.name for group in org_groups]
     )
     findings_open_vulnerabilities = await collect(
         tuple(
@@ -296,10 +292,8 @@ async def get_organization_estimated_days_to_full_compliance(
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load_many_chained(
-        tuple(group.name for group in org_groups)
+    findings = await loaders.group_findings.load_many_chained(
+        [group.name for group in org_groups]
     )
     findings_open_vulnerabilities = await collect(
         tuple(
@@ -341,10 +335,8 @@ async def get_organization_standard_compliances(
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )
-    findings: tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load_many_chained(
-        tuple(group.name for group in org_groups)
+    findings = await loaders.group_findings.load_many_chained(
+        [group.name for group in org_groups]
     )
     findings_open_vulnerabilities = await collect(
         tuple(
