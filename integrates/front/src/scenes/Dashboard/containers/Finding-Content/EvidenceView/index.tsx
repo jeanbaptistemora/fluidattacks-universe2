@@ -284,12 +284,6 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           // eslint-disable-next-line react/jsx-no-bind
                           onClick={openImage}
                           onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
-                          shouldPreview={true}
-                          shouldPreviewValidation={[
-                            validEvidenceImage,
-                            maxFileSize,
-                            validEvidenceName,
-                          ]}
                           validate={composeValidators([
                             validEvidenceImage,
                             maxFileSize,

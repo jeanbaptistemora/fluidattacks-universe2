@@ -45,8 +45,6 @@ describe("Evidence image", (): void => {
             isEditing={false}
             name={"evidence1"}
             onClick={jest.fn()}
-            shouldPreview={false}
-            shouldPreviewValidation={[]}
           />
           {","}
         </Form>
@@ -78,8 +76,6 @@ describe("Evidence image", (): void => {
             isEditing={false}
             name={"evidence1"}
             onClick={jest.fn()}
-            shouldPreview={false}
-            shouldPreviewValidation={[]}
           />
           {","}
         </Form>
@@ -112,8 +108,6 @@ describe("Evidence image", (): void => {
             isEditing={true}
             name={"evidence1"}
             onClick={jest.fn()}
-            shouldPreview={false}
-            shouldPreviewValidation={[]}
           />
           {","}
         </Form>
@@ -151,8 +145,6 @@ describe("Evidence image", (): void => {
             isEditing={true}
             name={"evidence1"}
             onClick={handleClick}
-            shouldPreview={false}
-            shouldPreviewValidation={[]}
           />
           <Button type={"submit"} variant={"primary"}>
             {btnConfirm}
@@ -239,8 +231,6 @@ describe("Evidence image", (): void => {
             isRemovable={true}
             name={"evidence1"}
             onClick={handleClick}
-            shouldPreview={true}
-            shouldPreviewValidation={[validEvidenceImage, validEvidenceName]}
             validate={composeValidators([
               validEvidenceImage,
               validEvidenceName,
