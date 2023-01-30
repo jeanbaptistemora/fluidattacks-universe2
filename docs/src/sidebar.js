@@ -135,6 +135,7 @@ const About = [
     label: "Compare",
     items: [
       "about/compare/introduction",
+      "about/compare/astra",
       "about/compare/checkmarx",
       "about/compare/crashtest-security",
       "about/compare/data-theorem",
