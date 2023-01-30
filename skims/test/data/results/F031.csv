@@ -612,7 +612,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_bas
   58 |                     {
      ^ Col 0
 ",cloudformation.cfn_iam_user_missing_role_based_security
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_user_missing_role_based_security.tf,15,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/tfm_iam_user_missing_role_based_security.tf,"
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_user_missing_role_based_security.tf,15,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_root/f031/tfm_iam_user_missing_role_based_security.tf,"
    5 |   tags = {
    6 |     tag-key = ""tag-value""
    7 |   }

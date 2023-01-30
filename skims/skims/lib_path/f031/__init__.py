@@ -18,7 +18,6 @@ from lib_path.f031.terraform import (
     tfm_iam_excessive_privileges,
     tfm_iam_excessive_role_policy,
     tfm_iam_has_full_access_to_ssm,
-    tfm_iam_user_missing_role_based_security,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -105,15 +104,6 @@ def run_tfm_bucket_policy_allows_public_access(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
     return tfm_bucket_policy_allows_public_access(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_iam_user_missing_role_based_security(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_user_missing_role_based_security(
         content=content, path=path, model=model
     )
 
@@ -212,7 +202,6 @@ def analyze(
                     run_tfm_bucket_policy_allows_public_access,
                     run_tfm_iam_excessive_role_policy,
                     run_tfm_iam_excessive_privileges,
-                    run_tfm_iam_user_missing_role_based_security,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
                     run_tfm_iam_has_full_access_to_ssm,
