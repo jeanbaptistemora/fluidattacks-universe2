@@ -38,6 +38,7 @@ interface IContainerProps {
   pvSm?: Nums0To7;
   phMd?: Nums0To7;
   phSm?: Nums0To7;
+  position?: string;
   mb?: Nums0To7;
   ml?: Nums0To7;
   mr?: Nums0To7;

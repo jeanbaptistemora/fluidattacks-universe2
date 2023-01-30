@@ -210,6 +210,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     minWidth = "0",
     minWidthMd,
     minWidthSm,
+    position = "unset",
     scroll = "none",
     shadow = false,
     textHoverColor = "",
@@ -232,6 +233,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     min-height: ${minHeight};
     overflow-x: ${scroll.includes("x") ? "auto" : "unset"};
     overflow-y: ${scroll.includes("y") ? "auto" : "unset"};
+    position: ${position};
     transition: all 0.3s ease;
     ${getShadow(shadow)}
     ${getBorder(

@@ -44,6 +44,7 @@ const Container: React.FC<IContainerProps> = ({
   phMd,
   phSm,
   pl,
+  position,
   pr,
   pt,
   pv,
@@ -98,6 +99,7 @@ const Container: React.FC<IContainerProps> = ({
       phMd={phMd}
       phSm={phSm}
       pl={pl}
+      position={position}
       pr={pr}
       pt={pt}
       pv={pv}
