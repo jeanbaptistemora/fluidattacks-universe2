@@ -12,8 +12,7 @@ description: OrangeScrum 2.0.11 - Arbitrary File Delete via file_name
 keywords: Fluid Attacks, Security, Vulnerabilities, Orangescrum, Arbitrary File Delete
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
