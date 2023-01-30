@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 20, 2023, 02:40 PM",
+    "DateLastModified": "Jan 30, 2023, 09:26 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -783,6 +783,10 @@
           "AttributeType": "N"
         },
         {
+          "AttributeName": "inactivity_period",
+          "AttributeType": "N"
+        },
+        {
           "AttributeName": "vulnerability_grace_period",
           "AttributeType": "N"
         },
@@ -1052,6 +1056,10 @@
         },
         {
           "AttributeName": "other_reason",
+          "AttributeType": "S"
+        },
+        {
+          "AttributeName": "last_api_token_use_date",
           "AttributeType": "S"
         }
       ],
@@ -3123,13 +3131,14 @@
             "pk_2",
             "sk_2",
             "state",
+            "enrolled",
             "first_name",
             "last_name",
             "is_concurrent_session",
             "phone",
             "is_registered",
-            "enrolled",
-            "tours"
+            "tours",
+            "last_api_token_use_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -14120,8 +14129,8 @@
             },
             {
               "inactivity_period": {
-                    "N": "90"
-                  },
+                "N": "90"
+              },
               "min_acceptance_severity": {
                 "N": "1"
               },
@@ -14424,12 +14433,12 @@
           "NonKeyAttributes": [
             "modified_date",
             "modified_by",
-            "inactivity_period",
             "max_acceptance_days",
             "max_acceptance_severity",
             "max_number_acceptances",
             "min_acceptance_severity",
             "min_breaking_severity",
+            "inactivity_period",
             "vulnerability_grace_period"
           ],
           "DataAccess": {
@@ -16645,6 +16654,7 @@
             "max_number_acceptances",
             "min_acceptance_severity",
             "min_breaking_severity",
+            "inactivity_period",
             "vulnerability_grace_period"
           ],
           "DataAccess": {
@@ -24326,10 +24336,10 @@
           ],
           "NonKeyAttributes": [
             "modified_date",
+            "seen_first_time_by",
             "group_name",
             "filename",
             "root_id",
-            "seen_first_time_by",
             "state"
           ],
           "DataAccess": {

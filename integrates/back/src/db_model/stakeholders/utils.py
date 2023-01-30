@@ -141,6 +141,11 @@ def format_stakeholder(item: Item) -> Stakeholder:
         last_login_date=datetime.fromisoformat(item["last_login_date"])
         if item.get("last_login_date")
         else None,
+        last_api_token_use_date=datetime.fromisoformat(
+            item["last_api_token_use_date"]
+        )
+        if item.get("last_api_token_use_date")
+        else None,
         last_name=item.get("last_name"),
         legal_remember=item.get("legal_remember", False),
         phone=format_phone(item["phone"]) if item.get("phone") else None,
