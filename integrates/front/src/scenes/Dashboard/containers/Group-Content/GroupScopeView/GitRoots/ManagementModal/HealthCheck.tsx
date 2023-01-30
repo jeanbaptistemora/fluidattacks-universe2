@@ -1,6 +1,6 @@
 import { Field } from "formik";
 import type { Dispatch, FC, SetStateAction } from "react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import type { IFormValues } from "../../types";
@@ -41,6 +41,18 @@ const HealthCheck: FC<IHealthCheckProps> = ({
     setHasSquad(true);
   }, [setHasSquad]);
 
+  const initialState: string | null = useMemo((): string | null => {
+    if (isEditing) {
+      if (confirmHealthCheck) {
+        return "Yes";
+      }
+
+      return "No";
+    }
+
+    return null;
+  }, [confirmHealthCheck, isEditing]);
+
   if ([values.url, values.branch].join("") !== isRootChange) {
     setIsRootChange([values.url, values.branch].join(""));
     if (
@@ -63,9 +75,7 @@ const HealthCheck: FC<IHealthCheckProps> = ({
             <Label>{t("group.scope.git.healthCheck.confirm")}</Label>
             <Field
               component={FormikRadioGroup}
-              initialState={
-                isEditing ? (confirmHealthCheck ? "Yes" : "No") : null
-              }
+              initialState={initialState}
               labels={["Yes", "No"]}
               name={"includesHealthCheck"}
               onSelect={setConfirmHealthCheck}

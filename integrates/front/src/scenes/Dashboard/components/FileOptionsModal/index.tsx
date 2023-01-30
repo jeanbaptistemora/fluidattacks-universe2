@@ -1,9 +1,10 @@
 import { faDownload, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalConfirm } from "components/Modal";
 import {
@@ -32,6 +33,16 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
 }: IFileOptionsModalProps): JSX.Element => {
   const { t } = useTranslation();
 
+  const onConfirmDelete = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          onDelete();
+        });
+      },
+    [onDelete]
+  );
+
   return (
     <React.StrictMode>
       <Modal
@@ -43,12 +54,6 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
           title={t("searchFindings.tabResources.files.confirm.title")}
         >
           {(confirm): JSX.Element => {
-            function onConfirmDelete(): void {
-              confirm((): void => {
-                onDelete();
-              });
-            }
-
             return (
               <React.Fragment>
                 <Row>
@@ -63,7 +68,10 @@ const FileOptionsModal: React.FC<IFileOptionsModalProps> = ({
                     <br />
                     {canRemove ? (
                       <Col33>
-                        <Button onClick={onConfirmDelete} variant={"secondary"}>
+                        <Button
+                          onClick={onConfirmDelete(confirm)}
+                          variant={"secondary"}
+                        >
                           <FontAwesomeIcon icon={faMinus} />
                           &nbsp;
                           {t("searchFindings.tabResources.removeRepository")}
