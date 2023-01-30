@@ -4,6 +4,9 @@ from lib_root.f016.c_sharp import (
     service_point_manager_disabled as c_sharp_service_point_manager_disabled,
     weak_protocol as c_sharp_weak_protocol,
 )
+from lib_root.f016.terraform import (
+    tfm_azure_serves_content_over_insecure_protocols,
+)
 from model import (
     core_model,
     graph_model,
@@ -15,4 +18,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, c_sharp_service_point_manager_disabled),
     (FINDING, c_sharp_insecure_shared_access_protocol),
     (FINDING, c_sharp_httpclient_no_revocation_list),
+    (FINDING, tfm_azure_serves_content_over_insecure_protocols),
 )

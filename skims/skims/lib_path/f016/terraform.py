@@ -29,12 +29,6 @@ from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
     iter_aws_elb2_listener,
 )
-from parse_hcl2.structure.azure import (
-    iter_azurerm_storage_account,
-)
-from parse_hcl2.tokens import (
-    Attribute,
-)
 from typing import (
     Any,
     Iterator,
@@ -89,20 +83,6 @@ def _tfm_aws_content_over_insecure_protocols_iterate_vulnerabilities(
                 yield ssl_prot
 
 
-def _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        protocol_attr = False
-        for elem in resource.data:
-            if isinstance(elem, Attribute) and elem.key == "min_tls_version":
-                protocol_attr = True
-                if elem.val in ("TLS1_0", "TLS1_1"):
-                    yield elem
-        if not protocol_attr:
-            yield resource
-
-
 def _tfm_aws_elb_without_sslpolicy(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -126,24 +106,6 @@ def tfm_aws_serves_content_over_insecure_protocols(
         ),
         path=path,
         method=MethodsEnum.TFM_AWS_INSEC_PROTO,
-    )
-
-
-def tfm_azure_serves_content_over_insecure_protocols(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f016.serves_content_over_insecure_protocols"
-        ),
-        iterator=get_cloud_iterator(
-            _tfm_azure_content_over_insecure_protocols_iterate_vulnerabilities(
-                resource_iterator=iter_azurerm_storage_account(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AZURE_INSEC_PROTO,
     )
 
 

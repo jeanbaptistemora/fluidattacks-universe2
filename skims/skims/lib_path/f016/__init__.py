@@ -10,7 +10,6 @@ from lib_path.f016.cloudformation import (
 from lib_path.f016.terraform import (
     tfm_aws_elb_without_sslpolicy,
     tfm_aws_serves_content_over_insecure_protocols,
-    tfm_azure_serves_content_over_insecure_protocols,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -56,15 +55,6 @@ def run_tfm_aws_serves_content_over_insecure_protocols(
 
 
 @SHIELD_BLOCKING
-def run_tfm_azure_serves_content_over_insecure_protocols(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_azure_serves_content_over_insecure_protocols(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_aws_elb_without_sslpolicy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -103,9 +93,6 @@ def analyze(
         results = (
             *results,
             run_tfm_aws_serves_content_over_insecure_protocols(
-                content, path, model
-            ),
-            run_tfm_azure_serves_content_over_insecure_protocols(
                 content, path, model
             ),
             run_tfm_aws_elb_without_sslpolicy(content, path, model),

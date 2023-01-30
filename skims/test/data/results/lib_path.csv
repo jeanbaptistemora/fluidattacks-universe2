@@ -15212,22 +15212,6 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_lo
   32 | }
      ^ Col 0
 ",terraform.tfm_azure_sql_server_audit_log_retention
-F402,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,778,skims,402. Traceability Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
- in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf","
->  1 | resource ""azurerm_storage_account"" ""example"" {
-   2 |   name                     = ""storageaccountname""
-   3 |   resource_group_name      = azurerm_resource_group.example.name
-   4 |   location                 = azurerm_resource_group.example.location
-   5 |   account_tier             = ""Standard""
-   6 |   account_replication_type = ""GRS""
-   7 |   min_tls_version          = ""TLS1_0""
-   8 |
-   9 |   tags = {
-  10 |     environment = ""staging""
-  11 |   }
-  12 | }
-     ^ Col 0
-",terraform.tfm_azure_storage_logging_disabled
 F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,28,778,skims,402. Traceability Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
  in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf","
   15 |     }
@@ -16221,21 +16205,6 @@ F335,lines,namespace/skims/test/data/lib_path/f400/cfn_bucket_has_logging_disabl
   22 | }
      ^ Col 0
 ",cloudformation.cfn_s3_bucket_versioning_disabled
-F157,lines,namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,1,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to deny in namespace/skims/test/data/lib_path/f016/azurerm_storage_account_test.tf,"
->  1 | resource ""azurerm_storage_account"" ""example"" {
-   2 |   name                     = ""storageaccountname""
-   3 |   resource_group_name      = azurerm_resource_group.example.name
-   4 |   location                 = azurerm_resource_group.example.location
-   5 |   account_tier             = ""Standard""
-   6 |   account_replication_type = ""GRS""
-   7 |   min_tls_version          = ""TLS1_0""
-   8 |
-   9 |   tags = {
-  10 |     environment = ""staging""
-  11 |   }
-  12 | }
-     ^ Col 0
-",terraform.tfm_azure_sa_default_network_access
 F157,lines,namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,37,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to deny in namespace/skims/test/data/lib_path/f157/tfm_azure_default_network_access.tf,"
   27 |       read   = true
   28 |       write  = true
