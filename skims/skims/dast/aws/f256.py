@@ -37,7 +37,7 @@ async def rds_has_not_deletion_protection(
     if db_instances:
         for instance in db_instances:
             locations: List[Location] = []
-            if not instance["DeletionProtection"]:
+            if not instance.get("DeletionProtection", False):
                 instance_arn = instance["DBInstanceArn"]
                 locations = [
                     Location(
