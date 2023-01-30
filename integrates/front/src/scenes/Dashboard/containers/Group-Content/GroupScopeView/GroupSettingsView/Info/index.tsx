@@ -222,32 +222,24 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 </Col>
                 <Col lg={33} md={50} sm={100}>
                   <Card>
-                    <Text mb={2}>
-                      {t("organization.tabs.groups.newGroup.businessName.text")}
-                    </Text>
-                    <Tooltip
-                      id={
-                        "organization.tabs.groups.newGroup.businessName.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                    <Input
+                      disabled={permissions.cannot(
+                        "api_mutations_update_group_stakeholder_mutate"
+                      )}
+                      id={"add-group-description"}
+                      label={t(
+                        "organization.tabs.groups.newGroup.businessName.text"
+                      )}
+                      name={"businessName"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.businessName.tooltip"
                       )}
-                    >
-                      <Field
-                        component={FormikText}
-                        disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
-                        )}
-                        id={"add-group-description"}
-                        name={"businessName"}
-                        type={"text"}
-                        validate={composeValidators([
-                          maxBusinessInfoLength,
-                          validTextField,
-                        ])}
-                      />
-                    </Tooltip>
+                      type={"text"}
+                      validate={composeValidators([
+                        maxBusinessInfoLength,
+                        validTextField,
+                      ])}
+                    />
                   </Card>
                 </Col>
                 <Col lg={33} md={50} sm={100}>
