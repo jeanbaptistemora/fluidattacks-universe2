@@ -301,7 +301,7 @@ async def remove_access(
             FindingStateStatus.MASKED,
         },
     )
-    me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
+    me_drafts = await loaders.me_drafts.load(email)
     drafts_ids: set[str] = {draft.id for draft in drafts}
     group_drafts: tuple[Finding, ...] = tuple(
         draft for draft in me_drafts if draft.id in drafts_ids

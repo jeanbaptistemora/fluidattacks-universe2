@@ -18,9 +18,6 @@ from db_model.enums import (
     Source,
     StateRemovalJustification,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -28,9 +25,6 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    Tuple,
-)
 from vulnerabilities.domain import (
     remove_vulnerability,
 )
@@ -39,9 +33,7 @@ from vulnerabilities.domain import (
 async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
-    groups_drafts: Tuple[
-        Tuple[Finding, ...], ...
-    ] = await loaders.group_drafts.load_many(groups)
+    groups_drafts = await loaders.group_drafts.load_many(list(groups))
     total_groups: int = len(groups)
     for idx, (group, drafts) in enumerate(zip(groups, groups_drafts)):
         print(f"Processing {group} {idx+1}/{total_groups}...")

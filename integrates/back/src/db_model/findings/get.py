@@ -63,7 +63,7 @@ async def _get_finding_by_id(finding_id: str) -> Optional[Finding]:
     return format_finding(response.items[0])
 
 
-async def _get_me_drafts(*, user_email: str) -> tuple[Finding, ...]:
+async def _get_me_drafts(*, user_email: str) -> list[Finding]:
     primary_key = keys.build_key(
         facet=ME_DRAFTS_INDEX_METADATA,
         values={"email": user_email},
@@ -81,7 +81,7 @@ async def _get_me_drafts(*, user_email: str) -> tuple[Finding, ...]:
         table=TABLE,
     )
 
-    return tuple(format_finding(item) for item in response.items)
+    return [format_finding(item) for item in response.items]
 
 
 async def _get_drafts_and_findings_by_group(
@@ -126,13 +126,13 @@ class GroupDraftsAndFindingsLoader(DataLoader):
 
 class MeDraftsLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[Finding, ...]:
-        return await collect(
-            tuple(
-                _get_me_drafts(user_email=user_email)  # type: ignore
-                for user_email in emails
+    async def batch_load_fn(self, emails: list[str]) -> list[list[Finding]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_me_drafts(user_email=user_email)
+                    for user_email in emails
+                )
             )
         )
 
@@ -144,22 +144,24 @@ class GroupDraftsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> tuple[tuple[Finding, ...], ...]:
+        self, group_names: list[str]
+    ) -> list[list[Finding]]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
         )
-        return tuple(
-            filter_non_state_status_findings(
-                drafts_and_findings,
-                {
-                    FindingStateStatus.APPROVED,
-                    FindingStateStatus.DELETED,
-                    FindingStateStatus.MASKED,
-                },
+        return [
+            list(
+                filter_non_state_status_findings(
+                    tuple(drafts_and_findings),
+                    {
+                        FindingStateStatus.APPROVED,
+                        FindingStateStatus.DELETED,
+                        FindingStateStatus.MASKED,
+                    },
+                )
             )
             for drafts_and_findings in drafts_and_findings_by_groups
-        )
+        ]
 
 
 class GroupFindingsLoader(DataLoader):

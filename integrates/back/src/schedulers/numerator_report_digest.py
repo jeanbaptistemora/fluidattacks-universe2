@@ -60,6 +60,7 @@ from group_access import (
     domain as group_access_domain,
 )
 import logging
+import logging.config
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
@@ -233,7 +234,7 @@ async def _draft_content(
     content: Dict[str, Any],
     users_email: List[str],
 ) -> None:
-    group_drafts: Tuple[Finding, ...] = await loaders.group_drafts.load(group)
+    group_drafts = await loaders.group_drafts.load(group)
     for draft in group_drafts:
         cvss: Decimal = findings_domain.get_severity_score(draft.severity)
         vulns = await loaders.finding_vulnerabilities.load(draft.id)

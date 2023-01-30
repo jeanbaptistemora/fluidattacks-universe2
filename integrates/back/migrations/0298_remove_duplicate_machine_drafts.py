@@ -29,7 +29,7 @@ import time
 async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
-    groups_drafts = await loaders.group_drafts.load_many(groups)
+    groups_drafts = await loaders.group_drafts.load_many(list(groups))
     total_groups: int = len(groups)
     for idx, (group, drafts) in enumerate(zip(groups, groups_drafts)):
         print(f"Processing {group} {idx+1}/{total_groups}...")

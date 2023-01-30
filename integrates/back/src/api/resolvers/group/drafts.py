@@ -25,8 +25,8 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Finding, ...]:
+) -> list[Finding]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    drafts: tuple[Finding, ...] = await loaders.group_drafts.load(group_name)
-    return drafts
+
+    return await loaders.group_drafts.load(group_name)

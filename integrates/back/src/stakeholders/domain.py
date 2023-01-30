@@ -28,9 +28,6 @@ from db_model import (
     subscriptions as subscriptions_model,
     vulnerabilities as vulns_model,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.group_access.types import (
     GroupAccessMetadataToUpdate,
     GroupAccessState,
@@ -126,7 +123,7 @@ async def remove(email: str) -> None:
         ),
         workers=8,
     )
-    me_drafts: tuple[Finding, ...] = await loaders.me_drafts.load(email)
+    me_drafts = await loaders.me_drafts.load(email)
     await collect(
         tuple(
             findings_model.update_me_draft_index(

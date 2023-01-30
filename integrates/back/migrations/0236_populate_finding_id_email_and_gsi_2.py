@@ -200,9 +200,7 @@ async def process_group(
             }
         },
     )
-    group_drafts: tuple[Finding, ...] = await loaders.group_drafts.load(
-        group.name
-    )
+    group_drafts = await loaders.group_drafts.load(group.name)
     await collect(
         tuple(
             populate_by_draft(draft=draft, group_name=group.name)
