@@ -141,9 +141,7 @@ async def process_finding(loaders: Dataloaders, finding: Finding) -> None:
 async def process_group(
     loaders: Dataloaders, group_name: str, progress: float
 ) -> None:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     await collect(
         tuple(process_finding(loaders, finding) for finding in group_findings),
         workers=4,

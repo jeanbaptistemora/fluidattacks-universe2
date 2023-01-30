@@ -71,9 +71,6 @@ from db_model.events.types import (
     Event,
     GroupEventsRequest,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
@@ -754,9 +751,7 @@ async def update_group_tier(
 async def get_closed_vulnerabilities(
     loaders: Dataloaders, group_name: str
 ) -> int:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     findings_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]
@@ -801,9 +796,7 @@ async def get_vulnerabilities_with_pending_attacks(
     loaders: Dataloaders,
     group_name: str,
 ) -> int:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]
@@ -825,9 +818,7 @@ async def get_max_severity(
     loaders: Dataloaders,
     group_name: str,
 ) -> Decimal:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     max_severity: Decimal = max(
         map(
             lambda finding: findings_domain.get_severity_score(
@@ -847,10 +838,7 @@ async def get_mean_remediate_severity_cvssf(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
@@ -883,10 +871,7 @@ async def get_mean_remediate_non_treated_severity_cvssf(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings_loader = loaders.group_findings
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
@@ -928,11 +913,7 @@ async def get_mean_remediate_severity(
     min_date: Optional[date] = None,
 ) -> Decimal:
     """Get mean time to remediate."""
-    group_findings_loader = loaders.group_findings
-
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
@@ -958,9 +939,7 @@ async def get_mean_remediate_non_treated_severity(
     max_severity: Decimal,
     min_date: Optional[date] = None,
 ) -> Decimal:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name.lower()
-    )
+    group_findings = await loaders.group_findings.load(group_name.lower())
     group_findings_ids: list[str] = [
         finding.id
         for finding in group_findings
@@ -988,10 +967,7 @@ async def get_mean_remediate_non_treated_severity(
 
 
 async def get_open_findings(loaders: Dataloaders, group_name: str) -> int:
-    group_findings_loader = loaders.group_findings
-    group_findings: tuple[Finding, ...] = await group_findings_loader.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     finding_status = await collect(
         tuple(
             findings_domain.get_status(loaders, finding.id)
@@ -1006,9 +982,7 @@ async def get_open_vulnerabilities(
     loaders: Dataloaders,
     group_name: str,
 ) -> int:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     findings_vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in group_findings]
@@ -1982,9 +1956,7 @@ async def get_treatment_summary(
 async def get_oldest_finding_date(
     loaders: Dataloaders, group_name: str
 ) -> Optional[datetime]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     findings_indicators = [
         finding.unreliable_indicators for finding in findings
     ]

@@ -33,8 +33,8 @@ def camelcase_to_snakecase(str_value: str) -> str:
 
 
 async def filter_findings(
-    findings: Tuple[Finding, ...], filters: Dict[str, Any]
-) -> Tuple[Finding, ...]:
+    findings: list[Finding], filters: dict[str, Any]
+) -> list[Finding]:
     """Return filtered findings according to filters."""
 
     def satisfies_filter(finding: Finding) -> bool:
@@ -53,7 +53,7 @@ async def filter_findings(
                 hits += 1
         return hits == len(filters)
 
-    return tuple(finding for finding in findings if satisfies_filter(finding))
+    return [finding for finding in findings if satisfies_filter(finding)]
 
 
 def list_to_dict(

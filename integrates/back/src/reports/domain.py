@@ -11,9 +11,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -34,7 +31,6 @@ from newutils.reports import (
 )
 from typing import (
     Optional,
-    Tuple,
 )
 
 
@@ -57,10 +53,7 @@ async def get_group_report_url(  # NOSONAR # pylint: disable=too-many-locals
     location: str,
 ) -> Optional[str]:
     loaders: Dataloaders = get_new_context()
-    group_findings_loader = loaders.group_findings
-    group_findings: Tuple[Finding, ...] = await group_findings_loader.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     findings_ord = tuple(
         sorted(
             group_findings,

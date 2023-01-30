@@ -388,9 +388,7 @@ async def update_group_standard_fulfillment(
     requirements_file: dict[str, Any],
     vulnerabilities_file: dict[str, Any],
 ) -> None:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.name
-    )
+    findings = await loaders.group_findings.load(group.name)
     findings_open_vulnerabilities = await collect(
         tuple(
             get_open_vulnerabilities(loaders, finding) for finding in findings

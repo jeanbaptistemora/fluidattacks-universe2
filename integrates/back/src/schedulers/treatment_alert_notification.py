@@ -57,9 +57,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
     TypedDict,
 )
 
@@ -78,8 +75,8 @@ mail_treatment_alert = retry_on_exceptions(
 
 class ExpiringDataType(TypedDict):
     org_name: str
-    email_to: Tuple[str, ...]
-    group_expiring_findings: Dict[str, Dict[str, Dict[str, int]]]
+    email_to: tuple[str, ...]
+    group_expiring_findings: dict[str, dict[str, dict[str, int]]]
 
 
 def days_to_end(date: datetime) -> int:
@@ -104,8 +101,8 @@ async def get_open_vulnerabilities(
 
 async def expiring_vulnerabilities(
     loaders: Dataloaders, finding: Finding
-) -> Dict[str, Dict[str, int]]:
-    vulnerabilities: Tuple[
+) -> dict[str, dict[str, int]]:
+    vulnerabilities: tuple[
         Vulnerability, ...
     ] = await get_open_vulnerabilities(loaders, finding)
     return {
@@ -126,13 +123,9 @@ async def expiring_vulnerabilities(
 
 async def findings_close_to_expiring(
     loaders: Dataloaders, group_name: str
-) -> Dict[str, Dict[str, Dict[str, int]]]:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
-
+) -> dict[str, dict[str, dict[str, int]]]:
+    findings = await loaders.group_findings.load(group_name)
     finding_types = (finding.title for finding in findings)
-
     vulnerabilities = await collect(
         [expiring_vulnerabilities(loaders, finding) for finding in findings]
     )
@@ -146,9 +139,9 @@ async def findings_close_to_expiring(
 
 
 def unique_emails(
-    expiring_data: Dict[str, ExpiringDataType],
-    email_list: Tuple[str, ...],
-) -> Tuple[str, ...]:
+    expiring_data: dict[str, ExpiringDataType],
+    email_list: tuple[str, ...],
+) -> tuple[str, ...]:
     if expiring_data:
         email_list += expiring_data.popitem()[1]["email_to"]
         return unique_emails(expiring_data, email_list)
@@ -181,7 +174,7 @@ async def send_temporal_treatment_report() -> None:
         "vulnerability_manager",
     }
 
-    groups_stakeholders_email: Tuple[List[str], ...] = await collect(
+    groups_stakeholders_email: tuple[list[str], ...] = await collect(
         [
             group_access_domain.get_stakeholders_email_by_preferences(
                 loaders=loaders,
@@ -200,7 +193,7 @@ async def send_temporal_treatment_report() -> None:
         ]
     )
 
-    groups_data: Dict[str, ExpiringDataType] = dict(
+    groups_data: dict[str, ExpiringDataType] = dict(
         zip(
             groups_names,
             [
@@ -227,7 +220,7 @@ async def send_temporal_treatment_report() -> None:
     }
 
     for email in unique_emails(dict(groups_data), ()):
-        user_content: Dict[str, Any] = {
+        user_content: dict[str, Any] = {
             "groups_data": {
                 group_name: {
                     "org_name": data["org_name"],

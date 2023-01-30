@@ -98,7 +98,7 @@ async def upload_file(bucket: str, file_path: str, file_name: str) -> None:
 
 async def get_findings(
     *, group_name: str, loaders: Dataloaders
-) -> tuple[Finding, ...]:
+) -> list[Finding]:
     return await loaders.group_findings.load(group_name)
 
 

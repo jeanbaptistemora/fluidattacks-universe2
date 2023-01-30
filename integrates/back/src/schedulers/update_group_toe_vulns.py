@@ -265,8 +265,6 @@ async def get_open_vulnerabilities(
 async def process_group(group_name: str) -> None:
     loaders: Dataloaders = get_new_context()
     _log("group", id=group_name)
-
-    findings: tuple[Finding, ...]
     findings = await loaders.group_findings.load(group_name)
     open_vulnerabilities: tuple[Vulnerability, ...] = tuple(
         chain.from_iterable(

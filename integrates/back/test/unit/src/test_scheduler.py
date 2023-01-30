@@ -5,9 +5,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
@@ -51,9 +48,7 @@ pytestmark = [
 async def test_update_group_indicators() -> None:
     loaders: Dataloaders = get_new_context()
     group_name = "unittesting"
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     vulnerabilities = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]

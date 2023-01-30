@@ -421,9 +421,7 @@ async def get_pending_verification_findings(
     group_name: str,
 ) -> Tuple[Finding, ...]:
     """Gets findings pending for verification."""
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     are_pending_verifications = await collect(
         _is_pending_verification(loaders, finding.id) for finding in findings
     )

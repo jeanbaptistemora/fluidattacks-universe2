@@ -293,11 +293,11 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     )
 
 
-def should_send_vulnerability_mail(
+def _should_send_vulnerability_mail(
     *,
     severity_score: Decimal,
     stakeholder: Stakeholder,
-    group_findings: tuple[Finding, ...],
+    group_findings: list[Finding],
 ) -> bool:
     state: StakeholderState = stakeholder.state
     return (
@@ -324,9 +324,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     is_closed: bool = False,
     remaining_exposure: Optional[int] = None,
 ) -> None:
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
     group_stakeholders = await group_access_domain.get_group_stakeholders(
@@ -337,7 +335,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
-        if should_send_vulnerability_mail(
+        if _should_send_vulnerability_mail(
             severity_score=severity_score,
             stakeholder=stakeholder,
             group_findings=group_findings,

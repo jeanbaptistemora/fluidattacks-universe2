@@ -27,13 +27,11 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> tuple[Finding, ...]:
+) -> list[Finding]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     filters: Optional[dict[str, Any]] = kwargs.get("filters")
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     if filters:
         return await utils.filter_findings(findings, filters)
 

@@ -22,9 +22,6 @@ from datetime import (
     datetime,
     timezone,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
     GroupUnreliableIndicators,
@@ -238,7 +235,7 @@ def format_exposed_chart_yearly(
 async def update_vulnerabilities_indicators(
     loaders: Dataloaders, group: str
 ) -> None:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = await loaders.group_findings.load(group)
     vulnerabilities = await loaders.finding_vulnerabilities.load_many_chained(
         [finding.id for finding in findings]
     )
@@ -301,7 +298,7 @@ async def create_register_by_week(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = await loaders.group_findings.load(group)
     vulns = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]
@@ -454,7 +451,7 @@ async def create_register_by_month(  # pylint: disable=too-many-locals
     all_registers_cvsff = OrderedDict()
     all_registers_exposed_cvsff = OrderedDict()
 
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(group)
+    findings = await loaders.group_findings.load(group)
     vulns_nzr = (
         await loaders.finding_vulnerabilities_released_nzr.load_many_chained(
             [finding.id for finding in findings]

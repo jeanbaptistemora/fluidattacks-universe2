@@ -26,9 +26,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -90,9 +87,7 @@ async def _get_vulnerabilities_to_rebase(
     group_name: str,
     git_root: GitRoot,
 ) -> tuple[Vulnerability, ...]:
-    findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     findings_vulns = await loaders.finding_vulnerabilities.load_many(
         [find.id for find in findings]
     )

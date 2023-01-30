@@ -430,8 +430,7 @@ async def _finding_content(
     content: Dict[str, Any],
     users_email: List[str],
 ) -> None:
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(group)
-
+    findings = await loaders.group_findings.load(group)
     for finding in findings:
         await collect(
             [

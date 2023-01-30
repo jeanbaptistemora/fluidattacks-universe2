@@ -680,14 +680,14 @@ async def test_get_oldest_no_treatment(
 
     group_name = "oneshottest"
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    findings = await loaders.group_findings.load(group_name)
     with patch(
         "dynamodb.operations.get_table_resource", new_callable=AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
-        oldest_findings = await get_oldest_no_treatment(loaders, findings)
+        oldest_findings = await get_oldest_no_treatment(
+            loaders, tuple(findings)
+        )
     expected_output = {
         "oldest_name": "037. Technical information leak",
         "oldest_age": 256,

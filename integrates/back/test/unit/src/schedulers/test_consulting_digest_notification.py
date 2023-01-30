@@ -13,9 +13,6 @@ from db_model.finding_comments.enums import (
 from db_model.finding_comments.types import (
     FindingComment,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.group_comments.types import (
     GroupComment,
 )
@@ -40,7 +37,6 @@ from schedulers.consulting_digest_notification import (
 )
 from typing import (
     Any,
-    List,
     Union,
 )
 
@@ -146,11 +142,9 @@ async def test_group_instance_comments(
     group_name: str, instance_type: str
 ) -> None:
     loaders = get_new_context()
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group_name
-    )
+    group_findings = await loaders.group_findings.load(group_name)
     comments = await group_instance_comments(
-        loaders, group_findings, instance_type
+        loaders, tuple(group_findings), instance_type
     )
     assert len(comments) == 1
 
@@ -248,7 +242,7 @@ async def test_finding_comments(
     ],
 )
 def test_format_comment(
-    comments: List[str],
+    comments: list[str],
 ) -> None:
     assert len(format_comment(comments[0])) == 503
     assert len(format_comment(comments[1])) == 365

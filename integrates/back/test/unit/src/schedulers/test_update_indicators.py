@@ -114,9 +114,7 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
-        findings: tuple[Finding, ...] = await loaders.group_findings.load(
-            "unittesting"
-        )
+        findings = await loaders.group_findings.load("unittesting")
         finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
         vulnerabilities = await finding_vulns_loader.load_many_chained(
             [finding.id for finding in findings]
@@ -236,9 +234,7 @@ async def test_get_status_vulns_by_time_range(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
-        findings: tuple[Finding, ...] = await loaders.group_findings.load(
-            "unittesting"
-        )
+        findings = await loaders.group_findings.load("unittesting")
         finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
         vulnerabilities = await finding_vulns_loader.load_many_chained(
             [finding.id for finding in findings]

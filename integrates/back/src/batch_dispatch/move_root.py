@@ -248,9 +248,9 @@ async def _process_finding(
         },
     )
     source_finding: Finding = await loaders.finding.load(source_finding_id)
-    target_group_findings: tuple[
-        Finding, ...
-    ] = await loaders.group_findings.load(target_group_name)
+    target_group_findings = await loaders.group_findings.load(
+        target_group_name
+    )
     target_finding = next(
         (
             finding
