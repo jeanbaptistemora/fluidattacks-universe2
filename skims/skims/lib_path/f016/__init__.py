@@ -8,7 +8,6 @@ from lib_path.f016.cloudformation import (
     cfn_serves_content_over_insecure_protocols,
 )
 from lib_path.f016.terraform import (
-    tfm_aws_elb_without_sslpolicy,
     tfm_aws_serves_content_over_insecure_protocols,
 )
 from model.core_model import (
@@ -55,15 +54,6 @@ def run_tfm_aws_serves_content_over_insecure_protocols(
 
 
 @SHIELD_BLOCKING
-def run_tfm_aws_elb_without_sslpolicy(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_aws_elb_without_sslpolicy(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -95,6 +85,5 @@ def analyze(
             run_tfm_aws_serves_content_over_insecure_protocols(
                 content, path, model
             ),
-            run_tfm_aws_elb_without_sslpolicy(content, path, model),
         )
     return results

@@ -43,6 +43,19 @@ def _azure_serves_content_over_insecure_protocols(
     return nid
 
 
+def _aws_elb_without_sslpolicy(graph: Graph, nid: NId) -> Optional[NId]:
+    expected_attr = "ssl_policy"
+    is_vuln = True
+    for c_id in adj_ast(graph, nid, label_type="Pair"):
+        key_id = graph.nodes[c_id]["key_id"]
+        key = graph.nodes[key_id]["value"]
+        if key == expected_attr:
+            is_vuln = False
+    if is_vuln:
+        return nid
+    return None
+
+
 def tfm_azure_serves_content_over_insecure_protocols(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -61,7 +74,30 @@ def tfm_azure_serves_content_over_insecure_protocols(
                     yield shard, report
 
     return get_vulnerabilities_from_n_ids(
-        desc_key=("src.lib_path.f016.serves_content_over_insecure_protocols"),
+        desc_key="src.lib_path.f016.serves_content_over_insecure_protocols",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def tfm_aws_elb_without_sslpolicy(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AWS_ELB_WITHOUT_SSLPOLICY
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_lb_listener"):
+                if report := _aws_elb_without_sslpolicy(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f016.aws_elb_without_sslpolicy",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

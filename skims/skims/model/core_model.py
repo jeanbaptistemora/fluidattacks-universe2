@@ -1966,7 +1966,7 @@ class MethodsEnum(Enum):
     TFM_AWS_ELB_WITHOUT_SSLPOLICY = MethodInfo(
         file_name="terraform",
         name="tfm_aws_elb_without_sslpolicy",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

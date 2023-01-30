@@ -55,7 +55,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_elb_without_sslpolicy.yam
   21 |         ""Protocol"": ""HTTPS""
      ^ Col 0
 ",cloudformation.cfn_elb_without_sslpolicy
-F016,lines,namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,1,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_path/f016/tfm_aws_elb_without_sslpolicy.tf,"
+F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_elb_without_sslpolicy.tf,1,326,skims,016. Insecure encryption algorithm - SSL/TLS,Property SslPolicy is either missing or misconfigured in namespace/skims/test/data/lib_root/f016/tfm_aws_elb_without_sslpolicy.tf,"
 >  1 | resource ""aws_lb_listener"" ""front_end"" {
    2 |   load_balancer_arn = aws_lb.front_end.arn
    3 |   port              = ""443""
