@@ -1715,6 +1715,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    CONAN_CONANFILE_TXT = MethodInfo(
+        file_name="conan",
+        name="conan_conanfile_txt",
+        module="lib_path",
+        finding=FindingEnum.F011,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     GEM_GEMFILE = MethodInfo(
         file_name="gem",
         name="gem_gemfile",
