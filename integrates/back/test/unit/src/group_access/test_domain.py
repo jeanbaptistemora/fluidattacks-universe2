@@ -100,8 +100,8 @@ async def test_group_access_changes() -> None:
     access: GroupAccess = await loaders.group_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
-    historic_access: tuple[
-        GroupAccess, ...
+    historic_access: list[
+        GroupAccess
     ] = await loaders.group_historic_access.load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
@@ -127,7 +127,7 @@ async def test_group_access_changes() -> None:
     assert len(historic_access) == 3
     assert access == historic_access[-1]
 
-    expected_history: tuple[GroupAccess, ...] = (
+    expected_history = [
         GroupAccess(
             email=email,
             group_name=group_name,
@@ -150,7 +150,7 @@ async def test_group_access_changes() -> None:
             role="user",
             has_access=True,
         ),
-    )
+    ]
     for historic, expected in zip(historic_access, expected_history):
         assert historic.email == expected.email
         assert historic.group_name == expected.group_name
@@ -165,7 +165,7 @@ async def test_group_access_changes() -> None:
     historic_access = await loaders.group_historic_access.clear_all().load(
         GroupAccessRequest(email=email, group_name=group_name)
     )
-    assert historic_access == tuple()
+    assert historic_access == []
 
 
 @pytest.mark.changes_db

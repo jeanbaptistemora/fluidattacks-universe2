@@ -30,15 +30,15 @@ from typing import (
 
 
 async def _get_group_access(
-    *, requests: tuple[GroupAccessRequest, ...]
-) -> tuple[GroupAccess, ...]:
-    requests = tuple(
+    *, requests: list[GroupAccessRequest]
+) -> list[GroupAccess]:
+    requests = [
         request._replace(
             group_name=request.group_name.lower().strip(),
             email=request.email.lower().strip(),
         )
         for request in requests
-    )
+    ]
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["group_access"],
@@ -60,14 +60,14 @@ async def _get_group_access(
                 format_group_access(item) for item in items
             )
         }
-        return tuple(response[request] for request in requests)
+        return [response[request] for request in requests]
 
     raise StakeholderNotInGroup()
 
 
 async def _get_historic_group_access(
     *, request: GroupAccessRequest
-) -> tuple[GroupAccess, ...]:
+) -> list[GroupAccess]:
     historic_key = keys.build_key(
         facet=TABLE.facets["group_historic_access"],
         values={
@@ -85,7 +85,7 @@ async def _get_historic_group_access(
         table=TABLE,
     )
 
-    return tuple(format_group_access(item) for item in response.items)
+    return [format_group_access(item) for item in response.items]
 
 
 async def _get_group_stakeholders_access(
@@ -165,20 +165,22 @@ async def _get_stakeholder_groups_access(
 class GroupAccessLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupAccessRequest]
-    ) -> tuple[GroupAccess, ...]:
-        return await _get_group_access(requests=tuple(requests))
+        self, requests: list[GroupAccessRequest]
+    ) -> list[GroupAccess]:
+        return await _get_group_access(requests=requests)
 
 
 class GroupHistoricAccessLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupAccessRequest]
-    ) -> tuple[tuple[GroupAccess, ...], ...]:
-        return await collect(
-            tuple(
-                _get_historic_group_access(request=request)
-                for request in requests
+        self, requests: list[GroupAccessRequest]
+    ) -> list[list[GroupAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_historic_group_access(request=request)
+                    for request in requests
+                )
             )
         )
 
