@@ -71,8 +71,8 @@ function activate(context: ExtensionContext): void {
       "retrieves.lines",
       (node: GitRootTreeItem): void => {
         const panel = window.createWebviewPanel(
-          "react-webview",
-          "React Webview",
+          "toe-lines",
+          "Toe Lines",
           ViewColumn.One,
           {
             enableScripts: true,

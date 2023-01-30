@@ -13,6 +13,8 @@ So far, Retrieves will:
       - clone repositories
       - get toe lines
       - go to file from toe lines
+  - Obtain the toe lines of each repository, with information of each file
+    - Hide files that have already been attacked
 
 To use the extension, it must be used on a directory named `groups`,
 in this directory the repositories are cloned. You can open the subdirectories

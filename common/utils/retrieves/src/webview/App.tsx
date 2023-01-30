@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { messageHandler } from "@estruyf/vscode/dist/client";
 import {
+  VSCodeButton,
   VSCodeDataGrid,
   VSCodeDataGridCell,
   VSCodeDataGridRow,
@@ -16,6 +17,7 @@ import type { IToeLineNode } from "../types";
 
 const App = (): JSX.Element => {
   const [toeLines, setToeLines] = useState<IToeLineNode[]>([]);
+  const [hideAttackedFiles, setHideAttackedFiles] = useState<boolean>(false);
 
   const useOpenFile = useCallback(
     // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -32,6 +34,13 @@ const App = (): JSX.Element => {
 
   return (
     <div className={"app"}>
+      <VSCodeButton
+        onClick={useCallback((): void => {
+          setHideAttackedFiles(!hideAttackedFiles);
+        }, [hideAttackedFiles])}
+      >
+        {hideAttackedFiles ? "Show attacked files" : "Hide attacked files"}
+      </VSCodeButton>
       <VSCodeDataGrid>
         <VSCodeDataGridRow>
           {[
@@ -49,36 +58,45 @@ const App = (): JSX.Element => {
             );
           })}
         </VSCodeDataGridRow>
-        {toeLines.map((item): JSX.Element => {
-          return (
-            <VSCodeDataGridRow key={item.filename}>
-              {[
-                item.filename,
-                item.attackedLines >= item.loc,
-                item.attackedLines,
-                item.loc,
-                item.modifiedDate,
-                item.comments,
-              ].map((cell, index): JSX.Element => {
-                return (
-                  <VSCodeDataGridCell gridColumn={index + 1} key={undefined}>
-                    {index === 0 ? (
-                      <VSCodeLink
-                        href={cell}
-                        // eslint-disable-next-line line-comment-position, no-inline-comments
-                        onClick={useOpenFile(String(cell))} // NOSONAR
-                      >
-                        {cell}
-                      </VSCodeLink>
-                    ) : (
-                      cell
-                    )}
-                  </VSCodeDataGridCell>
-                );
-              })}
-            </VSCodeDataGridRow>
-          );
-        })}
+
+        {toeLines
+          .filter((item): boolean => {
+            if (hideAttackedFiles && item.attackedLines >= item.loc) {
+              return false;
+            }
+
+            return true;
+          })
+          .map((item): JSX.Element => {
+            return (
+              <VSCodeDataGridRow key={item.filename}>
+                {[
+                  item.filename,
+                  String(item.attackedLines >= item.loc),
+                  item.attackedLines,
+                  item.loc,
+                  item.modifiedDate,
+                  item.comments,
+                ].map((cell, index): JSX.Element => {
+                  return (
+                    <VSCodeDataGridCell gridColumn={index + 1} key={undefined}>
+                      {index === 0 ? (
+                        <VSCodeLink
+                          href={cell}
+                          // eslint-disable-next-line line-comment-position, no-inline-comments
+                          onClick={useOpenFile(String(cell))} // NOSONAR
+                        >
+                          {cell}
+                        </VSCodeLink>
+                      ) : (
+                        cell
+                      )}
+                    </VSCodeDataGridCell>
+                  );
+                })}
+              </VSCodeDataGridRow>
+            );
+          })}
       </VSCodeDataGrid>
     </div>
   );
