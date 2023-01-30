@@ -237,6 +237,7 @@ export const SignUp: React.FC = (): JSX.Element => {
           height={"700px"}
           heightMd={"643px"}
           justify={"center"}
+          scroll={"none"}
           width={"473px"}
           widthMd={"350px"}
           wrap={"wrap"}
@@ -282,6 +283,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                   height={"32px"}
                   justify={"center"}
                   minWidth={"310px"}
+                  scroll={"none"}
                   width={"435px"}
                   widthMd={"100%"}
                   wrap={"wrap"}
@@ -314,6 +316,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                   height={"32px"}
                   justify={"center"}
                   minWidth={"310px"}
+                  scroll={"none"}
                   width={"435px"}
                   widthMd={"100%"}
                   wrap={"wrap"}
@@ -347,6 +350,7 @@ export const SignUp: React.FC = (): JSX.Element => {
                   height={"32px"}
                   justify={"center"}
                   minWidth={"310px"}
+                  scroll={"none"}
                   width={"435px"}
                   widthMd={"100%"}
                   wrap={"wrap"}

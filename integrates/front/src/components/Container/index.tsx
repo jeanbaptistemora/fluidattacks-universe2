@@ -147,11 +147,11 @@ transition: all 0.3s ease;
 width: ${width};
 z-index: ${zIndex};
 
-@media screen and (min-width: 64em) {
+@media screen and (min-width: 75em) {
    width: ${width};
     }
 
-@media screen and (max-width: 64em), (max-height: 40em) {
+@media screen and (max-width: 75em), (max-height: 40em) {
   box-sizing: ${boxSizing};
    width: ${widthMd === "auto" ? width : widthMd};
    padding-bottom: ${pbMd === "0" ? pb : pbMd};

@@ -63,6 +63,7 @@ export const Login: React.FC = (): JSX.Element => {
           justify={"center"}
           maxWidth={"390px"}
           position={"absolute"}
+          scroll={"none"}
           width={"100%"}
           widthMd={"30%"}
           wrap={"wrap"}
@@ -97,7 +98,12 @@ export const Login: React.FC = (): JSX.Element => {
               </Text>
             </Container>
           </Container>
-          <Container maxWidth={"390px"} pt={"32px"} widthMd={"300px"}>
+          <Container
+            maxWidth={"390px"}
+            pt={"32px"}
+            scroll={"none"}
+            widthMd={"300px"}
+          >
             <Button onClick={handleGoogleLogin} size={"lg"} variant={"input"}>
               <Container
                 align={"center"}
@@ -127,6 +133,7 @@ export const Login: React.FC = (): JSX.Element => {
             maxWidth={"390px"}
             pt={"16px"}
             ptMd={"0px"}
+            scroll={"none"}
             widthMd={"300px"}
           >
             <Button
@@ -163,6 +170,7 @@ export const Login: React.FC = (): JSX.Element => {
             maxWidth={"390px"}
             pt={"16px"}
             ptMd={"0px"}
+            scroll={"none"}
             widthMd={"300px"}
           >
             <Button
