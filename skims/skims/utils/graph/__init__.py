@@ -869,7 +869,6 @@ def get_nodes_by_path(
         nodes.extend(match_ast_group_d(graph, n_id, label_type_path[0]))
         return nodes
     for node in match_ast_group_d(graph, n_id, label_type_path[0]):
-        nodes.extend(
-            get_nodes_by_path(graph, node, nodes, *label_type_path[1:])
-        )
+        get_nodes_by_path(graph, node, nodes, *label_type_path[1:])
+
     return nodes
