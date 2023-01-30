@@ -11,6 +11,9 @@ from dataloaders import (
 from db_model.credentials.types import (
     SshSecret,
 )
+from db_model.organizations.types import (
+    Organization,
+)
 from db_model.roots.types import (
     Root,
     RootRequest,
@@ -18,6 +21,7 @@ from db_model.roots.types import (
 import pytest
 from roots.validations import (
     is_exclude_valid,
+    is_git_unique,
     is_valid_git_branch,
     is_valid_ip,
     is_valid_url,
@@ -94,6 +98,10 @@ async def test_validate_component() -> None:
             loaders, url_root, "https://app.fluidattacks.com:440"
         )
         await validate_component(loaders, ip_root, "127.0.0.1/test")
+    with pytest.raises(InvalidUrl):
+        await validate_component(
+            loaders, git_root, "://app.invalid.com:66000/test"
+        )
 
 
 def test_is_valid_url() -> None:
@@ -186,3 +194,21 @@ async def test_working_credentials() -> None:
             credentials=None,
             loaders=get_new_context(),
         )
+
+
+async def test_is_git_unique() -> None:
+    loaders = get_new_context()
+    organization: Organization = await loaders.organization.load("okada")
+    roots = tuple(await loaders.organization_roots.load(organization.name))
+    assert not is_git_unique(
+        url="https://gitlab.com/fluidattacks/universe",
+        branch="master",
+        group_name="unittesting2",
+        roots=roots,
+    )
+    assert not is_git_unique(
+        url="https://gitlab.com/fluidattacks/universe",
+        branch="main",
+        group_name="unittesting",
+        roots=roots,
+    )
