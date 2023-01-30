@@ -28,6 +28,10 @@ jest.mock(
 );
 
 describe("eventEvidenceView", (): void => {
+  const handlePreview: jest.Mock = jest.fn();
+  // eslint-disable-next-line fp/no-mutation -- Mutation needed for the test
+  window.URL.createObjectURL = handlePreview;
+
   it("should return a fuction", (): void => {
     expect.hasAssertions();
     expect(typeof EventEvidenceView).toBe("function");

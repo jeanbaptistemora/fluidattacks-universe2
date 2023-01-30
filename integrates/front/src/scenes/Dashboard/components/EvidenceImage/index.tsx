@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import { DisplayImage } from "./DisplayImage";
+import { EvidenceForm } from "./EvidenceForm";
 import { DescriptionContainer, ImageContainer } from "./styles";
 
 import { Button } from "components/Button/index";
@@ -137,7 +138,8 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
             </Row>
             <Row>
               {isEditing ? (
-                <RenderForm {...props} />
+                // eslint-disable-next-line react/jsx-props-no-spreading
+                <EvidenceForm {...props} />
               ) : (
                 <React.Fragment>
                   <EvidenceDescription>{description}</EvidenceDescription>
@@ -157,5 +159,5 @@ const EvidenceImage: React.FC<Readonly<IEvidenceImageProps>> = (
   );
 };
 
-export { EvidenceImage };
+export { EvidenceImage, RenderForm };
 export type { IEvidenceImageProps };

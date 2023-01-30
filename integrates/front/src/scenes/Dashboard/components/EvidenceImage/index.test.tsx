@@ -6,7 +6,11 @@ import React from "react";
 
 import { Button } from "components/Button";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
-import { isValidEvidenceName, validEvidenceImage } from "utils/validations";
+import {
+  composeValidators,
+  isValidEvidenceName,
+  validEvidenceImage,
+} from "utils/validations";
 
 describe("Evidence image", (): void => {
   const btnConfirm = "components.modal.confirm";
@@ -141,7 +145,7 @@ describe("Evidence image", (): void => {
       >
         <Form>
           <EvidenceImage
-            content={"https://fluidattacks.com/test.png"}
+            content={"file"}
             description={"Test evidence"}
             isDescriptionEditable={true}
             isEditing={true}
@@ -173,13 +177,11 @@ describe("Evidence image", (): void => {
       ).not.toBeInTheDocument();
     });
 
-    expect(screen.getAllByRole("img")).toHaveLength(1);
-
     await userEvent.click(screen.getByText(btnConfirm));
     await waitFor((): void => {
       expect(handleUpdate).toHaveBeenCalledTimes(1);
     });
-    await userEvent.click(screen.getByRole("img"));
+    await userEvent.click(screen.getAllByRole("button")[0]);
     await waitFor((): void => {
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
@@ -239,6 +241,10 @@ describe("Evidence image", (): void => {
             onClick={handleClick}
             shouldPreview={true}
             shouldPreviewValidation={[validEvidenceImage, validEvidenceName]}
+            validate={composeValidators([
+              validEvidenceImage,
+              validEvidenceName,
+            ])}
           />
           <Button type={"submit"} variant={"primary"}>
             {btnConfirm}
@@ -270,17 +276,9 @@ describe("Evidence image", (): void => {
     });
 
     expect(
-      screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
-    ).toBeDisabled();
-    expect(
-      screen.queryByText("searchFindings.tabEvidence.fields.modal.error")
-    ).toBeInTheDocument();
-    expect(
       screen.queryByText(
         "Evidence images must have .png/.webm extension for animation" +
-          "/exploitation and .png for evidences." +
-          " Evidence name must have the following format " +
-          "organizationName-groupName-10 alphanumeric chars.extension."
+          "/exploitation and .png for evidences"
       )
     ).toBeInTheDocument();
 
@@ -298,15 +296,9 @@ describe("Evidence image", (): void => {
     });
 
     expect(
-      screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
-    ).toBeDisabled();
-    expect(
-      screen.queryByText("searchFindings.tabEvidence.fields.modal.error")
-    ).toBeInTheDocument();
-    expect(
       screen.queryByText(
         "Evidence name must have the following format " +
-          "organizationName-groupName-10 alphanumeric chars.extension."
+          "organizationName-groupName-10 alphanumeric chars.extension"
       )
     ).toBeInTheDocument();
 
@@ -323,21 +315,16 @@ describe("Evidence image", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(handlePreview).toHaveBeenCalledTimes(1);
     expect(screen.getAllByRole("img")).toHaveLength(2);
-    expect(
-      screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
-    ).not.toBeDisabled();
+    expect(screen.getAllByText(btnConfirm)[1]).not.toBeDisabled();
     expect(
       screen.queryByText(
         "Evidence name must have the following format " +
-          "organizationName-groupName-10 alphanumeric chars.extension."
+          "organizationName-groupName-10 alphanumeric chars.extension"
       )
     ).not.toBeInTheDocument();
 
-    await userEvent.click(
-      screen.getByText("searchFindings.tabEvidence.fields.modal.continue")
-    );
+    await userEvent.click(screen.getAllByText(btnConfirm)[1]);
     await waitFor((): void => {
       expect(
         screen.queryByText("searchFindings.tabEvidence.fields.modal.title")

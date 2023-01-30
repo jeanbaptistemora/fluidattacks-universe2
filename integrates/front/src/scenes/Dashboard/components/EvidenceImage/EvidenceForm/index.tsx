@@ -1,6 +1,6 @@
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useField } from "formik";
+import { useFormikContext } from "formik";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -33,12 +33,16 @@ const EvidenceForm: React.FC<Readonly<IEvidenceImageProps>> = ({
 }): JSX.Element => {
   const { t } = useTranslation();
 
-  const [inputProps, , helpers] = useField(`${name}.file`);
+  const { initialValues, setFieldTouched, setFieldValue, values } =
+    useFormikContext<Record<string, unknown>>();
+
   const validEvidenceDescription = isValidEvidenceDescription(
-    content,
-    inputProps.value
+    (initialValues[name] as { url: string }).url,
+    (values[name] as { file: FileList | undefined }).file
   );
-  const [preview, setPreview] = useState<File | undefined>(undefined);
+
+  const [preview, setPreview] = useState<{ name: string; url: string }>();
+
   const shouldRenderPreview = content !== "file";
 
   return (
@@ -51,7 +55,7 @@ const EvidenceForm: React.FC<Readonly<IEvidenceImageProps>> = ({
             </label>
             {preview ? (
               <DisplayImage
-                content={URL.createObjectURL(preview)}
+                content={preview.url}
                 extension={getFileNameExtension(preview.name)}
                 name={name}
               />
@@ -61,19 +65,22 @@ const EvidenceForm: React.FC<Readonly<IEvidenceImageProps>> = ({
         title={t("searchFindings.tabEvidence.fields.modal.title")}
       >
         {(callbacks): React.ReactNode => {
-          function handleClick(
+          function handleChange(
             event: React.ChangeEvent<HTMLInputElement>
           ): void {
             const files = event.target.value as unknown as FileList | undefined;
 
             if (files) {
-              setPreview(files[0]);
+              setPreview({
+                name: files[0].name,
+                url: URL.createObjectURL(files[0]),
+              });
               callbacks(
                 (): void => {
-                  helpers.setTouched(true);
+                  setFieldTouched(`${name}.file`, true);
                 },
                 (): void => {
-                  helpers.setValue(undefined);
+                  setFieldValue(`${name}.file`, undefined);
                 }
               );
             }
@@ -84,7 +91,7 @@ const EvidenceForm: React.FC<Readonly<IEvidenceImageProps>> = ({
               accept={acceptedMimes}
               id={name}
               name={`${name}.file`}
-              onChange={shouldRenderPreview ? handleClick : undefined}
+              onChange={shouldRenderPreview ? handleChange : undefined}
               validate={validate}
             />
           );

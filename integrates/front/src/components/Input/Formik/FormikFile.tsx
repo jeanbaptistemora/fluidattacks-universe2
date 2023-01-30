@@ -3,7 +3,7 @@ import React, { useCallback, useRef } from "react";
 import styled from "styled-components";
 
 import type { IInputBase, TFieldProps } from "../InputBase";
-import { InputBase } from "../InputBase";
+import { InputBase, useHandlers } from "../InputBase";
 import { StyledInput } from "../styles";
 import { createEvent } from "../utils";
 import { Button } from "components/Button";
@@ -41,11 +41,13 @@ const getFileName = (value: unknown): string => {
 const FormikFile: React.FC<TInputFileProps> = ({
   accept,
   disabled = false,
-  field: { name, onBlur, onChange, value },
+  field: { name, onBlur: fieldBlur, onChange: fieldChange, value },
   form,
   id,
   label,
   multiple = false,
+  onBlur,
+  onChange,
   onFocus,
   onKeyDown,
   placeholder,
@@ -57,15 +59,22 @@ const FormikFile: React.FC<TInputFileProps> = ({
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const [handleBlur, handleChange] = useHandlers(
+    { onBlur: fieldBlur, onChange: fieldChange },
+    { onBlur, onChange }
+  );
+
   const handleInputClick = useCallback((): void => {
     if (inputRef.current) {
       const changeEvent = createEvent("change", name, undefined);
 
-      onChange(changeEvent);
+      handleChange?.(
+        changeEvent as unknown as React.ChangeEvent<HTMLInputElement>
+      );
       // eslint-disable-next-line fp/no-mutation
       inputRef.current.value = "";
     }
-  }, [name, onChange]);
+  }, [name, handleChange]);
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -76,9 +85,11 @@ const FormikFile: React.FC<TInputFileProps> = ({
         files && files.length > 0 ? files : undefined
       );
 
-      onChange(changeEvent);
+      handleChange?.(
+        changeEvent as unknown as React.ChangeEvent<HTMLInputElement>
+      );
     },
-    [name, onChange]
+    [name, handleChange]
   );
 
   const handleButtonClick = useCallback((): void => {
@@ -106,7 +117,7 @@ const FormikFile: React.FC<TInputFileProps> = ({
         id={id}
         multiple={multiple}
         name={name}
-        onBlur={onBlur}
+        onBlur={handleBlur}
         onChange={handleInputChange}
         onClick={handleInputClick}
         onFocus={onFocus}
