@@ -314,56 +314,6 @@ F394,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf
   21 |   include_global_service_events = false
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F177,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf","
-   7 |   }
-   8 |
-   9 |   filter {
-  10 |     name   = ""virtualization-type""
-  11 |     values = [""hvm""]
-  12 |   }
-  13 |
-  14 |   owners = [""099720109477""] # Canonical
-  15 | }
-  16 |
-> 17 | resource ""aws_instance"" ""web"" {
-  18 |   ami           = data.aws_ami.ubuntu.id
-  19 |   instance_type = ""t3.micro""
-  20 |
-  21 |   tags = {
-  22 |     Name = ""HelloWorld""
-  23 |   }
-  24 | }
-  25 |
-  26 | resource ""aws_instance"" ""web"" {
-  27 |   ami           = data.aws_ami.ubuntu.id
-     ^ Col 0
-",terraform.ec2_use_default_security_group
-F177,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,26,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
- in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf","
-  14 |   owners = [""099720109477""] # Canonical
-  15 | }
-  16 |
-  17 | resource ""aws_instance"" ""web"" {
-  18 |   ami           = data.aws_ami.ubuntu.id
-  19 |   instance_type = ""t3.micro""
-  20 |
-  21 |   tags = {
-  22 |     Name = ""HelloWorld""
-  23 |   }
-  24 | }
-  25 |
-> 26 | resource ""aws_instance"" ""web"" {
-  27 |   ami           = data.aws_ami.ubuntu.id
-  28 |   instance_type = ""t3.micro""
-  29 |
-  30 |   iam_instance_profile = ""profile""
-  31 |   tags = {
-  32 |     Name = ""HelloWorld""
-  33 |   }
-  34 | }
-     ^ Col 0
-",terraform.ec2_use_default_security_group
 F177,lines,namespace/skims/test/data/lib_path/f177/aws_intance_test.tf,2,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
  in namespace/skims/test/data/lib_path/f177/aws_intance_test.tf","
    1 |

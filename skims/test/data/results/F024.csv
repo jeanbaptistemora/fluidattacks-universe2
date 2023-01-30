@@ -935,7 +935,7 @@ F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_pro
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_instances_without_profile
-F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/tfm_ec2_instances_without_profile.tf,"
+F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_instances_without_profile.tf,17,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_root/f024/tfm_ec2_instances_without_profile.tf,"
    7 |   }
    8 |
    9 |   filter {
