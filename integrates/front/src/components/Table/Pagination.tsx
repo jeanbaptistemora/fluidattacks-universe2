@@ -2,7 +2,7 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { RowData, Table } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import styled from "styled-components";
 
 import type { ITableProps } from "./types";
@@ -36,6 +36,12 @@ const Pagination = <TData extends RowData>({
   const { pageIndex, pageSize } = table.getState().pagination;
   const isInLast = pageIndex === pageCount - 2;
   const lastPage = Math.min(100, size);
+
+  useEffect((): void => {
+    if (pageIndex + 1 > pageCount) {
+      table.setPageIndex(0);
+    }
+  }, [pageCount, pageIndex, table]);
 
   const goToNext = useCallback((): void => {
     if (isInLast && onNextPage) {
