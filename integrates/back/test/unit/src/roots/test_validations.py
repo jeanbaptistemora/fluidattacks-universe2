@@ -2,9 +2,14 @@ from custom_exceptions import (
     InactiveRoot,
     InvalidGitRoot,
     InvalidRootComponent,
+    InvalidUrl,
+    RequiredCredentials,
 )
 from dataloaders import (
     get_new_context,
+)
+from db_model.credentials.types import (
+    SshSecret,
 )
 from db_model.roots.types import (
     Root,
@@ -19,8 +24,11 @@ from roots.validations import (
     validate_active_root,
     validate_active_root_deco,
     validate_component,
+    validate_credential_in_organization,
+    validate_git_access,
     validate_git_root,
     validate_git_root_deco,
+    working_credentials,
 )
 
 pytestmark = [
@@ -107,8 +115,12 @@ def test_is_valid_ip() -> None:
 
 def test_is_exclude_valid() -> None:
     repo_url: str = "https://fluidattacks.com/universe"
+    repo_git: str = "git@gitlab.com:fluidattacks/universe.git"
     assert is_exclude_valid(
         ["*/test.py", "production/test.py", "test/universe/test.py"], repo_url
+    )
+    assert is_exclude_valid(
+        ["*/test.py", "production/test.py", "test/universe/test.py"], repo_git
     )
     assert not is_exclude_valid(["Universe/test.py"], repo_url)
     assert not is_exclude_valid(["universe/**/test.py"], repo_url)
@@ -145,3 +157,32 @@ async def test_valid_git_root_deco() -> None:
     )
     with pytest.raises(InvalidGitRoot):
         decorated_func(root=ip_root)
+
+
+async def test_validate_git_access() -> None:
+    with pytest.raises(InvalidUrl):
+        await validate_git_access(
+            url="https://app.fluidattacks.com:67000",
+            branch="trunk",
+            secret=SshSecret(key="test_key"),
+            loaders=get_new_context(),
+        )
+
+
+async def test_validate_credential_in_organization() -> None:
+    with pytest.raises(KeyError):
+        await validate_credential_in_organization(
+            loaders=get_new_context(),
+            credential_id="test_id",
+            organization_id="test_org",
+        )
+
+
+async def test_working_credentials() -> None:
+    with pytest.raises(RequiredCredentials):
+        await working_credentials(
+            url="https://app.fluidattacks.com",
+            branch="trunk",
+            credentials=None,
+            loaders=get_new_context(),
+        )
