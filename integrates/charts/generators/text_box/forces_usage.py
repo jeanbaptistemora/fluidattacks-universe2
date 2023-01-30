@@ -11,15 +11,10 @@ from charts.generators.text_box.utils import (
     ForcesReport,
     format_csv_data,
 )
-from db_model.forces.types import (
-    ForcesExecution,
-)
 
 
 async def generate_one(group: str) -> ForcesReport:
-    executions: tuple[
-        ForcesExecution, ...
-    ] = await get_all_time_forces_executions(group)
+    executions = await get_all_time_forces_executions(group)
 
     return ForcesReport(fontSizeRatio=0.5, text=str(len(executions)))
 

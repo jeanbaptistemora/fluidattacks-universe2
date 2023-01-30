@@ -26,14 +26,13 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
 
 async def _get_group_executions(
     *, request: GroupForcesExecutionsRequest
-) -> tuple[ForcesExecution, ...]:
+) -> list[ForcesExecution]:
     if request.limit is None:
         paginate = False
         primary_key = keys.build_key(
@@ -69,7 +68,7 @@ async def _get_group_executions(
         table=TABLE,
         index=index,
     )
-    return tuple(format_forces_execution(item) for item in response.items)
+    return [format_forces_execution(item) for item in response.items]
 
 
 async def _get_executions(
@@ -104,10 +103,10 @@ class ForcesExecutionLoader(DataLoader):
 class GroupForcesExecutionsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[GroupForcesExecutionsRequest]
-    ) -> tuple[tuple[ForcesExecution, ...], ...]:
-        return await collect(
-            tuple(
+        self, requests: list[GroupForcesExecutionsRequest]
+    ) -> list[list[ForcesExecution]]:
+        return list(
+            await collect(
                 _get_group_executions(request=request) for request in requests
             )
         )

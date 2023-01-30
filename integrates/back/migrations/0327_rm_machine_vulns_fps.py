@@ -34,7 +34,7 @@ async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
     findings = await loaders.group_drafts_and_findings.load_many_chained(
-        groups
+        list(groups)
     )
     selected_findings = [
         finding

@@ -26,10 +26,7 @@ from newutils.validations import (
 
 
 async def generate_one(*, group: str) -> dict:
-    executions: tuple[
-        ForcesExecution, ...
-    ] = await get_all_time_forces_executions(group)
-
+    executions = await get_all_time_forces_executions(group)
     executions_in_strict_mode: tuple[ForcesExecution, ...] = tuple(
         execution
         for execution in executions

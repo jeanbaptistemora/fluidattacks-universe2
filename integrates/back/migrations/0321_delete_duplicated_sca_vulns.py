@@ -148,9 +148,9 @@ def process_duplicates(
 async def main() -> None:
     loaders = get_new_context()
     groups = await get_all_active_group_names(loaders)
-    groups_findings: Tuple[
-        Finding, ...
-    ] = await loaders.group_drafts_and_findings.load_many_chained(groups)
+    groups_findings = (
+        await loaders.group_drafts_and_findings.load_many_chained(list(groups))
+    )
     sca_findings: List[Finding] = [
         finding
         for finding in groups_findings
