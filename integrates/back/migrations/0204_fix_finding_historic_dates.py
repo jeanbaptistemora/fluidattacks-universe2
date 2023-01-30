@@ -106,9 +106,7 @@ async def process_finding(
     loaders: Dataloaders,
     finding: Finding,
 ) -> None:
-    historic_state: tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load(finding.id)
+    historic_state = await loaders.finding_historic_state.load(finding.id)
 
     has_report_date_changed = False
     vulns = await loaders.finding_vulnerabilities_released_nzr.load(finding.id)

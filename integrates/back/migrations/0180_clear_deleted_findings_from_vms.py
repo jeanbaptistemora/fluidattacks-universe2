@@ -40,8 +40,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingState,
-    FindingVerification,
 )
 from decorators import (
     retry_on_exceptions,
@@ -100,14 +98,14 @@ async def send_findings_to_redshift(
         return
 
     findings_to_store_ids = [finding.id for finding in findings_to_store]
-    state_loader = loaders.finding_historic_state
-    verification_loader = loaders.finding_historic_verification
-    findings_state: Tuple[
-        Tuple[FindingState, ...], ...
-    ] = await state_loader.load_many(findings_to_store_ids)
-    findings_verification: Tuple[
-        Tuple[FindingVerification, ...], ...
-    ] = await verification_loader.load_many(findings_to_store_ids)
+    findings_state = await loaders.finding_historic_state.load_many(
+        findings_to_store_ids
+    )
+    findings_verification = (
+        await loaders.finding_historic_verification.load_many(
+            findings_to_store_ids
+        )
+    )
 
     await insert_batch_metadata(
         findings=findings_to_store,

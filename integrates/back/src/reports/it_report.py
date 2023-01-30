@@ -224,8 +224,8 @@ class ITReport:
         self.save()
 
     async def _get_findings_vulnerabilities(
-        self, findings_ids: tuple[str, ...]
-    ) -> tuple[Vulnerability, ...]:
+        self, findings_ids: list[str]
+    ) -> list[Vulnerability]:
         finding_vulnerabilities_released_nzr = (
             self.loaders.finding_vulnerabilities_released_nzr
         )
@@ -241,12 +241,12 @@ class ITReport:
             )
         )
 
-        return tuple(findings)
+        return list(findings)
 
     async def _get_findings_historics_verifications(
-        self, findings_ids: tuple[str, ...]
-    ) -> tuple[tuple[FindingVerification], ...]:
-        return tuple(
+        self, findings_ids: list[str]
+    ) -> list[list[FindingVerification]]:
+        return list(
             await self.loaders.finding_historic_verification.load_many(
                 findings_ids
             )
@@ -357,22 +357,17 @@ class ITReport:
         data = tuple(
             finding for finding in data if finding.id in filtered_findings_ids
         )
-        findings_ids = tuple(finding.id for finding in data)
-        findings_vulnerabilities: tuple[Vulnerability, ...]
-        findings_verifications: tuple[tuple[FindingVerification], ...]
-        (
-            findings_vulnerabilities,
-            findings_verifications,
-        ) = await collect(  # type: ignore
-            (
-                self._get_findings_vulnerabilities(findings_ids),
-                self._get_findings_historics_verifications(findings_ids),
-            )
+        findings_ids = [finding.id for finding in data]
+        findings_vulnerabilities = await self._get_findings_vulnerabilities(
+            findings_ids
         )
-        finding_data: Dict[str, Finding] = {
+        findings_verifications = (
+            await self._get_findings_historics_verifications(findings_ids)
+        )
+        finding_data: dict[str, Finding] = {
             finding.id: finding for finding in data
         }
-        finding_verification: Dict[str, tuple[FindingVerification]] = {
+        finding_verification: dict[str, list[FindingVerification]] = {
             finding.id: verification
             for finding, verification in zip(data, findings_verifications)
         }
@@ -800,7 +795,7 @@ class ITReport:
         finding: Finding,
         historic_verification: tuple[VulnerabilityVerification, ...],
         historic_treatment: tuple[VulnerabilityTreatment, ...],
-        finding_verification: tuple[FindingVerification, ...],
+        finding_verification: list[FindingVerification],
     ) -> None:
         vuln = self.vulnerability
         specific = row.state.specific
@@ -862,7 +857,7 @@ class ITReport:
         self.set_vuln_temporal_data(row)
         self.set_treatment_data(row, historic_treatment)
         self.set_reattack_data(
-            row, historic_verification, finding_verification
+            row, historic_verification, tuple(finding_verification)
         )
         self.set_cvss_metrics_cell(finding)
 

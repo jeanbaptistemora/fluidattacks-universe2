@@ -26,7 +26,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingVerification,
 )
 from db_model.groups.types import (
     Group,
@@ -343,10 +342,9 @@ async def _finding_reattacked(  # pylint: disable=too-many-arguments
     content: Dict[str, Any],
     users_email: List[str],
 ) -> None:
-    historic_verification: Tuple[
-        FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load(finding_id)
-
+    historic_verification = await loaders.finding_historic_verification.load(
+        finding_id
+    )
     for verification in historic_verification:
         if (
             verification.vulnerability_ids

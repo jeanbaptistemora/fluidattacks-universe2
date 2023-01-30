@@ -56,7 +56,6 @@ from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingMetadataToUpdate,
-    FindingState,
 )
 from db_model.findings.update import (
     update_metadata as update_finding_metadata,
@@ -948,9 +947,7 @@ async def update_vulns_already_reported(
 
 async def _is_machine_finding(loaders: Dataloaders, finding_id: str) -> bool:
     is_machine_finding: bool = False
-    historic_state: Tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load(finding_id)
+    historic_state = await loaders.finding_historic_state.load(finding_id)
     for state in reversed(historic_state):
         if state.status == FindingStateStatus.CREATED:
             is_machine_finding = state.source == Source.MACHINE

@@ -3,7 +3,6 @@ from dataloaders import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingState,
 )
 from decorators import (
     enforce_group_level_auth_async,
@@ -21,9 +20,7 @@ async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> list[dict[str, str]]:
     loaders: Dataloaders = info.context.loaders
-    historic_state: tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load(parent.id)
+    historic_state = await loaders.finding_historic_state.load(parent.id)
 
     return [
         {

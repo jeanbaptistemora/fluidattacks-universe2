@@ -36,7 +36,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingVerification,
 )
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
@@ -1067,10 +1066,10 @@ async def get_reattack_requester(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> Optional[str]:
-    historic_verification: tuple[
-        FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load(vuln.finding_id)
-    reversed_historic_verification = tuple(reversed(historic_verification))
+    historic_verification = await loaders.finding_historic_verification.load(
+        vuln.finding_id
+    )
+    reversed_historic_verification = list(reversed(historic_verification))
     for verification in reversed_historic_verification:
         if (
             verification.status == FindingVerificationStatus.REQUESTED
@@ -1078,6 +1077,7 @@ async def get_reattack_requester(
             and vuln.id in verification.vulnerability_ids
         ):
             return verification.modified_by
+
     return None
 
 

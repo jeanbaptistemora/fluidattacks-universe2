@@ -230,9 +230,7 @@ async def handle_blanks(
     loaders: Dataloaders,
     finding_id: str,
 ) -> None:
-    historic_states: tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load(finding_id)
+    historic_states = await loaders.finding_historic_state.load(finding_id)
     leftover_states: list[FindingState] = list(
         filter(
             lambda state: state.status == FindingStateStatus.SUBMITTED
@@ -290,10 +288,7 @@ async def handle_finding(
     finding_id: str,
     rejections: deque[RejectionHelper],
 ) -> None:
-
-    historic_states: tuple[
-        FindingState, ...
-    ] = await loaders.finding_historic_state.load(finding_id)
+    historic_states = await loaders.finding_historic_state.load(finding_id)
     rejected_states: deque[FindingState] = deque(
         filter(
             lambda state: state.status == FindingStateStatus.REJECTED,

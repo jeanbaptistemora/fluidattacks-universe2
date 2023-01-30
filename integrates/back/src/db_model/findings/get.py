@@ -35,7 +35,6 @@ from itertools import (
     chain,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -211,7 +210,7 @@ class FindingLoader(DataLoader):
 
 async def _get_historic_verification(
     finding_id: str,
-) -> tuple[FindingVerification, ...]:
+) -> list[FindingVerification]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_verification"],
         values={"id": finding_id},
@@ -225,29 +224,24 @@ async def _get_historic_verification(
         facets=(TABLE.facets["finding_historic_verification"],),
         table=TABLE,
     )
-    return tuple(map(format_verification, response.items))
+
+    return list(map(format_verification, response.items))
 
 
 class FindingHistoricVerificationLoader(DataLoader):
-    async def load_many_chained(
-        self, finding_ids: Iterable[str]
-    ) -> tuple[FindingVerification, ...]:
-        unchained_data = await self.load_many(finding_ids)
-        return tuple(chain.from_iterable(unchained_data))
-
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Iterable[str]
-    ) -> tuple[tuple[FindingVerification], ...]:
-        return await collect(
-            tuple(
-                map(_get_historic_verification, finding_ids)  # type: ignore
-            ),
-            workers=32,
+        self, finding_ids: list[str]
+    ) -> list[list[FindingVerification]]:
+        return list(
+            await collect(
+                tuple(map(_get_historic_verification, finding_ids)),
+                workers=32,
+            )
         )
 
 
-async def _get_historic_state(finding_id: str) -> tuple[FindingState, ...]:
+async def _get_historic_state(finding_id: str) -> list[FindingState]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_historic_state"],
         values={"id": finding_id},
@@ -261,25 +255,15 @@ async def _get_historic_state(finding_id: str) -> tuple[FindingState, ...]:
         facets=(TABLE.facets["finding_historic_state"],),
         table=TABLE,
     )
-    return tuple(map(format_state, response.items))
+
+    return list(map(format_state, response.items))
 
 
 class FindingHistoricStateLoader(DataLoader):
-    async def load_many_chained(
-        self, finding_ids: Iterable[str]
-    ) -> tuple[FindingState, ...]:
-        unchained_data = await self.load_many(finding_ids)
-        return tuple(chain.from_iterable(unchained_data))
-
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: Iterable[str]
-    ) -> tuple[tuple[FindingState], ...]:
-        return await collect(
-            tuple(
-                map(
-                    _get_historic_state,  # type: ignore
-                    finding_ids,
-                )
-            )
+        self, finding_ids: list[str]
+    ) -> list[list[FindingState]]:
+        return list(
+            await collect(tuple(map(_get_historic_state, finding_ids)))
         )
