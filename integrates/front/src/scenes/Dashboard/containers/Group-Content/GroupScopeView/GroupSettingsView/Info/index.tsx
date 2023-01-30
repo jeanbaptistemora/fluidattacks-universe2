@@ -16,7 +16,7 @@ import type { ConfigurableValidator } from "revalidate";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { InputDate, Select } from "components/Input";
+import { Input, InputDate, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
@@ -200,32 +200,24 @@ const GroupInformation: React.FC = (): JSX.Element => {
               <Row>
                 <Col lg={33} md={50} sm={100}>
                   <Card>
-                    <Text mb={2}>
-                      {t("organization.tabs.groups.newGroup.businessId.text")}
-                    </Text>
-                    <Tooltip
-                      id={
-                        "organization.tabs.groups.newGroup.businessId.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                    <Input
+                      disabled={permissions.cannot(
+                        "api_mutations_update_group_stakeholder_mutate"
+                      )}
+                      id={"add-group-description"}
+                      label={t(
+                        "organization.tabs.groups.newGroup.businessId.text"
+                      )}
+                      name={"businessId"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.businessId.tooltip"
                       )}
-                    >
-                      <Field
-                        component={FormikText}
-                        disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
-                        )}
-                        id={"add-group-description"}
-                        name={"businessId"}
-                        type={"text"}
-                        validate={composeValidators([
-                          maxBusinessInfoLength,
-                          validTextField,
-                        ])}
-                      />
-                    </Tooltip>
+                      type={"text"}
+                      validate={composeValidators([
+                        maxBusinessInfoLength,
+                        validTextField,
+                      ])}
+                    />
                   </Card>
                 </Col>
                 <Col lg={33} md={50} sm={100}>
