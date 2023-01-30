@@ -1,8 +1,8 @@
 from model.graph_model import (
     NId,
 )
-from syntax_graph.syntax_nodes.statement_block import (
-    build_statement_block_node,
+from syntax_graph.syntax_nodes.execution_block import (
+    build_execution_block_node,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
@@ -14,4 +14,4 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     _, *c_ids, _ = adj_ast(args.ast_graph, args.n_id)
-    return build_statement_block_node(args, c_ids)
+    return build_execution_block_node(args, c_ids=(_id for _id in c_ids))

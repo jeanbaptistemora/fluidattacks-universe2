@@ -12,6 +12,7 @@ from syntax_graph.syntax_readers.javascript import (
     comment as javascript_comment,
     do_statement as javascript_do_statement,
     else_clause as javascript_else_clause,
+    execution_block as javascript_execution_block,
     export_statement as javascript_export_statement,
     expression_statement as javascript_expression_statement,
     finally_clause as javascript_finally_clause,
@@ -32,7 +33,6 @@ from syntax_graph.syntax_readers.javascript import (
     parenthesized_expression as javascript_parenthesized_expression,
     program as javascript_program,
     return_statement as javascript_return_statement,
-    statement_block as javascript_statement_block,
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
@@ -421,7 +421,7 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
         applicable_types={
             "statement_block",
         },
-        syntax_reader=javascript_statement_block.reader,
+        syntax_reader=javascript_execution_block.reader,
     ),
     Dispatcher(
         applicable_types={
