@@ -269,9 +269,7 @@ async def do_github_oauth(request: Request) -> Response:
 
     redirect_uri = get_redirect_url(request, "oauth_github")
     params = {"subject": organization_id}
-    url = f"{redirect_uri}?{urlencode(params)}".replace(
-        "localhost", "127.0.0.1"
-    )
+    url = f"{redirect_uri}?{urlencode(params)}"
     github = ROAUTH.create_client("github")
     with suppress(CredentialAlreadyExists):
         await validate_credentials_oauth(

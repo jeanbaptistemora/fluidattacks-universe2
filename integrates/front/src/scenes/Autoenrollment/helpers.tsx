@@ -140,6 +140,14 @@ const handleValidationError = (
   });
 };
 
+const validateAzureField = (value: string | undefined): boolean => {
+  if (value === undefined) {
+    return true;
+  }
+
+  return !value.includes(" ");
+};
+
 const rootSchema = lazy(
   (values: IRootAttr): BaseSchema =>
     object().shape({
@@ -166,6 +174,11 @@ const rootSchema = lazy(
 
                 return regex.test(value);
               }
+            )
+            .test(
+              "invalidSpaceInField",
+              translate.t("validations.invalidSpaceInField"),
+              validateAzureField
             ),
         }),
         key: string().when("type", {

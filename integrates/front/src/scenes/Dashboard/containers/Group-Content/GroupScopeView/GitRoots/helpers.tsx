@@ -87,6 +87,17 @@ const gitModalSchema = (
 
                   return regex.test(value);
                 }
+              )
+              .test(
+                "invalidSpaceInField",
+                translate.t("validations.invalidSpaceInField"),
+                (value): boolean => {
+                  if (value === undefined) {
+                    return true;
+                  }
+
+                  return !value.includes(" ");
+                }
               ),
           }),
           id: string(),

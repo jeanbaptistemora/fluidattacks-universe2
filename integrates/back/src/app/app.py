@@ -34,9 +34,11 @@ from api.validations.variables_validation import (
     variables_check,
 )
 from app.views.oauth import (
+    do_azure_oauth,
     do_bitbucket_oauth,
     do_github_oauth,
     do_gitlab_oauth,
+    oauth_azure,
     oauth_bitbucket,
     oauth_github,
     oauth_gitlab,
@@ -390,6 +392,8 @@ STARLETTE_APP = Starlette(
         Route("/dgithub", do_github_oauth),
         Route("/oauth_github", oauth_github),
         Route("/dbitbucket", do_bitbucket_oauth),
+        Route("/dazure", do_azure_oauth),
+        Route("/oauth_azure", oauth_azure),
         Route("/oauth_bitbucket", oauth_bitbucket),
         Route("/authz_bitbucket", auth.authz_bitbucket),
         Route("/authz_google", auth.authz_google),

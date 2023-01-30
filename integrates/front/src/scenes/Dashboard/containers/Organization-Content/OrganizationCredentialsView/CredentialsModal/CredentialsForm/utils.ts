@@ -34,6 +34,17 @@ const validateSchema = (): InferType<TypedSchema> =>
 
                 return regex.test(value);
               }
+            )
+            .test(
+              "invalidSpaceInField",
+              translate.t("validations.invalidSpaceInField"),
+              (value): boolean => {
+                if (value === undefined) {
+                  return true;
+                }
+
+                return !value.includes(" ");
+              }
             ),
         }),
         key: string()
