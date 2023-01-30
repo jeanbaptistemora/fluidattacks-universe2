@@ -4,4 +4,3 @@ export { FormikAutocompleteText } from "utils/forms/fields/AutoCompleteText/Form
 export { FormikRadioGroup } from "utils/forms/fields/RadioGroup/FormikRadioGroup";
 export { FormikText } from "utils/forms/fields/Text/FormikText";
 export { FormikDropdown } from "utils/forms/fields/Dropdown/FormikDropdown";
-export { FormikFileInput } from "utils/forms/fields/FileInput/FormikFileInput";
