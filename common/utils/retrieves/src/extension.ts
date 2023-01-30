@@ -17,9 +17,11 @@ import {
 } from "vscode";
 
 import { clone } from "./commands/clone";
-import { toeLines } from "./commands/toeLines";
+import { getToeLines } from "./commands/toeLines";
 import { GroupsProvider } from "./providers/groups";
 import type { GitRootTreeItem } from "./treeItems/gitRoot";
+import type { IToeLineNode } from "./types";
+import { getGroupsPath } from "./utils/file";
 
 const getWebviewContent = (
   context: ExtensionContext,
@@ -68,68 +70,72 @@ function activate(context: ExtensionContext): void {
     commands.registerCommand(
       "retrieves.lines",
       (node: GitRootTreeItem): void => {
-        toeLines(context, node);
+        const panel = window.createWebviewPanel(
+          "react-webview",
+          "React Webview",
+          ViewColumn.One,
+          {
+            enableScripts: true,
+            retainContextWhenHidden: true,
+          }
+        );
+
+        panel.webview.onDidReceiveMessage(
+          (message: {
+            command: string;
+            requestId: string;
+            payload: { message: string };
+          }): void => {
+            const { command, requestId, payload } = message;
+            if (command === "GET_DATA_TOE_LINES") {
+              void getToeLines(node.groupName, node.rootId).then(
+                (toe): void => {
+                  const nodes = toe.map((edge): IToeLineNode => {
+                    return edge.node;
+                  });
+                  void panel.webview.postMessage({
+                    command,
+                    payload: nodes,
+                    // The requestId is used to identify the response
+                    requestId,
+                  } as MessageHandlerData<IToeLineNode[]>);
+                }
+              );
+            } else if (command === "GET_ROOT_ID") {
+              void panel.webview.postMessage({
+                command,
+                payload: node.rootId,
+                // The requestId is used to identify the response
+                requestId,
+              } as MessageHandlerData<string>);
+            } else if (command === "POST_DATA") {
+              void window.showInformationMessage(
+                `Received data from the webview: ${payload.message}`
+              );
+            } else if (command === "TOE_LINES_OPEN_FILE") {
+              const rootPath = join(
+                getGroupsPath(),
+                node.groupName,
+                node.nickname
+              );
+              const uri = Uri.parse(
+                `file://${join(rootPath, String(payload.message))}`
+              );
+              void window.showTextDocument(uri);
+            }
+          },
+          undefined,
+          context.subscriptions
+        );
+
+        // eslint-disable-next-line fp/no-mutation
+        panel.webview.html = getWebviewContent(context, panel.webview);
       }
     )
   );
   const groupsProvider = new GroupsProvider();
   void window.registerTreeDataProvider("user_groups", groupsProvider);
   void commands.registerCommand("retrieves.clone", clone);
-  const disposable = commands.registerCommand(
-    "vscode-react-webview-starter.openWebview",
-    (): void => {
-      const panel = window.createWebviewPanel(
-        "react-webview",
-        "React Webview",
-        ViewColumn.One,
-        {
-          enableScripts: true,
-          retainContextWhenHidden: true,
-        }
-      );
-
-      panel.webview.onDidReceiveMessage(
-        (message: {
-          command: string;
-          requestId: string;
-          payload: { msg: string };
-        }): void => {
-          const { command, requestId, payload } = message;
-
-          if (command === "GET_DATA") {
-            // Do something with the payload
-
-            // Send a response back to the webview
-            void panel.webview.postMessage({
-              command,
-              payload: `Hello from the extension!`,
-              // The requestId is used to identify the response
-              requestId,
-            } as MessageHandlerData<string>);
-          } else if (command === "GET_DATA_ERROR") {
-            void panel.webview.postMessage({
-              command,
-              error: `Oops, something went wrong!`,
-              // The requestId is used to identify the response
-              requestId,
-            } as MessageHandlerData<string>);
-          } else if (command === "POST_DATA") {
-            void window.showInformationMessage(
-              `Received data from the webview: ${payload.msg}`
-            );
-          }
-        },
-        undefined,
-        context.subscriptions
-      );
-
-      // eslint-disable-next-line fp/no-mutation
-      panel.webview.html = getWebviewContent(context, panel.webview);
-    }
-  );
-
-  // eslint-disable-next-line fp/no-mutating-methods
-  context.subscriptions.push(disposable);
 }
 
 export { activate };

@@ -14,15 +14,15 @@ interface IGitRoot {
   gitignore: string[];
   downloadUrl?: string;
 }
-
+interface IToeLineNode {
+  attackedLines: number;
+  filename: string;
+  comments: string;
+  modifiedDate: string;
+  loc: number;
+}
 interface IEdge {
-  node: {
-    attackedLines: number;
-    filename: string;
-    comments: string;
-    modifiedDate: string;
-    loc: number;
-  };
+  node: IToeLineNode;
 }
 interface IToeLinesPaginator {
   edges: IEdge[];
@@ -38,4 +38,5 @@ export type {
   IGitRoot as GitRoot,
   IToeLinesPaginator,
   IEdge,
+  IToeLineNode,
 };

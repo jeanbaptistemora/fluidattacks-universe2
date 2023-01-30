@@ -74,4 +74,4 @@ function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
     });
 }
 
-export { toeLines };
+export { toeLines, getToeLines };
