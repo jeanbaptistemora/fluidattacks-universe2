@@ -93,6 +93,76 @@ locals {
         "kubernetes.io/role/elb"       = "1"
       }
     },
+    {
+      name                    = "k8s_4"
+      availability_zone       = "us-east-1c"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_5"
+      availability_zone       = "us-east-1e"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_6"
+      availability_zone       = "us-east-1b"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_7"
+      availability_zone       = "us-east-1a"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_8"
+      availability_zone       = "us-east-1d"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_9"
+      availability_zone       = "us-east-1c"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
+    {
+      name                    = "k8s_10"
+      availability_zone       = "us-east-1e"
+      map_public_ip_on_launch = true
+      new_bits                = 6
+      tags = {
+        "kubernetes.io/cluster/common" = "shared"
+        "kubernetes.io/role/elb"       = "1"
+      }
+    },
   ]
 }
 
