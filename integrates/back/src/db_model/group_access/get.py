@@ -24,9 +24,6 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
 async def _get_group_access(
@@ -92,7 +89,7 @@ async def _get_group_stakeholders_access(
     *,
     access_dataloader: DataLoader,
     group_name: str,
-) -> tuple[GroupAccess, ...]:
+) -> list[GroupAccess]:
     group_name = group_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
@@ -124,14 +121,14 @@ async def _get_group_stakeholders_access(
             access,
         )
 
-    return tuple(access_list)
+    return access_list
 
 
 async def _get_stakeholder_groups_access(
     *,
     access_dataloader: DataLoader,
     email: str,
-) -> tuple[GroupAccess, ...]:
+) -> list[GroupAccess]:
     email = email.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["group_access"],
@@ -159,7 +156,7 @@ async def _get_stakeholder_groups_access(
             access,
         )
 
-    return tuple(access_list)
+    return access_list
 
 
 class GroupAccessLoader(DataLoader):
@@ -192,14 +189,17 @@ class GroupStakeholdersAccessLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: Iterable[str]
-    ) -> tuple[tuple[GroupAccess, ...], ...]:
-        return await collect(
-            tuple(
-                _get_group_stakeholders_access(
-                    access_dataloader=self.dataloader, group_name=group_name
+        self, group_names: list[str]
+    ) -> list[list[GroupAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_group_stakeholders_access(
+                        access_dataloader=self.dataloader,
+                        group_name=group_name,
+                    )
+                    for group_name in group_names
                 )
-                for group_name in group_names
             )
         )
 
@@ -211,13 +211,15 @@ class StakeholderGroupsAccessLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[tuple[GroupAccess, ...], ...]:
-        return await collect(
-            tuple(
-                _get_stakeholder_groups_access(
-                    access_dataloader=self.dataloader, email=email
+        self, emails: list[str]
+    ) -> list[list[GroupAccess]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_stakeholder_groups_access(
+                        access_dataloader=self.dataloader, email=email
+                    )
+                    for email in emails
                 )
-                for email in emails
             )
         )

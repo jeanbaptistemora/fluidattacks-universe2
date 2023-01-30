@@ -11,9 +11,6 @@ from .policy import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.group_access.types import (
-    GroupAccess,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -27,9 +24,7 @@ async def get_group_level_enforcer(
     email: str,
 ) -> Callable[[str, str], bool]:
     """Return a filtered group-level authorization for the provided email."""
-    groups_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.stakeholder_groups_access.load(email)
+    groups_access = await loaders.stakeholder_groups_access.load(email)
     roles = get_group_level_roles_model(email)
     user_level_role = await get_user_level_role(loaders, email)
 

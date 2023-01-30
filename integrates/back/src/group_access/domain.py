@@ -125,9 +125,9 @@ async def get_group_stakeholders(
     loaders: Dataloaders,
     group_name: str,
 ) -> list[Stakeholder]:
-    stakeholders_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.group_stakeholders_access.load(group_name)
+    stakeholders_access = await loaders.group_stakeholders_access.load(
+        group_name
+    )
 
     return await loaders.stakeholder_with_fallback.load_many(
         [access.email for access in stakeholders_access]
@@ -137,9 +137,9 @@ async def get_group_stakeholders(
 async def get_group_stakeholders_emails(
     loaders: Dataloaders, group_name: str, active: bool = True
 ) -> list[str]:
-    stakeholders_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.group_stakeholders_access.load(group_name)
+    stakeholders_access = await loaders.group_stakeholders_access.load(
+        group_name
+    )
     now_epoch = datetime_utils.get_as_epoch(datetime_utils.get_now())
     active_stakeholders_email = [
         access.email
@@ -177,9 +177,7 @@ async def get_managers(loaders: Dataloaders, group_name: str) -> list[str]:
 async def get_stakeholder_groups_names(
     loaders: Dataloaders, email: str, active: bool
 ) -> list[str]:
-    groups_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.stakeholder_groups_access.load(email)
+    groups_access = await loaders.stakeholder_groups_access.load(email)
 
     return [
         group_access.group_name

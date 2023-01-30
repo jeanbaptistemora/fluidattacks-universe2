@@ -1306,9 +1306,9 @@ async def remove_all_stakeholders(
     modified_by: str,
 ) -> None:
     """Revoke stakeholders access to group."""
-    stakeholders_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.group_stakeholders_access.load(group_name)
+    stakeholders_access = await loaders.group_stakeholders_access.load(
+        group_name
+    )
     await collect(
         tuple(
             remove_stakeholder(

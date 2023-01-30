@@ -141,9 +141,7 @@ async def get_group_level_roles(
     groups: list[str],
 ) -> dict[str, str]:
     is_admin: bool = await get_user_level_role(loaders, email) == "admin"
-    groups_access: tuple[
-        GroupAccess, ...
-    ] = await loaders.stakeholder_groups_access.load(email)
+    groups_access = await loaders.stakeholder_groups_access.load(email)
     db_roles: dict[str, str] = {
         access.group_name: access.role
         for access in groups_access
