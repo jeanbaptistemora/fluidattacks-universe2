@@ -63987,7 +63987,7 @@
             "variable_type": "map[string]string"
           },
           "1052": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1054": {
             "label_type": "Assignment",
@@ -63995,7 +63995,7 @@
             "variable_id": "1055"
           },
           "1055": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1056": {
             "label_type": "SymbolLookup",
@@ -64070,7 +64070,7 @@
             "value_type": "null"
           },
           "1079": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "108": {
             "label_type": "SymbolLookup",
@@ -64240,7 +64240,7 @@
             "value_type": "null"
           },
           "1158": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "116": {
             "case_expression": "error",
@@ -64251,7 +64251,7 @@
             "label_type": "ForStatement"
           },
           "1170": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1172": {
             "comment": "// Missing Case for_range",
@@ -64370,7 +64370,7 @@
             "value_type": "null"
           },
           "1216": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1218": {
             "arguments_id": "1223",
@@ -64433,7 +64433,7 @@
             "variable_type": "*http.Request"
           },
           "1254": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1256": {
             "label_type": "Assignment",
@@ -64517,7 +64517,7 @@
             "value_type": "string"
           },
           "1282": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1284": {
             "label_type": "Return",
@@ -64554,7 +64554,7 @@
             "value_type": "string"
           },
           "1298": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1300": {
             "label_type": "Return",
@@ -64570,7 +64570,7 @@
             "label_type": "Comment"
           },
           "1308": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "131": {
             "comment": "// Missing Case default",
@@ -64601,7 +64601,7 @@
             "name": "Connect"
           },
           "1339": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "134": {
             "label_type": "SymbolLookup",
@@ -64765,7 +64765,7 @@
             "variable_id": "1409"
           },
           "1409": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "141": {
             "label_type": "SymbolLookup",
@@ -64835,14 +64835,14 @@
             "value_type": "null"
           },
           "1433": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1435": {
             "label_type": "Return",
             "value_id": "1437"
           },
           "1437": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1438": {
             "label_type": "Literal",
@@ -64865,7 +64865,7 @@
             "variable_id": "1445"
           },
           "1445": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1446": {
             "label_type": "SymbolLookup",
@@ -64949,14 +64949,14 @@
             "value_type": "null"
           },
           "1474": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1476": {
             "label_type": "Return",
             "value_id": "1478"
           },
           "1478": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1479": {
             "label_type": "Literal",
@@ -64968,7 +64968,7 @@
             "symbol": "err"
           },
           "1485": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1487": {
             "label_type": "Assignment",
@@ -65105,7 +65105,7 @@
             "variable_id": "1529"
           },
           "1529": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "153": {
             "label_type": "SymbolLookup",
@@ -65175,14 +65175,14 @@
             "value_type": "null"
           },
           "1553": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1555": {
             "label_type": "Return",
             "value_id": "1557"
           },
           "1557": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1558": {
             "label_type": "Literal",
@@ -65203,7 +65203,7 @@
             "value_id": "1568"
           },
           "1568": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1569": {
             "label_type": "SymbolLookup",
@@ -65244,7 +65244,7 @@
             "variable_type": "[]string"
           },
           "1594": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1596": {
             "block_id": "1606",
@@ -65255,7 +65255,7 @@
             "symbol": "Error"
           },
           "1606": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1608": {
             "comment": "// Missing Case for_range",
@@ -65346,7 +65346,7 @@
             "member": "http"
           },
           "1674": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1676": {
             "block_id": "1677",
@@ -65464,7 +65464,7 @@
             "name": "PrintVars"
           },
           "1744": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1746": {
             "label_type": "VariableDeclaration",
@@ -65478,7 +65478,7 @@
             "label_type": "MethodInvocation"
           },
           "1754": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1755": {
             "label_type": "Literal",
@@ -65520,7 +65520,7 @@
             "variable_id": "1768"
           },
           "1768": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1769": {
             "label_type": "SymbolLookup",
@@ -65539,7 +65539,7 @@
             "symbol": "java"
           },
           "1775": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1776": {
             "label_type": "Literal",
@@ -65613,7 +65613,7 @@
             "name": "ForLoops"
           },
           "1810": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1812": {
             "label_type": "VariableDeclaration",
@@ -65629,7 +65629,7 @@
             "label_type": "ForStatement"
           },
           "1839": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "184": {
             "expression": "StatusInternalServerError",
@@ -65682,7 +65682,7 @@
             "symbol": "StatusInternalServerError"
           },
           "1872": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1874": {
             "comment": "// Missing Case for_statement",
@@ -65754,7 +65754,7 @@
             "label_type": "ForStatement"
           },
           "1910": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1912": {
             "comment": "// Missing Case for_statement",
@@ -65822,7 +65822,7 @@
             "label_type": "ForStatement"
           },
           "1945": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1947": {
             "comment": "// Missing Case for_statement",
@@ -65881,7 +65881,7 @@
             "label_type": "ForStatement"
           },
           "1969": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "1971": {
             "comment": "// Missing Case for_statement",
@@ -65928,7 +65928,7 @@
             "variable_type": "httprouter.Handle"
           },
           "219": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "221": {
             "label_type": "Return",
@@ -65958,7 +65958,7 @@
             "variable_type": "httprouter.Params"
           },
           "251": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "253": {
             "comment": "// Missing Case func_literal",
@@ -66022,7 +66022,7 @@
             "variable_id": "273"
           },
           "273": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "274": {
             "label_type": "SymbolLookup",
@@ -66075,7 +66075,7 @@
             "symbol": "sqlmapDetected"
           },
           "294": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "296": {
             "arguments_id": "301",
@@ -66175,7 +66175,7 @@
             "value_id": null
           },
           "341": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "343": {
             "arguments_id": "345",
@@ -66223,7 +66223,7 @@
             "variable_type": "httprouter.Handle"
           },
           "384": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "386": {
             "label_type": "VariableDeclaration",
@@ -66231,7 +66231,7 @@
             "variable": "sess"
           },
           "391": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "392": {
             "expression": "session.New",
@@ -66280,7 +66280,7 @@
             "variable_type": "httprouter.Params"
           },
           "431": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "433": {
             "comment": "// Missing Case func_literal",
@@ -66324,7 +66324,7 @@
             "symbol": "r"
           },
           "447": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "449": {
             "label_type": "Assignment",
@@ -66446,7 +66446,7 @@
             "variable_type": "string"
           },
           "539": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "541": {
             "comment": "/* this funciton use to get data Profile from database with vulnerable query */",
@@ -66459,7 +66459,7 @@
             "variable_id": "543"
           },
           "543": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "544": {
             "label_type": "SymbolLookup",
@@ -66521,7 +66521,7 @@
             "label_type": "ArgumentList"
           },
           "57": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "570": {
             "label_type": "Literal",
@@ -66542,7 +66542,7 @@
             "variable_id": "577"
           },
           "577": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "578": {
             "label_type": "SymbolLookup",
@@ -66605,7 +66605,7 @@
             "value_type": "null"
           },
           "599": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "6": {
             "expression": "(\"errors\"\n\"fmt\"\n\"log\"\n\"net/http\"\n\n\"github.com/julienschmidt/httprouter\"\n)",
@@ -66640,7 +66640,7 @@
             "label_type": "ForStatement"
           },
           "632": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "634": {
             "comment": "// Missing Case for_statement",
@@ -66789,7 +66789,7 @@
             "value_type": "null"
           },
           "683": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "685": {
             "arguments_id": "690",
@@ -66879,7 +66879,7 @@
             "variable_type": "string"
           },
           "738": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "740": {
             "comment": "/* this funciton use to get data Profile from database with prepare statement */",
@@ -66892,7 +66892,7 @@
             "variable_id": "742"
           },
           "742": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "743": {
             "label_type": "SymbolLookup",
@@ -66932,7 +66932,7 @@
             "true_id": "82"
           },
           "763": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "764": {
             "label_type": "Literal",
@@ -66945,7 +66945,7 @@
             "variable_id": "769"
           },
           "769": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "770": {
             "label_type": "SymbolLookup",
@@ -67017,7 +67017,7 @@
             "value_type": "null"
           },
           "792": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "794": {
             "label_type": "Return",
@@ -67063,7 +67063,7 @@
             "member": "stmt.QueryRow(uid)"
           },
           "82": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "820": {
             "arguments_id": "825",
@@ -67208,7 +67208,7 @@
             "value_type": "null"
           },
           "869": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "871": {
             "label_type": "Return",
@@ -67251,7 +67251,7 @@
             "variable_type": "*http.Request"
           },
           "918": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "920": {
             "label_type": "Assignment",
@@ -67259,7 +67259,7 @@
             "variable_id": "921"
           },
           "921": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "922": {
             "label_type": "SymbolLookup",
@@ -67322,7 +67322,7 @@
             "value_type": "null"
           },
           "945": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "947": {
             "arguments_id": "952",
@@ -67400,7 +67400,7 @@
             "symbol": "auth"
           },
           "997": {
-            "label_type": "StatementBlock"
+            "label_type": "ExecutionBlock"
           },
           "999": {
             "comment": "// Missing Case if + short_var_declaration + binary_expression + unary_expression",
