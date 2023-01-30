@@ -655,7 +655,7 @@ def _get_github_repos(token: str) -> tuple[BasicRepoData, ...]:
 async def get_gitlab_projects(*, token: str) -> tuple[BasicRepoData, ...]:
     try:
         return await in_thread(_get_gitlab_projects, token=token)
-    except GitlabAuthenticationError as exc:
+    except (GitlabAuthenticationError, KeyError) as exc:
         LOGGER.exception(exc, extra=dict(extra=locals()))
     return tuple()
 
@@ -667,7 +667,7 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
             chain.from_iterable(
                 tuple(
                     group.projects.list(
-                        min_access_level=AccessLevel.GUEST.value,
+                        min_access_level=AccessLevel.REPORTER.value,
                     )
                     for group in groups
                 )
