@@ -25,6 +25,17 @@ in {
         src = "/common/cluster/infra";
         version = "1.0";
       };
+      commonClusterNew = {
+        setup = [
+          searchPaths
+          outputs."/secretsForAwsFromGitlab/prodCommon"
+          outputs."/secretsForEnvFromSops/commonCloudflareProd"
+          outputs."/secretsForEnvFromSops/commonClusterProd"
+          outputs."/secretsForTerraformFromEnv/commonCluster"
+        ];
+        src = "/common/cluster/new";
+        version = "1.0";
+      };
     };
   };
   lintTerraform = {
