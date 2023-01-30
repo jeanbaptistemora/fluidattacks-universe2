@@ -366,7 +366,15 @@ def validate_url_root_component(root: Root, component: str) -> None:
             if root.state.port and root.state.protocol != "FILE"
             else root.state.host
         )
-
+        print(
+            url_with_port,
+            f"{component}/".startswith(
+                f"{root.state.protocol.lower()}://{url_with_port}"
+                f"{root.state.path.removesuffix('/')}/"
+            ),
+            component == f"{root.state.protocol.lower()}://{url_with_port}"
+            f"{root.state.path}?{root.state.query}",
+        )
         if root.state.query is None and f"{component}/".startswith(
             f"{root.state.protocol.lower()}://{url_with_port}"
             f"{root.state.path.removesuffix('/')}/"

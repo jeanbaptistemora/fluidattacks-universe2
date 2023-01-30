@@ -16,12 +16,13 @@ async def get_result(
     user: str,
     group: str,
     key: str,
+    branch: str,
     url: str,
 ) -> Dict[str, Any]:
     query: str = f"""
       mutation {{
         validateGitAccess(
-            branch: "trunk"
+            branch: "{branch}"
             credentials: {{
                 key: "{key}"
                 name: "SSH Key"

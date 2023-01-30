@@ -1,5 +1,6 @@
 from custom_exceptions import (
     InactiveRoot,
+    InvalidChar,
     InvalidGitRoot,
     InvalidRootComponent,
     InvalidUrl,
@@ -32,6 +33,7 @@ from roots.validations import (
     validate_git_access,
     validate_git_root,
     validate_git_root_deco,
+    validate_nickname,
     working_credentials,
 )
 
@@ -101,6 +103,10 @@ async def test_validate_component() -> None:
     with pytest.raises(InvalidUrl):
         await validate_component(
             loaders, git_root, "://app.invalid.com:66000/test"
+        )
+    with pytest.raises(InvalidUrl):
+        await validate_component(
+            loaders, url_root, "://app.invalid.com:66000/test"
         )
 
 
@@ -212,3 +218,9 @@ async def test_is_git_unique() -> None:
         group_name="unittesting",
         roots=roots,
     )
+
+
+def test_validate_nickname() -> None:
+    validate_nickname(nickname="valid-username_1")
+    with pytest.raises(InvalidChar):
+        validate_nickname(nickname="invalidusername!")
