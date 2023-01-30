@@ -9,6 +9,7 @@ import { Dashboard } from "scenes/Dashboard";
 import { GET_USER_ORGANIZATIONS } from "scenes/Dashboard/components/Navbar/Breadcrumb/queries";
 import { GET_USER } from "scenes/Dashboard/queries";
 import type { IUser } from "scenes/Dashboard/types";
+import { featurePreviewContext } from "utils/featurePreview";
 
 describe("Dashboard", (): void => {
   const permissionsResult: IUser = {
@@ -103,5 +104,36 @@ describe("Dashboard", (): void => {
       "href",
       "/home"
     );
+  });
+
+  it("should render sidebar fp component", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const { container } = render(
+      <featurePreviewContext.Provider value={{ featurePreview: true }}>
+        <MemoryRouter initialEntries={["/orgs/okada"]}>
+          <MockedProvider mocks={mocks}>
+            <Dashboard />
+          </MockedProvider>
+        </MemoryRouter>
+      </featurePreviewContext.Provider>
+    );
+
+    await waitFor((): void => {
+      expect(container.querySelector("#navbar")).toBeInTheDocument();
+    });
+
+    const appLogo = screen.getAllByRole("link");
+
+    expect(appLogo[1]).toBeInTheDocument();
+    expect(appLogo[1]).toHaveAttribute("href", "/home");
+    expect(appLogo[2]).toHaveAttribute("href", "/orgs/okada/groups");
+    expect(appLogo[3]).toHaveAttribute("href", "/orgs/okada/analytics");
+    expect(appLogo[4]).toHaveAttribute("href", "/orgs/okada/policies");
+    expect(appLogo[5]).toHaveAttribute("href", "/orgs/okada/stakeholders");
+    expect(appLogo[6]).toHaveAttribute("href", "/orgs/okada/portfolios");
+    expect(appLogo[7]).toHaveAttribute("href", "/orgs/okada/outofscope");
+    expect(appLogo[8]).toHaveAttribute("href", "/orgs/okada/credentials");
+    expect(appLogo[9]).toHaveAttribute("href", "/orgs/okada/compliance");
   });
 });
