@@ -13,7 +13,6 @@ from db_model.finding_comments.enums import (
     CommentType,
 )
 from db_model.finding_comments.types import (
-    FindingComment,
     FindingCommentsRequest,
 )
 from db_model.findings.enums import (
@@ -31,7 +30,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -77,13 +75,15 @@ async def test_request_hold_vuln(
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         != ""
     )
+    assert vulnerability.verification
     assert (
-        vulnerability.verification.status  # type: ignore
+        vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
     )
-    assert finding.verification.modified_by != email  # type: ignore
+    assert finding.verification
+    assert finding.verification.modified_by != email
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, event=event_id, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
@@ -92,19 +92,19 @@ async def test_request_hold_vuln(
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
     vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert finding.verification.status == FVStatus.ON_HOLD  # type: ignore
-    assert finding.verification.modified_by == email  # type: ignore
+    assert finding.verification
+    assert finding.verification.status == FVStatus.ON_HOLD
+    assert finding.verification.modified_by == email
+    assert vulnerability.verification
     assert (
-        vulnerability.verification.status  # type: ignore
+        vulnerability.verification.status
         == VulnerabilityVerificationStatus.ON_HOLD
     )
     assert (
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         != email
     )
-    finding_comments: tuple[
-        FindingComment, ...
-    ] = await loaders.finding_comments.load(
+    finding_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
@@ -136,7 +136,7 @@ async def test_request_hold_vuln_fail(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     event_id: str = "418900971"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, event=event_id, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" in result

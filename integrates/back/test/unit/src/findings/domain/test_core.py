@@ -436,9 +436,7 @@ async def test_add_comment() -> None:
         "unittesting",
     )
     loaders = get_new_context()
-    finding_comments: tuple[
-        FindingComment, ...
-    ] = await loaders.finding_comments.load(
+    finding_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
@@ -464,9 +462,7 @@ async def test_add_comment() -> None:
         "unittesting",
     )
     new_loaders = get_new_context()
-    new_finding_comments: tuple[
-        FindingComment, ...
-    ] = await new_loaders.finding_comments.load(
+    new_finding_comments = await new_loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
@@ -741,9 +737,7 @@ async def test_verify_vulnerabilities() -> None:
         loaders=info.context.loaders,
     )
     loaders = get_new_context()
-    finding_commets: tuple[
-        FindingComment, ...
-    ] = await loaders.finding_comments.load(
+    finding_commets = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )

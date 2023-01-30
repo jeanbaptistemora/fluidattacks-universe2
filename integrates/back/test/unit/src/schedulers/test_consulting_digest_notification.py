@@ -56,7 +56,7 @@ def test_get_days_since_comment() -> None:
     ["comments"],
     [
         [
-            (
+            [
                 GroupComment(
                     group_name="unittesting",
                     id="1545946228675",
@@ -84,14 +84,14 @@ def test_get_days_since_comment() -> None:
                     email="unittest@fluidattacks.com",
                     full_name="Miguel de Orellana",
                 ),
-            )
+            ]
         ],
     ],
 )
 @freeze_time("2022-12-05T06:00:00.0")
 def test_last_comments(
     *,
-    comments: tuple[Union[GroupComment, EventComment, FindingComment], ...],
+    comments: list[Union[GroupComment, EventComment, FindingComment]],
 ) -> None:
     assert len(last_comments(comments)) == 2
 

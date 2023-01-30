@@ -150,7 +150,7 @@ async def _get_finding_comments(
     loaders: Dataloaders,
     comment_type: CommentType,
     finding_id: str,
-) -> tuple[FindingComment, ...]:
+) -> list[FindingComment]:
     return await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=comment_type,
@@ -164,9 +164,9 @@ async def _get_finding_verification_comments(
     loaders: Dataloaders,
     comment_type: CommentType,
     finding_id: str,
-) -> tuple[FindingComment, ...]:
+) -> list[FindingComment]:
     if comment_type == CommentType.OBSERVATION:
-        return tuple()
+        return []
 
     return await loaders.finding_comments.load(
         FindingCommentsRequest(
@@ -197,7 +197,7 @@ async def add_comment(
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
     if parent_comment != "0":
-        all_finding_comments: tuple[FindingComment, ...] = tuple(
+        all_finding_comments: list[FindingComment] = list(
             chain.from_iterable(
                 await collect(
                     [

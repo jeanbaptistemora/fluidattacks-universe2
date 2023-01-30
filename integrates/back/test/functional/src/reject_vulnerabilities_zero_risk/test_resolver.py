@@ -9,7 +9,6 @@ from db_model.finding_comments.enums import (
     CommentType,
 )
 from db_model.finding_comments.types import (
-    FindingComment,
     FindingCommentsRequest,
 )
 from db_model.vulnerabilities.enums import (
@@ -22,7 +21,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -43,9 +41,10 @@ async def test_reject_vulnerabilities_zero_risk(
     loaders: Dataloaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED  # type: ignore
+    assert vuln.zero_risk
+    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
@@ -55,10 +54,9 @@ async def test_reject_vulnerabilities_zero_risk(
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED  # type: ignore
-    zero_risk_comments: tuple[
-        FindingComment, ...
-    ] = await loaders.finding_comments.load(
+    assert vuln.zero_risk
+    assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED
+    zero_risk_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.ZERO_RISK, finding_id=finding_id
         )
@@ -87,7 +85,7 @@ async def test_reject_vulnerabilities_zero_risk_fail(
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.zero_risk is None
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" in result
@@ -122,7 +120,7 @@ async def test_access_denied_fail(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" in result

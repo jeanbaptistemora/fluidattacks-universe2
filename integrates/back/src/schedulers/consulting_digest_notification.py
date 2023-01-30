@@ -48,6 +48,7 @@ from group_access import (
     domain as group_access_domain,
 )
 import logging
+import logging.config
 from mailchimp_transactional.api_client import (
     ApiClientError,
 )
@@ -107,28 +108,30 @@ def get_days_since_comment(date: datetime) -> int:
 
 
 def last_comments(
-    comments: tuple[Union[GroupComment, EventComment, FindingComment], ...],
-) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+    comments: list[Union[GroupComment, EventComment, FindingComment]],
+) -> list[Union[GroupComment, EventComment, FindingComment]]:
     comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
-    return tuple(
+    return [
         comment
         for comment in comments
         if get_days_since_comment(comment.creation_date) < comments_age
-    )
+    ]
 
 
 async def group_comments(
     loaders: Dataloaders, group_name: str
 ) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     comments = await loaders.group_comments.load(group_name)
-    return last_comments(tuple(comments))
+    return tuple(last_comments(comments))
 
 
 async def instance_comments(
     loaders: Dataloaders, instance_id: str, instance_type: str
 ) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     if instance_type == "event":
-        return last_comments(await loaders.event_comments.load(instance_id))
+        return tuple(
+            last_comments(await loaders.event_comments.load(instance_id))
+        )
 
     comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
@@ -140,7 +143,7 @@ async def instance_comments(
         )
     )
 
-    return last_comments(comments)
+    return tuple(last_comments(comments))
 
 
 async def group_instance_comments(
@@ -186,7 +189,7 @@ def unique_emails(
 
 async def finding_comments(
     loaders: Dataloaders, finding_id: str
-) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> list[Union[GroupComment, EventComment, FindingComment]]:
     comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id

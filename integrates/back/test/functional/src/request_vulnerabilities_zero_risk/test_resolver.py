@@ -9,7 +9,6 @@ from db_model.finding_comments.enums import (
     CommentType,
 )
 from db_model.finding_comments.types import (
-    FindingComment,
     FindingCommentsRequest,
 )
 from db_model.vulnerabilities.enums import (
@@ -64,10 +63,9 @@ async def test_request_vulnerabilities_zero_risk(
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED  # type: ignore
-    zero_risk_comments: tuple[
-        FindingComment, ...
-    ] = await loaders.finding_comments.load(
+    assert vuln.zero_risk
+    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED
+    zero_risk_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.ZERO_RISK, finding_id=finding_id
         )

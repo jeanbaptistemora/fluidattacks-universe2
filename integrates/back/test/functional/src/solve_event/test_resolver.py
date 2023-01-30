@@ -15,7 +15,6 @@ from db_model.finding_comments.enums import (
     CommentType,
 )
 from db_model.finding_comments.types import (
-    FindingComment,
     FindingCommentsRequest,
 )
 from db_model.findings.enums import (
@@ -127,7 +126,7 @@ async def test_solve_event_on_hold(
     )
     requester = await get_reattack_requester(loaders, vulnerability)
     solve_consult: str = "The reattacks are back to"
-    consults: tuple[FindingComment, ...] = await loaders.finding_comments.load(
+    consults = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding.id
         )
@@ -139,15 +138,17 @@ async def test_solve_event_on_hold(
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
     assert any(solve_consult in consult.content for consult in consults)
-    assert finding.verification.status == FinVStatus.REQUESTED  # type: ignore
-    assert finding.verification.modified_by != email  # type: ignore
-    assert finding.verification.modified_by == requester  # type: ignore
+    assert finding.verification
+    assert finding.verification.status == FinVStatus.REQUESTED
+    assert finding.verification.modified_by != email
+    assert finding.verification.modified_by == requester
     assert (
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         == requester
     )
+    assert vulnerability.verification
     assert (
-        vulnerability.verification.status  # type: ignore
+        vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
     )
     assert any(email in consult.email for consult in consults)

@@ -27,14 +27,11 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
 async def _get_comments(
     *, comment_type: CommentType, finding_id: str
-) -> tuple[FindingComment, ...]:
+) -> list[FindingComment]:
     primary_key = keys.build_key(
         facet=TABLE.facets["finding_comment"],
         values={"finding_id": finding_id},
@@ -54,16 +51,16 @@ async def _get_comments(
         table=TABLE,
     )
 
-    return tuple(format_finding_comments(item) for item in response.items)
+    return [format_finding_comments(item) for item in response.items]
 
 
 class FindingCommentsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: Iterable[FindingCommentsRequest]
-    ) -> tuple[tuple[FindingComment, ...], ...]:
-        return await collect(
-            tuple(
+        self, requests: list[FindingCommentsRequest]
+    ) -> list[list[FindingComment]]:
+        return list(
+            await collect(
                 _get_comments(
                     comment_type=request.comment_type,
                     finding_id=request.finding_id,
