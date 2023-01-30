@@ -421,8 +421,9 @@ def match_ast_d(
     graph: Graph,
     n_id: str,
     label_type: str,
+    depth: int = 1,
 ) -> Optional[str]:
-    return match_ast(graph, n_id, label_type)[label_type]
+    return match_ast(graph, n_id, label_type, depth=depth)[label_type]
 
 
 def match_ast_group(
@@ -449,8 +450,9 @@ def match_ast_group_d(
     graph: Graph,
     n_id: str,
     label_type: str,
+    depth: int = 1,
 ) -> List[str]:
-    return match_ast_group(graph, n_id, label_type)[label_type]
+    return match_ast_group(graph, n_id, label_type, depth=depth)[label_type]
 
 
 def get_ast_childs(
