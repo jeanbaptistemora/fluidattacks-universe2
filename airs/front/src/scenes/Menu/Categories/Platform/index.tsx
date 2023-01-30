@@ -18,9 +18,18 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
   const { width } = useWindowSize();
 
   return (
-    <Container bgColor={"#ffffff"} display={width > 1200 ? display : "none"}>
-      <Container display={"flex"} height={"380px"} justify={"center"}>
-        <Container maxWidth={"350px"} mr={4}>
+    <Container bgColor={"#ffffff"} display={display} scroll={"y"}>
+      <Container
+        display={width > 960 ? "flex" : "inline"}
+        height={"max-content"}
+        justify={"center"}
+      >
+        <Container
+          maxWidth={width > 1200 ? "370px" : "unset"}
+          mr={3}
+          pb={4}
+          pl={4}
+        >
           <Container
             borderBottomColor={"#b0b0bf"}
             height={"36px"}
@@ -49,7 +58,7 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
             {translate.t("menu.platform.aSinglePane.ARMplatform.subtitle")}
           </Text>
         </Container>
-        <Container maxWidth={"768px"}>
+        <Container maxWidth={"768px"} ml={4} mr={4}>
           <Container
             borderBottomColor={"#b0b0bf"}
             height={"36px"}
@@ -60,8 +69,11 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
               {translate.t("menu.platform.products.title")}
             </Text>
           </Container>
-          <Grid columns={2} gap={"1rem"}>
-            <Container width={"370px"}>
+          <Grid
+            columns={width < 1201 ? 1 : 2}
+            gap={width > 1200 ? "1rem" : "0rem"}
+          >
+            <Container width={"370px"} widthSm={"300px"}>
               <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
                 <Text color={"#121216"} mb={3} weight={"bold"}>
                   {translate.t("menu.platform.products.links.sast")}
