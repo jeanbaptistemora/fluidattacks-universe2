@@ -20,12 +20,9 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
-async def _get_comments(*, event_id: str) -> tuple[EventComment, ...]:
+async def _get_comments(*, event_id: str) -> list[EventComment]:
     primary_key = keys.build_key(
         facet=TABLE.facets["event_comment"],
         values={"event_id": event_id},
@@ -43,14 +40,18 @@ async def _get_comments(*, event_id: str) -> tuple[EventComment, ...]:
         table=TABLE,
     )
 
-    return tuple(format_event_comments(item) for item in response.items)
+    return [format_event_comments(item) for item in response.items]
 
 
 class EventCommentsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, events_ids: Iterable[str]
-    ) -> tuple[tuple[EventComment, ...], ...]:
-        return await collect(
-            tuple(_get_comments(event_id=event_id) for event_id in events_ids)
+        self, events_ids: list[str]
+    ) -> list[list[EventComment]]:
+        return list(
+            await collect(
+                tuple(
+                    _get_comments(event_id=event_id) for event_id in events_ids
+                )
+            )
         )

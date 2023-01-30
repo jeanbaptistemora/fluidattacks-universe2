@@ -26,12 +26,10 @@ async def remove_comments(event_id: str) -> None:
 
 async def get_comments(
     loaders: Dataloaders, group_name: str, event_id: str, email: str
-) -> tuple[EventComment, ...]:
-    comments: tuple[EventComment, ...] = await loaders.event_comments.load(
-        event_id
-    )
+) -> list[EventComment]:
+    comments = await loaders.event_comments.load(event_id)
     enforcer = await authz.get_group_level_enforcer(loaders, email)
     if enforcer(group_name, "handle_comment_scope"):
         return comments
 
-    return tuple(filter(_is_scope_comment, comments))
+    return list(filter(_is_scope_comment, comments))

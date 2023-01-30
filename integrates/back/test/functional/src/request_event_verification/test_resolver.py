@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.event_comments.types import (
-    EventComment,
-)
 from db_model.events.enums import (
     EventStateStatus,
 )
@@ -44,9 +41,7 @@ async def test_request_event_verification(
     loaders: Dataloaders = get_new_context()
     event: Event = await loaders.event.load(event_id)
     assert event.state.status == EventStateStatus.VERIFICATION_REQUESTED
-    event_comments: tuple[
-        EventComment, ...
-    ] = await loaders.event_comments.load(event_id)
+    event_comments = await loaders.event_comments.load(event_id)
     assert event.state.comment_id in {comment.id for comment in event_comments}
 
 

@@ -101,6 +101,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 import logging
+import logging.config
 from mailer import (
     events as events_mail,
 )
@@ -176,9 +177,7 @@ async def add_comment(
         loaders, content, email, group_name, parent_comment
     )
     if parent_comment != "0":
-        event_comments: tuple[
-            EventComment, ...
-        ] = await loaders.event_comments.load(event_id)
+        event_comments = await loaders.event_comments.load(event_id)
         event_comments_ids = [comment.id for comment in event_comments]
         if parent_comment not in event_comments_ids:
             raise InvalidCommentParent()
