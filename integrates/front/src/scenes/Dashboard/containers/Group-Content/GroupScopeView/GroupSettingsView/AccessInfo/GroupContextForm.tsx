@@ -70,10 +70,10 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
 
   const dataset = data.group;
 
-  return (
-    <React.StrictMode>
-      <Form id={"editGroupAccessInfo"}>
-        {isEditing ? (
+  if (isEditing) {
+    return (
+      <React.StrictMode>
+        <Form id={"editGroupAccessInfo"}>
           <Field name={"groupContext"} validate={maxGroupContextLength}>
             {({
               field,
@@ -103,7 +103,25 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
               );
             }}
           </Field>
-        ) : dataset.groupContext ? (
+          <ActionButtons
+            editTooltip={t(
+              "searchFindings.groupAccessInfoSection.tooltips.editGroupContext"
+            )}
+            isEditing={isEditing}
+            isPristine={isGroupAccessInfoPristine}
+            onEdit={toggleEdit}
+            onUpdate={handleSubmit}
+            permission={"api_mutations_update_group_access_info_mutate"}
+          />
+        </Form>
+      </React.StrictMode>
+    );
+  }
+
+  return (
+    <React.StrictMode>
+      <Form id={"editGroupAccessInfo"}>
+        {dataset.groupContext ? (
           <div data-color-mode={"light"}>
             <MDEditor.Markdown
               source={dataset.groupContext}
