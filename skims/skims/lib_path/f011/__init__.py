@@ -6,6 +6,9 @@ from lib_path.f011.composer import (
     composer_json,
     composer_lock,
 )
+from lib_path.f011.conan import (
+    conan_conanfile_txt,
+)
 from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
@@ -50,6 +53,11 @@ def run_composer_json(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_composer_lock(content: str, path: str) -> Vulnerabilities:
     return composer_lock(content, path)
+
+
+@SHIELD_BLOCKING
+def run_conan_conanfile_txt(content: str, path: str) -> Vulnerabilities:
+    return conan_conanfile_txt(content, path)
 
 
 @SHIELD_BLOCKING
