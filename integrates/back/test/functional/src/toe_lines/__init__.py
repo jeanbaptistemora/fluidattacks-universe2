@@ -62,12 +62,14 @@ async def get_result(
     *,
     user: str,
     group_name: str,
+    filename: Optional[str] = None,
     root_id: Optional[str] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {
         "query": query,
         "variables": {
+            "filename": filename,
             "groupName": group_name,
             "rootId": root_id,
         },
