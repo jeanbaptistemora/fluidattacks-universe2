@@ -3,7 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import dayjs from "dayjs";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -28,7 +28,6 @@ import { handleEditGroupDataError } from "scenes/Dashboard/containers/Group-Cont
 import type { IGroupData } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { formatIsoDate } from "utils/date";
-import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -295,37 +294,24 @@ const GroupInformation: React.FC = (): JSX.Element => {
                 </Col>
                 <Col lg={33} md={50} sm={100}>
                   <Card>
-                    <Text mb={2}>
-                      {t(
+                    <Input
+                      disabled={permissions.cannot(
+                        "api_mutations_update_group_stakeholder_mutate"
+                      )}
+                      id={"add-group-description"}
+                      label={t(
                         "organization.tabs.groups.newGroup.sprintDuration.text"
                       )}
-                    </Text>
-                    <Tooltip
-                      id={
-                        "organization.tabs.groups.newGroup.sprintDuration.tooltip"
-                      }
-                      place={"top"}
-                      tip={t(
+                      name={"sprintDuration"}
+                      tooltip={t(
                         "organization.tabs.groups.newGroup.sprintDuration.tooltip"
                       )}
-                    >
-                      <Field
-                        component={FormikText}
-                        disabled={permissions.cannot(
-                          "api_mutations_update_group_stakeholder_mutate"
-                        )}
-                        id={"add-group-description"}
-                        name={"sprintDuration"}
-                        type={"text"}
-                        validate={composeValidators([
-                          numberBetween(
-                            MIN_SPRINT_DURATION,
-                            MAX_SPRINT_DURATION
-                          ),
-                          numeric,
-                        ])}
-                      />
-                    </Tooltip>
+                      type={"text"}
+                      validate={composeValidators([
+                        numberBetween(MIN_SPRINT_DURATION, MAX_SPRINT_DURATION),
+                        numeric,
+                      ])}
+                    />
                   </Card>
                 </Col>
                 <Col lg={33} md={50} sm={100}>
