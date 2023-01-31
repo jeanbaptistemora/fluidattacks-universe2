@@ -136,7 +136,7 @@ describe("Validations", (): void => {
 
     const maxSize: number = 10;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".webm",
@@ -159,7 +159,7 @@ describe("Validations", (): void => {
 
     const maxSize: number = 10;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".webm",
@@ -179,7 +179,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".png",
@@ -199,7 +199,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".png",
@@ -219,7 +219,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".py",
@@ -239,7 +239,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: ".py",
@@ -259,7 +259,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.webm",
@@ -279,7 +279,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.py",
@@ -299,7 +299,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.png",
@@ -322,7 +322,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.py",
@@ -342,7 +342,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.py",
@@ -362,7 +362,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.png",
@@ -382,7 +382,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.csv",
@@ -402,7 +402,7 @@ describe("Validations", (): void => {
     const month: number = 5;
     const year: number = 2019;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "foo.exp",
@@ -553,7 +553,7 @@ describe("Validations", (): void => {
     const year: number = 2019;
     const MIB: number = 1048576;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "filename.pdf",
@@ -574,7 +574,7 @@ describe("Validations", (): void => {
     const year: number = 2019;
     const MIB: number = 1048576;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "badFile{name.pdf.exe",
@@ -595,7 +595,7 @@ describe("Validations", (): void => {
     const year: number = 2019;
     const MIB: number = 1048576;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "badFile.exe",
@@ -616,7 +616,7 @@ describe("Validations", (): void => {
     const year: number = 2019;
     const MIB: number = 5242880;
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       lastModified: day - month - year,
       name: "badFile.exe",
@@ -783,7 +783,7 @@ describe("Validations", (): void => {
   it("Should check the evidence description", (): void => {
     expect.hasAssertions();
 
-    const file: File = new File([""], "image.png", { type: "image/png" });
+    const file = new File([""], "image.png", { type: "image/png" });
 
     const validEvidenceDescription: FieldValidator = isValidEvidenceDescription(
       "",
@@ -797,7 +797,7 @@ describe("Validations", (): void => {
   it("Should be a big size file", (): void => {
     expect.hasAssertions();
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       name: "test.yml",
       size: 1048577,
@@ -818,7 +818,7 @@ describe("Validations", (): void => {
   it("Should be a file without .yml or .yaml extension", (): void => {
     expect.hasAssertions();
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       name: "test.txt",
       size: 1048575,
@@ -831,7 +831,7 @@ describe("Validations", (): void => {
   it("Should be a valid vulns file", (): void => {
     expect.hasAssertions();
 
-    const file: File = {
+    const file = {
       ...new File([], ""),
       name: "test.yml",
       size: 1048575,
