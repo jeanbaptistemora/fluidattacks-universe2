@@ -5,13 +5,13 @@ from ariadne import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    InvalidGitCredentials,
     InvalidParameter,
 )
 from dataloaders import (
     Dataloaders,
 )
 from db_model.credentials.types import (
-    Credentials,
     CredentialsRequest,
 )
 from db_model.enums import (
@@ -68,12 +68,15 @@ async def mutate(
     if not is_pat and "azure_organization" in credentials:
         raise InvalidParameter("azure_organization")
 
-    current_credentials: Credentials = await loaders.credentials.load(
+    current_credentials = await loaders.credentials.load(
         CredentialsRequest(
             id=credentials_id,
             organization_id=organization_id,
         )
     )
+    if current_credentials is None:
+        raise InvalidGitCredentials()
+
     if current_credentials.state.type is CredentialType.OAUTH:
         raise InvalidParameter("type")
     await orgs_domain.update_credentials(

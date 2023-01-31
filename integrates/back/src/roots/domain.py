@@ -1985,6 +1985,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
                 await collect(
                     _ls_remote_root(root, credential, loaders)
                     for root, credential in zip(roots, roots_credentials)
+                    if credential
                 )
             ),
             tuple(

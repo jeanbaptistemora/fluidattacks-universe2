@@ -17,6 +17,7 @@ from custom_exceptions import (
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidAuthorization,
+    InvalidGitCredentials,
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
@@ -167,6 +168,21 @@ logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
+
+
+async def get_credentials(
+    loaders: Dataloaders, credentials_id: str, organization_id: str
+) -> Credentials:
+    credentials = await loaders.credentials.load(
+        CredentialsRequest(
+            id=credentials_id,
+            organization_id=organization_id,
+        )
+    )
+    if credentials is None:
+        raise InvalidGitCredentials()
+
+    return credentials
 
 
 async def add_credentials(
@@ -776,11 +792,10 @@ async def update_credentials(
     organization_id: str,
     modified_by: str,
 ) -> None:
-    current_credentials: Credentials = await loaders.credentials.load(
-        CredentialsRequest(
-            id=credentials_id,
-            organization_id=organization_id,
-        )
+    current_credentials = await get_credentials(
+        loaders=loaders,
+        credentials_id=credentials_id,
+        organization_id=organization_id,
     )
     credentials_type = attributes.type or current_credentials.state.type
     credentials_name = attributes.name or current_credentials.state.name

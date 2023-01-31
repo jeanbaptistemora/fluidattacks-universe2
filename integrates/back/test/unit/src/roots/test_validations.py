@@ -208,7 +208,7 @@ async def test_validate_git_access() -> None:
             secret=SshSecret(key="test_key"),
             loaders=get_new_context(),
         )
-    with pytest.raises(KeyError):
+    with pytest.raises(InvalidGitCredentials):
         await validate_git_access(
             url="https://app.fluidattacks.com",
             branch="trunk2",
@@ -235,7 +235,7 @@ async def test_validate_git_access() -> None:
 
 
 async def test_validate_credential_in_organization() -> None:
-    with pytest.raises(KeyError):
+    with pytest.raises(InvalidGitCredentials):
         await validate_credential_in_organization(
             loaders=get_new_context(),
             credential_id="test_id",
@@ -288,7 +288,7 @@ def test_validate_nickname_deco() -> None:
 
 
 async def test_validate_git_credentials_oauth() -> None:
-    with pytest.raises(KeyError):
+    with pytest.raises(InvalidGitCredentials):
         await validate_git_credentials_oauth(
             repo_url="https://fluidattacks.com/universe",
             branch="trunk",

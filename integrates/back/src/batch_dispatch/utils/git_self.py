@@ -16,7 +16,6 @@ from datetime import (
 )
 from db_model.credentials.types import (
     Credentials,
-    CredentialsRequest,
     HttpsPatSecret,
     HttpsSecret,
     OauthAzureSecret,
@@ -36,6 +35,7 @@ from git.repo.base import (
 )
 import git_self as git_utils
 import logging
+import logging.config
 from newutils.datetime import (
     get_utc_now,
 )
@@ -47,6 +47,9 @@ from oauth.bitbucket import (
 )
 from oauth.gitlab import (
     get_token,
+)
+from organizations import (
+    domain as orgs_domain,
 )
 from roots.utils import (
     get_oauth_type,
@@ -112,8 +115,6 @@ async def clone_root(
     cred: Credentials,
     loaders: Dataloaders,
 ) -> CloneResult:
-    token: Optional[str] = None
-    _credential: Credentials
     with tempfile.TemporaryDirectory() as temp_dir:
         if isinstance(cred.state.secret, SshSecret):
             folder_to_clone_root, stderr = await git_utils.ssh_clone(
@@ -144,11 +145,10 @@ async def clone_root(
             cred.state.secret,
             (OauthAzureSecret, OauthGitlabSecret, OauthBitbucketSecret),
         ):
-            _credential = await loaders.credentials.load(
-                CredentialsRequest(
-                    id=cred.id,
-                    organization_id=cred.organization_id,
-                )
+            _credential = await orgs_domain.get_credentials(
+                loaders=loaders,
+                credentials_id=cred.id,
+                organization_id=cred.organization_id,
             )
             token = await _get_token(credential=_credential, loaders=loaders)
             folder_to_clone_root, stderr = await git_utils.https_clone(

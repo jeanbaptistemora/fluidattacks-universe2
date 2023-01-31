@@ -44,7 +44,9 @@ async def _get_compliance_unreliable_indicators() -> (
     return format_unreliable_indicators(response.items[0])
 
 
-class ComplianceUnreliableIndicatorsLoader(DataLoader):
+class ComplianceUnreliableIndicatorsLoader(
+    DataLoader[str, ComplianceUnreliableIndicators]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, ids: list[str]

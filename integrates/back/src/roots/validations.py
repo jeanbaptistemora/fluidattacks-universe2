@@ -129,12 +129,14 @@ async def validate_credential_in_organization(
     credential_id: str,
     organization_id: str,
 ) -> None:
-    await loaders.credentials.load(
+    credential = await loaders.credentials.load(
         CredentialsRequest(
             id=credential_id,
             organization_id=organization_id,
         )
     )
+    if credential is None:
+        raise InvalidGitCredentials()
 
 
 async def working_credentials(
@@ -492,13 +494,18 @@ async def get_cred_token(
     loaders: Dataloaders,
     credential: Optional[Credentials] = None,
 ) -> Optional[str]:
-    token: Optional[str] = None
-    _credential: Credentials = credential or await loaders.credentials.load(
+    _credential: Optional[
+        Credentials
+    ] = credential or await loaders.credentials.load(
         CredentialsRequest(
             id=credential_id,
             organization_id=organization_id,
         )
     )
+    if not _credential:
+        return None
+
+    token: Optional[str] = None
     if isinstance(_credential.state.secret, OauthGithubSecret):
         token = _credential.state.secret.access_token
 
@@ -540,12 +547,15 @@ async def validate_git_credentials_oauth(
     if token is None:
         raise InvalidGitCredentials()
 
-    credential: Credentials = await loaders.credentials.load(
+    credential = await loaders.credentials.load(
         CredentialsRequest(
             id=credential_id,
             organization_id=organization_id,
         )
     )
+    if credential is None:
+        raise InvalidGitCredentials()
+
     last_commit = await git_self.https_ls_remote(
         branch=branch,
         repo_url=repo_url,

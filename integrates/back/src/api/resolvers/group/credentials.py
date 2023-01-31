@@ -15,7 +15,7 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
-    cast,
+    Optional,
 )
 
 
@@ -23,7 +23,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Credentials, ...]:
+) -> list[Optional[Credentials]]:
     loaders: Dataloaders = info.context.loaders
     group_roots = await loaders.group_roots.load(parent.name)
     group_credential_ids = {
@@ -31,17 +31,14 @@ async def resolve(
         for root in group_roots
         if isinstance(root, GitRoot) and root.state.credential_id
     }
-    group_credentials = cast(
-        tuple[Credentials, ...],
-        await loaders.credentials.load_many(
-            tuple(
-                CredentialsRequest(
-                    id=credential_id,
-                    organization_id=parent.organization_id,
-                )
-                for credential_id in group_credential_ids
+    group_credentials = await loaders.credentials.load_many(
+        tuple(
+            CredentialsRequest(
+                id=credential_id,
+                organization_id=parent.organization_id,
             )
-        ),
+            for credential_id in group_credential_ids
+        )
     )
 
     return group_credentials

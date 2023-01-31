@@ -48,12 +48,13 @@ async def _get_credentials(
         for credential in [format_credential(item) for item in items]
     }
 
-    return list(
-        response[(request.id, request.organization_id)] for request in requests
-    )
+    return [
+        response.get((request.id, request.organization_id))
+        for request in requests
+    ]
 
 
-class CredentialsLoader(DataLoader):
+class CredentialsLoader(DataLoader[CredentialsRequest, Optional[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: list[CredentialsRequest]

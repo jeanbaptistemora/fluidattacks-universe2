@@ -29,7 +29,6 @@ async def resolve(
             id=parent.state.credential_id,
             organization_id=group.organization_id,
         )
-        credential: Credentials = await loaders.credentials.load(request)
-        return credential
+        return await loaders.credentials.load(request)
 
     return None
