@@ -69,8 +69,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -79,8 +80,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -89,8 +91,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -99,8 +102,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -109,8 +113,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -119,8 +124,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -129,8 +135,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -139,8 +146,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -149,8 +157,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
     {
@@ -159,8 +168,9 @@ locals {
       map_public_ip_on_launch = true
       new_bits                = 6
       tags = {
-        "kubernetes.io/cluster/common" = "shared"
-        "kubernetes.io/role/elb"       = "1"
+        "kubernetes.io/cluster/common"     = "shared"
+        "kubernetes.io/cluster/common-k8s" = "shared"
+        "kubernetes.io/role/elb"           = "1"
       }
     },
   ]
