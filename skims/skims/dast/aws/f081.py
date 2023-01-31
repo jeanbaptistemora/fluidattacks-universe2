@@ -1,3 +1,4 @@
+import botocore
 import csv
 from dast.aws.types import (
     Location,
@@ -96,10 +97,68 @@ async def root_without_mfa(
     return vulns
 
 
+async def mfa_disabled_for_users_with_console_password(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="list_users"
+    )
+    method = (
+        core_model.MethodsEnum.AWS_MFA_DISABLED_FOR_USERS_WITH_CONSOLE_PASSWD
+    )
+    vulns: core_model.Vulnerabilities = ()
+    users = response.get("Users", []) if response else []
+    if users:
+        for user in users:
+            try:
+                await run_boto3_fun(
+                    credentials,
+                    service="iam",
+                    function="get_login_profile",
+                    parameters={"UserName": str(user["UserName"])},
+                )
+            except botocore.exceptions.ClientError:
+                continue
+
+            locations: List[Location] = []
+            user_policies: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_mfa_devices",
+                parameters={"UserName": str(user["UserName"])},
+            )
+            mfa_devices = user_policies.get("MFADevices", [])
+            if not mfa_devices:
+                locations = [
+                    Location(
+                        access_patterns=("/MFADevices",),
+                        arn=(f"{user['Arn']}"),
+                        values=(mfa_devices,),
+                        description=(
+                            "lib_path.f081."
+                            "mfa_disabled_for_users_with_console_password"
+                        ),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=user_policies,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
     has_mfa_disabled,
     root_without_mfa,
+    mfa_disabled_for_users_with_console_password,
 )
