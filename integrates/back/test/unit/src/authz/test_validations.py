@@ -1,9 +1,13 @@
 from authz.validations import (
+    validate_fluidattacks_staff_on_group,
     validate_fluidattacks_staff_on_group_deco,
+    validate_handle_comment_scope,
+    validate_role_fluid_reqs,
     validate_role_fluid_reqs_deco,
 )
 from custom_exceptions import (
     InvalidUserProvided,
+    PermissionDenied,
     UnexpectedUserRole,
 )
 from dataloaders import (
@@ -22,6 +26,21 @@ from typing import (
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+async def test_validate_fluidattacks_staff_on_group() -> None:
+
+    loaders: Dataloaders = get_new_context()
+    group: Group = await loaders.group.load("oneshottest")
+
+    assert validate_fluidattacks_staff_on_group(
+        group, "test@fluidattacks.com", "hacker"
+    )
+    assert validate_fluidattacks_staff_on_group(
+        group, "test@gmail.com", "user"
+    )
+    with pytest.raises(UnexpectedUserRole):
+        validate_fluidattacks_staff_on_group(group, "test@gmail.com", "hacker")
 
 
 async def test_validate_fluidattacks_staff_on_group_deco() -> None:
@@ -78,6 +97,17 @@ async def test_validate_fluidattacks_staff_on_group_deco() -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_role_fluid_reqs() -> None:
+    assert validate_role_fluid_reqs(email="test@gmail.com", role="hacker")
+    assert validate_role_fluid_reqs(
+        email="test@fluidattacks.com", role="customer_manager"
+    )
+    with pytest.raises(InvalidUserProvided):
+        validate_role_fluid_reqs(
+            email="test@gmail.com", role="customer_manager"
+        )
+
+
 def test_validate_role_fluid_reqs_deco() -> None:
     @validate_role_fluid_reqs_deco("email", "role")
     def decorated_func(email: str, role: str) -> str:
@@ -89,3 +119,14 @@ def test_validate_role_fluid_reqs_deco() -> None:
     )
     with pytest.raises(InvalidUserProvided):
         decorated_func(email="test@gmail.com", role="customer_manager")
+
+
+async def test_validate_handle_comment_scope() -> None:
+    with pytest.raises(PermissionDenied):
+        await validate_handle_comment_scope(
+            loaders=get_new_context(),
+            content="#internal",
+            user_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            parent_comment="0",
+        )
