@@ -26,6 +26,10 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model.toe_inputs.types import (
+    ToeInput,
+    ToeInputRequest,
+)
 from db_model.toe_inputs.utils import (
     format_toe_input,
 )
@@ -44,6 +48,7 @@ from dynamodb.types import (
     PrimaryKey,
 )
 from newutils.datetime import (
+    get_as_utc_iso_format,
     get_iso_date,
 )
 from organizations import (
@@ -112,6 +117,55 @@ async def delete_duplicate_data(item: Item) -> None:
         key=primary_key,
         table=TABLE,
     )
+
+
+async def process_historic_toe_inputs(
+    loaders: Dataloaders, group_name: str, toe_item: Item
+) -> None:
+    historic_toe_inputs: tuple[
+        ToeInput, ...
+    ] = await loaders.toe_input_historic.load(
+        ToeInputRequest(
+            component=toe_item["component"],
+            entry_point=toe_item["entry_point"],
+            group_name=group_name,
+            root_id=toe_item.get("unreliable_root_id", ""),
+        )
+    )
+    for historic_toe_input in historic_toe_inputs:
+        state_item: Item = json.loads(
+            json.dumps(historic_toe_input.state, default=serialize)
+        )
+
+        if state_item.get("modified_by") is None:
+            state_item["modified_by"] = "machine@fluidattacks.com"
+
+        key_structure = TABLE.primary_key
+        historic_key = keys.build_key(
+            facet=TABLE.facets["toe_input_historic_metadata"],
+            values={
+                "component": historic_toe_input.component,
+                "entry_point": historic_toe_input.entry_point,
+                "group_name": group_name,
+                "root_id": historic_toe_input.state.unreliable_root_id,
+                "iso8601utc": get_as_utc_iso_format(
+                    historic_toe_input.state.modified_date
+                )
+                if historic_toe_input.state.modified_date
+                else "",
+            },
+        )
+        primary_key = PrimaryKey(
+            partition_key=historic_key.partition_key,
+            sort_key=historic_key.sort_key,
+        )
+        condition_expression = Attr(key_structure.partition_key).exists()
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item={"state": state_item},
+            key=primary_key,
+            table=TABLE,
+        )
 
 
 async def process_toe_inputs_item(group_name: str, item: Item) -> None:

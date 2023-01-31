@@ -13,6 +13,10 @@ Finalization Time: 2023-01-24 at 07:46:26 UTC
 Deletion of duplicate data
 Execution Time:    2023-01-26 at 00:25:28 UTC
 Finalization Time: 2023-01-26 at 03:06:11 UTC
+
+Addition of Observes data
+Execution Time:    2023-01-30 at 20:47:30 UTC
+Finalization Time: 2023-01-30 at 23:19:24 UTC
 """
 from aioextensions import (
     collect,
@@ -61,7 +65,8 @@ MIGRATED_ATTRS = {
     "modified_date",
 }
 MIGRATE = False
-DELETE = True
+DELETE = False
+POPULATE = False
 MISSING_GROUPS: set[str] = set()
 
 
@@ -144,6 +149,32 @@ async def process_toe_lines_item(item: Item) -> None:
     )
 
 
+async def populate_observes_attrs(item: Item) -> None:
+    state_item: Item = dict(item["state"])
+    to_update: Item = {
+        key: state_item.get(key)
+        for key in (
+            "loc",
+            "sorts_risk_level",
+            "sorts_risk_level_date",
+            "sorts_suggestions",
+        )
+    }
+
+    key_structure = TABLE.primary_key
+    primary_key = PrimaryKey(
+        partition_key=item[TABLE.primary_key.partition_key],
+        sort_key=item[TABLE.primary_key.sort_key],
+    )
+    condition_expression = Attr(key_structure.partition_key).exists()
+    await operations.update_item(
+        condition_expression=condition_expression,
+        item=to_update,
+        key=primary_key,
+        table=TABLE,
+    )
+
+
 async def process_group(group_name: str, progress: float) -> None:
     group_toe_lines = await get_toe_lines_by_group(group_name)
     print(
@@ -162,6 +193,11 @@ async def process_group(group_name: str, progress: float) -> None:
         await collect(
             tuple(delete_duplicate_data(item) for item in group_toe_lines),
             workers=64,
+        )
+    elif POPULATE:
+        await collect(
+            tuple(populate_observes_attrs(item) for item in group_toe_lines),
+            workers=100,
         )
     else:
         for item in group_toe_lines:
