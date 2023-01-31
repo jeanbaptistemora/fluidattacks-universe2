@@ -44,7 +44,9 @@ def reader(args: SyntaxGraphArgs) -> NId:
     graph: Graph = args.ast_graph
     node_attrs: Dict[str, str] = {}
 
-    for n_id in g.matching_nodes(graph, label_type="import_specification"):
+    for n_id in g.match_ast_group_d(
+        graph, args.n_id, "import_specification", depth=-1
+    ):
         expression = get_expression(graph, n_id, args.n_id)
         node_attrs.update({"expression": expression})
         if alias := get_alias(graph, n_id):
