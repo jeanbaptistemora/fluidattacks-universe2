@@ -1,0 +1,2770 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,16,250,skims,267. Excessive Privileges - Kubernetes,"Containers must not set securityContext.runAsUser property to 0
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: true
+> 16 |         runAsUser: 0
+  17 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_check_run_as_user
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,22,250,skims,267. Excessive Privileges - Kubernetes,"Containers must not set securityContext.runAsUser property to 0
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json","
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": true,
+> 22 |           ""runAsUser"": 0,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       }
+  26 |     ]
+  27 |   }
+  28 | }
+     ^ Col 0
+",kubernetes.k8s_check_run_as_user
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,24,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+> 24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,35,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+> 35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     ]
+  45 |   }
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+> 18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+> 26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+  31 |             ""containerPort"": 8080
+  32 |           }
+  33 |         ]
+  34 |       }
+  35 |     ]
+  36 |   }
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,11,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+> 11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""must-fail-has-not-security-context"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+> 20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+  20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+  30 |       {
+  31 |         ""name"": ""rss-reader"",
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+> 30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+  35 |             ""containerPort"": 88
+  36 |           }
+  37 |         ]
+  38 |       }
+  39 |     ]
+  40 |   }
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | data:
+   5 | me: rss-site
+   6 | bels:
+   7 | app: web
+   8 | :
+   9 | ntainers:
+  10 | - name: front-end
+  11 |   image: nginx
+  12 |   ports:
+  13 |     - containerPort: 80
+  14 |   securityContext:
+> 15 |     allowPrivilegeEscalation: true
+  16 |     capabilities:
+  17 |       drop:
+  18 |         - all
+  19 |       add:
+  20 |         - NET_BIND_SERVICE
+  21 | - name: rss-reader
+  22 |   image: nickchase/rss-php-nginxv1
+  23 |   ports:
+  24 |     - containerPort: 88
+     ^ Col 4
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+> 21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  11 | tainers"": [
+  12 |
+  13 | ""name"": ""front-end"",
+  14 | ""image"": ""nginx"",
+  15 | ""ports"": [
+  16 |   {
+  17 |     ""containerPort"": 80
+  18 |   }
+  19 | ],
+  20 | ""securityContext"": {
+> 21 |   ""allowPrivilegeEscalation"": true,
+  22 |   ""capabilities"": {
+  23 |     ""drop"": [
+  24 |       ""all""
+  25 |     ],
+  26 |     ""add"": [
+  27 |       ""NET_BIND_SERVICE""
+  28 |     ]
+  29 |   }
+  30 | }
+  31 |
+     ^ Col 8
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.allowPrivilegeEscalation container property is present and set to false
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+  31 |       },
+> 32 |       {
+  33 |         ""name"": ""rss-reader"",
+  34 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  35 |         ""ports"": [
+  36 |           {
+  37 |             ""containerPort"": 88
+  38 |           }
+  39 |         ]
+  40 |       }
+  41 |     ]
+  42 |   }
+     ^ Col 0
+",kubernetes.k8s_allow_privilege_escalation_enabled
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,23,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.add property is set to nil or NET_BIND_SERVICE
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+> 23 |             - all
+  24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_add_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.add property is set to nil or NET_BIND_SERVICE
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""allowPrivilegeEscalation"": false,
+  23 |           ""readOnlyRootFilesystem"": true,
+  24 |           ""capabilities"": {
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+> 30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+  35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+     ^ Col 0
+",kubernetes.k8s_check_add_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.add property is set to nil or NET_BIND_SERVICE
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+> 18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+  20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_add_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,24,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.add property is set to nil or NET_BIND_SERVICE
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+> 24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+  30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+     ^ Col 0
+",kubernetes.k8s_check_add_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.drop property contain the value all
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+> 20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+  24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_drop_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.capabilities.drop property contain the value all
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""allowPrivilegeEscalation"": false,
+  23 |           ""readOnlyRootFilesystem"": true,
+  24 |           ""capabilities"": {
+  25 |             ""drop"": [
+> 26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+  35 |       {
+  36 |         ""name"": ""rss-reader"",
+     ^ Col 0
+",kubernetes.k8s_check_drop_capability
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,24,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+> 24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,35,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+> 35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     ]
+  45 |   }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         runAsNonRoot: false
+  16 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json","
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""runAsNonRoot"": false,
+  22 |           ""allowPrivilegeEscalation"": false
+  23 |         }
+  24 |       }
+  25 |     ]
+  26 |   }
+  27 | }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+> 18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | -
+   2 | iVersion: v1
+   3 | nd: Pod
+   4 | tadata:
+   5 | name: rss-site
+   6 | labels:
+   7 |   app: web
+   8 | ec:
+   9 | containers:
+  10 |   - name: front-end
+  11 |     image: nginx
+  12 |     ports:
+  13 |       - containerPort: 80
+  14 |     securityContext:
+> 15 |       readOnlyRootFilesystem: false
+  16 |       runAsNonRoot: true
+  17 |       allowPrivilegeEscalation: false
+  18 |   - name: back-end
+  19 |     image: django
+  20 |     ports:
+  21 |       - containerPort: 8080
+     ^ Col 2
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  11 | ontainers"": [
+  12 | {
+  13 |   ""name"": ""front-end"",
+  14 |   ""image"": ""nginx"",
+  15 |   ""ports"": [
+  16 |     {
+  17 |       ""containerPort"": 80
+  18 |     }
+  19 |   ],
+  20 |   ""securityContext"": {
+> 21 |     ""readOnlyRootFilesystem"": false,
+  22 |     ""runAsNonRoot"": true,
+  23 |     ""allowPrivilegeEscalation"": false
+  24 |   }
+  25 | },
+  26 | {
+  27 |   ""name"": ""back-end"",
+  28 |   ""image"": ""django"",
+  29 |   ""ports"": [
+  30 |     {
+  31 |       ""containerPort"": 8080
+     ^ Col 6
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+> 26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+  31 |             ""containerPort"": 8080
+  32 |           }
+  33 |         ]
+  34 |       }
+  35 |     ]
+  36 |   }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,11,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+> 11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,19,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+> 19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,27,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+  14 |       - containerPort: 80
+  15 |   - name: must-fail-has-not-read-only
+  16 |     image: nginx
+  17 |     ports:
+  18 |       - containerPort: 80
+  19 |     securityContext:
+  20 |       allowPrivilegeEscalation: false
+  21 |   - name: must-fail-read-only-false
+  22 |     image: nginx
+  23 |     ports:
+  24 |       - containerPort: 80
+  25 |     securityContext:
+  26 |       allowPrivilegeEscalation: false
+> 27 |       readOnlyRootFilesystem: false
+  28 |   - name: must-NOT-fail
+  29 |     image: nginx
+  30 |     ports:
+  31 |       - containerPort: 80
+  32 |     securityContext:
+  33 |       allowPrivilegeEscalation: false
+  34 |       readOnlyRootFilesystem: true
+     ^ Col 2
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""must-fail-has-not-security-context"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+  24 |         ""image"": ""nginx"",
+  25 |         ""ports"": [
+  26 |           {
+  27 |             ""containerPort"": 80
+  28 |           }
+  29 |         ],
+> 30 |         ""securityContext"": {
+  31 |           ""allowPrivilegeEscalation"": false
+  32 |         }
+  33 |       },
+  34 |       {
+  35 |         ""name"": ""must-fail-read-only-false"",
+  36 |         ""image"": ""nginx"",
+  37 |         ""ports"": [
+  38 |           {
+  39 |             ""containerPort"": 80
+  40 |           }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,44,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  34 | {
+  35 |   ""name"": ""must-fail-read-only-false"",
+  36 |   ""image"": ""nginx"",
+  37 |   ""ports"": [
+  38 |     {
+  39 |       ""containerPort"": 80
+  40 |     }
+  41 |   ],
+  42 |   ""securityContext"": {
+  43 |     ""allowPrivilegeEscalation"": false,
+> 44 |     ""readOnlyRootFilesystem"": false
+  45 |   }
+  46 | },
+  47 | {
+  48 |   ""name"": ""must-NOT-fail"",
+  49 |   ""image"": ""nginx"",
+  50 |   ""ports"": [
+  51 |     {
+  52 |       ""containerPort"": 80
+  53 |     }
+  54 |   ],
+     ^ Col 6
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+> 20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+  20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+  30 |       {
+  31 |         ""name"": ""rss-reader"",
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+> 30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+  35 |             ""containerPort"": 88
+  36 |           }
+  37 |         ]
+  38 |       }
+  39 |     ]
+  40 |   }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+> 21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+  21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""allowPrivilegeEscalation"": true,
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.readOnlyRootFilesystem container property is present and set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+  31 |       },
+> 32 |       {
+  33 |         ""name"": ""rss-reader"",
+  34 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  35 |         ""ports"": [
+  36 |           {
+  37 |             ""containerPort"": 88
+  38 |           }
+  39 |         ]
+  40 |       }
+  41 |     ]
+  42 |   }
+     ^ Col 0
+",kubernetes.k8s_root_filesystem_read_only
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+  24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,24,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+> 24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""allowPrivilegeEscalation"": false,
+  23 |           ""readOnlyRootFilesystem"": true,
+  24 |           ""capabilities"": {
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,35,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+> 35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     ]
+  45 |   }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         readOnlyRootFilesystem: true
+  16 |         runAsUser: 0
+  17 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json","
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": true,
+  22 |           ""runAsUser"": 0,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       }
+  26 |     ]
+  27 |   }
+  28 | }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         seccompProfile:
+  16 |           type: Unconfined
+  17 |         readOnlyRootFilesystem: true
+  18 |         runAsUser: 1001
+  19 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json","
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""seccompProfile"": {
+  22 |             ""type"": ""Unconfined""
+  23 |           },
+  24 |           ""readOnlyRootFilesystem"": true,
+  25 |           ""runAsUser"": 1001,
+  26 |           ""allowPrivilegeEscalation"": false
+  27 |         }
+  28 |       }
+  29 |     ]
+  30 |   }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+> 15 |         runAsNonRoot: false
+  16 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json","
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+> 21 |           ""runAsNonRoot"": false,
+  22 |           ""allowPrivilegeEscalation"": false
+  23 |         }
+  24 |       }
+  25 |     ]
+  26 |   }
+  27 | }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+> 18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+> 26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+  31 |             ""containerPort"": 8080
+  32 |           }
+  33 |         ]
+  34 |       }
+  35 |     ]
+  36 |   }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,11,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+> 11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,19,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+> 19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+  30 |       ports:
+  31 |         - containerPort: 80
+> 32 |       securityContext:
+  33 |         allowPrivilegeEscalation: false
+  34 |         readOnlyRootFilesystem: true
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,25,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+> 25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+  30 |       ports:
+  31 |         - containerPort: 80
+  32 |       securityContext:
+  33 |         allowPrivilegeEscalation: false
+  34 |         readOnlyRootFilesystem: true
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""must-fail-has-not-security-context"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+  24 |         ""image"": ""nginx"",
+  25 |         ""ports"": [
+  26 |           {
+  27 |             ""containerPort"": 80
+  28 |           }
+  29 |         ],
+> 30 |         ""securityContext"": {
+  31 |           ""allowPrivilegeEscalation"": false
+  32 |         }
+  33 |       },
+  34 |       {
+  35 |         ""name"": ""must-fail-read-only-false"",
+  36 |         ""image"": ""nginx"",
+  37 |         ""ports"": [
+  38 |           {
+  39 |             ""containerPort"": 80
+  40 |           }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,42,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  32 |         }
+  33 |       },
+  34 |       {
+  35 |         ""name"": ""must-fail-read-only-false"",
+  36 |         ""image"": ""nginx"",
+  37 |         ""ports"": [
+  38 |           {
+  39 |             ""containerPort"": 80
+  40 |           }
+  41 |         ],
+> 42 |         ""securityContext"": {
+  43 |           ""allowPrivilegeEscalation"": false,
+  44 |           ""readOnlyRootFilesystem"": false
+  45 |         }
+  46 |       },
+  47 |       {
+  48 |         ""name"": ""must-NOT-fail"",
+  49 |         ""image"": ""nginx"",
+  50 |         ""ports"": [
+  51 |           {
+  52 |             ""containerPort"": 80
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,55,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  42 |         ""securityContext"": {
+  43 |           ""allowPrivilegeEscalation"": false,
+  44 |           ""readOnlyRootFilesystem"": false
+  45 |         }
+  46 |       },
+  47 |       {
+  48 |         ""name"": ""must-NOT-fail"",
+  49 |         ""image"": ""nginx"",
+  50 |         ""ports"": [
+  51 |           {
+  52 |             ""containerPort"": 80
+  53 |           }
+  54 |         ],
+> 55 |         ""securityContext"": {
+  56 |           ""allowPrivilegeEscalation"": false,
+  57 |           ""readOnlyRootFilesystem"": true
+  58 |         }
+  59 |       }
+  60 |     ]
+  61 |   }
+  62 | }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+> 20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+  20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+  30 |       {
+  31 |         ""name"": ""rss-reader"",
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+> 30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+  35 |             ""containerPort"": 88
+  36 |           }
+  37 |         ]
+  38 |       }
+  39 |     ]
+  40 |   }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+> 21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+  21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""allowPrivilegeEscalation"": true,
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.runAsNonRoot property is set to true
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+  31 |       },
+> 32 |       {
+  33 |         ""name"": ""rss-reader"",
+  34 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  35 |         ""ports"": [
+  36 |           {
+  37 |             ""containerPort"": 88
+  38 |           }
+  39 |         ]
+  40 |       }
+  41 |     ]
+  42 |   }
+     ^ Col 0
+",kubernetes.k8s_root_container
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+  24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,24,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+> 24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""allowPrivilegeEscalation"": false,
+  23 |           ""readOnlyRootFilesystem"": true,
+  24 |           ""capabilities"": {
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,35,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+> 35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     ]
+  45 |   }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         readOnlyRootFilesystem: true
+  16 |         runAsUser: 0
+  17 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_run_as_user.yaml.json","
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": true,
+  22 |           ""runAsUser"": 0,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       }
+  26 |     ]
+  27 |   }
+  28 | }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml,16,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         seccompProfile:
+> 16 |           type: Unconfined
+  17 |         readOnlyRootFilesystem: true
+  18 |         runAsUser: 1001
+  19 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json,22,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_check_seccomp_profile.yaml.json","
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""seccompProfile"": {
+> 22 |             ""type"": ""Unconfined""
+  23 |           },
+  24 |           ""readOnlyRootFilesystem"": true,
+  25 |           ""runAsUser"": 1001,
+  26 |           ""allowPrivilegeEscalation"": false
+  27 |         }
+  28 |       }
+  29 |     ]
+  30 |   }
+  31 | }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         runAsNonRoot: false
+  16 |         allowPrivilegeEscalation: false
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_container.yaml.json","
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""runAsNonRoot"": false,
+  22 |           ""allowPrivilegeEscalation"": false
+  23 |         }
+  24 |       }
+  25 |     ]
+  26 |   }
+  27 | }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+> 18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+  18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+  26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+> 26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+  31 |             ""containerPort"": 8080
+  32 |           }
+  33 |         ]
+  34 |       }
+  35 |     ]
+  36 |   }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,11,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+> 11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,19,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+> 19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+  25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+  30 |       ports:
+  31 |         - containerPort: 80
+> 32 |       securityContext:
+  33 |         allowPrivilegeEscalation: false
+  34 |         readOnlyRootFilesystem: true
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,25,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+  22 |       image: nginx
+  23 |       ports:
+  24 |         - containerPort: 80
+> 25 |       securityContext:
+  26 |         allowPrivilegeEscalation: false
+  27 |         readOnlyRootFilesystem: false
+  28 |     - name: must-NOT-fail
+  29 |       image: nginx
+  30 |       ports:
+  31 |         - containerPort: 80
+  32 |       securityContext:
+  33 |         allowPrivilegeEscalation: false
+  34 |         readOnlyRootFilesystem: true
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""must-fail-has-not-security-context"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+  24 |         ""image"": ""nginx"",
+  25 |         ""ports"": [
+  26 |           {
+  27 |             ""containerPort"": 80
+  28 |           }
+  29 |         ],
+> 30 |         ""securityContext"": {
+  31 |           ""allowPrivilegeEscalation"": false
+  32 |         }
+  33 |       },
+  34 |       {
+  35 |         ""name"": ""must-fail-read-only-false"",
+  36 |         ""image"": ""nginx"",
+  37 |         ""ports"": [
+  38 |           {
+  39 |             ""containerPort"": 80
+  40 |           }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,42,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  32 |         }
+  33 |       },
+  34 |       {
+  35 |         ""name"": ""must-fail-read-only-false"",
+  36 |         ""image"": ""nginx"",
+  37 |         ""ports"": [
+  38 |           {
+  39 |             ""containerPort"": 80
+  40 |           }
+  41 |         ],
+> 42 |         ""securityContext"": {
+  43 |           ""allowPrivilegeEscalation"": false,
+  44 |           ""readOnlyRootFilesystem"": false
+  45 |         }
+  46 |       },
+  47 |       {
+  48 |         ""name"": ""must-NOT-fail"",
+  49 |         ""image"": ""nginx"",
+  50 |         ""ports"": [
+  51 |           {
+  52 |             ""containerPort"": 80
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,55,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+  42 |         ""securityContext"": {
+  43 |           ""allowPrivilegeEscalation"": false,
+  44 |           ""readOnlyRootFilesystem"": false
+  45 |         }
+  46 |       },
+  47 |       {
+  48 |         ""name"": ""must-NOT-fail"",
+  49 |         ""image"": ""nginx"",
+  50 |         ""ports"": [
+  51 |           {
+  52 |             ""containerPort"": 80
+  53 |           }
+  54 |         ],
+> 55 |         ""securityContext"": {
+  56 |           ""allowPrivilegeEscalation"": false,
+  57 |           ""readOnlyRootFilesystem"": true
+  58 |         }
+  59 |       }
+  60 |     ]
+  61 |   }
+  62 | }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+> 20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,15,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+> 15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+  20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+  13 |       {
+  14 |         ""name"": ""front-end"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ],
+> 21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+  30 |       {
+  31 |         ""name"": ""rss-reader"",
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+> 30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+  35 |             ""containerPort"": 88
+  36 |           }
+  37 |         ]
+  38 |       }
+  39 |     ]
+  40 |   }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+> 21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,14,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+> 14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+  21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,20,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  10 |   ""spec"": {
+  11 |     ""containers"": [
+  12 |       {
+  13 |         ""name"": ""front-end"",
+  14 |         ""image"": ""nginx"",
+  15 |         ""ports"": [
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+> 20 |         ""securityContext"": {
+  21 |           ""allowPrivilegeEscalation"": true,
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,32,250,skims,267. Excessive Privileges - Kubernetes,"Ensure securityContext.seccompProfile.type property is present and set set to a value other than Unconfined
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+  31 |       },
+> 32 |       {
+  33 |         ""name"": ""rss-reader"",
+  34 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  35 |         ""ports"": [
+  36 |           {
+  37 |             ""containerPort"": 88
+  38 |           }
+  39 |         ]
+  40 |       }
+  41 |     ]
+  42 |   }
+     ^ Col 0
+",kubernetes.k8s_check_seccomp_profile
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml,24,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml","
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         allowPrivilegeEscalation: false
+  17 |         readOnlyRootFilesystem: true
+  18 |         capabilities:
+  19 |           drop:
+  20 |             - SYS_ADMIN
+  21 |             - NET_ADMIN
+  22 |           add:
+  23 |             - all
+> 24 |     - name: rss-reader
+  25 |       image: nickchase/rss-php-nginxv1
+  26 |       ports:
+  27 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json,35,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_check_capability.yaml.json","
+  25 |             ""drop"": [
+  26 |               ""SYS_ADMIN"",
+  27 |               ""NET_ADMIN""
+  28 |             ],
+  29 |             ""add"": [
+  30 |               ""all""
+  31 |             ]
+  32 |           }
+  33 |         }
+  34 |       },
+> 35 |       {
+  36 |         ""name"": ""rss-reader"",
+  37 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  38 |         ""ports"": [
+  39 |           {
+  40 |             ""containerPort"": 88
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     ]
+  45 |   }
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml,18,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         readOnlyRootFilesystem: false
+  16 |         runAsNonRoot: true
+  17 |         allowPrivilegeEscalation: false
+> 18 |     - name: back-end
+  19 |       image: django
+  20 |       ports:
+  21 |         - containerPort: 8080
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json,26,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only.yaml.json","
+  16 |           {
+  17 |             ""containerPort"": 80
+  18 |           }
+  19 |         ],
+  20 |         ""securityContext"": {
+  21 |           ""readOnlyRootFilesystem"": false,
+  22 |           ""runAsNonRoot"": true,
+  23 |           ""allowPrivilegeEscalation"": false
+  24 |         }
+  25 |       },
+> 26 |       {
+  27 |         ""name"": ""back-end"",
+  28 |         ""image"": ""django"",
+  29 |         ""ports"": [
+  30 |           {
+  31 |             ""containerPort"": 8080
+  32 |           }
+  33 |         ]
+  34 |       }
+  35 |     ]
+  36 |   }
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml,11,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml","
+   1 | ---
+   2 | apiVersion: v1
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+> 11 |     - name: must-fail-has-not-security-context
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |     - name: must-fail-has-not-read-only
+  16 |       image: nginx
+  17 |       ports:
+  18 |         - containerPort: 80
+  19 |       securityContext:
+  20 |         allowPrivilegeEscalation: false
+  21 |     - name: must-fail-read-only-false
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json,13,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_root_filesystem_read_only_new.yaml.json","
+   3 |   ""kind"": ""Pod"",
+   4 |   ""metadata"": {
+   5 |     ""name"": ""rss-site"",
+   6 |     ""labels"": {
+   7 |       ""app"": ""web""
+   8 |     }
+   9 |   },
+  10 |   ""spec"": {
+  11 |     ""privileged"": true,
+  12 |     ""containers"": [
+> 13 |       {
+  14 |         ""name"": ""must-fail-has-not-security-context"",
+  15 |         ""image"": ""nginx"",
+  16 |         ""ports"": [
+  17 |           {
+  18 |             ""containerPort"": 80
+  19 |           }
+  20 |         ]
+  21 |       },
+  22 |       {
+  23 |         ""name"": ""must-fail-has-not-read-only"",
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml,20,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml","
+   3 | kind: Pod
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   privileged: true
+  10 |   containers:
+  11 |     - name: front-end
+  12 |       image: nginx
+  13 |       ports:
+  14 |         - containerPort: 80
+  15 |       securityContext:
+  16 |         capabilities:
+  17 |           add:
+  18 |             - SYS_ADMIN
+  19 |             - NET_ADMIN
+> 20 |     - name: rss-reader
+  21 |       image: nickchase/rss-php-nginxv1
+  22 |       ports:
+  23 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json,30,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/k8s_sys_admin_linux_cap_is_used.yaml.json","
+  20 |         ],
+  21 |         ""securityContext"": {
+  22 |           ""capabilities"": {
+  23 |             ""add"": [
+  24 |               ""SYS_ADMIN"",
+  25 |               ""NET_ADMIN""
+  26 |             ]
+  27 |           }
+  28 |         }
+  29 |       },
+> 30 |       {
+  31 |         ""name"": ""rss-reader"",
+  32 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  33 |         ""ports"": [
+  34 |           {
+  35 |             ""containerPort"": 88
+  36 |           }
+  37 |         ]
+  38 |       }
+  39 |     ]
+  40 |   }
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml,21,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml","
+   4 | metadata:
+   5 |   name: rss-site
+   6 |   labels:
+   7 |     app: web
+   8 | spec:
+   9 |   containers:
+  10 |     - name: front-end
+  11 |       image: nginx
+  12 |       ports:
+  13 |         - containerPort: 80
+  14 |       securityContext:
+  15 |         allowPrivilegeEscalation: true
+  16 |         capabilities:
+  17 |           drop:
+  18 |             - all
+  19 |           add:
+  20 |             - NET_BIND_SERVICE
+> 21 |     - name: rss-reader
+  22 |       image: nickchase/rss-php-nginxv1
+  23 |       ports:
+  24 |         - containerPort: 88
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext
+F267,lines,namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json,32,250,skims,267. Excessive Privileges - Kubernetes,"No securityContext is applied to pods or containers
+ in namespace/skims/test/data/lib_path/f267/run_k8s_allow_privilege_escalation_enabled.yaml.json","
+  22 |           ""capabilities"": {
+  23 |             ""drop"": [
+  24 |               ""all""
+  25 |             ],
+  26 |             ""add"": [
+  27 |               ""NET_BIND_SERVICE""
+  28 |             ]
+  29 |           }
+  30 |         }
+  31 |       },
+> 32 |       {
+  33 |         ""name"": ""rss-reader"",
+  34 |         ""image"": ""nickchase/rss-php-nginxv1"",
+  35 |         ""ports"": [
+  36 |           {
+  37 |             ""containerPort"": 88
+  38 |           }
+  39 |         ]
+  40 |       }
+  41 |     ]
+  42 |   }
+     ^ Col 0
+",kubernetes.k8s_container_without_securitycontext

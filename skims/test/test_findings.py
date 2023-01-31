@@ -196,6 +196,12 @@ def test_f256(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f267")
+def test_f267(mocker: MockerFixture) -> None:
+    run_finding("F267", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f325")
 def test_f325(mocker: MockerFixture) -> None:
     run_finding("F325", mocker)
