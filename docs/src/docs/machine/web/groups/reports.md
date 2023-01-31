@@ -15,7 +15,7 @@ appears at the top left,
 as you can see in the
 following screenshot:
 
-![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777434/docs/web/groups/reports/generate_report.png)
+![Vulnerabilities Subsection](https://res.cloudinary.com/fluid-attacks/image/upload/v1675168013/docs/web/groups/reports/generate_report.png)
 
 The available report options
 have either summarized and
@@ -98,7 +98,7 @@ that the access granted
 through the link is only
 available for one hour.
 
-![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1667342446/docs/web/groups/reports/technical_report.png)
+![Message](https://res.cloudinary.com/fluid-attacks/image/upload/v1675188301/docs/web/groups/reports/technical_report.png)
 
 ## Definitions of Technical report columns
 

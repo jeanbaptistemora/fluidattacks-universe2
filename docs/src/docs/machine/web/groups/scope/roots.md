@@ -127,7 +127,7 @@ The information you have to fill in is as follows:
   the credentials,
   which are three types:
   HTTPS,
-  Azure DevOps PTA and
+  Azure DevOps PAT and
   SSH.
   Here,
   you select which type of
@@ -195,7 +195,7 @@ A pop-up window will appear,
 where you can navigate three tabs:
 [Git repository](/machine/web/groups/scope/roots/#git-roots),
 [Environment URLs](/machine/web/groups/scope/roots/#environment-urls-table)
-and [Secrets](/machine/web/groups/scope/roots/#secrets)
+and [Secrets.](/machine/web/groups/scope/roots/#secrets)
 
 ![Managing Root](https://res.cloudinary.com/fluid-attacks/image/upload/v1668171709/docs/web/groups/scope/managing_git_root.png)
 

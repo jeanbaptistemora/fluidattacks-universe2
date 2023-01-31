@@ -18,7 +18,7 @@ can see a cumulative record of
 solved and unsolved events in
 your group is the Events section.
 
-![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1674845796/docs/web/groups/events/events_tab.png)
+![Event Tab View](https://res.cloudinary.com/fluid-attacks/image/upload/v1675168760/docs/web/groups/events/events_tab.png)
 
 ## Events Table
 
@@ -73,7 +73,7 @@ First,
 when an event is opened,
 it will have the status **Unsolved**.
 
-![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1674845936/docs/web/groups/events/unsolved_status.png)
+![Unsolved Status](https://res.cloudinary.com/fluid-attacks/image/upload/v1675168878/docs/web/groups/events/unsolved_status.png)
 
 Here you have to give the
 solution to this created event.
@@ -84,7 +84,7 @@ When you do this,
 the **Request Verification** option
 will be activated immediately.
 
-![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846162/docs/web/groups/events/request_verification.png)
+![Request Verification Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1675168988/docs/web/groups/events/request_verification.png)
 
 When you click on it,
 you will get a pop-up window
@@ -103,7 +103,7 @@ where we will be waiting
 for the verification that
 the supplied solution is effective.
 
-![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846460/docs/web/groups/events/pending.png)
+![Pending State](https://res.cloudinary.com/fluid-attacks/image/upload/v1675169227/docs/web/groups/events/pending.png)
 
 When validated and the
 solution successful,
@@ -147,7 +147,7 @@ options corresponding to the
 variables that give columns
 their names.
 
-![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1674846869/docs/web/groups/events/filters.png)
+![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1675169319/docs/web/groups/events/filters.png)
 
 ### Search bar
 
