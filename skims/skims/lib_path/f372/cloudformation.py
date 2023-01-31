@@ -68,23 +68,22 @@ def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
     t_groups_iterator: Iterator[Node],
 ) -> Iterator[Union[AWSElbV2, Node]]:
     for t_group in t_groups_iterator:
-        unsafe_protos = ("HTTP",)
-        protocol = "HTTP"
-        t_type = ""
-        if hasattr(t_group, "raw"):
-            protocol = t_group.raw.get("Protocol", "HTTP")
-            t_type = t_group.raw.get("TargetType", "")
-        is_proto_required = t_type != "lambda"
-        if is_proto_required and protocol in unsafe_protos:
-            proto_node = get_node_by_keys(t_group, ["Protocol"])
-            if isinstance(proto_node, Node):
-                yield proto_node
-            else:
-                yield AWSElbV2(
-                    column=t_group.start_column,
-                    data=t_group.data,
-                    line=get_line_by_extension(t_group.start_line, file_ext),
-                )
+        protocol_node = get_node_by_keys(t_group, ["Protocol"])
+        target_type = get_node_by_keys(t_group, ["TargetType"])
+
+        if (protocol_node and protocol_node.data != "HTTP") or (
+            target_type and target_type.data == "lambda"
+        ):
+            continue
+
+        if isinstance(protocol_node, Node):
+            yield protocol_node
+        else:
+            yield AWSElbV2(
+                column=t_group.start_column,
+                data=t_group.data,
+                line=get_line_by_extension(t_group.start_line, file_ext),
+            )
 
 
 def cfn_serves_content_over_http(
