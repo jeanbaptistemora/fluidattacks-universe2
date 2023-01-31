@@ -3,7 +3,7 @@ import type { Command } from "vscode";
 import { TreeItem, TreeItemCollapsibleState } from "vscode";
 
 import { GET_GIT_ROOTS } from "../queries";
-import type { GitRoot } from "../types";
+import type { IGitRoot } from "../types";
 import { getClient } from "../utils/apollo";
 
 class GitRootTreeItem extends TreeItem {
@@ -24,13 +24,13 @@ class GitRootTreeItem extends TreeItem {
 }
 
 async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
-  const nicknames: GitRoot[] = await Promise.resolve(
+  const nicknames: IGitRoot[] = await Promise.resolve(
     getClient()
       .query({
         query: GET_GIT_ROOTS,
         variables: { groupName },
       })
-      .then((result): GitRoot[] => {
+      .then((result): IGitRoot[] => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
         return result.data.group.roots;
       })
@@ -38,7 +38,8 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
         return [];
       })
   );
-  const toGitRoot = (root: GitRoot): GitRootTreeItem => {
+
+  const toGitRoot = (root: IGitRoot): GitRootTreeItem => {
     return new GitRootTreeItem(
       root.nickname,
       TreeItemCollapsibleState.Collapsed,
@@ -52,7 +53,7 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
 
   const deps = nicknames
     .filter(
-      (root: GitRoot): boolean =>
+      (root: IGitRoot): boolean =>
         root.state === "ACTIVE" && root.downloadUrl !== undefined
     )
     .map((dep): GitRootTreeItem => toGitRoot(dep));

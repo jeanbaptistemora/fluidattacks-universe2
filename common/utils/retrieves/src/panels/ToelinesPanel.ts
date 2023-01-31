@@ -12,7 +12,7 @@ import type { Disposable, Webview, WebviewPanel } from "vscode";
 import { Uri, ViewColumn, window } from "vscode";
 
 import type { IEdge } from "../types";
-import { getUri } from "../utilities/getUri";
+import { getUri } from "../utils/webview";
 
 interface IHtmlItem {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

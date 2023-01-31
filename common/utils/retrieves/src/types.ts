@@ -10,6 +10,7 @@ interface IOrganization {
 interface IGitRoot {
   id: string;
   nickname: string;
+  groupName: string;
   state: "ACTIVE" | "INACTIVE";
   gitignore: string[];
   downloadUrl?: string;
@@ -35,7 +36,7 @@ interface IToeLinesPaginator {
 export type {
   IGroup as Group,
   IOrganization as Organization,
-  IGitRoot as GitRoot,
+  IGitRoot,
   IToeLinesPaginator,
   IEdge,
   IToeLineNode,

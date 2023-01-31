@@ -18,6 +18,10 @@
       {
         "command": "retrieves.lines",
         "title": "Attacked Lines"
+      },
+      {
+        "command": "retrieves.updateToeLinesAttackedLines",
+        "title": "Attacked"
       }
     ],
     "configuration": [
@@ -31,6 +35,12 @@
       }
     ],
     "menus": {
+      "webview/context": [
+        {
+          "command": "retrieves.updateToeLinesAttackedLines",
+          "when": "webviewSection == 'filename'"
+        }
+      ],
       "editor/title/context": [
         {
           "command": "retrieves.clone",

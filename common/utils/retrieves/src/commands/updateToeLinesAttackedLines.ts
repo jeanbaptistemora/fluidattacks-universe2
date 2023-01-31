@@ -15,7 +15,7 @@ const updateToeLinesAttackedLines = (item: {
       mutation: UPDATE_TOE_LINES_ATTACKED,
       variables: {
         comments: item.comments,
-        filename: item.filename,
+        fileName: item.filename,
         groupName: item.groupName,
         rootId: item.rootId,
       },

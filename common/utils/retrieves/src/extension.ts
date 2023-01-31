@@ -5,9 +5,8 @@
 import { join } from "path";
 
 import type { MessageHandlerData } from "@estruyf/vscode";
-import type { ExtensionContext, Webview } from "vscode";
+import type { ExtensionContext } from "vscode";
 import {
-  ExtensionMode,
   Uri,
   ViewColumn,
   commands,
@@ -18,41 +17,12 @@ import {
 
 import { clone } from "./commands/clone";
 import { getToeLines } from "./commands/toeLines";
+import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
 import { GroupsProvider } from "./providers/groups";
 import type { GitRootTreeItem } from "./treeItems/gitRoot";
 import type { IToeLineNode } from "./types";
 import { getGroupsPath } from "./utils/file";
-
-const getWebviewContent = (
-  context: ExtensionContext,
-  webview: Webview
-): string => {
-  const jsFile = "webview.js";
-  const localServerUrl = "http://localhost:9000";
-
-  const cssUrl = "null";
-
-  const isProduction = context.extensionMode === ExtensionMode.Production;
-  const scriptUrl = isProduction
-    ? webview
-        .asWebviewUri(Uri.file(join(context.extensionPath, "dist", jsFile)))
-        .toString()
-    : `${localServerUrl}/${jsFile}`;
-
-  return `<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		${isProduction ? `<link href="${cssUrl}" rel="stylesheet">` : ""}
-	</head>
-	<body>
-		<div id="root"></div>
-
-		<script src="${scriptUrl}" />
-	</body>
-	</html>`;
-};
+import { getWebviewContent } from "./utils/webview";
 
 function activate(context: ExtensionContext): void {
   if (!workspace.workspaceFolders) {
@@ -122,6 +92,19 @@ function activate(context: ExtensionContext): void {
                 `file://${join(rootPath, String(payload.message))}`
               );
               void window.showTextDocument(uri);
+            } else if (command === "GET_ROOT") {
+              void panel.webview.postMessage({
+                command,
+                payload: {
+                  gitignore: [],
+                  groupName: node.groupName,
+                  id: node.rootId,
+                  nickname: node.nickname,
+                  state: "ACTIVE",
+                },
+                // The requestId is used to identify the response
+                requestId,
+              } as MessageHandlerData<unknown>);
             }
           },
           undefined,
@@ -136,6 +119,10 @@ function activate(context: ExtensionContext): void {
   const groupsProvider = new GroupsProvider();
   void window.registerTreeDataProvider("user_groups", groupsProvider);
   void commands.registerCommand("retrieves.clone", clone);
+  void commands.registerCommand(
+    "retrieves.updateToeLinesAttackedLines",
+    updateToeLinesAttackedLines
+  );
 }
 
 export { activate };
