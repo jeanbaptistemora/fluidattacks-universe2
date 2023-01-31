@@ -575,6 +575,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
             : undefined
         }
         rowSelectionState={selectedFindings}
+        searchPlaceholder={t("searchFindings.searchPlaceholder")}
         sortingSetter={setSorting}
         sortingState={sorting}
       />

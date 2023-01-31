@@ -2817,6 +2817,7 @@ export const enTranslations: ResourceKey = {
     repositoriesTable: {
       state: "State",
     },
+    searchPlaceholder: "Search vulnerabilities",
     servicesTable: {
       active: "Active",
       asm: "ARM",

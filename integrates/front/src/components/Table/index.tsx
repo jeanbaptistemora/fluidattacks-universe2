@@ -1,4 +1,7 @@
-import { faFileExport } from "@fortawesome/free-solid-svg-icons";
+import {
+  faFileExport,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   getCoreRowModel,
@@ -63,6 +66,7 @@ const Table = <TData extends RowData>({
   rowSelectionSetter = undefined,
   rowSelectionState = undefined,
   selectionMode = "checkbox",
+  searchPlaceholder,
   size = undefined,
   sortingSetter = undefined,
   sortingState = undefined,
@@ -218,6 +222,11 @@ const Table = <TData extends RowData>({
             {enableSearchBar ? (
               <Container>
                 <FormikInput
+                  childLeft={
+                    <Container pl={"5px"} scroll={"none"}>
+                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </Container>
+                  }
                   field={{
                     name: "search",
                     onBlur: (): void => undefined,
@@ -226,7 +235,11 @@ const Table = <TData extends RowData>({
                   }}
                   form={{ errors: {}, touched: {} }}
                   name={"search"}
-                  placeholder={t("table.search")}
+                  placeholder={
+                    searchPlaceholder === undefined
+                      ? t("table.search")
+                      : searchPlaceholder
+                  }
                 />
               </Container>
             ) : undefined}
