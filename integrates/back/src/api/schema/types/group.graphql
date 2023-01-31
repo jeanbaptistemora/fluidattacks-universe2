@@ -46,7 +46,7 @@ type Group {
   events: [Event!]
   "List of Forces executions paginated within the provided time period"
   executionsConnections(
-     "The cursor for the forward pagination"
+    "The cursor for the forward pagination"
     after: String
     "The maximum amount of executions to return"
     first: Int
@@ -64,8 +64,7 @@ type Group {
     strictness: String
     "Type of execution"
     type: String
-
-  ):ExecutionsConnection!
+  ): ExecutionsConnection!
   "Approved findings with discovered vulnerabilities"
   findings(
     """
@@ -168,6 +167,8 @@ type Group {
     after: String
     "If the file is present in the repository"
     bePresent: Boolean
+    "ToE Filename to filter"
+    filename: String
     "Amount of element to return"
     first: Int
     "Id of the root the lines is associated with"

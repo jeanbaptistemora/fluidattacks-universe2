@@ -38,12 +38,13 @@ async def resolve(
     _info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> Optional[ToeLinesConnection]:
-    must_filters: list[dict[str, Any]] = must_filter(**kwargs)
+    toe_lines_filters: dict[str, Any] = toe_lines_filter(**kwargs)
 
     results = await search(
         after=kwargs.get("after"),
         exact_filters={"group_name": parent.name},
-        must_filters=must_filters,
+        must_filters=toe_lines_filters["must_filters"],
+        must_match_prefix_filters=toe_lines_filters["must_match_filters"],
         index="toe_lines",
         limit=kwargs.get("first", 10),
     )
@@ -64,6 +65,20 @@ async def resolve(
     return response
 
 
+def toe_lines_filter(**kwargs: Any) -> dict[str, Any]:
+    vulns_must_filters: list[dict[str, Any]] = must_filter(**kwargs)
+    vulns_must_match_prefix_filters: list[
+        dict[str, Any]
+    ] = must_match_prefix_filter(**kwargs)
+
+    filters: dict[str, Any] = {
+        "must_filters": vulns_must_filters,
+        "must_match_filters": vulns_must_match_prefix_filters,
+    }
+
+    return filters
+
+
 def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_filters = []
 
@@ -74,3 +89,12 @@ def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
         must_filters.append({"root_id": root_id})
 
     return must_filters
+
+
+def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
+    must_match_filters = []
+
+    if filename := kwargs.get("filename"):
+        must_match_filters.append({"filename": filename})
+
+    return must_match_filters
