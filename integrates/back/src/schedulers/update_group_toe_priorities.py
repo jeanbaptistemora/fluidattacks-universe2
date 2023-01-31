@@ -146,7 +146,14 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
                 break
 
     for toe_line in group_toe_lines:
-        if toe_line not in in_scope_toes:
+        toe_line_date = (
+            toe_line.state.sorts_risk_level_date.replace(tzinfo=None)
+            if toe_line.state.sorts_risk_level_date is not None
+            else None
+        )
+        if toe_line not in in_scope_toes and toe_line_date != datetime(
+            1970, 1, 1
+        ):
             updates.append(
                 update_toe_lines(toe_line, int(-1), datetime(1970, 1, 1))
             )
@@ -155,7 +162,8 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     info(
         f"Group {group_name} has {len(group_toe_lines)} present toe lines "
         f"with {in_scope_count} toe lines to be updated using Sorts "
-        f"and {out_scope_count} toe lines out of Sorts scope"
+        f"and {out_scope_count} toe lines out of scope to be updated "
+        "with the default date"
     )
 
     await collect(tuple(updates))
