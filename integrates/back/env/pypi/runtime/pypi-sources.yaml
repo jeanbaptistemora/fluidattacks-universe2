@@ -1,7 +1,7 @@
 closure:
   aioboto3: 10.3.0
   aiobotocore: 2.4.1
-  aiodataloader: 0.2.1
+  aiodataloader: 0.3.0
   aioextensions: 21.7.2261349
   aiofiles: 0.7.0
   aiohttp: 3.8.3
@@ -169,12 +169,12 @@ links:
   - name: aiobotocore-2.4.1.tar.gz
     sha256: 19xrsd3lbsjsrg58w5vv49iz37l8vf9wix9siwzkw9ql3yfyg3jw
     url: https://files.pythonhosted.org/packages/0c/b5/77915fcab26ed69dcae2d45832e0eff1c923e1941e8a7ca3c66c13527d0b/aiobotocore-2.4.1.tar.gz
-  - name: aiodataloader-0.2.1-py3-none-any.whl
-    sha256: 15sgzmba01cl2xy6ixhh30fvk81gdl85g243ws3c6a4mcd1gcfm7
-    url: https://files.pythonhosted.org/packages/7f/e3/6b393474cb30f124eedffc6747e6059bfcfc17b1ca8a804f94a851343ac6/aiodataloader-0.2.1-py3-none-any.whl
-  - name: aiodataloader-0.2.1.tar.gz
-    sha256: 123b25k2158c4v2v3irr8f1pf0ay3f0vmf5pm2zmycnihi4q0a40
-    url: https://files.pythonhosted.org/packages/a2/de/0938b5a944a4af7a2ba7eb3a0fea45fa9f8f674f9b3a2b984ef7cb556857/aiodataloader-0.2.1.tar.gz
+  - name: aiodataloader-0.3.0-py3-none-any.whl
+    sha256: 11kpb2kl852s801qjyfssxg1fmagp37crdaafahdjf98hdisrvrj
+    url: https://files.pythonhosted.org/packages/90/49/f9ca47f846cb4090b90b4c164a113b186c3076688435b130850bf518e174/aiodataloader-0.3.0-py3-none-any.whl
+  - name: aiodataloader-0.3.0.tar.gz
+    sha256: 07l1prjxg5mr6zs2vlm0y3bxr289kjpf2ns5vicpdymwdfjx95y6
+    url: https://files.pythonhosted.org/packages/46/9b/8a9eaae8399fe522bce7aa4f2db6dfd58fbb46792ca57ecd704cb7b38a89/aiodataloader-0.3.0.tar.gz
   - name: aioextensions-21.7.2261349-py3-none-any.whl
     sha256: 0ci63rmghcgkgyrysqsqc1i5pk63qdrs74qv0nilm02gl39vdxz2
     url: https://files.pythonhosted.org/packages/84/a9/fe0acc4b74b435c8944e5e1ff9b9d3d0e4706076b9409102b3434086c9eb/aioextensions-21.7.2261349-py3-none-any.whl
