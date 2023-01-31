@@ -40,7 +40,7 @@ def has_print_statements(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:
-        print_methods = {"print"}
+        print_methods = {"print", "debugPrint"}
         for shard in graph_db.shards_by_language(
             GraphLanguage.DART,
         ):

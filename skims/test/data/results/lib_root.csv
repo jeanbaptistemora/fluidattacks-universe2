@@ -539,6 +539,25 @@ F237,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,
   38 | }
      ^ Col 0
 ",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,9,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print.dart","
+   1 | import 'package:test/test.dart';
+   2 |
+   3 | void main() {
+   4 |   try {
+   5 |     res = x ~/ y;
+   6 |   }
+   7 |   on IntegerDivisionByZeroException catch (e) {
+   8 |     print(e);
+>  9 |     debugPrint(e);
+  10 |   }
+  11 |   catch (e) {
+  12 |     print('This should not  be reported');
+  13 |     debugPrint('Safe');
+  14 |   }
+  15 | }
+     ^ Col 0
+",dart.dart_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
  in namespace/skims/test/data/lib_root/f237/dart_print.dart","
    1 | import 'package:test/test.dart';
@@ -549,11 +568,13 @@ F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,8,200,skims,2
    6 |   }
    7 |   on IntegerDivisionByZeroException catch (e) {
 >  8 |     print(e);
-   9 |   }
-  10 |   catch (e) {
-  11 |     print('This should not  be reported');
-  12 |   }
-  13 | }
+   9 |     debugPrint(e);
+  10 |   }
+  11 |   catch (e) {
+  12 |     print('This should not  be reported');
+  13 |     debugPrint('Safe');
+  14 |   }
+  15 | }
      ^ Col 0
 ",dart.dart_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,16,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
