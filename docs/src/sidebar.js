@@ -137,6 +137,7 @@ const About = [
     items: [
       "about/compare/introduction",
       "about/compare/astra",
+      "about/compare/bishopfox",
       "about/compare/checkmarx",
       "about/compare/crashtest-security",
       "about/compare/data-theorem",
