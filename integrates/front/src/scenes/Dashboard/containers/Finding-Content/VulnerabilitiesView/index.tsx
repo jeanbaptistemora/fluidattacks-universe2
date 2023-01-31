@@ -13,6 +13,7 @@ import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
 import { statusFormatter } from "scenes/Dashboard/components/Vulnerabilities/Formatter";
@@ -628,6 +629,7 @@ export const VulnsView: React.FC = (): JSX.Element => {
             />
           </Modal>
         )}
+        <ExpertButton />
       </React.Fragment>
     </React.StrictMode>
   );
