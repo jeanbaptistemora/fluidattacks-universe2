@@ -12,7 +12,7 @@ import { PoliciesLink } from "./styles";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { Label } from "components/Input";
+import { Input, Label } from "components/Input";
 import { Col } from "components/Layout/Col";
 import { Row } from "components/Layout/Row";
 import { Text } from "components/Text";
@@ -118,20 +118,15 @@ const Policies: React.FC<IPolicies> = ({
                     </Tooltip>
                   </PoliciesLink>
                 </Label>
-                <Tooltip
-                  disp={"inline"}
-                  id={"maxAcceptanceDays-tooltip"}
-                  place={"bottom"}
-                  tip={t(`${translationStart}recommended.maxAcceptanceDays`)}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"maxAcceptanceDays"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                <Input
+                  disabled={permissions.cannot(permission)}
+                  name={"maxAcceptanceDays"}
+                  tooltip={t(
+                    `${translationStart}recommended.maxAcceptanceDays`
+                  )}
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
