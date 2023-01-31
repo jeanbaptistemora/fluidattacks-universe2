@@ -223,9 +223,8 @@ mocked_paths: Dict[str, str] = {
     "s3_ops.remove_file": "s3.operations.remove_file",
     "s3_ops.sign_url": "s3.operations.sign_url",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
-    "update_assigned_index": "db_model.vulnerabilities.update_assigned_index",
     "update_evidence": "events.domain.update_evidence",
-    "update_me_draft_index": "db_model.findings.update_me_draft_index",
+    "update_me_draft_index": "group_access.domain.update_me_draft_index",
     "update_state": "groups.domain.update_state",
     "validate_acceptance_severity_range": "organizations.domain.validate_acceptance_severity_range",  # noqa: E501 pylint: disable=line-too-long
     "validate_evidence": "events.domain.validate_evidence",
@@ -3271,7 +3270,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "db_model.findings.remove": {
         '["unittesting", "457497316"]': None,
     },
-    "db_model.findings.update_me_draft_index": {
+    "group_access.domain.update_me_draft_index": {
         '["unittest@fluidattacks.com", "unittesting"]': None,
     },
     "db_model.groups.get.GroupLoader.load": {
@@ -9540,9 +9539,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     },
     "db_model.vulnerabilities.remove": {
         '["80d6a69f-a376-46be-98cd-2fdedcffdcc0"]': None,
-    },
-    "db_model.vulnerabilities.update_assigned_index": {
-        '["unittesting"]': None,
     },
     "events.domain.remove_file_evidence": {
         '["418900978", "oneshottest"]': None,

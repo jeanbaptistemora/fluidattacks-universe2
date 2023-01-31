@@ -1,3 +1,7 @@
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_mocked_path,
+    set_mocks_return_values,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -24,6 +28,10 @@ from newutils import (
     datetime as datetime_utils,
 )
 import pytest
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -174,11 +182,53 @@ async def test_group_access_changes() -> None:
         ["unittest@fluidattacks.com", "unittesting"],
     ],
 )
-@pytest.mark.changes_db
-async def test_remove_access(email: str, group_name: str) -> None:
+@patch(get_mocked_path("group_access_model.remove"), new_callable=AsyncMock)
+@patch(get_mocked_path("update_me_draft_index"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.me_drafts.load"), new_callable=AsyncMock)
+@patch(
+    get_mocked_path("loaders.me_vulnerabilities.load"), new_callable=AsyncMock
+)
+@patch(
+    get_mocked_path("loaders.group_drafts_and_findings.load"),
+    new_callable=AsyncMock,
+)
+async def test_remove_access(  # pylint: disable=too-many-arguments
+    mock_loaders_group_drafts_and_findings: AsyncMock,
+    mock_loaders_me_vulnerabilities: AsyncMock,
+    mock_loaders_me_drafts: AsyncMock,
+    mock_update_me_draft_index: AsyncMock,
+    mock_group_access_model_remove: AsyncMock,
+    email: str,
+    group_name: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_loaders_group_drafts_and_findings,
+            mock_loaders_me_vulnerabilities,
+            mock_loaders_me_drafts,
+            mock_update_me_draft_index,
+            mock_group_access_model_remove,
+        ],
+        [
+            "loaders.group_drafts_and_findings.load",
+            "loaders.me_vulnerabilities.load",
+            "loaders.me_drafts.load",
+            "update_me_draft_index",
+            "group_access_model.remove",
+        ],
+        [
+            [group_name],
+            [email],
+            [email],
+            [email, group_name],
+            [email, group_name],
+        ],
+    ]
+    assert set_mocks_return_values(
+        mocked_objects=mocked_objects,
+        paths_list=mocked_paths,
+        mocks_args=mocks_args,
+    )
     loaders: Dataloaders = get_new_context()
-    assert await exists(loaders, group_name, email)
     await remove_access(loaders, email, group_name)
-
-    loaders.group_access.clear_all()
-    assert not await exists(loaders, group_name, email)
+    assert all(mock_object.called is True for mock_object in mocked_objects)
