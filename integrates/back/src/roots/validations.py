@@ -48,6 +48,9 @@ from ipaddress import (
 from newutils.datetime import (
     get_utc_now,
 )
+from newutils.validations import (
+    get_attr_value,
+)
 from oauth.azure import (
     get_azure_token,
 )
@@ -199,6 +202,36 @@ def validate_nickname_is_unique(
         if root.state.status == RootStatus.ACTIVE
     }:
         raise RepeatedRootNickname()
+
+
+def validate_nickname_is_unique_deco(
+    nickname_field: str,
+    roots_fields: str,
+    old_nickname_field: str,
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            nickname: str = get_attr_value(
+                field=nickname_field, kwargs=kwargs, obj_type=str
+            )
+            roots: tuple[Root, ...] = get_attr_value(
+                field=roots_fields, kwargs=kwargs, obj_type=tuple[Root, ...]
+            )
+            old_nickname: str = get_attr_value(
+                field=old_nickname_field, kwargs=kwargs, obj_type=str
+            )
+            if nickname != old_nickname and nickname in {
+                root.state.nickname
+                for root in roots
+                if root.state.status == RootStatus.ACTIVE
+            }:
+                raise RepeatedRootNickname()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def is_git_unique(
@@ -419,6 +452,22 @@ def validate_git_root_deco(root_field: str) -> Callable:
 def validate_nickname(nickname: str) -> None:
     if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
         raise InvalidChar()
+
+
+def validate_nickname_deco(nickname_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            nickname: str = get_attr_value(
+                field=nickname_field, kwargs=kwargs, obj_type=str
+            )
+            if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
+                raise InvalidChar()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 async def _validate_git_credentials_ssh(

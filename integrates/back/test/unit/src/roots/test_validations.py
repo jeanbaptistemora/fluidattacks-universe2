@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidGitRoot,
     InvalidRootComponent,
     InvalidUrl,
+    RepeatedRootNickname,
     RequiredCredentials,
 )
 from dataloaders import (
@@ -45,7 +46,12 @@ from roots.validations import (
     validate_git_root,
     validate_git_root_deco,
     validate_nickname,
+    validate_nickname_deco,
+    validate_nickname_is_unique_deco,
     working_credentials,
+)
+from typing import (
+    Tuple,
 )
 
 pytestmark = [
@@ -195,13 +201,6 @@ async def test_validate_git_access() -> None:
         ),
         loaders=get_new_context(),
     )
-
-    # await validate_git_access(
-    #     url="https://app.fluidattacks.com:67000",
-    #     branch="trunk",
-    #     secret=SshSecret(key="test_key"),
-    #     loaders=get_new_context(),
-    # )
     with pytest.raises(InvalidUrl):
         await validate_git_access(
             url="https://app.fluidattacks.com:67000",
@@ -278,6 +277,16 @@ def test_validate_nickname() -> None:
         validate_nickname(nickname="invalidusername!")
 
 
+def test_validate_nickname_deco() -> None:
+    @validate_nickname_deco("nickname")
+    def decorated_func(nickname: str) -> str:
+        return nickname
+
+    assert decorated_func(nickname="valid-username_1")
+    with pytest.raises(InvalidChar):
+        decorated_func(nickname="invalidusername!")
+
+
 async def test_validate_git_credentials_oauth() -> None:
     with pytest.raises(KeyError):
         await validate_git_credentials_oauth(
@@ -286,4 +295,32 @@ async def test_validate_git_credentials_oauth() -> None:
             loaders=get_new_context(),
             credential_id="158d1f7f-65c5-4c79-85e3-de3acfe03774",
             organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+        )
+
+
+async def test_validate_nickname_is_unique_deco() -> None:
+    @validate_nickname_is_unique_deco(
+        nickname_field="nickname",
+        roots_fields="roots",
+        old_nickname_field="old_nickname",
+    )
+    def decorated_func(
+        nickname: str, roots: tuple[Root, ...], old_nickname: str
+    ) -> Tuple:
+        return (nickname, roots, old_nickname)
+
+    loaders = get_new_context()
+    root: Root = await loaders.root.load(
+        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    )
+    assert decorated_func(
+        nickname="valid-username_1",
+        roots=(root,),
+        old_nickname="valid-username_2",
+    )
+    with pytest.raises(RepeatedRootNickname):
+        decorated_func(
+            nickname="universe",
+            roots=(root,),
+            old_nickname="valid-username_2",
         )
