@@ -1,6 +1,9 @@
 from model.core_model import (
     FindingEnum,
 )
+from model.graph_model import (
+    NId,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -8,18 +11,27 @@ from symbolic_eval.types import (
 )
 from typing import (
     Dict,
+    List,
+    Tuple,
+    Union,
+)
+from utils import (
+    graph as g,
 )
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    try:
-        path = args.path[: args.path.index(args.n_id)]
-    except ValueError:
-        path = []
+    danger_nodes: Union[List[NId], Tuple]
+    if args.n_id in args.path:
+        danger_nodes = args.path[: args.path.index(args.n_id)]
+    else:
+        danger_nodes = g.adj_ast(args.graph, args.n_id)
 
-    danger = [args.generic(args.fork_n_id(cfg_id)).danger for cfg_id in path]
+    danger = [
+        args.generic(args.fork_n_id(arg_id)).danger for arg_id in danger_nodes
+    ]
     args.evaluation[args.n_id] = any(danger)
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):

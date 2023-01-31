@@ -48,7 +48,6 @@ def is_sql_injection(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
 def is_execute_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     danger_methods = {
         "ExecuteNonQuery",
-        "ExecuteReader",
         "ExecuteScalar",
         "ExecuteOracleNonQuery",
         "ExecuteOracleScalar",

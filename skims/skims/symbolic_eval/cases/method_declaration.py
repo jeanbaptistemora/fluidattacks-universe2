@@ -23,9 +23,14 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    danger_params = False
     if pl_id := args.graph.nodes[args.n_id].get("parameters_id"):
-        args.evaluation[args.n_id] = args.generic(args.fork_n_id(pl_id)).danger
+        danger_params = args.generic(args.fork_n_id(pl_id)).danger
+    danger_block = False
+    if block_id := args.graph.nodes[args.n_id].get("block_id"):
+        danger_block = args.generic(args.fork_n_id(block_id)).danger
 
+    args.evaluation[args.n_id] = danger_params or danger_block
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
 

@@ -47,6 +47,30 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
    91 |
       ^ Col 0
 ",java.java_sql_injection
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,103,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/BlindSQLInjectionVulnerability.java,"
+   93 |             value = LevelConstants.LEVEL_3,
+   94 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+   95 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+   96 |             parameterName = Constants.ID,
+   97 |             sampleValues = ""1"")
+   98 |     public ResponseEntity<String> getCarInformationLevel3(
+   99 |             @RequestParam Map<String, String> queryParams) {
+  100 |         String id = queryParams.get(Constants.ID);
+  101 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
+  102 |         bodyBuilder.body(ErrorBasedSQLInjectionVulnerability.CAR_IS_NOT_PRESENT_RESPONSE);
+> 103 |         return applicationJdbcTemplate.query(
+  104 |                 (conn) -> conn.prepareStatement(""select * from cars where id=?""),
+  105 |                 (prepareStatement) -> {
+  106 |                     prepareStatement.setString(1, id);
+  107 |                 },
+  108 |                 (rs) -> {
+  109 |                     if (rs.next()) {
+  110 |                         return bodyBuilder.body(CAR_IS_PRESENT_RESPONSE);
+  111 |                     }
+  112 |                     return bodyBuilder.body(
+  113 |                             ErrorBasedSQLInjectionVulnerability.CAR_IS_NOT_PRESENT_RESPONSE);
+      ^ Col 0
+",java.java_sql_injection
 F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,67,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,"
    57 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
    58 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
@@ -95,6 +119,30 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
   124 |                                                 CAR_IS_PRESENT_RESPONSE.apply(
       ^ Col 0
 ",java.java_sql_injection
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,264,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/ErrorBasedSQLInjectionVulnerability.java,"
+  254 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+  255 |             parameterName = Constants.ID,
+  256 |             sampleValues = ""1"")
+  257 |     public ResponseEntity<String> doesCarInformationExistsLevel5(
+  258 |             @RequestParam Map<String, String> queryParams) {
+  259 |         final String id = queryParams.get(Constants.ID);
+  260 |         BodyBuilder bodyBuilder = ResponseEntity.status(HttpStatus.OK);
+  261 |         bodyBuilder.body(ErrorBasedSQLInjectionVulnerability.CAR_IS_NOT_PRESENT_RESPONSE);
+  262 |         try {
+  263 |             ResponseEntity<String> responseEntity =
+> 264 |                     applicationJdbcTemplate.query(
+  265 |                             (conn) -> conn.prepareStatement(""select * from cars where id=?""),
+  266 |                             (prepareStatement) -> {
+  267 |                                 prepareStatement.setString(1, id);
+  268 |                             },
+  269 |                             (rs) -> {
+  270 |                                 CarInformation carInformation = new CarInformation();
+  271 |                                 if (rs.next()) {
+  272 |                                     carInformation.setId(rs.getInt(1));
+  273 |                                     carInformation.setName(rs.getString(2));
+  274 |                                     carInformation.setImagePath(rs.getString(3));
+      ^ Col 0
+",java.java_sql_injection
 F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,49,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,"
    39 |             description = ""UNION_SQL_INJECTION_URL_PARAM_APPENDED_DIRECTLY_TO_QUERY"")
    40 |     @VulnerableAppRequestMapping(
@@ -141,5 +189,29 @@ F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/
    84 |                     return new ResponseEntity<CarInformation>(carInformation, HttpStatus.OK);
    85 |                 });
    86 |     }
+      ^ Col 0
+",java.java_sql_injection
+F112,lines,OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,124,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in OWASP/src/main/java/org/sasanlabs/service/vulnerability/sqlInjection/UnionBasedSQLInjectionVulnerability.java,"
+  114 |     @VulnerableAppRequestMapping(
+  115 |             value = LevelConstants.LEVEL_4,
+  116 |             descriptionLabel = ""URL_CONTAINING_CAR_ID_PARAMETER"",
+  117 |             htmlTemplate = ""LEVEL_1/SQLInjection_Level1"",
+  118 |             parameterName = Constants.ID,
+  119 |             sampleValues = ""1"")
+  120 |     public ResponseEntity<CarInformation> getCarInformationLevel4(
+  121 |             @RequestParam Map<String, String> queryParams) {
+  122 |         String id = queryParams.get(""id"");
+  123 |
+> 124 |         return applicationJdbcTemplate.query(
+  125 |                 ""select * from cars where id=?"",
+  126 |                 (prepareStatement) -> {
+  127 |                     prepareStatement.setString(1, id);
+  128 |                 },
+  129 |                 (rs) -> {
+  130 |                     CarInformation carInformation = new CarInformation();
+  131 |                     if (rs.next()) {
+  132 |                         carInformation.setId(rs.getInt(1));
+  133 |                         carInformation.setName(rs.getString(2));
+  134 |                         carInformation.setImagePath(rs.getString(3));
       ^ Col 0
 ",java.java_sql_injection
