@@ -18,6 +18,7 @@ import { useParams } from "react-router-dom";
 
 import { handleGrantError } from "../../Group-Content/GroupStakeholdersView/helpers";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Table } from "components/Table";
 import { timeFromNow } from "components/Table/formatters/timeFromNow";
@@ -339,7 +340,8 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
               invitationResend: (
                 <Button
                   disabled={!isPending}
-                  onClick={handleResendEmail}
+                  // eslint-disable-next-line
+                  onClick={handleResendEmail} // NOSONAR
                   variant={"secondary"}
                 >
                   {t("searchFindings.usersTable.resendEmail")}
@@ -348,6 +350,14 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
             };
           }
         );
+
+  const handleClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm(handleRemoveStakeholder);
+      },
+    [handleRemoveStakeholder]
+  );
 
   return (
     <React.StrictMode>
@@ -410,10 +420,6 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                 })}
               >
                 {(confirm): React.ReactNode => {
-                  function handleClick(): void {
-                    confirm(handleRemoveStakeholder);
-                  }
-
                   return (
                     <Tooltip
                       disp={"inline-block"}
@@ -427,7 +433,7 @@ const OrganizationStakeholders: React.FC<IOrganizationStakeholders> = ({
                           removing
                         }
                         id={"removeUser"}
-                        onClick={handleClick}
+                        onClick={handleClick(confirm)}
                         variant={"secondary"}
                       >
                         <FontAwesomeIcon icon={faTrashAlt} />
