@@ -44,7 +44,7 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
                 and vol_encryption.raw in FALSE_OPTIONS
             ):
                 yield vol_encryption
-            elif "KmsKeyId" not in ec2_res.raw:
+            elif hasattr(ec2_res, "raw") and "KmsKeyId" not in ec2_res.raw:
                 yield AWSEC2(
                     column=ec2_res.start_column,
                     data=ec2_res.data,

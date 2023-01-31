@@ -24,7 +24,7 @@ def patch_statement_node(stmt: Node) -> Node:
     stmt.inner.setdefault("Effect", "Deny")
     allow_keys = {"Action", "NotAction", "NotResource", "Resource"}
     keys_to_change = []
-    for key, value in stmt.data.items():
+    for key, value in stmt.data.items() if hasattr(stmt, "data") else []:
         if (key.inner in allow_keys) and value.data_type != Type.ARRAY:
             keys_to_change.append(
                 (

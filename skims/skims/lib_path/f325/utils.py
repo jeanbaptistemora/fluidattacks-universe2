@@ -133,7 +133,7 @@ def _resource_all(resource_node: Node) -> Optional[Node]:
 
 def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
     """Check if a statement of a policy allow an action in all resources."""
-    for stm in statements.data:
+    for stm in statements.data if statements.data else []:
         effect = get_node_by_keys(stm, ["Effect"])
         resource = get_node_by_keys(stm, ["Resource"])
         action = get_node_by_keys(stm, ["Action"])
