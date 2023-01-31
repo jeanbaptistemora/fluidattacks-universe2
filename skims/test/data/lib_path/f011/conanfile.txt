@@ -1,0 +1,12 @@
+[requires]
+libexif/0.6.23
+sdl/2.0.20
+nlohmann_json/3.10.5
+yaml-cpp/0.6.3
+gdal/3.4.3
+openssl/1.1.1o
+libjpeg-turbo/2.0.5
+
+[generators]
+cmake_find_package
+cmake_paths

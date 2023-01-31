@@ -16388,7 +16388,7 @@ F157,lines,namespace/skims/test/data/lib_path/f157/tfm_aws_acl_broad_network_acc
   21 | }
      ^ Col 0
 ",terraform.tfm_aws_acl_broad_network_access
-F393,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (devise v=1.4.2) [CVE-2013-0233, CVE-2015-8314, CVE-2019-16109, CVE-2019-5421, GHSA-73rf-6mrf-759q, GHSA-fcjw-8rhj-gwwc]",132,937,skims,393. Use of software with known vulnerabilities in development,"Use of devise at version =1.4.2 with ['CVE-2013-0233', 'CVE-2015-8314', 'CVE-2019-16109', 'CVE-2019-5421', 'GHSA-73rf-6mrf-759q', 'GHSA-fcjw-8rhj-gwwc'] in namespace/skims/test/data/lib_path/f011/Gemfile","
+F393,lines,"namespace/skims/test/data/lib_path/f011/Gemfile (devise v=1.4.2) [CVE-2013-0233, CVE-2015-8314, CVE-2019-16109, CVE-2019-5421, GHSA-73rf-6mrf-759q, GHSA-746g-3gfp-hfhw, GHSA-fcjw-8rhj-gwwc]",132,937,skims,393. Use of software with known vulnerabilities in development,"Use of devise at version =1.4.2 with ['CVE-2013-0233', 'CVE-2015-8314', 'CVE-2019-16109', 'CVE-2019-5421', 'GHSA-73rf-6mrf-759q', 'GHSA-746g-3gfp-hfhw', 'GHSA-fcjw-8rhj-gwwc'] in namespace/skims/test/data/lib_path/f011/Gemfile","
   122 |   platforms :mri do
   123 |     gem ""stackprof"", ""= 1.4.2""
   124 |     gem ""debug"", "">= 1.1.0"", require: false
