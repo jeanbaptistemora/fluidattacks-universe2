@@ -3926,7 +3926,7 @@ class MethodsEnum(Enum):
     TFM_DB_CLUSTER_PUB_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_db_cluster_publicly_accessible",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F073,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -47,7 +47,31 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cfn_rds_is_publicly_accessibl
    51 |         ""DBSubnetGroupName"": {
       ^ Col 0
 ",cloudformation.cfn_rds_is_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,11,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,"
+F073,lines,namespace/skims/test/data/lib_root/f073/cluster_instance_rebase.tf,26,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cluster_instance_rebase.tf,"
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
+  22 | }
+  23 |
+  24 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  25 |   count               = 2
+> 26 |   publicly_accessible = true
+  27 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  28 |   cluster_identifier  = aws_rds_cluster.default.id
+  29 |   instance_class      = ""db.r4.large""
+  30 |   engine              = aws_rds_cluster.default.engine
+  31 |   engine_version      = aws_rds_cluster.default.engine_version
+  32 | }
+     ^ Col 0
+",terraform.tfm_db_cluster_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_root/f073/cluster_instance_rebase.tf,11,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cluster_instance_rebase.tf,"
    1 | resource ""aws_rds_cluster"" ""default"" {
    2 |   cluster_identifier  = ""aurora-cluster-demo""
    3 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
@@ -71,55 +95,7 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,11
   21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_db_instance_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,26,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,"
-  12 |   allocated_storage    = 10
-  13 |   engine               = ""mysql""
-  14 |   engine_version       = ""5.7""
-  15 |   deletion_protection  = true
-  16 |   instance_class       = ""db.t3.micro""
-  17 |   name                 = ""mydb""
-  18 |   username             = ""foo""
-  19 |   password             = ""foobarbaz""
-  20 |   parameter_group_name = ""default.mysql5.7""
-  21 |   skip_final_snapshot  = true
-  22 | }
-  23 |
-  24 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  25 |   count               = 2
-> 26 |   publicly_accessible = true
-  27 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  28 |   cluster_identifier  = aws_rds_cluster.default.id
-  29 |   instance_class      = ""db.r4.large""
-  30 |   engine              = aws_rds_cluster.default.engine
-  31 |   engine_version      = aws_rds_cluster.default.engine_version
-  32 | }
-     ^ Col 0
-",terraform.tfm_db_instance_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
-   1 | resource ""aws_db_instance"" ""default"" {
->  2 |   publicly_accessible  = true
-   3 |   allocated_storage    = 10
-   4 |   engine               = ""mysql""
-   5 |   engine_version       = ""5.7""
-   6 |   deletion_protection  = true
-   7 |   instance_class       = ""db.t3.micro""
-   8 |   name                 = ""mydb""
-   9 |   username             = ""foo""
-  10 |   password             = ""foobarbaz""
-  11 |   parameter_group_name = ""default.mysql5.7""
-  12 |   skip_final_snapshot  = true
-  13 | }
-  14 |
-  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
-  16 |   count               = 2
-  17 |   publicly_accessible = true
-  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
-  19 |   cluster_identifier  = aws_rds_cluster.default.id
-  20 |   instance_class      = ""db.r4.large""
-  21 |   engine              = aws_rds_cluster.default.engine
-     ^ Col 0
-",terraform.tfm_db_instance_publicly_accessible
-F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
+F073,lines,namespace/skims/test/data/lib_root/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cluster_instance_test.tf,"
    7 |   instance_class       = ""db.t3.micro""
    8 |   name                 = ""mydb""
    9 |   username             = ""foo""
@@ -141,6 +117,30 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,4
   25 | resource ""aws_rds_cluster"" ""default"" {
   26 |   cluster_identifier  = ""aurora-cluster-demo""
   27 |   availability_zones  = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+     ^ Col 0
+",terraform.tfm_db_cluster_publicly_accessible
+F073,lines,namespace/skims/test/data/lib_root/f073/cluster_instance_test.tf,2,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_root/f073/cluster_instance_test.tf,"
+   1 | resource ""aws_db_instance"" ""default"" {
+>  2 |   publicly_accessible  = true
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster_instance"" ""cluster_instances"" {
+  16 |   count               = 2
+  17 |   publicly_accessible = true
+  18 |   identifier          = ""aurora-cluster-demo-${count.index}""
+  19 |   cluster_identifier  = aws_rds_cluster.default.id
+  20 |   instance_class      = ""db.r4.large""
+  21 |   engine              = aws_rds_cluster.default.engine
      ^ Col 0
 ",terraform.tfm_db_instance_publicly_accessible
 F073,inputs,arn:aws:iam::123456789012:dbc/unsafe (namespace),/0/PubliclyAccessible: True,478,skims,073. Improper authorization control for web services - RDS,lib_path.f073.cfn_rds_is_publicly_accessible,"
