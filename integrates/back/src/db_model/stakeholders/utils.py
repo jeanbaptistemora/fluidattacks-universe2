@@ -56,6 +56,8 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
         and metadata.access_token.jti == ""
     ):
         item["access_token"] = []
+        item["last_api_token_use_date"] = []
+
     return {
         key: None if not value and value is not False else value
         for key, value in item.items()

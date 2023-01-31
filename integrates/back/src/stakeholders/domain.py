@@ -1,9 +1,16 @@
 from aioextensions import (
     collect,
+    schedule,
 )
 from authz.validations import (
     validate_fluidattacks_staff_on_group_deco,
     validate_role_fluid_reqs_deco,
+)
+from botocore.exceptions import (
+    ClientError,
+)
+from contextlib import (
+    suppress,
 )
 from custom_exceptions import (
     InvalidExpirationTime,
@@ -13,6 +20,7 @@ from custom_exceptions import (
     RequiredVerificationCode,
     SamePhoneNumber,
     StakeholderNotFound,
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -206,9 +214,21 @@ async def has_valid_access_token(
         return False
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     if context and stakeholder.access_token:
-        return sessions_utils.validate_hash_token(
-            stakeholder.access_token, jti
-        )
+        if sessions_utils.validate_hash_token(stakeholder.access_token, jti):
+            if is_fluid_staff(email) and email.lower().startswith("forces."):
+                return True
+            with suppress(UnavailabilityError, ClientError):
+                schedule(
+                    stakeholders_model.update_metadata(
+                        metadata=StakeholderMetadataToUpdate(
+                            last_api_token_use_date=(
+                                datetime_utils.get_utc_now()
+                            ),
+                        ),
+                        email=email,
+                    )
+                )
+            return True
     return False
 
 
