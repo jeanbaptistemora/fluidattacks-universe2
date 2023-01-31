@@ -5,7 +5,6 @@ output:
   file_path: skims/test/outputs/lib_path.csv
   format: CSV
 checks:
-  - F031
   - F037
   - F044
   - F055
@@ -20,7 +19,6 @@ checks:
   - F086
   - F097
   - F099
-  - F109
   - F117
   - F120
   - F135

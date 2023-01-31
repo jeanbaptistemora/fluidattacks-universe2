@@ -1,0 +1,210 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,36,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+  26 |       DBParameterGroupName:
+  27 |         Ref: RDSDBParameterGroup
+  28 |       DBSubnetGroupName:
+  29 |         Ref: DBSubnetGroup
+  30 |       DeletionProtection: true
+  31 |       Engine: aurora
+  32 |       PubliclyAccessible: 'true'
+  33 |       StorageEncrypted: true
+  34 |     Type: AWS::RDS::DBInstance
+  35 |   RDSCluster2:
+> 36 |     Properties:
+  37 |       DBClusterParameterGroupName:
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DeletionProtection: true
+  40 |       Engine: aurora
+  41 |       MasterUserPassword:
+  42 |         Ref: password
+  43 |       MasterUsername:
+  44 |         Ref: username
+  45 |       StorageEncrypted: true
+  46 |     Type: AWS::RDS::DBCluster
+     ^ Col 0
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,48,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml,"
+  38 |         Ref: RDSDBClusterParameterGroup
+  39 |       DeletionProtection: true
+  40 |       Engine: aurora
+  41 |       MasterUserPassword:
+  42 |         Ref: password
+  43 |       MasterUsername:
+  44 |         Ref: username
+  45 |       StorageEncrypted: true
+  46 |     Type: AWS::RDS::DBCluster
+  47 |   RDSDBInstance2:
+> 48 |     Properties:
+  49 |       AvailabilityZone:
+  50 |         Fn::GetAtt:
+  51 |           - Subnet1
+  52 |           - AvailabilityZone
+  53 |       DBClusterIdentifier:
+  54 |         Ref: RDSCluster
+  55 |       DBInstanceClass: db.r3.xlarge
+  56 |       DBParameterGroupName:
+  57 |         Ref: RDSDBParameterGroup
+  58 |       DeletionProtection: true
+     ^ Col 0
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,49,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
+  39 |           ""Ref"": ""DBSubnetGroup""
+  40 |         },
+  41 |         ""DeletionProtection"": true,
+  42 |         ""Engine"": ""aurora"",
+  43 |         ""PubliclyAccessible"": ""true"",
+  44 |         ""StorageEncrypted"": true
+  45 |       },
+  46 |       ""Type"": ""AWS::RDS::DBInstance""
+  47 |     },
+  48 |     ""RDSCluster2"": {
+> 49 |       ""Properties"": {
+  50 |         ""DBClusterParameterGroupName"": {
+  51 |           ""Ref"": ""RDSDBClusterParameterGroup""
+  52 |         },
+  53 |         ""DeletionProtection"": true,
+  54 |         ""Engine"": ""aurora"",
+  55 |         ""MasterUserPassword"": {
+  56 |           ""Ref"": ""password""
+  57 |         },
+  58 |         ""MasterUsername"": {
+  59 |           ""Ref"": ""username""
+     ^ Col 0
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,66,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_protection.yaml.json,"
+  56 |           ""Ref"": ""password""
+  57 |         },
+  58 |         ""MasterUsername"": {
+  59 |           ""Ref"": ""username""
+  60 |         },
+  61 |         ""StorageEncrypted"": true
+  62 |       },
+  63 |       ""Type"": ""AWS::RDS::DBCluster""
+  64 |     },
+  65 |     ""RDSDBInstance2"": {
+> 66 |       ""Properties"": {
+  67 |         ""AvailabilityZone"": {
+  68 |           ""Fn::GetAtt"": [
+  69 |             ""Subnet1"",
+  70 |             ""AvailabilityZone""
+  71 |           ]
+  72 |         },
+  73 |         ""DBClusterIdentifier"": {
+  74 |           ""Ref"": ""RDSCluster""
+  75 |         },
+  76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+     ^ Col 0
+",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+>  1 | resource ""aws_db_instance"" ""default"" {
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+  15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+     ^ Col 0
+",terraform.tfm_db_cluster_inside_subnet
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+   2 |   publicly_accessible  = false
+   3 |   allocated_storage    = 10
+   4 |   engine               = ""mysql""
+   5 |   engine_version       = ""5.7""
+   6 |   deletion_protection  = true
+   7 |   instance_class       = ""db.t3.micro""
+   8 |   name                 = ""mydb""
+   9 |   username             = ""foo""
+  10 |   password             = ""foobarbaz""
+  11 |   parameter_group_name = ""default.mysql5.7""
+  12 |   skip_final_snapshot  = true
+  13 | }
+  14 |
+> 15 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+  16 |   count              = 2
+  17 |   identifier         = ""aurora-cluster-demo-${count.index}""
+  18 |   cluster_identifier = aws_rds_cluster.default.id
+  19 |   instance_class     = ""db.r4.large""
+  20 |   engine             = aws_rds_cluster.default.engine
+  21 |   engine_version     = aws_rds_cluster.default.engine_version
+  22 | }
+     ^ Col 0
+",terraform.tfm_rds_instance_inside_subnet
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,10,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+   1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+> 10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
+     ^ Col 0
+",terraform.tfm_db_cluster_inside_subnet
+F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+>  1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
+   2 |   count              = 2
+   3 |   identifier         = ""aurora-cluster-demo-${count.index}""
+   4 |   cluster_identifier = aws_rds_cluster.default.id
+   5 |   instance_class     = ""db.r4.large""
+   6 |   engine             = aws_rds_cluster.default.engine
+   7 |   engine_version     = aws_rds_cluster.default.engine_version
+   8 | }
+   9 |
+  10 | resource ""aws_db_instance"" ""default"" {
+  11 |   publicly_accessible  = false
+  12 |   allocated_storage    = 10
+  13 |   engine               = ""mysql""
+  14 |   engine_version       = ""5.7""
+  15 |   deletion_protection  = true
+  16 |   instance_class       = ""db.t3.micro""
+  17 |   name                 = ""mydb""
+  18 |   username             = ""foo""
+  19 |   password             = ""foobarbaz""
+  20 |   parameter_group_name = ""default.mysql5.7""
+  21 |   skip_final_snapshot  = true
+     ^ Col 0
+",terraform.tfm_rds_instance_inside_subnet
+F109,inputs,arn:aws:iam::123456789012:dbc/mydbcluster (namespace),src.lib_path.f109.rds_is_not_inside_a_db_subnet_group,681,skims,109. Unrestricted access between network segments - RDS,src.lib_path.f109.rds_is_not_inside_a_db_subnet_group,"
+  1 | [
+  2 |     {
+  3 |         ""DBClusterArn"": ""arn:aws:iam::123456789012:dbc/mydbcluster""
+  4 |     }
+  5 | ]
+    ^ Col 0
+",aws.is_not_inside_a_db_subnet_group
+F109,inputs,arn:aws:iam::123456789012:db/mydb (namespace),src.lib_path.f109.rds_is_not_inside_a_db_subnet_group,681,skims,109. Unrestricted access between network segments - RDS,src.lib_path.f109.rds_is_not_inside_a_db_subnet_group,"
+  1 | [
+  2 |     {
+  3 |         ""DBInstanceIdentifier"": ""mydb12"",
+  4 |         ""DBInstanceArn"": ""arn:aws:iam::123456789012:db/mydb""
+  5 |     }
+  6 | ]
+    ^ Col 0
+",aws.is_not_inside_a_db_subnet_group

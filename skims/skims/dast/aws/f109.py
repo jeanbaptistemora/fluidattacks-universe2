@@ -33,7 +33,7 @@ def _get_vuln_db_instances(
             instance_arn = instance["DBInstanceArn"]
             locations: List[Location] = []
 
-            if not instance.get("DBSubnetGroupName", {}):
+            if not instance.get("DBSubnetGroup", {}):
                 locations = [
                     Location(
                         access_patterns=(),
@@ -66,7 +66,7 @@ def _get_vulns_db_clusters(
         for clusters in db_clusters:
             cluster_arn = clusters["DBClusterArn"]
             locations: List[Location] = []
-            if not clusters.get("DBSubnetGroupName", {}):
+            if not clusters.get("DBSubnetGroup", {}):
                 locations = [
                     *locations,
                     Location(
