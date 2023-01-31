@@ -69,3 +69,41 @@ async def test_get_toe_lines_fail(populate: bool, email: str) -> None:
     assert populate
     result: dict[str, Any] = await get_result(user=email, group_name="group1")
     assert result["errors"][0]["message"] == "Access denied"
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_root(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+    )
+    lines = result["data"]["group"]["toeLines"]["edges"]
+    assert lines[0]["node"]["attackedAt"] == "2021-02-20T05:00:00+00:00"
+    assert (
+        lines[0]["node"]["root"]["id"]
+        == "63298a73-9dff-46cf-b42d-9b2f01a56690"
+    )
+    assert lines[0]["node"]["attackedBy"] == "test2@test.com"
+    assert lines[0]["node"]["attackedLines"] == 4
+    assert lines[0]["node"]["bePresent"] is True
+    assert lines[0]["node"]["bePresentUntil"] is None
+    assert lines[0]["node"]["comments"] == "comment 2"
+    assert lines[0]["node"]["filename"] == "test2/test#.config"
+    assert lines[0]["node"]["firstAttackAt"] == "2020-02-19T15:41:04+00:00"
+    assert lines[0]["node"]["lastAuthor"] == "customer2@gmail.com"
+    assert (
+        lines[0]["node"]["lastCommit"]
+        == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
+    )
+    assert lines[0]["node"]["loc"] == 180
+    assert lines[0]["node"]["modifiedDate"] == "2020-11-15T15:41:04+00:00"
+    assert lines[0]["node"]["seenAt"] == "2020-02-01T15:41:04+00:00"

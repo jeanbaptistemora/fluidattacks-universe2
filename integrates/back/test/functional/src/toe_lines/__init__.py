@@ -7,6 +7,7 @@ from dataloaders import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -14,10 +15,11 @@ def get_query() -> str:
     return """
         query(
             $groupName: String!
+            $rootId: ID
         ) {
             group(groupName: $groupName) {
                 name
-                toeLines {
+                toeLines(rootId: $rootId) {
                     edges {
                         node {
                             attackedAt
@@ -60,12 +62,14 @@ async def get_result(
     *,
     user: str,
     group_name: str,
+    root_id: Optional[str] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {
         "query": query,
         "variables": {
             "groupName": group_name,
+            "rootId": root_id,
         },
     }
     return await get_graphql_result(
