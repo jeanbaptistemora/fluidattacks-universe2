@@ -1,23 +1,16 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f070.cloudformation import (
     cfn_elb2_target_group_insecure_port,
     cfn_elb2_uses_insecure_security_policy,
 )
-from lib_path.f070.terraform import (
-    tfm_elb2_uses_insecure_security_policy,
-)
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from parse_hcl2.loader import (
-    load_blocking as load_terraform,
 )
 from typing import (
     Any,
@@ -45,15 +38,6 @@ def run_cfn_elb2_target_group_insecure_port(
 
 
 @SHIELD_BLOCKING
-def run_tfm_elb2_uses_insecure_security_policy(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_elb2_uses_insecure_security_policy(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -76,16 +60,5 @@ def analyze(
                     for fun in (run_cfn_elb2_target_group_insecure_port,)
                 ),
             )
-
-    elif file_extension in EXTENSIONS_TERRAFORM:
-        model = load_terraform(stream=content, default=[])
-
-        results = (
-            *results,
-            *(
-                fun(content, path, model)
-                for fun in (run_tfm_elb2_uses_insecure_security_policy,)
-            ),
-        )
 
     return results

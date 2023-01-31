@@ -3902,7 +3902,7 @@ class MethodsEnum(Enum):
     TFM_ELB2_INSECURE_SEC_POLICY = MethodInfo(
         file_name="terraform",
         name="tfm_elb2_uses_insecure_security_policy",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F070,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
