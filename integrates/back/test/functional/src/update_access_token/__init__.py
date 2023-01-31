@@ -32,3 +32,46 @@ async def get_result(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_me_data(
+    *,
+    user: str,
+    session_jwt: str,
+) -> dict:
+    query: str = """
+        query GetMeData {
+            me {
+                permissions
+                role
+            }
+        }
+    """
+    data: dict = {"query": query}
+
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+        session_jwt=session_jwt,
+    )
+
+
+async def get_me_access_token(
+    *,
+    user: str,
+) -> dict:
+    query: str = """
+        query GetMeData {
+            me {
+                accessToken
+            }
+        }
+    """
+    data: dict = {"query": query}
+
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )

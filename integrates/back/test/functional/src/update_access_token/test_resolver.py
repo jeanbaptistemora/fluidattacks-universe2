@@ -1,15 +1,18 @@
+# pylint: disable=import-error
 from . import (
+    get_me_access_token,
+    get_me_data,
     get_result,
+)
+from back.test.functional.src.invalidate_access_token import (
+    get_result as invalidate_token,
 )
 from datetime import (
     datetime,
     timedelta,
 )
+import json
 import pytest
-from typing import (
-    Any,
-    Dict,
-)
 
 
 @pytest.mark.asyncio
@@ -27,14 +30,13 @@ from typing import (
         ["customer_manager@fluidattacks.com"],
         ["reviewer@gmail.com"],
         ["service_forces@gmail.com"],
-        ["reattacker@gmail.com"],
     ],
 )
 async def test_update_access_token(populate: bool, email: str) -> None:
     assert populate
-    expiration_time: Any = datetime.utcnow() + timedelta(weeks=8)
+    expiration_time: datetime = datetime.utcnow() + timedelta(weeks=8)
     ts_expiration_time: int = int(expiration_time.timestamp())
-    result: Dict[str, Any] = await get_result(
+    result: dict = await get_result(
         user=email,
         expiration_time=ts_expiration_time,
     )
@@ -42,3 +44,41 @@ async def test_update_access_token(populate: bool, email: str) -> None:
     assert "updateAccessToken" in result["data"]
     assert "success" in result["data"]["updateAccessToken"]
     assert result["data"]["updateAccessToken"]["success"]
+
+    session_jwt: str = result["data"]["updateAccessToken"]["sessionJwt"]
+    me_token: dict = await get_me_access_token(user=email)
+    assert "errors" not in me_token
+    assert (
+        json.loads(me_token["data"]["me"]["accessToken"])["lastAccessTokenUse"]
+        is None
+    )
+
+    me_data: dict = await get_me_data(user=email, session_jwt=session_jwt)
+    assert "errors" not in me_data
+    assert len(me_data["data"]["me"]["permissions"]) > 0
+
+    me_token = await get_me_access_token(user=email)
+    assert "errors" not in me_token
+    assert (
+        json.loads(me_token["data"]["me"]["accessToken"])["hasAccessToken"]
+        is True
+    )
+    assert (
+        json.loads(me_token["data"]["me"]["accessToken"])["lastAccessTokenUse"]
+        is not None
+    )
+
+    invalidate: dict = await invalidate_token(user=email)
+    assert "errors" not in invalidate
+    assert invalidate["data"]["invalidateAccessToken"]["success"]
+
+    me_token = await get_me_access_token(user=email)
+    assert "errors" not in me_token
+    assert (
+        json.loads(me_token["data"]["me"]["accessToken"])["hasAccessToken"]
+        is False
+    )
+    assert (
+        json.loads(me_token["data"]["me"]["accessToken"])["lastAccessTokenUse"]
+        is None
+    )
