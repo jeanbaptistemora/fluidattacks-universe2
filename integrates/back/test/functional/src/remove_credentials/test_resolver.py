@@ -2,11 +2,7 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.credentials.types import (
-    Credentials,
 )
 from db_model.organizations.types import (
     Organization,
@@ -17,7 +13,6 @@ from db_model.roots.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -40,10 +35,10 @@ async def test_remove_credentials(
     credentials_id: str,
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    loaders = get_new_context()
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     new_credentials = next(
         (
             credentials
@@ -53,7 +48,7 @@ async def test_remove_credentials(
         None,
     )
     assert new_credentials is not None
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,
@@ -105,7 +100,7 @@ async def test_remove_credentials_fails(
     credentials_id: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,

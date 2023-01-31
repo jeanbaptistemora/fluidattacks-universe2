@@ -6,11 +6,7 @@ from custom_exceptions import (
     InvalidParameter,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.credentials.types import (
-    Credentials,
 )
 from db_model.enums import (
     CredentialType,
@@ -18,7 +14,6 @@ from db_model.enums import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -71,16 +66,16 @@ async def test_add_credentials(
     credentials: dict,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, organization_id=organization_id, credentials=credentials
     )
     assert "errors" not in result
     assert "success" in result["data"]["addCredentials"]
     assert result["data"]["addCredentials"]["success"]
-    loaders: Dataloaders = get_new_context()
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    loaders = get_new_context()
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     new_credentials = next(
         (
             credential
@@ -132,7 +127,7 @@ async def test_add_credentials_fail(
     credentials: dict[str, str],
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, organization_id=organization_id, credentials=credentials
     )
     assert "errors" in result
@@ -391,7 +386,7 @@ async def test_add_credentials_fail_2(
     credentials: dict[str, str],
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, organization_id=organization_id, credentials=credentials
     )
     assert "errors" in result

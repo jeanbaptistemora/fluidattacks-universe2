@@ -86,7 +86,7 @@ async def _get_organization_credentials(
     return [format_credential(item) for item in response.items]
 
 
-class OrganizationCredentialsLoader(DataLoader):
+class OrganizationCredentialsLoader(DataLoader[str, list[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_ids: list[str]
@@ -119,7 +119,7 @@ async def _get_user_credentials(*, email: str) -> list[Credentials]:
     return [format_credential(item) for item in response.items]
 
 
-class UserCredentialsLoader(DataLoader):
+class UserCredentialsLoader(DataLoader[str, list[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: list[str]

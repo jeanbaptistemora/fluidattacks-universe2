@@ -20,9 +20,6 @@ from dataloaders import (
 from db_model import (
     TABLE,
 )
-from db_model.credentials.types import (
-    Credentials,
-)
 from dynamodb import (
     keys,
     operations,
@@ -111,9 +108,9 @@ async def process_organization(
     organization_id: str,
     group_names: tuple[str, ...],
 ) -> None:
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     credentials_ids = set(credentials.id for credentials in org_credentials)
     await collect(
         process_group(group_name, credentials_ids)

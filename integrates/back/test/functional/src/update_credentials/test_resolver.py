@@ -6,11 +6,7 @@ from custom_exceptions import (
     InvalidParameter,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.credentials.types import (
-    Credentials,
 )
 from db_model.enums import (
     CredentialType,
@@ -18,7 +14,6 @@ from db_model.enums import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -105,7 +100,7 @@ async def test_update_credentials_fail_1(
     parameter: str,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,
@@ -147,7 +142,7 @@ async def test_update_credentials_fail_2(
     edited_credentials: dict,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,
@@ -211,7 +206,7 @@ async def test_update_credentials(
     edited_credentials: dict,
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,
@@ -220,10 +215,10 @@ async def test_update_credentials(
     assert "errors" not in result
     assert "success" in result["data"]["updateCredentials"]
     assert result["data"]["updateCredentials"]["success"]
-    loaders: Dataloaders = get_new_context()
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    loaders = get_new_context()
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     current_credentials = next(
         (
             credentials
@@ -290,7 +285,7 @@ async def test_update_credentials_fail(
     edited_credentials: dict[str, str],
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         organization_id=organization_id,
         credentials_id=credentials_id,

@@ -8,9 +8,6 @@ from back.test.functional.src.organization import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.credentials.types import (
-    Credentials,
-)
 from db_model.enums import (
     CredentialType,
 )
@@ -72,9 +69,7 @@ async def test_add_git_root(populate: bool, email: str) -> None:
         == 0
     )
 
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(org_id)
+    org_credentials = await loaders.organization_credentials.load(org_id)
     new_credentials = next(
         (
             credential

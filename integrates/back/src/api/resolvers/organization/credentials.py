@@ -16,9 +16,6 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[Credentials, ...]:
+) -> list[Credentials]:
     loaders: Dataloaders = info.context.loaders
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(parent.id)
-    return org_credentials
+    return await loaders.organization_credentials.load(parent.id)

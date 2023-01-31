@@ -5,7 +5,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.credentials.types import (
-    Credentials,
     OauthAzureSecret,
     OauthBitbucketSecret,
     OauthGithubSecret,
@@ -25,9 +24,9 @@ async def validate_credentials_name_in_organization(
     organization_id: str,
     credentials_name: str,
 ) -> None:
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     credentials_names = {
         credentials.state.name.strip() for credentials in org_credentials
     }
@@ -46,9 +45,9 @@ async def validate_credentials_oauth(
         Type[OauthGitlabSecret],
     ],
 ) -> None:
-    org_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(organization_id)
+    org_credentials = await loaders.organization_credentials.load(
+        organization_id
+    )
     credentials = {
         credential.owner
         for credential in org_credentials
