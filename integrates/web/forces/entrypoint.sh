@@ -9,12 +9,14 @@ function resolve_endpoint() {
 }
 
 function main {
+  local cluster="common-k8s"
+  local region="us-east-1"
   export BATCH_BIN
 
   : \
     && aws_login "dev" "3600" \
     && if test -n "${CI:-}"; then
-      aws_eks_update_kubeconfig 'common' 'us-east-1' \
+      aws_eks_update_kubeconfig "${cluster}" "${region}" \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
           -n "dev" \

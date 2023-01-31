@@ -1,6 +1,9 @@
 # shellcheck shell=bash
 
 function main {
+  local cluster="common-k8s"
+  local region="us-east-1"
+
   : \
     && echo '[INFO] Firefox: __argFirefox__' \
     && echo '[INFO] Geckodriver: __argGeckodriver__' \
@@ -15,7 +18,7 @@ function main {
       TEST_E2E_USER_4 \
       TEST_E2E_USER_5 \
     && if test -n "${CI:-}"; then
-      aws_eks_update_kubeconfig 'common' 'us-east-1' \
+      aws_eks_update_kubeconfig "${cluster}" "${region}" \
         && kubectl rollout status \
           "deploy/integrates-${CI_COMMIT_REF_NAME}" \
           -n "dev" \

@@ -1,5 +1,4 @@
----
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: integrates-${CI_COMMIT_REF_NAME}
@@ -11,4 +10,10 @@ spec:
     name: integrates-${CI_COMMIT_REF_NAME}
   minReplicas: 1
   maxReplicas: 1
-  targetCPUUtilizationPercentage: 50
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

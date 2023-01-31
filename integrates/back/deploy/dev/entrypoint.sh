@@ -38,6 +38,8 @@ function b64 {
 }
 
 function main {
+  local cluster="common-k8s"
+  local region="us-east-1"
   local target_product
   export B64_CACHIX_AUTH_TOKEN
   export B64_CI_COMMIT_REF_NAME
@@ -49,7 +51,7 @@ function main {
 
   : \
     && aws_login "dev" "3600" \
-    && aws_eks_update_kubeconfig 'common' 'us-east-1' \
+    && aws_eks_update_kubeconfig "${cluster}" "${region}" \
     && B64_CACHIX_AUTH_TOKEN="$(b64 "${CACHIX_AUTH_TOKEN}")" \
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
