@@ -23,8 +23,8 @@ configurations following our criteria.
 ## Devices policy
 
 Since we use different configuration
-profiles for our laptops, said profiles
-are configured with different policies:
+profiles for our laptops for users and admins,
+said profiles are configured with different policies:
 
 - Authorization: How the devices can be accessed
   only by its intended users and how permissions
@@ -69,8 +69,23 @@ are configured with different policies:
   with its latest and secure versions.
 
 - Users: Control about how login is made on the device and
-  local accounts are created improving the security.
-  We comply with the following criteria:
+  local accounts are created improving the security:
+
+  - The guest account allows users access to the system
+    without having to create an account or password.
+    Guest users are unable to make setting changes,
+    cannot remotely login to the system and all created
+    files, caches, and passwords are deleted upon logging out.
+  - The login window prompts a user for his/her credentials,
+    verifies their authorization level and then allows or
+    denies the user access to the system.
+  - The presence of the Guest home folder can cause
+    automated audits to fail when looking for
+    compliant settings within all User folders as well.
+    Rather than ignoring the folders continued existence
+    it is best removed.
+
+  Requirements:
   [142](/criteria/requirements/142), [264](/criteria/requirements/264),
   [265](/criteria/requirements/265), [266](/criteria/requirements/266),
   [319](/criteria/requirements/319).
@@ -89,13 +104,36 @@ are configured with different policies:
 
 - Networking: How we handle insecure
   protocols and services which can
-  compromise the data stored on the devices.
-  We comply with the following criteria:
+  compromise the data stored on the devices:
+
+  - HTTP Apache server and NFSD is part of the Operating System
+    and can be easily turned on to share files and
+    provide remote connectivity to an end user computer.
+    Web sharing should only be done through hardened
+    web servers and appropriate cloud services.
+
+  Requirements:
   [265](/criteria/requirements/265), [266](/criteria/requirements/266).
 
 - Auditing: How we handle logs and monitor
-  our devices for auditing purposes.
-  We comply with the following criteria:
+  our devices for auditing purposes:
+
+  - The audit system writes important operational
+    and security information that can be both
+    useful for an attacker and a place for an
+    attacker to attempt to obfuscate unwanted
+    changes that were recorded. As part of
+    defense-in-depth the `/etc/security/audit_control`
+    configuration and the files in /var/audit should
+    be owned only by root with group wheel with read
+    only rights and no other access allowed.
+    ACLs should not be used for these files.
+  - The socketfilter firewall is what is used
+    when the firewall is turned on in the Security
+    PreferencePane. In order to appropriately monitor
+    what access is allowed and denied logging must be enabled.
+
+  Requirements:
   [080](/criteria/requirements/080), [377](/criteria/requirements/377),
   [378](/criteria/requirements/378), [079](/criteria/requirements/079),
   [075](/criteria/requirements/075).
