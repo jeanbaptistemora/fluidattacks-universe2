@@ -1275,6 +1275,15 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063
   18 | });
      ^ Col 0
 ",typescript.ts_zip_slip
+F070,lines,namespace/skims/test/data/lib_root/f070/lb_insecure_port.tf,3,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/lb_insecure_port.tf,"
+  1 | resource ""aws_lb_target_group"" ""test"" {
+  2 |   name     = ""tf-example-lb-tg""
+> 3 |   port     = 80
+  4 |   protocol = ""HTTP""
+  5 |   vpc_id   = aws_vpc.main.id
+  6 | }
+    ^ Col 0
+",terraform.tfm_lb_target_group_insecure_port
 F056,lines,namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,5,284,skims,056. Anonymous connection,Anonymous connection is allowed in the app settings in namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,"
    1 | {
    2 |     ""$schema"": ""http://json.schemastore.org/launchsettings.json"",

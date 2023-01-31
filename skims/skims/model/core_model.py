@@ -3894,7 +3894,7 @@ class MethodsEnum(Enum):
     TFM_LB_TARGET_INSECURE_PORT = MethodInfo(
         file_name="terraform",
         name="tfm_lb_target_group_insecure_port",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F070,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

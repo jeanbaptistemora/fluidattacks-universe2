@@ -3572,15 +3572,6 @@ F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecur
   34 |         ""TargetType"": ""ip""
      ^ Col 0
 ",cloudformation.cfn_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f070/lb_test.tf,3,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/lb_test.tf,"
-  1 | resource ""aws_lb_target_group"" ""test"" {
-  2 |   name     = ""tf-example-lb-tg""
-> 3 |   port     = 80
-  4 |   protocol = ""HTTP""
-  5 |   vpc_id   = aws_vpc.main.id
-  6 | }
-    ^ Col 0
-",terraform.tfm_lb_target_group_insecure_port
 F070,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,5,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protocol.yaml,"
    1 | ---
    2 | Resources:
@@ -3725,72 +3716,6 @@ F070,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   66 |           }
      ^ Col 0
 ",cloudformation.cfn_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,15,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,"
-   1 | resource ""aws_lb_target_group"" ""ip-example"" {
-   2 |   name        = ""tf-example-lb-tg""
-   3 |   protocol    = ""HTTP""
-   4 |   target_type = ""lambda""
-   5 |   vpc_id      = aws_vpc.main.id
-   6 | }
-   7 |
-   8 | resource ""aws_lb_target_group"" ""ip-example"" {
-   9 |   name        = ""tf-example-lb-tg""
-  10 |   protocol    = ""HTTP""
-  11 |   target_type = ""ip""
-  12 |   vpc_id      = aws_vpc.main.id
-  13 | }
-  14 |
-> 15 | resource ""aws_lb_target_group"" ""ip-example"" {
-  16 |   name     = ""tf-example-lb-tg""
-  17 |   protocol = ""HTTP""
-  18 |   vpc_id   = aws_vpc.main.id
-  19 | }
-     ^ Col 0
-",terraform.tfm_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,8,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,"
-   1 | resource ""aws_lb_target_group"" ""ip-example"" {
-   2 |   name        = ""tf-example-lb-tg""
-   3 |   protocol    = ""HTTP""
-   4 |   target_type = ""lambda""
-   5 |   vpc_id      = aws_vpc.main.id
-   6 | }
-   7 |
->  8 | resource ""aws_lb_target_group"" ""ip-example"" {
-   9 |   name        = ""tf-example-lb-tg""
-  10 |   protocol    = ""HTTP""
-  11 |   target_type = ""ip""
-  12 |   vpc_id      = aws_vpc.main.id
-  13 | }
-  14 |
-  15 | resource ""aws_lb_target_group"" ""ip-example"" {
-  16 |   name     = ""tf-example-lb-tg""
-  17 |   protocol = ""HTTP""
-  18 |   vpc_id   = aws_vpc.main.id
-  19 | }
-     ^ Col 0
-",terraform.tfm_lb_target_group_insecure_port
-F070,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,1,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,"
->  1 | resource ""aws_lb_target_group"" ""ip-example"" {
-   2 |   name        = ""tf-example-lb-tg""
-   3 |   protocol    = ""HTTP""
-   4 |   target_type = ""lambda""
-   5 |   vpc_id      = aws_vpc.main.id
-   6 | }
-   7 |
-   8 | resource ""aws_lb_target_group"" ""ip-example"" {
-   9 |   name        = ""tf-example-lb-tg""
-  10 |   protocol    = ""HTTP""
-  11 |   target_type = ""ip""
-  12 |   vpc_id      = aws_vpc.main.id
-  13 | }
-  14 |
-  15 | resource ""aws_lb_target_group"" ""ip-example"" {
-  16 |   name     = ""tf-example-lb-tg""
-  17 |   protocol = ""HTTP""
-  18 |   vpc_id   = aws_vpc.main.id
-  19 | }
-     ^ Col 0
-",terraform.tfm_lb_target_group_insecure_port
 F346,lines,namespace/skims/test/data/lib_path/f055/AndroidManifest.xml,2,272,skims,346. Excessive privileges - Mobile App,"The application defines dangerous permissions that can be abused by an attacker.
  in namespace/skims/test/data/lib_path/f055/AndroidManifest.xml","
    1 | <manifest xmlns:android=""http://schemas.android.com/apk/res/android"" android:sharedUserId=""android.uid.system"" android:ve

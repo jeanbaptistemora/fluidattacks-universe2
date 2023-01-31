@@ -9,7 +9,6 @@ from lib_path.f070.cloudformation import (
 )
 from lib_path.f070.terraform import (
     tfm_elb2_uses_insecure_security_policy,
-    tfm_lb_target_group_insecure_port,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -55,15 +54,6 @@ def run_tfm_elb2_uses_insecure_security_policy(
 
 
 @SHIELD_BLOCKING
-def run_tfm_lb_target_group_insecure_port(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_lb_target_group_insecure_port(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -94,10 +84,7 @@ def analyze(
             *results,
             *(
                 fun(content, path, model)
-                for fun in (
-                    run_tfm_elb2_uses_insecure_security_policy,
-                    run_tfm_lb_target_group_insecure_port,
-                )
+                for fun in (run_tfm_elb2_uses_insecure_security_policy,)
             ),
         )
 
