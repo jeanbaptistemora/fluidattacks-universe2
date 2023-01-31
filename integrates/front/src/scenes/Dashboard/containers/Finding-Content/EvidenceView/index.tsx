@@ -67,10 +67,13 @@ const EvidenceView: React.FC = (): JSX.Element => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-  const closeImageViewer = (index: number, isOpen: boolean): void => {
-    setCurrentImage(index);
-    setIsViewerOpen(isOpen);
-  };
+  const closeImageViewer = useCallback(
+    (index: number, isOpen: boolean): void => {
+      setCurrentImage(index);
+      setIsViewerOpen(isOpen);
+    },
+    []
+  );
 
   const setOpenImageViewer: (index: number) => void = useCallback(
     (index): void => {
@@ -118,6 +121,16 @@ const EvidenceView: React.FC = (): JSX.Element => {
       handleUpdateEvidenceError(updateError);
     },
   });
+
+  const openImage = useCallback(
+    (index: number): (() => void) =>
+      (): void => {
+        if (!isEditing && !isRefetching) {
+          setOpenImageViewer(index);
+        }
+      },
+    [isEditing, isRefetching, setOpenImageViewer]
+  );
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -215,7 +228,8 @@ const EvidenceView: React.FC = (): JSX.Element => {
           enableReinitialize={true}
           initialValues={evidenceImages}
           name={"editEvidences"}
-          onSubmit={handleUpdate} // eslint-disable-line react/jsx-no-bind
+          // eslint-disable-next-line
+          onSubmit={handleUpdate} // NOSONAR
         >
           {({ dirty }): JSX.Element => (
             <Form>
@@ -252,12 +266,6 @@ const EvidenceView: React.FC = (): JSX.Element => {
                         });
                       };
 
-                      const openImage = (): void => {
-                        if (!isEditing && !isRefetching) {
-                          setOpenImageViewer(index);
-                        }
-                      };
-
                       const content =
                         _.isEmpty(evidence.url) || isRefetching
                           ? ""
@@ -280,10 +288,10 @@ const EvidenceView: React.FC = (): JSX.Element => {
                           isRemovable={!_.isEmpty(evidence.url)}
                           key={name}
                           name={name}
+                          onClick={openImage(index)}
                           // Next annotations needed due to nested callbacks
-                          // eslint-disable-next-line react/jsx-no-bind
-                          onClick={openImage}
-                          onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                          // eslint-disable-next-line
+                          onDelete={handleRemove} // NOSONAR
                           validate={composeValidators([
                             validEvidenceImage,
                             maxFileSize,
@@ -305,7 +313,7 @@ const EvidenceView: React.FC = (): JSX.Element => {
           evidenceImages={evidenceList.map((name: string): { url: string } => ({
             url: evidenceImages[name].url,
           }))}
-          onClose={closeImageViewer} // eslint-disable-line react/jsx-no-bind
+          onClose={closeImageViewer}
         />
       )}
     </React.StrictMode>
