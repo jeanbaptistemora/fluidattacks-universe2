@@ -70,7 +70,7 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,11
   20 |   parameter_group_name = ""default.mysql5.7""
   21 |   skip_final_snapshot  = true
      ^ Col 0
-",terraform.tfm_db_cluster_publicly_accessible
+",terraform.tfm_db_instance_publicly_accessible
 F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,26,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_rebase.tf,"
   12 |   allocated_storage    = 10
   13 |   engine               = ""mysql""
@@ -118,7 +118,7 @@ F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,2,47
   20 |   instance_class      = ""db.r4.large""
   21 |   engine              = aws_rds_cluster.default.engine
      ^ Col 0
-",terraform.tfm_db_cluster_publicly_accessible
+",terraform.tfm_db_instance_publicly_accessible
 F073,lines,namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,17,478,skims,073. Improper authorization control for web services - RDS,Property publicly_accessible is either missing or misconfigured in namespace/skims/test/data/lib_path/f073/cluster_instance_test.tf,"
    7 |   instance_class       = ""db.t3.micro""
    8 |   name                 = ""mydb""

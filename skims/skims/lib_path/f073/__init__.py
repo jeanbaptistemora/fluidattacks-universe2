@@ -7,7 +7,6 @@ from lib_path.f073.cloudformation import (
     cfn_rds_is_publicly_accessible,
 )
 from lib_path.f073.terraform import (
-    tfm_db_cluster_publicly_accessible,
     tfm_db_instance_publicly_accessible,
 )
 from model.core_model import (
@@ -32,15 +31,6 @@ def run_cfn_rds_is_publicly_accessible(
 ) -> Vulnerabilities:
     return cfn_rds_is_publicly_accessible(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_db_cluster_publicly_accessible(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_db_cluster_publicly_accessible(
-        content=content, path=path, model=model
     )
 
 
@@ -81,7 +71,6 @@ def analyze(
 
         results = (
             *results,
-            run_tfm_db_cluster_publicly_accessible(content, path, model),
             run_tfm_db_instance_publicly_accessible(content, path, model),
         )
 
