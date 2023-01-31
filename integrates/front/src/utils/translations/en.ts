@@ -855,7 +855,7 @@ export const enTranslations: ResourceKey = {
           text: "Columns",
           tooltip: "Choose the fields you want to display",
         },
-        modalTitle: "Columns filter",
+        modalTitle: "Edit columns",
       },
     },
     forces: {
