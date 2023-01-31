@@ -382,7 +382,7 @@ STARLETTE_APP = Starlette(
             IntegratesAPI(
                 SCHEMA,
                 debug=DEBUG,
-                http_handler=IntegratesHTTPHandler(extensions=API_EXTENSIONS),
+                http_handler=IntegratesHTTPHandler(),
                 validation_rules=get_validation_rules,
             ),
         ),

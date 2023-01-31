@@ -40,8 +40,10 @@ function serve {
         --certfile=__argCertsDevelopment__/cert.crt
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
+        # Restart workers when code changes
+        --reload
         # The number of worker processes for handling requests
-        --workers 5
+        --workers 1
       )
     elif test "${env}" == 'eph'; then
       config+=(
@@ -63,13 +65,15 @@ function serve {
         --certfile=__argCertsDevelopment__/cert.crt
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
+        # Restart workers when code changes
+        --reload
         # The number of worker processes for handling requests
-        --workers 5
+        --workers 1
       )
     else
       error First argument must be one of: dev, eph, prod, prod-local
     fi \
-    && pushd integrates \
+    && pushd integrates/back/src \
     && kill_port "${PORT}" \
     && { gunicorn "${config[@]}" 'app.app:APP' & } \
     && wait_port 5 "${HOST}:${PORT}" \

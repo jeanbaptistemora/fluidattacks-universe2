@@ -1,7 +1,4 @@
 # pylint: disable=import-error
-from back.src.newutils import (
-    requests as requests_utils,
-)
 from back.test.unit.src.utils import (
     create_dummy_session,
 )
@@ -19,6 +16,9 @@ from findings.domain import (
 )
 from freezegun import (
     freeze_time,
+)
+from newutils import (
+    requests as requests_utils,
 )
 import pytest
 from starlette.responses import (

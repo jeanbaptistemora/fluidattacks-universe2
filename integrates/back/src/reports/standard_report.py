@@ -1,6 +1,3 @@
-from back.src.settings.logger import (
-    LOGGING,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -26,6 +23,9 @@ from reports.pdf import (
 from reports.typing import (
     UnfulfilledRequirementInfo,
     UnfulfilledStandardInfo,
+)
+from settings.logger import (
+    LOGGING,
 )
 import subprocess  # nosec
 from typing import (

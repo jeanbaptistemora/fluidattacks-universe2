@@ -1,4 +1,8 @@
-# IntegratesWorker class overrides uvicorn base worker to inject custom params
+from gunicorn.reloader import (
+    reloader_engines,
+)
+import os
+import time
 from uvicorn import (
     workers,
 )
@@ -81,3 +85,28 @@ class IntegratesWorker(workers.UvicornWorker):
             ],
         ],
     }
+
+    def init_process(self) -> None:
+        """
+        Needed while some patches arrive upstream
+        https://github.com/benoitc/gunicorn/pull/2820
+        """
+        if self.cfg.reload:
+            self.cfg.set("reload", False)
+
+            def changed(fname: str) -> None:
+                self.log.info("Worker reloading: %s modified", fname)
+                self.alive = False
+                os.write(self.PIPE[1], b"1")
+                self.cfg.worker_int(self)
+                time.sleep(0.1)
+                # pylint: disable=protected-access
+                os._exit(0)
+
+            reloader_cls = reloader_engines[self.cfg.reload_engine]
+            self.reloader = reloader_cls(
+                callback=changed,
+                extra_files=self.cfg.reload_extra_files,
+            )
+
+        super().init_process()

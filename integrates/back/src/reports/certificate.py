@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from back.src.settings.logger import (
-    LOGGING,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -42,6 +39,9 @@ from reports.typing import (
 )
 from s3 import (
     operations as s3_ops,
+)
+from settings.logger import (
+    LOGGING,
 )
 import subprocess  # nosec
 import tempfile

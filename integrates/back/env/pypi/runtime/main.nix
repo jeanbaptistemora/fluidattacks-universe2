@@ -20,6 +20,14 @@
     doCheck = false;
     version = "7.45.2";
   });
+  self_inotify = inputs.nixpkgs.python39Packages.inotify.overridePythonAttrs (_: rec {
+    doCheck = false;
+    prePatch = ''
+      # Needed while some patches arrive upstream https://github.com/dsoprea/PyInotify/pull/88
+      substituteInPlace inotify/adapters.py \
+        --replace "_IS_DEBUG = bool(int(os.environ.get('DEBUG', '0')))" "_IS_DEBUG = False"
+    '';
+  });
   pythonRequirements = makePythonPypiEnvironment {
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
@@ -32,6 +40,7 @@
         inputs.nixpkgs.postgresql
         inputs.nixpkgs.gnutar
         inputs.nixpkgs.gzip
+        self_inotify
         self_pycurl
       ];
     };
@@ -44,6 +53,7 @@ in
     searchPaths = {
       pythonPackage = [
         "${self_bugsnag}/lib/python3.9/site-packages/"
+        "${self_inotify}/lib/python3.9/site-packages/"
         "${self_pycurl}/lib/python3.9/site-packages/"
         (projectPath "/integrates/back/src")
         (projectPath "/integrates")
