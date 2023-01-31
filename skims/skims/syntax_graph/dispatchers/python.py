@@ -1,10 +1,12 @@
 from syntax_graph.syntax_readers.python import (
     argument_list as python_argument_list,
     assignment as python_assignment,
+    attribute as python_attribute,
     function_definition as python_function_definition,
     identifier as python_identifier,
     import_statement as python_import_statement,
     module as python_module,
+    reserved_word as python_reserved_word,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -12,6 +14,24 @@ from syntax_graph.types import (
 )
 
 PYTHON_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "argument_list",
+        },
+        syntax_reader=python_argument_list.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assignment",
+        },
+        syntax_reader=python_assignment.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "attribute",
+        },
+        syntax_reader=python_attribute.reader,
+    ),
     Dispatcher(
         applicable_types={
             "function_definition",
@@ -38,14 +58,9 @@ PYTHON_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "argument_list",
+            "return",
+            "in",
         },
-        syntax_reader=python_argument_list.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "assignment",
-        },
-        syntax_reader=python_assignment.reader,
+        syntax_reader=python_reserved_word.reader,
     ),
 )
