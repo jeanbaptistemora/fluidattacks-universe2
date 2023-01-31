@@ -49,7 +49,7 @@ async def mutate(
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["id"]
     commit: Optional[str] = kwargs.get("commit")
-    queue_machine: bool = kwargs.get("queue_machine", False)
+    queue_machine: bool = kwargs.get("queue_machine", True)
     root = await loaders.root.load(RootRequest(group_name, root_id))
     if commit is not None and queue_machine and isinstance(root, GitRoot):
         last_commit = await roots_domain.get_commit_last_sucessful_clone(

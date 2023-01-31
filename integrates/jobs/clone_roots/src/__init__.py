@@ -219,6 +219,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
           $status: CloningStatus!
           $message: String!
           $commit: String
+          $queueMachine: Boolean
         ) {
           updateRootCloningStatus(
             groupName: $groupName
@@ -226,6 +227,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
             status: $status
             message: $message
             commit: $commit
+            queueMachine: $queueMachine
           ) {
             success
           }
@@ -239,6 +241,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
             "status": status,
             "message": message,
             "commit": commit,
+            "queueMachine": False,
         },
     }
 
