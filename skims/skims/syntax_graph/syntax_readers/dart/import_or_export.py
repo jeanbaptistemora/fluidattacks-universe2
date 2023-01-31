@@ -1,4 +1,5 @@
 from model.graph_model import (
+    Graph,
     NId,
 )
 from syntax_graph.syntax_nodes.import_statement import (
@@ -9,15 +10,44 @@ from syntax_graph.types import (
 )
 from typing import (
     Dict,
+    Optional,
+)
+from utils import (
+    graph as g,
 )
 from utils.graph.text_nodes import (
     node_to_str,
 )
 
 
+def get_expression(graph: Graph, n_id: NId, args_n_id: NId) -> str:
+    if (
+        library_nodes := g.get_nodes_by_path(
+            graph, n_id, [], "configurable_uri", "uri", "string_literal"
+        )
+    ) and (name_n_id := next(iter(library_nodes), None)):
+        expression = graph.nodes[name_n_id].get("label_text")
+    else:
+        expression = node_to_str(graph, args_n_id)
+    return expression
+
+
+def get_alias(graph: Graph, n_id: NId) -> Optional[str]:
+    if (alias_node := g.match_ast_d(graph, n_id, "identifier")) and (
+        alias := graph.nodes[alias_node].get("label_text")
+    ):
+        return alias
+    return None
+
+
 def reader(args: SyntaxGraphArgs) -> NId:
-    import_text = node_to_str(args.ast_graph, args.n_id)
-    node_attrs: Dict[str, str] = {
-        "expression": import_text,
-    }
+    graph: Graph = args.ast_graph
+    node_attrs: Dict[str, str] = {}
+
+    for n_id in g.matching_nodes(graph, label_type="import_specification"):
+        expression = get_expression(graph, n_id, args.n_id)
+        node_attrs.update({"expression": expression})
+        if alias := get_alias(graph, n_id):
+            node_attrs.update({"label_alias": alias})
+
     return build_import_statement_node(args, node_attrs)

@@ -36885,7 +36885,7 @@
             "label_type": "File"
           },
           "10": {
-            "expression": "import'package:test/test.dart';",
+            "expression": "'package:test/test.dart'",
             "label_type": "Import"
           },
           "1001": {
@@ -37928,7 +37928,7 @@
             "variable": "nickname"
           },
           "2": {
-            "expression": "import'dart:math';",
+            "expression": "'package:test/test.dart'",
             "label_type": "Import"
           },
           "202": {
