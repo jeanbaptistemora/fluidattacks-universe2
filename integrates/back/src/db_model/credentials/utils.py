@@ -117,11 +117,11 @@ def validate_secret(state: CredentialsState) -> None:
 
 
 def filter_pat_credentials(
-    credentials: tuple[Credentials, ...],
-) -> tuple[Credentials, ...]:
-    return tuple(
+    credentials: list[Credentials],
+) -> list[Credentials]:
+    return [
         credential
         for credential in credentials
         if credential.state.is_pat
         and credential.state.azure_organization is not None
-    )
+    ]

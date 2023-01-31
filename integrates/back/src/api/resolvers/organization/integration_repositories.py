@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from azure.devops.v6_0.git.models import (
     GitRepository,
 )
@@ -63,26 +60,22 @@ async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> tuple[CredentialsGitRepository, ...]:
+) -> list[CredentialsGitRepository]:
     loaders: Dataloaders = info.context.loaders
-    credentials: tuple[
-        Credentials, ...
-    ] = await loaders.organization_credentials.load(parent.id)
-    pat_credentials = list(filter_pat_credentials(credentials))
-    repositories, roots_url = await collect(
-        (
-            _get_repositories(
-                loaders=loaders, pat_credentials=pat_credentials
-            ),
-            _get_roots(loaders=loaders, organization_name=parent.name),
-        )
+    credentials = await loaders.organization_credentials.load(parent.id)
+    pat_credentials = filter_pat_credentials(credentials)
+    repositories = await _get_repositories(
+        loaders=loaders, pat_credentials=pat_credentials
+    )
+    roots_url = await _get_roots(
+        loaders=loaders, organization_name=parent.name
     )
     urls = {
         unquote_plus(urlparse(url.lower()).path)
         for url in (roots_url if isinstance(roots_url, set) else set())
     }
 
-    return tuple(
+    return [
         CredentialsGitRepository(
             credential=credential,
             repository=repository,
@@ -95,4 +88,4 @@ async def resolve(
             repository=repository,
             urls=urls,
         )
-    )[:100]
+    ][:100]

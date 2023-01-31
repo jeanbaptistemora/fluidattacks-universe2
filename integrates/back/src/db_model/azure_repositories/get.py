@@ -696,7 +696,9 @@ def _get_gitlab_projects(token: str) -> tuple[BasicRepoData, ...]:
         )
 
 
-class OrganizationRepositoriesLoader(DataLoader):
+class OrganizationRepositoriesLoader(
+    DataLoader[Credentials, list[GitRepository]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,

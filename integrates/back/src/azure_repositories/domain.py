@@ -8,6 +8,7 @@ from atlassian.bitbucket.cloud.repositories.commits import (
 )
 from azure.devops.v6_0.git.models import (
     GitCommit,
+    GitRepository,
     GitRepositoryStats,
 )
 from botocore.exceptions import (
@@ -270,11 +271,11 @@ async def get_covered_group(
 
 
 async def get_pat_credentials_authors_stats(
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
-    pat_credentials = list(filter_pat_credentials(credentials))
+    pat_credentials = filter_pat_credentials(credentials)
     all_repositories = (
         await loaders.organization_integration_repositories.load_many(
             pat_credentials
@@ -313,7 +314,7 @@ async def get_pat_credentials_authors_stats(
 
 async def get_gitlab_credentials_authors(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
@@ -346,7 +347,7 @@ async def get_gitlab_credentials_authors(
 
 async def get_github_credentials_authors(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
 ) -> set[str]:
     stats: tuple[ProjectStats, ...] = tuple(
@@ -376,7 +377,7 @@ async def get_github_credentials_authors(
 
 async def get_bitbucket_credentials_authors(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
@@ -410,7 +411,7 @@ async def get_bitbucket_credentials_authors(
 
 
 async def get_azure_credentials_authors_stats(
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
 ) -> set[str]:
@@ -424,12 +425,8 @@ async def get_azure_credentials_authors_stats(
         ),
         workers=1,
     )
-    accounts_names: tuple[tuple[str, ...], ...] = await get_account_names(
-        tokens=ouath_tokens
-    )
-    all_repositories: tuple[
-        list[list[GitRepositoryCommit]], ...
-    ] = await collect(
+    accounts_names = await get_account_names(tokens=ouath_tokens)
+    all_repositories: tuple[list[list[GitRepository]], ...] = await collect(
         tuple(
             get_oauth_repositories(token=token, accounts_names=_accounts_names)
             for token, _accounts_names in zip(ouath_tokens, accounts_names)
@@ -552,8 +549,8 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
                 )
             )
 
-    credentials: tuple[
-        Credentials, ...
+    credentials: list[
+        Credentials
     ] = await loaders.organization_credentials.load(organization.id)
     urls: set[str] = {
         unquote_plus(urlparse(root.state.url.lower()).path)
@@ -779,7 +776,7 @@ async def _remove(
 
 async def get_gitlab_credentials_stats(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
     organization_id: str,
@@ -902,7 +899,7 @@ async def _get_oauth_commit_date(*, repository: OGitRepository) -> datetime:
 
 async def get_azure_credentials_stats(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     loaders: Dataloaders,
     urls: set[str],
     organization_id: str,
@@ -917,12 +914,8 @@ async def get_azure_credentials_stats(
         ),
         workers=1,
     )
-    accounts_names: tuple[tuple[str, ...], ...] = await get_account_names(
-        tokens=ouath_tokens
-    )
-    all_repositories: tuple[
-        list[list[GitRepositoryCommit]], ...
-    ] = await collect(
+    accounts_names = await get_account_names(tokens=ouath_tokens)
+    all_repositories: tuple[list[list[GitRepository]], ...] = await collect(
         tuple(
             get_oauth_repositories(token=token, accounts_names=_accounts_names)
             for token, _accounts_names in zip(ouath_tokens, accounts_names)
@@ -1061,7 +1054,7 @@ async def _get_gitlab_credential_stats(
 
 async def get_github_credentials_stats(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     organization_id: str,
 ) -> RepositoriesStats:
@@ -1106,7 +1099,7 @@ async def get_github_credentials_stats(
 
 async def get_bitbucket_credentials_stats(
     *,
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
     organization_id: str,
@@ -1266,12 +1259,12 @@ async def _get_github_credential_stats(
 
 
 async def get_pat_credentials_stats(
-    credentials: tuple[Credentials, ...],
+    credentials: list[Credentials],
     urls: set[str],
     loaders: Dataloaders,
     organization_id: str,
 ) -> RepositoriesStats:
-    pat_credentials = list(filter_pat_credentials(credentials))
+    pat_credentials = filter_pat_credentials(credentials)
     all_repositories = (
         await loaders.organization_integration_repositories.load_many(
             pat_credentials
@@ -1367,8 +1360,8 @@ async def update_organization_repositories(
 
         return
 
-    credentials: tuple[
-        Credentials, ...
+    credentials: list[
+        Credentials
     ] = await loaders.organization_credentials.load(organization.id)
     groups_roots = await loaders.group_roots.load_many_chained(
         list(organization_group_names)
