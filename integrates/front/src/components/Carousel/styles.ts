@@ -20,7 +20,7 @@ const Buttons = styled.div<IButtonsProps>`
 
   button:nth-child(${({ selection }): number => selection + 1}) {
     background-color: #65657b;
-    color: #ffffff;
+    color: #fff;
   }
 `;
 

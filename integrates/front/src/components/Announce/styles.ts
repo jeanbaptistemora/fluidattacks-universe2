@@ -5,7 +5,7 @@ const Container = styled.div.attrs({
 })`
   background-color: #e9e9ed;
   color: #2e2e38;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
 `;
 

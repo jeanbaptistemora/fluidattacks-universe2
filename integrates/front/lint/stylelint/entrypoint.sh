@@ -5,13 +5,13 @@ function main {
 
   : && pushd integrates/front \
     && copy __argSetupIntegratesFrontDevRuntime__ ./node_modules \
-    && if stylelint '**/*.css' --output-file; then
+    && if stylelint '**/*.{ts, tsx}'; then
       info 'All styles are ok!'
     else
       info 'Some files do not follow the suggested style.' \
         && info 'we will fix some of the issues automatically,' \
         && info 'but the job will fail.' \
-        && { stylelint '**/*.css' --fix --output-file || true; } \
+        && { stylelint '**/*.{ts, tsx}' --fix || true; } \
         && return_value=1
     fi \
     && popd \

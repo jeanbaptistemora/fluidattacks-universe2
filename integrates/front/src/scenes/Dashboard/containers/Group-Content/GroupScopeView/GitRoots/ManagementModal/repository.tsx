@@ -29,6 +29,7 @@ import {
 import type { ICredentialsAttr, IFormValues } from "../../types";
 import { formatTypeCredentials } from "../../utils";
 import { GitIgnoreAlert, gitModalSchema } from "../helpers";
+import { QuestionButton } from "../styles";
 import { Alert } from "components/Alert";
 import type { IAlertProps } from "components/Alert";
 import { Button } from "components/Button";
@@ -38,7 +39,6 @@ import { ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
-import { QuestionButton } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import {
   FormikArrayField,

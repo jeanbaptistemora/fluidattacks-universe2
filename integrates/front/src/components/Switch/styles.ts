@@ -16,7 +16,7 @@ const Slider = styled.span.attrs({
     transition: 0.4s;
   }
 
-  :before {
+  ::before {
     background-color: #f4f4f6;
     border-radius: 50%;
     bottom: 4px;
@@ -57,7 +57,6 @@ const Container = styled.label.attrs({ className: "dib mh2 relative v-mid" })`
     cursor: not-allowed;
     opacity: 0.5;
   }
-}
 `;
 
 export { Container, Slider };

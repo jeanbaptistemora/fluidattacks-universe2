@@ -17,7 +17,7 @@ interface ISideBarTabProps extends Pick<NavLinkProps, "children" | "to"> {
 }
 
 const SideBarLink = styled(NavLink).attrs({
-  className: "SideBarTab",
+  className: "sidebar-tab",
 })`
   border-left: 4px solid transparent;
   color: #c7c7d1;

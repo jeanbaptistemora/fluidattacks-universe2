@@ -23,16 +23,14 @@ const ImageContainer = styled.div`
     display: inline-block;
     font-size: 150px;
     height: 600px;
-    line-height: 1.42857143;
+    line-height: 1.4286;
     max-height: 250px;
     max-width: 100%;
     padding: 4px;
     text-align: center;
-    transition: all 0.2s ease-in-out;
     vertical-align: middle;
     width: 600px;
-    -o-transition: all 0.2s ease-in-out;
-    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 
     @media (min-width: 768px) and (max-width: 1199px) {
       height: 200px !important;

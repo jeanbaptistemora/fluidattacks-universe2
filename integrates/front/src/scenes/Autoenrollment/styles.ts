@@ -5,7 +5,7 @@ const ContainerAutoenrollment = styled.div.attrs({
 })`
   background-color: #e9e9ed;
   color: #2e2e38;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
 `;
 
@@ -15,11 +15,12 @@ const DashboardContent = styled.div.attrs({
   padding-left: 24px;
   padding-right: 24px;
 
-  // Hide scrollbar for Chrome, Safari and Opera
+  /* Hide scrollbar for Chrome, Safari and Opera */
   ::-webkit-scrollbar {
     display: none;
   }
-  // Hide scrollbar for IE, Edge and Firefox
+
+  /* Hide scrollbar for IE, Edge and Firefox */
   -ms-overflow-style: none;
   scrollbar-width: none;
 `;

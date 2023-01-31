@@ -15,7 +15,7 @@ const PlusFormatter: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `b--sb bg-sb svg-box20 ${className ?? ""} pointer`,
+    className: `b-sb bg-sb svg-box20 ${className ?? ""} pointer`,
     type: type ?? "button",
   })
 )``;

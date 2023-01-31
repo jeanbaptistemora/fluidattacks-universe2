@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const SideBarBox = styled.div.attrs({
-  className: "SideBar h-100",
+  className: "h-100",
 })`
   background-color: #2e2e38;
   color: #c7c7d1;
@@ -10,7 +10,7 @@ const SideBarBox = styled.div.attrs({
 `;
 
 const SideBarSubTabs = styled.div`
-  > .SideBarTab:not(:last-child)::after {
+  > .sidebar-tab:not(:last-child)::after {
     content: none;
   }
 `;

@@ -1,5 +1,24 @@
 {
+  "customSyntax": "postcss-styled-syntax",
   "extends": [
-    "stylelint-config-standard"
-  ]
+    "stylelint-config-standard",
+    "stylelint-config-styled-components"
+  ],
+  "rules": {
+    "block-no-empty": null,
+    "function-no-unknown": [
+      true,
+      {
+        "ignoreFunctions": [
+          "/^\\${/",
+          "/^`/"
+        ]
+      }
+    ],
+    "indentation": null,
+    "max-empty-lines": null,
+    "no-empty-first-line": null,
+    "no-extra-semicolons": null,
+    "value-keyword-case": null
+  }
 }

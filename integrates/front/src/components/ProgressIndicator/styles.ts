@@ -18,6 +18,7 @@ const ProgressBar = styled.div<IProgressBarProps>`
   height: 100%;
   position: relative;
   width: 100%;
+
   ::before {
     content: " ";
     background-color: #8f8fa3;
@@ -41,6 +42,7 @@ const StepsContainer = styled.div`
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
+
   > * {
     background-color: #d2d2da;
     border-radius: 50%;

@@ -10,7 +10,7 @@ const PageContainer = styled.div.attrs({
   padding: 4px 24px 72px 24px;
   background-color: #e9e9ed;
   color: #2e2e38;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 16px;
 `;
 

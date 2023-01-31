@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Button = styled.a`
   border: none;
   color: #5c5c70;
-  opacity: 100%;
+  opacity: 1;
   border-bottom: solid 1px;
 
   :hover {
@@ -20,7 +20,7 @@ const SortsSuggestionsButton = styled(Button)<{ isNone: boolean }>`
 const Field = styled.p.attrs({ className: "ma0 pv1" })``;
 
 const Label = styled.span`
-  :after {
+  ::after {
     content: ": ";
   }
 `;

@@ -184,19 +184,6 @@ const PanelCollapseHeader: StyledComponent<
   className: "pb3 pl4 pt3 pr4 items-center tc panel-ch",
 })``;
 
-const QuestionButton: StyledComponent<
-  "button",
-  Record<string, unknown>
-> = styled.button.attrs(
-  ({
-    className,
-    type,
-  }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `outline-0 pa0 questionBtn ${className ?? ""}`,
-    type: type ?? "button",
-  })
-)``;
-
 const Radio: StyledComponent<
   "input",
   Record<string, unknown>
@@ -293,7 +280,6 @@ export {
   InputGroup,
   PanelCollapseBody,
   PanelCollapseHeader,
-  QuestionButton,
   Radio,
   RadioLabel,
   RemoveTag,

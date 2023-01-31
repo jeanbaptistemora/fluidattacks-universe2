@@ -12,8 +12,8 @@ const ListBox = styled.div.attrs({
   className: "comp-list",
 })<IListBoxProps>`
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: row wrap;
+
   > * {
     width: ${({ columns = 1 }): number => 100 / columns}%;
   }

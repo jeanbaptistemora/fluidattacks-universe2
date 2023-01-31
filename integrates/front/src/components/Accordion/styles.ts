@@ -35,6 +35,7 @@ const AccordionHeader = styled.div<IAccordionHeaderProps>`
   :hover {
     background-color: #c7c7d1;
   }
+
   > * {
     margin: 16px;
   }

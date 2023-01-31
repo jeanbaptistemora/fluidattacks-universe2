@@ -23,10 +23,14 @@ const ContentSwitcher: React.FC<IContentSwitcherProps> = ({
 
   return (
     <Fragment>
-      <Buttons selection={selection}>
+      <Buttons>
         {tabs.map(
           (el: string, idx): JSX.Element => (
-            <button key={el} onClick={handleClicks[idx]}>
+            <button
+              className={selection === idx ? "active" : undefined}
+              key={el}
+              onClick={handleClicks[idx]}
+            >
               {el}
             </button>
           )

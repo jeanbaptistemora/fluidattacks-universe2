@@ -23,7 +23,7 @@ const Container = styled.aside.attrs({
 const ContainerBack = styled.aside.attrs({
   className: "absolute overflow-x-hidden z-990",
 })`
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(0 0 0 / 40%);
   right: 0;
   top: 0;
   width: 100%;

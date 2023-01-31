@@ -5,7 +5,7 @@ const DashboardContainer = styled.div.attrs({
 })`
   background-color: #e9e9ed;
   color: #2e2e38;
-  font-family: "Roboto", sans-serif;
+  font-family: Roboto, sans-serif;
   font-size: 14px;
 `;
 
@@ -18,12 +18,15 @@ const DashboardContent = styled.main.attrs({
   ::-webkit-scrollbar {
     width: 8px;
   }
+
   ::-webkit-scrollbar-track {
     background: #b0b0bf;
   }
+
   ::-webkit-scrollbar-thumb {
     background: #65657b;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     background: #535365;
   }

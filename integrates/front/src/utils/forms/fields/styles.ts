@@ -21,6 +21,7 @@ const baseInputStyles = css`
     box-shadow: none !important;
     outline: none;
   }
+
   &:disabled {
     background: none !important;
   }

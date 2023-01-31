@@ -19,7 +19,7 @@ const RadioGroup: React.FC<IRadioGroupProps> = (
     labels,
     initialState = "",
     onSelect,
-    switchColor = "bg-switch b--switch white",
+    switchColor = "bg-switch b-switch white",
   } = props;
 
   const [select, setSelect] = useState(initialState);

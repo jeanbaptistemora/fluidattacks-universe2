@@ -12,7 +12,7 @@ const DeleteFormatter: StyledComponent<
     className,
     type,
   }): Partial<React.ButtonHTMLAttributes<HTMLButtonElement>> => ({
-    className: `b--sb bg-sb svg-box20 ${className ?? ""}`,
+    className: `b-sb bg-sb svg-box20 ${className ?? ""}`,
     type: type ?? "button",
   })
 )``;

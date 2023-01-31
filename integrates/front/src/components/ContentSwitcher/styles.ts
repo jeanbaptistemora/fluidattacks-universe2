@@ -1,10 +1,6 @@
 import styled from "styled-components";
 
-interface IButtonsProps {
-  selection: number;
-}
-
-const Buttons = styled.div<IButtonsProps>`
+const Buttons = styled.div`
   border-radius: 4px;
   display: inline-flex;
   overflow: hidden;
@@ -26,7 +22,7 @@ const Buttons = styled.div<IButtonsProps>`
     border-left-style: none;
   }
 
-  button:nth-child(${({ selection }): number => selection + 1}) {
+  button.active {
     background-color: #2e2e38;
     border-color: #121216;
     color: #e9e9ed;
@@ -38,5 +34,4 @@ const Buttons = styled.div<IButtonsProps>`
   }
 `;
 
-export type { IButtonsProps };
 export { Buttons };

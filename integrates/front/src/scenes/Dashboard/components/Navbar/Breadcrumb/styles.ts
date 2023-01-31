@@ -16,7 +16,7 @@ const SplitItems = styled.div.attrs({
   background-color: #f4f4f6;
   border: solid 1px;
   border-color: #ddd;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
   color: #333;
   margin-top: 5px;
   max-width: 1172px;

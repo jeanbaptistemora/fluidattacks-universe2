@@ -38,6 +38,7 @@ const sharedStyles = css`
     cursor: not-allowed;
     opacity: 0.5;
   }
+
   ::placeholder {
     color: #b0b0bf;
   }
@@ -69,12 +70,12 @@ const StyledInput = styled.input`
   ${sharedStyles}
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
   }
 
   &[type="number"] {
-    -moz-appearance: textfield;
+    appearance: textfield;
   }
 `;
 

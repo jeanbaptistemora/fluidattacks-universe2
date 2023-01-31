@@ -20,19 +20,20 @@ const TableContainer = styled.div.attrs({
     width: 100%;
   }
 
-  tr {
-    cursor: ${({ clickable }): string => (clickable ? "pointer" : "unset")};
-    &:last-child > td {
-      border: none;
-    }
-  }
-
   td,
   th {
     border-bottom: solid 1px #8888;
     padding: 12px;
     width: auto;
     white-space: pre-line;
+  }
+
+  tr {
+    cursor: ${({ clickable }): string => (clickable ? "pointer" : "unset")};
+
+    &:last-child > td {
+      border: none;
+    }
   }
 
   label > input,

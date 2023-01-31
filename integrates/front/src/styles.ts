@@ -48,16 +48,6 @@ const GlobalStyle = createGlobalStyle`
     padding: 0 4px;
   }
 
-  .questionBtn {
-    border: 0 !important;
-    color: #ff3435;
-  }
-
-  .questionBtn:hover {
-    background-color: unset !important;
-    color: #272727 !important;
-  }
-
   .panel-cb {
     border-color: #ddd;
   }
@@ -92,18 +82,18 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
 
-  .b--sb,
-  .b--sb:active,
-  .b--sb:focus,
-  .b--sb:hover {
+  .b-sb,
+  .b-sb:active,
+  .b-sb:focus,
+  .b-sb:hover {
     border: none !important;
   }
 
-  .b--switch {
+  .b-switch {
     border-color: #d9534f;
   }
 
-  .b--switch:hover {
+  .b-switch:hover {
     border-color: #ac2925;
   }
 

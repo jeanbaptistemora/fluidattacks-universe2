@@ -18,7 +18,7 @@ const StyledInput = styled.input`
   padding: 0.5rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left 0.5rem;
+  padding-left: 0.5rem;
   background: none;
 
   &:focus {
@@ -29,7 +29,7 @@ const StyledInput = styled.input`
 
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+    appearance: none;
     margin: 0;
   }
 `;
