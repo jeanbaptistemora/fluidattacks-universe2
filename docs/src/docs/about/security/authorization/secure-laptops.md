@@ -94,7 +94,7 @@ said profiles are configured with different policies:
   with manual configurations on the devices,
   restrict access to unnecessary system configurations
   to devices depending on its use for the different roles.
-  We comply with the following criteria:
+  Requirements:
   [265](/criteria/requirements/265), [261](/criteria/requirements/261),
   [266](/criteria/requirements/266), [177](/criteria/requirements/177),
   [045](/criteria/requirements/045), [046](/criteria/requirements/046),
