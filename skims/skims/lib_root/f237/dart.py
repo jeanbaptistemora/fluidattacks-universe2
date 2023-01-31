@@ -42,17 +42,20 @@ def get_print_methods(graph: Graph) -> Set[str]:
     return print_methods
 
 
+def get_expression(graph: Graph, n_id: NId) -> str:
+    parent = g.pred_ast(graph, n_id)[0]
+    expr = graph.nodes[n_id].get("symbol")
+    if (selector_n_id := g.match_ast_d(graph, parent, "Selector")) and (
+        selector := graph.nodes[selector_n_id].get("selector_name")
+    ):
+        expr = f"{expr}.{selector}"
+    return expr
+
+
 def prints_danger_values(graph: Graph, n_id: NId) -> bool:
     parent = g.pred_ast(graph, n_id)[0]
-    class_childs = list(g.adj_ast(graph, parent))
-    if (
-        len(class_childs) > class_childs.index(n_id)
-        and (al_id := class_childs[class_childs.index(n_id) + 1])
-        and graph.nodes[al_id]["label_type"] == "ArgumentList"
-        and (
-            args_childs := g.match_ast(graph, al_id, "SymbolLookup", depth=-1)
-        )
-        and args_childs.get("SymbolLookup")
+    if (args_n_id := g.match_ast_d(graph, parent, "ArgumentList")) and (
+        g.match_ast_d(graph, args_n_id, "SymbolLookup")
     ):
         return True
     return False
@@ -69,9 +72,8 @@ def has_print_statements(
                 continue
             graph = shard.syntax_graph
             print_methods = get_print_methods(graph)
-
             for n_id in g.matching_nodes(graph, label_type="SymbolLookup"):
-                n_expr = graph.nodes[n_id].get("symbol")
+                n_expr = get_expression(graph, n_id)
                 if n_expr in print_methods and prints_danger_values(
                     graph, n_id
                 ):

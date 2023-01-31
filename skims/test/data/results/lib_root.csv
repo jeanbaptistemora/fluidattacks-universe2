@@ -579,6 +579,56 @@ F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,9,200,skims,2
   16 | }
      ^ Col 0
 ",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart","
+   1 | import 'package:test/test.dart' as my_alias;
+   2 | import 'package:flutter/foundation.dart' as anyAlias;
+   3 | import 'dart:developer' as dev;
+   4 |
+   5 | void main() {
+   6 |   try {
+   7 |     res = x ~/ y;
+   8 |   }
+   9 |   on IntegerDivisionByZeroException catch (e) {
+  10 |     // Following lines should be reported
+> 11 |     dev.log(e);
+  12 |     anyAlias.debugPrint(e);
+  13 |
+  14 |     // Coming lines Should not be reported
+  15 |     log(e);
+  16 |     debugPrint(e);
+  17 |   }
+  18 |   catch (e) {
+  19 |     print('This should not  be reported');
+  20 |     debugPrint('Safe');
+  21 |   }
+     ^ Col 0
+",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart,12,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart","
+   2 | import 'package:flutter/foundation.dart' as anyAlias;
+   3 | import 'dart:developer' as dev;
+   4 |
+   5 | void main() {
+   6 |   try {
+   7 |     res = x ~/ y;
+   8 |   }
+   9 |   on IntegerDivisionByZeroException catch (e) {
+  10 |     // Following lines should be reported
+  11 |     dev.log(e);
+> 12 |     anyAlias.debugPrint(e);
+  13 |
+  14 |     // Coming lines Should not be reported
+  15 |     log(e);
+  16 |     debugPrint(e);
+  17 |   }
+  18 |   catch (e) {
+  19 |     print('This should not  be reported');
+  20 |     debugPrint('Safe');
+  21 |   }
+  22 | }
+     ^ Col 0
+",dart.dart_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,16,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
  in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
    1 | import System.out;
