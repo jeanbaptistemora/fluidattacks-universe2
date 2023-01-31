@@ -146,20 +146,15 @@ const Policies: React.FC<IPolicies> = ({
                     </Tooltip>
                   </PoliciesLink>
                 </Label>
-                <Tooltip
-                  disp={"inline"}
-                  id={"maxNumberAcceptances-tooltip"}
-                  place={"bottom"}
-                  tip={t(`${translationStart}recommended.maxNumberAcceptances`)}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"maxNumberAcceptances"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                <Input
+                  disabled={permissions.cannot(permission)}
+                  name={"maxNumberAcceptances"}
+                  tooltip={t(
+                    `${translationStart}recommended.maxNumberAcceptances`
+                  )}
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
