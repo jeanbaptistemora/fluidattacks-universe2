@@ -19,7 +19,7 @@ from typing import (
 )
 
 
-async def _get_companies(domains: list[str]) -> tuple[Company, ...]:
+async def _get_companies(domains: list[str]) -> list[Company]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["company_metadata"],
@@ -28,16 +28,17 @@ async def _get_companies(domains: list[str]) -> tuple[Company, ...]:
         for domain in domains
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
-    return tuple(format_company(item) for item in items)
+
+    return [format_company(item) for item in items]
 
 
 class CompanyLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, domains: list[str]
-    ) -> tuple[Optional[Company], ...]:
+    ) -> list[Optional[Company]]:
         companies = {
             company.domain: company
             for company in await _get_companies(domains)
         }
-        return tuple(companies.get(domain) for domain in domains)
+        return [companies.get(domain) for domain in domains]
