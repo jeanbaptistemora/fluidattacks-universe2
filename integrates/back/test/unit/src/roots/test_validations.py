@@ -1,6 +1,7 @@
 from custom_exceptions import (
     InactiveRoot,
     InvalidChar,
+    InvalidGitCredentials,
     InvalidGitRoot,
     InvalidRootComponent,
     InvalidUrl,
@@ -9,7 +10,13 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model.credentials.types import (
+    HttpsSecret,
+    OauthAzureSecret,
+    OauthBitbucketSecret,
     SshSecret,
 )
 from db_model.organizations.types import (
@@ -18,6 +25,9 @@ from db_model.organizations.types import (
 from db_model.roots.types import (
     Root,
     RootRequest,
+)
+from newutils.datetime import (
+    get_now_minus_delta,
 )
 import pytest
 from roots.validations import (
@@ -31,6 +41,7 @@ from roots.validations import (
     validate_component,
     validate_credential_in_organization,
     validate_git_access,
+    validate_git_credentials_oauth,
     validate_git_root,
     validate_git_root_deco,
     validate_nickname,
@@ -174,11 +185,52 @@ async def test_valid_git_root_deco() -> None:
 
 
 async def test_validate_git_access() -> None:
+    await validate_git_access(
+        url="https://app.fluidattacks.com",
+        branch="trunk1",
+        secret=OauthBitbucketSecret(
+            brefresh_token="token",
+            access_token="access_token",
+            valid_until=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+        ),
+        loaders=get_new_context(),
+    )
+
+    # await validate_git_access(
+    #     url="https://app.fluidattacks.com:67000",
+    #     branch="trunk",
+    #     secret=SshSecret(key="test_key"),
+    #     loaders=get_new_context(),
+    # )
     with pytest.raises(InvalidUrl):
         await validate_git_access(
             url="https://app.fluidattacks.com:67000",
             branch="trunk",
             secret=SshSecret(key="test_key"),
+            loaders=get_new_context(),
+        )
+    with pytest.raises(KeyError):
+        await validate_git_access(
+            url="https://app.fluidattacks.com",
+            branch="trunk2",
+            secret=OauthAzureSecret(
+                arefresh_token="CFCzdCBTU0gK",
+                redirect_uri="",
+                access_token="DEDzdCBTU0gK",
+                valid_until=get_now_minus_delta(hours=1),
+            ),
+            loaders=get_new_context(),
+            organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+            credential_id="5990e0ec-dc8f-4c9a-82cc-9da9fbb35c11",
+        )
+    with pytest.raises(InvalidGitCredentials):
+        await validate_git_access(
+            url="https://app.fluidattacks.com",
+            branch="trunk1",
+            secret=HttpsSecret(
+                user="user",
+                password="password",
+            ),
             loaders=get_new_context(),
         )
 
@@ -224,3 +276,14 @@ def test_validate_nickname() -> None:
     validate_nickname(nickname="valid-username_1")
     with pytest.raises(InvalidChar):
         validate_nickname(nickname="invalidusername!")
+
+
+async def test_validate_git_credentials_oauth() -> None:
+    with pytest.raises(KeyError):
+        await validate_git_credentials_oauth(
+            repo_url="https://fluidattacks.com/universe",
+            branch="trunk",
+            loaders=get_new_context(),
+            credential_id="158d1f7f-65c5-4c79-85e3-de3acfe03774",
+            organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+        )
