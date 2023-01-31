@@ -23846,6 +23846,39 @@
                     ]
                   }
                 }
+              },
+              "loc": {
+                "N": "180"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "083. XML injection (XXE)"
+                      },
+                      "probability": {
+                        "N": "90"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "033. Password change without identity check"
+                      },
+                      "probability": {
+                        "N": "50"
+                      }
+                    }
+                  }
+                ]
+              },
+              "sorts_risk_level": {
+                "N": "80"
+              },
+              "sorts_risk_level_date": {
+                "S": "2021-02-20T05:00:00+00:00"
               }
             },
             {
@@ -23945,6 +23978,39 @@
                     ]
                   }
                 }
+              },
+              "loc": {
+                "N": "350"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "083. XML injection (XXE)"
+                      },
+                      "probability": {
+                        "N": "90"
+                      }
+                    }
+                  },
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "033. Password change without identity check"
+                      },
+                      "probability": {
+                        "N": "50"
+                      }
+                    }
+                  }
+                ]
+              },
+              "sorts_risk_level": {
+                "N": "80"
+              },
+              "sorts_risk_level_date": {
+                "S": "2021-03-30T05:00:00+00:00"
               }
             },
             {
@@ -24037,6 +24103,29 @@
                     ]
                   }
                 }
+              },
+              "loc": {
+                "N": "172"
+              },
+              "sorts_suggestions": {
+                "L": [
+                  {
+                    "M": {
+                      "finding_title": {
+                        "S": "027. Insecure file upload"
+                      },
+                      "probability": {
+                        "N": "100"
+                      }
+                    }
+                  }
+                ]
+              },
+              "sorts_risk_level": {
+                "N": "0"
+              },
+              "sorts_risk_level_date": {
+                "S": "2021-04-10T05:00:00+00:00"
               }
             }
           ],
