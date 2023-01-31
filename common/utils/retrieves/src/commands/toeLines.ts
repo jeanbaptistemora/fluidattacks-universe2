@@ -2,7 +2,7 @@ import { join } from "path";
 
 import type { ExtensionContext } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { workspace } from "vscode";
+import { window, workspace } from "vscode";
 
 import { ToeLinesPanel } from "../panels/ToelinesPanel";
 import { GET_TOE_LINES } from "../queries";
@@ -24,6 +24,11 @@ async function getToeLines(
       .then((_result): IToeLinesPaginator => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
         return _result.data.group.toeLines;
+      })
+      .catch((_err): IToeLinesPaginator => {
+        void window.showErrorMessage(String(_err));
+
+        return { edges: [], pageInfo: { endCursor: "", hasNextPage: false } };
       })
   );
 

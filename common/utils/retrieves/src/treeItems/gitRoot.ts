@@ -1,6 +1,6 @@
 import type { Command } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { TreeItem, TreeItemCollapsibleState } from "vscode";
+import { TreeItem, TreeItemCollapsibleState, window } from "vscode";
 
 import { GET_GIT_ROOTS } from "../queries";
 import type { IGitRoot } from "../types";
@@ -35,6 +35,8 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
         return result.data.group.roots;
       })
       .catch((_err): [] => {
+        void window.showErrorMessage(String(_err));
+
         return [];
       })
   );

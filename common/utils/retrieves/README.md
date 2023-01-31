@@ -15,6 +15,9 @@ So far, Retrieves will:
       - go to file from toe lines
   - Obtain the toe lines of each repository, with information of each file
     - Hide files that have already been attacked
+    - Mark a file as attacked. Right click in the file path
+     ![image info](docs/images/mark_file_as_attacked.png)
+
 
 To use the extension, it must be used on a directory named `groups`,
 in this directory the repositories are cloned. You can open the subdirectories

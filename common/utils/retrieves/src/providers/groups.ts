@@ -3,7 +3,7 @@
 
 import type { Event, TreeDataProvider, TreeItem } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { EventEmitter, TreeItemCollapsibleState } from "vscode";
+import { EventEmitter, TreeItemCollapsibleState, window } from "vscode";
 
 import { GET_GROUPS } from "../queries";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
@@ -60,6 +60,8 @@ class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
               .flat()
         )
         .catch((_err): [] => {
+          void window.showErrorMessage(String(_err));
+
           return [];
         })
     );

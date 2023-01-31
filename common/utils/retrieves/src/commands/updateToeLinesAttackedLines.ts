@@ -21,7 +21,13 @@ const updateToeLinesAttackedLines = (item: {
       },
     })
     .then((_result): void => {
-      void window.showInformationMessage(String(_result));
+      if (
+        _result.data !== undefined &&
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        (_result.data.updateToeLinesAttackedLines.success as boolean)
+      ) {
+        void window.showInformationMessage("line has been updated");
+      }
     })
     .catch((error): void => {
       void window.showErrorMessage(String(error));
