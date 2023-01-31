@@ -22,6 +22,7 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   onRemove,
   organizationId,
   selectedCredentials,
+  shouldDisplayAzureButton,
   shouldDisplayBitbucketButton,
   shouldDisplayGithubButton,
   shouldDisplayGitlabButton,
@@ -51,6 +52,13 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     return oauthUrl.toString();
   }, [organizationId]);
 
+  const azureUrl = useMemo((): string => {
+    const oauthUrl: URL = new URL("/dazure", window.location.origin);
+    oauthUrl.searchParams.set("subject", organizationId);
+
+    return oauthUrl.toString();
+  }, [organizationId]);
+
   const openLabUrl = useCallback((): void => {
     openUrl(labUrl, false);
   }, [labUrl]);
@@ -62,6 +70,10 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
   const openKetUrl = useCallback((): void => {
     openUrl(ketUrl, false);
   }, [ketUrl]);
+
+  const openAzureUrl = useCallback((): void => {
+    openUrl(azureUrl, false);
+  }, [azureUrl]);
 
   const handleClick = useCallback(
     (confirm: IConfirmFn): (() => void) =>
@@ -232,6 +244,32 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               &nbsp;
               {t(
                 "organization.tabs.credentials.actionButtons.bitbucketButton.text"
+              )}
+            </Button>
+          </Tooltip>
+        </Can>
+      ) : undefined}
+      {shouldDisplayAzureButton ? (
+        <Can do={"api_mutations_add_credentials_mutate"}>
+          <Tooltip
+            disp={"inline-block"}
+            id={
+              "organization.tabs.credentials.actionButtons.azureButton.tooltip.id"
+            }
+            tip={t(
+              "organization.tabs.credentials.actionButtons.azureButton.tooltip"
+            )}
+          >
+            <Button
+              disabled={disabled}
+              id={"azureButtonCredentials"}
+              onClick={openAzureUrl}
+              variant={"secondary"}
+            >
+              <FontAwesomeIcon icon={faPlus} />
+              &nbsp;
+              {t(
+                "organization.tabs.credentials.actionButtons.azureButton.text"
               )}
             </Button>
           </Tooltip>

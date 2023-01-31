@@ -166,6 +166,17 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
     );
   }, [credentialsAttrs, userEmail]);
 
+  const shouldDisplayAzureButton = useMemo((): boolean => {
+    return (
+      credentialsAttrs.filter(
+        (credential: ICredentialsAttr): boolean =>
+          credential.type === "OAUTH" &&
+          credential.oauthType === "AZURE" &&
+          credential.owner.toLowerCase() === userEmail.toLowerCase()
+      ).length === 0
+    );
+  }, [credentialsAttrs, userEmail]);
+
   // Handle actions
   const openCredentialsModalToAdd = useCallback((): void => {
     setIsCredentialsModalOpen(true);
@@ -223,6 +234,7 @@ const OrganizationCredentials: React.FC<IOrganizationCredentialsProps> = ({
             onRemove={removeCredentials}
             organizationId={organizationId}
             selectedCredentials={selectedCredentials[0]}
+            shouldDisplayAzureButton={shouldDisplayAzureButton}
             shouldDisplayBitbucketButton={shouldDisplayBitbucketButton}
             shouldDisplayGithubButton={shouldDisplayGithubButton}
             shouldDisplayGitlabButton={shouldDisplayGitlabButton}

@@ -10,7 +10,7 @@ interface ICredentialsAttr {
   isPat: boolean;
   isToken: boolean;
   name: string;
-  oauthType: "" | "BITBUCKET" | "GITHUB" | "GITLAB";
+  oauthType: "" | "AZURE" | "BITBUCKET" | "GITHUB" | "GITLAB";
   owner: string;
   type: "HTTPS" | "OAUTH" | "SSH";
 }

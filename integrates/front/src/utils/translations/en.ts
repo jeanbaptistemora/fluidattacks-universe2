@@ -2027,6 +2027,10 @@ export const enTranslations: ResourceKey = {
             text: "Add",
             tooltip: "Add organization credentials",
           },
+          azureButton: {
+            text: "Azure",
+            tooltip: "Add Azure OAuth organization credentials",
+          },
           bitbucketButton: {
             text: "Bitbucket",
             tooltip: "Add Bitbucket OAuth organization credentials",
