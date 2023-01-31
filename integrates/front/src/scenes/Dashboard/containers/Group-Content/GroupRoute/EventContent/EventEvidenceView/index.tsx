@@ -62,10 +62,13 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isViewerOpen, setIsViewerOpen] = useState(false);
 
-  const closeImageViewer = (index: number, isOpen: boolean): void => {
-    setCurrentImage(index);
-    setIsViewerOpen(isOpen);
-  };
+  const closeImageViewer = useCallback(
+    (index: number, isOpen: boolean): void => {
+      setCurrentImage(index);
+      setIsViewerOpen(isOpen);
+    },
+    []
+  );
 
   const setOpenImageViewer: (index: number) => void = useCallback(
     (index): void => {
@@ -158,6 +161,16 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
       await refetch();
     },
     [t, eventId, refetch, updateEvidence]
+  );
+
+  const openImage = useCallback(
+    (index: number): (() => void) =>
+      (): void => {
+        if (!isEditing && !isRefetching) {
+          setOpenImageViewer(index);
+        }
+      },
+    [isEditing, isRefetching, setOpenImageViewer]
   );
 
   if (_.isEmpty(data) || _.isUndefined(data)) {
@@ -267,12 +280,6 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                     });
                   };
 
-                  const openImage = (): void => {
-                    if (!isEditing && !isRefetching) {
-                      setOpenImageViewer(index);
-                    }
-                  };
-
                   const content =
                     _.isEmpty(evidence.fileName) || isRefetching
                       ? ""
@@ -289,10 +296,9 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       isRemovable={!_.isEmpty(evidence.fileName)}
                       key={name}
                       name={name}
-                      // Next annotations needed due to nested callbacks
-                      // eslint-disable-next-line react/jsx-no-bind
-                      onClick={openImage}
-                      onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                      onClick={openImage(index)}
+                      // eslint-disable-next-line
+                      onDelete={handleRemove} // NOSONAR
                       validate={composeValidators([
                         validEvidenceImage,
                         maxFileSize,
@@ -338,8 +344,10 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
                       key={name}
                       name={name}
                       // Next annotations needed due to nested callbacks
-                      onClick={handleDownload} // eslint-disable-line react/jsx-no-bind
-                      onDelete={handleRemove} // eslint-disable-line react/jsx-no-bind
+                      // eslint-disable-next-line
+                      onClick={handleDownload} // NOSONAR
+                      // eslint-disable-next-line
+                      onDelete={handleRemove} // NOSONAR
                       validate={composeValidators([
                         validEventFile,
                         maxFileSize,
@@ -358,7 +366,7 @@ const EventEvidenceView: React.FC = (): JSX.Element => {
             evidenceImages={imageList.map((name: string): { url: string } => ({
               url: evidenceImages[name].fileName,
             }))}
-            onClose={closeImageViewer} // eslint-disable-line react/jsx-no-bind
+            onClose={closeImageViewer}
           />
         )}
       </React.Fragment>
