@@ -102,7 +102,11 @@ def _policy_actions_has_privilege(action_node: Node) -> bool:
         else [action_node]
     )
     for act in actions:
-        serv, act_val = act.raw.split(":")
+        serv, act_val = (
+            act.raw.split(":")
+            if len(act.raw.split(":")) == 2
+            else (act.raw.split(":"), "")
+        )
         act_value = (
             act_val[: act_val.index("*")] if act_val.endswith("*") else act_val
         )
