@@ -25,7 +25,6 @@ from dynamodb import (
     operations,
 )
 from typing import (
-    Iterable,
     Optional,
 )
 
@@ -44,11 +43,11 @@ async def _get_credentials(
         for request in requests
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
-
     response = {
         (credential.id, credential.organization_id): credential
         for credential in [format_credential(item) for item in items]
     }
+
     return list(
         response[(request.id, request.organization_id)] for request in requests
     )
@@ -64,12 +63,11 @@ class CredentialsLoader(DataLoader):
 
 async def _get_organization_credentials(
     *, organization_id: str
-) -> tuple[Credentials, ...]:
+) -> list[Credentials]:
     primary_key = keys.build_key(
         facet=TABLE.facets["credentials_metadata"],
         values={"organization_id": organization_id},
     )
-
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
     response = await operations.query(
@@ -84,24 +82,26 @@ async def _get_organization_credentials(
         table=TABLE,
     )
 
-    return tuple(format_credential(item) for item in response.items)
+    return [format_credential(item) for item in response.items]
 
 
 class OrganizationCredentialsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: Iterable[str]
-    ) -> tuple[tuple[Credentials, ...], ...]:
-        return await collect(
-            _get_organization_credentials(organization_id=organization_id)
-            for organization_id in organization_ids
+        self, organization_ids: list[str]
+    ) -> list[list[Credentials]]:
+        return list(
+            await collect(
+                _get_organization_credentials(organization_id=organization_id)
+                for organization_id in organization_ids
+            )
         )
 
 
-async def _get_user_credentials(*, user_email: str) -> tuple[Credentials, ...]:
+async def _get_user_credentials(*, email: str) -> list[Credentials]:
     primary_key = keys.build_key(
         facet=OWNER_INDEX_FACET,
-        values={"owner": user_email},
+        values={"owner": email},
     )
     index = TABLE.indexes["gsi_2"]
     key_structure = index.primary_key
@@ -115,15 +115,16 @@ async def _get_user_credentials(*, user_email: str) -> tuple[Credentials, ...]:
         table=TABLE,
     )
 
-    return tuple(format_credential(item) for item in response.items)
+    return [format_credential(item) for item in response.items]
 
 
 class UserCredentialsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, user_emails: Iterable[str]
-    ) -> tuple[tuple[Credentials, ...], ...]:
-        return await collect(
-            _get_user_credentials(user_email=user_email)
-            for user_email in user_emails
+        self, emails: list[str]
+    ) -> list[list[Credentials]]:
+        return list(
+            await collect(
+                _get_user_credentials(email=email) for email in emails
+            )
         )

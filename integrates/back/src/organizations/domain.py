@@ -691,9 +691,7 @@ async def remove_access(
             for group in org_group_names
         )
     )
-    user_credentials: tuple[
-        Credentials, ...
-    ] = await loaders.user_credentials.load(email)
+    user_credentials = await loaders.user_credentials.load(email)
     await collect(
         tuple(
             remove_credentials(

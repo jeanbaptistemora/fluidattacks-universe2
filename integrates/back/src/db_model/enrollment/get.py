@@ -14,13 +14,10 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-)
 
 
-async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
-    emails = tuple(email.lower().strip() for email in emails)
+async def _get_enrollments(*, emails: list[str]) -> list[Enrollment]:
+    emails = [email.lower().strip() for email in emails]
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["enrollment_metadata"],
@@ -45,12 +42,10 @@ async def _get_enrollments(*, emails: Iterable[str]) -> tuple[Enrollment, ...]:
         )
         enrollments.append(enrollment)
 
-    return tuple(enrollments)
+    return enrollments
 
 
 class EnrollmentLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> tuple[Enrollment, ...]:
-        return await _get_enrollments(emails=tuple(emails))
+    async def batch_load_fn(self, emails: list[str]) -> list[Enrollment]:
+        return await _get_enrollments(emails=emails)
