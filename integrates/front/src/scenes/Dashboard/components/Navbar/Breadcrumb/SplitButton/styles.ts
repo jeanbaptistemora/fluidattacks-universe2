@@ -5,7 +5,7 @@ const SplitButtonContainer = styled.button.attrs({
 })`
   color: #2e2e38;
   :hover {
-    color: #ff3435;
+    color: #bf0b1a;
   }
 `;
 

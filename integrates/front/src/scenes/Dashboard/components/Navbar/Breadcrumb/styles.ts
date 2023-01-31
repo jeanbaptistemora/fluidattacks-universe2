@@ -79,7 +79,7 @@ const StyledMenuItem = styled.button.attrs(
   border-bottom: 1px solid #e5e5e5 !important;
 
   :hover {
-    color: #ff3435;
+    color: #bf0b1a;
   }
 `;
 
