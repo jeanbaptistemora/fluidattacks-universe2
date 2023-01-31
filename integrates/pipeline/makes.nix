@@ -401,18 +401,7 @@ in {
             gitlabExtra =
               gitlabTestDevAndProd
               // {
-                after_script = [
-                  "cp ~/.makes/out-integrates-front-test/coverage/lcov.info integrates/front/coverage.lcov"
-                  "cp ~/.makes/provenance-* ."
-                ];
-                artifacts = {
-                  expire_in = "1 week";
-                  name = "coverage_lcov_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHORT_SHA";
-                  paths = [
-                    "integrates/front/coverage.lcov"
-                    "provenance-*"
-                  ];
-                };
+                parallel = 5;
               };
           }
           {

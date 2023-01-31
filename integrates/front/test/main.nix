@@ -1,18 +1,15 @@
 {
   inputs,
-  makeDerivation,
+  makeScript,
   outputs,
-  projectPath,
   ...
 }:
-makeDerivation {
-  env = {
-    envSetupIntegratesFrontDevRuntime =
-      outputs."/integrates/front/config/dev-runtime";
-    envSrcIntegratesFront = projectPath "/integrates/front";
-  };
-  builder = ./builder.sh;
+makeScript {
+  entrypoint = ./entrypoint.sh;
   name = "integrates-front-test";
+  replace = {
+    __argRuntime__ = outputs."/integrates/front/config/dev-runtime";
+  };
   searchPaths = {
     bin = [
       inputs.nixpkgs.bash
