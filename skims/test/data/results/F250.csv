@@ -1,0 +1,327 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,7,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
+   1 | ---
+   2 | Resources:
+   3 |   NewVolume1:
+   4 |     Type: AWS::EC2::Volume
+   5 |     Properties:
+   6 |       Size: 100
+>  7 |       Encrypted: false
+   8 |       AvailabilityZone: us-east-1
+   9 |     DeletionPolicy: Snapshot
+  10 |   NewVolume2:
+  11 |     Type: AWS::EC2::Volume
+  12 |     Properties:
+  13 |       Size: 100
+  14 |       AvailabilityZone: us-east-1
+  15 |     DeletionPolicy: Snapshot
+  16 |   NewVolume3:
+  17 |     Type: AWS::EC2::Volume
+  18 |     Properties:
+  19 |       Size: 100
+  20 |       Encrypted: true
+  21 |       AvailabilityZone: us-east-1
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,12,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
+   2 | Resources:
+   3 |   NewVolume1:
+   4 |     Type: AWS::EC2::Volume
+   5 |     Properties:
+   6 |       Size: 100
+   7 |       Encrypted: false
+   8 |       AvailabilityZone: us-east-1
+   9 |     DeletionPolicy: Snapshot
+  10 |   NewVolume2:
+  11 |     Type: AWS::EC2::Volume
+> 12 |     Properties:
+  13 |       Size: 100
+  14 |       AvailabilityZone: us-east-1
+  15 |     DeletionPolicy: Snapshot
+  16 |   NewVolume3:
+  17 |     Type: AWS::EC2::Volume
+  18 |     Properties:
+  19 |       Size: 100
+  20 |       Encrypted: true
+  21 |       AvailabilityZone: us-east-1
+  22 |     DeletionPolicy: Snapshot
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml,18,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml","
+   8 |       AvailabilityZone: us-east-1
+   9 |     DeletionPolicy: Snapshot
+  10 |   NewVolume2:
+  11 |     Type: AWS::EC2::Volume
+  12 |     Properties:
+  13 |       Size: 100
+  14 |       AvailabilityZone: us-east-1
+  15 |     DeletionPolicy: Snapshot
+  16 |   NewVolume3:
+  17 |     Type: AWS::EC2::Volume
+> 18 |     Properties:
+  19 |       Size: 100
+  20 |       Encrypted: true
+  21 |       AvailabilityZone: us-east-1
+  22 |     DeletionPolicy: Snapshot
+  23 |   NewVolume4:
+  24 |     Type: AWS::EC2::Volume
+  25 |     Properties:
+  26 |       Size: 100
+  27 |       Encrypted: true
+  28 |       KmsKeyId: arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,7,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""NewVolume1"": {
+   4 |       ""Type"": ""AWS::EC2::Volume"",
+   5 |       ""Properties"": {
+   6 |         ""Size"": 100,
+>  7 |         ""Encrypted"": false,
+   8 |         ""AvailabilityZone"": ""us-east-1""
+   9 |       },
+  10 |       ""DeletionPolicy"": ""Snapshot""
+  11 |     },
+  12 |     ""NewVolume2"": {
+  13 |       ""Type"": ""AWS::EC2::Volume"",
+  14 |       ""Properties"": {
+  15 |         ""Size"": 100,
+  16 |         ""AvailabilityZone"": ""us-east-1""
+  17 |       },
+  18 |       ""DeletionPolicy"": ""Snapshot""
+  19 |     },
+  20 |     ""NewVolume3"": {
+  21 |       ""Type"": ""AWS::EC2::Volume"",
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,14,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
+   4 |       ""Type"": ""AWS::EC2::Volume"",
+   5 |       ""Properties"": {
+   6 |         ""Size"": 100,
+   7 |         ""Encrypted"": false,
+   8 |         ""AvailabilityZone"": ""us-east-1""
+   9 |       },
+  10 |       ""DeletionPolicy"": ""Snapshot""
+  11 |     },
+  12 |     ""NewVolume2"": {
+  13 |       ""Type"": ""AWS::EC2::Volume"",
+> 14 |       ""Properties"": {
+  15 |         ""Size"": 100,
+  16 |         ""AvailabilityZone"": ""us-east-1""
+  17 |       },
+  18 |       ""DeletionPolicy"": ""Snapshot""
+  19 |     },
+  20 |     ""NewVolume3"": {
+  21 |       ""Type"": ""AWS::EC2::Volume"",
+  22 |       ""Properties"": {
+  23 |         ""Size"": 100,
+  24 |         ""Encrypted"": true,
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json,22,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_has_unencrypted_volumes.yaml.json","
+  12 |     ""NewVolume2"": {
+  13 |       ""Type"": ""AWS::EC2::Volume"",
+  14 |       ""Properties"": {
+  15 |         ""Size"": 100,
+  16 |         ""AvailabilityZone"": ""us-east-1""
+  17 |       },
+  18 |       ""DeletionPolicy"": ""Snapshot""
+  19 |     },
+  20 |     ""NewVolume3"": {
+  21 |       ""Type"": ""AWS::EC2::Volume"",
+> 22 |       ""Properties"": {
+  23 |         ""Size"": 100,
+  24 |         ""Encrypted"": true,
+  25 |         ""AvailabilityZone"": ""us-east-1""
+  26 |       },
+  27 |       ""DeletionPolicy"": ""Snapshot""
+  28 |     },
+  29 |     ""NewVolume4"": {
+  30 |       ""Type"": ""AWS::EC2::Volume"",
+  31 |       ""Properties"": {
+  32 |         ""Size"": 100,
+     ^ Col 0
+",cloudformation.cfn_ec2_has_unencrypted_volumes
+F250,inputs,arn:aws:ec2:::VolumeId/myVolume123 (namespace),/Encrypted: False,313,skims,250. Non-encrypted hard drives,"Properties Encrypted, KmsKeyId are missing or misconfigured","
+  1 | {
+> 2 |     ""Encrypted"": false,
+  3 |     ""KmsKeyId"": ""string"",
+  4 |     ""OutpostArn"": ""arn:aws:iam::123456789012:out/myout"",
+  5 |     ""Size"": 1,
+  6 |     ""State"": ""available"",
+  7 |     ""VolumeId"": ""myVolume123"",
+  8 |     ""VolumeType"": ""io1""
+  9 | }
+    ^ Col 0
+",aws.ebs_is_encryption_disabled
+F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,14,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+   4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
+   5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
+   6 |   key_name                    = lookup(var.awsprops, ""keyname"")
+   7 |
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+> 14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+  21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+     ^ Col 0
+",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,21,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+   8 |
+   9 |   vpc_security_group_ids = [
+  10 |     aws_security_group.project-iac-sg.id
+  11 |   ]
+  12 |
+  13 |   root_block_device {
+  14 |     encrypted             = false
+  15 |     delete_on_termination = true
+  16 |     iops                  = 150
+  17 |     volume_size           = 50
+  18 |     volume_type           = ""gp2""
+  19 |   }
+  20 |
+> 21 |   ebs_block_device {
+  22 |     delete_on_termination = true
+  23 |     iops                  = 150
+  24 |     volume_size           = 50
+  25 |     volume_type           = ""gp2""
+  26 |   }
+  27 |
+  28 | }
+     ^ Col 0
+",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,10,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   MyEC2Instance:
+   4 |     Type: AWS::EC2::Instance
+   5 |     Properties:
+   6 |       ImageId: ami-79fd7eee
+   7 |       KeyName: testkey
+   8 |       BlockDeviceMappings:
+   9 |         - DeviceName: /dev/sdm
+> 10 |           Ebs:
+  11 |             VolumeType: io1
+  12 |             Iops: '200'
+  13 |             DeleteOnTermination: 'false'
+  14 |             VolumeSize: '20'
+  15 |         - DeviceName: /dev/sdk
+  16 |           NoDevice: {}
+  17 |         - DeviceName: /dev/sdm
+  18 |           Ebs:
+  19 |             Encrypted: true
+  20 |             VolumeType: io1
+  21 |             Iops: '200'
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,26,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml,"
+  10 |           Ebs:
+  11 |             VolumeType: io1
+  12 |             Iops: '200'
+  13 |             DeleteOnTermination: 'false'
+  14 |             VolumeSize: '20'
+  15 |         - DeviceName: /dev/sdk
+  16 |           NoDevice: {}
+  17 |         - DeviceName: /dev/sdm
+  18 |           Ebs:
+  19 |             Encrypted: true
+  20 |             VolumeType: io1
+  21 |             Iops: '200'
+  22 |             DeleteOnTermination: 'false'
+  23 |             VolumeSize: '20'
+  24 |         - DeviceName: /dev/sdm
+  25 |           Ebs:
+> 26 |             Encrypted: false
+  27 |             VolumeType: io1
+  28 |             Iops: '200'
+  29 |             DeleteOnTermination: 'false'
+  30 |             VolumeSize: '20'
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,11,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MyEC2Instance"": {
+   4 |       ""Type"": ""AWS::EC2::Instance"",
+   5 |       ""Properties"": {
+   6 |         ""ImageId"": ""ami-79fd7eee"",
+   7 |         ""KeyName"": ""testkey"",
+   8 |         ""BlockDeviceMappings"": [
+   9 |           {
+  10 |             ""DeviceName"": ""/dev/sdm"",
+> 11 |             ""Ebs"": {
+  12 |               ""VolumeType"": ""io1"",
+  13 |               ""Iops"": ""200"",
+  14 |               ""DeleteOnTermination"": ""false"",
+  15 |               ""VolumeSize"": ""20""
+  16 |             }
+  17 |           },
+  18 |           {
+  19 |             ""DeviceName"": ""/dev/sdk"",
+  20 |             ""NoDevice"": {}
+  21 |           },
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,35,313,skims,250. Non-encrypted hard drives,Property BlockDeviceMapping.Ebs.Encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_ebs_block_devices.yaml.json,"
+  25 |               ""Encrypted"": true,
+  26 |               ""VolumeType"": ""io1"",
+  27 |               ""Iops"": ""200"",
+  28 |               ""DeleteOnTermination"": ""false"",
+  29 |               ""VolumeSize"": ""20""
+  30 |             }
+  31 |           },
+  32 |           {
+  33 |             ""DeviceName"": ""/dev/sdm"",
+  34 |             ""Ebs"": {
+> 35 |               ""Encrypted"": false,
+  36 |               ""VolumeType"": ""io1"",
+  37 |               ""Iops"": ""200"",
+  38 |               ""DeleteOnTermination"": ""false"",
+  39 |               ""VolumeSize"": ""20""
+  40 |             }
+  41 |           }
+  42 |         ]
+  43 |       }
+  44 |     }
+  45 |   }
+     ^ Col 0
+",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
+F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,2,313,skims,250. Non-encrypted hard drives,Property enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,"
+  1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
+> 2 |   enabled = false
+  3 | }
+    ^ Col 0
+",terraform.tfm_ebs_unencrypted_by_default
+F250,lines,namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volumes.tf,10,313,skims,250. Non-encrypted hard drives,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volumes.tf,"
+   1 | resource ""aws_ebs_volume"" ""example"" {
+   2 |   availability_zone = ""us-west-2a""
+   3 |   size              = 40
+   4 |   encrypted         = true
+   5 |   tags = {
+   6 |     Name = ""HelloWorld""
+   7 |   }
+   8 | }
+   9 |
+> 10 | resource ""aws_ebs_volume"" ""example"" {
+  11 |   availability_zone = ""us-west-2a""
+  12 |   size              = 40
+  13 |
+  14 |   tags = {
+  15 |     Name = ""HelloWorld""
+  16 |   }
+  17 | }
+     ^ Col 0
+",terraform.tfm_ebs_unencrypted_volumes

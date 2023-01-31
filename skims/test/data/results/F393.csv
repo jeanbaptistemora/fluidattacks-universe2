@@ -1,0 +1,94 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F393,lines,"namespace/skims/test/data/lib_path/f393/Gemfile (devise v=1.4.2) [CVE-2013-0233, CVE-2015-8314, CVE-2019-16109, CVE-2019-5421, GHSA-73rf-6mrf-759q, GHSA-746g-3gfp-hfhw, GHSA-fcjw-8rhj-gwwc]",132,937,skims,393. Use of software with known vulnerabilities in development,"Use of devise at version =1.4.2 with ['CVE-2013-0233', 'CVE-2015-8314', 'CVE-2019-16109', 'CVE-2019-5421', 'GHSA-73rf-6mrf-759q', 'GHSA-746g-3gfp-hfhw', 'GHSA-fcjw-8rhj-gwwc'] in namespace/skims/test/data/lib_path/f393/Gemfile","
+  122 |   platforms :mri do
+  123 |     gem ""stackprof"", ""= 1.4.2""
+  124 |     gem ""debug"", "">= 1.1.0"", require: false
+  125 |   end
+  126 |
+  127 |   gem ""benchmark-ips""
+  128 | end
+  129 |
+  130 | platforms :ruby, :windows do
+  131 |   gem ""nokogiri"", ""= 1.8.1""
+> 132 |   gem ""devise"", ""= 1.4.2"", :group => :development
+  133 |   gem ""rubocop"", ""= 1.35.1"", :group => [:caravan, :topo, :test, :mongo]
+  134 |   gem ""rails"", ""= 7.0.4"", :group => :caravan
+  135 |
+  136 |   # Needed for compiling the ActionDispatch::Journey parser.
+  137 |   gem ""racc"", "">=1.4.6"", require: false
+  138 |
+  139 |   # Active Record.
+  140 |   gem ""sqlite3"", ""~> 1.4""
+  141 |
+  142 |   group :development do
+      ^ Col 0
+",gem.gem_gemfile_dev
+F393,lines,"namespace/skims/test/data/lib_path/f393/package-lock.json (hoek v5.0.0.3) [CVE-2018-3728, GHSA-jp4x-w63m-7wgm, npm:hoek:20180212]",5,937,skims,393. Use of software with known vulnerabilities in development,"Use of hoek at version 5.0.0.3 with ['CVE-2018-3728', 'GHSA-jp4x-w63m-7wgm', 'npm:hoek:20180212'] in namespace/skims/test/data/lib_path/f393/package-lock.json","
+   1 | {
+   2 |   ""dependencies"": {
+   3 |     ""@babel/dev"": {
+   4 |       ""dependencies"": {
+>  5 |         ""hoek"": {
+   6 |           ""dependencies"": {
+   7 |             ""hoek"": {
+   8 |               ""dependencies"": {
+   9 |                 ""hoek"": {
+  10 |                   ""dev"": false,
+  11 |                   ""version"": ""5.0.0.1""
+  12 |                 }
+  13 |               },
+  14 |               ""dev"": true,
+  15 |               ""version"": ""5.0.0.2""
+  16 |             }
+  17 |           },
+  18 |           ""version"": ""5.0.0.3""
+  19 |         }
+  20 |       },
+  21 |       ""dev"": true,
+     ^ Col 0
+",npm.npm_pkg_lock_json
+F393,lines,"namespace/skims/test/data/lib_path/f393/package.json (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, CVE-2022-37616, CVE-2022-39353, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-crh6-fp67-6883, GHSA-h6q6-9hqw-rwfv]",16,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'CVE-2022-37616', 'CVE-2022-39353', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-crh6-fp67-6883', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f393/package.json","
+   1 | {
+   2 |   ""name"": ""test"",
+   3 |   ""version"": ""1.0.0"",
+   4 |   ""description"": ""nothing"",
+   5 |   ""main"": ""index.js"",
+   6 |   ""author"": ""Luis Saavedra"",
+   7 |   ""license"": ""MIT"",
+   8 |   ""private"": false,
+   9 |   ""dependencies"": {
+  10 |     ""@angular/core"": ""^13.3.3"",
+  11 |     ""cloudron-sysadmin"": ""1.0.0"",
+  12 |     ""script-manager"": ""0.8.6"",
+  13 |     ""slug"": ""0.9.0""
+  14 |   },
+  15 |   ""devDependencies"": {
+> 16 |     ""xmldom"": ""0.4.0""
+  17 |   }
+  18 | }
+     ^ Col 0
+",npm.npm_pkg_json
+F393,lines,"namespace/skims/test/data/lib_path/f393/yarn.lock (xmldom v0.4.0) [CVE-2021-21366, CVE-2021-32796, CVE-2022-37616, CVE-2022-39353, GHSA-5fg8-2547-mr8q, GHSA-9pgh-qqpf-7wqj, GHSA-crh6-fp67-6883, GHSA-h6q6-9hqw-rwfv]",29,937,skims,393. Use of software with known vulnerabilities in development,"Use of xmldom at version 0.4.0 with ['CVE-2021-21366', 'CVE-2021-32796', 'CVE-2022-37616', 'CVE-2022-39353', 'GHSA-5fg8-2547-mr8q', 'GHSA-9pgh-qqpf-7wqj', 'GHSA-crh6-fp67-6883', 'GHSA-h6q6-9hqw-rwfv'] in namespace/skims/test/data/lib_path/f393/yarn.lock","
+  12 | ajv@^6.12.3:
+  13 |   version ""6.12.6""
+  14 |   resolved ""https://registry.yarnpkg.com/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4""
+  15 |   integrity sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==
+  16 |   dependencies:
+  17 |     fast-deep-equal ""^3.1.1""
+  18 |     fast-json-stable-stringify ""^2.0.0""
+  19 |     json-schema-traverse ""^0.4.1""
+  20 |     uri-js ""^4.2.2""
+  21 |
+  22 | asn1@~0.2.3:
+  23 |   version ""0.2.6""
+  24 |   resolved ""https://registry.yarnpkg.com/asn1/-/asn1-0.2.6.tgz#0d3a7bb6e64e02a90c0303b31f292868ea09a08d""
+  25 |   integrity sha512-ix/FxPn0MDjeyJ7i/yoHGFt/EX6LyNbxSEhPPXODPL+KB0VPk86UYfL0lMdy+KCnv+fmvIzySwaK5COwqVbWTQ==
+  26 |   dependencies:
+  27 |     safer-buffer ""~2.1.0""
+  28 |
+> 29 | xmldom@0.4.0:
+  30 |   version ""0.4.0""
+  31 |   resolved ""https://registry.yarnpkg.com/xmldom/-/xmldom-0.4.0.tgz#8771e482a333af44587e30ce026f0998c23f3830""
+  32 |   integrity sha512-2E93k08T30Ugs+34HBSTQLVtpi6mCddaY8uO+pMNk1pqSjV5vElzn4mmh6KLxN3hki8rNcHSYzILoh3TEWORvA==
+     ^ Col 0
+",yarn.npm_yarn_lock_dev
