@@ -38,11 +38,29 @@ pytestmark = [
 ]
 
 
-async def test_exists() -> None:
+@pytest.mark.parametrize(
+    ["email", "group_name"],
+    [
+        ["unittest@fluidattacks.com", "unittesting"],
+    ],
+)
+@patch(get_mocked_path("loaders.group_access.load"), new_callable=AsyncMock)
+async def test_exists(
+    mock_loaders_group_access: AsyncMock,
+    email: str,
+    group_name: str,
+) -> None:
+    assert set_mocks_return_values(
+        mocked_objects=[mock_loaders_group_access],
+        paths_list=["loaders.group_access.load"],
+        mocks_args=[[group_name, email]],
+    )
     loaders: Dataloaders = get_new_context()
-    email = "unittest@fluidattacks.com"
-    group_name = "unittesting"
     assert await exists(loaders, group_name, email)
+    assert mock_loaders_group_access.called is True
+    mock_loaders_group_access.assert_called_with(
+        GroupAccessRequest(group_name=group_name, email=email)
+    )
 
 
 async def test_get_group_stakeholders_emails() -> None:

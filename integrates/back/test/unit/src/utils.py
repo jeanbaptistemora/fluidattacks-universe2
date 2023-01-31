@@ -3425,6 +3425,21 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             responsibility=None,
             role="admin",
         ),
+        '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
+            email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            state=GroupAccessState(
+                modified_date=datetime.fromisoformat(
+                    "2020-01-01T20:24:25+00:00"
+                )
+            ),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility="Tester",
+            role=None,
+        ),
     },
     "db_model.group_access.remove": {
         '["unittest@fluidattacks.com", "unittesting"]': None,
