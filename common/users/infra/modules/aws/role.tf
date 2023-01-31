@@ -45,12 +45,25 @@ locals {
           Sid    = "commonCluster",
           Effect = "Allow",
           Principal = {
-            Federated = "arn:aws:iam::205810638802:oidc-provider/${local.cluster_oidc}"
+            Federated = "arn:aws:iam::205810638802:oidc-provider/${local.common_cluster_oidc}"
           },
           Action = "sts:AssumeRoleWithWebIdentity",
           Condition = {
             StringEquals = {
-              "${local.cluster_oidc}:sub" : "system:serviceaccount:${local.name_compliant}:${local.name_compliant}"
+              "${local.common_cluster_oidc}:sub" : "system:serviceaccount:${local.name_compliant}:${local.name_compliant}"
+            },
+          },
+        },
+        {
+          Sid    = "commonK8s",
+          Effect = "Allow",
+          Principal = {
+            Federated = "arn:aws:iam::205810638802:oidc-provider/${local.common_cluster_k8s_oidc}"
+          },
+          Action = "sts:AssumeRoleWithWebIdentity",
+          Condition = {
+            StringEquals = {
+              "${local.common_cluster_k8s_oidc}:sub" : "system:serviceaccount:${local.name_compliant}:${local.name_compliant}"
             },
           },
         },
@@ -58,8 +71,9 @@ locals {
       var.assume_role_policy,
     )
   }
-  cluster_oidc   = replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")
-  name_compliant = replace(var.name, "_", "-")
+  common_cluster_oidc     = replace(data.aws_eks_cluster.common.identity[0].oidc[0].issuer, "https://", "")
+  common_cluster_k8s_oidc = replace(data.aws_eks_cluster.common-k8s.identity[0].oidc[0].issuer, "https://", "")
+  name_compliant          = replace(var.name, "_", "-")
 }
 
 resource "aws_iam_role" "main" {
