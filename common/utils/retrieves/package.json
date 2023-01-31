@@ -8,10 +8,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-react-webview-starter.openWebview",
-        "title": "React Webview: Open webview"
-      },
-      {
         "command": "retrieves.clone",
         "title": "Clone"
       },
@@ -22,6 +18,10 @@
       {
         "command": "retrieves.updateToeLinesAttackedLines",
         "title": "Attacked"
+      },
+      {
+        "command": "retrieves.getRootVulnerabilities",
+        "title": "Get Root Vulnerabilities"
       }
     ],
     "configuration": [
@@ -63,6 +63,10 @@
         {
           "command": "retrieves.lines",
           "when": "view == user_groups && viewItem == gitRoot"
+        },
+        {
+          "command": "retrieves.getRootVulnerabilities",
+          "when": "view == user_groups && viewItem == gitRoot"
         }
       ]
     },
@@ -88,14 +92,17 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
+    "@types/ramda": "^0.28.22",
     "@types/vscode-webview": "^1.57.1",
     "@vscode/webview-ui-toolkit": "^1.2.1",
     "cross-fetch": "^3.1.5",
     "glob": "^8.1.0",
     "graphql": "^16.6.0",
     "html-creator": "^0.6.2",
+    "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^6.8.0",
     "simple-git": "^3.15.1",
     "tar-stream": "^3.0.0",
     "tmp": "^0.2.1"
@@ -166,11 +173,10 @@
     "package:wv": "webpack --mode production --config ./webpack/webview.config.js",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js",
-    "vscode:prepublish": "npm run package",
     "watch": "npm-run-all --parallel watch:*",
     "watch-tests": "tsc -p . -w --outDir out",
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.0.1"
+  "version": "0.15.1"
 }

@@ -33,6 +33,12 @@ interface IToeLinesPaginator {
   };
 }
 
+interface IVulnerability {
+  id: string;
+  specific: string;
+  where: string;
+}
+
 export type {
   IGroup as Group,
   IOrganization as Organization,
@@ -40,4 +46,5 @@ export type {
   IToeLinesPaginator,
   IEdge,
   IToeLineNode,
+  IVulnerability,
 };

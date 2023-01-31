@@ -84,4 +84,26 @@ const UPDATE_TOE_LINES_ATTACKED = gql`
     }
   }
 `;
-export { GET_GROUPS, GET_GIT_ROOTS, GET_TOE_LINES, UPDATE_TOE_LINES_ATTACKED };
+
+const GET_VULNERABILITIES = gql`
+  query GetRootVulnerabilities($groupName: String!, $rootId: ID!) {
+    root(groupName: $groupName, rootId: $rootId) {
+      ... on GitRoot {
+        nickname
+        vulnerabilities {
+          id
+          where
+          specific
+        }
+      }
+    }
+  }
+`;
+
+export {
+  GET_GROUPS,
+  GET_GIT_ROOTS,
+  GET_TOE_LINES,
+  GET_VULNERABILITIES,
+  UPDATE_TOE_LINES_ATTACKED,
+};
