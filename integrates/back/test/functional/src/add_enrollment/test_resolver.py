@@ -24,6 +24,9 @@ import pytest
 from pytest_mock import (
     MockerFixture,
 )
+from typing import (
+    Optional,
+)
 from unittest import (
     mock,
 )
@@ -57,9 +60,12 @@ async def test_should_add_enrollment(
 
     loaders.company.clear_all()
     loaders.enrollment.clear_all()
-    company: Company = await loaders.company.load(email.split("@")[1])
+    company: Optional[Company] = await loaders.company.load(
+        email.split("@")[1]
+    )
     enrollment: Enrollment = await loaders.enrollment.load(email)
     assert enrollment.enrolled
+    assert company
     assert company.trial.start_date
     assert (
         datetime_utils.get_as_utc_iso_format(company.trial.start_date)

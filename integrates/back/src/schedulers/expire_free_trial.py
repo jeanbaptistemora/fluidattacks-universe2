@@ -25,6 +25,7 @@ from groups import (
     domain as groups_domain,
 )
 import logging
+import logging.config
 from mailer import (
     groups as groups_mail,
 )
@@ -82,7 +83,7 @@ async def _expire(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
-    domains = tuple(group.created_by.split("@")[1] for group in groups)
+    domains = [group.created_by.split("@")[1] for group in groups]
     companies = await loaders.company.load_many(domains)
 
     await collect(

@@ -117,7 +117,7 @@ async def send_trial_engagement_notification() -> None:
     }
     loaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
-    domains = tuple(group.created_by.split("@")[1] for group in groups)
+    domains = [group.created_by.split("@")[1] for group in groups]
     companies = await loaders.company.load_many(domains)
 
     await collect(

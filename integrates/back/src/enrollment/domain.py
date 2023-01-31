@@ -50,6 +50,9 @@ from newutils.validations import (
 from settings import (
     LOGGING,
 )
+from typing import (
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
@@ -158,7 +161,7 @@ async def in_trial(
     loaders: Dataloaders, user_email: str, organization: Organization
 ) -> bool:
     domain = user_email.split("@")[1]
-    company: Company = await loaders.company.load(domain)
+    company: Optional[Company] = await loaders.company.load(domain)
     completed = company and company.trial.completed
 
     if completed or organization.payment_methods:

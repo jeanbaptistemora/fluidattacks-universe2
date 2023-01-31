@@ -32,7 +32,7 @@ async def _get_companies(domains: list[str]) -> list[Company]:
     return [format_company(item) for item in items]
 
 
-class CompanyLoader(DataLoader):
+class CompanyLoader(DataLoader[str, Optional[Company]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, domains: list[str]
