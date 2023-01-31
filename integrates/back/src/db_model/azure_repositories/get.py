@@ -707,7 +707,9 @@ class OrganizationRepositoriesLoader(
         return await get_repositories(credentials=credentials)
 
 
-class OrganizationRepositoriesCommitsLoader(DataLoader):
+class OrganizationRepositoriesCommitsLoader(
+    DataLoader[CredentialsGitRepositoryCommit, list[GitCommit]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,

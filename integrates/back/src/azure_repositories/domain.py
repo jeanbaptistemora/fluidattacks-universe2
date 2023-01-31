@@ -7,7 +7,6 @@ from atlassian.bitbucket.cloud.repositories.commits import (
     Commits,
 )
 from azure.devops.v6_0.git.models import (
-    GitCommit,
     GitRepository,
     GitRepositoryStats,
 )
@@ -655,14 +654,14 @@ def _get_branch(
 async def _get_missed_authors(
     *, loaders: Dataloaders, repository: CredentialsGitRepository
 ) -> set[str]:
-    git_commits: list[
-        GitCommit
-    ] = await loaders.organization_integration_repositories_commits.load(
-        CredentialsGitRepositoryCommit(
-            credential=repository.credential,
-            project_name=repository.repository.project.name,
-            repository_id=repository.repository.id,
-            total=True,
+    git_commits = (
+        await loaders.organization_integration_repositories_commits.load(
+            CredentialsGitRepositoryCommit(
+                credential=repository.credential,
+                project_name=repository.repository.project.name,
+                repository_id=repository.repository.id,
+                total=True,
+            )
         )
     )
 
