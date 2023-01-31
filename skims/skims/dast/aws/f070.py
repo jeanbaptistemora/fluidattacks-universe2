@@ -128,12 +128,12 @@ async def target_group_insecure_port(
             if not port:
                 locations = [
                     Location(
-                        access_patterns=(),
+                        access_patterns=(f"/TargetGroups/{index}/TargetType",),
                         arn=(f"{target_group['TargetGroupArn']}"),
-                        values=(),
+                        values=(target_type,),
                         description=(
                             "src.lib_path.f070."
-                            "elb2_uses_insecure_security_policy"
+                            "elb2_target_group_insecure_port"
                         ),
                     )
                 ]

@@ -1,0 +1,322 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+   8 |           RedirectConfig:
+   9 |             Protocol: HTTPS
+  10 |             Port: 443
+  11 |             Host: '#{host}'
+  12 |             Path: /#{path}
+  13 |             Query: '#{query}'
+  14 |             StatusCode: HTTP_301
+  15 |       LoadBalancerArn: myLoadBalancer
+  16 |       Port: 80
+  17 |       Protocol: HTTPS
+> 18 |       SslPolicy: ELBSecurityPolicy-2016-08
+  19 |   listener2:
+  20 |     Type: AWS::ElasticLoadBalancingV2::Listener
+  21 |     Properties:
+  22 |       DefaultActions:
+  23 |         - Type: redirect
+  24 |           RedirectConfig:
+  25 |             Protocol: HTTPS
+  26 |             Port: 443
+  27 |             Host: '#{host}'
+  28 |             Path: /#{path}
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,34,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml,"
+  14 |             StatusCode: HTTP_301
+  15 |       LoadBalancerArn: myLoadBalancer
+  16 |       Port: 80
+  17 |       Protocol: HTTPS
+  18 |       SslPolicy: ELBSecurityPolicy-2016-08
+  19 |   listener2:
+  20 |     Type: AWS::ElasticLoadBalancingV2::Listener
+  21 |     Properties:
+  22 |       DefaultActions:
+  23 |         - Type: redirect
+  24 |           RedirectConfig:
+  25 |             Protocol: HTTPS
+  26 |             Port: 443
+  27 |             Host: '#{host}'
+  28 |             Path: /#{path}
+  29 |             Query: '#{query}'
+  30 |             StatusCode: HTTP_301
+  31 |       LoadBalancerArn: myLoadBalancer
+  32 |       Port: 80
+  33 |       Protocol: HTTP
+> 34 |       SslPolicy: ELBSecurityPolicy-TLS-1-2-2017-01
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,22,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
+  12 |               ""Host"": ""#{host}"",
+  13 |               ""Path"": ""/#{path}"",
+  14 |               ""Query"": ""#{query}"",
+  15 |               ""StatusCode"": ""HTTP_301""
+  16 |             }
+  17 |           }
+  18 |         ],
+  19 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  20 |         ""Port"": 80,
+  21 |         ""Protocol"": ""HTTPS"",
+> 22 |         ""SslPolicy"": ""ELBSecurityPolicy-2016-08""
+  23 |       }
+  24 |     },
+  25 |     ""listener2"": {
+  26 |       ""Type"": ""AWS::ElasticLoadBalancingV2::Listener"",
+  27 |       ""Properties"": {
+  28 |         ""DefaultActions"": [
+  29 |           {
+  30 |             ""Type"": ""redirect"",
+  31 |             ""RedirectConfig"": {
+  32 |               ""Protocol"": ""HTTPS"",
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,44,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_path/f070/cfn_elb2_uses_insecure_security_policy.yaml.json,"
+  28 |         ""DefaultActions"": [
+  29 |           {
+  30 |             ""Type"": ""redirect"",
+  31 |             ""RedirectConfig"": {
+  32 |               ""Protocol"": ""HTTPS"",
+  33 |               ""Port"": 443,
+  34 |               ""Host"": ""#{host}"",
+  35 |               ""Path"": ""/#{path}"",
+  36 |               ""Query"": ""#{query}"",
+  37 |               ""StatusCode"": ""HTTP_301""
+  38 |             }
+  39 |           }
+  40 |         ],
+  41 |         ""LoadBalancerArn"": ""myLoadBalancer"",
+  42 |         ""Port"": 80,
+  43 |         ""Protocol"": ""HTTP"",
+> 44 |         ""SslPolicy"": ""ELBSecurityPolicy-TLS-1-2-2017-01""
+  45 |       }
+  46 |     }
+  47 |   }
+  48 | }
+     ^ Col 0
+",cloudformation.cfn_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,5,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,"
+   1 | resource ""aws_lb_listener"" ""front_end"" {
+   2 |   load_balancer_arn = aws_lb.front_end.arn
+   3 |   port              = ""443""
+   4 |   protocol          = ""HTTPS""
+>  5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
+   6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+   7 |
+   8 |   default_action {
+   9 |     type             = ""forward""
+  10 |     target_group_arn = aws_lb_target_group.front_end.arn
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_lb_listener"" ""front_end"" {
+  15 |   load_balancer_arn = aws_lb.front_end.arn
+  16 |   port              = ""443""
+  17 |   protocol          = ""HTTPS""
+  18 |   ssl_policy        = ""ELBSecurityPolicy-FS-1-1-2019-08""
+  19 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+  20 |
+  21 |   default_action {
+     ^ Col 0
+",terraform.tfm_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,"
+   5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
+   6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+   7 |
+   8 |   default_action {
+   9 |     type             = ""forward""
+  10 |     target_group_arn = aws_lb_target_group.front_end.arn
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_lb_listener"" ""front_end"" {
+  15 |   load_balancer_arn = aws_lb.front_end.arn
+  16 |   port              = ""443""
+  17 |   protocol          = ""HTTPS""
+> 18 |   ssl_policy        = ""ELBSecurityPolicy-FS-1-1-2019-08""
+  19 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
+  20 |
+  21 |   default_action {
+  22 |     type             = ""forward""
+  23 |     target_group_arn = aws_lb_target_group.front_end.arn
+  24 |   }
+  25 | }
+     ^ Col 0
+",terraform.tfm_elb2_uses_insecure_security_policy
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,11,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   MyTargetGroup1:
+   4 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+   5 |     Properties:
+   6 |       HealthCheckEnabled: false
+   7 |       Name: MyTargets
+   8 |       TargetType: lambda
+   9 |   MyTargetGroup2:
+  10 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+> 11 |     Properties:
+  12 |       HealthCheckEnabled: false
+  13 |       Name: MyTargets
+  14 |       TargetType: ip
+  15 |   MyTargetGroup3:
+  16 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  17 |     Properties:
+  18 |       HealthCheckEnabled: false
+  19 |       Name: MyTargets
+  20 |       Port: 80
+  21 |       TargetType: ip
+     ^ Col 0
+",cloudformation.cfn_lb_target_group_insecure_port
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,20,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml,"
+   8 |       TargetType: lambda
+   9 |   MyTargetGroup2:
+  10 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  11 |     Properties:
+  12 |       HealthCheckEnabled: false
+  13 |       Name: MyTargets
+  14 |       TargetType: ip
+  15 |   MyTargetGroup3:
+  16 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  17 |     Properties:
+  18 |       HealthCheckEnabled: false
+  19 |       Name: MyTargets
+> 20 |       Port: 80
+  21 |       TargetType: ip
+  22 |   MyTargetGroup4:
+  23 |     Type: AWS::ElasticLoadBalancingV2::TargetGroup
+  24 |     Properties:
+  25 |       HealthCheckEnabled: false
+  26 |       Name: MyTargets
+  27 |       Port: 443
+  28 |       TargetType: ip
+     ^ Col 0
+",cloudformation.cfn_lb_target_group_insecure_port
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,13,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,"
+   3 |     ""MyTargetGroup1"": {
+   4 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+   5 |       ""Properties"": {
+   6 |         ""HealthCheckEnabled"": false,
+   7 |         ""Name"": ""MyTargets"",
+   8 |         ""TargetType"": ""lambda""
+   9 |       }
+  10 |     },
+  11 |     ""MyTargetGroup2"": {
+  12 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+> 13 |       ""Properties"": {
+  14 |         ""HealthCheckEnabled"": false,
+  15 |         ""Name"": ""MyTargets"",
+  16 |         ""TargetType"": ""ip""
+  17 |       }
+  18 |     },
+  19 |     ""MyTargetGroup3"": {
+  20 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  21 |       ""Properties"": {
+  22 |         ""HealthCheckEnabled"": false,
+  23 |         ""Name"": ""MyTargets"",
+     ^ Col 0
+",cloudformation.cfn_lb_target_group_insecure_port
+F070,lines,namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,24,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_path/f070/cfn_elb2_target_group_insecure_port.yaml.json,"
+  14 |         ""HealthCheckEnabled"": false,
+  15 |         ""Name"": ""MyTargets"",
+  16 |         ""TargetType"": ""ip""
+  17 |       }
+  18 |     },
+  19 |     ""MyTargetGroup3"": {
+  20 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  21 |       ""Properties"": {
+  22 |         ""HealthCheckEnabled"": false,
+  23 |         ""Name"": ""MyTargets"",
+> 24 |         ""Port"": 80,
+  25 |         ""TargetType"": ""ip""
+  26 |       }
+  27 |     },
+  28 |     ""MyTargetGroup4"": {
+  29 |       ""Type"": ""AWS::ElasticLoadBalancingV2::TargetGroup"",
+  30 |       ""Properties"": {
+  31 |         ""HealthCheckEnabled"": false,
+  32 |         ""Name"": ""MyTargets"",
+  33 |         ""Port"": 443,
+  34 |         ""TargetType"": ""ip""
+     ^ Col 0
+",cloudformation.cfn_lb_target_group_insecure_port
+F070,lines,namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,3,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,"
+  1 | resource ""aws_lb_target_group"" ""test"" {
+  2 |   name     = ""tf-example-lb-tg""
+> 3 |   port     = 80
+  4 |   protocol = ""HTTP""
+  5 |   vpc_id   = aws_vpc.main.id
+  6 | }
+    ^ Col 0
+",terraform.tfm_lb_target_group_insecure_port
+F070,inputs,arn:aws:iam::123456789012:tg/noport (namespace),/TargetGroups/1/TargetType: instance,266,skims,070. Insecure service configuration - ELB,src.lib_path.f070.elb2_target_group_insecure_port,"
+   1 | {
+   2 |     ""TargetGroups"": [
+   3 |         {
+   4 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/wrongport"",
+   5 |             ""Port"": 123,
+   6 |             ""TargetType"": ""instance""
+   7 |         },
+   8 |         {
+   9 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/noport"",
+> 10 |             ""TargetType"": ""instance""
+  11 |         },
+  12 |         {
+  13 |             ""TargetType"": ""lambda"",
+  14 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/mytarget1""
+  15 |         },
+  16 |         {
+  17 |             ""Port"": 443,
+  18 |             ""TargetType"": ""ip"",
+  19 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/mytarget2""
+  20 |         }
+  21 |     ],
+     ^ Col 0
+",aws.target_group_insecure_port
+F070,inputs,arn:aws:iam::123456789012:tg/wrongport (namespace),/TargetGroups/0/Port: 123,266,skims,070. Insecure service configuration - ELB,src.lib_path.f070.elb2_target_group_insecure_port,"
+   1 | {
+   2 |     ""TargetGroups"": [
+   3 |         {
+   4 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/wrongport"",
+>  5 |             ""Port"": 123,
+   6 |             ""TargetType"": ""instance""
+   7 |         },
+   8 |         {
+   9 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/noport"",
+  10 |             ""TargetType"": ""instance""
+  11 |         },
+  12 |         {
+  13 |             ""TargetType"": ""lambda"",
+  14 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/mytarget1""
+  15 |         },
+  16 |         {
+  17 |             ""Port"": 443,
+  18 |             ""TargetType"": ""ip"",
+  19 |             ""TargetGroupArn"": ""arn:aws:iam::123456789012:tg/mytarget2""
+  20 |         }
+  21 |     ],
+     ^ Col 0
+",aws.target_group_insecure_port
+F070,inputs,arn:aws:iam::123456789012:list/unsafelistener (namespace),/Listeners/0/SslPolicy: ELBSecurityPolicy_FS_1_2_Res_2019_08,266,skims,070. Insecure service configuration - ELB,src.lib_path.f070.elb2_uses_insecure_security_policy,"
+  21 |     ],
+  22 |     ""LoadBalancers"": [
+  23 |         {
+  24 |             ""LoadBalancerArn"": ""arn:aws:iam::123456789012:lb/mylb1""
+  25 |         }
+  26 |     ],
+  27 |     ""Listeners"": [
+  28 |         {
+  29 |             ""ListenerArn"": ""arn:aws:iam::123456789012:list/unsafelistener"",
+  30 |             ""LoadBalancerArn"": ""arn:aws:iam::123456789012:lb/mylb1"",
+  31 |             ""Port"": 123,
+> 32 |             ""SslPolicy"": ""ELBSecurityPolicy-FS-1-2-Res-2019-08""
+  33 |         },
+  34 |         {
+  35 |             ""ListenerArn"": ""arn:aws:iam::123456789012:list/safelistener"",
+  36 |             ""LoadBalancerArn"": ""arn:aws:iam::123456789012:lb/mylb1"",
+  37 |             ""Port"": 123,
+  38 |             ""SslPolicy"": ""ELBSecurityPolicy-TLS13-1-2-Res-2021-06""
+  39 |         }
+  40 |     ]
+  41 | }
+     ^ Col 0
+",aws.uses_insecure_security_policy

@@ -1277,63 +1277,6 @@ F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063
   18 | });
      ^ Col 0
 ",typescript.ts_zip_slip
-F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,5,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,"
-   1 | resource ""aws_lb_listener"" ""front_end"" {
-   2 |   load_balancer_arn = aws_lb.front_end.arn
-   3 |   port              = ""443""
-   4 |   protocol          = ""HTTPS""
->  5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
-   6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
-   7 |
-   8 |   default_action {
-   9 |     type             = ""forward""
-  10 |     target_group_arn = aws_lb_target_group.front_end.arn
-  11 |   }
-  12 | }
-  13 |
-  14 | resource ""aws_lb_listener"" ""front_end"" {
-  15 |   load_balancer_arn = aws_lb.front_end.arn
-  16 |   port              = ""443""
-  17 |   protocol          = ""HTTPS""
-  18 |   ssl_policy        = ""ELBSecurityPolicy-FS-1-1-2019-08""
-  19 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
-  20 |
-  21 |   default_action {
-     ^ Col 0
-",terraform.tfm_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,18,266,skims,070. Insecure service configuration - ELB,Listener uses unsafe security policy in namespace/skims/test/data/lib_root/f070/tfm_elb2_uses_insecure_security_policy.tf,"
-   5 |   ssl_policy        = ""ELBSecurityPolicy-2016-08""
-   6 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
-   7 |
-   8 |   default_action {
-   9 |     type             = ""forward""
-  10 |     target_group_arn = aws_lb_target_group.front_end.arn
-  11 |   }
-  12 | }
-  13 |
-  14 | resource ""aws_lb_listener"" ""front_end"" {
-  15 |   load_balancer_arn = aws_lb.front_end.arn
-  16 |   port              = ""443""
-  17 |   protocol          = ""HTTPS""
-> 18 |   ssl_policy        = ""ELBSecurityPolicy-FS-1-1-2019-08""
-  19 |   certificate_arn   = ""arn:aws:iam::187416307283:server-certificate/test_cert_rab3wuqwgja25ct3n4jdj2tzu4""
-  20 |
-  21 |   default_action {
-  22 |     type             = ""forward""
-  23 |     target_group_arn = aws_lb_target_group.front_end.arn
-  24 |   }
-  25 | }
-     ^ Col 0
-",terraform.tfm_elb2_uses_insecure_security_policy
-F070,lines,namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,3,266,skims,070. Insecure service configuration - ELB,Port property must have a secure value (443) in namespace/skims/test/data/lib_root/f070/tfm_lb_insecure_port.tf,"
-  1 | resource ""aws_lb_target_group"" ""test"" {
-  2 |   name     = ""tf-example-lb-tg""
-> 3 |   port     = 80
-  4 |   protocol = ""HTTP""
-  5 |   vpc_id   = aws_vpc.main.id
-  6 | }
-    ^ Col 0
-",terraform.tfm_lb_target_group_insecure_port
 F056,lines,namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,5,284,skims,056. Anonymous connection,Anonymous connection is allowed in the app settings in namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,"
    1 | {
    2 |     ""$schema"": ""http://json.schemastore.org/launchsettings.json"",
