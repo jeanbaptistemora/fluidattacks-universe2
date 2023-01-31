@@ -14,10 +14,32 @@ from sast.query import (
 )
 from typing import (
     Iterable,
+    Set,
 )
 from utils import (
     graph as g,
 )
+
+
+def get_print_methods(graph: Graph) -> Set[str]:
+    print_methods: Set[str] = {"print"}
+    nodes = graph.nodes
+    for n_id in g.matching_nodes(graph, label_type="Import"):
+        imported_package = nodes[n_id].get("expression")
+        if imported_package == "'package:flutter/foundation.dart'":
+            if alias := nodes[n_id].get("label_alias"):
+                print_method = f"{alias}.debugPrint"
+            else:
+                print_method = "debugPrint"
+            print_methods.add(print_method)
+        if imported_package == "'dart:developer'":
+            if alias := nodes[n_id].get("label_alias"):
+                print_method = f"{alias}.log"
+            else:
+                print_method = "log"
+            print_methods.add(print_method)
+
+    return print_methods
 
 
 def prints_danger_values(graph: Graph, n_id: NId) -> bool:
@@ -40,13 +62,13 @@ def has_print_statements(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     def n_ids() -> Iterable[GraphShardNode]:
-        print_methods = {"print", "debugPrint"}
         for shard in graph_db.shards_by_language(
             GraphLanguage.DART,
         ):
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
+            print_methods = get_print_methods(graph)
 
             for n_id in g.matching_nodes(graph, label_type="SymbolLookup"):
                 n_expr = graph.nodes[n_id].get("symbol")

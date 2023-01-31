@@ -539,42 +539,44 @@ F237,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,
   38 | }
      ^ Col 0
 ",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,10,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print.dart","
+   1 | import 'package:test/test.dart';
+   2 | import 'package:flutter/foundation.dart';
+   3 |
+   4 | void main() {
+   5 |   try {
+   6 |     res = x ~/ y;
+   7 |   }
+   8 |   on IntegerDivisionByZeroException catch (e) {
+   9 |     print(e);
+> 10 |     debugPrint(e);
+  11 |   }
+  12 |   catch (e) {
+  13 |     print('This should not  be reported');
+  14 |     debugPrint('Safe');
+  15 |   }
+  16 | }
+     ^ Col 0
+",dart.dart_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,9,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
  in namespace/skims/test/data/lib_root/f237/dart_print.dart","
    1 | import 'package:test/test.dart';
-   2 |
-   3 | void main() {
-   4 |   try {
-   5 |     res = x ~/ y;
-   6 |   }
-   7 |   on IntegerDivisionByZeroException catch (e) {
-   8 |     print(e);
->  9 |     debugPrint(e);
-  10 |   }
-  11 |   catch (e) {
-  12 |     print('This should not  be reported');
-  13 |     debugPrint('Safe');
-  14 |   }
-  15 | }
-     ^ Col 0
-",dart.dart_has_print_statements
-F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
- in namespace/skims/test/data/lib_root/f237/dart_print.dart","
-   1 | import 'package:test/test.dart';
-   2 |
-   3 | void main() {
-   4 |   try {
-   5 |     res = x ~/ y;
-   6 |   }
-   7 |   on IntegerDivisionByZeroException catch (e) {
->  8 |     print(e);
-   9 |     debugPrint(e);
-  10 |   }
-  11 |   catch (e) {
-  12 |     print('This should not  be reported');
-  13 |     debugPrint('Safe');
-  14 |   }
-  15 | }
+   2 | import 'package:flutter/foundation.dart';
+   3 |
+   4 | void main() {
+   5 |   try {
+   6 |     res = x ~/ y;
+   7 |   }
+   8 |   on IntegerDivisionByZeroException catch (e) {
+>  9 |     print(e);
+  10 |     debugPrint(e);
+  11 |   }
+  12 |   catch (e) {
+  13 |     print('This should not  be reported');
+  14 |     debugPrint('Safe');
+  15 |   }
+  16 | }
      ^ Col 0
 ",dart.dart_has_print_statements
 F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,16,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
