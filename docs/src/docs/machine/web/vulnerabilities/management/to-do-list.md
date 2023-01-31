@@ -1,7 +1,7 @@
 ---
 id: to-do-list
-title: To do list
-sidebar_label: To do list
+title: To-Do List
+sidebar_label: To-Do List
 slug: /machine/web/vulnerabilities/management/to-do-list
 ---
 
@@ -18,7 +18,7 @@ in the top bar or follow
 [this link](https://app.fluidattacks.com/todos)
 (/todos).
 
-![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1674755953/docs/web/vulnerabilities/management/todo_list.png)
+![ToDoList table](https://res.cloudinary.com/fluid-attacks/image/upload/v1675157504/docs/web/vulnerabilities/management/todo_list.png)
 
 However,
 an initial question could be:
@@ -29,7 +29,7 @@ and you will see how to do it!
 
 ## To-Do List table
 
-The To-do list table shows
+The To-Do List table shows
 us what vulnerabilities
 are assigned to me,
 and I am responsible
@@ -83,7 +83,7 @@ you must select it in the
 check box on the left,
 followed by the **Edit button**.
 
-![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1674756200/docs/web/vulnerabilities/management/edit_action.png)
+![Edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675158155/docs/web/vulnerabilities/management/edit_action.png)
 
 A pop-up window will appear
 for you to edit the vulnerability,
@@ -126,7 +126,7 @@ to validate by clicking
 on the check box on the left,
 followed by the **Reattack button**.
 
-![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1674756950/docs/web/vulnerabilities/management/reattack.png)
+![Reattack ToDoList](https://res.cloudinary.com/fluid-attacks/image/upload/v1675159057/docs/web/vulnerabilities/management/reattack.png)
 
 A pop-up window will appear asking
 you for the justification you applied
@@ -143,7 +143,7 @@ in **Requested** status waiting
 for the validation of its solution.
 We invite you to enter [here](/squad/reattacks/)
 to understand the status of the
-attacks and their validation procedure.
+reattacks and their validation procedure.
 
 ### Filters
 
@@ -154,7 +154,7 @@ The filters in this section are
 located on the right side next
 to the search bar.
 
-![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1674758006/docs/web/vulnerabilities/management/filter_todo.png)
+![Filters ToDo](https://res.cloudinary.com/fluid-attacks/image/upload/v1675158605/docs/web/vulnerabilities/management/filter_todo.png)
 
 Here you can filter by **Organization**,
 **Group name**,
@@ -174,10 +174,10 @@ any of these.
 If you need to refresh the
 To-Do List table view,
 you can do so with the button
-on the left next to the
+on the right next to the
 reattack button.
 
-![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1674758071/docs/web/vulnerabilities/management/refrest.png)
+![refresh](https://res.cloudinary.com/fluid-attacks/image/upload/v1675159342/docs/web/vulnerabilities/management/refrest.png)
 
 ### Search bar
 

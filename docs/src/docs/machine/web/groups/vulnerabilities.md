@@ -21,7 +21,7 @@ according to the information you want
 to see using the [columns filter](/machine/web/groups/vulnerabilities/#filtering-your-vulnerabilities-table)
 button.
 
-![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774100/docs/web/groups/vulnerabilities/vulnerabilities.png)
+![Vulnerability Table First Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1675162266/docs/web/groups/vulnerabilities/vulnerabilities.png)
 
 In total,
 we have fourteen columns which are
@@ -104,7 +104,7 @@ upon click,
 you will find the information that
 the column filter offers you.
 
-![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774426/docs/web/groups/vulnerabilities/down_row.png)
+![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1675162531/docs/web/groups/vulnerabilities/down_row.png)
 
 ## Functionalities
 
@@ -130,7 +130,16 @@ Here you will have the activated
 filters that you have at the same
 time activated in the column filter.
 
-![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1674774600/docs/web/groups/vulnerabilities/filters.png)
+![Filters Button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675162726/docs/web/groups/vulnerabilities/filters.png)
+
+Remember that you can see the filters you
+have applied in the table.
+
+![Filters applied](https://res.cloudinary.com/fluid-attacks/image/upload/v1675164134/docs/web/groups/vulnerabilities/filters_aplied.png)
+
+> **Note:** These applied filters will be
+> kept in the vulnerability view in the
+> different groups of the same or another organization.
 
 ### Search bar
 

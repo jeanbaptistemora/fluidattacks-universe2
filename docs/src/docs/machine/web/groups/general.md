@@ -28,7 +28,7 @@ information on the total of repositories
 and authors you have in the ARM.
 You will find the following fields:
 
-![scope overview box](https://res.cloudinary.com/fluid-attacks/image/upload/v1674771851/docs/web/groups/general/scope_overview.png)
+![scope overview box](https://res.cloudinary.com/fluid-attacks/image/upload/v1675160701/docs/web/groups/general/scope_overview.png)
 
 - **Covered autors:**
   Total number of authors who
@@ -67,7 +67,7 @@ ascending or descending) if
 you click on the arrows next
 to each title.
 
-![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1674771987/docs/web/groups/general/groups_table.png)
+![Group Table columns](https://res.cloudinary.com/fluid-attacks/image/upload/v1675160905/docs/web/groups/general/groups_table.png)
 
 You find the following information:
 
@@ -115,7 +115,7 @@ You find the following information:
 > your role and the plan you have
 > for that group.
 
-![Vulnerabilities view](https://res.cloudinary.com/fluid-attacks/image/upload/v1674772147/docs/web/groups/general/vulnerabilities_view.png)
+![Vulnerabilities view](https://res.cloudinary.com/fluid-attacks/image/upload/v1675161219/docs/web/groups/general/vulnerabilities_view.png)
 
 ## Functionalities
 
@@ -126,7 +126,7 @@ you need to click on the
 **New group** button in the
 main screen of your organization.
 
-![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1674772472/docs/web/groups/general/create_new_group.png)
+![New Group Option](https://res.cloudinary.com/fluid-attacks/image/upload/v1675161304/docs/web/groups/general/create_new_group.png)
 
 A pop-up window will appear
 to set up the characteristics
@@ -205,7 +205,7 @@ you can discover how many
 unsolved events need your
 attention in each of your groups.
 
-![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777697/docs/web/groups/general/open_even.png)
+![Unsolved Events Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1675161566/docs/web/groups/general/open_even.png)
 
 When you enter one of the
 groups with at least one
@@ -225,7 +225,7 @@ for each event whether it is
 solved (in green), unsolved
 (in red) or pending (in yellow).
 
-![Status Column](https://res.cloudinary.com/fluid-attacks/image/upload/v1674777920/docs/web/groups/general/status_event.png)
+![Status Column](https://res.cloudinary.com/fluid-attacks/image/upload/v1675161767/docs/web/groups/general/status_event.png)
 
 If you want to know more about the event section,
 you can enter [here.](/machine/web/groups/events)
