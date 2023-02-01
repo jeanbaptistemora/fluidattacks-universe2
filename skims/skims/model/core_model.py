@@ -2251,6 +2251,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_USERS_WITH_PASSWORD_AND_ACCESS_KEYS = MethodInfo(
+        file_name="aws",
+        name="users_with_password_and_access_keys",
+        module="dast",
+        finding=FindingEnum.F031,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_POLICIES_ATTACHED_TO_USERS = MethodInfo(
         file_name="aws",
         name="policies_attached_to_users",

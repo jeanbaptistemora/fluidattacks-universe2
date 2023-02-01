@@ -30,3 +30,7 @@ src.lib_path.f031.policies_attached_to_users:
 src.lib_path.f031.has_permissive_role_policies:
   en: IAM Role Policy grants wildcard privileges.
   es: IAM Role otorga privilegio usando wildcards
+src.lib_path.f031.users_with_password_and_access_keys:
+  en: Users must not have both password and access keys activated
+  es: >
+    Los usuarios no deben tener contraseña y clave de acceso activados al tiempo
