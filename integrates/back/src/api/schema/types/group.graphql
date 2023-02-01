@@ -171,6 +171,10 @@ type Group {
     filename: String
     "Amount of element to return"
     first: Int
+    "Max loc value for lines"
+    maxLoc: Int
+    "Min loc value for lines"
+    minLoc: Int
     "Id of the root the lines is associated with"
     rootId: ID
   ): ToeLinesConnection!
