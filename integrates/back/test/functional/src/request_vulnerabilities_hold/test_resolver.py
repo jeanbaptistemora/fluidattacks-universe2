@@ -6,7 +6,6 @@ from custom_exceptions import (
     NotVerificationRequested,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.finding_comments.enums import (
@@ -68,7 +67,7 @@ async def test_request_hold_vuln(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     event_id: str = "418900971"
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert (

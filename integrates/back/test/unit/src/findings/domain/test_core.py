@@ -9,7 +9,6 @@ from custom_exceptions import (
     FindingNotFound,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -79,9 +78,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 from unittest.mock import (
     AsyncMock,
@@ -108,8 +104,8 @@ pytestmark = [
 )
 async def test_get_last_closed_vulnerability(
     mock_load_many_chained: AsyncMock,
-    findings: List,
-    findings_data: Dict[str, Tuple[Finding, ...]],
+    findings: list,
+    findings_data: dict[str, tuple[Finding, ...]],
 ) -> None:
 
     findings_as_keys = json.dumps(findings)
@@ -118,7 +114,7 @@ async def test_get_last_closed_vulnerability(
         get_mocked_path("finding_vulns_loader.load_many_chained"),
         findings_as_keys,
     )
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     (
         vuln_closed_days,
         last_closed_vuln,
@@ -141,8 +137,8 @@ async def test_get_last_closed_vulnerability(
 )
 async def test_get_max_open_severity(
     mock_get_open_vulnerabilities: AsyncMock,
-    findings: List,
-    findings_data: Dict[str, Tuple[Finding, ...]],
+    findings: list,
+    findings_data: dict[str, tuple[Finding, ...]],
 ) -> None:
     findings_as_keys = json.dumps(findings)
     findings_loader = findings_data[findings_as_keys]
@@ -158,7 +154,7 @@ async def test_get_max_open_severity(
 async def test_get_pending_verification_findings() -> None:
     group_name = "unittesting"
     loaders = get_new_context()
-    findings: Tuple[Finding, ...] = await get_pending_verification_findings(
+    findings: tuple[Finding, ...] = await get_pending_verification_findings(
         loaders, group_name
     )
     assert len(findings) >= 1
@@ -169,7 +165,7 @@ async def test_get_pending_verification_findings() -> None:
 
 @pytest.mark.mymark
 async def test_get_tracking_vulnerabilities() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     historic_state_loader = loaders.vulnerability_historic_state
     historic_treatment_loader = loaders.vulnerability_historic_treatment
@@ -414,7 +410,7 @@ async def test_has_access_to_finding(dynamo_resource: ServiceResource) -> None:
 
 @pytest.mark.changes_db
 async def test_add_comment() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_id = "463461507"
     current_time = get_utc_now()
     comment_id = str(round(time.time() * 1000))
@@ -660,7 +656,7 @@ async def test_mask_finding(  # pylint: disable=too-many-arguments
         mocks_args=mocks_args,
     )
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     await mask_finding(loaders, finding, email)
 
     assert all(mock_object.called is True for mock_object in mocked_objects)
@@ -725,7 +721,7 @@ async def test_verify_vulnerabilities() -> None:
     }
     justification = "Vuln verified"
     open_vulns_ids = ["587c40de-09a0-4d85-a9f9-eaa46aa895d7"]
-    closed_vulns_ids: List[str] = []
+    closed_vulns_ids: list[str] = []
     await verify_vulnerabilities(
         context=info.context,
         finding_id=finding_id,
@@ -737,7 +733,7 @@ async def test_verify_vulnerabilities() -> None:
         loaders=info.context.loaders,
     )
     loaders = get_new_context()
-    finding_commets = await loaders.finding_comments.load(
+    finding_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
@@ -746,7 +742,7 @@ async def test_verify_vulnerabilities() -> None:
             comment_type=CommentType.VERIFICATION, finding_id=finding_id
         )
     )
-    assert finding_commets[-1].finding_id == finding_id
-    assert finding_commets[-1].full_name == "Miguel de Orellana"
-    assert finding_commets[-1].comment_type == CommentType.VERIFICATION
-    assert finding_commets[-1].content[-13:] == "Vuln verified"
+    assert finding_comments[-1].finding_id == finding_id
+    assert finding_comments[-1].full_name == "Miguel de Orellana"
+    assert finding_comments[-1].comment_type == CommentType.VERIFICATION
+    assert finding_comments[-1].content[-13:] == "Vuln verified"

@@ -2,7 +2,6 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.finding_comments.enums import (
@@ -21,7 +20,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -48,12 +46,12 @@ async def test_request_vulnerabilities_zero_risk(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     assert vuln.zero_risk is None
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
@@ -87,7 +85,7 @@ async def test_request_vulnerabilities_zero_risk_fail_1(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" in result
@@ -113,7 +111,7 @@ async def test_request_vulnerabilities_zero_risk_fail_2(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" in result

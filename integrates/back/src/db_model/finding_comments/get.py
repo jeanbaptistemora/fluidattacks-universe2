@@ -27,6 +27,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_comments(
@@ -54,10 +57,12 @@ async def _get_comments(
     return [format_finding_comments(item) for item in response.items]
 
 
-class FindingCommentsLoader(DataLoader):
+class FindingCommentsLoader(
+    DataLoader[FindingCommentsRequest, list[FindingComment]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[FindingCommentsRequest]
+        self, requests: Iterable[FindingCommentsRequest]
     ) -> list[list[FindingComment]]:
         return list(
             await collect(

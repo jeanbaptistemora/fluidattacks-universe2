@@ -38,9 +38,6 @@ from db_model.findings.types import (
 from db_model.group_comments.types import (
     GroupComment,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -115,7 +112,7 @@ def is_last_day_comment(creation_date: datetime) -> bool:
 
 
 def filter_last_event_comments(
-    comments: list[EventComment],
+    comments: Iterable[EventComment],
 ) -> list[EventComment]:
     return [
         comment
@@ -125,7 +122,7 @@ def filter_last_event_comments(
 
 
 def filter_last_finding_comments(
-    comments: list[FindingComment],
+    comments: Iterable[FindingComment],
 ) -> list[FindingComment]:
     return [
         comment
@@ -135,7 +132,7 @@ def filter_last_finding_comments(
 
 
 def filter_last_group_comments(
-    comments: list[GroupComment],
+    comments: Iterable[GroupComment],
 ) -> list[GroupComment]:
     return [
         comment
@@ -255,7 +252,7 @@ def digest_comments(
 
 
 async def send_comment_digest() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
 
     if FI_ENVIRONMENT == "production":
@@ -273,8 +270,7 @@ async def send_comment_digest() -> None:
             for group_name in groups_names
         ]
     )
-
-    groups_stakeholders: list[list[Stakeholder]] = list(
+    groups_stakeholders = list(
         await collect(
             [
                 group_access_domain.get_group_stakeholders(
@@ -286,7 +282,7 @@ async def send_comment_digest() -> None:
         )
     )
 
-    group_stakeholders_email: tuple[tuple[str, ...], ...] = tuple(
+    group_stakeholders_email = tuple(
         tuple(
             stakeholder.email
             for stakeholder in group_stakeholders
@@ -295,27 +291,21 @@ async def send_comment_digest() -> None:
         )
         for group_stakeholders in groups_stakeholders
     )
-
-    groups_comments: tuple[
-        tuple[Union[GroupComment, EventComment, FindingComment], ...], ...
-    ] = await collect(
+    groups_comments = await collect(
         [group_comments(loaders, group_name) for group_name in groups_names]
     )
-
     groups_events = await loaders.group_events.load_many(
         [
             GroupEventsRequest(group_name=group_name)
             for group_name in groups_names
         ]
     )
-
     events_comments = await collect(
         [
             group_instance_comments(loaders, group_events, "event")
             for group_events in groups_events
         ]
     )
-
     groups_findings = await loaders.group_findings.load_many(groups_names)
     findings_comments = await collect(
         [
