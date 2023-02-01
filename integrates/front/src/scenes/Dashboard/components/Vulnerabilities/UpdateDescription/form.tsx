@@ -1,3 +1,4 @@
+/* eslint-disable fp/no-mutation, no-sequences */
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
@@ -430,8 +431,8 @@ const UpdateTreatmentModal: React.FC<IUpdateTreatmentModalProps> = ({
                 previousValue: FormikTouched<IUpdateVulnerabilityForm>,
                 currentValue: keyof IUpdateVulnerabilityForm
               ): FormikTouched<IUpdateVulnerabilityForm> => (
-                // eslint-disable-next-line fp/no-mutation, no-sequences
-                (previousValue[currentValue] = true), previousValue
+                // eslint-disable-next-line
+                (previousValue[currentValue] = true), previousValue // NOSONAR
               ),
               {}
             )
