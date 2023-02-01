@@ -15,6 +15,7 @@ import {
   REMOVE_ENVIRONMENT_URL_SECRET,
 } from "../../queries";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Input, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
@@ -133,9 +134,19 @@ const AddSecret: React.FC<ISecretsProps> = ({
     [addSecret, groupName, urlId]
   );
 
-  function handleRemoveClick(): void {
+  const handleRemoveClick = useCallback((): void => {
     void removeSecret({ variables: { groupName, key: secretKey, urlId } });
-  }
+  }, [groupName, removeSecret, secretKey, urlId]);
+
+  const onConfirmDelete = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          handleRemoveClick();
+        });
+      },
+    [handleRemoveClick]
+  );
 
   return (
     <Formik
@@ -184,16 +195,10 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     title={t("group.scope.git.repo.credentials.secrets.remove")}
                   >
                     {(confirm): JSX.Element => {
-                      function onConfirmDelete(): void {
-                        confirm((): void => {
-                          handleRemoveClick();
-                        });
-                      }
-
                       return (
                         <Button
                           id={"git-root-remove-secret"}
-                          onClick={onConfirmDelete}
+                          onClick={onConfirmDelete(confirm)}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faTrashAlt} />
