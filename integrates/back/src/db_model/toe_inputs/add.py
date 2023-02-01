@@ -81,6 +81,7 @@ async def add(*, toe_input: ToeInput) -> None:
     )
     await operations.put_item(
         facet=TABLE.facets["toe_input_historic_metadata"],
+        condition_expression=Attr(key_structure.partition_key).not_exists(),
         item={
             **toe_input_item,
             key_structure.partition_key: historic_key.partition_key,

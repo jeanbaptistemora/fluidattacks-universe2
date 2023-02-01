@@ -9,7 +9,6 @@ from datetime import (
 )
 from db_model.utils import (
     get_as_utc_iso_format,
-    serialize,
 )
 from dynamodb.types import (
     Index,
@@ -20,7 +19,6 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
-import simplejson as json
 from typing import (
     Optional,
 )
@@ -30,37 +28,35 @@ def format_toe_input(
     group_name: str,
     item: Item,
 ) -> ToeInput:
-    merged_item: Item = item | item.get("state", {})
+    state_item: Item = item["state"]
     return ToeInput(
         state=ToeInputState(
-            attacked_at=datetime.fromisoformat(merged_item["attacked_at"])
-            if merged_item.get("attacked_at")
+            attacked_at=datetime.fromisoformat(state_item["attacked_at"])
+            if state_item.get("attacked_at")
             else None,
-            attacked_by=merged_item.get("attacked_by", ""),
-            be_present=merged_item.get("be_present", True),
+            attacked_by=state_item.get("attacked_by", ""),
+            be_present=state_item.get("be_present", True),
             be_present_until=datetime.fromisoformat(
-                merged_item["be_present_until"]
+                state_item["be_present_until"]
             )
-            if merged_item.get("be_present_until")
+            if state_item.get("be_present_until")
             else None,
             first_attack_at=datetime.fromisoformat(
-                merged_item["first_attack_at"]
+                state_item["first_attack_at"]
             )
-            if merged_item.get("first_attack_at")
+            if state_item.get("first_attack_at")
             else None,
-            has_vulnerabilities=merged_item.get("has_vulnerabilities"),
-            modified_by=merged_item.get("modified_by"),
-            modified_date=datetime.fromisoformat(merged_item["modified_date"])
-            if merged_item.get("modified_date")
+            has_vulnerabilities=state_item.get("has_vulnerabilities"),
+            modified_by=state_item["modified_by"],
+            modified_date=datetime.fromisoformat(state_item["modified_date"]),
+            seen_at=datetime.fromisoformat(state_item["seen_at"])
+            if state_item.get("seen_at")
             else None,
-            seen_at=datetime.fromisoformat(merged_item["seen_at"])
-            if merged_item.get("seen_at")
-            else None,
-            seen_first_time_by=merged_item["seen_first_time_by"],
-            unreliable_root_id=merged_item.get("unreliable_root_id", ""),
+            seen_first_time_by=state_item["seen_first_time_by"],
+            unreliable_root_id=state_item.get("unreliable_root_id", ""),
         ),
-        component=merged_item["component"],
-        entry_point=merged_item["entry_point"],
+        component=item["component"],
+        entry_point=item["entry_point"],
         group_name=group_name,
     )
 
@@ -87,8 +83,8 @@ def format_toe_input_item(
     return {
         key_structure.partition_key: primary_key.partition_key,
         key_structure.sort_key: primary_key.sort_key,
-        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
         "component": toe_input.component,
         "entry_point": toe_input.entry_point,
         "group_name": toe_input.group_name,
@@ -112,9 +108,7 @@ def format_toe_input_item(
             "modified_by": toe_input.state.modified_by,
             "modified_date": get_as_utc_iso_format(
                 toe_input.state.modified_date
-            )
-            if toe_input.state.modified_date
-            else None,
+            ),
             "seen_at": get_as_utc_iso_format(toe_input.state.seen_at)
             if toe_input.state.seen_at
             else None,
@@ -124,22 +118,16 @@ def format_toe_input_item(
     }
 
 
-def format_toe_input_metadata_item(
-    state: ToeInputState, metadata: ToeInputMetadataToUpdate
+def format_toe_input_state_item(
+    state_item: Item, metadata: ToeInputMetadataToUpdate
 ) -> Item:
-    metadata_item: Item = {}
-    metadata_item["state"] = json.loads(json.dumps(state, default=serialize))
     if metadata.clean_attacked_at:
-        metadata_item["attacked_at"] = None
-        metadata_item["state"]["attacked_at"] = None
+        state_item["attacked_at"] = None
     if metadata.clean_be_present_until:
-        metadata_item["be_present_until"] = None
-        metadata_item["state"]["be_present_until"] = None
+        state_item["be_present_until"] = None
     if metadata.clean_first_attack_at:
-        metadata_item["first_attack_at"] = None
-        metadata_item["state"]["first_attack_at"] = None
+        state_item["first_attack_at"] = None
     if metadata.clean_seen_at:
-        metadata_item["seen_at"] = None
-        metadata_item["state"]["seen_at"] = None
+        state_item["seen_at"] = None
 
-    return metadata_item
+    return state_item

@@ -17,8 +17,8 @@ class ToeInputState(NamedTuple):
     be_present_until: Optional[datetime]
     first_attack_at: Optional[datetime]
     has_vulnerabilities: Optional[bool]
-    modified_by: Optional[str]
-    modified_date: Optional[datetime]
+    modified_by: str
+    modified_date: datetime
     seen_at: Optional[datetime]
     seen_first_time_by: str
     unreliable_root_id: str

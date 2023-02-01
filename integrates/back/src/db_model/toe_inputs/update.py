@@ -7,18 +7,17 @@ from .types import (
     ToeInputState,
 )
 from .utils import (
-    format_toe_input_item,
-    format_toe_input_metadata_item,
+    format_toe_input_state_item,
 )
 from boto3.dynamodb.conditions import (
     Attr,
 )
 from custom_exceptions import (
-    InvalidParameter,
     ToeInputAlreadyUpdated,
 )
 from db_model.utils import (
     get_as_utc_iso_format,
+    serialize,
 )
 from dynamodb import (
     keys,
@@ -33,6 +32,7 @@ from dynamodb.model import (
 from dynamodb.types import (
     Item,
 )
+import simplejson as json
 
 
 async def update_state(
@@ -44,11 +44,7 @@ async def update_state(
     key_structure = TABLE.primary_key
     gsi_2_index = TABLE.indexes["gsi_2"]
     facet = TABLE.facets["toe_input_metadata"]
-    if new_state.modified_date is None:
-        raise InvalidParameter("modified_date")
-    if new_state.modified_by is None:
-        raise InvalidParameter("modified_by")
-    metadata_key = keys.build_key(
+    toe_input_key = keys.build_key(
         facet=facet,
         values={
             "component": current_value.component,
@@ -57,53 +53,36 @@ async def update_state(
             "root_id": current_value.state.unreliable_root_id,
         },
     )
-    current_gsi_2_key = keys.build_key(
+    gsi_2_index = TABLE.indexes["gsi_2"]
+    gsi_2_key = keys.build_key(
         facet=GSI_2_FACET,
         values={
-            "be_present": str(current_value.state.be_present).lower(),
+            "be_present": str(new_state.be_present).lower(),
             "component": current_value.component,
             "entry_point": current_value.entry_point,
             "group_name": current_value.group_name,
             "root_id": current_value.state.unreliable_root_id,
         },
     )
-    current_value_item = format_toe_input_item(
-        metadata_key,
-        key_structure,
-        current_gsi_2_key,
-        gsi_2_index,
-        current_value,
-    )
-    metadata_item: Item = format_toe_input_metadata_item(new_state, metadata)
 
-    if "be_present" in metadata_item:
-        gsi_2_key = keys.build_key(
-            facet=GSI_2_FACET,
-            values={
-                "be_present": str(metadata_item["be_present"]).lower(),
-                "component": current_value.component,
-                "entry_point": current_value.entry_point,
-                "group_name": current_value.group_name,
-                "root_id": current_value.state.unreliable_root_id,
-            },
-        )
-        gsi_2_index = TABLE.indexes["gsi_2"]
-        metadata_item[gsi_2_index.primary_key.sort_key] = gsi_2_key.sort_key
-    condition_expression = Attr(key_structure.partition_key).exists()
-    if current_value.state.modified_date is None:
-        condition_expression &= Attr("state.modified_date").not_exists()
-    else:
-        condition_expression &= Attr("state.modified_date").eq(
-            get_as_utc_iso_format(current_value.state.modified_date)
-        )
+    new_state_item: Item = format_toe_input_state_item(
+        state_item=json.loads(json.dumps(new_state, default=serialize)),
+        metadata=metadata,
+    )
+    new_item = {
+        "state": new_state_item,
+        gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
+    }
+    condition_expression = Attr(key_structure.partition_key).exists() & Attr(
+        "state.modified_date"
+    ).eq(get_as_utc_iso_format(current_value.state.modified_date))
     try:
-        if metadata_item:
-            await operations.update_item(
-                condition_expression=condition_expression,
-                item=metadata_item,
-                key=metadata_key,
-                table=TABLE,
-            )
+        await operations.update_item(
+            condition_expression=condition_expression,
+            item=new_item,
+            key=toe_input_key,
+            table=TABLE,
+        )
     except ConditionalCheckFailedException as ex:
         raise ToeInputAlreadyUpdated() from ex
 
@@ -117,10 +96,15 @@ async def update_state(
             "iso8601utc": get_as_utc_iso_format(new_state.modified_date),
         },
     )
+    base_historic_item: Item = json.loads(
+        json.dumps(current_value, default=serialize)
+    )
     await operations.put_item(
         facet=TABLE.facets["toe_input_historic_metadata"],
+        condition_expression=Attr(key_structure.sort_key).not_exists(),
         item={
-            **dict(current_value_item | metadata_item),
+            **base_historic_item,
+            "state": new_state_item,
             key_structure.partition_key: historic_key.partition_key,
             key_structure.sort_key: historic_key.sort_key,
         },
