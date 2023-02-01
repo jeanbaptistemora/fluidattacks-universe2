@@ -4121,6 +4121,8 @@ export const enTranslations: ResourceKey = {
     successfully: "Token updated successfully",
     title: "Update access token",
     tokenCreated: "Token created at: ",
+    tokenLastUsed: "Token last used: ",
+    warning: "Warning!",
   },
   updateForcesToken: {
     accessToken: "DevSecOps token",

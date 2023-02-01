@@ -45,6 +45,7 @@ describe("Update access token modal", (): void => {
     const noAccessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: false,
       issuedAt: "",
+      lastAccessTokenUse: null,
     };
     const mockQueryFalse: MockedResponse[] = [
       {
@@ -85,6 +86,7 @@ describe("Update access token modal", (): void => {
     const accessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: true,
       issuedAt: Date.now().toString(),
+      lastAccessTokenUse: Date.now().toString(),
     };
     const mockQueryTrue: MockedResponse[] = [
       {
@@ -139,10 +141,12 @@ describe("Update access token modal", (): void => {
     const noAccessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: false,
       issuedAt: "",
+      lastAccessTokenUse: null,
     };
     const accessToken: IGetAccessTokenDictAttr = {
       hasAccessToken: true,
       issuedAt: Date.now().toString(),
+      lastAccessTokenUse: Date.now().toString(),
     };
     const mockMutation: MockedResponse[] = [
       {

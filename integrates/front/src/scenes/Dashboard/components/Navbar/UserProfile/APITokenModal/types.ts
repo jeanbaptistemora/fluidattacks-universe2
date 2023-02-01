@@ -24,6 +24,7 @@ interface IGetAccessTokenAttr {
 interface IGetAccessTokenDictAttr {
   hasAccessToken: boolean;
   issuedAt: string;
+  lastAccessTokenUse: string | null | undefined;
 }
 
 export type {

@@ -1,14 +1,19 @@
 import type { MutationFunction } from "@apollo/client";
-import dayjs from "dayjs";
+import dayjs, { extend } from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import { Form, Formik } from "formik";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useCallback } from "react";
+import React, { Fragment, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
+import { ConfirmDialog } from "components/ConfirmDialog";
 import { InputDate, TextArea } from "components/Input";
 import { Gap } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
@@ -34,6 +39,7 @@ interface IAPITokenModalProps {
   open: boolean;
   onClose: () => void;
 }
+const confirmTime: number = 60 * 60 * 24 * 7;
 
 const APITokenModal: React.FC<IAPITokenModalProps> = ({
   open,
@@ -51,6 +57,30 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
   const accessToken: IGetAccessTokenDictAttr | undefined = _.isUndefined(data)
     ? undefined
     : JSON.parse(data.me.accessToken);
+  const lastAccessTokenUse = useMemo((): number | string => {
+    const value = accessToken?.lastAccessTokenUse;
+    if (value === undefined || value === null) {
+      return "No used";
+    }
+
+    const date = new Date(value);
+    if (_.isEmpty(value) || isNaN(date.getTime())) return "-";
+    extend(utc);
+
+    return dayjs(dayjs.utc(value, "YYYY-MM-DD HH:mm:ss")).valueOf();
+  }, [accessToken]);
+
+  const lastAccessTokenUseFromNow = useMemo((): string => {
+    if (typeof lastAccessTokenUse === "string") {
+      return lastAccessTokenUse;
+    }
+    extend(relativeTime);
+    extend(utc);
+    extend(timezone);
+
+    return dayjs(lastAccessTokenUse).tz(dayjs.tz.guess()).fromNow();
+  }, [lastAccessTokenUse]);
+
   const hasAPIToken: boolean = accessToken?.hasAccessToken ?? false;
   const issuedAt: string = accessToken?.issuedAt ?? "0";
 
@@ -72,9 +102,28 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
     refetch,
     onClose
   );
-  const handleInvalidateAPIToken = useCallback(async (): Promise<void> => {
-    await invalidateAPIToken();
-  }, [invalidateAPIToken]);
+  const handleInvalidateAPIToken = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        if (typeof lastAccessTokenUse === "string") {
+          void invalidateAPIToken();
+
+          return;
+        }
+
+        const currentTimeStamp: number = dayjs.utc().valueOf();
+        if ((currentTimeStamp - lastAccessTokenUse) / msToSec > confirmTime) {
+          void invalidateAPIToken();
+
+          return;
+        }
+
+        confirm((): void => {
+          void invalidateAPIToken();
+        });
+      },
+    [invalidateAPIToken, lastAccessTokenUse]
+  );
 
   const handleCopy = useCallback(async (): Promise<void> => {
     const { clipboard } = navigator;
@@ -133,12 +182,34 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
                     .toISOString()
                     .substring(0, yyyymmdd)}
                 </Text>
-                <Button
-                  onClick={handleInvalidateAPIToken}
-                  variant={"secondary"}
+                <ConfirmDialog
+                  message={
+                    <React.Fragment>
+                      <label>
+                        <b>{t("updateAccessToken.warning")}</b>
+                      </label>
+                      <Text mb={1}>
+                        <Text disp={"inline"} fw={7}>
+                          {t("updateAccessToken.tokenLastUsed")}
+                        </Text>
+                        &nbsp;
+                        {lastAccessTokenUseFromNow}
+                      </Text>
+                    </React.Fragment>
+                  }
+                  title={t("updateAccessToken.invalidate")}
                 >
-                  {t("updateAccessToken.invalidate")}
-                </Button>
+                  {(confirm): JSX.Element => {
+                    return (
+                      <Button
+                        onClick={handleInvalidateAPIToken(confirm)}
+                        variant={"secondary"}
+                      >
+                        {t("updateAccessToken.invalidate")}
+                      </Button>
+                    );
+                  }}
+                </ConfirmDialog>
               </Fragment>
             ) : undefined
           ) : (
