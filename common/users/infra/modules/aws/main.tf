@@ -16,10 +16,6 @@ variable "assume_role_policy" {
   default = []
 }
 
-data "aws_eks_cluster" "common" {
-  name = "common"
-}
-
 data "aws_eks_cluster" "common-k8s" {
   name = "common-k8s"
 }

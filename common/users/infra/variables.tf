@@ -1,8 +1,5 @@
 data "aws_caller_identity" "main" {}
 data "cloudflare_api_token_permission_groups" "all" {}
-data "aws_eks_cluster" "common" {
-  name = "common"
-}
 variable "region" {
   default = "us-east-1"
 }

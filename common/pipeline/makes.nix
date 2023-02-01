@@ -57,10 +57,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/commonCluster";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/commonCompute";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -110,10 +106,6 @@ in {
         }
         {
           output = "/lintTerraform/commonCi";
-          gitlabExtra = gitlabLint;
-        }
-        {
-          output = "/lintTerraform/commonCluster";
           gitlabExtra = gitlabLint;
         }
         {
@@ -185,15 +177,7 @@ in {
           gitlabExtra = gitlabLint;
         }
         {
-          output = "/secureKubernetesWithRbacPolice/commonCluster";
-          gitlabExtra = gitlabDeployInfra // {allow_failure = true;};
-        }
-        {
           output = "/testTerraform/commonCi";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
-          output = "/testTerraform/commonCluster";
           gitlabExtra = gitlabTestInfra;
         }
         {
