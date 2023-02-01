@@ -62,8 +62,8 @@ const SlideShow = styled.div.attrs({
   animation: ${ClientsAnimation} 150s linear infinite;
   width: calc(155.2px * 94);
   > img {
-    max-width: 135px;
-    max-height: 70px;
+    width: 135px;
+    height: 70px;
   }
 `;
 
