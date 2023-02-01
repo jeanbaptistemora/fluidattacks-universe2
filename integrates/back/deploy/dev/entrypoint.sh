@@ -28,9 +28,7 @@ function main {
     && REPLICAS="$(hpa_replicas)" \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
-      echo "[INFO] Applying: ${manifest}" \
-        && apply_manifest "${manifest}" \
-        || return 1
+      apply_manifest "${manifest}"
     done
 }
 

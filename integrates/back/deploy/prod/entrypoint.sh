@@ -28,16 +28,14 @@ function deploy {
       CHECKLY_CHECK_ID \
       CHECKLY_TRIGGER_ID \
     && for manifest in __argManifests__/*; do
-      echo "[INFO] Applying: ${manifest}" \
-        && apply "${manifest}" \
-        || return 1
+      apply_manifest "${manifest}"
     done
 }
 
 function main {
   deploy "trunk" "app1" \
-    && rollout "trunk" \
-    && report_deployment
+    && rollout "trunk" "prod_integrates" \
+    && report_deployment "product/integrates"
 }
 
 main "${@}"

@@ -34,7 +34,11 @@ function hpa_replicas {
 }
 
 function apply_manifest {
-  envsubst -no-unset -no-empty -i "${1}" | kubectl apply -f -
+  local manifest="${1}"
+
+  : \
+    && info "Applying: ${manifest}" \
+    && envsubst -no-unset -no-empty -i "${manifest}" | kubectl apply -f -
 }
 
 function b64 {
@@ -42,23 +46,28 @@ function b64 {
 }
 
 function report_deployment_checkly {
+  local product="${1}"
+
   : \
-    && echo '[INFO] Announcing deployment to Checkly' \
-    && curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
-      --request 'GET'
+    && info "Announcing deployment to Checkly" \
+    && curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}?deployment=true&repository=${product}&sha=${CI_COMMIT_SHA}" \
+      --request "GET"
 }
 
 function report_deployment {
-  report_deployment_checkly
+  local product="${1}"
+
+  report_deployment_checkly "${product}"
 }
 
 function rollout {
   local name="${1}"
+  local namespace="${2}"
 
   : \
-    && echo '[INFO] Rolling out update' \
+    && info "Rolling out update" \
     && kubectl rollout status \
-      "deploy/integrates-${name}" \
-      -n 'prod-integrates' \
+      "deploy/${name}" \
+      -n "${namespace}" \
       --timeout="30m"
 }
