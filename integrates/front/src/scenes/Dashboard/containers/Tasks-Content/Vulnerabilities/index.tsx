@@ -477,6 +477,14 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     }
   }, [groups, isReattacking, modalConfig, t]);
 
+  const onClose = useCallback(
+    (index: number): (() => void) =>
+      (): void => {
+        handleCloseUpdateModal(index);
+      },
+    [handleCloseUpdateModal]
+  );
+
   if (_.isUndefined(userData) || _.isEmpty(userData)) {
     return <div />;
   }
@@ -578,14 +586,10 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
               ],
               index: number
             ): JSX.Element => {
-              function onClose(): void {
-                handleCloseUpdateModal(index);
-              }
-
               return (
                 <Modal
                   key={vulnGroupName}
-                  onClose={onClose}
+                  onClose={onClose(index)}
                   open={iscurrentOpen[index]}
                   title={t("searchFindings.tabDescription.editVuln")}
                 >
@@ -594,7 +598,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
                     findingId={""}
                     groupName={vulnGroupName}
                     handleClearSelected={_.get(modalConfig, "clearSelected")}
-                    handleCloseModal={onClose}
+                    handleCloseModal={onClose(index)}
                     isOpen={iscurrentOpen[index]}
                     refetchData={refetchVulnerabilitiesAssigned}
                     vulnerabilities={vulnerabilitiesToUpdated}
