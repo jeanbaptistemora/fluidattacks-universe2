@@ -48,9 +48,9 @@ const config = {
       navbar: {
         logo: {
           alt: "Fluid Attacks Logo",
-          src: "https://res.cloudinary.com/fluid-attacks/image/upload/v1622577821/docs/logo_gyivrl.svg",
+          src: "https://res.cloudinary.com/fluid-attacks/image/upload/v1675273694/docs/Logo_2023.svg",
           srcDark:
-            "https://res.cloudinary.com/fluid-attacks/image/upload/v1623782670/docs/logo_dark_esf1gn.svg",
+            "https://res.cloudinary.com/fluid-attacks/image/upload/v1675273694/docs/Logo_2023_dark.svg",
         },
         items: [
           {
