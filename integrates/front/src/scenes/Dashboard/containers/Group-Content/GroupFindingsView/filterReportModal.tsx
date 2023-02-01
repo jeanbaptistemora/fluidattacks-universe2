@@ -16,7 +16,7 @@ import type { TestContext } from "yup";
 import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
-import { Checkbox, Input, InputDate } from "components/Input";
+import { Checkbox, Input, InputDate, InputNumber } from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
@@ -376,26 +376,15 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             />
                           </Col>
                           <Col lg={15} md={15} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.lastReport.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.lastReport.id"}
-                              place={"top"}
-                              tip={t(
+                            <InputNumber
+                              label={t("group.findings.report.lastReport.text")}
+                              max={10000}
+                              min={0}
+                              name={"lastReport"}
+                              tooltip={t(
                                 "group.findings.report.lastReport.tooltip"
                               )}
-                            >
-                              <Field
-                                component={FormikText}
-                                max={10000}
-                                min={0}
-                                name={"lastReport"}
-                                type={"number"}
-                              />
-                            </Tooltip>
+                            />
                           </Col>
                           <Col lg={25} md={25} sm={90}>
                             <Row align={"start"} justify={"between"}>
