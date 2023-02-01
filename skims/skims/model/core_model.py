@@ -4182,7 +4182,7 @@ class MethodsEnum(Enum):
     TFM_DB_INSIDE_SUBNET = MethodInfo(
         file_name="terraform",
         name="tfm_db_cluster_inside_subnet",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

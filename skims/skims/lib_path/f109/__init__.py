@@ -7,7 +7,6 @@ from lib_path.f109.cloudformation import (
     cfn_rds_is_not_inside_a_db_subnet_group,
 )
 from lib_path.f109.terraform import (
-    tfm_db_cluster_inside_subnet,
     tfm_rds_instance_inside_subnet,
 )
 from model.core_model import (
@@ -32,15 +31,6 @@ def run_cfn_rds_is_not_inside_a_db_subnet_group(
 ) -> Vulnerabilities:
     return cfn_rds_is_not_inside_a_db_subnet_group(
         content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_db_cluster_inside_subnet(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_db_cluster_inside_subnet(
-        content=content, path=path, model=model
     )
 
 
@@ -82,7 +72,6 @@ def analyze(
 
         results = (
             *results,
-            run_tfm_db_cluster_inside_subnet(content, path, model),
             run_tfm_rds_instance_inside_subnet(content, path, model),
         )
 
