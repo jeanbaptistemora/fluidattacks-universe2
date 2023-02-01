@@ -36,7 +36,9 @@ from db_model.toe_inputs.types import (
 )
 from db_model.toe_lines.types import (
     GroupToeLinesRequest,
+    ToeLines,
     ToeLinesConnection,
+    ToeLinesRequest,
 )
 from db_model.toe_ports.types import (
     GroupToePortsRequest,
@@ -496,6 +498,29 @@ async def _toe_line_content(
         GroupToeLinesRequest(group_name=group)
     )
     for toe_lines in group_toe_lines.edges:
+        print(f"Group_toe_lines: {toe_lines}")
+        request = ToeLinesRequest(
+            filename=toe_lines.node.filename,
+            group_name=toe_lines.node.group_name,
+            root_id=toe_lines.node.root_id,
+        )
+        loaders.toe_lines.clear(request)
+        toe_line_historic: Optional[
+            list[ToeLines]
+        ] = await loaders.toe_lines_historic.load(request)
+        historic_toe = (
+            [
+                toe_line
+                for toe_line in toe_line_historic
+                if toe_line_historic
+                and toe_line.state.modified_date.date()
+                == toe_lines.node.state.modified_date.date()
+                and toe_line.state.attacked_by
+                == toe_lines.node.state.attacked_by
+            ]
+            if toe_line_historic
+            else []
+        )
         _common_generate_count_report(
             content=content,
             date_range=date_range,
@@ -505,6 +530,10 @@ async def _toe_line_content(
             user_email=toe_lines.node.state.attacked_by,
             to_add=toe_lines.node.state.attacked_lines,
             allowed_users=users_email,
+        )
+        LOGGER.info(
+            "- historic toe generated",
+            extra={"extra": {"group": group, "historic_toe": historic_toe}},
         )
 
     LOGGER.info("- toe lines report generated in group %s", group)
