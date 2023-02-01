@@ -11,7 +11,6 @@ from db_model.findings.enums import (
     FindingStatus,
 )
 from db_model.findings.types import (
-    Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
 )
@@ -49,7 +48,6 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         finding_ids=[finding_id],
         vulnerability_ids=[vulnerability_id],
     )
-    finding: Finding = await loaders.finding.load(finding_id)
     expected_finding_output = FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=0,
         unreliable_open_vulnerabilities=1,
@@ -71,6 +69,8 @@ async def test_update_unreliable_indicators_by_deps() -> None:
         ),
         unreliable_where="test/data/lib_path/f060/csharp.cs",
     )
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     assert finding.unreliable_indicators == expected_finding_output
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id

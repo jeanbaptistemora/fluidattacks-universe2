@@ -17,9 +17,6 @@ from db_model.finding_comments.types import (
 from db_model.findings.enums import (
     FindingVerificationStatus as FVStatus,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -68,7 +65,8 @@ async def test_request_hold_vuln(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     event_id: str = "418900971"
     loaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert (
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
@@ -90,6 +88,7 @@ async def test_request_hold_vuln(
 
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
+    assert finding
     vulnerability = await loaders.vulnerability.load(vuln_id)
     assert finding.verification
     assert finding.verification.status == FVStatus.ON_HOLD

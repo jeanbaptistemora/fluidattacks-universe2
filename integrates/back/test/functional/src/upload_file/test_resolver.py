@@ -22,7 +22,6 @@ from db_model.findings.enums import (
     FindingStatus,
 )
 from db_model.findings.types import (
-    Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicators,
     FindingVerificationSummary,
@@ -104,7 +103,7 @@ async def test_upload_file(
     email: str,
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     file_name = "test-vulns.yaml"
     result: dict[str, Any] = await get_result(
@@ -328,7 +327,8 @@ async def test_upload_file(
     )
     assert vuln_changed_source.state.source == Source.ANALYST
 
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     assert finding.unreliable_indicators == FindingUnreliableIndicators(
         unreliable_closed_vulnerabilities=3,
         unreliable_newest_vulnerability_report_date=(

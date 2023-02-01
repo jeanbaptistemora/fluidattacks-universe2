@@ -12,9 +12,6 @@ from custom_exceptions import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from findings.domain import (
     download_evidence_file,
     get_records_from_file,
@@ -143,7 +140,8 @@ async def test_validate_evidence_records() -> None:
     mime_type = "text/csv"
     finding_id = "463558592"
     loaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, mime_type
@@ -165,7 +163,8 @@ async def test_validate_evidence_records_invalid_type() -> None:
     )
     mime_type = "image/png"
     finding_id = "422286126"
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.csv", test_file, mime_type
@@ -185,7 +184,8 @@ async def test_validate_evidence_records_invalid_name() -> None:
     )
     mime_type = "image/png"
     finding_id = "422286126"
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     with open(filename, "rb") as test_file:
         uploaded_file = UploadFile(
             "test-file-records.png", test_file, mime_type

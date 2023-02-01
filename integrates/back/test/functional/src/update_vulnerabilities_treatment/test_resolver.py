@@ -22,11 +22,7 @@ from custom_exceptions import (
     VulnAlreadyClosed,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.vulnerabilities.utils import (
     get_inverted_treatment_converted,
@@ -356,8 +352,9 @@ async def test_update_vulnerabilities_treatment_invalid_organization_policies(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
-    loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    loaders = get_new_context()
+    finding = await loaders.finding.load(finding_id)
+    assert finding
 
     result_1: dict[str, Any] = await put_mutation(
         user=email,
@@ -454,8 +451,9 @@ async def test_update_vulnerabilities_treatment_invalid_group_policies(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     group_name: str = "group1"
-    loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    loaders = get_new_context()
+    finding = await loaders.finding.load(finding_id)
+    assert finding
 
     organization_policies: dict[str, Any] = await update_organization_policies(
         user="admin@gmail.com",

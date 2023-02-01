@@ -2,18 +2,14 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-    VulnerabilityVerificationStatus as VVerifStatus,
+    VulnerabilityVerificationStatus,
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
@@ -21,7 +17,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -56,12 +51,15 @@ async def test_request_vulnerabilities_verification(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.verification.status == VVerifStatus.REQUESTED  # type: ignore
+    assert vuln.verification
+    assert (
+        vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED
+    )
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         vulnerability_id=vuln_id,
@@ -71,17 +69,18 @@ async def test_request_vulnerabilities_verification(
     assert "success" in result["data"]["verifyVulnerabilitiesRequest"]
     assert result["data"]["verifyVulnerabilitiesRequest"]["success"]
 
-    finding: Finding = await loaders.finding.load(finding_id)
-    assert (
-        finding.verification.status  # type: ignore
-        == FindingVerificationStatus.VERIFIED
-    )
-    assert vuln_id in finding.verification.vulnerability_ids  # type: ignore
-    assert finding.verification.modified_by == email  # type: ignore
+    finding = await loaders.finding.load(finding_id)
+    assert finding
+    assert finding.verification
+    assert finding.verification.status == FindingVerificationStatus.VERIFIED
+    assert finding.verification.vulnerability_ids
+    assert vuln_id in finding.verification.vulnerability_ids
+    assert finding.verification.modified_by == email
     loaders.vulnerability.clear(vuln_id)
     vuln = await loaders.vulnerability.load(vuln_id)
     assert vuln.state.status == new_status
-    assert vuln.verification.status == VVerifStatus.VERIFIED  # type: ignore
+    assert vuln.verification
+    assert vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED
 
 
 @pytest.mark.asyncio
@@ -105,7 +104,7 @@ async def test_request_vulnerabilities_verification_fail_1(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         vulnerability_id=vuln_id,
@@ -145,7 +144,7 @@ async def test_request_vulnerabilities_verification_fail_2(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         vulnerability_id=vuln_id,

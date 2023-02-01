@@ -16,9 +16,6 @@ from db_model.finding_comments.types import (
 from db_model.findings.enums import (
     FindingVerificationStatus as FinVStatus,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
@@ -96,9 +93,10 @@ async def test_solve_event_on_hold(
     assert populate
     loaders = get_new_context()
     event = await loaders.event.load(event_id)
-    finding: Finding = await loaders.finding.load(
+    finding = await loaders.finding.load(
         "3c475384-834c-47b0-ac71-a41a022e401c"
     )
+    assert finding
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
@@ -122,10 +120,12 @@ async def test_solve_event_on_hold(
     finding = await loaders.finding.load(
         "3c475384-834c-47b0-ac71-a41a022e401c"
     )
+    assert finding
     vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
     requester = await get_reattack_requester(loaders, vulnerability)
+    assert requester
     solve_consult: str = "The reattacks are back to"
     consults = await loaders.finding_comments.load(
         FindingCommentsRequest(

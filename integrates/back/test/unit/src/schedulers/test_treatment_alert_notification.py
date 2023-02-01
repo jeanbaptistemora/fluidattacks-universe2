@@ -4,9 +4,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from freezegun import (
     freeze_time,
 )
@@ -47,7 +44,8 @@ async def test_expiring_vulnerabilities(
     finding_id: str,
 ) -> None:
     loaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     vulns = await expiring_vulnerabilities(loaders, finding)
     assert list(list(vulns.values())[0].values())[0] == 2
 

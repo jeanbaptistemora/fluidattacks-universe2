@@ -2,14 +2,10 @@ from collections import (
     OrderedDict,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
@@ -163,8 +159,8 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
         vulnerability: Vulnerability = await loaders.vulnerability.load(
             "15375781-31f2-4953-ac77-f31134225747"
         )
-        finding: Finding = await loaders.finding.load(vulnerability.finding_id)
-
+        finding = await loaders.finding.load(vulnerability.finding_id)
+        assert finding
         historic_state = await loaders.vulnerability_historic_state.load(
             vulnerability.id
         )
@@ -185,7 +181,7 @@ async def test_get_date_last_vulns(dynamo_resource: ServiceResource) -> None:
         table_name = "integrates_vms"
         return dynamo_resource.Table(table_name).query(**kwargs)
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_id = "422286126"
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
@@ -203,7 +199,7 @@ async def test_get_first_week_dates(dynamo_resource: ServiceResource) -> None:
         table_name = "integrates_vms"
         return dynamo_resource.Table(table_name).query(**kwargs)
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_id = "422286126"
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock

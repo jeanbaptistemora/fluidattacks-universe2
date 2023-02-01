@@ -5,7 +5,6 @@ from custom_exceptions import (
     IncompleteDraft,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -15,7 +14,6 @@ from db_model.findings.enums import (
     FindingStateStatus,
 )
 from db_model.findings.types import (
-    Finding,
     FindingUnreliableIndicators,
 )
 from db_model.vulnerabilities.types import (
@@ -50,8 +48,9 @@ async def test_approve_draft(
     assert "success" in result["data"]["approveDraft"]
     assert result["data"]["approveDraft"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    loaders = get_new_context()
+    finding = await loaders.finding.load(finding_id)
+    assert finding
     assert finding.state.status == FindingStateStatus.APPROVED
 
     vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)

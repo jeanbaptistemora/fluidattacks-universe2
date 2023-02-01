@@ -2,14 +2,10 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.findings.enums import (
     FindingVerificationStatus as FVStatus,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
@@ -20,7 +16,6 @@ from db_model.vulnerabilities.types import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -51,18 +46,21 @@ async def test_request_verification_vuln(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
     )
     assert "errors" not in result
     assert "success" in result["data"]["requestVulnerabilitiesVerification"]
     assert result["data"]["requestVulnerabilitiesVerification"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
-    assert finding.verification.status == FVStatus.REQUESTED  # type: ignore
+    loaders = get_new_context()
+    finding = await loaders.finding.load(finding_id)
+    assert finding
+    assert finding.verification
+    assert finding.verification.status == FVStatus.REQUESTED
     vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability.verification
     assert (
-        vulnerability.verification.status  # type: ignore
+        vulnerability.verification.status
         == VulnerabilityVerificationStatus.REQUESTED
     )
