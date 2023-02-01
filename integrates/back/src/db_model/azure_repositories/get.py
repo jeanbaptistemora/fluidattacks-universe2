@@ -89,6 +89,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
+    Iterable,
     Optional,
     Union,
 )
@@ -105,7 +106,7 @@ PROFILE_BASE_URL = "https://app.vssps.visualstudio.com"
 
 async def get_repositories(
     *,
-    credentials: list[Credentials],
+    credentials: Iterable[Credentials],
 ) -> list[list[GitRepository]]:
     return list(
         await collect(
@@ -361,7 +362,7 @@ async def get_oauth_repositories_commits(
 
 async def get_repositories_commits(
     *,
-    repositories: list[CredentialsGitRepositoryCommit],
+    repositories: Iterable[CredentialsGitRepositoryCommit],
 ) -> list[list[GitCommit]]:
     repositories_commits = await collect(
         tuple(
@@ -702,7 +703,7 @@ class OrganizationRepositoriesLoader(
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        credentials: list[Credentials],
+        credentials: Iterable[Credentials],
     ) -> list[list[GitRepository]]:
         return await get_repositories(credentials=credentials)
 
@@ -713,6 +714,6 @@ class OrganizationRepositoriesCommitsLoader(
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        repositories: list[CredentialsGitRepositoryCommit],
+        repositories: Iterable[CredentialsGitRepositoryCommit],
     ) -> list[list[GitCommit]]:
         return await get_repositories_commits(repositories=repositories)

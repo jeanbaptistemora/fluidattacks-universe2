@@ -25,12 +25,13 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
 
 async def _get_credentials(
-    *, requests: list[CredentialsRequest]
+    *, requests: Iterable[CredentialsRequest]
 ) -> list[Optional[Credentials]]:
     primary_keys = tuple(
         keys.build_key(
@@ -57,7 +58,7 @@ async def _get_credentials(
 class CredentialsLoader(DataLoader[CredentialsRequest, Optional[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[CredentialsRequest]
+        self, requests: Iterable[CredentialsRequest]
     ) -> list[Optional[Credentials]]:
         return await _get_credentials(requests=requests)
 
@@ -89,7 +90,7 @@ async def _get_organization_credentials(
 class OrganizationCredentialsLoader(DataLoader[str, list[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: list[str]
+        self, organization_ids: Iterable[str]
     ) -> list[list[Credentials]]:
         return list(
             await collect(
@@ -122,7 +123,7 @@ async def _get_user_credentials(*, email: str) -> list[Credentials]:
 class UserCredentialsLoader(DataLoader[str, list[Credentials]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: list[str]
+        self, emails: Iterable[str]
     ) -> list[list[Credentials]]:
         return list(
             await collect(

@@ -14,9 +14,12 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
-async def _get_enrollments(*, emails: list[str]) -> list[Enrollment]:
+async def _get_enrollments(*, emails: Iterable[str]) -> list[Enrollment]:
     emails = [email.lower().strip() for email in emails]
     primary_keys = tuple(
         keys.build_key(
@@ -45,7 +48,7 @@ async def _get_enrollments(*, emails: list[str]) -> list[Enrollment]:
     return enrollments
 
 
-class EnrollmentLoader(DataLoader):
+class EnrollmentLoader(DataLoader[str, Enrollment]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, emails: list[str]) -> list[Enrollment]:
+    async def batch_load_fn(self, emails: Iterable[str]) -> list[Enrollment]:
         return await _get_enrollments(emails=emails)

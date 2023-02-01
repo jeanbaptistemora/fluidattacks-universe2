@@ -15,11 +15,12 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
 
-async def _get_companies(domains: list[str]) -> list[Company]:
+async def _get_companies(domains: Iterable[str]) -> list[Company]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["company_metadata"],
@@ -35,7 +36,7 @@ async def _get_companies(domains: list[str]) -> list[Company]:
 class CompanyLoader(DataLoader[str, Optional[Company]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, domains: list[str]
+        self, domains: Iterable[str]
     ) -> list[Optional[Company]]:
         companies = {
             company.domain: company

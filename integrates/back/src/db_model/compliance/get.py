@@ -20,6 +20,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_compliance_unreliable_indicators() -> (
@@ -49,7 +52,7 @@ class ComplianceUnreliableIndicatorsLoader(
 ):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: list[str]
+        self, ids: Iterable[str]
     ) -> list[ComplianceUnreliableIndicators]:
         return list(
             await collect(
