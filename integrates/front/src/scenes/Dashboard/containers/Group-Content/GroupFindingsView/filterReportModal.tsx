@@ -16,7 +16,7 @@ import type { TestContext } from "yup";
 import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
-import { Checkbox, InputDate } from "components/Input";
+import { Checkbox, Input, InputDate } from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
 import { Tooltip } from "components/Tooltip";
@@ -362,26 +362,18 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             </Row>
                           </Col>
                           <Col lg={45} md={45} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.location.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.location.id"}
-                              place={"top"}
-                              tip={t("group.findings.report.location.tooltip")}
-                            >
-                              <Field
-                                component={FormikText}
-                                name={"location"}
-                                type={"text"}
-                                validate={composeValidators([
-                                  maxLocationLength,
-                                  validTextField,
-                                ])}
-                              />
-                            </Tooltip>
+                            <Input
+                              label={t("group.findings.report.location.text")}
+                              name={"location"}
+                              tooltip={t(
+                                "group.findings.report.location.tooltip"
+                              )}
+                              type={"text"}
+                              validate={composeValidators([
+                                maxLocationLength,
+                                validTextField,
+                              ])}
+                            />
                           </Col>
                           <Col lg={15} md={15} sm={50}>
                             <p className={"mb1 mt1"}>
