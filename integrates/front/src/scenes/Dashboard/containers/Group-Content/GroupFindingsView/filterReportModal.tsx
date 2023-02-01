@@ -453,24 +453,13 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                             </Row>
                           </Col>
                           <Col lg={15} md={15} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.age.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.age.id"}
-                              place={"top"}
-                              tip={t("group.findings.report.age.tooltip")}
-                            >
-                              <Field
-                                component={FormikText}
-                                max={10000}
-                                min={0}
-                                name={"age"}
-                                type={"number"}
-                              />
-                            </Tooltip>
+                            <InputNumber
+                              label={t("group.findings.report.age.text")}
+                              max={10000}
+                              min={0}
+                              name={"age"}
+                              tooltip={t("group.findings.report.age.tooltip")}
+                            />
                           </Col>
                           <Col lg={90} md={90} sm={90}>
                             <Col lg={50} md={50} sm={50}>
