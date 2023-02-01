@@ -3,7 +3,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f157.terraform import (
-    tfm_azure_kv_default_network_access,
     tfm_azure_sa_default_network_access,
     tfm_azure_unrestricted_access_network_segments,
 )
@@ -39,15 +38,6 @@ def run_tfm_azure_sa_default_network_access(
 
 
 @SHIELD_BLOCKING
-def run_tfm_azure_kv_default_network_access(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_azure_kv_default_network_access(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -65,7 +55,6 @@ def analyze(
                 content, path, model
             ),
             run_tfm_azure_sa_default_network_access(content, path, model),
-            run_tfm_azure_kv_default_network_access(content, path, model),
         )
 
     return results

@@ -4454,7 +4454,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_KV_DEFAULT_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_default_network_access",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
