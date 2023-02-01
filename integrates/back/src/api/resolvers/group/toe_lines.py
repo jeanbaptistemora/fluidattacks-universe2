@@ -45,6 +45,7 @@ async def resolve(
         exact_filters={"group_name": parent.name},
         must_filters=toe_lines_filters["must_filters"],
         must_match_prefix_filters=toe_lines_filters["must_match_filters"],
+        range_filters=toe_lines_filters["must_range_filters"],
         index="toe_lines",
         limit=kwargs.get("first", 10),
     )
@@ -70,10 +71,12 @@ def toe_lines_filter(**kwargs: Any) -> dict[str, Any]:
     vulns_must_match_prefix_filters: list[
         dict[str, Any]
     ] = must_match_prefix_filter(**kwargs)
+    exec_must_range_filters: list[dict[str, Any]] = must_range_filter(**kwargs)
 
     filters: dict[str, Any] = {
         "must_filters": vulns_must_filters,
         "must_match_filters": vulns_must_match_prefix_filters,
+        "must_range_filters": exec_must_range_filters,
     }
 
     return filters
@@ -98,3 +101,15 @@ def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
         must_match_filters.append({"filename": filename})
 
     return must_match_filters
+
+
+def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
+    must_range_filters: list[dict[str, Any]] = []
+
+    if min_loc := kwargs.get("min_loc"):
+        must_range_filters.append({"state.loc": {"gte": min_loc}})
+
+    if max_loc := kwargs.get("max_loc"):
+        must_range_filters.append({"state.loc": {"lte": max_loc}})
+
+    return must_range_filters
