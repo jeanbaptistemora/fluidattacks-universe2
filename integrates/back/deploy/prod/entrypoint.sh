@@ -33,8 +33,8 @@ function deploy {
 }
 
 function main {
-  deploy "trunk" "app1" \
-    && rollout "trunk" "prod_integrates" \
+  deploy "trunk" "app" \
+    && rollout "trunk" "prod-integrates" \
     && report_deployment "product/integrates"
 }
 
