@@ -4190,7 +4190,7 @@ class MethodsEnum(Enum):
     TFM_RDS_INSIDE_SUBNET = MethodInfo(
         file_name="terraform",
         name="tfm_rds_instance_inside_subnet",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F109,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

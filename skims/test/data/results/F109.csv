@@ -95,7 +95,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/cfn_rds_has_not_termination_p
   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
      ^ Col 0
 ",cloudformation.cfn_rds_is_not_inside_a_db_subnet_group
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+F109,lines,namespace/skims/test/data/lib_root/f109/subnet_test.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/subnet_test.tf,"
 >  1 | resource ""aws_db_instance"" ""default"" {
    2 |   publicly_accessible  = false
    3 |   allocated_storage    = 10
@@ -119,7 +119,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,1,681,skims,10
   21 |   engine_version     = aws_rds_cluster.default.engine_version
      ^ Col 0
 ",terraform.tfm_db_cluster_inside_subnet
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test.tf,"
+F109,lines,namespace/skims/test/data/lib_root/f109/subnet_test.tf,15,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/subnet_test.tf,"
    2 |   publicly_accessible  = false
    3 |   allocated_storage    = 10
    4 |   engine               = ""mysql""
@@ -143,7 +143,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test.tf,15,681,skims,1
   22 | }
      ^ Col 0
 ",terraform.tfm_rds_instance_inside_subnet
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,10,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+F109,lines,namespace/skims/test/data/lib_root/f109/subnet_test_rebase.tf,10,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/subnet_test_rebase.tf,"
    1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
    2 |   count              = 2
    3 |   identifier         = ""aurora-cluster-demo-${count.index}""
@@ -167,7 +167,7 @@ F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,10,681,
   21 |   skip_final_snapshot  = true
      ^ Col 0
 ",terraform.tfm_db_cluster_inside_subnet
-F109,lines,namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_path/f109/subnet_test_rebase.tf,"
+F109,lines,namespace/skims/test/data/lib_root/f109/subnet_test_rebase.tf,1,681,skims,109. Unrestricted access between network segments - RDS,Property db_subnet_group_name is either missing or misconfigured in namespace/skims/test/data/lib_root/f109/subnet_test_rebase.tf,"
 >  1 | resource ""aws_rds_cluster"" ""cluster_instances"" {
    2 |   count              = 2
    3 |   identifier         = ""aurora-cluster-demo-${count.index}""
