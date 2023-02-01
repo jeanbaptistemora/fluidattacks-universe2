@@ -35,6 +35,7 @@ from itertools import (
     chain,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -62,10 +63,10 @@ async def _get_finding_by_id(finding_id: str) -> Optional[Finding]:
     return format_finding(response.items[0])
 
 
-async def _get_me_drafts(*, user_email: str) -> list[Finding]:
+async def _get_me_drafts(*, email: str) -> list[Finding]:
     primary_key = keys.build_key(
         facet=ME_DRAFTS_INDEX_METADATA,
-        values={"email": user_email},
+        values={"email": email},
     )
 
     index = TABLE.indexes["gsi_2"]
@@ -108,13 +109,15 @@ async def _get_drafts_and_findings_by_group(
 
 
 class GroupDraftsAndFindingsLoader(DataLoader):
-    async def load_many_chained(self, group_names: list[str]) -> list[Finding]:
+    async def load_many_chained(
+        self, group_names: Iterable[str]
+    ) -> list[Finding]:
         unchained_data = await self.load_many(group_names)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[Finding]]:
         return list(
             await collect(
@@ -125,13 +128,12 @@ class GroupDraftsAndFindingsLoader(DataLoader):
 
 class MeDraftsLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, emails: list[str]) -> list[list[Finding]]:
+    async def batch_load_fn(
+        self, emails: Iterable[str]
+    ) -> list[list[Finding]]:
         return list(
             await collect(
-                tuple(
-                    _get_me_drafts(user_email=user_email)
-                    for user_email in emails
-                )
+                tuple(_get_me_drafts(email=email) for email in emails)
             )
         )
 
@@ -143,7 +145,7 @@ class GroupDraftsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[Finding]]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
@@ -168,13 +170,15 @@ class GroupFindingsLoader(DataLoader):
         super().__init__()
         self.dataloader = dataloader
 
-    async def load_many_chained(self, group_names: list[str]) -> list[Finding]:
+    async def load_many_chained(
+        self, group_names: Iterable[str]
+    ) -> list[Finding]:
         unchained_data = await self.load_many(group_names)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[Finding]]:
         drafts_and_findings_by_groups = await self.dataloader.load_many(
             group_names
@@ -199,7 +203,7 @@ class GroupFindingsLoader(DataLoader):
 class FindingLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[Optional[Finding]]:
         return list(
             await collect(
@@ -228,10 +232,12 @@ async def _get_historic_verification(
     return list(map(format_verification, response.items))
 
 
-class FindingHistoricVerificationLoader(DataLoader):
+class FindingHistoricVerificationLoader(
+    DataLoader[str, list[FindingVerification]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[FindingVerification]]:
         return list(
             await collect(
@@ -259,10 +265,10 @@ async def _get_historic_state(finding_id: str) -> list[FindingState]:
     return list(map(format_state, response.items))
 
 
-class FindingHistoricStateLoader(DataLoader):
+class FindingHistoricStateLoader(DataLoader[str, list[FindingState]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[FindingState]]:
         return list(
             await collect(tuple(map(_get_historic_state, finding_ids)))

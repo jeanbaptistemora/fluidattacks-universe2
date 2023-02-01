@@ -79,10 +79,7 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -107,8 +104,8 @@ def _validate_date(date_attr: date, from_day: int, to_day: int) -> bool:
     return validate_date
 
 
-def _generate_count_fields() -> Dict[str, Any]:
-    fields: Dict[str, Any] = {
+def _generate_count_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
         "count": {
             "past_day": 0,
             "today": 0,
@@ -117,8 +114,8 @@ def _generate_count_fields() -> Dict[str, Any]:
     return fields
 
 
-def _generate_fields() -> Dict[str, Any]:
-    fields: Dict[str, Any] = {
+def _generate_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
         "enumerated_inputs": _generate_count_fields(),
         "enumerated_ports": _generate_count_fields(),
         "evidences": _generate_count_fields(),
@@ -136,8 +133,8 @@ def _generate_fields() -> Dict[str, Any]:
     return fields
 
 
-def _generate_group_fields() -> Dict[str, Any]:
-    fields: Dict[str, Any] = {
+def _generate_group_fields() -> dict[str, Any]:
+    fields: dict[str, Any] = {
         "verified_inputs": 0,
         "verified_ports": 0,
         "enumerated_inputs": 0,
@@ -155,7 +152,7 @@ def _generate_group_fields() -> Dict[str, Any]:
 
 def _common_write_to_dict_today(
     *,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     user_email: str,
     field: str,
     group: str,
@@ -175,7 +172,7 @@ def _common_write_to_dict_today(
 
 def _common_write_to_dict_yesterday(
     *,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     user_email: str,
     field: str,
     to_add: int = 1,
@@ -187,14 +184,14 @@ def _common_write_to_dict_yesterday(
 
 def _common_generate_count_report(
     *,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     date_range: int,
     date_report: Optional[datetime],
     field: str,
     group: str,
     to_add: int = 1,
     user_email: str,
-    allowed_users: List[str],
+    allowed_users: list[str],
     cvss: Decimal = Decimal("0.0"),
 ) -> None:
     if user_email in allowed_users and date_report:
@@ -232,8 +229,8 @@ async def _draft_content(
     loaders: Dataloaders,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
     group_drafts = await loaders.group_drafts.load(group)
     for draft in group_drafts:
@@ -280,14 +277,14 @@ async def _draft_content(
 
 def _draft_created_content(
     *,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     cvss: Decimal = Decimal("0.0"),
     date_report: datetime,
     date_submission: Optional[datetime],
     group: str,
     state: FindingStateStatus,
     user_email: str,
-    users_email: List[str],
+    users_email: list[str],
 ) -> None:
     if user_email in users_email:
         if not content.get(user_email):
@@ -305,7 +302,7 @@ def _draft_created_content(
 
 
 def _oldest_draft(  # pylint: disable=too-many-arguments
-    content: Dict[str, Any],
+    content: dict[str, Any],
     cvss: Decimal,
     date_report: datetime,
     date_submission: Optional[datetime],
@@ -341,8 +338,8 @@ async def _finding_reattacked(  # pylint: disable=too-many-arguments
     finding_id: str,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
     historic_verification = await loaders.finding_historic_verification.load(
         finding_id
@@ -369,8 +366,8 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
     finding: Finding,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
 
     if finding.state.status != FindingStateStatus.APPROVED:
@@ -415,7 +412,7 @@ async def _finding_vulns_released(  # pylint: disable=too-many-arguments
 
 
 def _max_severity_released(
-    content: Dict[str, Any],
+    content: dict[str, Any],
     cvss: Decimal,
     user_email: str,
 ) -> None:
@@ -427,8 +424,8 @@ async def _finding_content(
     loaders: Dataloaders,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
     findings = await loaders.group_findings.load(group)
     for finding in findings:
@@ -455,8 +452,8 @@ async def _toe_input_content(
     loaders: Dataloaders,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
     group_toe_inputs: ToeInputsConnection = (
         await loaders.group_toe_inputs.load(
@@ -491,8 +488,8 @@ async def _toe_line_content(
     loaders: Dataloaders,
     group: str,
     date_range: int,
-    content: Dict[str, Any],
-    users_email: List[str],
+    content: dict[str, Any],
+    users_email: list[str],
 ) -> None:
     group_toe_lines: ToeLinesConnection = await loaders.group_toe_lines.load(
         GroupToeLinesRequest(group_name=group)
@@ -544,7 +541,7 @@ async def _toe_port_content(
     group: str,
     date_range: int,
     content: dict[str, Any],
-    users_email: List[str],
+    users_email: list[str],
 ) -> None:
     group_toe_ports: ToePortsConnection = await loaders.group_toe_ports.load(
         GroupToePortsRequest(group_name=group)
@@ -576,9 +573,9 @@ async def _toe_port_content(
 
 
 async def _generate_numerator_report(
-    loaders: Dataloaders, groups_names: Tuple[str, ...], date_range: int
-) -> Dict[str, Any]:
-    content: Dict[str, Any] = {}
+    loaders: Dataloaders, groups_names: tuple[str, ...], date_range: int
+) -> dict[str, Any]:
+    content: dict[str, Any] = {}
     allowed_roles: set[str] = {
         "architect",
         "hacker",
@@ -639,8 +636,8 @@ def get_percent(num_a: int, num_b: int) -> str:
     return "{:+.0%}".format(variation)
 
 
-def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
-    count_and_variation: Dict[str, Any] = {
+def _generate_count_and_variation(content: dict[str, Any]) -> dict[str, Any]:
+    count_and_variation: dict[str, Any] = {
         key: {
             "count": (count := value["count"])["today"],
             "variation": get_percent(
@@ -661,16 +658,16 @@ def _generate_count_and_variation(content: Dict[str, Any]) -> Dict[str, Any]:
 
 async def _send_mail_report(
     loaders: Dataloaders,
-    content: Dict[str, Any],
+    content: dict[str, Any],
     report_date: date,
     responsible: str,
 ) -> None:
     groups_content = content.pop("groups")
     max_cvss = content.pop("max_cvss")
     oldest_draft = content.pop("oldest_draft")
-    count_var_report: Dict[str, Any] = _generate_count_and_variation(content)
+    count_var_report: dict[str, Any] = _generate_count_and_variation(content)
 
-    context: Dict[str, Any] = {
+    context: dict[str, Any] = {
         "count_var_report": count_var_report,
         "groups": groups_content,
         "max_cvss": max_cvss,
@@ -708,7 +705,7 @@ async def send_numerator_report() -> None:
             group for group in group_names if group not in test_group_names
         )
 
-    content: Dict[str, Any] = await _generate_numerator_report(
+    content: dict[str, Any] = await _generate_numerator_report(
         loaders, group_names, date_range
     )
 

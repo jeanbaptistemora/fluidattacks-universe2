@@ -20,7 +20,6 @@ from db_model.finding_comments.types import (
 )
 from db_model.findings.types import (
     Finding,
-    FindingVerification,
 )
 from db_model.roots.types import (
     Root,
@@ -175,9 +174,9 @@ async def get_comments(
             comment_type=CommentType.VERIFICATION, finding_id=finding_id
         )
     )
-    historic_verification: tuple[
-        FindingVerification, ...
-    ] = await loaders.finding_historic_verification.load(finding_id)
+    historic_verification = await loaders.finding_historic_verification.load(
+        finding_id
+    )
     verified = tuple(
         verification
         for verification in historic_verification

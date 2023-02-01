@@ -44,7 +44,9 @@ async def _process_finding(
     finding_id: str,
     group_name: str,
 ) -> None:
-    historic_state = await loaders.finding_historic_state.load(finding_id)
+    historic_state = tuple(
+        await loaders.finding_historic_state.load(finding_id)
+    )
     adjusted_historic = adjust_historic_dates(historic_state)
     if historic_state != adjusted_historic:
         await findings_model.update_historic_state(
