@@ -938,26 +938,24 @@ async def validate_vulnerability_in_toe_inputs(
         ):
             specific = match_specific.groupdict()["specific"]
 
-        try:
-            toe_input: ToeInput = await loaders.toe_input.load(
-                ToeInputRequest(
-                    component=where,
-                    entry_point=""
-                    if is_machine_vuln(vulnerability)
-                    else specific,
-                    group_name=vulnerability.group_name,
-                    root_id=vulnerability.root_id,
-                )
+        toe_input: Optional[ToeInput] = await loaders.toe_input.load(
+            ToeInputRequest(
+                component=where,
+                entry_point="" if is_machine_vuln(vulnerability) else specific,
+                group_name=vulnerability.group_name,
+                root_id=vulnerability.root_id,
             )
-        except ToeInputNotFound as exc:
-            if vulnerability.skims_technique not in {"APK"}:
-                if raises:
-                    raise VulnerabilityUrlFieldDoNotExistInToeInputs(
-                        index=f"{index}"
-                    ) from exc  # noqa
-                return None
+        )
+        if not toe_input and vulnerability.skims_technique not in {"APK"}:
+            if raises:
+                raise VulnerabilityUrlFieldDoNotExistInToeInputs(
+                    index=f"{index}"
+                )  # noqa
+            return None
 
-        return toe_input
+        if toe_input:
+            return toe_input
+        raise ToeInputNotFound()
     return None
 
 

@@ -7,6 +7,9 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ToeInputNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -38,6 +41,7 @@ from toe.inputs.types import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -61,7 +65,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        current_value: ToeInput = await loaders.toe_input.load(
+        current_value: Optional[ToeInput] = await loaders.toe_input.load(
             ToeInputRequest(
                 component=component,
                 entry_point=entry_point,
@@ -69,28 +73,32 @@ async def mutate(  # pylint: disable=too-many-arguments
                 root_id=root_id,
             )
         )
-        be_present_to_update = (
-            None
-            if be_present is current_value.state.be_present
-            else be_present
-        )
-        attacked_at_to_update = (
-            datetime_utils.get_utc_now()
-            if kwargs.get("has_recent_attack") is True
-            else None
-        )
-        attacked_by_to_update = (
-            None if attacked_at_to_update is None else user_email
-        )
-        await toe_inputs_domain.update(
-            current_value=current_value,
-            attributes=ToeInputAttributesToUpdate(
-                attacked_at=attacked_at_to_update,
-                attacked_by=attacked_by_to_update,
-                be_present=be_present_to_update,
-            ),
-            modified_by=user_email,
-        )
+        if current_value:
+            be_present_to_update = (
+                None
+                if be_present is current_value.state.be_present
+                else be_present
+            )
+            attacked_at_to_update = (
+                datetime_utils.get_utc_now()
+                if kwargs.get("has_recent_attack") is True
+                else None
+            )
+            attacked_by_to_update = (
+                None if attacked_at_to_update is None else user_email
+            )
+            await toe_inputs_domain.update(
+                current_value=current_value,
+                attributes=ToeInputAttributesToUpdate(
+                    attacked_at=attacked_at_to_update,
+                    attacked_by=attacked_by_to_update,
+                    be_present=be_present_to_update,
+                ),
+                modified_by=user_email,
+            )
+        else:
+            raise ToeInputNotFound()
+
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Updated toe input in group {group_name} successfully",
