@@ -63,30 +63,40 @@ async def test_exists(
     )
 
 
-async def test_get_group_stakeholders_emails() -> None:
-    group_name = "unittesting"
+@pytest.mark.parametrize(
+    ["group_name", "expected_result"],
+    [
+        [
+            "unittesting",
+            [
+                "continuoushack2@gmail.com",
+                "continuoushacking@gmail.com",
+                "customer_manager@fluidattacks.com",
+                "forces.unittesting@fluidattacks.com",
+                "integrateshacker@fluidattacks.com",
+                "integratesmanager@fluidattacks.com",
+                "integratesmanager@gmail.com",
+                "integratesreattacker@fluidattacks.com",
+                "integratesresourcer@fluidattacks.com",
+                "integratesreviewer@fluidattacks.com",
+                "integratesserviceforces@fluidattacks.com",
+                "integratesuser2@fluidattacks.com",
+                "integratesuser2@gmail.com",
+                "integratesuser@gmail.com",
+                "unittest2@fluidattacks.com",
+                "unittest@fluidattacks.com",
+                "vulnmanager@gmail.com",
+            ],
+        ],
+    ],
+)
+async def test_get_group_stakeholders_emails(
+    group_name: str,
+    expected_result: list,
+) -> None:
     loaders = get_new_context()
     users = await get_group_stakeholders_emails(loaders, group_name)
-    expected = [
-        "continuoushack2@gmail.com",
-        "continuoushacking@gmail.com",
-        "customer_manager@fluidattacks.com",
-        "forces.unittesting@fluidattacks.com",
-        "integrateshacker@fluidattacks.com",
-        "integratesmanager@fluidattacks.com",
-        "integratesmanager@gmail.com",
-        "integratesreattacker@fluidattacks.com",
-        "integratesresourcer@fluidattacks.com",
-        "integratesreviewer@fluidattacks.com",
-        "integratesserviceforces@fluidattacks.com",
-        "integratesuser2@fluidattacks.com",
-        "integratesuser2@gmail.com",
-        "integratesuser@gmail.com",
-        "unittest2@fluidattacks.com",
-        "unittest@fluidattacks.com",
-        "vulnmanager@gmail.com",
-    ]
-    for user in expected:
+    for user in expected_result:
         assert user in users
 
 
