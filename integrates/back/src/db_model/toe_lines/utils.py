@@ -72,7 +72,7 @@ def format_toe_lines(item: Item) -> ToeLines:
                     state_item["modified_date"]
                 ),
                 seen_at=datetime.fromisoformat(state_item["seen_at"]),
-                sorts_risk_level=int(state_item["sorts_risk_level"]),
+                sorts_risk_level=int(state_item.get("sorts_risk_level", "0")),
                 sorts_risk_level_date=datetime.fromisoformat(
                     state_item["sorts_risk_level_date"]
                 )
