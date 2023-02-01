@@ -14,16 +14,46 @@ from decimal import (
     Decimal,
 )
 import pytest
-from tags import (
-    domain as tags_domain,
+from tags.domain import (
+    remove,
+    update,
 )
 from typing import (
     Optional,
+)
+from unittest.mock import (
+    AsyncMock,
+    patch,
 )
 
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+MODULE_AT_TEST = "tags.domain."
+
+
+@pytest.mark.parametrize(
+    ["organization_name", "portfolio_id"],
+    [
+        ["okada", "test-groups"],
+    ],
+)
+@patch(MODULE_AT_TEST + "portfolios_model.remove", new_callable=AsyncMock)
+async def test_remove(
+    mock_portfolios_model: AsyncMock,
+    organization_name: str,
+    portfolio_id: str,
+) -> None:
+
+    mock_portfolios_model.return_value = None
+    await remove(
+        organization_name=organization_name, portfolio_id=portfolio_id
+    )
+    assert mock_portfolios_model.called is True
+    mock_portfolios_model.assert_called_with(
+        organization_name=organization_name, portfolio_id=portfolio_id
+    )
 
 
 @pytest.mark.changes_db
@@ -59,7 +89,7 @@ async def test_update() -> None:
             original.unreliable_indicators.mean_remediate_critical_severity
             == (Decimal("0"))
         )
-        await tags_domain.update(portfolio=test_1)
+        await update(portfolio=test_1)
     else:
         raise PortfolioNotFound()
 
