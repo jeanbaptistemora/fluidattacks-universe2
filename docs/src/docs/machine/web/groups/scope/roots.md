@@ -530,7 +530,7 @@ through this target.
 
 ## IP roots table
 
-The IP Roots table gives us summary
+The IP roots table gives us summary
 information of the address you want to be analyzed.
 
 ![Scope IP root](https://res.cloudinary.com/fluid-attacks/image/upload/v1675252751/docs/web/groups/scope/ip_root.png)
@@ -588,23 +588,60 @@ it is shown whether it is active.
 
 ![IP Roots activate](https://res.cloudinary.com/fluid-attacks/image/upload/v1675249990/docs/web/groups/scope/ip_activate.png)
 
+### Edit a IP Root
+
+You only have to click on the IP
+root you want to edit.
+A pop-up window will appear where
+you can change the nickname.
+
+![edit IP root](https://res.cloudinary.com/fluid-attacks/image/upload/v1675269101/docs/web/groups/scope/edit_ip_root.png)
+
+### Deactivate a IP Root
+
+Disabling a root IP handles the same
+validations as disabling a Git root.
+You can see this information by clicking
+[here.](/machine/web/groups/scope/roots/#deactivate-a-git-root)
+
 ## URL roots
 
 URL roots are dynamic
 environments that have already
 been deployed to a web server.
+
+## URL roots table
+
+In this table,
+you will find the following information.
+
+![URL Roots table](https://res.cloudinary.com/fluid-attacks/image/upload/v1675269489/docs/web/groups/scope/url_root_table.png)
+
+- **Host:**
+  Your IP address to which you want to validate.
+- **Path:**
+- **Port:**
+- **Protocol:**
+- **Query:**
+- **Nickname:**
+- **State:**
+
+![URL Roots scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
+
+## URL roots functionalities
+
+### Add new URL root
+
 To add a new URL root,
 go to the Scope section of the
 group of your choice and click
 on the Add new root button.
 
-![URL Roots scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
+![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141768/docs/web/groups/scope/urlroot_add_new.png)
 
 The following pop-up window will appear,
 asking you to enter the details
 of the URL  you want to add.
-
-![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141768/docs/web/groups/scope/urlroot_add_new.png)
 
 The details you need to enter
 are defined as follows:
