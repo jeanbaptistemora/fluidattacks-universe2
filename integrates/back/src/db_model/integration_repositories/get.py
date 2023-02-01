@@ -27,6 +27,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -129,10 +130,15 @@ class OrganizationUnreliableRepositoriesLoader(DataLoader):
         )
 
 
-class OrganizationUnreliableRepositoriesConnectionLoader(DataLoader):
+class OrganizationUnreliableRepositoriesConnectionLoader(
+    DataLoader[
+        OrganizationIntegrationRepositoryRequest,
+        OrganizationIntegrationRepositoryConnection,
+    ]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[OrganizationIntegrationRepositoryRequest]
+        self, requests: Iterable[OrganizationIntegrationRepositoryRequest]
     ) -> list[OrganizationIntegrationRepositoryConnection]:
         return list(
             await collect(

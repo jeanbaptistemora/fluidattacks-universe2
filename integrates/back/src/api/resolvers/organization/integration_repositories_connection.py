@@ -22,7 +22,7 @@ async def resolve(
     after: Optional[str] = None,
     first: Optional[int] = None,
     **_kwargs: None,
-) -> list[OrganizationIntegrationRepositoryConnection]:
+) -> OrganizationIntegrationRepositoryConnection:
     loaders: Dataloaders = info.context.loaders
     current_repositories = (
         await loaders.organization_unreliable_integration_repositories_c.load(

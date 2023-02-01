@@ -30,6 +30,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_group(*, group_name: str) -> Group:
@@ -127,9 +130,9 @@ async def _get_organization_groups(
     return groups
 
 
-class GroupLoader(DataLoader):
+class GroupLoader(DataLoader[str, Group]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, group_names: list[str]) -> list[Group]:
+    async def batch_load_fn(self, group_names: Iterable[str]) -> list[Group]:
         return list(
             await collect(
                 tuple(
@@ -155,10 +158,12 @@ class GroupHistoricStateLoader(DataLoader):
         )
 
 
-class GroupUnreliableIndicatorsLoader(DataLoader):
+class GroupUnreliableIndicatorsLoader(
+    DataLoader[str, GroupUnreliableIndicators]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[GroupUnreliableIndicators]:
         return list(
             await collect(

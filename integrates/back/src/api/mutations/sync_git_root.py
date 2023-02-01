@@ -29,6 +29,9 @@ from roots import (
 from sessions import (
     domain as sessions_domain,
 )
+from typing import (
+    cast,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -46,19 +49,20 @@ async def mutate(
     user_email: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
-    root: GitRoot = await loaders.root.load(
-        RootRequest(group_name, kwargs["root_id"])
+    git_root = cast(
+        GitRoot,
+        await loaders.root.load(RootRequest(group_name, kwargs["root_id"])),
     )
     await roots_domain.queue_sync_git_roots(
         loaders=loaders,
-        roots=(root,),
+        roots=(git_root,),
         user_email=user_email,
-        group_name=root.group_name,
+        group_name=git_root.group_name,
         force=True,
     )
     logs_utils.cloudwatch_log(
         info.context,
-        f"Security: Queued a sync clone for root {root.state.nickname} in "
+        f"Security: Queued a sync clone for root {git_root.state.nickname} in "
         f"{group_name} by {user_email}",
     )
 

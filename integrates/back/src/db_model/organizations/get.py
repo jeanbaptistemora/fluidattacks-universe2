@@ -35,6 +35,7 @@ from dynamodb import (
 )
 from typing import (
     AsyncIterator,
+    Iterable,
 )
 
 
@@ -122,10 +123,10 @@ async def _get_organization(*, organization_key: str) -> Organization:
     return await _get_organization_by_name(organization_name=organization_key)
 
 
-class OrganizationLoader(DataLoader):
+class OrganizationLoader(DataLoader[str, Organization]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_keys: list[str]
+        self, organization_keys: Iterable[str]
     ) -> list[Organization]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
         organizations = await collect(
@@ -164,10 +165,12 @@ async def _get_organization_unreliable_indicators(
     return format_unreliable_indicators(response.items[0])
 
 
-class OrganizationUnreliableIndicatorsLoader(DataLoader):
+class OrganizationUnreliableIndicatorsLoader(
+    DataLoader[str, OrganizationUnreliableIndicators]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: list[str]
+        self, organization_ids: Iterable[str]
     ) -> list[OrganizationUnreliableIndicators]:
         return list(
             await collect(

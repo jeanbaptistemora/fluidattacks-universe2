@@ -32,6 +32,7 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -95,12 +96,12 @@ async def get_historic_state(*, email: str) -> list[StakeholderState]:
 
 
 async def _get_stakeholders_no_fallback(
-    *, emails: list[str]
+    *, emails: Iterable[str]
 ) -> list[Stakeholder]:
-    emails = [email.lower().strip() for email in emails]
-    items = await _get_stakeholder_items(emails=emails)
+    emails_formatted = [email.lower().strip() for email in emails]
+    items = await _get_stakeholder_items(emails=emails_formatted)
 
-    if len(items) != len(emails):
+    if len(items) != len(emails_formatted):
         raise StakeholderNotFound()
 
     return [
@@ -109,20 +110,20 @@ async def _get_stakeholders_no_fallback(
             for item in items
             if (item.get("email") or str(item["pk"]).split("#")[1]) == email
         )
-        for email in emails
+        for email in emails_formatted
     ]
 
 
 async def _get_stakeholders_with_fallback(
     *,
     stakeholder_dataloader: DataLoader,
-    emails: list[str],
+    emails: Iterable[str],
 ) -> list[Stakeholder]:
-    emails = [email.lower().strip() for email in emails]
-    items = await _get_stakeholder_items(emails=emails)
+    emails_formatted = [email.lower().strip() for email in emails]
+    items = await _get_stakeholder_items(emails=emails_formatted)
 
     stakeholders: list[Stakeholder] = []
-    for email in emails:
+    for email in emails_formatted:
         stakeholder: Optional[Stakeholder] = next(
             (
                 format_stakeholder(item)
@@ -140,19 +141,19 @@ async def _get_stakeholders_with_fallback(
     return stakeholders
 
 
-class StakeholderLoader(DataLoader):
+class StakeholderLoader(DataLoader[str, Stakeholder]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, emails: list[str]) -> list[Stakeholder]:
+    async def batch_load_fn(self, emails: Iterable[str]) -> list[Stakeholder]:
         return await _get_stakeholders_no_fallback(emails=emails)
 
 
-class StakeholderWithFallbackLoader(DataLoader):
+class StakeholderWithFallbackLoader(DataLoader[str, Stakeholder]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, emails: list[str]) -> list[Stakeholder]:
+    async def batch_load_fn(self, emails: Iterable[str]) -> list[Stakeholder]:
         return await _get_stakeholders_with_fallback(
             stakeholder_dataloader=self.dataloader, emails=emails
         )

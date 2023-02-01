@@ -154,6 +154,7 @@ from settings.various import (
 )
 from typing import (
     Any,
+    cast,
     DefaultDict,
     Optional,
     Union,
@@ -1029,11 +1030,11 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     except ConditionalCheckFailedException:
         await sleep(1.0)
         loaders.root.clear(RootRequest(group_name, root_id))
-        rroot: GitRoot = await loaders.root.load(
-            RootRequest(group_name, root_id)
+        git_root = cast(
+            GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
         )
         await roots_model.update_git_root_cloning(
-            current_value=rroot.cloning,
+            current_value=git_root.cloning,
             cloning=GitRootCloning(
                 modified_date=modified_date,
                 reason=message,

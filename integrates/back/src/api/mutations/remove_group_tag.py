@@ -44,7 +44,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group = await loaders.group.load(group_name)
     user_info = await sessions_domain.get_jwt_content(info.context)
-    email: str = user_info["user_email"]
+    email = user_info["user_email"]
 
     if await groups_domain.is_valid(loaders, group_name) and group.state.tags:
         await groups_domain.remove_tag(

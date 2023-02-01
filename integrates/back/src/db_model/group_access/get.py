@@ -24,12 +24,15 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_group_access(
-    *, requests: list[GroupAccessRequest]
+    *, requests: Iterable[GroupAccessRequest]
 ) -> list[GroupAccess]:
-    requests = [
+    requests_formatted = [
         request._replace(
             group_name=request.group_name.lower().strip(),
             email=request.email.lower().strip(),
@@ -44,11 +47,11 @@ async def _get_group_access(
                 "name": request.group_name,
             },
         )
-        for request in requests
+        for request in requests_formatted
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
+    if len(items) == len(requests_formatted):
         response = {
             GroupAccessRequest(
                 group_name=group_access.group_name, email=group_access.email
@@ -57,7 +60,7 @@ async def _get_group_access(
                 format_group_access(item) for item in items
             )
         }
-        return [response[request] for request in requests]
+        return [response[request] for request in requests_formatted]
 
     raise StakeholderNotInGroup()
 
@@ -159,10 +162,10 @@ async def _get_stakeholder_groups_access(
     return access_list
 
 
-class GroupAccessLoader(DataLoader):
+class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupAccessRequest]
+        self, requests: Iterable[GroupAccessRequest]
     ) -> list[GroupAccess]:
         return await _get_group_access(requests=requests)
 

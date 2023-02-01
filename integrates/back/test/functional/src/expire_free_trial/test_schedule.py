@@ -71,7 +71,7 @@ async def test_expire_free_trial(*, populate: bool) -> None:
         company_before: Optional[Company] = await loaders.company.load(
             str(case["email"]).split("@")[1]
         )
-        group_before: Group = await loaders.group.load(case["group_name"])
+        group_before: Group = await loaders.group.load(str(case["group_name"]))
         assert company_before
         assert company_before.trial.completed == case["completed_before"]
         assert group_before.state.managed == case["managed_before"]
@@ -84,7 +84,7 @@ async def test_expire_free_trial(*, populate: bool) -> None:
         company_after: Optional[Company] = await loaders.company.load(
             str(case["email"]).split("@")[1]
         )
-        group_after: Group = await loaders.group.load(case["group_name"])
+        group_after: Group = await loaders.group.load(str(case["group_name"]))
         assert company_after
         assert company_after.trial.completed == case["completed_after"]
         assert group_after.state.managed == case["managed_after"]

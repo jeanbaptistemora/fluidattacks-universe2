@@ -35,6 +35,7 @@ from schedulers.common import (
 )
 from typing import (
     Any,
+    cast,
     Optional,
 )
 
@@ -47,8 +48,9 @@ async def process_item(
 ) -> bool:
     group_name = job.name.split("-")[-1]
     try:
-        git_root: GitRoot = await loaders.root.load(
-            RootRequest(group_name, job.root_id)
+        git_root = cast(
+            GitRoot,
+            await loaders.root.load(RootRequest(group_name, job.root_id)),
         )
     except RootNotFound:
         return False

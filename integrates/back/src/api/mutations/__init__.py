@@ -1,3 +1,6 @@
+from db_model.groups.types import (
+    Group,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -100,7 +103,7 @@ class SimpleFindingPayload(NamedTuple):
 
 class SimpleGroupPayload(NamedTuple):
     success: bool
-    group: dict[str, Any]
+    group: Group
 
 
 class SimplePayload(NamedTuple):

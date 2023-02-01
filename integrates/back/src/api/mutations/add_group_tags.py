@@ -72,4 +72,5 @@ async def mutate(
 
     loaders.group.clear(group_name)
     group = await loaders.group.load(group_name)
+
     return SimpleGroupPayload(success=True, group=group)
