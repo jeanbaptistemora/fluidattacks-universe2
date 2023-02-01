@@ -117,3 +117,4 @@ def instrument(app: Starlette) -> None:
     StarletteInstrumentor.instrument_app(app)
     URLLibInstrumentor().instrument()
     URLLib3Instrumentor().instrument()
+    initialize()

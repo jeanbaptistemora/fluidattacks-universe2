@@ -8,24 +8,28 @@ function serve_daemon {
 
 function serve {
   local env="${1:-}"
-  # https://docs.gunicorn.org/en/latest/design.html#how-many-workers
-  local recommended_workers
+
+  local workers_per_core=1
+  local cores
+  cores=$(nproc --all)
+  local workers=$((workers_per_core * cores))
+
+  # The current value of alb.ingress.kubernetes.io/load-balancer-attributes
+  local load_balancer_timeout=60
+  # We must wait a little longer to let the load balancer close the connection first
+  # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html#connection-idle-timeout
+  local keep_alive_timeout=$((load_balancer_timeout + 5))
+
   local config=(
-    # The socket to bind. [['127.0.0.1:8000']]
+    # The TCP host/address to bind to
     --bind "${HOST}:${PORT}"
-    # The Gunicorn config file
-    --config 'python:settings.gunicorn'
-    # Front-end's IPs from which allowed to handle set secure headers. [127.0.0.1]
-    --forwarded-allow-ips '*'
-    # Workers silent for more than this many seconds are killed and restarted. [30]
-    --timeout '120'
-    # The type of workers to use. [sync]
-    --worker-class 'settings.uvicorn.IntegratesWorker'
+    # Path to the hypercorn config file
+    --config 'python:settings.hypercorn'
+    # Seconds to keep inactive connections alive before closing. [5]
+    --keep-alive "${keep_alive_timeout}"
+    # The type of workers to use. [asyncio]
+    --worker-class 'uvloop'
   )
-  # The current value of alb.ingress.kubernetes.io/load-balancer-attributes is set to 120
-  # but we wait a little longer to let the ALB close the connection first
-  # which is important to prevent some 5XX responses
-  local load_balancer_timeout=125
 
   source __argIntegratesBackEnv__/template "${env}" \
     && case "${DAEMON:-}" in
@@ -33,31 +37,26 @@ function serve {
       true) export LOG_LEVEL_CONSOLE="ERROR" ;;
       *) export LOG_LEVEL_CONSOLE="INFO" ;;
     esac \
-    && recommended_workers=$(python3 -c "import os; print(2 * os.cpu_count() + 1)") \
     && if test "${env}" == 'dev'; then
       config+=(
         # SSL certificate file
         --certfile=__argCertsDevelopment__/cert.crt
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
-        # Restart workers when code changes
+        # Enable automatic reloads on code changes
         --reload
         # The number of worker processes for handling requests
         --workers 1
       )
     elif test "${env}" == 'eph'; then
       config+=(
-        # The number of seconds to wait for requests on a Keep-Alive connection
-        --keep-alive "${load_balancer_timeout}"
         # The number of worker processes for handling requests
-        --workers "${recommended_workers}"
+        --workers "${workers}"
       )
     elif test "${env}" == 'prod'; then
       config+=(
-        # The number of seconds to wait for requests on a Keep-Alive connection
-        --keep-alive "${load_balancer_timeout}"
         # The number of worker processes for handling requests
-        --workers "${recommended_workers}"
+        --workers "${workers}"
       )
     elif test "${env}" == 'prod-local'; then
       config+=(
@@ -65,7 +64,7 @@ function serve {
         --certfile=__argCertsDevelopment__/cert.crt
         # SSL key file
         --keyfile=__argCertsDevelopment__/cert.key
-        # Restart workers when code changes
+        # Enable automatic reloads on code changes
         --reload
         # The number of worker processes for handling requests
         --workers 1
@@ -75,8 +74,8 @@ function serve {
     fi \
     && pushd integrates/back/src \
     && kill_port "${PORT}" \
-    && { gunicorn "${config[@]}" 'app.app:APP' & } \
-    && wait_port 5 "${HOST}:${PORT}" \
+    && { hypercorn "${config[@]}" 'app.app:APP' & } \
+    && wait_port 10 "${HOST}:${PORT}" \
     && done_port "${HOST}" 28001 \
     && info Back is ready \
     && wait \

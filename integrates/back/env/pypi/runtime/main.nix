@@ -16,6 +16,16 @@
       };
     doCheck = false;
   });
+  self_hypercorn = inputs.nixpkgs.python39Packages.hypercorn.overridePythonAttrs (old: rec {
+    doCheck = false;
+    src = inputs.nixpkgs.fetchFromGitHub {
+      owner = "pgjones";
+      repo = old.pname;
+      rev = version;
+      hash = "sha256-ECREs8UwqTWUweUrwnUwpVotCII2v4Bz7ZCk3DSAd8I=";
+    };
+    version = "0.14.3";
+  });
   self_pycurl = inputs.nixpkgs.python39Packages.pycurl.overridePythonAttrs (_: rec {
     doCheck = false;
     version = "7.45.2";
@@ -40,6 +50,7 @@
         inputs.nixpkgs.postgresql
         inputs.nixpkgs.gnutar
         inputs.nixpkgs.gzip
+        self_hypercorn
         self_inotify
         self_pycurl
       ];
@@ -53,6 +64,7 @@ in
     searchPaths = {
       pythonPackage = [
         "${self_bugsnag}/lib/python3.9/site-packages/"
+        "${self_hypercorn}/lib/python3.9/site-packages/"
         "${self_inotify}/lib/python3.9/site-packages/"
         "${self_pycurl}/lib/python3.9/site-packages/"
         (projectPath "/integrates/back/src")
