@@ -107,22 +107,48 @@ def get_days_since_comment(date: datetime) -> int:
     return (datetime_utils.get_utc_now() - date).days
 
 
-def last_comments(
-    comments: list[Union[GroupComment, EventComment, FindingComment]],
-) -> list[Union[GroupComment, EventComment, FindingComment]]:
+def is_last_day_comment(creation_date: datetime) -> bool:
     comments_age = 3 if datetime_utils.get_now().weekday() == 0 else 1
+
+    return get_days_since_comment(creation_date) < comments_age
+
+
+def filter_last_event_comments(
+    comments: list[EventComment],
+) -> list[EventComment]:
     return [
         comment
         for comment in comments
-        if get_days_since_comment(comment.creation_date) < comments_age
+        if is_last_day_comment(comment.creation_date)
+    ]
+
+
+def filter_last_finding_comments(
+    comments: list[FindingComment],
+) -> list[FindingComment]:
+    return [
+        comment
+        for comment in comments
+        if is_last_day_comment(comment.creation_date)
+    ]
+
+
+def filter_last_group_comments(
+    comments: list[GroupComment],
+) -> list[GroupComment]:
+    return [
+        comment
+        for comment in comments
+        if is_last_day_comment(comment.creation_date)
     ]
 
 
 async def group_comments(
     loaders: Dataloaders, group_name: str
-) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> tuple[GroupComment, ...]:
     comments = await loaders.group_comments.load(group_name)
-    return tuple(last_comments(comments))
+
+    return tuple(filter_last_group_comments(comments))
 
 
 async def instance_comments(
@@ -130,7 +156,9 @@ async def instance_comments(
 ) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
     if instance_type == "event":
         return tuple(
-            last_comments(await loaders.event_comments.load(instance_id))
+            filter_last_event_comments(
+                await loaders.event_comments.load(instance_id)
+            )
         )
 
     comments = await loaders.finding_comments.load(
@@ -143,7 +171,7 @@ async def instance_comments(
         )
     )
 
-    return tuple(last_comments(comments))
+    return tuple(filter_last_finding_comments(comments))
 
 
 async def group_instance_comments(
@@ -195,7 +223,7 @@ async def finding_comments(
             comment_type=CommentType.COMMENT, finding_id=finding_id
         )
     )
-    return last_comments(comments)
+    return list(filter_last_finding_comments(comments))
 
 
 def format_comment(comment: str) -> str:

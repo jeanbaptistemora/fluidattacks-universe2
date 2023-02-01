@@ -26,18 +26,17 @@ from pytz import (
 from schedulers.consulting_digest_notification import (
     CommentsDataType,
     digest_comments,
+    filter_last_group_comments,
     finding_comments,
     format_comment,
     get_days_since_comment,
     group_comments,
     group_instance_comments,
     instance_comments,
-    last_comments,
     unique_emails,
 )
 from typing import (
     Any,
-    Union,
 )
 
 pytestmark = [
@@ -89,11 +88,11 @@ def test_get_days_since_comment() -> None:
     ],
 )
 @freeze_time("2022-12-05T06:00:00.0")
-def test_last_comments(
+def test_filter_last_group_comments(
     *,
-    comments: list[Union[GroupComment, EventComment, FindingComment]],
+    comments: list[GroupComment],
 ) -> None:
-    assert len(last_comments(comments)) == 2
+    assert len(filter_last_group_comments(comments)) == 2
 
 
 @pytest.mark.asyncio
