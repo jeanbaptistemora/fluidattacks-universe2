@@ -60,11 +60,12 @@ from s3.resource import (
     get_s3_resource,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
 
-async def _get_roots(*, requests: list[RootRequest]) -> list[Root]:
+async def _get_roots(*, requests: Iterable[RootRequest]) -> list[Root]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["git_root_metadata"],
@@ -74,15 +75,17 @@ async def _get_roots(*, requests: list[RootRequest]) -> list[Root]:
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(requests):
+    if len(items) == len(list(requests)):
         return [format_root(item) for item in items]
 
     raise RootNotFound()
 
 
-class RootLoader(DataLoader):
+class RootLoader(DataLoader[RootRequest, Root]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, requests: list[RootRequest]) -> list[Root]:
+    async def batch_load_fn(
+        self, requests: Iterable[RootRequest]
+    ) -> list[Root]:
         roots = {root.id: root for root in await _get_roots(requests=requests)}
 
         return [roots[request.root_id] for request in requests]

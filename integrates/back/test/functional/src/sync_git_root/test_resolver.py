@@ -5,11 +5,13 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.roots.types import (
+    GitRoot,
     RootRequest,
 )
 import pytest
 from typing import (
     Any,
+    cast,
 )
 
 
@@ -35,7 +37,9 @@ async def test_sync_git_root(
     assert result["data"]["syncGitRoot"]["success"]
 
     loaders = get_new_context()
-    root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = cast(
+        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
+    )
     assert root.cloning.status.value == expected_status
 
 

@@ -2,7 +2,6 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.roots.types import (
@@ -12,6 +11,7 @@ from db_model.roots.types import (
 import pytest
 from typing import (
     Any,
+    cast,
 )
 
 
@@ -27,7 +27,7 @@ async def test_update_root_cloning_status(populate: bool, email: str) -> None:
     assert populate
     root_id: str = "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a"
     group_name: str = "group2"
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     result: dict[str, Any] = await get_result(
         user=email,
         group=group_name,
@@ -38,7 +38,9 @@ async def test_update_root_cloning_status(populate: bool, email: str) -> None:
     assert "success" in result["data"]["updateRootCloningStatus"]
     assert result["data"]["updateRootCloningStatus"]["success"]
 
-    root: GitRoot = await loaders.root.load(RootRequest(group_name, root_id))
+    root = cast(
+        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
+    )
     assert root.cloning.status == "OK"
 
 

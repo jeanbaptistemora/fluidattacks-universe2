@@ -11,6 +11,7 @@ from db_model.roots.types import (
 import pytest
 from typing import (
     Any,
+    cast,
 )
 
 
@@ -53,7 +54,9 @@ async def test_add_url_root(
 
     loaders = get_new_context()
     root_id = result["data"]["addUrlRoot"]["rootId"]
-    root: URLRoot = await loaders.root.load(RootRequest(group_name, root_id))
+    root = cast(
+        URLRoot, await loaders.root.load(RootRequest(group_name, root_id))
+    )
     assert root.state.nickname == nickname
     assert root.state.query == query
 

@@ -13,7 +13,6 @@ from custom_exceptions import (
     RootAlreadyCloning,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.enums import (
@@ -36,6 +35,7 @@ from roots.domain import (
 )
 from typing import (
     Any,
+    cast,
 )
 
 
@@ -45,7 +45,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     root_1: Root = await loaders.root.load(
         RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
@@ -68,7 +68,7 @@ async def test_queue_sync_git_roots_real_https_ok(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     root_1: Root = await loaders.root.load(
         RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
@@ -91,7 +91,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=True)
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     await update_root_cloning_status(
         loaders,
         "group1",
@@ -120,7 +120,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=True)
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     await update_root_cloning_status(
         loaders,
         "group1",
@@ -169,7 +169,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     )
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     root_1: Root = await loaders.root.load(
         RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
@@ -188,7 +188,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
 async def test_queue_sync_git_roots_no_creds(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     root_1: Root = await loaders.root.load(
         RootRequest("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
@@ -210,9 +210,12 @@ async def test_queue_sync_git_no_queue(
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
-    loaders: Dataloaders = get_new_context()
-    root_1: GitRoot = await loaders.root.load(
-        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+    loaders = get_new_context()
+    root_1 = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+        ),
     )
 
     result = await roots_domain.queue_sync_git_roots(
@@ -223,8 +226,11 @@ async def test_queue_sync_git_no_queue(
     )
     assert not result
     loaders.root.clear_all()
-    root: GitRoot = await loaders.root.load(
-        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+    root = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+        ),
     )
     assert root.cloning.status == GitCloningStatus.FAILED
 
@@ -240,9 +246,12 @@ async def test_queue_sync_git_roots_cloning(
         "ssh_ls_remote",
         return_value="904d294729ad03fd2dadbb89b920389458e53a61c",
     )
-    loaders: Dataloaders = get_new_context()
-    root_1: GitRoot = await loaders.root.load(
-        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+    loaders = get_new_context()
+    root_1 = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+        ),
     )
 
     result = await roots_domain.queue_sync_git_roots(
@@ -253,8 +262,11 @@ async def test_queue_sync_git_roots_cloning(
     )
     assert result
     loaders.root.clear_all()
-    root: GitRoot = await loaders.root.load(
-        RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+    root = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
+        ),
     )
     assert root.cloning.status == GitCloningStatus.QUEUED
 
@@ -275,9 +287,12 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
         return_value=True,
     )
 
-    loaders: Dataloaders = get_new_context()
-    root_1: GitRoot = await loaders.root.load(
-        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    loaders = get_new_context()
+    root_1 = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        ),
     )
 
     result = await roots_domain.queue_sync_git_roots(
@@ -288,8 +303,11 @@ async def test_queue_sync_git_roots_with_same_commit_in_s3(
     )
     assert not result
     loaders.root.clear_all()
-    root: GitRoot = await loaders.root.load(
-        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    root = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        ),
     )
     assert root.cloning.status == GitCloningStatus.FAILED
 
@@ -310,9 +328,12 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
         return_value=False,
     )
 
-    loaders: Dataloaders = get_new_context()
-    root_1: GitRoot = await loaders.root.load(
-        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    loaders = get_new_context()
+    root_1 = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        ),
     )
 
     result = await roots_domain.queue_sync_git_roots(
@@ -323,8 +344,11 @@ async def test_queue_sync_git_roots_with_same_commit_not_in_s3(
     )
     assert result
     loaders.root.clear_all()
-    root: GitRoot = await loaders.root.load(
-        RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+    root = cast(
+        GitRoot,
+        await loaders.root.load(
+            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax")
+        ),
     )
     assert root.cloning.status == GitCloningStatus.QUEUED
 
@@ -374,15 +398,18 @@ async def test_queue_sync_git_roots_already_in_queue_running(
         ),
     )
 
-    loaders: Dataloaders = get_new_context()
-    roots = await loaders.root.load_many(
-        [
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
-            RootRequest("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
-            RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
-            RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
-        ]
+    loaders = get_new_context()
+    roots = cast(
+        list[GitRoot],
+        await loaders.root.load_many(
+            [
+                RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
+                RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
+                RootRequest("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
+                RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
+                RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
+            ]
+        ),
     )
 
     with pytest.raises(RootAlreadyCloning):
@@ -528,15 +555,18 @@ async def test_queue_sync_git_roots(
         return_value=batch_items,
     )
 
-    loaders: Dataloaders = get_new_context()
-    roots = await loaders.root.load_many(
-        [
-            RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
-            RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
-            RootRequest("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
-            RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
-            RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
-        ]
+    loaders = get_new_context()
+    roots = cast(
+        list[GitRoot],
+        await loaders.root.load_many(
+            [
+                RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6"),
+                RootRequest("group1", "2159f8cb-3b55-404b-8fc5-627171f424ax"),
+                RootRequest("group1", "9059f0cb-3b55-404b-8fc5-627171f424ad"),
+                RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af"),
+                RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az"),
+            ]
+        ),
     )
 
     try:

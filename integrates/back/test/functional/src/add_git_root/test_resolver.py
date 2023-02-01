@@ -12,9 +12,13 @@ from db_model.enums import (
     CredentialType,
 )
 from db_model.roots.types import (
+    GitRoot,
     RootRequest,
 )
 import pytest
+from typing import (
+    cast,
+)
 
 
 @pytest.mark.asyncio
@@ -55,7 +59,9 @@ async def test_add_git_root(populate: bool, email: str) -> None:
 
     loaders = get_new_context()
     root_id = result["data"]["addGitRoot"]["rootId"]
-    root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = cast(
+        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
+    )
     assert root.cloning.status.value == "QUEUED"
     assert root.cloning.reason == "Cloning queued..."
 
@@ -82,7 +88,9 @@ async def test_add_git_root(populate: bool, email: str) -> None:
     assert new_credentials is not None
     assert new_credentials.owner == email
     assert new_credentials.state.name == credentials["name"]
-    assert new_credentials.state.type == CredentialType[credentials["type"]]
+    assert (
+        new_credentials.state.type == CredentialType[str(credentials["type"])]
+    )
     assert getattr(
         new_credentials.state.secret, "token", None
     ) == credentials.get("token")
