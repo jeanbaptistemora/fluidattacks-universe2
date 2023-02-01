@@ -6,6 +6,7 @@
 makeTemplate {
   searchPaths.bin = [
     inputs.nixpkgs.coreutils
+    inputs.nixpkgs.curl
     inputs.nixpkgs.envsubst
     inputs.nixpkgs.kubectl
     inputs.nixpkgs.yq

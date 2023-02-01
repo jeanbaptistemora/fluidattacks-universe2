@@ -40,3 +40,25 @@ function apply_manifest {
 function b64 {
   echo -n "${1}" | base64 --wrap=0
 }
+
+function report_deployment_checkly {
+  : \
+    && echo '[INFO] Announcing deployment to Checkly' \
+    && curl "https://api.checklyhq.com/check-groups/${CHECKLY_CHECK_ID}/trigger/${CHECKLY_TRIGGER_ID}?deployment=true&repository=product/integrates&sha=${CI_COMMIT_SHA}" \
+      --request 'GET'
+}
+
+function report_deployment {
+  report_deployment_checkly
+}
+
+function rollout {
+  local name="${1}"
+
+  : \
+    && echo '[INFO] Rolling out update' \
+    && kubectl rollout status \
+      "deploy/integrates-${name}" \
+      -n 'prod-integrates' \
+      --timeout="30m"
+}

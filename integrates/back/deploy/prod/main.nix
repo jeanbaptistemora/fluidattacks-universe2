@@ -2,25 +2,18 @@
   inputs,
   makeScript,
   outputs,
-  projectPath,
   ...
 }:
 makeScript {
   replace = {
-    __argManifests__ = projectPath "/integrates/back/deploy/prod/k8s";
+    __argManifests__ = ./k8s;
   };
   searchPaths = {
-    bin = [
-      inputs.nixpkgs.awscli
-      inputs.nixpkgs.curl
-      inputs.nixpkgs.envsubst
-      inputs.nixpkgs.kubectl
-      inputs.nixpkgs.utillinux
-      inputs.nixpkgs.yq
-    ];
+    bin = [inputs.nixpkgs.utillinux];
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
+      outputs."/integrates/back/deploy/lib"
     ];
   };
   name = "integrates-back-deploy-prod";

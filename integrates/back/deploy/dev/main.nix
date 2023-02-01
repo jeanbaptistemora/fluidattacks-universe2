@@ -2,12 +2,11 @@
   inputs,
   makeScript,
   outputs,
-  projectPath,
   ...
 }:
 makeScript {
   replace = {
-    __argManifests__ = projectPath "/integrates/back/deploy/dev/k8s";
+    __argManifests__ = ./k8s;
   };
   searchPaths = {
     bin = [

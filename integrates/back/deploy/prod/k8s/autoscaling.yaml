@@ -1,5 +1,4 @@
----
-apiVersion: autoscaling/v1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: integrates-${NAME}
@@ -11,4 +10,10 @@ spec:
     name: integrates-${NAME}
   minReplicas: 5
   maxReplicas: 75
-  targetCPUUtilizationPercentage: 60
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 60
