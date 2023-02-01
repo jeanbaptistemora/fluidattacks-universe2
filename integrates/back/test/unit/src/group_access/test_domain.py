@@ -90,14 +90,26 @@ async def test_exists(
         ],
     ],
 )
+@patch(
+    get_mocked_path("loaders.group_stakeholders_access.load"),
+    new_callable=AsyncMock,
+)
 async def test_get_group_stakeholders_emails(
+    mock_loaders_group_stakeholders_access: AsyncMock,
     group_name: str,
     expected_result: list,
 ) -> None:
+    assert set_mocks_return_values(
+        mocked_objects=[mock_loaders_group_stakeholders_access],
+        paths_list=["loaders.group_stakeholders_access.load"],
+        mocks_args=[[group_name]],
+    )
     loaders = get_new_context()
     users = await get_group_stakeholders_emails(loaders, group_name)
     for user in expected_result:
         assert user in users
+    assert mock_loaders_group_stakeholders_access.called is True
+    mock_loaders_group_stakeholders_access.assert_called_with(group_name)
 
 
 async def test_get_managers() -> None:
