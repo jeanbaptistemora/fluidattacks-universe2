@@ -138,6 +138,18 @@ said profiles are configured with different policies:
   [378](/criteria/requirements/378), [079](/criteria/requirements/079),
   [075](/criteria/requirements/075).
 
+## References
+
+- [SOC2®-CC6_2. Logical and physical access controls](/criteria/compliance/soc2)
+- [MITRE ATT&CK®-M1043. Credential access protection](/criteria/compliance/mitre)
+- [SANS 25-14. Improper Authentication](/criteria/compliance/sans25)
+- [POPIA-3A_23. Access to personal information](/criteria/compliance/popia)
+- [PDPO-S1_4. Security of personal data](/criteria/compliance/pdpo)
+- [CMMC-IA_L1-3_5_2. Authentication](/criteria/compliance/cmmc)
+- [HITRUST CSF-10_c. Control of internal processing](/criteria/compliance/hitrust)
+- [OWASP MASVS-V8_10. Resilience requirements - Device binding](/criteria/compliance/owaspmasvs)
+- [OWASP ASVS-4_3_1. Other access control considerations](/criteria/compliance/asvs)
+
 ## Requirements
 
 - [033. Restrict administrative access](/criteria/requirements/033)
