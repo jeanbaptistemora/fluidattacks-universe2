@@ -6,7 +6,9 @@ from syntax_graph.syntax_readers.python import (
     identifier as python_identifier,
     import_statement as python_import_statement,
     module as python_module,
+    parameters as python_parameters,
     reserved_word as python_reserved_word,
+    tuple as python_tuple,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -58,9 +60,21 @@ PYTHON_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "parameters",
+        },
+        syntax_reader=python_parameters.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "return",
             "in",
         },
         syntax_reader=python_reserved_word.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "tuple",
+        },
+        syntax_reader=python_tuple.reader,
     ),
 )
