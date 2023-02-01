@@ -618,13 +618,26 @@ you will find the following information.
 ![URL Roots table](https://res.cloudinary.com/fluid-attacks/image/upload/v1675269489/docs/web/groups/scope/url_root_table.png)
 
 - **Host:**
-  Your IP address to which you want to validate.
+  The domain name or IP address.
 - **Path:**
+  The path that will give to validate the URL.
 - **Port:**
+  The port number that helps us to give
+  access to the URL.
 - **Protocol:**
+  The protocol is using the browser.
 - **Query:**
+  The query component serves to identify
+  a resource within the scope of the
+  URI's scheme.
 - **Nickname:**
+  The identifier name of that URL.
 - **State:**
+  There are two states: **Active** and **Inactive**.
+  The same reasons are validated to
+  deactivate a root IP as in a Git Root
+  if you want to see more,
+  click [here.](/machine/web/groups/scope/roots/#deactivate-a-git-root)
 
 ![URL Roots scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
 
@@ -658,12 +671,25 @@ The URL roots you add will be
 listed below **URL Roots**.
 There,
 it is shown whether it is active.
-Further,
-you can export the information in the
-table to a CSV (comma-separated values)
-file by clicking on the **Export** button.
 
-![URL Roots Export](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141769/docs/web/groups/scope/urlroot_export.png)
+### Edit a URL Root
+
+By clicking on the URL of your interest,
+you will be able to edit the nickname of the URL.
+
+![Edit URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1675282250/docs/web/groups/scope/url_edit.png)
+
+If you notice,
+you can also add or edit the secrets of that URL.
+For more information about this,
+click [here.](/machine/web/groups/scope/roots/#secrets)
+
+### Deactivate a URL Root
+
+Disabling a root URL handles the same validations
+as disabling a Git an IP root.
+You can see this information by clicking
+[here.](/machine/web/groups/scope/roots/#deactivate-a-git-root)
 
 ## Single root assessment
 
