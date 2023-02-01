@@ -24701,29 +24701,11 @@
           },
           "TableData": [
             {
-              "seen_first_time_by": {
-                "S": "test2@test.com"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
-              "attacked_by": {
-                "S": "test2@test.com"
-              },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
-              },
-              "unreliable_root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "sk": {
                 "S": "STATE#2021-02-11T05:00:00+00:00"
@@ -24731,14 +24713,8 @@
               "pk": {
                 "S": "INPUTS#GROUP#unittesting#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT#-"
               },
-              "first_attack_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
               "entry_point": {
                 "S": "-"
-              },
-              "seen_at": {
-                "S": "2020-01-11T05:00:00+00:00"
               },
               "state": {
                 "M": {
@@ -24776,29 +24752,11 @@
               }
             },
             {
-              "seen_first_time_by": {
-                "S": "test2@test.com"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
-              "attacked_by": {
-                "S": "test2@test.com"
-              },
               "component": {
                 "S": "https://test.com/test2/test.aspx"
-              },
-              "unreliable_root_id": {
-                "S": "4039d098-ffc5-4984-8ed3-eb17bca98e19"
               },
               "sk": {
                 "S": "STATE#2021-02-11T05:00:00+00:00"
@@ -24806,14 +24764,8 @@
               "pk": {
                 "S": "INPUTS#GROUP#unittesting#ROOT#4039d098-ffc5-4984-8ed3-eb17bca98e19#COMPONENT#https://test.com/test2/test.aspx#ENTRYPOINT"
               },
-              "first_attack_at": {
-                "S": "2021-02-11T05:00:00+00:00"
-              },
               "entry_point": {
                 "S": ""
-              },
-              "seen_at": {
-                "S": "2020-01-11T05:00:00+00:00"
               },
               "state": {
                 "M": {
@@ -24851,29 +24803,11 @@
               }
             },
             {
-              "seen_first_time_by": {
-                "S": ""
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2020-01-02T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": true
-              },
-              "attacked_by": {
-                "S": "test@test.com"
-              },
               "component": {
                 "S": "https://test.com/api/Test"
-              },
-              "unreliable_root_id": {
-                "S": ""
               },
               "sk": {
                 "S": "STATE#2021-02-11T05:00:00+00:00"
@@ -24881,14 +24815,8 @@
               "pk": {
                 "S": "INPUTS#GROUP#unittesting#ROOT#COMPONENT#https://test.com/api/Test#ENTRYPOINT#idTest"
               },
-              "first_attack_at": {
-                "S": "2020-01-02T05:00:00+00:00"
-              },
               "entry_point": {
                 "S": "idTest"
-              },
-              "seen_at": {
-                "S": "2000-01-01T05:00:00+00:00"
               },
               "state": {
                 "M": {
@@ -24926,32 +24854,11 @@
               }
             },
             {
-              "seen_first_time_by": {
-                "S": "test@test.com"
-              },
               "group_name": {
                 "S": "unittesting"
               },
-              "has_vulnerabilities": {
-                "BOOL": false
-              },
-              "attacked_at": {
-                "S": "2021-02-02T05:00:00+00:00"
-              },
-              "be_present": {
-                "BOOL": false
-              },
-              "attacked_by": {
-                "S": "test@test.com"
-              },
-              "be_present_until": {
-                "S": "2021-03-20T15:41:04+00:00"
-              },
               "component": {
                 "S": "https://test.com/test/test.aspx"
-              },
-              "unreliable_root_id": {
-                "S": ""
               },
               "sk": {
                 "S": "STATE#2021-02-11T05:00:00+00:00"
@@ -24959,14 +24866,8 @@
               "pk": {
                 "S": "INPUTS#GROUP#unittesting#ROOT#COMPONENT#https://test.com/test/test.aspx#ENTRYPOINT#btnTest"
               },
-              "first_attack_at": {
-                "S": "2021-01-02T05:00:00+00:00"
-              },
               "entry_point": {
                 "S": "btnTest"
-              },
-              "seen_at": {
-                "S": "2020-03-14T05:00:00+00:00"
               },
               "state": {
                 "M": {
@@ -25008,19 +24909,10 @@
             }
           ],
           "NonKeyAttributes": [
-            "seen_first_time_by",
             "component",
             "entry_point",
             "group_name",
-            "unreliable_root_id",
-            "first_attack_at",
-            "attacked_at",
-            "seen_at",
-            "be_present",
-            "attacked_by",
-            "be_present_until",
-            "state",
-            "has_vulnerabilities"
+            "state"
           ],
           "DataAccess": {
             "MySql": {}
