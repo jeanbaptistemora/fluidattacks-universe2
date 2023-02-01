@@ -5,6 +5,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from datetime import (
+    datetime,
+)
 from db_model import (
     organizations as orgs_model,
     stakeholders as stakeholders_model,
@@ -34,6 +37,22 @@ from stakeholders import (
 EMAIL_INTEGRATES = "integrates@fluidattacks.com"
 
 
+def _get_last_activity(stakeholder: Stakeholder) -> datetime:
+    last_login_date = (
+        stakeholder.last_login_date
+        if stakeholder.last_login_date is not None
+        else datetime.fromisoformat(datetime_utils.DEFAULT_ISO_STR)
+    )
+
+    last_api_token_use_date = (
+        stakeholder.last_api_token_use_date
+        if stakeholder.last_api_token_use_date is not None
+        else datetime.fromisoformat(datetime_utils.DEFAULT_ISO_STR)
+    )
+
+    return max([last_login_date, last_api_token_use_date])
+
+
 async def process_stakeholder(
     stakeholder: Stakeholder,
 ) -> None:
@@ -48,7 +67,7 @@ async def process_stakeholder(
         return
 
     inactivity_days = (
-        datetime_utils.get_utc_now() - stakeholder.last_login_date
+        datetime_utils.get_utc_now() - _get_last_activity(stakeholder)
     ).days
     if inactivity_days < DEFAULT_INACTIVITY_PERIOD:
         return
@@ -78,7 +97,9 @@ async def process_organization(
         stakeholder
         for stakeholder in org_stakeholders
         if stakeholder.last_login_date
-        and (datetime_utils.get_utc_now() - stakeholder.last_login_date).days
+        and (
+            datetime_utils.get_utc_now() - _get_last_activity(stakeholder)
+        ).days
         > inactivity_period_policy
     ]
     if not inactive_stakeholders:
