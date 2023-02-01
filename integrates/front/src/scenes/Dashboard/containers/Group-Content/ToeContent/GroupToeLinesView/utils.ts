@@ -218,10 +218,14 @@ const formatBePresent = (bePresent: string): boolean | undefined =>
 const formatRootId = (rootId: string): string | undefined =>
   rootId === "" ? undefined : rootId;
 
-const formatPercentage = (value: number): string =>
-  new Intl.NumberFormat("en-IN", {
+const formatPercentage = (value: number, decimal?: boolean): string => {
+  const formatter = new Intl.NumberFormat("en-IN", {
+    maximumSignificantDigits: decimal === undefined || !decimal ? undefined : 1,
     style: "percent",
-  }).format(value);
+  });
+
+  return formatter.format(value);
+};
 
 const commitFormatter = (value: string): string =>
   value.slice(0, COMMIT_LENGTH);

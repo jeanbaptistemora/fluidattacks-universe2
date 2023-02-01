@@ -361,7 +361,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         return 4 ** (row.severityScore - 4) / groupCVSSF;
       },
       cell: (cell: ICellHelper<IFindingAttr>): string =>
-        formatPercentage(cell.getValue()),
+        formatPercentage(cell.getValue(), true),
       header: "% Risk Exposure",
     },
     {
