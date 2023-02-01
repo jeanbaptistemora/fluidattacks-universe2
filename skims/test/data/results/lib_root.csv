@@ -4415,6 +4415,30 @@ F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,17,923,ski
   27 |   java.util.Properties config = new java.util.Properties();
      ^ Col 0
 ",java.java_host_key_checking
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_azure_kv_danger_bypass.tf,25,923,skims,157. Unrestricted access between network segments,Property bypass is either missing or misconfigured in namespace/skims/test/data/lib_root/f157/tfm_azure_kv_danger_bypass.tf,"
+   7 |   soft_delete_enabled        = true
+   8 |   purge_protection_enabled   = true
+   9 |   network_acls {
+  10 |     default_action = ""Deny""
+  11 |     bypass         = ""AzureServices""
+  12 |   }
+  13 | }
+  14 |
+  15 | resource ""azurerm_key_vault"" ""vulnerable"" {
+  16 |   name                       = ""examplekeyvault""
+  17 |   location                   = azurerm_resource_group.example.location
+  18 |   resource_group_name        = azurerm_resource_group.example.name
+  19 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  20 |   soft_delete_retention_days = 7
+  21 |   soft_delete_enabled        = true
+  22 |   purge_protection_enabled   = true
+  23 |   network_acls {
+  24 |     default_action = ""Deny""
+> 25 |     bypass         = ""None""
+  26 |   }
+  27 | }
+     ^ Col 0
+",terraform.tfm_azure_kv_danger_bypass
 F157,lines,namespace/skims/test/data/lib_root/f157/tfm_aws_acl_broad_network_access.tf,8,923,skims,157. Unrestricted access between network segments,make sure the ingress.cidr_block property is not equal to 0.0.0.0/0 in namespace/skims/test/data/lib_root/f157/tfm_aws_acl_broad_network_access.tf,"
    1 | resource ""aws_default_network_acl"" ""default"" {
    2 |   default_network_acl_id = aws_vpc.mainvpc.default_network_acl_id

@@ -4462,7 +4462,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_KV_DANGER_BYPASS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_danger_bypass",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
