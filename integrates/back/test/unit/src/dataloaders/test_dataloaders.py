@@ -1,9 +1,5 @@
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.events.types import (
-    Event,
 )
 from mypy_boto3_dynamodb import (
     DynamoDBServiceResource as ServiceResource,
@@ -41,12 +37,13 @@ async def test_get_event(
         table_name = "integrates_vms"
         return dynamo_resource.Table(table_name).query(**kwargs)
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     event_id = "418900971"
     with mock.patch(
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
-        test_data: Event = await loaders.event.load(event_id)
+        test_data = await loaders.event.load(event_id)
     expected_output = "unittesting"
+    assert test_data
     assert test_data.group_name == expected_output

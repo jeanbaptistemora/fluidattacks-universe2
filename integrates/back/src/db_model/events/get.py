@@ -27,6 +27,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -121,10 +122,10 @@ async def _get_historic_state(
     return list(map(format_state, response.items))
 
 
-class EventsHistoricStateLoader(DataLoader):
+class EventsHistoricStateLoader(DataLoader[str, list[EventState]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, event_ids: list[str]
+        self, event_ids: Iterable[str]
     ) -> list[list[EventState]]:
         return list(
             await collect(
@@ -136,11 +137,11 @@ class EventsHistoricStateLoader(DataLoader):
         )
 
 
-class EventLoader(DataLoader):
+class EventLoader(DataLoader[str, Optional[Event]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        event_keys: list[str],
+        event_keys: Iterable[str],
     ) -> list[Optional[Event]]:
         return list(
             await collect(
@@ -156,7 +157,7 @@ class GroupEventsLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupEventsRequest]
+        self, requests: Iterable[GroupEventsRequest]
     ) -> list[list[Event]]:
         return list(
             await collect(

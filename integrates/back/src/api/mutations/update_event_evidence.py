@@ -10,9 +10,6 @@ from dataloaders import (
 from db_model.events.enums import (
     EventEvidenceId,
 )
-from db_model.events.types import (
-    Event,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -54,7 +51,7 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     evidence_id = EventEvidenceId[evidence_type]
-    event: Event = await loaders.event.load(event_id)
+    event = await events_domain.get_event(loaders, event_id)
     group: Group = await loaders.group.load(event.group_name)
     organization: Organization = await loaders.organization.load(
         group.organization_id

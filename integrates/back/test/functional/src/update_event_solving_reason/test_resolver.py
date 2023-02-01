@@ -2,15 +2,11 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.events.enums import (
     EventSolutionReason,
     EventStateStatus,
-)
-from db_model.events.types import (
-    Event,
 )
 import pytest
 from typing import (
@@ -64,8 +60,9 @@ async def test_update_event_solving_reason(
     other: Optional[str],
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.state.status == EventStateStatus.SOLVED
 
     result: dict[str, Any] = await get_result(
@@ -76,6 +73,7 @@ async def test_update_event_solving_reason(
 
     loaders = get_new_context()
     event = await loaders.event.load(event_id)
+    assert event
     assert event.state.reason == EventSolutionReason[reason]
     assert event.state.other == other
 

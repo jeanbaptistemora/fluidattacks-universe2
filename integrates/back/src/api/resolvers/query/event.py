@@ -11,6 +11,9 @@ from decorators import (
     require_asm,
     require_login,
 )
+from events import (
+    domain as events_domain,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -28,6 +31,5 @@ async def resolve(
 ) -> Event:
     event_id: str = kwargs["identifier"]
     loaders: Dataloaders = info.context.loaders
-    event: Event = await loaders.event.load(event_id)
 
-    return event
+    return await events_domain.get_event(loaders, event_id)

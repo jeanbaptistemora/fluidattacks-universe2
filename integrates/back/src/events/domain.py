@@ -10,6 +10,7 @@ import authz
 from custom_exceptions import (
     EventAlreadyClosed,
     EventHasNotBeenSolved,
+    EventNotFound,
     EventVerificationAlreadyRequested,
     EventVerificationNotRequested,
     InvalidCommentParent,
@@ -159,6 +160,14 @@ async def remove_file_evidence(file_name: str) -> None:
     await s3_ops.remove_file(file_name)
 
 
+async def get_event(loaders: Dataloaders, event_id: str) -> Event:
+    event = await loaders.event.load(event_id)
+    if event is None:
+        raise EventNotFound()
+
+    return event
+
+
 @validations.validate_field_length_deco("comment_data.content", limit=20000)
 async def add_comment(
     *,
@@ -170,7 +179,7 @@ async def add_comment(
 ) -> None:
     parent_comment = str(parent_comment)
     content = comment_data.content
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     group_name = event.group_name
 
     await authz.validate_handle_comment_scope(
@@ -303,7 +312,7 @@ async def get_unsolved_events(
 async def get_evidence_link(
     loaders: Dataloaders, event_id: str, file_name: str
 ) -> str:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     group_name = event.group_name
     file_url = f"evidences/{group_name}/{event_id}/{file_name}"
     return await s3_ops.sign_url(file_url, 10)
@@ -336,7 +345,7 @@ async def has_access_to_event(
     loaders: Dataloaders, email: str, event_id: str
 ) -> bool:
     """Verify if the user has access to a event submission."""
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     return await authz.has_access_to_group(loaders, email, event.group_name)
 
 
@@ -364,7 +373,7 @@ async def remove_event(event_id: str, group_name: str) -> None:
 async def remove_evidence(
     loaders: Dataloaders, evidence_id: EventEvidenceId, event_id: str
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     group_name = event.group_name
 
     if (
@@ -393,7 +402,7 @@ async def solve_event(  # pylint: disable=too-many-locals
     the `reattacks_dict[finding_id, set_of_respective_vuln_ids]`
     and the `verifications_dict[finding_id, list_of_respective_vuln_ids]`"""
     loaders: Dataloaders = info.context.loaders
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     group_name = event.group_name
     other_reason: str = other if other else ""
 
@@ -490,7 +499,7 @@ async def reject_solution(
     stakeholder_email: str,
     stakeholder_full_name: str,
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     if event.state.status is not EventStateStatus.VERIFICATION_REQUESTED:
         raise EventVerificationNotRequested()
 
@@ -533,7 +542,7 @@ async def request_verification(
     stakeholder_email: str,
     stakeholder_full_name: str,
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     if event.state.status is EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
     if event.state.status is EventStateStatus.VERIFICATION_REQUESTED:
@@ -573,7 +582,7 @@ async def update_event(
     stakeholder_email: str,
     attributes: EventAttributesToUpdate,
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     solving_reason = attributes.solving_reason or event.state.reason
     other_solving_reason = (
         attributes.other_solving_reason or event.state.other
@@ -668,7 +677,7 @@ async def update_evidence(
     file: UploadFile,
     update_date: datetime,
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     if event.state.status == EventStateStatus.SOLVED:
         raise EventAlreadyClosed()
 
@@ -719,7 +728,7 @@ async def update_solving_reason(
     reason: EventSolutionReason,
     other: Optional[str],
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await get_event(loaders, event_id)
     group_name = event.group_name
     if reason == EventSolutionReason.OTHER and not other:
         raise InvalidParameter("other")

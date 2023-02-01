@@ -2,14 +2,10 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.events.enums import (
     EventStateStatus,
-)
-from db_model.events.types import (
-    Event,
 )
 from db_model.finding_comments.enums import (
     CommentType,
@@ -51,8 +47,9 @@ from vulnerabilities.domain.core import (
 )
 async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.state.status == EventStateStatus.CREATED
 
     result: dict[str, Any] = await get_result(user=email, event=event_id)
@@ -61,6 +58,7 @@ async def test_solve_event(populate: bool, email: str, event_id: str) -> None:
 
     loaders = get_new_context()
     event = await loaders.event.load(event_id)
+    assert event
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
 
@@ -96,19 +94,22 @@ async def test_solve_event_on_hold(
     populate: bool, email: str, event_id: str
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
     finding: Finding = await loaders.finding.load(
         "3c475384-834c-47b0-ac71-a41a022e401c"
     )
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
+    assert event
     assert event.state.status == EventStateStatus.CREATED
-    assert finding.verification.status == FinVStatus.ON_HOLD  # type: ignore
-    assert finding.verification.modified_by == email  # type: ignore
+    assert finding.verification
+    assert finding.verification.status == FinVStatus.ON_HOLD
+    assert finding.verification.modified_by == email
+    assert vulnerability.verification
     assert (
-        vulnerability.verification.status  # type: ignore
+        vulnerability.verification.status
         == VulnerabilityVerificationStatus.ON_HOLD
     )
 
@@ -135,6 +136,7 @@ async def test_solve_event_on_hold(
             comment_type=CommentType.VERIFICATION, finding_id=finding.id
         )
     )
+    assert event
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
     assert any(solve_consult in consult.content for consult in consults)

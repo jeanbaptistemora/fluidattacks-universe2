@@ -22,7 +22,6 @@ from db_model import (
     vulnerabilities as vulns_model,
 )
 from db_model.events.types import (
-    Event,
     EventUnreliableIndicatorsToUpdate,
 )
 from db_model.findings.enums import (
@@ -100,7 +99,7 @@ async def update_event_unreliable_indicators(
     event_id: str,
     attrs_to_update: set[EntityAttr],
 ) -> None:
-    event: Event = await loaders.event.load(event_id)
+    event = await events_domain.get_event(loaders, event_id)
     indicators = {}
 
     if EntityAttr.solving_date in attrs_to_update:
@@ -202,7 +201,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     finding_id: str,
     attrs_to_update: set[EntityAttr],
 ) -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding: Finding = await loaders.finding.load(finding_id)
     indicators: dict[EntityAttr, Any] = {}
 
@@ -315,7 +314,7 @@ async def update_vulnerabilities_unreliable_indicators(
 ) -> None:
     # Placed the loader here since the same finding_historic_verification is
     # shared by many vulnerabilities
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     await collect(
         tuple(
             update_vulnerability_unreliable_indicators(

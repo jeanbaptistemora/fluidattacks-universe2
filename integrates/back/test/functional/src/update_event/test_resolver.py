@@ -2,15 +2,11 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.events.enums import (
     EventStateStatus,
     EventType,
-)
-from db_model.events.types import (
-    Event,
 )
 import pytest
 from typing import (
@@ -63,8 +59,9 @@ async def test_update_event(  # pylint: disable=too-many-arguments
     other_solving_reason: str,
 ) -> None:
     assert populate
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.state.status == EventStateStatus.SOLVED
 
     result: dict[str, Any] = await get_result(
@@ -79,6 +76,7 @@ async def test_update_event(  # pylint: disable=too-many-arguments
 
     loaders = get_new_context()
     event = await loaders.event.load(event_id)
+    assert event
     assert event.type == EventType[event_type]
 
 

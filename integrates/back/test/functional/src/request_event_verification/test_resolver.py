@@ -2,14 +2,10 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.events.enums import (
     EventStateStatus,
-)
-from db_model.events.types import (
-    Event,
 )
 import pytest
 from typing import (
@@ -38,8 +34,9 @@ async def test_request_event_verification(
     assert "errors" not in result
     assert result["data"]["requestEventVerification"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.state.status == EventStateStatus.VERIFICATION_REQUESTED
     event_comments = await loaders.event_comments.load(event_id)
     assert event.state.comment_id in {comment.id for comment in event_comments}

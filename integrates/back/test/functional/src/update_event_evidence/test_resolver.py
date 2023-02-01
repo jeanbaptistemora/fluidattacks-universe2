@@ -2,11 +2,7 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.events.types import (
-    Event,
 )
 import pytest
 from typing import (
@@ -31,8 +27,9 @@ async def test_admin(populate: bool, email: str) -> None:
     assert "success" in result["data"]["updateEventEvidence"]
     assert result["data"]["updateEventEvidence"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.evidences.image_1 is not None
     assert (
         event.evidences.image_1.file_name

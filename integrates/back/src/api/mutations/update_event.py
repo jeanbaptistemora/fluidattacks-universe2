@@ -14,9 +14,6 @@ from db_model.events.enums import (
     EventSolutionReason,
     EventType,
 )
-from db_model.events.types import (
-    Event,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -73,7 +70,7 @@ async def mutate(
         other_solving_reason: Optional[str] = kwargs.get(
             "other_solving_reason"
         )
-        event: Event = await loaders.event.load(event_id)
+        event = await events_domain.get_event(loaders, event_id)
         await events_domain.update_event(
             loaders=loaders,
             event_id=event_id,

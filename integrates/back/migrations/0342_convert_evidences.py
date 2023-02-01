@@ -39,7 +39,6 @@ from db_model.events.enums import (
     EventEvidenceId,
 )
 from db_model.events.types import (
-    Event,
     EventEvidence,
     EventEvidences,
     GroupEventsRequest,
@@ -63,6 +62,9 @@ from db_model.organizations.types import (
 )
 from decorators import (
     retry_on_exceptions,
+)
+from events import (
+    domain as events_domain,
 )
 from events.domain import (
     replace_different_format as replace_event_different_format,
@@ -129,7 +131,7 @@ async def _update_event_evidence(
     update_date: datetime,
 ) -> None:
     validate_sanitized_csv_input(event_id)
-    event: Event = await loaders.event.load(event_id)
+    event = await events_domain.get_event(loaders, event_id)
 
     extension = {
         "image/jpeg": ".jpg",

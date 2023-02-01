@@ -2,11 +2,7 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.events.types import (
-    Event,
 )
 import pytest
 from typing import (
@@ -32,8 +28,9 @@ async def test_remove_event_evidence(
     assert "success" in result["data"]["removeEventEvidence"]
     assert result["data"]["removeEventEvidence"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    event: Event = await loaders.event.load(event_id)
+    loaders = get_new_context()
+    event = await loaders.event.load(event_id)
+    assert event
     assert event.evidences.image_1 is None
     assert event.evidences.file_1
 
