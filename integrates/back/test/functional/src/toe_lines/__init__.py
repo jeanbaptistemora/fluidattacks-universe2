@@ -15,11 +15,17 @@ def get_query() -> str:
     return """
         query(
             $groupName: String!
+            $maxLoc: Int
+            $minLoc: Int
             $rootId: ID
         ) {
             group(groupName: $groupName) {
                 name
-                toeLines(rootId: $rootId) {
+                toeLines(
+                    maxLoc: $maxLoc
+                    minLoc: $minLoc
+                    rootId: $rootId
+                ) {
                     edges {
                         node {
                             attackedAt
@@ -63,6 +69,8 @@ async def get_result(
     user: str,
     group_name: str,
     filename: Optional[str] = None,
+    max_loc: Optional[int] = None,
+    min_loc: Optional[int] = None,
     root_id: Optional[str] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
@@ -71,6 +79,8 @@ async def get_result(
         "variables": {
             "filename": filename,
             "groupName": group_name,
+            "maxLoc": max_loc,
+            "minLoc": min_loc,
             "rootId": root_id,
         },
     }
