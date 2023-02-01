@@ -128,3 +128,23 @@ async def test_get_toe_lines_by_filename(populate: bool, email: str) -> None:
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["filename"]
         == "test3/test.sh"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_min_loc(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        min_loc=4324,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["loc"] == 4324
+    )
