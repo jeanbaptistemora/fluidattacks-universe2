@@ -494,7 +494,7 @@
       "schedulers.numerator_report_digest.main"
     ];
 
-    schedule_expression = "cron(0 11 ? * 2-6 *)";
+    schedule_expression = "cron(0 16 ? * 2-6 *)";
     size = "integrates_large";
     awsRole = "prod_integrates";
     attempts = 1;
