@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { Card } from "components/Card";
-import { Select, TextArea } from "components/Input";
+import { Input, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Text } from "components/Text";
@@ -23,7 +23,6 @@ import type {
 } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/Services/types";
 import { FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import {
   composeValidators,
@@ -224,11 +223,8 @@ const ServicesForm: React.FC<IServicesFormProps> = (
           </FormGroup>
         ) : undefined}
         <FormGroup>
-          <Text mb={2}>
-            {t("searchFindings.servicesTable.modal.typeGroupName")}
-          </Text>
-          <Field
-            component={FormikText}
+          <Input
+            label={t("searchFindings.servicesTable.modal.typeGroupName")}
             name={"confirmation"}
             placeholder={groupName.toLowerCase()}
             type={"text"}
