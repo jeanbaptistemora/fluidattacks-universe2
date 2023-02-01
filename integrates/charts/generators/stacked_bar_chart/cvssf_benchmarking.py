@@ -34,9 +34,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -85,9 +82,7 @@ async def get_group_data(
     group: str, loaders: Dataloaders
 ) -> GroupBenchmarking:
     finding_severity: dict[str, Decimal] = {}
-    group_findings: tuple[Finding, ...] = await loaders.group_findings.load(
-        group.lower()
-    )
+    group_findings = await loaders.group_findings.load(group.lower())
     finding_severity.update(
         {
             finding.id: get_severity_score(finding.severity)

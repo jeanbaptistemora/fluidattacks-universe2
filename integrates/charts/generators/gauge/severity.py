@@ -69,7 +69,9 @@ def get_max_severity_many(groups: list[Decimal]) -> tuple[int, Decimal]:
 @alru_cache(maxsize=None, typed=True)
 async def generate_one(group: str, loaders: Dataloaders) -> Severity:
     group_findings = await loaders.group_findings.load(group.lower())
-    max_found_index, max_found_value = get_max_severity_one(group_findings)
+    max_found_index, max_found_value = get_max_severity_one(
+        tuple(group_findings)
+    )
     open_findings_vulnerabilities = await collect(
         tuple(
             findings_domain.get_open_vulnerabilities(loaders, finding.id)

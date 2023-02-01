@@ -294,7 +294,7 @@ async def remove_access(
     )
 
     drafts = filter_non_state_status_findings(
-        all_findings,
+        tuple(all_findings),
         {
             FindingStateStatus.APPROVED,
             FindingStateStatus.DELETED,

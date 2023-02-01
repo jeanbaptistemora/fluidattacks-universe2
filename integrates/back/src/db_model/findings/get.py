@@ -108,7 +108,7 @@ async def _get_drafts_and_findings_by_group(
     return [format_finding(item) for item in response.items]
 
 
-class GroupDraftsAndFindingsLoader(DataLoader):
+class GroupDraftsAndFindingsLoader(DataLoader[str, list[Finding]]):
     async def load_many_chained(
         self, group_names: Iterable[str]
     ) -> list[Finding]:
@@ -126,7 +126,7 @@ class GroupDraftsAndFindingsLoader(DataLoader):
         )
 
 
-class MeDraftsLoader(DataLoader):
+class MeDraftsLoader(DataLoader[str, list[Finding]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, emails: Iterable[str]
@@ -138,7 +138,7 @@ class MeDraftsLoader(DataLoader):
         )
 
 
-class GroupDraftsLoader(DataLoader):
+class GroupDraftsLoader(DataLoader[str, list[Finding]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -165,7 +165,7 @@ class GroupDraftsLoader(DataLoader):
         ]
 
 
-class GroupFindingsLoader(DataLoader):
+class GroupFindingsLoader(DataLoader[str, list[Finding]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
