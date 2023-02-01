@@ -528,10 +528,40 @@ we assess the security of all
 web applications accessible
 through this target.
 
+## IP roots table
+
+The IP Roots table gives us summary
+information of the address you want to be analyzed.
+
+![Scope IP root](https://res.cloudinary.com/fluid-attacks/image/upload/v1675252751/docs/web/groups/scope/ip_root.png)
+
+You will find in this table the following information:
+
+- **Address:**
+  Your IP address to which you want to validate.
+- **Nickname:**
+  The identifier name of that IP.
+- **State:**
+  There are two states:
+  **Active** and **Inactive**.
+  Active means that the root is being tested
+  and Inactive means that the root is no being tested.
+  The same reasons are validated to deactivate
+  a root IP as in a Git Root if you want
+  to see more,
+  click [here.](/machine/web/groups/scope/roots/#deactivate-a-git-root)
+
+## IP Roots functionalities
+
+### Add new IP root
+
 To add a new IP root,
 you need to go to the Scope
 section of the group of your
-choice and click on Add new root.
+choice and click on **Add new root.**
+
+![Scope IP root](https://res.cloudinary.com/fluid-attacks/image/upload/v1675249670/docs/web/groups/scope/scope_ip.png)
+
 A pop-up window will appear,
 asking you to enter the details
 of the root (in this case,
@@ -546,10 +576,6 @@ the details you need to enter:
   IP address where the
   environment to be
   assessed is deployed.
-- **Port:**
-  Service endpoint of the
-  environment within the device
-  identified with the IP address.
 - **Nickname:**
   An alternative name to
   easily identify the IP
@@ -559,12 +585,8 @@ Once the IP address is added,
 it will be listed below IP Roots.
 There,
 it is shown whether it is active.
-Further,
-you can export the information in
-the table to a CSV (comma-separated values)
-file by clicking on the **Export** button.
 
-![IP Roots Export](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141769/docs/web/groups/scope/iproot_export.png)
+![IP Roots activate](https://res.cloudinary.com/fluid-attacks/image/upload/v1675249990/docs/web/groups/scope/ip_activate.png)
 
 ## URL roots
 
@@ -575,7 +597,12 @@ To add a new URL root,
 go to the Scope section of the
 group of your choice and click
 on the Add new root button.
-The following pop-up window will appear.
+
+![URL Roots scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
+
+The following pop-up window will appear,
+asking you to enter the details
+of the URL  you want to add.
 
 ![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141768/docs/web/groups/scope/urlroot_add_new.png)
 
