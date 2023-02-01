@@ -1,4 +1,5 @@
 locals {
+  namespace = "kube-system"
   role_name = "monitoring"
   tags = {
     "Name"               = "prometheus"
@@ -11,7 +12,7 @@ locals {
 data "aws_caller_identity" "current" {}
 
 data "aws_eks_cluster" "k8s_cluster" {
-  name = "common"
+  name = "common-k8s"
 }
 
 data "aws_subnet" "k8s_subnets" { # common/vpc/infra/subnets.tf
@@ -41,19 +42,13 @@ resource "aws_prometheus_workspace" "monitoring" {
   }
 }
 
-resource "kubernetes_namespace" "monitoring" {
-  metadata {
-    name = "monitoring"
-  }
-}
-
 resource "helm_release" "cert_manager" {
   name            = "cert-manager"
   description     = "Certificate manager, required to install OpenTelemtry Operator"
   repository      = "https://charts.jetstack.io"
   chart           = "cert-manager"
   version         = "1.11.0"
-  namespace       = kubernetes_namespace.monitoring.metadata[0].name
+  namespace       = local.namespace
   cleanup_on_fail = true
   atomic          = true
 
@@ -69,7 +64,7 @@ resource "helm_release" "adot_operator" {
   repository      = "https://open-telemetry.github.io/opentelemetry-helm-charts"
   chart           = "opentelemetry-operator"
   version         = "0.21.2"
-  namespace       = kubernetes_namespace.monitoring.metadata[0].name
+  namespace       = local.namespace
   cleanup_on_fail = true
   atomic          = true
 
@@ -98,7 +93,7 @@ data "aws_iam_policy_document" "k8s_oidc" {
 
     condition {
       test     = "StringEquals"
-      values   = ["system:serviceaccount:${kubernetes_namespace.monitoring.metadata[0].name}:${local.role_name}"]
+      values   = ["system:serviceaccount:${local.namespace}:${local.role_name}"]
       variable = "${replace(data.aws_eks_cluster.k8s_cluster.identity[0].oidc[0].issuer, "https://", "")}:sub"
     }
 
@@ -129,7 +124,7 @@ resource "kubernetes_service_account" "monitoring" {
   automount_service_account_token = true
   metadata {
     name      = local.role_name
-    namespace = kubernetes_namespace.monitoring.metadata[0].name
+    namespace = local.namespace
 
     annotations = {
       "eks.amazonaws.com/role-arn" = aws_iam_role.monitoring.arn
@@ -179,7 +174,7 @@ resource "kubernetes_cluster_role_binding" "monitoring" {
   subject {
     kind      = "ServiceAccount"
     name      = kubernetes_service_account.monitoring.metadata[0].name
-    namespace = kubernetes_namespace.monitoring.metadata[0].name
+    namespace = local.namespace
   }
 }
 
@@ -189,4 +184,9 @@ data "local_file" "adot_collector_manifest" {
 
 resource "kubernetes_manifest" "adot_collector" {
   manifest = yamldecode(data.local_file.adot_collector_manifest.content)
+
+  depends_on = [
+    helm_release.adot_operator,
+    kubernetes_service_account.monitoring
+  ]
 }
