@@ -1,0 +1,248 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  51 |           - AvailabilityZone
+  52 |       DBClusterIdentifier:
+  53 |         Ref: RDSCluster
+  54 |       DBInstanceClass: db.r3.xlarge
+  55 |       DBParameterGroupName:
+  56 |         Ref: RDSDBParameterGroup
+  57 |       DBSubnetGroupName:
+  58 |         Ref: DBSubnetGroup
+  59 |       Engine: aurora
+  60 |       PubliclyAccessible: 'true'
+> 61 |       StorageEncrypted: false
+  62 |     Type: AWS::RDS::DBInstance
+  63 |   RDSCluster3:
+  64 |     Properties:
+  65 |       DBClusterParameterGroupName:
+  66 |         Ref: RDSDBClusterParameterGroup
+  67 |       DBSubnetGroupName:
+  68 |         Ref: DBSubnetGroup
+  69 |       Engine: aurora
+  70 |       MasterUserPassword:
+  71 |         Ref: password
+     ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,64,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  54 |       DBInstanceClass: db.r3.xlarge
+  55 |       DBParameterGroupName:
+  56 |         Ref: RDSDBParameterGroup
+  57 |       DBSubnetGroupName:
+  58 |         Ref: DBSubnetGroup
+  59 |       Engine: aurora
+  60 |       PubliclyAccessible: 'true'
+  61 |       StorageEncrypted: false
+  62 |     Type: AWS::RDS::DBInstance
+  63 |   RDSCluster3:
+> 64 |     Properties:
+  65 |       DBClusterParameterGroupName:
+  66 |         Ref: RDSDBClusterParameterGroup
+  67 |       DBSubnetGroupName:
+  68 |         Ref: DBSubnetGroup
+  69 |       Engine: aurora
+  70 |       MasterUserPassword:
+  71 |         Ref: password
+  72 |       MasterUsername:
+  73 |         Ref: username
+  74 |     Type: AWS::RDS::DBCluster
+     ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,44,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  34 |     Properties:
+  35 |       DBClusterParameterGroupName:
+  36 |         Ref: RDSDBClusterParameterGroup
+  37 |       DBSubnetGroupName:
+  38 |         Ref: DBSubnetGroup
+  39 |       Engine: aurora
+  40 |       MasterUserPassword:
+  41 |         Ref: password
+  42 |       MasterUsername:
+  43 |         Ref: username
+> 44 |       StorageEncrypted: false
+  45 |     Type: AWS::RDS::DBCluster
+  46 |   RDSDBInstance2:
+  47 |     Properties:
+  48 |       AvailabilityZone:
+  49 |         Fn::GetAtt:
+  50 |           - Subnet1
+  51 |           - AvailabilityZone
+  52 |       DBClusterIdentifier:
+  53 |         Ref: RDSCluster
+  54 |       DBInstanceClass: db.r3.xlarge
+     ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,76,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml,"
+  66 |         Ref: RDSDBClusterParameterGroup
+  67 |       DBSubnetGroupName:
+  68 |         Ref: DBSubnetGroup
+  69 |       Engine: aurora
+  70 |       MasterUserPassword:
+  71 |         Ref: password
+  72 |       MasterUsername:
+  73 |         Ref: username
+  74 |     Type: AWS::RDS::DBCluster
+  75 |   RDSDBInstance3:
+> 76 |     Properties:
+  77 |       AvailabilityZone:
+  78 |         Fn::GetAtt:
+  79 |           - Subnet1
+  80 |           - AvailabilityZone
+  81 |       DBClusterIdentifier:
+  82 |         Ref: RDSCluster
+  83 |       DBInstanceClass: db.r3.xlarge
+  84 |       DBParameterGroupName:
+  85 |         Ref: RDSDBParameterGroup
+  86 |       DBSubnetGroupName:
+     ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,61,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   51 |         ""DBSubnetGroupName"": {
+   52 |           ""Ref"": ""DBSubnetGroup""
+   53 |         },
+   54 |         ""Engine"": ""aurora"",
+   55 |         ""MasterUserPassword"": {
+   56 |           ""Ref"": ""password""
+   57 |         },
+   58 |         ""MasterUsername"": {
+   59 |           ""Ref"": ""username""
+   60 |         },
+>  61 |         ""StorageEncrypted"": false
+   62 |       },
+   63 |       ""Type"": ""AWS::RDS::DBCluster""
+   64 |     },
+   65 |     ""RDSDBInstance2"": {
+   66 |       ""Properties"": {
+   67 |         ""AvailabilityZone"": {
+   68 |           ""Fn::GetAtt"": [
+   69 |             ""Subnet1"",
+   70 |             ""AvailabilityZone""
+   71 |           ]
+      ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,85,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   75 |         },
+   76 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+   77 |         ""DBParameterGroupName"": {
+   78 |           ""Ref"": ""RDSDBParameterGroup""
+   79 |         },
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": ""true"",
+>  85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+   90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+      ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,90,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   80 |         ""DBSubnetGroupName"": {
+   81 |           ""Ref"": ""DBSubnetGroup""
+   82 |         },
+   83 |         ""Engine"": ""aurora"",
+   84 |         ""PubliclyAccessible"": ""true"",
+   85 |         ""StorageEncrypted"": false
+   86 |       },
+   87 |       ""Type"": ""AWS::RDS::DBInstance""
+   88 |     },
+   89 |     ""RDSCluster3"": {
+>  90 |       ""Properties"": {
+   91 |         ""DBClusterParameterGroupName"": {
+   92 |           ""Ref"": ""RDSDBClusterParameterGroup""
+   93 |         },
+   94 |         ""DBSubnetGroupName"": {
+   95 |           ""Ref"": ""DBSubnetGroup""
+   96 |         },
+   97 |         ""Engine"": ""aurora"",
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+      ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,108,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_storage.yaml.json,"
+   98 |         ""MasterUserPassword"": {
+   99 |           ""Ref"": ""password""
+  100 |         },
+  101 |         ""MasterUsername"": {
+  102 |           ""Ref"": ""username""
+  103 |         }
+  104 |       },
+  105 |       ""Type"": ""AWS::RDS::DBCluster""
+  106 |     },
+  107 |     ""RDSDBInstance3"": {
+> 108 |       ""Properties"": {
+  109 |         ""AvailabilityZone"": {
+  110 |           ""Fn::GetAtt"": [
+  111 |             ""Subnet1"",
+  112 |             ""AvailabilityZone""
+  113 |           ]
+  114 |         },
+  115 |         ""DBClusterIdentifier"": {
+  116 |           ""Ref"": ""RDSCluster""
+  117 |         },
+  118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
+      ^ Col 0
+",cloudformation.cfn_rds_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+   1 | resource ""aws_db_instance"" ""default"" {
+   2 |   allocated_storage       = 10
+>  3 |   storage_encrypted       = false
+   4 |   engine                  = ""mysql""
+   5 |   engine_version          = ""5.7""
+   6 |   instance_class          = ""db.t3.micro""
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+  15 |
+  16 |
+  17 | resource ""aws_rds_cluster"" ""postgresql"" {
+  18 |   cluster_identifier      = ""aurora-cluster-demo""
+  19 |   engine                  = ""aurora-postgresql""
+  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  21 |   database_name           = ""mydb""
+     ^ Col 0
+",terraform.tfm_db_has_unencrypted_storage
+F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+   7 |   name                    = ""mydb""
+   8 |   username                = ""foo""
+   9 |   deletion_protection     = true
+  10 |   password                = ""foobarbaz""
+  11 |   backup_retention_period = 2
+  12 |   parameter_group_name    = ""default.mysql5.7""
+  13 |   skip_final_snapshot     = true
+  14 | }
+  15 |
+  16 |
+> 17 | resource ""aws_rds_cluster"" ""postgresql"" {
+  18 |   cluster_identifier      = ""aurora-cluster-demo""
+  19 |   engine                  = ""aurora-postgresql""
+  20 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
+  21 |   database_name           = ""mydb""
+  22 |   master_username         = ""foo""
+  23 |   master_password         = ""bar""
+  24 |   deletion_protection     = true
+  25 |   backup_retention_period = 5
+  26 |   preferred_backup_window = ""07:00-09:00""
+  27 | }
+     ^ Col 0
+",terraform.tfm_rds_has_unencrypted_storage
+F246,inputs,arn:aws:iam::123456789012:db/unsafedb (namespace),/StorageEncrypted: False,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled,"
+  1 | {
+  2 |     ""DBInstanceArn"": ""arn:aws:iam::123456789012:db/unsafedb"",
+> 3 |     ""StorageEncrypted"": false
+  4 | }
+    ^ Col 0
+",aws.rds_has_unencrypted_storage

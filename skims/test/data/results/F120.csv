@@ -1,0 +1,281 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: Pillow),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: Pygments),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: androguard),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: asttokens),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: backcall),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: click),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: colorama),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: contourpy),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: cycler),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: decorator),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: executing),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: fonttools),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: future),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: ipython),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: jedi),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: kiwisolver),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: lxml),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: matplotlib),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: matplotlib-inline),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: networkx),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: numpy),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: packaging),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: parso),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: pexpect),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: pickleshare),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: prompt-toolkit),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: ptyprocess),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: pure-eval),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: pydot),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: pyparsing),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: python-dateutil),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: six),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: stack-data),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: traitlets),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
+F120,lines,namespace/skims/test/data/lib_path/f120/requirements.txt (missing dependency: wcwidth),0,829,skims,120. Improper dependency pinning,The dependency is not explicitly declared in your requirements.txt in namespace/skims/test/data/lib_path/f120/requirements.txt,"
+  1 | aioextensions==21.7.2261349
+  2 | apk-signer==1.1.1
+  3 | apturl==0.5.2
+  4 | asn1crypto==1.4.0
+  5 | pillow==9.0.0
+    ^ Col 0
+",python.pip_incomplete_dependencies_list
