@@ -10,6 +10,7 @@ const GET_GROUPS: DocumentNode = gql`
           name
           subscription
         }
+        name
       }
     }
   }
@@ -94,8 +95,23 @@ const GET_VULNERABILITIES = gql`
           id
           where
           specific
+          state
+          rootNickname
+          finding {
+            id
+            title
+            description
+          }
         }
       }
+    }
+  }
+`;
+
+const GET_FINDING = gql`
+  query GetFindingHeader($findingId: String!) {
+    finding(identifier: $findingId) {
+      title
     }
   }
 `;
@@ -106,4 +122,5 @@ export {
   GET_TOE_LINES,
   GET_VULNERABILITIES,
   UPDATE_TOE_LINES_ATTACKED,
+  GET_FINDING,
 };

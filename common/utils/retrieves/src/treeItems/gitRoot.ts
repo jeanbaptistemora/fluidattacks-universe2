@@ -1,10 +1,9 @@
 import type { Command } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { TreeItem, TreeItemCollapsibleState, window } from "vscode";
+import { TreeItem, TreeItemCollapsibleState } from "vscode";
 
-import { GET_GIT_ROOTS } from "../queries";
+import { getGroupGitRoots } from "../api/root";
 import type { IGitRoot } from "../types";
-import { getClient } from "../utils/apollo";
 
 class GitRootTreeItem extends TreeItem {
   public contextValue = "gitRoot";
@@ -24,22 +23,7 @@ class GitRootTreeItem extends TreeItem {
 }
 
 async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
-  const nicknames: IGitRoot[] = await Promise.resolve(
-    getClient()
-      .query({
-        query: GET_GIT_ROOTS,
-        variables: { groupName },
-      })
-      .then((result): IGitRoot[] => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-        return result.data.group.roots;
-      })
-      .catch((_err): [] => {
-        void window.showErrorMessage(String(_err));
-
-        return [];
-      })
-  );
+  const roots: IGitRoot[] = await getGroupGitRoots(groupName);
 
   const toGitRoot = (root: IGitRoot): GitRootTreeItem => {
     return new GitRootTreeItem(
@@ -53,7 +37,7 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
     );
   };
 
-  const deps = nicknames
+  const deps = roots
     .filter(
       (root: IGitRoot): boolean =>
         root.state === "ACTIVE" && root.downloadUrl !== undefined

@@ -37,6 +37,15 @@ interface IVulnerability {
   id: string;
   specific: string;
   where: string;
+  rootNickname: string;
+  state: "REJECTED" | "SAFE" | "SUBMITTED" | "VULNERABLE";
+  finding: IFinding;
+}
+
+interface IFinding {
+  description: string;
+  id: string;
+  title: string;
 }
 
 export type {
@@ -47,4 +56,5 @@ export type {
   IEdge,
   IToeLineNode,
   IVulnerability,
+  IFinding,
 };

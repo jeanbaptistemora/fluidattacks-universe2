@@ -6,12 +6,14 @@ import { partial } from "ramda";
 import type { ExtensionContext } from "vscode";
 import {
   commands,
+  languages,
   window,
   workspace,
   // eslint-disable-next-line import/no-unresolved
 } from "vscode";
 
 import { clone } from "./commands/clone";
+import { subscribeToDocumentChanges } from "./commands/getVulnerabilities";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
 import { GroupsProvider } from "./providers/groups";
@@ -38,6 +40,12 @@ function activate(context: ExtensionContext): void {
     "retrieves.updateToeLinesAttackedLines",
     updateToeLinesAttackedLines
   );
+  const retrievesDiagnostics =
+    languages.createDiagnosticCollection("retrieves");
+  // eslint-disable-next-line fp/no-mutating-methods
+  context.subscriptions.push(retrievesDiagnostics);
+
+  subscribeToDocumentChanges(context, retrievesDiagnostics);
 }
 
 export { activate };

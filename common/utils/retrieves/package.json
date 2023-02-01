@@ -1,6 +1,6 @@
 {
   "activationEvents": [
-    "onCommand:vscode-react-webview-starter.openWebview"
+    "onStartupFinished"
   ],
   "categories": [
     "Other"

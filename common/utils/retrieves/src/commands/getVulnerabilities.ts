@@ -7,22 +7,32 @@ import type {
   TextLine,
 } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { Diagnostic, DiagnosticSeverity, window, workspace } from "vscode";
+import { Diagnostic, DiagnosticSeverity, Uri, window, workspace } from "vscode";
 
 import { getGitRootVulnerabilities, getGroupGitRoots } from "../api/root";
+import type { IVulnerability } from "../types";
 import { getRootInfoFromPath } from "../utils/file";
 
 function createDiagnostic(
+  groupName: string,
   doc: TextDocument | undefined,
-  lineOfText: TextLine
+  lineOfText: TextLine,
+  vulnerability: IVulnerability
 ): Diagnostic {
   const diagnostic = new Diagnostic(
     lineOfText.range,
-    "vulnerability find",
-    DiagnosticSeverity.Information
+    vulnerability.finding.description,
+    DiagnosticSeverity.Error
   );
   // eslint-disable-next-line fp/no-mutation
-  diagnostic.code = "vulnerability";
+  diagnostic.code = {
+    target: Uri.parse(
+      `https://app.fluidattacks.com/groups/${groupName}/vulns/${vulnerability.finding.id}/locations`
+    ),
+    value: vulnerability.finding.title,
+  };
+  // eslint-disable-next-line fp/no-mutation
+  diagnostic.source = "retrieves";
 
   return diagnostic;
 }
@@ -30,15 +40,19 @@ function createDiagnostic(
 const setDiagnostics = async (
   retrievesDiagnostics: DiagnosticCollection,
   document: TextDocument,
-  groupName: string,
-  rootId: string,
-  rootNickname: string,
-  fileRelativePath: string
+  rootId: string
 ): Promise<void> => {
+  const pathInfo = getRootInfoFromPath(document.fileName);
+  if (!pathInfo) {
+    return;
+  }
+  const { groupName, fileRelativePath } = pathInfo;
   const vulnerabilities = await getGitRootVulnerabilities(groupName, rootId);
   const fileDiagnostics = vulnerabilities
     .filter(
-      (vuln): boolean => vuln.where === join(rootNickname, fileRelativePath)
+      (vuln): boolean =>
+        vuln.where === join(vuln.rootNickname, fileRelativePath) &&
+        vuln.state === "VULNERABLE"
     )
     .filter((element): boolean => {
       return !Number.isNaN(parseInt(element.specific, 10));
@@ -47,7 +61,7 @@ const setDiagnostics = async (
       const lineIndex = parseInt(vuln.specific, 10);
       const lineOfText = document.lineAt(lineIndex);
 
-      return createDiagnostic(document, lineOfText);
+      return createDiagnostic(groupName, document, lineOfText, vuln);
     });
   retrievesDiagnostics.set(document.uri, fileDiagnostics);
 };
@@ -60,20 +74,13 @@ const handleDiagnostics = async (
   if (!pathInfo) {
     return;
   }
-  const { groupName, nickname, fileRelativePath } = pathInfo;
+  const { groupName, nickname } = pathInfo;
   const gitRoots = await getGroupGitRoots(groupName);
   const gitRoot = gitRoots.find((item): boolean => item.nickname === nickname);
   if (!gitRoot) {
     return;
   }
-  void setDiagnostics(
-    retrievesDiagnostics,
-    document,
-    groupName,
-    gitRoot.id,
-    gitRoot.nickname,
-    fileRelativePath
-  );
+  void setDiagnostics(retrievesDiagnostics, document, gitRoot.id);
 };
 
 function subscribeToDocumentChanges(
