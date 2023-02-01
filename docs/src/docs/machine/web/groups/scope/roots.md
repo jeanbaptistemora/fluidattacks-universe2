@@ -62,11 +62,11 @@ This table shows the following information:
   **Inactive** means that the root
   is no longer being tested.
 - **Status:**
-  There are five:
+  There are six:
   Cloning,
   OK,
   Failed,
-  N/A and Unknown.
+  N/A, Queued and Unknown.
   For more information click
   [here](/machine/web/groups/scope/roots/#status-in-git-root)
 - **HCK:**
@@ -432,7 +432,7 @@ click [here](/machine/web/machine/web/global-credentials/).
 
 The status help us to see how our
 repository is in the cloning process.
-We manage a total of 5 status.
+We manage a total of six status.
 
 - **Cloning:**
   The repository is being cloned.
@@ -448,6 +448,8 @@ We manage a total of 5 status.
   meaning it has not yet
   been cloned or is glued
   for this action.
+- **Queued:** A queued machine
+  run to check this root.
 
 ## Environment URLs
 

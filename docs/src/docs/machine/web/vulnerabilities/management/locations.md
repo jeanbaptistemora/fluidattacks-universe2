@@ -262,6 +262,17 @@ in the table.
 
 ![Filters](https://res.cloudinary.com/fluid-attacks/image/upload/v1669046275/docs/web/vulnerabilities/management/filters_locations.png)
 
+Remember that you can see the filters you
+have applied in the table next to the add
+filters button.
+
+![Filters applied](https://res.cloudinary.com/fluid-attacks/image/upload/v1675201153/docs/web/vulnerabilities/management/filters_applied.png)
+
+> **Note:** These applied filters will be
+> kept in the vulnerability view in the
+> different groups of the same or another
+> organization.
+
 ### Search bar
 
 The search bar filters the information
