@@ -965,23 +965,23 @@ async def validate_vulnerability_in_toe_ports(
     raises: bool = True,
 ) -> Optional[ToePort]:
     if vulnerability.root_id:
-        try:
-            toe_port: ToePort = await loaders.toe_port.load(
-                ToePortRequest(
-                    address=where,
-                    port=vulnerability.state.specific,
-                    group_name=vulnerability.group_name,
-                    root_id=vulnerability.root_id,
-                )
+        toe_port: Optional[ToePort] = await loaders.toe_port.load(
+            ToePortRequest(
+                address=where,
+                port=vulnerability.state.specific,
+                group_name=vulnerability.group_name,
+                root_id=vulnerability.root_id,
             )
-        except ToePortNotFound as exc:
+        )
+        if not toe_port:
             if raises:
                 raise VulnerabilityPortFieldDoNotExistInToePorts(
                     index=f"{index}"
-                ) from exc
+                )
             return None
-
-        return toe_port
+        if toe_port:
+            return toe_port
+        raise ToePortNotFound()
     return None
 
 

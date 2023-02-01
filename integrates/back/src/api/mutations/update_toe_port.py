@@ -11,7 +11,6 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model.toe_ports.types import (
-    ToePort,
     ToePortRequest,
 )
 from decorators import (
@@ -61,7 +60,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        current_value: ToePort = await loaders.toe_port.load(
+        current_value = await loaders.toe_port.load(
             ToePortRequest(
                 address=address,
                 port=str(port),
