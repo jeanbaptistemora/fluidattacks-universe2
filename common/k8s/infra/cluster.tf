@@ -41,6 +41,12 @@ module "cluster" {
       labels = {
         worker_group = "dev"
       }
+
+      tags = {
+        "management:area"    = "innovation"
+        "management:product" = "integrates"
+        "management:type"    = "product"
+      }
     }
     prod_integrates = {
       max_size = 120
@@ -66,6 +72,12 @@ module "cluster" {
 
       labels = {
         worker_group = "prod_integrates"
+      }
+
+      tags = {
+        "management:area"    = "cost"
+        "management:product" = "integrates"
+        "management:type"    = "product"
       }
     }
   }
