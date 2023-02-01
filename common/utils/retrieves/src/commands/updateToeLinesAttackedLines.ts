@@ -2,7 +2,7 @@
 import { window } from "vscode";
 
 import { UPDATE_TOE_LINES_ATTACKED } from "../queries";
-import { getClient } from "../utils/apollo";
+import { API_CLIENT } from "../utils/apollo";
 
 const updateToeLinesAttackedLines = (item: {
   comments: string;
@@ -10,16 +10,15 @@ const updateToeLinesAttackedLines = (item: {
   groupName: string;
   rootId: string;
 }): void => {
-  getClient()
-    .mutate({
-      mutation: UPDATE_TOE_LINES_ATTACKED,
-      variables: {
-        comments: item.comments,
-        fileName: item.filename,
-        groupName: item.groupName,
-        rootId: item.rootId,
-      },
-    })
+  API_CLIENT.mutate({
+    mutation: UPDATE_TOE_LINES_ATTACKED,
+    variables: {
+      comments: item.comments,
+      fileName: item.filename,
+      groupName: item.groupName,
+      rootId: item.rootId,
+    },
+  })
     .then((_result): void => {
       if (
         _result.data !== undefined &&

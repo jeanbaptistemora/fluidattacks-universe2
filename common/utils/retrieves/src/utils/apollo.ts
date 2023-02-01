@@ -37,9 +37,11 @@ const getClient = (): ApolloClient<NormalizedCacheObject> => {
   });
 
   return new ApolloClient({
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({}),
     link: authLink.concat(httpLink),
   });
 };
 
-export { getClient };
+const API_CLIENT = getClient();
+
+export { API_CLIENT };

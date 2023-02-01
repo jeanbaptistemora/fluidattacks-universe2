@@ -8,7 +8,7 @@ import { Uri, ViewColumn, window } from "vscode";
 import { GET_TOE_LINES } from "../queries";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
 import type { IEdge, IToeLineNode, IToeLinesPaginator } from "../types";
-import { getClient } from "../utils/apollo";
+import { API_CLIENT } from "../utils/apollo";
 import { getGroupsPath } from "../utils/file";
 import { getWebviewContent } from "../utils/webview";
 
@@ -17,11 +17,10 @@ async function getToeLines(
   rootId: string
 ): Promise<IEdge[]> {
   const result = await Promise.resolve(
-    getClient()
-      .query({
-        query: GET_TOE_LINES,
-        variables: { first: 100, groupName, rootId },
-      })
+    API_CLIENT.query({
+      query: GET_TOE_LINES,
+      variables: { first: 100, groupName, rootId },
+    })
       .then((_result): IToeLinesPaginator => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
         return _result.data.group.toeLines;
@@ -41,20 +40,18 @@ async function getToeLines(
   while (hasNextPage) {
     // eslint-disable-next-line no-await-in-loop
     const next = await Promise.resolve(
-      getClient()
-        .query({
-          query: GET_TOE_LINES,
-          variables: {
-            after: result.pageInfo.endCursor,
-            first: 100,
-            groupName,
-            rootId,
-          },
-        })
-        .then((_result): IToeLinesPaginator => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
-          return _result.data.group.toeLines;
-        })
+      API_CLIENT.query({
+        query: GET_TOE_LINES,
+        variables: {
+          after: result.pageInfo.endCursor,
+          first: 100,
+          groupName,
+          rootId,
+        },
+      }).then((_result): IToeLinesPaginator => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
+        return _result.data.group.toeLines;
+      })
     );
     // eslint-disable-next-line fp/no-mutation
     edges = [...edges, ...next.edges];

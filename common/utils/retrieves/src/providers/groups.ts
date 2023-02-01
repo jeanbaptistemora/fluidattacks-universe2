@@ -10,7 +10,7 @@ import type { GitRootTreeItem } from "../treeItems/gitRoot";
 import { getGitRoots } from "../treeItems/gitRoot";
 import { GroupTreeItem } from "../treeItems/group";
 import type { Organization } from "../types";
-import { getClient } from "../utils/apollo";
+import { API_CLIENT } from "../utils/apollo";
 
 type EventGroup = GroupTreeItem | undefined | void;
 type TreeItems = GitRootTreeItem[] | GroupTreeItem[];
@@ -43,8 +43,7 @@ class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
   // eslint-disable-next-line class-methods-use-this
   private async getGroups(): Promise<GroupTreeItem[]> {
     const groups: string[] = await Promise.resolve(
-      getClient()
-        .query({ query: GET_GROUPS })
+      API_CLIENT.query({ query: GET_GROUPS })
         .then(
           (result: {
             data: {

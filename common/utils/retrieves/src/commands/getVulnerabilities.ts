@@ -13,6 +13,13 @@ import { getGitRootVulnerabilities, getGroupGitRoots } from "../api/root";
 import type { IVulnerability } from "../types";
 import { getRootInfoFromPath } from "../utils/file";
 
+const SEVERITY_MAP = {
+  REJECTED: DiagnosticSeverity.Information,
+  SAFE: DiagnosticSeverity.Hint,
+  SUBMITTED: DiagnosticSeverity.Warning,
+  VULNERABLE: DiagnosticSeverity.Error,
+};
+
 function createDiagnostic(
   groupName: string,
   doc: TextDocument | undefined,
@@ -22,7 +29,7 @@ function createDiagnostic(
   const diagnostic = new Diagnostic(
     lineOfText.range,
     vulnerability.finding.description,
-    DiagnosticSeverity.Error
+    SEVERITY_MAP[vulnerability.state]
   );
   // eslint-disable-next-line fp/no-mutation
   diagnostic.code = {
@@ -52,7 +59,7 @@ const setDiagnostics = async (
     .filter(
       (vuln): boolean =>
         vuln.where === join(vuln.rootNickname, fileRelativePath) &&
-        vuln.state === "VULNERABLE"
+        ["VULNERABLE", "SUBMITTED"].includes(vuln.state)
     )
     .filter((element): boolean => {
       return !Number.isNaN(parseInt(element.specific, 10));
