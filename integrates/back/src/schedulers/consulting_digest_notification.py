@@ -70,6 +70,7 @@ from settings import (
 )
 from typing import (
     Any,
+    Iterable,
     Optional,
     TypedDict,
     Union,
@@ -176,7 +177,7 @@ async def instance_comments(
 
 async def group_instance_comments(
     loaders: Dataloaders,
-    group_instances: tuple[Union[Event, Finding], ...],
+    group_instances: Iterable[Union[Event, Finding]],
     instance_type: str,
 ) -> dict[str, tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
     comments = await collect(
@@ -308,12 +309,7 @@ async def send_comment_digest() -> None:
         ]
     )
 
-    events_comments: tuple[
-        dict[
-            str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
-        ],
-        ...,
-    ] = await collect(
+    events_comments = await collect(
         [
             group_instance_comments(loaders, group_events, "event")
             for group_events in groups_events
@@ -321,12 +317,7 @@ async def send_comment_digest() -> None:
     )
 
     groups_findings = await loaders.group_findings.load_many(groups_names)
-    findings_comments: tuple[
-        dict[
-            str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
-        ],
-        ...,
-    ] = await collect(
+    findings_comments = await collect(
         [
             group_instance_comments(loaders, group_findings, "finding")
             for group_findings in groups_findings

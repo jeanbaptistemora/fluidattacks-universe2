@@ -150,7 +150,7 @@ class EventLoader(DataLoader[str, Optional[Event]]):
         )
 
 
-class GroupEventsLoader(DataLoader):
+class GroupEventsLoader(DataLoader[GroupEventsRequest, list[Event]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
