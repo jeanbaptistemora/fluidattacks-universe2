@@ -14,7 +14,7 @@ from typing import (
 
 
 class NotificationsParameters(NamedTuple):
-    min_severity: Decimal = Decimal("7.0")
+    min_severity: Decimal = Decimal("3.0")
 
 
 class NotificationsPreferences(NamedTuple):
