@@ -18,9 +18,6 @@ from parse_hcl2.common import (
     get_attribute,
     get_block_attribute,
 )
-from parse_hcl2.structure.aws import (
-    iter_aws_default_network_acl,
-)
 from parse_hcl2.structure.azure import (
     iter_azurerm_data_factory,
     iter_azurerm_key_vault,
@@ -120,25 +117,6 @@ def _tfm_azure_kv_danger_bypass_iterate_vulns(
             yield resource
 
 
-def _tfm_aws_acl_broad_network_access(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    danger_values = {
-        "::/0",
-        "0.0.0.0/0",
-    }
-    for resource in resource_iterator:
-        if ingress_block := get_argument(
-            key="ingress",
-            body=resource.data,
-        ):
-            cidr_block = get_block_attribute(
-                block=ingress_block, key="cidr_block"
-            )
-            if cidr_block and cidr_block.val in danger_values:
-                yield cidr_block
-
-
 def tfm_azure_unrestricted_access_network_segments(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -203,20 +181,4 @@ def tfm_azure_kv_danger_bypass(
         ),
         path=path,
         method=MethodsEnum.TFM_AZURE_KV_DANGER_BYPASS,
-    )
-
-
-def tfm_aws_acl_broad_network_access(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("lib_path.f157.tfm_aws_acl_broad_network_access"),
-        iterator=get_cloud_iterator(
-            _tfm_aws_acl_broad_network_access(
-                resource_iterator=iter_aws_default_network_acl(model=model),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AWS_ACL_BROAD_NETWORK_ACCESS,
     )

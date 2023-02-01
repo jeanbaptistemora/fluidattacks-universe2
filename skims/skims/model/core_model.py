@@ -4462,7 +4462,7 @@ class MethodsEnum(Enum):
     TFM_AWS_ACL_BROAD_NETWORK_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_aws_acl_broad_network_access",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

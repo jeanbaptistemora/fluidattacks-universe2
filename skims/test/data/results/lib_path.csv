@@ -7933,27 +7933,3 @@ F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,
   6 | }
     ^ Col 0
 ",terraform.tfm_azure_unrestricted_access_network_segments
-F157,lines,namespace/skims/test/data/lib_path/f157/tfm_aws_acl_broad_network_access.tf,8,923,skims,157. Unrestricted access between network segments,make sure the ingress.cidr_block property is not equal to 0.0.0.0/0 in namespace/skims/test/data/lib_path/f157/tfm_aws_acl_broad_network_access.tf,"
-   1 | resource ""aws_default_network_acl"" ""default"" {
-   2 |   default_network_acl_id = aws_vpc.mainvpc.default_network_acl_id
-   3 |
-   4 |   ingress {
-   5 |     protocol   = -1
-   6 |     rule_no    = 100
-   7 |     action     = ""allow""
->  8 |     cidr_block = ""0.0.0.0/0""
-   9 |     from_port  = 0
-  10 |     to_port    = 0
-  11 |   }
-  12 |
-  13 |   egress {
-  14 |     protocol   = -1
-  15 |     rule_no    = 100
-  16 |     action     = ""allow""
-  17 |     cidr_block = ""0.0.0.0/0""
-  18 |     from_port  = 0
-  19 |     to_port    = 0
-  20 |   }
-  21 | }
-     ^ Col 0
-",terraform.tfm_aws_acl_broad_network_access
