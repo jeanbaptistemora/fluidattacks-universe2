@@ -25,10 +25,9 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     danger_nodes: Union[List[NId], Tuple]
     if args.n_id in args.path:
-        danger_nodes = args.path[: args.path.index(args.n_id)]
+        danger_nodes = tuple(args.path[: args.path.index(args.n_id)])
     else:
         danger_nodes = g.adj_ast(args.graph, args.n_id)
-
     danger = [
         args.generic(args.fork_n_id(arg_id)).danger for arg_id in danger_nodes
     ]

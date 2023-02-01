@@ -92,6 +92,8 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
 
 MODIFYING_METHODS: Set[str] = {"add", "push", "put", "get"}
 
+JS_LANGS = {"typescript", "javascript"}
+
 
 def get_invocation_eval(
     graph: Graph, evaluation: Dict[NId, bool], md_id: NId, mi_id: NId
@@ -128,7 +130,16 @@ def evaluate_method_expression(
     if args.graph.nodes[expr_id].get("symbol") in MODIFYING_METHODS:
         return False
 
-    if md_id := solve_invocation(args.graph, args.path, expr_id):
+    if args.method.value.file_name in JS_LANGS:
+        file_id = g.matching_nodes(args.graph, label_type="File")
+        extra_nodes = g.adj_ast(
+            args.graph, file_id[0], label_type="MethodDeclaration"
+        )
+        search_path = args.path + [*extra_nodes]
+    else:
+        search_path = args.path
+
+    if md_id := solve_invocation(args.graph, search_path, expr_id):
         try:
             invoc_eval = get_invocation_eval(
                 args.graph, args.evaluation, md_id, mi_id=args.n_id
