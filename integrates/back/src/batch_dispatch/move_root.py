@@ -20,6 +20,7 @@ from custom_exceptions import (
     ToeInputAlreadyUpdated,
     ToeInputNotFound,
     ToeLinesAlreadyUpdated,
+    ToeLinesNotFound,
     ToePortAlreadyUpdated,
 )
 from dataloaders import (
@@ -497,8 +498,8 @@ async def _process_toe_lines(
             attributes_to_add,
             is_moving_toe_lines=True,
         )
-    except RepeatedToeLines:
-        current_value: ToeLines = await loaders.toe_lines.load(
+    except RepeatedToeLines as exc:
+        current_value = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=toe_lines.filename,
                 group_name=target_group_name,
@@ -515,11 +516,14 @@ async def _process_toe_lines(
             seen_at=toe_lines.state.seen_at,
             sorts_risk_level=toe_lines.state.sorts_risk_level,
         )
-        await toe_lines_update(
-            current_value,
-            attributes_to_update,
-            is_moving_toe_lines=True,
-        )
+        if current_value:
+            await toe_lines_update(
+                current_value,
+                attributes_to_update,
+                is_moving_toe_lines=True,
+            )
+        else:
+            raise ToeLinesNotFound() from exc
 
 
 toe_ports_add = retry_on_exceptions(

@@ -898,29 +898,27 @@ async def validate_vulnerability_in_toe_lines(
     raises: bool = True,
 ) -> Optional[ToeLines]:
     if vulnerability.root_id:
-        try:
-            toe_lines: ToeLines = await loaders.toe_lines.load(
-                ToeLinesRequest(
-                    filename=where,
-                    group_name=vulnerability.group_name,
-                    root_id=vulnerability.root_id,
-                )
+        toe_lines: Optional[ToeLines] = await loaders.toe_lines.load(
+            ToeLinesRequest(
+                filename=where,
+                group_name=vulnerability.group_name,
+                root_id=vulnerability.root_id,
             )
-        except ToeLinesNotFound as exc:
-            if raises:
-                raise VulnerabilityPathDoesNotExistInToeLines(
-                    index=f"{index}"
-                ) from exc
-            return None
+        )
+        if not toe_lines and raises:
+            raise VulnerabilityPathDoesNotExistInToeLines(index=f"{index}")
 
-        if not 0 <= int(vulnerability.state.specific) <= toe_lines.state.loc:
-            if raises:
-                raise LineDoesNotExistInTheLinesOfCodeRange(
-                    line=vulnerability.state.specific, index=f"{index}"
-                )
-            return None
-
-        return toe_lines
+        if toe_lines:
+            if not (
+                0 <= int(vulnerability.state.specific) <= toe_lines.state.loc
+            ):
+                if raises:
+                    raise LineDoesNotExistInTheLinesOfCodeRange(
+                        line=vulnerability.state.specific, index=f"{index}"
+                    )
+                return None
+            return toe_lines
+        raise ToeLinesNotFound()
     return None
 
 
