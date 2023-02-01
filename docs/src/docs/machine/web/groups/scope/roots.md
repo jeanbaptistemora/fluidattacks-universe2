@@ -639,8 +639,6 @@ you will find the following information.
   if you want to see more,
   click [here.](/machine/web/groups/scope/roots/#deactivate-a-git-root)
 
-![URL Roots scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
-
 ## URL roots functionalities
 
 ### Add new URL root
@@ -650,11 +648,13 @@ go to the Scope section of the
 group of your choice and click
 on the Add new root button.
 
-![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1657141768/docs/web/groups/scope/urlroot_add_new.png)
+![URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1675250254/docs/web/groups/scope/url_scope.png)
 
 The following pop-up window will appear,
 asking you to enter the details
 of the URL  you want to add.
+
+![Add URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1675327909/docs/web/groups/scope/add_new_url.png)
 
 The details you need to enter
 are defined as follows:
@@ -671,6 +671,8 @@ The URL roots you add will be
 listed below **URL Roots**.
 There,
 it is shown whether it is active.
+
+![Add URL Roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1675328694/docs/web/groups/scope/activate_url_root.png)
 
 ### Edit a URL Root
 
@@ -731,8 +733,8 @@ The management of secrets
 is done for previously
 created roots or URLs,
 listed in the tables **Git Roots**
-or **Environment URLs** in the
-Scope section.
+**Environment URLs** or **URL Roots**
+in the Scope section.
 
 ![Go to Secrets Section](https://res.cloudinary.com/fluid-attacks/image/upload/v1671801491/docs/web/groups/scope/ways_add_secrest.png)
 
