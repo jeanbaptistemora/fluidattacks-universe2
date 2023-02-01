@@ -45,7 +45,7 @@ async def unencrypted_buckets(
                 "Bucket": str(bucket["Name"]),
             },
         )
-        if not encryption:
+        if not encryption.get("ServerSideEncryptionConfiguration"):
             locations = [
                 Location(
                     access_patterns=(),
@@ -92,12 +92,13 @@ async def bucket_policy_has_server_side_encryption_disable(
             bucket_statements = policy["Statement"]
 
             for index, stm in enumerate(bucket_statements):
-                conditions = stm.get("Condition", {})
                 if (
-                    conditions
-                    and stm["Condition"]["Null"][
-                        "s3:x-amz-server-side-encryption"
-                    ]
+                    (conditions := stm.get("Condition", None))
+                    and conditions.get("Null", None)
+                    and conditions["Null"].get(
+                        "s3:x-amz-server-side-encryption", None
+                    )
+                    and conditions["Null"]["s3:x-amz-server-side-encryption"]
                     != "true"
                 ):
                     condition = stm["Condition"]["Null"][

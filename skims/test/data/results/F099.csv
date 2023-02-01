@@ -1,0 +1,147 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,21,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled in namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml,"
+  11 | GetObject
+  12 |  Allow
+  13 | e:
+  14 |
+  15 |  'arn:aws:s3:::'
+  16 |  DOC-EXAMPLE-BUCKET
+  17 |  /*
+  18 | al: '*'
+  19 | on:
+  20 | ':
+> 21 | x-amz-server-side-encryption: false
+  22 |
+  23 | BucketPolicy
+  24 |
+  25 | XAMPLE-BUCKET
+  26 | t:
+  27 | 12-10-17
+  28 |
+  29 |
+  30 | DeleteObject
+  31 | DeleteObjectVersion
+     ^ Col 19
+",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,26,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Buckets have Server-Side Encryption disabled in namespace/skims/test/data/lib_path/f099/cfn_bucket_policy_has_server_side_encryption_disabled.yaml.json,"
+   16 |
+   17 |
+   18 | aws:s3:::"",
+   19 | EXAMPLE-BUCKET"",
+   20 |
+   21 |
+   22 |
+   23 | l"": ""*"",
+   24 | n"": {
+   25 |  {
+>  26 | -amz-server-side-encryption"": false
+   27 |
+   28 |
+   29 |
+   30 |
+   31 |
+   32 |
+   33 |
+   34 |
+   35 | :BucketPolicy"",
+   36 |
+      ^ Col 23
+",cloudformation.cfn_bucket_policy_has_server_side_encryption_disabled
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   S3Bucket:
+   4 |     Type: AWS::S3::Bucket
+   5 |     DeletionPolicy: Retain
+>  6 |     Properties:
+   7 |       BucketName: SKIMS-EXAMPLE-BUCKET
+   8 |   EncryptedS3Bucket:
+   9 |     Type: AWS::S3::Bucket
+  10 |     Properties:
+  11 |       BucketName: SKIMS-ENCRYPTED-EXAMPLE-BUCKET
+  12 |       BucketEncryption:
+  13 |         ServerSideEncryptionConfiguration:
+  14 |           - ServerSideEncryptionByDefault:
+  15 |               SSEAlgorithm: aws:kms
+  16 |               KMSMasterKeyID: KMS-KEY-ARN
+  17 |     DeletionPolicy: Delete
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,6,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+>  6 |       ""Properties"": {
+   7 |         ""BucketName"": ""SKIMS-EXAMPLE-BUCKET""
+   8 |       }
+   9 |     },
+  10 |     ""EncryptedS3Bucket"": {
+  11 |       ""Type"": ""AWS::S3::Bucket"",
+  12 |       ""Properties"": {
+  13 |         ""BucketName"": ""SKIMS-ENCRYPTED-EXAMPLE-BUCKET"",
+  14 |         ""BucketEncryption"": {
+  15 |           ""ServerSideEncryptionConfiguration"": [
+  16 |             {
+  17 |               ""ServerSideEncryptionByDefault"": {
+  18 |                 ""SSEAlgorithm"": ""aws:kms"",
+  19 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  20 |               }
+  21 |             }
+     ^ Col 0
+",cloudformation.cfn_unencrypted_buckets
+F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+>  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
+   2 |   bucket = ""my_unencrypted_bucket_1""
+   3 |   acl    = ""private""
+   4 |   region = var.region
+   5 | }
+   6 |
+   7 | resource ""aws_kms_key"" ""bucket_encryption_key"" {
+   8 |   description             = ""This key is used to encrypt bucket objects""
+   9 |   deletion_window_in_days = 10
+  10 | }
+  11 |
+  12 | resource ""aws_s3_bucket"" ""encrypted_bucket_1"" {
+  13 |   bucket = ""my_encrypted_bucket_1""
+  14 |   server_side_encryption_configuration {
+  15 |     rule {
+  16 |       apply_server_side_encryption_by_default {
+  17 |         kms_master_key_id = aws_kms_key.bucket_encryption_key.arn
+  18 |         sse_algorithm     = ""aws:kms""
+  19 |       }
+  20 |     }
+  21 |   }
+     ^ Col 0
+",terraform.tfm_unencrypted_buckets
+F099,inputs,arn:aws:s3:::myBucket1 (namespace),lib_path.f099.unencrypted_buckets,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,lib_path.f099.unencrypted_buckets,"
+  1 | {
+  2 |     ""Name"": ""myBucket1""
+  3 | }
+    ^ Col 0
+",aws.unencrypted_buckets
+F099,inputs,arn:aws:s3:::myBucket1 (namespace),/Statement/0/Condition/Null/s3:x_amz_server_side_encryption: false,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,src.lib_path.f099.bckp_has_server_side_encryption_disabled,"
+   1 | {
+   2 |     ""Version"": ""2008-10-17"",
+   3 |     ""Id"": ""LogPolicy"",
+   4 |     ""Statement"": [
+   5 |         {
+   6 |             ""Condition"": {
+   7 |                 ""Null"": {
+>  8 |                     ""s3:x-amz-server-side-encryption"": ""false""
+   9 |                 }
+  10 |             },
+  11 |             ""Effect"": ""Allow"",
+  12 |             ""Principal"": {
+  13 |                 ""AWS"": ""111122223333""
+  14 |             },
+  15 |             ""Action"": [
+  16 |                 ""s3:GetBucketAcl"",
+  17 |                 ""s3:GetObjectAcl"",
+  18 |                 ""s3:PutObject""
+  19 |             ],
+  20 |             ""Resource"": [
+  21 |                 ""arn:aws:s3:::policytest1/*""
+     ^ Col 0
+",aws.bucket_policy_has_server_side_encryption_disable
