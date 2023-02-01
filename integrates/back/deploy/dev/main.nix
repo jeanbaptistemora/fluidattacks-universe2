@@ -11,15 +11,12 @@ makeScript {
   };
   searchPaths = {
     bin = [
-      inputs.nixpkgs.awscli
-      inputs.nixpkgs.envsubst
-      inputs.nixpkgs.kubectl
-      inputs.nixpkgs.utillinux
-      inputs.nixpkgs.yq
       inputs.nixpkgs.gnugrep
+      inputs.nixpkgs.utillinux
     ];
     source = [
       outputs."/common/utils/aws"
+      outputs."/integrates/back/deploy/lib"
     ];
   };
   name = "integrates-back-deploy-dev";
