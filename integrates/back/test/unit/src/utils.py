@@ -3427,21 +3427,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             responsibility=None,
             role="admin",
         ),
-        '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
-            email="unittest@fluidattacks.com",
-            group_name="unittesting",
-            state=GroupAccessState(
-                modified_date=datetime.fromisoformat(
-                    "2020-01-01T20:24:25+00:00"
-                )
-            ),
-            confirm_deletion=None,
-            expiration_time=None,
-            has_access=True,
-            invitation=None,
-            responsibility="Tester",
-            role=None,
-        ),
     },
     "db_model.group_access.get.GroupStakeholdersAccessLoader.load": {
         '["unittesting"]': [
@@ -8996,7 +8981,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                         ),
                         status=VulnerabilityTreatmentStatus.UNTREATED,
                         acceptance_status=None,
-                        accepted_until=None,
                         justification=None,
                         assigned=None,
                         modified_by=None,
@@ -9927,6 +9911,23 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
         '"customer_manager"]': None,
     },
+    "group_access.domain.Dataloaders.group_access": {
+        '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
+            email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            state=GroupAccessState(
+                modified_date=datetime.fromisoformat(
+                    "2020-01-01T20:24:25+00:00"
+                )
+            ),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility="Tester",
+            role=None,
+        ),
+    },
     "group_access.domain.get_managers": {
         '["unittesting", 2]': [
             "continuoushack2@gmail.com",
@@ -10089,14 +10090,25 @@ def set_mocks_return_values(
     mocked_objects: List[AsyncMock],
     paths_list: List[str],
     mocks_args: List[List[Any]],
+    module_at_test: str = "",
 ) -> bool:
     all_values_set = False
-    for mocked_object, mocked_path, arguments in zip(
-        mocked_objects, paths_list, mocks_args
-    ):
-        mocked_object.return_value = get_mock_response(
-            get_mocked_path(mocked_path),
-            json.dumps(arguments, default=str),
-        )
-    all_values_set = True
+    if module_at_test:
+        for mocked_object, mocked_path, arguments in zip(
+            mocked_objects, paths_list, mocks_args
+        ):
+            mocked_object.return_value = get_mock_response(
+                module_at_test + mocked_path,
+                json.dumps(arguments, default=str),
+            )
+        all_values_set = True
+    else:
+        for mocked_object, mocked_path, arguments in zip(
+            mocked_objects, paths_list, mocks_args
+        ):
+            mocked_object.return_value = get_mock_response(
+                get_mocked_path(mocked_path),
+                json.dumps(arguments, default=str),
+            )
+        all_values_set = True
     return all_values_set

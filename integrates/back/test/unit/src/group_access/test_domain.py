@@ -37,6 +37,8 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+MODULE_AT_TEST = "group_access.domain."
+
 
 @pytest.mark.parametrize(
     ["email", "group_name"],
@@ -44,21 +46,22 @@ pytestmark = [
         ["unittest@fluidattacks.com", "unittesting"],
     ],
 )
-@patch(get_mocked_path("loaders.group_access.load"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "Dataloaders.group_access", new_callable=AsyncMock)
 async def test_exists(
-    mock_loaders_group_access: AsyncMock,
+    mock_dataloaders_group_access: AsyncMock,
     email: str,
     group_name: str,
 ) -> None:
     assert set_mocks_return_values(
-        mocked_objects=[mock_loaders_group_access],
-        paths_list=["loaders.group_access.load"],
         mocks_args=[[group_name, email]],
+        mocked_objects=[mock_dataloaders_group_access.load],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["Dataloaders.group_access"],
     )
     loaders: Dataloaders = get_new_context()
     assert await exists(loaders, group_name, email)
-    assert mock_loaders_group_access.called is True
-    mock_loaders_group_access.assert_called_with(
+    assert mock_dataloaders_group_access.load.called is True
+    mock_dataloaders_group_access.load.assert_called_with(
         GroupAccessRequest(group_name=group_name, email=email)
     )
 
