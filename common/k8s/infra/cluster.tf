@@ -94,6 +94,17 @@ module "cluster" {
     ],
   )
 
+  # Encryption
+  create_kms_key          = true
+  enable_kms_key_rotation = true
+  kms_key_aliases         = [local.cluster_name]
+  kms_key_owners = [
+    for admin in local.admins : data.aws_iam_role.main[admin].arn
+  ]
+  kms_key_administrators = [
+    for user in local.users : data.aws_iam_role.main[user].arn
+  ]
+
   tags = {
     "Name"               = local.cluster_name
     "Environment"        = "production"

@@ -191,6 +191,27 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/deployTerraform/commonK8s:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
+  script:
+    - m . /deployTerraform/commonK8s
+  stage: deploy-infra
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /deployTerraform/commonOkta:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -472,6 +493,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/lintTerraform/commonK8s:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
+  script:
+    - m . /lintTerraform/commonK8s
+  stage: lint-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /lintTerraform/commonOkta:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -692,6 +735,28 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/secureKubernetesWithRbacPolice/commonK8s:
+  allow_failure: true
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  resource_group: $CI_JOB_NAME
+  rules:
+    - if: $CI_COMMIT_BRANCH != "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
+  script:
+    - m . /secureKubernetesWithRbacPolice/commonK8s
+  stage: deploy-infra
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
 /testTerraform/commonCi:
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
@@ -774,6 +839,28 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|common)/
   script:
     - m . /testTerraform/commonFoss
+  stage: test-infra
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/testTerraform/commonK8s:
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == "trunk"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|common)/
+  script:
+    - m . /testTerraform/commonK8s
   stage: test-infra
   tags:
     - small

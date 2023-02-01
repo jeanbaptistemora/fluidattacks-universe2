@@ -3,11 +3,11 @@
   imports = [
     ./ci/makes.nix
     ./compute/makes.nix
-    ./cluster/makes.nix
     ./criteria/makes.nix
     ./dev/makes.nix
     ./dns/makes.nix
     ./foss/makes.nix
+    ./k8s/makes.nix
     ./monitoring/makes.nix
     ./okta/makes.nix
     ./pipeline/makes.nix

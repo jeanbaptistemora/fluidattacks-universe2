@@ -69,6 +69,10 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
+          output = "/deployTerraform/commonK8s";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
           output = "/deployTerraform/commonOkta";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -91,6 +95,10 @@ in {
         {
           output = "/common/utils/retrieves/deploy";
           gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/secureKubernetesWithRbacPolice/commonK8s";
+          gitlabExtra = gitlabDeployInfra // {allow_failure = true;};
         }
         {
           output = "/lintPython/module/commonComputeScheduleParseTerraform";
@@ -118,6 +126,10 @@ in {
         }
         {
           output = "/lintTerraform/commonFoss";
+          gitlabExtra = gitlabLint;
+        }
+        {
+          output = "/lintTerraform/commonK8s";
           gitlabExtra = gitlabLint;
         }
         {
@@ -185,15 +197,15 @@ in {
           gitlabExtra = gitlabTestInfra;
         }
         {
-          output = "/testTerraform/commonCompute";
-          gitlabExtra = gitlabTestInfra;
-        }
-        {
           output = "/testTerraform/commonDns";
           gitlabExtra = gitlabTestInfra;
         }
         {
           output = "/testTerraform/commonFoss";
+          gitlabExtra = gitlabTestInfra;
+        }
+        {
+          output = "/testTerraform/commonK8s";
           gitlabExtra = gitlabTestInfra;
         }
         {

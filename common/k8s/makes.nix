@@ -14,88 +14,77 @@
 in {
   deployTerraform = {
     modules = {
-      commonCluster = {
+      commonK8s = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromGitlab/prodCommon"
           outputs."/secretsForEnvFromSops/commonCloudflareProd"
-          outputs."/secretsForEnvFromSops/commonClusterProd"
-          outputs."/secretsForTerraformFromEnv/commonCluster"
+          outputs."/secretsForEnvFromSops/commonK8sProd"
+          outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
-        src = "/common/cluster/infra";
-        version = "1.0";
-      };
-      commonClusterNew = {
-        setup = [
-          searchPaths
-          outputs."/secretsForAwsFromGitlab/prodCommon"
-          outputs."/secretsForEnvFromSops/commonCloudflareProd"
-          outputs."/secretsForEnvFromSops/commonClusterProd"
-          outputs."/secretsForTerraformFromEnv/commonCluster"
-        ];
-        src = "/common/cluster/new";
+        src = "/common/k8s/infra";
         version = "1.0";
       };
     };
   };
   lintTerraform = {
     modules = {
-      commonCluster = {
+      commonK8s = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForEnvFromSops/commonClusterDev"
-          outputs."/secretsForTerraformFromEnv/commonCluster"
+          outputs."/secretsForEnvFromSops/commonK8sDev"
+          outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
-        src = "/common/cluster/infra";
+        src = "/common/k8s/infra";
         version = "1.0";
       };
     };
   };
   secretsForEnvFromSops = {
-    commonClusterDev = {
+    commonK8sDev = {
       vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/dev.yaml";
     };
-    commonClusterProd = {
+    commonK8sProd = {
       vars = ["NEW_RELIC_LICENSE_KEY"];
       manifest = "/common/secrets/prod.yaml";
     };
   };
   secretsForKubernetesConfigFromAws = {
-    commonCluster = {
-      cluster = "common";
+    commonK8s = {
+      cluster = "common-k8s";
       region = "us-east-1";
     };
   };
   secretsForTerraformFromEnv = {
-    commonCluster = {
+    commonK8s = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
     };
   };
   secureKubernetesWithRbacPolice = {
-    commonCluster = {
+    commonK8s = {
       severity = "Low";
       setup = [
         outputs."/secretsForAwsFromGitlab/prodCommon"
-        outputs."/secretsForKubernetesConfigFromAws/commonCluster"
+        outputs."/secretsForKubernetesConfigFromAws/commonK8s"
       ];
     };
   };
   testTerraform = {
     modules = {
-      commonCluster = {
+      commonK8s = {
         setup = [
           searchPaths
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/commonCloudflareDev"
-          outputs."/secretsForEnvFromSops/commonClusterDev"
-          outputs."/secretsForTerraformFromEnv/commonCluster"
+          outputs."/secretsForEnvFromSops/commonK8sDev"
+          outputs."/secretsForTerraformFromEnv/commonK8s"
         ];
-        src = "/common/cluster/infra";
+        src = "/common/k8s/infra";
         version = "1.0";
       };
     };
