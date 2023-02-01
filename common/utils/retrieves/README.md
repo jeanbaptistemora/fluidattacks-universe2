@@ -17,7 +17,8 @@ So far, Retrieves will:
     - Hide files that have already been attacked
     - Mark a file as attacked. Right click in the file path
      ![image info](docs/images/mark_file_as_attacked.png)
-
+  - When opening a file, the vulnerabilities reported for the file are
+    consulted and listed as vscode diagnostics
 
 To use the extension, it must be used on a directory named `groups`,
 in this directory the repositories are cloned. You can open the subdirectories
@@ -31,5 +32,15 @@ vscode settings `.vscode/settings.json`
 ```json
 {
     "retrieves.api_token": "your token"
+}
+```
+
+Some admin roles have access to most or all of the groups,
+but these groups are not directly assigned to the user, which causes
+the groups to not be listed in the retrieve menu. To list additional
+groups they must be added to the configuration
+```json
+{
+  "retrieves.extraGroups": ["yali", "titribi"]
 }
 ```

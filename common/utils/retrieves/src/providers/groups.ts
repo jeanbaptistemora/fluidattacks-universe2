@@ -2,8 +2,13 @@
 /* eslint-disable fp/no-this */
 
 import type { Event, TreeDataProvider, TreeItem } from "vscode";
-// eslint-disable-next-line import/no-unresolved
-import { EventEmitter, TreeItemCollapsibleState, window } from "vscode";
+import {
+  EventEmitter,
+  TreeItemCollapsibleState,
+  window,
+  workspace,
+  // eslint-disable-next-line import/no-unresolved
+} from "vscode";
 
 import { GET_GROUPS } from "../queries";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
@@ -42,28 +47,31 @@ class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
 
   // eslint-disable-next-line class-methods-use-this
   private async getGroups(): Promise<GroupTreeItem[]> {
-    const groups: string[] = await Promise.resolve(
-      API_CLIENT.query({ query: GET_GROUPS })
-        .then(
-          (result: {
-            data: {
-              me: {
-                organizations: Organization[];
+    const groups: string[] = [
+      ...workspace.getConfiguration("retrieves").get("extraGroups", []),
+      ...(await Promise.resolve(
+        API_CLIENT.query({ query: GET_GROUPS })
+          .then(
+            (result: {
+              data: {
+                me: {
+                  organizations: Organization[];
+                };
               };
-            };
-          }): string[] =>
-            result.data.me.organizations
-              .map((org: Organization): string[] =>
-                org.groups.map((group): string => group.name)
-              )
-              .flat()
-        )
-        .catch((_err): [] => {
-          void window.showErrorMessage(String(_err));
+            }): string[] =>
+              result.data.me.organizations
+                .map((org: Organization): string[] =>
+                  org.groups.map((group): string => group.name)
+                )
+                .flat()
+          )
+          .catch((_err): [] => {
+            void window.showErrorMessage(String(_err));
 
-          return [];
-        })
-    );
+            return [];
+          })
+      )),
+    ];
     const toGroup = (groupName: string): GroupTreeItem =>
       new GroupTreeItem(groupName, TreeItemCollapsibleState.Collapsed);
 

@@ -18,10 +18,6 @@
       {
         "command": "retrieves.updateToeLinesAttackedLines",
         "title": "Attacked"
-      },
-      {
-        "command": "retrieves.getRootVulnerabilities",
-        "title": "Get Root Vulnerabilities"
       }
     ],
     "configuration": [
@@ -29,18 +25,18 @@
         "properties": {
           "retrieves.api_token": {
             "type": "string"
+          },
+          "retrieves.extraGroups": {
+            "default": [],
+            "description": "add groups that are not listed automatically",
+            "items": true,
+            "type": "array"
           }
         },
         "title": "Retrieves configuration"
       }
     ],
     "menus": {
-      "webview/context": [
-        {
-          "command": "retrieves.updateToeLinesAttackedLines",
-          "when": "webviewSection == 'filename'"
-        }
-      ],
       "editor/title/context": [
         {
           "command": "retrieves.clone",
@@ -63,10 +59,12 @@
         {
           "command": "retrieves.lines",
           "when": "view == user_groups && viewItem == gitRoot"
-        },
+        }
+      ],
+      "webview/context": [
         {
-          "command": "retrieves.getRootVulnerabilities",
-          "when": "view == user_groups && viewItem == gitRoot"
+          "command": "retrieves.updateToeLinesAttackedLines",
+          "when": "webviewSection == 'filename'"
         }
       ]
     },
