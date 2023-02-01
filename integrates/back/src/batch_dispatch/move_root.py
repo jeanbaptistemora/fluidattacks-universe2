@@ -18,6 +18,7 @@ from custom_exceptions import (
     RepeatedToeLines,
     RepeatedToePort,
     ToeInputAlreadyUpdated,
+    ToeInputNotFound,
     ToeLinesAlreadyUpdated,
     ToePortAlreadyUpdated,
 )
@@ -425,8 +426,8 @@ async def _process_toe_input(
             attributes_to_add,
             is_moving_toe_input=True,
         )
-    except RepeatedToeInput:
-        current_value: ToeInput = await loaders.toe_input.load(
+    except RepeatedToeInput as exc:
+        current_value = await loaders.toe_input.load(
             ToeInputRequest(
                 component=toe_input.component,
                 entry_point=toe_input.entry_point,
@@ -443,12 +444,15 @@ async def _process_toe_input(
             seen_first_time_by=toe_input.state.seen_first_time_by,
             unreliable_root_id=target_root_id,
         )
-        await toe_inputs_update(
-            current_value=current_value,
-            attributes=attributes_to_update,
-            modified_by="machine@fluidattacks.com",
-            is_moving_toe_input=True,
-        )
+        if current_value:
+            await toe_inputs_update(
+                current_value=current_value,
+                attributes=attributes_to_update,
+                modified_by="machine@fluidattacks.com",
+                is_moving_toe_input=True,
+            )
+        else:
+            raise ToeInputNotFound() from exc
 
 
 toe_lines_add = retry_on_exceptions(
