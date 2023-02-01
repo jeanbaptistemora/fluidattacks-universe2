@@ -1,6 +1,7 @@
 from custom_exceptions import (
     InvalidLinesOfCode,
     InvalidModifiedDate,
+    InvalidSortsRiskLevel,
     InvalidSortsRiskLevelDate,
     InvalidSortsSuggestions,
 )
@@ -20,8 +21,10 @@ from toe.lines.validations import (
     validate_loc_deco,
     validate_modified_date,
     validate_modified_date_deco,
+    validate_sort_risk_level_deco,
     validate_sort_suggestions,
     validate_sorts_risk_level_date,
+    validate_sorts_risk_level_date_deco,
 )
 
 pytestmark = [
@@ -73,6 +76,18 @@ def test_validate_sorts_risk_level_date() -> None:
         validate_sorts_risk_level_date(modified_date_fail)
 
 
+def test_validate_sorts_risk_level_date_deco() -> None:
+    @validate_sorts_risk_level_date_deco("modified_date")
+    def decorated_func(modified_date: datetime) -> datetime:
+        return modified_date
+
+    modified_date = datetime.now() - timedelta(days=1)
+    modified_date_fail = datetime.now() + timedelta(days=1)
+    decorated_func(modified_date=modified_date)
+    with pytest.raises(InvalidSortsRiskLevelDate):
+        decorated_func(modified_date=modified_date_fail)
+
+
 async def test_valid_suggestions() -> None:
     await validate_sort_suggestions(
         [
@@ -116,3 +131,13 @@ async def test_valid_suggestions() -> None:
                 ),
             ]
         )
+
+
+def test_validate_sort_risk_level_deco() -> None:
+    @validate_sort_risk_level_deco(value_field="value")
+    def decorated_func(value: int) -> int:
+        return value
+
+    decorated_func(value=80)
+    with pytest.raises(InvalidSortsRiskLevel):
+        decorated_func(value=105)
