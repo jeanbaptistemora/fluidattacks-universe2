@@ -95,7 +95,7 @@ module "cluster" {
   )
 
   tags = {
-    "Name"               = "common-kubernetes"
+    "Name"               = local.cluster_name
     "Environment"        = "production"
     "GithubRepo"         = "terraform-aws-eks"
     "GithubOrg"          = "terraform-aws-modules"

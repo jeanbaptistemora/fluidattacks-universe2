@@ -3,7 +3,7 @@ data "http" "alb-policy" {
 }
 
 resource "aws_iam_policy" "alb" {
-  name_prefix = "${local.cluster_name}-alb"
+  name_prefix = "${local.cluster_name}-alb-"
   policy      = data.http.alb-policy.body
 }
 
@@ -11,7 +11,7 @@ module "alb_oidc_role" {
   source           = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
   version          = "5.11.1"
   create_role      = true
-  role_name_prefix = "${local.cluster_name}-alb"
+  role_name_prefix = "${local.cluster_name}-alb-"
   provider_url     = replace(module.cluster.cluster_oidc_issuer_url, "https://", "")
 
   role_policy_arns = [

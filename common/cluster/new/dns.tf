@@ -30,7 +30,7 @@ resource "helm_release" "dns" {
 
   set {
     name  = "txtPrefix"
-    value = local.cluster_name
+    value = "${local.cluster_name}-"
   }
 
   set {
