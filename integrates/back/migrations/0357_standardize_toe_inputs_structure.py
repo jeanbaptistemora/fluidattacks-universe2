@@ -13,6 +13,10 @@ Finalization Time: 2023-01-27 at 20:50:10 UTC
 Deletion of duplicate data
 Execution Time:    2023-01-27 at 23:03:37 UTC
 Finalization Time: 2023-01-27 at 23:14:08 UTC
+
+TOE Inputs Historic Standardization
+Execution Time:    2023-02-01 at 00:01:45 UTC
+Finalization Time: 2023-02-01 at 00:11:17 UTC
 """
 from aioextensions import (
     collect,
@@ -27,7 +31,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.toe_inputs.types import (
-    ToeInput,
     ToeInputRequest,
 )
 from db_model.toe_inputs.utils import (
@@ -48,7 +51,6 @@ from dynamodb.types import (
     PrimaryKey,
 )
 from newutils.datetime import (
-    get_as_utc_iso_format,
     get_iso_date,
 )
 from organizations import (
@@ -70,6 +72,7 @@ MIGRATED_ATTRS = {
 }
 MIGRATE = False
 DELETE = False
+HISTORIC = False
 MISSING_GROUPS: set[str] = set()
 
 
@@ -100,6 +103,31 @@ async def get_toe_inputs_by_group(
     return response.items
 
 
+async def get_historic_toe_input(
+    request: ToeInputRequest,
+) -> tuple[Item, ...]:
+    primary_key = keys.build_key(
+        facet=TABLE.facets["toe_input_historic_metadata"],
+        values={
+            "component": request.component,
+            "entry_point": request.entry_point,
+            "group_name": request.group_name,
+            "root_id": request.root_id,
+        },
+    )
+    key_structure = TABLE.primary_key
+    response = await operations.query(
+        condition_expression=(
+            Key(key_structure.partition_key).eq(primary_key.partition_key)
+            & Key(key_structure.sort_key).begins_with(primary_key.sort_key)
+        ),
+        facets=(TABLE.facets["toe_input_historic_metadata"],),
+        table=TABLE,
+    )
+
+    return response.items if response.items else ()
+
+
 async def delete_duplicate_data(item: Item) -> None:
     to_delete: Item = {key: None for key in (MIGRATED_ATTRS & item.keys())}
     if check_item_state_shape(item["state"]) or not to_delete:
@@ -119,12 +147,8 @@ async def delete_duplicate_data(item: Item) -> None:
     )
 
 
-async def process_historic_toe_inputs(
-    loaders: Dataloaders, group_name: str, toe_item: Item
-) -> None:
-    historic_toe_inputs: tuple[
-        ToeInput, ...
-    ] = await loaders.toe_input_historic.load(
+async def process_historic_toe_inputs(group_name: str, toe_item: Item) -> None:
+    historic_toe_inputs: tuple[Item, ...] = await get_historic_toe_input(
         ToeInputRequest(
             component=toe_item["component"],
             entry_point=toe_item["entry_point"],
@@ -132,7 +156,11 @@ async def process_historic_toe_inputs(
             root_id=toe_item.get("unreliable_root_id", ""),
         )
     )
-    for historic_toe_input in historic_toe_inputs:
+
+    for historic_item in historic_toe_inputs:
+        historic_toe_input = format_toe_input(
+            group_name=group_name, item=historic_item
+        )
         state_item: Item = json.loads(
             json.dumps(historic_toe_input.state, default=serialize)
         )
@@ -141,23 +169,9 @@ async def process_historic_toe_inputs(
             state_item["modified_by"] = "machine@fluidattacks.com"
 
         key_structure = TABLE.primary_key
-        historic_key = keys.build_key(
-            facet=TABLE.facets["toe_input_historic_metadata"],
-            values={
-                "component": historic_toe_input.component,
-                "entry_point": historic_toe_input.entry_point,
-                "group_name": group_name,
-                "root_id": historic_toe_input.state.unreliable_root_id,
-                "iso8601utc": get_as_utc_iso_format(
-                    historic_toe_input.state.modified_date
-                )
-                if historic_toe_input.state.modified_date
-                else "",
-            },
-        )
         primary_key = PrimaryKey(
-            partition_key=historic_key.partition_key,
-            sort_key=historic_key.sort_key,
+            partition_key=historic_item[TABLE.primary_key.partition_key],
+            sort_key=historic_item[TABLE.primary_key.sort_key],
         )
         condition_expression = Attr(key_structure.partition_key).exists()
         await operations.update_item(
@@ -209,6 +223,14 @@ async def process_group(group_name: str, progress: float) -> None:
         await collect(
             tuple(
                 process_toe_inputs_item(group_name, item)
+                for item in group_toe_inputs
+            ),
+            workers=64,
+        )
+    elif HISTORIC:
+        await collect(
+            tuple(
+                process_historic_toe_inputs(group_name, item)
                 for item in group_toe_inputs
             ),
             workers=64,
