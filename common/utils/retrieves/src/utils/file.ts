@@ -1,5 +1,5 @@
 import { rmSync } from "fs";
-import { join } from "path";
+import { join, sep } from "path";
 
 import { glob } from "glob";
 // eslint-disable-next-line import/no-unresolved
@@ -29,4 +29,23 @@ function getGroupsPath(): string {
   return join(currentPath.split("groups")[0], "groups");
 }
 
-export { ignoreFiles, getGroupsPath };
+const getRootInfoFromPath = (
+  path: string
+): { groupName: string; nickname: string; fileRelativePath: string } | null => {
+  const groupsIndex = path
+    .split(sep)
+    .findIndex((item): boolean => item === "groups");
+  if (groupsIndex === -1 || path.split(sep).slice(groupsIndex + 1).length < 2) {
+    return null;
+  }
+
+  const [groupName, nickname] = path.split(sep).slice(groupsIndex + 1);
+  const fileRelativePath = path
+    .split(sep)
+    .slice(groupsIndex + 3)
+    .join(sep);
+
+  return { fileRelativePath, groupName, nickname };
+};
+
+export { ignoreFiles, getGroupsPath, getRootInfoFromPath };
