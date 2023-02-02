@@ -4446,7 +4446,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_SA_DEFAULT_ACCESS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_sa_default_network_access",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F157,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
@@ -4510,7 +4510,7 @@ class MethodsEnum(Enum):
     EC2_DEFAULT_SEC_GROUP = MethodInfo(
         file_name="terraform",
         name="ec2_use_default_security_group",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F177,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -1,22 +1,15 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f177.cloudformation import (
     cfn_ec2_use_default_security_group,
-)
-from lib_path.f177.terraform import (
-    ec2_use_default_security_group,
 )
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from parse_hcl2.loader import (
-    load_blocking as load_terraform,
 )
 from typing import (
     Any,
@@ -31,15 +24,6 @@ def run_cfn_ec2_use_default_security_group(
 ) -> Vulnerabilities:
     return cfn_ec2_use_default_security_group(
         content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_ec2_use_default_security_group(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return ec2_use_default_security_group(
-        content=content, path=path, model=model
     )
 
 
@@ -62,11 +46,5 @@ def analyze(
                     for fun in (run_cfn_ec2_use_default_security_group,)
                 ),
             )
-
-    elif file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
-        model = load_terraform(stream=content, default=[])
-
-        results = (run_ec2_use_default_security_group(content, path, model),)
 
     return results
