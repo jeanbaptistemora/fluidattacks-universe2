@@ -15,6 +15,7 @@ def get_query() -> str:
     return """
         query(
             $groupName: String!
+            $hasVulnerabilities: Boolean
             $maxLoc: Int
             $minLoc: Int
             $rootId: ID
@@ -22,6 +23,7 @@ def get_query() -> str:
             group(groupName: $groupName) {
                 name
                 toeLines(
+                    hasVulnerabilities: $hasVulnerabilities
                     maxLoc: $maxLoc
                     minLoc: $minLoc
                     rootId: $rootId
@@ -69,6 +71,7 @@ async def get_result(
     user: str,
     group_name: str,
     filename: Optional[str] = None,
+    has_vulnerabilities: Optional[bool] = None,
     max_loc: Optional[int] = None,
     min_loc: Optional[int] = None,
     root_id: Optional[str] = None,
@@ -79,6 +82,7 @@ async def get_result(
         "variables": {
             "filename": filename,
             "groupName": group_name,
+            "hasVulnerabilities": has_vulnerabilities,
             "maxLoc": max_loc,
             "minLoc": min_loc,
             "rootId": root_id,

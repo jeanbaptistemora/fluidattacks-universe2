@@ -168,3 +168,28 @@ async def test_get_toe_lines_by_max_loc(populate: bool, email: str) -> None:
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["loc"] == 180
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_has_vulns(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        has_vulnerabilities=True,
+    )
+    assert len(result["data"]["group"]["toeLines"]["edges"]) == 0
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        has_vulnerabilities=False,
+    )
+    assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
