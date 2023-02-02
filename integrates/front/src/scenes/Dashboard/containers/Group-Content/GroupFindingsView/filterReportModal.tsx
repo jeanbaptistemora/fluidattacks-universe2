@@ -23,7 +23,7 @@ import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -414,29 +414,17 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                                 </Row>
                               </Col>
                               <Col lg={45} md={45} sm={45}>
-                                <p className={"mb1 mt1"}>
-                                  <span className={"fw8"}>
-                                    {t(
-                                      "group.findings.report.maxSeverity.text"
-                                    )}
-                                  </span>
-                                </p>
-                                <Tooltip
-                                  id={"group.findings.report.maxSeverity.id"}
-                                  place={"top"}
-                                  tip={t(
+                                <InputNumber
+                                  label={t(
+                                    "group.findings.report.maxSeverity.text"
+                                  )}
+                                  max={10}
+                                  min={0}
+                                  name={"maxSeverity"}
+                                  tooltip={t(
                                     "group.findings.report.maxSeverity.tooltip"
                                   )}
-                                >
-                                  <Field
-                                    component={FormikText}
-                                    max={10}
-                                    min={0}
-                                    name={"maxSeverity"}
-                                    step={0.1}
-                                    type={"number"}
-                                  />
-                                </Tooltip>
+                                />
                               </Col>
                             </Row>
                           </Col>
