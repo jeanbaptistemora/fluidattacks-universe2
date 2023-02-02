@@ -31,6 +31,9 @@ from lib_path.f393.composer import (
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
+from lib_path.f393.npm import (
+    npm_package_json as npm_package_json_dev,
+)
 from lib_path.f393.pub import (
     pub_pubspec_yaml_dev,
 )
@@ -490,5 +493,31 @@ def test_pub_pubspec_yaml_dev() -> None:
         if pkg_name != item or version != item_version:
             assertion = not assertion
             break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_npm_package_json_dev() -> None:
+    path = "skims/test/data/lib_path/f011/package.json"
+    with open(
+        path,
+        mode="r",
+        encoding="latin-1",
+    ) as file_handle:
+        file_content: str = file_handle.read(-1)
+    generator_dep = npm_package_json_dev.__wrapped__(  # type: ignore
+        file_content, path
+    )
+    assertion: bool = True
+    pkg_info = ("xmldom", "0.4.0")
+    try:
+        next_dep = next(generator_dep)
+        product = itemgetter("item")(next_dep[0])
+        version = itemgetter("item")(next_dep[1])
+    except StopIteration:
+        assertion = not assertion
+    if not (product == pkg_info[0] and version == pkg_info[1]):
+        assertion = not assertion
 
     assert assertion
