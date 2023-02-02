@@ -125,6 +125,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     }
   );
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getToeInputsVariables = {
     canGetAttackedAt,
     canGetAttackedBy,
@@ -499,20 +500,21 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
     setIsAdding(!isAdding);
   }, [isAdding]);
 
-  const handleOnMarkAsAttackedCompleted = (
-    result: FetchResult<IUpdateToeInputResultAttr>
-  ): void => {
-    if (!_.isNil(result.data) && result.data.updateToeInput.success) {
-      msgSuccess(
-        t("group.toe.inputs.alerts.markAsAttacked.success"),
-        t("groupAlerts.updatedTitle")
-      );
-      void refetch();
-      setSelectedToeInputDatas([]);
-    }
-  };
+  const handleOnMarkAsAttackedCompleted = useCallback(
+    (result: FetchResult<IUpdateToeInputResultAttr>): void => {
+      if (!_.isNil(result.data) && result.data.updateToeInput.success) {
+        msgSuccess(
+          t("group.toe.inputs.alerts.markAsAttacked.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        void refetch();
+        setSelectedToeInputDatas([]);
+      }
+    },
+    [refetch, t]
+  );
 
-  async function handleMarkAsAttacked(): Promise<void> {
+  const handleMarkAsAttacked = useCallback(async (): Promise<void> => {
     const presentSelectedToeInputDatas = selectedToeInputDatas.filter(
       (toeInputData: IToeInputData): boolean => toeInputData.bePresent
     );
@@ -536,6 +538,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
           })
       )
     );
+
     const errors = getErrors<IUpdateToeInputResultAttr>(results);
 
     if (!_.isEmpty(results) && _.isEmpty(errors)) {
@@ -544,7 +547,14 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
       void refetch();
     }
     setIsMarkingAsAttacked(false);
-  }
+  }, [
+    getToeInputsVariables,
+    groupName,
+    handleOnMarkAsAttackedCompleted,
+    handleUpdateToeInput,
+    refetch,
+    selectedToeInputDatas,
+  ]);
 
   const enabledRows = useCallback((row: Row<IToeInputData>): boolean => {
     return row.original.bePresent;
