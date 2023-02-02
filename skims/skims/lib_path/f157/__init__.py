@@ -4,7 +4,6 @@ from lib_path.common import (
 )
 from lib_path.f157.terraform import (
     tfm_azure_sa_default_network_access,
-    tfm_azure_unrestricted_access_network_segments,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -17,15 +16,6 @@ from typing import (
     Callable,
     Tuple,
 )
-
-
-@SHIELD_BLOCKING
-def run_tfm_azure_unrestricted_access_network_segments(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_azure_unrestricted_access_network_segments(
-        content=content, path=path, model=model
-    )
 
 
 @SHIELD_BLOCKING
@@ -51,9 +41,6 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             *results,
-            run_tfm_azure_unrestricted_access_network_segments(
-                content, path, model
-            ),
             run_tfm_azure_sa_default_network_access(content, path, model),
         )
 

@@ -6057,12 +6057,3 @@ F157,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   21 |   name                     = ""example""
      ^ Col 0
 ",terraform.tfm_azure_sa_default_network_access
-F157,lines,namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,Property default_apublic_network_enabledction is either missing or misconfigured in namespace/skims/test/data/lib_path/f157/azurerm_data_factory_test.tf,"
-  1 | resource ""azurerm_data_factory"" ""example"" {
-  2 |   name                   = ""example""
-  3 |   location               = azurerm_resource_group.example.location
-  4 |   resource_group_name    = azurerm_resource_group.example.name
-> 5 |   public_network_enabled = true
-  6 | }
-    ^ Col 0
-",terraform.tfm_azure_unrestricted_access_network_segments

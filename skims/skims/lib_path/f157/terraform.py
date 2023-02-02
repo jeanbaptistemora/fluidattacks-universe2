@@ -19,34 +19,13 @@ from parse_hcl2.common import (
     get_block_attribute,
 )
 from parse_hcl2.structure.azure import (
-    iter_azurerm_data_factory,
     iter_azurerm_storage_account,
     iter_azurerm_storage_account_network_rules,
-)
-from parse_hcl2.tokens import (
-    Attribute,
 )
 from typing import (
     Any,
     Iterator,
 )
-
-
-def _tfm_azure_unrestricted_access_network_segments_iterate(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        public_attr = False
-        for elem in resource.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "public_network_enabled"
-            ):
-                public_attr = True
-                if elem.val is True:
-                    yield elem
-        if not public_attr:
-            yield resource
 
 
 def _tfm_azure_storage_vulns(
@@ -77,22 +56,6 @@ def _tfm_azure_sa_default_network_access_iterate_vulns(
             )
             if default_action and default_action.val.lower() != "deny":
                 yield default_action
-
-
-def tfm_azure_unrestricted_access_network_segments(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("lib_path.f157.etl_visible_to_the_public_network"),
-        iterator=get_cloud_iterator(
-            _tfm_azure_unrestricted_access_network_segments_iterate(
-                resource_iterator=iter_azurerm_data_factory(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AZURE_UNRESTRICTED_ACCESS,
-    )
 
 
 def tfm_azure_sa_default_network_access(
