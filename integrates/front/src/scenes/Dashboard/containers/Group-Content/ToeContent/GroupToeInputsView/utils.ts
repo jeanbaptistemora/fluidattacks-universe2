@@ -1,7 +1,7 @@
 import _ from "lodash";
 
 import { filterDateRange, filterSearchText, filterSelect } from "./filters";
-import type { IFilterSet, IToeInputData } from "./types";
+import type { IFilterSet, IGitRootAttr, IToeInputData } from "./types";
 
 const getNonSelectableToeInputIndex: (
   allToeInputDatas: IToeInputData[]
@@ -160,6 +160,14 @@ const formatBePresent = (bePresent: string): boolean | undefined =>
 const formatRootId = (rootId: string): string | undefined =>
   rootId === "" ? undefined : rootId;
 
+const isEqualRootId = (root: IGitRootAttr | null, rootId: string): boolean => {
+  if (_.isNil(root)) {
+    return rootId === "";
+  }
+
+  return root.id === rootId;
+};
+
 export {
   getFilteredData,
   getNonSelectableToeInputIndex,
@@ -167,4 +175,5 @@ export {
   onSelectSeveralToeInputHelper,
   formatBePresent,
   formatRootId,
+  isEqualRootId,
 };

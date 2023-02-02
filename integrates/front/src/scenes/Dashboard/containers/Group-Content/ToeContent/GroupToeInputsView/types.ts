@@ -73,6 +73,7 @@ interface IUpdateToeInputResultAttr {
 
 export type {
   IFilterSet,
+  IGitRootAttr,
   IGroupToeInputsViewProps,
   IRemoveToeInputResultAttr,
   IToeInputAttr,

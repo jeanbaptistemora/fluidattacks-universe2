@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import { ActionButtons } from "./ActionButtons";
 import { editableBePresentFormatter } from "./formatters/editableBePresentFormatter";
 import { HandleAdditionModal } from "./HandleAdditionModal";
+import { isEqualRootId } from "./utils";
 
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -247,8 +248,7 @@ const GroupToeInputsView: React.FC<IGroupToeInputsViewProps> = ({
                   (value: IToeInputEdge): IToeInputEdge =>
                     value.node.component === component &&
                     value.node.entryPoint === entryPoint &&
-                    (_.isNil(value.node.root) ? "" : value.node.root.id) ===
-                      rootId
+                    isEqualRootId(value.node.root, rootId)
                       ? {
                           node: updatedToeInput,
                         }
