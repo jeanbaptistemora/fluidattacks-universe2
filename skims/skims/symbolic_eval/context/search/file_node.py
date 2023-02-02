@@ -15,6 +15,9 @@ def search(args: SearchArgs) -> Iterator[SearchResult]:
         if (
             args.graph.nodes[c_id]["label_type"] == "VariableDeclaration"
             and args.graph.nodes[c_id]["variable"] == args.symbol
+        ) or (
+            args.graph.nodes[c_id]["label_type"] == "MethodDeclaration"
+            and args.graph.nodes[c_id]["name"] == args.symbol
         ):
             yield True, c_id
             break
