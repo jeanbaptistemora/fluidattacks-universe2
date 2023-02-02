@@ -49959,7 +49959,8 @@
             "label_type": "ParameterList"
           },
           "1412": {
-            "label_type": "ParenthesizedExpression"
+            "label_type": "RestPattern",
+            "value_id": "1414"
           },
           "1414": {
             "label_type": "SymbolLookup",
@@ -50048,7 +50049,8 @@
             "label_type": "ArgumentList"
           },
           "1450": {
-            "label_type": "ParenthesizedExpression"
+            "label_type": "SpreadElement",
+            "value_id": "1452"
           },
           "1452": {
             "label_type": "SymbolLookup",
@@ -50193,7 +50195,8 @@
             "label_type": "ArrayInitializer"
           },
           "1506": {
-            "label_type": "ParenthesizedExpression"
+            "label_type": "SpreadElement",
+            "value_id": "1508"
           },
           "1508": {
             "arguments_id": "1511",

@@ -6,11 +6,13 @@ from syntax_graph.types import (
 )
 
 
-def build_rest_pattern_node(args: SyntaxGraphArgs, identifier_id: NId) -> NId:
+def build_spread_element_node(
+    args: SyntaxGraphArgs, identifier_id: NId
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         value_id=identifier_id,
-        label_type="RestPattern",
+        label_type="SpreadElement",
     )
 
     args.syntax_graph.add_edge(

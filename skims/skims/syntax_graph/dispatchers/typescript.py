@@ -32,7 +32,9 @@ from syntax_graph.syntax_readers.javascript import (
     parameter_list as javascript_parameter_list,
     parenthesized_expression as javascript_parenthesized_expression,
     program as javascript_program,
+    rest_pattern as typescript_rest_pattern,
     return_statement as javascript_return_statement,
+    spread_element as typescript_spread_element,
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
@@ -69,7 +71,6 @@ from syntax_graph.syntax_readers.typescript import (
     property_signature as typescript_property_signature,
     public_field_definition as typescript_public_field_definition,
     required_parameter as typescript_required_parameter,
-    rest_pattern as typescript_rest_pattern,
     ternary_expression as typescript_ternary_expression,
     tuple_type as typescript_tuple_type,
     type_alias_declaration as typescript_type_alias_declaration,
@@ -495,6 +496,12 @@ TYPESCRIPT_DISPATCHERS: Dispatchers = (
             "jsx_attribute",
         },
         syntax_reader=javascript_jsx_attribute.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "spread_element",
+        },
+        syntax_reader=typescript_spread_element.reader,
     ),
     Dispatcher(
         applicable_types={

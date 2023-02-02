@@ -36,7 +36,9 @@ from syntax_graph.syntax_readers.javascript import (
     parameter_list as javascript_parameter_list,
     parenthesized_expression as javascript_parenthesized_expression,
     program as javascript_program,
+    rest_pattern as javascript_rest_pattern,
     return_statement as javascript_return_statement,
+    spread_element as javascript_spreadt_element,
     string_literal as javascript_string_literal,
     subscript_expression as javascript_subscript_expression,
     switch_body as javascript_switch_body,
@@ -277,10 +279,20 @@ JAVASCRIPT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "parenthesized_expression",
-            "rest_pattern",
-            "spread_element",
         },
         syntax_reader=javascript_parenthesized_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "rest_pattern",
+        },
+        syntax_reader=javascript_rest_pattern.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "spread_element",
+        },
+        syntax_reader=javascript_spreadt_element.reader,
     ),
     Dispatcher(
         applicable_types={
