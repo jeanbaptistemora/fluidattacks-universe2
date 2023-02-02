@@ -54,6 +54,7 @@ def initialize_settings() -> None:
                     "create_log_stream": False,
                     "log_group_name": "FLUID",
                     "log_stream_name": "streams_hooks",
+                    "use_queues": False,
                 },
                 "console": {"class": "logging.StreamHandler", "level": "INFO"},
             },
