@@ -146,6 +146,17 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
   const formatSortsRiskLevel = (sortsRiskLevel: number): string =>
     sortsRiskLevel >= 0 ? `${sortsRiskLevel.toString()} %` : "n/a";
 
+  const handleOnClick = useCallback(
+    (sortsSuggestions: ISortsSuggestionAttr[] | null): (() => void) =>
+      (): void => {
+        if (!_.isNil(sortsSuggestions)) {
+          setSelectedToeLinesSortsSuggestions(sortsSuggestions);
+          setIsSortsSuggestionsModalOpen(true);
+        }
+      },
+    []
+  );
+
   const formatSortsSuggestions = (
     sortsSuggestions: ISortsSuggestionAttr[] | null
   ): JSX.Element => {
@@ -157,13 +168,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     return (
       <SortsSuggestionsButton
         isNone={value === "None"}
-        // eslint-disable-next-line react/jsx-no-bind
-        onClick={(): void => {
-          if (!_.isNil(sortsSuggestions)) {
-            setSelectedToeLinesSortsSuggestions(sortsSuggestions);
-            setIsSortsSuggestionsModalOpen(true);
-          }
-        }}
+        onClick={handleOnClick(sortsSuggestions)}
       >
         {value}
       </SortsSuggestionsButton>
