@@ -170,10 +170,12 @@ class GroupAccessLoader(DataLoader[GroupAccessRequest, GroupAccess]):
         return await _get_group_access(requests=requests)
 
 
-class GroupHistoricAccessLoader(DataLoader):
+class GroupHistoricAccessLoader(
+    DataLoader[GroupAccessRequest, list[GroupAccess]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupAccessRequest]
+        self, requests: Iterable[GroupAccessRequest]
     ) -> list[list[GroupAccess]]:
         return list(
             await collect(
@@ -185,14 +187,14 @@ class GroupHistoricAccessLoader(DataLoader):
         )
 
 
-class GroupStakeholdersAccessLoader(DataLoader):
+class GroupStakeholdersAccessLoader(DataLoader[str, list[GroupAccess]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[GroupAccess]]:
         return list(
             await collect(
@@ -207,14 +209,14 @@ class GroupStakeholdersAccessLoader(DataLoader):
         )
 
 
-class StakeholderGroupsAccessLoader(DataLoader):
+class StakeholderGroupsAccessLoader(DataLoader[str, list[GroupAccess]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: list[str]
+        self, emails: Iterable[str]
     ) -> list[list[GroupAccess]]:
         return list(
             await collect(

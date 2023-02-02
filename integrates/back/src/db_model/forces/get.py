@@ -26,6 +26,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -72,7 +73,7 @@ async def _get_group_executions(
 
 
 async def _get_executions(
-    *, requests: list[ForcesExecutionRequest]
+    *, requests: Iterable[ForcesExecutionRequest]
 ) -> list[Optional[ForcesExecution]]:
     primary_keys = tuple(
         keys.build_key(
@@ -92,18 +93,22 @@ async def _get_executions(
     return list(response[request] for request in requests)
 
 
-class ForcesExecutionLoader(DataLoader):
+class ForcesExecutionLoader(
+    DataLoader[ForcesExecutionRequest, Optional[ForcesExecution]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[ForcesExecutionRequest]
+        self, requests: Iterable[ForcesExecutionRequest]
     ) -> list[Optional[ForcesExecution]]:
         return await _get_executions(requests=requests)
 
 
-class GroupForcesExecutionsLoader(DataLoader):
+class GroupForcesExecutionsLoader(
+    DataLoader[GroupForcesExecutionsRequest, list[ForcesExecution]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupForcesExecutionsRequest]
+        self, requests: Iterable[GroupForcesExecutionsRequest]
     ) -> list[list[ForcesExecution]]:
         return list(
             await collect(
