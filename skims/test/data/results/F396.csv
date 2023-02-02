@@ -1,0 +1,205 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,25,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  15 |             Effect: Allow
+  16 |             Principal:
+  17 |               AWS: arn:aws:iam::111122223333:root
+  18 |             Action: kms:*
+  19 |             Resource: '*'
+  20 |   key2:
+  21 |     Type: AWS::KMS::Key
+  22 |     Properties:
+  23 |       Description: An example multi-Region primary key
+  24 |       MultiRegion: true
+> 25 |       EnableKeyRotation: false
+  26 |       PendingWindowInDays: 10
+  27 |       KeyPolicy:
+  28 |         Version: 2012-10-17
+  29 |         Id: key-default-1
+  30 |         Statement:
+  31 |           - Sid: Enable IAM User Permissions
+  32 |             Effect: Allow
+  33 |             Principal:
+  34 |               AWS: arn:aws:iam::111122223333:root
+  35 |             Action: kms:*
+     ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,39,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  29 |         Id: key-default-1
+  30 |         Statement:
+  31 |           - Sid: Enable IAM User Permissions
+  32 |             Effect: Allow
+  33 |             Principal:
+  34 |               AWS: arn:aws:iam::111122223333:root
+  35 |             Action: kms:*
+  36 |             Resource: '*'
+  37 |   key3:
+  38 |     Type: AWS::KMS::Key
+> 39 |     Properties:
+  40 |       Description: An example multi-Region primary key
+  41 |       MultiRegion: true
+  42 |       PendingWindowInDays: 10
+  43 |       KeyPolicy:
+  44 |         Version: 2012-10-17
+  45 |         Id: key-default-1
+  46 |         Statement:
+  47 |           - Sid: Enable IAM User Permissions
+  48 |             Effect: Allow
+  49 |             Principal:
+     ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,73,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml,"
+  63 |         Statement:
+  64 |           - Sid: Enable IAM User Permissions
+  65 |             Effect: Allow
+  66 |             Principal:
+  67 |               AWS: arn:aws:iam::111122223333:root
+  68 |             Action: kms:*
+  69 |             Resource: '*'
+  70 |       KeySpec: RSA_2048
+  71 |   key5:
+  72 |     Type: AWS::KMS::Key
+> 73 |     Properties:
+  74 |       Description: An example multi-Region primary key
+  75 |       MultiRegion: false
+  76 |       PendingWindowInDays: 10
+  77 |       KeyPolicy:
+  78 |         Version: 2012-10-17
+  79 |         Id: key-default-1
+  80 |         Statement:
+  81 |           - Sid: Enable IAM User Permissions
+  82 |             Effect: Allow
+  83 |             Principal:
+     ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,32,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+   22 |             }
+   23 |           ]
+   24 |         }
+   25 |       }
+   26 |     },
+   27 |     ""key2"": {
+   28 |       ""Type"": ""AWS::KMS::Key"",
+   29 |       ""Properties"": {
+   30 |         ""Description"": ""An example multi-Region primary key"",
+   31 |         ""MultiRegion"": true,
+>  32 |         ""EnableKeyRotation"": false,
+   33 |         ""PendingWindowInDays"": 10,
+   34 |         ""KeyPolicy"": {
+   35 |           ""Version"": ""2012-10-17"",
+   36 |           ""Id"": ""key-default-1"",
+   37 |           ""Statement"": [
+   38 |             {
+   39 |               ""Sid"": ""Enable IAM User Permissions"",
+   40 |               ""Effect"": ""Allow"",
+   41 |               ""Principal"": {
+   42 |                 ""AWS"": ""arn:aws:iam::111122223333:root""
+      ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,53,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+   43 |               },
+   44 |               ""Action"": ""kms:*"",
+   45 |               ""Resource"": ""*""
+   46 |             }
+   47 |           ]
+   48 |         }
+   49 |       }
+   50 |     },
+   51 |     ""key3"": {
+   52 |       ""Type"": ""AWS::KMS::Key"",
+>  53 |       ""Properties"": {
+   54 |         ""Description"": ""An example multi-Region primary key"",
+   55 |         ""MultiRegion"": true,
+   56 |         ""PendingWindowInDays"": 10,
+   57 |         ""KeyPolicy"": {
+   58 |           ""Version"": ""2012-10-17"",
+   59 |           ""Id"": ""key-default-1"",
+   60 |           ""Statement"": [
+   61 |             {
+   62 |               ""Sid"": ""Enable IAM User Permissions"",
+   63 |               ""Effect"": ""Allow"",
+      ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,101,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled in namespace/skims/test/data/lib_path/f396/cfn_is_key_rotation_absent_or_disabled.yaml.json,"
+   91 |               ""Action"": ""kms:*"",
+   92 |               ""Resource"": ""*""
+   93 |             }
+   94 |           ]
+   95 |         },
+   96 |         ""KeySpec"": ""RSA_2048""
+   97 |       }
+   98 |     },
+   99 |     ""key5"": {
+  100 |       ""Type"": ""AWS::KMS::Key"",
+> 101 |       ""Properties"": {
+  102 |         ""Description"": ""An example multi-Region primary key"",
+  103 |         ""MultiRegion"": false,
+  104 |         ""PendingWindowInDays"": 10,
+  105 |         ""KeyPolicy"": {
+  106 |           ""Version"": ""2012-10-17"",
+  107 |           ""Id"": ""key-default-1"",
+  108 |           ""Statement"": [
+  109 |             {
+  110 |               ""Sid"": ""Enable IAM User Permissions"",
+  111 |               ""Effect"": ""Allow"",
+      ^ Col 0
+",cloudformation.cfn_kms_key_is_key_rotation_absent_or_disabled
+F396,inputs,arn:aws:iam::123456789012:key/myKey (namespace),/KeyRotationEnabled: False,255,skims,396. Insecure service configuration - KMS,The EnableKeyRotation property must be enabled,"
+  1 | {
+  2 |     ""Keys"": [
+  3 |         {
+  4 |             ""KeyId"": ""123"",
+  5 |             ""KeyArn"": ""arn:aws:iam::123456789012:key/myKey""
+  6 |         }
+  7 |     ],
+> 8 |     ""KeyRotationEnabled"": false
+  9 | }
+    ^ Col 0
+",aws.kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,12,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+   2 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+   3 |   description              = ""KMS key 1""
+   4 |   deletion_window_in_days  = 10
+   5 |   enable_key_rotation      = true
+   6 | }
+   7 |
+   8 | resource ""aws_kms_key"" ""a"" {
+   9 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  10 |   description              = ""KMS key 1""
+  11 |   deletion_window_in_days  = 10
+> 12 |   enable_key_rotation      = false
+  13 | }
+  14 |
+  15 | resource ""aws_kms_key"" ""a"" {
+  16 |   customer_master_key_spec = ""RSA_2048""
+  17 |   description              = ""KMS key 1""
+  18 |   deletion_window_in_days  = 10
+  19 |   enable_key_rotation      = false
+  20 | }
+  21 |
+  22 | resource ""aws_kms_key"" ""a"" {
+     ^ Col 0
+",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled
+F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,22,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+   6 | }
+   7 |
+   8 | resource ""aws_kms_key"" ""a"" {
+   9 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  10 |   description              = ""KMS key 1""
+  11 |   deletion_window_in_days  = 10
+  12 |   enable_key_rotation      = false
+  13 | }
+  14 |
+  15 | resource ""aws_kms_key"" ""a"" {
+  16 |   customer_master_key_spec = ""RSA_2048""
+  17 |   description              = ""KMS key 1""
+  18 |   deletion_window_in_days  = 10
+  19 |   enable_key_rotation      = false
+  20 | }
+  21 |
+> 22 | resource ""aws_kms_key"" ""a"" {
+  23 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
+  24 |   description              = ""KMS key 1""
+  25 |   deletion_window_in_days  = 10
+  26 | }
+     ^ Col 0
+",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled

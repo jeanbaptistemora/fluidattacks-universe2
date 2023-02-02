@@ -1,0 +1,159 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml","
+   1 | ---
+   2 | Resources:
+   3 |   trail1:
+   4 |     Type: AWS::CloudTrail::Trail
+   5 |     Properties:
+   6 |       IsLogging: true
+   7 |       S3BucketName: bk1
+   8 |       EnableLogFileValidation: true
+   9 |   trail2:
+  10 |     Type: AWS::CloudTrail::Trail
+  11 |     Properties:
+  12 |       IsLogging: true
+  13 |       S3BucketName: bk2
+  14 |       EnableLogFileValidation: false
+  15 |   trail3:
+  16 |     Type: AWS::CloudTrail::Trail
+> 17 |     Properties:
+  18 |       IsLogging: true
+  19 |       S3BucketName: bk3
+     ^ Col 0
+",cloudformation.cfn_log_files_not_validated
+F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml,14,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml","
+   1 | --
+   2 | esources:
+   3 |  trail1:
+   4 |    Type: AWS::CloudTrail::Trail
+   5 |    Properties:
+   6 |      IsLogging: true
+   7 |      S3BucketName: bk1
+   8 |      EnableLogFileValidation: true
+   9 |  trail2:
+  10 |    Type: AWS::CloudTrail::Trail
+  11 |    Properties:
+  12 |      IsLogging: true
+  13 |      S3BucketName: bk2
+> 14 |      EnableLogFileValidation: false
+  15 |  trail3:
+  16 |    Type: AWS::CloudTrail::Trail
+  17 |    Properties:
+  18 |      IsLogging: true
+  19 |      S3BucketName: bk3
+     ^ Col 1
+",cloudformation.cfn_log_files_not_validated
+F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,16,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json","
+   6 |    ""IsLogging"": true,
+   7 |    ""S3BucketName"": ""bk1"",
+   8 |    ""EnableLogFileValidation"": true
+   9 |  }
+  10 | ,
+  11 | trail2"": {
+  12 |  ""Type"": ""AWS::CloudTrail::Trail"",
+  13 |  ""Properties"": {
+  14 |    ""IsLogging"": true,
+  15 |    ""S3BucketName"": ""bk2"",
+> 16 |    ""EnableLogFileValidation"": false
+  17 |  }
+  18 | ,
+  19 | trail3"": {
+  20 |  ""Type"": ""AWS::CloudTrail::Trail"",
+  21 |  ""Properties"": {
+  22 |    ""IsLogging"": true,
+  23 |    ""S3BucketName"": ""bk3""
+  24 |  }
+  25 |
+  26 |
+     ^ Col 5
+",cloudformation.cfn_log_files_not_validated
+F394,lines,namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json,21,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/cfn_log_files_not_validated.yaml.json","
+   7 |         ""S3BucketName"": ""bk1"",
+   8 |         ""EnableLogFileValidation"": true
+   9 |       }
+  10 |     },
+  11 |     ""trail2"": {
+  12 |       ""Type"": ""AWS::CloudTrail::Trail"",
+  13 |       ""Properties"": {
+  14 |         ""IsLogging"": true,
+  15 |         ""S3BucketName"": ""bk2"",
+  16 |         ""EnableLogFileValidation"": false
+  17 |       }
+  18 |     },
+  19 |     ""trail3"": {
+  20 |       ""Type"": ""AWS::CloudTrail::Trail"",
+> 21 |       ""Properties"": {
+  22 |         ""IsLogging"": true,
+  23 |         ""S3BucketName"": ""bk3""
+  24 |       }
+  25 |     }
+  26 |   }
+  27 | }
+     ^ Col 0
+",cloudformation.cfn_log_files_not_validated
+F394,inputs,arn:aws:iam::123456789012:mt/myTrail (namespace),/LogFileValidationEnabled: True,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"EnableLogFileValidation property is not enabled
+","
+  1 | {
+  2 |     ""Name"": ""mytrail"",
+  3 |     ""S3BucketName"": ""mybucket"",
+  4 |     ""TrailARN"": ""arn:aws:iam::123456789012:mt/myTrail"",
+> 5 |     ""LogFileValidationEnabled"": true,
+  6 |     ""IncludeGlobalServiceEvents"": true,
+  7 |     ""IsMultiRegionTrail"": true
+  8 | }
+    ^ Col 0
+",aws.cloudtrail_files_not_validated
+F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,10,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf","
+   1 | resource ""aws_cloudtrail"" ""foobar"" {
+   2 |   enable_log_file_validation    = true
+   3 |   name                          = ""tf-trail-foobar""
+   4 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   5 |   s3_key_prefix                 = ""prefix""
+   6 |   include_global_service_events = false
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+> 10 |   enable_log_file_validation    = false
+  11 |   name                          = ""tf-trail-foobar""
+  12 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  13 |   s3_key_prefix                 = ""prefix""
+  14 |   include_global_service_events = false
+  15 | }
+  16 |
+  17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled
+F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf","
+   2 |   enable_log_file_validation    = true
+   3 |   name                          = ""tf-trail-foobar""
+   4 |   s3_bucket_name                = aws_s3_bucket.foo.id
+   5 |   s3_key_prefix                 = ""prefix""
+   6 |   include_global_service_events = false
+   7 | }
+   8 |
+   9 | resource ""aws_cloudtrail"" ""foobar"" {
+  10 |   enable_log_file_validation    = false
+  11 |   name                          = ""tf-trail-foobar""
+  12 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  13 |   s3_key_prefix                 = ""prefix""
+  14 |   include_global_service_events = false
+  15 | }
+  16 |
+> 17 | resource ""aws_cloudtrail"" ""foobar"" {
+  18 |   name                          = ""tf-trail-foobar""
+  19 |   s3_bucket_name                = aws_s3_bucket.foo.id
+  20 |   s3_key_prefix                 = ""prefix""
+  21 |   include_global_service_events = false
+  22 | }
+     ^ Col 0
+",terraform.tfm_aws_s3_versioning_disabled

@@ -2791,7 +2791,7 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="cloudtrail_files_not_validated",
         module="dast",
-        finding=FindingEnum.F400,
+        finding=FindingEnum.F394,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )

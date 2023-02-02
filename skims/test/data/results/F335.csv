@@ -1,0 +1,103 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   S3Bucket:
+   4 |     Type: AWS::S3::Bucket
+   5 |     Properties:
+   6 |       BucketName: b1
+   7 |       VersioningConfiguration:
+   8 |         Status: Enabled
+   9 |   S3Bucket2:
+  10 |     Type: AWS::S3::Bucket
+  11 |     Properties:
+  12 |       BucketName: b2
+  13 |       VersioningConfiguration:
+  14 |         Status: Suspended
+  15 |   S3Bucket3:
+  16 |     Type: AWS::S3::Bucket
+> 17 |     Properties:
+  18 |       BucketName: b3
+     ^ Col 0
+",cloudformation.cfn_s3_bucket_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,14,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   S3Bucket:
+   4 |     Type: AWS::S3::Bucket
+   5 |     Properties:
+   6 |       BucketName: b1
+   7 |       VersioningConfiguration:
+   8 |         Status: Enabled
+   9 |   S3Bucket2:
+  10 |     Type: AWS::S3::Bucket
+  11 |     Properties:
+  12 |       BucketName: b2
+  13 |       VersioningConfiguration:
+> 14 |         Status: Suspended
+  15 |   S3Bucket3:
+  16 |     Type: AWS::S3::Bucket
+  17 |     Properties:
+  18 |       BucketName: b3
+     ^ Col 0
+",cloudformation.cfn_s3_bucket_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,17,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
+   7 |         ""VersioningConfiguration"": {
+   8 |           ""Status"": ""Enabled""
+   9 |         }
+  10 |       }
+  11 |     },
+  12 |     ""S3Bucket2"": {
+  13 |       ""Type"": ""AWS::S3::Bucket"",
+  14 |       ""Properties"": {
+  15 |         ""BucketName"": ""b2"",
+  16 |         ""VersioningConfiguration"": {
+> 17 |           ""Status"": ""Suspended""
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket3"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+  23 |       ""Properties"": {
+  24 |         ""BucketName"": ""b3""
+  25 |       }
+  26 |     }
+  27 |   }
+     ^ Col 0
+",cloudformation.cfn_s3_bucket_versioning_disabled
+F335,lines,namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,23,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled in namespace/skims/test/data/lib_path/f335/cfn_s3_bucket_versioning_disabled.yaml.json,"
+   8 |           ""Status"": ""Enabled""
+   9 |         }
+  10 |       }
+  11 |     },
+  12 |     ""S3Bucket2"": {
+  13 |       ""Type"": ""AWS::S3::Bucket"",
+  14 |       ""Properties"": {
+  15 |         ""BucketName"": ""b2"",
+  16 |         ""VersioningConfiguration"": {
+  17 |           ""Status"": ""Suspended""
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket3"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+> 23 |       ""Properties"": {
+  24 |         ""BucketName"": ""b3""
+  25 |       }
+  26 |     }
+  27 |   }
+  28 | }
+     ^ Col 0
+",cloudformation.cfn_s3_bucket_versioning_disabled
+F335,inputs,arn:aws:s3:::unsafeBucket (namespace),/Status: Suspended,922,skims,335. Insecure service configuration - Bucket,VersioningConfiguration.Status property must be Enabled,"
+  1 | {
+  2 |     ""Buckets"": [
+  3 |         {
+  4 |             ""Name"": ""unsafeBucket""
+  5 |         }
+  6 |     ],
+> 7 |     ""Status"": ""Suspended"",
+  8 |     ""MFADelete"": ""Disabled""
+  9 | }
+    ^ Col 0
+",aws.s3_bucket_versioning_disabled

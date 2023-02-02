@@ -17,9 +17,13 @@ from test.data.lib_dast import (
     f250,
     f256,
     f257,
+    f258,
     f325,
     f333,
+    f335,
     f372,
+    f394,
+    f396,
     f400,
 )
 from test.test_z_functional import (
@@ -45,9 +49,13 @@ MOCKERS: dict[str, Callable] = {
     "F250": f250.mock_data,
     "F256": f256.mock_data,
     "F257": f257.mock_data,
+    "F258": f258.mock_data,
     "F325": f325.mock_data,
     "F333": f333.mock_data,
+    "F335": f335.mock_data,
     "F372": f372.mock_data,
+    "F394": f394.mock_data,
+    "F396": f396.mock_data,
     "F400": f400.mock_data,
 }
 
@@ -250,6 +258,12 @@ def test_f257(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f258")
+def test_f258(mocker: MockerFixture) -> None:
+    run_finding("F258", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f267")
 def test_f267(mocker: MockerFixture) -> None:
     run_finding("F267", mocker)
@@ -268,6 +282,12 @@ def test_f333(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f335")
+def test_f335(mocker: MockerFixture) -> None:
+    run_finding("F335", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f346")
 def test_f346(mocker: MockerFixture) -> None:
     run_finding("F346", mocker)
@@ -283,6 +303,18 @@ def test_f372(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f393")
 def test_f393(mocker: MockerFixture) -> None:
     run_finding("F393", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f394")
+def test_f394(mocker: MockerFixture) -> None:
+    run_finding("F394", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f396")
+def test_f396(mocker: MockerFixture) -> None:
+    run_finding("F396", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
