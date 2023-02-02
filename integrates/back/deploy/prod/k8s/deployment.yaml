@@ -5,7 +5,6 @@ metadata:
   name: integrates-${NAME}
   namespace: prod-integrates
 spec:
-  replicas: ${REPLICAS}
   selector:
     matchLabels:
       app: integrates-${NAME}
