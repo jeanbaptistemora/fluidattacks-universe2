@@ -1,3 +1,6 @@
+from .core import (
+    get_finding,
+)
 from backports import (
     csv,
 )
@@ -112,8 +115,7 @@ async def get_records_from_file(
 async def remove_evidence(
     loaders: Dataloaders, evidence_id: str, finding_id: str
 ) -> None:
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )
@@ -185,7 +187,7 @@ async def update_evidence(  # pylint: disable = too-many-arguments
     description: Optional[str] = None,
     validate_name: Optional[bool] = False,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     await validate_evidence(
         evidence_id, file_object, loaders, finding, validate_name
     )
@@ -249,8 +251,7 @@ async def update_evidence_description(
 ) -> None:
     validations_utils.validate_fields([description])
     validations_utils.validate_field_length(description, 5000)
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
     )

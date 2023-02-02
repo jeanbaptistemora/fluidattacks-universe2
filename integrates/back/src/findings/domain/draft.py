@@ -1,3 +1,6 @@
+from .core import (
+    get_finding,
+)
 from aioextensions import (
     collect,
 )
@@ -67,7 +70,7 @@ async def approve_draft(
     user_email: str,
     source: Source,
 ) -> datetime:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
 
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -186,7 +189,7 @@ async def reject_draft(  # pylint: disable=too-many-arguments
             is_greater_than_limit=False,
         )
 
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
 
@@ -227,9 +230,7 @@ async def submit_draft(
     user_email: str,
     source: Source,
 ) -> None:
-    finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
 
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -240,7 +241,9 @@ async def submit_draft(
     has_severity = findings_domain.get_severity_score(
         finding.severity
     ) > Decimal(0)
-    has_vulns = bool(await finding_vulns_loader.load(finding_id))
+    has_vulns = bool(
+        await loaders.finding_vulnerabilities_released_nzr.load(finding_id)
+    )
     has_evidence = any(
         bool(evidence["url"])
         for evidence in get_formatted_evidence(finding).values()

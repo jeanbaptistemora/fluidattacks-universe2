@@ -145,6 +145,14 @@ class VulnsProperties(TypedDict):
     vulns_props: Dict[str, Dict[str, Dict[str, Any]]]
 
 
+async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:
+    finding = await loaders.finding.load(finding_id)
+    if finding is None:
+        raise FindingNotFound()
+
+    return finding
+
+
 async def _get_finding_comments(
     *,
     loaders: Dataloaders,
@@ -246,7 +254,7 @@ async def remove_finding(
     justification: StateRemovalJustification,
     source: Source,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     deletion_state = FindingState(
         justification=justification,
         modified_by=email,
@@ -622,7 +630,7 @@ async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many
     vulnerability_ids: Set[str],
     is_closing_event: bool = False,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
         finding_id,
@@ -745,7 +753,7 @@ async def vulns_properties(
     vulnerabilities: List[Vulnerability],
     is_closed: bool = False,
 ) -> Dict[str, Any]:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     vulns_props: dict[str, dict[str, dict[str, Any]]] = {}
 
     for vuln in vulnerabilities:
@@ -814,8 +822,7 @@ async def update_description(
     if description.title:
         await findings_utils.is_valid_finding_title(description.title)
 
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     metadata = FindingMetadataToUpdate(
         attack_vector_description=description.attack_vector_description,
         description=description.description,
@@ -836,8 +843,7 @@ async def update_severity(
     finding_id: str,
     severity: Union[Finding20Severity, Finding31Severity],
 ) -> None:
-    finding_loader = loaders.finding
-    finding: Finding = await finding_loader.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     updated_severity: Union[Finding20Severity, Finding31Severity]
     if isinstance(severity, Finding31Severity):
         privileges = cvss_utils.calculate_privileges(
@@ -935,7 +941,7 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
     if open_vulnerabilities or closed_vulnerabilities:
         closed_properties: Optional[VulnsProperties] = None
         if closed_vulnerabilities:
-            finding: Finding = await loaders.finding.load(finding_id)
+            finding = await get_finding(loaders, finding_id)
             if finding.state.status == FindingStateStatus.APPROVED:
                 closed_properties = VulnsProperties(
                     remaining_exposure=get_remaining_exposure(
@@ -990,11 +996,11 @@ async def verify_vulnerabilities(  # pylint: disable=too-many-locals
     # we will just keep them open or close them
     # in either case, their historic_verification is updated to VERIFIED
     loaders.finding.clear(finding_id)
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     if context and not operation_can_be_executed(context, finding.title):
         raise MachineCanNotOperate()
 
-    vulnerability_ids: list[str] = open_vulns_ids + closed_vulns_ids
+    vulnerability_ids = open_vulns_ids + closed_vulns_ids
     vulnerabilities = [
         vuln
         for vuln in await loaders.finding_vulnerabilities_all.load(finding_id)
