@@ -22,7 +22,7 @@ from typing import (
     (
         (
             "admin@gmail.com",
-            {"newGroup": "true", "newRoot": "true"},
+            {"newGroup": "true", "newRiskExposure": "true", "newRoot": "true"},
         ),
     ),
 )
@@ -41,4 +41,5 @@ async def test_update_tours(
     loaders: Dataloaders = get_new_context()
     stakeholder: Stakeholder = await loaders.stakeholder.load(email)
     assert stakeholder.tours.new_group is True
+    assert stakeholder.tours.new_risk_exposure is True
     assert stakeholder.tours.new_root is True

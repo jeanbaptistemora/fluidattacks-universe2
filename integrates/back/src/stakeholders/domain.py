@@ -162,7 +162,6 @@ async def _update_information(
     responsibility: str,
     role: Any,
 ) -> None:
-
     await group_access_domain.update(
         loaders=context.loaders,
         email=email,
@@ -397,6 +396,7 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
             tours=StakeholderTours(
                 new_group=tours["new_group"],
                 new_root=tours["new_root"],
+                new_risk_exposure=bool(tours.get("new_risk_exposure", "")),
             ),
         ),
         email=email,

@@ -110,6 +110,8 @@ input SortsSuggestionInput {
 input ToursInput {
   "Add group new user workflow"
   newGroup: Boolean!
+  "New risk exposure metric"
+  newRiskExposure: Boolean
   "Add git roots new user workflow"
   newRoot: Boolean!
 }

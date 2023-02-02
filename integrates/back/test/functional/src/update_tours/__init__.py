@@ -15,7 +15,11 @@ async def get_result(*, user: str, tours: dict[str, bool]) -> Dict[str, Any]:
     query: str = f"""
     mutation {{
     updateTours(tours:
-    {{ newGroup: {tours["newGroup"]}, newRoot: {tours["newRoot"]} }}) {{
+    {{
+        newGroup: {tours["newGroup"]},
+        newRiskExposure: {tours["newRiskExposure"]},
+        newRoot: {tours["newRoot"]} }})
+    {{
       success
         }}
     }}"""
