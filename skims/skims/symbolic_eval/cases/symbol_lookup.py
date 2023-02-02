@@ -35,6 +35,7 @@ OUTSIDEPATH_TYPES = {
     "FieldDeclaration",
     "VariableDeclaration",
     "MethodInvocation",
+    "MethodDeclaration",
 }
 
 
