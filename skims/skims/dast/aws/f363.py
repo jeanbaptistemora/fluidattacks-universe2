@@ -30,7 +30,7 @@ async def not_requires_uppercase(
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     if not password_policy["RequireUppercaseCharacters"]:
         locations = [
             Location(
@@ -62,7 +62,7 @@ async def not_requires_lowercase(
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     if not password_policy["RequireLowercaseCharacters"]:
         locations = [
             Location(
@@ -94,7 +94,7 @@ async def not_requires_symbols(
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     if not password_policy["RequireSymbols"]:
         locations = [
             Location(
@@ -126,7 +126,7 @@ async def not_requires_numbers(
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     if not password_policy["RequireNumbers"]:
         locations = [
             Location(
@@ -158,7 +158,7 @@ async def min_password_len_unsafe(
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     if password_policy["MinimumPasswordLength"] < min_length:
         locations = [
             Location(
@@ -223,7 +223,7 @@ async def password_expiration_unsafe(
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
     vulns: core_model.Vulnerabilities = ()
     method = core_model.MethodsEnum.AWS_IAM_PASSWORD_EXPIRATION_UNSAFE
-    password_policy = response.get("PasswordPolicy", [])
+    password_policy = response.get("PasswordPolicy", {})
     max_days = 90
     pasword_max_age: int = password_policy.get("MaxPasswordAge", max_days + 1)
     if pasword_max_age > max_days:

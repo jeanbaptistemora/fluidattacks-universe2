@@ -42,9 +42,10 @@ async def has_mfa_disabled(
     for user in credentials_report:
         locations: List[Location] = []
         user_arn = user["arn"]
-        user_has_mfa: bool = user["mfa_active"] == "false"
-        user_has_pass: bool = user["password_enabled"] == "true"
-        if user_has_pass and not user_has_mfa:
+        user_config = user["password_enabled"]
+        user_has_mfa = user["mfa_active"]
+
+        if user_config == "true" and user_has_mfa == "false":
             locations = [
                 Location(
                     access_patterns=("/mfa_active",),
@@ -129,7 +130,7 @@ async def mfa_disabled_for_users_with_console_password(
                 parameters={"UserName": str(user["UserName"])},
             )
             mfa_devices = user_policies.get("MFADevices", [])
-            if not mfa_devices:
+            if len(mfa_devices) < 1:
                 locations = [
                     Location(
                         access_patterns=("/MFADevices",),

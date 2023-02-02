@@ -10,6 +10,7 @@ from test.data.lib_dast import (
     f031,
     f070,
     f073,
+    f081,
     f099,
     f109,
     f165,
@@ -21,6 +22,7 @@ from test.data.lib_dast import (
     f325,
     f333,
     f335,
+    f363,
     f372,
     f394,
     f396,
@@ -42,6 +44,7 @@ MOCKERS: dict[str, Callable] = {
     "F031": f031.mock_data,
     "F070": f070.mock_data,
     "F073": f073.mock_data,
+    "F081": f081.mock_data,
     "F099": f099.mock_data,
     "F109": f109.mock_data,
     "F165": f165.mock_data,
@@ -53,6 +56,7 @@ MOCKERS: dict[str, Callable] = {
     "F325": f325.mock_data,
     "F333": f333.mock_data,
     "F335": f335.mock_data,
+    "F363": f363.mock_data,
     "F372": f372.mock_data,
     "F394": f394.mock_data,
     "F396": f396.mock_data,
@@ -204,6 +208,12 @@ def test_f073(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f081")
+def test_f081(mocker: MockerFixture) -> None:
+    run_finding("F081", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f099")
 def test_f099(mocker: MockerFixture) -> None:
     run_finding("F099", mocker)
@@ -264,9 +274,21 @@ def test_f258(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f266")
+def test_f266(mocker: MockerFixture) -> None:
+    run_finding("F266", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f267")
 def test_f267(mocker: MockerFixture) -> None:
     run_finding("F267", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f300")
+def test_f300(mocker: MockerFixture) -> None:
+    run_finding("F300", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
@@ -294,9 +316,21 @@ def test_f346(mocker: MockerFixture) -> None:
 
 
 @pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f363")
+def test_f363(mocker: MockerFixture) -> None:
+    run_finding("F363", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("f372")
 def test_f372(mocker: MockerFixture) -> None:
     run_finding("F372", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f380")
+def test_f380(mocker: MockerFixture) -> None:
+    run_finding("F380", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
@@ -321,6 +355,18 @@ def test_f396(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f400")
 def test_f400(mocker: MockerFixture) -> None:
     run_finding("F400", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f402")
+def test_f402(mocker: MockerFixture) -> None:
+    run_finding("F402", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f418")
+def test_f418(mocker: MockerFixture) -> None:
+    run_finding("F418", mocker)
 
 
 @pytest.mark.flaky(reruns=0)

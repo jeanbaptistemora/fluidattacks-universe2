@@ -1,0 +1,73 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F266,lines,namespace/skims/test/data/lib_path/f266/container_with_user_root/Dockerfile,4,250,skims,266. Excessive Privileges - Docker,Make sure the container is running as non-root in namespace/skims/test/data/lib_path/f266/container_with_user_root/Dockerfile,"
+  1 | # Insecure
+  2 | # Must have RUN adduser or USER command
+  3 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+> 4 | USER root
+  5 | ARG DEBIAN_FRONTEND=noninteractive
+  6 | RUN apt update
+  7 | RUN apt install -y nginx php-fpm supervisor && \
+  8 |     rm -rf /var/lib/apt/lists/* && \
+  9 |     apt clean
+    ^ Col 0
+",docker.container_with_user_root
+F266,lines,namespace/skims/test/data/lib_path/f266/container_without_user/Dockerfile,0,250,skims,266. Excessive Privileges - Docker,"No command found to create a group or user, make sure the container is running as non-root
+ in namespace/skims/test/data/lib_path/f266/container_without_user/Dockerfile","
+  1 | # Insecure
+  2 | # Must have RUN adduser or USER command
+  3 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+  4 | ARG DEBIAN_FRONTEND=noninteractive
+  5 | RUN apt update
+  6 | RUN apt install -y nginx php-fpm supervisor && \
+  7 |     rm -rf /var/lib/apt/lists/* && \
+  8 |     apt clean
+    ^ Col 0
+",docker.container_without_user
+F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,5,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+>  5 |   webmvc:
+   6 |     image: eshop/webmvc
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+  19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+     ^ Col 0
+",docker.docker_compose_without_user
+F266,lines,namespace/skims/test/data/lib_path/f266/docker-compose.yaml,19,250,skims,266. Excessive Privileges - Docker,Property user is either missing or misconfigured in namespace/skims/test/data/lib_path/f266/docker-compose.yaml,"
+   9 |       - OrderingUrl=http://ordering-api
+  10 |       - BasketUrl=http://basket-api
+  11 |     read_only: true
+  12 |     ports:
+  13 |       - 5100:80
+  14 |     depends_on:
+  15 |       - catalog-api
+  16 |       - ordering-api
+  17 |       - basket-api
+  18 |
+> 19 |   catalog-api:
+  20 |     image: eshop/catalog-api
+  21 |     environment:
+  22 |       - ConnectionString=Server=sqldata;Initial Catalog=CatalogData;User Id=sa;Password=[PLACEHOLDER]
+  23 |     read_only: true
+  24 |     expose:
+  25 |       - '80'
+  26 |     ports:
+  27 |       - 5101:80
+  28 |     extra_hosts:
+  29 |       - CESARDLSURFBOOK:10.0.75.1
+     ^ Col 0
+",docker.docker_compose_without_user

@@ -1,0 +1,195 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,10,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+   1 | # Insecure
+   2 | FROM node
+   3 | RUN apk add --no-cache python g++ make
+   4 | WORKDIR /app
+   5 | COPY . .
+   6 | RUN yarn install --production
+   7 | CMD [""node"", ""src/index.js""]
+   8 |
+   9 | # Insecure
+> 10 | FROM node AS node_image
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,2,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+   1 | # Insecure
+>  2 | FROM node
+   3 | RUN apk add --no-cache python g++ make
+   4 | WORKDIR /app
+   5 | COPY . .
+   6 | RUN yarn install --production
+   7 | CMD [""node"", ""src/index.js""]
+   8 |
+   9 | # Insecure
+  10 | FROM node AS node_image
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,18,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+   8 |
+   9 | # Insecure
+  10 | FROM node AS node_image
+  11 | RUN apk add --no-cache python g++ make
+  12 | WORKDIR /app
+  13 | COPY . .
+  14 | RUN yarn install --production
+  15 | CMD [""node"", ""src/index.js""]
+  16 |
+  17 | # Insecure
+> 18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+  22 | RUN yarn install --production
+  23 | CMD [""node"", ""src/index.js""]
+  24 |
+  25 | # Insecure
+  26 | FROM node:12.2 AS node_image
+  27 | RUN apk add --no-cache python g++ make
+  28 | WORKDIR /app
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/Dockerfile,26,749,skims,380. Supply Chain Attack - Docker,"Docker dependencies are not pinned to an exact digest, making the Docker build unable the verify the integrity of the image and allowing a malicious actor to override the used components with malicious components without leaving a trace.
+ in namespace/skims/test/data/lib_path/f380/Dockerfile","
+  16 |
+  17 | # Insecure
+  18 | FROM node:12.2
+  19 | RUN apk add --no-cache python g++ make
+  20 | WORKDIR /app
+  21 | COPY . .
+  22 | RUN yarn install --production
+  23 | CMD [""node"", ""src/index.js""]
+  24 |
+  25 | # Insecure
+> 26 | FROM node:12.2 AS node_image
+  27 | RUN apk add --no-cache python g++ make
+  28 | WORKDIR /app
+  29 | COPY . .
+  30 | RUN yarn install --production
+  31 | CMD [""node"", ""src/index.js""]
+  32 |
+  33 | # Secure
+  34 | FROM ubuntu@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23
+  35 | ARG DEBIAN_FRONTEND=noninteractive
+  36 | RUN apt update
+     ^ Col 0
+",docker.unpinned_docker_image
+F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,7,749,skims,380. Supply Chain Attack - Docker,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f380/bash.sh,"
+   1 | #!/bin/bash
+   2 |
+   3 | #Vuln1 oneline
+   4 | docker run -d -p 80:80 ubuntu:xenial -g 'daemon off;'
+   5 |
+   6 | # Vuln2 multiple line
+>  7 | docker run -p 80:80 \
+   8 |   ubuntu:xenial \
+   9 |   -g 'daemon off;'
+  10 |
+  11 | # NotVuln1 one line
+  12 | docker run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89 -g 'daemon off;'
+  13 |
+  14 | # NotVuln2 one line
+  15 | docker run -d -p 80:80 \
+  16 |   ubuntu:21.01-lts@sha256:03042cf8100db386818cee4ff0f2972431a62ed78edbd09ac08accfabbefd818 \
+  17 |   -g 'daemon off;'
+  18 |
+  19 | # Control. Other lines with look alike commands
+  20 | echo run ubuntu:xenial
+  21 | echo run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+     ^ Col 0
+",bash.bash_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/bash.sh,4,749,skims,380. Supply Chain Attack - Docker,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f380/bash.sh,"
+   1 | #!/bin/bash
+   2 |
+   3 | #Vuln1 oneline
+>  4 | docker run -d -p 80:80 ubuntu:xenial -g 'daemon off;'
+   5 |
+   6 | # Vuln2 multiple line
+   7 | docker run -p 80:80 \
+   8 |   ubuntu:xenial \
+   9 |   -g 'daemon off;'
+  10 |
+  11 | # NotVuln1 one line
+  12 | docker run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89 -g 'daemon off;'
+  13 |
+  14 | # NotVuln2 one line
+  15 | docker run -d -p 80:80 \
+  16 |   ubuntu:21.01-lts@sha256:03042cf8100db386818cee4ff0f2972431a62ed78edbd09ac08accfabbefd818 \
+  17 |   -g 'daemon off;'
+  18 |
+  19 | # Control. Other lines with look alike commands
+  20 | echo run ubuntu:xenial
+  21 | echo run ubuntu@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+     ^ Col 0
+",bash.bash_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,10,749,skims,380. Supply Chain Attack - Docker,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+   6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+> 10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_image_has_digest
+F380,lines,namespace/skims/test/data/lib_path/f380/docker-compose.yaml,6,749,skims,380. Supply Chain Attack - Docker,Ensure the specified container image has a digest. in namespace/skims/test/data/lib_path/f380/docker-compose.yaml,"
+   1 | ---
+   2 | version: '3.4'
+   3 |
+   4 | services:
+   5 |   must-fail:
+>  6 |     image: the_image
+   7 |     environment:
+   8 |       - CatalogUrl=http://catalog-api
+   9 |   must-fail-a:
+  10 |     image: the_image@sha256:0123invalidshahash3210
+  11 |     environment:
+  12 |       - CatalogUrl=http://catalog-api
+  13 |   must-not-fail:
+  14 |     image: the_image@sha256:043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89
+  15 |     environment:
+  16 |       - CatalogUrl=http://catalog-api
+  17 |   must-not-fail-a:
+  18 |     image: ""the_image@${COULD_BE_A_DIGEST}""
+  19 |     environment:
+  20 |       - CatalogUrl=http://catalog-api
+     ^ Col 0
+",docker.docker_compose_image_has_digest

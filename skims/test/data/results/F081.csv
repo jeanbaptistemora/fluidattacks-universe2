@@ -1,0 +1,31 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F081,inputs,myUser1 (namespace),/mfa_active: false,308,skims,081. Lack of multi-factor authentication,lib_path.f081.has_mfa_disabled,"
+  1 | {
+  2 |     ""arn"": ""myUser1"",
+> 3 |     ""mfa_active"": ""false"",
+  4 |     ""password_enabled"": ""true""
+  5 | }
+    ^ Col 0
+",aws.has_mfa_disabled
+F081,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/MFADevices: [],308,skims,081. Lack of multi-factor authentication,lib_path.f081.mfa_disabled_for_users_with_console_password,"
+   1 | {
+   2 |     ""Content"": ""b'arn,mfa_active,password_enabled\\nmyUser1,false,true\\nmyUser2,true,false\\nmyUser3,true,true'"",
+   3 |     ""SummaryMap"": {
+   4 |         ""AccountMFAEnabled"": 0
+   5 |     },
+   6 |     ""Users"": [
+   7 |         {
+   8 |             ""UserName"": ""fluidattacks"",
+   9 |             ""Arn"": ""arn:aws:iam::123456789012:user/fluidAttacks""
+  10 |         }
+  11 |     ],
+> 12 |     ""MFADevices"": []
+  13 | }
+     ^ Col 0
+",aws.mfa_disabled_for_users_with_console_password
+F081,inputs,arn:aws:iam::RootAccount (namespace),/AccountMFAEnabled: 0,308,skims,081. Lack of multi-factor authentication,lib_path.f081.root_without_mfa,"
+  1 | {
+> 2 |     ""AccountMFAEnabled"": 0
+  3 | }
+    ^ Col 0
+",aws.root_without_mfa

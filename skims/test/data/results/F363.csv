@@ -1,0 +1,338 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,11,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   1 | ---
+   2 | Resources:
+   3 |   MySecret1:
+   4 |     Type: AWS::SecretsManager::Secret
+   5 |     Properties:
+   6 |       Name: MySecretForAppA
+   7 |       Description: This secret has a dynamically generated secret password.
+   8 |       GenerateSecretString:
+   9 |         SecretStringTemplate: '{""username"": ""test-user""}'
+  10 |         GenerateStringKey: password
+> 11 |         PasswordLength: 12
+  12 |         ExcludeCharacters: '""@/\'
+  13 |         ExcludeLowercase: true
+  14 |         ExcludeNumbers: false
+  15 |         ExcludePunctuation: true
+  16 |         ExcludeUppercase: false
+  17 |         IncludeSpace: true
+  18 |         RequireEachIncludedType: false
+  19 |   MySecret2:
+  20 |     Type: AWS::SecretsManager::Secret
+  21 |     Properties:
+     ^ Col 0
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,15,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   3 |   MySecret1:
+   4 |     Type: AWS::SecretsManager::Secret
+   5 |     Properties:
+   6 |       Name: MySecretForAppA
+   7 |       Description: This secret has a dynamically generated secret password.
+   8 |       GenerateSecretString:
+   9 |         SecretStringTemplate: '{""username"": ""test-user""}'
+  10 |         GenerateStringKey: password
+  11 |         PasswordLength: 12
+  12 |         ExcludeCharacters: '""@/\'
+  13 |         ExcludeLowercase: true
+  14 |         ExcludeNumbers: false
+> 15 |         ExcludePunctuation: true
+  16 |         ExcludeUppercase: false
+  17 |         IncludeSpace: true
+  18 |         RequireEachIncludedType: false
+  19 |   MySecret2:
+  20 |     Type: AWS::SecretsManager::Secret
+  21 |     Properties:
+  22 |       Name: MySecretForAppA
+  23 |       Description: This secret has a dynamically generated secret password.
+     ^ Col 0
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,13,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   3 |   MySecret1:
+   4 |     Type: AWS::SecretsManager::Secret
+   5 |     Properties:
+   6 |       Name: MySecretForAppA
+   7 |       Description: This secret has a dynamically generated secret password.
+   8 |       GenerateSecretString:
+   9 |         SecretStringTemplate: '{""username"": ""test-user""}'
+  10 |         GenerateStringKey: password
+  11 |         PasswordLength: 12
+  12 |         ExcludeCharacters: '""@/\'
+> 13 |         ExcludeLowercase: true
+  14 |         ExcludeNumbers: false
+  15 |         ExcludePunctuation: true
+  16 |         ExcludeUppercase: false
+  17 |         IncludeSpace: true
+  18 |         RequireEachIncludedType: false
+  19 |   MySecret2:
+  20 |     Type: AWS::SecretsManager::Secret
+  21 |     Properties:
+  22 |       Name: MySecretForAppA
+  23 |       Description: This secret has a dynamically generated secret password.
+     ^ Col 0
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml,18,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml","
+   3 | ySecret1:
+   4 |  Type: AWS::SecretsManager::Secret
+   5 |  Properties:
+   6 |    Name: MySecretForAppA
+   7 |    Description: This secret has a dynamically generated secret password.
+   8 |    GenerateSecretString:
+   9 |      SecretStringTemplate: '{""username"": ""test-user""}'
+  10 |      GenerateStringKey: password
+  11 |      PasswordLength: 12
+  12 |      ExcludeCharacters: '""@/\'
+  13 |      ExcludeLowercase: true
+  14 |      ExcludeNumbers: false
+  15 |      ExcludePunctuation: true
+  16 |      ExcludeUppercase: false
+  17 |      IncludeSpace: true
+> 18 |      RequireEachIncludedType: false
+  19 | ySecret2:
+  20 |  Type: AWS::SecretsManager::Secret
+  21 |  Properties:
+  22 |    Name: MySecretForAppA
+  23 |    Description: This secret has a dynamically generated secret password.
+     ^ Col 3
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,11,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""MySecret1"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+   5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+> 11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+  13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+     ^ Col 0
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,13,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   3 |     ""MySecret1"": {
+   4 |       ""Type"": ""AWS::SecretsManager::Secret"",
+   5 |       ""Properties"": {
+   6 |         ""Name"": ""MySecretForAppA"",
+   7 |         ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |         ""GenerateSecretString"": {
+   9 |           ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |           ""GenerateStringKey"": ""password"",
+  11 |           ""PasswordLength"": 12,
+  12 |           ""ExcludeCharacters"": ""\""@/\\"",
+> 13 |           ""ExcludeLowercase"": true,
+  14 |           ""ExcludeNumbers"": false,
+  15 |           ""ExcludePunctuation"": true,
+  16 |           ""ExcludeUppercase"": false,
+  17 |           ""IncludeSpace"": true,
+  18 |           ""RequireEachIncludedType"": false
+  19 |         }
+  20 |       }
+  21 |     },
+  22 |     ""MySecret2"": {
+  23 |       ""Type"": ""AWS::SecretsManager::Secret"",
+     ^ Col 0
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,15,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   5 |     ""Properties"": {
+   6 |       ""Name"": ""MySecretForAppA"",
+   7 |       ""Description"": ""This secret has a dynamically generated secret password."",
+   8 |       ""GenerateSecretString"": {
+   9 |         ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |         ""GenerateStringKey"": ""password"",
+  11 |         ""PasswordLength"": 12,
+  12 |         ""ExcludeCharacters"": ""\""@/\\"",
+  13 |         ""ExcludeLowercase"": true,
+  14 |         ""ExcludeNumbers"": false,
+> 15 |         ""ExcludePunctuation"": true,
+  16 |         ""ExcludeUppercase"": false,
+  17 |         ""IncludeSpace"": true,
+  18 |         ""RequireEachIncludedType"": false
+  19 |       }
+  20 |     }
+  21 |   },
+  22 |   ""MySecret2"": {
+  23 |     ""Type"": ""AWS::SecretsManager::Secret"",
+  24 |     ""Properties"": {
+  25 |       ""Name"": ""MySecretForAppA"",
+     ^ Col 2
+",cloudformation.cfn_insecure_generate_secret_string
+F363,lines,namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json,18,521,skims,363. Weak credential policy - Password strength,"Secret is weak configured
+- It must contain uppercase and lowercase letters
+- It must contain numbers and punctuation
+- Must be more than 14 characters
+- Must not exclude certain characters
+ in namespace/skims/test/data/lib_path/f363/cfn_insecure_generate_secret_string.yaml.json","
+   8 |  ""GenerateSecretString"": {
+   9 |    ""SecretStringTemplate"": ""{\""username\"": \""test-user\""}"",
+  10 |    ""GenerateStringKey"": ""password"",
+  11 |    ""PasswordLength"": 12,
+  12 |    ""ExcludeCharacters"": ""\""@/\\"",
+  13 |    ""ExcludeLowercase"": true,
+  14 |    ""ExcludeNumbers"": false,
+  15 |    ""ExcludePunctuation"": true,
+  16 |    ""ExcludeUppercase"": false,
+  17 |    ""IncludeSpace"": true,
+> 18 |    ""RequireEachIncludedType"": false
+  19 |  }
+  20 |
+  21 |
+  22 | Secret2"": {
+  23 | Type"": ""AWS::SecretsManager::Secret"",
+  24 | Properties"": {
+  25 |  ""Name"": ""MySecretForAppA"",
+  26 |  ""Description"": ""This secret has a dynamically generated secret password.""
+  27 |
+  28 |
+     ^ Col 7
+",cloudformation.cfn_insecure_generate_secret_string
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/MinimumPasswordLength: 10,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.min_password_len_unsafe,"
+   1 | {
+>  2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.min_password_len_unsafe
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/RequireLowercaseCharacters: False,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.not_requires_lowercase,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+>  6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.not_requires_lowercase
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/RequireNumbers: False,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.not_requires_numbers,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+>  4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.not_requires_numbers
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/RequireSymbols: False,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.not_requires_symbols,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+>  3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.not_requires_symbols
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/RequireUppercaseCharacters: False,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.not_requires_uppercase,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+>  5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.not_requires_uppercase
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/MaxPasswordAge: 100,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.password_expiration_unsafe,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+>  7 |     ""MaxPasswordAge"": 100,
+   8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.password_expiration_unsafe
+F363,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/PasswordReusePrevention: 20,521,skims,363. Weak credential policy - Password strength,src.lib_path.f363.password_reuse_unsafe,"
+   1 | {
+   2 |     ""MinimumPasswordLength"": 10,
+   3 |     ""RequireSymbols"": false,
+   4 |     ""RequireNumbers"": false,
+   5 |     ""RequireUppercaseCharacters"": false,
+   6 |     ""RequireLowercaseCharacters"": false,
+   7 |     ""MaxPasswordAge"": 100,
+>  8 |     ""PasswordReusePrevention"": 20,
+   9 |     ""AllowUsersToChangePassword"": false,
+  10 |     ""ExpirePasswords"": false,
+  11 |     ""HardExpiry"": false
+  12 | }
+     ^ Col 0
+",aws.password_reuse_unsafe
