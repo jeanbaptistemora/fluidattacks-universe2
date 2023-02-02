@@ -846,7 +846,7 @@ async def upload_evidences(
 async def release_finding(
     loaders: Dataloaders, finding_id: str, auto_approve: bool = False
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     if finding.approval and (
         finding.approval.status == FindingStateStatus.APPROVED
     ):

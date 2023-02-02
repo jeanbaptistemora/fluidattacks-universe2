@@ -3,6 +3,7 @@ from aioextensions import (
 )
 import authz
 from custom_exceptions import (
+    FindingNotFound,
     RootNotFound,
 )
 from dataloaders import (
@@ -17,9 +18,6 @@ from db_model.finding_comments.enums import (
 from db_model.finding_comments.types import (
     FindingComment,
     FindingCommentsRequest,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.roots.types import (
     Root,
@@ -106,7 +104,10 @@ async def send_finding_consult_mail(
 ) -> None:
     if _is_scope_comment(comment_data):
         finding_id = comment_data.finding_id
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await loaders.finding.load(finding_id)
+        if finding is None:
+            raise FindingNotFound()
+
         group_name: str = finding.group_name
         is_finding_released = bool(finding.approval)
         finding_title = finding.title
@@ -138,7 +139,10 @@ async def add(
     if notify:
         schedule(send_finding_consult_mail(loaders, comment_data))
     if closed_properties is not None:
-        finding: Finding = await loaders.finding.load(comment_data.finding_id)
+        finding = await loaders.finding.load(comment_data.finding_id)
+        if finding is None:
+            raise FindingNotFound()
+
         schedule(
             findings_mail.send_mail_vulnerability_report(
                 loaders=loaders,

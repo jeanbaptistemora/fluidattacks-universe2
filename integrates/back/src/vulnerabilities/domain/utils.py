@@ -1,6 +1,7 @@
 import authz
 from custom_exceptions import (
     AcceptanceNotRequested,
+    FindingNotFound,
     InvalidAssigned,
     InvalidParameter,
 )
@@ -31,22 +32,26 @@ from newutils.vulnerabilities import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
-    Set,
-    Tuple,
 )
 from uuid import (
     uuid4 as uuid,
 )
 
 
+async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:
+    finding = await loaders.finding.load(finding_id)
+    if finding is None:
+        raise FindingNotFound()
+
+    return finding
+
+
 def get_hash(
     specific: str, type_: str, where: str, root_id: Optional[str] = None
 ) -> int:
     # Return a unique identifier according to the business rules
-    items: Tuple[str, ...] = (specific, type_, where)
+    items: tuple[str, ...] = (specific, type_, where)
     if root_id:
         items = (*items, root_id)
     return hash(items)
@@ -64,7 +69,7 @@ async def get_hash_from_machine_vuln(
         or vuln.skims_method is None
     ):
         raise InvalidParameter()
-    finding: Finding = await loaders.finding.load(vuln.finding_id)
+    finding = await get_finding(loaders, vuln.finding_id)
     return int.from_bytes(
         hashlib.sha256(
             bytes(
@@ -91,7 +96,7 @@ async def get_hash_from_machine_vuln(
     )
 
 
-def get_hash_from_dict(vuln: Dict[str, Any]) -> int:
+def get_hash_from_dict(vuln: dict[str, Any]) -> int:
     nonce: str = uuid().hex
     specific = vuln.get("specific", nonce)
     type_ = vuln.get("vuln_type", nonce)
@@ -103,7 +108,7 @@ def get_path_from_integrates_vulnerability(
     vulnerability_where: str,
     vulnerability_type: VulnerabilityType,
     ignore_cve: bool = False,
-) -> Tuple[str, str]:
+) -> tuple[str, str]:
     if vulnerability_type in {
         VulnerabilityType.INPUTS,
         VulnerabilityType.PORTS,
@@ -194,13 +199,13 @@ async def get_valid_assigned(
 async def get_root_nicknames_for_skims(
     loaders: Dataloaders,
     group: str,
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Set[str]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> set[str]:
     # If a vuln is linked to a root, return it
     # otherwise return all roots, the vuln must belong to one of them
-    root_nicknames: Set[str] = set()
+    root_nicknames: set[str] = set()
 
-    root_ids: Tuple[str, ...] = tuple(
+    root_ids: tuple[str, ...] = tuple(
         vulnerability.root_id
         for vulnerability in vulnerabilities
         if vulnerability.root_id
@@ -222,7 +227,7 @@ async def get_root_nicknames_for_skims(
     return root_nicknames
 
 
-def format_vulnerability_locations(where: List[str]) -> str:
+def format_vulnerability_locations(where: list[str]) -> str:
     location_str: str = ""
     for location in set(where):
         location_str += f"{location}\n"

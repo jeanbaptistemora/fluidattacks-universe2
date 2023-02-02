@@ -34,9 +34,6 @@ from db_model.findings.enums import (
     FindingStateStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.organization_finding_policies.enums import (
     PolicyStateStatus,
 )
@@ -101,6 +98,9 @@ from typing import (
     Counter,
     Optional,
     Union,
+)
+from vulnerabilities.domain.utils import (
+    get_finding,
 )
 from vulnerabilities.domain.validations import (
     validate_commit_hash,
@@ -271,7 +271,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         finding_id=finding_id,
         vulnerability_id=vulnerability_id,
     )
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         # Vulnerabilities in the MASKED state will be archived by Streams
         # for analytics purposes
@@ -502,7 +502,7 @@ async def mask_vulnerability(
     finding_id: str,
     vulnerability: Vulnerability,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await get_finding(loaders, finding_id)
     if (
         vulnerability.state.status == VulnerabilityStateStatus.DELETED
         and not vulnerability.state.modified_by.endswith(

@@ -82,6 +82,9 @@ from decorators import (
 from dynamodb.exceptions import (
     UnavailabilityError,
 )
+from findings import (
+    domain as findings_domain,
+)
 from group_access import (
     domain as group_access_domain,
 )
@@ -249,7 +252,9 @@ async def _process_finding(
             }
         },
     )
-    source_finding: Finding = await loaders.finding.load(source_finding_id)
+    source_finding = await findings_domain.get_finding(
+        loaders, source_finding_id
+    )
     target_group_findings = await loaders.group_findings.load(
         target_group_name
     )

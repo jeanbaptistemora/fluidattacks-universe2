@@ -28,7 +28,6 @@ from db_model.findings.enums import (
     FindingStatus,
 )
 from db_model.findings.types import (
-    Finding,
     FindingTreatmentSummary,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerificationSummary,
@@ -202,7 +201,7 @@ async def update_finding_unreliable_indicators(  # noqa: C901
     attrs_to_update: set[EntityAttr],
 ) -> None:
     loaders = get_new_context()
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     indicators: dict[EntityAttr, Any] = {}
 
     if EntityAttr.closed_vulnerabilities in attrs_to_update:

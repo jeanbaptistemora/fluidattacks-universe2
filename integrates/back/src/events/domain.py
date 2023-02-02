@@ -59,7 +59,6 @@ from db_model.findings.enums import (
     FindingVerificationStatus,
 )
 from db_model.findings.types import (
-    Finding,
     FindingVerification,
 )
 from db_model.groups.types import (
@@ -808,7 +807,7 @@ async def request_vulnerabilities_hold(
     justification: str = (
         f"These reattacks have been put on hold because of Event #{event_id}"
     )
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     vulnerabilities = await vulns_domain.get_by_finding_and_vuln_ids(
         loaders,
         finding_id,

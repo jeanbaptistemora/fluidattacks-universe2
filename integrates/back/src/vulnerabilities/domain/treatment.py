@@ -62,6 +62,7 @@ from vulnerabilities.domain.core import (
 )
 from vulnerabilities.domain.utils import (
     format_vulnerability_locations,
+    get_finding,
     get_valid_assigned,
     validate_acceptance,
 )
@@ -317,9 +318,7 @@ async def send_treatment_report_mail(
         Vulnerability
     ] = await loaders.vulnerability.load(vulnerability_id)
     if old_vuln_values:
-        finding: Finding = await loaders.finding.load(
-            old_vuln_values.finding_id
-        )
+        finding = await get_finding(loaders, old_vuln_values.finding_id)
         roles: set[str] = {
             "resourcer",
             "customer_manager",

@@ -5,6 +5,9 @@ from context import (
     BASE_URL,
     FI_MAIL_PRODUCTION,
 )
+from custom_exceptions import (
+    FindingNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -13,9 +16,6 @@ from datetime import (
 )
 from db_model.enums import (
     Notification,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.groups.enums import (
     GroupManaged,
@@ -397,7 +397,10 @@ async def request_vulnerability_zero_risk(
     requester_email: str,
     vulnerabilities: tuple[Vulnerability, ...],
 ) -> bool:
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await loaders.finding.load(finding_id)
+    if finding is None:
+        raise FindingNotFound()
+
     finding_title = finding.title
     group_name = finding.group_name
 
