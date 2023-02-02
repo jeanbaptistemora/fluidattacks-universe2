@@ -14,9 +14,6 @@ from datetime import (
     datetime,
     timezone,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
@@ -95,7 +92,7 @@ async def mutate(
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         severity_score = findings_domain.get_severity_score(finding.severity)
         justification: str = kwargs["justification"]
         treatment_status = VulnerabilityTreatmentStatus[

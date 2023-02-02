@@ -13,9 +13,6 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -70,7 +67,7 @@ async def mutate(
 ) -> ApproveDraftPayload:
     try:
         loaders: Dataloaders = info.context.loaders
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         vulnerabilities = await loaders.finding_vulnerabilities_all.load(
             finding_id
         )

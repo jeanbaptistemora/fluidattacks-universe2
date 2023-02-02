@@ -13,9 +13,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.groups.types import (
     Group,
 )
@@ -28,6 +25,9 @@ from decorators import (
     require_asm,
     require_login,
     require_report_vulnerabilities,
+)
+from findings import (
+    domain as findings_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -67,7 +67,7 @@ async def mutate(
         finding_id = kwargs["finding_id"]
         file_input = kwargs["file"]
         loaders: Dataloaders = info.context.loaders
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         allowed_mime_type = await files_utils.assert_uploaded_file_mime(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )

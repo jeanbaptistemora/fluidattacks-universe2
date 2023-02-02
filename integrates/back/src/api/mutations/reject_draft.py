@@ -22,7 +22,6 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     DraftRejection,
-    Finding,
 )
 from db_model.stakeholders.types import (
     Stakeholder,
@@ -93,7 +92,7 @@ async def mutate(
             and Notification.NEW_DRAFT
             in stakeholder.state.notifications_preferences.email
         ):
-            finding: Finding = await loaders.finding.load(finding_id)
+            finding = await findings_domain.get_finding(loaders, finding_id)
             schedule(
                 findings_mail.send_mail_reject_draft(
                     loaders=loaders,

@@ -10,14 +10,14 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_asm,
     require_login,
+)
+from findings import (
+    domain as findings_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -27,9 +27,6 @@ from newutils import (
 )
 from sessions import (
     domain as sessions_domain,
-)
-from typing import (
-    Dict,
 )
 from vulnerabilities.domain.treatment import (
     validate_and_send_notification_request,
@@ -49,13 +46,13 @@ async def mutate(
     vulnerabilities: list[str],
     **_kwargs: None,
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     responsible: str = user_info["user_email"]
     loaders: Dataloaders = info.context.loaders
     try:
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         await validate_and_send_notification_request(
             loaders=loaders,
             finding=finding,

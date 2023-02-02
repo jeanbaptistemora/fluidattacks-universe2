@@ -14,6 +14,9 @@ from decorators import (
     require_asm,
     require_login,
 )
+from findings import (
+    domain as findings_domain,
+)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -38,7 +41,7 @@ async def resolve(
 ) -> Finding:
     finding_id: str = kwargs["finding_id"]
     loaders: Dataloaders = info.context.loaders
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     if finding.approval is None:
         return await _get_draft(finding, info=info)
 

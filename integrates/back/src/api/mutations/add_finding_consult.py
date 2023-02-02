@@ -17,9 +17,6 @@ from db_model.finding_comments.enums import (
 from db_model.finding_comments.types import (
     FindingComment,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -60,7 +57,7 @@ async def _add_finding_consult(
     user_email = user_data["user_email"]
     finding_id = str(parameters.get("finding_id"))
     loaders: Dataloaders = info.context.loaders
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     is_finding_released = bool(finding.approval)
     content = parameters["content"]
     if param_type == "consult" and not is_finding_released:

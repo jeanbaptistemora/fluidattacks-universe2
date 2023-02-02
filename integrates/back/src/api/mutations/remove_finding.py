@@ -12,13 +12,9 @@ from ariadne.utils import (
 )
 from dataloaders import (
     Dataloaders,
-    get_new_context,
 )
 from db_model.enums import (
     StateRemovalJustification,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from decorators import (
     concurrent_decorators,
@@ -59,11 +55,11 @@ async def mutate(
     justification: str,
 ) -> SimplePayload:
     try:
-        loaders: Dataloaders = get_new_context()
+        loaders: Dataloaders = info.context.loaders
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         state_justification = StateRemovalJustification[justification]
-        finding: Finding = await loaders.finding.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         source = requests_utils.get_source_new(info.context)
         await findings_domain.remove_finding(
             loaders=loaders,

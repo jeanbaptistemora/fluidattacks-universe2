@@ -17,9 +17,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.findings.types import (
-    Finding,
-)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -28,6 +25,9 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
     require_login,
+)
+from findings import (
+    domain as findings_domain,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
@@ -54,7 +54,7 @@ async def mutate(
     root_nicknames: list[str],
 ) -> SimplePayloadMessage:
     loaders: Dataloaders = info.context.loaders
-    finding: Finding = await loaders.finding.load(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
     group_name: str = finding.group_name
     finding_title: str = finding.title
     _root_nicknames: set[str] = {
