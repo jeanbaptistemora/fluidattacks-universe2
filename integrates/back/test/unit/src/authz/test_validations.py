@@ -2,6 +2,7 @@ from authz.validations import (
     validate_fluidattacks_staff_on_group,
     validate_fluidattacks_staff_on_group_deco,
     validate_handle_comment_scope,
+    validate_handle_comment_scope_deco,
     validate_role_fluid_reqs,
     validate_role_fluid_reqs_deco,
 )
@@ -124,6 +125,29 @@ def test_validate_role_fluid_reqs_deco() -> None:
 async def test_validate_handle_comment_scope() -> None:
     with pytest.raises(PermissionDenied):
         await validate_handle_comment_scope(
+            loaders=get_new_context(),
+            content="#internal",
+            user_email="unittest@fluidattacks.com",
+            group_name="unittesting",
+            parent_comment="0",
+        )
+
+
+async def test_validate_handle_comment_scope_deco() -> None:
+    @validate_handle_comment_scope_deco(
+        "loaders", "content", "user_email", "group_name", "parent_comment"
+    )
+    async def decorator(
+        loaders: Dataloaders,
+        content: str,
+        user_email: str,
+        group_name: str,
+        parent_comment: str,
+    ) -> Tuple:
+        return (loaders, content, user_email, group_name, parent_comment)
+
+    with pytest.raises(PermissionDenied):
+        await decorator(
             loaders=get_new_context(),
             content="#internal",
             user_email="unittest@fluidattacks.com",

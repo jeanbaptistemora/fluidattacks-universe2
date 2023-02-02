@@ -117,6 +117,46 @@ async def validate_handle_comment_scope(
             raise InvalidCommentParent()
 
 
+def validate_handle_comment_scope_deco(
+    loaders_field: str,
+    content_field: str,
+    user_mail: str,
+    group_name_field: str,
+    parent_comment_field: str,
+) -> Callable:
+    """Makes sure that Fluid Attacks groups have only Fluid attacks staff."""
+
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        async def decorated(*args: Any, **kwargs: Any) -> Any:
+            loaders: Dataloaders = get_attr_value(
+                field=loaders_field, kwargs=kwargs, obj_type=Dataloaders
+            )
+            content: str = get_attr_value(
+                field=content_field, kwargs=kwargs, obj_type=str
+            )
+            user_email: str = get_attr_value(
+                field=user_mail, kwargs=kwargs, obj_type=str
+            )
+            group_name: str = get_attr_value(
+                field=group_name_field, kwargs=kwargs, obj_type=str
+            )
+            parent_comment: str = get_attr_value(
+                field=parent_comment_field, kwargs=kwargs, obj_type=str
+            )
+            enforcer = await get_group_level_enforcer(loaders, user_email)
+            if content.strip() in {"#external", "#internal"}:
+                if not enforcer(group_name, "handle_comment_scope"):
+                    raise PermissionDenied()
+                if parent_comment == "0":
+                    raise InvalidCommentParent()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_role_fluid_reqs(email: str, role: str) -> bool:
     """Validates that new users belong to Fluid Attacks before granting them
     a restricted role"""
