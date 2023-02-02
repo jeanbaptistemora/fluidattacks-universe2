@@ -12,6 +12,7 @@ function deploy {
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
   export B64_UNIVERSE_API_TOKEN
+  export REPLICAS
   export UUID
 
   : \
@@ -21,6 +22,7 @@ function deploy {
     && B64_CI_COMMIT_REF_NAME="$(b64 "${CI_COMMIT_REF_NAME}")" \
     && B64_CI_COMMIT_SHA="$(b64 "${CI_COMMIT_SHA}")" \
     && B64_UNIVERSE_API_TOKEN="$(b64 "${UNIVERSE_API_TOKEN}")" \
+    && REPLICAS="$(hpa_replicas "integrates-${CI_COMMIT_REF_NAME}" "prod-integrates")" \
     && UUID="$(uuidgen)" \
     && sops_export_vars integrates/secrets/production.yaml \
       CHECKLY_CHECK_ID \

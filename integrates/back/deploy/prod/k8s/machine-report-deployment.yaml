@@ -5,6 +5,7 @@ metadata:
   name: machine-report-${NAME}
   namespace: prod-integrates
 spec:
+  replicas: ${REPLICAS}
   selector:
     matchLabels:
       app: machine-report-${NAME}

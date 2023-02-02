@@ -8,6 +8,7 @@ function main {
   export B64_CI_COMMIT_REF_NAME
   export B64_CI_COMMIT_SHA
   export B64_GITLAB_USER_EMAIL
+  export REPLICAS
   export UUID
   export DB_JOB
 
@@ -24,6 +25,7 @@ function main {
     else
       DB_JOB="/dynamoDb/${target_product}"
     fi \
+    && REPLICAS="$(hpa_replicas "integrates-${CI_COMMIT_REF_NAME}" "dev")" \
     && UUID="$(uuidgen)" \
     && for manifest in __argManifests__/*; do
       apply_manifest "${manifest}"
