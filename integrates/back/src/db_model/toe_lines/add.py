@@ -74,10 +74,7 @@ async def add(*, toe_lines: ToeLines) -> None:
             "filename": toe_lines.filename,
             "group_name": toe_lines.group_name,
             "root_id": toe_lines.root_id,
-            # The modified date will always exist here
-            "iso8601utc": get_as_utc_iso_format(toe_lines.state.modified_date)
-            if toe_lines.state.modified_date
-            else "",
+            "iso8601utc": get_as_utc_iso_format(toe_lines.state.modified_date),
         },
     )
     historic_item = format_toe_lines_item(
