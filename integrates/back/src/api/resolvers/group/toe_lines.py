@@ -91,6 +91,9 @@ def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
     if root_id := kwargs.get("root_id"):
         must_filters.append({"root_id": root_id})
 
+    if has_vulnerabilities := kwargs.get("has_vulnerabilities"):
+        must_filters.append({"state.has_vulnerabilities": has_vulnerabilities})
+
     return must_filters
 
 
