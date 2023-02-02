@@ -28,6 +28,7 @@ import { GET_BILLING } from "../GroupAuthorsView/queries";
 import type { IData, IGroupAuthor } from "../GroupAuthorsView/types";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ExternalLink } from "components/ExternalLink";
 import type { IFilter } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
@@ -353,6 +354,26 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
     t,
     validMutationsHelper,
   ]);
+
+  const handleClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm(handleRemoveUser);
+      },
+    [handleRemoveUser]
+  );
+
+  const authorDate = useCallback((): void => {
+    if (dataAuthor !== undefined && dateRange.length > 1) {
+      if (
+        dataAuthor.group.billing.authors.length === 0 &&
+        authorsDate !== dateRange[1].toISOString()
+      ) {
+        setAuthorsDate(dateRange[1].toISOString());
+      }
+    }
+  }, [authorsDate, dataAuthor, dateRange]);
+
   useEffect((): void => {
     if (data !== undefined) {
       const emailStakeholder = data.group.stakeholders.map(
@@ -394,15 +415,9 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
         domains.filter((domain: string): boolean => domain !== "")
       );
     }
-    if (dataAuthor !== undefined && dateRange.length > 1) {
-      if (
-        dataAuthor.group.billing.authors.length === 0 &&
-        authorsDate !== dateRange[1].toISOString()
-      ) {
-        setAuthorsDate(dateRange[1].toISOString());
-      }
-    }
-  }, [authorsDate, data, dateRange, dataAuthor, userEmail]);
+
+    authorDate();
+  }, [authorDate, data, dateRange, dataAuthor, userEmail]);
 
   const stakeholdersList = data?.group.stakeholders.map(
     (stakeholder: IStakeholderAttrs): IStakeholderDataSet => {
@@ -511,10 +526,6 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                   )}
                 >
                   {(confirm): React.ReactNode => {
-                    function handleClick(): void {
-                      confirm(handleRemoveUser);
-                    }
-
                     return (
                       <Tooltip
                         disp={"inline-block"}
@@ -532,7 +543,7 @@ const GroupStakeholdersView: React.FC = (): JSX.Element => {
                             loadingStakeholders
                           }
                           id={"removeUser"}
-                          onClick={handleClick}
+                          onClick={handleClick(confirm)}
                           variant={"secondary"}
                         >
                           <FontAwesomeIcon icon={faTrashAlt} />
