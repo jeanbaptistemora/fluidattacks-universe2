@@ -13,7 +13,13 @@ from db_model.companies.types import (
     Company,
     Trial,
 )
+from db_model.credentials.types import (
+    Credentials,
+    CredentialsState,
+    OauthGitlabSecret,
+)
 from db_model.enums import (
+    CredentialType,
     GitCloningStatus,
     Source,
     StateRemovalJustification,
@@ -127,6 +133,9 @@ from graphql import (
     GraphQLResolveInfo,
 )
 import json
+from newutils.datetime import (
+    get_now_minus_delta,
+)
 import os
 from requests import (
     Request,
@@ -202,6 +211,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.me_drafts.load": "db_model.findings.get.MeDraftsLoader.load",
     "loaders.me_vulnerabilities.load": "db_model.vulnerabilities.get.AssignedVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.organization.load": "db_model.organizations.get.OrganizationLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.organization_credentials.load": "db_model.credentials.get.OrganizationCredentialsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -275,6 +285,30 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 ),
             ),
         ),
+    },
+    "db_model.credentials.get.OrganizationCredentialsLoader.load": {
+        '["1a5dacda-1d52-465c-9158-f6fd5dfe0998"]': [
+            Credentials(
+                id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="admin@gmail.com",
+                state=CredentialsState(
+                    modified_by="admin@gmail.com",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-12T14:58:10+00:00"
+                    ),
+                    name="oauth lab token",
+                    type=CredentialType.OAUTH,
+                    secret=OauthGitlabSecret(
+                        refresh_token="UFUzdCBTU0gK",
+                        redirect_uri="",
+                        access_token="TETzdCBTU0gK",
+                        valid_until=get_now_minus_delta(hours=2),
+                    ),
+                    is_pat=False,
+                ),
+            )
+        ],
     },
     "db_model.credentials.remove_organization_credentials": {
         '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"]': None,
