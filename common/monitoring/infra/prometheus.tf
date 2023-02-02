@@ -178,15 +178,211 @@ resource "kubernetes_cluster_role_binding" "monitoring" {
   }
 }
 
-data "local_file" "adot_collector_manifest" {
-  filename = "src/adot_collector.yaml"
-}
-
 resource "kubernetes_manifest" "adot_collector" {
-  manifest = yamldecode(data.local_file.adot_collector_manifest.content)
+  manifest = {
+    apiVersion = "opentelemetry.io/v1alpha1"
+    kind       = "OpenTelemetryCollector"
+    metadata = {
+      name      = "adot-collector"
+      namespace = local.namespace
+    }
+    spec = {
+      image          = "public.ecr.aws/aws-observability/aws-otel-collector:v0.26.0"
+      mode           = "deployment"
+      serviceAccount = kubernetes_service_account.monitoring.metadata[0].name
+      config         = <<EOT
+        extensions:
+          sigv4auth:
+            service: "aps"
+            region: "us-east-1"
+
+        receivers:
+          prometheus:
+            config:
+              scrape_configs:
+                - job_name: 'kubernetes-nodes'
+                  scheme: https
+
+                  kubernetes_sd_configs:
+                    - role: node
+
+                  relabel_configs:
+                    - action: labelmap
+                      regex: __meta_kubernetes_node_label_(worker_group)
+                      replacement: aws_$$${1}
+
+                    - action: labelmap
+                      regex: __meta_kubernetes_node_label_node_kubernetes_io_(instance_type)
+                      replacement: aws_$$${1}
+
+                  tls_config:
+                    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                    insecure_skip_verify: true
+                  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+                - job_name: 'kubernetes-cadvisor'
+                  scheme: https
+                  metrics_path: /metrics/cadvisor
+
+                  kubernetes_sd_configs:
+                    - role: node
+
+                  relabel_configs:
+                    - action: labelmap
+                      regex: __meta_kubernetes_node_label_(worker_group)
+                      replacement: aws_$$${1}
+
+                    - action: labelmap
+                      regex: __meta_kubernetes_node_label_node_kubernetes_io_(instance_type)
+                      replacement: aws_$$${1}
+
+                  tls_config:
+                    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+                    insecure_skip_verify: true
+                  bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+                - job_name: 'kubernetes-node-exporter'
+                  scheme: http
+
+                  kubernetes_sd_configs:
+                    - role: endpoints
+
+                  relabel_configs:
+                    - source_labels: [__meta_kubernetes_endpoints_name]
+                      regex: 'node-exporter'
+                      action: keep
+                    - source_labels: [__meta_kubernetes_pod_node_name]
+                      action: replace
+                      target_label: instance
+
+        exporters:
+          prometheusremotewrite:
+            endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-e60ff23e-bccf-4df2-bf46-745c50b45c70/api/v1/remote_write
+            auth:
+              authenticator: sigv4auth
+
+        service:
+          extensions: [sigv4auth]
+          pipelines:
+            metrics:
+              receivers: [prometheus]
+              exporters: [prometheusremotewrite]
+      EOT
+    }
+  }
 
   depends_on = [
     helm_release.adot_operator,
     kubernetes_service_account.monitoring
   ]
+}
+
+# For some reason, installing node-exporter from the Helm Chart
+# https://artifacthub.io/packages/helm/prometheus-community/prometheus-node-exporter
+# does not work, metrics are not sent to Prometheus and there is no error shown
+resource "kubernetes_daemon_set_v1" "node_exporter" {
+  metadata {
+    name      = "node-exporter"
+    namespace = local.namespace
+    labels = {
+      app = "node-exporter"
+    }
+  }
+
+  spec {
+    selector {
+      match_labels = {
+        app = "node-exporter"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "node-exporter"
+        }
+      }
+
+      spec {
+        host_network = true
+        container {
+          args = [
+            "--path.sysfs=/host/sys",
+            "--path.rootfs=/host/root",
+            "--no-collector.wifi",
+            "--no-collector.hwmon",
+            "--collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)",
+            "--collector.netclass.ignored-devices=^(veth.*)$"
+          ]
+          name  = "node-exporter"
+          image = "prom/node-exporter:v1.5.0"
+
+          port {
+            container_port = 9100
+            protocol       = "TCP"
+          }
+
+          resources {
+            limits = {
+              cpu    = "250m"
+              memory = "180Mi"
+            }
+            requests = {
+              cpu    = "102m"
+              memory = "180Mi"
+            }
+          }
+
+          volume_mount {
+            mount_path        = "/host/sys"
+            mount_propagation = "HostToContainer"
+            name              = "sys"
+            read_only         = true
+          }
+          volume_mount {
+            mount_path        = "/host/root"
+            mount_propagation = "HostToContainer"
+            name              = "root"
+            read_only         = true
+          }
+        }
+
+        volume {
+          name = "sys"
+          host_path {
+            path = "/sys"
+          }
+        }
+        volume {
+          name = "root"
+          host_path {
+            path = "/"
+          }
+        }
+      }
+    }
+  }
+}
+
+resource "kubernetes_service_v1" "node_exporter_service" {
+  metadata {
+    name      = "node-exporter"
+    namespace = local.namespace
+    annotations = {
+      "prometheus.io/scrape" = "true"
+      "prometheus.io/port"   = "9100"
+    }
+  }
+
+  spec {
+    selector = {
+      app = "node-exporter"
+    }
+
+    port {
+      port        = 9100
+      target_port = 9100
+      protocol    = "TCP"
+    }
+  }
 }
