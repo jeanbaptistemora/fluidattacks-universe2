@@ -389,29 +389,17 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                           <Col lg={25} md={25} sm={90}>
                             <Row align={"start"} justify={"between"}>
                               <Col lg={45} md={45} sm={45}>
-                                <p className={"mb1 mt1"}>
-                                  <span className={"fw8"}>
-                                    {t(
-                                      "group.findings.report.minSeverity.text"
-                                    )}
-                                  </span>
-                                </p>
-                                <Tooltip
-                                  id={"group.findings.report.minSeverity.id"}
-                                  place={"top"}
-                                  tip={t(
+                                <InputNumber
+                                  label={t(
+                                    "group.findings.report.minSeverity.text"
+                                  )}
+                                  max={10}
+                                  min={0}
+                                  name={"minSeverity"}
+                                  tooltip={t(
                                     "group.findings.report.minSeverity.tooltip"
                                   )}
-                                >
-                                  <Field
-                                    component={FormikText}
-                                    max={10}
-                                    min={0}
-                                    name={"minSeverity"}
-                                    step={0.1}
-                                    type={"number"}
-                                  />
-                                </Tooltip>
+                                />
                               </Col>
                               <Col lg={10} md={10} sm={50}>
                                 <Row align={"center"} justify={"center"}>
