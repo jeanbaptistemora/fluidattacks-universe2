@@ -1,4 +1,7 @@
 module.exports = {
+  flags: {
+    DEV_SSR: true,
+  },
   pathPrefix: '/front',
   trailingSlash: 'always',
   siteMetadata: {

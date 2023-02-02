@@ -16,6 +16,7 @@ let securityHeaders = {
                               + "*.zohopublic.com "
                               + "*.zohostatic.com "
                               + "trackcmp.net "
+                              + "ajax.cloudflare.com "
                               + "cdnjs.cloudflare.com/ajax/libs/highlight.js/ "
                               + "connect.facebook.net/en_US/fbevents.js "
                               + "connect.facebook.net/signals/config/ "

@@ -11,6 +11,7 @@ resource "cloudflare_page_rule" "prod" {
     edge_cache_ttl         = 1800
     browser_cache_ttl      = 1800
     bypass_cache_on_cookie = "CookieConsent"
+    rocket_loader          = "on"
   }
 }
 
@@ -28,5 +29,6 @@ resource "cloudflare_page_rule" "dev" {
     edge_cache_ttl         = 1800
     browser_cache_ttl      = 1800
     bypass_cache_on_cookie = "CookieConsent"
+    rocket_loader          = "on"
   }
 }
