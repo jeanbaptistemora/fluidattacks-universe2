@@ -16,6 +16,7 @@ from botocore.exceptions import (
     ReadTimeoutError,
 )
 from context import (
+    FI_ENVIRONMENT,
     FI_FERNET_TOKEN,
 )
 from cryptography.fernet import (
@@ -58,9 +59,6 @@ from schedulers.common import (
     info,
 )
 import tempfile
-
-# Constants
-FERNET = Fernet(FI_FERNET_TOKEN)
 
 S3_BUCKET_NAME: str = "sorts"
 S3_RESOURCE = boto3.resource("s3")
@@ -107,6 +105,13 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     group_toe_lines: list[ToeLines],
     predicted_files: csv.DictReader,
 ) -> None:
+    # The Fernet token for testing shouldn't be changed
+    # to avoid breaking the test for this job
+    fernet = (
+        Fernet(FI_FERNET_TOKEN)
+        if FI_ENVIRONMENT == "production"
+        else Fernet("cudK8BSD-eApPCivGAX05i1NOqjiCwu9xXiRRKhB1CY=")
+    )
     loaders: Dataloaders = get_new_context()
     all_roots = await loaders.group_roots.load(group_name)
     in_scope_toes = []
@@ -115,7 +120,7 @@ async def update_toe_lines_priority(  # pylint: disable=too-many-locals
     out_scope_count = 0
 
     for predicted_file in predicted_files:
-        decryped_filepath = FERNET.decrypt(
+        decryped_filepath = fernet.decrypt(
             predicted_file["file"].encode()
         ).decode()
         predicted_nickname, predicted_filename = decryped_filepath.split(
