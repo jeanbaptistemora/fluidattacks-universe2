@@ -68,7 +68,7 @@ def initialize() -> None:
     Initializes the OpenTelemetry exporters
 
     Automatic instrumentation was not suitable as it currently lacks support
-    for servers that fork processes like gunicorn
+    for servers that fork processes
     https://opentelemetry-python.readthedocs.io/en/latest/examples/fork-process-model
     """
     resource = Resource.create(

@@ -25,7 +25,7 @@ RESOURCE_OPTIONS = {
     "config": AioConfig(
         # The time in seconds till a timeout exception is thrown when
         # attempting to make a connection. [60]
-        connect_timeout=30,
+        connect_timeout=10,
         # Maximum amount of simultaneously opened connections. [10]
         # https://docs.aiohttp.org/en/stable/client_advanced.html#limiting-connection-pool-size
         max_pool_connections=0,

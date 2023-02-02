@@ -1,6 +1,6 @@
 ---
-aioboto3: 10.3.0
-aiobotocore: 2.4.1
+aioboto3: 10.4.0
+aiobotocore: 2.4.2
 aiodataloader: 0.3.0
 aioextensions: 21.7.2261349
 aiofiles: 0.7.0
@@ -26,7 +26,6 @@ fpdf: 1.7.2
 frozendict: "1.2"
 GitPython: 3.1.29
 graphql-core: 3.2.3
-gunicorn: 20.1.0
 holidays: 0.11.3.1
 httpx: 0.23.3
 hyperlink: 19.0.0
@@ -73,10 +72,7 @@ stripe: 2.63.0
 unidiff: 0.6.0
 twilio: 7.7.0
 urllib3: 1.26.14
-uvicorn:
-  version: 0.20.0
-  extras:
-    - standard
+uvloop: 0.17.0
 watchtower: 3.0.0
 wcmatch:
   version: "8.4"
