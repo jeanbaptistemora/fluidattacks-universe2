@@ -9680,6 +9680,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
         '"customer_manager"]': None,
     },
+    "group_access.domain.authz.grant_group_level_role": {
+        '["unittest@fluidattacks.com", "unittesting", "user"]': None,
+    },
     "group_access.domain.Dataloaders.group_access": {
         '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
             email="unittest@fluidattacks.com",
@@ -9980,6 +9983,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             "integratesuser@gmail.com",
             "unittest2@fluidattacks.com",
         ],
+    },
+    "group_access.domain.update": {
+        '["unittest@fluidattacks.com", "unittesting"]': None,
     },
     "mailer.groups.send_mail_devsecops_agent_token": {
         '["integratesmanager@gmail.com", "unittesting", true]': None,

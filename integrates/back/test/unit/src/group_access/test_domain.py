@@ -41,6 +41,48 @@ MODULE_AT_TEST = "group_access.domain."
 
 
 @pytest.mark.parametrize(
+    ["email", "group_name", "role"],
+    [
+        ["unittest@fluidattacks.com", "unittesting", "user"],
+    ],
+)
+@patch(MODULE_AT_TEST + "authz.grant_group_level_role", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "update", new_callable=AsyncMock)
+async def test_add_access(
+    mock_update: AsyncMock,
+    mock_authz_grant_group_level_role: AsyncMock,
+    email: str,
+    group_name: str,
+    role: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_update,
+            mock_authz_grant_group_level_role,
+        ],
+        [
+            "update",
+            "authz.grant_group_level_role",
+        ],
+        [
+            [email, group_name],
+            [email, group_name, role],
+        ],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+    await add_access(
+        loaders=loaders, email=email, group_name=group_name, role=role
+    )
+    assert all(mock_object.called is True for mock_object in mocked_objects)
+
+
+@pytest.mark.parametrize(
     ["email", "group_name"],
     [
         ["unittest@fluidattacks.com", "unittesting"],
