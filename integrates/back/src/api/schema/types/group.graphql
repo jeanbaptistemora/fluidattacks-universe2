@@ -171,6 +171,10 @@ type Group {
     filename: String
     "Amount of element to return"
     first: Int
+    "From modified date to filter"
+    fromModifiedDate: DateTime
+    "To modified date to filter"
+    toModifiedDate: DateTime
     """
     True if the associated `filename` has OPEN vulnerabilities.
     This field is eventually consistent.
