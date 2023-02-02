@@ -6,10 +6,6 @@ interface IWindowSize {
 }
 
 const getSize = (): IWindowSize => {
-  if (typeof window === "undefined") {
-    return { height: 0, width: 0 };
-  }
-
   const { innerHeight, innerWidth } = window;
 
   return { height: innerHeight, width: innerWidth };
@@ -17,12 +13,13 @@ const getSize = (): IWindowSize => {
 
 // Get window size reacting to changes
 const useWindowSize = (): IWindowSize => {
-  const [size, setSize] = useState(getSize());
+  const [size, setSize] = useState({ height: 0, width: 0 });
 
   useEffect((): (() => void) => {
     const handleResize = (): void => {
       setSize(getSize());
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return (): void => {
