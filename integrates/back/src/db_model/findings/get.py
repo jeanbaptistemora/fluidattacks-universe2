@@ -200,7 +200,7 @@ class GroupFindingsLoader(DataLoader[str, list[Finding]]):
         ]
 
 
-class FindingLoader(DataLoader):
+class FindingLoader(DataLoader[str, Optional[Finding]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, finding_ids: Iterable[str]
