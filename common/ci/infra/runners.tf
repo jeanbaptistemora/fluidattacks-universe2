@@ -8,6 +8,7 @@ locals {
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
         "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+        "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
       ]
     }
     large = {
@@ -18,6 +19,7 @@ locals {
       docker_machine_options = [
         "amazonec2-volume-type=gp3",
         "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+        "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
       ]
     }
   }
