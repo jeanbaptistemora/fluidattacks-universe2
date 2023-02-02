@@ -12,8 +12,14 @@
 '''
 
 
+ifdef::env-en[]
 This report was requested by {{user}} on {{date}} and it is only intended for their use.
 If you are reading this report and you are not {{user}}, you are not authorized to read nor keep this document. Please stop reading at the end of this paragraph, delete this document, and report the incident to {{user}}, the owner. To get an updated version of this report for yourself, please request a copy following this link [{{link}}[Fluid] > Reports > Executive].
+endif::[]
+ifdef::env-es[]
+Este informe fue solicitado por {{user}} el {{date}} y solo está destinado para este su uso.
+Si está leyendo este informe y no es {{usuario}}, no está autorizado para leer ni conservar este documento. Deje de leer al final de este párrafo,este elimine este documento e informe el incidente a {{user}}, el propietario. Para obtener una versión actualizada de este informe, solicite una copia siguiendo este enlace [{{link}}[Fluid] > Reports > Executive].
+endif::[]
 
 
 //Primera pagina - Contenido

@@ -522,6 +522,7 @@ class CreatorPdf:
             f"-a pdf-themesdir={self.style_dir} "
             f"-a pdf-theme={self.style} "
             f"-a pdf-fontsdir={self.font_dir} "
+            f'-a {"env-en=True" if self.lang == "en" else "env-es=True"} '
             f"-D {self.result_dir} "
             f"-o {out_name} "
             f"{tpl_name} && chmod 777 {tpl_name}"

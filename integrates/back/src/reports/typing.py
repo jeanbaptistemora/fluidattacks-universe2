@@ -378,15 +378,15 @@ class PDFWordlistEs(Wordlist):
     )
     FINDING_TITLE: WordlistItem = WordlistItem("finding_title", "Hallazgo")
     GOALS_TITLE: WordlistItem = WordlistItem("goals_title", "Metas")
-    INPUTS: WordlistItem = WordlistItem("inputs", "Inputs")
-    LINE: WordlistItem = WordlistItem("line", "Line")
-    LINES: WordlistItem = WordlistItem("lines", "Lines")
+    INPUTS: WordlistItem = WordlistItem("inputs", "Entradas")
+    LINE: WordlistItem = WordlistItem("line", "Línea")
+    LINES: WordlistItem = WordlistItem("lines", "Líneas")
     METHODOLOGY_TITLE: WordlistItem = WordlistItem(
         "metodology_title", "Metodología"
     )
-    PATH: WordlistItem = WordlistItem("path", "Path")
+    PATH: WordlistItem = WordlistItem("path", "Dirección")
     PORT: WordlistItem = WordlistItem("port", "Puerto")
-    PORTS: WordlistItem = WordlistItem("ports", "Ports")
+    PORTS: WordlistItem = WordlistItem("ports", "Puertos")
     RECORDS_TITLE: WordlistItem = WordlistItem("records_title", "Registros")
     REQUISITE_TITLE: WordlistItem = WordlistItem(
         "requisite_title", "Requisito"
@@ -419,15 +419,15 @@ class PDFWordlistEs(Wordlist):
     ROOT_ENVIRONMENT_TITLE: WordlistItem = WordlistItem(
         "root_environment_title", "URLs del entorno"
     )
-    ROOT_GIT_TITLE: WordlistItem = WordlistItem("root_git_title", "Git Roots")
+    ROOT_GIT_TITLE: WordlistItem = WordlistItem("root_git_title", "Raíces Git")
     ROOT_HOST: WordlistItem = WordlistItem("root_host", "Host")
-    ROOT_IP_TITLE: WordlistItem = WordlistItem("root_ip_title", "IP Roots")
+    ROOT_IP_TITLE: WordlistItem = WordlistItem("root_ip_title", "Raíces IP")
     ROOT_NICKNAME: WordlistItem = WordlistItem("root_nickname", "Nickname")
     ROOT_SCOPE_TITLE: WordlistItem = WordlistItem(
         "root_scope_title", "Alcance"
     )
     ROOT_STATE_TITLE: WordlistItem = WordlistItem("root_state", "Estado")
-    ROOT_URL_TITLE: WordlistItem = WordlistItem("root_url_title", "URL Roots")
+    ROOT_URL_TITLE: WordlistItem = WordlistItem("root_url_title", "Raíces URL")
     ROOT_URL: WordlistItem = WordlistItem("root_url", "URL")
     SOLUCION_TITLE: WordlistItem = WordlistItem("solution_title", "Solución")
     STANDARD: WordlistItem = WordlistItem("standard", "Estándar")
@@ -462,7 +462,7 @@ class PDFWordlistEs(Wordlist):
     VULN_H: WordlistItem = WordlistItem("vuln_h", "Alta")
     VULN_L: WordlistItem = WordlistItem("vuln_l", "Baja")
     VULN_M: WordlistItem = WordlistItem("vuln_m", "Media")
-    WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Where")
+    WHERE_TITLE: WordlistItem = WordlistItem("where_title", "Donde")
     # To avoid setlocale's global effects, we'll have to support these names
     JANUARY: WordlistItem = WordlistItem("january", "Enero")
     FEBRUARY: WordlistItem = WordlistItem("february", "Febrero")
