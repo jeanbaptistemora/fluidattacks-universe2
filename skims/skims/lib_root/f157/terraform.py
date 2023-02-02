@@ -1,3 +1,6 @@
+from itertools import (
+    chain,
+)
 from lib_root.utilities.json import (
     get_value,
 )
@@ -25,6 +28,37 @@ from typing import (
 from utils.graph import (
     adj_ast,
 )
+
+
+def _aux_azure_sa_default_network_access(
+    graph: Graph, nid: NId
+) -> Optional[NId]:
+    expected_attr = "default_action"
+    has_attr = False
+    for b_id in adj_ast(graph, nid, label_type="Pair"):
+        key_id = graph.nodes[b_id]["key_id"]
+        key = graph.nodes[key_id]["value"]
+        value_id = graph.nodes[b_id]["value_id"]
+        value = get_value(graph, value_id)
+        if key == expected_attr:
+            has_attr = True
+            if value.lower() != "deny":
+                return b_id
+            return None
+    if not has_attr:
+        return nid
+    return None
+
+
+def _azure_sa_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
+    obj_type = graph.nodes[nid].get("name")
+    if obj_type:
+        if obj_type == "azurerm_storage_account_network_rules":
+            return _aux_azure_sa_default_network_access(graph, nid)
+        expected_block = "network_rules"
+        for c_id in adj_ast(graph, nid, name=expected_block):
+            return _aux_azure_sa_default_network_access(graph, c_id)
+    return None
 
 
 def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> Optional[NId]:
@@ -193,6 +227,34 @@ def tfm_azure_unrestricted_access_network_segments(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_path.f157.etl_visible_to_the_public_network",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def tfm_azure_sa_default_network_access(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_SA_DEFAULT_ACCESS
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(
+                    graph, "azurerm_storage_account_network_rules"
+                ),
+                iterate_resource(graph, "azurerm_storage_account"),
+            ):
+                if report := _azure_sa_default_network_access(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f157.tfm_azure_sa_default_network_access",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
