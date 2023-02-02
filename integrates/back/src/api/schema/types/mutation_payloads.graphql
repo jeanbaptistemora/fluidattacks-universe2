@@ -177,14 +177,6 @@ this type feel free to check the relevant
 type SignedFieldsObject {
   "Encryption Algorithm"
   algorithm: String!
-  "AWS Access key identifier"
-  awsaccesskeyid: String!
-    @deprecated(
-      reason: """
-      This field is no longer necessary
-      This field will be removed after 2023/02/01.
-      """
-    )
   "Assigned Credential"
   credential: String!
   "Signature creation Date"
