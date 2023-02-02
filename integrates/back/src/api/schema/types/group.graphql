@@ -171,6 +171,11 @@ type Group {
     filename: String
     "Amount of element to return"
     first: Int
+    """
+    True if the associated `filename` has OPEN vulnerabilities.
+    This field is eventually consistent.
+    """
+    hasVulnerabilities: Boolean
     "Max loc value for lines"
     maxLoc: Int
     "Min loc value for lines"
