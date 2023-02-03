@@ -10,7 +10,6 @@ from lib_path.f256.cloudformation import (
 from lib_path.f256.terraform import (
     tfm_db_has_not_automated_backups,
     tfm_db_no_deletion_protection,
-    tfm_rds_has_not_automated_backups,
     tfm_rds_no_deletion_protection,
 )
 from model.core_model import (
@@ -75,15 +74,6 @@ def run_tfm_db_has_not_automated_backups(
 
 
 @SHIELD_BLOCKING
-def run_tfm_rds_has_not_automated_backups(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_rds_has_not_automated_backups(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -111,7 +101,6 @@ def analyze(
             run_tfm_db_no_deletion_protection(content, path, model),
             run_tfm_rds_no_deletion_protection(content, path, model),
             run_tfm_db_has_not_automated_backups(content, path, model),
-            run_tfm_rds_has_not_automated_backups(content, path, model),
         )
 
     return results
