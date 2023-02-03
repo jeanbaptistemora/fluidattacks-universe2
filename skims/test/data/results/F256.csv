@@ -95,7 +95,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_automated_bac
    80 |      ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 3
 ",cloudformation.cfn_rds_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/db_no_backup_test.tf,10,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/db_no_backup_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
    3 |   engine                  = ""mysql""
@@ -111,7 +111,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_no_backup_test.tf,10,693,s
   13 | }
      ^ Col 0
 ",terraform.tfm_db_has_not_automated_backups
-F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,7,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/rds_no_backup_test.tf,7,693,skims,256. Lack of protection against deletion - RDS,BackupRetentionPeriod property should not be 0 in namespace/skims/test/data/lib_root/f256/rds_no_backup_test.tf,"
   1 | resource ""aws_rds_cluster"" ""default"" {
   2 |   cluster_identifier      = ""aurora-cluster-demo""
   3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
@@ -612,7 +612,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/cfn_rds_has_not_termination_p
   122 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",cloudformation.cfn_rds_has_not_termination_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/db_instance_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/db_instance_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage    = 10
 >  3 |   deletion_protection  = false
@@ -636,7 +636,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,3,693,ski
   21 |   password             = ""useradmin""
      ^ Col 0
 ",terraform.tfm_db_no_deletion_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/db_instance_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/db_instance_test.tf,14,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/db_instance_test.tf,"
    4 |   engine               = ""mysql""
    5 |   engine_version       = ""5.7""
    6 |   instance_class       = ""db.t3.micro""
@@ -660,7 +660,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/db_instance_test.tf,14,693,sk
   24 | }
      ^ Col 0
 ",terraform.tfm_db_no_deletion_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/rds_cluster_test.tf,3,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/rds_cluster_test.tf,"
   1 | resource ""aws_rds_cluster"" ""example"" {
   2 |   cluster_identifier   = ""example""
 > 3 |   deletion_protection  = false
@@ -672,7 +672,7 @@ F256,lines,namespace/skims/test/data/lib_path/f256/rds_cluster_test.tf,3,693,ski
   9 | }
     ^ Col 0
 ",terraform.tfm_rds_no_deletion_protection
-F256,lines,namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_path/f256/rds_no_backup_test.tf,"
+F256,lines,namespace/skims/test/data/lib_root/f256/rds_no_backup_test.tf,1,693,skims,256. Lack of protection against deletion - RDS,DeletionProtection property should be enabled in namespace/skims/test/data/lib_root/f256/rds_no_backup_test.tf,"
 > 1 | resource ""aws_rds_cluster"" ""default"" {
   2 |   cluster_identifier      = ""aurora-cluster-demo""
   3 |   availability_zones      = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]
