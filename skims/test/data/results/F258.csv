@@ -143,7 +143,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/cfn_elb2_has_not_deletion_pro
   58 | }
      ^ Col 0
 ",cloudformation.cfn_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,2,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+F258,lines,namespace/skims/test/data/lib_root/f258/tfm_elb2_has_not_deletion_protection.tf,2,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/tfm_elb2_has_not_deletion_protection.tf,"
    1 |
 >  2 | resource ""aws_lb"" ""test"" {
    3 |   name               = ""test-lb-tf""
@@ -167,7 +167,7 @@ F258,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_pro
   21 |   name               = ""test-lb-tf""
      ^ Col 0
 ",terraform.tfm_elb2_has_not_deletion_protection
-F258,lines,namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,16,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_path/f258/tfm_elb2_has_not_deletion_protection.tf,"
+F258,lines,namespace/skims/test/data/lib_root/f258/tfm_elb2_has_not_deletion_protection.tf,16,463,skims,258. Lack of protection against deletion - ELB,The deletion_protection property must be enabled in namespace/skims/test/data/lib_root/f258/tfm_elb2_has_not_deletion_protection.tf,"
    6 |   security_groups    = [aws_security_group.lb_sg.id]
    7 | }
    8 |

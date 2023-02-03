@@ -4687,7 +4687,7 @@ class MethodsEnum(Enum):
     TFM_ELB2_NOT_DELETION_PROTEC = MethodInfo(
         file_name="terraform",
         name="tfm_elb2_has_not_deletion_protection",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F258,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
