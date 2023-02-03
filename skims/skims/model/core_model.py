@@ -4743,7 +4743,7 @@ class MethodsEnum(Enum):
     TFM_RDS_NO_DELETION_PROTEC = MethodInfo(
         file_name="terraform",
         name="tfm_rds_no_deletion_protection",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
