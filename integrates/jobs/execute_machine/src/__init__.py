@@ -430,7 +430,11 @@ def generate_config(  # pylint: disable=too-many-locals
     ssl_targets: List[Tuple[str, str]] = []
     dast_config: Optional[Dict[str, Any]] = None
     if is_main:
-        scopes = git_root["environmentUrls"]
+        scopes: set[str] = {
+            environment_url["url"]
+            for environment_url in git_root["gitEnvironmentUrls"]
+            if environment_url["urlType"] == "URL"
+        }
         urls = get_urls_from_scopes(scopes)
         ssl_targets = get_ssl_targets(urls)
         secrets = {
