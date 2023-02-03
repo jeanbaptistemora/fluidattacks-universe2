@@ -60,6 +60,86 @@ const CardsgenIndex: React.FC<IQueryData> = ({
 
   const metaImage: string = getMetaImage();
 
+  if (partnersindex === "yes") {
+    return (
+      <React.Fragment>
+        <Seo
+          description={description}
+          image={metaImage}
+          keywords={keywords}
+          title={`${title} | Fluid Attacks`}
+          url={slug}
+        />
+
+        <Layout>
+          <div>
+            <NavbarComponent />
+            <Breadcrumb
+              crumbLabel={capitalizePlainString(title)}
+              crumbSeparator={" / "}
+              crumbs={capitalizeObject(crumbs)}
+            />
+
+            <PageArticle bgColor={"#f9f9f9"}>
+              <BannerContainer className={banner}>
+                <FullWidthContainer>
+                  <BannerTitle>{title}</BannerTitle>
+                </FullWidthContainer>
+              </BannerContainer>
+              <CardsContainer1200>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data.markdownRemark.html,
+                  }}
+                />
+                <PartnerPage />
+              </CardsContainer1200>
+            </PageArticle>
+          </div>
+        </Layout>
+      </React.Fragment>
+    );
+  } else if (clientsindex === "yes") {
+    return (
+      <React.Fragment>
+        <Seo
+          description={description}
+          image={metaImage}
+          keywords={keywords}
+          title={`${title} | Fluid Attacks`}
+          url={slug}
+        />
+
+        <Layout>
+          <div>
+            <NavbarComponent />
+            <Breadcrumb
+              crumbLabel={capitalizePlainString(title)}
+              crumbSeparator={" / "}
+              crumbs={capitalizeObject(crumbs)}
+            />
+
+            <PageArticle bgColor={"#f9f9f9"}>
+              <BannerContainer className={banner}>
+                <FullWidthContainer>
+                  <BannerTitle>{title}</BannerTitle>
+                </FullWidthContainer>
+              </BannerContainer>
+              <CardsContainer1200>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data.markdownRemark.html,
+                  }}
+                />
+                <ClientsPage />
+              </CardsContainer1200>
+            </PageArticle>
+          </div>
+        </Layout>
+      </React.Fragment>
+    );
+  }
+
   return (
     <React.Fragment>
       <Seo
@@ -91,11 +171,7 @@ const CardsgenIndex: React.FC<IQueryData> = ({
                   __html: data.markdownRemark.html,
                 }}
               />
-              {partnersindex === "yes" ? (
-                <PartnerPage />
-              ) : clientsindex === "yes" ? (
-                <ClientsPage />
-              ) : certificationsindex === "yes" ? (
+              {certificationsindex === "yes" ? (
                 <CertificationsPage />
               ) : undefined}
             </CardsContainer1200>

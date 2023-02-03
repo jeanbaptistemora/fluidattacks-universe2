@@ -28,7 +28,6 @@ const InformativeBanner: React.FC<IProps> = ({
   return (
     <InformativeBannerContainer bgColor={bgColor} isClose={isClose}>
       <InformativeBannerItems
-        /* eslint-disable-next-line react/jsx-no-bind */
         buttonText={buttonText}
         close={handleClose}
         subtitle={subtitle}
