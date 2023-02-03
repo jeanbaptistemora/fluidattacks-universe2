@@ -23,7 +23,7 @@ async def resolve(
 ) -> Optional[Root]:
     loaders: Dataloaders = info.context.loaders
     if parent.root_id:
-        root: Root = await loaders.root.load(
+        root = await loaders.root.load(
             RootRequest(parent.group_name, parent.root_id)
         )
 

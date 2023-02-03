@@ -20,7 +20,6 @@ from db_model.enums import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
     RootRequest,
 )
 import pytest
@@ -46,7 +45,7 @@ async def test_queue_sync_git_roots_real_ssh_ok(
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     loaders = get_new_context()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
@@ -69,7 +68,7 @@ async def test_queue_sync_git_roots_real_https_ok(
 ) -> None:
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
     loaders = get_new_context()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
@@ -101,7 +100,7 @@ async def test_queue_sync_git_roots_real_https_same_commit(
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )
     loaders.root.clear_all()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "7271f1cb-5b77-626b-5fc7-849393f646az")
     )
 
@@ -130,7 +129,7 @@ async def test_queue_sync_git_roots_real_ssh_same_commit(
         "63afdb8d9cc5230a0137593d20a2fd2c4c73b92b",
     )
     loaders.root.clear_all()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "6160f0cb-4b66-515b-4fc6-738282f535af")
     )
 
@@ -170,7 +169,7 @@ async def test_queue_sync_git_roots_already_in_queue_level_selected_roots(
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)
 
     loaders = get_new_context()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "88637616-41d4-4242-854a-db8ff7fe1ab6")
     )
 
@@ -189,7 +188,7 @@ async def test_queue_sync_git_roots_no_creds(
     generic_data: dict[str, Any], mocker: MockerFixture
 ) -> None:
     loaders = get_new_context()
-    root_1: Root = await loaders.root.load(
+    root_1 = await loaders.root.load(
         RootRequest("group1", "5059f0cb-4b55-404b-3fc5-627171f424af")
     )
     mocker.patch.object(roots_domain, "is_in_s3", return_value=False)

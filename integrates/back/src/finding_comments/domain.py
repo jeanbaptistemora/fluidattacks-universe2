@@ -4,7 +4,6 @@ from aioextensions import (
 import authz
 from custom_exceptions import (
     FindingNotFound,
-    RootNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -20,7 +19,6 @@ from db_model.finding_comments.types import (
     FindingCommentsRequest,
 )
 from db_model.roots.types import (
-    Root,
     RootRequest,
 )
 from db_model.vulnerabilities.types import (
@@ -56,14 +54,12 @@ async def get_vuln_nickname(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> str:
-    try:
-        root: Root = await loaders.root.load(
-            RootRequest(vuln.group_name, vuln.root_id or "")
-        )
-        if vuln.type == "LINES":
-            return f"  {root.state.nickname}/{vuln.state.where}"
-    except RootNotFound:
-        pass
+    root = await loaders.root.load(
+        RootRequest(vuln.group_name, vuln.root_id or "")
+    )
+    if root and vuln.type == "LINES":
+        return f"  {root.state.nickname}/{vuln.state.where}"
+
     return vuln.state.where
 
 

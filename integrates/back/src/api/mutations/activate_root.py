@@ -20,7 +20,6 @@ from db_model.roots.enums import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    RootRequest,
     URLRoot,
 )
 from decorators import (
@@ -115,7 +114,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name = kwargs["group_name"]
     root_id = kwargs["id"]
-    root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await roots_domain.get_root(loaders, root_id, group_name)
 
     if isinstance(root, GitRoot):
         await activate_git_root(

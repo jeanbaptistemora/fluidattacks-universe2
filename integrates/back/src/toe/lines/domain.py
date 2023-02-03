@@ -17,7 +17,6 @@ from db_model import (
 )
 from db_model.roots.types import (
     Root,
-    RootRequest,
 )
 from db_model.toe_lines.types import (
     ToeLines,
@@ -32,6 +31,9 @@ from newutils.validations import (
     validate_email_address_deco,
     validate_field_length_deco,
     validate_sanitized_csv_input_deco,
+)
+from roots import (
+    domain as roots_domain,
 )
 from roots.validations import (
     validate_active_root_deco,
@@ -171,7 +173,7 @@ async def add(  # pylint: disable=too-many-arguments
     attributes: ToeLinesAttributesToAdd,
     is_moving_toe_lines: bool = False,
 ) -> None:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await roots_domain.get_root(loaders, root_id, group_name)
     if is_moving_toe_lines is False:
         if attributes.seen_first_time_by is not None:
             _validate_seen_first_time_by(

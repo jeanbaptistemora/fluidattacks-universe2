@@ -32,10 +32,6 @@ from db_model.findings.types import (
     Finding31Severity,
     FindingVerification,
 )
-from db_model.roots.types import (
-    Root,
-    RootRequest,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -85,6 +81,9 @@ from pyexcelerate import (
 from reports.typing import (
     GroupVulnsReportHeader,
     OrgVulnsReportHeader,
+)
+from roots import (
+    domain as roots_domain,
 )
 from settings.logger import (
     LOGGING,
@@ -819,8 +818,8 @@ class ITReport:
         nickname = EMPTY
         if row.root_id:
             try:
-                root: Root = await self.loaders.root.load(
-                    RootRequest(finding.group_name, row.root_id)
+                root = await roots_domain.get_root(
+                    self.loaders, row.root_id, finding.group_name
                 )
                 nickname = root.state.nickname
             except RootNotFound as ex:

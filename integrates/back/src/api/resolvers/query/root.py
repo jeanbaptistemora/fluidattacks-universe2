@@ -6,7 +6,6 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     Root,
-    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -15,6 +14,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from roots import (
+    domain as roots_domain,
 )
 
 
@@ -29,6 +31,6 @@ async def resolve(
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["root_id"]
     loaders: Dataloaders = info.context.loaders
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await roots_domain.get_root(loaders, root_id, group_name)
 
     return root

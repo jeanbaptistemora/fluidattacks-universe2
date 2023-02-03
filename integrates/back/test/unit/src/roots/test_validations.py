@@ -25,12 +25,14 @@ from db_model.organizations.types import (
 )
 from db_model.roots.types import (
     Root,
-    RootRequest,
 )
 from newutils.datetime import (
     get_now_minus_delta,
 )
 import pytest
+from roots import (
+    domain as roots_domain,
+)
 from roots.validations import (
     is_exclude_valid,
     is_git_unique,
@@ -61,12 +63,12 @@ pytestmark = [
 
 async def test_validate_active_root() -> None:
     loaders = get_new_context()
-    active_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    active_root = await roots_domain.get_root(
+        loaders, "8493c82f-2860-4902-86fa-75b0fef76034", "oneshottest"
     )
     validate_active_root(active_root)
-    inactive_root: Root = await loaders.root.load(
-        RootRequest("asgard", "814addf0-316c-4415-850d-21bd3783b011")
+    inactive_root = await roots_domain.get_root(
+        loaders, "814addf0-316c-4415-850d-21bd3783b011", "asgard"
     )
     with pytest.raises(InactiveRoot):
         validate_active_root(inactive_root)
@@ -78,14 +80,14 @@ async def test_validate_active_root_deco() -> None:
         return root
 
     loaders = get_new_context()
-    active_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    active_root = await roots_domain.get_root(
+        loaders, "8493c82f-2860-4902-86fa-75b0fef76034", "oneshottest"
     )
 
     assert decorated_func(root=active_root)
 
-    inactive_root: Root = await loaders.root.load(
-        RootRequest("asgard", "814addf0-316c-4415-850d-21bd3783b011")
+    inactive_root = await roots_domain.get_root(
+        loaders, "814addf0-316c-4415-850d-21bd3783b011", "asgard"
     )
     with pytest.raises(InactiveRoot):
         decorated_func(root=inactive_root)
@@ -93,20 +95,20 @@ async def test_validate_active_root_deco() -> None:
 
 async def test_validate_component() -> None:
     loaders = get_new_context()
-    git_root: Root = await loaders.root.load(
-        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    git_root = await roots_domain.get_root(
+        loaders, "4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting"
     )
     await validate_component(
         loaders, git_root, "https://app.fluidattacks.com/test"
     )
-    url_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "8493c82f-2860-4902-86fa-75b0fef76034")
+    url_root = await roots_domain.get_root(
+        loaders, "8493c82f-2860-4902-86fa-75b0fef76034", "oneshottest"
     )
     await validate_component(
         loaders, url_root, "https://app.fluidattacks.com:443/test"
     )
-    ip_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    ip_root = await roots_domain.get_root(
+        loaders, "d312f0b9-da49-4d2b-a881-bed438875e99", "oneshottest"
     )
     await validate_component(loaders, ip_root, "127.0.0.1:8080/test")
     with pytest.raises(InvalidRootComponent):
@@ -160,12 +162,12 @@ def test_is_exclude_valid() -> None:
 async def test_valid_git_root() -> None:
 
     loaders = get_new_context()
-    root: Root = await loaders.root.load(
-        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    root = await roots_domain.get_root(
+        loaders, "4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting"
     )
     validate_git_root(root)
-    ip_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    ip_root = await roots_domain.get_root(
+        loaders, "d312f0b9-da49-4d2b-a881-bed438875e99", "oneshottest"
     )
     with pytest.raises(InvalidGitRoot):
         validate_git_root(ip_root)
@@ -177,14 +179,14 @@ async def test_valid_git_root_deco() -> None:
         return root
 
     loaders = get_new_context()
-    root: Root = await loaders.root.load(
-        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    root = await roots_domain.get_root(
+        loaders, "4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting"
     )
 
     assert decorated_func(root=root)
 
-    ip_root: Root = await loaders.root.load(
-        RootRequest("oneshottest", "d312f0b9-da49-4d2b-a881-bed438875e99")
+    ip_root = await roots_domain.get_root(
+        loaders, "d312f0b9-da49-4d2b-a881-bed438875e99", "oneshottest"
     )
     with pytest.raises(InvalidGitRoot):
         decorated_func(root=ip_root)
@@ -310,8 +312,8 @@ async def test_validate_nickname_is_unique_deco() -> None:
         return (nickname, roots, old_nickname)
 
     loaders = get_new_context()
-    root: Root = await loaders.root.load(
-        RootRequest("unittesting", "4039d098-ffc5-4984-8ed3-eb17bca98e19")
+    root = await roots_domain.get_root(
+        loaders, "4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting"
     )
     assert decorated_func(
         nickname="valid-username_1",

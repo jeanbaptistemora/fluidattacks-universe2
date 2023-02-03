@@ -67,10 +67,6 @@ from db_model.groups.types import (
 from db_model.organizations.types import (
     Organization,
 )
-from db_model.roots.types import (
-    Root,
-    RootRequest,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -113,6 +109,9 @@ from newutils import (
 )
 import pytz
 import random
+from roots import (
+    domain as roots_domain,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -208,7 +207,7 @@ async def add_event(
         group.organization_id
     )
     if root_id:
-        root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+        root = await roots_domain.get_root(loaders, root_id, group_name)
         root_id = root.id
         if root.state.status != "ACTIVE":
             raise InvalidParameter(field="rootId")

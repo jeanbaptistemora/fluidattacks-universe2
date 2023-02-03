@@ -3,13 +3,15 @@ from dataloaders import (
 )
 from db_model.roots.types import (
     Root,
-    RootRequest,
 )
 from db_model.toe_lines.types import (
     ToeLines,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from roots import (
+    domain as roots_domain,
 )
 
 
@@ -19,8 +21,8 @@ async def resolve(
     **_kwargs: None,
 ) -> Root:
     loaders: Dataloaders = info.context.loaders
-    root: Root = await loaders.root.load(
-        RootRequest(parent.group_name, parent.root_id)
+    root = await roots_domain.get_root(
+        loaders, parent.root_id, parent.group_name
     )
 
     return root

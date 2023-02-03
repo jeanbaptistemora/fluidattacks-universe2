@@ -57,8 +57,6 @@ from db_model.findings.types import (
 )
 from db_model.roots.types import (
     GitRootState,
-    Root,
-    RootRequest,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateReason,
@@ -105,6 +103,9 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 import pytz
+from roots import (
+    domain as roots_domain,
+)
 from settings import (
     LOGGING,
 )
@@ -726,8 +727,8 @@ async def repo_subtitle(
     repo = "Vulnerabilities"
     if vuln.root_id is not None:
         try:
-            root: Root = await loaders.root.load(
-                RootRequest(group_name, vuln.root_id)
+            root = await roots_domain.get_root(
+                loaders, vuln.root_id, group_name
             )
             nickname = (
                 root.state.nickname
@@ -876,8 +877,8 @@ async def get_vuln_nickname(
 ) -> str:
     result: str = f"{vuln.state.where} ({vuln.state.specific})"
     try:
-        root: Root = await loaders.root.load(
-            RootRequest(vuln.group_name, vuln.root_id or "")
+        root = await roots_domain.get_root(
+            loaders, vuln.root_id or "", vuln.group_name
         )
         if vuln.type == "LINES":
             return f"  {root.state.nickname}/{result}"

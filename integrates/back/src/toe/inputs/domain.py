@@ -15,8 +15,6 @@ from db_model import (
 )
 from db_model.roots.types import (
     GitRoot,
-    Root,
-    RootRequest,
     URLRoot,
 )
 from db_model.toe_inputs.types import (
@@ -26,6 +24,9 @@ from db_model.toe_inputs.types import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from roots import (
+    domain as roots_domain,
 )
 from roots.validations import (
     validate_active_root,
@@ -59,8 +60,8 @@ async def add(  # pylint: disable=too-many-arguments
 ) -> None:
     formatted_component = component.strip()
     if is_moving_toe_input is False:
-        root: Root = await loaders.root.load(
-            RootRequest(group_name, attributes.unreliable_root_id)
+        root = await roots_domain.get_root(
+            loaders, attributes.unreliable_root_id, group_name
         )
         if not isinstance(root, (GitRoot, URLRoot)):
             raise InvalidRootType()

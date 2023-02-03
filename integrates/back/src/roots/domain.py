@@ -196,6 +196,16 @@ async def _notify_health_check(
         )
 
 
+async def get_root(
+    loaders: Dataloaders, root_id: str, group_name: str
+) -> Root:
+    root = await loaders.root.load(RootRequest(group_name, root_id))
+    if not root:
+        raise RootNotFound()
+
+    return root
+
+
 async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     organization: Organization,
@@ -599,7 +609,7 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     reason: Optional[str],
     other: Optional[str],
 ) -> None:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
     modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
@@ -729,7 +739,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group.load(group_name)
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await get_root(loaders, root_id, group_name)
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
@@ -860,7 +870,7 @@ async def update_ip_root(
     root_id: str,
     nickname: str,
 ) -> None:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
     if not (
         isinstance(root, IPRoot) and root.state.status == RootStatus.ACTIVE
     ):
@@ -910,7 +920,7 @@ async def update_url_root(
     root_id: str,
     nickname: str,
 ) -> None:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
     if not (
         isinstance(root, URLRoot) and root.state.status == RootStatus.ACTIVE
     ):
@@ -1004,7 +1014,7 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     commit_date: Optional[datetime] = None,
 ) -> None:
     validation_utils.validate_field_length(message, 400)
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await get_root(loaders, root_id, group_name)
     modified_date = datetime_utils.get_utc_now()
 
     if not isinstance(root, GitRoot):
@@ -1498,7 +1508,7 @@ async def move_root(
     root_id: str,
     target_group_name: str,
 ) -> str:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await get_root(loaders, root_id, group_name)
     source_group: Group = await loaders.group.load(group_name)
     source_org_id = source_group.organization_id
     target_group: Group = await loaders.group.load(target_group_name)

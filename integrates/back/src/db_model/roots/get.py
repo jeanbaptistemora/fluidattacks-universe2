@@ -14,9 +14,6 @@ from context import (
 from contextlib import (
     suppress,
 )
-from custom_exceptions import (
-    RootNotFound,
-)
 from datetime import (
     datetime,
     timezone,
@@ -75,20 +72,17 @@ async def _get_roots(*, requests: Iterable[RootRequest]) -> list[Root]:
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
 
-    if len(items) == len(list(requests)):
-        return [format_root(item) for item in items]
-
-    raise RootNotFound()
+    return [format_root(item) for item in items]
 
 
-class RootLoader(DataLoader[RootRequest, Root]):
+class RootLoader(DataLoader[RootRequest, Optional[Root]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootRequest]
-    ) -> list[Root]:
+    ) -> list[Optional[Root]]:
         roots = {root.id: root for root in await _get_roots(requests=requests)}
 
-        return [roots[request.root_id] for request in requests]
+        return [roots.get(request.root_id) for request in requests]
 
 
 async def _get_group_roots(*, group_name: str) -> list[Root]:

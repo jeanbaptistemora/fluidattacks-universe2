@@ -17,8 +17,6 @@ from dataloaders import (
 from db_model.roots.types import (
     GitRoot,
     IPRoot,
-    Root,
-    RootRequest,
     URLRoot,
 )
 from decorators import (
@@ -83,7 +81,7 @@ async def mutate(
         queue=batch_dal.IntegratesBatchQueue.SMALL,
         product_name=Product.INTEGRATES,
     )
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await roots_domain.get_root(loaders, root_id, group_name)
     if isinstance(root, GitRoot):
         await batch_dal.put_action(
             action=Action.REFRESH_TOE_LINES,

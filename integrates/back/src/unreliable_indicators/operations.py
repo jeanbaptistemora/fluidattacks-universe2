@@ -33,8 +33,6 @@ from db_model.findings.types import (
     FindingVerificationSummary,
 )
 from db_model.roots.types import (
-    Root,
-    RootRequest,
     RootUnreliableIndicatorsToUpdate,
 )
 from db_model.vulnerabilities.types import (
@@ -333,7 +331,7 @@ async def update_root_unreliable_indicators(
     root_id: str,
     attrs_to_update: set[EntityAttr],
 ) -> None:
-    root: Root = await loaders.root.load(RootRequest(group_name, root_id))
+    root = await roots_domain.get_root(loaders, root_id, group_name)
     indicators = {}
 
     if EntityAttr.last_status_update in attrs_to_update:
