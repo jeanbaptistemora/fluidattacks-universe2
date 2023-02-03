@@ -27,7 +27,7 @@ interface ICredentials {
   password: string;
   token: string;
   type: "" | "HTTPS" | "SSH";
-  typeCredential: "" | "SSH" | "TOKEN" | "USER";
+  typeCredential: "" | "OAUTH" | "SSH" | "TOKEN" | "USER";
   user: string;
 }
 interface ICredentialsAttr {

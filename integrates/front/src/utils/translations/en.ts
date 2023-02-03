@@ -4219,6 +4219,8 @@ export const enTranslations: ResourceKey = {
     invalidCommentParent: "The comment parent is invalid",
     invalidCredentialName:
       "There is credentials with the same name in the organization",
+    invalidCredentialType:
+      "Invalid Credential Type for URL, if protocol is ssh: type must not be OAUTH",
     invalidEmailInField: "The email address inserted is not valid",
     invalidEnvironmentUrl: "The environment URL is invalid",
     invalidFieldLength: "The value inserted in one or more fields is invalid",

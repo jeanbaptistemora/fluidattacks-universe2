@@ -217,7 +217,32 @@ const gitModalSchema = (
             : string().required(translate.t("validations.required")),
           typeCredential: isEditing
             ? string()
-            : string().required(translate.t("validations.required")),
+            : string()
+                .required(translate.t("validations.required"))
+                .test(
+                  "hasInvalidCredentialType",
+                  translate.t("validations.invalidCredentialType"),
+                  (value): boolean => {
+                    if (
+                      _.isUndefined(value) ||
+                      _.isUndefined(values.url) ||
+                      !_.includes(["OAUTH"], value) ||
+                      _.isEmpty(values.url)
+                    ) {
+                      return true;
+                    }
+                    try {
+                      const { protocol } = new URL(values.url);
+
+                      return (
+                        _.includes(["OAUTH"], value) &&
+                        protocol.toLowerCase() === "https:"
+                      );
+                    } catch {
+                      return true;
+                    }
+                  }
+                ),
           user: string()
             .when("type", {
               is:
