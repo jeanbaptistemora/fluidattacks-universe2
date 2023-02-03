@@ -12,7 +12,6 @@ from custom_exceptions import (
     InvalidRoleProvided,
     StakeholderHasOrganizationAccess,
     StakeholderNotFound,
-    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -75,14 +74,14 @@ async def mutate(
     stakeholder_email = str(parameters.get("user_email")).lower().strip()
     stakeholder_role: str = map_roles(str(parameters.get("role")).lower())
 
-    with suppress(StakeholderNotInOrganization):
-        organization_access = await loaders.organization_access.load(
-            OrganizationAccessRequest(
-                organization_id=organization_id, email=stakeholder_email
-            )
+    if organization_access := await loaders.organization_access.load(
+        OrganizationAccessRequest(
+            organization_id=organization_id, email=stakeholder_email
         )
-        if organization_access and organization_access.has_access:
+    ):
+        if organization_access.has_access:
             raise StakeholderHasOrganizationAccess()
+
         with suppress(StakeholderNotFound):
             stakeholder: Stakeholder = await loaders.stakeholder.load(
                 stakeholder_email
@@ -93,8 +92,9 @@ async def mutate(
             )
             if invitation_state == OrganizationInvitiationState.REGISTERED:
                 raise StakeholderHasOrganizationAccess()
+
         # Too soon to send another email invitation to the same stakeholder
-        if organization_access and organization_access.expiration_time:
+        if organization_access.expiration_time:
             validate_new_invitation_time_limit(
                 organization_access.expiration_time
             )
