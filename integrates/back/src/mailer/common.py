@@ -205,12 +205,12 @@ async def send_mail_async(  # pylint: disable=too-many-locals
 async def send_mails_async(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     email_to: list[str],
-    context: dict[str, Any],
-    tags: list[str],
     subject: str,
     template_name: str,
-    is_access_granted: bool = False,
+    context: Optional[dict[str, Any]] = None,
     email_cc: Optional[list[str]] = None,
+    is_access_granted: bool = False,
+    tags: Optional[list[str]] = None,
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",") if FI_TEST_PROJECTS else []
     await collect(
@@ -219,14 +219,15 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
                 loaders=loaders,
                 email_to=email,
                 email_cc=email_cc,
-                context=context,
-                tags=tags,
+                context=context if context else {},
+                tags=tags if tags else [],
                 subject=subject,
                 template_name=template_name,
                 is_access_granted=is_access_granted,
             )
             for email in email_to
-            if str(context.get("group", "")).lower() not in test_group_list
+            if context
+            and str(context.get("group", "")).lower() not in test_group_list
         )
     )
 
@@ -238,7 +239,6 @@ async def send_mail_confirm_deletion(
         loaders=loaders,
         email_to=email_to,
         context=context,
-        tags=[],
         subject="Confirm account deletion",
         template_name="confirm_deletion",
     )

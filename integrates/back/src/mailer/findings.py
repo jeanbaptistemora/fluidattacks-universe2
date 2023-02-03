@@ -107,13 +107,13 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         await send_mails_async(
             loaders,
             [*stakeholders_email, *customer_success_recipients, *reviewers],
-            email_context,
-            COMMENTS_TAG,
-            (
+            context=email_context,
+            tags=COMMENTS_TAG,
+            subject=(
                 "[ARM] New observation"
                 f" in [{finding_title}] for [{group_name}]"
             ),
-            "new_comment",
+            template_name="new_comment",
         )
 
 
@@ -147,13 +147,13 @@ async def send_mail_remove_finding(  # pylint: disable=too-many-arguments
     await send_mails_async(
         loaders,
         recipients,
-        mail_context,
-        GENERAL_TAG,
-        (
+        context=mail_context,
+        tags=GENERAL_TAG,
+        subject=(
             "[ARM] Type of vulnerability removed "
             f"[{finding_name}] in [{group_name}]"
         ),
-        "delete_finding",
+        template_name="delete_finding",
     )
 
 
@@ -184,10 +184,10 @@ async def send_mail_new_draft(
     await send_mails_async(
         loaders,
         recipients,
-        email_context,
-        GENERAL_TAG,
-        f"[ARM] Draft submitted [{finding_title}] in [{group_name}]",
-        "new_draft",
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] Draft submitted [{finding_title}] in [{group_name}]",
+        template_name="new_draft",
     )
 
 
@@ -247,10 +247,10 @@ async def send_mail_reject_draft(  # pylint: disable=too-many-arguments
     await send_mails_async(
         loaders,
         recipients,
-        email_context,
-        GENERAL_TAG,
-        f"[ARM] Draft unsubmitted [{draft_title}] in [{group_name}]",
-        "unsubmitted_draft",
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] Draft unsubmitted [{draft_title}] in [{group_name}]",
+        template_name="unsubmitted_draft",
     )
 
 
@@ -286,10 +286,11 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
     await send_mails_async(
         loaders,
         stakeholders_email,
-        mail_context,
-        VERIFY_TAG,
-        f"[ARM] New remediation for [{finding_name}] in [{group_name}]",
-        "remediate_finding",
+        context=mail_context,
+        tags=VERIFY_TAG,
+        subject="[ARM] New remediation for "
+        + f"[{finding_name}] in [{group_name}]",
+        template_name="remediate_finding",
     )
 
 

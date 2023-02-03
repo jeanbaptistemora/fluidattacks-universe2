@@ -68,13 +68,13 @@ async def send_mail_updated_treatment(
     await send_mails_async(
         loaders,
         stakeholders_email,
-        email_context,
-        GENERAL_TAG,
-        (
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=(
             f"[ARM] A vulnerability treatment has changed to "
             f'{email_context["treatment"]} in [{email_context["group"]}]'
         ),
-        "updated_treatment",
+        template_name="updated_treatment",
     )
 
 
@@ -119,10 +119,11 @@ async def send_mail_treatment_report(  # pylint: disable=too-many-locals
     await send_mails_async(
         loaders,
         email_to,
-        email_context,
-        GENERAL_TAG,
-        f"[ARM] A permanent treatment {approve_state} in [{group_name}]",
-        "treatment_report",
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] A permanent treatment {approve_state} in "
+        + f"[{group_name}]",
+        template_name="treatment_report",
     )
 
 

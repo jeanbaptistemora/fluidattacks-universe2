@@ -23,9 +23,9 @@ async def send_mail_deprecation_notice(
     }
     await send_mails_async(
         loaders,
-        list(email_to),
-        email_context,
-        GENERAL_TAG,
-        f"[ARM] {month} Deprecation Notice",
-        "deprecation_notice",
+        email_to=list(email_to),
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=f"[ARM] {month} Deprecation Notice",
+        template_name="deprecation_notice",
     )

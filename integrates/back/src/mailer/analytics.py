@@ -38,7 +38,6 @@ async def send_trial_analytics_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(
             f"[{fname}], check your Continuous Hacking numbers: Analytics."
         ),

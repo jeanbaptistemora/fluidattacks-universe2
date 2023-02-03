@@ -77,7 +77,6 @@ async def send_mail_free_trial_start(
         loaders,
         email_to=[email_to],
         context=context,
-        tags=[],
         subject=(
             f"[{first_name}] Continuous Hacking just started "
             "on your applications"
@@ -90,7 +89,6 @@ async def send_mail_free_trial_start(
         loaders,
         email_to=enrolled_email_to,
         context=context,
-        tags=[],
         subject=f"[ARM] New enrolled user [{email_to}] from [{org_country}]",
         template_name="new_enrolled",
     )
@@ -109,7 +107,6 @@ async def send_mail_free_trial_over(
         loaders,
         email_to=email_to,
         context=context,
-        tags=[],
         subject="[ARM] your free trial ends today.",
         template_name="free_trial_over",
     )
@@ -124,8 +121,6 @@ async def send_abandoned_trial_notification(
     await send_mails_async(
         loaders,
         email_to=[email_to],
-        context={},
-        tags=[],
         subject=(
             f"[{fname}], start your Continuous Hacking Free Trial"
             + ("" if first_time else " (reminder)")
@@ -148,7 +143,6 @@ async def send_add_stakeholders_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(
             f"[{fname}], make the most of your Free Trial: "
             "add stakeholders to your group."
@@ -171,7 +165,6 @@ async def send_define_treatments_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(
             f"[{fname}], define treatments for your vulnerabilities. "
             "Make the most out of your Free Trial"
@@ -194,7 +187,6 @@ async def send_add_repositories_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(f"[{fname}], add more repos; find more vulnerabilities!"),
         template_name="add_repositories_notification",
     )
@@ -207,8 +199,6 @@ async def send_support_channels_notification(
     await send_mails_async(
         loaders,
         email_to=[info.email_to],
-        context={},
-        tags=[],
         subject=(
             f"[{fname}], Need help with Continuous Hacking? "
             "Use our support channels."
@@ -231,7 +221,6 @@ async def send_devsecops_agent_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(f"[{fname}], remediate faster with our DevSecOps Agent!"),
         template_name="devsecops_agent_notification",
     )
@@ -251,7 +240,6 @@ async def send_trial_reports_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(f"[{fname}], download vulnerability reports."),
         template_name="trial_reports_notification",
     )
@@ -264,8 +252,6 @@ async def send_upgrade_squad_notification(
     await send_mails_async(
         loaders,
         email_to=[info.email_to],
-        context={},
-        tags=[],
         subject=(
             f"[{fname}], find more severe vulnerabilities with Squad Plan!"
         ),
@@ -290,7 +276,6 @@ async def send_trial_ending_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(f"[{fname}], your free trial ends in 3 days."),
         template_name="trial_ending_notification",
     )
@@ -303,8 +288,6 @@ async def send_how_improve_notification(
     await send_mails_async(
         loaders,
         email_to=[info.email_to],
-        context={},
-        tags=[],
         subject=(f"[{fname}], how can we improve?"),
         template_name="how_improve_notification",
     )
@@ -324,7 +307,6 @@ async def send_trial_ended_notification(
         loaders,
         email_to=[info.email_to],
         context=context,
-        tags=[],
         subject=(
             f"[{fname}], your free trial has ended. "
             "Here’s what you can do next."
@@ -338,11 +320,11 @@ async def send_mail_access_granted(
 ) -> None:
     await send_mails_async(
         loaders,
-        email_to,
-        context,
-        GENERAL_TAG,
-        f'[Fluid Attacks] Access granted to [{context["group"]}]',
-        "access_granted",
+        email_to=email_to,
+        context=context,
+        tags=GENERAL_TAG,
+        subject=f'[Fluid Attacks] Access granted to [{context["group"]}]',
+        template_name="access_granted",
         is_access_granted=True,
     )
 
@@ -360,15 +342,15 @@ async def send_mail_group_alert(
     await send_mails_async(
         loaders,
         email_to,
-        context,
-        GENERAL_TAG,
-        (
+        context=context,
+        tags=GENERAL_TAG,
+        subject=(
             f'[{context["group"]}] group will be deleted from '
             + f'[{context["organization"]}] soon'
             if context["attempt"]
             else subject
         ),
-        "group_alert",
+        template_name="group_alert",
     )
 
 
@@ -378,10 +360,11 @@ async def send_mail_group_report(
     await send_mails_async(
         loaders,
         email_to,
-        context,
-        GENERAL_TAG,
-        f'[ARM] {context["filetype"]} report for [{context["groupname"]}]',
-        "group_report",
+        context=context,
+        tags=GENERAL_TAG,
+        subject=f'[ARM] {context["filetype"]} report for '
+        + f'[{context["groupname"]}]',
+        template_name="group_report",
     )
 
 
@@ -731,10 +714,11 @@ async def send_mail_devsecops_agent_token(
     await send_mails_async(
         loaders,
         email_to,
-        email_context,
-        COMMENTS_TAG,
-        f"[ARM] DevSecOps Agent token {token_status} in [{group_name}]",
-        "devsecops_agent_token",
+        context=email_context,
+        tags=COMMENTS_TAG,
+        subject="[ARM] DevSecOps Agent token "
+        + f"{token_status} in [{group_name}]",
+        template_name="devsecops_agent_token",
     )
 
 
@@ -754,10 +738,10 @@ async def send_mail_stakeholder_unsubscribed(
     await send_mails_async(
         loaders,
         email_to,
-        email_context,
-        COMMENTS_TAG,
-        f"[ARM] Unsubscription alert in [{group_name}]",
-        "user_unsubscribed",
+        context=email_context,
+        tags=COMMENTS_TAG,
+        subject=f"[ARM] Unsubscription alert in [{group_name}]",
+        template_name="user_unsubscribed",
     )
 
 
@@ -887,10 +871,11 @@ async def send_mail_updated_policies(
     await send_mails_async(
         loaders,
         email_to,
-        context,
-        GENERAL_TAG,
-        f'[ARM] Policies have been changed in [{context["entity_name"]}]',
-        "updated_policies",
+        context=context,
+        tags=GENERAL_TAG,
+        subject="[ARM] Policies have been changed in "
+        + f'[{context["entity_name"]}]',
+        template_name="updated_policies",
     )
 
 
