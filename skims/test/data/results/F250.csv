@@ -305,7 +305,7 @@ F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ebs_unencrypted_by_defaul
   3 | }
     ^ Col 0
 ",terraform.tfm_ebs_unencrypted_by_default
-F250,lines,namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volumes.tf,10,313,skims,250. Non-encrypted hard drives,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/run_tfm_ebs_unencrypted_volumes.tf,"
+F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ebs_unencrypted_volumes.tf,10,313,skims,250. Non-encrypted hard drives,Property encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/tfm_ebs_unencrypted_volumes.tf,"
    1 | resource ""aws_ebs_volume"" ""example"" {
    2 |   availability_zone = ""us-west-2a""
    3 |   size              = 40

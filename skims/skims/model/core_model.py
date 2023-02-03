@@ -4663,7 +4663,7 @@ class MethodsEnum(Enum):
     TFM_EBS_UNENCRYPTED_VOLUMES = MethodInfo(
         file_name="terraform",
         name="tfm_ebs_unencrypted_volumes",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

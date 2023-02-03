@@ -8,7 +8,6 @@ from lib_path.f250.cloudformation import (
     cfn_ec2_instance_unencrypted_ebs_block_devices,
 )
 from lib_path.f250.terraform import (
-    tfm_ebs_unencrypted_volumes,
     tfm_ec2_instance_unencrypted_ebs_block_devices,
 )
 from model.core_model import (
@@ -43,13 +42,6 @@ def run_cfn_ec2_instance_unencrypted_ebs_block_devices(
     return cfn_ec2_instance_unencrypted_ebs_block_devices(
         content=content, file_ext=file_ext, path=path, template=template
     )
-
-
-@SHIELD_BLOCKING
-def run_tfm_ebs_unencrypted_volumes(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ebs_unencrypted_volumes(content=content, path=path, model=model)
 
 
 @SHIELD_BLOCKING
@@ -92,7 +84,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_tfm_ebs_unencrypted_volumes,
                     run_tfm_ec2_instance_unencrypted_ebs_block_devices,
                 )
             ),
