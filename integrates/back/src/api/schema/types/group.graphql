@@ -180,6 +180,8 @@ type Group {
     This field is eventually consistent.
     """
     hasVulnerabilities: Boolean
+    "SHA-1 commit hash in short form in which this file was modified"
+    lastCommit: String
     "Max loc value for lines"
     maxLoc: Int
     "Min loc value for lines"

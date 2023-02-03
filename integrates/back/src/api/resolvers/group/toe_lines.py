@@ -103,6 +103,9 @@ def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     if filename := kwargs.get("filename"):
         must_match_filters.append({"filename": filename})
 
+    if last_commit := kwargs.get("last_commit"):
+        must_match_filters.append({"state.last_commit": last_commit})
+
     return must_match_filters
 
 
