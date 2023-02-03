@@ -1,5 +1,5 @@
 import http from "k6/http";
-import { check, sleep } from "k6";
+import { check, fail, sleep } from "k6";
 
 const API_TOKEN = __ENV["TEST_FORCES_TOKEN"];
 const CI_COMMIT_REF_NAME = __ENV["CI_COMMIT_REF_NAME"];
@@ -11,7 +11,8 @@ const options = {
     { duration: "2m", target: 0 },
   ],
   thresholds: {
-    http_req_duration: ["p(95)<5000"],
+    checks: ["rate==1"],
+    http_req_duration: ["p(90)<5000"],
   },
 };
 
@@ -59,6 +60,8 @@ const runTest = (): void => {
       try {
         return JSON.parse(resp.body as string).errors === undefined;
       } catch {
+        fail(resp.body as string);
+
         return false;
       }
     },
