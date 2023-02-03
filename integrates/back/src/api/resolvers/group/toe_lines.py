@@ -115,4 +115,14 @@ def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
     if max_loc := kwargs.get("max_loc"):
         must_range_filters.append({"state.loc": {"lte": max_loc}})
 
+    if from_modified_date := kwargs.get("from_modified_date"):
+        must_range_filters.append(
+            {"state.modified_date": {"gte": str(from_modified_date.date())}}
+        )
+
+    if to_modified_date := kwargs.get("to_modified_date"):
+        must_range_filters.append(
+            {"state.modified_date": {"lte": str(to_modified_date.date())}}
+        )
+
     return must_range_filters
