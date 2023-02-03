@@ -769,6 +769,7 @@ const Machine = [
     label: "API",
     items: ["machine/api/api-token", "machine/api/basics-api"],
   },
+  "machine/faq",
 ];
 
 const Squad = [
