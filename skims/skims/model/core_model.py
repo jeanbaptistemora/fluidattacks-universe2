@@ -4751,7 +4751,7 @@ class MethodsEnum(Enum):
     TFM_DB_NOT_AUTO_BACKUPS = MethodInfo(
         file_name="terraform",
         name="tfm_db_has_not_automated_backups",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F256,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
