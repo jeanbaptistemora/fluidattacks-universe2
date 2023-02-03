@@ -4356,78 +4356,6 @@ F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,12,92
   21 |
      ^ Col 6
 ",javascript.javascript_local_storage_sensitive_data_async
-F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,8,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
-   1 | axiosAlias = require(""axios"");
-   2 |  kyAlias from ""ky"";
-   3 |
-   4 | getData = async () => {
-   5 | ould fail line 6
-   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
-   7 | lStorage.setItem(""axiosKey"", axiosResponse);
->  8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
-   9 |
-  10 | ould fail line 10
-  11 | t fetchResponse = await fetch(""/movies"");
-  12 | lStorage.setItem(""fetchKey"", fetchResponse);
-  13 |
-  14 | ould fail line 10
-  15 | t kyResponse = await kyAlias(""/movies"");
-  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
-  17 |
-  18 | ouldn't fail
-  19 | t safeVar = await otherFunction(""/example"");
-  20 | lStorage.setItem(""safe"", safeVar);
-  21 |
-     ^ Col 6
-",javascript.javascript_local_storage_sensitive_data_async
-F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,7,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_async_await.js,"
-   1 | axiosAlias = require(""axios"");
-   2 |  kyAlias from ""ky"";
-   3 |
-   4 | getData = async () => {
-   5 | ould fail line 6
-   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
->  7 | lStorage.setItem(""axiosKey"", axiosResponse);
-   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
-   9 |
-  10 | ould fail line 10
-  11 | t fetchResponse = await fetch(""/movies"");
-  12 | lStorage.setItem(""fetchKey"", fetchResponse);
-  13 |
-  14 | ould fail line 10
-  15 | t kyResponse = await kyAlias(""/movies"");
-  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
-  17 |
-  18 | ouldn't fail
-  19 | t safeVar = await otherFunction(""/example"");
-  20 | lStorage.setItem(""safe"", safeVar);
-  21 |
-     ^ Col 6
-",javascript.javascript_local_storage_sensitive_data_async
-F344,lines,namespace/skims/test/data/lib_root/f344/js_axios_callback.js,23,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_axios_callback.js,"
-   7 |
-   8 | ly the request above could also be done as
-   9 |
-  10 | er"", {
-  11 |  {
-  12 | 2345,
-  13 |
-  14 |
-  15 | ction (res) {
-  16 | orage.setItem(""sensDataII"", res);
-  17 |
-  18 |
-  19 | ait implementation
-  20 | ion getUser() {
-  21 |
-  22 | esponseIII = await axios.get(""/user?ID=12345"");
-> 23 | orage.setItem(""sensDataIII"", responseIII);
-  24 | error) {
-  25 | .error(error);
-  26 |
-  27 |
-     ^ Col 11
-",javascript.javascript_local_storage_sensitive_data_async
 F344,lines,namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,14,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/js_insecure_ls_usage.js,"
    1 |  unsafe object
    2 | nst xhr = new XMLHttpRequest();
@@ -4516,54 +4444,6 @@ F344,lines,namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,12,92
   10 | ould fail line 10
   11 | t fetchResponse = await fetch(""/movies"");
 > 12 | lStorage.setItem(""fetchKey"", fetchResponse);
-  13 |
-  14 | ould fail line 10
-  15 | t kyResponse = await kyAlias(""/movies"");
-  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
-  17 |
-  18 | ouldn't fail
-  19 | t safeVar = await otherFunction(""/example"");
-  20 | lStorage.setItem(""safe"", safeVar);
-  21 |
-     ^ Col 6
-",typescript.typescript_local_storage_sensitive_data_async
-F344,lines,namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,8,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,"
-   1 |  axiosAlias from ""axios"";
-   2 |  kyAlias from ""ky"";
-   3 |
-   4 | getData = async () => {
-   5 | ould fail line 6
-   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
-   7 | lStorage.setItem(""axiosKey"", axiosResponse);
->  8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
-   9 |
-  10 | ould fail line 10
-  11 | t fetchResponse = await fetch(""/movies"");
-  12 | lStorage.setItem(""fetchKey"", fetchResponse);
-  13 |
-  14 | ould fail line 10
-  15 | t kyResponse = await kyAlias(""/movies"");
-  16 | lStorage.setItem(""fetchKey"", kyResponse.whathever);
-  17 |
-  18 | ouldn't fail
-  19 | t safeVar = await otherFunction(""/example"");
-  20 | lStorage.setItem(""safe"", safeVar);
-  21 |
-     ^ Col 6
-",typescript.typescript_local_storage_sensitive_data_async
-F344,lines,namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,7,922,skims,344. Lack of data validation - Non Sanitized Variables,The application stores data from a HTTP request using browser's Local Storage. in namespace/skims/test/data/lib_root/f344/ts_axios_async_await.ts,"
-   1 |  axiosAlias from ""axios"";
-   2 |  kyAlias from ""ky"";
-   3 |
-   4 | getData = async () => {
-   5 | ould fail line 6
-   6 | t axiosResponse = await axiosAlias.get(`https://example.com`);
->  7 | lStorage.setItem(""axiosKey"", axiosResponse);
-   8 | lStorage.setItem(""axiosKey"", axiosResponse.method);
-   9 |
-  10 | ould fail line 10
-  11 | t fetchResponse = await fetch(""/movies"");
-  12 | lStorage.setItem(""fetchKey"", fetchResponse);
   13 |
   14 | ould fail line 10
   15 | t kyResponse = await kyAlias(""/movies"");

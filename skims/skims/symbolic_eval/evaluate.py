@@ -12,6 +12,7 @@ from symbolic_eval.cases import (
     array_creation,
     array_initializer,
     assignment,
+    await_expression,
     binary_operation,
     cast_expression,
     element_access,
@@ -73,6 +74,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "ArrayCreation": array_creation.evaluate,
     "ArrayInitializer": array_initializer.evaluate,
     "Assignment": assignment.evaluate,
+    "AwaitExpression": await_expression.evaluate,
     "Break": not_dangerous.evaluate,
     "Comment": not_dangerous.evaluate,
     "Continue": not_dangerous.evaluate,
@@ -142,7 +144,6 @@ def evaluate(
 ) -> Optional[SymbolicEvaluation]:
     try:
         evaluation: Dict[NId, bool] = {}
-
         return generic(
             SymbolicEvalArgs(
                 generic, method, evaluation, graph, path, n_id, set()

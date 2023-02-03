@@ -45,6 +45,8 @@ def js_local_storage_with_sensitive_data(
 def js_local_storage_sens_data_async(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
+    method = MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_ASYNC
+
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVASCRIPT,
@@ -52,12 +54,12 @@ def js_local_storage_sens_data_async(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in local_storage_from_async(graph):
+            for n_id in local_storage_from_async(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f344.local_storage_with_sensitive_data",
         desc_params={},
         graph_shard_nodes=n_ids(),
-        method=MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_ASYNC,
+        method=method,
     )
