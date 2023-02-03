@@ -20,10 +20,26 @@ from utils import (
 
 
 def is_insec_invocation(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
+    triggers = [
+        {"WindowOriginChecked", "TypeOriginChecked"},
+        {"WindowOriginChecked"},
+        {"TypeOriginChecked"},
+    ]
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
+        if evaluation and evaluation.triggers not in triggers:
             return True
+    return False
+
+
+def is_message_on_args(
+    graph: Graph,
+    n_id: NId,
+) -> bool:
+    arg_list = g.adj_ast(graph, n_id, label_type="ArgumentList")[0]
+    args_childs = g.adj_ast(graph, arg_list, label_type="Literal")[0]
+    if graph.nodes[args_childs]["value"] == "'message'":
+        return True
     return False
 
 
@@ -32,9 +48,11 @@ def has_dangerous_param(graph: Graph) -> List[NId]:
     sensitive_methods = {"window.addEventListener"}
     method = MethodsEnum.TSX_LACK_OF_VALIDATION_EVENT_LISTENER
     for member in g.matching_nodes(graph, label_type="MethodInvocation"):
-        if graph.nodes[member].get(
-            "expression"
-        ) in sensitive_methods and is_insec_invocation(graph, member, method):
+        if (
+            graph.nodes[member].get("expression") in sensitive_methods
+            and is_message_on_args(graph, member)
+            and is_insec_invocation(graph, member, method)
+        ):
             vuln_nodes.append(member)
 
     return vuln_nodes
