@@ -8,11 +8,8 @@ import pytest
 
 @pytest.mark.first
 def test_get_api_token() -> None:
-    try:
+    with pytest.raises(LookupError):
         get_api_token()
-        assert False
-    except LookupError:
-        assert True
 
 
 @pytest.mark.last

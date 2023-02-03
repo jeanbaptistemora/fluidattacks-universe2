@@ -1,4 +1,4 @@
-"""Fluid Forces report module"""
+"""Forces Report module"""
 
 from collections import (
     Counter,
@@ -13,6 +13,7 @@ from forces.apis.integrates.api import (
     vulns_generator,
 )
 from forces.model import (
+    Finding,
     ForcesConfig,
     ForcesData,
     ForcesReport,
@@ -149,6 +150,39 @@ def format_vuln_table(
     return vuln_table
 
 
+def format_finding_table(
+    config: ForcesConfig,
+    finding: Finding,
+    filtered_vulns: tuple[Vulnerability, ...],
+    table: Table,
+) -> Table:
+    find_summary: Counter = Counter(
+        [vuln.state for vuln in finding.vulnerabilities]
+    )
+    table.add_row("title", style_report("title", finding.title))
+    table.add_row("URL", finding.url)
+    table.add_row("state", style_report("state", finding.state))
+    table.add_row(
+        "exploit",
+        style_report(
+            "exploit", get_exploitability_measure(finding.exploitability)
+        ),
+    )
+    table.add_row("severity", style_report("severity", str(finding.severity)))
+    for vuln_state in tuple(VulnerabilityState):
+        table.add_row(
+            vuln_state,
+            style_report(vuln_state, str(find_summary[vuln_state])),
+            end_section=vuln_state == VulnerabilityState.ACCEPTED
+            and config.verbose_level == 1,
+        )
+    if config.verbose_level != 1:
+        vulns_data: Table = format_vuln_table(config, filtered_vulns)
+        table.add_row("vulns", vulns_data, end_section=True)
+
+    return table
+
+
 def format_rich_report(
     config: ForcesConfig,
     report: ForcesData,
@@ -171,52 +205,16 @@ def format_rich_report(
         width=80,
         border_style="gold1",
     )
-    last_key: str = (
-        "accepted" if config.verbose_level == 1 else "vulnerabilities"
-    )
     report_table.add_column("Attributes", style="cyan")
     report_table.add_column("Data", overflow="fold")
-    for find in report.findings:
+    for finding in report.findings:
         filtered_vulns = filter_vulnerabilities(
-            find.vulnerabilities, config.verbose_level
+            finding.vulnerabilities, config.verbose_level
         )
         if filtered_vulns or config.verbose_level == 1:
-            find_summary: Counter = Counter(
-                [vuln.state for vuln in find.vulnerabilities]
+            report_table = format_finding_table(
+                config, finding, filtered_vulns, report_table
             )
-            for key in (
-                "title",
-                "URL",
-                "state",
-                "exploitability",
-                "severity",
-                *VulnerabilityState,
-                "vulnerabilities",
-            ):
-                value = (
-                    find_summary[key]
-                    if key in set(VulnerabilityState)
-                    else attrgetter(str(key).lower())(find)
-                )
-                if is_exploit := key == "exploitability":
-                    key = "exploit"
-
-                if key == "vulnerabilities" and config.verbose_level != 1:
-                    vulns_data: Table = format_vuln_table(
-                        config, filtered_vulns
-                    )
-                    report_table.add_row("vulns", vulns_data, end_section=True)
-                elif key != "vulnerabilities":
-                    report_table.add_row(
-                        key,
-                        style_report(
-                            key,
-                            get_exploitability_measure(value)
-                            if is_exploit
-                            else value,
-                        ),
-                        end_section=key == last_key,
-                    )
 
     summary_table = format_summary_report(report.summary, config.kind)
     return ForcesReport(
