@@ -9683,6 +9683,11 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "group_access.domain.authz.grant_group_level_role": {
         '["unittest@fluidattacks.com", "unittesting", "user"]': None,
     },
+    "group_access.domain.collect": {
+        '["oneshottest"]': tuple(
+            ["user_manager", "reattacker", "admin", "admin", "user"]
+        ),
+    },
     "group_access.domain.Dataloaders.group_access": {
         '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
             email="unittest@fluidattacks.com",
@@ -9963,6 +9968,15 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 role="vulnerability_manager",
             ),
         ],
+    },
+    "group_access.domain.get_group_stakeholders_emails": {
+        '["oneshottest"]': [
+            "continuoushacking@gmail.com",
+            "integrateshacker@fluidattacks.com",
+            "integratesmanager@fluidattacks.com",
+            "integratesmanager@gmail.com",
+            "integratesuser@gmail.com",
+        ]
     },
     "group_access.domain.get_managers": {
         '["unittesting", 2]': [
