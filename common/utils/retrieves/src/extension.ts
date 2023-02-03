@@ -14,9 +14,9 @@ import {
 
 import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
-import { subscribeToDocumentChanges } from "./commands/getVulnerabilities";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
+import { subscribeToDocumentChanges } from "./diagnostics/vulnerabilities";
 import { GroupsProvider } from "./providers/groups";
 
 function activate(context: ExtensionContext): void {

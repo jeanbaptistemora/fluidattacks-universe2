@@ -6,9 +6,8 @@ import {
   VSCodeDataGridCell,
   VSCodeDataGridRow,
 } from "@vscode/webview-ui-toolkit/react";
-import { useCallback, useState } from "react";
+import React, { useCallback, useState, useMemo } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-namespace
-import * as React from "react";
 
 import "../styles.css";
 
@@ -19,17 +18,20 @@ const ToeLines = (): JSX.Element => {
   const [toeLines, setToeLines] = useState<IToeLineNode[]>();
   const [root, setRoot] = useState<IGitRoot>();
   const [hideAttackedFiles, setHideAttackedFiles] = useState<boolean>(false);
-
-  void messageHandler.request<IGitRoot>("GET_ROOT").then((msg): void => {
-    setRoot(msg);
-  });
-  if (!toeLines) {
-    void messageHandler
-      .request<IToeLineNode[]>("GET_DATA_TOE_LINES")
-      .then((msg): void => {
-        setToeLines(msg);
-      });
-  }
+  useMemo((): void => {
+    if (!toeLines) {
+      void messageHandler
+        .request<IToeLineNode[]>("GET_DATA_TOE_LINES")
+        .then((msg): void => {
+          setToeLines(msg);
+        });
+    }
+  }, [toeLines]);
+  useMemo((): void => {
+    void messageHandler.request<IGitRoot>("GET_ROOT").then((msg): void => {
+      setRoot(msg);
+    });
+  }, []);
 
   return (
     <div>

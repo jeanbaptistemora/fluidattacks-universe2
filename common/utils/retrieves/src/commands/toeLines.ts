@@ -19,7 +19,7 @@ async function getToeLines(
   const result = await Promise.resolve(
     API_CLIENT.query({
       query: GET_TOE_LINES,
-      variables: { first: 100, groupName, rootId },
+      variables: { first: 500, groupName, rootId },
     })
       .then((_result): IToeLinesPaginator => {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
@@ -44,7 +44,7 @@ async function getToeLines(
         query: GET_TOE_LINES,
         variables: {
           after: result.pageInfo.endCursor,
-          first: 100,
+          first: 500,
           groupName,
           rootId,
         },
@@ -132,4 +132,4 @@ function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
   panel.webview.html = getWebviewContent(context, panel.webview);
 }
 
-export { toeLines, getToeLines };
+export { toeLines };

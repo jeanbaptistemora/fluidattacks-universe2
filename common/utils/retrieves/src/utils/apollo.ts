@@ -2,6 +2,7 @@ import {
   ApolloClient,
   InMemoryCache,
   createHttpLink,
+  resetCaches,
 } from "@apollo/client/core";
 import type { NormalizedCacheObject } from "@apollo/client/core";
 import { setContext } from "@apollo/client/link/context";
@@ -10,6 +11,7 @@ import fetch from "cross-fetch";
 import { window, workspace } from "vscode";
 
 const getClient = (): ApolloClient<NormalizedCacheObject> => {
+  resetCaches();
   const authLink = setContext(
     (): {
       headers: {
