@@ -14,19 +14,23 @@ from typing import (
 def get_query() -> str:
     return """
         query(
+            $fromModifiedDate: DateTime
             $groupName: String!
             $hasVulnerabilities: Boolean
             $maxLoc: Int
             $minLoc: Int
             $rootId: ID
+            $toModifiedDate: DateTime
         ) {
             group(groupName: $groupName) {
                 name
                 toeLines(
+                    fromModifiedDate: $fromModifiedDate
                     hasVulnerabilities: $hasVulnerabilities
                     maxLoc: $maxLoc
                     minLoc: $minLoc
                     rootId: $rootId
+                    toModifiedDate: $toModifiedDate
                 ) {
                     edges {
                         node {
@@ -71,21 +75,25 @@ async def get_result(
     user: str,
     group_name: str,
     filename: Optional[str] = None,
+    from_modified_date: Optional[str] = None,
     has_vulnerabilities: Optional[bool] = None,
     max_loc: Optional[int] = None,
     min_loc: Optional[int] = None,
     root_id: Optional[str] = None,
+    to_modified_date: Optional[str] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {
         "query": query,
         "variables": {
             "filename": filename,
+            "fromModifiedDate": from_modified_date,
             "groupName": group_name,
             "hasVulnerabilities": has_vulnerabilities,
             "maxLoc": max_loc,
             "minLoc": min_loc,
             "rootId": root_id,
+            "toModifiedDate": to_modified_date,
         },
     }
     return await get_graphql_result(
