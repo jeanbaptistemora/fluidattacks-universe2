@@ -2,6 +2,9 @@
 """
 Clear flag enrolled in enrollment_metadata facet for stakeholders
 previously removed due to inactivity.
+
+Execution Time:    2023-02-03 at 14:54:28 UTC
+Finalization Time: 2023-02-03 at 14:56:43 UTC
 """
 from aioextensions import (
     collect,
@@ -42,7 +45,6 @@ async def process_email(email: str) -> None:
 
 
 async def main() -> None:
-
     with open("0358_data.csv", mode="r", encoding="utf8") as f:
         reader = csv.reader(f)
         emails = sorted([rows[0] for rows in reader])
@@ -50,7 +52,7 @@ async def main() -> None:
 
         await collect(
             tuple(process_email(email) for email in emails),
-            workers=1,
+            workers=8,
         )
 
 
