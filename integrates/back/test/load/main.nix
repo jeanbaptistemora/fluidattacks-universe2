@@ -3,6 +3,7 @@
   libGit,
   makeNodeJsModules,
   makeScript,
+  outputs,
   projectPath,
   ...
 }: let
@@ -18,15 +19,19 @@ in
     name = "integrates-back-test-load";
     replace = {
       __argRuntime__ = runtime;
+      __argSecretsDev__ = projectPath "/integrates/secrets/development.yaml";
     };
     searchPaths = {
       bin = [
         inputs.nixpkgs.bash
         inputs.nixpkgs.k6
+        inputs.nixpkgs.kubectl
         inputs.nixpkgs.nodejs-18_x
       ];
       source = [
         libGit
+        outputs."/common/utils/aws"
+        outputs."/common/utils/sops"
       ];
     };
   }

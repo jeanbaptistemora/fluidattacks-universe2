@@ -443,6 +443,16 @@ in {
             gitlabExtra = gitlabLint;
           }
           {
+            output = "/integrates/back/test/load";
+            gitlabExtra =
+              gitlabPostDeployDev
+              // {
+                needs = [
+                  "/integrates/back/deploy/dev"
+                ];
+              };
+          }
+          {
             output = "/integrates/web/e2e";
             gitlabExtra =
               gitlabPostDeployDev
@@ -452,7 +462,6 @@ in {
                   "/integrates/front/deploy/dev"
                 ];
                 parallel = 5;
-                retry = 2;
               };
           }
           {

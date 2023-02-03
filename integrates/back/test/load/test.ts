@@ -1,6 +1,7 @@
 import http from "k6/http";
 import { check, sleep } from "k6";
 
+const API_TOKEN = __ENV["TEST_FORCES_TOKEN"];
 const CI_COMMIT_REF_NAME = __ENV["CI_COMMIT_REF_NAME"];
 
 const options = {
@@ -44,6 +45,7 @@ const runTest = (): void => {
   });
   const params = {
     headers: {
+      authorization: `Bearer ${API_TOKEN}`,
       "content-type": "application/json",
     },
   };
