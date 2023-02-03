@@ -20,6 +20,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_comments(*, group_name: str) -> list[GroupComment]:
@@ -43,10 +46,10 @@ async def _get_comments(*, group_name: str) -> list[GroupComment]:
     return [format_group_comments(item) for item in response.items]
 
 
-class GroupCommentsLoader(DataLoader):
+class GroupCommentsLoader(DataLoader[str, list[GroupComment]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[GroupComment]]:
         return list(
             await collect(
