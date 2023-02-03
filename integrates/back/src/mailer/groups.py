@@ -398,6 +398,7 @@ async def send_mail_added_root(
         group_name=group_name,
         notification=Notification.ROOT_UPDATE,
         roles=roles,
+        exclude_trial=True,
     )
     await send_mails_async(
         loaders,

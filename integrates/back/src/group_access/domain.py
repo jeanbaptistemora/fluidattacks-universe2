@@ -20,6 +20,9 @@ from datetime import (
 from db_model import (
     group_access as group_access_model,
 )
+from db_model.companies.types import (
+    Company,
+)
 from db_model.findings.enums import (
     FindingStateStatus,
 )
@@ -66,6 +69,9 @@ from sessions import (
 )
 from settings import (
     LOGGING,
+)
+from typing import (
+    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -217,7 +223,15 @@ async def get_stakeholders_email_by_preferences(
     group_name: str,
     notification: str,
     roles: set[str],
+    exclude_trial: bool = False,
 ) -> list[str]:
+    group = await loaders.group.load(group_name)
+    company: Optional[Company] = (
+        await loaders.company.load(group.created_by.split("@")[1])
+        if "@" in group.created_by
+        else None
+    )
+    is_trial = not (company and company.trial.completed)
     email_list = await get_stakeholders_email_by_roles(
         loaders=loaders,
         group_name=group_name,
@@ -230,6 +244,7 @@ async def get_stakeholders_email_by_preferences(
         stakeholder.email
         for stakeholder in stakeholders_data
         if notification in stakeholder.state.notifications_preferences.email
+        and not (exclude_trial and is_trial)
     ]
     return stakeholders_email
 
