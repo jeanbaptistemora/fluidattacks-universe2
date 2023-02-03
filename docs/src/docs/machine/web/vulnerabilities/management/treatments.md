@@ -15,7 +15,8 @@ client wants to do with that vulnerability:
 how to address or remediate it.
 
 In order to define a treatment, you
-will need to go to either the **Locations**
+will need to go to either the
+[Locations](/machine/web/vulnerabilities/management/locations#edit-button)
 tab or the
 [To-Do List](/machine/web/vulnerabilities/management/to-do-list)
 section.
@@ -254,7 +255,7 @@ by the hacker.
 You can access this evidence by
 going to the **Evidence** tab.
 
-![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1674003567/docs/web/vulnerabilities/management/evidence.png)
+![Evidence Tab](https://res.cloudinary.com/fluid-attacks/image/upload/v1675402393/docs/web/vulnerabilities/management/evidence_treatment.png)
 
 To know the status of the reattack,
 you simply need to go to the
