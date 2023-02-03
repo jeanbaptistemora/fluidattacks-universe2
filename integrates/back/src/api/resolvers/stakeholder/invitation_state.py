@@ -7,7 +7,6 @@ from db_model.group_access.types import (
     GroupAccessState,
 )
 from db_model.organization_access.types import (
-    OrganizationAccess,
     OrganizationAccessRequest,
 )
 from db_model.stakeholders.types import (
@@ -59,25 +58,22 @@ async def resolve(
                     modified_date=datetime_utils.get_utc_now()
                 ),
             )
-        group_invitation_state = format_group_invitation_state(
+        return format_group_invitation_state(
             invitation=group_access.invitation,
             is_registered=parent.is_registered,
         )
-        return group_invitation_state.value
 
     if entity == "ORGANIZATION":
-        org_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=request_store["organization_id"],
-                    email=parent.email,
-                )
+        organization_id = request_store["organization_id"]
+        if organization_access := await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id,
+                email=parent.email,
             )
-        )
-        org_invitation_state = format_org_invitation_state(
-            invitation=org_access.invitation,
-            is_registered=parent.is_registered,
-        )
-        return org_invitation_state.value
+        ):
+            return format_org_invitation_state(
+                invitation=organization_access.invitation,
+                is_registered=parent.is_registered,
+            )
 
     return None

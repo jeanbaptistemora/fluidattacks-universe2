@@ -14,7 +14,6 @@ from db_model.organization_access.enums import (
     OrganizationInvitiationState,
 )
 from db_model.organization_access.types import (
-    OrganizationAccess,
     OrganizationAccessRequest,
 )
 from db_model.stakeholders.types import (
@@ -82,24 +81,23 @@ async def resolve(
 
     elif entity == "ORGANIZATION":
         organization_id = request_store["organization_id"]
-        org_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=organization_id, email=parent.email
+        if organization_access := await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=parent.email
+            )
+        ):
+            org_invitation_state = format_org_invitation_state(
+                invitation=organization_access.invitation,
+                is_registered=parent.is_registered,
+            )
+            stakeholder_role = (
+                organization_access.invitation.role
+                if organization_access.invitation
+                and org_invitation_state
+                == OrganizationInvitiationState.PENDING
+                else await authz.get_organization_level_role(
+                    loaders, parent.email, organization_id
                 )
             )
-        )
-        org_invitation_state = format_org_invitation_state(
-            invitation=org_access.invitation,
-            is_registered=parent.is_registered,
-        )
-        stakeholder_role = (
-            org_access.invitation.role
-            if org_access.invitation
-            and org_invitation_state == OrganizationInvitiationState.PENDING
-            else await authz.get_organization_level_role(
-                loaders, parent.email, organization_id
-            )
-        )
 
     return stakeholder_role if stakeholder_role else None

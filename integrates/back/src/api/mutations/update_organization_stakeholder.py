@@ -6,13 +6,11 @@ from ariadne.utils import (
 )
 from custom_exceptions import (
     StakeholderNotFound,
-    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
 )
 from db_model.organization_access.types import (
-    OrganizationAccess,
     OrganizationAccessRequest,
 )
 from db_model.organizations.types import (
@@ -69,25 +67,23 @@ async def mutate(
     user_email: str = str(parameters.get("user_email"))
     new_role: str = map_roles(str(parameters.get("role")).lower())
 
-    try:
-        organization_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=organization_id, email=user_email
-                )
+    if (
+        organization_access := await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=user_email
             )
         )
-        # Validate role requirements before changing anything
-        await orgs_domain.update_stakeholder_role(
-            loaders=loaders,
-            user_email=user_email,
-            organization_id=organization_id,
-            organization_access=organization_access,
-            new_role=new_role,
-        )
-    except StakeholderNotInOrganization as ex:
-        raise StakeholderNotFound() from ex
+    ) is None:
+        raise StakeholderNotFound()
 
+    # Validate role requirements before changing anything
+    await orgs_domain.update_stakeholder_role(
+        loaders=loaders,
+        user_email=user_email,
+        organization_id=organization_id,
+        organization_access=organization_access,
+        new_role=new_role,
+    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: Stakeholder {requester_email} modified "
