@@ -7,7 +7,7 @@
 }:
 makeTemplate {
   replace = {
-    __argSrcForces__ = projectPath "/forces";
+    __argSrcForces__ = projectPath "/integrates/forces";
   };
   name = "forces-config-runtime";
   searchPaths = {
@@ -22,7 +22,7 @@ makeTemplate {
     ];
     pythonPackage = [
       (projectPath "/common/utils/bugsnag/client")
-      (projectPath "/forces")
+      (projectPath "/integrates/forces")
     ];
   };
   template = ./template.sh;

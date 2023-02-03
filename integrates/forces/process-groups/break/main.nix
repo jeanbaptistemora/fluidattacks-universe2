@@ -8,7 +8,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.jq
-      outputs."/forces"
+      outputs."/integrates/forces"
     ];
     source = [
       outputs."/common/utils/aws"

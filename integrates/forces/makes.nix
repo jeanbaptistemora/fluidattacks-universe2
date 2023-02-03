@@ -7,8 +7,8 @@
   dev = {
     forces = {
       source = [
-        outputs."/forces/config/development"
-        outputs."/forces/config/runtime"
+        outputs."/integrates/forces/config/development"
+        outputs."/integrates/forces/config/runtime"
         (makeSearchPaths {
           pythonPackage = ["$PWD/forces"];
         })
@@ -26,7 +26,7 @@
           outputs."/secretsForAwsFromGitlab/dev"
           outputs."/secretsForEnvFromSops/forcesDev"
         ];
-        src = outputs."/forces/container";
+        src = outputs."/integrates/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:$CI_COMMIT_REF_NAME";
       };
@@ -39,7 +39,7 @@
           outputs."/secretsForAwsFromGitlab/prodForces"
           outputs."/secretsForEnvFromSops/forcesProd"
         ];
-        src = outputs."/forces/container";
+        src = outputs."/integrates/forces/container";
         registry = "docker.io";
         tag = "fluidattacks/forces:new";
       };
@@ -49,18 +49,18 @@
     modules = {
       forces = {
         searchPaths.source = [
-          outputs."/forces/config/runtime"
+          outputs."/integrates/forces/config/runtime"
         ];
         python = "3.11";
-        src = "/forces/forces";
+        src = "/integrates/forces/forces";
       };
       forcesTests = {
         searchPaths.source = [
-          outputs."/forces/config/development"
-          outputs."/forces/config/runtime"
+          outputs."/integrates/forces/config/development"
+          outputs."/integrates/forces/config/runtime"
         ];
         python = "3.11";
-        src = "/forces/test";
+        src = "/integrates/forces/test";
       };
     };
   };

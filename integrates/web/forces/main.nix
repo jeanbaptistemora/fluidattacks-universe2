@@ -13,7 +13,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.kubectl
-      outputs."/forces"
+      outputs."/integrates/forces"
     ];
     source = [
       outputs."/common/utils/aws"

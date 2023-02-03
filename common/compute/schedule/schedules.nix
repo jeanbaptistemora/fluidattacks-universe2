@@ -30,7 +30,7 @@
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
-      "/forces/process-groups/break"
+      "/integrates/forces/process-groups/break"
     ];
 
     schedule_expression = "cron(0 9 */2 * ? *)";
@@ -57,7 +57,7 @@
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
-      "/forces/process-groups/pass"
+      "/integrates/forces/process-groups/pass"
     ];
 
     schedule_expression = "cron(0 12 * * ? *)";

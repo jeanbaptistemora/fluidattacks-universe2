@@ -8,8 +8,8 @@ function main {
     --cov=forces
     --cov-fail-under '80'
     --cov-report 'term'
-    --cov-report "html:${PWD}/forces/coverage/"
-    --cov-report "xml:${PWD}/forces/coverage.xml"
+    --cov-report "html:${PWD}/integrates/forces/coverage/"
+    --cov-report "xml:${PWD}/integrates/forces/coverage.xml"
     --disable-pytest-warnings
     --no-cov-on-fail
     --verbose
@@ -21,7 +21,7 @@ function main {
     && DAEMON=true integrates-db \
     && DAEMON=true integrates-back dev \
     && echo "[INFO] Running forces tests..." \
-    && pushd forces/ \
+    && pushd integrates/forces/ \
     && source __argForcesRuntime__/template \
     && pytest "${args_pytest[@]}" \
     && popd || return 1

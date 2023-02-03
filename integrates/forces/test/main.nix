@@ -7,7 +7,7 @@
 makeScript {
   name = "forces-test";
   replace = {
-    __argForcesRuntime__ = outputs."/forces/config/runtime";
+    __argForcesRuntime__ = outputs."/integrates/forces/config/runtime";
     __argIntegratesBackEnv__ = outputs."/integrates/back/env";
     __argSecretsFile__ = projectPath "/integrates/secrets/development.yaml";
   };
@@ -15,8 +15,8 @@ makeScript {
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/sops"
-      outputs."/forces/config/development"
-      outputs."/forces/config/runtime"
+      outputs."/integrates/forces/config/development"
+      outputs."/integrates/forces/config/runtime"
     ];
     bin = [
       outputs."/integrates/back"

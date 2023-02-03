@@ -203,7 +203,7 @@ in {
           functionalTests)
         ++ [
           {
-            output = "/forces/test";
+            output = "/integrates/forces/test";
             gitlabExtra =
               gitlabTestDevAndProd
               // {
