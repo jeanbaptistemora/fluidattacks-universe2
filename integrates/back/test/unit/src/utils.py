@@ -9680,13 +9680,17 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
         '"customer_manager"]': None,
     },
+    "group_access.domain.authz.get_group_level_role": {
+        '["oneshottest"]': [
+            "user_manager",
+            "reattacker",
+            "admin",
+            "admin",
+            "user",
+        ],
+    },
     "group_access.domain.authz.grant_group_level_role": {
         '["unittest@fluidattacks.com", "unittesting", "user"]': None,
-    },
-    "group_access.domain.collect": {
-        '["oneshottest"]': tuple(
-            ["user_manager", "reattacker", "admin", "admin", "user"]
-        ),
     },
     "group_access.domain.Dataloaders.group_access": {
         '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
@@ -10164,4 +10168,22 @@ def set_mocks_return_values(
                 json.dumps(arguments, default=str),
             )
         all_values_set = True
+    return all_values_set
+
+
+def set_mocks_side_effects(
+    mocked_objects: List[AsyncMock],
+    paths_list: List[str],
+    mocks_args: List[List[Any]],
+    module_at_test: str = "",
+) -> bool:
+    all_values_set = False
+    for mocked_object, mocked_path, arguments in zip(
+        mocked_objects, paths_list, mocks_args
+    ):
+        mocked_object.side_effect = get_mock_response(
+            module_at_test + mocked_path,
+            json.dumps(arguments, default=str),
+        )
+    all_values_set = True
     return all_values_set

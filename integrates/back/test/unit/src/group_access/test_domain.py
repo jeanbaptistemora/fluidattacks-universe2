@@ -1,6 +1,7 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mocked_path,
     set_mocks_return_values,
+    set_mocks_side_effects,
 )
 from dataloaders import (
     Dataloaders,
@@ -180,7 +181,7 @@ async def test_get_managers() -> None:
     ],
 )
 @patch(
-    MODULE_AT_TEST + "collect",
+    MODULE_AT_TEST + "authz.get_group_level_role",
     new_callable=AsyncMock,
 )
 @patch(
@@ -189,24 +190,27 @@ async def test_get_managers() -> None:
 )
 async def test_get_reattackers(
     mock_get_group_stakeholders_emails: AsyncMock,
-    mock_collect: AsyncMock,
+    mock_authz_get_group_level_role: AsyncMock,
     group_name: str,
 ) -> None:
-    mocked_objects, mocked_paths, mocks_args = [
-        [mock_get_group_stakeholders_emails, mock_collect],
-        ["get_group_stakeholders_emails", "collect"],
-        [[group_name], [group_name]],
-    ]
+
     assert set_mocks_return_values(
-        mocks_args=mocks_args,
-        mocked_objects=mocked_objects,
+        mocks_args=[[group_name]],
+        mocked_objects=[mock_get_group_stakeholders_emails],
         module_at_test=MODULE_AT_TEST,
-        paths_list=mocked_paths,
+        paths_list=["get_group_stakeholders_emails"],
+    )
+    assert set_mocks_side_effects(
+        mocks_args=[[group_name]],
+        mocked_objects=[mock_authz_get_group_level_role],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["authz.get_group_level_role"],
     )
     loaders = get_new_context()
     reattackers = await get_reattackers(loaders=loaders, group_name=group_name)
     assert reattackers == ["integrateshacker@fluidattacks.com"]
-    assert all(mock_object.called is True for mock_object in mocked_objects)
+    assert mock_get_group_stakeholders_emails.called is True
+    assert mock_authz_get_group_level_role.call_count == 5
 
 
 @pytest.mark.changes_db
