@@ -86,7 +86,7 @@ def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_filters = []
 
     if be_present := kwargs.get("be_present"):
-        must_filters.append({"be_present": be_present})
+        must_filters.append({"state.be_present": be_present})
 
     if root_id := kwargs.get("root_id"):
         must_filters.append({"root_id": root_id})
