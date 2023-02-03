@@ -17,4 +17,7 @@ db/.data/
 coverage.xml
 .coverage.*
 /front/coverage
+/front/.eslintrc.js
+/front/.prettierrc.json
 /back/test/e2e/src/.coverage
+/back/test/load/dist
