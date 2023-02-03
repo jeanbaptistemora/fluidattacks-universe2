@@ -143,10 +143,10 @@ class GroupLoader(DataLoader[str, Group]):
         )
 
 
-class GroupHistoricStateLoader(DataLoader):
+class GroupHistoricStateLoader(DataLoader[str, list[GroupState]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, group_names: list[str]
+        self, group_names: Iterable[str]
     ) -> list[list[GroupState]]:
         return list(
             await collect(
@@ -175,14 +175,14 @@ class GroupUnreliableIndicatorsLoader(
         )
 
 
-class OrganizationGroupsLoader(DataLoader):
+class OrganizationGroupsLoader(DataLoader[str, list[Group]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: list[str]
+        self, organization_ids: Iterable[str]
     ) -> list[list[Group]]:
         return list(
             await collect(
