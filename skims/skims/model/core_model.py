@@ -4775,7 +4775,7 @@ class MethodsEnum(Enum):
     EC2_NOT_TERMINATION_PROTEC = MethodInfo(
         file_name="terraform",
         name="ec2_has_not_termination_protection",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F257,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -1,22 +1,15 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f257.cloudformation import (
     cfn_ec2_has_not_termination_protection,
-)
-from lib_path.f257.terraform import (
-    ec2_has_not_termination_protection,
 )
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from parse_hcl2.loader import (
-    load_blocking as load_terraform,
 )
 from typing import (
     Any,
@@ -31,15 +24,6 @@ def run_cfn_ec2_has_not_termination_protection(
 ) -> Vulnerabilities:
     return cfn_ec2_has_not_termination_protection(
         content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_ec2_has_not_termination_protection(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return ec2_has_not_termination_protection(
-        content=content, path=path, model=model
     )
 
 
@@ -64,14 +48,6 @@ def analyze(
                     content, fmt=file_extension
                 )
             ),
-        )
-    elif file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
-        model = load_terraform(stream=content, default=[])
-
-        results = (
-            *results,
-            run_ec2_has_not_termination_protection(content, path, model),
         )
 
     return results

@@ -239,7 +239,7 @@ F257,lines,namespace/skims/test/data/lib_path/f257/cfn_ec2_has_not_termination_p
   65 | }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_termination_protection
-F257,lines,namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_protection.tf,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_path/f257/tfm_ec2_has_not_termination_protection.tf,"
+F257,lines,namespace/skims/test/data/lib_root/f257/tfm_ec2_has_not_termination_protection.tf,26,463,skims,257. Lack of protection against deletion - EC2,DisableApiTermination property should enabled in namespace/skims/test/data/lib_root/f257/tfm_ec2_has_not_termination_protection.tf,"
   16 |
   17 |   cpu_options {
   18 |     core_count       = 4
