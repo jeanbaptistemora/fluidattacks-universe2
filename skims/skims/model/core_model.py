@@ -4671,7 +4671,7 @@ class MethodsEnum(Enum):
     TFM_EC2_UNENCRYPTED_BLOCK_DEVICES = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_instance_unencrypted_ebs_block_devices",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

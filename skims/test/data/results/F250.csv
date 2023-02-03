@@ -155,7 +155,7 @@ F250,inputs,arn:aws:ec2:::VolumeId/myVolume123 (namespace),/Encrypted: False,313
   9 | }
     ^ Col 0
 ",aws.ebs_is_encryption_disabled
-F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,14,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,14,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
    4 |   subnet_id                   = lookup(var.awsprops, ""subnet"")
    5 |   associate_public_ip_address = lookup(var.awsprops, ""publicip"")
    6 |   key_name                    = lookup(var.awsprops, ""keyname"")
@@ -179,7 +179,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_
   24 |     volume_size           = 50
      ^ Col 0
 ",terraform.tfm_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,21,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
+F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,21,313,skims,250. Non-encrypted hard drives,Property (ebs/root)_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/tfm_ec2_instance_unencrypted_ebs_block_devices.tf,"
    8 |
    9 |   vpc_security_group_ids = [
   10 |     aws_security_group.project-iac-sg.id
