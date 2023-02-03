@@ -16,6 +16,8 @@ stakeholders or configure policies.
 
 In total, we have six columns which are described below:
 
+![Stakeholders table](https://res.cloudinary.com/fluid-attacks/image/upload/v1675425599/docs/web/stakeholders/stakeholders_table.png)
+
 - **Stakeholder email:**
   The user's email address.
 - **Role:**
@@ -48,11 +50,11 @@ Export and search bar.
 
 Here you can add new Stakeholders
 at the Organization level.
-By clicking on the add button,
-you will get a pop-up window:
+By clicking on the add button.
 
-![Stakeholders Add](https://res.cloudinary.com/fluid-attacks/image/upload/v1658774735/docs/web/analytics/stakeholders/stakeh_add.png)
+![Stakeholders Add button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675425725/docs/web/stakeholders/add_butto.png)
 
+A pop-up window will appear,
 You must enter information about
 the new stakeholder: email and [role](/machine/web/groups/roles).
 Remember that we
@@ -63,6 +65,8 @@ Click on **Confirm** when you are done.
 The individual will receive an email
 asking them to confirm their invitation.
 
+![Stakeholders Add](https://res.cloudinary.com/fluid-attacks/image/upload/v1658774735/docs/web/analytics/stakeholders/stakeh_add.png)
+
 ### Edit
 
 Edit button helps you to modify the
@@ -70,13 +74,16 @@ role of the user you want to change.
 First,
 you must select the stakeholder to
 change and click on the Edit button.
+
+![Stakeholders edit button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675426195/docs/web/stakeholders/edit_button.png)
+
 A pop-up window will appear where
 you can modify the user role.
 
-![Stakeholders Edit](https://res.cloudinary.com/fluid-attacks/image/upload/v1658774735/docs/web/analytics/stakeholders/stakeh_edit.png)
+![Stakeholders Edit](https://res.cloudinary.com/fluid-attacks/image/upload/v1675426307/docs/web/stakeholders/user_to_edit.png)
 
 To save the changes,
-click on Confirm.
+click on **Confirm.**
 
 ### Remove
 
@@ -88,6 +95,8 @@ First,
 you must select the stakeholders
 to remove by clicking on the
 checkbox on the left.
+
+![Stakeholders remove](https://res.cloudinary.com/fluid-attacks/image/upload/v1675426399/docs/web/stakeholders/remove_action.png)
 
 After selecting,
 you go to the **Remove** button,
@@ -107,6 +116,8 @@ Clicking on this button will
 download a CSV (comma-separated values)
 file containing all the information
 in the table of this section.
+
+![Export button](https://res.cloudinary.com/fluid-attacks/image/upload/v1675426557/docs/web/stakeholders/export.png)
 
 ### Search bar
 
