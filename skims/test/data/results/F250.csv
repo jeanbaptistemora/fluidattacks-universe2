@@ -299,7 +299,7 @@ F250,lines,namespace/skims/test/data/lib_path/f250/cfn_ec2_instance_unencrypted_
   45 |   }
      ^ Col 0
 ",cloudformation.cfn_ec2_instance_unencrypted_ebs_block_devices
-F250,lines,namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,2,313,skims,250. Non-encrypted hard drives,Property enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f250/tfm_ebs_unencrypted_by_default.tf,"
+F250,lines,namespace/skims/test/data/lib_root/f250/tfm_ebs_unencrypted_by_default.tf,2,313,skims,250. Non-encrypted hard drives,Property enabled is either missing or misconfigured in namespace/skims/test/data/lib_root/f250/tfm_ebs_unencrypted_by_default.tf,"
   1 | resource ""aws_ebs_encryption_by_default"" ""example"" {
 > 2 |   enabled = false
   3 | }

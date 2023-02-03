@@ -4679,7 +4679,7 @@ class MethodsEnum(Enum):
     TFM_EBS_UNENCRYPTED_DEFAULT = MethodInfo(
         file_name="terraform",
         name="tfm_ebs_unencrypted_by_default",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F250,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

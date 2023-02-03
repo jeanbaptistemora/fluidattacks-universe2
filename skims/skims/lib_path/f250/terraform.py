@@ -14,7 +14,6 @@ from parse_hcl2.common import (
     get_block_attribute,
 )
 from parse_hcl2.structure.aws import (
-    iter_aws_ebs_encryption_by_default,
     iter_aws_ebs_volume,
     iter_aws_instance,
 )
@@ -26,19 +25,6 @@ from typing import (
     Iterator,
     Union,
 )
-
-
-def _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        for elem in resource.data:
-            if (
-                isinstance(elem, Attribute)
-                and elem.key == "enabled"
-                and elem.val is False
-            ):
-                yield elem
 
 
 def _tfm_get_vulns_from_device(
@@ -112,22 +98,4 @@ def tfm_ec2_instance_unencrypted_ebs_block_devices(
         ),
         path=path,
         method=MethodsEnum.TFM_EC2_UNENCRYPTED_BLOCK_DEVICES,
-    )
-
-
-def tfm_ebs_unencrypted_by_default(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="lib_path.f250.tfm_ebs_unencrypted_by_default",
-        iterator=get_cloud_iterator(
-            _tfm_ebs_unencrypted_by_default_iterate_vulnerabilities(
-                resource_iterator=iter_aws_ebs_encryption_by_default(
-                    model=model
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_EBS_UNENCRYPTED_DEFAULT,
     )
