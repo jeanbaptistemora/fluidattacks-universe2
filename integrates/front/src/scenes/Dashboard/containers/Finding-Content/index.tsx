@@ -2,7 +2,7 @@ import type { ApolloError, QueryResult } from "@apollo/client";
 import { useMutation, useQuery } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useContext, useEffect, useState } from "react";
@@ -27,6 +27,7 @@ import { FindingOverview } from "./overview";
 import { ButtonCol, Title, TitleContainer } from "./styles";
 
 import type { IGroupFindingsAttr } from "../Group-Content/GroupFindingsView/types";
+import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Tab, Tabs } from "components/Tabs";
 import { EventBar } from "scenes/Dashboard/components/EventBar";
@@ -50,12 +51,11 @@ import type { IHeaderQueryResult } from "scenes/Dashboard/containers/Finding-Con
 import { VulnsView } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/index";
 import { GET_DRAFTS_AND_FINDING_TITLES } from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/queries";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
-import { ControlLabel, FormGroup, TabContent } from "styles/styledComponents";
+import { FormGroup, TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Have } from "utils/authz/Have";
 import { featurePreviewContext } from "utils/featurePreview";
-import { FormikDropdown } from "utils/forms/fields";
 import { useTabTracking } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -485,11 +485,8 @@ const FindingContent: React.FC = (): JSX.Element => {
         >
           <Form id={"removeFinding"}>
             <FormGroup>
-              <ControlLabel>
-                {t("searchFindings.delete.justif.label")}
-              </ControlLabel>
-              <Field
-                component={FormikDropdown}
+              <Select
+                label={t("searchFindings.delete.justif.label")}
                 name={"justification"}
                 validate={composeValidators([required])}
               >
@@ -503,7 +500,7 @@ const FindingContent: React.FC = (): JSX.Element => {
                 <option value={"NOT_REQUIRED"}>
                   {t("searchFindings.delete.justif.notRequired")}
                 </option>
-              </Field>
+              </Select>
             </FormGroup>
             <ModalConfirm onCancel={closeDeleteModal} />
           </Form>
