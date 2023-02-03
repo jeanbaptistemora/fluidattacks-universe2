@@ -7,6 +7,7 @@ from syntax_cfg.dispatchers import (
     method_invocation_node,
     multi_path,
     step_by_step,
+    variable_declaration_node,
 )
 from syntax_cfg.types import (
     Dispatcher,
@@ -110,10 +111,15 @@ DISPATCHERS: Dispatchers = (
             "ThrowStatement",
             "UnaryExpression",
             "UpdateExpression",
-            "VariableDeclaration",
             "Yield",
         },
         cfg_builder=connect_to_next.build,
+    ),
+    Dispatcher(
+        applicable_types={
+            "VariableDeclaration",
+        },
+        cfg_builder=variable_declaration_node.build,
     ),
     Dispatcher(
         applicable_types={
