@@ -25,6 +25,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -142,14 +143,16 @@ class OrganizationAccessLoader(DataLoader):
         return await _get_organization_access(requests=requests)
 
 
-class OrganizationStakeholdersAccessLoader(DataLoader):
+class OrganizationStakeholdersAccessLoader(
+    DataLoader[str, list[OrganizationAccess]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_ids: list[str]
+        self, organization_ids: Iterable[str]
     ) -> list[list[OrganizationAccess]]:
         return list(
             await collect(
@@ -164,14 +167,16 @@ class OrganizationStakeholdersAccessLoader(DataLoader):
         )
 
 
-class StakeholderOrganizationsAccessLoader(DataLoader):
+class StakeholderOrganizationsAccessLoader(
+    DataLoader[str, list[OrganizationAccess]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: list[str]
+        self, emails: Iterable[str]
     ) -> list[list[OrganizationAccess]]:
         return list(
             await collect(
