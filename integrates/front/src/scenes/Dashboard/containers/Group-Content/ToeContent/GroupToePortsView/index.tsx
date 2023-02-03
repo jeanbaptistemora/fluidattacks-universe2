@@ -122,6 +122,7 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
       },
     }
   );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getToePortsVariables = {
     canGetAttackedAt,
     canGetAttackedBy,
@@ -507,20 +508,21 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
     setIsAdding(!isAdding);
   }, [isAdding]);
 
-  const handleOnMarkAsAttackedCompleted = (
-    result: FetchResult<IUpdateToePortResultAttr>
-  ): void => {
-    if (!_.isNil(result.data) && result.data.updateToePort.success) {
-      msgSuccess(
-        t("group.toe.ports.alerts.markAsAttacked.success"),
-        t("groupAlerts.updatedTitle")
-      );
-      void refetch();
-      setSelectedToePortDatas([]);
-    }
-  };
+  const handleOnMarkAsAttackedCompleted = useCallback(
+    (result: FetchResult<IUpdateToePortResultAttr>): void => {
+      if (!_.isNil(result.data) && result.data.updateToePort.success) {
+        msgSuccess(
+          t("group.toe.ports.alerts.markAsAttacked.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        void refetch();
+        setSelectedToePortDatas([]);
+      }
+    },
+    [refetch, t]
+  );
 
-  async function handleMarkAsAttacked(): Promise<void> {
+  const handleMarkAsAttacked = useCallback(async (): Promise<void> => {
     const presentSelectedToePortDatas = selectedToePortDatas.filter(
       (toePortData: IToePortData): boolean => toePortData.bePresent
     );
@@ -552,7 +554,14 @@ const GroupToePortsView: React.FC<IGroupToePortsViewProps> = ({
       void refetch();
     }
     setIsMarkingAsAttacked(false);
-  }
+  }, [
+    getToePortsVariables,
+    groupName,
+    handleOnMarkAsAttackedCompleted,
+    handleUpdateToePort,
+    refetch,
+    selectedToePortDatas,
+  ]);
 
   const enabledRows = useCallback((row: Row<IToePortData>): boolean => {
     return row.original.bePresent;
