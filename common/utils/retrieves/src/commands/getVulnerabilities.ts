@@ -66,7 +66,9 @@ const setDiagnostics = async (
     })
     .map((vuln): Diagnostic => {
       const lineIndex = parseInt(vuln.specific, 10);
-      const lineOfText = document.lineAt(lineIndex);
+      const lineOfText = document.lineAt(
+        lineIndex > 0 ? lineIndex - 1 : lineIndex
+      );
 
       return createDiagnostic(groupName, document, lineOfText, vuln);
     });

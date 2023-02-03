@@ -8,7 +8,7 @@ inside the fusion folder in the services repository. If it is in a services
 retrieves repository it will be activated.
 
 So far, Retrieves will:
-  - list the groups to which the user has access
+  - List the groups to which the user has access
     - list the repositories of each group
       - clone repositories
       - get toe lines
@@ -19,6 +19,7 @@ So far, Retrieves will:
      ![image info](docs/images/mark_file_as_attacked.png)
   - When opening a file, the vulnerabilities reported for the file are
     consulted and listed as vscode diagnostics
+  - Add lines to a vulnerability file
 
 To use the extension, it must be used on a directory named `groups`,
 in this directory the repositories are cloned. You can open the subdirectories

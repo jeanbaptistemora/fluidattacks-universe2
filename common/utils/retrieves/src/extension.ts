@@ -12,6 +12,7 @@ import {
   // eslint-disable-next-line import/no-unresolved
 } from "vscode";
 
+import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
 import { subscribeToDocumentChanges } from "./commands/getVulnerabilities";
 import { toeLines } from "./commands/toeLines";
@@ -46,6 +47,7 @@ function activate(context: ExtensionContext): void {
   context.subscriptions.push(retrievesDiagnostics);
 
   subscribeToDocumentChanges(context, retrievesDiagnostics);
+  commands.registerCommand("retrieves.addSelectedText", addLineToYaml);
 }
 
 export { activate };

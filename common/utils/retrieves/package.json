@@ -18,6 +18,10 @@
       {
         "command": "retrieves.updateToeLinesAttackedLines",
         "title": "Attacked"
+      },
+      {
+        "command": "retrieves.addSelectedText",
+        "title": "Add selected text"
       }
     ],
     "configuration": [
@@ -25,6 +29,11 @@
         "properties": {
           "retrieves.api_token": {
             "type": "string"
+          },
+          "retrieves.useRole": {
+            "type": "string",
+            "default": "analyst",
+            "enum": ["analyst"]
           },
           "retrieves.extraGroups": {
             "default": [],
@@ -37,6 +46,13 @@
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "retrieves.addSelectedText",
+          "group": "navigation",
+          "when": "editorTextFocus"
+        }
+      ],
       "editor/title/context": [
         {
           "command": "retrieves.clone",
@@ -90,6 +106,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.3",
+    "@types/js-yaml": "^4.0.5",
     "@types/ramda": "^0.28.22",
     "@types/vscode-webview": "^1.57.1",
     "@vscode/webview-ui-toolkit": "^1.2.1",
@@ -97,6 +114,7 @@
     "glob": "^8.1.0",
     "graphql": "^16.6.0",
     "html-creator": "^0.6.2",
+    "js-yaml": "^4.1.0",
     "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -176,5 +194,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.15.1"
+  "version": "0.16.0"
 }
