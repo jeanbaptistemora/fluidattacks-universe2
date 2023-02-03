@@ -52,4 +52,9 @@ def mock_data() -> dict[str, Any]:
         "AttachedPolicies": [
             {"PolicyName": "inlinePolicy1", "PolicyArn": "policyArn"},
         ],
+        "AccessKeyMetadata": [
+            {
+                "Status": True,
+            },
+        ],
     }

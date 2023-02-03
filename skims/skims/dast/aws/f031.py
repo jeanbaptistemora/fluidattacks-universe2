@@ -865,6 +865,69 @@ async def negative_statement(
     return vulns
 
 
+async def users_with_password_and_access_keys(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="iam", function="list_users"
+    )
+    users = response.get("Users", []) if response else []
+    method = core_model.MethodsEnum.AWS_IAM_USERS_WITH_PASSWORD_AND_ACCESS_KEYS
+    vulns: core_model.Vulnerabilities = ()
+    if users:
+        for user in users:
+            locations = []
+            access_keys: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="iam",
+                function="list_access_keys",
+                parameters={
+                    "UserName": user["UserName"],
+                },
+            )
+            access_key_metadata = access_keys["AccessKeyMetadata"]
+            access_keys_activated: bool = any(
+                map(lambda x: x["Status"], access_key_metadata)
+            )
+
+            login_profile = {}
+            try:
+                login_profile = await run_boto3_fun(
+                    credentials,
+                    service="iam",
+                    function="get_login_profile",
+                    parameters={"UserName": str(user["UserName"])},
+                )
+            except botocore.errorfactory.NoSuchEntityException:
+                continue
+
+            if access_keys_activated and login_profile:
+                locations = [
+                    *[
+                        Location(
+                            access_patterns=(),
+                            arn=(f"{user['Arn']}"),
+                            values=(),
+                            description=t(
+                                "src.lib_path.f031."
+                                "iam_group_missing_role_based_security"
+                            ),
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=access_keys,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
@@ -880,4 +943,5 @@ CHECKS: Tuple[
     user_with_inline_policies,
     policies_attached_to_users,
     has_permissive_role_policies,
+    users_with_password_and_access_keys,
 )

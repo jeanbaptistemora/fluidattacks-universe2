@@ -516,6 +516,30 @@ F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess: AttachmentCount/1 (name
   13 | }
      ^ Col 0
 ",aws.admin_policy_attached
+F031,inputs,arn:aws:iam::aws:user/user1 (namespace),IAM Group is granted privileges but not through a Role,250,skims,031. Excessive privileges - AWS,IAM Group is granted privileges but not through a Role,"
+   1 | {
+   2 |     ""Policies"": [
+   3 |         {
+   4 |             ""PolicyName"": ""unsafePol"",
+   5 |             ""PolicyId"": ""pol-018de572ae43404d8"",
+   6 |             ""Arn"": ""arn:aws:iam::aws:policy/AdministratorAccess"",
+   7 |             ""Path"": ""server-certificate/ProdServerCert"",
+   8 |             ""DefaultVersionId"": ""pol-018"",
+   9 |             ""AttachmentCount"": 1,
+  10 |             ""PermissionsBoundaryUsageCount"": 1,
+  11 |             ""IsAttachable"": true,
+  12 |             ""Description"": ""string"",
+  13 |             ""CreateDate"": ""2015/01/01"",
+  14 |             ""UpdateDate"": ""2015/01/01""
+  15 |         }
+  16 |     ],
+  17 |     ""IsTruncated"": true,
+  18 |     ""Marker"": ""4f23ro"",
+  19 |     ""Buckets"": [
+  20 |         {
+  21 |             ""Name"": ""bucket-018de572ae43404d8""
+     ^ Col 0
+",aws.users_with_password_and_access_keys
 F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
    1 | ---
    2 | Resources:
@@ -997,10 +1021,6 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ss
      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
 F031,inputs,arn:aws:iam::aws:user/user1 (namespace),"/AttachedPolicies: [{'PolicyName': 'inlinePolicy1', 'PolicyArn': 'policyArn'}]",250,skims,031. Excessive privileges - AWS,Users must not have policies directly attached.,"
-  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
-  36 |             },
-  37 |             ""Permission"": ""FULL_CONTROL""
-  38 |         }
   39 |     ],
   40 |     ""PolicyNames"": [
   41 |         ""inlinePolicy1""
@@ -1016,8 +1036,12 @@ F031,inputs,arn:aws:iam::aws:user/user1 (namespace),"/AttachedPolicies: [{'Polic
   51 |             ""PolicyName"": ""inlinePolicy1"",
   52 |             ""PolicyArn"": ""policyArn""
   53 |         }
-  54 |     ]
-  55 | }
+  54 |     ],
+  55 |     ""AccessKeyMetadata"": [
+  56 |         {
+  57 |             ""Status"": true
+  58 |         }
+  59 |     ]
      ^ Col 0
 ",aws.policies_attached_to_users
 F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,5,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,"
