@@ -478,7 +478,7 @@ async def test_get_organization_ver_1(
         == "VGVzdCBTU0gK"
     )
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     current_repositories = (
         await loaders.organization_unreliable_integration_repositories.load(
             (org_id, None, None)
@@ -758,7 +758,7 @@ async def test_get_organization_ver_2(
     )
     assert result["data"]["organization"]["credentials"][5]["oauthType"] == ""
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     current_repositories = (
         await loaders.organization_unreliable_integration_repositories.load(
             (org_id, None, None)

@@ -111,10 +111,15 @@ async def _get_organization_unreliable_integration_repositories(
     )
 
 
-class OrganizationUnreliableRepositoriesLoader(DataLoader):
+class OrganizationUnreliableRepositoriesLoader(
+    DataLoader[
+        tuple[str, Optional[str], Optional[str]],
+        list[OrganizationIntegrationRepository],
+    ]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: list[tuple[str, str, str]]
+        self, ids: Iterable[tuple[str, Optional[str], Optional[str]]]
     ) -> list[list[OrganizationIntegrationRepository]]:
         return list(
             await collect(
