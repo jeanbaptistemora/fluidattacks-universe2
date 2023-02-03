@@ -8,7 +8,6 @@ from lib_path.f246.cloudformation import (
 )
 from lib_path.f246.terraform import (
     tfm_db_has_unencrypted_storage,
-    tfm_rds_has_unencrypted_storage,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -32,15 +31,6 @@ def run_cfn_rds_has_unencrypted_storage(
 ) -> Vulnerabilities:
     return cfn_rds_has_unencrypted_storage(
         content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_rds_has_unencrypted_storage(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_rds_has_unencrypted_storage(
-        content=content, path=path, model=model
     )
 
 
@@ -81,7 +71,6 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             *results,
-            run_tfm_rds_has_unencrypted_storage(content, path, model),
             run_tfm_db_has_unencrypted_storage(content, path, model),
         )
 
