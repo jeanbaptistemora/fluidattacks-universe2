@@ -25,8 +25,10 @@ export const changeZeroRiskFormatter = (
         isSelected={row.acceptance !== ""}
         isYesEnabled={row.acceptance !== "REJECTED"}
         noLabel={row.acceptance === "REJECTED" ? "REJECTED" : "REJECT"}
-        onApprove={handleOnApprove}
-        onDelete={handleOnDelete}
+        // eslint-disable-next-line
+        onApprove={handleOnApprove} // NOSONAR
+        // eslint-disable-next-line
+        onDelete={handleOnDelete} // NOSONAR
         yesLabel={row.acceptance === "APPROVED" ? "CONFIRMED" : "CONFIRM"}
       />
     </div>

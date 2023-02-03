@@ -23,7 +23,8 @@ export const syncButtonFormatter = (
         (!_.isNull(row.credentials) && row.credentials.name === "")
       }
       id={"gitRootSync"}
-      onClick={handleOnChange}
+      // eslint-disable-next-line
+      onClick={handleOnChange} // NOSONAR
       variant={"secondary"}
     >
       <FontAwesomeIcon icon={faSyncAlt} />

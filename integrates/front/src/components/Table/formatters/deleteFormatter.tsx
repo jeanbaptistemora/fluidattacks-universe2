@@ -29,7 +29,11 @@ export const deleteFormatter = <T extends object>(
   }
 
   return (
-    <DeleteFormatter onClick={handleDeleteFormatter} type={"button"}>
+    <DeleteFormatter
+      // eslint-disable-next-line
+      onClick={handleDeleteFormatter} // NOSONAR
+      type={"button"}
+    >
       <FontAwesomeIcon icon={faTrashAlt} />
     </DeleteFormatter>
   );

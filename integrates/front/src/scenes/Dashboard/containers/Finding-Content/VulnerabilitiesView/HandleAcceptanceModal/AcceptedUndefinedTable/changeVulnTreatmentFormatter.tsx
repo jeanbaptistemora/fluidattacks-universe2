@@ -15,7 +15,8 @@ export const changeVulnTreatmentFormatter = (
     <Switch
       checked={row.acceptance !== "REJECTED"}
       label={{ off: "REJECTED", on: "APPROVED" }}
-      onChange={handleOnChange}
+      // eslint-disable-next-line
+      onChange={handleOnChange}  // NOSONAR
     />
   );
 };

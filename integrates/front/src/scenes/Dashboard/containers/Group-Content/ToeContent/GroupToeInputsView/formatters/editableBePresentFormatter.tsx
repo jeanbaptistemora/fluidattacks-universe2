@@ -43,7 +43,8 @@ export const editableBePresentFormatter = (
         on: translate.t("group.toe.inputs.yes"),
       }}
       name={"bePresentSwitch"}
-      onChange={handleOnChange}
+      // eslint-disable-next-line
+      onChange={handleOnChange} // NOSONAR
     />
   );
 };

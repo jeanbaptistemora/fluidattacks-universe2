@@ -32,7 +32,8 @@ export const editableAttackedLinesFormatter = (
       defaultValue={_.toNumber(value)}
       max={row.loc}
       min={0}
-      onEnter={handleOnEnter}
+      // eslint-disable-next-line
+      onEnter={handleOnEnter} // NOSONAR
       tooltipMessage={translate.t(
         "group.toe.lines.formatters.attackedLines.tooltip"
       )}

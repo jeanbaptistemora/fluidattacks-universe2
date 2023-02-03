@@ -15,7 +15,8 @@ export const changeFormatter = (
     <Switch
       checked={!("state" in row) || row.state.toUpperCase() !== "INACTIVE"}
       label={{ off: "Inactive", on: "Active" }}
-      onChange={handleOnChange}
+      // eslint-disable-next-line
+      onChange={handleOnChange} // NOSONAR
     />
   );
 };

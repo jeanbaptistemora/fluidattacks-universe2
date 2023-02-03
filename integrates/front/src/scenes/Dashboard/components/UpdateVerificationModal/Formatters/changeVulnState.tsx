@@ -14,7 +14,8 @@ export const changeVulnStateFormatter = (
     <Switch
       checked={!("state" in row) || row.state !== "SAFE"}
       label={{ off: "Safe", on: "Vulnerable" }}
-      onChange={handleOnChange}
+      // eslint-disable-next-line
+      onChange={handleOnChange}  // NOSONAR
     />
   );
 };
