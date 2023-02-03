@@ -2,7 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFileExcel, faMinus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
@@ -16,14 +16,18 @@ import type { TestContext } from "yup";
 import { array, date, number, object } from "yup";
 
 import { Button } from "components/Button";
-import { Checkbox, Input, InputDate, InputNumber } from "components/Input";
+import {
+  Checkbox,
+  Input,
+  InputDate,
+  InputNumber,
+  Select,
+} from "components/Input";
 import { Col, Hr, Row } from "components/Layout";
 import { Modal } from "components/Modal";
-import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import { REQUEST_GROUP_REPORT } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { Col100 } from "styles/styledComponents";
-import { FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import {
@@ -303,32 +307,24 @@ const FilterReportModal: React.FC<IDeactivationModalProps> = ({
                         </p>
                         <Row align={"start"} justify={"start"}>
                           <Col lg={50} md={50} sm={50}>
-                            <p className={"mb1 mt1"}>
-                              <span className={"fw8"}>
-                                {t("group.findings.report.findingTitle.text")}
-                              </span>
-                            </p>
-                            <Tooltip
-                              id={"group.findings.report.findingTitle.id"}
-                              place={"top"}
-                              tip={t(
+                            <Select
+                              label={t(
+                                "group.findings.report.findingTitle.text"
+                              )}
+                              name={"findingTitle"}
+                              tooltip={t(
                                 "group.findings.report.findingTitle.tooltip"
                               )}
                             >
-                              <Field
-                                component={FormikDropdown}
-                                name={"findingTitle"}
-                              >
-                                <option value={""} />
-                                {typesOptions.map(
-                                  (typeCode: string): JSX.Element => (
-                                    <option key={typeCode} value={typeCode}>
-                                      {typeCode}
-                                    </option>
-                                  )
-                                )}
-                              </Field>
-                            </Tooltip>
+                              <option value={""} />
+                              {typesOptions.map(
+                                (typeCode: string): JSX.Element => (
+                                  <option key={typeCode} value={typeCode}>
+                                    {typeCode}
+                                  </option>
+                                )
+                              )}
+                            </Select>
                           </Col>
                           <Col lg={50} md={50} sm={90}>
                             <Row align={"start"} justify={"start"}>
