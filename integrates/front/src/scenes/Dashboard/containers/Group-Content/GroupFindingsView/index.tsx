@@ -150,23 +150,6 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       type: "number",
     },
     {
-      id: "locationsInfo",
-      key: (datapoint: IFindingAttr, value?: string): boolean => {
-        if (value === "" || value === undefined) return true;
-        if (
-          datapoint.locationsInfo.locations === "" ||
-          datapoint.locationsInfo.locations === undefined
-        )
-          return false;
-
-        return datapoint.locationsInfo.locations
-          .toLowerCase()
-          .includes(value.toLowerCase());
-      },
-      label: "Locations",
-      type: "text",
-    },
-    {
       id: "reattack",
       key: "reattack",
       label: "Reattack",
