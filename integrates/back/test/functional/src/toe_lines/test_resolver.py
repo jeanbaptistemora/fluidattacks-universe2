@@ -193,3 +193,45 @@ async def test_get_toe_lines_by_has_vulns(populate: bool, email: str) -> None:
         has_vulnerabilities=False,
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_from_date(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        from_modified_date="2020-11-17T15:41:04+00:00",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["modifiedDate"]
+        == "2020-11-17T15:41:04+00:00"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_to_date(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        to_modified_date="2020-11-15T15:41:04+00:00",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["modifiedDate"]
+        == "2020-11-15T15:41:04+00:00"
+    )
