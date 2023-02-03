@@ -12,7 +12,6 @@ from sagemaker.sklearn.estimator import (
 import time
 from training.constants import (
     DATASET_PATH,
-    INC_TRAINING_MODELS,
     MODELS,
     SAGEMAKER_METRIC_DEFINITIONS,
 )
@@ -38,38 +37,20 @@ ON_DEMAND_NEEDED: List[str] = [
     "xgbclassifier",
 ]
 
-INCMODELS_S3PATH: str = "s3://sorts/incremental-training-output/"
-
 
 def get_estimator(
     model: str,
     training_script: str = "training/training_script/train.py",
 ) -> SKLearnEstimator:
-    model_uri = f"{INCMODELS_S3PATH}{model.split(':')[0]}-inc-training.joblib"
-    if ":inctraining" not in model:
-        kwargs = (
-            dict(
-                instance_type="ml.m5.2xlarge",
-                use_spot_instances=True,
-                max_wait=86400,
-            )
-            if model not in ON_DEMAND_NEEDED
-            else dict(instance_type="ml.m5.4xlarge")
+    kwargs = (
+        dict(
+            instance_type="ml.m5.2xlarge",
+            use_spot_instances=True,
+            max_wait=86400,
         )
-    else:
-        kwargs = (
-            dict(
-                instance_type="ml.m5.2xlarge",
-                use_spot_instances=True,
-                max_wait=86400,
-                model_uri=model_uri,
-            )
-            if model.split(":")[0] not in ON_DEMAND_NEEDED
-            else dict(
-                instance_type="ml.m5.4xlarge",
-                model_uri=model_uri,
-            )
-        )
+        if model not in ON_DEMAND_NEEDED
+        else dict(instance_type="ml.m5.4xlarge")
+    )
     sklearn_estimator: SKLearnEstimator = SKLearn(
         entry_point=training_script,
         dependencies=["sorts", "training", "training/requirements.txt"],
@@ -120,12 +101,9 @@ def deploy_training_job(model: str, delay: int) -> None:
 
 if __name__ == "__main__":
     models_to_train: List[str] = list(MODELS.keys())
-    models_to_retrain: List[str] = [
-        s + ":inctraining" for s in list(INC_TRAINING_MODELS.keys())
-    ]
-    model_list_len = len(models_to_train + models_to_retrain)
-    with ThreadPoolExecutor(max_workers=model_list_len) as executor:
+    MODEL_LIST_LEN = len(models_to_train)
+    with ThreadPoolExecutor(max_workers=MODEL_LIST_LEN) as executor:
         executor.map(
             lambda x: deploy_training_job(*x),
-            zip(models_to_train + models_to_retrain, range(model_list_len)),
+            zip(models_to_train, range(MODEL_LIST_LEN)),
         )

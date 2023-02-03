@@ -4,10 +4,6 @@ import argparse
 from itertools import (
     combinations,
 )
-from joblib import (
-    load,
-)
-import numpy as np
 import os
 from pandas import (
     DataFrame,
@@ -23,7 +19,6 @@ from sorts.typings import (
 )
 from training.constants import (
     FEATURES_DICTS,
-    INC_TRAINING_MODELS,
     MODELS,
     MODELS_DEFAULTS,
     RESULT_HEADERS,
@@ -42,29 +37,6 @@ from typing import (
     List,
     Tuple,
 )
-
-INC_TRAINING_BEST_COMBINATIONS: Dict[str, Tuple[str, ...]] = {
-    "bernoullinb": (
-        "num_commits",
-        "num_unique_authors",
-        "file_age",
-        "risky_commits",
-        "busy_file",
-        "commit_frequency",
-    ),
-    "mlpclassifier": (
-        "num_commits",
-        "seldom_contributors",
-        "num_lines",
-        "commit_frequency",
-    ),
-    "sgdclassifier": (
-        "seldom_contributors",
-        "num_lines",
-        "busy_file",
-        "commit_frequency",
-    ),
-}
 
 
 def get_features_combinations(features: List[str]) -> List[Tuple[str, ...]]:
@@ -122,24 +94,11 @@ def save_model(
         train_x, train_y = split_training_data(
             shuffled_training_data, best_features
         )
-        model_name = type(get_model_instance(model_class)).__name__.lower()
-        if "SM_CHANNEL_MODEL" in os.environ:
-            local_path = os.environ["SM_CHANNEL_MODEL"]
-            model = load(f"{local_path}/{model_name}-inc-training.joblib")
-            model.partial_fit(train_x, train_y, classes=np.unique(train_y))
-        else:
-            model = get_model_instance(model_class)
-            model.fit(train_x, train_y)
-        model_file_name: str = (
-            f"{model_name}-inc-training"
-            if "SM_CHANNEL_MODEL" in os.environ
-            else "-".join(
-                [type(model).__name__.lower(), best_f1]
-                + [
-                    FEATURES_DICTS[feature].lower()
-                    for feature in best_features
-                ]
-            )
+        model = get_model_instance(model_class)
+        model.fit(train_x, train_y)
+        model_file_name: str = "-".join(
+            [type(model).__name__.lower(), best_f1]
+            + [FEATURES_DICTS[feature].lower() for feature in best_features]
         )
         model.feature_names = list(best_features)
         model.precision = training_results[-1][2]
@@ -169,31 +128,6 @@ def train_model(
     return training_output
 
 
-def inc_train_model(
-    model_class: ModelType,
-    training_dir: str,
-) -> List[List[str]]:
-    training_data: DataFrame = load_training_data(training_dir)
-    shuffled_training_data = training_data.sample(
-        frac=1, random_state=42
-    ).reset_index(drop=True)
-    training_output: List[List[str]] = [RESULT_HEADERS]
-
-    # Incremental training with the best feature combination
-    model_name = type(get_model_instance(model_class)).__name__.lower()
-    model = load(
-        f"{os.environ['SM_CHANNEL_MODEL']}/{model_name}-inc-training.joblib"
-    )
-    training_combination_output: List[str] = train_combination(
-        model,
-        shuffled_training_data,
-        INC_TRAINING_BEST_COMBINATIONS[model_name],
-    )
-    training_output.append(training_combination_output)
-
-    return training_output
-
-
 def cli() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
@@ -218,20 +152,12 @@ def main() -> None:
     args = cli()
 
     model_name: str = args.model
-    model_class: ModelType = (
-        MODELS[model_name]
-        if model_name in MODELS
-        else INC_TRAINING_MODELS[model_name]
-    )
+    model_class: ModelType = MODELS[model_name]
 
     # Start training process
     if model_class:
         results_filename: str = f"{model_name}_train_results.csv"
-        training_output = (
-            inc_train_model(model_class, args.train)
-            if "SM_CHANNEL_MODEL" in os.environ
-            else train_model(model_class, args.train)
-        )
+        training_output = train_model(model_class, args.train)
         update_results_csv(results_filename, training_output)
         save_model(model_class, args.train, training_output)
 
