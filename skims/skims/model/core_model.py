@@ -4655,7 +4655,7 @@ class MethodsEnum(Enum):
     TFM_DB_UNENCRYPTED_STORAGE = MethodInfo(
         file_name="terraform",
         name="tfm_db_has_unencrypted_storage",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F246,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

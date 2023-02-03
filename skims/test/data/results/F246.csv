@@ -191,7 +191,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/cfn_rds_has_unencrypted_stora
   118 |         ""DBInstanceClass"": ""db.r3.xlarge"",
       ^ Col 0
 ",cloudformation.cfn_rds_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+F246,lines,namespace/skims/test/data/lib_root/f246/rds_test.tf,3,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/rds_test.tf,"
    1 | resource ""aws_db_instance"" ""default"" {
    2 |   allocated_storage       = 10
 >  3 |   storage_encrypted       = false
@@ -215,7 +215,7 @@ F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,3,311,skims,246. 
   21 |   database_name           = ""mydb""
      ^ Col 0
 ",terraform.tfm_db_has_unencrypted_storage
-F246,lines,namespace/skims/test/data/lib_path/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_path/f246/rds_test.tf,"
+F246,lines,namespace/skims/test/data/lib_root/f246/rds_test.tf,17,311,skims,246. Non-encrypted confidential information - DB,StorageEncrypted property should be enabled in namespace/skims/test/data/lib_root/f246/rds_test.tf,"
    7 |   name                    = ""mydb""
    8 |   username                = ""foo""
    9 |   deletion_protection     = true
