@@ -22,6 +22,7 @@ from decorators import (
     enforce_group_level_auth_async,
     require_asm,
     require_login,
+    require_squad,
 )
 from findings import (
     domain as findings_domain,
@@ -46,6 +47,19 @@ from time import (
 from typing import (
     Any,
 )
+
+
+@require_squad
+async def add_finding_consult(
+    *, info: GraphQLResolveInfo, **parameters: Any
+) -> str:
+    return await _add_finding_consult(info, **parameters)
+
+
+async def add_finding_observation(
+    *, info: GraphQLResolveInfo, **parameters: Any
+) -> str:
+    return await _add_finding_consult(info, **parameters)
 
 
 async def _add_finding_consult(
@@ -104,5 +118,9 @@ async def _add_finding_consult(
 async def mutate(
     _: None, info: GraphQLResolveInfo, **parameters: Any
 ) -> AddConsultPayload:
-    comment_id = await _add_finding_consult(info, **parameters)
+    if parameters.get("type", "").lower() == "observation":
+        comment_id = await add_finding_observation(info=info, **parameters)
+    else:
+        comment_id = await add_finding_consult(info=info, **parameters)
+
     return AddConsultPayload(success=True, comment_id=comment_id)

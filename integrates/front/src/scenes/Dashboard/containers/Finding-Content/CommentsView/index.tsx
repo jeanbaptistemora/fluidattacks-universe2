@@ -97,11 +97,11 @@ const CommentsView: React.FC = (): JSX.Element => {
     onError: handleAddCommentError,
   });
 
-  const handlePost: (
-    comment: ICommentStructure,
-    callbackFn: IPostCallback
-  ) => void = useCallback(
-    (comment: ICommentStructure, callbackFn: IPostCallback): void => {
+  const handlePost = useCallback(
+    async (
+      comment: ICommentStructure,
+      callbackFn: IPostCallback
+    ): Promise<void> => {
       interface IMutationResult {
         data: {
           addFindingConsult: {
@@ -111,7 +111,7 @@ const CommentsView: React.FC = (): JSX.Element => {
         };
       }
       mixpanel.track(`Add${_.capitalize(type)}`, { findingId });
-      void addComment({
+      await addComment({
         variables: {
           content: comment.content,
           findingId,
