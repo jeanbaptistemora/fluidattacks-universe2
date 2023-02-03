@@ -62,14 +62,9 @@ def get_file_info_from_path(path: str) -> str:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_gem_gemfile() -> None:
-    path: str = "skims/test/data/lib_path/f011/Gemfile"
     gemfile_dep: Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    path: str = "skims/test/data/lib_path/f011/Gemfile"
+    file_contents: str = get_file_info_from_path(path)
     gem_gemfile_fun = gem_gemfile.__wrapped__  # type: ignore
     content: List[str] = file_contents.splitlines()
     generator_gem: Iterator[DependencyType] = gem_gemfile_fun(
@@ -134,12 +129,7 @@ def test_gem_gemfile_lock() -> None:
         r"^\s{4}(?P<gem>(?P<name>[\w\-]+)\s?(\(.*\))?)"
     )
     path: str = "skims/test/data/lib_path/f011/Gemfile.lock"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     gemfile_lock_fun = gem_gemfile_lock.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
@@ -180,12 +170,7 @@ def test_go_add_require() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_go_mod() -> None:
     path: str = "skims/test/data/lib_path/f011/go.mod"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = go_mod.__wrapped__(file_contents, path)  # type: ignore
     assertion: bool = True
@@ -217,12 +202,7 @@ def test_go_mod() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_pip_requirements_txt() -> None:
     path: str = "skims/test/data/lib_path/f011/requirements.txt"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = pip_requirements_txt.__wrapped__(  # type: ignore
         file_contents, path
@@ -254,12 +234,7 @@ def test_maven_pom_xml() -> None:
         r"<version>(\$\{)?(?P<version>[^\}]*)\}?</version>"
     )
     path = "skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     generator_dep = maven_pom_xml.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -297,12 +272,7 @@ def test_composer_json() -> None:
         r'"(?P<pkg_name>.*?)": "(?P<version>.*?)"'
     )
     path: str = "skims/test/data/lib_path/f011/composer.json"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = composer_json.__wrapped__(  # type: ignore
         file_contents, path
@@ -334,12 +304,7 @@ def test_composer_json_dev() -> None:
         r'"(?P<pkg_name>.*?)": "(?P<version>.*?)"'
     )
     path: str = "skims/test/data/lib_path/f011/composer.json"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = composer_json_dev.__wrapped__(  # type: ignore
         file_contents, path
@@ -369,12 +334,7 @@ def test_composer_json_dev() -> None:
 def test_composer_lock() -> None:
     patt_info: Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
     path: str = "skims/test/data/lib_path/f011/composer.lock"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = composer_lock.__wrapped__(  # type: ignore
         file_contents, path
@@ -407,12 +367,7 @@ def test_composer_lock() -> None:
 def test_composer_lock_dev() -> None:
     patt_info: Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
     path: str = "skims/test/data/lib_path/f011/composer.lock"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     generator_dep = composer_lock_dev.__wrapped__(  # type: ignore
         file_contents, path
@@ -444,12 +399,7 @@ def test_composer_lock_dev() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_pub_pubspec_yaml() -> None:
     path: str = "skims/test/data/lib_path/f011/pubspec.yaml"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     gemfile_lock_fun = pub_pubspec_yaml.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
@@ -477,12 +427,7 @@ def test_pub_pubspec_yaml() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_pub_pubspec_yaml_dev() -> None:
     path: str = "skims/test/data/lib_path/f011/pubspec.yaml"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_contents: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     content: List[str] = file_contents.splitlines()
     gemfile_lock_fun = pub_pubspec_yaml_dev.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
@@ -510,14 +455,9 @@ def test_pub_pubspec_yaml_dev() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_npm_package_json_dev() -> None:
     path = "skims/test/data/lib_path/f011/package.json"
-    with open(
-        path,
-        mode="r",
-        encoding="latin-1",
-    ) as file_handle:
-        file_content: str = file_handle.read(-1)
+    file_contents: str = get_file_info_from_path(path)
     generator_dep = npm_package_json_dev.__wrapped__(  # type: ignore
-        file_content, path
+        file_contents, path
     )
     assertion: bool = True
     pkg_info = ("xmldom", "0.4.0")
