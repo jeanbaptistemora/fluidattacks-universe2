@@ -199,6 +199,12 @@ def test_validate_fields_deco() -> None:
 
     test_object = TestClass(field1="valid", field2=" valid=")
 
+    @validations.validate_fields_deco(["obj"])
+    def decorated_func_full_obj(obj: TestClass) -> TestClass:
+        return obj
+
+    assert decorated_func_full_obj(obj=test_object)
+
     @validations.validate_fields_deco(
         ["test_object.field1", "test_object.field2"]
     )

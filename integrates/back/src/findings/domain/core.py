@@ -809,14 +809,12 @@ def get_remaining_exposure(
     )
 
 
+@validations.validate_fields_deco(["description"])
 async def update_description(
     loaders: Dataloaders,
     finding_id: str,
     description: FindingDescriptionToUpdate,
 ) -> None:
-    validations.validate_fields(
-        list(filter(None, description._asdict().values()))
-    )
     if description.title:
         await findings_utils.is_valid_finding_title(description.title)
 

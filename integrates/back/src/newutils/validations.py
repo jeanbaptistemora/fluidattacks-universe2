@@ -42,6 +42,7 @@ from typing import (
     cast,
     Iterable,
     List,
+    NamedTuple,
     Optional,
     Set,
     Tuple,
@@ -101,6 +102,19 @@ def validate_fields(fields: Iterable[str]) -> None:
             check_field(field, regex)
 
 
+def isinstance_namedtuple(obj: object) -> bool:
+    return (
+        isinstance(obj, tuple)
+        and hasattr(obj, "_asdict")
+        and hasattr(obj, "_fields")
+    )
+
+
+def check_all_attr(obj: object, regex: str) -> None:
+    for val in list(cast(NamedTuple, obj)._asdict().values()):
+        check_field(str(val), regex)
+
+
 def validate_fields_deco(fields: Iterable[str]) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -113,14 +127,16 @@ def validate_fields_deco(fields: Iterable[str]) -> Callable:
 
             for field in fields:
                 value = kwargs.get(field)
-                if "." in field:
+                if isinstance_namedtuple(value):
+                    check_all_attr(value, regex)
+                elif "." in field:
                     obj_name, attr_name = field.split(".")
                     obj = kwargs.get(obj_name)
                     if obj_name in kwargs:
                         field_content = getattr(obj, attr_name)
                         if field_content:
                             check_field(str(field_content), regex)
-                if field in kwargs and value:
+                elif field in kwargs and value:
                     check_field(str(value), regex)
 
             return func(*args, **kwargs)

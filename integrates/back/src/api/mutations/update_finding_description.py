@@ -70,7 +70,9 @@ async def mutate(
             title=kwargs["title"],
         )
         await findings_domain.update_description(
-            info.context.loaders, finding_id, description
+            loaders=info.context.loaders,
+            finding_id=finding_id,
+            description=description,
         )
         logs_utils.cloudwatch_log(
             info.context,
