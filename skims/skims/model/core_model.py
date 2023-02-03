@@ -2763,6 +2763,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IS_TRAIL_BUCKET_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="is_trail_bucket_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_S3_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
         file_name="aws",
         name="s3_has_server_access_logging_disabled",

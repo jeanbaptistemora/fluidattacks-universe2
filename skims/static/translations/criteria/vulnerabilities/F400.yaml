@@ -26,3 +26,6 @@ src.lib_path.f400.tfm_has_logging_config_disabled:
 src.lib_path.f400.tfm_lambda_func_has_trace_disabled:
   en: Missing tracing_config property or is misconfigured to make traceability
   es: Falta la propiedad tracing_config o esta mal configurada para hacer trazabilidad
+src.lib_path.f400.is_trail_bucket_logging_disabled:
+  en: Trail buckets have logging disabled
+  es: Trail Buckets tienen el registro deshabilitado
