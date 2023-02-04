@@ -9,7 +9,6 @@ from contextlib import (
 from custom_exceptions import (
     StakeholderNotFound,
     StakeholderNotInGroup,
-    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -37,7 +36,6 @@ from db_model.groups.types import (
     Group,
 )
 from db_model.organization_access.types import (
-    OrganizationAccess,
     OrganizationAccessMetadataToUpdate,
     OrganizationAccessRequest,
 )
@@ -290,20 +288,15 @@ async def revoke_group_level_role(
 async def revoke_organization_level_role(
     loaders: Dataloaders, email: str, organization_id: str
 ) -> None:
-    with suppress(StakeholderNotInOrganization):
-        org_access: OrganizationAccess = (
-            await loaders.organization_access.load(
-                OrganizationAccessRequest(
-                    organization_id=organization_id, email=email
-                )
-            )
+    org_access = await loaders.organization_access.load(
+        OrganizationAccessRequest(organization_id=organization_id, email=email)
+    )
+    if org_access and org_access.role:
+        await organization_access_model.update_metadata(
+            email=email,
+            organization_id=organization_id,
+            metadata=OrganizationAccessMetadataToUpdate(role=""),
         )
-        if org_access.role:
-            await organization_access_model.update_metadata(
-                email=email,
-                organization_id=organization_id,
-                metadata=OrganizationAccessMetadataToUpdate(role=""),
-            )
 
 
 async def revoke_user_level_role(loaders: Dataloaders, email: str) -> None:

@@ -31,9 +31,9 @@ from typing import (
 
 
 async def _get_organization_access(
-    *, requests: list[OrganizationAccessRequest]
+    *, requests: Iterable[OrganizationAccessRequest]
 ) -> list[Optional[OrganizationAccess]]:
-    requests = [
+    requests_formatted = [
         request._replace(email=request.email.lower().strip())
         for request in requests
     ]
@@ -45,17 +45,17 @@ async def _get_organization_access(
                 "id": remove_org_id_prefix(request.organization_id),
             },
         )
-        for request in requests
+        for request in requests_formatted
     )
     items = await operations.batch_get_item(keys=primary_keys, table=TABLE)
-
     response = {
         OrganizationAccessRequest(
             organization_id=access.organization_id, email=access.email
         ): access
         for access in [format_organization_access(item) for item in items]
     }
-    return list(response.get(request) for request in requests)
+
+    return list(response.get(request) for request in requests_formatted)
 
 
 async def _get_organization_stakeholders_access(
@@ -135,10 +135,12 @@ async def _get_stakeholder_organizations_access(
     return access_list
 
 
-class OrganizationAccessLoader(DataLoader):
+class OrganizationAccessLoader(
+    DataLoader[OrganizationAccessRequest, Optional[OrganizationAccess]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[OrganizationAccessRequest]
+        self, requests: Iterable[OrganizationAccessRequest]
     ) -> list[Optional[OrganizationAccess]]:
         return await _get_organization_access(requests=requests)
 

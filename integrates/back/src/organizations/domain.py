@@ -374,11 +374,16 @@ async def get_access_by_url_token(
     except (KeyError, JWTExpired) as ex:
         raise InvalidAuthorization() from ex
 
-    return await loaders.organization_access.load(
-        OrganizationAccessRequest(
-            organization_id=organization_id, email=user_email
+    if (
+        access := await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=user_email
+            )
         )
-    )
+    ) is None:
+        raise StakeholderNotInOrganization()
+
+    return access
 
 
 async def get_all_groups(
@@ -529,9 +534,15 @@ async def get_stakeholder_role(
     is_registered: bool,
     organization_id: str,
 ) -> str:
-    org_access: OrganizationAccess = await loaders.organization_access.load(
-        OrganizationAccessRequest(organization_id=organization_id, email=email)
-    )
+    if (
+        org_access := await loaders.organization_access.load(
+            OrganizationAccessRequest(
+                organization_id=organization_id, email=email
+            )
+        )
+    ) is None:
+        raise StakeholderNotInOrganization()
+
     invitation_state = format_invitation_state(
         org_access.invitation, is_registered
     )
