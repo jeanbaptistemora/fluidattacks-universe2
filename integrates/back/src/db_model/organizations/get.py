@@ -21,7 +21,6 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     ErrorLoadingOrganizations,
-    OrganizationNotFound,
 )
 from db_model import (
     TABLE,
@@ -36,6 +35,7 @@ from dynamodb import (
 from typing import (
     AsyncIterator,
     Iterable,
+    Optional,
 )
 
 
@@ -67,7 +67,9 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
         yield organization
 
 
-async def _get_organization_by_id(*, organization_id: str) -> Organization:
+async def _get_organization_by_id(
+    *, organization_id: str
+) -> Optional[Organization]:
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={"id": remove_org_id_prefix(organization_id)},
@@ -85,12 +87,14 @@ async def _get_organization_by_id(*, organization_id: str) -> Organization:
     )
 
     if not response.items:
-        raise OrganizationNotFound()
+        return None
 
     return format_organization(response.items[0])
 
 
-async def _get_organization_by_name(*, organization_name: str) -> Organization:
+async def _get_organization_by_name(
+    *, organization_name: str
+) -> Optional[Organization]:
     organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
@@ -112,22 +116,24 @@ async def _get_organization_by_name(*, organization_name: str) -> Organization:
     )
 
     if not response.items:
-        raise OrganizationNotFound()
+        return None
 
     return format_organization(response.items[0])
 
 
-async def _get_organization(*, organization_key: str) -> Organization:
+async def _get_organization(
+    *, organization_key: str
+) -> Optional[Organization]:
     if organization_key.startswith(ORGANIZATION_ID_PREFIX):
         return await _get_organization_by_id(organization_id=organization_key)
     return await _get_organization_by_name(organization_name=organization_key)
 
 
-class OrganizationLoader(DataLoader[str, Organization]):
+class OrganizationLoader(DataLoader[str, Optional[Organization]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_keys: Iterable[str]
-    ) -> list[Organization]:
+    ) -> list[Optional[Organization]]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
         organizations = await collect(
             tuple(
@@ -136,8 +142,9 @@ class OrganizationLoader(DataLoader[str, Organization]):
             )
         )
         for organization in organizations:
-            self.prime(organization.id, organization)
-            self.prime(organization.name, organization)
+            if organization:
+                self.prime(organization.id, organization)
+                self.prime(organization.name, organization)
 
         return list(organizations)
 

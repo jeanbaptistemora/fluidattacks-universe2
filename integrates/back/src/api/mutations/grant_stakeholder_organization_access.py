@@ -22,9 +22,6 @@ from db_model.organization_access.enums import (
 from db_model.organization_access.types import (
     OrganizationAccessRequest,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -48,6 +45,7 @@ from newutils.utils import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -64,9 +62,7 @@ async def mutate(
 ) -> GrantStakeholderAccessPayload:
     loaders: Dataloaders = info.context.loaders
     organization_id = str(parameters.get("organization_id"))
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await orgs_utils.get_organization(loaders, organization_id)
     organization_name = organization.name
     requester_data = await sessions_domain.get_jwt_content(info.context)
     requester_email = requester_data["user_email"]

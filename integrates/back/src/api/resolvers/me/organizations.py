@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -9,6 +12,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     organizations as orgs_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 from typing import (
     Any,
@@ -28,6 +34,11 @@ async def resolve(
     organization_ids: list[str] = [
         org.organization_id for org in stakeholder_orgs
     ]
-    organizations = await loaders.organization.load_many(organization_ids)
+    organizations = await collect(
+        list(
+            get_organization(loaders, organization_id)
+            for organization_id in organization_ids
+        )
+    )
 
     return orgs_utils.filter_active_organizations(tuple(organizations))

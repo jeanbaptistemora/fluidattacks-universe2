@@ -12,8 +12,8 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
+from organizations.utils import (
+    get_organization,
 )
 import pytest
 from typing import (
@@ -182,9 +182,7 @@ async def test_get_group_policies_inheritance(
     organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     result: dict[str, Any] = await get_result(user=email, group=group_name)
     if is_inheritance:
-        organization: Organization = await loaders.organization.load(
-            organization_id
-        )
+        organization = await get_organization(loaders, organization_id)
         assert (
             result["data"]["group"]["maxAcceptanceDays"]
             == organization.policies.max_acceptance_days

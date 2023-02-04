@@ -96,9 +96,6 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderMetadataToUpdate,
@@ -161,6 +158,7 @@ from notifications import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 import re
 from roots import (
@@ -354,8 +352,8 @@ async def add_group(
     if not description.strip() or not group_name.strip():
         raise InvalidParameter()
 
-    organization: Organization = await loaders.organization.load(
-        organization_name
+    organization = await orgs_utils.get_organization(
+        loaders, organization_name
     )
     if not await orgs_domain.has_access(loaders, organization.id, email):
         raise StakeholderNotInOrganization(organization.id)
@@ -554,8 +552,8 @@ async def update_group_managed(
             raise InvalidManagedChange()
 
         if managed == "MANAGED":
-            organization: Organization = await loaders.organization.load(
-                group.organization_id
+            organization = await orgs_utils.get_organization(
+                loaders, group.organization_id
             )
             await notifications_domain.request_managed(
                 group_name=group_name,
@@ -620,8 +618,8 @@ async def update_group(
     tier: GroupTier = GroupTier.OTHER,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
     )
     restricted_in_trial = (
         has_squad
@@ -2057,8 +2055,8 @@ async def send_mail_policies(
     responsible: str,
 ) -> None:
     group_data: Group = await loaders.group.load(group_name)
-    organization_data: Organization = await loaders.organization.load(
-        group_data.organization_id
+    organization_data = await orgs_utils.get_organization(
+        loaders, group_data.organization_id
     )
 
     policies_content: dict[str, Any] = {}

@@ -14,9 +14,6 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.types import (
     PoliciesToUpdate,
 )
@@ -28,6 +25,7 @@ from group_access import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from organizations.domain import (
     iterate_organizations_and_groups,
@@ -47,7 +45,7 @@ async def test_get_id_by_name() -> None:
     org_name = "okada"
     expected_org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization.load(org_name)
+    organization = await orgs_utils.get_organization(loaders, org_name)
     org_id = organization.id
     assert org_id == expected_org_id
 
@@ -56,7 +54,7 @@ async def test_get_name_by_id() -> None:
     loaders: Dataloaders = get_new_context()
     org_id = "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"
     expected_org_name = "okada"
-    organization: Organization = await loaders.organization.load(org_id)
+    organization = await orgs_utils.get_organization(loaders, org_id)
     org_name = organization.name
     assert org_name == expected_org_name
 

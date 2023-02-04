@@ -20,14 +20,14 @@ from db_model.credentials.types import (
     OauthBitbucketSecret,
     SshSecret,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.roots.types import (
     Root,
 )
 from newutils.datetime import (
     get_now_minus_delta,
+)
+from organizations.utils import (
+    get_organization,
 )
 import pytest
 from roots import (
@@ -257,7 +257,7 @@ async def test_working_credentials() -> None:
 
 async def test_is_git_unique() -> None:
     loaders = get_new_context()
-    organization: Organization = await loaders.organization.load("okada")
+    organization = await get_organization(loaders, "okada")
     roots = tuple(await loaders.organization_roots.load(organization.name))
     assert not is_git_unique(
         url="https://gitlab.com/fluidattacks/universe",

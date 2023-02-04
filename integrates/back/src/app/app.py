@@ -71,9 +71,6 @@ from dataloaders import (
 from db_model.organization_access.types import (
     OrganizationAccess,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     authenticate_session,
 )
@@ -99,6 +96,7 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from remove_stakeholder import (
     domain as remove_stakeholder_domain,
@@ -242,8 +240,8 @@ async def confirm_access_organization(request: Request) -> HTMLResponse:
             await orgs_domain.complete_register_for_organization_invitation(
                 loaders, organization_access
             )
-            organization: Organization = await loaders.organization.load(
-                organization_access.organization_id
+            organization = await orgs_utils.get_organization(
+                loaders, organization_access.organization_id
             )
             response = await templates.valid_invitation(
                 request, organization.name
@@ -306,8 +304,8 @@ async def reject_access_organization(request: Request) -> HTMLResponse:
                     organization_access
                 )
             )
-            organization: Organization = await loaders.organization.load(
-                organization_access.organization_id
+            organization = await orgs_utils.get_organization(
+                loaders, organization_access.organization_id
             )
             response = await templates.reject_invitation(
                 request, organization.name

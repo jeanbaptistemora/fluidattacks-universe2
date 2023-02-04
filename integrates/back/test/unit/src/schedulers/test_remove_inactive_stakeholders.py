@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.types import (
     PoliciesToUpdate,
 )
@@ -16,6 +13,7 @@ from freezegun import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 import pytest
 from schedulers import (
@@ -32,7 +30,7 @@ pytestmark = [
 async def test_remove_inactive_stakeholders() -> None:
     org_name = "imamura"
     loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization.load(org_name)
+    organization = await orgs_utils.get_organization(loaders, org_name)
     org_id = organization.id
     org_stakeholders = await orgs_domain.get_stakeholders(loaders, org_id)
     org_stakeholders_emails = [

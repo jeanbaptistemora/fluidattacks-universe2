@@ -7,9 +7,6 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     enforce_organization_level_auth_async,
 )
@@ -21,6 +18,7 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -38,9 +36,7 @@ async def mutate(
     user_data = await sessions_domain.get_jwt_content(info.context)
     requester_email = user_data["user_email"]
     loaders: Dataloaders = info.context.loaders
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await orgs_utils.get_organization(loaders, organization_id)
 
     await orgs_domain.remove_access(
         organization_id,

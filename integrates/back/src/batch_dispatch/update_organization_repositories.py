@@ -8,20 +8,18 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from organizations.domain import (
     get_all_active_group_names,
+)
+from organizations.utils import (
+    get_organization,
 )
 
 
 async def update_organization_repositories(*, item: BatchProcessing) -> None:
     organization_id: str = f'ORG#{item.entity.lstrip("org#")}'
     loaders: Dataloaders = get_new_context()
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     all_group_names: set[str] = set(await get_all_active_group_names(loaders))
 
     await update_repositories(

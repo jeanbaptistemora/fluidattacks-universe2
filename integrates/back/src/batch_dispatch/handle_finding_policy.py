@@ -21,13 +21,13 @@ from db_model.organization_finding_policies.types import (
     OrgFindingPolicy,
     OrgFindingPolicyRequest,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 import logging
 import logging.config
 from newutils import (
     groups as groups_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 from organizations_finding_policies.domain import (
     update_finding_policy_in_groups,
@@ -74,9 +74,7 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
         PolicyStateStatus.APPROVED,
         PolicyStateStatus.INACTIVE,
     }:
-        organization: Organization = await loaders.organization.load(
-            organization_name
-        )
+        organization = await get_organization(loaders, organization_name)
         organization_id: str = organization.id
         groups: list[Group] = await loaders.organization_groups.load(
             organization_id

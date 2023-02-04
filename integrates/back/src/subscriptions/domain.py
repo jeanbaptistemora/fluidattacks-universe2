@@ -26,9 +26,6 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -55,6 +52,7 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from settings import (
     LOGGING,
@@ -178,7 +176,7 @@ async def _send_mail_analytics(
         return
 
     if entity == SubscriptionEntity.ORGANIZATION:
-        organization: Organization = await loaders.organization.load(subject)
+        organization = await orgs_utils.get_organization(loaders, subject)
         subject = organization.name
     elif entity == SubscriptionEntity.PORTFOLIO:
         subject = subject.split("PORTFOLIO#")[-1]

@@ -7,9 +7,6 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.portfolios.types import (
     Portfolio,
 )
@@ -21,6 +18,9 @@ from graphql.type.definition import (
 )
 from groups import (
     domain as groups_domain,
+)
+from organizations.utils import (
+    get_organization,
 )
 from typing import (
     Any,
@@ -35,14 +35,11 @@ async def resolve(
     **kwargs: str,
 ) -> list[Portfolio]:
     loaders: Dataloaders = info.context.loaders
-    organization_loader = loaders.organization
     organization_tags_loader = loaders.organization_portfolios
     user_email = str(parent["user_email"])
     organization_id: str = kwargs["organization_id"]
 
-    organization: Organization = await organization_loader.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     org_tags = await organization_tags_loader.load(organization.name)
     user_groups = await groups_domain.get_groups_by_stakeholder(
         loaders, user_email, organization_id=organization_id

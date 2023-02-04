@@ -64,9 +64,6 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
@@ -106,6 +103,9 @@ from newutils import (
     files as files_utils,
     validations,
     vulnerabilities as vulns_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 import pytz
 import random
@@ -203,9 +203,7 @@ async def add_event(
 ) -> str:
     root_id: Optional[str] = kwargs.get("root_id")
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
-    )
+    organization = await get_organization(loaders, group.organization_id)
     if root_id:
         root = await roots_domain.get_root(loaders, root_id, group_name)
         root_id = root.id

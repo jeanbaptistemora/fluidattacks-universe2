@@ -47,6 +47,9 @@ from newutils import (
 from newutils.validations import (
     validate_email_address_deco,
 )
+from organizations.utils import (
+    get_organization,
+)
 from settings import (
     LOGGING,
 )
@@ -98,8 +101,8 @@ async def add_enrollment(
     stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
         user_email
     )
-    organization: Organization = await loaders.organization.load(
-        stakeholder_orgs[0].organization_id
+    organization = await get_organization(
+        loaders, stakeholder_orgs[0].organization_id
     )
     group_names = await group_access_domain.get_stakeholder_groups_names(
         loaders, user_email, True

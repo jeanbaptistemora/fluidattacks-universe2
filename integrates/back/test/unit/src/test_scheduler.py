@@ -9,9 +9,6 @@ from db_model.groups.types import (
     GroupTreatmentSummary,
     GroupUnreliableIndicators,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.portfolios.types import (
     Portfolio,
 )
@@ -30,6 +27,9 @@ from newutils import (
 )
 from organizations.domain import (
     iterate_organizations,
+)
+from organizations.utils import (
+    get_organization,
 )
 import pytest
 from schedulers import (
@@ -200,9 +200,7 @@ async def test_delete_obsolete_orgs() -> None:
 
     new_org_ids = []
     async for organization in iterate_organizations():
-        new_org: Organization = await loaders.organization.load(
-            organization.id
-        )
+        new_org = await get_organization(loaders, organization.id)
         if not orgs_utils.is_deleted(new_org):
             new_org_ids.append(organization.id)
     assert org_id not in new_org_ids
@@ -210,7 +208,7 @@ async def test_delete_obsolete_orgs() -> None:
 
     loaders = get_new_context()
     org_id = "ORG#ffddc7a3-7f05-4fc7-b65d-7defffa883c2"
-    test_org: Organization = await loaders.organization.load(org_id)
+    test_org = await get_organization(loaders, org_id)
     org_pending_deletion_date = test_org.state.pending_deletion_date
     assert org_pending_deletion_date
     assert org_pending_deletion_date == datetime.fromisoformat(
@@ -218,6 +216,6 @@ async def test_delete_obsolete_orgs() -> None:
     )
 
     org_name = "okada"
-    test_org = await loaders.organization.load(org_name)
+    test_org = await get_organization(loaders, org_name)
     org_pending_deletion_date = test_org.state.pending_deletion_date
     assert org_pending_deletion_date is None

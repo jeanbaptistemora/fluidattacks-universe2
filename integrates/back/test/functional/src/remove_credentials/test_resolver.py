@@ -4,11 +4,11 @@ from . import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.roots.types import (
     GitRoot,
+)
+from organizations.utils import (
+    get_organization,
 )
 import pytest
 from typing import (
@@ -69,9 +69,7 @@ async def test_remove_credentials(
         None,
     )
     assert new_credentials is None
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     organization_git_roots = tuple(
         root
         for root in await loaders.organization_roots.load(organization.name)

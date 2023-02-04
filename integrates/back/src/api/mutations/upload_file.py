@@ -16,9 +16,6 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -35,6 +32,9 @@ from graphql.type.definition import (
 from newutils import (
     files as files_utils,
     logs as logs_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 from organizations_finding_policies import (
     domain as policies_domain,
@@ -72,9 +72,7 @@ async def mutate(
             file_input, ["text/x-yaml", "text/plain", "text/html"]
         )
         group: Group = await loaders.group.load(finding.group_name)
-        organization: Organization = await loaders.organization.load(
-            group.organization_id
-        )
+        organization = await get_organization(loaders, group.organization_id)
         finding_policy = await policies_domain.get_finding_policy_by_name(
             loaders=loaders,
             finding_name=finding.title.lower(),

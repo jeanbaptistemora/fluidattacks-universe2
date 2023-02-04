@@ -48,9 +48,6 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from httpx import (
     ConnectTimeout,
 )
@@ -79,6 +76,9 @@ from oauth.gitlab import (
 )
 from organizations.domain import (
     has_access,
+)
+from organizations.utils import (
+    get_organization,
 )
 from organizations.validations import (
     validate_credentials_name_in_organization,
@@ -248,9 +248,7 @@ async def oauth_gitlab(
         )
     )
     await credentials_model.add(credential=credential)
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     await _put_action(
         organization_id=organization_id, credentials_id=credentials_id
     )
@@ -347,9 +345,7 @@ async def oauth_github(request: Request) -> RedirectResponse:
         )
     )
     await credentials_model.add(credential=credential)
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     await _put_action(
         organization_id=organization_id, credentials_id=credentials_id
     )
@@ -444,9 +440,7 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
         )
     )
     await credentials_model.add(credential=credential)
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     await _put_action(
         organization_id=organization_id, credentials_id=credentials_id
     )
@@ -552,9 +546,7 @@ async def oauth_azure(
         )
     )
     await credentials_model.add(credential=credential)
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     await _put_action(
         organization_id=organization_id, credentials_id=credentials_id
     )

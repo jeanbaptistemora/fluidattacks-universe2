@@ -22,9 +22,6 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -40,6 +37,9 @@ from groups import (
 )
 from newutils import (
     logs as logs_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 from sessions import (
     domain as sessions_domain,
@@ -68,7 +68,7 @@ async def mutate(
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     group: Group = await loaders.group.load(group_name)
-    org: Organization = await loaders.organization.load(group.organization_id)
+    org = await get_organization(loaders, group.organization_id)
     payment_methods = await billing_domain.customer_payment_methods(org=org)
     payment_method: PaymentMethod = list(
         filter(

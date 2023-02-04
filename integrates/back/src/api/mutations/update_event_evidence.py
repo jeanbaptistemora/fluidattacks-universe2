@@ -13,9 +13,6 @@ from db_model.events.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -30,6 +27,9 @@ from graphql.type.definition import (
 )
 from newutils.datetime import (
     get_now,
+)
+from organizations.utils import (
+    get_organization,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -53,9 +53,7 @@ async def mutate(
     evidence_id = EventEvidenceId[evidence_type]
     event = await events_domain.get_event(loaders, event_id)
     group: Group = await loaders.group.load(event.group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
-    )
+    organization = await get_organization(loaders, group.organization_id)
     await events_domain.validate_evidence(
         group_name=group.name.lower(),
         organization_name=organization.name.lower(),

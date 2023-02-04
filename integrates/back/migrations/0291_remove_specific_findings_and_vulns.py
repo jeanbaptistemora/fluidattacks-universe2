@@ -22,14 +22,14 @@ from db_model.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from findings import (
     domain as findings_domain,
 )
 from newutils import (
     groups as groups_utils,
+)
+from organizations.utils import (
+    get_organization,
 )
 import time
 from typing import (
@@ -90,7 +90,7 @@ async def _process_organization(
     loaders: Dataloaders, org_name: str
 ) -> list[dict[str, Any]]:
     print(f"Working on {org_name=}...")
-    organization: Organization = await loaders.organization.load(org_name)
+    organization = await get_organization(loaders, org_name)
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
     )

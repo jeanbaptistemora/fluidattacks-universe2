@@ -17,15 +17,13 @@ from db_model import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.portfolios.types import (
     Portfolio,
     PortfolioRequest,
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from typing import (
     Optional,
@@ -65,7 +63,7 @@ async def filter_allowed_tags(
 async def has_access(loaders: Dataloaders, email: str, subject: str) -> bool:
     with suppress(ValueError):
         org_id, portfolio = subject.split("PORTFOLIO#")
-        organization: Organization = await loaders.organization.load(org_id)
+        organization = await orgs_utils.get_organization(loaders, org_id)
         organization_name = organization.name
         portfolio_info: Optional[Portfolio] = await loaders.portfolio.load(
             PortfolioRequest(

@@ -29,6 +29,7 @@ from groups import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -76,7 +77,9 @@ async def resolve(
     allowed_tags: list[str]
     portfolio: Portfolio
     if organization_id:
-        organization = await loaders.organization.load(organization_id)
+        organization = await orgs_utils.get_organization(
+            loaders, organization_id
+        )
         org_group_names_filtered = [
             group_name
             for group_name in user_group_names_filtered
@@ -100,7 +103,9 @@ async def resolve(
 
         raise PortfolioNotFound()
 
-    organization = await loaders.organization.load(group.organization_id)
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
+    )
     org_group_names_filtered = [
         group_name
         for group_name in user_group_names_filtered

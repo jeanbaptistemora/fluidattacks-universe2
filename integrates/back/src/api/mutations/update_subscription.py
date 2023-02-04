@@ -13,9 +13,6 @@ from dataloaders import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -23,6 +20,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations.utils import (
+    get_organization,
 )
 from typing import (
     Any,
@@ -41,7 +41,7 @@ async def mutate(
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(kwargs["group_name"])
-    org: Organization = await loaders.organization.load(group.organization_id)
+    org = await get_organization(loaders, group.organization_id)
 
     # Update subscription
     result: bool = await billing_domain.update_subscription(

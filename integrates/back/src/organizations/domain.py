@@ -1,4 +1,7 @@
 # pylint:disable=too-many-lines
+from .utils import (
+    get_organization,
+)
 from aioextensions import (
     collect,
     schedule,
@@ -456,7 +459,7 @@ async def get_group_names(
 
 async def exists(loaders: Dataloaders, organization_name: str) -> bool:
     try:
-        await loaders.organization.load(organization_name.lower().strip())
+        await get_organization(loaders, organization_name.lower().strip())
         return True
     except OrganizationNotFound:
         return False
@@ -602,9 +605,7 @@ async def invite_to_organization(
     expiration_time = datetime_utils.get_as_epoch(
         datetime_utils.get_now_plus_delta(weeks=1)
     )
-    organization: Organization = await loaders.organization.load(
-        organization_name
-    )
+    organization = await get_organization(loaders, organization_name)
     organization_id = organization.id
     url_token = sessions_domain.encode_token(
         expiration_time=expiration_time,
@@ -666,9 +667,7 @@ async def remove_credentials(
     credentials_id: str,
     modified_by: str,
 ) -> None:
-    organization: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization = await get_organization(loaders, organization_id)
     organization_roots = await loaders.organization_roots.load(
         organization.name
     )
@@ -998,9 +997,7 @@ async def send_mail_policies(
     responsible: str,
     modified_date: datetime,
 ) -> None:
-    organization_data: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization_data = await get_organization(loaders, organization_id)
     policies_content: dict[str, Any] = {}
     for key, val in new_policies.items():
         old_value = organization_data.policies._asdict().get(key)
@@ -1042,9 +1039,7 @@ async def validate_acceptance_severity_range(
     loaders: Dataloaders, organization_id: str, values: PoliciesToUpdate
 ) -> bool:
     success: bool = True
-    organization_data: Organization = await loaders.organization.load(
-        organization_id
-    )
+    organization_data = await get_organization(loaders, organization_id)
     min_acceptance_severity = (
         organization_data.policies.min_acceptance_severity
     )

@@ -57,6 +57,7 @@ from newutils.utils import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -587,8 +588,8 @@ def require_organization_access(func: TVar) -> TVar:
         user_data = await sessions_domain.get_jwt_content(context)
         user_email = user_data["user_email"]
         loaders = context.loaders
-        organization: Organization = await loaders.organization.load(
-            organization_identifier
+        organization = await orgs_utils.get_organization(
+            loaders, organization_identifier
         )
         organization_id = organization.id
         role, has_access = await collect(

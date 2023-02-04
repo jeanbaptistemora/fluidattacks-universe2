@@ -119,6 +119,9 @@ from newutils.vulnerabilities import (
     ignore_advisories,
     is_machine_vuln,
 )
+from organizations.utils import (
+    get_organization,
+)
 from organizations_finding_policies import (
     domain as policies_domain,
 )
@@ -1225,8 +1228,8 @@ async def process_execution(
             rules_finding = (*rules_finding, (criteria_vuln_id, None))
 
     organization_name = (
-        await loaders.organization.load(
-            (await loaders.group.load(group_name)).organization_id
+        await get_organization(
+            loaders, (await loaders.group.load(group_name)).organization_id
         )
     ).name
     await collect(

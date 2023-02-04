@@ -57,9 +57,6 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -91,6 +88,7 @@ from newutils.validations import (
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 import os
 from s3.operations import (
@@ -577,8 +575,8 @@ async def process_group(
     progress: float,
 ) -> None:
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
     )
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
 

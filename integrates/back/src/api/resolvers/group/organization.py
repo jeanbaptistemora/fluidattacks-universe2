@@ -10,6 +10,9 @@ from db_model.organizations.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from organizations.utils import (
+    get_organization,
+)
 
 
 async def resolve(
@@ -18,7 +21,7 @@ async def resolve(
 ) -> str:
     loaders: Dataloaders = info.context.loaders
     org_id = parent.organization_id
-    organization: Organization = await loaders.organization.load(org_id)
+    organization: Organization = await get_organization(loaders, org_id)
     organization_name = organization.name
 
     return organization_name

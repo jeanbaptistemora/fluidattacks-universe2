@@ -13,15 +13,16 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Optional,
+)
 
 
 @require_organization_access
 async def resolve(
     parent: Credentials,
     info: GraphQLResolveInfo,
-) -> Organization:
+) -> Optional[Organization]:
     loaders: Dataloaders = info.context.loaders
-    organization: Organization = await loaders.organization.load(
-        parent.organization_id
-    )
+    organization = await loaders.organization.load(parent.organization_id)
     return organization

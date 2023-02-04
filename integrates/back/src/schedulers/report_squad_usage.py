@@ -14,14 +14,12 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from newutils import (
     bugsnag as bugsnag_utils,
 )
 from organizations import (
     domain as orgs_domain,
+    utils as orgs_utils,
 )
 
 bugsnag_utils.start_scheduler_session()
@@ -36,8 +34,11 @@ async def main() -> None:
     squad_orgs_ids: list[str] = [
         group.organization_id for group in squad_groups
     ]
-    squad_orgs: list[Organization] = await loaders.organization.load_many(
-        squad_orgs_ids
+    squad_orgs = await collect(
+        list(
+            orgs_utils.get_organization(loaders, squad_orgs_id)
+            for squad_orgs_id in squad_orgs_ids
+        )
     )
     await collect(
         [

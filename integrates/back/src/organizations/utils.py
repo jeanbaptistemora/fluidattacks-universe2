@@ -2,6 +2,10 @@ import base64
 import binascii
 from custom_exceptions import (
     InvalidBase64SshKey,
+    OrganizationNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.credentials.types import (
     HttpsPatSecret,
@@ -10,6 +14,9 @@ from db_model.credentials.types import (
 )
 from db_model.enums import (
     CredentialType,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from typing import (
     Union,
@@ -38,3 +45,13 @@ def format_credentials_secret_type(
             return HttpsPatSecret(token=item["token"])
         return HttpsSecret(user=item["user"], password=item["password"])
     return SshSecret(key=format_credentials_ssh_key(item["key"]))
+
+
+async def get_organization(
+    loaders: Dataloaders, organization_key: str
+) -> Organization:
+    organization = await loaders.organization.load(organization_key)
+    if not organization:
+        raise OrganizationNotFound()
+
+    return organization

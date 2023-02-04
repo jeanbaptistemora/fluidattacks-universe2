@@ -15,6 +15,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Optional,
+)
 
 
 @convert_kwargs_to_snake_case
@@ -24,7 +27,7 @@ from graphql.type.definition import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> Organization:
+) -> Optional[Organization]:
     loaders: Dataloaders = info.context.loaders
     organization_name: str = kwargs["organization_name"]
 

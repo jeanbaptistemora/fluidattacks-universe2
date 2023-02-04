@@ -60,6 +60,9 @@ from mypy_boto3_dynamodb import (
 from newutils.vulnerabilities import (
     range_to_list,
 )
+from organizations.utils import (
+    get_organization,
+)
 import os
 import pytest
 from s3 import (
@@ -422,10 +425,10 @@ async def test_organization_not_found(
     mock_table_resource.return_value.query.side_effect = mock_query
     with pytest.raises(OrganizationNotFound):
         loaders: Dataloaders = get_new_context()
-        await loaders.organization.load("madeup-org")
+        await get_organization(loaders, "madeup-org")
     with pytest.raises(OrganizationNotFound):
         new_loader: Dataloaders = get_new_context()
-        await new_loader.organization.load("ORG#madeup-id")
+        await get_organization(new_loader, "ORG#madeup-id")
     assert mock_table_resource.called is True
 
 

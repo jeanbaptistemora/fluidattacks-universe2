@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     in_thread,
 )
 from context import (
@@ -25,9 +26,6 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -46,6 +44,9 @@ from newutils import (
 )
 from notifications import (
     dal as notifications_dal,
+)
+from organizations.utils import (
+    get_organization,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -119,7 +120,7 @@ async def delete_group(
 ) -> None:
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
-    organization: Organization = await loaders.organization.load(org_id)
+    organization = await get_organization(loaders, org_id)
     org_name = organization.name
     roles: set[str] = {"customer_manager", "user_manager"}
     users_email = (
@@ -406,7 +407,7 @@ async def request_vulnerability_zero_risk(
 
     group: Group = await loaders.group.load(group_name)
     org_id = group.organization_id
-    organization: Organization = await loaders.organization.load(org_id)
+    organization = await get_organization(loaders, org_id)
     org_name = organization.name
     finding_url = (
         f"{BASE_URL}/orgs/{org_name}/groups/{group_name}/vulns/"
@@ -454,9 +455,12 @@ async def request_groups_upgrade(
     user_email: str,
     groups: tuple[Group, ...],
 ) -> None:
-    organization_ids = set(group.organization_id for group in groups)
-    organizations = await loaders.organization.load_many(
-        list(organization_ids)
+    organization_ids = list(group.organization_id for group in groups)
+    organizations = await collect(
+        list(
+            get_organization(loaders, organization_id)
+            for organization_id in organization_ids
+        )
     )
     organizations_message = "".join(
         f"""

@@ -27,9 +27,6 @@ from db_model.findings.types import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from findings import (
     storage as findings_storage,
 )
@@ -49,6 +46,9 @@ from newutils import (
 )
 from newutils.reports import (
     get_extension,
+)
+from organizations.utils import (
+    get_organization,
 )
 from settings import (
     LOGGING,
@@ -135,9 +135,7 @@ async def validate_filename(
     loaders: Dataloaders, filename: str, finding: Finding
 ) -> None:
     group: Group = await loaders.group.load(finding.group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
-    )
+    organization = await get_organization(loaders, group.organization_id)
     filename = filename.lower()
     validate_evidencename(
         organization_name=organization.name.lower(),

@@ -305,8 +305,8 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise PermissionDenied()
     if not validations.is_exclude_valid(gitignore, url):
         raise InvalidRootExclusion()
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
     )
     if (
         ensure_org_uniqueness
@@ -396,8 +396,8 @@ async def add_ip_root(
         raise InvalidParameter()
 
     group: Group = await loaders.group.load(group_name)
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
     )
     organization_name = organization.name
     if (
@@ -486,8 +486,8 @@ async def add_url_root(  # pylint: disable=too-many-locals
         if host not in {file.file_name for file in group.files or []}:
             raise FileNotFound()
 
-    organization: Organization = await loaders.organization.load(
-        group.organization_id
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
     )
     organization_name = organization.name
     if fragment:
@@ -769,8 +769,8 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     if url != root.state.url:
         if await loaders.root_vulnerabilities.load(root.id):
             raise HasVulns()
-        organization: Organization = await loaders.organization.load(
-            group.organization_id
+        organization = await orgs_utils.get_organization(
+            loaders, group.organization_id
         )
         organization_name = organization.name
         if not validations.is_git_unique(
@@ -1170,8 +1170,8 @@ async def activate_root(
 
     if root.state.status != new_status:
         group: Group = await loaders.group.load(group_name)
-        organization: Organization = await loaders.organization.load(
-            group.organization_id
+        organization = await orgs_utils.get_organization(
+            loaders, group.organization_id
         )
         organization_name = organization.name
         org_roots = await loaders.organization_roots.load(organization_name)
