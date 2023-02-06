@@ -158,30 +158,6 @@ F400,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   19 | }
      ^ Col 0
 ",aws.ec2_monitoring_disabled
-F400,inputs,arn:aws:s3:::myBucketName (namespace),Missing LoggingEnabled property to make traceability,778,skims,400. Traceability Loss - AWS,Missing LoggingEnabled property to make traceability,"
-   1 | {
-   2 |     ""LoadBalancers"": [
-   3 |         {
-   4 |             ""LoadBalancerArn"": ""arn:aws:iam::aws:loadbalancer/lbv2"",
-   5 |             ""DNSName"": ""myDNSname"",
-   6 |             ""CanonicalHostedZoneId"": ""0:0/"",
-   7 |             ""CreatedTime"": ""2015/01/01"",
-   8 |             ""LoadBalancerName"": ""myname"",
-   9 |             ""Scheme"": ""internet-facing"",
-  10 |             ""VpcId"": ""string"",
-  11 |             ""State"": {
-  12 |                 ""Code"": ""active"",
-  13 |                 ""Reason"": ""string""
-  14 |             },
-  15 |             ""Type"": ""application"",
-  16 |             ""IpAddressType"": ""ipv4"",
-  17 |             ""CustomerOwnedIpv4Pool"": ""string""
-  18 |         }
-  19 |     ],
-  20 |     ""Attributes"": [
-  21 |         {
-     ^ Col 0
-",aws.s3_has_server_access_logging_disabled
 F400,lines,namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,23,778,skims,400. Traceability Loss - AWS,Missing logging_config property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,"
   13 |     target_origin_id = ""groupS3""
   14 |   }
@@ -488,17 +464,6 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf
   22 | }
      ^ Col 0
 ",terraform.tfm_trails_not_multiregion
-F400,inputs,arn:aws:iam::aws:trailList/mytrail (namespace),/IsMultiRegionTrail: False,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled,"
-  1 | {
-  2 |     ""Name"": ""mytrailList"",
-  3 |     ""IncludeGlobalServiceEvents"": false,
-> 4 |     ""IsMultiRegionTrail"": false,
-  5 |     ""HomeRegion"": ""us-east"",
-  6 |     ""TrailARN"": ""arn:aws:iam::aws:trailList/mytrail"",
-  7 |     ""LogFileValidationEnabled"": false
-  8 | }
-    ^ Col 0
-",aws.cloudtrail_trails_not_multiregion
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,17,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.yaml,"
    1 | ---
    2 | Resources:

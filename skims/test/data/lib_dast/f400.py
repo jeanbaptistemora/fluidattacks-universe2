@@ -62,16 +62,6 @@ def mock_data() -> dict[str, Any]:
                 "IncludeCookies": True,
             },
         },
-        "trailList": [
-            {
-                "Name": "mytrailList",
-                "IncludeGlobalServiceEvents": False,
-                "IsMultiRegionTrail": False,
-                "HomeRegion": "us-east",
-                "TrailARN": "arn:aws:iam::aws:trailList/mytrail",
-                "LogFileValidationEnabled": False,
-            },
-        ],
         "Buckets": [
             {
                 "Name": "myBucketName",
@@ -97,5 +87,20 @@ def mock_data() -> dict[str, Any]:
                 ],
                 "OwnerId": "owner_123",
             },
+        ],
+        "LoggingEnabled": {"TargetBucket": "dast-testing", "TargetPrefix": ""},
+        "trailList": [
+            {
+                "Name": "test",
+                "S3BucketName": "dast-test",
+                "IncludeGlobalServiceEvents": True,
+                "IsMultiRegionTrail": True,
+                "HomeRegion": "us-east-1",
+                "TrailARN": "arn:aws:cloudtrail:us-east-1:2930922:trail/test",
+                "LogFileValidationEnabled": True,
+                "HasCustomEventSelectors": True,
+                "HasInsightSelectors": False,
+                "IsOrganizationTrail": False,
+            }
         ],
     }

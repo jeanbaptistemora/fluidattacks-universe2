@@ -163,6 +163,51 @@ async def cloudtrail_trails_not_multiregion(
     return vulns
 
 
+async def is_trail_bucket_logging_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudtrail", function="describe_trails"
+    )
+    method = core_model.MethodsEnum.AWS_IS_TRAIL_BUCKET_LOGGING_DISABLED
+    trails = response.get("trailList", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    if trails:
+        for trail in trails:
+            locations: List[Location] = []
+            t_arn = trail["TrailARN"]
+            t_bucket = trail["S3BucketName"]
+            logging: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="s3",
+                function="get_bucket_logging",
+                parameters={"Bucket": t_bucket},
+            )
+            if not logging.get("LoggingEnabled"):
+                locations = [
+                    Location(
+                        arn=(t_arn),
+                        description=t(
+                            "src.lib_path.f400."
+                            "is_trail_bucket_logging_disabled"
+                        ),
+                        values=(),
+                        access_patterns=(),
+                    ),
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=(method),
+                    aws_response=trail,
+                ),
+            )
+
+    return vulns
+
+
 async def s3_has_server_access_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
@@ -301,6 +346,7 @@ CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
+    is_trail_bucket_logging_disabled,
     ec2_monitoring_disabled,
     elbv2_has_access_logging_disabled,
     cloudfront_has_logging_disabled,
