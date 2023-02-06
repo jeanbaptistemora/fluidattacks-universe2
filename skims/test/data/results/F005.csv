@@ -1,0 +1,23 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F005,inputs,arn:aws:iam::aws:policy/mypolicy (namespace),/Document: Allow,78,skims,004. Remote command execution,"A policy document with both iam:AttachUserPolicy allows grantees to attach any policy to the designed users, including a policy with full administrator rights.
+","
+  1 | {
+> 2 |     ""Document"": ""{\""Version\"":\""2008-10-17\"",\""Id\"":\""LogPolicy\"",\""Statement\"":[{\""Effect\"":\""Allow\"",\""Action\"":[\""iam
+    | :CreatePolicyVersion\"",\""iam:SetDefaultPolicyVersion\"",\""iam:AttachUserPolicy\"",],\""Resource\"":[\""arn:aws:s3:::policytes
+    | t1/*\"",],},],}"",
+  3 |     ""VersionId"": ""fluidversion"",
+  4 |     ""IsDefaultVersion"": false
+  5 | }
+    ^ Col 0
+",aws.allows_priv_escalation_by_attach_policy
+F005,inputs,arn:aws:iam::aws:policy/mypolicy (namespace),/Document: Allow,78,skims,004. Remote command execution,"A policy document with both iam:CreatePolicyVersion and iam:SetDefaultPolicyVersion allows grantees to get full administrative access over the AWS tenant.
+","
+  1 | {
+> 2 |     ""Document"": ""{\""Version\"":\""2008-10-17\"",\""Id\"":\""LogPolicy\"",\""Statement\"":[{\""Effect\"":\""Allow\"",\""Action\"":[\""iam
+    | :CreatePolicyVersion\"",\""iam:SetDefaultPolicyVersion\"",\""iam:AttachUserPolicy\"",],\""Resource\"":[\""arn:aws:s3:::policytes
+    | t1/*\"",],},],}"",
+  3 |     ""VersionId"": ""fluidversion"",
+  4 |     ""IsDefaultVersion"": false
+  5 | }
+    ^ Col 0
+",aws.allows_priv_escalation_by_policies_versions

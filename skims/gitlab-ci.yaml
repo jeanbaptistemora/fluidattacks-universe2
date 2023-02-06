@@ -222,6 +222,7 @@
     - /testPython/skims@unittesting
     - /testPython/skims@f001
     - /testPython/skims@f004
+    - /testPython/skims@f005
     - /testPython/skims@f007
     - /testPython/skims@f008
     - /testPython/skims@f009
@@ -271,6 +272,7 @@
     - /testPython/skims@f120
     - /testPython/skims@f134
     - /testPython/skims@f165
+    - /testPython/skims@f188
     - /testPython/skims@f246
     - /testPython/skims@f250
     - /testPython/skims@f256
@@ -667,6 +669,34 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@f004
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
+/testPython/skims@f005:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@f005
   stage: test-code
   tags:
     - small

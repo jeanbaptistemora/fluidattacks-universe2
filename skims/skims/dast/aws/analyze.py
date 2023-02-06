@@ -8,6 +8,7 @@ from ctx import (
     CTX,
 )
 from dast.aws import (
+    f005,
     f016,
     f024,
     f031,
@@ -64,6 +65,7 @@ from typing import (
 )
 
 CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+    (core_model.FindingEnum.F005, [*f005.CHECKS]),
     (core_model.FindingEnum.F016, [*f016.CHECKS]),
     (core_model.FindingEnum.F024, [*f024.CHECKS]),
     (core_model.FindingEnum.F031, [*f031.CHECKS]),

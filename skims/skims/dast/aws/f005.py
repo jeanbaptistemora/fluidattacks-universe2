@@ -79,14 +79,7 @@ async def allows_priv_escalation_by_policies_versions(
                         locations = [
                             *[
                                 Location(
-                                    access_patterns=(
-                                        f"/Document/Statement/{index}/Effect",
-                                        (
-                                            f"/Document/Statement/{index}"
-                                            "/Resource"
-                                        ),
-                                        f"/Document/Statement/{index}/Action",
-                                    ),
+                                    access_patterns=("/Document",),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
                                         policy_statements[index]["Effect"],
@@ -161,14 +154,7 @@ async def allows_priv_escalation_by_attach_policy(
                         locations = [
                             *[
                                 Location(
-                                    access_patterns=(
-                                        f"/Document/Statement/{index}/Effect",
-                                        (
-                                            f"/Document/Statement/{index}"
-                                            "/Resource"
-                                        ),
-                                        f"/Document/Statement/{index}/Action",
-                                    ),
+                                    access_patterns=("/Document",),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
                                         policy_statements[index]["Effect"],

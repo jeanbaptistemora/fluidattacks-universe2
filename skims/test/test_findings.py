@@ -5,6 +5,7 @@ from pytest_mock import (
 )
 import tempfile
 from test.data.lib_dast import (
+    f005,
     f016,
     f024,
     f031,
@@ -39,6 +40,7 @@ from typing import (
 )
 
 MOCKERS: dict[str, Callable] = {
+    "F005": f005.mock_data,
     "F016": f016.mock_data,
     "F024": f024.mock_data,
     "F031": f031.mock_data,
@@ -115,6 +117,12 @@ def test_f001(mocker: MockerFixture) -> None:
 @pytest.mark.skims_test_group("f004")
 def test_f004(mocker: MockerFixture) -> None:
     run_finding("F004", mocker)
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("f005")
+def test_f005(mocker: MockerFixture) -> None:
+    run_finding("F005", mocker)
 
 
 @pytest.mark.flaky(reruns=0)
