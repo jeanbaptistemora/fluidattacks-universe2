@@ -4,6 +4,7 @@ from api.resolvers.git_environment_url import (
 from api.resolvers.git_root import (
     branch,
     cloning_status,
+    created_at,
     credentials,
     download_url,
     environment,
@@ -12,6 +13,8 @@ from api.resolvers.git_root import (
     gitignore,
     includes_health_check,
     last_cloning_status_update,
+    last_edited_at,
+    last_edited_by,
     last_state_status_update,
     secrets,
     upload_url,
@@ -41,7 +44,10 @@ from ariadne import (
 GITROOT: ObjectType = ObjectType("GitRoot")
 GITROOT.set_field("branch", branch.resolve)
 GITROOT.set_field("cloningStatus", cloning_status.resolve)
+GITROOT.set_field("createdAt", created_at.resolve)
 GITROOT.set_field("credentials", credentials.resolve)
+GITROOT.set_field("lastEditedAt", last_edited_at.resolve)
+GITROOT.set_field("lastEditedBy", last_edited_by.resolve)
 GITROOT.set_field("downloadUrl", download_url.resolve)
 GITROOT.set_field("environment", environment.resolve)
 GITROOT.set_field("environmentUrls", environment_urls.resolve)

@@ -99,7 +99,11 @@ async def test_get_group(populate: bool, email: str) -> None:
     ]
     assert result["data"]["group"]["roots"] == [
         {
+            "createdAt": "2020-11-19T13:37:10+00:00",
+            "createdBy": "admin@gmail.com",
             "id": "63298a73-9dff-46cf-b42d-9b2f01a56690",
+            "lastEditedAt": "2020-11-19T13:37:10+00:00",
+            "lastEditedBy": "admin@gmail.com",
             "vulnerabilities": [
                 {"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6a"},
                 {"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b"},

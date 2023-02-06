@@ -69,7 +69,11 @@ async def get_result(
                 }}
                 roots {{
                     ...on GitRoot {{
+                        createdAt
+                        createdBy
                         id
+                        lastEditedAt
+                        lastEditedBy
                         vulnerabilities {{
                             id
                         }}

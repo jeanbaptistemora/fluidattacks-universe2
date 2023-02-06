@@ -56,6 +56,10 @@ type GitRoot implements IRoot {
   branch: String!
   "Cloning status of GitRoot"
   cloningStatus: GitRootCloningStatus!
+  "Date of creation"
+  createdAt: DateTime
+  "User who added GitRoot"
+  createdBy: String
   "Credentials used to clone the repository"
   credentials: Credentials
   "AWS s3 presigned url to download the git root"
@@ -74,6 +78,10 @@ type GitRoot implements IRoot {
   includesHealthCheck: Boolean!
   "Last time the root cloning state was modified"
   lastCloningStatusUpdate: DateTime!
+  "Last time the root was modified"
+  lastEditedAt: DateTime
+  "Last user who modified the root"
+  lastEditedBy: String
   "Last time the root status was modified"
   lastStateStatusUpdate: DateTime!
   "Nickname for the repository"
