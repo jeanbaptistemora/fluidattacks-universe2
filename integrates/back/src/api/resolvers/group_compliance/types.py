@@ -9,5 +9,6 @@ class Requirement(NamedTuple):
 
 
 class GroupUnfulfilledStandard(NamedTuple):
+    standard_id: str
     title: str
     unfulfilled_requirements: list[Requirement]

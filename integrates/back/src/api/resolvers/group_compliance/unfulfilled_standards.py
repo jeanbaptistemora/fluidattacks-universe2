@@ -26,6 +26,7 @@ async def resolve(
 
     return [
         GroupUnfulfilledStandard(
+            standard_id=unfulfilled_standard.name,
             title=compliance_file[unfulfilled_standard.name]["title"],
             unfulfilled_requirements=[
                 Requirement(
