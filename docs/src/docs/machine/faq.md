@@ -86,3 +86,65 @@ enter the nickname of the repository
 you are interested in,
 and the table will show you only the
 vulnerabilities reported in that repository.
+
+## Evidence
+
+### How many pieces of evidence (images and videos) do I have access to?
+
+There is a limit of six files
+(images or videos).
+However,
+these are constantly updated according to
+the reattacks or new vulnerabilities that
+may be reported.
+
+## Scope
+
+### What is a nickname?
+
+A nickname is how the team can identify a
+[root](/machine/web/groups/scope/roots/)
+or set of
+[credentials](/machine/web/machine/web/global-credentials/),
+making it easier to search for or identify them.
+
+### Where can I find my repository's nickname?
+
+In the [Git root](/machine/web/groups/scope/roots/#git-roots)
+table in the [Scope](/machine/web/groups/scope) section.
+
+## Reattack
+
+### How many hours do I have to wait for a response to a reattack request?
+
+Up to 16 hours,
+according to our
+[service-level agreement](/about/sla/response/).
+
+### How to request a reattack?
+
+A [reattack](/squad/reattacks/)
+can be requested from the
+[Locations](/machine/web/vulnerabilities/management/locations/#reattack)
+and
+[To-do list](/machine/web/vulnerabilities/management/to-do-list/)
+section.
+You must select the vulnerability to
+attack followed by clicking the
+**Reattack** button.
+Then,
+the selected vulnerability will show
+the status **Requested** in the
+**Reattack** column for up to 16 hours.
+Remember to check the
+[Consulting](/squad/consulting/#concerning-vulnerabilities)
+section for any new comments regarding the reattack.
+
+### How do I know that a requested reattack is in progress?
+
+You can check the reattack status in
+the column called **Reattack** in the
+[Locations](/machine/web/vulnerabilities/management/locations/#locations-table) section.
+You can also check in the
+[Consulting](/squad/consulting/#concerning-vulnerabilities)
+whether there are comments  on the request.
