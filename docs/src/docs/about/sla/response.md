@@ -47,12 +47,12 @@ taking into account the following:
   for the last reattack request
   that ended in effective vulnerability close.
   Consider closes performed by Machine
-  as reattacks with time to respond = 0
+  as reattacks with time to respond = 0.
 - Compute the full resolution time
   for incidents reported to help@fluidattacks.com
 - Compute the response time
-  for each vulnerability comment
+  for each vulnerability comment.
 - Merge the response times computed
-  in 1, 2 and 3 in a single dataset
+  in 1, 2 and 3 in a single dataset.
 - Exclude the top decile of response times
-  and compute the median for the remaining values
+  and compute the median for the remaining values.
