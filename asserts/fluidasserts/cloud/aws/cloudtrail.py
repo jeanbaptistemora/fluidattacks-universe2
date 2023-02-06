@@ -128,60 +128,6 @@ def is_trail_bucket_public(
 
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
-def is_trail_bucket_logging_disabled(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if trails bucket logging is enabled.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    trails = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="cloudtrail",
-        func="describe_trails",
-        param="trailList",
-        retry=retry,
-    )
-
-    msg_open: str = "Trail buckets have logging disabled"
-    msg_closed: str = "Trail buckets have logging enabled"
-
-    vulns, safes = [], []
-
-    if trails:
-        for trail in trails:
-            t_arn = trail["TrailARN"]
-            t_bucket = trail["S3BucketName"]
-            logging = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="s3",
-                func="get_bucket_logging",
-                retry=retry,
-                Bucket=t_bucket,
-            )
-
-            (vulns if not logging.get("LoggingEnabled") else safes).append(
-                (f"S3:{t_bucket}@{t_arn}", "Bucket must have logging enabled")
-            )
-
-    return _get_result_as_tuple(
-        service="CloudTrail",
-        objects="trails",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=LOW, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
 def has_unencrypted_logs(
     key_id: str, secret: str, session_token: str = None, retry: bool = True
 ) -> tuple:
