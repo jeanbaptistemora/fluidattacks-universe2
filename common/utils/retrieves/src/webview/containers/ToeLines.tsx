@@ -6,7 +6,7 @@ import {
   VSCodeDataGridCell,
   VSCodeDataGridRow,
 } from "@vscode/webview-ui-toolkit/react";
-import React, { useCallback, useState, useMemo } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies, import/no-namespace
 
 import "../styles.css";

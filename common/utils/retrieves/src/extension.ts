@@ -14,6 +14,7 @@ import {
 
 import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
+import { environmentUrls } from "./commands/environmentUrls";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
 import { subscribeToDocumentChanges } from "./diagnostics/vulnerabilities";
@@ -34,19 +35,31 @@ function activate(context: ExtensionContext): void {
   context.subscriptions.push(
     commands.registerCommand("retrieves.lines", partial(toeLines, [context]))
   );
-  const groupsProvider = new GroupsProvider();
-  void window.registerTreeDataProvider("user_groups", groupsProvider);
+
+  // eslint-disable-next-line fp/no-mutating-methods
+  context.subscriptions.push(
+    commands.registerCommand(
+      "retrieves.environmentUrls",
+      partial(environmentUrls, [context])
+    )
+  );
+
+  void window.registerTreeDataProvider("user_groups", new GroupsProvider());
+
   void commands.registerCommand("retrieves.clone", clone);
+
   void commands.registerCommand(
     "retrieves.updateToeLinesAttackedLines",
     updateToeLinesAttackedLines
   );
+
   const retrievesDiagnostics =
     languages.createDiagnosticCollection("retrieves");
   // eslint-disable-next-line fp/no-mutating-methods
   context.subscriptions.push(retrievesDiagnostics);
 
   subscribeToDocumentChanges(context, retrievesDiagnostics);
+
   commands.registerCommand("retrieves.addSelectedText", addLineToYaml);
 }
 
