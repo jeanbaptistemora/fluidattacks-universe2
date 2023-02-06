@@ -202,7 +202,7 @@ async def _get_historic_state(*, root_id: str) -> list[RootState]:
     ]
 
 
-class RootHistoricStatesLoader(DataLoader):
+class RootHistoricStatesLoader(DataLoader[str, list[RootState]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: Iterable[str]
@@ -233,7 +233,7 @@ async def _get_historic_cloning(*, root_id: str) -> list[GitRootCloning]:
     return [format_cloning(state) for state in response.items]
 
 
-class RootHistoricCloningLoader(DataLoader):
+class RootHistoricCloningLoader(DataLoader[str, list[GitRootCloning]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: Iterable[str]
@@ -307,7 +307,7 @@ async def get_machine_executions(
     return result
 
 
-class RootMachineExecutionsLoader(DataLoader):
+class RootMachineExecutionsLoader(DataLoader[str, list[RootMachineExecution]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, root_ids: Iterable[str]
