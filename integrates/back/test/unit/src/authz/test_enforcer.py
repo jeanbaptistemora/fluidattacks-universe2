@@ -1,18 +1,21 @@
 import authz
 from authz.enforcer import (
     get_organization_level_enforcer,
+    get_user_level_enforcer,
 )
 from authz.model import (
     get_organization_level_roles_model,
 )
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_module_at_test,
+    set_mocks_return_values,
+)
 from dataloaders import (
+    Dataloaders,
     get_new_context,
 )
 from datetime import (
     datetime,
-)
-from db_model import (
-    stakeholders as stakeholders_model,
 )
 from db_model.groups.enums import (
     GroupLanguage,
@@ -39,11 +42,9 @@ import pytest
 from typing import (
     Any,
 )
-from unittest import (
-    mock,
-)
 from unittest.mock import (
     AsyncMock,
+    patch,
 )
 
 # Constants
@@ -51,15 +52,16 @@ pytestmark = [
     pytest.mark.asyncio,
 ]
 
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 TABLE_NAME = "integrates_vms"
 
 
 # pylint: disable=consider-using-dict-items
-@mock.patch(
+@patch(
     "dynamodb.operations.get_table_resource",
     new_callable=AsyncMock,
 )
-@mock.patch(
+@patch(
     "dynamodb.operations.get_resource",
     new_callable=AsyncMock,
 )
@@ -119,11 +121,11 @@ async def test_organization_level_enforcer(
 
 
 # pylint: disable=consider-using-dict-items
-@mock.patch(
+@patch(
     "dynamodb.operations.get_table_resource",
     new_callable=AsyncMock,
 )
-@mock.patch(
+@patch(
     "dynamodb.operations.get_resource",
     new_callable=AsyncMock,
 )
@@ -193,37 +195,34 @@ async def test_get_group_level_enforcer(
     assert mock_resource.called is True
 
 
-# pylint: disable=consider-using-dict-items
-@pytest.mark.changes_db
-async def test_user_level_enforcer() -> None:
-    test_cases = [
-        # Common user
-        "test@tests.com",
-        # Fluid user
-        "test@fluidattacks.com",
-    ]
-    for subject in test_cases:
-        model = authz.get_user_level_roles_model(subject)
+@pytest.mark.parametrize(
+    ["email", "bad_action", "good_action"],
+    [
+        [
+            "integrateshacker@fluidattacks.com",
+            "api_mutations_add_machine_execution_mutate",
+            "api_mutations_update_stakeholder_phone_mutate",
+        ],
+    ],
+)
+@patch(MODULE_AT_TEST + "get_user_level_role", new_callable=AsyncMock)
+async def test_get_user_level_enforcer(
+    mock_get_user_level_role: AsyncMock,
+    email: str,
+    bad_action: str,
+    good_action: str,
+) -> None:
 
-        for role in model:
-            await stakeholders_model.remove(email=subject)
-            await authz.grant_user_level_role(subject, role)
-            enforcer = await authz.get_user_level_enforcer(
-                get_new_context(), subject
-            )
-
-            for action in model[role]["actions"]:
-                assert enforcer(
-                    action
-                ), f"{role} should be able to do {action}"
-
-            for other_role in model:
-                for action in (
-                    model[other_role]["actions"] - model[role]["actions"]
-                ):
-                    assert not enforcer(
-                        action
-                    ), f"{role} should not be able to do {action}"
+    loaders: Dataloaders = get_new_context()
+    assert set_mocks_return_values(
+        mocks_args=[[email]],
+        mocked_objects=[mock_get_user_level_role],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["get_user_level_role"],
+    )
+    enforcer = await get_user_level_enforcer(loaders, email)
+    assert not enforcer(bad_action)
+    assert enforcer(good_action)
 
 
 @pytest.mark.parametrize(

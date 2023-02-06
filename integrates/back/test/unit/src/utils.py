@@ -248,6 +248,9 @@ mocked_paths: Dict[str, str] = {
 }
 
 mocked_responses: Dict[str, Dict[str, Any]] = {
+    "authz.enforcer.get_user_level_role": {
+        '["integrateshacker@fluidattacks.com"]': "hacker"
+    },
     "authz.grant_organization_level_role": {
         '["org_testgroupmanager2@fluidattacks.com", '
         '"ORG#f2e2777d-a168-4bea-93cd-d79142b294d2", '
