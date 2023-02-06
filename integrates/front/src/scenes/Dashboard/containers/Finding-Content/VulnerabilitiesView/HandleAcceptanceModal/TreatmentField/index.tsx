@@ -1,12 +1,11 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field } from "formik";
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 
+import { Select } from "components/Input";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
-import { FormikDropdown } from "utils/forms/fields";
 import { required } from "utils/validations";
 
 const TreatmentField: React.FC = (): JSX.Element => {
@@ -29,12 +28,7 @@ const TreatmentField: React.FC = (): JSX.Element => {
       <ControlLabel>
         <b>{t("searchFindings.tabDescription.treatment.title")}</b>
       </ControlLabel>
-      <Field
-        component={FormikDropdown}
-        name={"treatment"}
-        type={"text"}
-        validate={required}
-      >
+      <Select name={"treatment"} validate={required}>
         <option value={""} />
         {canHandleVulnsAcceptance ? (
           <option value={"ACCEPTED_UNDEFINED"}>
@@ -46,7 +40,7 @@ const TreatmentField: React.FC = (): JSX.Element => {
             {t("searchFindings.tabDescription.treatment.confirmRejectZeroRisk")}
           </option>
         ) : undefined}
-      </Field>
+      </Select>
     </FormGroup>
   );
 };
