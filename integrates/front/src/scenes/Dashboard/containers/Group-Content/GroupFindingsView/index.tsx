@@ -10,7 +10,7 @@ import type {
   SortingState,
   VisibilityState,
 } from "@tanstack/react-table";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -41,6 +41,7 @@ import { formatPercentage } from "../ToeContent/GroupToeLinesView/utils";
 import { Button } from "components/Button";
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
+import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
@@ -55,7 +56,6 @@ import type {
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikDropdown } from "utils/forms/fields";
 import { useDebouncedCallback, useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
@@ -585,8 +585,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
               <ControlLabel>
                 {t("searchFindings.delete.justif.label")}
               </ControlLabel>
-              <Field
-                component={FormikDropdown}
+              <Select
                 name={"justification"}
                 validate={composeValidators([required])}
               >
@@ -600,7 +599,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
                 <option value={"NOT_REQUIRED"}>
                   {t("searchFindings.delete.justif.notRequired")}
                 </option>
-              </Field>
+              </Select>
             </FormGroup>
             <ModalConfirm disabled={isRunning} onCancel={closeDeleteModal} />
           </Form>
