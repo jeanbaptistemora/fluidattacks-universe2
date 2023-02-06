@@ -213,21 +213,21 @@ async def send_mails_async(  # pylint: disable=too-many-arguments
     tags: Optional[list[str]] = None,
 ) -> None:
     test_group_list = FI_TEST_PROJECTS.split(",") if FI_TEST_PROJECTS else []
+    context = context if context else {}
     await collect(
         tuple(
             send_mail_async(
                 loaders=loaders,
                 email_to=email,
                 email_cc=email_cc,
-                context=context if context else {},
+                context=context,
                 tags=tags if tags else [],
                 subject=subject,
                 template_name=template_name,
                 is_access_granted=is_access_granted,
             )
             for email in email_to
-            if context
-            and str(context.get("group", "")).lower() not in test_group_list
+            if str(context.get("group", "")).lower() not in test_group_list
         )
     )
 
