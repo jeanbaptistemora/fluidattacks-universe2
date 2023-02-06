@@ -69,10 +69,6 @@ in {
           gitlabExtra = gitlabDeployInfra;
         }
         {
-          output = "/deployTerraform/commonK8s";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/commonOkta";
           gitlabExtra = gitlabDeployInfra;
         }

@@ -44,11 +44,17 @@ in {
   };
   secretsForEnvFromSops = {
     commonK8sDev = {
-      vars = ["NEW_RELIC_LICENSE_KEY"];
+      vars = [
+        "GITLAB_TOKEN_FLUIDATTACKS"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/common/secrets/dev.yaml";
     };
     commonK8sProd = {
-      vars = ["NEW_RELIC_LICENSE_KEY"];
+      vars = [
+        "GITLAB_TOKEN_FLUIDATTACKS"
+        "NEW_RELIC_LICENSE_KEY"
+      ];
       manifest = "/common/secrets/prod.yaml";
     };
   };
@@ -62,6 +68,7 @@ in {
     commonK8s = {
       cloudflareApiKey = "CLOUDFLARE_API_KEY";
       cloudflareEmail = "CLOUDFLARE_EMAIL";
+      gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
       newRelicLicenseKey = "NEW_RELIC_LICENSE_KEY";
     };
   };

@@ -4,7 +4,7 @@ data "http" "alb-policy" {
 
 resource "aws_iam_policy" "alb" {
   name_prefix = "${local.cluster_name}-alb-"
-  policy      = data.http.alb-policy.body
+  policy      = data.http.alb-policy.response_body
 }
 
 module "alb_oidc_role" {

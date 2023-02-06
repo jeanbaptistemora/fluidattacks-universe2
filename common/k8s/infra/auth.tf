@@ -98,7 +98,7 @@ resource "kubernetes_role_binding" "main" {
   }
 }
 
-resource "kubernetes_cluster_role_binding" "example" {
+resource "kubernetes_cluster_role_binding" "main" {
   for_each = toset(local.users)
 
   metadata {
