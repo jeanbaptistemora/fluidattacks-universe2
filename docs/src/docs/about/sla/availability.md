@@ -35,3 +35,7 @@ of all our systems:
 <div class="div-button">
   <a class="link-button" href="https://status.fluidattacks.com/">Status</a>
 </div>
+
+## Indicator calculation
+
+1. Compute: Successful tests / Performed tests
