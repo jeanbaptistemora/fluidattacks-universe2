@@ -295,3 +295,30 @@ async def test_get_toe_lines_by_last_author(
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
         == "customer1@gmail.com"
     )
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        last_author="customer2",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
+        == "customer2@gmail.com"
+    )
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        last_author="customer3@gmail.com",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
+        == "customer3@gmail.com"
+    )
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        last_author="customer",
+    )
+    assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
