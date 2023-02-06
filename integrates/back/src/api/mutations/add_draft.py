@@ -19,14 +19,10 @@ from db_model.findings.enums import (
 )
 from db_model.findings.types import (
     Finding,
-    Finding31Severity,
 )
 from db_model.findings.utils import (
     filter_non_state_status_findings,
     has_rejected_drafts,
-)
-from decimal import (
-    Decimal,
 )
 from decorators import (
     concurrent_decorators,
@@ -39,9 +35,6 @@ from decorators import (
 from findings import (
     domain as findings_domain,
 )
-from findings.types import (
-    FindingDraftToAdd,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -51,7 +44,6 @@ from machine.availability import (
 from newutils import (
     logs as logs_utils,
     requests as requests_utils,
-    validations,
 )
 from newutils.requests import (
     get_source_new,
@@ -116,56 +108,13 @@ async def mutate(
                 FindingStateStatus.SUBMITTED,
             },
         )
-        validations.validate_no_duplicate_drafts(title, drafts, findings)
-
-        validations.validate_fields(
-            [
-                kwargs.get("attack_vector_description", ""),
-                kwargs.get("description", ""),
-                kwargs.get("recommendation", ""),
-                kwargs.get("requirements", ""),
-                kwargs.get("threat", ""),
-            ]
-        )
         findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
-        min_time_to_remediate = (
-            validations.check_and_set_min_time_to_remediate(
-                kwargs.get("min_time_to_remediate", None)
-            )
-        )
-
-        severity_info = Finding31Severity(
-            attack_complexity=Decimal(kwargs.get("attack_complexity", "0.0")),
-            attack_vector=Decimal(kwargs.get("attack_vector", "0.0")),
-            availability_impact=Decimal(
-                kwargs.get("availability_impact", "0.0")
-            ),
-            confidentiality_impact=Decimal(
-                kwargs.get("confidentiality_impact", "0.0")
-            ),
-            exploitability=Decimal(kwargs.get("exploitability", "0.0")),
-            integrity_impact=Decimal(kwargs.get("integrity_impact", "0.0")),
-            privileges_required=Decimal(
-                kwargs.get("privileges_required", "0.0")
-            ),
-            remediation_level=Decimal(kwargs.get("remediation_level", "0.0")),
-            report_confidence=Decimal(kwargs.get("report_confidence", "0.0")),
-            severity_scope=Decimal(kwargs.get("severity_scope", "0.0")),
-            user_interaction=Decimal(kwargs.get("user_interaction", "0.0")),
-        )
-        draft_info = FindingDraftToAdd(
-            attack_vector_description=kwargs.get(
-                "attack_vector_description", ""
-            )
-            or kwargs.get("attack_vector_desc", ""),
-            description=kwargs.get("description", ""),
-            hacker_email=user_email,
-            min_time_to_remediate=min_time_to_remediate,
-            recommendation=kwargs.get("recommendation", ""),
-            requirements=kwargs.get("requirements", ""),
-            severity=severity_info,
-            threat=kwargs.get("threat", ""),
+        draft_info = findings_domain.get_draft_info(
+            drafts=drafts,
+            findings=findings,
+            user_email=user_email,
             title=title,
+            **kwargs,
         )
         if not operation_can_be_executed(info.context, draft_info.title):
             raise MachineCanNotOperate()

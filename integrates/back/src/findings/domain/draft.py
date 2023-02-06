@@ -30,6 +30,7 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     DraftRejection,
     Finding,
+    Finding31Severity,
     FindingState,
 )
 from db_model.utils import (
@@ -56,6 +57,7 @@ from newutils.validations import (
     validate_field_length,
 )
 from typing import (
+    Any,
     Optional,
 )
 import uuid
@@ -272,3 +274,53 @@ async def submit_draft(
         group_name=finding.group_name,
         state=new_state,
     )
+
+
+@validation_utils.validate_no_duplicate_drafts_deco(
+    "title", "drafts", "findings"
+)
+@validation_utils.validate_fields_deco(
+    [
+        "attack_vector_description",
+        "description",
+        "recommendation",
+        "requirements",
+        "threat",
+    ]
+)
+def get_draft_info(
+    user_email: str, title: str, **kwargs: Any
+) -> FindingDraftToAdd:
+    min_time_to_remediate = (
+        validation_utils.check_and_set_min_time_to_remediate(
+            kwargs.get("min_time_to_remediate", None)
+        )
+    )
+    severity_info = Finding31Severity(
+        attack_complexity=Decimal(kwargs.get("attack_complexity", "0.0")),
+        attack_vector=Decimal(kwargs.get("attack_vector", "0.0")),
+        availability_impact=Decimal(kwargs.get("availability_impact", "0.0")),
+        confidentiality_impact=Decimal(
+            kwargs.get("confidentiality_impact", "0.0")
+        ),
+        exploitability=Decimal(kwargs.get("exploitability", "0.0")),
+        integrity_impact=Decimal(kwargs.get("integrity_impact", "0.0")),
+        privileges_required=Decimal(kwargs.get("privileges_required", "0.0")),
+        remediation_level=Decimal(kwargs.get("remediation_level", "0.0")),
+        report_confidence=Decimal(kwargs.get("report_confidence", "0.0")),
+        severity_scope=Decimal(kwargs.get("severity_scope", "0.0")),
+        user_interaction=Decimal(kwargs.get("user_interaction", "0.0")),
+    )
+    draft_info = FindingDraftToAdd(
+        attack_vector_description=kwargs.get("attack_vector_description", "")
+        or kwargs.get("attack_vector_desc", ""),
+        description=kwargs.get("description", ""),
+        hacker_email=user_email,
+        min_time_to_remediate=min_time_to_remediate,
+        recommendation=kwargs.get("recommendation", ""),
+        requirements=kwargs.get("requirements", ""),
+        severity=severity_info,
+        threat=kwargs.get("threat", ""),
+        title=title,
+    )
+    return draft_info

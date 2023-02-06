@@ -35,6 +35,7 @@ from .core import (
 from .draft import (
     add_draft,
     approve_draft,
+    get_draft_info,
     reject_draft,
     submit_draft,
     validate_draft_inputs,
@@ -88,6 +89,7 @@ __all__ = [
     "reject_draft",
     "submit_draft",
     "validate_draft_inputs",
+    "get_draft_info",
     # evidences
     "download_evidence_file",
     "get_records_from_file",
