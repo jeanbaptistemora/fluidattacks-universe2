@@ -106,6 +106,9 @@ def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     if last_commit := kwargs.get("last_commit"):
         must_match_filters.append({"state.last_commit": last_commit})
 
+    if last_author := kwargs.get("last_author"):
+        must_match_filters.append({"state.last_author": last_author})
+
     return must_match_filters
 
 
