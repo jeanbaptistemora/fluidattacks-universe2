@@ -1,5 +1,5 @@
 from lib_root.utilities.json import (
-    get_value,
+    get_key_value,
 )
 from model.core_model import (
     MethodsEnum,
@@ -28,8 +28,7 @@ def is_in_path(graph: Graph, nid: NId, key_dict: str, value: str) -> bool:
     if key_dict == "cors" and value == "true":
         parent = g.search_pred_until_type(graph, last_nid, {"Pair"})
         if parent_id := parent[0] if parent != ("", "") else None:
-            key_id = graph.nodes[parent_id]["key_id"]
-            key = graph.nodes[key_id]["value"]
+            key, _ = get_key_value(graph, parent_id)
             if key == "http":
                 return True
     return False
@@ -47,10 +46,7 @@ def serverles_cors_true(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = get_value(graph, value_id)
+                key, value = get_key_value(graph, nid)
 
                 if is_in_path(graph, nid, key, value):
                     yield shard, nid

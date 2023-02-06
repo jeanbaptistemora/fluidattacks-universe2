@@ -1,4 +1,5 @@
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -28,8 +29,7 @@ def _ec2_instances_without_profile(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "iam_instance_profile"
     is_vuln = True
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
+        key, _ = get_key_value(graph, c_id)
         if key == expected_attr:
             is_vuln = False
     if is_vuln:

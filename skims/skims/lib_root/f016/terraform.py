@@ -1,7 +1,5 @@
-from lib_root.utilities.json import (
-    get_value,
-)
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -32,10 +30,7 @@ def _azure_serves_content_over_insecure_protocols(
 ) -> Optional[NId]:
     expected_attr = "min_tls_version"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[c_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, c_id)
         if key == expected_attr:
             if value in ("TLS1_0", "TLS1_1"):
                 return c_id
@@ -47,8 +42,7 @@ def _aws_elb_without_sslpolicy(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "ssl_policy"
     is_vuln = True
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
+        key, _ = get_key_value(graph, c_id)
         if key == expected_attr:
             is_vuln = False
     if is_vuln:

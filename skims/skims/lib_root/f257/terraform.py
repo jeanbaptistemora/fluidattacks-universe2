@@ -1,7 +1,5 @@
-from lib_root.utilities.json import (
-    get_value,
-)
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -31,10 +29,7 @@ def _has_not_termination_protection(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "disable_api_termination"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[b_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[b_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, b_id)
         if key == expected_attr:
             has_attr = True
             if value.lower() == "false":

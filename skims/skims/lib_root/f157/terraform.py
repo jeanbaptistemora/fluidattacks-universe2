@@ -1,10 +1,8 @@
 from itertools import (
     chain,
 )
-from lib_root.utilities.json import (
-    get_value,
-)
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -36,10 +34,7 @@ def _aux_azure_sa_default_network_access(
     expected_attr = "default_action"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[b_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[b_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, b_id)
         if key == expected_attr:
             has_attr = True
             if value.lower() != "deny":
@@ -70,10 +65,7 @@ def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> Optional[NId]:
     expected_block_attr = "cidr_block"
     for c_id in adj_ast(graph, nid, name=expected_block):
         for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key_id = graph.nodes[b_id]["key_id"]
-            key = graph.nodes[key_id]["value"]
-            value_id = graph.nodes[b_id]["value_id"]
-            value = get_value(graph, value_id)
+            key, value = get_key_value(graph, b_id)
             if key == expected_block_attr and value in danger_values:
                 return b_id
     return None
@@ -85,10 +77,7 @@ def _azure_kv_danger_bypass(graph: Graph, nid: NId) -> Optional[NId]:
     has_block = False
     for c_id in adj_ast(graph, nid, name=expected_block):
         for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key_id = graph.nodes[b_id]["key_id"]
-            key = graph.nodes[key_id]["value"]
-            value_id = graph.nodes[b_id]["value_id"]
-            value = get_value(graph, value_id)
+            key, value = get_key_value(graph, b_id)
             if key == expected_block_attr:
                 has_block = True
                 if value.lower() != "azureservices":
@@ -105,10 +94,7 @@ def _azure_kv_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
     has_block = False
     for c_id in adj_ast(graph, nid, name=expected_block):
         for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key_id = graph.nodes[b_id]["key_id"]
-            key = graph.nodes[key_id]["value"]
-            value_id = graph.nodes[b_id]["value_id"]
-            value = get_value(graph, value_id)
+            key, value = get_key_value(graph, b_id)
             if key == expected_block_attr:
                 has_block = True
                 if value.lower() != "deny":
@@ -125,10 +111,7 @@ def _azure_unrestricted_access_network_segments(
     expected_attr = "public_network_enabled"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[b_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[b_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, b_id)
         if key == expected_attr:
             has_attr = True
             if value.lower() == "true":

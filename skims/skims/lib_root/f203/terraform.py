@@ -1,7 +1,5 @@
-from lib_root.utilities.json import (
-    get_value,
-)
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -30,12 +28,9 @@ from utils.graph import (
 def _public_buckets(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "acl"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[c_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, c_id)
         if key == expected_attr and value == "public-read-write":
-            return value_id
+            return c_id
     return None
 
 

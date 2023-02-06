@@ -14,11 +14,6 @@ from utils.graph import (
 )
 
 
-def get_value(graph: Graph, nid: NId) -> str:
-    value = graph.nodes[nid]["value"] if graph.nodes[nid].get("value") else ""
-    return value
-
-
 def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]

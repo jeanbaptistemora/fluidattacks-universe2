@@ -2,10 +2,8 @@ from lib_path.f070.common import (
     PREDEFINED_SSL_POLICY_VALUES,
     SAFE_SSL_POLICY_VALUES,
 )
-from lib_root.utilities.json import (
-    get_value,
-)
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -35,15 +33,12 @@ def _lb_target_group_insecure_port(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "port"
     is_vuln = True
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[c_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, c_id)
         if key == expected_attr:
             if value == "443":
                 is_vuln = False
             else:
-                return value_id
+                return c_id
     if is_vuln:
         return nid
     return None
@@ -54,15 +49,12 @@ def _elb2_uses_insecure_security_policy(
 ) -> Optional[NId]:
     expected_attr = "ssl_policy"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
-        value_id = graph.nodes[c_id]["value_id"]
-        value = get_value(graph, value_id)
+        key, value = get_key_value(graph, c_id)
         if key == expected_attr and (
             value in PREDEFINED_SSL_POLICY_VALUES
             and value not in SAFE_SSL_POLICY_VALUES
         ):
-            return value_id
+            return c_id
     return None
 
 

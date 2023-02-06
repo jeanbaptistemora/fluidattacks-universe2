@@ -1,4 +1,5 @@
 from lib_root.utilities.terraform import (
+    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -29,8 +30,7 @@ def _iam_user_missing_role_based_security(
 ) -> Optional[NId]:
     expected_attr = "name"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
+        key, _ = get_key_value(graph, c_id)
         if key == expected_attr:
             return c_id
     return None
@@ -39,8 +39,7 @@ def _iam_user_missing_role_based_security(
 def _iam_excessive_privileges(graph: Graph, nid: NId) -> Optional[NId]:
     expected_attr = "managed_policy_arns"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key_id = graph.nodes[c_id]["key_id"]
-        key = graph.nodes[key_id]["value"]
+        key, _ = get_key_value(graph, c_id)
         value_id = graph.nodes[c_id]["value_id"]
         if (
             key == expected_attr
