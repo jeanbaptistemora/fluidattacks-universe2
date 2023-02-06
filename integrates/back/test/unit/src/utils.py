@@ -17,6 +17,7 @@ from db_model.credentials.types import (
     Credentials,
     CredentialsState,
     OauthGitlabSecret,
+    SshSecret,
 )
 from db_model.enums import (
     CredentialType,
@@ -137,6 +138,9 @@ from newutils.datetime import (
     get_now_minus_delta,
 )
 import os
+from re import (
+    search,
+)
 from requests import (
     Request,
 )
@@ -10026,19 +10030,71 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"]': tuple(
             ["kurome", "sheele"]
         ),
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"]': tuple(
+            ["oneshottest", "unittesting"]
+        ),
     },
     "organizations.domain.get_stakeholders_emails": {
         '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"]': [
             "org_testuser1@gmail.com"
         ],
     },
+    "organizations.domain.group_access_domain.remove_access": {
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"jdoe@fluidattacks.com"]': [
+            None,
+            None,
+        ]
+    },
+    "organizations.domain.has_access": {
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"jdoe@fluidattacks.com"]': True,
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"made_up_user@gmail.com"]': False,
+    },
+    "organizations.domain.org_access_model.remove": {
+        '["jdoe@fluidattacks.com", '
+        '"ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"]': None,
+    },
     "organizations.domain.remove_access": {
         '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de", '
         '"org_testuser1@gmail.com"]': None,
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"jdoe@fluidattacks.com"]': None,
+    },
+    "organizations.domain.remove_credentials": {
+        '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
+        '"jdoe@fluidattacks.com", "org_testadmin@gmail.com"]': [None]
+    },
+    "organizations.domain.stakeholders_domain.remove": {
+        '["jdoe@fluidattacks.com"]': None,
     },
     "organizations.domain.validate_acceptance_severity_range": {
         '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86", '
         '[21, 20, "8.3", 3, "2.2", "3.4", 17]]': True,
+    },
+    "organizations.domain.Dataloaders.stakeholder_organizations_access": {
+        '["jdoe@fluidattacks.com"]': [],
+    },
+    "organizations.domain.Dataloaders.user_credentials": {
+        '["jdoe@fluidattacks.com"]': [
+            Credentials(
+                id="0b8bf4cb-8735-4232-8199-46cd9802ad2a",
+                organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                owner="jdoe@fluidattacks.com",
+                state=CredentialsState(
+                    modified_by="jdoe@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2021-12-22T03:45:00+00:00"
+                    ),
+                    name="Product New SSH Key",
+                    type=CredentialType.SSH,
+                    is_pat=False,
+                    secret=SshSecret(key="LS0tLS_Test_Key"),
+                    azure_organization=None,
+                ),
+            )
+        ]
     },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],
@@ -10133,6 +10189,16 @@ def create_dummy_info(request: Request) -> GraphQLResolveInfo:
         context=request,
         is_awaitable=None,  # type: ignore
     )
+
+
+def get_module_at_test(file_path: str) -> str:
+    match = search(r".*\/(.*\/.*)", file_path)
+    if match:
+        test_module = match.group(1)
+    module_at_test = (
+        test_module.replace("/", ".").replace("test_", "").replace("py", "")
+    )
+    return module_at_test
 
 
 def get_mock_response(used_mock: str, parameters: str) -> Any:

@@ -2,7 +2,9 @@ import authz
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    get_module_at_test,
     set_mocks_return_values,
+    set_mocks_side_effects,
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
@@ -11,6 +13,7 @@ from custom_exceptions import (
     InvalidInactivityPeriod,
     InvalidNumberAcceptances,
     InvalidOrganization,
+    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -38,6 +41,7 @@ from organizations.domain import (
     get_stakeholders_emails,
     has_access,
     has_group,
+    remove_access,
     remove_organization,
     update_policies,
     validate_acceptance_severity_range,
@@ -51,6 +55,8 @@ from unittest.mock import (
     AsyncMock,
     patch,
 )
+
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
 # Run async tests
 pytestmark = [
@@ -301,6 +307,102 @@ async def test_has_user_access() -> None:
     non_existent_user = "madeupuser@gmail.com"
     assert await has_access(loaders, org_id, existing_user)
     assert not await has_access(loaders, org_id, non_existent_user)
+
+
+@pytest.mark.parametrize(
+    ["organization_id", "email", "modified_by"],
+    [
+        [
+            "ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+            "jdoe@fluidattacks.com",
+            "org_testadmin@gmail.com",
+        ]
+    ],
+)
+@patch(MODULE_AT_TEST + "stakeholders_domain.remove", new_callable=AsyncMock)
+@patch(
+    MODULE_AT_TEST + "Dataloaders.stakeholder_organizations_access",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "org_access_model.remove", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "remove_credentials", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "Dataloaders.user_credentials", new_callable=AsyncMock)
+@patch(
+    MODULE_AT_TEST + "group_access_domain.remove_access",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "get_group_names", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "has_access", new_callable=AsyncMock)
+async def test_remove_access(  # pylint: disable=too-many-arguments
+    mock_has_access: AsyncMock,
+    mock_get_group_names: AsyncMock,
+    mock_group_access_domain_remove_access: AsyncMock,
+    mock_dataloaders_user_credentials: AsyncMock,
+    mock_remove_credentials: AsyncMock,
+    mock_org_access_model_remove: AsyncMock,
+    mock_dataloaders_stakeholder_organizations_access: AsyncMock,
+    mock_stakeholders_domain_remove: AsyncMock,
+    organization_id: str,
+    email: str,
+    modified_by: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_has_access,
+            mock_get_group_names,
+            mock_dataloaders_user_credentials.load,
+            mock_org_access_model_remove,
+            mock_dataloaders_stakeholder_organizations_access.load,
+            mock_stakeholders_domain_remove,
+        ],
+        [
+            "has_access",
+            "get_group_names",
+            "Dataloaders.user_credentials",
+            "org_access_model.remove",
+            "Dataloaders.stakeholder_organizations_access",
+            "stakeholders_domain.remove",
+        ],
+        [
+            [organization_id, email],
+            [organization_id],
+            [email],
+            [email, organization_id],
+            [email],
+            [email],
+        ],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    assert set_mocks_side_effects(
+        mocks_args=[
+            [organization_id, email],
+            [organization_id, email, modified_by],
+        ],
+        mocked_objects=[
+            mock_group_access_domain_remove_access,
+            mock_remove_credentials,
+        ],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["group_access_domain.remove_access", "remove_credentials"],
+    )
+    await remove_access(organization_id, email, modified_by)
+    assert all(mock_object.called is True for mock_object in mocked_objects)
+
+    with pytest.raises(StakeholderNotInOrganization):
+        assert set_mocks_return_values(
+            mocks_args=[[organization_id, "made_up_user@gmail.com"]],
+            mocked_objects=[mock_has_access],
+            module_at_test=MODULE_AT_TEST,
+            paths_list=["has_access"],
+        )
+        await remove_access(
+            organization_id, "made_up_user@gmail.com", modified_by
+        )
 
 
 @pytest.mark.parametrize(

@@ -1,11 +1,9 @@
-import authz
 from custom_exceptions import (
     GroupNotFound,
     InvalidAcceptanceSeverity,
     InvalidAcceptanceSeverityRange,
     InvalidSeverity,
     InvalidVulnerabilityGracePeriod,
-    StakeholderNotInOrganization,
 )
 from dataloaders import (
     Dataloaders,
@@ -19,9 +17,6 @@ from db_model.types import (
 )
 from decimal import (
     Decimal,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 from organizations import (
     domain as orgs_domain,
@@ -94,38 +89,6 @@ async def test_get_stakeholder_organizations() -> None:
         )
         == []  # NOSONAR
     )
-
-
-@pytest.mark.changes_db
-async def test_remove_user() -> None:
-    user = "org_testuser3@gmail.com"
-    modified_by = "org_testadmin@gmail.com"
-    group = "sheele"
-    org_id = "ORG#f2e2777d-a168-4bea-93cd-d79142b294d2"
-    loaders = get_new_context()
-    group_users = await group_access_domain.get_group_stakeholders_emails(
-        loaders, group
-    )
-    assert user in group_users
-    assert await authz.get_group_level_role(loaders, user, group) == "user"
-    assert (
-        await authz.get_organization_level_role(loaders, user, org_id)
-        == "user"
-    )
-
-    await orgs_domain.remove_access(org_id, user, modified_by)
-    loaders = get_new_context()
-    updated_group_users = (
-        await group_access_domain.get_group_stakeholders_emails(loaders, group)
-    )
-    assert user not in updated_group_users
-    assert await authz.get_group_level_role(loaders, user, group) == ""
-    assert await authz.get_organization_level_role(loaders, user, org_id) == ""
-
-    with pytest.raises(StakeholderNotInOrganization):
-        await orgs_domain.remove_access(
-            org_id, "madeupuser@gmail.com", modified_by
-        )
 
 
 async def test_update_policies() -> None:
