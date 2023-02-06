@@ -509,7 +509,7 @@ can use the platform to review
 vulnerabilities and contribute to
 vulnerability fixes.
 
-![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075293/docs/web/notifications/add_stakeholders.pngg)
+![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075293/docs/web/notifications/add_stakeholders.png)
 
 ### Analytics notification
 

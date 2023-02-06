@@ -148,3 +148,57 @@ the column called **Reattack** in the
 You can also check in the
 [Consulting](/squad/consulting/#concerning-vulnerabilities)
 whether there are comments  on the request.
+
+## Certificate
+
+### How do I generate a service certificate?
+
+In the [Vulnerabilities](/machine/web/groups/vulnerabilities/)
+section,
+click on the [Generate report](/machine/web/groups/reports/)
+button and select the **Certificate**
+option.
+However,
+this option will not be available if
+you have not filled out the
+**Business Registration Number**
+and **Business Name** fields in the
+[Information](/machine/web/groups/information/)
+section.
+Remember that the roles that can download
+certifications are
+[user manager](/machine/web/groups/roles/#user-manager-role)
+and [vulnerability manager](/machine/web/groups/roles/#vulnerability-manager-role).
+
+## Reports
+
+### How do I generate the vulnerability report?
+
+In the [Vulnerability](/machine/web/groups/vulnerabilities/)
+section,
+click the [Generate report](/machine/web/groups/reports/)
+button and select which type of
+[report](/machine/web/groups/reports/)
+you want to download,
+either **technical** or **executive**.
+Remember that you must register your
+[mobile number](/machine/web/user/)
+beforehand to enable two-factor authentication
+to download the report.
+Remember that the roles that can download
+reports are [user manager](/machine/web/groups/roles/#user-manager-role)
+and [vulnerability manager](/machine/web/groups/roles/#vulnerability-manager-role).
+
+### What is the difference between executive and technical reports?
+
+The **executive report** is a summary
+report in PDF format,
+generally intended for personnel in
+management roles.
+This report contains concise and clear
+information on the vulnerabilities
+reported in the group.
+On the other hand,
+the **technical report** is an XLSX file
+where you have all the vulnerabilities
+reported in the group with their technical details.
