@@ -3,7 +3,6 @@ from aioextensions import (
     collect,
     schedule,
 )
-import authz
 from custom_exceptions import (
     InvalidParameter,
     InvalidRemovalVulnState,
@@ -505,9 +504,6 @@ async def mask_vulnerability(
     finding = await get_finding(loaders, finding_id)
     if (
         vulnerability.state.status == VulnerabilityStateStatus.DELETED
-        and not vulnerability.state.modified_by.endswith(
-            authz.FLUID_IDENTIFIER
-        )
         and finding.state.status == FindingStateStatus.APPROVED
     ):
         await vulns_model.update_historic_entry(

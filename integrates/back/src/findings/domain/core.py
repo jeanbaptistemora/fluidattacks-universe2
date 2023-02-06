@@ -590,10 +590,7 @@ async def mask_finding(
         workers=8,
     )
 
-    if (
-        finding.state.status == FindingStateStatus.DELETED
-        and not finding.state.modified_by.endswith(authz.FLUID_IDENTIFIER)
-    ):
+    if finding.state.status == FindingStateStatus.DELETED:
         # Findings in the MASKED state will be archived
         await findings_model.update_state(
             current_value=finding.state,
