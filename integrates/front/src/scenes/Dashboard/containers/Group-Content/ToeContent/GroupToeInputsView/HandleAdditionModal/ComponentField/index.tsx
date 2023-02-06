@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -6,8 +5,8 @@ import type { ConfigurableValidator } from "revalidate";
 
 import type { IComponentFieldProps } from "./types";
 
-import { ControlLabel, FormGroup, Row } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { Input } from "components/Input";
+import { FormGroup, Row } from "styles/styledComponents";
 import {
   composeValidators,
   validPath,
@@ -24,15 +23,12 @@ const ComponentField: React.FC<IComponentFieldProps> = (
 
   return (
     <FormGroup>
-      <ControlLabel>
-        <b>{t("group.toe.inputs.addModal.fields.component")} </b>
-      </ControlLabel>
       <Row>
         {_.isUndefined(host) ? undefined : <span>{host}</span>}
         {_.isString(host) && host.includes("?") ? undefined : (
-          <Field
-            component={FormikText}
+          <Input
             disabled={false}
+            label={t("group.toe.inputs.addModal.fields.component")}
             name={"path"}
             placeholder={t("group.toe.inputs.addModal.fields.path")}
             type={"text"}
