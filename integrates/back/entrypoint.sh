@@ -1,11 +1,5 @@
 # shellcheck shell=bash
 
-function serve_daemon {
-  kill_port 28001 \
-    && { serve "${@}" & } \
-    && wait_port 300 localhost:28001
-}
-
 function serve {
   local env="${1:-}"
 
@@ -83,6 +77,12 @@ function serve {
     || return 1
 }
 
+function serve_daemon {
+  kill_port 28001 \
+    && { serve "${@}" & } \
+    && wait_port 300 localhost:28001
+}
+
 function main {
   export HOST="${HOST:-0.0.0.0}"
   export PORT="${PORT:-8001}"
@@ -93,4 +93,5 @@ function main {
     *) serve "${@}" ;;
   esac
 }
+
 main "${@}"

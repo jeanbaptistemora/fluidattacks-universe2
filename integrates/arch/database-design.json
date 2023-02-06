@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Jan 30, 2023, 09:26 AM",
+    "DateLastModified": "Feb 06, 2023, 11:33 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -848,7 +848,7 @@
         },
         {
           "AttributeName": "extension_days",
-          "AttributeType": "S"
+          "AttributeType": "N"
         },
         {
           "AttributeName": "start_date",
@@ -24131,17 +24131,17 @@
           ],
           "NonKeyAttributes": [
             "modified_date",
+            "loc",
             "seen_first_time_by",
+            "sorts_risk_level",
             "group_name",
             "filename",
             "root_id",
             "pk_2",
             "sk_2",
             "state",
-            "loc",
-            "sorts_risk_level",
-            "sorts_risk_level_date",
-            "sorts_suggestions"
+            "sorts_suggestions",
+            "sorts_risk_level_date"
           ],
           "DataAccess": {
             "MySql": {}
@@ -40727,6 +40727,366 @@
           ],
           "NonKeyAttributes": [
             "trial"
+          ],
+          "DataAccess": {
+            "MySql": {}
+          }
+        },
+        {
+          "FacetName": "trial",
+          "KeyAttributeAlias": {
+            "PartitionKeyAlias": "TRIAL#email",
+            "SortKeyAlias": "TRIAL#email"
+          },
+          "TableData": [
+            {
+              "pk": {
+                "S": "TRIAL#__adminEmail__"
+              },
+              "sk": {
+                "S": "TRIAL#__adminEmail__"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_days": {
+                "N": "0"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#continuoushack2@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#continuoushack2@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.961374+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.961408+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#continuoushacking@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#continuoushacking@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.969630+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.969646+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#customer_manager@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#customer_manager@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.942324+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.942336+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#forces.unittesting@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#forces.unittesting@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.944268+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.944280+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integrateshacker@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integrateshacker@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.965672+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.965690+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesmanager@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesmanager@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_days": {
+                "N": "0"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesmanager@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesmanager@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2019-06-10T20:07:57+00:00"
+              },
+              "extension_days": {
+                "N": "5"
+              },
+              "start_date": {
+                "S": "2022-06-01T20:07:57+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesreattacker@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesreattacker@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.955732+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.955784+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesresourcer@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesresourcer@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.936168+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.936189+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesreviewer@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesreviewer@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.948485+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.948504+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesserviceforces@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesserviceforces@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.958701+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.958726+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesuser2@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesuser2@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.940308+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.940319+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesuser2@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesuser2@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.938286+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.938298+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#integratesuser@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#integratesuser@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_days": {
+                "N": "0"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#unittest2@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#unittest2@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.951154+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.951177+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#unittest@fluidattacks.com"
+              },
+              "sk": {
+                "S": "TRIAL#unittest@fluidattacks.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2019-06-10T20:07:57+00:00"
+              },
+              "extension_days": {
+                "N": "5"
+              },
+              "start_date": {
+                "S": "2022-06-01T20:07:57+00:00"
+              }
+            },
+            {
+              "pk": {
+                "S": "TRIAL#vulnmanager@gmail.com"
+              },
+              "sk": {
+                "S": "TRIAL#vulnmanager@gmail.com"
+              },
+              "completed": {
+                "BOOL": true
+              },
+              "extension_date": {
+                "S": "2022-08-04T22:21:45.946275+00:00"
+              },
+              "extension_days": {
+                "N": "0"
+              },
+              "start_date": {
+                "S": "2022-08-04T22:21:45.946286+00:00"
+              }
+            }
+          ],
+          "NonKeyAttributes": [
+            "extension_days",
+            "extension_date",
+            "completed",
+            "start_date"
           ],
           "DataAccess": {
             "MySql": {}
