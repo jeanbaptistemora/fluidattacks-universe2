@@ -7,7 +7,7 @@ slug: /about/sla/availability
 
 ## Description
 
-**99.5%** of the time,
+**99%** of the time,
 the ARM will be available via the internet
 for its registered users.
 
