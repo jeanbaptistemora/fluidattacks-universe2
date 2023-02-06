@@ -1803,3 +1803,9 @@ class VulnerabilityHasNotBeenSubmitted(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The vulnerability has not been submitted"
         super(VulnerabilityHasNotBeenSubmitted, self).__init__(msg)
+
+
+class InvalidStandardId(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The standard id is invalid"
+        super(InvalidStandardId, self).__init__(msg)

@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from custom_exceptions import (
+    InvalidStandardId,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -117,6 +120,11 @@ class StandardReportCreator(CreatorPdf):
             key=lambda standard: standard.title,
         )
         if selected_unfulfilled_standards is not None:
+            if len(
+                selected_unfulfilled_standards & compliance_file.keys()
+            ) != len(selected_unfulfilled_standards):
+                raise InvalidStandardId()
+
             unfulfilled_standards_to_display = [
                 unfulfilled_standard_info
                 for unfulfilled_standard_info in (
