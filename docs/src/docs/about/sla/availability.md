@@ -11,7 +11,7 @@ slug: /about/sla/availability
 the ARM will be available via the internet
 for its registered users.
 
-### Details
+## Criteria
 
 Besides the [general measurement aspects](/about/sla#details),
 this SLA is measured
@@ -25,7 +25,7 @@ taking into account the following:
   the measurement will be based on the affected office hours
   and adjusted according to the percentage of affected users.
 
-## Data
+## Details
 
 Click on the following button
 to go to the page
@@ -38,4 +38,4 @@ of all our systems:
 
 ## Indicator calculation
 
-1. Compute: Successful tests / Performed tests
+- Compute: Successful tests / Performed tests
