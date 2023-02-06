@@ -33,10 +33,7 @@ async def test_get_toe_lines(populate: bool, email: str) -> None:
     assert lines[1]["node"]["filename"] == "test1/test.sh"
     assert lines[1]["node"]["firstAttackAt"] == "2020-01-19T15:41:04+00:00"
     assert lines[1]["node"]["lastAuthor"] == "customer1@gmail.com"
-    assert (
-        lines[1]["node"]["lastCommit"]
-        == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1"
-    )
+    assert lines[1]["node"]["lastCommit"] == "f9e4beb"
     assert lines[1]["node"]["loc"] == 4324
     assert lines[1]["node"]["modifiedDate"] == "2020-11-16T15:41:04+00:00"
     assert lines[1]["node"]["seenAt"] == "2020-01-01T15:41:04+00:00"
@@ -100,10 +97,7 @@ async def test_get_toe_lines_by_root(populate: bool, email: str) -> None:
     assert lines[0]["node"]["filename"] == "test2/test#.config"
     assert lines[0]["node"]["firstAttackAt"] == "2020-02-19T15:41:04+00:00"
     assert lines[0]["node"]["lastAuthor"] == "customer2@gmail.com"
-    assert (
-        lines[0]["node"]["lastCommit"]
-        == "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2"
-    )
+    assert lines[0]["node"]["lastCommit"] == "e17059d"
     assert lines[0]["node"]["loc"] == 180
     assert lines[0]["node"]["modifiedDate"] == "2020-11-15T15:41:04+00:00"
     assert lines[0]["node"]["seenAt"] == "2020-02-01T15:41:04+00:00"
@@ -234,4 +228,47 @@ async def test_get_toe_lines_by_to_date(populate: bool, email: str) -> None:
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["modifiedDate"]
         == "2020-11-15T15:41:04+00:00"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_last_commit(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        last_commit="f9e4beb",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
+        == "f9e4beb"
+    )
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        last_commit="e17059d",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
+        == "e17059d"
+    )
+
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        last_commit="a281ru5",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
+        == "a281ru5"
     )

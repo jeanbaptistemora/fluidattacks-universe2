@@ -17,6 +17,7 @@ def get_query() -> str:
             $fromModifiedDate: DateTime
             $groupName: String!
             $hasVulnerabilities: Boolean
+            $lastCommit: String
             $maxLoc: Int
             $minLoc: Int
             $rootId: ID
@@ -27,6 +28,7 @@ def get_query() -> str:
                 toeLines(
                     fromModifiedDate: $fromModifiedDate
                     hasVulnerabilities: $hasVulnerabilities
+                    lastCommit: $lastCommit
                     maxLoc: $maxLoc
                     minLoc: $minLoc
                     rootId: $rootId
@@ -77,6 +79,7 @@ async def get_result(
     filename: Optional[str] = None,
     from_modified_date: Optional[str] = None,
     has_vulnerabilities: Optional[bool] = None,
+    last_commit: Optional[str] = None,
     max_loc: Optional[int] = None,
     min_loc: Optional[int] = None,
     root_id: Optional[str] = None,
@@ -90,6 +93,7 @@ async def get_result(
             "fromModifiedDate": from_modified_date,
             "groupName": group_name,
             "hasVulnerabilities": has_vulnerabilities,
+            "lastCommit": last_commit,
             "maxLoc": max_loc,
             "minLoc": min_loc,
             "rootId": root_id,
