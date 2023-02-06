@@ -29,7 +29,7 @@ from typing import (
 
 async def _get_organization_finding_policy(
     *,
-    requests: list[OrgFindingPolicyRequest],
+    requests: Iterable[OrgFindingPolicyRequest],
 ) -> list[Optional[OrgFindingPolicy]]:
     primary_keys = tuple(
         keys.build_key(
@@ -96,10 +96,12 @@ async def _get_organization_finding_policies(
     return policies_list
 
 
-class OrganizationFindingPolicyLoader(DataLoader):
+class OrganizationFindingPolicyLoader(
+    DataLoader[OrgFindingPolicyRequest, Optional[OrgFindingPolicy]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[OrgFindingPolicyRequest]
+        self, requests: Iterable[OrgFindingPolicyRequest]
     ) -> list[Optional[OrgFindingPolicy]]:
         return await _get_organization_finding_policy(requests=requests)
 
