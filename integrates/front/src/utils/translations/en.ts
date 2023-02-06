@@ -289,9 +289,10 @@ export const enTranslations: ResourceKey = {
       yes: "Yes",
     },
     companyAlreadyInTrial:
-      "Your company is already in trial and your user is not registered, Please contact your manager to request access.",
+      "Ups! It seems like your company already enjoyed the free trial. " +
+      "Please contact your manager to request access.",
     corporateOnly:
-      "Only corporate users are allowed. Please switch accounts and try again",
+      "To enjoy your free trial, sign up with a Corporate Email Account.",
     credentials: {
       auth: {
         azureToken: "Azure DevOps PAT",
