@@ -71,6 +71,7 @@ from roots import (
 from typing import (
     Any,
     Callable,
+    Iterable,
     Optional,
     Union,
 )
@@ -196,7 +197,9 @@ def is_valid_git_branch(branch_name: str) -> bool:
 
 
 def validate_nickname_is_unique(
-    nickname: str, roots: tuple[Root, ...], old_nickname: str = ""
+    nickname: str,
+    roots: Iterable[Root],
+    old_nickname: str = "",
 ) -> None:
     if nickname != old_nickname and nickname in {
         root.state.nickname
@@ -240,7 +243,7 @@ def is_git_unique(
     url: str,
     branch: str,
     group_name: str,
-    roots: tuple[Root, ...],
+    roots: Iterable[Root],
     include_inactive: bool = False,
 ) -> bool:
     """
@@ -280,7 +283,7 @@ def is_valid_ip(address: str) -> bool:
 
 def is_ip_unique(
     address: str,
-    roots: tuple[Root, ...],
+    roots: Iterable[Root],
     include_inactive: bool = False,
 ) -> bool:
     return address not in tuple(
@@ -298,7 +301,7 @@ def is_url_unique(  # pylint: disable=too-many-arguments
     port: str,
     protocol: str,
     query: Optional[str],
-    roots: tuple[Root, ...],
+    roots: Iterable[Root],
     include_inactive: bool = False,
 ) -> bool:
     return (host, path, port, protocol, query) not in tuple(

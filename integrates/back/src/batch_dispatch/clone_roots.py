@@ -9,7 +9,6 @@ from batch_dispatch.utils.git_self import (
     clone_root,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.credentials.types import (
@@ -49,9 +48,7 @@ from settings import (
     LOGGING,
 )
 from typing import (
-    List,
     Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -62,7 +59,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def clone_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    root_nicknames: List[str] = []
+    root_nicknames: list[str] = []
     try:
         root_nicknames = json.loads(item.additional_info)["roots"]
     except JSONDecodeError:
@@ -73,14 +70,13 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         root_nicknames,
     )
 
-    dataloaders: Dataloaders = get_new_context()
-    group_roots_loader = dataloaders.group_roots
+    loaders = get_new_context()
     group_roots = tuple(
         root
-        for root in await group_roots_loader.load(group_name)
+        for root in await loaders.group_roots.load(group_name)
         if root.state.status == RootStatus.ACTIVE
     )
-    group: Group = await dataloaders.group.load(group_name)
+    group: Group = await loaders.group.load(group_name)
 
     # In the off case there are multiple roots with the same nickname
     root_ids = tuple(
@@ -91,22 +87,24 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         )
         for nickname in root_nicknames
     )
-    roots: Tuple[GitRoot, ...] = tuple(
-        root for root in group_roots if root.id in root_ids
+    roots = tuple(
+        root
+        for root in group_roots
+        if root.id in root_ids and isinstance(root, GitRoot)
     )
-    cloned_roots_nicknames: Tuple[str, ...] = tuple()
+    cloned_roots_nicknames: tuple[str, ...] = tuple()
 
     LOGGER.info("%s roots will be cloned", len(roots))
     for root in roots:
         await roots_domain.update_root_cloning_status(
-            loaders=dataloaders,
+            loaders=loaders,
             group_name=group_name,
             root_id=root.id,
             status=GitCloningStatus.CLONING,
             message="Cloning in progress...",
         )
         root_cred: Optional[Credentials] = (
-            await dataloaders.credentials.load(
+            await loaders.credentials.load(
                 CredentialsRequest(
                     id=root.state.credential_id,
                     organization_id=group.organization_id,
@@ -131,7 +129,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             branch=root.state.branch,
             root_url=root.state.url,
             cred=root_cred,
-            loaders=dataloaders,
+            loaders=loaders,
         )
         LOGGER.info(
             "Cloned success: %s, with commit: %s",
@@ -140,7 +138,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
         )
         if root_cloned.success and root_cloned.commit is not None:
             await roots_domain.update_root_cloning_status(
-                loaders=dataloaders,
+                loaders=loaders,
                 group_name=group_name,
                 root_id=root.id,
                 status=GitCloningStatus.OK,
@@ -155,7 +153,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             )
         else:
             await roots_domain.update_root_cloning_status(
-                loaders=dataloaders,
+                loaders=loaders,
                 group_name=group_name,
                 root_id=root.id,
                 status=GitCloningStatus.FAILED,
@@ -170,7 +168,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
     if group.state.has_machine and cloned_roots_nicknames:
         queue = SkimsBatchQueue.SMALL
         await queue_job_new(
-            dataloaders=dataloaders,
+            dataloaders=loaders,
             group_name=group_name,
             roots=cloned_roots_nicknames,
             finding_codes=findings,

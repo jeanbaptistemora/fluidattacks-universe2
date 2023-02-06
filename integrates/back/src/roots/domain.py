@@ -156,6 +156,7 @@ from typing import (
     Any,
     cast,
     DefaultDict,
+    Iterable,
     Optional,
     Union,
 )
@@ -291,7 +292,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
     )
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, tuple(await loaders.group_roots.load(group_name))
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     includes_health_check = kwargs["includes_health_check"]
@@ -315,7 +316,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
             url,
             branch,
             group_name,
-            tuple(await loaders.organization_roots.load(organization.name)),
+            await loaders.organization_roots.load(organization.name),
             include_inactive=True,
         )
     ):
@@ -405,7 +406,7 @@ async def add_ip_root(
         and group.state.type != GroupSubscriptionType.ONESHOT
         and not validations.is_ip_unique(
             address,
-            tuple(await loaders.organization_roots.load(organization_name)),
+            await loaders.organization_roots.load(organization_name),
             include_inactive=True,
         )
     ):
@@ -416,7 +417,7 @@ async def add_ip_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, tuple(await loaders.group_roots.load(group_name))
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     modified_date = datetime_utils.get_utc_now()
@@ -511,7 +512,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     loaders.group_roots.clear(group_name)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, tuple(await loaders.group_roots.load(group_name))
+        nickname, await loaders.group_roots.load(group_name)
     )
 
     modified_date = datetime_utils.get_utc_now()
@@ -762,7 +763,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         validations.validate_nickname(kwargs["nickname"])
         validations.validate_nickname_is_unique(
             kwargs["nickname"],
-            tuple(await loaders.group_roots.load(group_name)),
+            await loaders.group_roots.load(group_name),
         )
         nickname = kwargs["nickname"]
 
@@ -777,7 +778,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
             url,
             branch,
             group_name,
-            tuple(await loaders.organization_roots.load(organization_name)),
+            await loaders.organization_roots.load(organization_name),
             include_inactive=True,
         ):
             raise RepeatedRoot()
@@ -882,7 +883,7 @@ async def update_ip_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, tuple(await loaders.group_roots.load(group_name))
+        nickname, await loaders.group_roots.load(group_name)
     )
     new_state: IPRootState = IPRootState(
         address=root.state.address,
@@ -932,7 +933,7 @@ async def update_url_root(
     validation_utils.validate_sanitized_csv_input(nickname)
     validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
-        nickname, tuple(await loaders.group_roots.load(group_name))
+        nickname, await loaders.group_roots.load(group_name)
     )
     new_state: URLRootState = URLRootState(
         host=root.state.host,
@@ -1181,7 +1182,7 @@ async def activate_root(
                 root.state.url,
                 root.state.branch,
                 root.group_name,
-                tuple(org_roots),
+                org_roots,
             ):
                 raise RepeatedRoot()
 
@@ -1346,7 +1347,7 @@ async def deactivate_root(
 
 def get_root_id_by_nickname(
     nickname: str,
-    group_roots: tuple[Root, ...],
+    group_roots: Iterable[Root],
     only_git_roots: bool = False,
 ) -> str:
     root_ids_by_nicknames = get_root_ids_by_nicknames(
@@ -1370,7 +1371,7 @@ def get_root_id_by_nicknames(
 
 
 def get_root_ids_by_nicknames(
-    group_roots: tuple[Root, ...], only_git_roots: bool = False
+    group_roots: Iterable[Root], only_git_roots: bool = False
 ) -> dict[str, str]:
     # Get a dict that have the relation between nickname and id for roots
     # There are roots with the same nickname
@@ -1529,7 +1530,7 @@ async def move_root(
             root.state.url,
             root.state.branch,
             target_group_name,
-            tuple(target_group_roots),
+            target_group_roots,
             include_inactive=True,
         ):
             raise RepeatedRoot()
@@ -1894,7 +1895,7 @@ async def _ls_remote_root(
 
 
 def _filter_active_roots_with_credentials(
-    roots: tuple[GitRoot, ...], use_vpn: bool
+    roots: Iterable[GitRoot], use_vpn: bool
 ) -> tuple[GitRoot, ...]:
     valid_roots: tuple[GitRoot, ...] = tuple(
         root
@@ -1938,7 +1939,7 @@ async def _filter_roots_unsolved_events(
 
 
 async def _filter_roots_already_in_queue(
-    roots: tuple[GitRoot, ...], group_name: str
+    roots: Iterable[GitRoot], group_name: str
 ) -> tuple[GitRoot, ...]:
     clone_queue = await get_actions_by_name("clone_roots", group_name)
     root_nicknames_in_queue = set(
@@ -1949,7 +1950,7 @@ async def _filter_roots_already_in_queue(
             ]
         )
     )
-    valid_roots: tuple[GitRoot, ...] = tuple(
+    valid_roots = tuple(
         root
         for root in roots
         if root.state.nickname not in root_nicknames_in_queue
@@ -1961,7 +1962,7 @@ async def _filter_roots_already_in_queue(
 
 
 async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
-    roots: tuple[GitRoot, ...],
+    roots: Iterable[GitRoot],
     loaders: Dataloaders,
     group_name: str,
     organization_id: str,

@@ -267,30 +267,26 @@ async def rebase(*, item: BatchProcessing) -> None:
     except json.JSONDecodeError:
         root_nicknames = item.additional_info.split(",")
 
-    dataloaders: Dataloaders = get_new_context()
-    group_roots_loader = dataloaders.group_roots
-    group_roots: tuple[GitRoot, ...] = tuple(
+    loaders = get_new_context()
+    group_roots = [
         root
-        for root in await group_roots_loader.load(group_name)
-        if root.state.status == RootStatus.ACTIVE
-    )
+        for root in await loaders.group_roots.load(group_name)
+        if root.state.status == RootStatus.ACTIVE and isinstance(root, GitRoot)
+    ]
     # In the off case there are multiple roots with the same nickname
     if item.additional_info == "*":
-        root_ids = tuple(root.id for root in group_roots)
+        root_ids = [root.id for root in group_roots]
     else:
-        root_ids = tuple(
+        root_ids = [
             roots_domain.get_root_id_by_nickname(
                 nickname=nickname,
                 group_roots=group_roots,
                 only_git_roots=True,
             )
             for nickname in root_nicknames
-        )
+        ]
 
-    roots: tuple[GitRoot, ...] = tuple(
-        root for root in group_roots if root.id in root_ids
-    )
-
+    roots = [root for root in group_roots if root.id in root_ids]
     for git_root in roots:
         with tempfile.TemporaryDirectory() as tmpdir:
             os.chdir(tmpdir)
@@ -313,7 +309,7 @@ async def rebase(*, item: BatchProcessing) -> None:
                 )
                 repo.git.reset("--hard", "HEAD")
                 os.chdir(repo_path)
-                await rebase_root(dataloaders, group_name, repo, git_root)
+                await rebase_root(loaders, group_name, repo, git_root)
                 await delete_action(
                     action_name=item.action_name,
                     additional_info=item.additional_info,

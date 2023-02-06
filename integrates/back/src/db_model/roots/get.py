@@ -112,13 +112,17 @@ async def _get_group_roots(*, group_name: str) -> list[Root]:
     return [format_root(item) for item in response.items]
 
 
-class GroupRootsLoader(DataLoader):
-    async def load_many_chained(self, group_names: list[str]) -> list[Root]:
+class GroupRootsLoader(DataLoader[str, list[Root]]):
+    async def load_many_chained(
+        self, group_names: Iterable[str]
+    ) -> list[Root]:
         unchained_data = await self.load_many(group_names)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, group_names: list[str]) -> list[list[Root]]:
+    async def batch_load_fn(
+        self, group_names: Iterable[str]
+    ) -> list[list[Root]]:
         return list(
             await collect(
                 _get_group_roots(group_name=group_name)
@@ -152,10 +156,10 @@ async def _get_organization_roots(*, organization_name: str) -> list[Root]:
     return [format_root(item) for item in response.items]
 
 
-class OrganizationRootsLoader(DataLoader):
+class OrganizationRootsLoader(DataLoader[str, list[Root]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_names: list[str]
+        self, organization_names: Iterable[str]
     ) -> list[list[Root]]:
         return list(
             await collect(
@@ -201,7 +205,7 @@ async def _get_historic_state(*, root_id: str) -> list[RootState]:
 class RootHistoricStatesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[list[RootState]]:
         return list(
             await collect(
@@ -232,7 +236,7 @@ async def _get_historic_cloning(*, root_id: str) -> list[GitRootCloning]:
 class RootHistoricCloningLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[list[GitRootCloning]]:
         return list(
             await collect(
@@ -306,7 +310,7 @@ async def get_machine_executions(
 class RootMachineExecutionsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[list[RootMachineExecution]]:
         machine_executions = await collect(
             get_machine_executions(root_id=root_id) for root_id in root_ids
@@ -464,7 +468,7 @@ class RootSecretsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        root_ids: list[str],
+        root_ids: Iterable[str],
     ) -> list[list[Secret]]:
         return list(
             await collect(
@@ -513,7 +517,9 @@ async def _get_environment_secrets(
 
 class GitEnvironmentSecretsLoader(DataLoader):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, urls_ids: list[str]) -> list[list[Secret]]:
+    async def batch_load_fn(
+        self, urls_ids: Iterable[str]
+    ) -> list[list[Secret]]:
         return list(
             await collect(
                 _get_environment_secrets(url_id=url_id) for url_id in urls_ids
@@ -566,14 +572,14 @@ async def _get_git_environment_urls(
 
 class RootEnvironmentUrlsLoader(DataLoader):
     async def load_many_chained(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[RootEnvironmentUrl]:
         unchained_data = await self.load_many(root_ids)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[list[RootEnvironmentUrl]]:
         return list(
             await collect(
