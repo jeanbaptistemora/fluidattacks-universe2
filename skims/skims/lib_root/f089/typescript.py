@@ -21,7 +21,7 @@ from typing import (
 def json_parse_unvalidated_data(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TS_CLIENT_STORAGE
+    method = MethodsEnum.TS_JSON_PARSE_UNVALIDATED_DATA
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -35,7 +35,7 @@ def json_parse_unvalidated_data(
                 yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_path.f085.client_storage.description",
+        desc_key="lib_root.f089.trust_boundary_violation",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

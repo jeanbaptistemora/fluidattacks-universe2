@@ -2464,38 +2464,6 @@ F343,lines,namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,2
   35 | new CompressionPlugin(pluginOpts2);
      ^ Col 0
 ",typescript.typescript_insecure_compression_algorithm
-F089,lines,namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,4,501,skims,089. Lack of data validation - Trust boundary violation,Sensitive information storage in namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,"
-   1 | // These lines should be marked due direct usage without validation
-   2 | const anyString = ""key"";
-   3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
->  4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
-   5 |
-   6 | // These lines should not be marked, indirect usage is not possible to check whether
-   7 | // there was a validation
-   8 | const value = localStorage.getItem(""example"");
-   9 | const result = JSON.parse(value);
-  10 |
-  11 | const value2 = localStorage.getItem(""example2"");
-  12 | value3 = anyValidation(value2);
-  13 | const result2 = JSON.parse(value3);
-     ^ Col 0
-",javascript.javascript_json_parse_unvalidated_data
-F089,lines,namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,3,501,skims,089. Lack of data validation - Trust boundary violation,Sensitive information storage in namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,"
-   1 | // These lines should be marked due direct usage without validation
-   2 | const anyString = ""key"";
->  3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
-   4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
-   5 |
-   6 | // These lines should not be marked, indirect usage is not possible to check whether
-   7 | // there was a validation
-   8 | const value = localStorage.getItem(""example"");
-   9 | const result = JSON.parse(value);
-  10 |
-  11 | const value2 = localStorage.getItem(""example2"");
-  12 | value3 = anyValidation(value2);
-  13 | const result2 = JSON.parse(value3);
-     ^ Col 0
-",javascript.javascript_json_parse_unvalidated_data
 F089,lines,namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java,9,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java","
    1 | import java.io.IOException;
@@ -2513,6 +2481,74 @@ F089,lines,namespace/skims/test/data/lib_root/f089/java_trustbound_violation.jav
   13 | }
      ^ Col 0
 ",java.java_trust_boundary_violation
+F089,lines,namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,4,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js","
+   1 | // These lines should be marked due direct usage without validation
+   2 | const anyString = ""key"";
+   3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
+>  4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
+   5 |
+   6 | // These lines should not be marked, indirect usage is not possible to check whether
+   7 | // there was a validation
+   8 | const value = localStorage.getItem(""example"");
+   9 | const result = JSON.parse(value);
+  10 |
+  11 | const value2 = localStorage.getItem(""example2"");
+  12 | value3 = anyValidation(value2);
+  13 | const result2 = JSON.parse(value3);
+     ^ Col 0
+",javascript.javascript_json_parse_unvalidated_data
+F089,lines,namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js,3,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in namespace/skims/test/data/lib_root/f089/javascript_json_parse_unvalidated.js","
+   1 | // These lines should be marked due direct usage without validation
+   2 | const anyString = ""key"";
+>  3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
+   4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
+   5 |
+   6 | // These lines should not be marked, indirect usage is not possible to check whether
+   7 | // there was a validation
+   8 | const value = localStorage.getItem(""example"");
+   9 | const result = JSON.parse(value);
+  10 |
+  11 | const value2 = localStorage.getItem(""example2"");
+  12 | value3 = anyValidation(value2);
+  13 | const result2 = JSON.parse(value3);
+     ^ Col 0
+",javascript.javascript_json_parse_unvalidated_data
+F089,lines,namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,4,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts","
+   1 | // These lines should be marked due direct usage without validation
+   2 | const anyString = ""key"";
+   3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
+>  4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
+   5 |
+   6 | // These lines should not be marked, indirect usage is not possible to check whether
+   7 | // there was a validation
+   8 | const value = localStorage.getItem(""example"");
+   9 | const result = JSON.parse(value);
+  10 |
+  11 | const value2 = localStorage.getItem(""example2"");
+  12 | value3 = anyValidation(value2);
+  13 | const result2 = JSON.parse(value3);
+     ^ Col 0
+",typescript.typescript_json_parse_unvalidated_data
+F089,lines,namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,3,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
+ in namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts","
+   1 | // These lines should be marked due direct usage without validation
+   2 | const anyString = ""key"";
+>  3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
+   4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
+   5 |
+   6 | // These lines should not be marked, indirect usage is not possible to check whether
+   7 | // there was a validation
+   8 | const value = localStorage.getItem(""example"");
+   9 | const result = JSON.parse(value);
+  10 |
+  11 | const value2 = localStorage.getItem(""example2"");
+  12 | value3 = anyValidation(value2);
+  13 | const result2 = JSON.parse(value3);
+     ^ Col 0
+",typescript.typescript_json_parse_unvalidated_data
 F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
    1 | ass XmlSerializerTestCase : Controller
    2 |
@@ -4571,38 +4607,6 @@ F085,lines,namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,1,922,
   7 | localStorage.getItem('is_authenticated');
   8 | localStorage.getItem('_isAuthorized');
     ^ Col 0
-",typescript.typescript_client_storage
-F085,lines,namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,4,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,"
-   1 | // These lines should be marked due direct usage without validation
-   2 | const anyString = ""key"";
-   3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
->  4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
-   5 |
-   6 | // These lines should not be marked, indirect usage is not possible to check whether
-   7 | // there was a validation
-   8 | const value = localStorage.getItem(""example"");
-   9 | const result = JSON.parse(value);
-  10 |
-  11 | const value2 = localStorage.getItem(""example2"");
-  12 | value3 = anyValidation(value2);
-  13 | const result2 = JSON.parse(value3);
-     ^ Col 0
-",typescript.typescript_client_storage
-F085,lines,namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,3,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f089/typescript_json_parse_unvalidated.ts,"
-   1 | // These lines should be marked due direct usage without validation
-   2 | const anyString = ""key"";
->  3 | const myVar = JSON.parse(localStorage.getItem(""anyVal""));
-   4 | const myVar2 = JSON.parse(localStorage.getItem(anyString));
-   5 |
-   6 | // These lines should not be marked, indirect usage is not possible to check whether
-   7 | // there was a validation
-   8 | const value = localStorage.getItem(""example"");
-   9 | const result = JSON.parse(value);
-  10 |
-  11 | const value2 = localStorage.getItem(""example2"");
-  12 | value3 = anyValidation(value2);
-  13 | const result2 = JSON.parse(value3);
-     ^ Col 0
 ",typescript.typescript_client_storage
 F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
    1 | import com.jcraft.jsch.JSch;
