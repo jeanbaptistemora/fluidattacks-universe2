@@ -12,6 +12,7 @@ interface IUnfulfilledRequirementAttr {
 }
 
 interface IUnfulfilledStandardAttr {
+  standardId: string;
   title: string;
   unfulfilledRequirements: IUnfulfilledRequirementAttr[];
 }

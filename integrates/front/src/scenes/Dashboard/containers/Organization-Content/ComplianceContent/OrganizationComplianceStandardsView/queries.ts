@@ -18,6 +18,7 @@ const GET_GROUP_UNFULFILLED_STANDARDS: DocumentNode = gql`
       name
       compliance {
         unfulfilledStandards {
+          standardId
           title
           unfulfilledRequirements {
             id
