@@ -163,6 +163,8 @@ type Query {
     groupName: String!
     "OTP code to verify the stakeholder"
     verificationCode: String!
+    "Unfulfilled standards to generate the report"
+    unfulfilledStandards: [String!]
   ): String!
 
   "Gets vulnerabilities pending to reattack"

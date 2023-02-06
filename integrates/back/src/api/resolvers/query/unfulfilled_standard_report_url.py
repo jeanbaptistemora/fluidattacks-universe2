@@ -2,6 +2,7 @@ from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
 from custom_exceptions import (
+    InvalidParameter,
     RequiredNewPhoneNumber,
 )
 from dataloaders import (
@@ -47,7 +48,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     group_name: str,
     verification_code: str,
-    **_kwargs: Any,
+    **kwargs: Any,
 ) -> str:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await sessions_domain.get_jwt_content(
@@ -65,8 +66,16 @@ async def resolve(
         phone_number=get_international_format_phone_number(user_phone),
         code=verification_code,
     )
+    unfulfilled_standards = (
+        set(kwargs["unfulfilled_standards"])
+        if "unfulfilled_standards" in kwargs
+        else None
+    )
+    if not unfulfilled_standards and unfulfilled_standards is not None:
+        raise InvalidParameter("unfulfilledStandards")
     return await reports_domain.get_signed_unfulfilled_standard_report_url(
         loaders=loaders,
         group_name=group_name,
         stakeholder_email=stakeholder_email,
+        unfulfilled_standards=unfulfilled_standards,
     )
