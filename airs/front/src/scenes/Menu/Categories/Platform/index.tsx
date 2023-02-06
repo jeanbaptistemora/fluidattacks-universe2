@@ -24,12 +24,7 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
         height={"max-content"}
         justify={"center"}
       >
-        <Container
-          maxWidth={width > 1200 ? "370px" : "unset"}
-          mr={3}
-          pb={4}
-          pl={4}
-        >
+        <Container maxWidth={width > 1200 ? "460px" : "1440px"} pb={4} ph={4}>
           <Container
             borderBottomColor={"#b0b0bf"}
             height={"36px"}
@@ -41,24 +36,30 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
               {translate.t("menu.platform.aSinglePane.title")}
             </Text>
           </Container>
-          <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
-            <Text color={"#121216"} mb={3} weight={"bold"}>
-              {translate.t("menu.platform.aSinglePane.platformOverview.title")}
+          <Container ph={3}>
+            <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
+              <Text color={"#121216"} mb={3} weight={"bold"}>
+                {translate.t(
+                  "menu.platform.aSinglePane.platformOverview.title"
+                )}
+              </Text>
+            </AirsLink>
+            <Text color={"#535365"} mb={3} size={"small"}>
+              {translate.t(
+                "menu.platform.aSinglePane.platformOverview.subtitle"
+              )}
             </Text>
-          </AirsLink>
-          <Text color={"#535365"} mb={3} size={"small"}>
-            {translate.t("menu.platform.aSinglePane.platformOverview.subtitle")}
-          </Text>
-          <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
-            <Text color={"#121216"} mb={3} mt={2} weight={"bold"}>
-              {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
+            <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
+              <Text color={"#121216"} mb={3} mt={2} weight={"bold"}>
+                {translate.t("menu.platform.aSinglePane.ARMplatform.title")}
+              </Text>
+            </AirsLink>
+            <Text color={"#535365"} size={"small"}>
+              {translate.t("menu.platform.aSinglePane.ARMplatform.subtitle")}
             </Text>
-          </AirsLink>
-          <Text color={"#535365"} size={"small"}>
-            {translate.t("menu.platform.aSinglePane.ARMplatform.subtitle")}
-          </Text>
+          </Container>
         </Container>
-        <Container maxWidth={"768px"} ml={4} mr={4}>
+        <Container maxWidth={width > 960 ? "900px" : "1440px"} ph={4}>
           <Container
             borderBottomColor={"#b0b0bf"}
             height={"36px"}
