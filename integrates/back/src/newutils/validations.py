@@ -329,6 +329,25 @@ def validate_field_length_deco(
     return wrapper
 
 
+def validate_all_fields_length_deco(
+    limit: int, is_greater_than_limit: bool = False
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            for value in kwargs.values():
+                if (
+                    isinstance(value, str)
+                    and (len(value) > limit) != is_greater_than_limit
+                ):
+                    raise InvalidFieldLength()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_finding_id(finding_id: str) -> None:
     if not re.fullmatch(
         r"[0-9A-Za-z]{8}-[0-9A-Za-z]{4}-4[0-9A-Za-z]{3}-[89ABab]"

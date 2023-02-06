@@ -167,6 +167,16 @@ def test_validate_field_length_deco() -> None:
         decorated_func_obj(test_obj=test_obj_fail)
 
 
+def test_validate_all_fields_length_deco() -> None:
+    @validations.validate_all_fields_length_deco(limit=5)
+    def decorated_func(**kwargs: Any) -> str:
+        return f"{kwargs}"
+
+    assert decorated_func(field1="abcd", field2="abc")
+    with pytest.raises(InvalidFieldLength):
+        decorated_func(field1="abcdefg", field2="abcdefg")
+
+
 @pytest.mark.parametrize(
     "fields",
     [
@@ -1215,6 +1225,12 @@ def test_validate_no_duplicate_drafts() -> None:
             new_title="001. SQL injection - C Sharp SQL API",
             drafts=(),
             findings=test_finding,
+        )
+    with pytest.raises(DuplicateDraftFound):
+        validations.validate_no_duplicate_drafts(
+            new_title="001. SQL injection - C Sharp SQL API",
+            drafts=test_finding,
+            findings=(),
         )
 
 
