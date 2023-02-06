@@ -16,6 +16,7 @@ _dag: Tuple[FrozenSet[str], ...] = (
     frozenset({"batch_dispatch"}),
     frozenset({"search"}),
     frozenset({"companies"}),
+    frozenset({"trials"}),
     frozenset({"remove_stakeholder"}),
     frozenset({"unreliable_indicators"}),
     frozenset({"azure_repositories"}),
