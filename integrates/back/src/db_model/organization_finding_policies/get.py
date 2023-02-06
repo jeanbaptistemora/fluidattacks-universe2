@@ -22,6 +22,7 @@ from dynamodb import (
     operations,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
@@ -103,14 +104,16 @@ class OrganizationFindingPolicyLoader(DataLoader):
         return await _get_organization_finding_policy(requests=requests)
 
 
-class OrganizationFindingPoliciesLoader(DataLoader):
+class OrganizationFindingPoliciesLoader(
+    DataLoader[str, list[OrgFindingPolicy]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, organization_names: list[str]
+        self, organization_names: Iterable[str]
     ) -> list[list[OrgFindingPolicy]]:
         return list(
             await collect(
