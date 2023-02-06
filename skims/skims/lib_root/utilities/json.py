@@ -24,7 +24,9 @@ def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
     key = graph.nodes[key_id]["value"]
     value_id = graph.nodes[nid]["value_id"]
     value = (
-        graph.nodes[value_id]["value"] if graph.nodes[nid].get("value") else ""
+        graph.nodes[value_id]["value"]
+        if graph.nodes[value_id].get("value")
+        else ""
     )
     return key, value
 

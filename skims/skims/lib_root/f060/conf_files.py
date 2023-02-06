@@ -1,3 +1,6 @@
+from lib_root.utilities.json import (
+    get_key_value,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -46,10 +49,7 @@ def allowed_hosts(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = graph.nodes[value_id].get("value")
+                key, value = get_key_value(graph, nid)
                 if key == "AllowedHosts" and value == "*":
                     yield shard, nid
 
@@ -73,8 +73,7 @@ def disable_host_check(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
+                key, _ = get_key_value(graph, nid)
                 value_id = graph.nodes[nid]["value_id"]
                 result = has_insecure_flag(graph, value_id, key)
                 for vuln in result:

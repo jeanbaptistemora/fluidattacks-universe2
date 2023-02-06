@@ -1,5 +1,5 @@
 from lib_root.utilities.json import (
-    get_value,
+    get_key_value,
     is_parent,
 )
 from model.core_model import (
@@ -90,10 +90,7 @@ def sensitive_key_in_json(
                 continue
             graph = shard.syntax_graph
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = get_value(graph, value_id)
+                key, value = get_key_value(graph, nid)
 
                 if _sensitive_key_in_json(key, value):
                     yield shard, nid
@@ -117,10 +114,7 @@ def sensitive_info_in_dotnet(
                 continue
             graph = shard.syntax_graph
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = get_value(graph, value_id)
+                key, value = get_key_value(graph, nid)
 
                 if _sensitive_info_in_dotnet(graph, nid, key, value):
                     yield shard, nid
@@ -145,10 +139,7 @@ def sensitive_info_json(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = get_value(graph, value_id)
+                key, value = get_key_value(graph, nid)
 
                 if _sensitive_info_json(graph, nid, key, value):
                     yield shard, nid

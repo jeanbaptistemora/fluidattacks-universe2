@@ -1,5 +1,5 @@
 from lib_root.utilities.json import (
-    get_value,
+    get_key_value,
     is_parent,
 )
 from model.core_model import (
@@ -47,10 +47,7 @@ def principal_wildcard(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
-                value_id = graph.nodes[nid]["value_id"]
-                value = get_value(graph, value_id)
+                key, value = get_key_value(graph, nid)
 
                 if is_in_path(graph, nid, key, value):
                     yield shard, nid

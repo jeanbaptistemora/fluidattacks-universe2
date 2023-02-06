@@ -1,3 +1,6 @@
+from lib_root.utilities.json import (
+    get_key_value,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -53,8 +56,7 @@ def https_flag_missing(
             graph = shard.syntax_graph
 
             for nid in g.matching_nodes(graph, label_type="Pair"):
-                key_id = graph.nodes[nid]["key_id"]
-                key = graph.nodes[key_id]["value"]
+                key, _ = get_key_value(graph, nid)
                 value_id = graph.nodes[nid]["value_id"]
                 result = have_insecure_http_server(graph, value_id, key)
                 for vuln in result:
