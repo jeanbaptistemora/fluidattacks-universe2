@@ -1,12 +1,11 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
+import { Input } from "components/Input";
 import { ModalConfirm } from "components/Modal";
 import type { IURLRootAttr } from "scenes/Dashboard/containers/Group-Content/ToeContent/GroupToeInputsView/HandleAdditionModal/types";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
   initialValues: IURLRootAttr;
@@ -49,23 +48,19 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
             <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.url.url")}
-              </ControlLabel>
-              <Field
-                component={FormikText}
+              <Input
                 disabled={isEditing}
+                label={t("group.scope.url.url")}
                 name={"url"}
                 type={"text"}
               />
             </div>
             <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.url.nickname")}
-              </ControlLabel>
-              <Field component={FormikText} name={"nickname"} type={"text"} />
+              <Input
+                label={t("group.scope.url.nickname")}
+                name={"nickname"}
+                type={"text"}
+              />
             </div>
             <ModalConfirm
               disabled={!dirty || isSubmitting}
