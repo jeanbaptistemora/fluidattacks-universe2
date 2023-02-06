@@ -15,6 +15,7 @@ from typing import (
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TSX_LACK_OF_VALIDATION_EVENT_LISTENER: has_origin_check,
+    MethodsEnum.JSX_LACK_OF_VALIDATION_EVENT_LISTENER: has_origin_check,
 }
 
 

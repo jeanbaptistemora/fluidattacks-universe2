@@ -3267,6 +3267,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    JSX_LACK_OF_VALIDATION_EVENT_LISTENER = MethodInfo(
+        file_name="javascript",
+        name="tsx_lack_of_validation_event_listener",
+        module="lib_root",
+        finding=FindingEnum.F188,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     DOTNETCONFIG_NOT_CUSTOM_ERRORS = MethodInfo(
         file_name="dotnetconfig",
         name="dotnetconfig_not_custom_errors",

@@ -1,4 +1,28 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F188,lines,namespace/skims/test/data/lib_root/f188/jsx_eventListenner.jsx,116,489,skims,188. Lack of data validation - Modify DOM Elements,The application allows the creation of dynamic DOM (Document Object Model) elements from user controlled inputs. The event origin is not checked in namespace/skims/test/data/lib_root/f188/jsx_eventListenner.jsx,"
+  106 |
+  107 |         break
+  108 |       }
+  109 |     }}
+  110 |
+  111 |   }
+  112 |   )
+  113 | }
+  114 |
+  115 | if (canUseDOM) {
+> 116 |   window.addEventListener('message', function handleEvents(e) {
+  117 |     {switch (e.data.eventName) {
+  118 |       case 'vtex:promoView': {
+  119 |         const dataEvent = e.data.promotions
+  120 |         e.origin
+  121 |         setTimeout(() => {
+  122 |           window.dataLayer.push({
+  123 |             event: 'view_promotion',
+  124 |             ecommerce: {
+  125 |               view_promotion: dataEvent.map(item => {
+  126 |                 return {
+      ^ Col 0
+",javascript.tsx_lack_of_validation_event_listener
 F188,lines,namespace/skims/test/data/lib_root/f188/tsx_eventListenner.tsx,116,489,skims,188. Lack of data validation - Modify DOM Elements,The application allows the creation of dynamic DOM (Document Object Model) elements from user controlled inputs. The event origin is not checked in namespace/skims/test/data/lib_root/f188/tsx_eventListenner.tsx,"
   106 |
   107 |         break

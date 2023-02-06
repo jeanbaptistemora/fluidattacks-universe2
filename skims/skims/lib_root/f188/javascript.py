@@ -18,14 +18,14 @@ from typing import (
 )
 
 
-def tsx_lack_of_validation_dom_window(
+def jsx_lack_of_validation_dom_window(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TSX_LACK_OF_VALIDATION_EVENT_LISTENER
+    method = MethodsEnum.JSX_LACK_OF_VALIDATION_EVENT_LISTENER
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphLanguage.TYPESCRIPT,
+            GraphLanguage.JAVASCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue
