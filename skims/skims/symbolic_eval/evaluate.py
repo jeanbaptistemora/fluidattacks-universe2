@@ -16,6 +16,7 @@ from symbolic_eval.cases import (
     binary_operation,
     cast_expression,
     element_access,
+    else_clause,
     execution_block,
     expression_statement,
     field_access,
@@ -82,6 +83,7 @@ EVALUATORS: Dict[str, Evaluator] = {
     "CastExpression": cast_expression.evaluate,
     "ElementAccess": element_access.evaluate,
     "ElementValuePair": named_argument.evaluate,
+    "ElseClause": else_clause.evaluate,
     "ExecutionBlock": execution_block.evaluate,
     "ExpressionStatement": expression_statement.evaluate,
     "FieldAccess": field_access.evaluate,
@@ -126,7 +128,6 @@ EVALUATORS: Dict[str, Evaluator] = {
 def generic(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     node_type = args.graph.nodes[args.n_id]["label_type"]
     evaluator = EVALUATORS.get(node_type)
-
     if not evaluator:
         raise MissingSymbolicEval(f"Missing symbolic evaluator {node_type}")
 

@@ -14,12 +14,12 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    args.evaluation[args.n_id] = False
-
-    if value_id := args.graph.nodes[args.n_id].get("value_id"):
-        args.evaluation[args.n_id] = args.generic(
-            args.fork_n_id(value_id)
-        ).danger
+    child_labels = {"block_id"}
+    for label in child_labels:
+        if n_id := args.graph.nodes[args.n_id].get(label):
+            args.evaluation[args.n_id] = args.generic(
+                args.fork_n_id(n_id)
+            ).danger
 
     if finding_evaluator := FINDING_EVALUATORS.get(args.method.value.finding):
         args.evaluation[args.n_id] = finding_evaluator(args).danger
