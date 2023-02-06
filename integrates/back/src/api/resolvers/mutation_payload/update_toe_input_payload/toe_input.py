@@ -4,10 +4,8 @@ from api.mutations import (
 from dataloaders import (
     Dataloaders,
 )
-from datetime import (
-    datetime,
-)
 from db_model.toe_inputs.types import (
+    ToeInput,
     ToeInputRequest,
 )
 from graphql.type.definition import (
@@ -20,7 +18,7 @@ from typing import (
 
 async def resolve(
     parent: UpdateToeInputPayload, info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[datetime]:
+) -> Optional[ToeInput]:
     loaders: Dataloaders = info.context.loaders
     request = ToeInputRequest(
         component=parent.component,
@@ -29,4 +27,5 @@ async def resolve(
         root_id=parent.root_id,
     )
     loaders.toe_input.clear(request)
+
     return await loaders.toe_input.load(request)

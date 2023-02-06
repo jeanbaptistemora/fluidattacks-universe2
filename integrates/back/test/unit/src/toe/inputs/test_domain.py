@@ -94,6 +94,7 @@ async def test_delete() -> None:
             root_id="",
         )
     )
+    assert current_value
     historic_value = await loaders.toe_input_historic.load(
         ToeInputRequest(
             component="https://test.com/test/new.aspx",
@@ -163,6 +164,7 @@ async def test_update() -> None:
             root_id="",
         )
     )
+    assert current_value
     attributes = ToeInputAttributesToUpdate(
         attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
         attacked_by="",
