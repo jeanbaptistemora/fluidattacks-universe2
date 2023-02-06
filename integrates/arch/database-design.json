@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 06, 2023, 12:36 PM",
+    "DateLastModified": "Feb 06, 2023, 05:34 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -40733,7 +40733,7 @@
           }
         },
         {
-          "FacetName": "trial",
+          "FacetName": "trial_metadata",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "TRIAL#email",
             "SortKeyAlias": "TRIAL#all"
@@ -41137,11 +41137,11 @@
             }
           ],
           "NonKeyAttributes": [
+            "email",
             "completed",
             "extension_date",
             "extension_days",
-            "start_date",
-            "email"
+            "start_date"
           ],
           "DataAccess": {
             "MySql": {}

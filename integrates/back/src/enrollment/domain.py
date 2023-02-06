@@ -11,10 +11,11 @@ from dataloaders import (
 from db_model import (
     companies as companies_model,
     enrollment as enrollment_model,
+    trials as trials_model,
 )
 from db_model.companies.types import (
     Company,
-    Trial,
+    Trial as CompanyTrial,
 )
 from db_model.enrollment.enums import (
     EnrollmentTrialState,
@@ -28,6 +29,9 @@ from db_model.organizations.types import (
 )
 from db_model.stakeholders.types import (
     StakeholderMetadataToUpdate,
+)
+from db_model.trials.types import (
+    Trial,
 )
 from decorators import (
     retry_on_exceptions,
@@ -86,10 +90,19 @@ async def add_enrollment(
     if not user_email:
         raise InvalidParameter()
 
+    await trials_model.add(
+        trial=Trial(
+            completed=False,
+            email=user_email,
+            extension_date=None,
+            extension_days=0,
+            start_date=datetime_utils.get_utc_now(),
+        )
+    )
     await companies_model.add(
         company=Company(
             domain=user_email.split("@")[1],
-            trial=Trial(
+            trial=CompanyTrial(
                 completed=False,
                 extension_date=None,
                 extension_days=0,
@@ -141,7 +154,7 @@ async def update_metadata(
     )
 
 
-def get_enrollment_trial_state(trial: Trial) -> EnrollmentTrialState:
+def get_enrollment_trial_state(trial: CompanyTrial) -> EnrollmentTrialState:
     if not trial.start_date:
         return EnrollmentTrialState.TRIAL_ENDED
 
