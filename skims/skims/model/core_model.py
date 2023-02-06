@@ -4822,7 +4822,7 @@ class MethodsEnum(Enum):
     TFM_DB_NO_POINT_TIME_RECOVERY = MethodInfo(
         file_name="terraform",
         name="tfm_db_no_point_in_time_recovery",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F259,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
@@ -4934,7 +4934,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_APP_AUTH_OFF = MethodInfo(
         file_name="terraform",
         name="tfm_azure_app_authentication_off",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
