@@ -28,6 +28,9 @@ from dynamodb import (
     keys,
     operations,
 )
+from typing import (
+    Iterable,
+)
 
 
 async def _get_stakeholder_subscriptions(*, email: str) -> list[Subscription]:
@@ -100,10 +103,10 @@ async def _get_historic_subscription(
     return [format_subscriptions(item) for item in response.items]
 
 
-class StakeholderSubscriptionsLoader(DataLoader):
+class StakeholderSubscriptionsLoader(DataLoader[str, list[Subscription]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: list[str]
+        self, emails: Iterable[str]
     ) -> list[list[Subscription]]:
         return list(
             await collect(
@@ -112,11 +115,13 @@ class StakeholderSubscriptionsLoader(DataLoader):
         )
 
 
-class StakeholderHistoricSubscriptionLoader(DataLoader):
+class StakeholderHistoricSubscriptionLoader(
+    DataLoader[tuple[str, SubscriptionEntity, str], list[Subscription]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
-        requests: list[tuple[str, SubscriptionEntity, str]],
+        requests: Iterable[tuple[str, SubscriptionEntity, str]],
     ) -> list[list[Subscription]]:
         return list(
             await collect(
