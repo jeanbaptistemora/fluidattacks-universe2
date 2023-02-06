@@ -1,9 +1,8 @@
-import { Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { Input } from "components/Input";
+import { FormGroup } from "styles/styledComponents";
 import {
   composeValidators,
   required,
@@ -16,11 +15,8 @@ const LastAuthorField: React.FC = (): JSX.Element => {
 
   return (
     <FormGroup>
-      <ControlLabel>
-        <b>{t("group.toe.lines.addModal.fields.lastAuthor")} </b>
-      </ControlLabel>
-      <Field
-        component={FormikText}
+      <Input
+        label={t("group.toe.lines.addModal.fields.lastAuthor")}
         name={"lastAuthor"}
         type={"text"}
         validate={composeValidators([required, validCsvInput, validEmail])}
