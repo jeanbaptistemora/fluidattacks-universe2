@@ -1,18 +1,18 @@
 = {{group_name}}
 :doctype: book
 
-{%if unfulfilled_standards|length == 0 %}
-=== Congratulations
-Currently, the group complies with all the standards validated by Fluid
-Attacks in your organization.
-{% else %}
+{%if has_unfulfilled_standards %}
 === Unfulfilled Standards
 The group does not comply with the following standards since the group has
 related unfulfilled requirements.
+{% else %}
+=== Congratulations
+Currently, the group complies with all the standards validated by Fluid
+Attacks in your organization.
 {% endif %}
 
 
-{% for unfulfilled_standard in unfulfilled_standards %}
+{% for unfulfilled_standard in unfulfilled_standards_to_display %}
 ==== {{unfulfilled_standard.title}}
 {{unfulfilled_standard.summary}} +
 [cols="1*<",options=header]

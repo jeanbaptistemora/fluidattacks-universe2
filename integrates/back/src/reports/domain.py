@@ -118,11 +118,13 @@ async def get_signed_unfulfilled_standard_report_url(
     group_name: str,
     stakeholder_email: str,
     seconds: float = 300,
+    unfulfilled_standards: Optional[set[str]] = None,
 ) -> str:
     filename = await unfulfilled_standards_report.generate_pdf_file(
         loaders=loaders,
         group_name=group_name,
         stakeholder_email=stakeholder_email,
+        unfulfilled_standards=unfulfilled_standards,
     )
     filename_to_store = await upload_report(filename)
     return await sign_url(filename_to_store, seconds=seconds)

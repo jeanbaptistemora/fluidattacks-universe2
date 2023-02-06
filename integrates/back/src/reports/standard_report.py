@@ -1,3 +1,6 @@
+from aioextensions import (
+    collect,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -29,6 +32,7 @@ from settings.logger import (
 )
 import subprocess  # nosec
 from typing import (
+    Optional,
     TypedDict,
 )
 import uuid
@@ -44,7 +48,8 @@ StandardReportContext = TypedDict(
     {
         "fluid_tpl": dict[str, str],
         "group_name": str,
-        "unfulfilled_standards": list[UnfulfilledStandardInfo],
+        "has_unfulfilled_standards": bool,
+        "unfulfilled_standards_to_display": list[UnfulfilledStandardInfo],
         "words": dict[str, str],
     },
 )
@@ -67,6 +72,7 @@ class StandardReportCreator(CreatorPdf):
         group_name: str,
         lang: str,
         loaders: Dataloaders,
+        selected_unfulfilled_standards: Optional[set[str]] = None,
     ) -> None:
         """Fetch information and fill out the context."""
         group: Group = await loaders.group.load(group_name)
@@ -75,11 +81,13 @@ class StandardReportCreator(CreatorPdf):
         group_indicators: GroupUnreliableIndicators = (
             await loaders.group_unreliable_indicators.load(group_name)
         )
-        compliance_file = await get_compliance_file()
-        requirements_file = await get_requirements_file()
-        unfulfilled_standards = sorted(
+        compliance_file, requirements_file = await collect(
+            (get_compliance_file(), get_requirements_file())
+        )
+        unfulfilled_standards_to_display = sorted(
             [
                 UnfulfilledStandardInfo(
+                    standard_id=unfulfilled_standard.name,
                     title=str(
                         compliance_file[unfulfilled_standard.name]["title"]
                     ).upper(),
@@ -108,10 +116,26 @@ class StandardReportCreator(CreatorPdf):
             ],
             key=lambda standard: standard.title,
         )
+        if selected_unfulfilled_standards is not None:
+            unfulfilled_standards_to_display = [
+                unfulfilled_standard_info
+                for unfulfilled_standard_info in (
+                    unfulfilled_standards_to_display
+                )
+                if unfulfilled_standard_info.standard_id
+                in selected_unfulfilled_standards
+            ]
+
+        has_unfulfilled_standards = bool(
+            group_indicators.unfulfilled_standards
+        )
         self.standard_report_context = {
             "fluid_tpl": fluid_tpl_content,
             "group_name": group.name,
-            "unfulfilled_standards": unfulfilled_standards,
+            "has_unfulfilled_standards": has_unfulfilled_standards,
+            "unfulfilled_standards_to_display": (
+                unfulfilled_standards_to_display
+            ),
             "words": words,
         }
 
@@ -120,9 +144,12 @@ class StandardReportCreator(CreatorPdf):
         loaders: Dataloaders,
         group_name: str,
         lang: str,
+        unfulfilled_standards: Optional[set[str]] = None,
     ) -> None:
         """Create the template to render and apply the context."""
-        await self.fill_context(group_name, lang, loaders)
+        await self.fill_context(
+            group_name, lang, loaders, unfulfilled_standards
+        )
         self.out_name = f"{str(uuid.uuid4())}.pdf"
         template_loader = jinja2.FileSystemLoader(searchpath=self.path)
         template_env = jinja2.Environment(

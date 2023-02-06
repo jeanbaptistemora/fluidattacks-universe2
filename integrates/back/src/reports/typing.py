@@ -187,6 +187,7 @@ class UnfulfilledRequirementInfo(NamedTuple):
 
 
 class UnfulfilledStandardInfo(NamedTuple):
+    standard_id: str
     title: str
     summary: str
     unfulfilled_requirements: list[UnfulfilledRequirementInfo]
