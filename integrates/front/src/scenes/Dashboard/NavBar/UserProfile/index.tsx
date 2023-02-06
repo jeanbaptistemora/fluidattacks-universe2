@@ -28,6 +28,7 @@ import type { IRemoveUserAttr } from "./types";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { Dropdown } from "components/Dropdown";
 import { Label } from "components/Input";
 import { Hr } from "components/Layout";
@@ -120,6 +121,27 @@ const UserProfile: FC<IUserProfileProps> = ({
     },
   });
 
+  const handleDeleteAccount = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          void removeStakeholder();
+        });
+      },
+    [removeStakeholder]
+  );
+
+  const handleLogoutClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          mixpanel.reset();
+          location.assign("/logout");
+        });
+      },
+    []
+  );
+
   return (
     <Dropdown
       align={"left"}
@@ -205,14 +227,8 @@ const UserProfile: FC<IUserProfileProps> = ({
           title={t("navbar.deleteAccount.text")}
         >
           {(confirm): React.ReactNode => {
-            function handleLogoutClick(): void {
-              confirm((): void => {
-                void removeStakeholder();
-              });
-            }
-
             return (
-              <Button icon={faUserTimes} onClick={handleLogoutClick}>
+              <Button icon={faUserTimes} onClick={handleDeleteAccount(confirm)}>
                 {t("navbar.deleteAccount.text")}
               </Button>
             );
@@ -221,15 +237,8 @@ const UserProfile: FC<IUserProfileProps> = ({
         <Hr />
         <ConfirmDialog title={t("navbar.logout")}>
           {(confirm): ReactNode => {
-            function handleLogoutClick(): void {
-              confirm((): void => {
-                mixpanel.reset();
-                location.assign("/logout");
-              });
-            }
-
             return (
-              <Button icon={faSignOutAlt} onClick={handleLogoutClick}>
+              <Button icon={faSignOutAlt} onClick={handleLogoutClick(confirm)}>
                 {t("navbar.logout")}
               </Button>
             );
