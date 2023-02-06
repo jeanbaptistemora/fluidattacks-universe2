@@ -48,13 +48,17 @@ from findings.types import (
 from newutils import (
     datetime as datetime_utils,
     findings as findings_utils,
-    validations as validation_utils,
 )
 from newutils.findings import (
     get_formatted_evidence,
 )
 from newutils.validations import (
+    check_and_set_min_time_to_remediate,
+    validate_all_fields_length_deco,
     validate_field_length,
+    validate_field_length_deco,
+    validate_fields_deco,
+    validate_no_duplicate_drafts_deco,
 )
 from typing import (
     Any,
@@ -175,6 +179,8 @@ async def add_draft(
     return draft
 
 
+@validate_fields_deco(["other"])
+@validate_field_length_deco("other", limit=5000, is_greater_than_limit=False)
 async def reject_draft(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     finding_id: str,
@@ -183,14 +189,6 @@ async def reject_draft(  # pylint: disable=too-many-arguments
     reviewer_email: str,
     source: Source,
 ) -> DraftRejection:
-    if other:
-        validation_utils.validate_fields([other])
-        validation_utils.validate_field_length(
-            other,
-            limit=5000,
-            is_greater_than_limit=False,
-        )
-
     finding = await get_finding(loaders, finding_id)
     if finding.state.status == FindingStateStatus.APPROVED:
         raise AlreadyApproved()
@@ -276,10 +274,8 @@ async def submit_draft(
     )
 
 
-@validation_utils.validate_no_duplicate_drafts_deco(
-    "title", "drafts", "findings"
-)
-@validation_utils.validate_fields_deco(
+@validate_no_duplicate_drafts_deco("title", "drafts", "findings")
+@validate_fields_deco(
     [
         "attack_vector_description",
         "description",
@@ -288,13 +284,12 @@ async def submit_draft(
         "threat",
     ]
 )
+@validate_all_fields_length_deco(limit=5000)
 def get_draft_info(
     user_email: str, title: str, **kwargs: Any
 ) -> FindingDraftToAdd:
-    min_time_to_remediate = (
-        validation_utils.check_and_set_min_time_to_remediate(
-            kwargs.get("min_time_to_remediate", None)
-        )
+    min_time_to_remediate = check_and_set_min_time_to_remediate(
+        kwargs.get("min_time_to_remediate", None)
     )
     severity_info = Finding31Severity(
         attack_complexity=Decimal(kwargs.get("attack_complexity", "0.0")),

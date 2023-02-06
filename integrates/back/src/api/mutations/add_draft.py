@@ -108,7 +108,6 @@ async def mutate(
                 FindingStateStatus.SUBMITTED,
             },
         )
-        findings_domain.validate_draft_inputs(kwargs=list(kwargs.values()))
         draft_info = findings_domain.get_draft_info(
             drafts=drafts,
             findings=findings,
