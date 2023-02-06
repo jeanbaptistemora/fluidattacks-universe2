@@ -556,16 +556,18 @@ async def test_update_policies(  # pylint: disable=too-many-arguments
         ],
     ],
 )
-@patch(get_mocked_path("loaders.organization.load"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "get_organization", new_callable=AsyncMock)
 async def test_validate_acceptance_severity_range(
-    mock_loaders_organization: AsyncMock,
+    mock_get_organization: AsyncMock,
     organization_id: str,
     max_acceptance_severity_good: Decimal,
     max_acceptance_severity_bad: Decimal,
 ) -> None:
-    mock_loaders_organization.return_value = get_mock_response(
-        get_mocked_path("loaders.organization.load"),
-        json.dumps([organization_id]),
+    assert set_mocks_return_values(
+        mocks_args=[[organization_id]],
+        mocked_objects=[mock_get_organization],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["get_organization"],
     )
     loaders: Dataloaders = get_new_context()
     result = await validate_acceptance_severity_range(
@@ -576,7 +578,7 @@ async def test_validate_acceptance_severity_range(
         ),
     )
     assert result
-    assert mock_loaders_organization.called is True
+    mock_get_organization.assert_called_with(loaders, organization_id)
 
     with pytest.raises(InvalidAcceptanceSeverityRange):
         await validate_acceptance_severity_range(
@@ -586,7 +588,7 @@ async def test_validate_acceptance_severity_range(
                 max_acceptance_severity=max_acceptance_severity_bad
             ),
         )
-    assert mock_loaders_organization.called is True
+    mock_get_organization.assert_called_with(loaders, organization_id)
 
 
 @pytest.mark.parametrize(

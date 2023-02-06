@@ -3641,36 +3641,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             billing_customer=None,
             vulnerabilities_url=None,
         ),
-        '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"]': Organization(
-            created_by="testing@unittest.com",
-            created_date=datetime.fromisoformat("2018-02-08T00:43:18+00:00"),
-            id="ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
-            name="bulat",
-            policies=Policies(
-                modified_date=datetime.fromisoformat(
-                    "2019-11-22T20:07:57+00:00"
-                ),
-                modified_by="integratesmanager@gmail.com",
-                inactivity_period=90,
-                max_acceptance_days=60,
-                max_acceptance_severity=Decimal("3.4"),
-                max_number_acceptances=2,
-                min_acceptance_severity=Decimal("3.4"),
-                min_breaking_severity=Decimal("0"),
-                vulnerability_grace_period=0,
-            ),
-            state=OrganizationState(
-                status=OrganizationStateStatus.ACTIVE,
-                modified_by="unittests",
-                modified_date=datetime.fromisoformat(
-                    "2019-11-22T20:07:57+00:00"
-                ),
-            ),
-            country="Colombia",
-            payment_methods=None,
-            billing_customer=None,
-            vulnerabilities_url=None,
-        ),
     },
     "db_model.organizations.remove": {
         '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de", "tatsumi"]': None
@@ -10033,6 +10003,38 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3"]': tuple(
             ["oneshottest", "unittesting"]
         ),
+    },
+    "organizations.domain.get_organization": {
+        '["ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86"]': Organization(
+            created_by="testing@unittest.com",
+            created_date=datetime.fromisoformat("2018-02-08T00:43:18+00:00"),
+            id="ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
+            name="bulat",
+            policies=Policies(
+                modified_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+                modified_by="integratesmanager@gmail.com",
+                inactivity_period=90,
+                max_acceptance_days=60,
+                max_acceptance_severity=Decimal("3.4"),
+                max_number_acceptances=2,
+                min_acceptance_severity=Decimal("3.4"),
+                min_breaking_severity=Decimal("0"),
+                vulnerability_grace_period=0,
+            ),
+            state=OrganizationState(
+                status=OrganizationStateStatus.ACTIVE,
+                modified_by="unittests",
+                modified_date=datetime.fromisoformat(
+                    "2019-11-22T20:07:57+00:00"
+                ),
+            ),
+            country="Colombia",
+            payment_methods=None,
+            billing_customer=None,
+            vulnerabilities_url=None,
+        )
     },
     "organizations.domain.get_stakeholders_emails": {
         '["ORG#fe80d2d4-ccb7-46d1-8489-67c6360581de"]': [
