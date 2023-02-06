@@ -464,7 +464,7 @@ async def _get_secrets(
     ]
 
 
-class RootSecretsLoader(DataLoader):
+class RootSecretsLoader(DataLoader[str, list[Secret]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self,
@@ -515,7 +515,7 @@ async def _get_environment_secrets(
     ]
 
 
-class GitEnvironmentSecretsLoader(DataLoader):
+class GitEnvironmentSecretsLoader(DataLoader[str, list[Secret]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, urls_ids: Iterable[str]
@@ -570,7 +570,7 @@ async def _get_git_environment_urls(
     ]
 
 
-class RootEnvironmentUrlsLoader(DataLoader):
+class RootEnvironmentUrlsLoader(DataLoader[str, list[RootEnvironmentUrl]]):
     async def load_many_chained(
         self, root_ids: Iterable[str]
     ) -> list[RootEnvironmentUrl]:
