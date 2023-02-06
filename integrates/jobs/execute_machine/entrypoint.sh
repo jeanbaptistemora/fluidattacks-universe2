@@ -69,7 +69,10 @@ function main() {
       done \
     && aws dynamodb delete-item \
       --table-name "fi_async_processing" \
-      --key "${dynamo_key}"
+      --key "${dynamo_key}" \
+    && if test -n "${CI}"; then
+      nix-store --gc
+    fi
 }
 
 main "${@}"

@@ -2,6 +2,7 @@
   makeScript,
   makePythonVersion,
   outputs,
+  inputs,
   ...
 }:
 makeScript {
@@ -11,7 +12,7 @@ makeScript {
     __argScript__ = ./src/__init__.py;
   };
   searchPaths = {
-    bin = [(makePythonVersion "3.9")];
+    bin = [inputs.nixpkgs.nix (makePythonVersion "3.9")];
     source = [
       outputs."/common/utils/aws"
       outputs."/common/utils/env"

@@ -17,6 +17,7 @@ makeScript {
       inputs.nixpkgs.roboto-mono
       inputs.nixpkgs.ruby
       inputs.nixpkgs.openssl
+      inputs.nixpkgs.nix
       outputs."/integrates/db"
       outputs."/melts"
     ];

@@ -13,6 +13,9 @@ function main {
     && pushd integrates \
     && python3 'back/src/cli/invoker.py' "${module}" \
     && popd \
+    && if test -n "${CI}"; then
+      nix-store --gc
+    fi \
     || return 1
 }
 

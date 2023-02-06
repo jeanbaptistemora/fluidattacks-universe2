@@ -1,4 +1,5 @@
 {
+  inputs,
   outputs,
   makeScript,
   makePythonVersion,
@@ -14,6 +15,7 @@ makeScript {
       (makePythonVersion "3.9")
       outputs."/skims"
       outputs."/melts"
+      inputs.nixpkgs.nix
     ];
     source = [
       outputs."/integrates/jobs/execute_machine/env"

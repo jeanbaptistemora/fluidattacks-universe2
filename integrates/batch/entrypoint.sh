@@ -26,6 +26,9 @@ function main {
     && if test "${env}" == 'test'; then
       rm -rf integrates
     fi \
+    && if test -n "${CI}"; then
+      nix-store --gc
+    fi \
     || return 1
 }
 

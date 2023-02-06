@@ -7,7 +7,10 @@ function main {
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
     && python3 __argScript__ "${@}" \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && if test -n "${CI}"; then
+      nix-store --gc
+    fi
 }
 
 main "${@}"
