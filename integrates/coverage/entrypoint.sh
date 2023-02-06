@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local coverage_target=87.55
+  local coverage_target=87.60
   local coverage_args=(
     --omit="back/migrations/*"
     --ignore-errors
