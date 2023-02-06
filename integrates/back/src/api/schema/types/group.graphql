@@ -175,6 +175,10 @@ type Group {
     fromModifiedDate: DateTime
     "To modified date to filter"
     toModifiedDate: DateTime
+    "From the first time the file was seen"
+    fromSeenAt: DateTime
+    "To the first time the file was seen"
+    toSeenAt: DateTime
     """
     True if the associated `filename` has OPEN vulnerabilities.
     This field is eventually consistent.

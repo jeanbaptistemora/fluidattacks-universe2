@@ -131,4 +131,14 @@ def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
             {"modified_date": {"lte": str(to_modified_date.date())}}
         )
 
+    if from_seen_at := kwargs.get("from_seen_at"):
+        must_range_filters.append(
+            {"state.seen_at": {"gte": str(from_seen_at.date())}}
+        )
+
+    if to_seen_at := kwargs.get("to_seen_at"):
+        must_range_filters.append(
+            {"state.seen_at": {"lte": str(to_seen_at.date())}}
+        )
+
     return must_range_filters
