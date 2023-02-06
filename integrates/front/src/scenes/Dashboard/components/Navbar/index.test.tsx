@@ -102,6 +102,7 @@ describe("navbar", (): void => {
               value={{
                 tours: {
                   newGroup: true,
+                  newRiskExposure: true,
                   newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",
@@ -208,6 +209,7 @@ describe("navbar", (): void => {
               value={{
                 tours: {
                   newGroup: true,
+                  newRiskExposure: true,
                   newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",
@@ -284,6 +286,7 @@ describe("navbar", (): void => {
               value={{
                 tours: {
                   newGroup: true,
+                  newRiskExposure: true,
                   newRoot: true,
                 },
                 userEmail: "test@fluidattacks.com",

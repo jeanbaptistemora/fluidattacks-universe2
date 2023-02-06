@@ -125,6 +125,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       user.setUser({
         tours: {
           newGroup: user.tours.newGroup,
+          newRiskExposure: user.tours.newRiskExposure,
           newRoot: true,
         },
         userEmail: user.userEmail,

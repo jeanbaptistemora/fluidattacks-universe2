@@ -77,6 +77,7 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: true,
+            newRiskExposure: true,
             newRoot: true,
           },
           userEmail: "",
@@ -219,6 +220,7 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: true,
+            newRiskExposure: true,
             newRoot: true,
           },
           userEmail: "",
@@ -491,6 +493,7 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: true,
+            newRiskExposure: true,
             newRoot: true,
           },
           userEmail: "",
@@ -698,6 +701,7 @@ describe("GroupScopeView", (): void => {
         value={{
           tours: {
             newGroup: true,
+            newRiskExposure: true,
             newRoot: true,
           },
           userEmail: "",
@@ -864,6 +868,7 @@ describe("GroupScopeView", (): void => {
           value={{
             tours: {
               newGroup: true,
+              newRiskExposure: true,
               newRoot: true,
             },
             userEmail: "",

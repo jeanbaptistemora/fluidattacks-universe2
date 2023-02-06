@@ -19,6 +19,7 @@ interface IUser {
     sessionExpiration: string;
     tours: {
       newGroup: boolean;
+      newRiskExposure: boolean;
       newRoot: boolean;
     };
     userEmail: string;

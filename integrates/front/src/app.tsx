@@ -38,6 +38,7 @@ const App: React.FC = (): JSX.Element => {
   const [user, setUser] = useState({
     tours: {
       newGroup: true,
+      newRiskExposure: true,
       newRoot: true,
     },
     userEmail: "",

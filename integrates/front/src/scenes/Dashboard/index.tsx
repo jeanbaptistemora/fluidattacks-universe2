@@ -81,6 +81,7 @@ export const Dashboard: React.FC = (): JSX.Element => {
       user.setUser({
         tours: {
           newGroup: me.tours.newGroup,
+          newRiskExposure: true,
           newRoot: me.tours.newRoot,
         },
         userEmail: me.userEmail,

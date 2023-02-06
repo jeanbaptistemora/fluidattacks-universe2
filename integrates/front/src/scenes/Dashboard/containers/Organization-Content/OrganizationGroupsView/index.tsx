@@ -85,6 +85,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       user.setUser({
         tours: {
           newGroup: true,
+          newRiskExposure: user.tours.newRiskExposure,
           newRoot: user.tours.newRoot,
         },
         userEmail: user.userEmail,

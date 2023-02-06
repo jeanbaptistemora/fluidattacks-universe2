@@ -211,6 +211,7 @@ describe("organization credentials view", (): void => {
     const mockedAuth = {
       tours: {
         newGroup: false,
+        newRiskExposure: true,
         newRoot: false,
       },
       userEmail: "owner@test.com",
@@ -329,6 +330,7 @@ describe("organization credentials view", (): void => {
     const mockedAuth = {
       tours: {
         newGroup: false,
+        newRiskExposure: true,
         newRoot: false,
       },
       userEmail: "owner@test.com",
@@ -441,6 +443,7 @@ describe("organization credentials view", (): void => {
     const mockedAuth = {
       tours: {
         newGroup: false,
+        newRiskExposure: true,
         newRoot: false,
       },
       userEmail: "owner@test.com",
@@ -541,6 +544,7 @@ describe("organization credentials view", (): void => {
     const mockedAuth = {
       tours: {
         newGroup: false,
+        newRiskExposure: true,
         newRoot: false,
       },
       userEmail: "owner@test.com",

@@ -380,6 +380,7 @@ describe("Organization groups view", (): void => {
                   setUser: jest.fn(),
                   tours: {
                     newGroup: true,
+                    newRiskExposure: true,
                     newRoot: true,
                   },
                   userEmail: "",

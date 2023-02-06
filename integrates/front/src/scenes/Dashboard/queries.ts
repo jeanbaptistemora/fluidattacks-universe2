@@ -87,6 +87,7 @@ const GET_USER: DocumentNode = gql`
       sessionExpiration
       tours {
         newGroup
+        newRiskExposure
         newRoot
       }
       userEmail
