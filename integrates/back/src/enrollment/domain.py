@@ -26,6 +26,9 @@ from db_model.enrollment.types import (
 from db_model.organizations.types import (
     Organization,
 )
+from db_model.stakeholders.types import (
+    StakeholderMetadataToUpdate,
+)
 from decorators import (
     retry_on_exceptions,
 )
@@ -52,6 +55,9 @@ from organizations.utils import (
 )
 from settings import (
     LOGGING,
+)
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 from typing import (
     Optional,
@@ -96,6 +102,9 @@ async def add_enrollment(
             email=user_email,
             enrolled=True,
         )
+    )
+    await stakeholders_domain.update(
+        email=user_email, metadata=StakeholderMetadataToUpdate(enrolled=True)
     )
 
     stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
