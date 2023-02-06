@@ -43,3 +43,46 @@ have an organized view of the
 [analytics](/machine/web/analytics/),
 and have a better track of the details of
 each project you work on.
+
+## Vulnerabilities
+
+### What are vulnerabilities?
+
+[Vulnerabilities](/criteria/vulnerabilities/)
+are the noncompliance with cybersecurity
+[requirements](/criteria/requirements/),
+which are rules based on the several international
+[standards](/criteria/compliance/)
+we check in our comprehensive tests.
+
+### What is the difference between Age and Last report in the Vulnerabilities table?
+
+Age refers to how many days the
+[vulnerability](/machine/web/groups/vulnerabilities)
+has been open,
+whereas last report is the total number
+of days passed since the vulnerability
+was last reported.
+
+### How do I suggest that a vulnerability is a false positive?
+
+Choose Request [zero risk](/machine/web/vulnerabilities/management/zero-risk/)
+as its [treatment.](/machine/web/vulnerabilities/management/treatments)
+
+### How can I see only the findings of the dynamic application security testing (DAST)?
+
+Find the [search bar](/machine/web/groups/vulnerabilities#search-bar)
+in the [Vulnerabilities table](/machine/web/groups/vulnerabilities).
+By entering **"HTTP"** as a keyword,
+you will see the great majority of
+vulnerabilities as **“dynamic” (found through DAST)**
+
+### How can I see vulnerabilities specific to a particular Git root?
+
+In the [search bar](/machine/web/groups/vulnerabilities#search-bar)
+that you can find in the
+[Vulnerabilities table](/machine/web/groups/vulnerabilities),
+enter the nickname of the repository
+you are interested in,
+and the table will show you only the
+vulnerabilities reported in that repository.
