@@ -26,6 +26,10 @@ const GET_GIT_ROOTS = gql`
           downloadUrl
           gitignore
           state
+          gitEnvironmentUrls {
+            url
+            id
+          }
         }
       }
     }
@@ -107,6 +111,23 @@ const GET_VULNERABILITIES = gql`
     }
   }
 `;
+const GET_GIT_ROOT = gql`
+  query GetRootVulnerabilities($groupName: String!, $rootId: ID!) {
+    root(groupName: $groupName, rootId: $rootId) {
+      ... on GitRoot {
+        id
+        nickname
+        downloadUrl
+        gitignore
+        state
+        gitEnvironmentUrls {
+          url
+          id
+        }
+      }
+    }
+  }
+`;
 
 const GET_FINDING = gql`
   query GetFindingHeader($findingId: String!) {
@@ -123,4 +144,5 @@ export {
   GET_VULNERABILITIES,
   UPDATE_TOE_LINES_ATTACKED,
   GET_FINDING,
+  GET_GIT_ROOT,
 };

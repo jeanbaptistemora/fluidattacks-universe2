@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import { window } from "vscode";
 
-import { GET_GIT_ROOTS, GET_VULNERABILITIES } from "../queries";
+import { GET_GIT_ROOT, GET_GIT_ROOTS, GET_VULNERABILITIES } from "../queries";
 import type { IGitRoot, IVulnerability } from "../types";
 import { API_CLIENT } from "../utils/apollo";
 
@@ -33,4 +33,16 @@ const getGitRootVulnerabilities = async (
 
   return result.data.root.vulnerabilities;
 };
-export { getGitRootVulnerabilities, getGroupGitRoots };
+const getGitRoot = async (
+  groupName: string,
+  rootId: string
+): Promise<IGitRoot> => {
+  const result: { data: { root: IGitRoot } } = await API_CLIENT.query({
+    query: GET_GIT_ROOT,
+    variables: { groupName, rootId },
+  });
+
+  return result.data.root;
+};
+
+export { getGitRootVulnerabilities, getGroupGitRoots, getGitRoot };

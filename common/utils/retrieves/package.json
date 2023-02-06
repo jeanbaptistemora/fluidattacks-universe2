@@ -16,6 +16,10 @@
         "title": "Attacked Lines"
       },
       {
+        "command": "retrieves.environmentUrls",
+        "title": "Git Environment Urls"
+      },
+      {
         "command": "retrieves.updateToeLinesAttackedLines",
         "title": "Attacked"
       },
@@ -33,7 +37,9 @@
           "retrieves.useRole": {
             "type": "string",
             "default": "analyst",
-            "enum": ["analyst"]
+            "enum": [
+              "analyst"
+            ]
           },
           "retrieves.extraGroups": {
             "default": [],
@@ -65,11 +71,20 @@
           "command": "retrieves.clone",
           "group": "git",
           "when": "config.git.enabled && resourcePath =~ **/services/groups/([a-z]*)/fusion/([a-z]*)$/"
+        },
+        {
+          "command": "retrieves.updateToeLinesAttackedLines",
+          "group": "navigation",
+          "when": "resourcePath =~ **/groups/** && resourceScheme == file"
         }
       ],
       "view/item/context": [
         {
           "command": "retrieves.clone",
+          "when": "view == user_groups && viewItem == gitRoot"
+        },
+        {
+          "command": "retrieves.environmentUrls",
           "when": "view == user_groups && viewItem == gitRoot"
         },
         {
@@ -194,5 +209,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.16.0"
+  "version": "0.17.0"
 }

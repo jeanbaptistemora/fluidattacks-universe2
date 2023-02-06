@@ -50,7 +50,7 @@ const addNewCardinality = (
     // eslint-disable-next-line camelcase
     commit_hash: commitHash,
     line: String(line),
-    path: path.replace(`${nickname}/`, ""),
+    path,
     // eslint-disable-next-line camelcase
     repo_nickname: nickname,
     source: workspace.getConfiguration("retrieves").get("useRole", "analyst"),
@@ -103,6 +103,8 @@ const addLineToYaml = async (): Promise<void> => {
 
   const pathInfo = getRootInfoFromPath(activeTextEditor.document.fileName);
   if (!pathInfo) {
+    await window.showErrorMessage("This doesn't look like a project file");
+
     return;
   }
   const { nickname, fileRelativePath } = pathInfo;
@@ -114,6 +116,8 @@ const addLineToYaml = async (): Promise<void> => {
   const response = await repo.log({ maxCount: 1 });
   const lastCommitHash = response.latest?.hash;
   if (lastCommitHash === undefined) {
+    await window.showErrorMessage("This doesn't look like a repository");
+
     return;
   }
   range(startLine, endLine + 1).forEach((line): void => {

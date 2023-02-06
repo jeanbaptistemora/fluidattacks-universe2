@@ -14,6 +14,10 @@ interface IGitRoot {
   state: "ACTIVE" | "INACTIVE";
   gitignore: string[];
   downloadUrl?: string;
+  gitEnvironmentUrls: {
+    id: string;
+    url: string;
+  }[];
 }
 interface IToeLineNode {
   attackedLines: number;
