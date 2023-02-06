@@ -13,3 +13,7 @@ class Trial(NamedTuple):
     extension_date: Optional[datetime]
     extension_days: int
     start_date: Optional[datetime]
+
+
+class TrialMetadataToUpdate(NamedTuple):
+    completed: Optional[bool] = None
