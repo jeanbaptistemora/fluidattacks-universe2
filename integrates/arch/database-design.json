@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 06, 2023, 11:33 AM",
+    "DateLastModified": "Feb 06, 2023, 12:36 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -40736,7 +40736,7 @@
           "FacetName": "trial",
           "KeyAttributeAlias": {
             "PartitionKeyAlias": "TRIAL#email",
-            "SortKeyAlias": "TRIAL#email"
+            "SortKeyAlias": "TRIAL#all"
           },
           "TableData": [
             {
@@ -40744,7 +40744,10 @@
                 "S": "TRIAL#__adminEmail__"
               },
               "sk": {
-                "S": "TRIAL#__adminEmail__"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "__adminEmail__"
               },
               "completed": {
                 "BOOL": true
@@ -40758,7 +40761,10 @@
                 "S": "TRIAL#continuoushack2@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#continuoushack2@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "continuoushack2@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -40778,7 +40784,10 @@
                 "S": "TRIAL#continuoushacking@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#continuoushacking@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "continuoushacking@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -40798,7 +40807,10 @@
                 "S": "TRIAL#customer_manager@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#customer_manager@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "customer_manager@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40818,7 +40830,10 @@
                 "S": "TRIAL#forces.unittesting@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#forces.unittesting@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "forces.unittesting@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40838,7 +40853,10 @@
                 "S": "TRIAL#integrateshacker@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integrateshacker@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40858,7 +40876,10 @@
                 "S": "TRIAL#integratesmanager@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesmanager@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesmanager@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40872,7 +40893,10 @@
                 "S": "TRIAL#integratesmanager@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#integratesmanager@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesmanager@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -40892,7 +40916,10 @@
                 "S": "TRIAL#integratesreattacker@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesreattacker@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesreattacker@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40912,7 +40939,10 @@
                 "S": "TRIAL#integratesresourcer@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesresourcer@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesresourcer@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40932,7 +40962,10 @@
                 "S": "TRIAL#integratesreviewer@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesreviewer@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesreviewer@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40952,7 +40985,10 @@
                 "S": "TRIAL#integratesserviceforces@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesserviceforces@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesserviceforces@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40972,7 +41008,10 @@
                 "S": "TRIAL#integratesuser2@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#integratesuser2@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesuser2@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -40992,7 +41031,10 @@
                 "S": "TRIAL#integratesuser2@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#integratesuser2@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesuser2@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -41012,7 +41054,10 @@
                 "S": "TRIAL#integratesuser@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#integratesuser@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -41026,7 +41071,10 @@
                 "S": "TRIAL#unittest2@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#unittest2@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "unittest2@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -41046,7 +41094,10 @@
                 "S": "TRIAL#unittest@fluidattacks.com"
               },
               "sk": {
-                "S": "TRIAL#unittest@fluidattacks.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "unittest@fluidattacks.com"
               },
               "completed": {
                 "BOOL": true
@@ -41066,7 +41117,10 @@
                 "S": "TRIAL#vulnmanager@gmail.com"
               },
               "sk": {
-                "S": "TRIAL#vulnmanager@gmail.com"
+                "S": "TRIAL#all"
+              },
+              "email": {
+                "S": "vulnmanager@gmail.com"
               },
               "completed": {
                 "BOOL": true
@@ -41083,10 +41137,11 @@
             }
           ],
           "NonKeyAttributes": [
-            "extension_days",
-            "extension_date",
             "completed",
-            "start_date"
+            "extension_date",
+            "extension_days",
+            "start_date",
+            "email"
           ],
           "DataAccess": {
             "MySql": {}
