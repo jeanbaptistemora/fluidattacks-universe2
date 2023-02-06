@@ -28,11 +28,11 @@ async def has_default_security_groups_in_use(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
-    instances = response.get("Reservations", []) if response else []
+    reservations = response.get("Reservations", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     method = core_model.MethodsEnum.AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE
-    for i in instances:
-        for instance in i["Instances"]:
+    for res in reservations:
+        for instance in res["Instances"]:
             locations: List[Location] = []
             for index, security_group in enumerate(instance["SecurityGroups"]):
                 group_name = security_group["GroupName"]

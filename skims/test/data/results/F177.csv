@@ -1,0 +1,217 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,16,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+   6 |       LaunchTemplateName: MyLaunchTemplate
+   7 |       LaunchTemplateData:
+   8 |         InstanceType: t2.micro
+   9 |         KeyName: MyKeyPair
+  10 |         SecurityGroupIds:
+  11 |           - sg-083cd3bfb8example
+  12 |   MyLaunchTemplate2:
+  13 |     Type: AWS::EC2::LaunchTemplate
+  14 |     Properties:
+  15 |       LaunchTemplateName: MyLaunchTemplate
+> 16 |       LaunchTemplateData:
+  17 |         InstanceType: t2.micro
+  18 |         KeyName: MyKeyPair
+  19 |   MyLaunchTemplate3:
+  20 |     Type: AWS::EC2::LaunchTemplate
+  21 |     Properties:
+  22 |       LaunchTemplateName: MyLaunchTemplate
+  23 |   MyEC2Instance:
+  24 |     Type: AWS::EC2::Instance
+  25 |     Properties:
+  26 |       ImageId: ami-79fd7eee
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,21,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+  11 |           - sg-083cd3bfb8example
+  12 |   MyLaunchTemplate2:
+  13 |     Type: AWS::EC2::LaunchTemplate
+  14 |     Properties:
+  15 |       LaunchTemplateName: MyLaunchTemplate
+  16 |       LaunchTemplateData:
+  17 |         InstanceType: t2.micro
+  18 |         KeyName: MyKeyPair
+  19 |   MyLaunchTemplate3:
+  20 |     Type: AWS::EC2::LaunchTemplate
+> 21 |     Properties:
+  22 |       LaunchTemplateName: MyLaunchTemplate
+  23 |   MyEC2Instance:
+  24 |     Type: AWS::EC2::Instance
+  25 |     Properties:
+  26 |       ImageId: ami-79fd7eee
+  27 |       KeyName: testkey
+  28 |       SecurityGroups:
+  29 |         - name1
+  30 |   MyEC2Instance2:
+  31 |     Type: AWS::EC2::Instance
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml,32,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml","
+  14 |     Properties:
+  15 |       LaunchTemplateName: MyLaunchTemplate
+  16 |       LaunchTemplateData:
+  17 |         InstanceType: t2.micro
+  18 |         KeyName: MyKeyPair
+  19 |   MyLaunchTemplate3:
+  20 |     Type: AWS::EC2::LaunchTemplate
+  21 |     Properties:
+  22 |       LaunchTemplateName: MyLaunchTemplate
+  23 |   MyEC2Instance:
+  24 |     Type: AWS::EC2::Instance
+  25 |     Properties:
+  26 |       ImageId: ami-79fd7eee
+  27 |       KeyName: testkey
+  28 |       SecurityGroups:
+  29 |         - name1
+  30 |   MyEC2Instance2:
+  31 |     Type: AWS::EC2::Instance
+> 32 |     Properties:
+  33 |       ImageId: ami-79fd7eee
+  34 |       KeyName: testkey
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,20,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  10 |           ""SecurityGroupIds"": [
+  11 |             ""sg-083cd3bfb8example""
+  12 |           ]
+  13 |         }
+  14 |       }
+  15 |     },
+  16 |     ""MyLaunchTemplate2"": {
+  17 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+> 20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+  28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,28,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  18 |       ""Properties"": {
+  19 |         ""LaunchTemplateName"": ""MyLaunchTemplate"",
+  20 |         ""LaunchTemplateData"": {
+  21 |           ""InstanceType"": ""t2.micro"",
+  22 |           ""KeyName"": ""MyKeyPair""
+  23 |         }
+  24 |       }
+  25 |     },
+  26 |     ""MyLaunchTemplate3"": {
+  27 |       ""Type"": ""AWS::EC2::LaunchTemplate"",
+> 28 |       ""Properties"": {
+  29 |         ""LaunchTemplateName"": ""MyLaunchTemplate""
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json,44,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_path/f177/cfn_ec2_use_default_security_group.yaml.json","
+  30 |       }
+  31 |     },
+  32 |     ""MyEC2Instance"": {
+  33 |       ""Type"": ""AWS::EC2::Instance"",
+  34 |       ""Properties"": {
+  35 |         ""ImageId"": ""ami-79fd7eee"",
+  36 |         ""KeyName"": ""testkey"",
+  37 |         ""SecurityGroups"": [
+  38 |           ""name1""
+  39 |         ]
+  40 |       }
+  41 |     },
+  42 |     ""MyEC2Instance2"": {
+  43 |       ""Type"": ""AWS::EC2::Instance"",
+> 44 |       ""Properties"": {
+  45 |         ""ImageId"": ""ami-79fd7eee"",
+  46 |         ""KeyName"": ""testkey""
+  47 |       }
+  48 |     }
+  49 |   }
+  50 | }
+     ^ Col 0
+",cloudformation.cfn_ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_root/f177/aws_intance_test.tf,2,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_root/f177/aws_intance_test.tf","
+   1 |
+>  2 | resource ""aws_instance"" ""foo"" {
+   3 |   ami           = ""ami-005e54dee72cc1d00""
+   4 |   instance_type = ""t2.micro""
+   5 |
+   6 |   network_interface {
+   7 |     network_interface_id = aws_network_interface.foo.id
+   8 |     device_index         = 0
+   9 |   }
+  10 |
+  11 |   credit_specification {
+  12 |     cpu_credits = ""unlimited""
+  13 |   }
+  14 | }
+     ^ Col 0
+",terraform.ec2_use_default_security_group
+F177,lines,namespace/skims/test/data/lib_root/f177/aws_lanch_template_test.tf,1,16,skims,177. Insecure service configuration - Security Groups,"EC2 Instances or Launch Templates are using the default security group
+ in namespace/skims/test/data/lib_root/f177/aws_lanch_template_test.tf","
+>  1 | resource ""aws_launch_template"" ""foo"" {
+   2 |   name = ""foo""
+   3 |
+   4 |   block_device_mappings {
+   5 |     device_name = ""/dev/sda1""
+   6 |
+   7 |     ebs {
+   8 |       volume_size = 20
+   9 |     }
+  10 |   }
+  11 |
+  12 |   capacity_reservation_specification {
+  13 |     capacity_reservation_preference = ""open""
+  14 |   }
+  15 |
+  16 |   cpu_options {
+  17 |     core_count       = 4
+  18 |     threads_per_core = 2
+  19 |   }
+  20 |
+  21 |   credit_specification {
+     ^ Col 0
+",terraform.ec2_use_default_security_group
+F177,inputs,arn:aws:ec2:::ltid1-018de572ae43404d8 (namespace),lib_path.f177.ec2_using_default_security_group,16,skims,177. Insecure service configuration - Security Groups,lib_path.f177.ec2_using_default_security_group,"
+  1 | {
+  2 |     ""LaunchTemplateId"": ""ltid1-018de572ae43404d8"",
+  3 |     ""LaunchTemplateName"": ""fluidtemplateunsafe"",
+  4 |     ""LaunchTemplateData"": {
+  5 |         ""EbsOptimized"": true
+  6 |     }
+  7 | }
+    ^ Col 0
+",aws.use_default_security_group
+F177,inputs,arn:aws:ec2::myinst1 (namespace),"/SecurityGroups/0/GroupName: [{'GroupName': 'default', 'GroupId': 'sg1_018de572ae43404d8'}]",16,skims,177. Insecure service configuration - Security Groups,src.lib_path.f177.has_default_security_groups_in_use,"
+   1 | {
+   2 |     ""InstanceId"": ""myinst1"",
+   3 |     ""InstanceType"": ""a1.medium"",
+   4 |     ""SecurityGroups"": [
+   5 |         {
+>  6 |             ""GroupName"": ""default"",
+   7 |             ""GroupId"": ""sg1-018de572ae43404d8""
+   8 |         }
+   9 |     ]
+  10 | }
+     ^ Col 0
+",aws.has_default_security_groups_in_use

@@ -1,3 +1,4 @@
+import ast
 from contextlib import (
     suppress,
 )
@@ -8,7 +9,6 @@ from dast.aws.utils import (
     build_vulnerabilities,
     run_boto3_fun,
 )
-import json
 from model import (
     core_model,
 )
@@ -82,14 +82,14 @@ async def acl_public_buckets(
 
 
 def iterate_s3_buckets_allow_unauthorized_public_access(
-    bucket_policies: List, bucket_name: str
+    policies_statements: List, bucket_name: str
 ) -> core_model.Vulnerabilities:
     locations: List[Location] = []
     vulns: core_model.Vulnerabilities = ()
     method = (
         core_model.MethodsEnum.AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS
     )
-    for policy in bucket_policies:
+    for policy in policies_statements:
         with suppress(KeyError):
             if (
                 policy["Effect"] == "Allow"
@@ -144,20 +144,22 @@ async def s3_buckets_allow_unauthorized_public_access(
         for bucket in buckets:
             bucket_name = bucket["Name"]
 
-            get_bucket_policy: Dict[str, Any] = await run_boto3_fun(
+            bucket_policy: Dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_policy",
                 parameters={"Bucket": str(bucket_name)},
             )
 
-            if get_bucket_policy:
-                bucket_policy_string = get_bucket_policy["Policy"]
-                bucket_policies = json.loads(bucket_policy_string)["Statement"]
+            if bucket_policy:
+                bucket_policies = ast.literal_eval(
+                    str(bucket_policy.get("Policy", []))
+                )
+
                 vulns = (
                     *vulns,
                     *iterate_s3_buckets_allow_unauthorized_public_access(
-                        bucket_policies, bucket_name
+                        bucket_policies["Statement"], bucket_name
                     ),
                 )
 

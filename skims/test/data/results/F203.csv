@@ -1,0 +1,180 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
+   1 | ---
+   2 | Resources:
+   3 |   S3Bucket:
+   4 |     Type: AWS::S3::Bucket
+   5 |     DeletionPolicy: Retain
+   6 |     Properties:
+>  7 |       AccessControl: PublicReadWrite
+   8 |       BucketName: SKIMS-PUBLIC-BUCKET
+   9 |       BucketEncryption:
+  10 |         ServerSideEncryptionConfiguration:
+  11 |           - ServerSideEncryptionByDefault:
+  12 |               SSEAlgorithm: aws:kms
+  13 |               KMSMasterKeyID: KMS-KEY-ARN
+  14 |   S3Bucket1:
+  15 |     Type: AWS::S3::Bucket
+  16 |     Properties:
+  17 |       AccessControl: PublicReadWrite
+  18 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  19 |       BucketEncryption:
+  20 |         ServerSideEncryptionConfiguration:
+  21 |           - ServerSideEncryptionByDefault:
+     ^ Col 0
+",cloudformation.cfn_public_buckets
+F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,17,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml,"
+   7 |       AccessControl: PublicReadWrite
+   8 |       BucketName: SKIMS-PUBLIC-BUCKET
+   9 |       BucketEncryption:
+  10 |         ServerSideEncryptionConfiguration:
+  11 |           - ServerSideEncryptionByDefault:
+  12 |               SSEAlgorithm: aws:kms
+  13 |               KMSMasterKeyID: KMS-KEY-ARN
+  14 |   S3Bucket1:
+  15 |     Type: AWS::S3::Bucket
+  16 |     Properties:
+> 17 |       AccessControl: PublicReadWrite
+  18 |       BucketName: SKIMS-PUBLIC-BUCKET-2
+  19 |       BucketEncryption:
+  20 |         ServerSideEncryptionConfiguration:
+  21 |           - ServerSideEncryptionByDefault:
+  22 |               SSEAlgorithm: aws:kms
+  23 |               KMSMasterKeyID: KMS-KEY-ARN
+  24 |     DeletionPolicy: Delete
+  25 |   PrivateS3Bucket:
+  26 |     Type: AWS::S3::Bucket
+  27 |     Properties:
+     ^ Col 0
+",cloudformation.cfn_public_buckets
+F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,7,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
+   1 | {
+   2 |   ""Resources"": {
+   3 |     ""S3Bucket"": {
+   4 |       ""Type"": ""AWS::S3::Bucket"",
+   5 |       ""DeletionPolicy"": ""Retain"",
+   6 |       ""Properties"": {
+>  7 |         ""AccessControl"": ""PublicReadWrite"",
+   8 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET"",
+   9 |         ""BucketEncryption"": {
+  10 |           ""ServerSideEncryptionConfiguration"": [
+  11 |             {
+  12 |               ""ServerSideEncryptionByDefault"": {
+  13 |                 ""SSEAlgorithm"": ""aws:kms"",
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+     ^ Col 0
+",cloudformation.cfn_public_buckets
+F203,lines,namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_path/f203/cfn_public_buckets.yaml.json,"
+  14 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  15 |               }
+  16 |             }
+  17 |           ]
+  18 |         }
+  19 |       }
+  20 |     },
+  21 |     ""S3Bucket1"": {
+  22 |       ""Type"": ""AWS::S3::Bucket"",
+  23 |       ""Properties"": {
+> 24 |         ""AccessControl"": ""PublicReadWrite"",
+  25 |         ""BucketName"": ""SKIMS-PUBLIC-BUCKET-2"",
+  26 |         ""BucketEncryption"": {
+  27 |           ""ServerSideEncryptionConfiguration"": [
+  28 |             {
+  29 |               ""ServerSideEncryptionByDefault"": {
+  30 |                 ""SSEAlgorithm"": ""aws:kms"",
+  31 |                 ""KMSMasterKeyID"": ""KMS-KEY-ARN""
+  32 |               }
+  33 |             }
+  34 |           ]
+     ^ Col 0
+",cloudformation.cfn_public_buckets
+F203,lines,namespace/skims/test/data/lib_root/f203/tfm_public_buckets.tf,3,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/tfm_public_buckets.tf,"
+   1 | resource ""aws_s3_bucket"" ""example"" {
+   2 |   bucket = ""s3-website-test.hashicorp.com""
+>  3 |   acl    = ""public-read-write""
+   4 |
+   5 |   cors_rule {
+   6 |     allowed_headers = [""*""]
+   7 |     allowed_methods = [""PUT"", ""POST""]
+   8 |     allowed_origins = [""https://s3-website-test.hashicorp.com""]
+   9 |     expose_headers  = [""ETag""]
+  10 |     max_age_seconds = 3000
+  11 |   }
+  12 | }
+  13 |
+  14 | resource ""aws_s3_bucket"" ""test"" {
+  15 |   bucket = ""my-tf-test-bucket""
+  16 |   acl    = ""log-delivery-write""
+  17 |
+  18 |   logging {
+  19 |     target_bucket = aws_s3_bucket.log_bucket.id
+  20 |     target_prefix = ""log/""
+  21 |   }
+     ^ Col 0
+",terraform.tfm_public_buckets
+F203,lines,namespace/skims/test/data/lib_root/f203/tfm_public_buckets_2.tf,24,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite in namespace/skims/test/data/lib_root/f203/tfm_public_buckets_2.tf,"
+  14 |       apply_server_side_encryption_by_default {
+  15 |         kms_master_key_id = aws_kms_key.mykey.arn
+  16 |         sse_algorithm     = ""aws:kms""
+  17 |       }
+  18 |     }
+  19 |   }
+  20 | }
+  21 |
+  22 | resource ""aws_s3_bucket"" ""public"" {
+  23 |   bucket = ""my-tf-test-bucket""
+> 24 |   acl    = ""public-read-write""
+  25 |
+  26 |   server_side_encryption_configuration {
+  27 |     rule {
+  28 |       apply_server_side_encryption_by_default {
+  29 |         kms_master_key_id = aws_kms_key.mykey.arn
+  30 |         sse_algorithm     = ""aws:kms""
+  31 |       }
+  32 |     }
+  33 |   }
+  34 | }
+     ^ Col 0
+",terraform.tfm_public_buckets
+F203,inputs,arn:aws:s3:::fluidbucket (namespace),/Grants/0/Permission: FULL_CONTROL,284,skims,203. Unauthorized access to files - S3 Bucket,AccessControl should not be PublicReadWrite,"
+   1 | {
+   2 |     ""Buckets"": [
+   3 |         {
+   4 |             ""Name"": ""fluidbucket""
+   5 |         }
+   6 |     ],
+   7 |     ""Grants"": [
+   8 |         {
+   9 |             ""Grantee"": {
+  10 |                 ""DisplayName"": ""fluidattacks"",
+  11 |                 ""EmailAddress"": ""fluid@fluidattacks.com"",
+  12 |                 ""ID"": ""mygrant1"",
+  13 |                 ""Type"": ""CanonicalUser""
+  14 |             },
+> 15 |             ""Permission"": ""FULL_CONTROL""
+  16 |         }
+  17 |     ],
+  18 |     ""Policy"": ""{\""Version\"":\""2008-10-17\"",\""Id\"":\""LogPolicy\"",\""Statement\"":[{\""Effect\"":\""Allow\"",\""Principal\"":{\""po
+     | licy\"":\""*\"",},\""Resource\"":[\""*\"",],},],}""
+  19 | }
+     ^ Col 0
+",aws.acl_public_buckets
+F203,inputs,arn:aws:s3:::fluidbucket (namespace),Effect: Allow; Principal: {'policy': '*'},284,skims,203. Unauthorized access to files - S3 Bucket,S3 buckets allow unauthorized public access via bucket policies,"
+  1 | {
+  2 |     ""Effect"": ""Allow"",
+> 3 |     ""Principal"": {
+  4 |         ""policy"": ""*""
+  5 |     },
+  6 |     ""Resource"": [
+  7 |         ""*""
+  8 |     ]
+  9 | }
+    ^ Col 0
+",aws.s3_buckets_allow_unauthorized_public_access

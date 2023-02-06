@@ -4206,7 +4206,7 @@ class MethodsEnum(Enum):
         file_name="cloudformation",
         name="cfn_ec2_use_default_security_group",
         module="lib_path",
-        finding=FindingEnum.F109,
+        finding=FindingEnum.F177,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
     )
