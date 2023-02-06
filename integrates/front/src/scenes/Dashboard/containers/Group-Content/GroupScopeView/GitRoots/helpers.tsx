@@ -1,6 +1,4 @@
 /* eslint-disable react/forbid-prop-types */
-import { Buffer } from "buffer";
-
 import type { FetchResult } from "@apollo/client";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
@@ -14,6 +12,10 @@ import { array, boolean, lazy, object, string } from "yup";
 import type { TypedSchema } from "yup/lib/util/types";
 
 import type { IFormValues, IGitRootAttr } from "../types";
+import {
+  getAddGitRootCredentials,
+  getUpdateGitRootCredentials,
+} from "../utils";
 import { Alert } from "components/Alert";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
@@ -573,34 +575,7 @@ function useGitSubmit(
           await addGitRoot({
             variables: {
               branch: branch.trim(),
-              credentials: _.isEmpty(credentials.id)
-                ? _.isEmpty(credentials.key) &&
-                  _.isEmpty(credentials.user) &&
-                  _.isEmpty(credentials.password) &&
-                  _.isEmpty(credentials.token)
-                  ? undefined
-                  : {
-                      azureOrganization:
-                        _.isUndefined(credentials.azureOrganization) ||
-                        _.isUndefined(credentials.isPat) ||
-                        !credentials.isPat
-                          ? undefined
-                          : credentials.azureOrganization,
-                      isPat: _.isUndefined(credentials.isPat)
-                        ? false
-                        : credentials.isPat,
-                      key: _.isEmpty(credentials.key)
-                        ? undefined
-                        : Buffer.from(credentials.key).toString("base64"),
-                      name: credentials.name,
-                      password: credentials.password,
-                      token: credentials.token,
-                      type: credentials.type,
-                      user: credentials.user,
-                    }
-                : {
-                    id: credentials.id,
-                  },
+              credentials: getAddGitRootCredentials(credentials),
               environment,
               gitignore,
               groupName,
@@ -615,25 +590,7 @@ function useGitSubmit(
           await updateGitRoot({
             variables: {
               branch,
-              credentials: _.isEmpty(credentials.id)
-                ? _.isEmpty(credentials.key) &&
-                  _.isEmpty(credentials.user) &&
-                  _.isEmpty(credentials.password) &&
-                  _.isEmpty(credentials.token)
-                  ? undefined
-                  : {
-                      key: _.isEmpty(credentials.key)
-                        ? undefined
-                        : Buffer.from(credentials.key).toString("base64"),
-                      name: credentials.name,
-                      password: credentials.password,
-                      token: credentials.token,
-                      type: credentials.type,
-                      user: credentials.user,
-                    }
-                : {
-                    id: credentials.id,
-                  },
+              credentials: getUpdateGitRootCredentials(credentials),
               environment,
               gitignore,
               groupName,

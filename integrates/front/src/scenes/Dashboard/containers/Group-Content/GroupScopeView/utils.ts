@@ -1,4 +1,7 @@
+import _ from "lodash";
+
 import type {
+  ICredentials,
   ICredentialsAttr,
   IGitRootAttr,
   IIPRootAttr,
@@ -49,6 +52,73 @@ const formatTypeCredentials = (
   return "SSH";
 };
 
+const getAddGitRootCredentials = (
+  credentials: ICredentials
+): Record<string, boolean | string | undefined> | undefined => {
+  if (_.isEmpty(credentials.id)) {
+    if (
+      _.isEmpty(credentials.key) &&
+      _.isEmpty(credentials.user) &&
+      _.isEmpty(credentials.password) &&
+      _.isEmpty(credentials.token)
+    ) {
+      return undefined;
+    }
+
+    return {
+      azureOrganization:
+        _.isUndefined(credentials.azureOrganization) ||
+        _.isUndefined(credentials.isPat) ||
+        !credentials.isPat
+          ? undefined
+          : credentials.azureOrganization,
+      isPat: _.isUndefined(credentials.isPat) ? false : credentials.isPat,
+      key: _.isEmpty(credentials.key)
+        ? undefined
+        : Buffer.from(credentials.key).toString("base64"),
+      name: credentials.name,
+      password: credentials.password,
+      token: credentials.token,
+      type: credentials.type,
+      user: credentials.user,
+    };
+  }
+
+  return {
+    id: credentials.id,
+  };
+};
+
+const getUpdateGitRootCredentials = (
+  credentials: ICredentials
+): Record<string, boolean | string | undefined> | undefined => {
+  if (_.isEmpty(credentials.id)) {
+    if (
+      _.isEmpty(credentials.key) &&
+      _.isEmpty(credentials.user) &&
+      _.isEmpty(credentials.password) &&
+      _.isEmpty(credentials.token)
+    ) {
+      return undefined;
+    }
+
+    return {
+      key: _.isEmpty(credentials.key)
+        ? undefined
+        : Buffer.from(credentials.key).toString("base64"),
+      name: credentials.name,
+      password: credentials.password,
+      token: credentials.token,
+      type: credentials.type,
+      user: credentials.user,
+    };
+  }
+
+  return {
+    id: credentials.id,
+  };
+};
+
 export {
   isGitRoot,
   isIPRoot,
@@ -56,4 +126,6 @@ export {
   mapInactiveStatus,
   formatAuthCredentials,
   formatTypeCredentials,
+  getAddGitRootCredentials,
+  getUpdateGitRootCredentials,
 };
