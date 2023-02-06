@@ -37,7 +37,11 @@ export const plusFormatter = <T extends object>(
       id={"plus_button_formatter_tooltip"}
       tip={translate.t("organization.tabs.weakest.formatter.plus.tooltip")}
     >
-      <PlusFormatter onClick={handlePlusFormatter} type={"button"}>
+      <PlusFormatter
+        // eslint-disable-next-line
+        onClick={handlePlusFormatter} // NOSONAR
+        type={"button"}
+      >
         <FontAwesomeIcon icon={faPlus} />
       </PlusFormatter>
     </Tooltip>

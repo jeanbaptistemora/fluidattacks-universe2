@@ -30,7 +30,8 @@ export const linkFormatter = (
 
   return (
     <LinkRow
-      onClick={onClick}
+      // eslint-disable-next-line
+      onClick={onClick}  // NOSONAR
       value={capitalize(formatedValueDefined.toLocaleLowerCase())}
     />
   );

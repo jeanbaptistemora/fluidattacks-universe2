@@ -24,7 +24,11 @@ export const UpdateAffectedModal: React.FC<IUpdateAffectedModalProps> = ({
   const eventOptions = events.map(
     ({ detail, eventStatus, id }): JSX.Element => {
       if (eventStatus.toUpperCase() !== "SOLVED") {
-        return <option value={id}>{detail}</option>;
+        return (
+          <option key={id} value={id}>
+            {detail}
+          </option>
+        );
       }
 
       return <div key={id} />;
