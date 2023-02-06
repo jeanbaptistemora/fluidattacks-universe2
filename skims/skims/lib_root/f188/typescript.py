@@ -34,7 +34,7 @@ def lack_of_validation_dom_window(
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_root.f280.non_secure_construction_of_cookies",
+        desc_key="lib_path.f188.lack_of_data_validation",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

@@ -1,0 +1,8 @@
+---
+lib_path.f188.lack_of_data_validation:
+  en: The application allows the creation of dynamic DOM
+    (Document Object Model) elements from user controlled inputs.
+    The event origin is not checked
+  es: La aplicación permite la creación de DOM dinámicos.
+    (Document Object Model) elementos de entradas controladas por el usuario.
+    No se comprueba el origen del evento.
