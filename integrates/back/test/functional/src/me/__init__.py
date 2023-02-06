@@ -21,13 +21,6 @@ async def get_result(
             callerOrigin
             enrollment {{
                 enrolled
-                trial{{
-                    completed
-                    extensionDate
-                    extensionDays
-                    startDate
-                    state
-                }}
             }}
             isConcurrentSession
             notificationsPreferences{{
@@ -73,6 +66,13 @@ async def get_result(
             tours{{
                 newGroup
                 newRoot
+            }}
+            trial {{
+                completed
+                extensionDate
+                extensionDays
+                startDate
+                state
             }}
             userEmail
             userName

@@ -17,9 +17,6 @@ from db_model.companies.types import (
     Company,
     Trial as CompanyTrial,
 )
-from db_model.enrollment.enums import (
-    EnrollmentTrialState,
-)
 from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
@@ -69,8 +66,6 @@ from typing import (
 
 logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
-TRIAL_PERIOD_DAYS: int = 21
-EXTENDED_TRIAL_PERIOD_DAYS: int = 9
 
 
 mail_free_trial_start = retry_on_exceptions(
@@ -152,34 +147,6 @@ async def update_metadata(
         email=email,
         metadata=metadata,
     )
-
-
-def get_enrollment_trial_state(trial: CompanyTrial) -> EnrollmentTrialState:
-    if not trial.start_date:
-        return EnrollmentTrialState.TRIAL_ENDED
-
-    if (
-        datetime_utils.get_plus_delta(
-            trial.start_date,
-            days=TRIAL_PERIOD_DAYS,
-        )
-        > datetime_utils.get_utc_now()
-    ):
-        return EnrollmentTrialState.TRIAL
-
-    if not trial.extension_days or not trial.extension_date:
-        return EnrollmentTrialState.TRIAL_ENDED
-
-    if (
-        datetime_utils.get_plus_delta(
-            trial.extension_date,
-            days=EXTENDED_TRIAL_PERIOD_DAYS,
-        )
-        > datetime_utils.get_utc_now()
-    ):
-        return EnrollmentTrialState.EXTENDED
-
-    return EnrollmentTrialState.EXTENDED_ENDED
 
 
 async def in_trial(

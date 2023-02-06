@@ -8,9 +8,6 @@ from db_model.companies.types import (
 from db_model.enrollment.types import (
     Enrollment,
 )
-from enrollment import (
-    domain as enrollment_domain,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -44,5 +41,5 @@ async def resolve(
         "extension_date": trial.extension_date or "",
         "extension_days": trial.extension_days,
         "start_date": trial.start_date or "",
-        "state": enrollment_domain.get_enrollment_trial_state(trial),
+        "state": "TRIAL",
     }

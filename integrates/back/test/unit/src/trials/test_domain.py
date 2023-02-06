@@ -1,19 +1,19 @@
 from datetime import (
     datetime,
 )
-from db_model.companies.types import (
+from db_model.trials.enums import (
+    TrialStatus,
+)
+from db_model.trials.types import (
     Trial,
-)
-from db_model.enrollment.enums import (
-    EnrollmentTrialState,
-)
-from enrollment.domain import (
-    get_enrollment_trial_state,
 )
 from freezegun import (
     freeze_time,
 )
 import pytest
+from trials.domain import (
+    get_status,
+)
 
 # Constants
 pytestmark = [
@@ -22,48 +22,53 @@ pytestmark = [
 
 
 @pytest.mark.parametrize(
-    ["trial", "state"],
+    ["trial", "status"],
     [
         (
             Trial(
+                email="",
                 completed=False,
                 start_date=None,
                 extension_days=0,
                 extension_date=None,
             ),
-            EnrollmentTrialState.TRIAL_ENDED,
+            TrialStatus.TRIAL,
         ),
         (
             Trial(
+                email="",
                 completed=False,
                 extension_date=None,
                 extension_days=0,
                 start_date=datetime.fromisoformat("2021-12-20T00:00:00+00:00"),
             ),
-            EnrollmentTrialState.TRIAL,
+            TrialStatus.TRIAL,
         ),
         (
             Trial(
+                email="",
                 completed=True,
                 extension_date=None,
                 extension_days=0,
                 start_date=datetime.fromisoformat("2021-12-01T00:00:00+00:00"),
             ),
-            EnrollmentTrialState.TRIAL_ENDED,
+            TrialStatus.TRIAL_ENDED,
         ),
         (
             Trial(
-                completed=True,
+                email="",
+                completed=False,
                 extension_date=datetime.fromisoformat(
                     "2021-12-30T00:00:00+00:00"
                 ),
                 extension_days=9,
                 start_date=datetime.fromisoformat("2021-12-01T00:00:00+00:00"),
             ),
-            EnrollmentTrialState.EXTENDED,
+            TrialStatus.EXTENDED,
         ),
         (
             Trial(
+                email="",
                 completed=True,
                 extension_date=datetime.fromisoformat(
                     "2021-12-01T00:00:00+00:00"
@@ -71,12 +76,10 @@ pytestmark = [
                 extension_days=9,
                 start_date=datetime.fromisoformat("2021-11-01T00:00:00+00:00"),
             ),
-            EnrollmentTrialState.EXTENDED_ENDED,
+            TrialStatus.EXTENDED_ENDED,
         ),
     ],
 )
 @freeze_time("2022-01-01")
-async def test_get_enrollment_trial_state(
-    trial: Trial, state: EnrollmentTrialState
-) -> None:
-    assert get_enrollment_trial_state(trial) == state
+async def test_get_status(trial: Trial, status: TrialStatus) -> None:
+    assert get_status(trial) == status
