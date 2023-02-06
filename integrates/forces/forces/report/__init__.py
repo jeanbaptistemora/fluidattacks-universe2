@@ -156,7 +156,7 @@ def format_finding_table(
     filtered_vulns: tuple[Vulnerability, ...],
     table: Table,
 ) -> Table:
-    find_summary: Counter = Counter(
+    finding_summary: Counter = Counter(
         [vuln.state for vuln in finding.vulnerabilities]
     )
     table.add_row("title", style_report("title", finding.title))
@@ -172,7 +172,7 @@ def format_finding_table(
     for vuln_state in tuple(VulnerabilityState):
         table.add_row(
             vuln_state,
-            style_report(vuln_state, str(find_summary[vuln_state])),
+            style_report(vuln_state, str(finding_summary[vuln_state])),
             end_section=vuln_state == VulnerabilityState.ACCEPTED
             and config.verbose_level == 1,
         )
@@ -239,7 +239,8 @@ async def generate_raw_report(
         VulnerabilityState.ACCEPTED: {"DAST": 0, "SAST": 0, "total": 0},
     }
     findings_dict = await create_findings_dict(
-        config.group,
+        organization=config.organization,
+        group=config.group,
         **kwargs,
     )
 

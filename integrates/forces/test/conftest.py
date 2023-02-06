@@ -6,6 +6,11 @@ from typing import (
 
 
 @pytest.fixture(scope="session")
+def test_org() -> Iterator[str]:
+    yield "okada"
+
+
+@pytest.fixture(scope="session")
 def test_group() -> Iterator[str]:
     yield "unittesting"
 

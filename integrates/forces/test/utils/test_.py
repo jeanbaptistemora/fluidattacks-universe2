@@ -27,6 +27,7 @@ TIMEZONE: ZoneInfo = ZoneInfo("America/Bogota")
 
 def test_check_policy_compliance() -> None:
     test_config = ForcesConfig(
+        organization="test_org",
         group="test_group",
         strict=True,
         breaking_severity=Decimal(5.0),
@@ -79,6 +80,7 @@ async def test_set_exit_code() -> None:
         ],
     )
     test_config = ForcesConfig(
+        organization="test_org",
         group="test_group",
         strict=True,
         breaking_severity=Decimal(5.0),

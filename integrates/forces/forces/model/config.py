@@ -23,6 +23,7 @@ class KindEnum(StrEnum):
 class ForcesConfig(NamedTuple):
     """Forces user config"""
 
+    organization: str
     group: str
     kind: KindEnum = KindEnum.ALL
     output: TextIOWrapper | None = None

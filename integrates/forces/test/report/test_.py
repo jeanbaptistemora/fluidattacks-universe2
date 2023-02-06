@@ -33,26 +33,29 @@ from zoneinfo import (
 
 @pytest.mark.asyncio
 async def test_create_findings_dict(
+    test_org: str,
     test_group: str,
     test_token: str,
 ) -> None:
     findings_dict_1 = await create_findings_dict(
-        group=test_group, api_token=test_token
+        organization=test_org, group=test_group, api_token=test_token
     )
     for find in findings_dict_1.values():
         assert find.identifier
         assert find.title
         assert find.state
+        assert find.url
         assert find.exploitability
 
 
 @pytest.mark.asyncio
 async def test_generate_report(
+    test_org: str,
     test_group: str,
     test_token: str,
     test_finding: str,
 ) -> None:
-    config = ForcesConfig(group=test_group)
+    config = ForcesConfig(organization=test_org, group=test_group)
     report = await generate_raw_report(
         config=config,
         api_token=test_token,

@@ -25,10 +25,14 @@ def test_get_repository_metadata_test() -> None:
 @pytest.mark.asyncio
 async def test_check_remotes(test_token: str) -> None:
     set_api_token(test_token)
-    config = ForcesConfig(group="unittesting", repository_name="universe")
+    config = ForcesConfig(
+        organization="okada", group="unittesting", repository_name="universe"
+    )
     assert await check_remotes(config)
 
-    bad_config = ForcesConfig(group="unittesting", repository_name="universes")
+    bad_config = ForcesConfig(
+        organization="okada", group="unittesting", repository_name="universes"
+    )
     assert not await check_remotes(bad_config)
 
 

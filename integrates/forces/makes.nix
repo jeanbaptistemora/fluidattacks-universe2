@@ -10,7 +10,7 @@
         outputs."/integrates/forces/config/development"
         outputs."/integrates/forces/config/runtime"
         (makeSearchPaths {
-          pythonPackage = ["$PWD/forces"];
+          pythonPackage = ["$PWD/integrates/forces"];
         })
       ];
     };

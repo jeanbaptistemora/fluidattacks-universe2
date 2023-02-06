@@ -16,10 +16,11 @@ from typing import (
 
 
 async def create_findings_dict(
+    organization: str,
     group: str,
     **kwargs: str,
 ) -> dict[str, Finding]:
-    """Returns a dictionary containing as key the findings of a project."""
+    """Returns a dictionary containing as key the findings of a group"""
     findings_dict: dict[str, Finding] = {}
     findings_futures = [
         get_finding(fin) for fin in await get_findings(group, **kwargs)
@@ -36,7 +37,7 @@ async def create_findings_dict(
             exploitability=float(find["exploitability"]),
             severity=Decimal(str(find["severityScore"])),
             url=(
-                "https://app.fluidattacks.com/groups/"
+                f"https://app.fluidattacks.com/orgs/{organization}/groups/"
                 f"{group}/vulns/{find['id']}"
             ),
             vulnerabilities=[],

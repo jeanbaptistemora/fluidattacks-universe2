@@ -85,10 +85,9 @@ async def get_vulnerabilities(
     """
     Returns the vulnerabilities of a finding.
 
-    :param client: gql Client.
-    :param finding: Finding identifier.
+    :param `finding_id`: Finding identifier.
     """
-    vulnerabilities = []
+    vulnerabilities: list[dict[str, Any]] = []
     query = """
         query ForcesDoGetFindingVulnerabilities(
             $after: String
@@ -158,9 +157,9 @@ async def get_vulnerabilities(
     for index, _ in enumerate(vulnerabilities):
         treatment = vulnerabilities[index].get("treatmentStatus")
         zero_risk = vulnerabilities[index].get("zeroRisk")
-        if treatment and "ACCEPTED" in treatment.upper():
+        if treatment and "ACCEPTED" in str(treatment).upper():
             vulnerabilities[index]["state"] = "accepted"
-        if zero_risk and zero_risk.upper() in {
+        if zero_risk and str(zero_risk).upper() in {
             "REQUESTED",
             "CONFIRMED",
         }:
@@ -201,14 +200,14 @@ async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
 
 
 async def vulns_generator(
-    group: str, **kwargs: str
+    group_name: str, **kwargs: str
 ) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, Any]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
     :param `group`: Group Name.
     """
-    findings: set[str] = await get_findings(group, **kwargs)
+    findings: set[str] = await get_findings(group_name, **kwargs)
     vulns_futures = [get_vulnerabilities(fin, **kwargs) for fin in findings]
     for vulnerabilities in asyncio.as_completed(vulns_futures):
         for vuln in await vulnerabilities:
@@ -235,7 +234,7 @@ async def upload_report(  # pylint: disable=too-many-arguments
     :param `report`: Forces execution report.
     :param `exit_code`: Exit code.
     """
-    query = """
+    mutation = """
         mutation ForcesDoUploadReport(
             $group_name: String!
             $execution_id: String!
@@ -321,7 +320,7 @@ async def upload_report(  # pylint: disable=too-many-arguments
         }
 
         response: dict[str, dict[str, bool]] = await execute(
-            query=query,
+            query=mutation,
             operation_name="ForcesDoUploadReport",
             variables=params,
             default={},
@@ -341,6 +340,7 @@ async def get_groups_access(
                 name
                 minBreakingSeverity
                 vulnerabilityGracePeriod
+                organization
                 userRole
               }
             }
@@ -407,9 +407,14 @@ async def get_git_remotes(group: str, **kwargs: Any) -> list[dict[str, str]]:
 
 async def get_forces_user_and_org_data(
     **kwargs: Any,
-) -> tuple[str | None, float | None, int | None]:
+) -> tuple[str | None, str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
     for group, global_brk_severity, vuln_grace_period in groups:
         if group["userRole"] == "service_forces":
-            return (group["name"], global_brk_severity, vuln_grace_period)
-    return (None, None, None)
+            return (
+                group["organization"],
+                group["name"],
+                global_brk_severity,
+                vuln_grace_period,
+            )
+    return (None, None, None, None)

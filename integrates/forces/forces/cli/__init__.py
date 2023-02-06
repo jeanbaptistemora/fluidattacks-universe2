@@ -35,7 +35,6 @@ from forces.utils.strict_mode import (
 from io import (
     TextIOWrapper,
 )
-import os
 import re
 import sys
 import textwrap
@@ -196,11 +195,12 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     )
 
     (
+        organization,
         group,
         global_brk_severity,
         vuln_grace_period,
     ) = await get_forces_user_and_org_data(api_token=token)
-    if not group:
+    if not organization or not group:
         await log("warning", "Please make sure that you use a forces user")
         return 1
 
@@ -208,11 +208,6 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     show_banner()
     if guess_environment() == "development":
         await log("info", "The agent is running in dev mode")
-        await log(
-            "info",
-            "The API_ENDPOINT set in the environment is "
-            f"{os.environ.get('API_ENDPOINT')}",
-        )
         await log("info", f"The agent is pointing to {ENDPOINT}")
 
     strictness = "strict" if strict else "lax"
@@ -229,6 +224,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     else:
         kind_chg = KindEnum.STATIC if kind == "static" else KindEnum.ALL
     config = ForcesConfig(
+        organization=organization,
         group=group,
         kind=kind_chg,
         output=output,

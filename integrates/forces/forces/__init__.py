@@ -69,7 +69,8 @@ async def entrypoint(
                     (
                         "No specific repository name has been set. "
                         "The vulnerabilities of [bright_yellow]all[/] "
-                        "repositories registered in the ARM will be scanned"
+                        f"repositories registered in {config.group} will be "
+                        "scanned"
                     ),
                 )
 
@@ -79,6 +80,7 @@ async def entrypoint(
                     (
                         f"Running DevSecOps agent for vulnerabilities in the "
                         f"repo: [bright_yellow]{config.repository_name}[/]"
+                        f"of group {config.group}"
                     ),
                 )
 
