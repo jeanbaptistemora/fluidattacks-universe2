@@ -1039,6 +1039,14 @@
       "title": "372. Use of an insecure channel - HTTP"
     }
   },
+  "F379": {
+    "EN": {
+      "title": "379. Inappropriate coding practices - Unnecessary imports"
+    },
+    "ES": {
+      "title": "379. Inappropriate coding practices - Unnecessary imports"
+    }
+  },
   "F380": {
     "EN": {
       "title": "380. Supply Chain Attack - Docker"

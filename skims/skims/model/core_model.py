@@ -1078,6 +1078,13 @@ class FindingEnum(Enum):
         execution_queue=ExecutionQueue.cloud,
         requirements=[181],
     )
+    F379: FindingMetadata = FindingMetadata.new(
+        auto_approve=False,
+        code="F379",
+        cwe=650,
+        execution_queue=ExecutionQueue.control,
+        requirements=[158],
+    )
     F380: FindingMetadata = FindingMetadata.new(
         auto_approve=True,
         code="F380",
@@ -5331,6 +5338,22 @@ class MethodsEnum(Enum):
         module="lib_path",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_UNNECESSARY_IMPORTS = MethodInfo(
+        file_name="typescripts",
+        name="ts_unnecessary_imports",
+        module="lib_root",
+        finding=FindingEnum.F379,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    JS_UNNECESSARY_IMPORTS = MethodInfo(
+        file_name="javascript",
+        name="js_unnecessary_imports",
+        module="lib_root",
+        finding=FindingEnum.F379,
+        developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
     UNPINNED_DOCKER_IMAGE = MethodInfo(
