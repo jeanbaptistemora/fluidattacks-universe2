@@ -140,6 +140,7 @@ const About = [
       "about/compare/bishopfox",
       "about/compare/checkmarx",
       "about/compare/crashtest-security",
+      "about/compare/cyver",
       "about/compare/data-theorem",
       "about/compare/detectify",
       "about/compare/faraday",
