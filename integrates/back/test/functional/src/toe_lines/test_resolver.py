@@ -322,3 +322,47 @@ async def test_get_toe_lines_by_last_author(
         last_author="customer",
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_from_seen_at(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        from_seen_at="2020-02-01T15:41:04+00:00",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["seenAt"]
+        == "2020-02-01T15:41:04+00:00"
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_to_seen_at(populate: bool, email: str) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        to_seen_at="2019-01-01T15:41:04+00:00",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["seenAt"]
+        == "2019-01-01T15:41:04+00:00"
+    )

@@ -15,6 +15,7 @@ def get_query() -> str:
     return """
         query(
             $fromModifiedDate: DateTime
+            $fromSeenAt: DateTime
             $groupName: String!
             $hasVulnerabilities: Boolean
             $lastAuthor: String
@@ -23,11 +24,13 @@ def get_query() -> str:
             $minLoc: Int
             $rootId: ID
             $toModifiedDate: DateTime
+            $toSeenAt: DateTime
         ) {
             group(groupName: $groupName) {
                 name
                 toeLines(
                     fromModifiedDate: $fromModifiedDate
+                    fromSeenAt: $fromSeenAt
                     hasVulnerabilities: $hasVulnerabilities
                     lastAuthor: $lastAuthor
                     lastCommit: $lastCommit
@@ -35,6 +38,7 @@ def get_query() -> str:
                     minLoc: $minLoc
                     rootId: $rootId
                     toModifiedDate: $toModifiedDate
+                    toSeenAt: $toSeenAt
                 ) {
                     edges {
                         node {
@@ -80,6 +84,7 @@ async def get_result(
     group_name: str,
     filename: Optional[str] = None,
     from_modified_date: Optional[str] = None,
+    from_seen_at: Optional[str] = None,
     has_vulnerabilities: Optional[bool] = None,
     last_author: Optional[str] = None,
     last_commit: Optional[str] = None,
@@ -87,6 +92,7 @@ async def get_result(
     min_loc: Optional[int] = None,
     root_id: Optional[str] = None,
     to_modified_date: Optional[str] = None,
+    to_seen_at: Optional[str] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {
@@ -94,6 +100,7 @@ async def get_result(
         "variables": {
             "filename": filename,
             "fromModifiedDate": from_modified_date,
+            "fromSeenAt": from_seen_at,
             "groupName": group_name,
             "hasVulnerabilities": has_vulnerabilities,
             "lastAuthor": last_author,
@@ -102,6 +109,7 @@ async def get_result(
             "minLoc": min_loc,
             "rootId": root_id,
             "toModifiedDate": to_modified_date,
+            "toSeenAt": to_seen_at,
         },
     }
     return await get_graphql_result(
