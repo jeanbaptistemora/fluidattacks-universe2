@@ -202,3 +202,39 @@ On the other hand,
 the **technical report** is an XLSX file
 where you have all the vulnerabilities
 reported in the group with their technical details.
+
+## Stakeholders
+
+### What is the difference between stakeholders and authors?
+
+[Stakeholders](/machine/web/groups/stakeholders/)
+refers to  all users who can access
+your group to visualize information
+or manage vulnerabilities,
+scope and tags,
+among other things.
+[Authors](/machine/web/groups/stakeholders/)
+are all the developers or professionals who
+contribute to the repositories under evaluation.
+
+## Consulting
+
+### What is the difference between our three consulting alternatives?
+
+[Consulting](/squad/consulting/)
+is one of the communication channels with users.
+You can find it in
+Locations,
+Groups and Events.
+Use the one in
+[Locations](/squad/consulting/#concerning-vulnerabilities)
+when you have questions regarding
+a specific vulnerability.
+Use the one in
+[Events](/squad/consulting/#concerning-events)
+to ask about the status or details of
+situations that are preventing security
+testing from resuming.
+And use the one in the main screen of a
+[group](/squad/consulting/#concerning-groups)
+to ask general questions about that group.
