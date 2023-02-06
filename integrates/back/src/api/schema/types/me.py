@@ -18,6 +18,7 @@ from api.resolvers.me import (
     subscriptions_to_entity_report,
     tags,
     tours,
+    trial,
     vulnerabilities_assigned,
 )
 from ariadne import (
@@ -47,5 +48,6 @@ ME.set_field(
 )
 ME.set_field("tags", tags.resolve)
 ME.set_field("tours", tours.resolve)
+ME.set_field("trial", trial.resolve)
 ME.set_field("vulnerabilitiesAssigned", vulnerabilities_assigned.resolve)
 ME.set_field("notificationsPreferences", notifications_preferences.resolve)

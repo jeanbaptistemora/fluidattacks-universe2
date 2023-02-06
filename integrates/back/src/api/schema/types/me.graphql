@@ -63,6 +63,8 @@ type Me {
   ): [Tag!]
   "New users workflow skipping information"
   tours: Tours!
+  "Free trial information"
+  trial: Trial
   "Email address of the user"
   userEmail: String!
   "Current user name"

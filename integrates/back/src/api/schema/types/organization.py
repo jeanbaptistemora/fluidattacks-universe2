@@ -23,6 +23,7 @@ from api.resolvers.organization import (
     organization_id,
     permissions,
     stakeholders,
+    trial,
     user_role,
     vulnerabilities_url,
     vulnerability_grace_period,
@@ -65,6 +66,7 @@ ORGANIZATION.set_field("maxNumberAcceptances", max_number_acceptances.resolve)
 ORGANIZATION.set_field("minBreakingSeverity", min_breaking_severity.resolve)
 ORGANIZATION.set_field("permissions", permissions.resolve)
 ORGANIZATION.set_field("stakeholders", stakeholders.resolve)
+ORGANIZATION.set_field("trial", trial.resolve)
 ORGANIZATION.set_field("userRole", user_role.resolve)
 ORGANIZATION.set_field("vulnerabilitiesUrl", vulnerabilities_url.resolve)
 ORGANIZATION.set_field(

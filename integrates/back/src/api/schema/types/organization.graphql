@@ -90,6 +90,8 @@ type Organization {
   permissions: [String]
   "Users who have access to the organization"
   stakeholders: [Stakeholder]
+  "Free trial information"
+  trial: Trial
   "Role of the current user within the organization"
   userRole: String
   "Signed URL for organization vulnerabilities csv file"
