@@ -272,3 +272,26 @@ async def test_get_toe_lines_by_last_commit(
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
         == "a281ru5"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_last_author(
+    populate: bool, email: str
+) -> None:
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        last_author="customer1",
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
+        == "customer1@gmail.com"
+    )
