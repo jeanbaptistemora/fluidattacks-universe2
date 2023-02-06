@@ -1,7 +1,6 @@
 {outputs}: let
   bins = {
     announceKitEtl = outputs."/computeOnAwsBatch/observesAnnounceKitEtl";
-    batchStability = outputs."/observes/job/batch-stability";
     bugsnagEtl = outputs."/computeOnAwsBatch/observesBugsnagEtl";
     codeEtlMirror = outputs."/observes/etl/code/mirror/all-on-aws";
     codeEtlUpload = outputs."/observes/etl/code/upload/all-on-aws";

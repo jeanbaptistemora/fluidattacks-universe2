@@ -20,7 +20,6 @@ from jobs_scheduler.cron.factory import (
 ANY = CronItem.any()
 SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
     {
-        work_days(ANY, ANY).unwrap(): (Job.REPORT_FAILS,),
         weekly(ANY, 0, frozenset([Days.SAT])).unwrap(): (
             Job.DYNAMO_INTEGRATES_MAIN_NO_CACHE,
         ),
@@ -28,7 +27,6 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
         work_days(ANY, 0).unwrap(): (
             Job.DYNAMO_INTEGRATES_MAIN,
             Job.MIRROR,
-            Job.REPORT_CANCELLED,
         ),
         weekly(ANY, 3, DaysRange.new(Days.MON, Days.FRI).unwrap()).unwrap(): (
             Job.ANNOUNCEKIT,

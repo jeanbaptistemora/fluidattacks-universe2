@@ -30,9 +30,5 @@ def job_to_bin_cmd(job: Job) -> str | NoReturn:
         return os.environ["mandrillEtl"]
     if job is Job.MIRROR:
         return os.environ["codeEtlMirror"]
-    if job is Job.REPORT_FAILS:
-        return os.environ["batchStability"] + " report-failures observes"
-    if job is Job.REPORT_CANCELLED:
-        return os.environ["batchStability"] + " report-cancelled observes"
     if job is Job.UPLOAD:
         return os.environ["codeEtlUpload"]
