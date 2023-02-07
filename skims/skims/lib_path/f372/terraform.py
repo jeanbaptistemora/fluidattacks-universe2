@@ -24,9 +24,6 @@ from parse_hcl2.structure.aws import (
     iter_aws_lb_target_group,
     iter_aws_security_group,
 )
-from parse_hcl2.structure.azure import (
-    iter_azurerm_storage_account,
-)
 from parse_hcl2.tokens import (
     Attribute,
 )
@@ -84,18 +81,6 @@ def _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
             yield protocol
 
 
-def _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        if (
-            https := get_attribute(
-                body=resource.data, key="enable_https_traffic_only"
-            )
-        ) and https.val is False:
-            yield https
-
-
 def _tfm_aws_sec_group_using_http(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -147,24 +132,6 @@ def tfm_serves_content_over_http(
         ),
         path=path,
         method=MethodsEnum.TFM_CONTENT_HTTP,
-    )
-
-
-def tfm_azure_sa_insecure_transfer(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "lib_path.f372.tfm_azure_storage_account_insecure_transfer"
-        ),
-        iterator=get_cloud_iterator(
-            _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
-                resource_iterator=iter_azurerm_storage_account(model=model),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AZURE_SA_INSEC_TRANSFER,
     )
 
 

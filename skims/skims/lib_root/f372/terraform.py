@@ -44,6 +44,15 @@ def _azure_kv_only_accessible_over_https(
     return None
 
 
+def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> Optional[NId]:
+    expected_attr = "enable_https_traffic_only"
+    for b_id in adj_ast(graph, nid, label_type="Pair"):
+        key, value = get_key_value(graph, b_id)
+        if key == expected_attr and value.lower() == "false":
+            return b_id
+    return None
+
+
 def tfm_azure_kv_only_accessible_over_https(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -64,6 +73,29 @@ def tfm_azure_kv_only_accessible_over_https(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_path.f372.azure_only_accessible_over_http",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def tfm_azure_sa_insecure_transfer(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_SA_INSEC_TRANSFER
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "azurerm_storage_account"):
+                if report := _azure_sa_insecure_transfer(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f372.tfm_azure_storage_account_insecure_transfer",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

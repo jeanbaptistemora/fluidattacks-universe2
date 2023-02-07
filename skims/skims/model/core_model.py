@@ -5335,7 +5335,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_SA_INSEC_TRANSFER = MethodInfo(
         file_name="terraform",
         name="tfm_azure_sa_insecure_transfer",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
