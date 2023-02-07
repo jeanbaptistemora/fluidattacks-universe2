@@ -128,6 +128,7 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           {userName.split(" ")[0]}
         </Button>
       }
+      id={"navbar-user-profile"}
     >
       <div className={"flex flex-column tl"}>
         <div className={"pa2"}>
