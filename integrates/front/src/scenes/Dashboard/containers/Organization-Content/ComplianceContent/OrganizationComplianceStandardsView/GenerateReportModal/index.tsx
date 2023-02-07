@@ -4,12 +4,14 @@ import { faFileContract } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
+import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { Fragment, useCallback, useState } from "react";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { includeFormatter } from "./Formatters/includeFormatter";
 import type { IGenerateReportModalProps, ITableRowData } from "./types";
 
 import { GET_UNFULFILLED_STANDARD_REPORT_URL } from "../queries";
@@ -17,6 +19,7 @@ import type { IUnfulfilledStandardAttr } from "../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
 import { Table } from "components/Table";
+import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import type { IVerifyFn } from "scenes/Dashboard/components/VerifyDialog/types";
@@ -31,20 +34,27 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
   unfulfilledStandards,
 }: IGenerateReportModalProps): JSX.Element => {
   const { t } = useTranslation();
+  const getFormattedUnfulfilledStandards = useCallback(
+    (): ITableRowData[] =>
+      _.sortBy(
+        unfulfilledStandards.map(
+          (unfulfilledStandard: IUnfulfilledStandardAttr): ITableRowData => ({
+            ...unfulfilledStandard,
+            include: true,
+            title: unfulfilledStandard.title.toUpperCase(),
+          })
+        ),
+        (unfulfilledStandard: IUnfulfilledStandardAttr): string =>
+          unfulfilledStandard.title
+      ),
+    [unfulfilledStandards]
+  );
 
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
   const [disableVerify, setDisableVerify] = useState(false);
-  const tableData = unfulfilledStandards.map(
-    (unfulfilledStandard: IUnfulfilledStandardAttr): ITableRowData => ({
-      ...unfulfilledStandard,
-      include: true,
-    })
+  const [tableData, setTableData] = useState(
+    getFormattedUnfulfilledStandards()
   );
-
-  const handleClose = useCallback((): void => {
-    onClose();
-    setIsVerifyDialogOpen(false);
-  }, [onClose, setIsVerifyDialogOpen]);
 
   const [requestUnfulfilledStandardReport] = useLazyQuery<{
     unfulfilledStandardReportUrl: string;
@@ -90,8 +100,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
     },
     [requestUnfulfilledStandardReport, groupName]
   );
-
-  const onRequestReport = useCallback(
+  const handleRequestReport = useCallback(
     (setVerifyCallbacks: IVerifyFn): (() => void) =>
       (): void => {
         setVerifyCallbacks(
@@ -106,11 +115,43 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       },
     [handleRequestUnfulfilledStandardReport]
   );
+  const handleIncludeStandard: (row: ITableRowData) => void = (
+    row: ITableRowData
+  ): void => {
+    setTableData(
+      tableData.map(
+        (unfulfilledStandard: ITableRowData): ITableRowData =>
+          row.standardId === unfulfilledStandard.standardId
+            ? {
+                ...unfulfilledStandard,
+                include: !unfulfilledStandard.include,
+              }
+            : unfulfilledStandard
+      )
+    );
+  };
+  const handleClose = useCallback((): void => {
+    onClose();
+    setIsVerifyDialogOpen(false);
+  }, [onClose, setIsVerifyDialogOpen]);
 
+  // Side effects
+  useEffect((): void => {
+    setTableData(getFormattedUnfulfilledStandards());
+  }, [unfulfilledStandards, getFormattedUnfulfilledStandards]);
+
+  // Table
   const columns: ColumnDef<ITableRowData>[] = [
     {
       accessorKey: "title",
+      enableSorting: true,
       header: "Unfulfilled standard",
+    },
+    {
+      accessorKey: "include",
+      cell: (cell: ICellHelper<ITableRowData>): JSX.Element =>
+        includeFormatter(cell.row.original, handleIncludeStandard),
+      header: "Include",
     },
   ];
 
@@ -145,7 +186,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
                 >
                   <Button
                     id={"standard-report"}
-                    onClick={onRequestReport(setVerifyCallbacks)}
+                    onClick={handleRequestReport(setVerifyCallbacks)}
                     variant={"secondary"}
                   >
                     <FontAwesomeIcon icon={faFileContract} />
