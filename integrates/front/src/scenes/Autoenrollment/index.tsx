@@ -360,14 +360,14 @@ const Autoenrollment: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const { trial } = data.me.company;
+  const { trial } = data.me;
 
   if (hasPersonalEmail) {
     return <Announce message={t("autoenrollment.corporateOnly")} />;
   }
 
-  if (trial.completed || trial.startDate) {
-    return <Announce message={t("autoenrollment.companyAlreadyInTrial")} />;
+  if (trial) {
+    return <Announce message={t("autoenrollment.alreadyInTrial")} />;
   }
 
   const pages: Record<TEnrollPages, JSX.Element> = {

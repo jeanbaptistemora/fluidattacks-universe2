@@ -42,8 +42,8 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
+            trial: null,
             userEmail: "jdoe@personal.com",
           },
         },
@@ -69,7 +69,7 @@ describe("Autoenrollment", (): void => {
     mockedFetch.reset();
   });
 
-  it("should render company already in trial", async (): Promise<void> => {
+  it("should render already in trial", async (): Promise<void> => {
     expect.hasAssertions();
 
     const groupsMock: MockedResponse<IGetStakeholderGroupsResult> = {
@@ -79,13 +79,11 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: {
-              trial: {
-                completed: false,
-                startDate: "2022-12-06T07:40:16.114232",
-              },
-            },
             organizations: [],
+            trial: {
+              completed: false,
+              startDate: "2022-12-06T07:40:16.114232",
+            },
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -105,7 +103,7 @@ describe("Autoenrollment", (): void => {
     );
 
     await expect(
-      screen.findByText("autoenrollment.companyAlreadyInTrial")
+      screen.findByText("autoenrollment.alreadyInTrial")
     ).resolves.toBeInTheDocument();
 
     mockedFetch.reset();
@@ -133,8 +131,8 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -227,8 +225,8 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -386,8 +384,8 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -480,8 +478,8 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
           },
         },
@@ -691,7 +689,6 @@ describe("Autoenrollment", (): void => {
       result: {
         data: {
           me: {
-            company: { trial: { completed: false, startDate: "" } },
             organizations: [
               {
                 country: "Colombia",
@@ -699,6 +696,7 @@ describe("Autoenrollment", (): void => {
                 name: "testOrg",
               },
             ],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
           },
         },

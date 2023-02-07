@@ -77,18 +77,16 @@ const ADD_ORGANIZATION = gql`
 const GET_STAKEHOLDER_GROUPS = gql`
   query GetStakeholderGroups {
     me {
-      company {
-        trial {
-          completed
-          startDate
-        }
-      }
       organizations {
         country
         groups {
           name
         }
         name
+      }
+      trial {
+        completed
+        startDate
       }
       userEmail
     }

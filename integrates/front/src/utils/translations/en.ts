@@ -246,6 +246,9 @@ export const enTranslations: ResourceKey = {
       "And that's it. You're about to start finding vulnerabilities.",
     acceptTerms: "By signing up, you agree with Fluid Attacks'",
     addRepository: "Add a code repository we can start hacking",
+    alreadyInTrial:
+      "Oops! It seems like you've already enjoyed a free trial. " +
+      "Please contact your manager to request access.",
     and: "and",
     branch: {
       label: "Branch",
@@ -257,9 +260,6 @@ export const enTranslations: ResourceKey = {
       no: "No",
       yes: "Yes",
     },
-    companyAlreadyInTrial:
-      "Ups! It seems like your company already enjoyed the free trial. " +
-      "Please contact your manager to request access.",
     corporateOnly:
       "To enjoy your free trial, sign up with a Corporate Email Account.",
     credentials: {

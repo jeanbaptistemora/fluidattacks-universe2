@@ -35,12 +35,6 @@ interface ICheckGitAccessResult {
 
 interface IGetStakeholderGroupsResult {
   me: {
-    company: {
-      trial: {
-        completed: boolean;
-        startDate: string;
-      };
-    };
     organizations: {
       country: string;
       groups: {
@@ -48,6 +42,10 @@ interface IGetStakeholderGroupsResult {
       }[];
       name: string;
     }[];
+    trial: {
+      completed: boolean;
+      startDate: string;
+    } | null;
     userEmail: string;
   };
 }

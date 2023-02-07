@@ -30,19 +30,17 @@ interface IGetOrganizationGroups {
     coveredRepositories: number;
     missedAuthors: number;
     missedRepositories: number;
-    company: ITrialData;
     groups: IGroupData[];
+    trial: ITrialData | null;
   };
 }
 
 interface ITrialData {
-  trial: {
-    completed: boolean;
-    extensionDate: string;
-    extensionDays: number;
-    startDate: string;
-    state: "EXTENDED_END" | "EXTENDED" | "TRIAL_ENDED" | "TRIAL";
-  };
+  completed: boolean;
+  extensionDate: string;
+  extensionDays: number;
+  startDate: string;
+  state: "EXTENDED_END" | "EXTENDED" | "TRIAL_ENDED" | "TRIAL";
 }
 
 export type {

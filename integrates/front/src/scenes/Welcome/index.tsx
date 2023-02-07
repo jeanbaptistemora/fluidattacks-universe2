@@ -56,6 +56,7 @@ const Welcome: React.FC = (): JSX.Element => {
 
     return <Dashboard />;
   }
+
   if (sessionStorage.getItem("trial") === "true") {
     return <Autoenrollment />;
   }

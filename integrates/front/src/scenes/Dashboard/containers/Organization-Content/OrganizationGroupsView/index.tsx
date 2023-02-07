@@ -176,7 +176,7 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
         const showSuspendedTip =
           text === t(`organization.tabs.groups.status.underReview`);
         const infoTip = showTrialTip
-          ? getTrialTip(data?.organization.company, t)
+          ? getTrialTip(data?.organization.trial)
           : t(`organization.tabs.groups.status.underReviewTip`);
 
         return formatLinkHandler(
