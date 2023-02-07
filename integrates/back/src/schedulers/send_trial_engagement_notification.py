@@ -109,8 +109,8 @@ async def send_trial_engagement_notification() -> None:
     }
     loaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
-    domains = [group.created_by.split("@")[1] for group in groups]
-    companies = await loaders.company.load_many(domains)
+    emails = [group.created_by for group in groups]
+    trials = await loaders.trial.load_many(emails)
 
     await collect(
         tuple(
@@ -119,15 +119,15 @@ async def send_trial_engagement_notification() -> None:
                 TrialEngagementInfo(
                     email_to=group.created_by,
                     group_name=group.name,
-                    start_date=company.trial.start_date,
+                    start_date=trial.start_date,
                 ),
             )
-            for group, company in zip(groups, companies)
-            if company
-            and company.trial.start_date
+            for group, trial in zip(groups, trials)
+            if trial
+            and trial.start_date
             and (
                 notification := notifications.get(
-                    datetime_utils.get_days_since(company.trial.start_date)
+                    datetime_utils.get_days_since(trial.start_date)
                 )
             )
         )

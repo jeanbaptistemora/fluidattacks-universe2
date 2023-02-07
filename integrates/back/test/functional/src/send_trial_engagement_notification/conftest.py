@@ -5,10 +5,6 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.companies.types import (
-    Company,
-    Trial,
-)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -31,6 +27,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.trials.types import (
+    Trial,
+)
 from db_model.types import (
     Policies,
 )
@@ -42,126 +41,95 @@ import pytest_asyncio
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
-        "companies": [
-            Company(
-                domain="johndoe.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-25T15:58:31.280182"
-                    ),
+        "trials": [
+            Trial(
+                email="janedoe@janedoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-11-08T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="janedoe.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-11-08T15:58:31.280182"
-                    ),
+            Trial(
+                email="uiguaran@uiguaran.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-11-06T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="uiguaran.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-11-06T15:58:31.280182"
-                    ),
+            Trial(
+                email="abuendia@abuendia.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-11-04T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="abuendia.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-11-04T15:58:31.280182"
-                    ),
+            Trial(
+                email="avicario@avicario.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-11-02T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="avicario.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-11-02T15:58:31.280182"
-                    ),
+            Trial(
+                email="snassar@snassar.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-29T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="fariza.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-31T15:58:31.280182"
-                    ),
+            Trial(
+                email="jbuendia@jbuendia.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-27T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="snassar.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-29T15:58:31.280182"
-                    ),
+            Trial(
+                email="johndoe@johndoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-25T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="jbuendia.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-27T15:58:31.280182"
-                    ),
+            Trial(
+                email="rremedios@rremedios.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-23T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="rremedios.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-23T15:58:31.280182"
-                    ),
+            Trial(
+                email="rmontiel@rmontiel.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-22T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="rmontiel.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-22T15:58:31.280182"
-                    ),
-                ),
-            ),
-            Company(
-                domain="rmoscote.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-20T15:58:31.280182"
-                    ),
+            Trial(
+                email="rmoscote@rmoscote.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-20T15:58:31.280182"
                 ),
             ),
         ],
