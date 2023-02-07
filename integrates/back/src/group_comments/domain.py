@@ -20,6 +20,13 @@ def is_scope_comment(comment: GroupComment) -> bool:
     return comment.content.strip() not in {"#external", "#internal"}
 
 
+@authz.validate_handle_comment_scope_deco(
+    "loaders",
+    "comment_data.content",
+    "comment_data.email",
+    "group_name",
+    "comment_data.parent_id",
+)
 @validate_field_length_deco("comment_data.content", limit=20000)
 async def add_comment(
     *,
@@ -29,11 +36,6 @@ async def add_comment(
 ) -> None:
     """Add comment in a group."""
     parent_comment = comment_data.parent_id
-    content = comment_data.content
-    email = comment_data.email
-    await authz.validate_handle_comment_scope(
-        loaders, content, email, group_name, parent_comment
-    )
     if parent_comment != "0":
         comments: list[GroupComment] = await loaders.group_comments.load(
             group_name
