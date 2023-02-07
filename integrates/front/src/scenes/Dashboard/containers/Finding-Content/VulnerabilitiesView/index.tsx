@@ -369,6 +369,54 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setIsNotify(false);
   }, [findingId, sendNotification]);
 
+  const toggleRequestVerify = useCallback((): void => {
+    if (isRequestingVerify) {
+      setIsRequestingVerify(!isRequestingVerify);
+    } else {
+      const { selectedVulnerabilities } = remediationModal;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnReattackIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setIsRequestingVerify(!isRequestingVerify);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setIsOpen(true);
+        setIsRequestingVerify(!isRequestingVerify);
+      } else {
+        setIsRequestingVerify(!isRequestingVerify);
+      }
+    }
+  }, [isRequestingVerify, remediationModal, t, vulnerabilities]);
+
+  const toggleVerify = useCallback((): void => {
+    if (isVerifying) {
+      setIsVerifying(!isVerifying);
+    } else {
+      const { selectedVulnerabilities } = remediationModal;
+      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
+        selectedVulnerabilities,
+        filterZeroRisk(vulnerabilities),
+        getNonSelectableVulnerabilitiesOnVerifyIds
+      );
+      if (selectedVulnerabilities.length > newVulnerabilities.length) {
+        setIsVerifying(!isVerifying);
+        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
+      } else if (selectedVulnerabilities.length > 0) {
+        setIsOpen(true);
+        setIsVerifying(!isVerifying);
+      } else {
+        setIsVerifying(!isVerifying);
+      }
+    }
+  }, [isVerifying, remediationModal, t, vulnerabilities]);
+
+  const toggleModal = useCallback((): void => {
+    setIsOpen(true);
+  }, []);
+
   const refetchVulnsData = useCallback((): void => {
     void nzrRefetch();
     void vulnDraftsRefetch();
@@ -408,52 +456,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
   }
 
   const isFindingReleased: boolean = !_.isEmpty(data.finding.releaseDate);
-  function toggleModal(): void {
-    setIsOpen(true);
-  }
-  function toggleRequestVerify(): void {
-    if (isRequestingVerify) {
-      setIsRequestingVerify(!isRequestingVerify);
-    } else {
-      const { selectedVulnerabilities } = remediationModal;
-      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
-        selectedVulnerabilities,
-        filterZeroRisk(vulnerabilities),
-        getNonSelectableVulnerabilitiesOnReattackIds
-      );
-      if (selectedVulnerabilities.length > newVulnerabilities.length) {
-        setIsRequestingVerify(!isRequestingVerify);
-        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
-      } else if (selectedVulnerabilities.length > 0) {
-        setIsOpen(true);
-        setIsRequestingVerify(!isRequestingVerify);
-      } else {
-        setIsRequestingVerify(!isRequestingVerify);
-      }
-    }
-  }
-
-  function toggleVerify(): void {
-    if (isVerifying) {
-      setIsVerifying(!isVerifying);
-    } else {
-      const { selectedVulnerabilities } = remediationModal;
-      const newVulnerabilities: IVulnRowAttr[] = filterOutVulnerabilities(
-        selectedVulnerabilities,
-        filterZeroRisk(vulnerabilities),
-        getNonSelectableVulnerabilitiesOnVerifyIds
-      );
-      if (selectedVulnerabilities.length > newVulnerabilities.length) {
-        setIsVerifying(!isVerifying);
-        msgError(t("searchFindings.tabVuln.errors.selectedVulnerabilities"));
-      } else if (selectedVulnerabilities.length > 0) {
-        setIsOpen(true);
-        setIsVerifying(!isVerifying);
-      } else {
-        setIsVerifying(!isVerifying);
-      }
-    }
-  }
 
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
