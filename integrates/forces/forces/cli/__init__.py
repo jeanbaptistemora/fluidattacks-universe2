@@ -84,40 +84,58 @@ def show_banner() -> None:
 
 
 @click.command(name="forces")
-@click.option("--token", required=True, help="Integrates valid token")
+@click.option("--token", required=True, help="Your DevSecOps agent token")
 @click.option(
     "-v",
     "--verbose",
     count=True,
     default=3,
+    help="The level of detail of the report (default -vvv)",
     required=False,
     type=click.IntRange(min=1, max=4),
 )
 @click.option(
     "--output",
     "-O",
+    help="Save output to FILE",
     metavar="FILE",
+    required=False,
     type=click.File("w", encoding="utf-8"),
-    help="Save output in FILE",
+)
+@click.option(
+    "--strict/--lax",
+    help="Sets the DevSecOps agent mode (default --lax)",
+)
+@click.option(
+    "--dynamic",
+    help="Check for DAST vulnerabilities only",
+    is_flag=True,
     required=False,
 )
-@click.option("--strict/--lax")
-@click.option("--dynamic", required=False, is_flag=True)
-@click.option("--static", required=False, is_flag=True)
-@click.option("--repo-path", default=("."))
+@click.option(
+    "--static",
+    is_flag=True,
+    help="Check for SAST vulnerabilities only",
+    required=False,
+)
+@click.option(
+    "--repo-path",
+    default=("."),
+    help="Repository path",
+)
 @click.option(
     "--repo-name",
-    required=False,
     default=None,
-    help="Name of the repository in which it is running",
+    help="Repository nickname",
+    required=False,
 )
 @click.option(
     "--breaking",
     required=False,
     default=None,
-    help="""Minimum CVSS score of a still vulnerable area to break the
-    build in strict mode. This setting overrides the global minimum breaking
-    severity set by your organization in ARM""",
+    help="""Vulnerable finds with a severity below this threshold will not
+    break the job. This setting overrides the minimum breaking severity set in
+    your ARM organization/group's policies (Strict mode only)""",
     type=click.FloatRange(min=0.0, max=10.0),
 )
 # pylint: disable=too-many-arguments
