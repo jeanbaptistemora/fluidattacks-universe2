@@ -122,37 +122,6 @@ export const enTranslations: ResourceKey = {
     sections: {
       extras: {
         download: "Download",
-        frequencies: {
-          action: {
-            daily: "Subscribe daily",
-            hourly: "Subscribe hourly",
-            monthly: "Subscribe monthly",
-            never: "Unsubscribe me",
-            weekly: "Subscribe weekly",
-          },
-          statement: {
-            daily: "Subscribed daily",
-            hourly: "Subscribed hourly",
-            monthly: "Subscribed monthly",
-            never: "Unsubscribed",
-            weekly: "Subscribed weekly",
-          },
-        },
-        frequenciesArrivalTime: {
-          daily: "Every day at 6:00 AM (America/EST)",
-          hourly: "Every hour",
-          monthly: "First day of each month at 6:00 AM (America/EST)",
-          never: "You won't receive reports",
-          weekly: "Mondays at 6:00 AM (America/EST)",
-        },
-        subscribedSuccessfully: {
-          msg: "You'll receive an e-mail shortly",
-          title: "You've been successfully subscribed!",
-        },
-        unsubscribedSuccessfully: {
-          msg: "No more e-mails will be sent",
-          title: "You've been successfully unsubscribed!",
-        },
         vulnerabilitiesUrl: {
           error:
             "No export currently available, please wait until the report is " +

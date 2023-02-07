@@ -26,24 +26,4 @@ const GET_VULNERABILITIES_URL: DocumentNode = gql`
   }
 `;
 
-const SUBSCRIBE_TO_ENTITY_REPORT: DocumentNode = gql`
-  mutation SubscribeToEntityReport(
-    $frequency: Frequency!
-    $reportEntity: SubscriptionReportEntity!
-    $reportSubject: String!
-  ) {
-    subscribeToEntityReport(
-      frequency: $frequency
-      reportEntity: $reportEntity
-      reportSubject: $reportSubject
-    ) {
-      success
-    }
-  }
-`;
-
-export {
-  GET_VULNERABILITIES_URL,
-  SUBSCRIPTIONS_TO_ENTITY_REPORT,
-  SUBSCRIBE_TO_ENTITY_REPORT,
-};
+export { GET_VULNERABILITIES_URL, SUBSCRIPTIONS_TO_ENTITY_REPORT };
