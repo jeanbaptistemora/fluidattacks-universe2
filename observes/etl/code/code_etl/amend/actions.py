@@ -7,6 +7,8 @@ from code_etl.amend.core import (
 from code_etl.client import (
     Client,
     CommitStampDiff,
+)
+from code_etl.clients import (
     new_client as code_client,
 )
 from code_etl.mailmap import (

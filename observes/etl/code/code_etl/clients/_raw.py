@@ -2,18 +2,18 @@ from __future__ import (
     annotations,
 )
 
-from ._raw_objs import (
-    RawCommitStamp,
-)
-from code_etl.client import (
+from . import (
     _query,
     encoder,
 )
-from code_etl.client._assert import (
+from ._assert import (
     assert_key,
     assert_type,
 )
-from code_etl.client.encoder import (
+from ._raw_objs import (
+    RawCommitStamp,
+)
+from .encoder import (
     commit_row_to_dict,
     from_raw,
 )

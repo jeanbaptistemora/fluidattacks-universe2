@@ -1,4 +1,4 @@
-from code_etl.client._raw_objs import (
+from code_etl.clients._raw_objs import (
     RawFileCommitRelation,
 )
 from fa_purity import (

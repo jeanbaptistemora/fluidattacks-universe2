@@ -2,12 +2,14 @@ from __future__ import (
     annotations,
 )
 
-from ._core import (
-    Client,
-    Tables,
+from . import (
+    _query,
+    decoder,
+    encoder,
 )
-from ._delta_update import (
-    CommitStampDiff,
+from ._assert import (
+    assert_key,
+    assert_type,
 )
 from ._raw import (
     RawClient,
@@ -20,13 +22,9 @@ from code_etl._utils import (
     COMMIT_HASH_SENTINEL,
 )
 from code_etl.client import (
-    _query,
-    decoder,
-    encoder,
-)
-from code_etl.client._assert import (
-    assert_key,
-    assert_type,
+    Client,
+    CommitStampDiff,
+    Tables,
 )
 from code_etl.objs import (
     CommitStamp,
@@ -146,7 +144,7 @@ class RealClient:
 
     def register_repos(self, reg: FrozenList[RepoRegistration]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
-            lambda: LOG.info("register_repos %s", str(reg))
+            lambda: LOG.info("registering repos: %s", str(reg))
         )
         encoded = tuple(encoder.from_reg(r) for r in reg)
         return log_info.bind(
@@ -183,9 +181,12 @@ class RealClient:
         )
 
     def delta_update(self, diff: CommitStampDiff) -> Cmd[None]:
-        return diff.delta_update(LOG, self._inner.raw)
-
-
-__all__ = [
-    "CommitStampDiff",
-]
+        if diff.is_diff():
+            info = Cmd.from_cmd(
+                lambda: LOG.info("delta update %s", diff.commit_id)
+            )
+            return info + self._inner.raw.delta_update(
+                encoder.from_stamp(diff.old),
+                encoder.from_stamp(diff.new),
+            )
+        return Cmd.from_cmd(lambda: None)

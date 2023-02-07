@@ -2,12 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from ._raw import (
-    RawClient,
-)
-from code_etl.client import (
-    encoder,
-)
 from code_etl.objs import (
     Commit,
     CommitDataId,
@@ -15,12 +9,6 @@ from code_etl.objs import (
 )
 from dataclasses import (
     dataclass,
-)
-from fa_purity import (
-    Cmd,
-)
-from logging import (
-    Logger,
 )
 
 
@@ -53,14 +41,3 @@ class CommitStampDiff:
 
     def is_diff(self) -> bool:
         return self.old != self.new
-
-    def delta_update(self, log: Logger, raw: RawClient) -> Cmd[None]:
-        if self.is_diff():
-            info = Cmd.from_cmd(
-                lambda: log.info("delta update %s", self.commit_id)
-            )
-            return info + raw.delta_update(
-                encoder.from_stamp(self.old),
-                encoder.from_stamp(self.new),
-            )
-        return Cmd.from_cmd(lambda: None)

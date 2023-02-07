@@ -1,8 +1,8 @@
-from ._core import (
-    Client,
-)
 from ._real_client import (
     RealClient,
+)
+from code_etl.client import (
+    Client,
 )
 from dataclasses import (
     dataclass,

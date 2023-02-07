@@ -7,6 +7,8 @@ from code_etl.arm import (
 )
 from code_etl.client import (
     Client,
+)
+from code_etl.clients import (
     new_client as code_client,
 )
 from code_etl.mailmap import (
@@ -71,7 +73,19 @@ def upload_or_register(
 ) -> Cmd[None]:
     LOG.debug("upload_or_register")
     LOG.debug(extractor.extract_repo())
-    _register = actions.register(client, extractor.extract_repo())
+    _register = (
+        extractor.extract_repo()
+        .map(
+            lambda x: Cmd.from_cmd(
+                lambda: LOG.info("New repo detected: %s", x.commit_id.repo)
+            )
+            + client.register_repos((x,))
+            + Cmd.from_cmd(
+                lambda: LOG.info("Repo registered: %s", x.commit_id.repo)
+            )
+        )
+        .value_or(Cmd.from_cmd(lambda: None))
+    )
     _upload = actions.upload_filtered_stamps(
         client, arm_client, extractor.extract_new_data(repo)
     )

@@ -18,6 +18,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "cli",
         ("init_tables", "compute_bills", "upload_repo", "migration"),
         "amend",
+        "clients",
         ("client", "arm"),
         ("factories", "mailmap"),
         "objs",
@@ -29,15 +30,17 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_getter",
         ("core", "_retry"),
     ),
-    "code_etl.client": (
+    "code_etl.clients": (
         "_dry_client",
         "_real_client",
-        "_core",
-        "_delta_update",
         "_raw",
         ("encoder", "_query", "decoder"),
         "_raw_file_commit",
         ("_raw_objs", "_assert"),
+    ),
+    "code_etl.client": (
+        "_core",
+        "_delta_update",
     ),
     "code_etl.amend": (
         "actions",
@@ -47,7 +50,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_ignored_paths",
         "_raw_client",
     ),
-    "code_etl.client._raw_file_commit": (
+    "code_etl.clients._raw_file_commit": (
         "_client",
         ("_encode", "_decode", "_factory"),
     ),

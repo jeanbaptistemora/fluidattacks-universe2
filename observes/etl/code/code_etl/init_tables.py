@@ -2,8 +2,10 @@ from code_etl import (
     _utils,
 )
 from code_etl.client import (
-    new_client as code_client,
     Tables,
+)
+from code_etl.clients import (
+    new_client as code_client,
 )
 from fa_purity import (
     Cmd,

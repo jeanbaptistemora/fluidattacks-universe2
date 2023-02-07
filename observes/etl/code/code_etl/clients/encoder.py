@@ -2,12 +2,12 @@ from __future__ import (
     annotations,
 )
 
-from ._raw_objs import (
-    RawCommitStamp,
-)
-from code_etl.client._assert import (
+from ._assert import (
     assert_opt_type,
     assert_type,
+)
+from ._raw_objs import (
+    RawCommitStamp,
 )
 from code_etl.objs import (
     CommitData,
