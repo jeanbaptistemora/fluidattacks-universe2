@@ -1,6 +1,6 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useRouteMatch } from "react-router-dom";
 
@@ -25,6 +25,17 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
   const { url } = useRouteMatch();
   const { t } = useTranslation();
 
+  const tourStyle = {
+    options: {
+      arrowColor: "#2e2e38",
+      backgroundColor: "#2e2e38",
+      overlayColor: "transparent",
+      primaryColor: "#000",
+      textColor: "#fff",
+      width: 450,
+    },
+  };
+
   const user: Required<IAuthContext> = useContext(
     authContext as React.Context<Required<IAuthContext>>
   );
@@ -44,15 +55,28 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
   });
 
   const finishTour = useCallback((): void => {
-    void updateTours({
-      variables: {
+    user.setUser({
+      tours: {
         newGroup: user.tours.newGroup,
         newRiskExposure: true,
         newRoot: user.tours.newRoot,
       },
+      userEmail: user.userEmail,
+      userIntPhone: user.userIntPhone,
+      userName: user.userName,
     });
     setRunRiskExposureTour(false);
-  }, [setRunRiskExposureTour, updateTours, user]);
+  }, [setRunRiskExposureTour, user]);
+
+  useEffect((): void => {
+    void updateTours({
+      variables: {
+        newGroup: user.tours.newGroup,
+        newRiskExposure: user.tours.newRiskExposure,
+        newRoot: user.tours.newRoot,
+      },
+    });
+  }, [updateTours, user.tours]);
 
   const goToFirstFinding = useCallback((): void => {
     push(`${url}/${findingId ?? ""}/locations`);
@@ -71,9 +95,10 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
                 <Text
                   fw={7}
                   mb={2}
+                  tone={"light"}
                 >{`New feature: ${findingRiskExposure} Risk Exposure.`}</Text>
-                <Text>
-                  <Text disp={"inline"} fw={7}>
+                <Text tone={"light"}>
+                  <Text disp={"inline"} fw={7} tone={"light"}>
                     {"Accelerate remediation "}
                   </Text>
                   {"prioritizing by Risk Exposure."}
@@ -84,14 +109,15 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
                   justify={"space-between"}
                   pt={"10px"}
                 >
-                  <Text>{"1/2"}</Text>
-                  <Button onClick={goToFirstFinding} variant={"primary"}>
+                  <Text tone={"light"}>{"1/2"}</Text>
+                  <Button onClick={goToFirstFinding} variant={"secondary"}>
                     {"Next"}
                   </Button>
                 </Container>
               </Container>
             ),
             placement: "auto",
+            styles: tourStyle,
             target: "#riskExposureColumn",
           },
         ]}
@@ -109,10 +135,10 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
             ...BaseStep,
             content: (
               <Container pt={"10px"}>
-                <Text fw={7} mb={2}>
+                <Text fw={7} mb={2} tone={"light"}>
                   {"% Risk Exposure"}
                 </Text>
-                <Text>
+                <Text tone={"light"}>
                   {`For example, decrease ${findingRiskExposure} of your Total Risk Exposure by fixing all the vulnerabilities of this type`}
                 </Text>
                 <Container
@@ -121,14 +147,15 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
                   justify={"space-between"}
                   pt={"10px"}
                 >
-                  <Text>{"2/2"}</Text>
-                  <Button onClick={finishTour} variant={"primary"}>
+                  <Text tone={"light"}>{"2/2"}</Text>
+                  <Button onClick={finishTour} variant={"secondary"}>
                     {"Close"}
                   </Button>
                 </Container>
               </Container>
             ),
             placement: "auto",
+            styles: tourStyle,
             target: "#riskExposureCard",
           },
         ]}
