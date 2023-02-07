@@ -47,30 +47,6 @@ F300,lines,namespace/skims/test/data/lib_root/f300/tfm_azure_app_authentication_
   24 | }
      ^ Col 0
 ",terraform.tfm_azure_app_authentication_off
-F300,lines,namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf,24,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_path/f300/tfm_azure_as_client_certificates_enabled.tf,"
-  12 |   auth_settings {
-  13 |     enabled = true
-  14 |   }
-  15 | }
-  16 |
-  17 |
-  18 | resource ""azurerm_app_service"" ""vulnerable"" {
-  19 |   name                = ""example-app-service""
-  20 |   location            = azurerm_resource_group.example.location
-  21 |   resource_group_name = azurerm_resource_group.example.name
-  22 |   app_service_plan_id = azurerm_app_service_plan.example.id
-  23 |   https_only          = true
-> 24 |   client_cert_enabled = false
-  25 |   logs {
-  26 |     failed_request_tracing_enabled  = true
-  27 |     detailed_error_messages_enabled = true
-  28 |   }
-  29 |   auth_settings {
-  30 |     enabled = true
-  31 |   }
-  32 | }
-     ^ Col 0
-",terraform.tfm_azure_as_client_certificates_enabled
 F300,lines,namespace/skims/test/data/lib_root/f300/tfm_azure_app_authentication_off.tf,27,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_root/f300/tfm_azure_app_authentication_off.tf,"
   17 |   resource_group_name        = azurerm_resource_group.example.name
   18 |   app_service_plan_id        = azurerm_app_service_plan.example.id
@@ -117,5 +93,29 @@ F300,lines,namespace/skims/test/data/lib_root/f300/tfm_azure_app_authentication_
   19 |   storage_account_name       = azurerm_storage_account.example.name
   20 |   storage_account_access_key = azurerm_storage_account.example.primary_access_key
   21 |   https_only                 = true
+     ^ Col 0
+",terraform.tfm_azure_as_client_certificates_enabled
+F300,lines,namespace/skims/test/data/lib_root/f300/tfm_azure_as_client_certificates_enabled.tf,24,284,skims,300. Authentication mechanism absence or evasion - Azure,Property client_cert_enabled is either missing or misconfigured in namespace/skims/test/data/lib_root/f300/tfm_azure_as_client_certificates_enabled.tf,"
+  12 |   auth_settings {
+  13 |     enabled = true
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | resource ""azurerm_app_service"" ""vulnerable"" {
+  19 |   name                = ""example-app-service""
+  20 |   location            = azurerm_resource_group.example.location
+  21 |   resource_group_name = azurerm_resource_group.example.name
+  22 |   app_service_plan_id = azurerm_app_service_plan.example.id
+  23 |   https_only          = true
+> 24 |   client_cert_enabled = false
+  25 |   logs {
+  26 |     failed_request_tracing_enabled  = true
+  27 |     detailed_error_messages_enabled = true
+  28 |   }
+  29 |   auth_settings {
+  30 |     enabled = true
+  31 |   }
+  32 | }
      ^ Col 0
 ",terraform.tfm_azure_as_client_certificates_enabled

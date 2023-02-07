@@ -49,6 +49,46 @@ def _azure_app_authentication_off(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
+def _azure_as_client_certificates_enabled(
+    graph: Graph, nid: NId
+) -> Optional[NId]:
+    expected_attr = "client_cert_enabled"
+    has_attr = False
+    for b_id in adj_ast(graph, nid, label_type="Pair"):
+        key, value = get_key_value(graph, b_id)
+        if key == expected_attr:
+            has_attr = True
+            if value.lower() == "false":
+                return b_id
+            return None
+    if not has_attr:
+        return nid
+    return None
+
+
+def tfm_azure_as_client_certificates_enabled(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_CLIENT_CERT_ENABLED
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "azurerm_app_service"):
+                if report := _azure_as_client_certificates_enabled(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f300.tfm_azure_as_client_certificates_enabled",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_azure_app_authentication_off(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

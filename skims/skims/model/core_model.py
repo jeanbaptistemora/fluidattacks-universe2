@@ -4942,7 +4942,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_CLIENT_CERT_ENABLED = MethodInfo(
         file_name="terraform",
         name="tfm_azure_as_client_certificates_enabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F300,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
