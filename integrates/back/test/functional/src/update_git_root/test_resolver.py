@@ -1,13 +1,20 @@
+# pylint: disable=import-error
 from . import (
+    get_git_root,
     get_result_1,
 )
 from dataloaders import (
     get_new_context,
 )
+from freezegun import (
+    freeze_time,
+)
 import pytest
-from typing import (
-    Any,
-    Dict,
+from pytest_mock import (
+    MockerFixture,
+)
+from roots import (
+    domain as roots_domain,
 )
 
 
@@ -19,8 +26,28 @@ from typing import (
         ["admin@gmail.com"],
     ],
 )
-async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
+@freeze_time("2022-10-21T15:58:31.280182+00:00")
+async def test_update_git_root_new_cred(
+    populate: bool, email: str, mocker: MockerFixture
+) -> None:
     assert populate
+    mocker.patch.object(
+        roots_domain, "queue_sync_git_roots", return_value=None
+    )
+    result_group: dict = await get_git_root(
+        user=email,
+        group="group1",
+        root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+    )
+    assert "errors" not in result_group
+    assert result_group["data"]["root"] == {
+        "createdAt": "2022-02-10T14:58:10+00:00",
+        "createdBy": "user_manager@gmail.com",
+        "id": "88637616-41d4-4242-854a-db8ff7fe1ab6",
+        "lastEditedAt": "2022-02-10T14:58:10+00:00",
+        "lastEditedBy": "user_manager@gmail.com",
+    }
+
     credential_key = (
         "LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhr"
         "dGRqRUFBQUFBQ21GbGN6STFOaTFqZEhJQUFBQUdZbU55ZVhCMEFBQUFHQUFBQUJCZjJF"
@@ -48,7 +75,7 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     cred_new_name = "New SSH Key"
     group_name: str = "group1"
     organization_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
-    result: Dict[str, Any] = await get_result_1(
+    result: dict = await get_result_1(
         user=email,
         group=group_name,
         credential_key=credential_key,
@@ -61,3 +88,17 @@ async def test_update_git_root_new_cred(populate: bool, email: str) -> None:
     credentials = await loaders.organization_credentials.load(organization_id)
     credential_names = [credential.state.name for credential in credentials]
     assert cred_new_name in credential_names
+
+    result_group = await get_git_root(
+        user=email,
+        group="group1",
+        root_id="88637616-41d4-4242-854a-db8ff7fe1ab6",
+    )
+    assert "errors" not in result_group
+    assert result_group["data"]["root"] == {
+        "createdAt": "2022-02-10T14:58:10+00:00",
+        "createdBy": "user_manager@gmail.com",
+        "id": "88637616-41d4-4242-854a-db8ff7fe1ab6",
+        "lastEditedAt": "2022-10-21T15:58:31.280182+00:00",
+        "lastEditedBy": email,
+    }

@@ -38,7 +38,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         reason="Cloned successfully",
                         status=GitCloningStatus.OK,
                     ),
-                    created_by="admin@gmail.com",
+                    created_by=generic_data["global_vars"][
+                        "user_manager_email"
+                    ],
                     created_date=datetime.fromisoformat(
                         "2022-02-10T14:58:10+00:00"
                     ),
@@ -52,7 +54,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         git_environment_urls=[],
                         gitignore=[],
                         includes_health_check=False,
-                        modified_by="admin@gmail.com",
+                        modified_by=generic_data["global_vars"][
+                            "user_manager_email"
+                        ],
                         modified_date=datetime.fromisoformat(
                             "2022-02-10T14:58:10+00:00"
                         ),
