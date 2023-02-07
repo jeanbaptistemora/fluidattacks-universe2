@@ -1,5 +1,12 @@
+# pylint: disable=import-error
 from . import (
     get_result,
+)
+from back.test.functional.src.finding import (
+    get_result as get_finding,
+)
+from back.test.functional.src.group import (
+    get_result as get_group,
 )
 from dataloaders import (
     get_new_context,
@@ -36,6 +43,14 @@ async def test_remove_finding(
     finding = await loaders.finding.load(finding_id)
     assert finding
     assert finding.state.status == FindingStateStatus.DELETED
+
+    result = await get_group(user=email, group=finding.group_name)
+    assert finding_id not in [
+        finding["id"] for finding in result["data"]["group"]["findings"]
+    ]
+
+    result = await get_finding(user=email, finding_id=finding_id)
+    assert result["data"]["finding"]["currentState"] == "DELETED"
 
 
 @pytest.mark.asyncio

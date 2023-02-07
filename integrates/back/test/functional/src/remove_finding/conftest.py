@@ -10,15 +10,26 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
+)
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateStatus,
+    VulnerabilityTreatmentStatus,
+    VulnerabilityType,
+)
+from db_model.vulnerabilities.types import (
+    Vulnerability,
+    VulnerabilityState,
+    VulnerabilityTreatment,
+    VulnerabilityUnreliableIndicators,
 )
 from decimal import (
     Decimal,
@@ -211,6 +222,47 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     ),
                     unreliable_status=FindingStatus.VULNERABLE,
                     unreliable_where="192.168.1.2",
+                ),
+            },
+        ],
+        "vulnerabilities": [
+            {
+                "vulnerability": Vulnerability(
+                    created_by=generic_data["global_vars"]["admin_email"],
+                    created_date=datetime.fromisoformat(
+                        "2018-04-08T00:45:13+00:00"
+                    ),
+                    finding_id="475041520",
+                    group_name="group1",
+                    hacker_email=generic_data["global_vars"]["admin_email"],
+                    id="be09edb7-cd5c-47ed-bee4-97c645acdce8",
+                    state=VulnerabilityState(
+                        modified_by=generic_data["global_vars"]["admin_email"],
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:13+00:00"
+                        ),
+                        source=Source.ASM,
+                        specific="9999",
+                        status=VulnerabilityStateStatus.VULNERABLE,
+                        where="192.168.1.20",
+                    ),
+                    treatment=VulnerabilityTreatment(
+                        modified_date=datetime.fromisoformat(
+                            "2018-04-08T00:45:14+00:00"
+                        ),
+                        status=VulnerabilityTreatmentStatus.UNTREATED,
+                        assigned=generic_data["global_vars"][
+                            "vulnerability_manager_email"
+                        ],
+                        modified_by=generic_data["global_vars"][
+                            "user_manager_email"
+                        ],
+                    ),
+                    type=VulnerabilityType.PORTS,
+                    unreliable_indicators=VulnerabilityUnreliableIndicators(
+                        unreliable_source=Source.ASM,
+                        unreliable_treatment_changes=0,
+                    ),
                 ),
             },
         ],
