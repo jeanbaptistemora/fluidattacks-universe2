@@ -369,6 +369,12 @@ export const VulnsView: React.FC = (): JSX.Element => {
     setIsNotify(false);
   }, [findingId, sendNotification]);
 
+  const refetchVulnsData = useCallback((): void => {
+    void nzrRefetch();
+    void vulnDraftsRefetch();
+    void zrRefetch();
+  }, [nzrRefetch, vulnDraftsRefetch, zrRefetch]);
+
   useEffect((): void => {
     if (!_.isUndefined(nzrVulnsPageInfo)) {
       if (nzrVulnsPageInfo.hasNextPage) {
@@ -447,12 +453,6 @@ export const VulnsView: React.FC = (): JSX.Element => {
         setIsVerifying(!isVerifying);
       }
     }
-  }
-
-  function refetchVulnsData(): void {
-    void nzrRefetch();
-    void vulnDraftsRefetch();
-    void zrRefetch();
   }
 
   const columns: ColumnDef<IVulnRowAttr>[] = [
