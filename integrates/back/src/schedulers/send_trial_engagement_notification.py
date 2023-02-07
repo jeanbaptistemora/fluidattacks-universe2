@@ -15,7 +15,6 @@ from mailchimp_transactional.api_client import (
     ApiClientError,
 )
 from mailer import (
-    analytics as analytics_mail,
     groups as groups_mail,
 )
 from mailer.types import (
@@ -55,12 +54,6 @@ mail_support_channels_notification = retry_on_exceptions(
     max_attempts=4,
     sleep_seconds=2,
 )(groups_mail.send_support_channels_notification)
-
-mail_analytics_notification = retry_on_exceptions(
-    exceptions=(UnableToSendMail, ApiClientError),
-    max_attempts=4,
-    sleep_seconds=2,
-)(analytics_mail.send_trial_analytics_notification)
 
 mail_devsecops_agent_notification = retry_on_exceptions(
     exceptions=(UnableToSendMail, ApiClientError),
@@ -107,7 +100,6 @@ async def send_trial_engagement_notification() -> None:
         5: mail_send_define_treatments_notification,
         7: mail_send_add_repositories_notification,
         9: mail_support_channels_notification,
-        11: mail_analytics_notification,
         13: mail_devsecops_agent_notification,
         15: mail_trial_reports_notification,
         17: mail_upgrade_squad_notification,

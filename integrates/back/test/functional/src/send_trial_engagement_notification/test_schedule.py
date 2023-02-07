@@ -43,10 +43,6 @@ async def test_send_trial_engagement_notification(
         send_trial_engagement_notification,
         "mail_support_channels_notification",
     )
-    mail_analytics_notification = mocker.spy(
-        send_trial_engagement_notification,
-        "mail_analytics_notification",
-    )
     mail_devsecops_agent_notification = mocker.spy(
         send_trial_engagement_notification,
         "mail_devsecops_agent_notification",
@@ -115,17 +111,6 @@ async def test_send_trial_engagement_notification(
             group_name="testgroup5",
             start_date=datetime.fromisoformat(
                 "2022-11-02T15:58:31.280182+00:00"
-            ),
-        ),
-    )
-    assert mail_analytics_notification.await_count == 1
-    mail_analytics_notification.assert_any_call(
-        mock.ANY,
-        TrialEngagementInfo(
-            email_to="fariza@fariza.com",
-            group_name="testgroup6",
-            start_date=datetime.fromisoformat(
-                "2022-10-31T15:58:31.280182+00:00"
             ),
         ),
     )
