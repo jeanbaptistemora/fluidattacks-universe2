@@ -9381,7 +9381,7 @@
       leading to a phishing attack.
     recommendation: >
       Set the attribute rel
-      with the noopener value
+      with the noopener and noreferrer value
       in each external link.
     threat: >
       Anonymous attacker from local network.
@@ -9403,7 +9403,7 @@
       dando paso a ataques tipo Phishing
     recommendation: >
       Establecer el atributo rel
-      con el valor noopener
+      con el valor noopener y noreferrer
       en cada link externo.
     threat: >
       Atacante anónimo desde red local.
@@ -9417,7 +9417,7 @@
     compliant: |
       The rel:noopener attribute is set in all external links of the application
       ```html
-      <a href="uncontrolledUrl" rel="noopener">Link to external web</a>
+      <a href="uncontrolledUrl" rel="noopener noreferrer">Link to external web</a>
       ```
   remediation_time: '15'
   score:
@@ -24444,17 +24444,16 @@
   en:
     title: Insecure encryption algorithm - AES
     description: >
-      The source code uses RSA/ECB/PKCS1Padding
-      and AES/CBC/PKCS5PADDING encryption, both
-      of which are considered insecure.
+      The source code uses RSA/ECB/PKCS1Padding and AES/CBC/PKCS5PADDING 
+      encryption and other references use CTR or CFB which are considered insecure.
     impact: >
       Decrypt the information encrypted with
       the algorithm because it has vulnerabilities
       that make it easily breakable.
     recommendation: >
-      Only secure encryption with secure algorithms
-      such as RSA/NONE/OAEPwithSHA-256andMGF1Padding
-      should be allowed.
+      Only secure encryption with secure algorithms such as 
+      RSA/NONE/OAEPwithSHA-256andMGF1Padding or use implementations
+      with the GCM mode encryption algorithm.
     threat: >
       Attacker with access to the code.
   es:
@@ -24469,9 +24468,8 @@
       vulnerabilidades que lo hacen
       fácilmente rompible.
     recommendation: >
-      Solamente se debe de permitir cifrados
-      seguros con algoritmos seguros como
-      RSA/NONE/OAEPwithSHA-256andMGF1Padding.
+      Sólo cifrado seguro con algoritmos seguros como RSA/NONE/OAEPconSHA-256yMGF1Padding
+      o utilizar implementaciones con el algoritmo de cifrado de modo GCM.
     threat: >
       Atacante con acceso al código.
   category: Information Collection
@@ -27148,7 +27146,7 @@
       exploit_code_maturity: X
       remediation_level: X
       report_confidence: X
-  requirements: ['266']
+  requirements: ['139','266']
   metadata:
     en:
       details: __empty__
