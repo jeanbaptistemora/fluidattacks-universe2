@@ -108,7 +108,8 @@ class RealClient:
     def init_table(self, table: Tables) -> Cmd[None]:
         if table is Tables.FILES:
             return self._inner.raw_2.init_table()
-        raise NotImplementedError()
+        if table is Tables.COMMITS:
+            return self._inner.raw.init_table()
 
     def all_data_count(self, namespace: Optional[str]) -> Cmd[ResultE[int]]:
         return self._inner.raw.all_data_count(namespace)

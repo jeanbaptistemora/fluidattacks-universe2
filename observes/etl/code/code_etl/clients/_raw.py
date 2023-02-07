@@ -172,7 +172,7 @@ class RawClient:
             )
         return Cmd.from_cmd(lambda: LOG.debug("delta update skipped"))
 
-    def init_table_2_query(self) -> Cmd[None]:
+    def init_table(self) -> Cmd[None]:
         statement = """
             CREATE TABLE IF NOT EXISTS {schema}.{table} (
                 author_email VARCHAR(256),
@@ -181,7 +181,7 @@ class RawClient:
                 committer_email VARCHAR(256),
                 committer_name VARCHAR(256),
                 committed_at TIMESTAMPTZ,
-                hash CHAR(40),
+                hash CHAR(40) NOT NULL,
                 fa_hash CHAR(64),
                 message VARCHAR(4096),
                 summary VARCHAR(256),
@@ -190,8 +190,8 @@ class RawClient:
                 total_lines INTEGER,
                 total_files INTEGER,
 
-                namespace VARCHAR(64),
-                repository VARCHAR(4096),
+                namespace VARCHAR(64) NOT NULL,
+                repository VARCHAR(4096) NOT NULL,
                 seen_at TIMESTAMPTZ,
 
                 PRIMARY KEY (
