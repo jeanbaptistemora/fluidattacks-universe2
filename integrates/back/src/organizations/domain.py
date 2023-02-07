@@ -332,14 +332,17 @@ async def complete_register_for_organization_invitation(
             role="user",
             is_register_after_complete=True,
         )
-    enrollment: Enrollment = await loaders.enrollment.load(email)
-    if not enrollment.enrolled:
-        await enrollment_model.add(
-            enrollment=Enrollment(
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    if not stakeholder.enrolled:
+        enrollment: Enrollment = await loaders.enrollment.load(email)
+        if not enrollment.enrolled:
+            await stakeholders_domain.update(
                 email=email,
-                enrolled=True,
+                metadata=StakeholderMetadataToUpdate(enrolled=True),
             )
-        )
+            await enrollment_model.add(
+                enrollment=Enrollment(email=email, enrolled=True)
+            )
 
 
 @validate_space_field_deco("user")
