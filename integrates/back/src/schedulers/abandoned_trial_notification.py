@@ -42,7 +42,8 @@ async def send_abandoned_trial_notification() -> None:
             stakeholder.email
         )
         if (
-            not enrollment.enrolled
+            not stakeholder.enrolled
+            and not enrollment.enrolled
             and stakeholder.registration_date
             and (
                 delta_hours := (

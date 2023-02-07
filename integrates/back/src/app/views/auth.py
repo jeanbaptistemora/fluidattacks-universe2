@@ -255,7 +255,7 @@ async def log_stakeholder_in(
     if await stakeholders_domain.exists(loaders, email):
         stakeholder_in_db: Stakeholder = await loaders.stakeholder.load(email)
         enrollment: Enrollment = await loaders.enrollment.load(email)
-        if not enrollment.enrolled:
+        if not stakeholder_in_db.enrolled and not enrollment.enrolled:
             await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
         if not stakeholder_in_db.registration_date:
             await invited_stakeholder(email, first_name, last_name)

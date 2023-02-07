@@ -10,6 +10,9 @@ from dataloaders import (
 from db_model.enrollment.types import (
     Enrollment,
 )
+from db_model.stakeholders.types import (
+    Stakeholder,
+)
 from decorators import (
     require_login,
 )
@@ -50,17 +53,18 @@ async def mutate(
     secret = orgs_utils.format_credentials_secret_type(kwargs["credentials"])
 
     enrollment: Enrollment = await loaders.enrollment.load(user_email)
-    if not enrollment.enrolled:
+    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+
+    await roots_validations.validate_git_access(
+        url=url, branch=branch, secret=secret, loaders=loaders
+    )
+    if not stakeholder.enrolled and not enrollment.enrolled:
         await analytics.mixpanel_track(
             user_email,
             "AutoenrollCheckAccess",
             credential_type=kwargs["credentials"]["type"],
             url=url,
         )
-
-    await roots_validations.validate_git_access(
-        url=url, branch=branch, secret=secret, loaders=loaders
-    )
     logs_utils.cloudwatch_log(
         info.context,
         f"Security: User {user_email} checked root access for "
