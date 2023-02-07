@@ -1,9 +1,6 @@
 from aioextensions import (
     collect,
 )
-from companies import (
-    domain as companies_domain,
-)
 from custom_exceptions import (
     InvalidManagedChange,
 )
@@ -11,15 +8,15 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.companies.types import (
-    Company,
-    CompanyMetadataToUpdate,
-)
 from db_model.groups.enums import (
     GroupManaged,
 )
 from db_model.groups.types import (
     Group,
+)
+from db_model.trials.types import (
+    Trial,
+    TrialMetadataToUpdate,
 )
 from groups import (
     domain as groups_domain,
@@ -35,6 +32,9 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from trials import (
+    domain as trials_domain,
+)
 
 logging.config.dictConfig(LOGGING)
 
@@ -45,20 +45,18 @@ LOGGER = logging.getLogger(__name__)
 async def _expire(
     loaders: Dataloaders,
     group: Group,
-    company: Company,
+    trial: Trial,
 ) -> None:
     try:
         LOGGER.info(
             "Will expire group %s, created_by %s, start_date %s",
             group.name,
             group.created_by,
-            company.trial.start_date,
+            trial.start_date,
         )
-        await companies_domain.update_metadata(
-            domain=company.domain,
-            metadata=CompanyMetadataToUpdate(
-                trial=company.trial._replace(completed=True)
-            ),
+        await trials_domain.update_metadata(
+            email=trial.email,
+            metadata=TrialMetadataToUpdate(completed=True),
         )
         await groups_domain.update_group_managed(
             loaders=loaders,
@@ -83,13 +81,13 @@ async def _expire(
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_trial_groups(loaders)
-    domains = [group.created_by.split("@")[1] for group in groups]
-    companies = await loaders.company.load_many(domains)
+    emails = [group.created_by for group in groups]
+    trials = await loaders.trial.load_many(emails)
 
     await collect(
         tuple(
-            _expire(loaders, group, company)
-            for group, company in zip(groups, companies)
-            if company and companies_domain.has_expired(company.trial)
+            _expire(loaders, group, trial)
+            for group, trial in zip(groups, trials)
+            if trial and trials_domain.has_expired(trial)
         )
     )

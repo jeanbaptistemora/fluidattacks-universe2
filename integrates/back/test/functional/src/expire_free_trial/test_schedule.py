@@ -1,9 +1,6 @@
 from dataloaders import (
     get_new_context,
 )
-from db_model.companies.types import (
-    Company,
-)
 from db_model.groups.enums import (
     GroupManaged,
 )
@@ -16,9 +13,6 @@ from freezegun import (
 import pytest
 from schedulers import (
     expire_free_trial,
-)
-from typing import (
-    Optional,
 )
 
 
@@ -68,23 +62,19 @@ async def test_expire_free_trial(*, populate: bool) -> None:
     ]
 
     for case in cases:
-        company_before: Optional[Company] = await loaders.company.load(
-            str(case["email"]).split("@")[1]
-        )
+        trial_before = await loaders.trial.load(str(case["email"]))
         group_before: Group = await loaders.group.load(str(case["group_name"]))
-        assert company_before
-        assert company_before.trial.completed == case["completed_before"]
+        assert trial_before
+        assert trial_before.completed == case["completed_before"]
         assert group_before.state.managed == case["managed_before"]
 
     await expire_free_trial.main()
-    loaders.company.clear_all()
+    loaders.trial.clear_all()
     loaders.group.clear_all()
 
     for case in cases:
-        company_after: Optional[Company] = await loaders.company.load(
-            str(case["email"]).split("@")[1]
-        )
+        trial_after = await loaders.trial.load(str(case["email"]))
         group_after: Group = await loaders.group.load(str(case["group_name"]))
-        assert company_after
-        assert company_after.trial.completed == case["completed_after"]
+        assert trial_after
+        assert trial_after.completed == case["completed_after"]
         assert group_after.state.managed == case["managed_after"]

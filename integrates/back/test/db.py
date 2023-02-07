@@ -42,6 +42,7 @@ from db_model import (
     toe_inputs as toe_inputs_model,
     toe_lines as toe_lines_model,
     toe_ports as toe_ports_model,
+    trials as trials_model,
     vulnerabilities as vulns_model,
 )
 from db_model.companies.types import (
@@ -104,6 +105,9 @@ from db_model.toe_lines.types import (
 )
 from db_model.toe_ports.types import (
     ToePort,
+)
+from db_model.trials.types import (
+    Trial,
 )
 from db_model.types import (
     PoliciesToUpdate,
@@ -661,6 +665,11 @@ async def populate_portfolios(data: list[Any]) -> bool:
     await collect(
         portfolios_model.update(portfolio=item["portfolio"]) for item in data
     )
+    return True
+
+
+async def populate_trials(data: list[Trial]) -> bool:
+    await collect(trials_model.add(trial=trial) for trial in data)
     return True
 
 

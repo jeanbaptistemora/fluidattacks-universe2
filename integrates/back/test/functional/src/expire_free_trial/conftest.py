@@ -5,10 +5,6 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.companies.types import (
-    Company,
-    Trial,
-)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -31,6 +27,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.trials.types import (
+    Trial,
+)
 from db_model.types import (
     Policies,
 )
@@ -42,51 +41,43 @@ import pytest_asyncio
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
-        "companies": [
-            Company(
-                domain="johndoe.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182+00:00"
-                    ),
+        "trials": [
+            Trial(
+                email="johndoe@johndoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-21T15:58:31.280182+00:00"
                 ),
             ),
-            Company(
-                domain="janedoe.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-22T15:58:31.280182"
-                    ),
+            Trial(
+                email="janedoe@janedoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-22T15:58:31.280182"
                 ),
             ),
-            Company(
-                domain="uiguaran.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=datetime.fromisoformat(
-                        "2022-11-11T15:58:31.280182"
-                    ),
-                    extension_days=1,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182+00:00"
-                    ),
+            Trial(
+                email="uiguaran@uiguaran.com",
+                completed=False,
+                extension_date=datetime.fromisoformat(
+                    "2022-11-11T15:58:31.280182"
+                ),
+                extension_days=1,
+                start_date=datetime.fromisoformat(
+                    "2022-10-21T15:58:31.280182+00:00"
                 ),
             ),
-            Company(
-                domain="abuendia.com",
-                trial=Trial(
-                    completed=True,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-21T15:58:31.280182+00:00"
-                    ),
+            Trial(
+                email="abuendia@abuendia.com",
+                completed=True,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-21T15:58:31.280182+00:00"
                 ),
             ),
         ],
