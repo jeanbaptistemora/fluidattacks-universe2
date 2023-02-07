@@ -48,7 +48,7 @@ taking into account the following:
   that ended in effective vulnerability close.
   Consider closes performed by Machine
   as reattacks with time to respond = 0.
-- Compute the full resolution time
+- Compute the reply time
   for incidents reported to help@fluidattacks.com
 - Compute the response time
   for each vulnerability comment.

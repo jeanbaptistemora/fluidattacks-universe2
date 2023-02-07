@@ -52,16 +52,20 @@ taking into account the following:
   detectable only via source code
   are not considered false negatives.
 
-## Indicator calculation
+## Indicator calculaion
 
 - Compute CVSSF for each location
   (CVSSF = 4 ^ (4 - cvss))
-- Distribute the total CVSSF between True Positives,
+- Distribute the total CVSSF
+  between True Positives,
   False Positives and False Negatives.
 - Compute intermediate indicators:
-  Precision:
+
+  **Precision:**
   True Positives / (True Positives + False Positives)
-  Recall:
+
+  **Recall:**
   True Positives / (True Positives + False Negatives)
+
 - Compute the SLA as:
   2 x (Precision x Recall) / (Precision + Recall)
