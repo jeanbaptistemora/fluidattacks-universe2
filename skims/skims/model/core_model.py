@@ -2818,6 +2818,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_IAM_IS_TRAIL_BUCKET_PUBLIC = MethodInfo(
+        file_name="aws",
+        name="is_trail_bucket_public",
+        module="dast",
+        finding=FindingEnum.F325,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS = MethodInfo(
         file_name="aws",
         name="s3_buckets_allow_unauthorized_public_access",
