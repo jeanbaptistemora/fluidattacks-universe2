@@ -245,26 +245,6 @@ const REMOVE_ENVIRONMENT_URL_SECRET: DocumentNode = gql`
   }
 `;
 
-const UPDATE_GIT_ENVIRONMENTS: DocumentNode = gql`
-  mutation UpdateGitEnvironments(
-    $groupName: String!
-    $id: ID!
-    $environmentUrls: [String!]!
-    $other: String
-    $reason: RootDeactivationReason
-  ) {
-    updateGitEnvironments(
-      groupName: $groupName
-      id: $id
-      environmentUrls: $environmentUrls
-      other: $other
-      reason: $reason
-    ) {
-      success
-    }
-  }
-`;
-
 const UPDATE_GIT_ROOT: DocumentNode = gql`
   mutation UpdateGitRoot(
     $branch: String!
@@ -454,15 +434,6 @@ const VALIDATE_GIT_ACCESS: DocumentNode = gql`
   }
 `;
 
-const GET_GROUP_ORGANIZATION: DocumentNode = gql`
-  query GetGroupOrganization($groupName: String!) {
-    group(groupName: $groupName) {
-      name
-      organization
-    }
-  }
-`;
-
 const REMOVE_ENVIRONMENT_URL: DocumentNode = gql`
   mutation RemoveEnvironmentUrl(
     $urlId: String!
@@ -494,12 +465,10 @@ export {
   GET_ENVIRONMENT_URL,
   GET_ROOT,
   GET_ROOTS,
-  GET_GROUP_ORGANIZATION,
   GET_ORGANIZATION_CREDENTIALS,
   MOVE_ROOT,
   REMOVE_SECRET,
   SYNC_GIT_ROOT,
-  UPDATE_GIT_ENVIRONMENTS,
   UPDATE_GIT_ROOT,
   UPDATE_IP_ROOT,
   UPDATE_URL_ROOT,
