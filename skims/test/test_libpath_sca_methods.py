@@ -21,6 +21,7 @@ from lib_path.f011.maven import (
 from lib_path.f011.npm import (
     npm_package_json,
     npm_package_lock_json,
+    npm_yarn_lock,
 )
 from lib_path.f011.pip import (
     pip_requirements_txt,
@@ -570,6 +571,30 @@ def test_npm_package_lock_json() -> None:
         except StopIteration:
             assertion = not assertion
         if not (pkg_item == product and version == item_ver):
+            assertion = not assertion
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_npm_yarn_lock() -> None:
+    path: str = "skims/test/data/lib_path/f011/yarn.lock"
+    file_contents: str = get_file_info_from_path(path)
+    generator_dep = npm_yarn_lock.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    dependencies = list(generator_dep)
+    assertion: bool = True
+    packages = {
+        "asn1": "0.2.6",
+        "jsbn": "0.1.1",
+        "uuid": "3.3.2",
+    }
+    for num in (2, 30, 58):
+        next_dep = dependencies[num]
+        pkg_item = itemgetter("item")(next_dep[0])
+        item_ver = itemgetter("item")(next_dep[1])
+        if not (pkg_item in packages and item_ver == packages[pkg_item]):
             assertion = not assertion
 
     assert assertion
