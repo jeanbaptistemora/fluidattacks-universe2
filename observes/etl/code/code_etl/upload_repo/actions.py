@@ -9,7 +9,6 @@ from code_etl.client import (
 )
 from code_etl.objs import (
     CommitStamp,
-    RepoRegistration,
 )
 from fa_purity.cmd import (
     Cmd,
@@ -30,14 +29,6 @@ from fa_purity.stream.transform import (
     consume as consume_stream,
     filter_maybe,
 )
-
-
-def register(client: Client, reg: Maybe[RepoRegistration]) -> Cmd[None]:
-    none = Cmd.from_cmd(lambda: None)
-    _register: Maybe[Cmd[None]] = reg.map(
-        lambda i: client.register_repos((i,))
-    )
-    return _register.value_or(none)
 
 
 def filter_ignored(

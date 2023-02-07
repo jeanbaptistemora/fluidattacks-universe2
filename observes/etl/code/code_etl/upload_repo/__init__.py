@@ -71,25 +71,15 @@ class NonexistentPath(Exception):
 def upload_or_register(
     client: Client, arm_client: ArmClient, extractor: Extractor, repo: Repo
 ) -> Cmd[None]:
-    LOG.debug("upload_or_register")
-    LOG.debug(extractor.extract_repo())
     _register = (
         extractor.extract_repo()
-        .map(
-            lambda x: Cmd.from_cmd(
-                lambda: LOG.info("New repo detected: %s", x.commit_id.repo)
-            )
-            + client.register_repos((x,))
-            + Cmd.from_cmd(
-                lambda: LOG.info("Repo registered: %s", x.commit_id.repo)
-            )
-        )
+        .map(lambda x: client.register_repos((x,)))
         .value_or(Cmd.from_cmd(lambda: None))
     )
     _upload = actions.upload_filtered_stamps(
         client, arm_client, extractor.extract_new_data(repo)
     )
-    return _register.bind(lambda _: _upload)
+    return _register + _upload
 
 
 def _try_repo(raw: str) -> ResultE[Repo]:

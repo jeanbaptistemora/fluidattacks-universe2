@@ -57,8 +57,6 @@ from typing import (
     Union,
 )
 
-LOG = logging.getLogger(__name__)
-
 
 def _table_ids(table: Tables) -> TableId:
     schema = SchemaId("code")
@@ -80,9 +78,10 @@ class _Client:
 class RealClient:
     # exposes utilities from and to DB using not raw objs
     _inner: _Client
+    log: logging.Logger
 
     @staticmethod
-    def new(_sql_client: SqlClient) -> RealClient:
+    def new(_sql_client: SqlClient, log: logging.Logger) -> RealClient:
         stamps = _table_ids(Tables.COMMITS)
         files_relation = _table_ids(Tables.FILES)
         return RealClient(
@@ -92,6 +91,7 @@ class RealClient:
                 RawClient(_sql_client, stamps),
                 RawFileCommitClient(_sql_client, files_relation),
             ),
+            log,
         )
 
     def client(self) -> Client:
@@ -145,7 +145,9 @@ class RealClient:
 
     def register_repos(self, reg: FrozenList[RepoRegistration]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
-            lambda: LOG.info("registering repos: %s", str(reg))
+            lambda: self.log.info(
+                "Registering repos: %s", str([r.commit_id.repo for r in reg])
+            )
         )
         encoded = tuple(encoder.from_reg(r) for r in reg)
         return log_info.bind(
@@ -154,7 +156,7 @@ class RealClient:
 
     def insert_stamps(self, stamps: FrozenList[CommitStamp]) -> Cmd[None]:
         log_info = Cmd.from_cmd(
-            lambda: LOG.info("inserting %s stamps", len(stamps))
+            lambda: self.log.info("Inserting %s stamps", len(stamps))
         )
         encoded = tuple(encoder.from_stamp(s) for s in stamps)
         files_relation = (
@@ -163,8 +165,8 @@ class RealClient:
             .to_list()
         )
         log_info_2 = Cmd.from_cmd(
-            lambda: LOG.info(
-                "inserting %s file relations", len(files_relation)
+            lambda: self.log.info(
+                "Inserting %s file relations", len(files_relation)
             )
         )
         return (
@@ -184,7 +186,7 @@ class RealClient:
     def delta_update(self, diff: CommitStampDiff) -> Cmd[None]:
         if diff.is_diff():
             info = Cmd.from_cmd(
-                lambda: LOG.info("delta update %s", diff.commit_id)
+                lambda: self.log.info("Delta update %s", diff.commit_id)
             )
             return info + self._inner.raw.delta_update(
                 encoder.from_stamp(diff.old),
