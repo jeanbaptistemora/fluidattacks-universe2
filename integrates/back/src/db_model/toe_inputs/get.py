@@ -31,6 +31,9 @@ from dynamodb.exceptions import (
 from dynamodb.model import (
     TABLE,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     Iterable,
     Optional,
@@ -83,7 +86,7 @@ class ToeInputLoader(DataLoader[ToeInputRequest, Optional[ToeInput]]):
 
 async def _get_historic_toe_input(
     request: ToeInputRequest,
-) -> Optional[list[ToeInput]]:
+) -> list[ToeInput]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_input_historic_metadata"],
         values={
@@ -102,19 +105,17 @@ async def _get_historic_toe_input(
         facets=(TABLE.facets["toe_input_historic_metadata"],),
         table=TABLE,
     )
-    if not response.items:
-        return None
 
     return [
         format_toe_input(request.group_name, item) for item in response.items
     ]
 
 
-class ToeInputHistoricLoader(DataLoader):
+class ToeInputHistoricLoader(DataLoader[ToeInputRequest, list[ToeInput]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
-    ) -> list[Optional[list[ToeInput]]]:
+    ) -> list[list[ToeInput]]:
         return list(
             await collect(
                 tuple(_get_historic_toe_input(request) for request in requests)
@@ -124,7 +125,7 @@ class ToeInputHistoricLoader(DataLoader):
 
 async def _get_toe_inputs_by_group(
     request: GroupToeInputsRequest,
-) -> Optional[ToeInputsConnection]:
+) -> ToeInputsConnection:
     if request.be_present is None:
         facet = TABLE.facets["toe_input_metadata"]
         primary_key = keys.build_key(
@@ -162,22 +163,29 @@ async def _get_toe_inputs_by_group(
             paginate=request.paginate,
             table=TABLE,
         )
+        connection = ToeInputsConnection(
+            edges=tuple(
+                format_toe_input_edge(request.group_name, index, item, TABLE)
+                for item in response.items
+            ),
+            page_info=response.page_info,
+        )
     except ValidationException:
-        return None
-    return ToeInputsConnection(
-        edges=tuple(
-            format_toe_input_edge(request.group_name, index, item, TABLE)
-            for item in response.items
-        ),
-        page_info=response.page_info,
-    )
+        connection = ToeInputsConnection(
+            edges=tuple(),
+            page_info=PageInfo(has_next_page=False, end_cursor=""),
+        )
+
+    return connection
 
 
-class GroupToeInputsLoader(DataLoader):
+class GroupToeInputsLoader(
+    DataLoader[GroupToeInputsRequest, ToeInputsConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToeInputsRequest]
-    ) -> list[Optional[ToeInputsConnection]]:
+    ) -> list[ToeInputsConnection]:
         return list(
             await collect(tuple(map(_get_toe_inputs_by_group, requests)))
         )
@@ -185,7 +193,7 @@ class GroupToeInputsLoader(DataLoader):
     async def load_nodes(
         self, request: GroupToeInputsRequest
     ) -> list[ToeInput]:
-        connection: ToeInputsConnection = await self.load(request)
+        connection = await self.load(request)
         return [edge.node for edge in connection.edges]
 
 

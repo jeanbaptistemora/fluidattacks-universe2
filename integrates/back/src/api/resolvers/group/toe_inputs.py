@@ -40,13 +40,11 @@ async def resolve(  # pylint: disable=too-many-arguments
     after: Optional[str] = None,
     be_present: Optional[bool] = None,
     first: Optional[int] = None,
-) -> Optional[ToeInputsConnection]:
+) -> ToeInputsConnection:
     loaders: Dataloaders = info.context.loaders
-    group_name: str = parent.name
+    group_name = parent.name
     if root_id is not None:
-        response: Optional[
-            ToeInputsConnection
-        ] = await loaders.root_toe_inputs.load(
+        response = await loaders.root_toe_inputs.load(
             RootToeInputsRequest(
                 group_name=group_name,
                 root_id=root_id,
@@ -60,7 +58,7 @@ async def resolve(  # pylint: disable=too-many-arguments
             return response
         raise InvalidBePresentFilterCursor()
 
-    response = await loaders.group_toe_inputs.load(
+    return await loaders.group_toe_inputs.load(
         GroupToeInputsRequest(
             group_name=group_name,
             after=after,
@@ -69,4 +67,3 @@ async def resolve(  # pylint: disable=too-many-arguments
             paginate=True,
         )
     )
-    return response
