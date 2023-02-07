@@ -44,6 +44,7 @@ from .policy import (
 from .validations import (
     validate_fluidattacks_staff_on_group,
     validate_handle_comment_scope,
+    validate_handle_comment_scope_deco,
     validate_role_fluid_reqs,
 )
 
@@ -90,5 +91,6 @@ __all__ = [
     # Validations
     "validate_fluidattacks_staff_on_group",
     "validate_handle_comment_scope",
+    "validate_handle_comment_scope_deco",
     "validate_role_fluid_reqs",
 ]

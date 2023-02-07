@@ -425,11 +425,11 @@ async def test_add_comment() -> None:
         email="unittest@fluidattacks.com",
     )
     await add_comment(
-        loaders,
-        "unittest@fluidattacks.com",
-        comment_data,
-        finding_id,
-        "unittesting",
+        loaders=loaders,
+        user_email="unittest@fluidattacks.com",
+        comment_data=comment_data,
+        finding_id=finding_id,
+        group_name="unittesting",
     )
     loaders = get_new_context()
     finding_comments = await loaders.finding_comments.load(
@@ -451,11 +451,11 @@ async def test_add_comment() -> None:
         parent_id=str(comment_id),
     )
     await add_comment(
-        loaders,
-        "unittest@fluidattacks.com",
-        new_comment_data,
-        finding_id,
-        "unittesting",
+        loaders=loaders,
+        user_email="unittest@fluidattacks.com",
+        comment_data=new_comment_data,
+        finding_id=finding_id,
+        group_name="unittesting",
     )
     new_loaders = get_new_context()
     new_finding_comments = await new_loaders.finding_comments.load(

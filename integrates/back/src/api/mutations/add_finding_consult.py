@@ -92,7 +92,11 @@ async def _add_finding_consult(
     )
     try:
         await findings_domain.add_comment(
-            loaders, user_email, comment_data, finding_id, finding.group_name
+            loaders=loaders,
+            user_email=user_email,
+            comment_data=comment_data,
+            finding_id=finding_id,
+            group_name=finding.group_name,
         )
     except PermissionDenied:
         logs_utils.cloudwatch_log(

@@ -150,7 +150,7 @@ def validate_handle_comment_scope_deco(
                     raise PermissionDenied()
                 if parent_comment == "0":
                     raise InvalidCommentParent()
-            return func(*args, **kwargs)
+            return await func(*args, **kwargs)
 
         return decorated
 

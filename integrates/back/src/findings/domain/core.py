@@ -185,6 +185,14 @@ async def _get_finding_verification_comments(
     )
 
 
+@authz.validate_handle_comment_scope_deco(
+    "loaders",
+    "comment_data.content",
+    "user_email",
+    "group_name",
+    "comment_data.parent_id",
+)
+@validations.validate_field_length_deco("content", limit=20000)
 async def add_comment(
     loaders: Dataloaders,
     user_email: str,
@@ -195,11 +203,6 @@ async def add_comment(
     param_type = comment_data.comment_type
     parent_comment = (
         str(comment_data.parent_id) if comment_data.parent_id else "0"
-    )
-    content = comment_data.content
-    validations.validate_field_length(content, 20000)
-    await authz.validate_handle_comment_scope(
-        loaders, content, user_email, group_name, parent_comment
     )
     if param_type == CommentType.OBSERVATION:
         enforcer = await authz.get_group_level_enforcer(loaders, user_email)
