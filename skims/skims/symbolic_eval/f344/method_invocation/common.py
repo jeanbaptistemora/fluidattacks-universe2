@@ -11,6 +11,9 @@ from symbolic_eval.types import (
 from typing import (
     Set,
 )
+from utils import (
+    graph as g,
+)
 
 
 def get_async_danger_imports(graph: Graph) -> Set[str]:
@@ -25,7 +28,24 @@ def get_async_danger_imports(graph: Graph) -> Set[str]:
 
 
 def js_ls_sensitive_data(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    nodes = args.graph.nodes[args.n_id]
+    node = args.graph.nodes[args.n_id]
     dangerous_imports: Set[str] = get_async_danger_imports(args.graph)
-    args.evaluation[args.n_id] = nodes.get("expression") in dangerous_imports
+    args.evaluation[args.n_id] = node.get("expression") in dangerous_imports
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def js_ls_sens_data_this(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    nodes = args.graph.nodes
+    if (
+        nodes[args.n_id].get("expression") == "localStorage.setItem"
+        and (
+            suspicious_n_ids := g.get_nodes_by_path(
+                args.graph, args.n_id, [], "ArgumentList", "MemberAccess"
+            )
+        )
+        and (suspicious_n_id := next(iter(suspicious_n_ids), None))
+        and (nodes[suspicious_n_id].get("member") == "this")
+    ):
+        args.triggers.add(f"this_{suspicious_n_id}")
+        args.evaluation[args.n_id] = True
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

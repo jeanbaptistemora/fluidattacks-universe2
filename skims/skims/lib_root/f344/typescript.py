@@ -1,5 +1,5 @@
 from lib_root.f344.common import (
-    local_storage_from_async,
+    local_storage_from_assignment,
     local_storage_from_http,
 )
 from model.core_model import (
@@ -42,10 +42,10 @@ def ts_local_storage_with_sensitive_data(
     )
 
 
-def ts_local_storage_sens_data_async(
+def ts_local_storage_sens_data_assignment(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.TS_LOCAL_STORAGE_SENS_DATA_ASYNC
+    method = MethodsEnum.TS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(
@@ -54,7 +54,7 @@ def ts_local_storage_sens_data_async(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in local_storage_from_async(graph, method):
+            for n_id in local_storage_from_assignment(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

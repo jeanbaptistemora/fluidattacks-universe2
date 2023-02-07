@@ -2,6 +2,7 @@ from model.core_model import (
     MethodsEnum,
 )
 from symbolic_eval.f344.method_invocation.common import (
+    js_ls_sens_data_this,
     js_ls_sensitive_data,
 )
 from symbolic_eval.types import (
@@ -14,8 +15,10 @@ from typing import (
 )
 
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_ASYNC: js_ls_sensitive_data,
-    MethodsEnum.TS_LOCAL_STORAGE_SENS_DATA_ASYNC: js_ls_sensitive_data,
+    MethodsEnum.JS_LOCAL_STORAGE_WITH_SENSITIVE_DATA: js_ls_sensitive_data,
+    MethodsEnum.TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA: js_ls_sensitive_data,
+    MethodsEnum.JS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT: js_ls_sens_data_this,
+    MethodsEnum.TS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT: js_ls_sens_data_this,
 }
 
 
