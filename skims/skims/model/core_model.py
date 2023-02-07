@@ -5327,7 +5327,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_KV_ONLY_ACCESS_HTTPS = MethodInfo(
         file_name="terraform",
         name="tfm_azure_kv_only_accessible_over_https",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -2,9 +2,6 @@ from aws.model import (
     AWSCloudfrontDistribution,
     AWSLbTargetGroup,
 )
-from itertools import (
-    chain,
-)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -28,8 +25,6 @@ from parse_hcl2.structure.aws import (
     iter_aws_security_group,
 )
 from parse_hcl2.structure.azure import (
-    iter_azurerm_app_service,
-    iter_azurerm_function_app,
     iter_azurerm_storage_account,
 )
 from parse_hcl2.tokens import (
@@ -87,17 +82,6 @@ def _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
             yield res
         elif protocol.val in unsafe_protos:
             yield protocol
-
-
-def _tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        if https := get_attribute(body=resource.data, key="https_only"):
-            if https.val is False:
-                yield https
-        else:
-            yield resource
 
 
 def _tfm_azure_sa_insecure_transfer_iterate_vulnerabilities(
@@ -163,25 +147,6 @@ def tfm_serves_content_over_http(
         ),
         path=path,
         method=MethodsEnum.TFM_CONTENT_HTTP,
-    )
-
-
-def tfm_azure_kv_only_accessible_over_https(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="lib_path.f372.azure_only_accessible_over_http",
-        iterator=get_cloud_iterator(
-            _tfm_azure_kv_only_accessible_over_https_iterate_vulnerabilities(
-                resource_iterator=chain(
-                    iter_azurerm_app_service(model=model),
-                    iter_azurerm_function_app(model=model),
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AZURE_KV_ONLY_ACCESS_HTTPS,
     )
 
 
