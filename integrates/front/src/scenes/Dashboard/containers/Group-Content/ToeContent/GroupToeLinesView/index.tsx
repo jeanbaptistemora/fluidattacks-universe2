@@ -200,6 +200,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       },
     }
   );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getToeLinesVariables = {
     canGetAttackedAt,
     canGetAttackedBy,
@@ -635,27 +636,24 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     setIsEditing(!isEditing);
   }, [isEditing]);
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
+  const handleOnVerifyCompleted = useCallback(
+    (result: FetchResult<IVerifyToeLinesResultAttr>): void => {
+      if (
+        !_.isNil(result.data) &&
+        result.data.updateToeLinesAttackedLines.success
+      ) {
+        msgSuccess(
+          t("group.toe.lines.alerts.verifyToeLines.success"),
+          t("groupAlerts.updatedTitle")
+        );
+        void refetch();
+        setSelectedToeLinesDatas([]);
+      }
+    },
+    [refetch, t]
+  );
 
-  const handleOnVerifyCompleted = (
-    result: FetchResult<IVerifyToeLinesResultAttr>
-  ): void => {
-    if (
-      !_.isNil(result.data) &&
-      result.data.updateToeLinesAttackedLines.success
-    ) {
-      msgSuccess(
-        t("group.toe.lines.alerts.verifyToeLines.success"),
-        t("groupAlerts.updatedTitle")
-      );
-      void refetch();
-      setSelectedToeLinesDatas([]);
-    }
-  };
-
-  async function handleVerify(): Promise<void> {
+  const handleVerify = useCallback(async (): Promise<void> => {
     setIsVerifying(true);
     const results = await Promise.all(
       selectedToeLinesDatas.map(
@@ -681,6 +679,17 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       void refetch();
     }
     setIsVerifying(false);
+  }, [
+    getToeLinesVariables,
+    groupName,
+    handleOnVerifyCompleted,
+    handleVerifyToeLines,
+    refetch,
+    selectedToeLinesDatas,
+  ]);
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
   }
 
   return (
