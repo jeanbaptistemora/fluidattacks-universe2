@@ -2822,7 +2822,7 @@ class MethodsEnum(Enum):
         file_name="aws",
         name="is_trail_bucket_public",
         module="dast",
-        finding=FindingEnum.F325,
+        finding=FindingEnum.F203,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )

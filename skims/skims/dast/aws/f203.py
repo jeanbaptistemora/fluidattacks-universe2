@@ -166,10 +166,72 @@ async def s3_buckets_allow_unauthorized_public_access(
     return vulns
 
 
+async def is_trail_bucket_public(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: Dict[str, Any] = await run_boto3_fun(
+        credentials, service="cloudtrail", function="describe_trails"
+    )
+    method = core_model.MethodsEnum.AWS_IAM_IS_TRAIL_BUCKET_PUBLIC
+    trail_list = response.get("trailList", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    public_acl = "http://acs.amazonaws.com/groups/global/AllUsers"
+    perms = ["READ", "WRITE", "FULL_CONTROL", "READ_ACP", "WRITE_ACP"]
+
+    if trail_list:
+        for trail in trail_list:
+            locations: List[Location] = []
+            trail_arn = trail["TrailARN"]
+            trail_bucket = trail["S3BucketName"]
+
+            get_bucket_acl: Dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="s3",
+                function="get_bucket_acl",
+                parameters={"Bucket": str(trail_bucket)},
+            )
+            grants = get_bucket_acl.get("Grants", [])
+
+            for index, grant in enumerate(grants):
+                locations = [
+                    *locations,
+                    *[
+                        Location(
+                            access_patterns=(f"/{index}/Permission",),
+                            arn=(trail_arn),
+                            values=(grant["Permission"],),
+                            description=t(
+                                "src.lib_path.f203.is_trail_bucket_public"
+                            ),
+                        )
+                        for (key, val) in grant.items()
+                        if key == "Permission"
+                        and any(perm in val for perm in perms)
+                        for (grantee_k, _) in grant["Grantee"].items()
+                        if (
+                            "URI" in grantee_k
+                            and grant["Grantee"]["URI"] == public_acl
+                        )
+                    ],
+                ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=grants,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    s3_buckets_allow_unauthorized_public_access,
+    is_trail_bucket_public,
     acl_public_buckets,
+    s3_buckets_allow_unauthorized_public_access,
 )

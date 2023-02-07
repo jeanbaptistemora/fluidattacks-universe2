@@ -2,6 +2,9 @@
 src.lib_path.f203.public_buckets:
   en: AccessControl should not be PublicReadWrite
   es: AccessControl no debería ser PublicReadWrite
+src.lib_path.f203.is_trail_bucket_public:
+  en: Bucket must be private.
+  es: Trail bucket debe ser privado.
 src.lib_path.f203.buckets_allow_unauthorized_public_access:
   en: S3 buckets allow unauthorized public access via bucket policies
   es: >
