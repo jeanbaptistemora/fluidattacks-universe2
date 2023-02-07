@@ -343,7 +343,7 @@ F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   16 | }
      ^ Col 0
 ",aws.ec2_has_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,15,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_associate_public_ip_address.tf,15,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_associate_public_ip_address.tf,"
    5 |   key_name                             = ""test""
    6 |   disable_api_termination              = ""false""
    7 |   instance_initiated_shutdown_behavior = ""terminate""
@@ -367,7 +367,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_a
   25 | resource ""aws_launch_template"" ""not_vulnerable"" {
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,54,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_address.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_associate_public_ip_address.tf,54,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_associate_public_ip_address.tf,"
   44 |   }
   45 |   ram_disk_id = ""test""
   46 | }

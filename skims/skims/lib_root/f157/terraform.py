@@ -39,7 +39,6 @@ def _aux_azure_sa_default_network_access(
             has_attr = True
             if value.lower() != "deny":
                 return b_id
-            return None
     if not has_attr:
         return nid
     return None
