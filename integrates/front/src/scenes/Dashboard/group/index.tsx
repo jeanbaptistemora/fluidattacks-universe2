@@ -23,7 +23,7 @@ import {
 
 import { groupContext } from "./context";
 import { GET_GROUP_EVENT_STATUS } from "./queries";
-import type { IGetEventStatus } from "./types";
+import type { IGetEventStatus, IGroupContext } from "./types";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -125,13 +125,22 @@ const GroupContent: React.FC = (): JSX.Element => {
     (event): boolean => event.eventStatus === "CREATED"
   );
 
+  const organizationId = useMemo(
+    (): string => (_.isUndefined(orgData) ? "" : orgData.organizationId.id),
+    [orgData]
+  );
+
+  const value = useMemo(
+    (): IGroupContext => ({ organizationId, path, url }),
+    [organizationId, path, url]
+  );
+
   // Side effects
   useTabTracking("Group");
 
   if (_.isUndefined(orgData)) {
     return <div />;
   }
-  const organizationId = orgData.organizationId.id;
 
   return (
     <StrictMode>
@@ -254,7 +263,7 @@ const GroupContent: React.FC = (): JSX.Element => {
             </Tab>
           </Tabs>
           <TabContent>
-            <groupContext.Provider value={{ organizationId, path, url }}>
+            <groupContext.Provider value={value}>
               <Switch>
                 <Route
                   component={GroupAuthorsView}
