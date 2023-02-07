@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import { min } from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import type { IAttackedLinesFieldProps } from "./types";
 
 import type { IToeLinesData } from "../../types";
+import { InputNumber } from "components/Input";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   isOptionalInteger,
@@ -43,13 +42,10 @@ const AttackedLinesField: React.FC<IAttackedLinesFieldProps> = (
           {`(${t("group.toe.lines.editModal.fields.attackedLinesComment")})`}
         </i>
       </ControlLabel>
-      <Field
-        component={FormikText}
-        min={"0"}
+      <InputNumber
+        min={0}
         name={"attackedLines"}
         onKeyDown={handleKeyDown}
-        step={"1"}
-        type={"number"}
         validate={composeValidators([
           isOptionalInteger,
           optionalNumberBetween(0, maxSelectedLoc),
