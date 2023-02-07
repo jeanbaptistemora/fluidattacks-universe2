@@ -147,7 +147,10 @@ async def test_validate_evidence_records() -> None:
             "test-file-records.csv", test_file, mime_type
         )
         test_data = await validate_evidence(
-            evidence_id, uploaded_file, loaders, finding
+            evidence_id=evidence_id,
+            file=uploaded_file,
+            loaders=loaders,
+            finding=finding,
         )
     expected_output = True
     assert isinstance(test_data, bool)
@@ -171,7 +174,10 @@ async def test_validate_evidence_records_invalid_type() -> None:
         )
         with pytest.raises(InvalidFileType):
             await validate_evidence(
-                evidence_id, uploaded_file, loaders, finding
+                evidence_id=evidence_id,
+                file=uploaded_file,
+                loaders=loaders,
+                finding=finding,
             )
 
 
@@ -192,10 +198,10 @@ async def test_validate_evidence_records_invalid_name() -> None:
         )
         with pytest.raises(InvalidFileName):
             await validate_evidence(
-                evidence_id,
-                uploaded_file,
-                loaders,
-                finding,
+                evidence_id=evidence_id,
+                file=uploaded_file,
+                loaders=loaders,
+                finding=finding,
                 validate_name=True,
             )
 
@@ -204,10 +210,10 @@ async def test_validate_evidence_records_invalid_name() -> None:
             "okada-unittesting-0123456789.png", test_file, mime_type
         )
         test_data = await validate_evidence(
-            evidence_id,
-            uploaded_file,
-            loaders,
-            finding,
+            evidence_id=evidence_id,
+            file=uploaded_file,
+            loaders=loaders,
+            finding=finding,
             validate_name=True,
         )
     expected_output = True

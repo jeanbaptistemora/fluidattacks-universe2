@@ -41,7 +41,10 @@ async def mutate(
 ) -> SimplePayload:
     try:
         await findings_domain.update_evidence_description(
-            info.context.loaders, finding_id, evidence_id, description
+            loaders=info.context.loaders,
+            finding_id=finding_id,
+            evidence_id=evidence_id,
+            description=description,
         )
         logs_utils.cloudwatch_log(
             info.context,

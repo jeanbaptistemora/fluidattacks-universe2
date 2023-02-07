@@ -187,7 +187,11 @@ async def update_evidence(  # pylint: disable = too-many-arguments
 ) -> None:
     finding = await get_finding(loaders, finding_id)
     await validate_evidence(
-        evidence_id, file_object, loaders, finding, validate_name
+        evidence_id=evidence_id,
+        file=file_object,
+        loaders=loaders,
+        finding=finding,
+        validate_name=validate_name,
     )
     mime_type = await files_utils.get_uploaded_file_mime(file_object)
     extension = get_extension(mime_type)
@@ -244,11 +248,11 @@ async def update_evidence(  # pylint: disable = too-many-arguments
         )
 
 
+@validations_utils.validate_fields_deco(["description"])
+@validations_utils.validate_field_length_deco("description", limit=5000)
 async def update_evidence_description(
     loaders: Dataloaders, finding_id: str, evidence_id: str, description: str
 ) -> None:
-    validations_utils.validate_fields([description])
-    validations_utils.validate_field_length(description, 5000)
     finding = await get_finding(loaders, finding_id)
     evidence: Optional[FindingEvidence] = getattr(
         finding.evidences, EVIDENCE_NAMES[evidence_id]
@@ -265,6 +269,8 @@ async def update_evidence_description(
     )
 
 
+@validations_utils.validate_fields_deco(["file.content_type"])
+@validations_utils.validate_file_name_deco("file.filename")
 async def validate_evidence(
     evidence_id: str,
     file: UploadFile,
@@ -276,9 +282,6 @@ async def validate_evidence(
     success = False
     allowed_mimes = []
     max_size = 10
-
-    validations_utils.validate_fields([file.content_type])
-    validations_utils.validate_file_name(file.filename)
 
     if evidence_id in ["animation", "exploitation"]:
         allowed_mimes = ["image/png", "video/webm"]
