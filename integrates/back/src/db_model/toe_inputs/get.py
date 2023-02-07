@@ -199,7 +199,7 @@ class GroupToeInputsLoader(
 
 async def _get_toe_inputs_by_root(
     request: RootToeInputsRequest,
-) -> Optional[ToeInputsConnection]:
+) -> ToeInputsConnection:
     if request.be_present is None:
         facet = TABLE.facets["toe_input_metadata"]
         primary_key = keys.build_key(
@@ -238,22 +238,29 @@ async def _get_toe_inputs_by_root(
             paginate=request.paginate,
             table=TABLE,
         )
+        connection = ToeInputsConnection(
+            edges=tuple(
+                format_toe_input_edge(request.group_name, index, item, TABLE)
+                for item in response.items
+            ),
+            page_info=response.page_info,
+        )
     except ValidationException:
-        return None
-    return ToeInputsConnection(
-        edges=tuple(
-            format_toe_input_edge(request.group_name, index, item, TABLE)
-            for item in response.items
-        ),
-        page_info=response.page_info,
-    )
+        connection = ToeInputsConnection(
+            edges=tuple(),
+            page_info=PageInfo(has_next_page=False, end_cursor=""),
+        )
+
+    return connection
 
 
-class RootToeInputsLoader(DataLoader):
+class RootToeInputsLoader(
+    DataLoader[RootToeInputsRequest, ToeInputsConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeInputsRequest]
-    ) -> list[Optional[ToeInputsConnection]]:
+    ) -> list[ToeInputsConnection]:
         return list(
             await collect(tuple(map(_get_toe_inputs_by_root, requests)))
         )
@@ -261,5 +268,5 @@ class RootToeInputsLoader(DataLoader):
     async def load_nodes(
         self, request: RootToeInputsRequest
     ) -> list[ToeInput]:
-        connection: ToeInputsConnection = await self.load(request)
+        connection = await self.load(request)
         return [edge.node for edge in connection.edges]

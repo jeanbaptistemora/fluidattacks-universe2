@@ -13,7 +13,6 @@ from contextlib import (
     suppress,
 )
 from custom_exceptions import (
-    InvalidBePresentFilterCursor,
     InvalidParameter,
 )
 from dataloaders import (
@@ -45,16 +44,13 @@ async def _get_root_toe_inputs(
     root_id: str,
 ) -> list[ToeInput]:
     loaders = get_new_context()
-    root_toe_inputs = loaders.root_toe_inputs.load_nodes(
+    return await loaders.root_toe_inputs.load_nodes(
         RootToeInputsRequest(
             be_present=be_present,
             group_name=group_name,
             root_id=root_id,
         )
     )
-    if root_toe_inputs:
-        return await root_toe_inputs
-    raise InvalidBePresentFilterCursor()
 
 
 @pytest.mark.asyncio

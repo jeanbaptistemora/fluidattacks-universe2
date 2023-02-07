@@ -1,9 +1,6 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_exceptions import (
-    InvalidBePresentFilterCursor,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -42,11 +39,10 @@ async def resolve(  # pylint: disable=too-many-arguments
     first: Optional[int] = None,
 ) -> ToeInputsConnection:
     loaders: Dataloaders = info.context.loaders
-    group_name = parent.name
     if root_id is not None:
-        response = await loaders.root_toe_inputs.load(
+        return await loaders.root_toe_inputs.load(
             RootToeInputsRequest(
-                group_name=group_name,
+                group_name=parent.name,
                 root_id=root_id,
                 after=after,
                 be_present=be_present,
@@ -54,13 +50,10 @@ async def resolve(  # pylint: disable=too-many-arguments
                 paginate=True,
             )
         )
-        if response:
-            return response
-        raise InvalidBePresentFilterCursor()
 
     return await loaders.group_toe_inputs.load(
         GroupToeInputsRequest(
-            group_name=group_name,
+            group_name=parent.name,
             after=after,
             be_present=be_present,
             first=first,
