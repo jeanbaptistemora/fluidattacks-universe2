@@ -238,6 +238,16 @@ const onSelectVariousFindingsHelper = (
   return selectedFindings.map((finding: IFindingAttr): string => finding.id);
 };
 
+const getRiskExposure = (
+  status: string,
+  severityScore: number,
+  groupCVSSF: number
+): number => {
+  if (status === "SAFE") return 0;
+
+  return 4 ** (severityScore - 4) / groupCVSSF;
+};
+
 export {
   filterAssigned,
   formatFindings,
@@ -248,6 +258,7 @@ export {
   getAreAllMutationValid,
   getFindingsIndex,
   getResults,
+  getRiskExposure,
   handleRemoveFindingsError,
   onSelectVariousFindingsHelper,
 };

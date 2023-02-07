@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 
 import { CVSSFContainer } from "./styles";
 
+import { getRiskExposure } from "../Group-Content/GroupFindingsView/utils";
 import { formatPercentage } from "../Group-Content/ToeContent/GroupToeLinesView/utils";
 import { Card } from "components/Card";
 import { Col } from "components/Layout/Col";
@@ -126,6 +127,11 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
       ? t("searchFindings.header.riskExposure.remediated")
       : t("searchFindings.header.riskExposure.unremediated");
 
+  const riskExposure = formatPercentage(
+    getRiskExposure(status, severity, groupCVSSF),
+    true
+  );
+
   return (
     <React.StrictMode>
       <Row>
@@ -151,11 +157,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
                     size={"2x"}
                   />
                   <Text disp={"inline"} fw={9} size={"big"} ta={"start"}>
-                    {`${
-                      status === "SAFE"
-                        ? formatPercentage(0)
-                        : formatPercentage(4 ** (severity - 4) / groupCVSSF)
-                    } `}
+                    {`${riskExposure} `}
                     <Text disp={"inline"} size={"small"} ta={"start"}>
                       {t("searchFindings.header.riskExposure.label")}
                     </Text>

@@ -33,6 +33,7 @@ import {
   formatState,
   getAreAllMutationValid,
   getResults,
+  getRiskExposure,
   handleRemoveFindingsError,
 } from "./utils";
 
@@ -305,13 +306,13 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [data, findingVulnerabilities]
   );
 
-  const orderFindings: IFindingAttr[] = _.orderBy(
+  const orderedFindings: IFindingAttr[] = _.orderBy(
     findings,
     ["status", "severityScore"],
     ["desc", "desc"]
   );
 
-  const filteredFindings = useFilters(orderFindings, filters);
+  const filteredFindings = useFilters(orderedFindings, filters);
 
   const groupCVSSF = findings
     .filter((find): boolean => find.status === "VULNERABLE")
@@ -339,9 +340,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     },
     {
       accessorFn: (row: IFindingAttr): number => {
-        if (row.status === "SAFE") return 0;
-
-        return 4 ** (row.severityScore - 4) / groupCVSSF;
+        return getRiskExposure(row.status, row.severityScore, groupCVSSF);
       },
       cell: (cell: ICellHelper<IFindingAttr>): string =>
         formatPercentage(cell.getValue(), true),
