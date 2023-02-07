@@ -253,6 +253,7 @@ ENUMS: Tuple[EnumType, ...] = (
         "VulnerabilityState",
         {
             "CLOSED": "CLOSED",
+            "DELETED": "DELETED",
             "OPEN": "OPEN",
             "REJECTED": "REJECTED",
             "SAFE": "SAFE",
