@@ -5349,7 +5349,7 @@ class MethodsEnum(Enum):
         technique=TechniqueEnum.BASIC_SAST,
     )
     TS_UNNECESSARY_IMPORTS = MethodInfo(
-        file_name="typescripts",
+        file_name="typescript",
         name="ts_unnecessary_imports",
         module="lib_root",
         finding=FindingEnum.F379,
