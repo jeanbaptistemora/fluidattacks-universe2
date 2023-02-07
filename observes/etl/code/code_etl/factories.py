@@ -9,7 +9,8 @@ from code_etl.str_utils import (
     truncate,
 )
 from code_etl.time_utils import (
-    to_utc,
+    DatetimeTZ,
+    DatetimeUTC,
 )
 from dataclasses import (
     dataclass,
@@ -62,9 +63,13 @@ class CommitDataFactory:
         files = frozenset(str(f) for f in commit.stats.files)  # type: ignore[misc]
         data = CommitData(
             author,
-            to_utc(commit.authored_datetime),
+            DatetimeTZ.assert_tz(commit.authored_datetime)
+            .map(DatetimeUTC.to_utc)
+            .unwrap(),
             commiter,
-            to_utc(commit.committed_datetime),
+            DatetimeTZ.assert_tz(commit.committed_datetime)
+            .map(DatetimeUTC.to_utc)
+            .unwrap(),
             truncate(str(commit.message), 4096),
             truncate(str(commit.summary), 256),
             deltas,

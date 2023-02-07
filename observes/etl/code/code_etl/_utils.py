@@ -1,6 +1,3 @@
-from datetime import (
-    datetime,
-)
 from fa_purity import (
     Cmd,
     FrozenList,
@@ -30,8 +27,6 @@ from typing import (
 
 LOG = logging.getLogger(__name__)
 COMMIT_HASH_SENTINEL: str = "-" * 40
-DATE_SENTINEL: datetime = datetime.utcfromtimestamp(0)
-DATE_NOW: datetime = datetime.utcnow()
 
 DB_ID = DatabaseId(
     environ["REDSHIFT_DATABASE"],

@@ -19,8 +19,8 @@ from code_etl.str_utils import (
     truncate,
 )
 from code_etl.time_utils import (
+    DatetimeTZ,
     DatetimeUTC,
-    to_utc,
 )
 from datetime import (
     datetime,
@@ -39,6 +39,9 @@ from fa_purity.result import (
     ResultE,
     ResultFactory,
     UnwrapError,
+)
+from fa_purity.union import (
+    UnionFactory,
 )
 from redshift_client.sql_client.primitive import (
     PrimitiveVal,
@@ -76,24 +79,28 @@ def from_objs(
     )
 
 
+def _optional_datetime_utc(raw: PrimitiveVal) -> ResultE[DatetimeUTC | None]:
+    _factory_1: ResultFactory[DatetimeUTC | None, Exception] = ResultFactory()
+    _factory_2: UnionFactory[DatetimeUTC, None] = UnionFactory()
+    return assert_opt_type(raw, datetime).bind(
+        lambda d: DatetimeTZ.assert_tz(d)
+        .map(lambda x: DatetimeUTC.to_utc(x))
+        .map(_factory_2.inl)
+        if d is not None
+        else _factory_1.success(d)
+    )
+
+
 def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[RawCommitStamp]:
     factory: ResultFactory[RawCommitStamp, Exception] = ResultFactory()
     try:
         author_name = assert_opt_type(raw[0], str).unwrap()
         author_email = assert_opt_type(raw[1], str).unwrap()
-        authored_at = (
-            assert_opt_type(raw[2], datetime)
-            .map(lambda d: to_utc(d) if d is not None else d)
-            .unwrap()
-        )
+        authored_at = _optional_datetime_utc(raw[2]).unwrap()
 
         committer_name = assert_opt_type(raw[3], str).unwrap()
         committer_email = assert_opt_type(raw[4], str).unwrap()
-        committed_at = (
-            assert_opt_type(raw[5], datetime)
-            .map(lambda d: to_utc(d) if d is not None else d)
-            .unwrap()
-        )
+        committed_at = _optional_datetime_utc(raw[5]).unwrap()
 
         message = (
             assert_opt_type(raw[6], str)
@@ -116,7 +123,12 @@ def from_raw(raw: FrozenList[PrimitiveVal]) -> ResultE[RawCommitStamp]:
         _hash = assert_type(raw[14], str).unwrap()
         fa_hash = assert_opt_type(raw[15], str).unwrap()
 
-        seen_at = assert_type(raw[16], datetime).map(to_utc).unwrap()
+        seen_at = (
+            assert_type(raw[16], datetime)
+            .bind(DatetimeTZ.assert_tz)
+            .map(DatetimeUTC.to_utc)
+            .unwrap()
+        )
         row = RawCommitStamp(
             author_name,
             author_email,

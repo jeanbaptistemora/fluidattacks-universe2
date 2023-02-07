@@ -14,7 +14,6 @@ from fa_purity import (
 
 @dataclass(frozen=True)
 class DryRunClient:
-    # exposes utilities from and to DB using not raw objs
     _real_client: RealClient
 
     def client(self) -> Client:

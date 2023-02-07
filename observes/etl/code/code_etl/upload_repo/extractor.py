@@ -1,7 +1,5 @@
 from code_etl._utils import (
     COMMIT_HASH_SENTINEL,
-    DATE_NOW,
-    DATE_SENTINEL,
 )
 from code_etl.amend.core import (
     AmendUsers,
@@ -21,7 +19,8 @@ from code_etl.objs import (
     RepoRegistration,
 )
 from code_etl.time_utils import (
-    to_utc,
+    DATE_NOW,
+    EPOCH_START,
 )
 from dataclasses import (
     dataclass,
@@ -71,7 +70,7 @@ class Extractor:
         data_id = CommitDataId(self._context.repo, obj.commit_id)
         stamp = CommitStamp(
             Commit(data_id, obj.data),
-            to_utc(DATE_SENTINEL if self._context.is_new else DATE_NOW),
+            EPOCH_START if self._context.is_new else DATE_NOW,
         )
         return Maybe.from_value(stamp)
 
@@ -96,7 +95,7 @@ class Extractor:
                     CommitDataId(
                         self._context.repo, CommitId(COMMIT_HASH_SENTINEL, "")
                     ),
-                    to_utc(DATE_NOW),
+                    DATE_NOW,
                 )
             )
         return Maybe.empty()
