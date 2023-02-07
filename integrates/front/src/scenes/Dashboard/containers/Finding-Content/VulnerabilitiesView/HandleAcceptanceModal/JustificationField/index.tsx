@@ -1,16 +1,14 @@
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
 import type { IJustificationFieldProps } from "./types";
 
-import { TextArea } from "components/Input";
+import { Select, TextArea } from "components/Input";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikDropdown } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -48,12 +46,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = ({
         </b>
       </ControlLabel>
       {shouldRenderDropdown ? (
-        <Field
-          component={FormikDropdown}
-          name={"justification"}
-          type={"text"}
-          validate={required}
-        >
+        <Select name={"justification"} validate={required}>
           <option value={""} />
           {isConfirmZeroRiskSelected ? (
             <React.Fragment>
@@ -83,7 +76,7 @@ const JustificationField: React.FC<IJustificationFieldProps> = ({
               </option>
             </React.Fragment>
           ) : undefined}
-        </Field>
+        </Select>
       ) : (
         <TextArea
           name={"justification"}
