@@ -1987,6 +1987,14 @@ export const enTranslations: ResourceKey = {
               requirement: "Requirement",
               showAll: "Show all",
             },
+            generateReportModal: {
+              action: "Action",
+              exclude: "Exclude",
+              excludeAll: "Exclude all",
+              include: "Include",
+              includeAll: "Include all",
+              unfulfilledStandard: "Unfulfilled standard",
+            },
             text: "Standards",
             tooltip: "Compliance information for standards",
             unfulfilledStandards: {

@@ -1,4 +1,5 @@
 import React, { useCallback } from "react";
+import { useTranslation } from "react-i18next";
 
 import type { IUnfulfilledStandardData } from "../types";
 import { Switch } from "components/Switch";
@@ -12,6 +13,7 @@ const IncludeFormatter: React.FC<IIncludeFormatterProps> = ({
   row,
   changeFunction,
 }: IIncludeFormatterProps): JSX.Element => {
+  const { t } = useTranslation();
   const handleOnChange: () => void = useCallback((): void => {
     changeFunction(row);
   }, [changeFunction, row]);
@@ -19,7 +21,14 @@ const IncludeFormatter: React.FC<IIncludeFormatterProps> = ({
   return (
     <Switch
       checked={row.include}
-      label={{ off: "Exclude", on: "Include" }}
+      label={{
+        off: t(
+          "organization.tabs.compliance.tabs.standards.generateReportModal.exclude"
+        ),
+        on: t(
+          "organization.tabs.compliance.tabs.standards.generateReportModal.include"
+        ),
+      }}
       onChange={handleOnChange}
     />
   );

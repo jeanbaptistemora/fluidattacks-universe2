@@ -11,6 +11,7 @@ import { default as mixpanel } from "mixpanel-browser";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { GenerateReportModal } from "./GenerateReportModal";
 import {
   GET_GROUP_UNFULFILLED_STANDARDS,
   GET_UNFULFILLED_STANDARD_REPORT_URL,
@@ -45,10 +46,11 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
       string | undefined
     >(undefined);
     const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
+    const [isReportModalOpen, setIsReportModalOpen] = useState(false);
     const [disableVerify, setDisableVerify] = useState(false);
 
     // GraphQL queries
-    const { data: groupsData } = useQuery<{
+    const { data: groupsData, loading: loadingGroups } = useQuery<{
       organization: { groups: IGroupAttr[] };
     }>(GET_ORGANIZATION_GROUP_NAMES, {
       onError: ({ graphQLErrors }: ApolloError): void => {
@@ -64,25 +66,26 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
         organizationId,
       },
     });
-    const { data: unfulfilledStandardsData } = useQuery<{
-      group: {
-        compliance: { unfulfilledStandards: IUnfulfilledStandardAttr[] };
-      };
-    }>(GET_GROUP_UNFULFILLED_STANDARDS, {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.warning(
-            "An error occurred loading group unfulfilled standards",
-            error
-          );
-        });
-      },
-      skip: _.isUndefined(selectedGroupName) || _.isEmpty(selectedGroupName),
-      variables: {
-        groupName: selectedGroupName,
-      },
-    });
+    const { data: unfulfilledStandardsData, loading: loadingStandards } =
+      useQuery<{
+        group: {
+          compliance: { unfulfilledStandards: IUnfulfilledStandardAttr[] };
+        };
+      }>(GET_GROUP_UNFULFILLED_STANDARDS, {
+        onError: ({ graphQLErrors }: ApolloError): void => {
+          graphQLErrors.forEach((error: GraphQLError): void => {
+            msgError(t("groupAlerts.errorTextsad"));
+            Logger.warning(
+              "An error occurred loading group unfulfilled standards",
+              error
+            );
+          });
+        },
+        skip: _.isUndefined(selectedGroupName) || _.isEmpty(selectedGroupName),
+        variables: {
+          groupName: selectedGroupName,
+        },
+      });
     const [requestUnfulfilledStandardReport] = useLazyQuery<{
       unfulfilledStandardReportUrl: string;
     }>(GET_UNFULFILLED_STANDARD_REPORT_URL, {
@@ -147,6 +150,12 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
       },
       []
     );
+    const onCloseReportModal = useCallback((): void => {
+      setIsReportModalOpen(false);
+    }, []);
+    const onOpenReportModal = useCallback((): void => {
+      setIsReportModalOpen(true);
+    }, []);
     function onSubmit(): void {
       // OnSubmit
     }
@@ -232,8 +241,13 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
                       )}
                     >
                       <Button
-                        id={"unfulfilled-standard-report-pdf"}
-                        onClick={onRequestReport(setVerifyCallbacks)}
+                        disabled={loadingStandards || loadingGroups}
+                        id={"unfulfilled-standard-report-pdf-2"}
+                        onClick={
+                          unfulfilledStandards.length === 0
+                            ? onRequestReport(setVerifyCallbacks)
+                            : onOpenReportModal
+                        }
                         variant={"primary"}
                       >
                         {t(
@@ -275,6 +289,14 @@ const OrganizationComplianceStandardsView: React.FC<IOrganizationComplianceStand
             </Row>
           </Col>
         </Row>
+        {_.isUndefined(selectedGroupName) ? undefined : (
+          <GenerateReportModal
+            groupName={selectedGroupName}
+            isOpen={isReportModalOpen}
+            onClose={onCloseReportModal}
+            unfulfilledStandards={unfulfilledStandards}
+          />
+        )}
       </React.StrictMode>
     );
   };

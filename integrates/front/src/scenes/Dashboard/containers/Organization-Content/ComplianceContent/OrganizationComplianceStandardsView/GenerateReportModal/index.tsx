@@ -63,6 +63,16 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
     getFormattedUnfulfilledStandards()
   );
 
+  const includedUnfulfilledStandards = unfulfilledStandardsData
+    .filter(
+      (unfulfilledStandard: IUnfulfilledStandardData): boolean =>
+        unfulfilledStandard.include
+    )
+    .map(
+      (unfulfilledStandard: IUnfulfilledStandardData): string =>
+        unfulfilledStandard.standardId
+    );
+
   const [requestUnfulfilledStandardReport] = useLazyQuery<{
     unfulfilledStandardReportUrl: string;
   }>(GET_UNFULFILLED_STANDARD_REPORT_URL, {
@@ -100,21 +110,13 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       requestUnfulfilledStandardReport({
         variables: {
           groupName,
-          unfulfilledStandards: unfulfilledStandardsData
-            .filter(
-              (unfulfilledStandard: IUnfulfilledStandardData): boolean =>
-                unfulfilledStandard.include
-            )
-            .map(
-              (unfulfilledStandard: IUnfulfilledStandardData): string =>
-                unfulfilledStandard.standardId
-            ),
+          unfulfilledStandards: includedUnfulfilledStandards,
           verificationCode,
         },
       });
       mixpanel.track("UnfulfilledStandardReportRequest");
     },
-    [requestUnfulfilledStandardReport, groupName, unfulfilledStandardsData]
+    [requestUnfulfilledStandardReport, groupName, includedUnfulfilledStandards]
   );
   const handleRequestReport = useCallback(
     (setVerifyCallbacks: IVerifyFn): (() => void) =>
@@ -176,13 +178,17 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
     {
       accessorKey: "title",
       enableSorting: true,
-      header: "Unfulfilled standard",
+      header: t(
+        "organization.tabs.compliance.tabs.standards.generateReportModal.unfulfilledStandard"
+      ),
     },
     {
       accessorKey: "include",
       cell: (cell: ICellHelper<IUnfulfilledStandardData>): JSX.Element =>
         includeFormatter(cell.row.original, handleIncludeStandard),
-      header: "Action",
+      header: t(
+        "organization.tabs.compliance.tabs.standards.generateReportModal.action"
+      ),
     },
   ];
 
@@ -202,7 +208,14 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
               <Fragment>
                 <Switch
                   checked={includeAllStandards}
-                  label={{ off: "Exclude all", on: "Include all" }}
+                  label={{
+                    off: t(
+                      "organization.tabs.compliance.tabs.standards.generateReportModal.excludeAll"
+                    ),
+                    on: t(
+                      "organization.tabs.compliance.tabs.standards.generateReportModal.includeAll"
+                    ),
+                  }}
                   onChange={handleIncludeAllStandards}
                 />
                 <Table
@@ -221,6 +234,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
                   )}
                 >
                   <Button
+                    disabled={includedUnfulfilledStandards.length === 0}
                     id={"standard-report"}
                     onClick={handleRequestReport(setVerifyCallbacks)}
                     variant={"secondary"}

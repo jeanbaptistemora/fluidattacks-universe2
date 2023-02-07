@@ -193,34 +193,7 @@ describe("OrganizationComplianceStandardsView", (): void => {
             group: {
               __typename: "Group",
               compliance: {
-                unfulfilledStandards: [
-                  {
-                    title: "standardname1",
-                    unfulfilledRequirements: [
-                      {
-                        id: "001",
-                        title: "requirement1",
-                      },
-                      {
-                        id: "002",
-                        title: "requirement2",
-                      },
-                    ],
-                  },
-                  {
-                    title: "standardname2",
-                    unfulfilledRequirements: [
-                      {
-                        id: "001",
-                        title: "requirement1",
-                      },
-                      {
-                        id: "003",
-                        title: "requirement3",
-                      },
-                    ],
-                  },
-                ],
+                unfulfilledStandards: [],
               },
               name: "group1",
             },
@@ -266,7 +239,7 @@ describe("OrganizationComplianceStandardsView", (): void => {
         screen.getByText(
           "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
         )
-      ).toBeInTheDocument();
+      ).toBeEnabled();
     });
     await userEvent.click(
       screen.getByText(
