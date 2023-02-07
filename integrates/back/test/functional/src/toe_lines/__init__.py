@@ -20,7 +20,9 @@ def get_query() -> str:
             $hasVulnerabilities: Boolean
             $lastAuthor: String
             $lastCommit: String
+            $maxAttackedLines: Int
             $maxLoc: Int
+            $minAttackedLines: Int
             $minLoc: Int
             $rootId: ID
             $toModifiedDate: DateTime
@@ -34,7 +36,9 @@ def get_query() -> str:
                     hasVulnerabilities: $hasVulnerabilities
                     lastAuthor: $lastAuthor
                     lastCommit: $lastCommit
+                    maxAttackedLines: $maxAttackedLines
                     maxLoc: $maxLoc
+                    minAttackedLines: $minAttackedLines
                     minLoc: $minLoc
                     rootId: $rootId
                     toModifiedDate: $toModifiedDate

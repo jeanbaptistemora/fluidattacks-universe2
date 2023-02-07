@@ -417,3 +417,59 @@ async def test_get_toe_lines_by_to_seen_at(populate: bool, email: str) -> None:
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["seenAt"]
         == "2019-01-01T15:41:04+00:00"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_min_attacked_lines(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "minAttackedLines": 120,
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"][
+            "attackedLines"
+        ]
+        == 120
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_max_attacked_lines(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "maxAttackedLines": 4,
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"][
+            "attackedLines"
+        ]
+        == 4
+    )
