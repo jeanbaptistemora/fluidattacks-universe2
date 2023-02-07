@@ -248,31 +248,37 @@ async def complete_register_for_group_invitation(
             ),
         )
     )
-    if await stakeholders_domain.exists(loaders, email):
-        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-        if not stakeholder.is_registered:
+    if not await stakeholders_domain.exists(loaders, email):
+        await stakeholders_domain.register(email)
+        await authz.grant_user_level_role(email, "user")
+
+    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    if not stakeholder.is_registered:
+        coroutines.extend(
+            [
+                stakeholders_domain.register(email),
+                authz.grant_user_level_role(email, "user"),
+            ]
+        )
+    if not stakeholder.enrolled:
+        enrollment: Enrollment = await loaders.enrollment.load(email)
+        if not enrollment.enrolled:
             coroutines.extend(
                 [
-                    stakeholders_domain.register(email),
-                    authz.grant_user_level_role(email, "user"),
+                    stakeholders_domain.update(
+                        email=email,
+                        metadata=StakeholderMetadataToUpdate(
+                            enrolled=True,
+                        ),
+                    ),
+                    enrollment_model.add(
+                        enrollment=Enrollment(
+                            email=email,
+                            enrolled=True,
+                        )
+                    ),
                 ]
             )
-    else:
-        coroutines.append(
-            stakeholders_domain.update(
-                email=email, metadata=StakeholderMetadataToUpdate()
-            )
-        )
-    enrollment: Enrollment = await loaders.enrollment.load(email)
-    if not enrollment.enrolled:
-        coroutines.append(
-            enrollment_model.add(
-                enrollment=Enrollment(
-                    email=email,
-                    enrolled=True,
-                )
-            )
-        )
 
     await collect(coroutines)
 
