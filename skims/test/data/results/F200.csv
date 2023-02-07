@@ -1,0 +1,10 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F200,inputs,arn:aws:vpc:::fluidvpc1 (namespace),src.lib_path.f200.vpcs_without_flowlog,778,skims,200. Traceability loss,src.lib_path.f200.vpcs_without_flowlog,"
+  1 | {
+  2 |     ""State"": ""pending"",
+  3 |     ""VpcId"": ""fluidvpc1"",
+  4 |     ""OwnerId"": ""fluidattacks"",
+  5 |     ""InstanceTenancy"": ""default""
+  6 | }
+    ^ Col 0
+",aws.vpcs_without_flowlog

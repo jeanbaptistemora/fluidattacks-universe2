@@ -1,0 +1,22 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F101,inputs,arn:aws:s3:::fluidbucket (namespace),/ObjectLockConfiguration/ObjectLockEnabled: Disabled,693,skims,101. Lack of protection against deletion,"S3 buckets can be deleted or overwritten accidentally
+","
+   1 | {
+   2 |     ""Buckets"": [
+   3 |         {
+   4 |             ""Name"": ""fluidbucket""
+   5 |         }
+   6 |     ],
+   7 |     ""ObjectLockConfiguration"": {
+>  8 |         ""ObjectLockEnabled"": ""Disabled"",
+   9 |         ""Rule"": {
+  10 |             ""DefaultRetention"": {
+  11 |                 ""Mode"": ""GOVERNANCE"",
+  12 |                 ""Days"": 1,
+  13 |                 ""Years"": 1
+  14 |             }
+  15 |         }
+  16 |     }
+  17 | }
+     ^ Col 0
+",aws.bucket_has_object_lock_disabled

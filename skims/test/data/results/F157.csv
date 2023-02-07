@@ -1,0 +1,130 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_azure_default_network_access.tf,37,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to deny in namespace/skims/test/data/lib_root/f157/tfm_azure_default_network_access.tf,"
+  27 |       read   = true
+  28 |       write  = true
+  29 |     }
+  30 |   }
+  31 | }
+  32 |
+  33 | resource ""azurerm_storage_account_network_rules"" ""vulnerable"" {
+  34 |   resource_group_name  = azurerm_resource_group.test.name
+  35 |   storage_account_name = azurerm_storage_account.test.name
+  36 |
+> 37 |   default_action = ""Allow""
+  38 | }
+  39 |
+  40 |
+  41 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  42 |   name                = var.watcher
+  43 |   resource_group_name = azurerm_resource_group.test.name
+  44 |   location            = azurerm_resource_group.test.location
+  45 |
+  46 |   network_rules {
+  47 |     default_action = ""Allow""
+     ^ Col 0
+",terraform.tfm_azure_sa_default_network_access
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_azure_default_network_access.tf,47,923,skims,157. Unrestricted access between network segments,Ensure Azure Storage Account default network access is set to deny in namespace/skims/test/data/lib_root/f157/tfm_azure_default_network_access.tf,"
+  37 |   default_action = ""Allow""
+  38 | }
+  39 |
+  40 |
+  41 | resource ""azurerm_storage_account"" ""vulnerable"" {
+  42 |   name                = var.watcher
+  43 |   resource_group_name = azurerm_resource_group.test.name
+  44 |   location            = azurerm_resource_group.test.location
+  45 |
+  46 |   network_rules {
+> 47 |     default_action = ""Allow""
+  48 |   }
+  49 |
+  50 |   account_tier              = ""Standard""
+  51 |   account_kind              = ""StorageV2""
+  52 |   account_replication_type  = ""LRS""
+  53 |   enable_https_traffic_only = true
+  54 |   min_tls_version           = ""TLS1_2""
+  55 |
+  56 |   queue_properties {
+  57 |     logging {
+     ^ Col 0
+",terraform.tfm_azure_sa_default_network_access
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_azure_kv_danger_bypass.tf,25,923,skims,157. Unrestricted access between network segments,Property bypass is either missing or misconfigured in namespace/skims/test/data/lib_root/f157/tfm_azure_kv_danger_bypass.tf,"
+   7 |   soft_delete_enabled        = true
+   8 |   purge_protection_enabled   = true
+   9 |   network_acls {
+  10 |     default_action = ""Deny""
+  11 |     bypass         = ""AzureServices""
+  12 |   }
+  13 | }
+  14 |
+  15 | resource ""azurerm_key_vault"" ""vulnerable"" {
+  16 |   name                       = ""examplekeyvault""
+  17 |   location                   = azurerm_resource_group.example.location
+  18 |   resource_group_name        = azurerm_resource_group.example.name
+  19 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  20 |   soft_delete_retention_days = 7
+  21 |   soft_delete_enabled        = true
+  22 |   purge_protection_enabled   = true
+  23 |   network_acls {
+  24 |     default_action = ""Deny""
+> 25 |     bypass         = ""None""
+  26 |   }
+  27 | }
+     ^ Col 0
+",terraform.tfm_azure_kv_danger_bypass
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_azure_kv_default_network_access.tf,24,923,skims,157. Unrestricted access between network segments,Property default_action is either missing or misconfigured in namespace/skims/test/data/lib_root/f157/tfm_azure_kv_default_network_access.tf,"
+   7 |   soft_delete_enabled        = true
+   8 |   purge_protection_enabled   = true
+   9 |   network_acls {
+  10 |     default_action = ""Deny""
+  11 |     bypass         = ""AzureServices""
+  12 |   }
+  13 | }
+  14 |
+  15 | resource ""azurerm_key_vault"" ""vulnerable"" {
+  16 |   name                       = ""examplekeyvault""
+  17 |   location                   = azurerm_resource_group.example.location
+  18 |   resource_group_name        = azurerm_resource_group.example.name
+  19 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  20 |   soft_delete_retention_days = 7
+  21 |   soft_delete_enabled        = true
+  22 |   purge_protection_enabled   = true
+  23 |   network_acls {
+> 24 |     default_action = ""Allow""
+  25 |     bypass         = ""AzureServices""
+  26 |   }
+  27 | }
+     ^ Col 0
+",terraform.tfm_azure_kv_default_network_access
+F157,lines,namespace/skims/test/data/lib_root/f157/azurerm_data_factory_test.tf,5,923,skims,157. Unrestricted access between network segments,Property default_apublic_network_enabledction is either missing or misconfigured in namespace/skims/test/data/lib_root/f157/azurerm_data_factory_test.tf,"
+  1 | resource ""azurerm_data_factory"" ""example"" {
+  2 |   name                   = ""example""
+  3 |   location               = azurerm_resource_group.example.location
+  4 |   resource_group_name    = azurerm_resource_group.example.name
+> 5 |   public_network_enabled = true
+  6 | }
+    ^ Col 0
+",terraform.tfm_azure_unrestricted_access_network_segments
+F157,lines,namespace/skims/test/data/lib_root/f157/tfm_aws_acl_broad_network_access.tf,8,923,skims,157. Unrestricted access between network segments,make sure the ingress.cidr_block property is not equal to 0.0.0.0/0 in namespace/skims/test/data/lib_root/f157/tfm_aws_acl_broad_network_access.tf,"
+   1 | resource ""aws_default_network_acl"" ""default"" {
+   2 |   default_network_acl_id = aws_vpc.mainvpc.default_network_acl_id
+   3 |
+   4 |   ingress {
+   5 |     protocol   = -1
+   6 |     rule_no    = 100
+   7 |     action     = ""allow""
+>  8 |     cidr_block = ""0.0.0.0/0""
+   9 |     from_port  = 0
+  10 |     to_port    = 0
+  11 |   }
+  12 |
+  13 |   egress {
+  14 |     protocol   = -1
+  15 |     rule_no    = 100
+  16 |     action     = ""allow""
+  17 |     cidr_block = ""0.0.0.0/0""
+  18 |     from_port  = 0
+  19 |     to_port    = 0
+  20 |   }
+  21 | }
+     ^ Col 0
+",terraform.tfm_aws_acl_broad_network_access

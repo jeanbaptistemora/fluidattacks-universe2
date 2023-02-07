@@ -45,7 +45,7 @@ async def bucket_has_object_lock_disabled(
                 parameters={"Bucket": str(bucket_name)},
             )
             conf = bucket_grants.get("ObjectLockConfiguration", {})
-            if conf.get("ObjectLockEnabled") == "Enabled":
+            if conf.get("ObjectLockEnabled") != "Enabled":
                 locations = [
                     *[
                         Location(

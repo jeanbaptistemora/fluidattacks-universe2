@@ -45,7 +45,7 @@ async def vpcs_without_flowlog(
                     "Filters": [{"Name": "resource-id", "Values": [cloud_id]}]
                 },
             )
-            if not net_interfaces:
+            if not net_interfaces.get("FlowLogs"):
                 locations = [
                     Location(
                         access_patterns=(),

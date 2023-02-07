@@ -1,0 +1,251 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F066,lines,namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs,10,200,skims,066. Technical information leak - Console functions,"Technical information about the application is obtained due to the use of the Console.WriteLine() function whose outputs are normally displayed on stdout (standard output). In a development environment it is acceptable to use this function to see errors (Debug), but using it in a production environment is the same as exposing yourself to showing sensitive information about the application.
+ in namespace/skims/test/data/lib_root/f066/c_sharp_has_console_functions.cs","
+   1 | using System;
+   2 |
+   3 | namespace Example
+   4 | {
+   5 |     public class Example
+   6 |     {
+   7 |         public Test()
+   8 |         {
+   9 |             var text_str = ""hello world"";
+> 10 |             Console.WriteLine($""String: {text_str}"");
+  11 |
+  12 |         }
+  13 |     }
+  14 | }
+     ^ Col 0
+",c_sharp.c_sharp_has_console_functions
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+   1 |
+   2 | try {
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+>  6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,13,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+   3 |     var a = 1 / 0;
+   4 | }
+   5 | catch (err) {
+   6 |     console.log(`${err}`);
+   7 | }
+   8 |
+   9 | try {
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+> 13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,20,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+  10 |     var a = 1 / 0;
+  11 | }
+  12 | catch {
+  13 |     console.log(""error"");
+  14 | }
+  15 |
+  16 | try {
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+> 20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,27,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+  17 |     var a = 1 / 0;
+  18 | }
+  19 | catch (err) {
+  20 |     console.log(err);
+  21 | }
+  22 |
+  23 | try {
+  24 |     var a = 1 / 0;
+  25 | }
+  26 | catch (err) {
+> 27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,36,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+  26 | catch (err) {
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+> 36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+  44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log.js,44,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log.js,"
+  27 |     console.log(""error"");
+  28 |     console.warn(err);
+  29 |     throw err;
+  30 | }
+  31 |
+  32 | try {
+  33 |     var a = 1 / 0;
+  34 | }
+  35 | catch (err) {
+  36 |     console.log(""error"" + err);
+  37 | }
+  38 |
+  39 | try {
+  40 |     var a = 1 / 0;
+  41 | }
+  42 | catch (err) {
+  43 |     var b = ""error""
+> 44 |     console.log(b);
+  45 |     console.error(err);
+  46 | }
+  47 |
+     ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log_open.js,5,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log_open.js,"
+    1 | function functionAWithConsoleLog() {
+    2 |     var a = 13
+    3 |     var b = 31
+    4 |     var c = Math.floor((Math.random() * 100) + 1);
+>   5 |     console.log()
+    6 |     localStorage.getItem('key');
+    7 |     try {
+    8 |         if(a == """") throw ""empty"";
+    9 |         if(isNaN(a)) throw ""not a number"";
+   10 |         c = Number(a);
+   11 |         if(c < 5) throw ""too low"";
+   12 |         if(c > 10) throw ""too high"";
+   13 |     }
+   14 |     catch(err) {
+   15 |         // a comment
+   16 |         /* a comment */
+   17 |         /*
+   18 |             a comment
+   19 |         */
+   20 |     }
+   21 |
+      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_console_log_open.js,66,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_console_log_open.js,"
+   56 |             break;
+   57 |         case 6:
+   58 |             day = ""Saturday"";
+   59 |             break;
+   60 |     }
+   61 | }
+   62 |
+   63 | function functionBWithConsoleLog() {
+   64 |     var a = 13
+   65 |     var b = 31
+>  66 |     console.log(a+b)
+   67 |     localStorage.clear();
+   68 |     try {
+   69 |         if(a == """") throw ""empty"";
+   70 |         if(isNaN(a)) throw ""not a number"";
+   71 |         c = Number(a);
+   72 |         if(c < 5) throw ""too low"";
+   73 |         if(c > 10) throw ""too high"";
+   74 |     }
+   75 |     catch(err) {
+   76 |         //console.log(a+b)
+      ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,"
+  1 | function has_console_functions() {
+  2 |   const text = ""Hello world"";
+  3 |
+  4 |   console.log(text);
+  5 |
+> 6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Javascript file or directory. in namespace/skims/test/data/lib_root/f066/js_has_console_functions.js,"
+  1 | function has_console_functions() {
+  2 |   const text = ""Hello world"";
+  3 |
+> 4 |   console.log(text);
+  5 |
+  6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
+",javascript.js_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,6,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,"
+  1 | function has_console_fns(): void {
+  2 |   const text = ""Hello world"";
+  3 |
+  4 |   console.log(text);
+  5 |
+> 6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
+",typescript.ts_uses_console_log
+F066,lines,namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,4,200,skims,066. Technical information leak - Console functions,console.log() is being invoked in a Typescript file or directory. in namespace/skims/test/data/lib_root/f066/ts_has_console_functions.ts,"
+  1 | function has_console_fns(): void {
+  2 |   const text = ""Hello world"";
+  3 |
+> 4 |   console.log(text);
+  5 |
+  6 |   console.log(""Lorem Ipsum"");
+  7 | }
+    ^ Col 0
+",typescript.ts_uses_console_log
