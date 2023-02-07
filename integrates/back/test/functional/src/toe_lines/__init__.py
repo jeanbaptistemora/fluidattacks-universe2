@@ -82,36 +82,16 @@ async def get_result(
     *,
     user: str,
     group_name: str,
-    filename: Optional[str] = None,
-    from_modified_date: Optional[str] = None,
-    from_seen_at: Optional[str] = None,
-    has_vulnerabilities: Optional[bool] = None,
-    last_author: Optional[str] = None,
-    last_commit: Optional[str] = None,
-    max_loc: Optional[int] = None,
-    min_loc: Optional[int] = None,
-    root_id: Optional[str] = None,
-    to_modified_date: Optional[str] = None,
-    to_seen_at: Optional[str] = None,
+    variables: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
     query: str = get_query()
     data: dict[str, Any] = {
         "query": query,
-        "variables": {
-            "filename": filename,
-            "fromModifiedDate": from_modified_date,
-            "fromSeenAt": from_seen_at,
-            "groupName": group_name,
-            "hasVulnerabilities": has_vulnerabilities,
-            "lastAuthor": last_author,
-            "lastCommit": last_commit,
-            "maxLoc": max_loc,
-            "minLoc": min_loc,
-            "rootId": root_id,
-            "toModifiedDate": to_modified_date,
-            "toSeenAt": to_seen_at,
-        },
+        "variables": {},
     }
+    if variables is not None:
+        data["variables"] = variables
+    data["variables"]["groupName"] = group_name
     return await get_graphql_result(
         data,
         stakeholder=user,

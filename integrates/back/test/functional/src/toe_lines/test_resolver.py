@@ -77,11 +77,14 @@ async def test_get_toe_lines_fail(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_root(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "rootId": "63298a73-9dff-46cf-b42d-9b2f01a56690",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        root_id="63298a73-9dff-46cf-b42d-9b2f01a56690",
+        variables=variables,
     )
     lines = result["data"]["group"]["toeLines"]["edges"]
     assert lines[0]["node"]["attackedAt"] == "2021-02-20T05:00:00+00:00"
@@ -112,11 +115,14 @@ async def test_get_toe_lines_by_root(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_filename(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "filename": "test3",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        filename="test3",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["filename"]
@@ -133,11 +139,14 @@ async def test_get_toe_lines_by_filename(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_min_loc(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "minLoc": 4324,
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        min_loc=4324,
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["loc"] == 4324
@@ -153,11 +162,14 @@ async def test_get_toe_lines_by_min_loc(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_max_loc(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "maxLoc": 180,
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        max_loc=180,
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["loc"] == 180
@@ -173,18 +185,24 @@ async def test_get_toe_lines_by_max_loc(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_has_vulns(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "hasVulnerabilities": True,
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        has_vulnerabilities=True,
+        variables=variables,
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 0
 
+    variables = {
+        "hasVulnerabilities": False,
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        has_vulnerabilities=False,
+        variables=variables,
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
 
@@ -198,11 +216,14 @@ async def test_get_toe_lines_by_has_vulns(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_from_date(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "fromModifiedDate": "2020-11-17T15:41:04+00:00",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        from_modified_date="2020-11-17T15:41:04+00:00",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["modifiedDate"]
@@ -219,11 +240,14 @@ async def test_get_toe_lines_by_from_date(populate: bool, email: str) -> None:
     ],
 )
 async def test_get_toe_lines_by_to_date(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "toModifiedDate": "2020-11-15T15:41:04+00:00",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        to_modified_date="2020-11-15T15:41:04+00:00",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["modifiedDate"]
@@ -242,31 +266,40 @@ async def test_get_toe_lines_by_to_date(populate: bool, email: str) -> None:
 async def test_get_toe_lines_by_last_commit(
     populate: bool, email: str
 ) -> None:
+    variables: dict[str, Any] = {
+        "lastCommit": "f9e4beb",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        last_commit="f9e4beb",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
         == "f9e4beb"
     )
 
+    variables = {
+        "lastCommit": "e17059d",
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        last_commit="e17059d",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
         == "e17059d"
     )
 
+    variables = {
+        "lastCommit": "a281ru5",
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        last_commit="a281ru5",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastCommit"]
@@ -285,41 +318,53 @@ async def test_get_toe_lines_by_last_commit(
 async def test_get_toe_lines_by_last_author(
     populate: bool, email: str
 ) -> None:
+    variables: dict[str, Any] = {
+        "lastAuthor": "customer1",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        last_author="customer1",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
         == "customer1@gmail.com"
     )
 
+    variables = {
+        "lastAuthor": "customer2",
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        last_author="customer2",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
         == "customer2@gmail.com"
     )
 
+    variables = {
+        "lastAuthor": "customer3@gmail.com",
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        last_author="customer3@gmail.com",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["lastAuthor"]
         == "customer3@gmail.com"
     )
 
+    variables = {
+        "lastAuthor": "customer",
+    }
     result = await get_result(
         user=email,
         group_name="group1",
-        last_author="customer",
+        variables=variables,
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
 
@@ -335,11 +380,14 @@ async def test_get_toe_lines_by_last_author(
 async def test_get_toe_lines_by_from_seen_at(
     populate: bool, email: str
 ) -> None:
+    variables: dict[str, Any] = {
+        "fromSeenAt": "2020-02-01T15:41:04+00:00",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        from_seen_at="2020-02-01T15:41:04+00:00",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["seenAt"]
@@ -356,11 +404,14 @@ async def test_get_toe_lines_by_from_seen_at(
     ],
 )
 async def test_get_toe_lines_by_to_seen_at(populate: bool, email: str) -> None:
+    variables: dict[str, Any] = {
+        "toSeenAt": "2019-01-01T15:41:04+00:00",
+    }
     assert populate
     result: dict[str, Any] = await get_result(
         user=email,
         group_name="group1",
-        to_seen_at="2019-01-01T15:41:04+00:00",
+        variables=variables,
     )
     assert (
         result["data"]["group"]["toeLines"]["edges"][0]["node"]["seenAt"]
