@@ -61,11 +61,10 @@ taking into account the following:
   False Positives and False Negatives.
 - Compute intermediate indicators:
 
-  **Precision:**
-  True Positives / (True Positives + False Positives)
-
-  **Recall:**
-  True Positives / (True Positives + False Negatives)
+  - **Precision:**
+    True Positives / (True Positives + False Positives)
+  - **Recall:**
+    True Positives / (True Positives + False Negatives)
 
 - Compute the SLA as:
   2 x (Precision x Recall) / (Precision + Recall)
