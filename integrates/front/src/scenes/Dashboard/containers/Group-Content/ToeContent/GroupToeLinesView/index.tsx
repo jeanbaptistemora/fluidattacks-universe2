@@ -627,15 +627,16 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
     }
   }, [data, fetchMore]);
 
+  const toggleAdd = useCallback((): void => {
+    setIsAdding(!isAdding);
+  }, [isAdding]);
+
+  const toggleEdit = useCallback((): void => {
+    setIsEditing(!isEditing);
+  }, [isEditing]);
+
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
-  }
-
-  function toggleAdd(): void {
-    setIsAdding(!isAdding);
-  }
-  function toggleEdit(): void {
-    setIsEditing(!isEditing);
   }
 
   const handleOnVerifyCompleted = (
