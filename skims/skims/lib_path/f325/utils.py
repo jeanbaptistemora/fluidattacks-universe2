@@ -154,10 +154,10 @@ def cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
     for iam_res in iam_iterator:
         policies = (
             iam_res.inner["Policies"].data
-            if hasattr(iam_res, "raw") and "Policies" in iam_res.raw
+            if iam_res.inner.get("Policies")
             else [iam_res]
         )
-        for policy in policies:
+        for policy in policies if policies else []:
             statements = get_node_by_keys(
                 policy, ["PolicyDocument", "Statement"]
             )
