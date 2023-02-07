@@ -441,11 +441,11 @@ def get_report_days(report_date: Optional[datetime]) -> int:
 
 
 def get_severity_level(severity: Decimal) -> str:
-    if severity <= 3.9:
+    if severity < 4:
         return "low"
-    if 4 <= severity <= 6.9:
+    if 4 <= severity < 7:
         return "medium"
-    if 7 <= severity <= 8.9:
+    if 7 <= severity < 9:
         return "high"
 
     return "critical"
