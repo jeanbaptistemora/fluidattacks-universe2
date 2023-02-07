@@ -3,7 +3,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,10 +14,9 @@ import { ADD_SECRET, REMOVE_SECRET } from "../queries";
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
-import { TextArea } from "components/Input";
+import { Input, TextArea } from "components/Input";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { translate } from "utils/translations/translate";
 
@@ -184,12 +183,7 @@ const AddSecret: React.FC<ISecretsProps> = ({
                     <RequiredField>{"*"}&nbsp;</RequiredField>
                     {"Key"}
                   </ControlLabel>
-                  <Field
-                    component={FormikText}
-                    disabled={isUpdate}
-                    name={"key"}
-                    type={"text"}
-                  />
+                  <Input disabled={isUpdate} name={"key"} type={"text"} />
                 </div>
                 <div className={"mt3"}>
                   <TextArea
