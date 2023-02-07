@@ -246,6 +246,8 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     vulnerability: Vulnerability = await loaders.vulnerability.load(
         vulnerability_id
     )
+    if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
+        raise VulnNotFound()
     if (
         vulnerability.state.status != VulnerabilityStateStatus.VULNERABLE
         and not include_closed_vuln

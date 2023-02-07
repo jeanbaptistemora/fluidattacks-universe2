@@ -2,13 +2,14 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
+)
+from db_model.findings.enums import (
+    FindingStateStatus,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -24,16 +25,17 @@ async def test_remove_finding(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
-    loaders: Dataloaders = get_new_context()
     assert "errors" not in result
     assert "success" in result["data"]["removeFinding"]
     assert result["data"]["removeFinding"]["success"]
 
-    loaders.finding.clear(finding_id)
-    assert not await loaders.finding.load(finding_id)
+    loaders = get_new_context()
+    finding = await loaders.finding.load(finding_id)
+    assert finding
+    assert finding.state.status == FindingStateStatus.DELETED
 
 
 @pytest.mark.asyncio
@@ -49,7 +51,7 @@ async def test_remove_finding_fail(
     populate: bool, email: str, finding_id: str
 ) -> None:
     assert populate
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding_id=finding_id
     )
     assert "errors" in result

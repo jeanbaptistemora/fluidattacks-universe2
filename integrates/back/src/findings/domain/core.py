@@ -259,6 +259,17 @@ async def remove_finding(
     source: Source,
 ) -> None:
     finding = await get_finding(loaders, finding_id)
+    if finding.state.status == FindingStateStatus.DELETED:
+        raise FindingNotFound()
+
+    await remove_vulnerabilities(
+        loaders,
+        finding.id,
+        VulnerabilityStateReason[justification.value],
+        email,
+    )
+    await remove_all_evidences(finding.id, finding.group_name)
+    await comments_domain.remove_comments(finding_id=finding_id)
     deletion_state = FindingState(
         justification=justification,
         modified_by=email,
@@ -272,31 +283,10 @@ async def remove_finding(
         group_name=finding.group_name,
         state=deletion_state,
     )
-    await remove_all_evidences(finding.id, finding.group_name)
-    await comments_domain.remove_comments(finding_id=finding_id)
-    await remove_vulnerabilities(
-        loaders,
-        finding_id,
-        VulnerabilityStateReason[justification.value],
-        email,
-    )
-
-    if finding.state.status == FindingStateStatus.APPROVED:
-        # Findings in the MASKED state will be archived by Streams
-        # for analytics purposes
-        await findings_model.update_state(
-            current_value=deletion_state,
-            finding_id=finding.id,
-            group_name=finding.group_name,
-            state=deletion_state._replace(
-                modified_date=datetime_utils.get_utc_now(),
-                status=FindingStateStatus.MASKED,
-            ),
+    if finding.approval is None:
+        await findings_model.remove(
+            group_name=finding.group_name, finding_id=finding.id
         )
-
-    await findings_model.remove(
-        group_name=finding.group_name, finding_id=finding.id
-    )
 
 
 async def remove_vulnerabilities(
@@ -593,8 +583,9 @@ async def mask_finding(
         workers=8,
     )
 
-    if finding.state.status == FindingStateStatus.DELETED:
-        # Findings in the MASKED state will be archived
+    if finding.state.status == FindingStateStatus.DELETED and finding.approval:
+        # Findings in the MASKED state will be archived by Streams
+        # for analytics purposes
         await findings_model.update_state(
             current_value=finding.state,
             finding_id=finding.id,
