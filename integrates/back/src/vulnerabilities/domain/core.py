@@ -30,7 +30,6 @@ from db_model.finding_comments.types import (
     FindingComment,
 )
 from db_model.findings.enums import (
-    FindingStateStatus,
     FindingVerificationStatus,
 )
 from db_model.organization_finding_policies.enums import (
@@ -271,19 +270,8 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
         vulnerability_id=vulnerability_id,
     )
     finding = await get_finding(loaders, finding_id)
-    if finding.state.status == FindingStateStatus.APPROVED:
-        # Vulnerabilities in the MASKED state will be archived by Streams
-        # for analytics purposes
-        await vulns_model.update_historic_entry(
-            current_value=vulnerability._replace(state=deletion_state),
-            entry=deletion_state._replace(
-                modified_date=datetime_utils.get_utc_now(),
-                status=VulnerabilityStateStatus.MASKED,
-            ),
-            finding_id=finding_id,
-            vulnerability_id=vulnerability_id,
-        )
-    await vulns_model.remove(vulnerability_id=vulnerability_id)
+    if finding.approval is None:
+        await vulns_model.remove(vulnerability_id=vulnerability_id)
 
 
 async def get_by_finding_and_vuln_ids(
@@ -504,8 +492,10 @@ async def mask_vulnerability(
     finding = await get_finding(loaders, finding_id)
     if (
         vulnerability.state.status == VulnerabilityStateStatus.DELETED
-        and finding.state.status == FindingStateStatus.APPROVED
+        and finding.approval
     ):
+        # Vulnerabilities in the MASKED state will be archived by Streams
+        # for analytics purposes
         await vulns_model.update_historic_entry(
             current_value=vulnerability,
             entry=vulnerability.state._replace(
