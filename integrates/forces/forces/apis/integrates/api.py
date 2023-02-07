@@ -157,13 +157,13 @@ async def get_vulnerabilities(
     for index, _ in enumerate(vulnerabilities):
         treatment = vulnerabilities[index].get("treatmentStatus")
         zero_risk = vulnerabilities[index].get("zeroRisk")
-        if treatment and "ACCEPTED" in str(treatment).upper():
-            vulnerabilities[index]["state"] = "accepted"
+        if treatment and "ACCEPTED" in str(treatment):
+            vulnerabilities[index]["state"] = "ACCEPTED"
         if zero_risk and str(zero_risk).upper() in {
             "REQUESTED",
             "CONFIRMED",
         }:
-            vulnerabilities[index]["state"] = "accepted"
+            vulnerabilities[index]["state"] = "ACCEPTED"
 
     return vulnerabilities
 

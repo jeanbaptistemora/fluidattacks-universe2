@@ -21,6 +21,10 @@ def style_severity(severity: Decimal) -> str:
 def style_report(key: str, value: str) -> str:
     """Adds styles as rich console markup to the report values"""
     style_data = {
+        "compliance": {
+            "Compliant": "[green]",
+            "No, breaks build": "[red]",
+        },
         "title": "[yellow]",
         "state": {
             FindingState.VULNERABLE: "[red]",

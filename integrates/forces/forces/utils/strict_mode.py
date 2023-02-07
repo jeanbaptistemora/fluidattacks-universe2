@@ -53,7 +53,7 @@ async def set_forces_exit_code(
         await log(
             "info",
             (
-                "Checking for [red]vulnerable[/] areas with a "
+                "Checking for [red]vulnerable[/] spots with a "
                 "[bright_yellow]severity[/] score over "
                 f"{config.breaking_severity}"
             ),

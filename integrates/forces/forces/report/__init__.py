@@ -134,17 +134,22 @@ def format_vuln_table(
         "Vuln attr values", style="honeydew2", overflow="fold"
     )
     for vuln in vulns:
-        for key in ("type", "where", "specific", "state"):
-            vuln_table.add_row(
-                key,
-                style_report(key, attrgetter(key)(vuln)),
-                end_section=False if config.strict else key == "state",
-            )
+        vuln_table.add_row("type", style_report("type", vuln.type))
+        vuln_table.add_row("where", style_report("where", vuln.where))
+        vuln_table.add_row("specific", style_report("specific", vuln.specific))
+        vuln_table.add_row(
+            "state",
+            style_report("state", vuln.state),
+            end_section=not config.strict,
+        )
         if config.strict:
             compliance = check_policy_compliance(config, vuln)
             vuln_table.add_row(
                 "compliance",
-                "[green]Yes[/]" if compliance else "[red]No, breaks build[/]",
+                style_report(
+                    "compliance",
+                    "Compliant" if compliance else "No, breaks build",
+                ),
                 end_section=True,
             )
     return vuln_table
@@ -246,7 +251,6 @@ async def generate_raw_report(
 
     async for vuln in vulns_generator(config.group, **kwargs):
         find_id: str = str(vuln["findingId"])
-        state = str(vuln["state"]).lower()
 
         vulnerability: Vulnerability = Vulnerability(
             type=(
@@ -256,7 +260,7 @@ async def generate_raw_report(
             ),
             where=str(vuln["where"]),
             specific=str(vuln["specific"]),
-            state=VulnerabilityState[state.upper()],
+            state=VulnerabilityState[str(vuln["state"])],
             severity=Decimal(str(vuln["severity"]))
             if vuln["severity"] is not None
             else findings_dict[find_id].severity,
