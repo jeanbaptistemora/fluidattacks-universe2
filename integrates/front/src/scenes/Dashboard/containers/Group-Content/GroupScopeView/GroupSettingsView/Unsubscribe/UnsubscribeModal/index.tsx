@@ -1,11 +1,11 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Alert } from "components/Alert";
+import { Input } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 import { required } from "utils/validations";
 
 interface IUnsubscribeModalProps {
@@ -61,11 +61,10 @@ const UnsubscribeModal: React.FC<IUnsubscribeModalProps> = (
                 {t("searchFindings.servicesTable.unsubscribe.warningBody")}
               </Alert>
               <FormGroup>
-                <ControlLabel>
-                  {t("searchFindings.servicesTable.unsubscribe.typeGroupName")}
-                </ControlLabel>
-                <Field
-                  component={FormikText}
+                <Input
+                  label={t(
+                    "searchFindings.servicesTable.unsubscribe.typeGroupName"
+                  )}
                   name={"confirmation"}
                   placeholder={groupName.toLowerCase()}
                   type={"text"}
