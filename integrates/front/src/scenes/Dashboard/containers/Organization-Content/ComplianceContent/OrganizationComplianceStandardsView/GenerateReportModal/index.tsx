@@ -2,16 +2,21 @@ import { useLazyQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import { faFileContract } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { ColumnDef } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import type { IGenerateReportModalProps, ITableRowData } from "./types";
+
 import { GET_UNFULFILLED_STANDARD_REPORT_URL } from "../queries";
+import type { IUnfulfilledStandardAttr } from "../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { Table } from "components/Table";
 import { Tooltip } from "components/Tooltip";
 import { VerifyDialog } from "scenes/Dashboard/components/VerifyDialog";
 import type { IVerifyFn } from "scenes/Dashboard/components/VerifyDialog/types";
@@ -19,21 +24,22 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { openUrl } from "utils/resourceHelpers";
 
-interface IGenerateReportModalProps {
-  groupName: string;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
   isOpen,
   onClose,
   groupName,
+  unfulfilledStandards,
 }: IGenerateReportModalProps): JSX.Element => {
   const { t } = useTranslation();
 
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
   const [disableVerify, setDisableVerify] = useState(false);
+  const tableData = unfulfilledStandards.map(
+    (unfulfilledStandard: IUnfulfilledStandardAttr): ITableRowData => ({
+      ...unfulfilledStandard,
+      include: true,
+    })
+  );
 
   const handleClose = useCallback((): void => {
     onClose();
@@ -101,9 +107,17 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
     [handleRequestUnfulfilledStandardReport]
   );
 
+  const columns: ColumnDef<ITableRowData>[] = [
+    {
+      accessorKey: "title",
+      header: "Unfulfilled standard",
+    },
+  ];
+
   return (
     <React.StrictMode>
       <Modal
+        minWidth={550}
         onClose={handleClose}
         open={isOpen}
         title={t(
@@ -113,26 +127,35 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
         <VerifyDialog disable={disableVerify} isOpen={isVerifyDialogOpen}>
           {(setVerifyCallbacks): JSX.Element => {
             return (
-              <Tooltip
-                id={
-                  "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
-                }
-                tip={t(
-                  "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
-                )}
-              >
-                <Button
-                  id={"standard-report"}
-                  onClick={onRequestReport(setVerifyCallbacks)}
-                  variant={"secondary"}
-                >
-                  <FontAwesomeIcon icon={faFileContract} />
-                  &nbsp;
-                  {t(
-                    "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
+              <Fragment>
+                <Table
+                  columns={columns}
+                  data={tableData}
+                  id={"standardsToGenerateReport"}
+                />
+                <br />
+
+                <Tooltip
+                  id={
+                    "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
+                  }
+                  tip={t(
+                    "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
                   )}
-                </Button>
-              </Tooltip>
+                >
+                  <Button
+                    id={"standard-report"}
+                    onClick={onRequestReport(setVerifyCallbacks)}
+                    variant={"secondary"}
+                  >
+                    <FontAwesomeIcon icon={faFileContract} />
+                    &nbsp;
+                    {t(
+                      "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
+                    )}
+                  </Button>
+                </Tooltip>
+              </Fragment>
             );
           }}
         </VerifyDialog>
