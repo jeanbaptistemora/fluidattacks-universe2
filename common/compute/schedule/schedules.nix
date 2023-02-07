@@ -1189,7 +1189,7 @@
       "/observes/job/cancel-ci-jobs"
     ];
 
-    schedule_expression = "cron(0 12-23/2 ? * 2-6 *)";
+    schedule_expression = "cron(0 12,23 ? * 2-6 *)";
     size = "observes_medium";
     awsRole = "prod_observes";
     attempts = 1;
