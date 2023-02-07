@@ -16,7 +16,13 @@ const IncludeFormatter: React.FC<IIncludeFormatterProps> = ({
     changeFunction(row);
   }, [changeFunction, row]);
 
-  return <Switch checked={row.include} onChange={handleOnChange} />;
+  return (
+    <Switch
+      checked={row.include}
+      label={{ off: "Exclude", on: "Include" }}
+      onChange={handleOnChange}
+    />
+  );
 };
 
 export const includeFormatter = (

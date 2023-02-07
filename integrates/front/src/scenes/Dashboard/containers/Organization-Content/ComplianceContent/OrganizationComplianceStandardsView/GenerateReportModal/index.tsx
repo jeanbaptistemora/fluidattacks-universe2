@@ -21,6 +21,7 @@ import { GET_UNFULFILLED_STANDARD_REPORT_URL } from "../queries";
 import type { IUnfulfilledStandardAttr } from "../types";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
+import { Switch } from "components/Switch";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
@@ -57,6 +58,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
 
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
   const [disableVerify, setDisableVerify] = useState(false);
+  const [includeAllStandards, setIncludeAllStandards] = useState(true);
   const [unfulfilledStandardsData, setUnfulfilledStandardsData] = useState(
     getFormattedUnfulfilledStandards()
   );
@@ -146,6 +148,19 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       )
     );
   };
+  const handleIncludeAllStandards = useCallback((): void => {
+    setUnfulfilledStandardsData(
+      unfulfilledStandardsData.map(
+        (
+          unfulfilledStandard: IUnfulfilledStandardData
+        ): IUnfulfilledStandardData => ({
+          ...unfulfilledStandard,
+          include: !includeAllStandards,
+        })
+      )
+    );
+    setIncludeAllStandards(!includeAllStandards);
+  }, [includeAllStandards, unfulfilledStandardsData]);
   const handleClose = useCallback((): void => {
     onClose();
     setIsVerifyDialogOpen(false);
@@ -167,7 +182,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       accessorKey: "include",
       cell: (cell: ICellHelper<IUnfulfilledStandardData>): JSX.Element =>
         includeFormatter(cell.row.original, handleIncludeStandard),
-      header: "Include",
+      header: "Action",
     },
   ];
 
@@ -185,6 +200,11 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
           {(setVerifyCallbacks): JSX.Element => {
             return (
               <Fragment>
+                <Switch
+                  checked={includeAllStandards}
+                  label={{ off: "Exclude all", on: "Include all" }}
+                  onChange={handleIncludeAllStandards}
+                />
                 <Table
                   columns={columns}
                   data={unfulfilledStandardsData}
