@@ -39,6 +39,45 @@ def _ec2_has_not_an_iam_instance_profile(
     return None
 
 
+def _ec2_has_terminate_shutdown_behavior(
+    graph: Graph, nid: NId
+) -> Optional[NId]:
+    expected_attr = "instance_initiated_shutdown_behavior"
+    has_attr = False
+    for b_id in adj_ast(graph, nid, label_type="Pair"):
+        key, value = get_key_value(graph, b_id)
+        if key == expected_attr:
+            has_attr = True
+            if value.lower() != "terminate":
+                return b_id
+    if not has_attr:
+        return nid
+    return None
+
+
+def tfm_ec2_has_terminate_shutdown_behavior(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.EC2_TERMINATE_SHUTDOWN_BEHAVIOR
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_launch_template"):
+                if report := _ec2_has_terminate_shutdown_behavior(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f333.tfm_ec2_allows_shutdown_command",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_ec2_has_not_an_iam_instance_profile(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

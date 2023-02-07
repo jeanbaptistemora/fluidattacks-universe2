@@ -554,7 +554,7 @@ F333,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   21 |                 ""Code"": 1,
      ^ Col 0
 ",aws.ec2_iam_instances_without_profile
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,18,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,18,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
    8 |     ebs {
    9 |       volume_size = 20
   10 |     }
@@ -578,7 +578,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdow
   28 |
      ^ Col 0
 ",terraform.tfm_ec2_has_terminate_shutdown_behavior
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,43,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,43,16,skims,333. Insecure service configuration - EC2,Property instance_initiated_shutdown_behavior.terminate is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_has_terminate_shutdown_behavior.tf,"
   33 |
   34 |   iam_instance_profile {
   35 |     name = ""test""

@@ -10,7 +10,6 @@ from lib_path.f333.cloudformation import (
 )
 from lib_path.f333.terraform import (
     tfm_ec2_associate_public_ip_address,
-    tfm_ec2_has_terminate_shutdown_behavior,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -56,15 +55,6 @@ def run_cfn_ec2_has_terminate_shutdown_behavior(
 
 
 @SHIELD_BLOCKING
-def run_tfm_ec2_has_terminate_shutdown_behavior(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ec2_has_terminate_shutdown_behavior(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_ec2_associate_public_ip_address(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -101,7 +91,6 @@ def analyze(
         content = content_generator()
         model = load_terraform(stream=content, default=[])
         results = (
-            run_tfm_ec2_has_terminate_shutdown_behavior(content, path, model),
             run_tfm_ec2_associate_public_ip_address(content, path, model),
         )
 

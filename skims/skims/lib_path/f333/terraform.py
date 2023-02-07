@@ -9,9 +9,6 @@ from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
 )
-from metaloaders.model import (
-    Node,
-)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -31,21 +28,7 @@ from parse_hcl2.tokens import (
 from typing import (
     Any,
     Iterator,
-    Union,
 )
-
-
-def _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Union[Any, Node]]:
-    for resource in resource_iterator:
-        if shut_behavior := get_attribute(
-            resource.data, "instance_initiated_shutdown_behavior"
-        ):
-            if shut_behavior.val != "terminate":
-                yield shut_behavior
-        else:
-            yield resource
 
 
 def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
@@ -57,9 +40,6 @@ def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
                 key="network_interfaces",
                 body=resource.data,
             ):
-                net_public_ip = get_block_attribute(
-                    block=network_interfaces, key="associate_public_ip_address"
-                )
                 if (
                     net_public_ip := get_block_attribute(
                         block=network_interfaces,
@@ -77,22 +57,6 @@ def _tfm_ec2_associate_public_ip_address_iterate_vulnerabilities(
             and public_ip.val is True
         ):
             yield public_ip
-
-
-def tfm_ec2_has_terminate_shutdown_behavior(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="lib_path.f333.tfm_ec2_allows_shutdown_command",
-        iterator=get_cloud_iterator(
-            _ec2_has_terminate_shutdown_behavior_iterate_vulnerabilities(
-                resource_iterator=iter_aws_launch_template(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.EC2_TERMINATE_SHUTDOWN_BEHAVIOR,
-    )
 
 
 def tfm_ec2_associate_public_ip_address(
