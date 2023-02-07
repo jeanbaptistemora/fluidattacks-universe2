@@ -1106,6 +1106,12 @@ export const enTranslations: ResourceKey = {
           },
           environment: "Environment kind",
           environmentHint: "(production, qa or other)",
+          headers: {
+            createdAt: "Repo Creation Date",
+            createdBy: "Added by (mail)",
+            lastEditedAt: "Date last edited",
+            lastEditedBy: "Last edited by (mail)",
+          },
           machineExecutions: {
             active: "There is an active analysis in progress",
             messageComplete: "Last complete Machine execution",

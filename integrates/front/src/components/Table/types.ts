@@ -25,6 +25,7 @@ interface IPagMenuProps<TData extends RowData> {
 }
 
 interface ITableProps<TData extends RowData> {
+  csvHeaders?: Record<string, string>;
   csvName?: string;
   data: TData[];
   columnFilterSetter?: Dispatch<SetStateAction<ColumnFiltersState>>;

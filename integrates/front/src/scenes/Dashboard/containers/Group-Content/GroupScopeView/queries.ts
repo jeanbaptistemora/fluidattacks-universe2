@@ -31,6 +31,10 @@ const GET_ROOTS: DocumentNode = gql`
           state
           url
           useVpn
+          createdAt
+          createdBy
+          lastEditedAt
+          lastEditedBy
         }
         ... on IPRoot {
           address

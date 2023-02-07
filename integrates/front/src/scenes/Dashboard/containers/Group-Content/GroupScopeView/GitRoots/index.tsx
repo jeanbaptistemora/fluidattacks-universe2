@@ -549,6 +549,16 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
                         ]
                       : []
                   )}
+                  csvHeaders={{
+                    createdAt: t("group.scope.git.repo.headers.createdAt"),
+                    createdBy: t("group.scope.git.repo.headers.createdBy"),
+                    lastEditedAt: t(
+                      "group.scope.git.repo.headers.lastEditedAt"
+                    ),
+                    lastEditedBy: t(
+                      "group.scope.git.repo.headers.lastEditedBy"
+                    ),
+                  }}
                   csvName={groupName}
                   data={filteredRoots}
                   expandedRow={handleRowExpand}

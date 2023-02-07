@@ -28,6 +28,8 @@ describe("GitRoots", (): void => {
           message: "",
           status: "UNKNOWN",
         },
+        createdAt: "2022-02-10T14:58:10+00:00",
+        createdBy: "testuser1@test.test",
         credentials: {
           auth: "",
           azureOrganization: "",
@@ -56,6 +58,8 @@ describe("GitRoots", (): void => {
         healthCheckConfirm: [],
         id: "",
         includesHealthCheck: false,
+        lastEditedAt: "2022-10-21T15:58:31+00:00",
+        lastEditedBy: "testuser2@test.test",
         nickname: "",
         secrets: [],
         state: "ACTIVE",

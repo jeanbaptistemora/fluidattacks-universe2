@@ -47,6 +47,8 @@ interface IGitRootAttr {
     message: string;
     status: CloningStatusType;
   };
+  createdAt: string;
+  createdBy: string;
   credentials: ICredentials | null;
   environment: string;
   gitEnvironmentUrls: IEnvironmentUrl[];
@@ -54,6 +56,8 @@ interface IGitRootAttr {
   healthCheckConfirm: string[] | undefined;
   includesHealthCheck: boolean | null;
   id: string;
+  lastEditedAt: string;
+  lastEditedBy: string;
   nickname: string;
   secrets: ISecret[];
   state: "ACTIVE" | "INACTIVE";
@@ -68,6 +72,7 @@ interface IGitRootData {
     message: string;
     status: CloningStatusType;
   };
+  createdBy: string;
   credentials: ICredentials | null;
   environment: string;
   environmentUrls: string[];

@@ -23,7 +23,13 @@ import type {
 } from "@tanstack/react-table";
 import _ from "lodash";
 import type { ChangeEvent, ChangeEventHandler } from "react";
-import React, { isValidElement, useCallback, useEffect, useState } from "react";
+import React, {
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { CSVLink } from "react-csv";
 import { useTranslation } from "react-i18next";
 
@@ -50,6 +56,7 @@ const Table = <TData extends RowData>({
   columnToggle = false,
   columnVisibilityState = undefined,
   columnVisibilitySetter = undefined,
+  csvHeaders = {},
   csvName = "Report",
   data,
   enableColumnFilters = false,
@@ -214,6 +221,25 @@ const Table = <TData extends RowData>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination]);
 
+  const hasFormattedHeaders = useMemo(
+    (): boolean =>
+      flattenData(data as object[]).length > 0 && !_.isEmpty(csvHeaders),
+    [data, csvHeaders]
+  );
+
+  const headers = useMemo(
+    (): { key: string; label: string }[] =>
+      (hasFormattedHeaders
+        ? Object.keys(flattenData(data as object[])[0])
+        : []
+      ).map((value: string): { key: string; label: string } =>
+        _.includes(Object.keys(csvHeaders), value)
+          ? { key: value, label: csvHeaders[value] }
+          : { key: value, label: value }
+      ),
+    [data, csvHeaders, hasFormattedHeaders]
+  );
+
   return (
     <div className={"w-100"} id={id}>
       <Container scroll={"none"}>
@@ -261,6 +287,7 @@ const Table = <TData extends RowData>({
                 <CSVLink
                   data={flattenData(data as object[])}
                   filename={csvName}
+                  headers={hasFormattedHeaders ? headers : undefined}
                 >
                   <Button variant={"ghost"}>
                     <Text bright={3}>
