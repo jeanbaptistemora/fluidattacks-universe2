@@ -1,12 +1,11 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import type { IIPRootAttr } from "../../types";
+import { Input } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
-import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 
 interface IManagementModalProps {
   initialValues: IIPRootAttr | undefined;
@@ -54,23 +53,19 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
         {({ dirty, isSubmitting }): JSX.Element => (
           <Form>
             <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.ip.address")}
-              </ControlLabel>
-              <Field
-                component={FormikText}
+              <Input
                 disabled={isEditing}
+                label={t("group.scope.ip.address")}
                 name={"address"}
                 type={"text"}
               />
             </div>
             <div>
-              <ControlLabel>
-                <RequiredField>{"*"}&nbsp;</RequiredField>
-                {t("group.scope.ip.nickname")}
-              </ControlLabel>
-              <Field component={FormikText} name={"nickname"} type={"text"} />
+              <Input
+                label={t("group.scope.ip.nickname")}
+                name={"nickname"}
+                type={"text"}
+              />
             </div>
             <ModalConfirm
               disabled={!dirty || isSubmitting}
