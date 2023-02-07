@@ -121,6 +121,16 @@ def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
     if max_loc := kwargs.get("max_loc"):
         must_range_filters.append({"state.loc": {"lte": max_loc}})
 
+    if min_attacked_lines := kwargs.get("min_attacked_lines"):
+        must_range_filters.append(
+            {"state.attacked_lines": {"gte": min_attacked_lines}}
+        )
+
+    if max_attacked_lines := kwargs.get("max_attacked_lines"):
+        must_range_filters.append(
+            {"state.attacked_lines": {"lte": max_attacked_lines}}
+        )
+
     if from_modified_date := kwargs.get("from_modified_date"):
         must_range_filters.append(
             {"modified_date": {"gte": str(from_modified_date.date())}}

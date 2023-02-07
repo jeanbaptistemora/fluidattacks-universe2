@@ -192,6 +192,10 @@ type Group {
     maxLoc: Int
     "Min loc value for lines"
     minLoc: Int
+    "Maximum Attacked lines"
+    maxAttackedLines: Int
+    "Minimum Attacked lines"
+    minAttackedLines: Int
     "Id of the root the lines is associated with"
     rootId: ID
   ): ToeLinesConnection!
