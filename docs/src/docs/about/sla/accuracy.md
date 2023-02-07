@@ -55,7 +55,7 @@ taking into account the following:
 ## Indicator calculaion
 
 - Compute CVSSF for each location
-  (CVSSF = 4 ^ (4 - cvss))
+  (CVSSF = 4 ^ (4 - CVSS))
 - Distribute the total CVSSF
   between True Positives,
   False Positives and False Negatives.
