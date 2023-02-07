@@ -69,63 +69,6 @@ def trails_not_multiregion(
     )
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def is_trail_bucket_public(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if trails buckets are public.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    trails = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="cloudtrail",
-        func="describe_trails",
-        param="trailList",
-        retry=retry,
-    )
-
-    msg_open: str = "Buckets are public"
-    msg_closed: str = "Buckets are not public"
-
-    vulns, safes = [], []
-
-    if trails:
-        for trail in trails:
-            trail_arn = trail["TrailARN"]
-            trail_bucket = trail["S3BucketName"]
-            grants = aws.run_boto3_func(
-                key_id=key_id,
-                secret=secret,
-                boto3_client_kwargs={"aws_session_token": session_token},
-                service="s3",
-                func="get_bucket_acl",
-                param="Grants",
-                retry=retry,
-                Bucket=trail_bucket,
-            )
-
-            is_vulnerable = aws.get_bucket_public_grants(trail_bucket, grants)
-
-            (vulns if is_vulnerable else safes).append(
-                (f"{trail_bucket}@{trail_arn}", "Bucket must be private")
-            )
-
-    return _get_result_as_tuple(
-        service="CloudTrail",
-        objects="trails",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=LOW, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def has_unencrypted_logs(
