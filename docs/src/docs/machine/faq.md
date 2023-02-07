@@ -238,3 +238,73 @@ testing from resuming.
 And use the one in the main screen of a
 [group](/squad/consulting/#concerning-groups)
 to ask general questions about that group.
+
+## Treatments
+
+### Why is a vulnerability still Vulnerable when it has been accepted permanently?
+
+When a vulnerability is permanently accepted,
+the organization assumes the risk,
+not remediating it,
+so it will continue to be regarded as vulnerable.
+
+## Policies
+
+### If I apply policies to a group, will these apply to all roots of this?
+
+Yes,
+it will apply to all repositories added in that group.
+
+### What is the difference between policy at the ORG and the group level?
+
+[Organization policies](/machine/web/organization/policies/)
+are those that you set globally and
+that will be inherited by all groups
+pertaining to that organization.
+For your management purposes,
+you may prefer to set specific
+[group policies](/machine/web/groups/policies/).
+
+## Agent
+
+### Must I only install Docker to run the DevSecOps agent from my local machine?
+
+Yes,
+it is only necessary to use Docker if
+you manage the DevSecOps agent from your
+local machine.
+To see the Docker and agent installation
+steps visit our
+[Documentation](/machine/agent/installation/).
+
+### Does Fluid Attacks’ DevSecOps agent run locally or on the development infrastructure?
+
+You can run it both ways.
+
+### How many arguments can I pass to run Fluid Attacks’ DevSecOps agent?
+
+You can pass multiple arguments.
+To see the different options,
+check out our
+[Documentation](/machine/agent/installation/#options).
+
+### How often is it advisable to do docker pull to update the image?
+
+It is up to the user to do it weekly or monthly.
+
+### In what mode can Fluid Attacks’ agent be run so it doesn't break the build?
+
+In [lax mode](/machine/agent/installation/#arguments-to-run-your-agent),
+opposite to strict mode.
+
+### Must all team members use the same token to run the DevSecOps agent in a    group?
+
+Yes,
+all team members who want to run
+the agent in the same group
+require the same token.
+To acquire the token,
+you must go to the
+[DevSecOps Agent](/machine/web/groups/agent/)
+section in
+[Scope](/machine/web/groups/scope/roots/).
