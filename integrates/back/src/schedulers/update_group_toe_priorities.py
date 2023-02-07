@@ -21,6 +21,7 @@ from context import (
 )
 from cryptography.fernet import (
     Fernet,
+    InvalidToken as InvalidFernetToken,
 )
 import csv
 from custom_exceptions import (
@@ -215,6 +216,12 @@ async def process_group(group_name: str, current_date: datetime) -> None:
             ) as exc:
                 info(
                     f"Group {group_name} could not be updated",
+                    extra={"extra": {"error": exc}},
+                )
+            except InvalidFernetToken as exc:
+                info(
+                    f"The Fernet token used to encrypt {group_name} "
+                    "is invalid or outdated",
                     extra={"extra": {"error": exc}},
                 )
             else:
