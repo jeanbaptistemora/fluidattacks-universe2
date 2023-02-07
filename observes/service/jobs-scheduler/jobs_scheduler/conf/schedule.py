@@ -35,9 +35,14 @@ SCHEDULE: FrozenDict[Cron, FrozenList[Job]] = FrozenDict(
             Job.DELIGHTED,
         ),
         work_days(ANY, 6).unwrap(): (Job.UPLOAD,),
-        work_days(ANY, CronItem.from_range(range(7, 19, 1))).unwrap(): (
+        work_days(ANY, CronItem.from_range(range(7, 19, 4))).unwrap(): (
             Job.GITLAB_PRODUCT,
         ),
+        weekly(
+            ANY,
+            CronItem.from_range(range(7, 19, 3)),
+            frozenset([Days.SAT, Days.SUN]),
+        ).unwrap(): (Job.GITLAB_PRODUCT,),
         work_days(ANY, CronItem.from_values(frozenset([11, 18]))).unwrap(): (
             Job.FORMSTACK,
         ),
