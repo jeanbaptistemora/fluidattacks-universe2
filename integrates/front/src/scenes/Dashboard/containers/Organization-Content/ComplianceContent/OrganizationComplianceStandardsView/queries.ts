@@ -31,10 +31,15 @@ const GET_GROUP_UNFULFILLED_STANDARDS: DocumentNode = gql`
 `;
 
 const GET_UNFULFILLED_STANDARD_REPORT_URL: DocumentNode = gql`
-  query RequestGroupReport($groupName: String!, $verificationCode: String!) {
+  query RequestGroupReport(
+    $groupName: String!
+    $verificationCode: String!
+    $unfulfilledStandards: [String!]
+  ) {
     unfulfilledStandardReportUrl(
       groupName: $groupName
       verificationCode: $verificationCode
+      unfulfilledStandards: $unfulfilledStandards
     )
   }
 `;

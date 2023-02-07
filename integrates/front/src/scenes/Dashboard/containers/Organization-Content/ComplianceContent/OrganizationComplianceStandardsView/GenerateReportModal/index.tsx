@@ -12,7 +12,10 @@ import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { includeFormatter } from "./Formatters/includeFormatter";
-import type { IGenerateReportModalProps, ITableRowData } from "./types";
+import type {
+  IGenerateReportModalProps,
+  IUnfulfilledStandardData,
+} from "./types";
 
 import { GET_UNFULFILLED_STANDARD_REPORT_URL } from "../queries";
 import type { IUnfulfilledStandardAttr } from "../types";
@@ -35,10 +38,12 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
 }: IGenerateReportModalProps): JSX.Element => {
   const { t } = useTranslation();
   const getFormattedUnfulfilledStandards = useCallback(
-    (): ITableRowData[] =>
+    (): IUnfulfilledStandardData[] =>
       _.sortBy(
         unfulfilledStandards.map(
-          (unfulfilledStandard: IUnfulfilledStandardAttr): ITableRowData => ({
+          (
+            unfulfilledStandard: IUnfulfilledStandardAttr
+          ): IUnfulfilledStandardData => ({
             ...unfulfilledStandard,
             include: true,
             title: unfulfilledStandard.title.toUpperCase(),
@@ -52,7 +57,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
 
   const [isVerifyDialogOpen, setIsVerifyDialogOpen] = useState(false);
   const [disableVerify, setDisableVerify] = useState(false);
-  const [tableData, setTableData] = useState(
+  const [unfulfilledStandardsData, setUnfulfilledStandardsData] = useState(
     getFormattedUnfulfilledStandards()
   );
 
@@ -93,12 +98,21 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       requestUnfulfilledStandardReport({
         variables: {
           groupName,
+          unfulfilledStandards: unfulfilledStandardsData
+            .filter(
+              (unfulfilledStandard: IUnfulfilledStandardData): boolean =>
+                unfulfilledStandard.include
+            )
+            .map(
+              (unfulfilledStandard: IUnfulfilledStandardData): string =>
+                unfulfilledStandard.standardId
+            ),
           verificationCode,
         },
       });
       mixpanel.track("UnfulfilledStandardReportRequest");
     },
-    [requestUnfulfilledStandardReport, groupName]
+    [requestUnfulfilledStandardReport, groupName, unfulfilledStandardsData]
   );
   const handleRequestReport = useCallback(
     (setVerifyCallbacks: IVerifyFn): (() => void) =>
@@ -115,12 +129,14 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
       },
     [handleRequestUnfulfilledStandardReport]
   );
-  const handleIncludeStandard: (row: ITableRowData) => void = (
-    row: ITableRowData
+  const handleIncludeStandard: (row: IUnfulfilledStandardData) => void = (
+    row: IUnfulfilledStandardData
   ): void => {
-    setTableData(
-      tableData.map(
-        (unfulfilledStandard: ITableRowData): ITableRowData =>
+    setUnfulfilledStandardsData(
+      unfulfilledStandardsData.map(
+        (
+          unfulfilledStandard: IUnfulfilledStandardData
+        ): IUnfulfilledStandardData =>
           row.standardId === unfulfilledStandard.standardId
             ? {
                 ...unfulfilledStandard,
@@ -137,11 +153,11 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
 
   // Side effects
   useEffect((): void => {
-    setTableData(getFormattedUnfulfilledStandards());
+    setUnfulfilledStandardsData(getFormattedUnfulfilledStandards());
   }, [unfulfilledStandards, getFormattedUnfulfilledStandards]);
 
   // Table
-  const columns: ColumnDef<ITableRowData>[] = [
+  const columns: ColumnDef<IUnfulfilledStandardData>[] = [
     {
       accessorKey: "title",
       enableSorting: true,
@@ -149,7 +165,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
     },
     {
       accessorKey: "include",
-      cell: (cell: ICellHelper<ITableRowData>): JSX.Element =>
+      cell: (cell: ICellHelper<IUnfulfilledStandardData>): JSX.Element =>
         includeFormatter(cell.row.original, handleIncludeStandard),
       header: "Include",
     },
@@ -171,7 +187,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
               <Fragment>
                 <Table
                   columns={columns}
-                  data={tableData}
+                  data={unfulfilledStandardsData}
                   id={"standardsToGenerateReport"}
                 />
                 <br />

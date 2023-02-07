@@ -1,11 +1,11 @@
 import React, { useCallback } from "react";
 
-import type { ITableRowData } from "../types";
+import type { IUnfulfilledStandardData } from "../types";
 import { Switch } from "components/Switch";
 
 interface IIncludeFormatterProps {
-  row: ITableRowData;
-  changeFunction: (row: ITableRowData) => void;
+  row: IUnfulfilledStandardData;
+  changeFunction: (row: IUnfulfilledStandardData) => void;
 }
 
 const IncludeFormatter: React.FC<IIncludeFormatterProps> = ({
@@ -20,8 +20,8 @@ const IncludeFormatter: React.FC<IIncludeFormatterProps> = ({
 };
 
 export const includeFormatter = (
-  row: ITableRowData,
-  changeFunction: (row: ITableRowData) => void
+  row: IUnfulfilledStandardData,
+  changeFunction: (row: IUnfulfilledStandardData) => void
 ): JSX.Element => (
   <IncludeFormatter changeFunction={changeFunction} row={row} />
 );

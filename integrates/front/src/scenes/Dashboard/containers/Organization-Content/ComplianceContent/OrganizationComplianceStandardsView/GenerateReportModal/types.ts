@@ -7,8 +7,8 @@ interface IGenerateReportModalProps {
   unfulfilledStandards: IUnfulfilledStandardAttr[];
 }
 
-interface ITableRowData extends IUnfulfilledStandardAttr {
+interface IUnfulfilledStandardData extends IUnfulfilledStandardAttr {
   include: boolean;
 }
 
-export type { IGenerateReportModalProps, ITableRowData };
+export type { IGenerateReportModalProps, IUnfulfilledStandardData };
