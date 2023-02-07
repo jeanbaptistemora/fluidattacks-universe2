@@ -10,7 +10,6 @@ from lib_path.f333.cloudformation import (
 )
 from lib_path.f333.terraform import (
     tfm_ec2_associate_public_ip_address,
-    tfm_ec2_has_not_an_iam_instance_profile,
     tfm_ec2_has_terminate_shutdown_behavior,
 )
 from model.core_model import (
@@ -75,15 +74,6 @@ def run_tfm_ec2_associate_public_ip_address(
 
 
 @SHIELD_BLOCKING
-def run_tfm_ec2_has_not_an_iam_instance_profile(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ec2_has_not_an_iam_instance_profile(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -113,7 +103,6 @@ def analyze(
         results = (
             run_tfm_ec2_has_terminate_shutdown_behavior(content, path, model),
             run_tfm_ec2_associate_public_ip_address(content, path, model),
-            run_tfm_ec2_has_not_an_iam_instance_profile(content, path, model),
         )
 
     return results

@@ -3173,7 +3173,7 @@ class MethodsEnum(Enum):
     TFM_EC2_NO_IAM = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_not_an_iam_instance_profile",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F333,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

@@ -391,7 +391,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_associate_public_ip_a
   64 |
      ^ Col 0
 ",terraform.tfm_ec2_associate_public_ip_address
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,30,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,30,16,skims,333. Insecure service configuration - EC2,Property associate_public_ip_address is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
   18 |     Name   = ""aws.ec2_unencrypted""
   19 |   }
   20 | }
@@ -506,7 +506,7 @@ F333,lines,namespace/skims/test/data/lib_path/f333/cfn_ec2_has_not_an_iam_instan
   21 |           }
      ^ Col 0
 ",cloudformation.cfn_ec2_has_not_an_iam_instance_profile
-F333,lines,namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_path/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
+F333,lines,namespace/skims/test/data/lib_root/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,22,16,skims,333. Insecure service configuration - EC2,Property iam_instance_profile is either missing or misconfigured in namespace/skims/test/data/lib_root/f333/tfm_ec2_has_not_an_iam_instance_profile.tf,"
   12 |   disable_api_termination = true
   13 |
   14 |   iam_instance_profile = ""test_profile""
