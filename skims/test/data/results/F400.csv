@@ -556,7 +556,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_ec2_monitoring_disabled.y
   27 | }
      ^ Col 0
 ",cloudformation.cfn_ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,2,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_path/f400/tfm_ec2_monitoring_disabled.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_ec2_monitoring_disabled.tf,2,778,skims,400. Traceability Loss - AWS,The Monitoring property should be enabled in namespace/skims/test/data/lib_root/f400/tfm_ec2_monitoring_disabled.tf,"
    1 | resource ""aws_instance"" ""foo"" {
 >  2 |   monitoring                  = false
    3 |   instance_type               = ""t2.micro""

@@ -25,7 +25,6 @@ from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
     iter_aws_cloudtrail,
     iter_aws_elb,
-    iter_aws_instance,
     iter_aws_lambda_function,
 )
 from parse_hcl2.tokens import (
@@ -48,17 +47,6 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
                     yield elem
         else:
             yield resource
-
-
-def _tfm_ec2_monitoring_disabled(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        monitoring = get_attribute(body=resource.data, key="monitoring")
-        if not monitoring:
-            yield resource
-        elif monitoring.val is False:
-            yield monitoring
 
 
 def _tfm_distribution_has_logging_disabled_iter_vulns(
@@ -107,22 +95,6 @@ def tfm_elb_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_ELB_LOGGING_DISABLED,
-    )
-
-
-def tfm_ec2_monitoring_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.has_monitoring_disabled",
-        iterator=get_cloud_iterator(
-            _tfm_ec2_monitoring_disabled(
-                resource_iterator=iter_aws_instance(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_EC2_MONITORING_DISABLED,
     )
 
 
