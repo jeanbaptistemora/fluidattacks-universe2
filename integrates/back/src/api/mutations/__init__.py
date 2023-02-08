@@ -1,3 +1,6 @@
+from db_model.findings.types import (
+    Finding,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -98,7 +101,7 @@ class RemoveStakeholderAccessPayload(NamedTuple):
 
 class SimpleFindingPayload(NamedTuple):
     success: bool
-    finding: dict[str, Any]
+    finding: Finding
 
 
 class SimpleGroupPayload(NamedTuple):

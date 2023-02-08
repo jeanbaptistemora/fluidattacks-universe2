@@ -53,7 +53,6 @@ async def mutate(
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    # Create payment method
     return SimplePayload(
         success=await billing_domain.create_other_payment_method(
             org=organization,

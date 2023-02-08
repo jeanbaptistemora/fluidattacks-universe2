@@ -7,8 +7,11 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from db_model.organizations.types import (
-    Organization,
+from custom_exceptions import (
+    OrganizationNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -33,14 +36,14 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"]
-    )
+    loaders: Dataloaders = info.context.loaders
+    organization = await loaders.organization.load(kwargs["organization_id"])
+    if organization is None:
+        raise OrganizationNotFound()
 
-    # Remove payment method
-    result: bool = await billing_domain.remove_payment_method(
-        org=org,
-        payment_method_id=kwargs["payment_method_id"],
+    return SimplePayload(
+        success=await billing_domain.remove_payment_method(
+            org=organization,
+            payment_method_id=kwargs["payment_method_id"],
+        )
     )
-
-    return SimplePayload(success=result)

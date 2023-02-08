@@ -11,11 +11,11 @@ from custom_exceptions import (
     EventAlreadyClosed,
     EventNotFound,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.enums import (
     EventStateStatus,
-)
-from db_model.events.types import (
-    Event,
 )
 from decorators import (
     concurrent_decorators,
@@ -63,17 +63,17 @@ async def mutate(
     finding_id: str,
     vulnerabilities: list[str],
 ) -> SimplePayloadType:
+    loaders: Dataloaders = info.context.loaders
     try:
         user_info = await sessions_domain.get_jwt_content(info.context)
-        event_loader = info.context.loaders.event
-        event: Event = await event_loader.load(event_id)
+        event = await events_domain.get_event(loaders, event_id)
         if group_name != event.group_name:
             raise EventNotFound()
         if event.state.status == EventStateStatus.SOLVED:
             raise EventAlreadyClosed()
 
         await events_domain.request_vulnerabilities_hold(
-            loaders=info.context.loaders,
+            loaders=loaders,
             event_id=event_id,
             finding_id=finding_id,
             user_info=user_info,
