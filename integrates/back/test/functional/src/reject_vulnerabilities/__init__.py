@@ -17,20 +17,20 @@ async def get_result(
     user: str,
     finding: str,
     vulnerability: str,
-    justification: str,
+    reasons: list[str],
     other_reason: Optional[str],
 ) -> Dict[str, Any]:
     query: str = """
             mutation RejectVulnerabilities(
                 $findingId: String!,
-                $justification: VulnerabilityRejectionJustification!,
-                $otherJustification: String,
+                $reasons: [VulnerabilityRejectionReason!]!,
+                $otherReason: String,
                 $vulnerabilities: [String!]!
             ) {
                 rejectVulnerabilities (
                     findingId: $findingId,
-                    justification: $justification,
-                    otherJustification: $otherJustification,
+                    reasons: $reasons,
+                    otherReason: $otherReason,
                     vulnerabilities: $vulnerabilities,
                 ) {
                     success
@@ -40,8 +40,8 @@ async def get_result(
 
     variables: dict[str, Any] = {
         "findingId": finding,
-        "justification": justification,
-        "otherJustification": other_reason,
+        "reasons": reasons,
+        "otherReason": other_reason,
         "vulnerabilities": [vulnerability],
     }
     data: dict[str, Any] = {"query": query, "variables": variables}

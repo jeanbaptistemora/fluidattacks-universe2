@@ -50,7 +50,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     vulnerabilities: list[str],
-    justification: str,
+    reasons: list[str],
     **kwargs: Any,
 ) -> SimplePayload:
     try:
@@ -61,7 +61,7 @@ async def mutate(
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,
             modified_by=stakeholder_email,
-            justification=VulnerabilityStateReason[justification],
+            reasons={VulnerabilityStateReason[reason] for reason in reasons},
             other_reason=kwargs.get("other_reason"),
         )
         await update_unreliable_indicators_by_deps(

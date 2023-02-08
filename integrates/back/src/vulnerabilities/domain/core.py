@@ -547,12 +547,12 @@ async def reject_vulnerabilities(
     vuln_ids: set[str],
     finding_id: str,
     modified_by: str,
-    justification: VulnerabilityStateReason,
+    reasons: set[VulnerabilityStateReason],
     other_reason: Optional[str],
 ) -> None:
-    if justification is VulnerabilityStateReason.OTHER and other_reason:
+    if VulnerabilityStateReason.OTHER not in reasons and other_reason:
         InvalidParameter("justification")
-    if justification is VulnerabilityStateReason.OTHER and not other_reason:
+    if VulnerabilityStateReason.OTHER in reasons and not other_reason:
         InvalidParameter("other_reason")
     if other_reason is not None:
         vulns_utils.validate_justification_length(other_reason)
@@ -572,7 +572,7 @@ async def reject_vulnerabilities(
                     modified_by=modified_by,
                     modified_date=datetime_utils.get_utc_now(),
                     status=VulnerabilityStateStatus.REJECTED,
-                    reasons=[justification],
+                    reasons=list(reasons),
                     other_reason=other_reason,
                 ),
             )

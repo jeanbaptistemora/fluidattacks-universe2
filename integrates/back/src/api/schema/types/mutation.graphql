@@ -592,10 +592,10 @@ type Mutation {
   rejectVulnerabilities(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
-    "Justification for the rejection"
-    justification: VulnerabilityRejectionJustification!
-    "Other justification for the rejection"
-    otherJustification: String
+    "Rejection reasons"
+    reasons: [VulnerabilityRejectionReason!]!
+    "Other reason for the rejection"
+    otherReason: String
     "List of rejected Vulnerabilities"
     vulnerabilities: [String!]!
   ): SimplePayload!

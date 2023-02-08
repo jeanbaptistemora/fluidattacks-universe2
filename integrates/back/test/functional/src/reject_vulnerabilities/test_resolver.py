@@ -21,13 +21,13 @@ from typing import (
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("reject_vulnerabilities")
 @pytest.mark.parametrize(
-    ("email", "vuln_id", "justification", "other_reason"),
+    ("email", "vuln_id", "reasons", "other_reason"),
     (
         (
             "admin@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "OTHER",
-            "other justification test",
+            ["OTHER"],
+            "other reason test",
         ),
         (
             "admin@gmail.com",
@@ -41,7 +41,7 @@ async def test_reject_vulnerabilities(
     populate: bool,
     email: str,
     vuln_id: str,
-    justification: str,
+    reasons: list[str],
     other_reason: str,
 ) -> None:
     assert populate
@@ -54,7 +54,7 @@ async def test_reject_vulnerabilities(
         user=email,
         finding=finding_id,
         vulnerability=vuln_id,
-        justification=justification,
+        reasons=reasons,
         other_reason=other_reason,
     )
     assert "errors" not in result
@@ -69,48 +69,48 @@ async def test_reject_vulnerabilities(
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("reject_vulnerabilities")
 @pytest.mark.parametrize(
-    ("email", "vuln_id", "justification", "other_reason"),
+    ("email", "vuln_id", "reasons", "other_reason"),
     (
         (
             "hacker@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "reattacker@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "user@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "user_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "vulnerability_manager@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "customer_manager@fluidattacks.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
         (
             "resourcer@gmail.com",
             "be09edb7-cd5c-47ed-bee4-97c645acdce10",
-            "CONSISTENCY",
+            ["CONSISTENCY"],
             None,
         ),
     ),
@@ -119,7 +119,7 @@ async def test_reject_vulnerabilities_fail(
     populate: bool,
     email: str,
     vuln_id: str,
-    justification: str,
+    reasons: list[str],
     other_reason: str,
 ) -> None:
     assert populate
@@ -128,7 +128,7 @@ async def test_reject_vulnerabilities_fail(
         user=email,
         finding=finding_id,
         vulnerability=vuln_id,
-        justification=justification,
+        reasons=reasons,
         other_reason=other_reason,
     )
     assert "errors" in result
