@@ -5,15 +5,14 @@ authors: Carlos Bello
 writer: cbello
 codename: oberhofer
 product: OrangeScrum 2.0.11
-date: 2023-02-01 12:00 COT
+date: 2023-02-13 12:00 COT
 cveid: CVE-2023-0624
 severity: 7.3
 description: OrangeScrum 2.0.11 - Reflected Cross-Site Scripting via filename
 keywords: Fluid Attacks, Security, Vulnerabilities, Orangescrum, XSS
 banner: advisories-bg
 advise: yes
-template: maskedAdvisory
-encrypted: yes
+template: advisory
 ---
 
 ## Summary
@@ -25,7 +24,7 @@ encrypted: yes
 | **Product**           | OrangeScrum                                             |
 | **Affected versions** | 2.0.11                                                  |
 | **State**             | Public                                                  |
-| **Release Date**      | 2023-02-01                                              |
+| **Release Date**      | 2023-02-13                                              |
 
 ## Vulnerability
 
@@ -94,7 +93,7 @@ cookie to the attacker's server logs.
 ![vulnerability-orangescrum](https://user-images.githubusercontent.com/51862990/216176343-4430e676-1622-4af1-a866-3f773e6f6682.png)
 
 <video width="835" height="505" controls>
-    <source src="https://rb.gy/ezuagh"
+    <source src="https://rb.gy/yvhpbc"
     type="video/mp4">
     <p>POC-XSS-OrangeScrum</p>
 </video>
@@ -130,10 +129,10 @@ Offensive Team.
 ## Timeline
 
 <time-lapse
-  discovered="2023-02-01"
-  contacted="2022-02-01"
-  replied="2022-02-01"
+  discovered="2023-02-07"
+  contacted="2023-02-07"
+  replied="2023-02-07"
   confirmed=""
   patched=""
-  disclosure="">
+  disclosure="2023-02-13">
 </time-lapse>
