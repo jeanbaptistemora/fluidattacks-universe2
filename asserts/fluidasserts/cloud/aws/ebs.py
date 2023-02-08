@@ -23,21 +23,6 @@ from fluidasserts.utils.decorators import (
 )
 
 
-def _get_snapshots(key_id, retry, secret, session_token, acc_id):
-    return aws.get_paginated_items(
-        key_id,
-        retry,
-        secret,
-        session_token,
-        "ec2",
-        "describe_snapshots",
-        "MaxResults",
-        "NextToken",
-        "Snapshots",
-        extra_args={"OwnerIds": [acc_id]},
-    )
-
-
 @api(risk=HIGH, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def uses_default_kms_key(
@@ -86,48 +71,6 @@ def uses_default_kms_key(
     return _get_result_as_tuple(
         service="EBS",
         objects="Volumes",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def is_snapshot_not_encrypted(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """Check if an ``EBS snapshot`` is not encrypted.
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-
-    acc_id = aws.run_boto3_func(
-        key_id=key_id,
-        secret=secret,
-        boto3_client_kwargs={"aws_session_token": session_token},
-        service="sts",
-        func="get_caller_identity",
-        param="Account",
-        retry=retry,
-    )
-
-    snapshots = _get_snapshots(key_id, retry, secret, session_token, acc_id)
-
-    msg_open: str = "EBS snapshots are not encrypted"
-    msg_closed: str = "EBS snapshots are encrypted"
-
-    vulns, safes = [], []
-    for snapshot in snapshots:
-        (vulns if not snapshot.get("Encrypted", False) else safes).append(
-            (snapshot["SnapshotId"], "is not encrypted")
-        )
-
-    return _get_result_as_tuple(
-        service="EBS",
-        objects="Snapshots",
         msg_open=msg_open,
         msg_closed=msg_closed,
         vulns=vulns,
