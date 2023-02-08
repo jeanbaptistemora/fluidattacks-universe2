@@ -126,7 +126,6 @@ def login(request: Request) -> HTMLResponse:
             "js_vendors": f"{STATIC_URL}/dashboard/vendors-bundle.min.js",
             "css_vendors": f"{STATIC_URL}/dashboard/vendors-style.min.css",
             "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
         },
     )
 
@@ -141,7 +140,6 @@ def main_app(request: Request) -> HTMLResponse:
             "js_vendors": f"{STATIC_URL}/dashboard/vendors-bundle.min.js",
             "css_vendors": f"{STATIC_URL}/dashboard/vendors-style.min.css",
             "js": f"{STATIC_URL}/dashboard/app-bundle.min.js",
-            "css": f"{STATIC_URL}/dashboard/app-style.min.css",
         },
     )
 

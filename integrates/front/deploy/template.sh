@@ -21,7 +21,6 @@ function deploy {
     "https://${base_url}/static/dashboard/vendors-bundle.min.js"
     "https://${base_url}/static/dashboard/vendors-style.min.css"
     "https://${base_url}/static/dashboard/app-bundle.min.js"
-    "https://${base_url}/static/dashboard/app-style.min.css"
   )
   export CI_COMMIT_SHA
   export CI_COMMIT_SHORT_SHA
