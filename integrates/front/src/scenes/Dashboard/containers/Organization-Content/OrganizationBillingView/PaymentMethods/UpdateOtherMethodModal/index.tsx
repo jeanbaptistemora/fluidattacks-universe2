@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
-import { Input, InputFile } from "components/Input";
+import { Input, InputFile, Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { getCountries } from "utils/countries";
@@ -157,7 +157,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                 onKeyDown={changeCountry}
                 role={"listitem"}
               >
-                <Field component={FormikDropdown} name={"country"}>
+                <Select name={"country"}>
                   <option value={""}>{""}</option>
                   {countries.map(
                     (country): JSX.Element => (
@@ -166,7 +166,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                       </option>
                     )
                   )}
-                </Field>
+                </Select>
               </div>
               {states.length > 0 ? (
                 <React.Fragment>
