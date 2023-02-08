@@ -14,6 +14,7 @@ from typing import (
 def get_query() -> str:
     return """
         query(
+            $attackedBy: String
             $fromModifiedDate: DateTime
             $fromSeenAt: DateTime
             $groupName: String!
@@ -31,6 +32,7 @@ def get_query() -> str:
             group(groupName: $groupName) {
                 name
                 toeLines(
+                    attackedBy: $attackedBy
                     fromModifiedDate: $fromModifiedDate
                     fromSeenAt: $fromSeenAt
                     hasVulnerabilities: $hasVulnerabilities

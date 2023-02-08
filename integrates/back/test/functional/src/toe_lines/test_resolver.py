@@ -473,3 +473,65 @@ async def test_get_toe_lines_by_max_attacked_lines(
         ]
         == 4
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_attacked_by(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "attackedBy": "test@test.com",
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["attackedBy"]
+        == "test@test.com"
+    )
+
+    variables = {
+        "attackedBy": "test2",
+    }
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["attackedBy"]
+        == "test2@test.com"
+    )
+
+    variables = {
+        "attackedBy": "test3",
+    }
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"]["attackedBy"]
+        == "test3@test.com"
+    )
+
+    variables = {
+        "attackedBy": "test",
+    }
+    result = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
