@@ -31,6 +31,9 @@ from dynamodb.exceptions import (
 from dynamodb.model import (
     TABLE,
 )
+from dynamodb.types import (
+    PageInfo,
+)
 from typing import (
     Iterable,
     Optional,
@@ -75,7 +78,7 @@ class ToeLinesLoader(DataLoader[ToeLinesRequest, Optional[ToeLines]]):
 
 async def _get_toe_lines_by_group(
     request: GroupToeLinesRequest,
-) -> Optional[ToeLinesConnection]:
+) -> ToeLinesConnection:
     if request.be_present is None:
         facet = TABLE.facets["toe_lines_metadata"]
         primary_key = keys.build_key(
@@ -110,22 +113,29 @@ async def _get_toe_lines_by_group(
             paginate=request.paginate,
             table=TABLE,
         )
+        connection = ToeLinesConnection(
+            edges=tuple(
+                format_toe_lines_edge(index, item, TABLE)
+                for item in response.items
+            ),
+            page_info=response.page_info,
+        )
     except ValidationException:
-        return None
-    return ToeLinesConnection(
-        edges=tuple(
-            format_toe_lines_edge(index, item, TABLE)
-            for item in response.items
-        ),
-        page_info=response.page_info,
-    )
+        connection = ToeLinesConnection(
+            edges=tuple(),
+            page_info=PageInfo(has_next_page=False, end_cursor=""),
+        )
+
+    return connection
 
 
-class GroupToeLinesLoader(DataLoader):
+class GroupToeLinesLoader(
+    DataLoader[GroupToeLinesRequest, ToeLinesConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupToeLinesRequest]
-    ) -> list[Optional[ToeLinesConnection]]:
+        self, requests: Iterable[GroupToeLinesRequest]
+    ) -> list[ToeLinesConnection]:
         return list(
             await collect(tuple(map(_get_toe_lines_by_group, requests)))
         )
@@ -191,7 +201,7 @@ async def _get_toe_lines_by_root(
 class RootToeLinesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[RootToeLinesRequest]
+        self, requests: Iterable[RootToeLinesRequest]
     ) -> list[Optional[ToeLinesConnection]]:
         return list(await collect(map(_get_toe_lines_by_root, requests)))
 
@@ -229,7 +239,7 @@ async def _get_historic_toe_lines(
 class ToeLinesHistoricLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[ToeLinesRequest]
+        self, requests: Iterable[ToeLinesRequest]
     ) -> list[Optional[list[ToeLines]]]:
         return list(
             await collect(
