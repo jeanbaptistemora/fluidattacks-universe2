@@ -690,6 +690,14 @@ const pageTexts: ResourceKey = {
     phrase: "HACKING WITH SPEED AND PRECISION",
     question: "ARE YOU GOING FAST IN THE WRONG DIRECTION?",
   },
+  footer: {
+    subtitle:
+      "Fluid Attacks tests applications and other systems, covering all " +
+      "software development stages. Our team assists clients in quickly identifying " +
+      "and managing vulnerabilities to reduce the risk of incidents and deploy " +
+      "secure technology.",
+    title: "Hacking software for over 20 years",
+  },
   freeTrial: {
     button: "Start your Machine Plan",
     item1: "Automatic SAST, DAST and SCA",
