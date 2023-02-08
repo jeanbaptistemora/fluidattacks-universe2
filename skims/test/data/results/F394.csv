@@ -107,8 +107,8 @@ F394,inputs,arn:aws:iam::123456789012:mt/myTrail (namespace),/LogFileValidationE
   8 | }
     ^ Col 0
 ",aws.cloudtrail_files_not_validated
-F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,10,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
- in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf","
+F394,lines,namespace/skims/test/data/lib_root/f394/tfm_trail_log_files_not_validated.tf,10,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_root/f394/tfm_trail_log_files_not_validated.tf","
    1 | resource ""aws_cloudtrail"" ""foobar"" {
    2 |   enable_log_file_validation    = true
    3 |   name                          = ""tf-trail-foobar""
@@ -132,8 +132,8 @@ F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_valid
   21 |   include_global_service_events = false
      ^ Col 0
 ",terraform.tfm_aws_s3_versioning_disabled
-F394,lines,namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
- in namespace/skims/test/data/lib_path/f394/tfm_trail_log_files_not_validated.tf","
+F394,lines,namespace/skims/test/data/lib_root/f394/tfm_trail_log_files_not_validated.tf,17,117,skims,394. Insufficient data authenticity validation - Cloudtrail Logs,"enable_log_file_validation property is not enabled
+ in namespace/skims/test/data/lib_root/f394/tfm_trail_log_files_not_validated.tf","
    2 |   enable_log_file_validation    = true
    3 |   name                          = ""tf-trail-foobar""
    4 |   s3_bucket_name                = aws_s3_bucket.foo.id
