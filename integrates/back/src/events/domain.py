@@ -167,6 +167,7 @@ async def get_event(loaders: Dataloaders, event_id: str) -> Event:
 
 
 @validations.validate_field_length_deco("comment_data.content", limit=20000)
+@validations.validate_fields_deco(["comment_data.content"])
 async def add_comment(
     *,
     loaders: Dataloaders,

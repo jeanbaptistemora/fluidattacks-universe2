@@ -23,7 +23,6 @@ from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
     stakeholders as stakeholders_utils,
-    validations,
 )
 from sessions import (
     domain as sessions_domain,
@@ -46,7 +45,6 @@ async def mutate(
     event_id: str,
     parent_comment: str,
 ) -> AddConsultPayload:
-    validations.validate_fields([content])
 
     comment_id: str = str(round(time() * 1000))
     user_info: dict[str, str] = await sessions_domain.get_jwt_content(

@@ -62,10 +62,10 @@ async def add_finding_observation(
     return await _add_finding_consult(info, **parameters)
 
 
+@validations_utils.validate_fields_deco(["content"])
 async def _add_finding_consult(
     info: GraphQLResolveInfo, **parameters: Any
 ) -> str:
-    validations_utils.validate_fields([parameters["content"]])
     param_type = parameters.get("type", "").lower()
     user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]

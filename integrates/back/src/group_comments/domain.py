@@ -13,6 +13,7 @@ from db_model.group_comments.types import (
 )
 from newutils.validations import (
     validate_field_length_deco,
+    validate_fields_deco,
 )
 
 
@@ -27,7 +28,8 @@ def is_scope_comment(comment: GroupComment) -> bool:
     "group_name",
     "comment_data.parent_id",
 )
-@validate_field_length_deco("comment_data.content", limit=20000)
+@validate_field_length_deco("comment_data.content", limit=5000)
+@validate_fields_deco(["comment_data.content"])
 async def add_comment(
     *,
     loaders: Dataloaders,

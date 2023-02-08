@@ -26,7 +26,6 @@ from group_comments import (
 from newutils import (
     datetime as datetime_utils,
     logs as logs_utils,
-    validations as validations_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -53,8 +52,6 @@ async def mutate(
     user_email = user_info["user_email"]
     comment_id = int(round(time.time() * 1000))
     content = parameters["content"]
-    validations_utils.validate_fields([content])
-    validations_utils.validate_field_length(content, 5000)
     comment_data = GroupComment(
         group_name=group_name,
         id=str(comment_id),
