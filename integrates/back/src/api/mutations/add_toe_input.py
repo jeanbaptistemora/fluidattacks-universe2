@@ -21,7 +21,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    validations as validations_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -56,8 +55,6 @@ async def mutate(
         loaders: Dataloaders = info.context.loaders
         user_data = await sessions_domain.get_jwt_content(info.context)
         user_email = user_data["user_email"]
-        validations_utils.validate_sanitized_csv_input(entry_point)
-        validations_utils.validate_fields([component])
         await toe_inputs_domain.add(
             loaders=loaders,
             group_name=group_name,

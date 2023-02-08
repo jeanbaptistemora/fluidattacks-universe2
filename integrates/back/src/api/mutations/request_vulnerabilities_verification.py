@@ -24,7 +24,6 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
-    validations,
 )
 from sessions import (
     domain as sessions_domain,
@@ -55,25 +54,13 @@ async def mutate(
 ) -> SimplePayloadType:
     try:
         user_info = await sessions_domain.get_jwt_content(info.context)
-        # Validate justification length and vet characters in it
-        validations.validate_field_length(
-            justification,
-            limit=10,
-            is_greater_than_limit=True,
-        )
-        validations.validate_field_length(
-            justification,
-            limit=10000,
-            is_greater_than_limit=False,
-        )
-        validations.validate_fields([justification])
 
         await findings_domain.request_vulnerabilities_verification(
-            info.context.loaders,
-            finding_id,
-            user_info,
-            justification,
-            set(vulnerabilities),
+            loaders=info.context.loaders,
+            finding_id=finding_id,
+            user_info=user_info,
+            justification=justification,
+            vulnerability_ids=set(vulnerabilities),
         )
         await update_unreliable_indicators_by_deps(
             EntityDependency.request_vulnerabilities_verification,

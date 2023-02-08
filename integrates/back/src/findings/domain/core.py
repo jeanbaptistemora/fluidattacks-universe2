@@ -611,6 +611,14 @@ async def mask_finding(
     )
 
 
+# Validate justification length and vet characters in it
+@validations.validate_field_length_deco(
+    "justification", limit=10, is_greater_than_limit=True
+)
+@validations.validate_field_length_deco(
+    "justification", limit=10000, is_greater_than_limit=False
+)
+@validations.validate_fields_deco(["justification"])
 async def request_vulnerabilities_verification(  # noqa pylint: disable=too-many-arguments, too-many-locals
     loaders: Dataloaders,
     finding_id: str,

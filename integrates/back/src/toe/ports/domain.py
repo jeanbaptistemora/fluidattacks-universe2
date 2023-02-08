@@ -25,6 +25,9 @@ from db_model.toe_ports.types import (
 from newutils import (
     datetime as datetime_utils,
 )
+from newutils.validations import (
+    validate_fields_deco,
+)
 from roots import (
     domain as roots_domain,
 )
@@ -49,6 +52,7 @@ def _get_optional_be_present_until(
     return datetime_utils.get_utc_now() if be_present is False else None
 
 
+@validate_fields_deco(["address"])
 async def add(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     group_name: str,
