@@ -202,4 +202,4 @@ async def test_remove() -> None:
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
-    assert historic_toe_lines is None
+    assert historic_toe_lines == []

@@ -149,7 +149,7 @@ class GroupToeLinesLoader(
 
 async def _get_toe_lines_by_root(
     request: RootToeLinesRequest,
-) -> Optional[ToeLinesConnection]:
+) -> ToeLinesConnection:
     if request.be_present is None:
         facet = TABLE.facets["toe_lines_metadata"]
         primary_key = keys.build_key(
@@ -186,33 +186,37 @@ async def _get_toe_lines_by_root(
             paginate=request.paginate,
             table=TABLE,
         )
+        connection = ToeLinesConnection(
+            edges=tuple(
+                format_toe_lines_edge(index, item, TABLE)
+                for item in response.items
+            ),
+            page_info=response.page_info,
+        )
     except ValidationException:
-        return None
+        connection = ToeLinesConnection(
+            edges=tuple(),
+            page_info=PageInfo(has_next_page=False, end_cursor=""),
+        )
 
-    return ToeLinesConnection(
-        edges=tuple(
-            format_toe_lines_edge(index, item, TABLE)
-            for item in response.items
-        ),
-        page_info=response.page_info,
-    )
+    return connection
 
 
-class RootToeLinesLoader(DataLoader):
+class RootToeLinesLoader(DataLoader[RootToeLinesRequest, ToeLinesConnection]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootToeLinesRequest]
-    ) -> list[Optional[ToeLinesConnection]]:
+    ) -> list[ToeLinesConnection]:
         return list(await collect(map(_get_toe_lines_by_root, requests)))
 
     async def load_nodes(self, request: RootToeLinesRequest) -> list[ToeLines]:
-        connection: ToeLinesConnection = await self.load(request)
+        connection = await self.load(request)
         return [edge.node for edge in connection.edges]
 
 
 async def _get_historic_toe_lines(
     request: ToeLinesRequest,
-) -> Optional[list[ToeLines]]:
+) -> list[ToeLines]:
     primary_key = keys.build_key(
         facet=TABLE.facets["toe_lines_historic_metadata"],
         values={
@@ -230,17 +234,15 @@ async def _get_historic_toe_lines(
         facets=(TABLE.facets["toe_lines_historic_metadata"],),
         table=TABLE,
     )
-    if not response.items:
-        return None
 
     return [format_toe_lines(item) for item in response.items]
 
 
-class ToeLinesHistoricLoader(DataLoader):
+class ToeLinesHistoricLoader(DataLoader[ToeLinesRequest, list[ToeLines]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeLinesRequest]
-    ) -> list[Optional[list[ToeLines]]]:
+    ) -> list[list[ToeLines]]:
         return list(
             await collect(
                 tuple(_get_historic_toe_lines(request) for request in requests)
