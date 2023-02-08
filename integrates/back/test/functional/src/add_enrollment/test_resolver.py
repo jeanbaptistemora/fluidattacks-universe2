@@ -80,7 +80,7 @@ async def test_should_validate_uniqueness(populate: bool) -> None:
             }
         }
     """
-    email = "janedoe@johndoe.com"
+    email = "janedoe@janedoe.com"
     loaders = get_new_context()
     result = await get_graphql_result(
         data={"query": query},

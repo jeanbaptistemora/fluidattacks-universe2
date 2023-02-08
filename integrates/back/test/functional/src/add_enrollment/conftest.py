@@ -33,6 +33,9 @@ from db_model.organizations.types import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.trials.types import (
+    Trial,
+)
 from db_model.types import (
     Policies,
 )
@@ -48,6 +51,17 @@ async def populate() -> bool:
             Enrollment(
                 email="janedoe@janedoe.com",
                 enrolled=True,
+            ),
+        ],
+        "trials": [
+            Trial(
+                email="janedoe@janedoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-21T15:58:31.280182+00:00"
+                ),
             ),
         ],
         "groups": [
@@ -131,6 +145,7 @@ async def populate() -> bool:
                 last_name="Doe",
             ),
             Stakeholder(
+                enrolled=True,
                 email="janedoe@janedoe.com",
                 first_name="Jane",
                 is_registered=True,
