@@ -1,0 +1,187 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
+ in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
+   1 | t java.io.File;
+   2 |
+   3 | c class Test {
+   4 | erride
+   5 | lic void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+   6 | / some code
+   7 | esponse.setContentType(""text/html;charset=UTF-8"");
+   8 |
+   9 | / Vuln
+  10 | avax.servlet.http.Cookie[] theCookie = request.getCookies();
+  11 | tring param = java.net.URLDecoder.decode(theCookie.getValue(), ""UTF-8"");
+  12 | tring fileName = org.owasp.benchmark.helpers.Utils.testfileDir + param;
+> 13 | ava.io.FileInputStream fis = new java.io.FileInputStream(new java.io.File(fileName));
+  14 |
+  15 |
+     ^ Col 5
+",java.java_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/java_path_traversal.java,13,22,skims,063. Lack of data validation - Path Traversal,"Instantiating an System.Xml.Xsl.XslTransform, which doesn't restrict potentially dangerous external references or prevent scripts.
+ in namespace/skims/test/data/lib_root/f063/java_path_traversal.java","
+   1 |
+   2 |
+   3 |
+   4 |
+   5 | equest request, HttpServletResponse response) throws ServletException, IOException {
+   6 |
+   7 | /html;charset=UTF-8"");
+   8 |
+   9 |
+  10 | heCookie = request.getCookies();
+  11 | coder.decode(theCookie.getValue(), ""UTF-8"");
+  12 | enchmark.helpers.Utils.testfileDir + param;
+> 13 |  new java.io.FileInputStream(new java.io.File(fileName));
+  14 |
+  15 |
+     ^ Col 33
+",java.java_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_path_traversal.cs,16,22,skims,063. Lack of data validation - Path Traversal,Path traversal in namespace/skims/test/data/lib_root/f063/c_sharp_path_traversal.cs,"
+   2 | using System;
+   3 | using System.Data.SqlClient;
+   4 | using System.Data;
+   5 | using System.Web;
+   6 |
+   7 |
+   8 | namespace testcase
+   9 | {
+  10 |     class testcasef001
+  11 |     {
+  12 |         public override void Bad(HttpRequest req, HttpResponse resp)
+  13 |         {
+  14 |             string data = req.QueryString[""id""];
+  15 |             string root = ""path/"";
+> 16 |             if (File.Exists(root + data))
+  17 |             {
+  18 |                 IO.WriteLine(sr.ReadLine());
+  19 |             }
+  20 |         }
+  21 |     }
+  22 | }
+     ^ Col 0
+",c_sharp.c_sharp_unsafe_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,8,22,skims,063. Lack of data validation - Path Traversal,Potentially untrusted HTTP request input reaches an HTTP response redirect. in namespace/skims/test/data/lib_root/f063/c_sharp_open_redirect.cs,"
+   1 | using System;
+   2 |
+   3 | public partial class WebForm : System.Web.UI.Page
+   4 | {
+   5 |     protected void Page_Load(object sender, EventArgs e)
+   6 |     {
+   7 |         string input = Request.Form[""url""];
+>  8 |         Response.Redirect(input);
+   9 |     }
+  10 | }
+     ^ Col 0
+",c_sharp.c_sharp_open_redirect
+F063,lines,namespace/skims/test/data/lib_root/f063/java_zip_slip_injection.java,10,22,skims,063. Lack of data validation - Path Traversal,"The file names in a zip archive are not properly validated and sanitize before accessing them.
+ in namespace/skims/test/data/lib_root/f063/java_zip_slip_injection.java","
+   1 | import java.io.File;
+   2 | class zip_slip {
+   3 |     public static List<String> zipSlipNoncompliant(ZipFile zipFile) throws IOException {
+   4 |         Enumeration<? extends ZipEntry> entries = zipFile.entries();
+   5 |         List<String> filesContent = new ArrayList<>();
+   6 |
+   7 |         while (entries.hasMoreElements()) {
+   8 |             ZipEntry entry = entries.nextElement();
+   9 |             File file = new File(entry.getName());
+> 10 |             String content = FileUtils.readFileToString(file, StandardCharsets.UTF_8); // Noncompliant
+  11 |             filesContent.add(content);
+  12 |         }
+  13 |
+  14 |         return filesContent;
+  15 |     }
+  16 |
+  17 |     public static List<String> zipSlipCompliant(ZipFile zipFile, String targetDirectory) throws IOException {
+  18 |         Enumeration<? extends ZipEntry> entries = zipFile.entries();
+  19 |         List<String> filesContent = new ArrayList<>();
+  20 |
+  21 |         while (entries.hasMoreElements()) {
+     ^ Col 0
+",java.java_zip_slip_injection
+F063,lines,namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/js_insecure_path_traversal.js","
+   1 | const fs = require(""fs"");
+   2 | const pathmodule = require(""path"");
+   3 |
+   4 | function unsafeCases(req, res) {
+   5 |
+   6 |   const reqPath = req.query.filename; // user-controlled path
+>  7 |   let data = fs.readFileSync(reqPath, { encoding: ""utf8"", flag: ""r"" }); // Noncompliant
+   8 |
+   9 | }
+  10 |
+  11 | function safeCases(req, res) {
+  12 |
+  13 |   let safedata = fs.readFileSync(""./dir/downloads"", { encoding: ""utf8"", flag: ""r"" });
+  14 |
+  15 |   const reqPath = req.query.filename;
+  16 |   const resolvedPath = pathmodule.resolve(reqPath); // resolve will sanitize the input
+  17 |   if (resolvedPath.startsWith(__dirname + '/uploads')) { // ensures a whitelist verification
+  18 |     let data = fs.readFileSync(resolvedPath, { encoding: 'utf8', flag: 'r' }); // Compliant
+  19 |   }
+  20 | }
+     ^ Col 0
+",javascript.js_insecure_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/js_zip_slip.js,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/js_zip_slip.js","
+   1 | const AdmZip = require('adm-zip');
+   2 | const fs = require('fs');
+   3 |
+   4 | const zip = new AdmZip(""zip-slip.zip"");
+   5 | const zipEntries = zip.getEntries();
+   6 | zipEntries.forEach(function (zipEntry) {
+>  7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
+   8 | });
+   9 |
+  10 | const pathmodule = require('path');
+  11 | zipEntries.forEach(function (zipEntry) {
+  12 |   let resolvedPath = pathmodule.join(__dirname + '/archive_tmp', zipEntry.entryName); // join will resolve ""../""
+  13 |
+  14 |   if (resolvedPath.startsWith(__dirname + '/archive_tmp')) {
+  15 |     // the file cannot be extracted outside of the ""archive_tmp"" folder
+  16 |     fs.createWriteStream(resolvedPath); // Compliant
+  17 |   }
+  18 | });
+     ^ Col 0
+",javascript.js_zip_slip
+F063,lines,namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts,17,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_insecure_path_traversal.ts","
+   1 | import fs from ""fs"";
+   2 | import pathmodule from ""path"";
+   3 |
+   4 | function safePathInjection(req, res) {
+   5 |   const reqPath = __dirname + req.query.filename; // user-controlled path
+   6 |   const resolvedPath = pathmodule.resolve(reqPath); // resolve will resolve ""../""
+   7 |
+   8 |   if (resolvedPath.startsWith(__dirname + ""/uploads"")) {
+   9 |     // the requested filename cannot be retrieved outside of the ""/uploads"" folder
+  10 |     let data = fs.readFileSync(resolvedPath, { encoding: ""utf8"", flag: ""r"" }); // Compliant
+  11 |   }
+  12 | }
+  13 |
+  14 | function unsafePathInjection(req, res) {
+  15 |   const reqPath = __dirname + req.query.filename; // user-controlled path
+  16 |
+> 17 |   let data = fs.readFileSync(reqPath, { encoding: ""utf8"", flag: ""r"" }); // Noncompliant
+  18 | }
+     ^ Col 0
+",typescript.ts_insecure_path_traversal
+F063,lines,namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts,7,22,skims,063. Lack of data validation - Path Traversal,"User provided data is not correctly sanitized, neutralize or validated for special elements within the pathname. in namespace/skims/test/data/lib_root/f063/ts_zip_slip.ts","
+   1 | const AdmZip = require('adm-zip');
+   2 | const fs = require('fs');
+   3 |
+   4 | const zip = new AdmZip(""zip-slip.zip"");
+   5 | const zipEntries = zip.getEntries();
+   6 | zipEntries.forEach(function (zipEntry) {
+>  7 |   fs.createWriteStream(zipEntry.entryName); // Noncompliant
+   8 | });
+   9 |
+  10 | const pathmodule = require('path');
+  11 | zipEntries.forEach(function (zipEntry) {
+  12 |   let resolvedPath = pathmodule.join(__dirname + '/archive_tmp', zipEntry.entryName); // join will resolve ""../""
+  13 |
+  14 |   if (resolvedPath.startsWith(__dirname + '/archive_tmp')) {
+  15 |     // the file cannot be extracted outside of the ""archive_tmp"" folder
+  16 |     fs.createWriteStream(resolvedPath); // Compliant
+  17 |   }
+  18 | });
+     ^ Col 0
+",typescript.ts_zip_slip

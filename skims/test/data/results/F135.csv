@@ -1,0 +1,48 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F135,lines,namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js,5,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f135/js_unsafe_http_headers.js","
+   1 | import { HttpHeaders } from ""@angular/common/http"";
+   2 |
+   3 | export class AppComponent {
+   4 |   login(login) {
+>  5 |     const headers = new HttpHeaders({
+   6 |       ""Content-Type"": ""application/json"",
+   7 |       ""X-XSS-Protection"": 'anything',
+   8 |     });
+   9 |   }
+  10 | }
+     ^ Col 0
+",javascript.javascript_unsafe_http_xss_protection
+F135,lines,namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts,9,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that the HttpHeaders constructor suppresses 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_root/f135/ts_unsafe_http_headers.ts","
+   1 | import { HttpHeaders } from '@angular/common/http';
+   2 | import Observable from '../types.ts';
+   3 |
+   4 | type LoginModel ={};
+   5 | export class AppComponent {
+   6 |
+   7 |   login(login: LoginModel): Observable<any>{
+   8 |
+>  9 |     const headers = new HttpHeaders({
+  10 |       'Content-Type': 'application/json',
+  11 |       'X-XSS-Protection': 'anything',
+  12 |     });
+  13 |
+  14 |   }
+  15 | }
+     ^ Col 0
+",typescript.typescript_unsafe_http_xss_protection
+F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
+ in namespace/skims/test/data/lib_path/f135/webVuln.config","
+   1 | <configuration>
+   2 |     <system.webServer>
+   3 |         <httpProtocol>
+   4 |             <customHeaders>
+>  5 |                 <add name=""X-XSS-Protection"" value=""1"" />
+   6 |                 <remove name=""X-Powered-By""/>
+   7 |             </customHeaders>
+   8 |         </httpProtocol>
+   9 |     </system.webServer>
+  10 | </configuration>
+     ^ Col 0
+",conf_files.xml_has_x_xss_protection_header

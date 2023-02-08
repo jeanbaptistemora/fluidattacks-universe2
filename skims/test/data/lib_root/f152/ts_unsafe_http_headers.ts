@@ -8,7 +8,7 @@ export class AppComponent {
 
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'X-XSS-Protection': 'anything',
+      'X-Frame-Options': 'anything',
     });
 
   }

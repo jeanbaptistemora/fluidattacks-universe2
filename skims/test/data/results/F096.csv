@@ -1,0 +1,178 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,10,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
+   1 | ass XmlSerializerTestCase : Controller
+   2 |
+   3 | c ActionResult unsecuredeserialization(HttpRequest typeName)
+   4 |
+   5 | /insecure
+   6 | pe t = Type.GetType(typeName);
+   7 | mlSerializer insec_serial = new XmlSerializer(t);
+   8 |
+   9 | /insecure
+> 10 | mlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 | /secure
+  13 | xpectedType obj = null;
+  14 | mlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
+  15 |
+  16 | /insecure
+  17 | ar req = new HttpRequest();
+  18 | ar t2 = Type.GetType(req);
+  19 | mlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | /secure
+     ^ Col 9
+",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,7,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
+   1 | lass XmlSerializerTestCase : Controller
+   2 |
+   3 | ic ActionResult unsecuredeserialization(HttpRequest typeName)
+   4 |
+   5 | //insecure
+   6 | Tpe t = Type.GetType(typeName);
+>  7 | XmlSerializer insec_serial = new XmlSerializer(t);
+   8 |
+   9 | //insecure
+  10 | XmlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 | //secure
+  13 | ExpectedType obj = null;
+  14 | XmlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
+  15 |
+  16 | //insecure
+  17 | var req = new HttpRequest();
+  18 | var t2 = Type.GetType(req);
+  19 | XmlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | //secure
+     ^ Col 8
+",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,19,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,"
+   5 | /insecure
+   6 | pe t = Type.GetType(typeName);
+   7 | mlSerializer insec_serial = new XmlSerializer(t);
+   8 |
+   9 | /insecure
+  10 | mlSerializer insec_serial2 = new XmlSerializer(Type.GetType(typeName));
+  11 |
+  12 | /secure
+  13 | xpectedType obj = null;
+  14 | mlSerializer sec_serial = new XmlSerializer(typeof(HttpRequest));
+  15 |
+  16 | /insecure
+  17 | ar req = new HttpRequest();
+  18 | ar t2 = Type.GetType(req);
+> 19 | mlSerializer insec_serial3 = new XmlSerializer(t2);
+  20 |
+  21 | /secure
+  22 | tring greeting = ""hello"";
+  23 | mlSerializer sec_serial2 = new XmlSerializer(Type.GetType(greeting));
+  24 |
+  25 |
+     ^ Col 9
+",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs","
+   1 | g System.Web.Script.Serialization;
+   2 |
+   3 | ic class ExampleClass
+   4 |
+   5 | public T Deserialize<T>(string str)
+   6 | {
+>  7 |     JavaScriptSerializer s = new JavaScriptSerializer(new SimpleTypeResolver());
+   8 |     return s.Deserialize<T>(str);
+   9 | }
+  10 |
+     ^ Col 4
+",c_sharp.c_sharp_js_deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_type_name_handling.cs,9,502,skims,096. Insecure deserialization,"A Newtonsoft.Json.TypeNameHandling enumeration value other than None should not be referenced.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_type_name_handling.cs","
+   1 | using Newtonsoft.Json;
+   2 |
+   3 | public class ExampleClass
+   4 | {
+   5 |
+   6 |     public void ExampleClass()
+   7 |     {
+   8 |         var Settings = new JsonSerializerSettings();
+>  9 |         Settings.TypeNameHandling = TypeNameHandling.All;
+  10 |     }
+  11 | }
+     ^ Col 0
+",c_sharp.c_sharp_type_name_handling
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,11,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
+   1 | em.Runtime.Serialization.Formatters.Binary;
+   2 | em.Runtime.Serialization.IFormatter;
+   3 | Controllers
+   4 |
+   5 |  class Encrypt
+   6 |
+   7 | blic static void Process(string secret)
+   8 |
+   9 |   BinaryFormatter formatter = new BinaryFormatter();
+  10 |   LosFormatter formatter2 = new LosFormatter();
+> 11 |   SoapFormatter formatter3 = new SoapFormatter();
+  12 |   NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 10
+",c_sharp.c_sharp_insecure_deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,9,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
+   1 | m.Runtime.Serialization.Formatters.Binary;
+   2 | m.Runtime.Serialization.IFormatter;
+   3 | ontrollers
+   4 |
+   5 | class Encrypt
+   6 |
+   7 | lic static void Process(string secret)
+   8 |
+>  9 |  BinaryFormatter formatter = new BinaryFormatter();
+  10 |  LosFormatter formatter2 = new LosFormatter();
+  11 |  SoapFormatter formatter3 = new SoapFormatter();
+  12 |  NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 11
+",c_sharp.c_sharp_insecure_deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,12,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
+   1 | rialization.Formatters.Binary;
+   2 | rialization.IFormatter;
+   3 |
+   4 |
+   5 | t
+   6 |
+   7 | oid Process(string secret)
+   8 |
+   9 | tter formatter = new BinaryFormatter();
+  10 | r formatter2 = new LosFormatter();
+  11 | er formatter3 = new SoapFormatter();
+> 12 | ractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 23
+",c_sharp.c_sharp_insecure_deserialization
+F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs,10,502,skims,096. Insecure deserialization,"The system deserializes objects without first validating their content nor casting them to a specific type.
+ in namespace/skims/test/data/lib_root/f096/c_sharp_insecure_deserialization.cs","
+   1 | tem.Runtime.Serialization.Formatters.Binary;
+   2 | tem.Runtime.Serialization.IFormatter;
+   3 |  Controllers
+   4 |
+   5 | c class Encrypt
+   6 |
+   7 | ublic static void Process(string secret)
+   8 |
+   9 |    BinaryFormatter formatter = new BinaryFormatter();
+> 10 |    LosFormatter formatter2 = new LosFormatter();
+  11 |    SoapFormatter formatter3 = new SoapFormatter();
+  12 |    NetDataContractSerializer formatter4  = new NetDataContractSerializer();
+  13 |
+  14 |
+  15 |
+     ^ Col 9
+",c_sharp.c_sharp_insecure_deserialization

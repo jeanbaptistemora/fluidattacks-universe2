@@ -1,0 +1,145 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,21,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+  14 |         System.exit(0);
+  15 |         Runtime.getRuntime().exit(0);
+  16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+  19 | System.exit(0);
+  20 | Runtime.getRuntime().exit(0);
+> 21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,20,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+  14 |         System.exit(0);
+  15 |         Runtime.getRuntime().exit(0);
+  16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+  19 | System.exit(0);
+> 20 | Runtime.getRuntime().exit(0);
+  21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,19,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+  14 |         System.exit(0);
+  15 |         Runtime.getRuntime().exit(0);
+  16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+> 19 | System.exit(0);
+  20 | Runtime.getRuntime().exit(0);
+  21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,16,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+  14 |         System.exit(0);
+  15 |         Runtime.getRuntime().exit(0);
+> 16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+  19 | System.exit(0);
+  20 | Runtime.getRuntime().exit(0);
+  21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,15,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+  14 |         System.exit(0);
+> 15 |         Runtime.getRuntime().exit(0);
+  16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+  19 | System.exit(0);
+  20 | Runtime.getRuntime().exit(0);
+  21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method
+F423,lines,namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,14,382,skims,423. Inappropriate coding practices - System exit,Application uses System.exit() in namespace/skims/test/data/lib_root/f423/java_unsafe_exit.java,"
+   1 | public class Test{
+   2 |     public static void main(String[] args){
+   3 |         System.exit(0);
+   4 |         Runtime.getRuntime().exit(0);
+   5 |         Runtime.getRuntime().halt(0);
+   6 |         try {
+   7 |             throw new IOException();
+   8 |         }
+   9 |         catch (IOException e) {
+  10 |             System.exit(0);
+  11 |         }
+  12 |     }
+  13 |     public static void test(String[] args){
+> 14 |         System.exit(0);
+  15 |         Runtime.getRuntime().exit(0);
+  16 |         Runtime.getRuntime().halt(0);
+  17 |     }
+  18 | }
+  19 | System.exit(0);
+  20 | Runtime.getRuntime().exit(0);
+  21 | Runtime.getRuntime().halt(0);
+     ^ Col 0
+",java.java_uses_exit_method

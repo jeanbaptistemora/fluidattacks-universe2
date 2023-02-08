@@ -1,0 +1,138 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F060,lines,namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,2,396,skims,060. Insecure service configuration - Host verification,Make sure the host property is different from  in namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,"
+   1 | {
+>  2 |   ""AllowedHosts"": ""*"",
+   3 |   ""Serilog"": {
+   4 |     ""MinimumLevel"": {
+   5 |       ""Default"": ""Debug"",
+   6 |       ""Override"": {
+   7 |         ""Default"": ""Information"",
+   8 |         ""Microsoft"": ""Warning"",
+   9 |         ""Microsoft.Hosting.Lifetime"": ""Information""
+  10 |       }
+  11 |     },
+  12 |     ""Enrich"": [
+  13 |       ""FromLogContext"",
+  14 |       ""WithMachineName""
+  15 |     ],
+  16 |     ""Properties"": {
+  17 |       ""Application"": ""MultipleLogFilesSample""
+  18 |     }
+  19 |   }
+  20 | }
+     ^ Col 0
+",conf_files.json_allowed_hosts
+F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skims,060. Insecure service configuration - Host verification,"SSL is disabled in ApplicationHost.config, check the sslFlags attribute. in namespace/skims/test/data/lib_path/f060/apphostVuln.config","
+  1 | <?xml version=""1.0"" encoding=""UTF-8""?>
+  2 | <configuration>
+  3 |     <system.webServer>
+  4 |         <security>
+> 5 |             <access sslFlags=""None"" />
+  6 |             <!-- <access sslFlags=""Ssl"" /> -->
+  7 |         </security>
+  8 |     </system.webServer>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_has_ssl_disabled
+F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,8,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |
+   6 |   public static void unsafe1() {
+   7 |     //There is an option in the callback method that sets all certificates to true
+>  8 |     ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => {return true;};
+   9 |   }
+  10 |
+  11 |   public static void unsafe2() {
+  12 |     // Directly setting the validation to all true
+  13 |     ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+  14 |   }
+  15 |
+  16 |   public static void safe() {
+  17 |     // Trust only some certificates
+  18 |     ServicePointManager.ServerCertificateValidationCallback +=
+  19 |     (sender, certificate, chain, errors) =>
+  20 |     {
+  21 |         if (development) return true; // for development, trust all certificates
+     ^ Col 0
+",c_sharp.c_sharp_insecure_certificate_validation
+F060,lines,namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,13,396,skims,060. Insecure service configuration - Host verification,Server certificates should be verified during SSL/TLS connections in namespace/skims/test/data/lib_root/f060/c_sharp_cert_validation.cs,"
+   3 | using System.Security.Cryptography;
+   4 | class Test {
+   5 |
+   6 |   public static void unsafe1() {
+   7 |     //There is an option in the callback method that sets all certificates to true
+   8 |     ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => {return true;};
+   9 |   }
+  10 |
+  11 |   public static void unsafe2() {
+  12 |     // Directly setting the validation to all true
+> 13 |     ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, errors) => true;
+  14 |   }
+  15 |
+  16 |   public static void safe() {
+  17 |     // Trust only some certificates
+  18 |     ServicePointManager.ServerCertificateValidationCallback +=
+  19 |     (sender, certificate, chain, errors) =>
+  20 |     {
+  21 |         if (development) return true; // for development, trust all certificates
+  22 |         return errors == SslPolicyErrors.None && validCerts.Contains(certificate.GetCertHashString());
+  23 |     };
+     ^ Col 0
+",c_sharp.c_sharp_insecure_certificate_validation
+F060,lines,namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,7,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,"
+   1 | {
+   2 |   ""name"": ""holidays-component"",
+   3 |   ""version"": ""0.0.0"",
+   4 |   ""scripts"": {
+   5 |       ""ng"": ""ng"",
+   6 |       ""start"": ""ng serve --disable-host-check"",
+>  7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
+   8 |       ""build"": ""ng build"",
+   9 |       ""test"": ""ng test"",
+  10 |       ""lint"": ""ng lint"",
+  11 |       ""e2e"": ""ng e2e"",
+  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
+  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
+  14 |       ""npm-login"": ""node npm-login.js""
+  15 |   }
+  16 | }
+     ^ Col 0
+",conf_files.json_disable_host_check
+F060,lines,namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,6,396,skims,060. Insecure service configuration - Host verification,The host check is disabled in config file. in namespace/skims/test/data/lib_root/f060/json_disable_host_check.json,"
+   1 | {
+   2 |   ""name"": ""holidays-component"",
+   3 |   ""version"": ""0.0.0"",
+   4 |   ""scripts"": {
+   5 |       ""ng"": ""ng"",
+>  6 |       ""start"": ""ng serve --disable-host-check"",
+   7 |       ""start:local"": ""ng serve --port 4206 --host 0.0.0.0 --disable-host-check --ssl"",
+   8 |       ""build"": ""ng build"",
+   9 |       ""test"": ""ng test"",
+  10 |       ""lint"": ""ng lint"",
+  11 |       ""e2e"": ""ng e2e"",
+  12 |       ""build:elements"": ""ng build --prod --output-hashing none && node ./concatenate.js"",
+  13 |       ""build:elements:local"": ""ng build --configuration=local --aot --output-hashing none && node ./concatenate.js"",
+  14 |       ""npm-login"": ""node npm-login.js""
+  15 |   }
+  16 | }
+     ^ Col 0
+",conf_files.json_disable_host_check
+F060,lines,namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,2,396,skims,060. Insecure service configuration - Host verification,While performing communication between windows objects of different origins we must validate the identity of those origins. in namespace/skims/test/data/lib_root/f060/js_unsafe_origin.js,"
+  1 | var iframe = document.getElementById(""testiframe"");
+> 2 | iframe.contentWindow.postMessage(""secret"", ""*""); // Noncompliant: * is used
+  3 |
+  4 | var secframe = document.getElementById(""testsecureiframe"");
+  5 | secframe.contentWindow.postMessage(""hello"", ""https://secure.example.com""); // Compliant
+    ^ Col 0
+",javascript.javascript_unsafe_origin
+F060,lines,namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,2,396,skims,060. Insecure service configuration - Host verification,While performing communication between windows objects of different origins we must validate the identity of those origins. in namespace/skims/test/data/lib_root/f060/ts_unsafe_origin.ts,"
+  1 | var iframe = document.getElementById(""testiframe"");
+> 2 | iframe.contentWindow.postMessage(""secret"", ""*""); // Noncompliant: * is used
+  3 |
+  4 | var secframe = document.getElementById(""testsecureiframe"");
+  5 | secframe.contentWindow.postMessage(""hello"", ""https://secure.example.com""); // Compliant
+    ^ Col 0
+",typescript.typescript_unsafe_origin

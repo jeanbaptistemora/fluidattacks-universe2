@@ -1,0 +1,112 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,10,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,"
+   1 | namespace Controllers
+   2 | {
+   3 |     public class DBaccess
+   4 |     {
+   5 |         public void dbauth()
+   6 |         {
+   7 |             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+   8 |             //insecure
+   9 |             var con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
+> 10 |             optionsBuilder.UseSqlServer(con_str);
+  11 |
+  12 |
+  13 |             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
+  14 |             //insecure
+  15 |             optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
+  16 |
+  17 |             DbContextOptionsBuilder optionsBuilder3 = new DbContextOptionsBuilder();
+  18 |             //secure
+  19 |             var con_str2 = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=5674_H5lloW0rld"";
+  20 |             optionsBuilder3.UseSqlServer(con_str2);
+  21 |
+     ^ Col 0
+",c_sharp.csharp_no_password
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,15,521,skims,035. Weak credential policy,The system credential policy is not compliant with security regulations in namespace/skims/test/data/lib_root/f035/c_sharp_test_db.cs,"
+   5 |         public void dbauth()
+   6 |         {
+   7 |             DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+   8 |             //insecure
+   9 |             var con_str = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="";
+  10 |             optionsBuilder.UseSqlServer(con_str);
+  11 |
+  12 |
+  13 |             DbContextOptionsBuilder optionsBuilder2 = new DbContextOptionsBuilder();
+  14 |             //insecure
+> 15 |             optionsBuilder2.UseSqlServer(""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password="");
+  16 |
+  17 |             DbContextOptionsBuilder optionsBuilder3 = new DbContextOptionsBuilder();
+  18 |             //secure
+  19 |             var con_str2 = ""Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=5674_H5lloW0rld"";
+  20 |             optionsBuilder3.UseSqlServer(con_str2);
+  21 |
+  22 |             DbContextOptionsBuilder optionsBuilder4 = new DbContextOptionsBuilder();
+  23 |             //secure
+  24 |             var password = ""5674_H5lloW0rld"";
+  25 |             var con_str3 = con_str + password;
+     ^ Col 0
+",c_sharp.csharp_no_password
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,14,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         bool unsafe = false;
+   6 |         services.Configure<IdentityOptions>( options =>
+   7 |         {
+   8 |             options.Password.RequireDigit = true;
+   9 |             options.Password.RequireDigit = false;
+  10 |             options.Password.RequiredLength = 8;
+  11 |             options.Password.RequireNonAlphanumeric = true;
+  12 |             options.Password.RequireUppercase = true;
+  13 |             options.Password.RequireLowercase = unsafe;
+> 14 |             options.Password.RequiredUniqueChars = 5;
+  15 |             options.User.RequireUniqueEmail = false;
+  16 |         });
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.csharp_weak_credential_policy
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,13,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         bool unsafe = false;
+   6 |         services.Configure<IdentityOptions>( options =>
+   7 |         {
+   8 |             options.Password.RequireDigit = true;
+   9 |             options.Password.RequireDigit = false;
+  10 |             options.Password.RequiredLength = 8;
+  11 |             options.Password.RequireNonAlphanumeric = true;
+  12 |             options.Password.RequireUppercase = true;
+> 13 |             options.Password.RequireLowercase = unsafe;
+  14 |             options.Password.RequiredUniqueChars = 5;
+  15 |             options.User.RequireUniqueEmail = false;
+  16 |         });
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.csharp_weak_credential_policy
+F035,lines,namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,9,521,skims,035. Weak credential policy,Weak password policy in namespace/skims/test/data/lib_root/f035/c_sharp_weak_credential.cs,"
+   1 | ï»¿public class Startup
+   2 | {
+   3 |     public void start(IServiceCollection services)
+   4 |     {
+   5 |         bool unsafe = false;
+   6 |         services.Configure<IdentityOptions>( options =>
+   7 |         {
+   8 |             options.Password.RequireDigit = true;
+>  9 |             options.Password.RequireDigit = false;
+  10 |             options.Password.RequiredLength = 8;
+  11 |             options.Password.RequireNonAlphanumeric = true;
+  12 |             options.Password.RequireUppercase = true;
+  13 |             options.Password.RequireLowercase = unsafe;
+  14 |             options.Password.RequiredUniqueChars = 5;
+  15 |             options.User.RequireUniqueEmail = false;
+  16 |         });
+  17 |     }
+  18 | }
+     ^ Col 0
+",c_sharp.csharp_weak_credential_policy

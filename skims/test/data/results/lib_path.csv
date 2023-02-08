@@ -724,18 +724,6 @@ F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Un
   15 | �MyJar.classPK��
      ^ Col 0
 ",generic.unverifiable_files
-F060,lines,namespace/skims/test/data/lib_path/f060/apphostVuln.config,5,396,skims,060. Insecure service configuration - Host verification,"SSL is disabled in ApplicationHost.config, check the sslFlags attribute. in namespace/skims/test/data/lib_path/f060/apphostVuln.config","
-  1 | <?xml version=""1.0"" encoding=""UTF-8""?>
-  2 | <configuration>
-  3 |     <system.webServer>
-  4 |         <security>
-> 5 |             <access sslFlags=""None"" />
-  6 |             <!-- <access sslFlags=""Ssl"" /> -->
-  7 |         </security>
-  8 |     </system.webServer>
-  9 | </configuration>
-    ^ Col 0
-",dotnetconfig.dotnetconfig_has_ssl_disabled
 F412,lines,namespace/skims/test/data/lib_path/f412/azure_key_valut.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f412/azure_key_valut.tf","
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -861,20 +849,6 @@ F055,lines,namespace/skims/test/data/lib_path/f055/AndroidManifest.xml,0,530,ski
   14 | </manifest>
      ^ Col 0
 ",android.apk_backups_enabled
-F135,lines,namespace/skims/test/data/lib_path/f135/webVuln.config,5,644,skims,135. Insecure or unset HTTP headers - X-XSS Protection,"Ensure that your Web.config source file or package suppress 'X-XSS-Protection' headers.
- in namespace/skims/test/data/lib_path/f135/webVuln.config","
-   1 | <configuration>
-   2 |     <system.webServer>
-   3 |         <httpProtocol>
-   4 |             <customHeaders>
->  5 |                 <add name=""X-XSS-Protection"" value=""1"" />
-   6 |                 <remove name=""X-Powered-By""/>
-   7 |             </customHeaders>
-   8 |         </httpProtocol>
-   9 |     </system.webServer>
-  10 | </configuration>
-     ^ Col 0
-",conf_files.xml_has_x_xss_protection_header
 F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,"
    1 | <elementProp name="""" elementType=""Header"">
 >  2 |   <stringProp name=""Header.name"">Accept</stringProp>
@@ -960,18 +934,6 @@ F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json
    72 |             ""DataTraceEnabled"": ""false"",
       ^ Col 0
 ",cloudformation.cnf_http_methods_enabled
-F152,lines,namespace/skims/test/data/lib_path/f152/xFrameOptions.config,5,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"El encabezado de respuesta HTTP X-Frame-Options puede ser usado para indicar si debería permitírsele a un navegador renderizar una página en un <frame>, <iframe>, <embed> u <object>. Las páginas web pueden usarlo para evitar ataques de click-jacking, asegurándose de que su contenido no es embebido en otros sitios. in namespace/skims/test/data/lib_path/f152/xFrameOptions.config","
-  1 | <configuration>
-  2 |     <system.webServer>
-  3 |         <httpProtocol>
-  4 |             <customHeaders>
-> 5 |                 <add name=""X-Frame-Options"" value=""SAMEORIGIN"" />
-  6 |             </customHeaders>
-  7 |         </httpProtocol>
-  8 |     </system.webServer>
-  9 | </configuration>
-    ^ Col 0
-",conf_files.xml_x_frame_options
 F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 | ARG DEBIAN_FRONTEND=noninteractive

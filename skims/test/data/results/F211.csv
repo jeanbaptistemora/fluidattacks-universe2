@@ -1,0 +1,217 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_regex_injection.cs,10,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/c_sharp_regex_injection.cs","
+   1 | using System;
+   2 | using System.Text.RegularExpressions;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |
+   7 |     protected void Page_Load(object sender, EventArgs e)
+   8 |     {
+   9 |         string findTerm = Request.Form[""findTerm""];
+> 10 |         Match m = Regex.Match(SearchableText, ""^term="" + findTerm);
+  11 |     }
+  12 | }
+     ^ Col 0
+",csharp.csharp_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/js_regex_injection.js","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+   5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+> 12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",javascript.js_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/js_regex_injection.js,5,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/js_regex_injection.js","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+>  5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+  12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",javascript.js_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,12,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+   5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+> 12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",typescript.ts_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts,5,405,skims,211. Asymmetric denial of service - ReDoS,"Potentially untrusted HTTP request input reaches a regular expression.
+ in namespace/skims/test/data/lib_root/f211/ts_regex_injection.ts","
+   1 | const escapeStringRegexp = require('escape-string-regexp');
+   2 | const safe = require('safe-regex');
+   3 |
+   4 | function vuln_two(req, res) {
+>  5 |   const pattern1 = RegExp(req.query.pattern); // Noncompliant
+   6 |   pattern1.test(req.query.input);
+   7 | }
+   8 |
+   9 |
+  10 | function vuln_one(req, res) {
+  11 |   if(safe(req.query.pattern)) {
+  12 |     const regex = RegExp(req.query.pattern); // Noncompliant
+  13 |     regex.test(req.query.input);
+  14 |   }
+  15 | }
+  16 |
+  17 |
+  18 | function secure(req, res) {
+  19 |   const pattern = RegExp(escapeStringRegexp(req.query.pattern)); // Compliant
+  20 |   pattern.test(req.query.input);
+  21 | }
+     ^ Col 0
+",typescript.ts_regex_injection
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,12,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   2 | namespace Controllers
+   3 | {
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
+   7 |         {
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  10 |
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+> 12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+  14 |             bool unsafe2 = myreg.Matches(input, pattern);
+  15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
+  18 |
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,14,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   4 |     public class Controller : Controller
+   5 |     {
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
+   7 |         {
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  10 |
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+  12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+> 14 |             bool unsafe2 = myreg.Matches(input, pattern);
+  15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
+  18 |
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  23 |
+  24 |             Regex myreg2 = new Regex(pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs,15,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/c_sharp_vuln_regex.cs","
+   5 |     {
+   6 |         public IActionResult Validate(HttpRequest req, string regex)
+   7 |         {
+   8 |             string input = req.QueryString[""command""];
+   9 |             var pattern = @""^(([a-z])+.)+[A-Z]([a-z])+$"";
+  10 |
+  11 |             Regex myreg = new Regex(pattern, RegexOptions.IgnoreCase);
+  12 |             bool unsafe = myreg.IsMatch(input);
+  13 |
+  14 |             bool unsafe2 = myreg.Matches(input, pattern);
+> 15 |             bool unsafe3 = myreg.Match(input, @""^(([a-z])+.)+"");
+  16 |
+  17 |             bool safe = myreg.IsMatch(""mystring"", pattern);
+  18 |
+  19 |             string safeInput = reg.Escape(pattern);
+  20 |             bool safe2 = myreg.IsMatch(input, safeInput);
+  21 |
+  22 |             bool safe3 = myreg.IsMatch(input, pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  23 |
+  24 |             Regex myreg2 = new Regex(pattern, RegexOptions.IgnoreCase, TimeSpan.FromSeconds(1));
+  25 |             bool safe4 = myreg2.IsMatch(input);
+     ^ Col 0
+",c_sharp.csharp_vuln_regular_expression
+F211,lines,namespace/skims/test/data/lib_root/f211/java_vuln_regex.java,6,405,skims,211. Asymmetric denial of service - ReDoS,"Regular expressions should not be vulnerable to Denial of Service attacks
+ in namespace/skims/test/data/lib_root/f211/java_vuln_regex.java","
+   1 | public class Test{
+   2 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
+   3 |   String regex = ""(A+)+"";
+   4 |   String input = request.getParameter(""input"");
+   5 |
+>  6 |   input.matches(regex);  // Not-safe
+   7 | }
+   8 |
+   9 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
+  10 |   String regex = ""(A+)+"";
+  11 |   String input = request.getParameter(""input"");
+  12 |
+  13 |   input.matches(Pattern.quote(regex));  // Safe
+  14 |
+  15 | }
+  16 |
+  17 | public boolean validate(javax.servlet.http.HttpServletRequest request) {
+  18 |   String regex = Pattern.quote(""(A+)+"");
+  19 |   String input = request.getParameter(""input"");
+  20 |
+  21 |   input.matches(regex);  // Safe
+     ^ Col 0
+",java.java_vuln_regex

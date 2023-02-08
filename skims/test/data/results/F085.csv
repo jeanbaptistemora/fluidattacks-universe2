@@ -1,0 +1,67 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F085,lines,namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,"
+  1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+  4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+> 6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",javascript.javascript_client_storage
+F085,lines,namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,4,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,"
+  1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+> 4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+  6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",javascript.javascript_client_storage
+F085,lines,namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,1,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/js_client_storage.jsx,"
+> 1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+  4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+  6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",javascript.javascript_client_storage
+F085,lines,namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,6,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,"
+  1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+  4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+> 6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",typescript.typescript_client_storage
+F085,lines,namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,4,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,"
+  1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+> 4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+  6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",typescript.typescript_client_storage
+F085,lines,namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,1,922,skims,085. Sensitive data stored in client-side storage,Sensitive information storage in namespace/skims/test/data/lib_root/f085/tsx_client_storage.tsx,"
+> 1 | localStorage.getItem('password');
+  2 | localStorage.getItem('non-sensitive');
+  3 | localStorage.getItem(non.sensitive);
+  4 | localStorage.setItem('whatever', sessionID);
+  5 | localStorage.setItem(token.jwt, '123');
+  6 | localStorage.getItem(session_token);
+  7 | localStorage.getItem('is_authenticated');
+  8 | localStorage.getItem('_isAuthorized');
+    ^ Col 0
+",typescript.typescript_client_storage
