@@ -1,19 +1,27 @@
 import { faSyncAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Button } from "components/Button";
 import type { IGitRootData } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/types";
 
-export const syncButtonFormatter = (
-  row: IGitRootData,
-  changeFunction: (arg: IGitRootData) => void
-): JSX.Element => {
-  function handleOnChange(ev: React.SyntheticEvent): void {
-    ev.stopPropagation();
-    changeFunction(row);
-  }
+interface ISyncButtonFormatterProps {
+  row: IGitRootData;
+  changeFunction: (arg: IGitRootData) => void;
+}
+
+const SyncButtonFormatter: React.FC<ISyncButtonFormatterProps> = ({
+  row,
+  changeFunction,
+}: ISyncButtonFormatterProps): JSX.Element => {
+  const handleOnChange = useCallback(
+    (ev: React.SyntheticEvent): void => {
+      ev.stopPropagation();
+      changeFunction(row);
+    },
+    [changeFunction, row]
+  );
 
   return (
     <Button
@@ -23,11 +31,17 @@ export const syncButtonFormatter = (
         (!_.isNull(row.credentials) && row.credentials.name === "")
       }
       id={"gitRootSync"}
-      // eslint-disable-next-line
-      onClick={handleOnChange} // NOSONAR
+      onClick={handleOnChange}
       variant={"secondary"}
     >
       <FontAwesomeIcon icon={faSyncAlt} />
     </Button>
   );
+};
+
+export const syncButtonFormatter = (
+  row: IGitRootData,
+  changeFunction: (arg: IGitRootData) => void
+): JSX.Element => {
+  return <SyncButtonFormatter changeFunction={changeFunction} row={row} />;
 };

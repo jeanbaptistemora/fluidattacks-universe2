@@ -1,18 +1,25 @@
 import { capitalize } from "lodash";
-import React from "react";
+import React, { useCallback } from "react";
 
 import { LinkRow } from "./lintRow";
 
 import { translate } from "utils/translations/translate";
 
-export const linkFormatter = (
-  value: boolean | string | undefined,
-  row: Readonly<Record<string, string>>,
-  changeFunction?: (arg: Record<string, string>) => void
-): JSX.Element => {
-  function onClick(): void {
+interface ILinkFormatterProps {
+  value: boolean | string | undefined;
+  row: Readonly<Record<string, string>>;
+  // eslint-disable-next-line react/require-default-props
+  changeFunction?: (arg: Record<string, string>) => void;
+}
+
+const LinkFormatter: React.FC<ILinkFormatterProps> = ({
+  value,
+  row,
+  changeFunction,
+}: ILinkFormatterProps): JSX.Element => {
+  const onClick = useCallback((): void => {
     changeFunction?.(row);
-  }
+  }, [changeFunction, row]);
 
   const valueDefined: boolean | string = value ?? "";
 
@@ -30,9 +37,18 @@ export const linkFormatter = (
 
   return (
     <LinkRow
-      // eslint-disable-next-line
-      onClick={onClick}  // NOSONAR
+      onClick={onClick}
       value={capitalize(formatedValueDefined.toLocaleLowerCase())}
     />
+  );
+};
+
+export const linkFormatter = (
+  value: boolean | string | undefined,
+  row: Readonly<Record<string, string>>,
+  changeFunction?: (arg: Record<string, string>) => void
+): JSX.Element => {
+  return (
+    <LinkFormatter changeFunction={changeFunction} row={row} value={value} />
   );
 };
