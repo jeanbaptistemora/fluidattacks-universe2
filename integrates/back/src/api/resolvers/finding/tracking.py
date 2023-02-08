@@ -1,6 +1,3 @@
-from aioextensions import (
-    collect,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -52,20 +49,16 @@ async def resolve(
     finding_vulns_loader = loaders.finding_vulnerabilities_released_nzr
     vulns = await finding_vulns_loader.load(parent.id)
     vulnerabilities_id = tuple(vuln.id for vuln in vulns)
-    vulns_state, vulns_treatment = await collect(
-        (
-            _get_states(
-                loaders=info.context.loaders,
-                vulnerabilities_id=vulnerabilities_id,
-            ),
-            _get_treatments(
-                loaders=info.context.loaders,
-                vulnerabilities_id=vulnerabilities_id,
-            ),
-        )
+    vulns_state = await _get_states(
+        loaders=loaders,
+        vulnerabilities_id=vulnerabilities_id,
+    )
+    vulns_treatment = await _get_treatments(
+        loaders=loaders,
+        vulnerabilities_id=vulnerabilities_id,
     )
 
     return findings_domain.get_tracking_vulnerabilities(
-        vulns_state=vulns_state,  # type: ignore
-        vulns_treatment=vulns_treatment,  # type: ignore
+        vulns_state=vulns_state,
+        vulns_treatment=vulns_treatment,
     )

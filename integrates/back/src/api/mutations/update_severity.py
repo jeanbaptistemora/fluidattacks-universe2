@@ -12,6 +12,9 @@ from custom_exceptions import (
     InvalidCvssVersion,
     NotCvssVersion,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.enums import (
     FindingCvssVersion,
 )
@@ -57,9 +60,9 @@ async def mutate(
     _: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimpleFindingPayload:
     try:
+        loaders: Dataloaders = info.context.loaders
         kwargs["id"] = finding_id
-        finding_loader = info.context.loaders.finding
-        finding = await finding_loader.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         if "cvss_version" not in kwargs:
             raise NotCvssVersion()
         cvss_version = str(kwargs["cvss_version"])
@@ -143,9 +146,7 @@ async def mutate(
         else:
             raise InvalidCvssVersion()
 
-        await findings_domain.update_severity(
-            info.context.loaders, finding_id, severity
-        )
+        await findings_domain.update_severity(loaders, finding_id, severity)
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Updated severity in finding {finding_id} successfully",
@@ -157,7 +158,7 @@ async def mutate(
         )
         raise
 
-    finding_loader.clear(finding_id)
-    finding = await finding_loader.load(finding_id)
+    loaders.finding.clear(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
 
     return SimpleFindingPayload(finding=finding, success=True)

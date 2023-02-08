@@ -7,8 +7,8 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from db_model.organizations.types import (
-    Organization,
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -17,6 +17,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 from typing import (
     Any,
@@ -33,16 +36,17 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"]
+    loaders: Dataloaders = info.context.loaders
+    organization = await orgs_utils.get_organization(
+        loaders, kwargs["organization_id"]
     )
 
-    result: bool = await billing_domain.update_credit_card_payment_method(
-        org=org,
-        payment_method_id=kwargs["payment_method_id"],
-        card_expiration_month=kwargs["card_expiration_month"],
-        card_expiration_year=kwargs["card_expiration_year"],
-        make_default=kwargs["make_default"],
+    return SimplePayload(
+        success=await billing_domain.update_credit_card_payment_method(
+            org=organization,
+            payment_method_id=kwargs["payment_method_id"],
+            card_expiration_month=kwargs["card_expiration_month"],
+            card_expiration_year=kwargs["card_expiration_year"],
+            make_default=kwargs["make_default"],
+        )
     )
-
-    return SimplePayload(success=result)

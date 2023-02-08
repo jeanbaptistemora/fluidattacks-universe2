@@ -69,21 +69,19 @@ async def _update_stakeholder(
     group: Group,
 ) -> None:
     loaders: Dataloaders = info.context.loaders
-
     if not await exists(loaders, group.name, modified_email):
         raise StakeholderNotFound()
 
     group_access: GroupAccess = await loaders.group_access.load(
         GroupAccessRequest(group_name=group.name, email=modified_email)
     )
-
     invitation = group_access.invitation
     email = updated_data["email"]
     responsibility = updated_data["responsibility"]
     role = updated_data["role"]
     if invitation and not invitation.is_used:
         await stakeholders_domain.update_invited_stakeholder(
-            loaders=info.context.loaders,
+            loaders=loaders,
             email=email,
             responsibility=responsibility,
             role=role,

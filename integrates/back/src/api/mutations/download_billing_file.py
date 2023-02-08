@@ -9,7 +9,6 @@ from billing import (
 )
 from custom_exceptions import (
     ErrorDownloadingFile,
-    OrganizationNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -24,6 +23,9 @@ from graphql.type.definition import (
 )
 from newutils import (
     logs as logs_utils,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 from typing import (
     Any,
@@ -43,10 +45,9 @@ async def mutate(
     **kwargs: Any,
 ) -> DownloadFilePayload:
     loaders: Dataloaders = info.context.loaders
-    organization = await loaders.organization.load(kwargs["organization_id"])
-    if organization is None:
-        raise OrganizationNotFound()
-
+    organization = await orgs_utils.get_organization(
+        loaders, kwargs["organization_id"]
+    )
     signed_url = await billing_domain.get_document_link(
         organization, payment_method_id, file_name
     )

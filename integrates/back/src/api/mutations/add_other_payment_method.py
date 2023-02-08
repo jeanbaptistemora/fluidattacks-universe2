@@ -7,9 +7,6 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from custom_exceptions import (
-    OrganizationNotFound,
-)
 from dataloaders import (
     Dataloaders,
 )
@@ -20,6 +17,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -46,10 +46,9 @@ async def mutate(
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    organization = await loaders.organization.load(kwargs["organization_id"])
-    if organization is None:
-        raise OrganizationNotFound()
-
+    organization = await orgs_utils.get_organization(
+        loaders, kwargs["organization_id"]
+    )
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 

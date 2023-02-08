@@ -42,25 +42,24 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayloadType:
-    try:
-        user_info = await sessions_domain.get_jwt_content(info.context)
-        user_email: str = user_info["user_email"]
-        new_phone_dict = kwargs.get("new_phone")
-        new_phone = None
-        if new_phone_dict:
-            new_phone = StakeholderPhone(
-                calling_country_code=new_phone_dict["calling_country_code"],
-                national_number=new_phone_dict["national_number"],
-                country_code="",
-            )
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
+    new_phone_dict = kwargs.get("new_phone")
+    new_phone = None
+    if new_phone_dict:
+        new_phone = StakeholderPhone(
+            calling_country_code=new_phone_dict["calling_country_code"],
+            national_number=new_phone_dict["national_number"],
+            country_code="",
+        )
 
+    try:
         await stakeholders_domain.verify(
             info.context.loaders,
             user_email,
             new_phone,
             kwargs.get("verification_code"),
         )
-
         logs_utils.cloudwatch_log(
             info.context,
             f"Security: Verified {user_email} successfully",
