@@ -163,6 +163,40 @@ generated in the API is
 unique and confidential;
 we recommend not sharing this token.
 
+## Revoke token
+
+When you want to revoke the API token,
+it is either because the token you generated
+has expired and you need a new one or
+because you lost the token
+(there is no way to see it after the first time)
+and you need a new one.
+To revoke,
+you have to go to the API Token in the
+[drop-down menu](/machine/web/user)
+in the ARM,
+and there you will get a pop-up window
+where you are given the option to revoke the token.
+
+![Revoke token](https://res.cloudinary.com/fluid-attacks/image/upload/v1675871123/docs/api/api-token/revoke_token.png)
+
+Please note that if you are going to revoke the
+token because you do not remember it,
+you will get a warning which will tell you the
+last time you used it in the previous seven days.
+
+![Warning to revoke token](https://res.cloudinary.com/fluid-attacks/image/upload/v1675871360/docs/api/api-token/warning.png)
+
+If you revoke it and generate a new one,
+keep in mind that the old token will no
+longer be valid and will no longer be usable
+in the implementations you have used it.
+
+Now if you have never used the token or if the
+last time you used it was more than seven days ago,
+this confirmation message will not appear when
+you revoke it and generate a new one.
+
 ## Playground Docs
 
 In the playground,
