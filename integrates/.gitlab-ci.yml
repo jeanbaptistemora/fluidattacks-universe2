@@ -19,6 +19,6 @@ integrates/web/forces/container:
     - forces --token "${TEST_FORCES_TOKEN}" --lax
   stage: post-deploy
   tags:
-    - large
+    - small
   variables:
     API_ENDPOINT: https://${CI_COMMIT_REF_NAME}.app.fluidattacks.com/api
