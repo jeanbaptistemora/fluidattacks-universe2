@@ -18,7 +18,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 # Constants
@@ -30,11 +29,8 @@ TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> AddOrganizationPayload:
-    loaders = info.context.loaders
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
-    )
-    user_email: str = user_info["user_email"]
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
     country = kwargs["country"]
     name = kwargs["name"]
 
@@ -44,7 +40,7 @@ async def mutate(
         name,
     )
     organization = await orgs_domain.add_organization(
-        loaders=loaders,
+        loaders=info.context.loaders,
         organization_name=name,
         email=user_email,
         country=country,

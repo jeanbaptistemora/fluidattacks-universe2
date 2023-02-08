@@ -7,11 +7,11 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.findings.enums import (
     FindingSorts,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from decorators import (
     concurrent_decorators,
@@ -50,9 +50,9 @@ from typing import (
 async def mutate(
     _: None, info: GraphQLResolveInfo, finding_id: str, **kwargs: Any
 ) -> SimpleFindingPayload:
+    loaders: Dataloaders = info.context.loaders
     try:
-        finding_loader = info.context.loaders.finding
-        old_finding: Finding = await finding_loader.load(finding_id)
+        old_finding = await findings_domain.get_finding(loaders, finding_id)
         validations.validate_finding_title_change_policy(
             old_title=old_finding.title,
             new_title=kwargs["title"],
@@ -70,7 +70,7 @@ async def mutate(
             title=kwargs["title"],
         )
         await findings_domain.update_description(
-            loaders=info.context.loaders,
+            loaders=loaders,
             finding_id=finding_id,
             description=description,
         )
@@ -87,7 +87,7 @@ async def mutate(
         )
         raise
 
-    finding_loader.clear(finding_id)
-    finding = await finding_loader.load(finding_id)
+    loaders.finding.clear(finding_id)
+    finding = await findings_domain.get_finding(loaders, finding_id)
 
     return SimpleFindingPayload(finding=finding, success=True)

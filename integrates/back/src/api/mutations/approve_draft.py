@@ -81,7 +81,7 @@ async def mutate(
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         approval_date = await findings_domain.approve_draft(
-            info.context.loaders,
+            loaders,
             finding_id,
             user_email,
             requests_utils.get_source_new(info.context),

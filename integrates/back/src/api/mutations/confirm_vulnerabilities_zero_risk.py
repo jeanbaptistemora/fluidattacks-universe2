@@ -51,7 +51,7 @@ async def mutate(
         (
             "Security: Confirmed zero risk vulnerabilities "
             f"in finding_id: {finding_id}"
-        ),  # pragma: no cover
+        ),
     )
 
     return SimplePayloadType(success=True)

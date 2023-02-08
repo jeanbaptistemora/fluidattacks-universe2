@@ -10,8 +10,8 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from db_model.findings.types import (
-    Finding,
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -50,20 +50,20 @@ from sessions import (
 async def mutate(
     _: None, info: GraphQLResolveInfo, finding_id: str
 ) -> SimplePayload:
+    loaders: Dataloaders = info.context.loaders
     try:
-        finding_loader = info.context.loaders.finding
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email = user_info["user_email"]
         await findings_domain.submit_draft(
-            info.context.loaders,
+            loaders,
             finding_id,
             user_email,
             requests_utils.get_source_new(info.context),
         )
-        finding: Finding = await finding_loader.load(finding_id)
+        finding = await findings_domain.get_finding(loaders, finding_id)
         schedule(
             findings_mail.send_mail_new_draft(
-                info.context.loaders,
+                loaders,
                 finding.id,
                 finding.title,
                 finding.group_name,

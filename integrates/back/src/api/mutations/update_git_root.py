@@ -10,8 +10,12 @@ from contextlib import (
 from custom_exceptions import (
     RootAlreadyCloning,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.roots.types import (
     GitRoot,
+    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -33,7 +37,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -44,27 +47,25 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
-    )
-    user_email: str = user_info["user_email"]
-
-    root = await roots_domain.update_git_root(
-        info.context.loaders, user_email, **kwargs
-    )
+    loaders: Dataloaders = info.context.loaders
+    root_id: str = kwargs["id"]
+    group_name: str = kwargs["group_name"]
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
+    root = await roots_domain.update_git_root(loaders, user_email, **kwargs)
     if kwargs.get("credentials") and isinstance(root, GitRoot):
         with suppress(RootAlreadyCloning):
             await roots_domain.queue_sync_git_roots(
-                loaders=info.context.loaders,
+                loaders=loaders,
                 roots=(root,),
                 user_email=user_email,
                 group_name=root.group_name,
             )
 
-    info.context.loaders.root.clear((kwargs["group_name"], kwargs["id"]))
-    info.context.loaders.group_roots.clear(kwargs["group_name"])
+    loaders.root.clear(RootRequest(group_name, root_id))
+    loaders.group_roots.clear(group_name)
     logs_utils.cloudwatch_log(
-        info.context, f'Security: Updated root {kwargs["id"]}'
+        info.context, f"Security: Updated root {root_id}"
     )
 
     return SimplePayload(success=True)

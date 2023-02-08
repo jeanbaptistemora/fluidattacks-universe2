@@ -24,7 +24,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
 )
 
@@ -36,10 +35,8 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
-    )
-    user_email: str = user_info["user_email"]
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
     reason: Optional[str] = kwargs.get("reason", None)
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
 

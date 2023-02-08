@@ -41,10 +41,10 @@ from typing import (
 async def mutate(
     _: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> SimplePayload:
+    file_object: UploadFile = kwargs["file"]
+    finding_id: str = kwargs["finding_id"]
+    evidence_id: str = kwargs["evidence_id"]
     try:
-        file_object: UploadFile = kwargs["file"]
-        finding_id: str = kwargs["finding_id"]
-        evidence_id: str = kwargs["evidence_id"]
         await findings_domain.update_evidence(
             info.context.loaders,
             finding_id,

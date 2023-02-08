@@ -12,6 +12,9 @@ from custom_exceptions import (
     MachineCouldNotBeQueued,
     MachineExecutionAlreadySubmitted,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -45,16 +48,17 @@ async def mutate(
     group_name: str,
     root_nicknames: list[str],
 ) -> SimplePayloadMessage:
+    loaders: Dataloaders = info.context.loaders
     _root_nicknames: set[str] = {
         root.state.nickname
-        for root in await info.context.loaders.group_roots.load(group_name)
+        for root in await loaders.group_roots.load(group_name)
         if isinstance(root, GitRoot) and root.state.status == RootStatus.ACTIVE
     }
 
     try:
         roots_to_execute = _root_nicknames.intersection(root_nicknames)
         queued_job = await queue_job_new(
-            dataloaders=info.context.loaders,
+            dataloaders=loaders,
             finding_codes=list(FINDINGS.keys()),
             group_name=group_name,
             roots=list(roots_to_execute),
