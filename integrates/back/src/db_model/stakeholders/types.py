@@ -62,7 +62,7 @@ class StakeholderState(NamedTuple):
 class Stakeholder(NamedTuple):
     email: str
     access_token: Optional[StakeholderAccessToken] = None
-    enrolled: Optional[bool] = None
+    enrolled: bool = False
     first_name: Optional[str] = None
     is_concurrent_session: bool = False
     is_registered: bool = False
@@ -85,7 +85,7 @@ class Stakeholder(NamedTuple):
 
 class StakeholderMetadataToUpdate(NamedTuple):
     access_token: Optional[StakeholderAccessToken] = None
-    enrolled: Optional[bool] = None
+    enrolled: bool = False
     first_name: Optional[str] = None
     is_concurrent_session: Optional[bool] = None
     is_registered: Optional[bool] = None

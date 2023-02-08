@@ -280,6 +280,7 @@ async def add_without_group(
     await stakeholders_domain.update(
         email=email,
         metadata=StakeholderMetadataToUpdate(
+            enrolled=False,
             is_registered=is_register_after_complete,
         ),
     )
