@@ -5,7 +5,7 @@
   ...
 }: {
   dev = {
-    forces = {
+    integratesForces = {
       source = [
         outputs."/integrates/forces/config/development"
         outputs."/integrates/forces/config/runtime"
