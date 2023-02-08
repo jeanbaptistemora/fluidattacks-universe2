@@ -13,7 +13,13 @@ import type {
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import type { FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
@@ -55,6 +61,8 @@ import type {
   IFindingAttr,
   IGroupFindingsAttr,
 } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/types";
+import { vulnerabilitiesContext } from "scenes/Dashboard/group/context";
+import type { IVulnerabilitiesContext } from "scenes/Dashboard/group/types";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -66,6 +74,9 @@ import { composeValidators, required } from "utils/validations";
 const GroupFindingsView: React.FC = (): JSX.Element => {
   const { groupName } = useParams<{ groupName: string }>();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const { setOpenVulnerabilities }: IVulnerabilitiesContext = useContext(
+    vulnerabilitiesContext
+  );
   const { push } = useHistory();
   const { url } = useRouteMatch();
   const { t } = useTranslation();
@@ -253,6 +264,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       nextFetchPolicy: "cache-first",
     }
   );
+
+  useEffect((): void => {
+    if (!_.isUndefined(data) && !_.isUndefined(setOpenVulnerabilities)) {
+      setOpenVulnerabilities(
+        data.group.findings.reduce(
+          (previousValue: number, find: IFindingAttr): number =>
+            previousValue + find.openVulnerabilities,
+          0
+        )
+      );
+    }
+  }, [data, setOpenVulnerabilities]);
 
   useEffect((): void => {
     if (!_.isUndefined(vulnData)) {
