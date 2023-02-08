@@ -3,7 +3,7 @@
 function main {
   : \
     && aws_login "prod_forces" "3600" \
-    && sops_export_vars "forces/secrets-prod.yaml" \
+    && sops_export_vars "integrates/forces/secrets-prod.yaml" \
       groups_to_check \
     && jq -c '.[]' -r <<< "${groups_to_check}" | while read -r group; do
       group_name=$(jq -r '.name' <<< "${group}") \
