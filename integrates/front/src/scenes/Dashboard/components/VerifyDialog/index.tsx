@@ -4,7 +4,7 @@ import type { FormikProps } from "formik";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { GET_STAKEHOLDER_PHONE, VERIFY_STAKEHOLDER_MUTATION } from "./queries";
@@ -82,6 +82,20 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
     },
   });
 
+  const handleClose = useCallback((): void => {
+    cancelCallback();
+  }, [cancelCallback]);
+
+  const handleProceed = useCallback(
+    (values: IVerifyFormValues): void => {
+      verifyCallback(values.verificationCode);
+      if (!_.isNull(formRef) && !_.isNull(formRef.current)) {
+        formRef.current.setSubmitting(false);
+      }
+    },
+    [verifyCallback]
+  );
+
   if (_.isUndefined(data)) {
     return <div />;
   }
@@ -97,17 +111,6 @@ const VerifyDialog: React.FC<IVerifyDialogProps> = ({
       void handleVerifyStakeholder();
     }
   };
-
-  function handleClose(): void {
-    cancelCallback();
-  }
-
-  function handleProceed(values: IVerifyFormValues): void {
-    verifyCallback(values.verificationCode);
-    if (!_.isNull(formRef) && !_.isNull(formRef.current)) {
-      formRef.current.setSubmitting(false);
-    }
-  }
 
   return (
     <React.Fragment>
