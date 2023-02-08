@@ -54,9 +54,15 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
   const oneDayLater: string = dayjs().add(1, "day").format("YYYY-MM-DD");
 
   const [data, refetch] = useGetAPIToken();
-  const accessToken: IGetAccessTokenDictAttr | undefined = _.isUndefined(data)
-    ? undefined
-    : JSON.parse(data.me.accessToken);
+  const accessToken = useMemo(
+    (): IGetAccessTokenDictAttr | undefined =>
+      _.isUndefined(data)
+        ? undefined
+        : (JSON.parse(
+            data.me.accessToken
+          ) as unknown as IGetAccessTokenDictAttr),
+    [data]
+  );
   const lastAccessTokenUse = useMemo((): number | string => {
     const value = accessToken?.lastAccessTokenUse;
     if (value === undefined || value === null) {
@@ -81,7 +87,10 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
     return dayjs(lastAccessTokenUse).tz(dayjs.tz.guess()).fromNow();
   }, [lastAccessTokenUse]);
 
-  const hasAPIToken: boolean = accessToken?.hasAccessToken ?? false;
+  const hasAPIToken = useMemo(
+    (): boolean => accessToken?.hasAccessToken ?? false,
+    [accessToken]
+  );
   const issuedAt: string = accessToken?.issuedAt ?? "0";
 
   const [updateAPIToken, mtResponse] = useUpdateAPIToken(refetch);
@@ -140,6 +149,14 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
       );
     }
   }, [mtResponse.data?.updateAccessToken.sessionJwt, t]);
+
+  const CloseModal = useCallback((): JSX.Element | null => {
+    if (hasAPIToken) {
+      return null;
+    }
+
+    return <ModalConfirm onCancel={onClose} />;
+  }, [hasAPIToken, onClose]);
 
   return (
     <Modal onClose={onClose} open={open} title={t("updateAccessToken.title")}>
@@ -221,7 +238,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               </Button>
             </Gap>
           )}
-          {hasAPIToken ? undefined : <ModalConfirm onCancel={onClose} />}
+          <CloseModal />
         </Form>
       </Formik>
     </Modal>

@@ -19,4 +19,14 @@ interface IGroupPermissions {
   userRole: string;
 }
 
-export type { IGetEventStatus, IGroupContext, IGroupPermissions };
+interface IVulnerabilitiesContext {
+  openVulnerabilities: number;
+  setOpenVulnerabilities?: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export type {
+  IGetEventStatus,
+  IGroupContext,
+  IGroupPermissions,
+  IVulnerabilitiesContext,
+};

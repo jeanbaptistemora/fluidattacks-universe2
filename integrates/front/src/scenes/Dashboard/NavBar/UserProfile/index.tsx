@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 
 import { AddUserModal } from "./AddUserModal";
-import { APITokenModal } from "./APITokenModal";
 import { MobileModal } from "./MobileModal";
 import { REMOVE_STAKEHOLDER_MUTATION } from "./queries";
 import type { IRemoveUserAttr } from "./types";
@@ -34,6 +33,7 @@ import { Label } from "components/Input";
 import { Hr } from "components/Layout";
 import { Switch } from "components/Switch";
 import { Text } from "components/Text";
+import { APITokenModal } from "scenes/Dashboard/components/Navbar/UserProfile/APITokenModal";
 import { useAddStakeholder } from "scenes/Dashboard/hooks";
 import { authContext } from "utils/auth";
 import { Can } from "utils/authz/Can";
