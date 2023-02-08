@@ -1,0 +1,301 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
+   4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+  10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+> 14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+  18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+  22 |         id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id_safe);
+  24 |     }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,18,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+  10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+  14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+> 18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+  22 |         id_safe = id.Replace('\n', '_').Replace('\r', '_').Replace('\t', '_');
+  23 |         sec_log.Info(id_safe);
+  24 |     }
+  25 | }
+     ^ Col 0
+",c_sharp.c_sharp_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/c_sharp_log_injection.cs","
+   1 | using System;
+   2 | using Microsoft.AspNetCore.Mvc;
+   3 |
+   4 | public class RSPEC5145LogInjectionLog4NetNoncompliantController : Controller
+   5 | {
+   6 |     public void LogSomething(HttpRequest id)
+   7 |     {
+   8 |         //insecure
+   9 |         private static readonly log4net.ILog _logger = log4net.LogManager.GetLogger();
+> 10 |         _logger.Info(id);
+  11 |
+  12 |         //insecure
+  13 |         var logger = new DBLogger();
+  14 |         logger.Log(id);
+  15 |
+  16 |         //insecure
+  17 |         var log = new FileLogger();
+  18 |         log.Debug(id);
+  19 |
+  20 |         //secure
+  21 |         private static readonly log4net.ILog sec_log = log4net.LogManager.GetLogger();
+     ^ Col 0
+",c_sharp.c_sharp_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,9,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
+   1 | public class Test{
+   2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
+   3 |         String param1 = req.getParameter(""param"");
+   4 |         Logger.info(""Param1: "" + param1); // Insecure
+   5 |     }
+   6 |
+   7 |     public void insecure2(HttpServletRequest request){
+   8 |   param = request.getHeader(""header"");
+>  9 |   log.debug(""Dangerous"" + param); // Insecure
+  10 |  }
+  11 |
+  12 |     @Path(""/subscription/list/{collectorId}"")
+  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
+  14 |   log.debug(""Something dangerous:"" + collectorId);
+  15 |  }
+  16 |
+  17 |     public void safe(HttpServletRequest req) {
+  18 |         String param2 = req.getParameter(""param2"");
+  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
+  20 |         logger.info(""Param1: "" + param2); //Safe
+  21 |     }
+     ^ Col 0
+",java.java_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,4,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
+   1 | public class Test{
+   2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
+   3 |         String param1 = req.getParameter(""param"");
+>  4 |         Logger.info(""Param1: "" + param1); // Insecure
+   5 |     }
+   6 |
+   7 |     public void insecure2(HttpServletRequest request){
+   8 |   param = request.getHeader(""header"");
+   9 |   log.debug(""Dangerous"" + param); // Insecure
+  10 |  }
+  11 |
+  12 |     @Path(""/subscription/list/{collectorId}"")
+  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
+  14 |   log.debug(""Something dangerous:"" + collectorId);
+  15 |  }
+  16 |
+  17 |     public void safe(HttpServletRequest req) {
+  18 |         String param2 = req.getParameter(""param2"");
+  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
+  20 |         logger.info(""Param1: "" + param2); //Safe
+  21 |     }
+     ^ Col 0
+",java.java_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/java_log_injection.java,14,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/java_log_injection.java","
+   2 |     public void insecure1(HttpServletRequest req, HttpServletResponse resp) {
+   3 |         String param1 = req.getParameter(""param"");
+   4 |         Logger.info(""Param1: "" + param1); // Insecure
+   5 |     }
+   6 |
+   7 |     public void insecure2(HttpServletRequest request){
+   8 |   param = request.getHeader(""header"");
+   9 |   log.debug(""Dangerous"" + param); // Insecure
+  10 |  }
+  11 |
+  12 |     @Path(""/subscription/list/{collectorId}"")
+  13 |  public List<Affiliation> insecure3(@PathParam(value = ""collectorId"") String collectorId) {
+> 14 |   log.debug(""Something dangerous:"" + collectorId);
+  15 |  }
+  16 |
+  17 |     public void safe(HttpServletRequest req) {
+  18 |         String param2 = req.getParameter(""param2"");
+  19 |         param2 = param2.replaceAll(""[\n\r\t]"", ""_""); //Sanitize parameter
+  20 |         logger.info(""Param1: "" + param2); //Safe
+  21 |     }
+  22 | }
+     ^ Col 0
+",java.java_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,8,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   1 | import { parse } from ""url"";
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+   7 |   Logger.info(userName);
+>  8 |   log.info(userName);
+   9 |
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+  12 |   console.info(userName2);
+  13 | }
+  14 |
+  15 |
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,7,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   1 | import { parse } from ""url"";
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+>  7 |   Logger.info(userName);
+   8 |   log.info(userName);
+   9 |
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+  12 |   console.info(userName2);
+  13 | }
+  14 |
+  15 |
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/js_log_injection.js,12,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/js_log_injection.js","
+   2 |
+   3 | function unsafe_log(req, _res) {
+   4 |   const q = parse(req.url, true);
+   5 |   const userName = q.query.username;
+   6 |   // UNSAFE: Unsanitized user input
+   7 |   Logger.info(userName);
+   8 |   log.info(userName);
+   9 |
+  10 |   // UNSAFE: Incorrectly sanitized user input
+  11 |   const userName2 = userName.replace(/\f/g, """");
+> 12 |   console.info(userName2);
+  13 | }
+  14 |
+  15 |
+  16 |
+  17 | function safe_log(req, res) {
+  18 |   const q = parse(req.url, true);
+  19 |   const username = q.query.username.replace(/\n|\r/g, """");
+  20 |   // SAFE: Sanitized input from the user
+  21 |   console.info(username);
+  22 | }
+     ^ Col 0
+",javascript.javascript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,11,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   1 | import { parse } from ""url"";
+   2 | import {Logger, log} from ""logging.ts"";
+   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
+   4 |
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+  10 |   Logger.info(userName);
+> 11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+  15 |   console.info(userName2);
+  16 | }
+  17 |
+  18 |
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
+     ^ Col 0
+",typescript.typescript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,10,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   1 | import { parse } from ""url"";
+   2 | import {Logger, log} from ""logging.ts"";
+   3 | import {HttpReq, HttpRes, ReqUrl} from ""types.ts"";
+   4 |
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+> 10 |   Logger.info(userName);
+  11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+  15 |   console.info(userName2);
+  16 | }
+  17 |
+  18 |
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
+     ^ Col 0
+",typescript.typescript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,15,117,skims,091. Log injection,"The system logs entries that contain input from untrusted sources without properly validating, sanitizing or escaping their content.
+ in namespace/skims/test/data/lib_root/f091/ts_log_injection.ts","
+   5 | function unsafe_log(req: HttpReq, res: HttpRes) {
+   6 |   const q: ReqUrl = parse(req.url, true);
+   7 |
+   8 |   const userName: string = q.query.username;
+   9 |   // UNSAFE: Unsanitized user input
+  10 |   Logger.info(userName);
+  11 |   log.info(userName);
+  12 |
+  13 |   // UNSAFE: Incorrectly sanitized user input
+  14 |   const userName2: string = q.query.username.replace(/\n|\f/g, """");
+> 15 |   console.info(userName2);
+  16 | }
+  17 |
+  18 |
+  19 |
+  20 | function safe_log(req: HttpReq, res: HttpRes) {
+  21 |   const q: ReqUrl = parse(req.url, true);
+  22 |   const username: string = q.query.username.replace(/\n|\r/g, """");
+  23 |   // SAFE: Sanitized input from the user
+  24 |   console.info(username);
+  25 | }
+     ^ Col 0
+",typescript.typescript_insecure_logging

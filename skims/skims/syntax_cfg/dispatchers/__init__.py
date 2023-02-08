@@ -90,6 +90,7 @@ DISPATCHERS: Dispatchers = (
             "FunctionBody",
             "IdentifierList",
             "InitializedIdentifier",
+            "JsxElement",
             "LexicalDeclaration",
             "Literal",
             "MemberAccess",

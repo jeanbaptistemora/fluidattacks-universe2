@@ -1,0 +1,187 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,10,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print.dart","
+   1 | import 'package:test/test.dart';
+   2 | import 'package:flutter/foundation.dart';
+   3 |
+   4 | void main() {
+   5 |   try {
+   6 |     res = x ~/ y;
+   7 |   }
+   8 |   on IntegerDivisionByZeroException catch (e) {
+   9 |     print(e);
+> 10 |     debugPrint(e);
+  11 |   }
+  12 |   catch (e) {
+  13 |     print('This should not  be reported');
+  14 |     debugPrint('Safe');
+  15 |   }
+  16 | }
+     ^ Col 0
+",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print.dart,9,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print.dart","
+   1 | import 'package:test/test.dart';
+   2 | import 'package:flutter/foundation.dart';
+   3 |
+   4 | void main() {
+   5 |   try {
+   6 |     res = x ~/ y;
+   7 |   }
+   8 |   on IntegerDivisionByZeroException catch (e) {
+>  9 |     print(e);
+  10 |     debugPrint(e);
+  11 |   }
+  12 |   catch (e) {
+  13 |     print('This should not  be reported');
+  14 |     debugPrint('Safe');
+  15 |   }
+  16 | }
+     ^ Col 0
+",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart,11,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart","
+   1 | import 'package:test/test.dart' as my_alias;
+   2 | import 'package:flutter/foundation.dart' as anyAlias;
+   3 | import 'dart:developer' as dev;
+   4 |
+   5 | void main() {
+   6 |   try {
+   7 |     res = x ~/ y;
+   8 |   }
+   9 |   on IntegerDivisionByZeroException catch (e) {
+  10 |     // Following lines should be reported
+> 11 |     dev.log(e);
+  12 |     anyAlias.debugPrint(e);
+  13 |
+  14 |     // Coming lines Should not be reported
+  15 |     log(e);
+  16 |     debugPrint(e);
+  17 |   }
+  18 |   catch (e) {
+  19 |     print('This should not  be reported');
+  20 |     debugPrint('Safe');
+  21 |   }
+     ^ Col 0
+",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart,12,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/dart_print_aliasing.dart","
+   2 | import 'package:flutter/foundation.dart' as anyAlias;
+   3 | import 'dart:developer' as dev;
+   4 |
+   5 | void main() {
+   6 |   try {
+   7 |     res = x ~/ y;
+   8 |   }
+   9 |   on IntegerDivisionByZeroException catch (e) {
+  10 |     // Following lines should be reported
+  11 |     dev.log(e);
+> 12 |     anyAlias.debugPrint(e);
+  13 |
+  14 |     // Coming lines Should not be reported
+  15 |     log(e);
+  16 |     debugPrint(e);
+  17 |   }
+  18 |   catch (e) {
+  19 |     print('This should not  be reported');
+  20 |     debugPrint('Safe');
+  21 |   }
+  22 | }
+     ^ Col 0
+",dart.dart_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,16,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+> 16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,15,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+> 15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,8,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+   7 |         out.print(message);
+>  8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.java,7,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/java_has_print_statements.java","
+   1 | import System.out;
+   2 |
+   3 | class printer {
+   4 |     public static void main(String[] args) {
+   5 |         String message = ""Variable"";
+   6 |         System.out.print(""String Literal"");
+>  7 |         out.print(message);
+   8 |         print(""Have"" + message + ""concatenation"");
+   9 |         System.out.print();
+  10 |         System.out.print("""");
+  11 |     }
+  12 |     public static void print(String[] args) {
+  13 |         String message = ""Variable"";
+  14 |         System.out.println(""String Literal"");
+  15 |         out.println(message);
+  16 |         println(""Have"" + message + ""concatenation"");
+  17 |         System.out.println();
+  18 |         System.out.println("""");
+  19 |     }
+  20 | }
+     ^ Col 0
+",java.java_has_print_statements

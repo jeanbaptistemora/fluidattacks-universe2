@@ -1,0 +1,401 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,23,502,skims,097. Reverse tabnabbing,"External links with target=""_blank"" must have rel=""noopener noreferrer"" set in order to avoid reverse tabnabbing.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  13 |
+  14 |    <label>Password</label><input class=""form-control"" id=""password"" type=""password"" autocomplete=""off""/>
+  15 |
+  16 |    <button class=""btn btn-primary btn-block"" id=""btn-login"">
+  17 |     &nbsp; Sign In
+  18 |    </button>
+  19 |   </form>
+  20 |  </body>
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+> 23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+  27 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  28 |     target=""_blank"" rel=""noopener"">
+  29 |      Click me for a reverse tabnabbing
+  30 |  </a>
+  31 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  32 |     target=""_blank"" rel=""noreferrer"">
+  33 |      Click me for a reverse tabnabbing
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,27,502,skims,097. Reverse tabnabbing,"External links with target=""_blank"" must have rel=""noopener noreferrer"" set in order to avoid reverse tabnabbing.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  17 |     &nbsp; Sign In
+  18 |    </button>
+  19 |   </form>
+  20 |  </body>
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+  23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+> 27 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  28 |     target=""_blank"" rel=""noopener"">
+  29 |      Click me for a reverse tabnabbing
+  30 |  </a>
+  31 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  32 |     target=""_blank"" rel=""noreferrer"">
+  33 |      Click me for a reverse tabnabbing
+  34 |  </a>
+  35 |
+  36 |  <a href=""{{Injected_Target}}""
+  37 |     target=""_blank"">
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,31,502,skims,097. Reverse tabnabbing,"External links with target=""_blank"" must have rel=""noopener noreferrer"" set in order to avoid reverse tabnabbing.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  21 |
+  22 |  <!-- has_reverse_tabnabbing -->
+  23 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  24 |     target=""_blank"">
+  25 |      Click me for a reverse tabnabbing
+  26 |  </a>
+  27 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  28 |     target=""_blank"" rel=""noopener"">
+  29 |      Click me for a reverse tabnabbing
+  30 |  </a>
+> 31 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  32 |     target=""_blank"" rel=""noreferrer"">
+  33 |      Click me for a reverse tabnabbing
+  34 |  </a>
+  35 |
+  36 |  <a href=""{{Injected_Target}}""
+  37 |     target=""_blank"">
+  38 |      Click me for a reverse tabnabbing
+  39 |  </a>
+  40 |
+  41 |  <!-- has not reverse_tabnabbing as a variable -->
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_path/f097/vulnerable.html,36,502,skims,097. Reverse tabnabbing,"External links with target=""_blank"" must have rel=""noopener noreferrer"" set in order to avoid reverse tabnabbing.
+ in namespace/skims/test/data/lib_path/f097/vulnerable.html","
+  26 |  </a>
+  27 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  28 |     target=""_blank"" rel=""noopener"">
+  29 |      Click me for a reverse tabnabbing
+  30 |  </a>
+  31 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  32 |     target=""_blank"" rel=""noreferrer"">
+  33 |      Click me for a reverse tabnabbing
+  34 |  </a>
+  35 |
+> 36 |  <a href=""{{Injected_Target}}""
+  37 |     target=""_blank"">
+  38 |      Click me for a reverse tabnabbing
+  39 |  </a>
+  40 |
+  41 |  <!-- has not reverse_tabnabbing as a variable -->
+  42 |
+  43 |  <a href=""https://mathiasbynens.github.io/rel-noopener/malicious.html""
+  44 |     target=""_blank"" rel=""noopener, noreferrer"">
+  45 |      Click me for a reverse tabnabbing
+  46 |  </a>
+     ^ Col 0
+",html.html_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,16,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+   6 | const unsafeWindowFeatures = ""noreferrer"";
+   7 |
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+> 16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,17,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+   7 |
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+> 17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+  27 | window.open(externalUrl, safeName);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,18,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+> 18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+  27 | window.open(externalUrl, safeName);
+  28 | window.open(externalUrl, unsafeName, safeWindowFeatures);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,33,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+  27 | window.open(externalUrl, safeName);
+  28 | window.open(externalUrl, unsafeName, safeWindowFeatures);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+  31 | window.open(externalUrl, unsafeName, unsafeWindowFeatures);
+  32 | window.open(externalUrl, unsafeName);
+> 33 | window.open(externalUrl);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,32,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+  27 | window.open(externalUrl, safeName);
+  28 | window.open(externalUrl, unsafeName, safeWindowFeatures);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+  31 | window.open(externalUrl, unsafeName, unsafeWindowFeatures);
+> 32 | window.open(externalUrl, unsafeName);
+  33 | window.open(externalUrl);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js,31,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/js_has_tabnabbing.js","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(internalUrl);
+  25 | window.open(internalUrl, unsafeName, unsafeWindowFeatures);
+  26 | window.open(externalUrl, safeName, unsafeWindowFeatures);
+  27 | window.open(externalUrl, safeName);
+  28 | window.open(externalUrl, unsafeName, safeWindowFeatures);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+> 31 | window.open(externalUrl, unsafeName, unsafeWindowFeatures);
+  32 | window.open(externalUrl, unsafeName);
+  33 | window.open(externalUrl);
+     ^ Col 0
+",javascript.javascript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,16,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+   6 | const unsafeWF: string = ""noreferrer"";
+   7 |
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+> 16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,17,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+   7 |
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+> 17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+  27 | window.open(extUrl, safe);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,18,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+   8 | //String literals
+   9 |
+  10 | // Safe cases Skims must not mark any of following
+  11 | window.open(""/internal"");
+  12 | window.open(""https://External.com"", ""_parent"");
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+> 18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+  27 | window.open(extUrl, safe);
+  28 | window.open(extUrl, unsafe, safeWF);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,33,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+  27 | window.open(extUrl, safe);
+  28 | window.open(extUrl, unsafe, safeWF);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+  31 | window.open(extUrl, unsafe, unsafeWF);
+  32 | window.open(extUrl, unsafe);
+> 33 | window.open(extUrl);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,32,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+  27 | window.open(extUrl, safe);
+  28 | window.open(extUrl, unsafe, safeWF);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+  31 | window.open(extUrl, unsafe, unsafeWF);
+> 32 | window.open(extUrl, unsafe);
+  33 | window.open(extUrl);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
+F097,lines,namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts,31,502,skims,097. Reverse tabnabbing,"Use of window.open() method without ""noopener, noreferrer"" window features allows target page to change the contents of original page.
+ in namespace/skims/test/data/lib_root/f097/ts_has_tabnabbing.ts","
+  13 | window.open(""https://External.com"", ""_blank"", ""noreferrer,noopener"");
+  14 |
+  15 | // Unsafe cases Skims must mark all following cases
+  16 | window.open(""https://External.com"");
+  17 | window.open(""https://External.com"", ""_blank"");
+  18 | window.open(""https://External.com"", ""_blank"", ""Any"");
+  19 |
+  20 | // Data in variables
+  21 |
+  22 | // Safe cases Skims must not mark any of following
+  23 | window.open();
+  24 | window.open(intUrl);
+  25 | window.open(intUrl, unsafe, unsafeWF);
+  26 | window.open(extUrl, safe, unsafeWF);
+  27 | window.open(extUrl, safe);
+  28 | window.open(extUrl, unsafe, safeWF);
+  29 |
+  30 | // Unsafe cases Skims must mark all following cases
+> 31 | window.open(extUrl, unsafe, unsafeWF);
+  32 | window.open(extUrl, unsafe);
+  33 | window.open(extUrl);
+     ^ Col 0
+",typescript.typescript_has_reverse_tabnabbing
