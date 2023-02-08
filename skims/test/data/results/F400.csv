@@ -158,7 +158,7 @@ F400,inputs,arn:aws:ec2::owner_123:instance-id/int-018de572ae43404d8 (namespace)
   19 | }
      ^ Col 0
 ",aws.ec2_monitoring_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,23,778,skims,400. Traceability Loss - AWS,Missing logging_config property to make traceability in namespace/skims/test/data/lib_path/f400/tfm_distribution_has_logging_disabled.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_distribution_has_logging_disabled.tf,23,778,skims,400. Traceability Loss - AWS,Missing logging_config property to make traceability in namespace/skims/test/data/lib_root/f400/tfm_distribution_has_logging_disabled.tf,"
   13 |     target_origin_id = ""groupS3""
   14 |   }
   15 |

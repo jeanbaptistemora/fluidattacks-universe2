@@ -1,4 +1,5 @@
 from lib_root.f400.terraform import (
+    tfm_distribution_has_logging_disabled,
     tfm_ec2_monitoring_disabled,
 )
 from model import (
@@ -7,4 +8,7 @@ from model import (
 )
 
 FINDING: core_model.FindingEnum = core_model.FindingEnum.F400
-QUERIES: graph_model.Queries = ((FINDING, tfm_ec2_monitoring_disabled),)
+QUERIES: graph_model.Queries = (
+    (FINDING, tfm_distribution_has_logging_disabled),
+    (FINDING, tfm_ec2_monitoring_disabled),
+)

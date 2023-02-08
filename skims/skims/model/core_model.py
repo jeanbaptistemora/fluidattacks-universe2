@@ -5583,7 +5583,7 @@ class MethodsEnum(Enum):
     TFM_CF_DISTR_LOG_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_distribution_has_logging_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
