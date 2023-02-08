@@ -3,6 +3,8 @@
 Populates the stakeholder enrolled attribute with data previosly stored
 in the enrollment facet
 
+Execution Time:    2023-02-08 at 01:21:07 UTC
+Finalization Time: 2023-02-08 at 01:21:55 UTC
 """
 
 from aioextensions import (
