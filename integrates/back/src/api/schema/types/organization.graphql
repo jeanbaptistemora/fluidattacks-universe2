@@ -15,8 +15,6 @@ type Organization {
     """
     date: DateTime
   ): OrganizationBilling
-  "Company the organization belongs to"
-  company: Company!
   "Compliance with the standards in the organization"
   compliance: OrganizationCompliance!
   "Country where the organization is based"

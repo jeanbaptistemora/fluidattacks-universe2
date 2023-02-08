@@ -1,7 +1,0 @@
-"Company type definition"
-type Company {
-  "Email domain of the company"
-  domain: String!
-  "Free trial information"
-  trial: Trial!
-}

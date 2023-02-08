@@ -1,7 +1,6 @@
 from api.resolvers.organization import (
     analytics,
     billing,
-    company,
     compliance,
     covered_authors,
     covered_commits,
@@ -35,7 +34,6 @@ from ariadne import (
 ORGANIZATION: ObjectType = ObjectType("Organization")
 ORGANIZATION.set_field("analytics", analytics.resolve)
 ORGANIZATION.set_field("billing", billing.resolve)
-ORGANIZATION.set_field("company", company.resolve)
 ORGANIZATION.set_field("compliance", compliance.resolve)
 ORGANIZATION.set_field("coveredAuthors", covered_authors.resolve)
 ORGANIZATION.set_field("coveredCommits", covered_commits.resolve)
