@@ -16,6 +16,7 @@ from lib_path.f011.go import (
     GO_REQ_MOD_DEP,
 )
 from lib_path.f011.maven import (
+    maven_gradle,
     maven_pom_xml,
 )
 from lib_path.f011.npm import (
@@ -595,6 +596,33 @@ def test_npm_yarn_lock() -> None:
         pkg_item = itemgetter("item")(next_dep[0])
         item_ver = itemgetter("item")(next_dep[1])
         if not (pkg_item in packages and item_ver == packages[pkg_item]):
+            assertion = not assertion
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_maven_gradle() -> None:
+    path: str = "skims/test/data/lib_path/f011/build.gradle"
+    file_contents: str = get_file_info_from_path(path)
+    generator_dep = maven_gradle.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    packages = (
+        ("io.springfox:springfox-swagger-ui", "2.6.1"),
+        ("org.apache.logging.log4j:log4j-core", "2.13.2"),
+        ("org.json:json", "20160810"),
+        ("javax.mail:mail", "1.4"),
+    )
+    for product, version in packages:
+        try:
+            next_dep = next(generator_dep)
+            pkg_item = itemgetter("item")(next_dep[0])
+            item_ver = itemgetter("item")(next_dep[1])
+        except StopIteration:
+            assertion = not assertion
+        if not (pkg_item == product and version == item_ver):
             assertion = not assertion
 
     assert assertion
