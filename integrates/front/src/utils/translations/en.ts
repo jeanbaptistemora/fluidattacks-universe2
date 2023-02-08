@@ -1989,10 +1989,18 @@ export const enTranslations: ResourceKey = {
             },
             generateReportModal: {
               action: "Action",
+              buttons: {
+                generateReport: {
+                  text: "Generate report",
+                  tooltip:
+                    "Download a report of the unfulfilled standards (Allow the redirects to download the file)",
+                },
+              },
               exclude: "Exclude",
               excludeAll: "Exclude all",
               include: "Include",
               includeAll: "Include all",
+              title: "Generate report",
               unfulfilledStandard: "Unfulfilled standard",
             },
             text: "Standards",

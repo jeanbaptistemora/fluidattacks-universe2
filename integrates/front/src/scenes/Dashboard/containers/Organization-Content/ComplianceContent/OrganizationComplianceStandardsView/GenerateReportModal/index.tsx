@@ -177,7 +177,6 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
   const columns: ColumnDef<IUnfulfilledStandardData>[] = [
     {
       accessorKey: "title",
-      enableSorting: true,
       header: t(
         "organization.tabs.compliance.tabs.standards.generateReportModal.unfulfilledStandard"
       ),
@@ -199,7 +198,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
         onClose={handleClose}
         open={isOpen}
         title={t(
-          "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
+          "organization.tabs.compliance.tabs.standards.generateReportModal.title"
         )}
       >
         <VerifyDialog disable={disableVerify} isOpen={isVerifyDialogOpen}>
@@ -224,13 +223,12 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
                   id={"standardsToGenerateReport"}
                 />
                 <br />
-
                 <Tooltip
                   id={
-                    "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
+                    "organization.tabs.compliance.tabs.standards.generateReportModal.buttons.generateReport.tooltip"
                   }
                   tip={t(
-                    "organization.tabs.compliance.tabs.standards.buttons.generateReport.tooltip"
+                    "organization.tabs.compliance.tabs.standards.generateReportModal.buttons.generateReport.tooltip"
                   )}
                 >
                   <Button
@@ -242,7 +240,7 @@ const GenerateReportModal: React.FC<IGenerateReportModalProps> = ({
                     <FontAwesomeIcon icon={faFileContract} />
                     &nbsp;
                     {t(
-                      "organization.tabs.compliance.tabs.standards.buttons.generateReport.text"
+                      "organization.tabs.compliance.tabs.standards.generateReportModal.buttons.generateReport.text"
                     )}
                   </Button>
                 </Tooltip>
