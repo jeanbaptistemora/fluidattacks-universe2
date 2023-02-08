@@ -16,6 +16,69 @@ module "cluster" {
     vpc_security_group_ids = [data.aws_security_group.cloudflare.id]
   }
   eks_managed_node_groups = {
+    ci = {
+      max_size = 450
+
+      instance_types = ["c5ad.large"]
+
+      iam_role_additional_policies = {
+        ssm_core = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ssm_role = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+      }
+
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 15
+            volume_type           = "gp3"
+            encrypted             = true
+            delete_on_termination = true
+          }
+        }
+      }
+      enable_bootstrap_user_data = true
+      pre_bootstrap_user_data    = <<-EOT
+        Content-Type: multipart/mixed; boundary="==BOUNDARY=="
+        MIME-Version: 1.0
+
+        --==BOUNDARY==
+        Content-Type: text/x-shellscript; charset="us-ascii"
+
+        #!/bin/bash
+
+        # Install dependencies
+        yum install -y parted
+
+        # Make disk gpt and create partitions
+        parted /dev/nvme1n1 --script -- mklabel gpt
+        parted -a optimal /dev/nvme1n1 mkpart primary 0% 100%
+
+        # Wait for partition to be visible
+        sleep 1
+
+        # Make partitions xfs
+        mkfs -t xfs /dev/nvme1n1p1
+
+        # Mount partitions
+        service containerd stop
+        mkdir -p /run/containerd
+        mount /dev/nvme1n1p1 /run/containerd
+        service containerd start
+
+        --==BOUNDARY==--
+      EOT
+
+      labels = {
+        worker_group = "ci"
+      }
+
+      tags = {
+        "management:area"    = "innovation"
+        "management:product" = "common"
+        "management:type"    = "product"
+      }
+    }
     dev = {
       max_size = 100
 
@@ -25,6 +88,11 @@ module "cluster" {
         "m5d.xlarge",
         "m5ad.xlarge",
       ]
+
+      iam_role_additional_policies = {
+        ssm_core = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ssm_role = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+      }
 
       block_device_mappings = {
         xvda = {
@@ -57,6 +125,11 @@ module "cluster" {
         "m5d.large",
         "m5ad.large",
       ]
+
+      iam_role_additional_policies = {
+        ssm_core = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ssm_role = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+      }
 
       block_device_mappings = {
         xvda = {
