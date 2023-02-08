@@ -9,7 +9,15 @@ from model.core_model import (
 )
 from typing import (
     Iterator,
+    Tuple,
 )
+
+
+def get_dep_info(dep_line: str) -> Tuple[str, str]:
+    product, version = dep_line.split("@")[0].split("/")
+    if "[" in version:
+        version = version.replace("[", "").replace("]", "").split(",")[0]
+    return product, version
 
 
 # pylint: disable=unused-argument
