@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 # type: ignore
 """
 Populates gsi2 with the domain name of the company,

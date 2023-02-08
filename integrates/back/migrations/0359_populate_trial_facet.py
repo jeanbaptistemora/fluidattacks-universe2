@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 # type: ignore
 """
 Populates the trial facet with data previosly stored in the company facet
