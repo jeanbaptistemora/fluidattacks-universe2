@@ -5591,7 +5591,7 @@ class MethodsEnum(Enum):
     TFM_TRAILS_NOT_MULTIREGION = MethodInfo(
         file_name="terraform",
         name="tfm_trails_not_multiregion",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

@@ -416,7 +416,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_trails_not_multiregion.ya
   25 |   }
      ^ Col 0
 ",cloudformation.cfn_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,17,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_trails_not_multiregion.tf,17,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/tfm_trails_not_multiregion.tf,"
    2 |   name                          = ""tf-trail-foobar""
    3 |   s3_bucket_name                = aws_s3_bucket.foo.id
    4 |   s3_key_prefix                 = ""prefix""
@@ -440,7 +440,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf
   22 | }
      ^ Col 0
 ",terraform.tfm_trails_not_multiregion
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,14,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_path/f400/tfm_trails_not_multiregion.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_trails_not_multiregion.tf,14,778,skims,400. Traceability Loss - AWS,The IsMultiRegionTrail property must be enabled in namespace/skims/test/data/lib_root/f400/tfm_trails_not_multiregion.tf,"
    2 |   name                          = ""tf-trail-foobar""
    3 |   s3_bucket_name                = aws_s3_bucket.foo.id
    4 |   s3_key_prefix                 = ""prefix""

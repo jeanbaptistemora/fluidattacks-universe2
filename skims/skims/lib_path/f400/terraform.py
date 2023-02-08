@@ -1,11 +1,9 @@
 from aws.model import (
-    AWSCTrail,
     AWSLambdaFunction,
 )
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
-    TRUE_OPTIONS,
 )
 from metaloaders.model import (
     Node,
@@ -16,17 +14,12 @@ from model.core_model import (
 )
 from parse_hcl2.common import (
     get_argument,
-    get_attribute,
     get_block_attribute,
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
-    iter_aws_cloudtrail,
     iter_aws_elb,
     iter_aws_lambda_function,
-)
-from parse_hcl2.tokens import (
-    Attribute,
 )
 from typing import (
     Any,
@@ -45,17 +38,6 @@ def _tfm_elb_logging_disabled_iterate_vulnerabilities(
                     yield elem
         else:
             yield resource
-
-
-def _tfm_trails_not_multiregion_iter_vulns(
-    resource_iterator: Iterator[AWSCTrail],
-) -> Iterator[Union[Attribute, AWSCTrail]]:
-    for resource in resource_iterator:
-        multi_reg = get_attribute(resource.data, "is_multi_region_trail")
-        if multi_reg is None:
-            yield resource
-        elif multi_reg.val not in TRUE_OPTIONS:
-            yield multi_reg
 
 
 def _tfm_lambda_tracing_disabled_iter_vulns(
@@ -84,22 +66,6 @@ def tfm_elb_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_ELB_LOGGING_DISABLED,
-    )
-
-
-def tfm_trails_not_multiregion(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f400.trails_not_multiregion",
-        iterator=get_cloud_iterator(
-            _tfm_trails_not_multiregion_iter_vulns(
-                resource_iterator=iter_aws_cloudtrail(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_TRAILS_NOT_MULTIREGION,
     )
 
 
