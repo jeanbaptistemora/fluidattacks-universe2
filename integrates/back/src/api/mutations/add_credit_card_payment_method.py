@@ -7,8 +7,11 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from db_model.organizations.types import (
-    Organization,
+from custom_exceptions import (
+    OrganizationNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -23,7 +26,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -37,17 +39,17 @@ async def mutate(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"]
-    )
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
-    )
+    loaders: Dataloaders = info.context.loaders
+    organization = await loaders.organization.load(kwargs["organization_id"])
+    if organization is None:
+        raise OrganizationNotFound()
+
+    user_info = await sessions_domain.get_jwt_content(info.context)
     user_email: str = user_info["user_email"]
 
     # Create credit card payment method
     result: bool = await billing_domain.create_credit_card_payment_method(
-        org=org,
+        org=organization,
         user_email=user_email,
         card_number=kwargs["card_number"],
         card_expiration_month=kwargs["card_expiration_month"],

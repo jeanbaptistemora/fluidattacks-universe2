@@ -37,6 +37,7 @@ from dynamodb.types import (
     Item,
 )
 from typing import (
+    Iterable,
     Optional,
     Union,
 )
@@ -53,14 +54,14 @@ def get_finding_inverted_state_converted(state: str) -> str:
 
 
 def filter_non_state_status_findings(
-    findings: tuple[Finding, ...], status: set[FindingStateStatus]
+    findings: Iterable[Finding], status: set[FindingStateStatus]
 ) -> tuple[Finding, ...]:
     return tuple(
         finding for finding in findings if finding.state.status not in status
     )
 
 
-def has_rejected_drafts(*, drafts: tuple[Finding, ...]) -> bool:
+def has_rejected_drafts(*, drafts: Iterable[Finding]) -> bool:
     return bool(
         filter_non_state_status_findings(
             drafts,

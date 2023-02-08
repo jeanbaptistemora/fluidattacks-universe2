@@ -11,14 +11,14 @@ from custom_exceptions import (
     HasRejectedDrafts,
     MachineCanNotOperate,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.enums import (
     Source,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
-)
-from db_model.findings.types import (
-    Finding,
 )
 from db_model.findings.utils import (
     filter_non_state_status_findings,
@@ -71,26 +71,22 @@ async def mutate(
     title: str,
     **kwargs: Any,
 ) -> AddDraftPayload:
+    loaders: Dataloaders = info.context.loaders
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    if get_source_new(info.context).value != Source.MACHINE.value:
+    if get_source_new(info.context) != Source.MACHINE:
         # Non rejected check
-        user_drafts: tuple[
-            Finding, ...
-        ] = await info.context.loaders.me_drafts.load(user_email)
-
+        user_drafts = await loaders.me_drafts.load(user_email)
         if has_rejected_drafts(drafts=user_drafts):
             raise HasRejectedDrafts()
 
     try:
         # Duplicate check
-        drafts_and_findings: tuple[
-            Finding, ...
-        ] = await info.context.loaders.group_drafts_and_findings.load(
+        drafts_and_findings = await loaders.group_drafts_and_findings.load(
             group_name
         )
-        drafts: tuple[Finding, ...] = filter_non_state_status_findings(
+        drafts = filter_non_state_status_findings(
             drafts_and_findings,
             {
                 FindingStateStatus.APPROVED,
@@ -98,7 +94,7 @@ async def mutate(
                 FindingStateStatus.MASKED,
             },
         )
-        findings: tuple[Finding, ...] = filter_non_state_status_findings(
+        findings = filter_non_state_status_findings(
             drafts_and_findings,
             {
                 FindingStateStatus.CREATED,
@@ -134,4 +130,5 @@ async def mutate(
             f"Security: Attempted to create draft in {group_name} group",
         )
         raise
+
     return AddDraftPayload(draft_id=draft.id, success=True)
