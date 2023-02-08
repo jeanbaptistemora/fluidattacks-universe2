@@ -118,7 +118,7 @@ class OrganizationPortfoliosLoader(DataLoader[str, list[Portfolio]]):
         )
 
 
-class PortfolioLoader(DataLoader):
+class PortfolioLoader(DataLoader[PortfolioRequest, Optional[Portfolio]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[PortfolioRequest]

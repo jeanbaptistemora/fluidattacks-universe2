@@ -26,7 +26,7 @@ from organizations import (
     utils as orgs_utils,
 )
 from typing import (
-    Optional,
+    Iterable,
 )
 
 
@@ -39,9 +39,9 @@ async def remove(organization_name: str, portfolio_id: str) -> None:
 async def filter_allowed_tags(
     loaders: Dataloaders,
     organization_name: str,
-    user_group_names: list[str],
+    group_names: list[str],
 ) -> list[str]:
-    groups = await loaders.group.load_many(user_group_names)
+    groups = await loaders.group.load_many(group_names)
     all_tags = {
         str(tag).lower()
         for group in groups
@@ -62,51 +62,57 @@ async def filter_allowed_tags(
 
 async def has_access(loaders: Dataloaders, email: str, subject: str) -> bool:
     with suppress(ValueError):
-        org_id, portfolio = subject.split("PORTFOLIO#")
-        organization = await orgs_utils.get_organization(loaders, org_id)
-        organization_name = organization.name
-        portfolio_info: Optional[Portfolio] = await loaders.portfolio.load(
+        organization_id, portfolio_id = subject.split("PORTFOLIO#")
+        organization = await orgs_utils.get_organization(
+            loaders, organization_id
+        )
+        portfolio = await loaders.portfolio.load(
             PortfolioRequest(
-                organization_name=organization_name, portfolio_id=portfolio
+                organization_name=organization.name, portfolio_id=portfolio_id
             )
         )
-        if portfolio_info:
-            portfolio_groups: list[str] = list(portfolio_info.groups)
-            org_access, group_access = await collect(
-                (
-                    orgs_domain.has_access(
-                        loaders=loaders, email=email, organization_id=org_id
-                    ),
-                    authz.get_group_level_roles(
-                        loaders=loaders,
-                        email=email,
-                        groups=portfolio_groups,
-                    ),
-                )
-            )
-            return org_access and any(group_access.values())  # type: ignore
-    raise PortfolioNotFound()
+        if portfolio is None:
+            raise PortfolioNotFound()
+
+        organization_access = await orgs_domain.has_access(
+            loaders=loaders, email=email, organization_id=organization_id
+        )
+        group_access = await authz.get_group_level_roles(
+            loaders=loaders,
+            email=email,
+            groups=list(portfolio.groups),
+        )
+
+        return organization_access and any(group_access.values())
+
+    return False
 
 
 async def is_tag_allowed(
     loaders: Dataloaders,
-    user_groups: tuple[Group, ...],
+    stakeholder_groups: Iterable[Group],
     organization_name: str,
-    tag: str,
+    portfolio_id: str,
 ) -> bool:
-    org_tag: Optional[Portfolio] = await loaders.portfolio.load(
-        PortfolioRequest(organization_name=organization_name, portfolio_id=tag)
+    portfolio = await loaders.portfolio.load(
+        PortfolioRequest(
+            organization_name=organization_name, portfolio_id=portfolio_id
+        )
     )
-    if org_tag:
-        all_groups_tag = org_tag.groups
-        user_groups_tag = [
-            group.name
-            for group in user_groups
-            if group.state.tags
-            and tag in [p_tag.lower() for p_tag in group.state.tags]
-        ]
-        return any(group in user_groups_tag for group in all_groups_tag)
-    return False
+    if portfolio is None:
+        return False
+
+    stakeholder_portfolios_group_names = [
+        group.name
+        for group in stakeholder_groups
+        if group.state.tags
+        and portfolio_id in [p_tag.lower() for p_tag in group.state.tags]
+    ]
+
+    return any(
+        group in stakeholder_portfolios_group_names
+        for group in portfolio.groups
+    )
 
 
 async def update(

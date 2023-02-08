@@ -1,8 +1,4 @@
-from custom_exceptions import (
-    PortfolioNotFound,
-)
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.portfolios.types import (
@@ -17,9 +13,6 @@ import pytest
 from tags.domain import (
     remove,
     update,
-)
-from typing import (
-    Optional,
 )
 from unittest.mock import (
     AsyncMock,
@@ -58,60 +51,57 @@ async def test_remove(
 
 @pytest.mark.changes_db
 async def test_update() -> None:
-    loaders: Dataloaders = get_new_context()
-    original: Optional[Portfolio] = await loaders.portfolio.load(
+    loaders = get_new_context()
+    portfolio = await loaders.portfolio.load(
         PortfolioRequest(organization_name="okada", portfolio_id="test-groups")
     )
-    if original:
-        # company, tag, data
-        test_1 = Portfolio(
-            id=original.id,
-            groups=original.groups,
-            organization_name=original.organization_name,
-            unreliable_indicators=PortfolioUnreliableIndicators(
-                max_open_severity=(
-                    original.unreliable_indicators.max_open_severity
-                ),
-                max_severity=Decimal("3.3"),
-                mean_remediate=original.unreliable_indicators.mean_remediate,
-                mean_remediate_critical_severity=Decimal("1.5"),
-                mean_remediate_high_severity=Decimal("0"),
-                mean_remediate_low_severity=Decimal("5.3"),
-                mean_remediate_medium_severity=Decimal("0"),
-                last_closing_date=(
-                    original.unreliable_indicators.last_closing_date
-                ),
+    assert portfolio
+    assert portfolio.unreliable_indicators.max_severity == Decimal("6.3")
+    assert portfolio.unreliable_indicators.mean_remediate == Decimal("688")
+    assert (
+        portfolio.unreliable_indicators.mean_remediate_critical_severity
+        == Decimal("0")
+    )
+    test_1 = Portfolio(
+        id=portfolio.id,
+        groups=portfolio.groups,
+        organization_name=portfolio.organization_name,
+        unreliable_indicators=PortfolioUnreliableIndicators(
+            max_open_severity=(
+                portfolio.unreliable_indicators.max_open_severity
             ),
-        )
-        assert original.unreliable_indicators.max_severity == Decimal("6.3")
-        assert original.unreliable_indicators.mean_remediate == Decimal("688")
-        assert (
-            original.unreliable_indicators.mean_remediate_critical_severity
-            == (Decimal("0"))
-        )
-        await update(portfolio=test_1)
-    else:
-        raise PortfolioNotFound()
+            max_severity=Decimal("3.3"),
+            mean_remediate=portfolio.unreliable_indicators.mean_remediate,
+            mean_remediate_critical_severity=Decimal("1.5"),
+            mean_remediate_high_severity=Decimal("0"),
+            mean_remediate_low_severity=Decimal("5.3"),
+            mean_remediate_medium_severity=Decimal("0"),
+            last_closing_date=(
+                portfolio.unreliable_indicators.last_closing_date
+            ),
+        ),
+    )
+    await update(portfolio=test_1)
 
     loaders = get_new_context()
-    updated: Optional[Portfolio] = await loaders.portfolio.load(
+    updated = await loaders.portfolio.load(
         PortfolioRequest(organization_name="okada", portfolio_id="test-groups")
     )
-    if updated:
-        assert (
-            updated.unreliable_indicators.mean_remediate_critical_severity
-            == (Decimal("1.5"))
-        )
-        assert updated.unreliable_indicators.mean_remediate_low_severity == (
-            Decimal("5.3")
-        )
-        assert (
-            updated.unreliable_indicators.mean_remediate_medium_severity
-            == (Decimal("0"))
-        )
-        assert updated.unreliable_indicators.mean_remediate_high_severity == (
-            Decimal("0")
-        )
-        assert updated.unreliable_indicators.max_severity == (Decimal("3.3"))
-    else:
-        raise PortfolioNotFound()
+    assert updated
+    assert (
+        updated.unreliable_indicators.mean_remediate_critical_severity
+        == Decimal("1.5")
+    )
+    assert (
+        updated.unreliable_indicators.mean_remediate_low_severity
+        == Decimal("5.3")
+    )
+    assert (
+        updated.unreliable_indicators.mean_remediate_medium_severity
+        == Decimal("0")
+    )
+    assert (
+        updated.unreliable_indicators.mean_remediate_high_severity
+        == Decimal("0")
+    )
+    assert updated.unreliable_indicators.max_severity == Decimal("3.3")
