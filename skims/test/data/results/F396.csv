@@ -155,7 +155,7 @@ F396,inputs,arn:aws:iam::123456789012:key/myKey (namespace),/KeyRotationEnabled:
   9 | }
     ^ Col 0
 ",aws.kms_key_is_key_rotation_absent_or_disabled
-F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,12,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+F396,lines,namespace/skims/test/data/lib_root/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,12,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_root/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
    2 |   customer_master_key_spec = ""SYMMETRIC_DEFAULT""
    3 |   description              = ""KMS key 1""
    4 |   deletion_window_in_days  = 10
@@ -179,7 +179,7 @@ F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_a
   22 | resource ""aws_kms_key"" ""a"" {
      ^ Col 0
 ",terraform.tfm_kms_key_is_key_rotation_absent_or_disabled
-F396,lines,namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,22,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_path/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
+F396,lines,namespace/skims/test/data/lib_root/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,22,255,skims,396. Insecure service configuration - KMS,The enable_key_rotation property must be enabled in namespace/skims/test/data/lib_root/f396/tfm_kms_key_is_key_rotation_absent_or_disabled.tf,"
    6 | }
    7 |
    8 | resource ""aws_kms_key"" ""a"" {
