@@ -21,9 +21,8 @@ import {
   useRouteMatch,
 } from "react-router-dom";
 
-import { groupContext } from "./context";
+import { groupContext, vulnerabilitiesContext } from "./context";
 import { GET_GROUP_EVENT_STATUS } from "./queries";
-import type { IGetEventStatus, IGroupContext } from "./types";
 
 import { Button } from "components/Button";
 import { Card } from "components/Card";
@@ -51,6 +50,11 @@ import { GroupVulnerabilitiesView } from "scenes/Dashboard/containers/Group-Cont
 import { ToeContent } from "scenes/Dashboard/containers/Group-Content/ToeContent";
 import { GET_ORGANIZATION_ID } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/queries";
 import type { IGetOrganizationId } from "scenes/Dashboard/containers/Organization-Content/OrganizationNav/types";
+import type {
+  IGetEventStatus,
+  IGroupContext,
+  IVulnerabilitiesContext,
+} from "scenes/Dashboard/group/types";
 import { TabContent } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
@@ -66,6 +70,7 @@ const GroupContent: React.FC = (): JSX.Element => {
     useParams<{ groupName: string; organizationName: string }>();
   const { featurePreview } = useContext(featurePreviewContext);
   const [denyAccess, setDenyAccess] = useState(false);
+  const [openVulnerabilities, setOpenVulnerabilities] = useState<number>(0);
   const [show, open, close] = useShow();
   const { t } = useTranslation();
 
@@ -124,6 +129,22 @@ const GroupContent: React.FC = (): JSX.Element => {
   const hasOpenEvents = events.some(
     (event): boolean => event.eventStatus === "CREATED"
   );
+  const vulnValue = useMemo(
+    (): IVulnerabilitiesContext => ({
+      openVulnerabilities,
+      setOpenVulnerabilities,
+    }),
+    [openVulnerabilities]
+  );
+  const tip = useMemo(
+    (): string =>
+      openVulnerabilities === 0
+        ? t("group.tabs.findings.tooltip.default")
+        : t("group.tabs.findings.tooltip.openVulns", {
+            value: openVulnerabilities,
+          }),
+    [openVulnerabilities, t]
+  );
 
   const organizationId = useMemo(
     (): string => (_.isUndefined(orgData) ? "" : orgData.organizationId.id),
@@ -176,11 +197,7 @@ const GroupContent: React.FC = (): JSX.Element => {
         <Fragment>
           <EventBar organizationName={organizationName} />
           <Tabs>
-            <Tab
-              id={"findingsTab"}
-              link={`${url}/vulns`}
-              tooltip={t("group.tabs.findings.tooltip")}
-            >
+            <Tab id={"findingsTab"} link={`${url}/vulns`} tooltip={tip}>
               {t("group.tabs.findings.text")}
             </Tab>
             <Tab
@@ -264,62 +281,64 @@ const GroupContent: React.FC = (): JSX.Element => {
           </Tabs>
           <TabContent>
             <groupContext.Provider value={value}>
-              <Switch>
-                <Route
-                  component={GroupAuthorsView}
-                  exact={true}
-                  path={`${path}/authors`}
-                />
-                <Route
-                  component={ChartsForGroupView}
-                  exact={true}
-                  path={`${path}/analytics`}
-                />
-                <Route
-                  component={
-                    featurePreview
-                      ? GroupVulnerabilitiesView
-                      : GroupFindingsView
-                  }
-                  path={`${path}/vulns`}
-                />
-                <Route
-                  component={GroupDraftsView}
-                  exact={true}
-                  path={`${path}/drafts`}
-                />
-                <Route
-                  component={GroupForcesView}
-                  exact={true}
-                  path={`${path}/devsecops`}
-                />
-                <Route
-                  component={GroupEventsView}
-                  exact={true}
-                  path={`${path}/events`}
-                />
-                <Route
-                  component={GroupScopeView}
-                  exact={true}
-                  path={`${path}/scope`}
-                />
-                <Route
-                  component={GroupStakeholdersView}
-                  exact={true}
-                  path={`${path}/stakeholders`}
-                />
-                <Route
-                  component={GroupConsultingView}
-                  exact={true}
-                  path={`${path}/consulting`}
-                />
-                <Route component={ToeContent} path={`${path}/surface`} />
-                <Route
-                  component={GroupInternalContent}
-                  path={`${path}/internal`}
-                />
-                <Redirect to={`${path}/vulns`} />
-              </Switch>
+              <vulnerabilitiesContext.Provider value={vulnValue}>
+                <Switch>
+                  <Route
+                    component={GroupAuthorsView}
+                    exact={true}
+                    path={`${path}/authors`}
+                  />
+                  <Route
+                    component={ChartsForGroupView}
+                    exact={true}
+                    path={`${path}/analytics`}
+                  />
+                  <Route
+                    component={
+                      featurePreview
+                        ? GroupVulnerabilitiesView
+                        : GroupFindingsView
+                    }
+                    path={`${path}/vulns`}
+                  />
+                  <Route
+                    component={GroupDraftsView}
+                    exact={true}
+                    path={`${path}/drafts`}
+                  />
+                  <Route
+                    component={GroupForcesView}
+                    exact={true}
+                    path={`${path}/devsecops`}
+                  />
+                  <Route
+                    component={GroupEventsView}
+                    exact={true}
+                    path={`${path}/events`}
+                  />
+                  <Route
+                    component={GroupScopeView}
+                    exact={true}
+                    path={`${path}/scope`}
+                  />
+                  <Route
+                    component={GroupStakeholdersView}
+                    exact={true}
+                    path={`${path}/stakeholders`}
+                  />
+                  <Route
+                    component={GroupConsultingView}
+                    exact={true}
+                    path={`${path}/consulting`}
+                  />
+                  <Route component={ToeContent} path={`${path}/surface`} />
+                  <Route
+                    component={GroupInternalContent}
+                    path={`${path}/internal`}
+                  />
+                  <Redirect to={`${path}/vulns`} />
+                </Switch>
+              </vulnerabilitiesContext.Provider>
             </groupContext.Provider>
           </TabContent>
         </Fragment>

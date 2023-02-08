@@ -1197,7 +1197,11 @@ export const enTranslations: ResourceKey = {
       },
       findings: {
         text: "Vulnerabilities",
-        tooltip: "Keep track of the status of all the approved findings",
+        tooltip: {
+          default: "Keep track of the status of all the approved findings.",
+          openVulns:
+            "Keep track of the status of all the approved findings.<br />Open Vulnerabilities ({{value}}).",
+        },
       },
       forces: {
         text: "DevSecOps",
