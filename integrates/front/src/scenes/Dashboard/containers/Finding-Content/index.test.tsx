@@ -285,7 +285,7 @@ describe("FindingContent", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.queryAllByRole("button")).toHaveLength(1);
+    expect(screen.queryAllByRole("button")).toHaveLength(3);
   });
 
   it("should prompt delete justification", async (): Promise<void> => {
@@ -324,7 +324,7 @@ describe("FindingContent", (): void => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.queryAllByRole("button")).toHaveLength(1);
+    expect(screen.queryAllByRole("button")).toHaveLength(3);
 
     await userEvent.click(screen.getByText("searchFindings.delete.btn.text"));
     await waitFor((): void => {

@@ -65,6 +65,7 @@ const Head = <TData extends RowData>({
                         ? "cursor-pointer select-none"
                         : ""
                     }
+                    id={header.id}
                     onClick={header.column.getToggleSortingHandler()}
                   >
                     <Gap>

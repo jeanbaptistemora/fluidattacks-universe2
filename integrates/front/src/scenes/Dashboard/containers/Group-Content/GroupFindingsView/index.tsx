@@ -48,6 +48,7 @@ import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
+import { RiskExposureTour } from "scenes/Dashboard/components/RiskExposureTour/RiskExposureTour";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { ReportsModal } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/reportsModal";
 import type {
@@ -236,11 +237,14 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     [t]
   );
 
-  const { data, refetch } = useQuery<IGroupFindingsAttr>(GET_FINDINGS, {
-    fetchPolicy: "cache-first",
-    onError: handleQryErrors,
-    variables: { groupName },
-  });
+  const { data, loading, refetch } = useQuery<IGroupFindingsAttr>(
+    GET_FINDINGS,
+    {
+      fetchPolicy: "cache-first",
+      onError: handleQryErrors,
+      variables: { groupName },
+    }
+  );
 
   const [getVuln, { data: vulnData }] = useLazyQuery<IGroupVulnerabilities>(
     GET_GROUP_VULNERABILITIES,
@@ -345,6 +349,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
       cell: (cell: ICellHelper<IFindingAttr>): string =>
         formatPercentage(cell.getValue(), true),
       header: "% Risk Exposure",
+      id: "riskExposureColumn",
     },
     {
       accessorKey: "openVulnerabilities",
@@ -605,6 +610,20 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
         </Formik>
       </Modal>
       <ExpertButton />
+      {!loading && filteredFindings.length > 0 ? (
+        <RiskExposureTour
+          findingId={filteredFindings[0].id}
+          findingRiskExposure={formatPercentage(
+            getRiskExposure(
+              filteredFindings[0].status,
+              filteredFindings[0].severityScore,
+              groupCVSSF
+            ),
+            true
+          )}
+          step={1}
+        />
+      ) : null}
     </React.StrictMode>
   );
 };

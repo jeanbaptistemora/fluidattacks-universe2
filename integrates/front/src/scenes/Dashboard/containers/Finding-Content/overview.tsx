@@ -23,6 +23,7 @@ import { Text } from "components/Text";
 import { Tooltip } from "components/Tooltip";
 import failIcon from "resources/fail.svg";
 import okIcon from "resources/ok.svg";
+import { RiskExposureTour } from "scenes/Dashboard/components/RiskExposureTour/RiskExposureTour";
 
 interface IFindingOverviewProps {
   discoveryDate: string;
@@ -137,7 +138,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
       <Row>
         <Row>
           <Col lg={20} md={50} sm={100}>
-            <CVSSFContainer variant={cvssfColor}>
+            <CVSSFContainer id={"riskExposureCard"} variant={cvssfColor}>
               <Card float={true}>
                 <Text
                   bright={0}
@@ -279,6 +280,7 @@ const FindingOverview: React.FC<IFindingOverviewProps> = ({
           </Col>
         </Row>
       </Row>
+      <RiskExposureTour findingRiskExposure={riskExposure} step={2} />
     </React.StrictMode>
   );
 };
