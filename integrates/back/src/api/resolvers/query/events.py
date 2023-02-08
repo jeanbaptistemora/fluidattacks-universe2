@@ -1,6 +1,9 @@
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.events.types import (
     Event,
     GroupEventsRequest,
@@ -14,12 +17,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from newutils.utils import (
-    get_key_or_fallback,
-)
-from typing import (
-    List,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -30,11 +27,10 @@ from typing import (
 )
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str
-) -> List[Event]:
-    # Compatibility with old API
-    group_name: str = get_key_or_fallback(kwargs).lower()
-    event_groups = await info.context.loaders.group_events.load(
+) -> list[Event]:
+    loaders: Dataloaders = info.context.loaders
+    group_name = kwargs["group_name"].lower()
+
+    return await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name)
     )
-
-    return event_groups

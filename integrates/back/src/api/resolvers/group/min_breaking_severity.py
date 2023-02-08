@@ -1,17 +1,20 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.constants import (
     DEFAULT_MIN_SEVERITY,
 )
 from db_model.groups.types import (
     Group,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from decimal import (
     Decimal,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 
 
@@ -23,7 +26,9 @@ async def resolve(
     if parent.policies:
         return parent.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY
 
-    organization: Organization = await info.context.loaders.organization.load(
-        parent.organization_id
+    loaders: Dataloaders = info.context.loaders
+    organization = await orgs_utils.get_organization(
+        loaders, parent.organization_id
     )
+
     return organization.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY

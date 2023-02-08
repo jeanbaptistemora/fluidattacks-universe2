@@ -7,8 +7,8 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from db_model.organizations.types import (
-    Organization,
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -17,6 +17,9 @@ from decorators import (
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 from starlette.datastructures import (
     UploadFile,
@@ -39,20 +42,21 @@ async def mutate(
     tax_id: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"]
+    loaders: Dataloaders = info.context.loaders
+    organization = await orgs_utils.get_organization(
+        loaders, kwargs["organization_id"]
     )
 
-    result: bool = await billing_domain.update_documents(
-        org=org,
-        payment_method_id=kwargs["payment_method_id"],
-        business_name=kwargs["business_name"],
-        city=kwargs["city"],
-        country=kwargs["country"],
-        email=kwargs["email"],
-        state=kwargs["state"],
-        rut=rut,
-        tax_id=tax_id,
+    return SimplePayload(
+        success=await billing_domain.update_documents(
+            org=organization,
+            payment_method_id=kwargs["payment_method_id"],
+            business_name=kwargs["business_name"],
+            city=kwargs["city"],
+            country=kwargs["country"],
+            email=kwargs["email"],
+            state=kwargs["state"],
+            rut=rut,
+            tax_id=tax_id,
+        )
     )
-
-    return SimplePayload(success=result)

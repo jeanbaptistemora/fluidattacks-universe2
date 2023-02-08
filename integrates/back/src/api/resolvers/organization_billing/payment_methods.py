@@ -5,11 +5,14 @@ from billing.types import (
     OrganizationBilling,
     PaymentMethod,
 )
-from db_model.organizations.types import (
-    Organization,
+from dataloaders import (
+    Dataloaders,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from organizations import (
+    utils as orgs_utils,
 )
 
 
@@ -18,10 +21,12 @@ async def resolve(
     info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> list[PaymentMethod]:
-    org: Organization = await info.context.loaders.organization.load(
-        parent.organization,
+    loaders: Dataloaders = info.context.loaders
+    organization = await orgs_utils.get_organization(
+        loaders, parent.organization
     )
+
     return await billing_domain.customer_payment_methods(
-        org=org,
+        org=organization,
         limit=100,
     )

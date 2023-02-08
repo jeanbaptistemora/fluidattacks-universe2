@@ -1,22 +1,22 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.stakeholders.types import (
     NotificationsPreferences,
-    Stakeholder,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> NotificationsPreferences:
+    loaders: Dataloaders = info.context.loaders
     email = str(parent["user_email"])
-    stakeholder: Stakeholder = await info.context.loaders.stakeholder.load(
-        email
-    )
+    stakeholder = await loaders.stakeholder.load(email)
 
     return stakeholder.state.notifications_preferences

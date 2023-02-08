@@ -1,5 +1,5 @@
-from db_model.findings.types import (
-    Finding,
+from dataloaders import (
+    Dataloaders,
 )
 from db_model.findings.utils import (
     has_rejected_drafts,
@@ -17,9 +17,8 @@ from typing import (
 
 @require_login
 async def resolve(parent: dict[str, Any], info: GraphQLResolveInfo) -> bool:
-    email: str = str(parent["user_email"])
-    drafts: tuple[Finding, ...] = await info.context.loaders.me_drafts.load(
-        email
-    )
+    loaders: Dataloaders = info.context.loaders
+    email = str(parent["user_email"])
+    drafts = await loaders.me_drafts.load(email)
 
     return has_rejected_drafts(drafts=drafts)
