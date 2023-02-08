@@ -311,7 +311,7 @@
       scope: U
       confidentiality: N
       integrity: N
-      availability: N
+      availability: H
     temporal:
       exploit_code_maturity: X
       remediation_level: X
@@ -24444,14 +24444,14 @@
   en:
     title: Insecure encryption algorithm - AES
     description: >
-      The source code uses RSA/ECB/PKCS1Padding and AES/CBC/PKCS5PADDING 
+      The source code uses RSA/ECB/PKCS1Padding and AES/CBC/PKCS5PADDING
       encryption and other references use CTR or CFB which are considered insecure.
     impact: >
       Decrypt the information encrypted with
       the algorithm because it has vulnerabilities
       that make it easily breakable.
     recommendation: >
-      Only secure encryption with secure algorithms such as 
+      Only secure encryption with secure algorithms such as
       RSA/NONE/OAEPwithSHA-256andMGF1Padding or use implementations
       with the GCM mode encryption algorithm.
     threat: >
@@ -39049,18 +39049,18 @@
       non_compliant: |
         There are docker dependencies not pinned
         ```json
-       
+
         ```
       compliant: |
         All docker dependencies are pinned using secure mechanisms
         ```json
-        
+
         ```
     remediation_time: '15'
     es:
       title: Supply Chain Attack - NPM
       description: >
-        Las dependencias de NPM no cuentan con un archivo de definición de integridad del software a usar, 
+        Las dependencias de NPM no cuentan con un archivo de definición de integridad del software a usar,
         permitiendo a actores terceros cambiar o inyectar software malicioso.
       impact: >
         Sobreescribir dependencias o componentes con contenido malicioso.
@@ -39088,4 +39088,3 @@
     metadata:
       en:
         details: __empty__
-        
