@@ -81,7 +81,7 @@ def format_summary_report(summary: ReportSummary, kind: KindEnum) -> Table:
     # vulnerable, safe and accepted
     summary_table.add_column("Vuln state", style="cyan")
     if kind == KindEnum.ALL:
-        # DAST, SAST and total vulns
+        # DAST, SAST and total vulns for each
         summary_table.add_column("Vuln type", style="magenta1")
         summary_table.add_column("Value")
         for state in tuple(VulnerabilityState):

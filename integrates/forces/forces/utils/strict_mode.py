@@ -85,7 +85,7 @@ async def set_forces_exit_code(
         await log(
             "info",
             (
-                "[green]No vulnerable areas with a severity above this"
+                "[green]No vulnerable spots with a severity above this"
                 " threshold and outside the set grace period were found[/]"
             ),
         )

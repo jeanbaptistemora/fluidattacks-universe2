@@ -83,7 +83,15 @@ def show_banner() -> None:
     log_banner(log_header)
 
 
-@click.command(name="forces")
+@click.command(
+    name="forces",
+    help="Fluid Attacks' DevSecOps CI Agent",
+    epilog="""For more information on how to install, configure the Agent to
+    your needs, see usage examples, or troubleshoot any issues, do check out
+    https://docs.fluidattacks.com/machine/agent/installation or mail your
+    inquiry to help@fluidattacks.com""",
+    no_args_is_help=True,
+)
 @click.option("--token", required=True, help="Your DevSecOps agent token")
 @click.option(
     "-v",
@@ -134,8 +142,8 @@ def show_banner() -> None:
     required=False,
     default=None,
     help="""Vulnerable finds with a severity below this threshold will not
-    break the job. This setting overrides the minimum breaking severity set in
-    your ARM organization/group's policies (Strict mode only)""",
+    break the job. This CLI setting overrides the minimum breaking severity
+    value set in your ARM organization/group's policies (Strict mode only)""",
     type=click.FloatRange(min=0.0, max=10.0),
 )
 # pylint: disable=too-many-arguments
