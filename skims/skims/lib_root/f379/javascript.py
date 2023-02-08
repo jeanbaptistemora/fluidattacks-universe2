@@ -29,7 +29,7 @@ def ts_import_is_never_used(
         ):
             if shard.syntax_graph is None:
                 continue
-            graph = shard.syntax_graph
+            graph = shard.graph
             for n_id in import_is_not_used(graph):
                 yield shard, n_id
 

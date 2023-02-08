@@ -16,7 +16,10 @@ from utils import (
 
 def has_labels(n_attrs: NAttrs, value: str) -> bool:
     vals = list(n_attrs.values())
-    return any(value == val for val in vals)
+    for val in vals:
+        if value in str(val):
+            return True
+    return False
 
 
 def pred_has_labels(value: str) -> NAttrsPredicateFunction:
@@ -57,8 +60,12 @@ def is_import_used(
 
 def import_is_not_used(graph: Graph) -> List[NId]:
     vuln_nodes: List[NId] = []
-    for n_id in g.matching_nodes(graph, label_type="Import"):
-        if identifier := graph.nodes[n_id].get("identifier"):
-            if not is_import_used(graph, identifier):
-                vuln_nodes.append(n_id)
+    for n_id in g.matching_nodes(graph, label_type="import_specifier"):
+        if alias := graph.nodes[n_id].get("label_field_alias"):
+            identifier = graph.nodes[alias]["label_text"]
+        else:
+            name = graph.nodes[n_id]["label_field_name"]
+            identifier = graph.nodes[name]["label_text"]
+        if not is_import_used(graph, identifier):
+            vuln_nodes.append(n_id)
     return vuln_nodes
