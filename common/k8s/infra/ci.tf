@@ -1,5 +1,25 @@
 variable "gitlabTokenFluidattacks" {}
 
+module "ci_cache" {
+  source  = "npalm/gitlab-runner/aws//modules/cache"
+  version = "5.9.1"
+
+  environment                          = "${local.cluster_name}-ci-cache"
+  cache_bucket_set_random_suffix       = true
+  cache_bucket_name_include_account_id = false
+
+  cache_bucket_versioning = false
+  cache_expiration_days   = 30
+  cache_lifecycle_clear   = true
+
+  tags = {
+    "Name"               = "${local.cluster_name}-ci-cache"
+    "management:area"    = "innovation"
+    "management:product" = "common"
+    "management:type"    = "product"
+  }
+}
+
 resource "helm_release" "ci_small" {
   chart       = "gitlab-runner"
   description = "Kubernetes Event Driven Autoscaler"
@@ -65,7 +85,17 @@ resource "helm_release" "ci_small" {
                 [runners.kubernetes.node_selector]
                   worker_group = "ci"
                 [dns_config]
-                  nameservers = ["1.1.1.1", "8.8.4.4", "8.8.8.8"]
+                  nameservers = ["1.1.1.1", "8.8.8.8", "8.8.4.4"]
+
+              [runners.cache]
+                Type = "s3"
+                Shared = true
+                [runners.cache.s3]
+                  AuthenticationType = "iam"
+                  ServerAddress = "s3.amazonaws.com"
+                  BucketName = "${module.ci_cache.bucket}"
+                  BucketLocation = "us-east-1"
+                  Insecure = false
           EOF
         }
       }

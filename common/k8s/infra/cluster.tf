@@ -24,6 +24,7 @@ module "cluster" {
       iam_role_additional_policies = {
         ssm_core = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
         ssm_role = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+        cache    = module.ci_cache.policy_arn
       }
 
       block_device_mappings = {
