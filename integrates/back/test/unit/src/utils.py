@@ -9,10 +9,6 @@ from datetime import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
-from db_model.companies.types import (
-    Company,
-    Trial,
-)
 from db_model.credentials.types import (
     Credentials,
     CredentialsState,
@@ -105,6 +101,9 @@ from db_model.stakeholders.types import (
     StakeholderState,
     StakeholderTours,
     StateSessionType,
+)
+from db_model.trials.types import (
+    Trial,
 )
 from db_model.types import (
     Policies,
@@ -199,7 +198,6 @@ mocked_paths: Dict[str, str] = {
     "group_comments_model.add": "db_model.group_comments.add",
     "groups_domain.update_metadata": "groups.domain.update_metadata",
     "groups_mail.send_mail_devsecops_agent_token": "mailer.groups.send_mail_devsecops_agent_token",  # noqa: E501 pylint: disable=line-too-long
-    "loaders.company.load": "db_model.companies.get.CompanyLoader.load",
     "loaders.event.load": "db_model.events.get.EventLoader.load",
     "loaders.event_comments.load": "db_model.event_comments.get.EventCommentsLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.event_vulnerabilities_loader.load": "db_model.vulnerabilities.get.EventVulnerabilitiesLoader.load",  # noqa: E501 pylint: disable=line-too-long
@@ -218,6 +216,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.root.load": "db_model.roots.get.RootLoader.load",
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
+    "loaders.trial.load": "db_model.trials.get.TrialLoader.load",
     "operations.put_item": "dynamodb.operations.put_item",
     "operations.update_item": "dynamodb.operations.update_item",
     "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
@@ -277,18 +276,16 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["Test comment", "unittest@fluidattacks.com",'
         ' "unittesting", "0"]': None,
     },
-    "db_model.companies.get.CompanyLoader.load": {
-        '["esdeath"]': Company(
-            domain="gmail.com",
-            trial=Trial(
-                completed=True,
-                extension_date=datetime.fromisoformat(
-                    "2022-08-04T22:21:45.938286+00:00"
-                ),
-                extension_days=0,
-                start_date=datetime.fromisoformat(
-                    "2022-08-04T22:21:45.946275+00:00"
-                ),
+    "db_model.trials.get.TrialLoader.load": {
+        '["org_testusermanager1@gmail.com"]': Trial(
+            email="org_testusermanager1@gmail.com",
+            completed=True,
+            extension_date=datetime.fromisoformat(
+                "2022-08-04T22:21:45.938286+00:00"
+            ),
+            extension_days=0,
+            start_date=datetime.fromisoformat(
+                "2022-08-04T22:21:45.946275+00:00"
             ),
         ),
     },
@@ -3717,7 +3714,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         ),
     },
     "db_model.stakeholders.get.StakeholderLoader.load": {
-        '["continuoushacking@gmail.com", "hacker"]': Stakeholder(
+        '["continuoushacking@gmail.com"]': Stakeholder(
             email="continuoushacking@gmail.com",
             access_token=None,
             first_name="Jhon",
@@ -3765,7 +3762,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
-        '["integrateshacker@fluidattacks.com", "hacker"]': Stakeholder(
+        '["integrateshacker@fluidattacks.com"]': Stakeholder(
             email="integrateshacker@fluidattacks.com",
             access_token=None,
             first_name="Ismael",
@@ -3794,7 +3791,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
-        '["integratesuser@gmail.com", "user"]': Stakeholder(
+        '["integratesuser@gmail.com"]': Stakeholder(
             email="integratesuser@gmail.com",
             access_token=None,
             first_name="Jane",
@@ -3843,7 +3840,11 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             ),
             tours=StakeholderTours(new_group=False, new_root=False),
         ),
-        '["unittest@fluidattacks.com", "admin"]': Stakeholder(
+        '["org_testusermanager1@gmail.com"]': Stakeholder(
+            email="org_testusermanager1@gmail.com",
+            role="user",
+        ),
+        '["unittest@fluidattacks.com"]': Stakeholder(
             email="unittest@fluidattacks.com",
             access_token=StakeholderAccessToken(
                 iat=1634677195,

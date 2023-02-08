@@ -70,7 +70,7 @@ async def test_get_user_level_role(
     if result:
         mock_stakeholder_loader.return_value = get_mock_response(
             get_mocked_path("loaders.stakeholder.load"),
-            json.dumps([email, result]),
+            json.dumps([email]),
         )
     else:
         mock_stakeholder_loader.return_value.role = None

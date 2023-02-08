@@ -162,11 +162,13 @@ async def test_add_group_access() -> None:
 )
 @patch(get_mocked_path("add_stakeholder"), new_callable=AsyncMock)
 @patch(get_mocked_path("orgs_model.add"), new_callable=AsyncMock)
-@patch(get_mocked_path("loaders.company.load"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.stakeholder.load"), new_callable=AsyncMock)
+@patch(get_mocked_path("loaders.trial.load"), new_callable=AsyncMock)
 @patch(get_mocked_path("exists"), new_callable=AsyncMock)
 async def test_add_organization(  # pylint: disable=too-many-arguments
     mock_exist: AsyncMock,
-    mock_loaders_company: AsyncMock,
+    mock_loaders_trial: AsyncMock,
+    mock_loaders_stakeholder: AsyncMock,
     mock_orgs_model_add: AsyncMock,
     mock_add_stakeholder: AsyncMock,
     organization_name: str,
@@ -179,9 +181,13 @@ async def test_add_organization(  # pylint: disable=too-many-arguments
         get_mocked_path("exists"),
         json.dumps([organization_name]),
     )
-    mock_loaders_company.return_value = get_mock_response(
-        get_mocked_path("loaders.company.load"),
-        json.dumps([organization_name]),
+    mock_loaders_stakeholder.return_value = get_mock_response(
+        get_mocked_path("loaders.stakeholder.load"),
+        json.dumps([email]),
+    )
+    mock_loaders_trial.return_value = get_mock_response(
+        get_mocked_path("loaders.trial.load"),
+        json.dumps([email]),
     )
     mock_orgs_model_add.return_value = get_mock_response(
         get_mocked_path("orgs_model.add"),
@@ -208,7 +214,8 @@ async def test_add_organization(  # pylint: disable=too-many-arguments
     assert result.country == country
 
     assert mock_exist.called is True
-    assert mock_loaders_company.called is True
+    assert mock_loaders_stakeholder.called is True
+    assert mock_loaders_trial.called is True
     assert mock_orgs_model_add.called is True
     assert mock_orgs_model_add.called is True
     assert mock_add_stakeholder.called is True

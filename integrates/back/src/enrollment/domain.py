@@ -21,9 +21,6 @@ from db_model.enrollment.types import (
     Enrollment,
     EnrollmentMetadataToUpdate,
 )
-from db_model.organizations.types import (
-    Organization,
-)
 from db_model.stakeholders.types import (
     StakeholderMetadataToUpdate,
 )
@@ -59,9 +56,6 @@ from settings import (
 )
 from stakeholders import (
     domain as stakeholders_domain,
-)
-from typing import (
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -147,15 +141,3 @@ async def update_metadata(
         email=email,
         metadata=metadata,
     )
-
-
-async def in_trial(
-    loaders: Dataloaders, user_email: str, organization: Organization
-) -> bool:
-    domain = user_email.split("@")[1]
-    company: Optional[Company] = await loaders.company.load(domain)
-    completed = company and company.trial.completed
-
-    if completed or organization.payment_methods:
-        return False
-    return True

@@ -5,10 +5,6 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.companies.types import (
-    Company,
-    Trial,
-)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -18,6 +14,9 @@ from db_model.organizations.types import (
 )
 from db_model.stakeholders.types import (
     Stakeholder,
+)
+from db_model.trials.types import (
+    Trial,
 )
 from db_model.types import (
     Policies,
@@ -34,27 +33,14 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: Dict[str, Any]) -> bool:
     data: Dict[str, Any] = {
-        "companies": [
-            Company(
-                domain="fluidattacks.com",
-                trial=Trial(
-                    completed=True,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-25T15:58:31.280182"
-                    ),
-                ),
-            ),
-            Company(
-                domain="johndoe.com",
-                trial=Trial(
-                    completed=False,
-                    extension_date=None,
-                    extension_days=0,
-                    start_date=datetime.fromisoformat(
-                        "2022-10-25T15:58:31.280182"
-                    ),
+        "trials": [
+            Trial(
+                email="johndoe@johndoe.com",
+                completed=False,
+                extension_date=None,
+                extension_days=0,
+                start_date=datetime.fromisoformat(
+                    "2022-10-25T15:58:31.280182"
                 ),
             ),
         ],
@@ -128,6 +114,7 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
             *generic_data["db_data"]["stakeholders"],
             Stakeholder(
                 email="johndoe@johndoe.com",
+                enrolled=True,
                 first_name="John",
                 is_registered=True,
                 last_name="Doe",

@@ -47,9 +47,6 @@ from db_model import (
     portfolios as portfolios_model,
     roots as roots_model,
 )
-from db_model.companies.types import (
-    Company,
-)
 from db_model.constants import (
     DEFAULT_MAX_SEVERITY,
     DEFAULT_MIN_SEVERITY,
@@ -159,10 +156,12 @@ from stakeholders import (
     domain as stakeholders_domain,
 )
 import sys
+from trials import (
+    domain as trials_domain,
+)
 from typing import (
     Any,
     AsyncIterator,
-    Optional,
     Union,
 )
 import uuid
@@ -492,10 +491,7 @@ async def add_organization(
     if not re.match(r"^[a-zA-Z]{4,10}$", organization_name):
         raise InvalidOrganization("Invalid name")
 
-    company: Optional[Company] = await loaders.company.load(
-        email.split("@")[1]
-    )
-    in_trial = not company.trial.completed if company else True
+    in_trial = await trials_domain.in_trial(loaders, email)
     if in_trial and await loaders.stakeholder_organizations_access.load(email):
         raise TrialRestriction()
 
