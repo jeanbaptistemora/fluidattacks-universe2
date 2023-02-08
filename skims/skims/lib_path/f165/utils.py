@@ -40,8 +40,10 @@ def check_type(
     stmt: Any, file_ext: str, method: MethodsEnum
 ) -> Iterator[Node]:
     if (
-        not_actions := stmt.inner.get("NotAction")
-    ) and method == MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION:
+        hasattr(stmt.inner, "get")
+        and (not_actions := stmt.inner.get("NotAction"))
+        and method == MethodsEnum.CFN_IAM_TRUST_POLICY_NOT_ACTION
+    ):
         yield AWSIamManagedPolicy(
             column=not_actions.start_column,
             data=not_actions.data,
@@ -147,8 +149,10 @@ def _yield_nodes_from_stmt(
         ) if isinstance(not_actions.raw, List) else not_actions
 
     if (
-        not_resource := stmt.inner.get("NotResource")
-    ) and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE:
+        hasattr(stmt.inner, "get")
+        and (not_resource := stmt.inner.get("NotResource"))
+        and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE
+    ):
         yield AWSIamManagedPolicy(
             column=not_resource.start_column,
             data=not_resource.data,

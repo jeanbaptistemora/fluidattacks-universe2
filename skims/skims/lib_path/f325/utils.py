@@ -133,7 +133,7 @@ def _resource_all(resource_node: Node) -> Optional[Node]:
 
 def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
     """Check if a statement of a policy allow an action in all resources."""
-    for stm in statements.data if statements.data else []:
+    for stm in statements.data if statements.data is not None else []:
         effect = get_node_by_keys(stm, ["Effect"])
         resource = get_node_by_keys(stm, ["Resource"])
         action = get_node_by_keys(stm, ["Action"])
@@ -197,8 +197,10 @@ def cfn_iam_is_policy_actions_wildcard(
 
 
 def _yield_nodes_from_stmt(stmt: Any, method: MethodsEnum) -> Iterator[Node]:
-    if method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS and (
-        actions := stmt.inner.get("Action")
+    if (
+        hasattr(stmt.inner, "get")
+        and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_ACTIONS
+        and (actions := stmt.inner.get("Action"))
     ):
         yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
@@ -243,8 +245,10 @@ def check_assume_role_policies(
             and effect.raw != "Allow"
         ):
             continue
-        if method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION and (
-            actions := stmt.inner.get("Action")
+        if (
+            hasattr(stmt.inner, "get")
+            and method == MethodsEnum.CFN_IAM_TRUST_POLICY_WILDCARD_ACTION
+            and (actions := stmt.inner.get("Action"))
         ):
             yield from get_wildcard_nodes(actions, WILDCARD_ACTION)
 
