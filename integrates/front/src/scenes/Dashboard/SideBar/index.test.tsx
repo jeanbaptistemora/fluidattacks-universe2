@@ -131,10 +131,9 @@ describe("Dashboard", (): void => {
     expect(appLogo[2]).toHaveAttribute("href", "/orgs/okada/groups");
     expect(appLogo[3]).toHaveAttribute("href", "/orgs/okada/analytics");
     expect(appLogo[4]).toHaveAttribute("href", "/orgs/okada/policies");
-    expect(appLogo[5]).toHaveAttribute("href", "/orgs/okada/stakeholders");
-    expect(appLogo[6]).toHaveAttribute("href", "/orgs/okada/portfolios");
-    expect(appLogo[7]).toHaveAttribute("href", "/orgs/okada/outofscope");
-    expect(appLogo[8]).toHaveAttribute("href", "/orgs/okada/credentials");
-    expect(appLogo[9]).toHaveAttribute("href", "/orgs/okada/compliance");
+    expect(appLogo[5]).toHaveAttribute("href", "/orgs/okada/portfolios");
+    expect(appLogo[6]).toHaveAttribute("href", "/orgs/okada/outofscope");
+    expect(appLogo[7]).toHaveAttribute("href", "/orgs/okada/credentials");
+    expect(appLogo[8]).toHaveAttribute("href", "/orgs/okada/compliance");
   });
 });

@@ -66,11 +66,13 @@ const OrganizationTabs: FC = (): JSX.Element => {
         tip={t("organization.tabs.policies.text")}
         to={`/orgs/${org}/policies`}
       />
-      <SideBarTab
-        icon={faUsers}
-        tip={t("organization.tabs.users.text")}
-        to={`/orgs/${org}/stakeholders`}
-      />
+      <Can do={"api_resolvers_organization_stakeholders_resolve"}>
+        <SideBarTab
+          icon={faUsers}
+          tip={t("organization.tabs.users.text")}
+          to={`/orgs/${org}/stakeholders`}
+        />
+      </Can>
       <SideBarTab
         icon={faBriefcase}
         tip={t("organization.tabs.portfolios.text")}
