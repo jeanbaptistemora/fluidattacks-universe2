@@ -9,9 +9,10 @@ from billing import (
 )
 from custom_exceptions import (
     ErrorDownloadingFile,
+    OrganizationNotFound,
 )
-from db_model.organizations.types import (
-    Organization,
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -41,11 +42,13 @@ async def mutate(
     file_name: str,
     **kwargs: Any,
 ) -> DownloadFilePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"],
-    )
+    loaders: Dataloaders = info.context.loaders
+    organization = await loaders.organization.load(kwargs["organization_id"])
+    if organization is None:
+        raise OrganizationNotFound()
+
     signed_url = await billing_domain.get_document_link(
-        org, payment_method_id, file_name
+        organization, payment_method_id, file_name
     )
     if signed_url:
         logs_utils.cloudwatch_log(

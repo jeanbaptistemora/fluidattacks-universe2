@@ -45,17 +45,17 @@ async def mutate(
         raise OrganizationNotFound()
 
     user_info = await sessions_domain.get_jwt_content(info.context)
-    user_email: str = user_info["user_email"]
+    user_email = user_info["user_email"]
 
     # Create credit card payment method
-    result: bool = await billing_domain.create_credit_card_payment_method(
-        org=organization,
-        user_email=user_email,
-        card_number=kwargs["card_number"],
-        card_expiration_month=kwargs["card_expiration_month"],
-        card_expiration_year=kwargs["card_expiration_year"],
-        card_cvc=kwargs["card_cvc"],
-        make_default=kwargs["make_default"],
+    return SimplePayload(
+        success=await billing_domain.create_credit_card_payment_method(
+            org=organization,
+            user_email=user_email,
+            card_number=kwargs["card_number"],
+            card_expiration_month=kwargs["card_expiration_month"],
+            card_expiration_year=kwargs["card_expiration_year"],
+            card_cvc=kwargs["card_cvc"],
+            make_default=kwargs["make_default"],
+        )
     )
-
-    return SimplePayload(success=result)

@@ -7,8 +7,11 @@ from ariadne.utils import (
 from billing import (
     domain as billing_domain,
 )
-from db_model.organizations.types import (
-    Organization,
+from custom_exceptions import (
+    OrganizationNotFound,
+)
+from dataloaders import (
+    Dataloaders,
 )
 from decorators import (
     concurrent_decorators,
@@ -26,7 +29,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
 )
 
@@ -43,25 +45,25 @@ async def mutate(
     tax_id: Optional[UploadFile] = None,
     **kwargs: Any,
 ) -> SimplePayload:
-    org: Organization = await info.context.loaders.organization.load(
-        kwargs["organization_id"]
-    )
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
-    )
-    user_email: str = user_info["user_email"]
+    loaders: Dataloaders = info.context.loaders
+    organization = await loaders.organization.load(kwargs["organization_id"])
+    if organization is None:
+        raise OrganizationNotFound()
+
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
 
     # Create payment method
-    result: bool = await billing_domain.create_other_payment_method(
-        org=org,
-        user_email=user_email,
-        business_name=kwargs["business_name"],
-        city=kwargs["city"],
-        country=kwargs["country"],
-        email=kwargs["email"],
-        state=kwargs["state"],
-        rut=rut,
-        tax_id=tax_id,
+    return SimplePayload(
+        success=await billing_domain.create_other_payment_method(
+            org=organization,
+            user_email=user_email,
+            business_name=kwargs["business_name"],
+            city=kwargs["city"],
+            country=kwargs["country"],
+            email=kwargs["email"],
+            state=kwargs["state"],
+            rut=rut,
+            tax_id=tax_id,
+        )
     )
-
-    return SimplePayload(success=result)

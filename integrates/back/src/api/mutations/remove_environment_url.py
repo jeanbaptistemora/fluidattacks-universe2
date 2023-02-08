@@ -10,9 +10,11 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.toe_inputs.types import (
     RootToeInputsRequest,
-    ToeInput,
 )
 from decorators import (
     concurrent_decorators,
@@ -38,9 +40,6 @@ from toe.inputs import (
 from toe.inputs.types import (
     ToeInputAttributesToUpdate,
 )
-from typing import (
-    Any,
-)
 
 
 @convert_kwargs_to_snake_case
@@ -53,10 +52,11 @@ async def mutate(
     group_name: str,
     root_id: str,
     url_id: str,
-    **_kwargs: Any,
+    **_kwargs: None,
 ) -> SimplePayload:
-    url: str = await remove_environment_url_id(
-        loaders=info.context.loaders,
+    loaders: Dataloaders = info.context.loaders
+    url = await remove_environment_url_id(
+        loaders=loaders,
         root_id=root_id,
         url_id=url_id,
     )
@@ -65,10 +65,9 @@ async def mutate(
     )
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
+
     try:
-        inputs_to_update: tuple[
-            ToeInput, ...
-        ] = await info.context.loaders.root_toe_inputs.load_nodes(
+        inputs_to_update = await loaders.root_toe_inputs.load_nodes(
             RootToeInputsRequest(
                 be_present=True,
                 group_name=group_name,

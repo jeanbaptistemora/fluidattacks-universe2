@@ -4,6 +4,9 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -20,7 +23,6 @@ from roots.domain import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -37,12 +39,13 @@ async def mutate(
     job_id: str,
     **kwargs: Any,
 ) -> SimplePayload:
-    result = False
-    root_nicknames: Dict[str, str] = {
+    loaders: Dataloaders = info.context.loaders
+    root_nicknames = {
         root.state.nickname: root.id
-        for root in await info.context.loaders.group_roots.load(group_name)
+        for root in await loaders.group_roots.load(group_name)
         if isinstance(root, GitRoot)
     }
+    result = False
     if root_id := root_nicknames.get(root_nickname):
         result = await add_machine_execution(root_id, job_id, **kwargs)
 
