@@ -8946,7 +8946,7 @@
       privileges_required: N
       user_interaction: N
       scope: U
-      confidentiality: N
+      confidentiality: H
       integrity: N
       availability: N
     temporal:
