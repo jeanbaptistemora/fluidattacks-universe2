@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
@@ -9,7 +9,6 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
-import { FormikDropdown } from "utils/forms/fields";
 
 interface IUpdateOtherMethodModalProps {
   onClose: () => void;
@@ -183,7 +182,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                     onKeyDown={changeState}
                     role={"listitem"}
                   >
-                    <Field component={FormikDropdown} name={"state"}>
+                    <Select name={"state"}>
                       <option value={""}>{""}</option>
                       {states.map(
                         (state): JSX.Element => (
@@ -192,7 +191,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                           </option>
                         )
                       )}
-                    </Field>
+                    </Select>
                   </div>
                 </React.Fragment>
               ) : undefined}
@@ -204,7 +203,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                       "organization.tabs.billing.paymentMethods.add.otherMethods.city"
                     )}
                   </ControlLabel>
-                  <Field component={FormikDropdown} name={"city"}>
+                  <Select name={"city"}>
                     <option value={""}>{""}</option>
                     {cities.map(
                       (city): JSX.Element => (
@@ -213,7 +212,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                         </option>
                       )
                     )}
-                  </Field>
+                  </Select>
                 </div>
               ) : undefined}
               {values.country === "Colombia" ? (
