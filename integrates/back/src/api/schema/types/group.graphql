@@ -165,6 +165,8 @@ type Group {
   toeLines(
     "The cursor for the forward pagination"
     after: String
+    "Filter by hacker email"
+    attackedBy: String
     "If the file is present in the repository"
     bePresent: Boolean
     "ToE Filename to filter"

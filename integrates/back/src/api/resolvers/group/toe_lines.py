@@ -100,6 +100,9 @@ def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
 def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_match_filters = []
 
+    if attacked_by := kwargs.get("attacked_by"):
+        must_match_filters.append({"state.attacked_by": attacked_by})
+
     if filename := kwargs.get("filename"):
         must_match_filters.append({"filename": filename})
 
