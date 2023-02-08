@@ -30,7 +30,7 @@ def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
     if not isinstance(node.data, dict):
         return nodes
     for parent, sub_tree in node.data.items():
-        if parent.data == key and not isinstance(nodes, dict):
+        if parent.data == key and not isinstance(sub_tree, dict):
             nodes.add(sub_tree)
             return nodes
         if isinstance(sub_tree, Node):
