@@ -127,6 +127,7 @@ async def populate_stakeholders(data: list[Stakeholder]) -> bool:
             email=item.email,
             metadata=StakeholderMetadataToUpdate(
                 access_token=item.access_token,
+                enrolled=item.enrolled,
                 first_name=item.first_name,
                 is_concurrent_session=item.is_concurrent_session,
                 is_registered=item.is_registered,

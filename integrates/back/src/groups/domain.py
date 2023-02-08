@@ -114,9 +114,6 @@ from db_model.vulnerabilities.enums import (
 from decimal import (
     Decimal,
 )
-from enrollment import (
-    domain as enrollment_domain,
-)
 from events import (
     domain as events_domain,
 )
@@ -172,6 +169,9 @@ from settings import (
 )
 from stakeholders import (
     domain as stakeholders_domain,
+)
+from trials import (
+    domain as trials_domain,
 )
 from typing import (
     Any,
@@ -367,7 +367,7 @@ async def add_group(
     if await exists(loaders, group_name):
         raise InvalidGroupName.new()
 
-    if await enrollment_domain.in_trial(loaders, email, organization):
+    if await trials_domain.in_trial(loaders, email, organization):
         managed = GroupManaged.TRIAL
         if (
             await loaders.organization_groups.load(organization.id)
@@ -635,7 +635,7 @@ async def update_group(
     )
     if (
         has_arm
-        and await enrollment_domain.in_trial(loaders, email, organization)
+        and await trials_domain.in_trial(loaders, email, organization)
         and restricted_in_trial
     ):
         raise TrialRestriction()

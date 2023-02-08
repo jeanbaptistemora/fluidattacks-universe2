@@ -5,9 +5,6 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.companies.types import (
-    Company,
-)
 from db_model.enrollment.types import (
     Enrollment,
 )
@@ -23,9 +20,6 @@ from newutils import (
 import pytest
 from pytest_mock import (
     MockerFixture,
-)
-from typing import (
-    Optional,
 )
 from unittest import (
     mock,
@@ -58,17 +52,15 @@ async def test_should_add_enrollment(
     assert "errors" not in result
     assert result["data"]["addEnrollment"]["success"]
 
-    loaders.company.clear_all()
+    loaders.trial.clear_all()
     loaders.enrollment.clear_all()
-    company: Optional[Company] = await loaders.company.load(
-        email.split("@")[1]
-    )
+    trial = await loaders.trial.load(email)
     enrollment: Enrollment = await loaders.enrollment.load(email)
     assert enrollment.enrolled
-    assert company
-    assert company.trial.start_date
+    assert trial
+    assert trial.start_date
     assert (
-        datetime_utils.get_as_utc_iso_format(company.trial.start_date)
+        datetime_utils.get_as_utc_iso_format(trial.start_date)
         == "2022-10-21T15:58:31.280182+00:00"
     )
 
