@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { mixed, object, string } from "yup";
 
-import { InputFile } from "components/Input";
+import { Input, InputFile } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { getCountries } from "utils/countries";
@@ -142,11 +142,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                     "organization.tabs.billing.paymentMethods.add.otherMethods.businessName"
                   )}
                 </ControlLabel>
-                <Field
-                  component={FormikText}
-                  name={"businessName"}
-                  type={"text"}
-                />
+                <Input name={"businessName"} type={"text"} />
               </div>
               <div>
                 <ControlLabel>
