@@ -1,6 +1,9 @@
 from api.mutations import (
     UpdateToeInputPayload,
 )
+from custom_exceptions import (
+    ToeInputNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -11,14 +14,11 @@ from db_model.toe_inputs.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 async def resolve(
     parent: UpdateToeInputPayload, info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[ToeInput]:
+) -> ToeInput:
     loaders: Dataloaders = info.context.loaders
     request = ToeInputRequest(
         component=parent.component,
@@ -27,5 +27,8 @@ async def resolve(
         root_id=parent.root_id,
     )
     loaders.toe_input.clear(request)
+    toe_input = await loaders.toe_input.load(request)
+    if toe_input is None:
+        raise ToeInputNotFound()
 
-    return await loaders.toe_input.load(request)
+    return toe_input

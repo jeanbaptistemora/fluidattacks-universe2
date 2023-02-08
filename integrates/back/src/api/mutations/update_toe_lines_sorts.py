@@ -9,6 +9,7 @@ from ariadne import (
 )
 from custom_exceptions import (
     InvalidSortsParameters,
+    ToeLinesNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -18,7 +19,6 @@ from datetime import (
 )
 from db_model.toe_lines.types import (
     SortsSuggestion,
-    ToeLines,
     ToeLinesRequest,
 )
 from decorators import (
@@ -111,11 +111,14 @@ async def mutate(  # pylint: disable=too-many-arguments
         root_id = roots_domain.get_root_id_by_nickname(
             root_nickname, tuple(roots), only_git_roots=True
         )
-        toe_lines: ToeLines = await loaders.toe_lines.load(
+        toe_lines = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=filename, group_name=group_name, root_id=root_id
             )
         )
+        if toe_lines is None:
+            raise ToeLinesNotFound()
+
         await toe_lines_domain.update(
             toe_lines,
             ToeLinesAttributesToUpdate(

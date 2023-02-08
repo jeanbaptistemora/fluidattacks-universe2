@@ -7,11 +7,13 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ToeLinesNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
 from db_model.toe_lines.types import (
-    ToeLines,
     ToeLinesRequest,
 )
 from decorators import (
@@ -60,11 +62,14 @@ async def mutate(
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        current_value: ToeLines = await loaders.toe_lines.load(
+        current_value = await loaders.toe_lines.load(
             ToeLinesRequest(
                 filename=filename, group_name=group_name, root_id=root_id
             )
         )
+        if current_value is None:
+            raise ToeLinesNotFound()
+
         await toe_lines_domain.update(
             current_value,
             ToeLinesAttributesToUpdate(

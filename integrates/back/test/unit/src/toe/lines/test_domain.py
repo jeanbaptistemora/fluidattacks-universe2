@@ -20,9 +20,6 @@ from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
-from typing import (
-    Optional,
-)
 
 # Constants
 pytestmark = [
@@ -52,11 +49,13 @@ async def test_add() -> None:
     await toe_lines_domain.add(
         loaders, group_name, root_id, filename, attributes
     )
-    toe_lines: ToeLines = await loaders.toe_lines.clear_all().load(
+    loaders.toe_lines.clear_all()
+    toe_lines = await loaders.toe_lines.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
+    assert toe_lines
     historic_toe_lines = await loaders.toe_lines_historic.clear_all().load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
@@ -110,6 +109,7 @@ async def test_update() -> None:
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
+    assert current_value
     attributes = ToeLinesAttributesToUpdate(
         attacked_at=datetime.fromisoformat("2021-08-01T05:00:00+00:00"),
         attacked_by="hacker2@test.com",
@@ -124,11 +124,12 @@ async def test_update() -> None:
         sorts_risk_level=50,
     )
     await toe_lines_domain.update(current_value, attributes)
-    toe_lines: ToeLines = await loaders.toe_lines.clear_all().load(
+    toe_lines = await loaders.toe_lines.clear_all().load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )
     )
+    assert toe_lines
     historic_toe_lines = await loaders.toe_lines_historic.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
@@ -176,7 +177,7 @@ async def test_remove() -> None:
     root_id = "4039d098-ffc5-4984-8ed3-eb17bca98e19"
     filename = "test/new.new"
     loaders = get_new_context()
-    current_value: Optional[ToeLines] = await loaders.toe_lines.load(
+    current_value = await loaders.toe_lines.load(
         ToeLinesRequest(
             group_name=group_name, root_id=root_id, filename=filename
         )

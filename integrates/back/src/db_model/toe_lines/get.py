@@ -32,12 +32,13 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
 
 async def _get_toe_lines(
-    requests: list[ToeLinesRequest],
+    requests: Iterable[ToeLinesRequest],
 ) -> list[Optional[ToeLines]]:
     primary_keys = tuple(
         keys.build_key(
@@ -61,13 +62,13 @@ async def _get_toe_lines(
         for toe_lines in [format_toe_lines(item) for item in items]
     }
 
-    return list(response[request] for request in requests)
+    return [response.get(request) for request in requests]
 
 
-class ToeLinesLoader(DataLoader):
+class ToeLinesLoader(DataLoader[ToeLinesRequest, Optional[ToeLines]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[ToeLinesRequest]
+        self, requests: Iterable[ToeLinesRequest]
     ) -> list[Optional[ToeLines]]:
         return await _get_toe_lines(requests)
 
@@ -132,7 +133,7 @@ class GroupToeLinesLoader(DataLoader):
     async def load_nodes(
         self, request: GroupToeLinesRequest
     ) -> list[ToeLines]:
-        connection: ToeLinesConnection = await self.load(request)
+        connection = await self.load(request)
         return [edge.node for edge in connection.edges]
 
 

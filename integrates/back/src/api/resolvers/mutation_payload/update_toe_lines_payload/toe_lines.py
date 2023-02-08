@@ -1,26 +1,24 @@
 from api.mutations import (
     UpdateToeLinesPayload,
 )
+from custom_exceptions import (
+    ToeLinesNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
-from datetime import (
-    datetime,
-)
 from db_model.toe_lines.types import (
+    ToeLines,
     ToeLinesRequest,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 async def resolve(
     parent: UpdateToeLinesPayload, info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[datetime]:
+) -> ToeLines:
     loaders: Dataloaders = info.context.loaders
     request = ToeLinesRequest(
         filename=parent.filename,
@@ -28,4 +26,8 @@ async def resolve(
         root_id=parent.root_id,
     )
     loaders.toe_lines.clear(request)
-    return await loaders.toe_lines.load(request)
+    toe_lines = await loaders.toe_lines.load(request)
+    if toe_lines is None:
+        raise ToeLinesNotFound()
+
+    return toe_lines
