@@ -156,6 +156,36 @@ resource "aws_security_group" "main" {
   }
 }
 
+resource "aws_iam_instance_profile" "ecs_ssm_permissions" {
+  name = "ecsAndSsmInstanceProfileForBatch"
+  role = aws_iam_role.ecs_ssm_permissions.name
+}
+
+resource "aws_iam_role" "ecs_ssm_permissions" {
+  name = "ecsAndSsmInstanceRoleForBatch"
+  path = "/"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Action = "sts:AssumeRole"
+        Effect = "Allow"
+        Sid    = ""
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        }
+      },
+    ]
+  })
+
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM",
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role"
+  ]
+}
+
 resource "aws_launch_template" "main" {
   name                                 = "compute"
   key_name                             = "gitlab"
@@ -200,44 +230,6 @@ resource "aws_launch_template" "main" {
   vpc_security_group_ids  = [aws_security_group.main.id]
 }
 
-
-resource "aws_launch_template" "clone" {
-  name                                 = "clone"
-  key_name                             = "gitlab"
-  instance_initiated_shutdown_behavior = "terminate"
-
-  block_device_mappings {
-    device_name = "/dev/xvda"
-
-    ebs {
-      encrypted             = true
-      delete_on_termination = true
-      volume_size           = 30
-      volume_type           = "gp3"
-    }
-  }
-  tag_specifications {
-    resource_type = "volume"
-
-    tags = {
-      "Name"               = "compute"
-      "management:area"    = "cost"
-      "management:product" = "common"
-      "management:type"    = "product"
-    }
-  }
-
-  tags = {
-    "Name"               = "compute"
-    "management:area"    = "cost"
-    "management:product" = "common"
-    "management:type"    = "product"
-  }
-
-  disable_api_termination = true
-  vpc_security_group_ids  = [aws_security_group.main.id]
-}
-
 resource "aws_batch_compute_environment" "main" {
   for_each = local.environments
 
@@ -249,13 +241,13 @@ resource "aws_batch_compute_environment" "main" {
 
   compute_resources {
     bid_percentage = 100
-    image_id       = each.key == "clone" ? "ami-05e7fa5a3b6085a75" : "ami-0c09d65d2051ada93"
+    image_id       = "ami-0c09d65d2051ada93"
     type           = each.value.type
 
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
 
-    instance_role       = data.aws_iam_instance_profile.main["ecsInstanceRole"].arn
+    instance_role       = aws_iam_instance_profile.ecs_ssm_permissions.arn
     spot_iam_fleet_role = data.aws_iam_role.main["prod_common"].arn
 
     instance_type      = each.value.instances
@@ -270,8 +262,8 @@ resource "aws_batch_compute_environment" "main" {
     }
 
     launch_template {
-      launch_template_id = each.key == "clone" ? aws_launch_template.clone.id : aws_launch_template.main.id
-      version            = each.key == "clone" ? aws_launch_template.clone.latest_version : aws_launch_template.main.latest_version
+      launch_template_id = aws_launch_template.main.id
+      version            = aws_launch_template.main.latest_version
     }
   }
 
