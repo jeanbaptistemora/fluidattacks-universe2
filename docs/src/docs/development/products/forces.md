@@ -78,7 +78,7 @@ and when prompted for a Development Environment, pick `forces`.
 Just run:
 
 ```sh
-universe $ m . /forces
+universe $ m . /integrates/forces
 ```
 
 This will build and run the Forces CLI application,
@@ -90,7 +90,7 @@ Just run:
 
 ```bash
 # Build the container image (a tarball):
-universe $ m . /forces/container
+universe $ m . /integrates/forces/container
 
 # Load the tarball into the local Docker repository:
 universe $ docker load < ~/.makes/out-forces-container

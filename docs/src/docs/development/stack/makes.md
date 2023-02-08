@@ -27,7 +27,7 @@ in order to simplify its usage.
 You can build and run the products of your choice, for example:
 
 ```bash
-$ m gitlab:fluidattacks/universe@trunk /forces --help
+$ m gitlab:fluidattacks/universe@trunk /integrates/forces --help
 $ m gitlab:fluidattacks/universe@trunk /melts --help
 $ m gitlab:fluidattacks/universe@trunk /reviews --help
 $ m gitlab:fluidattacks/universe@trunk /skims --help

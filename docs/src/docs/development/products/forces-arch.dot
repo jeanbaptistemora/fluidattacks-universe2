@@ -30,8 +30,8 @@ digraph forces {
       subgraph cluster_common_compute_schedules {
         label="Schedules"
 
-        common_compute_schedules_break[label="/forces/process-groups/break"]
-        common_compute_schedules_pass[label="/forces/process-groups/pass"]
+        common_compute_schedules_break[label="/integrates/forces/process-groups/break"]
+        common_compute_schedules_pass[label="/integrates/forces/process-groups/pass"]
       }
     }
   }
@@ -54,7 +54,7 @@ digraph forces {
       label="Git"
 
       subgraph cluster_gitlab_forces {
-        label="/forces"
+        label="/integrates/forces"
 
         gitlab_forces[label="Source Code"]
         gitlab_forces_container_image[label="Container Image"]
