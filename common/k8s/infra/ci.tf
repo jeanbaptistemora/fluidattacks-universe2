@@ -62,26 +62,27 @@ resource "helm_release" "ci_small" {
           worker_group = "ci"
         }
         runners = {
-          executor    = "kubernetes"
-          locked      = true
-          tags        = "ci"
-          runUntagged = true
-          protected   = false
-          config      = <<-EOF
+          executor       = "kubernetes"
+          locked         = true
+          tags           = "ci"
+          runUntagged    = false
+          protected      = false
+          maximumTimeout = "86400"
+          config         = <<-EOF
             [[runners]]
               name = "ci"
               request_concurrency = 10
               output_limit = 16384
 
               [runners.kubernetes]
+                pull_policy = "always"
                 cpu_request = "1200m"
                 memory_request = "2500Mi"
                 helper_cpu_request = "1m"
                 helper_memory_request = "1Mi"
                 namespace = "dev"
                 poll_timeout = 300
-                privileged = false
-                allow_privilege_escalation = false
+                privileged = true
                 [runners.kubernetes.node_selector]
                   worker_group = "ci"
                 [dns_config]
