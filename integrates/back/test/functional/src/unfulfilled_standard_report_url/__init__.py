@@ -7,6 +7,7 @@ from dataloaders import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -14,16 +15,30 @@ async def get_result(
     *,
     user: str,
     group_name: str,
+    unfulfilled_standards: Optional[list[str]] = None,
 ) -> dict[str, Any]:
-    query: str = f"""
-        query {{
+    query: str = """
+        query RequestGroupReport(
+            $groupName: String!
+            $verificationCode: String!
+            $unfulfilledStandards: [String!]
+        ) {
             unfulfilledStandardReportUrl(
-                groupName: "{group_name}",
-                verificationCode: "123"
+            groupName: $groupName
+            verificationCode: $verificationCode
+            unfulfilledStandards: $unfulfilledStandards
             )
-        }}
+        }
     """
-    data: dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "groupName": group_name,
+            "verificationCode": "123",
+        },
+    }
+    if unfulfilled_standards is not None:
+        data["variables"]["unfulfilledStandards"] = unfulfilled_standards
     return await get_graphql_result(
         data,
         stakeholder=user,
