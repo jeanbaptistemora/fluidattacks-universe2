@@ -2,9 +2,11 @@ from syntax_graph.syntax_readers.python import (
     argument_list as python_argument_list,
     assignment as python_assignment,
     attribute as python_attribute,
+    call as python_call,
     function_definition as python_function_definition,
     identifier as python_identifier,
     import_statement as python_import_statement,
+    list as python_list,
     module as python_module,
     parameters as python_parameters,
     reserved_word as python_reserved_word,
@@ -36,6 +38,12 @@ PYTHON_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "call",
+        },
+        syntax_reader=python_call.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "function_definition",
         },
         syntax_reader=python_function_definition.reader,
@@ -51,6 +59,12 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "import_statement",
         },
         syntax_reader=python_import_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "list",
+        },
+        syntax_reader=python_list.reader,
     ),
     Dispatcher(
         applicable_types={
