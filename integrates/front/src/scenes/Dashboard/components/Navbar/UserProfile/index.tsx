@@ -27,6 +27,7 @@ import type { IRemoveStakeholderAttr } from "./types";
 import { AddUserModal } from "../../AddUserModal";
 import { Alert } from "components/Alert";
 import { Button } from "components/Button";
+import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Dropdown } from "components/Dropdown";
 import { Hr } from "components/Layout";
@@ -119,6 +120,26 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
       push("/home");
     },
   });
+
+  const handleDeleteAccount = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          void removeStakeholder();
+        });
+      },
+    [removeStakeholder]
+  );
+  const handleLogoutClick = useCallback(
+    (confirm: IConfirmFn): (() => void) =>
+      (): void => {
+        confirm((): void => {
+          mixpanel.reset();
+          location.assign("/logout");
+        });
+      },
+    []
+  );
 
   return (
     <Dropdown
@@ -221,14 +242,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
           title={t("navbar.deleteAccount.text")}
         >
           {(confirm): React.ReactNode => {
-            function handleLogoutClick(): void {
-              confirm((): void => {
-                void removeStakeholder();
-              });
-            }
-
             return (
-              <Button onClick={handleLogoutClick}>
+              <Button onClick={handleDeleteAccount(confirm)}>
                 <Text bright={8}>
                   <FontAwesomeIcon icon={faUserTimes} />
                   &nbsp;
@@ -241,15 +256,8 @@ export const UserProfile: React.FC<IUserProfileProps> = ({
         <Hr />
         <ConfirmDialog title={t("navbar.logout")}>
           {(confirm): React.ReactNode => {
-            function handleLogoutClick(): void {
-              confirm((): void => {
-                mixpanel.reset();
-                location.assign("/logout");
-              });
-            }
-
             return (
-              <Button onClick={handleLogoutClick}>
+              <Button onClick={handleLogoutClick(confirm)}>
                 <Text bright={8}>
                   <FontAwesomeIcon icon={faSignOutAlt} />
                   &nbsp;
