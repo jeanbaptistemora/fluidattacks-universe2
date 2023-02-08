@@ -40741,23 +40741,6 @@
           "TableData": [
             {
               "pk": {
-                "S": "TRIAL#__adminEmail__"
-              },
-              "sk": {
-                "S": "TRIAL#all"
-              },
-              "email": {
-                "S": "__adminEmail__"
-              },
-              "completed": {
-                "BOOL": true
-              },
-              "extension_days": {
-                "N": "0"
-              }
-            },
-            {
-              "pk": {
                 "S": "TRIAL#continuoushack2@gmail.com"
               },
               "sk": {
@@ -40768,9 +40751,6 @@
               },
               "completed": {
                 "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.961374+00:00"
               },
               "extension_days": {
                 "N": "0"
@@ -40792,9 +40772,6 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.969630+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
@@ -40815,37 +40792,11 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.942324+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
               "start_date": {
                 "S": "2022-08-04T22:21:45.942336+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "TRIAL#forces.unittesting@fluidattacks.com"
-              },
-              "sk": {
-                "S": "TRIAL#all"
-              },
-              "email": {
-                "S": "forces.unittesting@fluidattacks.com"
-              },
-              "completed": {
-                "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.944268+00:00"
-              },
-              "extension_days": {
-                "N": "0"
-              },
-              "start_date": {
-                "S": "2022-08-04T22:21:45.944280+00:00"
               }
             },
             {
@@ -40861,31 +40812,11 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.965672+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
               "start_date": {
                 "S": "2022-08-04T22:21:45.965690+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "TRIAL#integratesmanager@fluidattacks.com"
-              },
-              "sk": {
-                "S": "TRIAL#all"
-              },
-              "email": {
-                "S": "integratesmanager@fluidattacks.com"
-              },
-              "completed": {
-                "BOOL": true
-              },
-              "extension_days": {
-                "N": "0"
               }
             },
             {
@@ -40902,7 +40833,7 @@
                 "BOOL": true
               },
               "extension_date": {
-                "S": "2019-06-10T20:07:57+00:00"
+                "S": "2022-06-22T20:07:57+00:00"
               },
               "extension_days": {
                 "N": "5"
@@ -40924,9 +40855,6 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.955732+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
@@ -40946,9 +40874,6 @@
               },
               "completed": {
                 "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.936168+00:00"
               },
               "extension_days": {
                 "N": "0"
@@ -40970,9 +40895,6 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.948485+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
@@ -40992,9 +40914,6 @@
               },
               "completed": {
                 "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.958701+00:00"
               },
               "extension_days": {
                 "N": "0"
@@ -41016,9 +40935,6 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.940308+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
@@ -41039,31 +40955,11 @@
               "completed": {
                 "BOOL": true
               },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.938286+00:00"
-              },
               "extension_days": {
                 "N": "0"
               },
               "start_date": {
                 "S": "2022-08-04T22:21:45.938298+00:00"
-              }
-            },
-            {
-              "pk": {
-                "S": "TRIAL#integratesuser@gmail.com"
-              },
-              "sk": {
-                "S": "TRIAL#all"
-              },
-              "email": {
-                "S": "integratesuser@gmail.com"
-              },
-              "completed": {
-                "BOOL": true
-              },
-              "extension_days": {
-                "N": "0"
               }
             },
             {
@@ -41078,9 +40974,6 @@
               },
               "completed": {
                 "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.951154+00:00"
               },
               "extension_days": {
                 "N": "0"
@@ -41103,7 +40996,7 @@
                 "BOOL": true
               },
               "extension_date": {
-                "S": "2019-06-10T20:07:57+00:00"
+                "S": "2022-06-22T20:07:57+00:00"
               },
               "extension_days": {
                 "N": "5"
@@ -41124,9 +41017,6 @@
               },
               "completed": {
                 "BOOL": true
-              },
-              "extension_date": {
-                "S": "2022-08-04T22:21:45.946275+00:00"
               },
               "extension_days": {
                 "N": "0"

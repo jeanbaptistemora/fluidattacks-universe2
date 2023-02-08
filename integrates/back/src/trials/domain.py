@@ -1,5 +1,11 @@
+from dataloaders import (
+    Dataloaders,
+)
 from db_model import (
     trials as trials_model,
+)
+from db_model.organizations.types import (
+    Organization,
 )
 from db_model.trials.enums import (
     TrialStatus,
@@ -57,3 +63,14 @@ async def update_metadata(
         email=email,
         metadata=metadata,
     )
+
+
+async def in_trial(
+    loaders: Dataloaders, user_email: str, organization: Organization
+) -> bool:
+    trial = await loaders.trial.load(user_email)
+    completed = trial and trial.completed
+
+    if completed or organization.payment_methods:
+        return False
+    return True
