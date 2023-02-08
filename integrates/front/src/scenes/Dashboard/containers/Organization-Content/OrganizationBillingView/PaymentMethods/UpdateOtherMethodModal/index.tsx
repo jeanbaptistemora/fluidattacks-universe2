@@ -9,7 +9,7 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikDropdown } from "utils/forms/fields";
 
 interface IUpdateOtherMethodModalProps {
   onClose: () => void;
@@ -225,11 +225,7 @@ export const UpdateOtherMethodModal: React.FC<IUpdateOtherMethodModalProps> = ({
                         "organization.tabs.billing.paymentMethods.add.otherMethods.email"
                       )}
                     </ControlLabel>
-                    <Field
-                      component={FormikText}
-                      name={"email"}
-                      type={"text"}
-                    />
+                    <Input name={"email"} type={"text"} />
                   </div>
                   <div>
                     <InputFile
