@@ -1,4 +1,5 @@
 # pylint: disable=invalid-name
+# type: ignore
 """
 Populates gsi2 with the domain name of the company,
 which will be used to validate trial uniqueness per company
