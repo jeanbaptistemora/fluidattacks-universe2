@@ -75,6 +75,7 @@ async def get_finding_policy_by_name(
     )
 
 
+@validations.validate_fields_deco(["tags"])
 async def add_finding_policy(
     *,
     loaders: Dataloaders,
@@ -92,7 +93,6 @@ async def add_finding_policy(
     if finding_policy:
         raise RepeatedFindingNamePolicy()
 
-    validations.validate_fields(tags)
     await polices_model.add(
         policy=OrgFindingPolicy(
             id=str(uuid4()),

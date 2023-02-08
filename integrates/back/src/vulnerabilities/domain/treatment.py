@@ -204,6 +204,8 @@ async def _handle_vulnerability_acceptance(
             )
 
 
+@validations.validate_field_length_deco("justification", limit=10000)
+@validations.validate_fields_deco(["justification"])
 async def handle_vulnerabilities_acceptance(
     *,
     loaders: Dataloaders,
@@ -213,8 +215,6 @@ async def handle_vulnerabilities_acceptance(
     rejected_vulns: list[str],
     user_email: str,
 ) -> None:
-    validations.validate_field_length(justification, 10000)
-    validations.validate_fields([justification])
     today = datetime_utils.get_utc_now()
 
     all_vulns = await loaders.finding_vulnerabilities.load(finding_id)
@@ -366,6 +366,10 @@ async def get_managers_by_size(
     return managers
 
 
+@validations.validate_fields_deco(
+    ["treatment.justification", "treatment.assigned"]
+)
+@validations.validate_field_length_deco("treatment.justification", limit=10000)
 async def update_vulnerabilities_treatment(
     *,
     loaders: Dataloaders,
@@ -381,12 +385,6 @@ async def update_vulnerabilities_treatment(
     vulns_utils.validate_closed(vulnerability)
     if vulnerability.finding_id != finding.id:
         raise VulnNotFound()
-
-    if treatment.assigned:
-        validations.validate_fields([treatment.assigned])
-    if treatment.justification:
-        validations.validate_fields([treatment.justification])
-        validations.validate_field_length(treatment.justification, 10000)
     valid_assigned = await get_valid_assigned(
         loaders=loaders,
         assigned=treatment.assigned or modified_by,
