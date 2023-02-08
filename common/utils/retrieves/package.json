@@ -34,18 +34,18 @@
           "retrieves.api_token": {
             "type": "string"
           },
-          "retrieves.useRole": {
-            "type": "string",
-            "default": "analyst",
-            "enum": [
-              "analyst"
-            ]
-          },
           "retrieves.extraGroups": {
             "default": [],
             "description": "add groups that are not listed automatically",
             "items": true,
             "type": "array"
+          },
+          "retrieves.useRole": {
+            "default": "analyst",
+            "enum": [
+              "analyst"
+            ],
+            "type": "string"
           }
         },
         "title": "Retrieves configuration"
@@ -169,7 +169,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.6.10",
     "glob": "^8.0.3",
-    "mocha": "^10.0.0",
+    "mocha": "^10.1.0",
     "npm-run-all": "^4.1.5",
     "postcss-loader": "^7.0.1",
     "prettier": "^2.8.3",
