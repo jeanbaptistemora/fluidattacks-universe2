@@ -108,7 +108,7 @@ def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
 def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     filters: dict[str, Any] = {
         "common": ["filename"],
-        "state": ["attacked_by", "last_commit", "last_author"],
+        "state": ["attacked_by", "comments", "last_commit", "last_author"],
     }
 
     must_match_filters = get_items_to_filter(filters, kwargs)

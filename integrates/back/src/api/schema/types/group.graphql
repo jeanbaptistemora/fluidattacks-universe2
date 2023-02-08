@@ -167,6 +167,8 @@ type Group {
     after: String
     "Filter by hacker email"
     attackedBy: String
+    "ToE comment"
+    comments: String
     "If the file is present in the repository"
     bePresent: Boolean
     "ToE Filename to filter"
