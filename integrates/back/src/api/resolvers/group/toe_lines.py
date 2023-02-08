@@ -82,35 +82,36 @@ def toe_lines_filter(**kwargs: Any) -> dict[str, Any]:
     return filters
 
 
+def get_items_to_filter(
+    filters: dict[str, Any],
+    kwargs: Any,
+) -> list[dict[str, Any]]:
+    items_to_filter = [
+        {(field if path == "common" else f"{path}.{field}"): kwargs.get(field)}
+        for path, fields in filters.items()
+        for field in fields
+        if kwargs.get(field)
+    ]
+    return items_to_filter
+
+
 def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
-    must_filters = []
-
-    if be_present := kwargs.get("be_present"):
-        must_filters.append({"state.be_present": be_present})
-
-    if root_id := kwargs.get("root_id"):
-        must_filters.append({"root_id": root_id})
-
-    if has_vulnerabilities := kwargs.get("has_vulnerabilities"):
-        must_filters.append({"state.has_vulnerabilities": has_vulnerabilities})
+    filters: dict[str, Any] = {
+        "common": ["root_id"],
+        "state": ["be_present", "has_vulnerabilities"],
+    }
+    must_filters = get_items_to_filter(filters, kwargs)
 
     return must_filters
 
 
 def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
-    must_match_filters = []
+    filters: dict[str, Any] = {
+        "common": ["filename"],
+        "state": ["attacked_by", "last_commit", "last_author"],
+    }
 
-    if attacked_by := kwargs.get("attacked_by"):
-        must_match_filters.append({"state.attacked_by": attacked_by})
-
-    if filename := kwargs.get("filename"):
-        must_match_filters.append({"filename": filename})
-
-    if last_commit := kwargs.get("last_commit"):
-        must_match_filters.append({"state.last_commit": last_commit})
-
-    if last_author := kwargs.get("last_author"):
-        must_match_filters.append({"state.last_author": last_author})
+    must_match_filters = get_items_to_filter(filters, kwargs)
 
     return must_match_filters
 
