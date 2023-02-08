@@ -1,0 +1,12 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F277,inputs,arn:aws:iam:::fluidattacks (namespace),/0/UploadDate: 2022_11_01 04:16:13_04:00,521,skims,277. Weak credential policy - Password Expiration,src.lib_path.f277.has_old_ssh_public_keys,"
+  1 | [
+  2 |     {
+  3 |         ""UserName"": ""fluidattacks"",
+  4 |         ""SSHPublicKeyId"": ""ssh:42673"",
+  5 |         ""Status"": ""Active"",
+> 6 |         ""UploadDate"": ""2022-11-01 04:16:13-04:00""
+  7 |     }
+  8 | ]
+    ^ Col 0
+",aws.has_old_ssh_public_keys

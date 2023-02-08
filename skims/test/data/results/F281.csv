@@ -1,0 +1,169 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,21,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
+  11 |        - s3:GetObject
+  12 |      Effect: Allow
+  13 |      Resource:
+  14 |        - ''
+  15 |        -   - 'arn:aws:s3:::'
+  16 |            - DOC-EXAMPLE-BUCKET
+  17 |            - /*
+  18 |      Principal: '*'
+  19 |      Condition:
+  20 |        Bool:
+> 21 |          aws:SecureTransport: false
+  22 | tPolicy2:
+  23 | e: AWS::S3::BucketPolicy
+  24 | perties:
+  25 | ucket: DOC-EXAMPLE-BUCKET
+  26 | olicyDocument:
+  27 |  Version: 2012-10-17
+  28 |  Statement:
+  29 |    - Action:
+  30 |        - s3:DeleteObject
+  31 |        - s3:DeleteObjectVersion
+     ^ Col 7
+",cloudformation.cfn_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,42,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml,"
+  32 |        - s3:PutLifecycleConfiguration
+  33 |      Effect: Deny
+  34 |      Resource:
+  35 |        - ''
+  36 |        -   - 'arn:aws:s3:::'
+  37 |            - DOC-EXAMPLE-BUCKET
+  38 |            - /*
+  39 |      Principal: '*'
+  40 |      Condition:
+  41 |        Bool:
+> 42 |          aws:SecureTransport: true
+  43 | tPolicy3:
+  44 | e: AWS::S3::BucketPolicy
+  45 | perties:
+  46 | ucket: DOC-EXAMPLE-BUCKET
+  47 | olicyDocument:
+  48 |  Version: 2012-10-17
+  49 |  Statement:
+  50 |    - Action:
+  51 |        - s3:DeleteObject
+  52 |        - s3:DeleteObjectVersion
+     ^ Col 7
+",cloudformation.cfn_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,26,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,"
+   16 |      """",
+   17 |      [
+   18 |        ""arn:aws:s3:::"",
+   19 |        ""DOC-EXAMPLE-BUCKET"",
+   20 |        ""/*""
+   21 |      ]
+   22 |    ],
+   23 |    ""Principal"": ""*"",
+   24 |    ""Condition"": {
+   25 |      ""Bool"": {
+>  26 |        ""aws:SecureTransport"": false
+   27 |      }
+   28 |    }
+   29 |  }
+   30 |
+   31 |
+   32 |
+   33 |
+   34 | Policy2"": {
+   35 | "": ""AWS::S3::BucketPolicy"",
+   36 | erties"": {
+      ^ Col 11
+",cloudformation.cfn_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,59,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_transport.yaml.json,"
+   49 |      """",
+   50 |      [
+   51 |        ""arn:aws:s3:::"",
+   52 |        ""DOC-EXAMPLE-BUCKET"",
+   53 |        ""/*""
+   54 |      ]
+   55 |    ],
+   56 |    ""Principal"": ""*"",
+   57 |    ""Condition"": {
+   58 |      ""Bool"": {
+>  59 |        ""aws:SecureTransport"": true
+   60 |      }
+   61 |    }
+   62 |  }
+   63 |
+   64 |
+   65 |
+   66 |
+   67 | Policy3"": {
+   68 | "": ""AWS::S3::BucketPolicy"",
+   69 | erties"": {
+      ^ Col 11
+",cloudformation.cfn_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,4,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,"
+   1 | resource ""aws_s3_bucket_policy"" ""b"" {
+   2 |   bucket = aws_s3_bucket.b.id
+   3 |
+>  4 |   policy = <<POLICY
+   5 |   {
+   6 |     ""Version"": ""2012-10-17"",
+   7 |     ""Id"": ""MYBUCKETPOLICY"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Sid"": ""IPAllow"",
+  11 |         ""Effect"": ""Allow"",
+  12 |         ""Principal"": ""*"",
+  13 |         ""Action"": ""s3:*"",
+  14 |         ""Resource"": ""arn:aws:s3:::my_tf_test_bucket/*"",
+  15 |         ""Condition"": {
+  16 |             ""IpAddress"": {""aws:SourceIp"": ""8.8.8.8/32""},
+  17 |             ""Bool"": {""aws:SecureTransport"": ""False""}
+  18 |         }
+  19 |       }
+  20 |     ]
+  21 |   }
+     ^ Col 0
+",terraform.tfm_bucket_policy_has_secure_transport
+F281,inputs,arn:aws:s3:::fluidattacksSCA (namespace),/0/Condition/Bool/aws:SecureTransport: false,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL,"
+   2 |     {
+   3 |         ""Effect"": ""Allow"",
+   4 |         ""Action"": [
+   5 |             ""iam:CreatePolicyVersion""
+   6 |         ],
+   7 |         ""Resource"": [
+   8 |             ""arn:aws:s3:::policytest1/*""
+   9 |         ],
+  10 |         ""Condition"": {
+  11 |             ""Bool"": {
+> 12 |                 ""aws:SecureTransport"": ""false""
+  13 |             }
+  14 |         }
+  15 |     },
+  16 |     {
+  17 |         ""Effect"": ""Deny"",
+  18 |         ""Action"": [
+  19 |             ""iam:CreatePolicyVersion""
+  20 |         ],
+  21 |         ""Resource"": [
+  22 |             ""arn:aws:s3:::policytest1/*""
+     ^ Col 0
+",aws.s3_has_insecure_transport
+F281,inputs,arn:aws:s3:::fluidattacksSCA (namespace),/1/Condition/Bool/aws:SecureTransport: true,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL,"
+  10 |         ""Condition"": {
+  11 |             ""Bool"": {
+  12 |                 ""aws:SecureTransport"": ""false""
+  13 |             }
+  14 |         }
+  15 |     },
+  16 |     {
+  17 |         ""Effect"": ""Deny"",
+  18 |         ""Action"": [
+  19 |             ""iam:CreatePolicyVersion""
+  20 |         ],
+  21 |         ""Resource"": [
+  22 |             ""arn:aws:s3:::policytest1/*""
+  23 |         ],
+  24 |         ""Condition"": {
+  25 |             ""Bool"": {
+> 26 |                 ""aws:SecureTransport"": ""true""
+  27 |             }
+  28 |         }
+  29 |     }
+  30 | ]
+     ^ Col 0
+",aws.s3_has_insecure_transport

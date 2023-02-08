@@ -1978,31 +1978,6 @@ F343,lines,namespace/skims/test/data/lib_root/f343/ts_insecure_plugin_alias.ts,2
   35 | new CompressionPlugin(pluginOpts2);
      ^ Col 0
 ",typescript.typescript_insecure_compression_algorithm
-F259,lines,namespace/skims/test/data/lib_root/f259/tfm_db_test.tf,10,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
- in namespace/skims/test/data/lib_root/f259/tfm_db_test.tf","
-   1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
-   2 |   name           = ""GameScores""
-   3 |   billing_mode   = ""PROVISIONED""
-   4 |   read_capacity  = 20
-   5 |   write_capacity = 20
-   6 |   hash_key       = ""UserId""
-   7 |   range_key      = ""GameTitle""
-   8 |
-   9 |   point_in_time_recovery {
-> 10 |     enabled = false
-  11 |   }
-  12 |
-  13 |   attribute {
-  14 |     name = ""UserId""
-  15 |     type = ""S""
-  16 |   }
-  17 |
-  18 |   attribute {
-  19 |     name = ""GameTitle""
-  20 |     type = ""S""
-  21 |   }
-     ^ Col 0
-",terraform.tfm_db_no_point_in_time_recovery
 F089,lines,namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java,9,501,skims,089. Lack of data validation - Trust boundary violation,"The application introduces untrusted data into session attributes, which could lead to injection attacks.
  in namespace/skims/test/data/lib_root/f089/java_trustbound_violation.java","
    1 | import java.io.IOException;

@@ -1,0 +1,145 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,25,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
+  10 |           KeyType: String
+  11 |       PointInTimeRecoverySpecification:
+  12 |         PointInTimeRecoveryEnabled: true
+  13 |   table2:
+  14 |     Type: AWS::DynamoDB::Table
+  15 |     Properties:
+  16 |       KeySchema:
+  17 |         - AttributeName: attr1
+  18 |           KeyType: String
+  19 |         - AttributeName: attr2
+  20 |           KeyType: String
+  21 |       PointInTimeRecoverySpecification:
+  22 |         PointInTimeRecoveryEnabled: false
+  23 |   table3:
+  24 |     Type: AWS::DynamoDB::Table
+> 25 |     Properties:
+  26 |       KeySchema:
+  27 |         - AttributeName: attr1
+  28 |           KeyType: String
+  29 |         - AttributeName: attr2
+  30 |           KeyType: String
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml,22,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml","
+  10 |     KeyType: String
+  11 | PointInTimeRecoverySpecification:
+  12 |   PointInTimeRecoveryEnabled: true
+  13 | e2:
+  14 | pe: AWS::DynamoDB::Table
+  15 | operties:
+  16 | KeySchema:
+  17 |   - AttributeName: attr1
+  18 |     KeyType: String
+  19 |   - AttributeName: attr2
+  20 |     KeyType: String
+  21 | PointInTimeRecoverySpecification:
+> 22 |   PointInTimeRecoveryEnabled: false
+  23 | e3:
+  24 | pe: AWS::DynamoDB::Table
+  25 | operties:
+  26 | KeySchema:
+  27 |   - AttributeName: attr1
+  28 |     KeyType: String
+  29 |   - AttributeName: attr2
+  30 |     KeyType: String
+     ^ Col 6
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,35,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json","
+  25 | {
+  26 |   ""AttributeName"": ""attr1"",
+  27 |   ""KeyType"": ""String""
+  28 | },
+  29 | {
+  30 |   ""AttributeName"": ""attr2"",
+  31 |   ""KeyType"": ""String""
+  32 | }
+  33 |
+  34 | ointInTimeRecoverySpecification"": {
+> 35 | ""PointInTimeRecoveryEnabled"": false
+  36 |
+  37 |
+  38 |
+  39 | 3"": {
+  40 | e"": ""AWS::DynamoDB::Table"",
+  41 | perties"": {
+  42 | eySchema"": [
+  43 | {
+  44 |   ""AttributeName"": ""attr1"",
+  45 |   ""KeyType"": ""String""
+     ^ Col 10
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json,41,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_path/f259/cfn_has_not_point_in_time_recovery.yaml.json","
+  31 |             ""KeyType"": ""String""
+  32 |           }
+  33 |         ],
+  34 |         ""PointInTimeRecoverySpecification"": {
+  35 |           ""PointInTimeRecoveryEnabled"": false
+  36 |         }
+  37 |       }
+  38 |     },
+  39 |     ""table3"": {
+  40 |       ""Type"": ""AWS::DynamoDB::Table"",
+> 41 |       ""Properties"": {
+  42 |         ""KeySchema"": [
+  43 |           {
+  44 |             ""AttributeName"": ""attr1"",
+  45 |             ""KeyType"": ""String""
+  46 |           },
+  47 |           {
+  48 |             ""AttributeName"": ""attr2"",
+  49 |             ""KeyType"": ""String""
+  50 |           }
+  51 |         ]
+     ^ Col 0
+",cloudformation.cfn_has_not_point_in_time_recovery
+F259,lines,namespace/skims/test/data/lib_root/f259/tfm_db_test.tf,10,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+ in namespace/skims/test/data/lib_root/f259/tfm_db_test.tf","
+   1 | resource ""aws_dynamodb_table"" ""basic-dynamodb-table"" {
+   2 |   name           = ""GameScores""
+   3 |   billing_mode   = ""PROVISIONED""
+   4 |   read_capacity  = 20
+   5 |   write_capacity = 20
+   6 |   hash_key       = ""UserId""
+   7 |   range_key      = ""GameTitle""
+   8 |
+   9 |   point_in_time_recovery {
+> 10 |     enabled = false
+  11 |   }
+  12 |
+  13 |   attribute {
+  14 |     name = ""UserId""
+  15 |     type = ""S""
+  16 |   }
+  17 |
+  18 |   attribute {
+  19 |     name = ""GameTitle""
+  20 |     type = ""S""
+  21 |   }
+     ^ Col 0
+",terraform.tfm_db_no_point_in_time_recovery
+F259,inputs,arn:aws:iam::123456789012:db/fluiddb (namespace),/ContinuousBackupsDescription/PointInTimeRecoveryDescription/PointInTimeRecoveryStatus: DISABLED,463,skims,259. Lack of protection against deletion - DynamoDB,"PointInTimeRecoveryEnabled property is not enabled
+","
+   1 | {
+   2 |     ""TableNames"": [
+   3 |         ""fluidbackup""
+   4 |     ],
+   5 |     ""ContinuousBackupsDescription"": {
+   6 |         ""ContinuousBackupsStatus"": ""DISABLED"",
+   7 |         ""PointInTimeRecoveryDescription"": {
+>  8 |             ""PointInTimeRecoveryStatus"": ""DISABLED""
+   9 |         }
+  10 |     },
+  11 |     ""Table"": {
+  12 |         ""TableName"": ""fluidbackup"",
+  13 |         ""TableArn"": ""arn:aws:iam::123456789012:db/fluiddb""
+  14 |     }
+  15 | }
+     ^ Col 0
+",aws.dynamodb_has_not_point_in_time_recovery

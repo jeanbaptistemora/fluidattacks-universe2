@@ -27,8 +27,6 @@ from zone import (
 
 async def get_paginated_items(
     credentials: AwsCredentials,
-    token_name: str,
-    next_token_name: str = "",
 ) -> List:
     """Get all items in paginated API calls."""
     pools = []
@@ -38,15 +36,17 @@ async def get_paginated_items(
         "function": "describe_file_systems",
         "parameters": {"MaxItems": 50},
     }
-    object_name = "FileSystems"
     data = await run_boto3_fun(**args)
+    object_name = "FileSystems"
     pools += data.get(object_name, [])
-    next_token = data.get(token_name, "")
-    args[next_token_name if next_token_name else token_name] = next_token
+
+    next_token = data.get("NextMarker", None)
     while next_token:
+        args["parameters"]["Marker"] = next_token
         data = await run_boto3_fun(**args)
-        pools += data[object_name]
-        next_token = data.get(next_token_name, "")
+        pools += data.get(object_name, [])
+        next_token = data.get("NextMarker", None)
+
     return pools
 
 
@@ -55,7 +55,7 @@ async def efs_is_encryption_disabled(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.AWS_EFS_IS_ENCRYPTION_DISABLED
     vulns: core_model.Vulnerabilities = ()
-    filesystems = await get_paginated_items(credentials, "Marker")
+    filesystems = await get_paginated_items(credentials)
     for filesystem in filesystems:
         locations: List[Location] = []
         if not filesystem.get("Encrypted"):

@@ -47,7 +47,6 @@ def iterate_s3_has_insecure_transport(
                                 f"/{index}/Condition/Bool"
                                 "/aws:SecureTransport"
                             ),
-                            stm["Effect"],
                         ),
                         arn=(f"arn:aws:s3:::{bucket_name}"),
                         values=(

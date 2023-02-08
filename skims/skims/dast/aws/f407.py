@@ -31,25 +31,14 @@ async def ebs_has_encryption_disabled(
     response: Dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_volumes"
     )
-    volumes = response.get("Volumes", []) if response else []
+    volumes = response.get("Volumes") if response else None
     method = core_model.MethodsEnum.AWS_EBS_HAS_ENCRYPTION_DISABLED
     vulns: core_model.Vulnerabilities = ()
 
     if volumes:
         for volume in volumes:
             locations: List[Location] = []
-            if str(volume.get("Encrypted", "")) == "False":
-                locations = [
-                    Location(
-                        arn=(f"arn:aws:ec2:::VolumeId/{volume['VolumeId']}"),
-                        description=t(
-                            "lib_path.f407.cfn_aws_ebs_volumes_unencrypted"
-                        ),
-                        values=(volume["Encrypted"],),
-                        access_patterns=("/Encrypted",),
-                    ),
-                ]
-            elif str(volume.get("Encrypted", "")) == "":
+            if not volume.get("Encrypted", False):
                 locations = [
                     Location(
                         arn=(f"arn:aws:ec2:::VolumeId/{volume['VolumeId']}"),
