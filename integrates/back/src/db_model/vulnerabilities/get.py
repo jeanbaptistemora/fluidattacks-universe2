@@ -54,6 +54,7 @@ from itertools import (
 )
 from typing import (
     Any,
+    Iterable,
     Optional,
 )
 
@@ -315,10 +316,10 @@ async def _get_affected_reattacks(*, event_id: str) -> list[Vulnerability]:
     return [format_vulnerability(item) for item in response.items]
 
 
-class AssignedVulnerabilitiesLoader(DataLoader):
+class AssignedVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, emails: list[str]
+        self, emails: Iterable[str]
     ) -> list[list[Vulnerability]]:
         return list(
             await collect(
@@ -341,7 +342,7 @@ class FindingVulnerabilitiesLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         vulns = list(
             await collect(
@@ -360,7 +361,7 @@ class FindingVulnerabilitiesLoader(DataLoader):
 class FindingVulnerabilitiesDraftConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[FindingVulnerabilitiesRequest]
+        self, requests: Iterable[FindingVulnerabilitiesRequest]
     ) -> list[VulnerabilitiesConnection]:
         return list(
             await collect(
@@ -391,14 +392,14 @@ class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
         return super().clear(key)
 
     async def load_many_chained(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[Vulnerability]:
         unchained_data = await self.load_many(finding_ids)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return [
@@ -413,14 +414,14 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
         self.dataloader = dataloader
 
     async def load_many_chained(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[Vulnerability]:
         unchained_data = await self.load_many(finding_ids)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return [
@@ -432,7 +433,7 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
 class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[FindingVulnerabilitiesZrRequest]
+        self, requests: Iterable[FindingVulnerabilitiesZrRequest]
     ) -> list[VulnerabilitiesConnection]:
         return list(
             await collect(
@@ -453,7 +454,7 @@ class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, finding_ids: list[str]
+        self, finding_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         findings_vulns = await self.dataloader.load_many(finding_ids)
         return [
@@ -465,7 +466,7 @@ class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
 class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[FindingVulnerabilitiesZrRequest]
+        self, requests: Iterable[FindingVulnerabilitiesZrRequest]
     ) -> list[VulnerabilitiesConnection]:
         return list(
             await collect(
@@ -482,7 +483,7 @@ class FindingVulnerabilitiesReleasedZeroRiskConnectionLoader(DataLoader):
 class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[FindingVulnerabilitiesRequest]
+        self, requests: Iterable[FindingVulnerabilitiesRequest]
     ) -> list[VulnerabilitiesConnection]:
         return list(
             await collect(
@@ -510,7 +511,7 @@ class FindingVulnerabilitiesToReattackConnectionLoader(DataLoader):
 class RootVulnerabilitiesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, root_ids: list[str]
+        self, root_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         return list(
             await collect(
@@ -523,7 +524,7 @@ class RootVulnerabilitiesLoader(DataLoader):
 class EventVulnerabilitiesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, event_ids: list[str]
+        self, event_ids: Iterable[str]
     ) -> list[list[Vulnerability]]:
         return list(
             await collect(
@@ -536,7 +537,7 @@ class EventVulnerabilitiesLoader(DataLoader):
 class VulnerabilityLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[Optional[Vulnerability]]:
         return list(
             await collect(
@@ -548,14 +549,14 @@ class VulnerabilityLoader(DataLoader):
 
 class VulnerabilityHistoricStateLoader(DataLoader):
     async def load_many_chained(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[VulnerabilityState]:
         unchained_data = await self.load_many(vulnerability_ids)
         return list(chain.from_iterable(unchained_data))
 
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[list[VulnerabilityState]]:
         return list(
             await collect(
@@ -571,7 +572,7 @@ class VulnerabilityHistoricStateLoader(DataLoader):
 class VulnerabilityHistoricTreatmentLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[list[VulnerabilityTreatment]]:
         return list(
             await collect(
@@ -587,7 +588,7 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
 class VulnerabilityHistoricVerificationLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[list[VulnerabilityVerification]]:
         return list(
             await collect(
@@ -603,7 +604,7 @@ class VulnerabilityHistoricVerificationLoader(DataLoader):
 class VulnerabilityHistoricZeroRiskLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, vulnerability_ids: list[str]
+        self, vulnerability_ids: Iterable[str]
     ) -> list[list[VulnerabilityZeroRisk]]:
         return list(
             await collect(
