@@ -18,6 +18,7 @@ from lib_path.f011.go import (
 from lib_path.f011.maven import (
     maven_gradle,
     maven_pom_xml,
+    maven_sbt,
 )
 from lib_path.f011.npm import (
     npm_package_json,
@@ -624,5 +625,35 @@ def test_maven_gradle() -> None:
             assertion = not assertion
         if not (pkg_item == product and version == item_ver):
             assertion = not assertion
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_maven_sbt() -> None:
+    sbt_dep: Pattern[str] = re.compile(
+        r'"(?P<pkg>[\w\.\-]+)"\s+%\s+"(?P<module>[\w\.\-]+)"'
+        r'\s+%\s+"(?P<version>[\d\.]+)"'
+    )
+    path: str = "skims/test/data/lib_path/f011/build.sbt"
+    file_contents: str = get_file_info_from_path(path)
+    content: List[str] = file_contents.splitlines()
+    generator_dep = maven_sbt.__wrapped__(file_contents, path)  # type: ignore
+    assertion: bool = True
+    for line_num in [*range(3, 8), 10, *range(14, 18), *range(20, 22), 23]:
+        if pkg_info := sbt_dep.search(content[line_num]):
+            pkg_name = f'{pkg_info.group("pkg")}:{pkg_info.group("module")}'
+            version = pkg_info.group("version")
+
+            try:
+                next_dep = next(generator_dep)
+                pkg_item = itemgetter("item")(next_dep[0])
+                item = itemgetter("item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            if not (pkg_item in pkg_name and version == item):
+                assertion = not assertion
+                break
 
     assert assertion
