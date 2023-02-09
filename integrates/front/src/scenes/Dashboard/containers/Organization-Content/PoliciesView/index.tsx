@@ -3,7 +3,7 @@ import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { faExternalLinkAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import _ from "lodash";
 import React from "react";
 import { useTranslation } from "react-i18next";
@@ -20,7 +20,6 @@ import { Tooltip } from "components/Tooltip";
 import type { IPolicies } from "scenes/Dashboard/containers/Organization-Content/PoliciesView/types";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
-import { FormikText } from "utils/forms/fields";
 import {
   composeValidators,
   isFloatOrInteger,
@@ -300,23 +299,18 @@ const Policies: React.FC<IPolicies> = ({
                       </Tooltip>
                     </PoliciesLink>
                   </Label>
-                  <Tooltip
-                    disp={"inline"}
-                    id={"inactivityPeriod-tooltip"}
-                    place={"bottom"}
-                    tip={t(`${translationStart}recommended.inactivityPeriod`)}
-                  >
-                    <Field
-                      component={FormikText}
-                      disabled={permissions.cannot(permission)}
-                      name={"inactivityPeriod"}
-                      type={"text"}
-                      validate={composeValidators([
-                        numeric,
-                        numberBetween(minInactivityPeriod, maxInactivityPeriod),
-                      ])}
-                    />
-                  </Tooltip>
+                  <Input
+                    disabled={permissions.cannot(permission)}
+                    name={"inactivityPeriod"}
+                    tooltip={t(
+                      `${translationStart}recommended.inactivityPeriod`
+                    )}
+                    type={"text"}
+                    validate={composeValidators([
+                      numeric,
+                      numberBetween(minInactivityPeriod, maxInactivityPeriod),
+                    ])}
+                  />
                 </Card>
               </Col>
             </Row>
