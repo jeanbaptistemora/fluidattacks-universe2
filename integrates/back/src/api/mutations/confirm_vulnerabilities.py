@@ -48,7 +48,7 @@ async def mutate(
     try:
         user_data = await sessions_domain.get_jwt_content(info.context)
         stakeholder_email = user_data["user_email"]
-        await vulns_domain.approve_vulnerabilities(
+        await vulns_domain.confirm_vulnerabilities(
             loaders=info.context.loaders,
             vuln_ids=set(vulnerabilities),
             finding_id=finding_id,

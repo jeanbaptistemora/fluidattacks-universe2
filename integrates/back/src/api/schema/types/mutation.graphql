@@ -335,7 +335,7 @@ type Mutation {
     tags: [String]
   ): SimplePayload!
 
-    "Add other payment method to an organization"
+  "Add other payment method to an organization"
   addOtherPaymentMethod(
     "Organization id"
     organizationId: String!
@@ -435,8 +435,8 @@ type Mutation {
     draftId: String!
   ): ApproveDraftPayload!
 
-  "Approves the provided vulnerabilities"
-  approveVulnerabilities(
+  "Confirms the provided vulnerabilities"
+  confirmVulnerabilities(
     "Identifier of Finding containing the vulnerabilities"
     findingId: String!
     "List of open Vulnerabilities"

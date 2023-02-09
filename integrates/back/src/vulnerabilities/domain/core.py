@@ -511,7 +511,7 @@ async def mask_vulnerability(
     await vulns_model.remove(vulnerability_id=vulnerability.id)
 
 
-async def approve_vulnerabilities(
+async def confirm_vulnerabilities(
     *,
     loaders: Dataloaders,
     vuln_ids: set[str],
