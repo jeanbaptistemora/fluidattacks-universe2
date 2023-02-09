@@ -1,0 +1,19 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F148,lines,namespace/skims/test/data/lib_root/f148/c_sharp_ftp_insecure_method.cs,8,319,skims,148. Use of an insecure channel - FTP,"Customer information is transmitted over a channel that does not use encryption, so credentials and confidential information can be captured in plain text. in namespace/skims/test/data/lib_root/f148/c_sharp_ftp_insecure_method.cs","
+   1 | sing System;
+   2 | ystem.Net;
+   3 | ystem.Net.FtpClient;
+   4 |
+   5 | ce Examples {
+   6 | lic static class ConnectExample {
+   7 |  public static void Connect() {
+>  8 |      using (FtpClient conn = new FtpClient()) {
+   9 |          conn.Host = ""localhost"";
+  10 |          conn.Credentials = new NetworkCredential(""ftptest"", ""ftptest"");
+  11 |          conn.Connect();
+  12 |      }
+  13 |  }
+  14 |
+  15 |
+     ^ Col 7
+",c_sharp.cs_insecure_channel

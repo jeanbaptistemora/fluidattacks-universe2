@@ -1,0 +1,19 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F149,lines,namespace/skims/test/data/lib_path/f149/webVuln.config,5,319,skims,149. Use of an insecure channel - SMTP,Ensure network tag has its enableSsl attribute set to true to avoid the transmission of not encrypted data. in namespace/skims/test/data/lib_path/f149/webVuln.config,"
+   1 | <configuration>
+   2 |   <system.net>
+   3 |     <mailSettings>
+   4 |       <smtp deliveryMethod=""Network"">
+>  5 |         <network
+   6 |           clientDomain=""test.com""
+   7 |           defaultCredentials=""true""
+   8 |           enableSsl=""false""
+   9 |           host=""mail.test.com""
+  10 |           port=""25""
+  11 |         />
+  12 |       </smtp>
+  13 |     </mailSettings>
+  14 |   </system.net>
+  15 | </configuration>
+     ^ Col 0
+",conf_files.xml_network_ssl_disabled

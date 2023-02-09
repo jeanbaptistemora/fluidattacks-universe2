@@ -1,0 +1,66 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F112,lines,namespace/skims/test/data/lib_root/f112/java_sql_injection.java,11,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f112/java_sql_injection.java,"
+   1 | import java.util.Random;
+   2 |
+   3 | public class test112 extends HttpServlet {
+   4 |
+   5 |  public void doPost(HttpServletRequest request, HttpServletResponse response) {
+   6 |
+   7 |   param = request.getHeader(""search"");
+   8 |   String sql = ""{call "" + param + ""}"";
+   9 |   java.sql.Connection connection = org.owasp.benchmark.helpers.DatabaseHelper.getSqlConnection();
+  10 |   java.sql.CallableStatement statement = connection.prepareCall( sql );
+> 11 |   java.sql.ResultSet rs = statement.executeQuery();
+  12 |
+  13 |  }
+  14 |
+  15 | }
+     ^ Col 0
+",java.java_sql_injection
+F112,lines,namespace/skims/test/data/lib_root/f112/js_sql_injection.js,14,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f112/js_sql_injection.js,"
+   1 | import { Router } from ""express"";
+   2 | var router = Router();
+   3 | var mysql = require(""mysql"");
+   4 | var connection = mysql.createConnection();
+   5 |
+   6 | router.get(""test112"", function (req, res) {
+   7 |
+   8 |   connection.connect();
+   9 |   connection.resume();
+  10 |   let userData = req.body;
+  11 |   let userName = userData.username;
+  12 |   let password = userData.password;
+  13 |
+> 14 |   connection.query(
+  15 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  16 |     function (error, results, fields) {res.json({ ok: results.length > 0 });}
+  17 |   );
+  18 | });
+  19 |
+  20 | export default router;
+     ^ Col 0
+",javascript.javascript_sql_api_injection
+F112,lines,namespace/skims/test/data/lib_root/f112/ts_sql_injection.ts,15,89,skims,112. SQL injection - Java SQL API,Use of attacker controlled parameters for querying the data base in namespace/skims/test/data/lib_root/f112/ts_sql_injection.ts,"
+   1 | import { Router } from ""express"";
+   2 | import { reqData, resData, dBConnection } from ""types.ts"";
+   3 | import { mysql } from ""mysql"";
+   4 | var router = Router();
+   5 | var connection: dBConnection = mysql.createConnection();
+   6 |
+   7 | router.get(""test112"", function (req: reqData, res: resData) {
+   8 |
+   9 |   connection.connect();
+  10 |   connection.resume();
+  11 |   let userData = req.body;
+  12 |   let userName = userData.username;
+  13 |   let password = userData.password;
+  14 |
+> 15 |   connection.query(
+  16 |     `SELECT * FROM users WHERE user_name='${userName}' AND password='${password}'`,
+  17 |     function (err: Error) { res.send(err); }
+  18 |   );
+  19 | });
+  20 |
+  21 | export default router;
+     ^ Col 0
+",typescript.typescript_sql_api_injection

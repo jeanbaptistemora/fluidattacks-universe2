@@ -1,0 +1,25 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F234,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f234/java_println_statements.java,"
+   6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
+   7 |
+   8 |   public static void main(String[ ] args) {
+   9 |     try {
+  10 |       int[] myNumbers = {1, 2, 3};
+  11 |       System.out.println(myNumbers[10]);
+  12 |     } catch (IndexException e) {
+  13 |       if (e.toString() == ""Error""){
+  14 |         System.out.println(""Error"");
+  15 |       }
+> 16 |       e.printStackTrace();
+  17 |     }
+  18 |
+  19 |     try {
+  20 |       int a = 1 / 0;
+  21 |     } catch (ArithmeticException exc) {
+  22 |       logger.info(exc);
+  23 |     }
+  24 |
+  25 |     try {
+  26 |       int a = 1 / 0;
+     ^ Col 0
+",java.java_info_leak_stacktrace

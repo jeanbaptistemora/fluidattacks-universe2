@@ -1,0 +1,26 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F176,lines,namespace/skims/test/data/lib_path/f176/Dockerfile,7,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/Dockerfile,"
+  1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+  2 | ARG DEBIAN_FRONTEND=noninteractive
+  3 | RUN apt update
+  4 | RUN apt install -y nginx php-fpm supervisor && \
+  5 |     useradd -ms /bin/bash newuser \
+  6 |     rm -rf /var/lib/apt/lists/* && \
+> 7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
+  8 |     apt clean
+    ^ Col 0
+",docker.container_using_sshpass
+F176,lines,namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,8,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,"
+   1 | #!/bin/bash
+   2 | echo ""adding host to known host""
+   3 | mkdir -p ~/.ssh
+   4 | touch ~/.ssh/known_hosts
+   5 | ssh-keyscan sftp >> ~/.ssh/known_hosts
+   6 | echo ""run command on remote server""
+   7 |
+>  8 | sshpass -p pass sftp foo@sftp << EOF
+   9 |     ls
+  10 |     pwd
+  11 | EOF
+     ^ Col 0
+",bash.bash_using_sshpass

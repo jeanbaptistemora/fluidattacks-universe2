@@ -1,0 +1,49 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F297,lines,namespace/skims/test/data/lib_root/f297/js_sql_injection.js,9,89,skims,297. SQL injection - Code,Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures. in namespace/skims/test/data/lib_root/f297/js_sql_injection.js,"
+   1 | var db = require('./mysql/dbConnection.js');
+   2 |
+   3 | function vuln (req, res) {
+   4 |   var name = req.query.name; // user-controlled input
+   5 |   var password = crypto.createHash('sha256').update(req.query.password).digest('base64');
+   6 |
+   7 |   var sql = ""select * from user where name = '"" + name + ""' and password = '"" + password + ""'"";
+   8 |
+>  9 |   db.query(sql, function(err, result) { // Noncompliant
+  10 |      // something
+  11 |   })
+  12 | }
+  13 |
+  14 | function safe (req, res) {
+  15 |   var name = req.query.name; // user-controlled input
+  16 |   var password = crypto.createHash('sha256').update(req.query.password).digest('base64');
+  17 |
+  18 |   var sql = ""select * from user where name = ? and password = ?""; // the query is parameterized
+  19 |
+  20 |   db.query(sql, [name, password], function(err, result) { // Compliant
+  21 |      // something
+     ^ Col 0
+",javascript.js_sql_injection
+F297,lines,namespace/skims/test/data/lib_root/f297/ts_sql_injection.ts,9,89,skims,297. SQL injection - Code,Dynamic SQL statements are generated without the required data validation and without using parameterized statements or stored procedures. in namespace/skims/test/data/lib_root/f297/ts_sql_injection.ts,"
+   1 | var db = require('./mysql/dbConnection.js');
+   2 |
+   3 | function vuln (req, res) {
+   4 |   var name = req.query.name; // user-controlled input
+   5 |   var password = crypto.createHash('sha256').update(req.query.password).digest('base64');
+   6 |
+   7 |   var sql = ""select * from user where name = '"" + name + ""' and password = '"" + password + ""'"";
+   8 |
+>  9 |   db.query(sql, function(err, result) { // Noncompliant
+  10 |      // something
+  11 |   })
+  12 | }
+  13 |
+  14 | function safe (req, res) {
+  15 |   var name = req.query.name; // user-controlled input
+  16 |   var password = crypto.createHash('sha256').update(req.query.password).digest('base64');
+  17 |
+  18 |   var sql = ""select * from user where name = ? and password = ?""; // the query is parameterized
+  19 |
+  20 |   db.query(sql, [name, password], function(err, result) { // Compliant
+  21 |      // something
+     ^ Col 0
+",typescript.ts_sql_injection

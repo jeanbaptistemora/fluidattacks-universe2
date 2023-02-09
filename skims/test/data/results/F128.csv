@@ -1,0 +1,25 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F128,lines,namespace/skims/test/data/lib_root/f128/ts_http_only.ts,18,1004,skims,128. Insecurely generated cookies - HttpOnly,cookieService is missing HttpOnly in namespace/skims/test/data/lib_root/f128/ts_http_only.ts,"
+   2 | import { ActivatedRoute} from '@angular/router';
+   3 | import { CookieService } from 'ngx-cookie-service';
+   4 |
+   5 | export const SESSION_OBJECT_ID: string = 'OficinaSession';
+   6 |
+   7 | export class AsistenciaComponent implements OnInit {
+   8 |   public token: string;
+   9 |
+  10 |   constructor(
+  11 |     private route: ActivatedRoute,
+  12 |     private cookieService: CookieService,
+  13 |   ){}
+  14 |
+  15 |   ngOnInit(): void {
+  16 |     this.route.params.subscribe(params => {
+  17 |       this.token = params.token;
+> 18 |       this.cookieService.set(SESSION_OBJECT_ID, this.token);
+  19 |     });
+  20 |   }
+  21 |
+  22 | }
+     ^ Col 0
+",typescript.typescript_insecure_cookie

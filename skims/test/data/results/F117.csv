@@ -1,0 +1,34 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F117,lines,namespace/skims/test/data/lib_path/f117/.project,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
+
+",generic.unverifiable_files
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
+  1 | ����9
+  2 | 
+  3 | 
+  4 | <init>()VCodeLineNumberTablemain([Ljava/lang/String;)V
+  5 | SourceFile
+  6 | MyJar.java
+  7 | MyJarjava/lang/Object!
+  8 | *��  �
+  9 | 
+    ^ Col 0
+",generic.unverifiable_files
+F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
+   1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
+   2 | K-*��ϳR0�3��r.JM,IM�u�
+   3 | +h�&�敔j�r�rPK�Kx32PK�[%O
+   4 | MyJar.class;�o�>K~.f
+   5 | v^v>F6�̼�;Ff
+   6 | �0F���TF~�̼T��ܤԢ�Ĥ
+   7 | �Knbf
+   8 | #��F�OVbY�~Nb^�~pIQf^�5H#Wp~iQr�[&H1�o�Wb�
+   9 | H!
+  10 | +#+X��A��?)+5��A�� �
+  11 | `b`)�l@�,�fҬZ�7�
+  12 | �@�
+  13 | ,��������`YLe �
+  14 | l27PK}1����PK�[%O META-INF/��PK�[%O�Kx32
+  15 | �MyJar.classPK��
+     ^ Col 0
+",generic.unverifiable_files

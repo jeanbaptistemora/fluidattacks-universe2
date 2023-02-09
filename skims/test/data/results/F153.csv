@@ -1,0 +1,38 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,"
+   1 | <elementProp name="""" elementType=""Header"">
+>  2 |   <stringProp name=""Header.name"">Accept</stringProp>
+   3 |   <stringProp name=""Header.value"">*/*</stringProp>
+   4 | </elementProp>
+   5 |
+   6 |
+   7 | <elementProp name="""" elementType=""Header"">
+   8 |   <stringProp name=""Header.name"">Accept</stringProp>
+   9 |   <stringProp name=""Header.value"">*-*</stringProp>
+  10 | </elementProp>
+     ^ Col 0
+",conf_files.xml_accept_header
+F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.jmx,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.jmx,"
+  1 | <elementProp name="""" elementType=""Header"">
+> 2 |   <stringProp name=""Header.name"">Accept</stringProp>
+  3 |   <stringProp name=""Header.value"">*/*</stringProp>
+  4 | </elementProp>
+  5 |
+  6 | <elementProp name="""" elementType=""Header"">
+  7 |   <stringProp name=""Header.name"">Accept</stringProp>
+  8 |   <stringProp name=""Header.value"">*-*</stringProp>
+  9 | </elementProp>
+    ^ Col 0
+",conf_files.xml_accept_header
+F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.xml,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.xml,"
+  1 | <elementProp name="""" elementType=""Header"">
+> 2 |   <stringProp name=""Header.name"">Accept</stringProp>
+  3 |   <stringProp name=""Header.value"">*/*</stringProp>
+  4 | </elementProp>
+  5 |
+  6 | <elementProp name="""" elementType=""Header"">
+  7 |   <stringProp name=""Header.name"">Accept</stringProp>
+  8 |   <stringProp name=""Header.value"">*-*</stringProp>
+  9 | </elementProp>
+    ^ Col 0
+",conf_files.xml_accept_header

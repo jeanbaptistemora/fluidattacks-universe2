@@ -1,67 +1,4 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F176,lines,namespace/skims/test/data/lib_path/f176/Dockerfile,7,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/Dockerfile,"
-  1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
-  2 | ARG DEBIAN_FRONTEND=noninteractive
-  3 | RUN apt update
-  4 | RUN apt install -y nginx php-fpm supervisor && \
-  5 |     useradd -ms /bin/bash newuser \
-  6 |     rm -rf /var/lib/apt/lists/* && \
-> 7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
-  8 |     apt clean
-    ^ Col 0
-",docker.container_using_sshpass
-F176,lines,namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,8,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f176/bash_using_sshpass.sh,"
-   1 | #!/bin/bash
-   2 | echo ""adding host to known host""
-   3 | mkdir -p ~/.ssh
-   4 | touch ~/.ssh/known_hosts
-   5 | ssh-keyscan sftp >> ~/.ssh/known_hosts
-   6 | echo ""run command on remote server""
-   7 |
->  8 | sshpass -p pass sftp foo@sftp << EOF
-   9 |     ls
-  10 |     pwd
-  11 | EOF
-     ^ Col 0
-",bash.bash_using_sshpass
-F176,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,7,16,skims,176. Insecure service configuration - SSH,Using plain text passwords for SSH in namespace/skims/test/data/lib_path/f405/Dockerfile,"
-   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
-   2 | ARG DEBIAN_FRONTEND=noninteractive
-   3 | RUN apt update
-   4 | RUN apt install -y nginx php-fpm supervisor && \
-   5 |     useradd -ms /bin/bash newuser \
-   6 |     rm -rf /var/lib/apt/lists/* && \
->  7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
-   8 |     apt clean
-   9 |     chmod 750 testfile
-  10 |     chmod 754 testfile
-     ^ Col 0
-",docker.container_using_sshpass
-F236,lines,namespace/skims/test/data/lib_path/f236/tsconfig.json,19,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
- in namespace/skims/test/data/lib_path/f236/tsconfig.json","
-   9 |       ""es2018.promise""
-  10 |     ],
-  11 |     ""module"": ""esnext"",
-  12 |     ""moduleResolution"": ""node"",
-  13 |     ""noImplicitAny"": true,
-  14 |     ""noImplicitReturns"": true,
-  15 |     ""noImplicitThis"": true,
-  16 |     ""noUnusedLocals"": true,
-  17 |     ""noUnusedParameters"": true,
-  18 |     ""skipLibCheck"": true,
-> 19 |     ""sourceMap"": true,
-  20 |     ""strictFunctionTypes"": true,
-  21 |     ""strictNullChecks"": true,
-  22 |     ""strictPropertyInitialization"": true,
-  23 |     ""target"": ""es2017"",
-  24 |     ""typeRoots"": [
-  25 |       ""node_modules/@types""
-  26 |     ],
-  27 |     ""types"": [
-  28 |       ""node"",
-  29 |       ""jest"",
-     ^ Col 0
-",tsconfig.tsconfig_sourcemap_enabled
 F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml,8,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
  in namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml","
    1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
@@ -162,24 +99,6 @@ F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.
   26 |     <any-other-tag></any-other-tag>
      ^ Col 0
 ",conf_files.xml_insecure_configuration
-F149,lines,namespace/skims/test/data/lib_path/f149/webVuln.config,5,319,skims,149. Use of an insecure channel - SMTP,Ensure network tag has its enableSsl attribute set to true to avoid the transmission of not encrypted data. in namespace/skims/test/data/lib_path/f149/webVuln.config,"
-   1 | <configuration>
-   2 |   <system.net>
-   3 |     <mailSettings>
-   4 |       <smtp deliveryMethod=""Network"">
->  5 |         <network
-   6 |           clientDomain=""test.com""
-   7 |           defaultCredentials=""true""
-   8 |           enableSsl=""false""
-   9 |           host=""mail.test.com""
-  10 |           port=""25""
-  11 |         />
-  12 |       </smtp>
-  13 |     </mailSettings>
-  14 |   </system.net>
-  15 | </configuration>
-     ^ Col 0
-",conf_files.xml_network_ssl_disabled
 F427,lines,namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile,26,319,skims,427. Use of an insecure channel - Docker,"Port 21 is exposed, which is insecure and could lead to more complex attacks such as information leaking and enumeration. in namespace/skims/test/data/lib_path/f427/docker_port_exposed/Dockerfile","
    6 | RUN npm i
    7 | COPY --chown=node:node . .
@@ -247,39 +166,6 @@ F332,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml
   16 |       targetPort: 9377
      ^ Col 0
 ",kubernetes.kubernetes_insecure_port
-F117,lines,namespace/skims/test/data/lib_path/f117/.project,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/.project,"
-
-",generic.unverifiable_files
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.class,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.class,"
-  1 | ����9
-  2 | 
-  3 | 
-  4 | <init>()VCodeLineNumberTablemain([Ljava/lang/String;)V
-  5 | SourceFile
-  6 | MyJar.java
-  7 | MyJarjava/lang/Object!
-  8 | *��  �
-  9 | 
-    ^ Col 0
-",generic.unverifiable_files
-F117,lines,namespace/skims/test/data/lib_path/f117/MyJar.jar,0,377,skims,117. Unverifiable files,Unverifiable file in namespace/skims/test/data/lib_path/f117/MyJar.jar,"
-   1 | PK�[%O META-INF/��PKPK�[%OMETA-INF/MANIFEST.MF�M��LK-.�
-   2 | K-*��ϳR0�3��r.JM,IM�u�
-   3 | +h�&�敔j�r�rPK�Kx32PK�[%O
-   4 | MyJar.class;�o�>K~.f
-   5 | v^v>F6�̼�;Ff
-   6 | �0F���TF~�̼T��ܤԢ�Ĥ
-   7 | �Knbf
-   8 | #��F�OVbY�~Nb^�~pIQf^�5H#Wp~iQr�[&H1�o�Wb�
-   9 | H!
-  10 | +#+X��A��?)+5��A�� �
-  11 | `b`)�l@�,�fҬZ�7�
-  12 | �@�
-  13 | ,��������`YLe �
-  14 | l27PK}1����PK�[%O META-INF/��PK�[%O�Kx32
-  15 | �MyJar.classPK��
-     ^ Col 0
-",generic.unverifiable_files
 F412,lines,namespace/skims/test/data/lib_path/f412/azure_key_valut.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f412/azure_key_valut.tf","
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
@@ -300,18 +186,6 @@ F412,lines,namespace/skims/test/data/lib_path/f412/azure_key_valut.tf,1,463,skim
   17 | }
      ^ Col 0
 ",terraform.tfm_azure_key_vault_not_recoverable
-F183,lines,namespace/skims/test/data/lib_path/f183/webVuln.config,3,489,skims,183. Debugging enabled in production,Debug flag is enabled in Web.config. in namespace/skims/test/data/lib_path/f183/webVuln.config,"
-  1 | <configuration xmlns:xdt=""http://schemas.microsoft.com/XML-Document-Transform"">
-  2 |     <system.web>
-> 3 |         <compilation
-  4 |             defaultLanguage=""c#""
-  5 |             debug=""true""
-  6 |         />
-  7 |     <customErrors mode=""Off""/>
-  8 |     </system.web>
-  9 | </configuration>
-    ^ Col 0
-",dotnetconfig.dotnetconfig_has_debug_enabled
 F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,Property expiration_date is either missing or misconfigured in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,"
 >  1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
    2 |   name         = ""example""
@@ -327,43 +201,6 @@ F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expira
   12 | }
      ^ Col 0
 ",terraform.tfm_azure_kv_secret_no_expiration_date
-F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.config,"
-   1 | <elementProp name="""" elementType=""Header"">
->  2 |   <stringProp name=""Header.name"">Accept</stringProp>
-   3 |   <stringProp name=""Header.value"">*/*</stringProp>
-   4 | </elementProp>
-   5 |
-   6 |
-   7 | <elementProp name="""" elementType=""Header"">
-   8 |   <stringProp name=""Header.name"">Accept</stringProp>
-   9 |   <stringProp name=""Header.value"">*-*</stringProp>
-  10 | </elementProp>
-     ^ Col 0
-",conf_files.xml_accept_header
-F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.jmx,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.jmx,"
-  1 | <elementProp name="""" elementType=""Header"">
-> 2 |   <stringProp name=""Header.name"">Accept</stringProp>
-  3 |   <stringProp name=""Header.value"">*/*</stringProp>
-  4 | </elementProp>
-  5 |
-  6 | <elementProp name="""" elementType=""Header"">
-  7 |   <stringProp name=""Header.name"">Accept</stringProp>
-  8 |   <stringProp name=""Header.value"">*-*</stringProp>
-  9 | </elementProp>
-    ^ Col 0
-",conf_files.xml_accept_header
-F153,lines,namespace/skims/test/data/lib_path/f153/accept_header_wildcard.xml,2,644,skims,153. Insecure or unset HTTP headers - Accept,The wildcard is allowed in the Accept header when making requests to the service. in namespace/skims/test/data/lib_path/f153/accept_header_wildcard.xml,"
-  1 | <elementProp name="""" elementType=""Header"">
-> 2 |   <stringProp name=""Header.name"">Accept</stringProp>
-  3 |   <stringProp name=""Header.value"">*/*</stringProp>
-  4 | </elementProp>
-  5 |
-  6 | <elementProp name="""" elementType=""Header"">
-  7 |   <stringProp name=""Header.name"">Accept</stringProp>
-  8 |   <stringProp name=""Header.value"">*-*</stringProp>
-  9 | </elementProp>
-    ^ Col 0
-",conf_files.xml_accept_header
 F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
    1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
    2 | ARG DEBIAN_FRONTEND=noninteractive

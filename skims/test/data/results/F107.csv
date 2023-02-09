@@ -1,0 +1,38 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F107,lines,namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,11,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/c_sharp_ldap_injection.cs,"
+   1 | ;
+   2 | .DirectoryServices;
+   3 |
+   4 | al class WebForm : System.Web.UI.Page
+   5 |
+   6 | d void Page_Load(HttpRequest Request)
+   7 |
+   8 | ng userName = Request.Params[""user""];
+   9 | ng filter = ""(uid="" + userName + "")"";
+  10 | ctorySearcher searcher = new DirectorySearcher(filter);
+> 11 | chResultCollection results = searcher.FindAll();
+  12 |
+  13 |
+     ^ Col 12
+",c_sharp.c_sharp_ldap_injection
+F107,lines,namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,14,90,skims,107. LDAP injection,Potentially untrusted HTTP request input reaches an LDAP statement in namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,"
+   1 | il.Random;
+   2 |
+   3 | est107 extends HttpServlet {
+   4 |
+   5 | oPost(HttpServletRequest request, HttpServletResponse response) {
+   6 |
+   7 | umeration<String> headers = request.getHeaders(""BenchmarkTest00012"");
+   8 |
+   9 | != null && headers.hasMoreElements()) {
+  10 | ders.nextElement();
+  11 |
+  12 |
+  13 | r = ""(&(objectclass=person))(|(uid=""+param+"")(street={0}))"";
+> 14 | .NamingEnumeration results = idc.search(base, filter);
+  15 |
+  16 |
+  17 |
+  18 |
+     ^ Col 14
+",java.java_ldap_injection

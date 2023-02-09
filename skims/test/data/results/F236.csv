@@ -1,0 +1,26 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F236,lines,namespace/skims/test/data/lib_path/f236/tsconfig.json,19,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
+ in namespace/skims/test/data/lib_path/f236/tsconfig.json","
+   9 |       ""es2018.promise""
+  10 |     ],
+  11 |     ""module"": ""esnext"",
+  12 |     ""moduleResolution"": ""node"",
+  13 |     ""noImplicitAny"": true,
+  14 |     ""noImplicitReturns"": true,
+  15 |     ""noImplicitThis"": true,
+  16 |     ""noUnusedLocals"": true,
+  17 |     ""noUnusedParameters"": true,
+  18 |     ""skipLibCheck"": true,
+> 19 |     ""sourceMap"": true,
+  20 |     ""strictFunctionTypes"": true,
+  21 |     ""strictNullChecks"": true,
+  22 |     ""strictPropertyInitialization"": true,
+  23 |     ""target"": ""es2017"",
+  24 |     ""typeRoots"": [
+  25 |       ""node_modules/@types""
+  26 |     ],
+  27 |     ""types"": [
+  28 |       ""node"",
+  29 |       ""jest"",
+     ^ Col 0
+",tsconfig.tsconfig_sourcemap_enabled

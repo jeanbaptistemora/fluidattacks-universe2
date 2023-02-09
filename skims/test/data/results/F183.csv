@@ -1,0 +1,13 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F183,lines,namespace/skims/test/data/lib_path/f183/webVuln.config,3,489,skims,183. Debugging enabled in production,Debug flag is enabled in Web.config. in namespace/skims/test/data/lib_path/f183/webVuln.config,"
+  1 | <configuration xmlns:xdt=""http://schemas.microsoft.com/XML-Document-Transform"">
+  2 |     <system.web>
+> 3 |         <compilation
+  4 |             defaultLanguage=""c#""
+  5 |             debug=""true""
+  6 |         />
+  7 |     <customErrors mode=""Off""/>
+  8 |     </system.web>
+  9 | </configuration>
+    ^ Col 0
+",dotnetconfig.dotnetconfig_has_debug_enabled

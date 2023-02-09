@@ -1,0 +1,57 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F280,lines,namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js,5,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js","
+  1 | function vuln (req, res) {
+  2 |     const value = req.query.value;
+  3 |
+  4 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+> 5 |     res.cookie(""connect.sid"", value);  // Noncompliant
+  6 |
+  7 |     res.setHeader(""X-Data"", value); // Compliant
+  8 |     res.cookie(""data"", value); // Compliant
+  9 |   };
+    ^ Col 0
+",javascript.javascript_non_secure_construction_of_cookies
+F280,lines,namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js,4,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_cookies.js","
+  1 | function vuln (req, res) {
+  2 |     const value = req.query.value;
+  3 |
+> 4 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+  5 |     res.cookie(""connect.sid"", value);  // Noncompliant
+  6 |
+  7 |     res.setHeader(""X-Data"", value); // Compliant
+  8 |     res.cookie(""data"", value); // Compliant
+  9 |   };
+    ^ Col 0
+",javascript.javascript_non_secure_construction_of_cookies
+F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts,7,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts","
+   1 | declare var module: any;
+   2 |
+   3 | function ts_vuln (req, res) {
+   4 |     const value = req.query.value;
+   5 |
+   6 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+>  7 |     res.cookie(""connect.sid"", value);  // Noncompliant
+   8 |
+   9 |     res.setHeader(""X-Data"", value); // Compliant
+  10 |     res.cookie(""data"", value); // Compliant
+  11 |   };
+     ^ Col 0
+",typescript.typescript_non_secure_construction_of_cookies
+F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts,6,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts","
+   1 | declare var module: any;
+   2 |
+   3 | function ts_vuln (req, res) {
+   4 |     const value = req.query.value;
+   5 |
+>  6 |     res.setHeader(""Set-Cookie"", value);  // Noncompliant
+   7 |     res.cookie(""connect.sid"", value);  // Noncompliant
+   8 |
+   9 |     res.setHeader(""X-Data"", value); // Compliant
+  10 |     res.cookie(""data"", value); // Compliant
+  11 |   };
+     ^ Col 0
+",typescript.typescript_non_secure_construction_of_cookies
