@@ -174,22 +174,15 @@ const Policies: React.FC<IPolicies> = ({
                     </Tooltip>
                   </PoliciesLink>
                 </Label>
-                <Tooltip
-                  disp={"inline"}
-                  id={"vulnerabilityGracePeriod-tooltip"}
-                  place={"bottom"}
-                  tip={t(
+                <Input
+                  disabled={permissions.cannot(permission)}
+                  name={"vulnerabilityGracePeriod"}
+                  tooltip={t(
                     `${translationStart}recommended.vulnerabilityGracePeriod`
                   )}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"vulnerabilityGracePeriod"}
-                    type={"text"}
-                    validate={composeValidators([isZeroOrPositive, numeric])}
-                  />
-                </Tooltip>
+                  type={"text"}
+                  validate={composeValidators([isZeroOrPositive, numeric])}
+                />
               </Card>
             </Col>
           </Row>
