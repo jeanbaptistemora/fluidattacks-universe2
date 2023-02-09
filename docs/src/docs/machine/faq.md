@@ -248,6 +248,13 @@ the organization assumes the risk,
 not remediating it,
 so it will continue to be regarded as vulnerable.
 
+### What happens when a temporary acceptance treatment expires?
+
+The treatment for that specific security
+issue reverts back to **Untreated**,
+and the remediation of such issue is assigned
+to the user who had requested the temporary acceptance.
+
 ## Policies
 
 ### If I apply policies to a group, will these apply to all roots of this?
@@ -308,3 +315,14 @@ you must go to the
 [DevSecOps Agent](/machine/web/groups/agent/)
 section in
 [Scope](/machine/web/groups/scope/roots/).
+
+## API
+
+### How can I start using the Attack Resistance Management platform API?
+
+To begin using the API,
+we recommend you read our step-by-step guide
+in our [Documentation](/machine/api).
+Bear in mind that to make requests to the
+API you will need prior knowledge of the
+GraphQL language.
