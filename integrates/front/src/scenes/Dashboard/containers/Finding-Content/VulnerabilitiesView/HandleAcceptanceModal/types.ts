@@ -41,6 +41,12 @@ interface IHandleVulnerabilitiesAcceptanceResultAttr {
   };
 }
 
+interface IConfirmVulnerabilitiesResultAttr {
+  confirmVulnerabilities: {
+    success: boolean;
+  };
+}
+
 interface IConfirmVulnZeroRiskResultAttr {
   confirmVulnerabilitiesZeroRisk: {
     success: boolean;
@@ -54,6 +60,7 @@ interface IRejectZeroRiskVulnResultAttr {
 }
 
 export type {
+  IConfirmVulnerabilitiesResultAttr,
   IConfirmVulnZeroRiskResultAttr,
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,

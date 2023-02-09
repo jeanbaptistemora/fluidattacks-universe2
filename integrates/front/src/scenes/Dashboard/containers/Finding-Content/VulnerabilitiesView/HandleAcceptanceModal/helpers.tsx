@@ -17,6 +17,7 @@ import {
 } from "../utils";
 import type {
   IConfirmVulnZeroRiskResultAttr,
+  IConfirmVulnerabilitiesResultAttr,
   IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
@@ -107,10 +108,7 @@ const confirmVulnerabilityHelper = (
   confirmVulnerabilities: (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
-  confirmedVulns: IVulnDataAttr[],
-  values: {
-    justification: string;
-  }
+  confirmedVulns: IVulnDataAttr[]
 ): void => {
   if (isConfirmRejectVulnerabilitySelected && !_.isEmpty(confirmedVulns)) {
     Object.entries(
@@ -129,13 +127,69 @@ const confirmVulnerabilityHelper = (
         await confirmVulnerabilities({
           variables: {
             findingId,
-            justification: values.justification,
             vulnerabilities: confirmedVulnIds,
           },
         });
       }
     );
   }
+};
+
+const confirmVulnerabilityProps = (
+  refetchData: () => void,
+  handleCloseModal: () => void,
+  groupName: string,
+  findingId?: string
+): MutationHookOptions => {
+  return {
+    onCompleted: (data: IConfirmVulnerabilitiesResultAttr): void => {
+      if (data.confirmVulnerabilities.success) {
+        msgSuccess(
+          translate.t("groupAlerts.confirmedVulnerabilitySuccess"),
+          translate.t("groupAlerts.updatedTitle")
+        );
+        refetchData();
+        handleCloseModal();
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        if (
+          error.message ===
+          "Exception - The vulnerability has not been submitted"
+        ) {
+          msgError(translate.t("groupAlerts.vulnerabilityIsNotSubmitted"));
+        } else {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred confirming vulnerability", error);
+        }
+      });
+    },
+    refetchQueries: (): InternalRefetchQueriesInclude =>
+      findingId === undefined
+        ? []
+        : [
+            {
+              query: GET_FINDING_AND_GROUP_INFO,
+              variables: {
+                findingId,
+              },
+            },
+            {
+              query: GET_FINDING_HEADER,
+              variables: {
+                findingId,
+              },
+            },
+            {
+              query: GET_GROUP_VULNERABILITIES,
+              variables: {
+                first: 1200,
+                groupName,
+              },
+            },
+          ],
+  };
 };
 
 const confirmZeroRiskProps = (
@@ -420,6 +474,7 @@ const rejectVulnerabilityHelper = (
 
 export {
   acceptanceProps,
+  confirmVulnerabilityProps,
   confirmZeroRiskProps,
   confirmVulnerabilityHelper,
   isAcceptedUndefinedSelectedHelper,

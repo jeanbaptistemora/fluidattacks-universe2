@@ -8,6 +8,8 @@ import { useTranslation } from "react-i18next";
 import { HandleAcceptanceModalForm } from "./form";
 import {
   acceptanceProps,
+  confirmVulnerabilityHelper,
+  confirmVulnerabilityProps,
   confirmZeroRiskProps,
   isAcceptedUndefinedSelectedHelper,
   isConfirmZeroRiskSelectedHelper,
@@ -17,6 +19,7 @@ import {
 
 import { Modal } from "components/Modal";
 import {
+  CONFIRM_VULNERABILITIES,
   CONFIRM_VULNERABILITIES_ZERO_RISK,
   HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
@@ -80,6 +83,15 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       CONFIRM_VULNERABILITIES_ZERO_RISK,
       confirmZeroRiskProps(refetchData, handleCloseModal, findingId)
     );
+    const [confirmVulnerability] = useMutation(
+      CONFIRM_VULNERABILITIES,
+      confirmVulnerabilityProps(
+        refetchData,
+        handleCloseModal,
+        groupName,
+        findingId
+      )
+    );
     const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
       REJECT_VULNERABILITIES_ZERO_RISK,
       rejectZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
@@ -102,11 +114,18 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
           values.treatment === "ACCEPTED_UNDEFINED";
         const isConfirmRejectZeroRiskSelected: boolean =
           values.treatment === "CONFIRM_REJECT_ZERO_RISK";
+        const isConfirmRejectVulnerabilitySelected: boolean =
+          values.treatment === "CONFIRM_REJECT_VULNERABILITY";
 
         const formValues = (({ justification }): { justification: string } => ({
           justification,
         }))(values);
 
+        confirmVulnerabilityHelper(
+          isConfirmRejectVulnerabilitySelected,
+          confirmVulnerability,
+          acceptedVulns
+        );
         isAcceptedUndefinedSelectedHelper(
           isAcceptedUndefinedSelected,
           handleAcceptance,
@@ -129,6 +148,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       },
       [
         acceptedVulns,
+        confirmVulnerability,
         confirmZeroRisk,
         handleAcceptance,
         rejectZeroRisk,

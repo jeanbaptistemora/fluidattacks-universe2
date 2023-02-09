@@ -55,7 +55,7 @@ async def mutate(
             modified_by=stakeholder_email,
         )
         await update_unreliable_indicators_by_deps(
-            EntityDependency.reject_vulnerabilities,
+            EntityDependency.confirm_vulnerabilities,
             finding_ids=[finding_id],
         )
         logs_utils.cloudwatch_log(

@@ -48,6 +48,7 @@ class EntityDependency(str, Enum):
     )
     handle_finding_policy: str = "handle_finding_policy"
     move_root: str = "move_root"
+    confirm_vulnerabilities: str = "confirm_vulnerabilities"
     reject_vulnerabilities: str = "reject_vulnerabilities"
     reject_vulnerabilities_zero_risk: str = "reject_vulnerabilities_zero_risk"
     remove_vulnerability: str = "remove_vulnerability"
