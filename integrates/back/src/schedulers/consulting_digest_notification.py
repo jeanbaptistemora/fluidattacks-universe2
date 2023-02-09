@@ -213,17 +213,6 @@ def unique_emails(
     return tuple(set(email_list))
 
 
-async def finding_comments(
-    loaders: Dataloaders, finding_id: str
-) -> list[Union[GroupComment, EventComment, FindingComment]]:
-    comments = await loaders.finding_comments.load(
-        FindingCommentsRequest(
-            comment_type=CommentType.COMMENT, finding_id=finding_id
-        )
-    )
-    return list(filter_last_finding_comments(comments))
-
-
 def format_comment(comment: str) -> str:
     if len(comment) > MAX_COMMENT_LENGTH:
         comment = f"{comment[:MAX_COMMENT_LENGTH]}..."

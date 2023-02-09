@@ -27,7 +27,6 @@ from schedulers.consulting_digest_notification import (
     CommentsDataType,
     digest_comments,
     filter_last_group_comments,
-    finding_comments,
     format_comment,
     get_days_since_comment,
     group_comments,
@@ -192,25 +191,6 @@ def test_unique_emails(
 ) -> None:
     emails = unique_emails(dict(groups_data), ())
     assert len(emails) == 9
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    [
-        "finding_id",
-    ],
-    [
-        [
-            "422286126",
-        ],
-    ],
-)
-@freeze_time("2019-08-21T06:00:00.0")
-async def test_finding_comments(
-    finding_id: str,
-) -> None:
-    comments = await finding_comments(get_new_context(), finding_id)
-    assert len(comments) == 1
 
 
 @pytest.mark.parametrize(
