@@ -225,10 +225,6 @@ const OrganizationGroups: React.FC<IOrganizationGroupsProps> = (
       },
       header: t("organization.tabs.groups.newGroup.events.text"),
     },
-    {
-      accessorKey: "hasMachine",
-      header: "Machine Plan",
-    },
   ];
 
   const dataset: IGroupData[] = data
