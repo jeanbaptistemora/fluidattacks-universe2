@@ -1,12 +1,9 @@
 ---
 checks:
   - F052
-  - F060
-  - F061
-  - F073
 namespace: NIST
 output:
-  file_path: skims/test/outputs/nist_c_sharp.csv
+  file_path: skims/test/outputs/nist_c_sharp_f052.csv
   format: CSV
 path:
   include:

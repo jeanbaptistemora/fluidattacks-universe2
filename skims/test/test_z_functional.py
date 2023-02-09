@@ -176,12 +176,6 @@ def test_lib_apk() -> None:
     _run_no_group("lib_apk")
 
 
-@pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group("lib_http_2")
-def test_lib_http_2() -> None:
-    _run_no_group("lib_http_2")
-
-
 @pytest.mark.flaky(reruns=3)  # The outcome depends on third party servers
 @pytest.mark.skims_test_group("lib_http")
 @pytest.mark.usefixtures("test_mocks_http")
@@ -195,15 +189,9 @@ def test_lib_http() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group("lib_path")
-def test_lib_path() -> None:
-    _run_no_group("lib_path")
-
-
-@pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group("lib_root")
-def test_lib_root() -> None:
-    _run_no_group("lib_root")
+@pytest.mark.skims_test_group("lib_http_2")
+def test_lib_http_2() -> None:
+    _run_no_group("lib_http_2")
 
 
 @pytest.mark.flaky(reruns=0)
@@ -298,12 +286,6 @@ def test_vulnerable_js_app() -> None:
 
 
 @pytest.mark.flaky(reruns=0)
-@pytest.mark.skims_test_group("nist_c_sharp")
-def test_nist_c_sharp() -> None:
-    _run_no_group("nist_c_sharp")
-
-
-@pytest.mark.flaky(reruns=0)
 @pytest.mark.skims_test_group("nist_c_sharp_f001")
 def test_nist_c_sharp_f001() -> None:
     _run_no_group("nist_c_sharp_f001")
@@ -325,6 +307,12 @@ def test_nist_c_sharp_f008() -> None:
 @pytest.mark.skims_test_group("nist_c_sharp_f021")
 def test_nist_c_sharp_f021() -> None:
     _run_no_group("nist_c_sharp_f021")
+
+
+@pytest.mark.flaky(reruns=0)
+@pytest.mark.skims_test_group("nist_c_sharp_f052")
+def test_nist_c_sharp_f052() -> None:
+    _run_no_group("nist_c_sharp_f052")
 
 
 @pytest.mark.flaky(reruns=0)

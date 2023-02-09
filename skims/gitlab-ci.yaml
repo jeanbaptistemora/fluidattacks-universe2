@@ -177,13 +177,18 @@
     - /testPython/skims@benchmark_xpathi
     - /testPython/skims@benchmark_xss
     - /testPython/skims@instance_references
-    - /testPython/skims@nist_c_sharp
+    - /testPython/skims@lib_apk
+    - /testPython/skims@lib_http
+    - /testPython/skims@lib_http_2
+    - /testPython/skims@lib_ssl
     - /testPython/skims@nist_c_sharp_f001
     - /testPython/skims@nist_c_sharp_f004
     - /testPython/skims@nist_c_sharp_f008
     - /testPython/skims@nist_c_sharp_f021
+    - /testPython/skims@nist_c_sharp_f052
     - /testPython/skims@nist_c_sharp_f063
     - /testPython/skims@nist_c_sharp_f107
+    - /testPython/skims@unittesting
     - /testPython/skims@vulnerableapp
     - /testPython/skims@vulnerable_js_app
   rules:
@@ -214,13 +219,6 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
-    - /testPython/skims@lib_apk
-    - /testPython/skims@lib_http
-    - /testPython/skims@lib_http_2
-    - /testPython/skims@lib_path
-    - /testPython/skims@lib_root
-    - /testPython/skims@lib_ssl
-    - /testPython/skims@unittesting
     - /testPython/skims@f001
     - /testPython/skims@f004
     - /testPython/skims@f005
@@ -4425,62 +4423,6 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
-/testPython/skims@lib_path:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /testPython/skims@lib_path
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/testPython/skims@lib_root:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /testPython/skims@lib_root
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
 /testPython/skims@lib_ssl:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4503,34 +4445,6 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@lib_ssl
-  stage: test-code
-  tags:
-    - small
-  variables:
-    GIT_DEPTH: 1
-    MAKES_GIT_DEPTH: 1
-/testPython/skims@nist_c_sharp:
-  after_script:
-    - cp ~/.makes/provenance-* .
-  artifacts:
-    expire_in: 1 week
-    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
-    paths:
-      - skims/.coverage*
-      - provenance-*
-  image: ghcr.io/fluidattacks/makes:22.11
-  interruptible: true
-  needs: []
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "schedule"
-      when: never
-    - if: $CI_PIPELINE_SOURCE == "trigger"
-      when: never
-    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
-  script:
-    - m . /testPython/skims@nist_c_sharp
   stage: test-code
   tags:
     - small
@@ -4643,6 +4557,34 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@nist_c_sharp_f021
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/testPython/skims@nist_c_sharp_f052:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@nist_c_sharp_f052
   stage: test-code
   tags:
     - small

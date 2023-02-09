@@ -20,7 +20,7 @@ def test_get_repo_head_hash() -> None:
         # Not exist
         ("/path-not-exists", DEFAULT_COMMIT),
         # Inside a repository, file
-        ("skims/test/data/config/lib_path.yaml", head),
+        ("skims/test/data/config/lib_http.yaml", head),
         # Inside a repository, directory
         ("skims/test/data/parse_hcl2", head),
         # Inside a repsitory, not exists
