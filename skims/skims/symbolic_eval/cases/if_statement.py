@@ -20,10 +20,11 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     node = args.graph.nodes[args.n_id]
     if _id := node.get("condition_id"):
         danger_cond = args.generic(args.fork_n_id(_id)).danger
-    if _id := node.get("true_id"):
-        danger_true = args.generic(args.fork_n_id(_id)).danger
-    if (args.n_id not in args.path) and (_id := node.get("false_id")):
-        danger_false = args.generic(args.fork_n_id(_id)).danger
+    if args.n_id not in args.path:
+        if _id := node.get("true_id"):
+            danger_true = args.generic(args.fork_n_id(_id)).danger
+        if _id := node.get("false_id"):
+            danger_false = args.generic(args.fork_n_id(_id)).danger
 
     args.evaluation[args.n_id] = danger_cond or danger_true or danger_false
 
