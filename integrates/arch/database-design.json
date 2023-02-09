@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 06, 2023, 05:34 PM",
+    "DateLastModified": "Feb 09, 2023, 09:06 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1211,6 +1211,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1769,6 +1772,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1820,6 +1826,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -1871,6 +1880,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2010,6 +2022,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2058,6 +2073,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2184,6 +2202,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2235,6 +2256,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2286,6 +2310,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2391,6 +2418,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2517,6 +2547,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2568,6 +2601,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2632,6 +2668,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2771,6 +2810,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2816,6 +2858,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2864,6 +2909,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2912,6 +2960,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -2976,6 +3027,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -3024,6 +3078,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
@@ -3072,6 +3129,9 @@
               }
             },
             {
+              "enrolled": {
+                "BOOL": true
+              },
               "is_concurrent_session": {
                 "BOOL": false
               },
