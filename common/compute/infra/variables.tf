@@ -22,13 +22,7 @@ data "aws_iam_role" "main" {
 
   name = each.key
 }
-data "aws_iam_instance_profile" "main" {
-  for_each = toset([
-    "ecsInstanceRole",
-  ])
 
-  name = each.key
-}
 data "aws_vpc" "main" {
   filter {
     name   = "tag:Name"

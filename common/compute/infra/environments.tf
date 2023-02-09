@@ -156,13 +156,13 @@ resource "aws_security_group" "main" {
   }
 }
 
-resource "aws_iam_instance_profile" "clone" {
-  name = "clone"
-  role = aws_iam_role.clone.name
+resource "aws_iam_instance_profile" "main" {
+  name = "ecsAndSsmInstanceProfileForBatch"
+  role = aws_iam_role.main.name
 }
 
-resource "aws_iam_role" "clone" {
-  name = "clone"
+resource "aws_iam_role" "main" {
+  name = "ecsAndSsmRoleForBatch"
   path = "/"
 
   assume_role_policy = jsonencode({
@@ -247,7 +247,7 @@ resource "aws_batch_compute_environment" "main" {
     max_vcpus = each.value.max_vcpus
     min_vcpus = 0
 
-    instance_role       = aws_iam_instance_profile.clone.arn
+    instance_role       = aws_iam_instance_profile.main.arn
     spot_iam_fleet_role = data.aws_iam_role.main["prod_common"].arn
 
     instance_type      = each.value.instances
