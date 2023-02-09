@@ -34,7 +34,7 @@ def ts_import_is_never_used(
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_path.f188.lack_of_data_validation",
+        desc_key="lib_path.f379.unnused_imports",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
