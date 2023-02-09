@@ -1,0 +1,20 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F332,lines,namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,9,319,skims,332. Use of insecure channel - Source code,Use of the http protocol which is insecure in namespace/skims/test/data/lib_path/f332/kubernetes_insecure_port.yaml,"
+   1 | apiVersion: v1
+   2 | kind: Service
+   3 | metadata:
+   4 |   name: my-service
+   5 | spec:
+   6 |   selector:
+   7 |     app.kubernetes.io/name: MyApp
+   8 |   ports:
+>  9 |     - name: http
+  10 |       protocol: TCP
+  11 |       port: 80
+  12 |       targetPort: 9376
+  13 |     - name: https
+  14 |       protocol: TCP
+  15 |       port: 443
+  16 |       targetPort: 9377
+     ^ Col 0
+",kubernetes.kubernetes_insecure_port

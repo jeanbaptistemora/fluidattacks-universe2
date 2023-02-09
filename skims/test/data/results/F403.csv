@@ -1,0 +1,101 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml,8,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <!-- Must Fail -->
+   3 |
+   4 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+   5 |   <!-- Vuln 1 -->
+   6 |   <application android:usesCleartextTraffic=""true"" />
+   7 |   <!-- Vuln 2 -->
+>  8 |   <domain-config cleartextTrafficPermitted=""true"">
+   9 |     <any-other-tag></any-other-tag>
+  10 |   </domain-config>
+  11 |   <!-- Vuln 3 -->
+  12 |   <base-config cleartextTrafficPermitted=""true"">
+  13 |     <any-other-tag></any-other-tag>
+  14 |   </base-config>
+  15 |   <!-- Vuln 4 -->
+  16 |   <preferance name=""android-usesCleartextTraffic"" value=""true"" />
+  17 | </widget>
+  18 |
+  19 | <!-- Must not Fail -->
+  20 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+  21 |   <application android:usesCleartextTraffic=""false"" />
+     ^ Col 0
+",conf_files.xml_insecure_configuration
+F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml,6,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <!-- Must Fail -->
+   3 |
+   4 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+   5 |   <!-- Vuln 1 -->
+>  6 |   <application android:usesCleartextTraffic=""true"" />
+   7 |   <!-- Vuln 2 -->
+   8 |   <domain-config cleartextTrafficPermitted=""true"">
+   9 |     <any-other-tag></any-other-tag>
+  10 |   </domain-config>
+  11 |   <!-- Vuln 3 -->
+  12 |   <base-config cleartextTrafficPermitted=""true"">
+  13 |     <any-other-tag></any-other-tag>
+  14 |   </base-config>
+  15 |   <!-- Vuln 4 -->
+  16 |   <preferance name=""android-usesCleartextTraffic"" value=""true"" />
+  17 | </widget>
+  18 |
+  19 | <!-- Must not Fail -->
+  20 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+  21 |   <application android:usesCleartextTraffic=""false"" />
+     ^ Col 0
+",conf_files.xml_insecure_configuration
+F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml,12,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml","
+   2 | <!-- Must Fail -->
+   3 |
+   4 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+   5 |   <!-- Vuln 1 -->
+   6 |   <application android:usesCleartextTraffic=""true"" />
+   7 |   <!-- Vuln 2 -->
+   8 |   <domain-config cleartextTrafficPermitted=""true"">
+   9 |     <any-other-tag></any-other-tag>
+  10 |   </domain-config>
+  11 |   <!-- Vuln 3 -->
+> 12 |   <base-config cleartextTrafficPermitted=""true"">
+  13 |     <any-other-tag></any-other-tag>
+  14 |   </base-config>
+  15 |   <!-- Vuln 4 -->
+  16 |   <preferance name=""android-usesCleartextTraffic"" value=""true"" />
+  17 | </widget>
+  18 |
+  19 | <!-- Must not Fail -->
+  20 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+  21 |   <application android:usesCleartextTraffic=""false"" />
+  22 |   <domain-config cleartextTrafficPermitted=""false"">
+     ^ Col 0
+",conf_files.xml_insecure_configuration
+F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml,16,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.xml","
+   6 |   <application android:usesCleartextTraffic=""true"" />
+   7 |   <!-- Vuln 2 -->
+   8 |   <domain-config cleartextTrafficPermitted=""true"">
+   9 |     <any-other-tag></any-other-tag>
+  10 |   </domain-config>
+  11 |   <!-- Vuln 3 -->
+  12 |   <base-config cleartextTrafficPermitted=""true"">
+  13 |     <any-other-tag></any-other-tag>
+  14 |   </base-config>
+  15 |   <!-- Vuln 4 -->
+> 16 |   <preferance name=""android-usesCleartextTraffic"" value=""true"" />
+  17 | </widget>
+  18 |
+  19 | <!-- Must not Fail -->
+  20 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+  21 |   <application android:usesCleartextTraffic=""false"" />
+  22 |   <domain-config cleartextTrafficPermitted=""false"">
+  23 |     <any-other-tag></any-other-tag>
+  24 |   </domain-config>
+  25 |   <base-config cleartextTrafficPermitted=""false"">
+  26 |     <any-other-tag></any-other-tag>
+     ^ Col 0
+",conf_files.xml_insecure_configuration

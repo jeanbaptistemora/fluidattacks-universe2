@@ -1,0 +1,17 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F416,lines,namespace/skims/test/data/lib_root/f416/c_sharp_xaml_injection.cs,11,94,skims,416. XAML injection,Potentially untrusted HTTP request input reaches a System.Windows.Markup.XamlReader Load method in namespace/skims/test/data/lib_root/f416/c_sharp_xaml_injection.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |     protected void Page_Load(object sender, EventArgs e)
+   7 |     {
+   8 |         string input = Request.Form[""in""];
+   9 |         byte[] bytes = Convert.FromBase64String(input);
+  10 |         MemoryStream ms = new MemoryStream(bytes);
+> 11 |         System.Windows.Markup.XamlReader.Load(ms);
+  12 |     }
+  13 | }
+     ^ Col 0
+",csharp.csharp_xaml_injection

@@ -1,0 +1,58 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,12,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
+   1 | amespace Controllers
+   2 |
+   3 |    public class Encrypt
+   4 |    {
+   5 |        public static void Process(string password)
+   6 |        {
+   7 |            var salt = Encoding.UTF8.GetBytes(""salt"");
+   8 |            var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+  10 |            var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+> 12 |            var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |        }
+  14 |    }
+  15 |
+     ^ Col 1
+",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,8,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
+   1 | espace Controllers
+   2 |
+   3 |  public class Encrypt
+   4 |  {
+   5 |      public static void Process(string password)
+   6 |      {
+   7 |          var salt = Encoding.UTF8.GetBytes(""salt"");
+>  8 |          var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+  10 |          var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+  12 |          var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |      }
+  14 |  }
+  15 |
+     ^ Col 3
+",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,749,skims,338. Insecure service configuration - Salt,"Salt is generated in an insecure way, which makes the password easier to guess.
+ in namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs","
+   1 | mespace Controllers
+   2 |
+   3 |   public class Encrypt
+   4 |   {
+   5 |       public static void Process(string password)
+   6 |       {
+   7 |           var salt = Encoding.UTF8.GetBytes(""salt"");
+   8 |           var fromHardcoded = new Rfc2898DeriveBytes(password, salt);
+   9 |
+> 10 |           var fromPassword = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(""test""));
+  11 |
+  12 |           var fromUnicode = new Rfc2898DeriveBytes(password, Encoding.Unicode.GetBytes(""test""));
+  13 |       }
+  14 |   }
+  15 |
+     ^ Col 2
+",c_sharp.csharp_check_hashes_salt

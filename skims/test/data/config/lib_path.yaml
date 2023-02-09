@@ -5,12 +5,6 @@ output:
   file_path: skims/test/outputs/lib_path.csv
   format: CSV
 checks:
-  - F332
-  - F401
-  - F403
-  - F405
-  - F408
-  - F412
   - F427
 path:
   exclude:

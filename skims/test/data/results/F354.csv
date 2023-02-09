@@ -1,0 +1,76 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,13,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
+   3 | @Bean(name = ""multipartResolver"")
+   4 | public CommonsMultipartResolver multipartResolver() {
+   5 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+   6 |   multipartResolver.setMaxUploadSize(657600);
+   7 |   return multipartResolver;
+   8 | }
+   9 |
+  10 |
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+> 13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+  22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+     ^ Col 0
+",java.java_upload_size_limit
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,28,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+  13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+  22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+  24 | }
+  25 |
+  26 | @Bean
+  27 | public MultipartConfigElement multipartConfigElement() {
+> 28 |   MultipartConfigFactory factory = new MultipartConfigFactory(); // Sensitive, no limit by default
+  29 |   return factory.createMultipartConfig();
+  30 | }
+  31 | }
+     ^ Col 0
+",java.java_upload_size_limit
+F354,lines,namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java,22,770,skims,354. Insecure file upload - Files Limit,"File size limits are not defined or are too high
+ in namespace/skims/test/data/lib_root/f354/java_insecure_file_size.java","
+  11 | @Bean(name = ""multipartResolver"")
+  12 | public CommonsMultipartResolver multipartResolver() {
+  13 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+  14 |   int size = 104857600;
+  15 |   multipartResolver.setMaxUploadSize(size);
+  16 |   return multipartResolver;
+  17 | }
+  18 |
+  19 |
+  20 | @Bean(name = ""multipartResolver"")
+  21 | public CommonsMultipartResolver multipartResolver() {
+> 22 |   CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(); // Sensitive, by default if maxUploadSize
+  23 |   return multipartResolver;
+  24 | }
+  25 |
+  26 | @Bean
+  27 | public MultipartConfigElement multipartConfigElement() {
+  28 |   MultipartConfigFactory factory = new MultipartConfigFactory(); // Sensitive, no limit by default
+  29 |   return factory.createMultipartConfig();
+  30 | }
+  31 | }
+     ^ Col 0
+",java.java_upload_size_limit

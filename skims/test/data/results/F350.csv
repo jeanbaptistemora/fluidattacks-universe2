@@ -1,0 +1,26 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F350,lines,namespace/skims/test/data/lib_root/f350/java_insecure_trust_manager.java,9,310,skims,350. Insecure digital certificates - Chain of trust,"The application uses an insecure trust manager for the ssl context
+ in namespace/skims/test/data/lib_root/f350/java_insecure_trust_manager.java","
+   1 | rt javax.net.ssl.TrustManagerFactory;
+   2 |
+   3 | ic class Test {
+   4 |
+   5 | lic WebClient insecureClient() {
+   6 | y{
+   7 |
+   8 | rustManager my_manager = InsecureTrustManagerFactory.INSTANCE;
+>  9 | slContext insecure_context = SslContextBuilder.forClient().trustManager(my_manager).build();
+  10 | eturn insecure_context;
+  11 |
+  12 | catch (Exception e){
+  13 |
+  14 | hrow new RuntimeException("":: An error ocurred in ssl"", e);
+  15 |
+  16 |
+  17 |
+  18 |
+  19 | lic WebClient secureClient() {
+  20 | y{
+  21 | rustManager my_sec_manager = trustManagerFactory.getTrustManagers();
+     ^ Col 4
+",java.java_use_insecure_trust_manager

@@ -1,0 +1,97 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
+   1 | const jwt = require('jsonwebtoken');
+   2 |
+   3 | function unsafejwt() {
+   4 |     // Default value of algorithm is vulnerable
+   5 |     let utoken = jwt.sign(payload, key);
+   6 |
+   7 |     const sign_config = { algorithm: 'none'};
+>  8 |     let token = jwt.sign(payload, key, sign_config);
+   9 |
+  10 |     let allowed_algos = ['HS256', 'none'];
+  11 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  12 |     jwt.verify(token, key, verify_config);
+  13 |
+  14 | }
+  15 |
+  16 | function safejwt() {
+  17 |     let safe_algo = ""PS384"";
+  18 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: ""none""});
+  19 |
+  20 |     let allowed_algos = ['PS384'];
+  21 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+     ^ Col 0
+",javascript.js_uses_insecure_jwt_token
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,5,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
+   1 | const jwt = require('jsonwebtoken');
+   2 |
+   3 | function unsafejwt() {
+   4 |     // Default value of algorithm is vulnerable
+>  5 |     let utoken = jwt.sign(payload, key);
+   6 |
+   7 |     const sign_config = { algorithm: 'none'};
+   8 |     let token = jwt.sign(payload, key, sign_config);
+   9 |
+  10 |     let allowed_algos = ['HS256', 'none'];
+  11 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  12 |     jwt.verify(token, key, verify_config);
+  13 |
+  14 | }
+  15 |
+  16 | function safejwt() {
+  17 |     let safe_algo = ""PS384"";
+  18 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: ""none""});
+  19 |
+  20 |     let allowed_algos = ['PS384'];
+  21 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+     ^ Col 0
+",javascript.js_uses_insecure_jwt_token
+F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,12,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
+   2 |
+   3 | function unsafejwt() {
+   4 |     // Default value of algorithm is vulnerable
+   5 |     let utoken = jwt.sign(payload, key);
+   6 |
+   7 |     const sign_config = { algorithm: 'none'};
+   8 |     let token = jwt.sign(payload, key, sign_config);
+   9 |
+  10 |     let allowed_algos = ['HS256', 'none'];
+  11 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+> 12 |     jwt.verify(token, key, verify_config);
+  13 |
+  14 | }
+  15 |
+  16 | function safejwt() {
+  17 |     let safe_algo = ""PS384"";
+  18 |     let token_secure = jwt.sign(payload, key, {algorithm: safe_algo, issuer: ""none""});
+  19 |
+  20 |     let allowed_algos = ['PS384'];
+  21 |     const verify_config = { expiresIn: 10000, algorithms:  allowed_algos};
+  22 |     jwt.verify(token, key, verify_config);
+     ^ Col 0
+",javascript.js_uses_insecure_jwt_token
+F309,lines,namespace/skims/test/data/lib_root/f309/ts_insecure_jwt_token.ts,9,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/ts_insecure_jwt_token.ts,"
+   1 |
+   2 | import jwt from 'jsonwebtoken';
+   3 |
+   4 | export function unsafeJwt<T extends Object> (payload: T): string {
+   5 |     const privateKey: string = ""mykey"";
+   6 |     let allowed_algos: Array<string> = ['none', 'hs256'];
+   7 |     const options: jwt.SignOptions = { expiresIn: 10000, algorithms:  allowed_algos};
+   8 |     try {
+>  9 |       return jwt.sign(payload, privateKey, options);
+  10 |     } catch (e) {
+  11 |       throw new Error(e.message);
+  12 |     }
+  13 | }
+  14 |
+  15 | export function safeJwt<T extends Object> (payload: T): string {
+  16 |     const privateKey: string = ""mykey"";
+  17 |     let allowed_algos: Array<string> = ['hs256'];
+  18 |     const options: jwt.SignOptions = { expiresIn: 10000, issuer: ""None"", algorithms:  allowed_algos};
+  19 |     try {
+  20 |       return jwt.sign(payload, privateKey, options)
+  21 |     } catch (e) {
+     ^ Col 0
+",typescript.ts_insecure_jwt_token

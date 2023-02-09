@@ -1,0 +1,25 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F381,lines,namespace/skims/test/data/lib_root/f381/tfm_check_required_version.tf,1,437,skims,381. Supply Chain Attack - Terraform,The required_version property is not set in namespace/skims/test/data/lib_root/f381/tfm_check_required_version.tf,"
+>  1 | terraform {
+   2 |
+   3 |   required_providers {
+   4 |     aws = {
+   5 |       source  = ""hashicorp/aws""
+   6 |       version = ""4.4.0""
+   7 |     }
+   8 |   }
+   9 |
+  10 |   backend ""s3"" {
+  11 |     bucket         = ""fluidattacks-terraform-states-prod""
+  12 |     key            = ""compute.tfstate""
+  13 |     region         = ""us-east-1""
+  14 |     encrypt        = true
+  15 |     dynamodb_table = ""terraform_state_lock""
+  16 |   }
+  17 | }
+  18 |
+  19 | provider ""aws"" {
+  20 |   region = ""us-east-1""
+  21 | }
+     ^ Col 0
+",terraform.check_required_version

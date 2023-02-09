@@ -5,19 +5,7 @@ output:
   file_path: skims/test/outputs/lib_root.csv
   format: CSV
 checks:
-  - F309
-  - F320
-  - F338
-  - F350
-  - F353
-  - F354
-  - F366
-  - F368
-  - F381
-  - F413
   - F414
-  - F416
-  - F428
 path:
   exclude:
     - glob(integrates/**/*)

@@ -1,0 +1,42 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F405,lines,namespace/skims/test/data/lib_path/f405/Dockerfile,10,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/Dockerfile,"
+   1 | FROM ubuntu:21.01-lts@sha256:3235326357dfb65f1781dbc4df3b834546d8bf914e82cce58e6e6b676e23 AS ubuntu
+   2 | ARG DEBIAN_FRONTEND=noninteractive
+   3 | RUN apt update
+   4 | RUN apt install -y nginx php-fpm supervisor && \
+   5 |     useradd -ms /bin/bash newuser \
+   6 |     rm -rf /var/lib/apt/lists/* && \
+   7 |     sshpass -p !4u2tryhack ssh username@host.example.com \
+   8 |     apt clean
+   9 |     chmod 750 testfile
+> 10 |     chmod 754 testfile
+     ^ Col 0
+",bash.excessive_privileges_for_others
+F405,lines,namespace/skims/test/data/lib_path/f405/bash.sh,5,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/bash.sh,"
+  1 | # shellcheck shell=bash
+  2 |
+  3 | chmod 750 myfile
+  4 | cp text.txt ground.txt
+> 5 | chmod 754 myfile
+  6 | # chmod 754 myfile
+    ^ Col 0
+",bash.excessive_privileges_for_others
+F405,lines,namespace/skims/test/data/lib_path/f405/test.com,11,732,skims,405. Excessive privileges - Access Mode,The system files or directories have an access mode too permissive in namespace/skims/test/data/lib_path/f405/test.com,"
+   1 | # shellcheck shell=bash
+   2 |
+   3 | case 'SunOS':
+   4 |     if (-e /net/hermes/scrb) then
+   5 | #                  NRLSSC
+   6 |       setenv S     /net/hermes/scrb/${user}/$P
+   7 |       setenv W     /net/hermes/scrb/metzger/force/$N
+   8 |     else
+   9 | #                  NAVO MSRC
+  10 |       mkdir        /scr/${user}
+> 11 |       chmod 754   /scr/${user}
+  12 |       chmod 750   /scr/${user}
+  13 |       setenv S     /scr/${user}/$P
+  14 |       setenv W     /u/home/metzger/force/$N
+  15 |     endif
+  16 |     breaksw
+     ^ Col 0
+",bash.excessive_privileges_for_others

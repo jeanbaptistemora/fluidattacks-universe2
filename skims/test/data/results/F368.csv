@@ -1,0 +1,49 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
+   1 | import com.jcraft.jsch.JSch;
+   2 | import com.jcraft.jsch.Session;
+   3 |
+   4 | public class Insecureconfigs {
+   5 |  public static void connection1(){
+   6 |   JSch ssh = new JSch();
+   7 |   Session session = ssh.getSession(ManagementProperties.getValues(""USER""), ManagementProperties.getValues(""SERVERNAME""),
+   8 |   java.util.Properties config = new java.util.Properties();
+   9 |   String check = ""No"";
+  10 |   config.put(""StrictHostKeyChecking"", check);
+> 11 |   session.setConfig(config);
+  12 |  }
+  13 |
+  14 |  public static void connection2(){
+  15 |   JSch ssh = new JSch();
+  16 |   session = ssh.getSession( Utils.DEFAULT_USER, value.getPublicIpAddress() );
+  17 |   session.setConfig(""StrictHostKeyChecking"", ""No"");
+  18 |   session.connect();
+  19 |  }
+  20 |
+  21 | }
+     ^ Col 0
+",java.java_host_key_checking
+F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,17,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
+   7 |   Session session = ssh.getSession(ManagementProperties.getValues(""USER""), ManagementProperties.getValues(""SERVERNAME""),
+   8 |   java.util.Properties config = new java.util.Properties();
+   9 |   String check = ""No"";
+  10 |   config.put(""StrictHostKeyChecking"", check);
+  11 |   session.setConfig(config);
+  12 |  }
+  13 |
+  14 |  public static void connection2(){
+  15 |   JSch ssh = new JSch();
+  16 |   session = ssh.getSession( Utils.DEFAULT_USER, value.getPublicIpAddress() );
+> 17 |   session.setConfig(""StrictHostKeyChecking"", ""No"");
+  18 |   session.connect();
+  19 |  }
+  20 |
+  21 | }
+  22 |
+  23 | public class Secureconfigs {
+  24 |  public static void connectionSFTP(){
+  25 |   JSch ssh = new JSch();
+  26 |   Session session = ssh.getSession(Utils.DEFAULT_USER, value.getPublicIpAddress());
+  27 |   java.util.Properties config = new java.util.Properties();
+     ^ Col 0
+",java.java_host_key_checking

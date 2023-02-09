@@ -1,0 +1,21 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F412,lines,namespace/skims/test/data/lib_path/f412/azure_key_valut.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f412/azure_key_valut.tf","
+>  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
+   2 |   name                       = ""examplekeyvault""
+   3 |   location                   = azurerm_resource_group.example.location
+   4 |   resource_group_name        = azurerm_resource_group.example.name
+   5 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+   6 |   soft_delete_retention_days = 7
+   7 | }
+   8 |
+   9 | resource ""azurerm_key_vault"" ""not_vulnerable"" {
+  10 |   name                       = ""examplekeyvault""
+  11 |   location                   = azurerm_resource_group.example.location
+  12 |   resource_group_name        = azurerm_resource_group.example.name
+  13 |   tenant_id                  = data.azurerm_client_config.current.tenant_id
+  14 |   soft_delete_retention_days = 7
+  15 |   soft_delete_enabled        = true
+  16 |   purge_protection_enabled   = true
+  17 | }
+     ^ Col 0
+",terraform.tfm_azure_key_vault_not_recoverable
