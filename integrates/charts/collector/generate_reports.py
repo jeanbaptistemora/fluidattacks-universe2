@@ -29,6 +29,9 @@ from selenium.webdriver.common.by import (
 from selenium.webdriver.firefox.options import (
     Options,
 )
+from selenium.webdriver.firefox.service import (
+    Service,
+)
 from selenium.webdriver.support import (
     expected_conditions as ec,
 )
@@ -59,17 +62,19 @@ WIDTH: int = 1200
 
 
 @contextlib.asynccontextmanager
-async def selenium_web_driver() -> AsyncIterator[webdriver.Firefox]:
+async def selenium_web_driver(height: int) -> AsyncIterator[webdriver.Firefox]:
     def create() -> webdriver.Firefox:
         options = Options()
         options.add_argument(f"--width={WIDTH}")
-        options.add_argument("--height=800")
-        options.headless = True
+        options.add_argument(f"--height={height}")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--auto-open-devtools-for-tabs")
+        options.add_argument("-headless")
+        options.binary_location = f"{FIREFOX}/bin/firefox"
+        service = Service(f"{GECKO}/bin/geckodriver")
 
         driver: webdriver.Firefox = webdriver.Firefox(
-            executable_path=f"{GECKO}/bin/geckodriver",
-            firefox_binary=f"{FIREFOX}/bin/firefox",
-            options=options,
+            options=options, service=service
         )
 
         return driver
@@ -207,7 +212,7 @@ async def insert_cookies(
 async def main() -> None:
     base: str
 
-    async with http_session() as session, selenium_web_driver() as driver:
+    async with http_session() as session, selenium_web_driver(12500) as driver:
 
         # Organization reports
         base = (
@@ -226,6 +231,7 @@ async def main() -> None:
             )
             await clear_cookies(driver, session)
 
+    async with http_session() as session, selenium_web_driver(9460) as driver:
         # Group reports
         base = (
             f"{TARGET_URL}/graphics-for-group?"
@@ -243,6 +249,7 @@ async def main() -> None:
             )
             await clear_cookies(driver, session)
 
+    async with http_session() as session, selenium_web_driver(12500) as driver:
         # Portfolio reports
         base = (
             f"{TARGET_URL}/graphics-for-portfolio?"
