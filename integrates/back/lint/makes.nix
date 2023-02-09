@@ -59,7 +59,7 @@
           outputs."/integrates/web/e2e/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/back/test/e2e/src";
       };
       integratesBackChartsCollector = {
