@@ -16,10 +16,13 @@ module "cluster" {
     vpc_security_group_ids = [data.aws_security_group.cloudflare.id]
   }
   eks_managed_node_groups = {
-    ci = {
+    ci_small = {
       max_size = 450
 
-      instance_types = ["c5ad.large"]
+      instance_types = [
+        "c5d.large",
+        "c5ad.large",
+      ]
 
       iam_role_additional_policies = {
         ci_cache = module.ci_cache.policy_arn
@@ -71,7 +74,45 @@ module "cluster" {
       EOT
 
       labels = {
-        worker_group = "ci"
+        worker_group = "ci_small"
+      }
+
+      tags = {
+        "management:area"    = "innovation"
+        "management:product" = "common"
+        "management:type"    = "product"
+      }
+    }
+    ci_large = {
+      max_size = 450
+
+      instance_types = [
+        "m5.large",
+        "m5a.large",
+        "m5d.large",
+        "m5ad.large",
+      ]
+
+      iam_role_additional_policies = {
+        ci_cache = module.ci_cache.policy_arn
+        ssm_core = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+        ssm_role = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+      }
+
+      block_device_mappings = {
+        xvda = {
+          device_name = "/dev/xvda"
+          ebs = {
+            volume_size           = 35
+            volume_type           = "gp3"
+            encrypted             = true
+            delete_on_termination = true
+          }
+        }
+      }
+
+      labels = {
+        worker_group = "ci_large"
       }
 
       tags = {

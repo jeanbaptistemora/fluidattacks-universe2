@@ -20,10 +20,37 @@ module "ci_cache" {
   }
 }
 
-resource "helm_release" "ci_small" {
+locals {
+  ci = {
+    small = {
+      name          = "ci-small"
+      replicas      = 1
+      node_selector = module.cluster.eks_managed_node_groups.ci_small.node_group_labels.worker_group
+      requests = {
+        cpu    = "1200m"
+        memory = "2500Mi"
+      }
+      tags = ["small"]
+    }
+    large = {
+      name          = "ci-large"
+      replicas      = 1
+      node_selector = module.cluster.eks_managed_node_groups.ci_large.node_group_labels.worker_group
+      requests = {
+        cpu    = "1200m"
+        memory = "4000Mi"
+      }
+      tags = ["large"]
+    }
+  }
+}
+
+resource "helm_release" "ci" {
+  for_each = local.ci
+
   chart       = "gitlab-runner"
   description = "Kubernetes Event Driven Autoscaler"
-  name        = "ci-small"
+  name        = each.value.name
   namespace   = "dev"
   repository  = "https://charts.gitlab.io/"
   version     = "0.49.1"
@@ -32,7 +59,7 @@ resource "helm_release" "ci_small" {
     yamlencode(
       {
         imagePullPolicy               = "IfNotPresent"
-        replicas                      = 1
+        replicas                      = "${each.value.replicas}"
         gitlabUrl                     = "https://gitlab.com/"
         unregisterRunners             = true
         terminationGracePeriodSeconds = 86400
@@ -59,32 +86,32 @@ resource "helm_release" "ci_small" {
           }
         }
         nodeSelector = {
-          worker_group = "ci"
+          worker_group = local.ci.small.node_selector
         }
         runners = {
           executor       = "kubernetes"
           locked         = true
-          tags           = "ci"
+          tags           = "${join(",", each.value.tags)}"
           runUntagged    = false
           protected      = false
           maximumTimeout = "86400"
           config         = <<-EOF
             [[runners]]
-              name = "ci"
+              name = "${each.value.name}"
               request_concurrency = 10
               output_limit = 16384
 
               [runners.kubernetes]
                 pull_policy = "always"
-                cpu_request = "1200m"
-                memory_request = "2500Mi"
+                cpu_request = "${each.value.requests.cpu}"
+                memory_request = "${each.value.requests.memory}"
                 helper_cpu_request = "1m"
                 helper_memory_request = "1Mi"
                 namespace = "dev"
-                poll_timeout = 300
+                poll_timeout = 600
                 privileged = true
                 [runners.kubernetes.node_selector]
-                  worker_group = "ci"
+                  worker_group = "${each.value.node_selector}"
                 [dns_config]
                   nameservers = ["1.1.1.1", "8.8.8.8", "8.8.4.4"]
 

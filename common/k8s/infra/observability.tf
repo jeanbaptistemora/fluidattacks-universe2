@@ -7,33 +7,30 @@ resource "helm_release" "newrelic" {
   version    = "5.0.4"
   namespace  = "kube-system"
 
+  values = [
+    yamlencode(
+      {
+        global = {
+          cluster = local.cluster_name
+        }
+        newrelic-infrastructure = {
+          privileged = true
+        }
+        kube-state-metrics = {
+          enabled = true
+        }
+        nri-kube-events = {
+          enabled = true
+        }
+        newrelic-logging = {
+          enabled = true
+        }
+      }
+    )
+  ]
+
   set_sensitive {
     name  = "global.licenseKey"
     value = var.newRelicLicenseKey
-  }
-
-  set {
-    name  = "global.cluster"
-    value = local.cluster_name
-  }
-
-  set {
-    name  = "newrelic-infrastructure.privileged"
-    value = "true"
-  }
-
-  set {
-    name  = "kube-state-metrics.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "nri-kube-events.enabled"
-    value = "true"
-  }
-
-  set {
-    name  = "newrelic-logging.enabled"
-    value = "true"
   }
 }
