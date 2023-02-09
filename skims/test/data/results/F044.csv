@@ -47,3 +47,27 @@ F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json
    72 |             ""DataTraceEnabled"": ""false"",
       ^ Col 0
 ",cloudformation.cnf_http_methods_enabled
+F152,lines,namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config,25,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"El encabezado de respuesta HTTP X-Frame-Options puede ser usado para indicar si debería permitírsele a un navegador renderizar una página en un <frame>, <iframe>, <embed> u <object>. Las páginas web pueden usarlo para evitar ataques de click-jacking, asegurándose de que su contenido no es embebido en otros sitios. in namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config","
+   15 |   -->
+   16 |   <system.web>
+   17 |     <compilation debug=""true"" targetFramework=""4.7.2"" />
+   18 |     <httpRuntime targetFramework=""4.7.2"" />
+   19 |   </system.web>
+   20 |   <system.webServer>
+   21 |     <handlers>
+   22 |       <remove name=""ExtensionlessUrlHandler-Integrated-4.0"" />
+   23 |       <remove name=""OPTIONSVerbHandler"" />
+   24 |       <remove name=""TRACEVerbHandler"" />
+>  25 |       <add
+   26 |         name=""ExtensionlessUrlHandler-Integrated-4.0""
+   27 |         path=""*.""
+   28 |         verb=""*""
+   29 |         type=""System.Web.Handlers.TransferRequestHandler""
+   30 |         preCondition=""integratedMode,runtimeVersionv4.0""
+   31 |       />
+   32 |     </handlers>
+   33 |   </system.webServer>
+   34 |   <runtime>
+   35 |     <assemblyBinding xmlns=""urn:schemas-microsoft-com:asm.v1"">
+      ^ Col 0
+",conf_files.xml_x_frame_options

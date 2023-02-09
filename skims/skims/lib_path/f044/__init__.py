@@ -5,6 +5,9 @@ from lib_path.common import (
 from lib_path.f044.cloudformation import (
     severless_bucket_has_https_methos_enabled,
 )
+from lib_path.f044.conf_files import (
+    header_allow_all_methods,
+)
 from model.core_model import (
     Vulnerabilities,
 )
@@ -28,6 +31,14 @@ def run_severless_bucket_has_https_methos_enabled(
 
 
 @SHIELD_BLOCKING
+def run_header_allow_all_methods(
+    content: str,
+    path: str,
+) -> Vulnerabilities:
+    return header_allow_all_methods(content=content, path=path)
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -46,4 +57,11 @@ def analyze(
                     content, path, template
                 ),
             )
+
+    if file_extension in ("config", "xml", "jmx"):
+        content = content_generator()
+        results = (
+            *results,
+            run_header_allow_all_methods(content, path),
+        )
     return results
