@@ -12,6 +12,9 @@ from db_model.enums import (
 from db_model.stakeholders.types import (
     Stakeholder,
 )
+from db_model.trials.types import (
+    Trial,
+)
 import logging
 from mailer import (
     groups as groups_mail,
@@ -25,12 +28,20 @@ from organizations import (
 from settings import (
     LOGGING,
 )
+from typing import (
+    Optional,
+)
 
 logging.config.dictConfig(LOGGING)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
 INACTIVE_DAYS = 21
+
+
+async def is_trial_end(loaders: Dataloaders, email: str) -> bool:
+    trial: Optional[Trial] = await loaders.trial.load(email)
+    return trial.completed if trial else False
 
 
 async def send_reminder_notification() -> None:
@@ -72,6 +83,7 @@ async def send_reminder_notification() -> None:
         for stakeholder in inactive_stakeholders
         if Notification.REMINDER_NOTIFICATION
         in stakeholder.state.notifications_preferences.email
+        and await is_trial_end(loaders, stakeholder.email)
     }
 
     if inactive_stakeholders_email:
