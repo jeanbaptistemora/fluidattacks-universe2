@@ -4,6 +4,7 @@ from model.graph_model import (
 )
 from typing import (
     List,
+    Set,
 )
 from utils import (
     graph as g,
@@ -12,6 +13,10 @@ from utils import (
 
 def json_parse_unval_data(graph: Graph) -> List[NId]:
     vuln_nodes: List[NId] = []
+    danger_expressions: Set[str] = {
+        "localStorage.getItem",
+        "sessionStorage.getItem",
+    }
     for n_id in g.matching_nodes(
         graph, label_type="MethodInvocation", expression="JSON.parse"
     ):
@@ -19,7 +24,7 @@ def json_parse_unval_data(graph: Graph) -> List[NId]:
             graph, n_id, [], "ArgumentList", "MethodInvocation"
         ):
             if (exp := graph.nodes[m_id].get("expression")) and (
-                exp == "localStorage.getItem"
+                exp in danger_expressions
             ):
                 vuln_nodes.append(n_id)
     return vuln_nodes
