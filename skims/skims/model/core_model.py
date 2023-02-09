@@ -2762,6 +2762,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EFS_USES_DEFAULT_KMS_KEY = MethodInfo(
+        file_name="aws",
+        name="efs_uses_default_kms_key",
+        module="dast",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_CLOUDFRONT_HAS_LOGGING_DISABLED = MethodInfo(
         file_name="aws",
         name="cloudfront_has_logging_disabled",

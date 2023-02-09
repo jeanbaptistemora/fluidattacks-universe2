@@ -8,3 +8,6 @@ lib_path.f411.cfn_aws_secret_encrypted_without_kms_key:
 lib_path.f411.ebs_uses_default_kms_key:
   en: EBS Volumes encrypted with default KMS key
   es: Volumenes EBS encriptados con KMS key por defecto.
+lib_path.f411.efs_uses_default_kms_key:
+  en: EFS filesystem with default KMS key
+  es: EFS encriptados con KMS key por defecto.
