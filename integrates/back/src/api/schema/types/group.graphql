@@ -183,6 +183,10 @@ type Group {
     fromSeenAt: DateTime
     "To the first time the file was seen"
     toSeenAt: DateTime
+    "From first attack moment"
+    fromFirstAttackAt: DateTime
+    "To first attack moment"
+    toFirstAttackAt: DateTime
     """
     True if the associated `filename` has OPEN vulnerabilities.
     This field is eventually consistent.
