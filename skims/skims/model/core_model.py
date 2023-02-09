@@ -3362,6 +3362,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    XML_HEADER_ALLOW_ALL_METHODS = MethodInfo(
+        file_name="conf_files",
+        name="xml_header_allow_all_methods",
+        module="lib_path",
+        finding=FindingEnum.F044,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     NO_OBFUSCATION = MethodInfo(
         file_name="analyze_bytecodes",
         name="no_obfuscation",
