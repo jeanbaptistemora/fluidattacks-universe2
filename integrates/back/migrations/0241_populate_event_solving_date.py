@@ -54,7 +54,7 @@ async def process_group(
     loaders: Dataloaders,
     group_name: str,
 ) -> None:
-    events = await loaders.group_events.load(group_name)  # type:ignore
+    events = await loaders.group_events.load(group_name)  # type: ignore
     await collect(tuple(process_event(event) for event in events), workers=30)
 
 

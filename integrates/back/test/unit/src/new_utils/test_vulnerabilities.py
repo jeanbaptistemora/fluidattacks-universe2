@@ -158,7 +158,7 @@ def test_get_ranges() -> None:
 async def test_group_specific() -> None:
     loaders = get_new_context()
     vulns = await loaders.finding_vulnerabilities_all.load("422286126")
-    test_data = group_specific(vulns, VulnerabilityType.INPUTS)
+    test_data = group_specific(tuple(vulns), VulnerabilityType.INPUTS)
     assert isinstance(test_data, tuple)
     assert len(test_data) == 2
     assert isinstance(test_data[0], Vulnerability)

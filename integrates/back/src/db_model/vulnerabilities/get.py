@@ -331,7 +331,7 @@ class AssignedVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
         )
 
 
-class FindingVulnerabilitiesLoader(DataLoader):
+class FindingVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader

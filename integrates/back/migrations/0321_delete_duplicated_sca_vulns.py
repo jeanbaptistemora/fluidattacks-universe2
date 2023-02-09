@@ -32,7 +32,7 @@ from db_model.vulnerabilities.types import (
     VulnerabilityMetadataToUpdate,
     VulnerabilityState,
 )
-from newutils.datetime import (  # type:ignore
+from newutils.datetime import (  # type: ignore
     get_datetime_from_iso_str,
     get_utc_now,
 )

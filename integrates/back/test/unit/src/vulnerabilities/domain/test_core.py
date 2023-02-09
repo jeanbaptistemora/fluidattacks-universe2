@@ -16,15 +16,15 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityStateStatus,
     VulnerabilityToolImpact,
+    VulnerabilityTreatmentStatus,
     VulnerabilityType,
     VulnerabilityZeroRiskStatus,
 )
-from db_model.vulnerabilities.types import (  # type: ignore
+from db_model.vulnerabilities.types import (
     Vulnerability,
     VulnerabilityState,
     VulnerabilityTool,
     VulnerabilityTreatment,
-    VulnerabilityTreatmentStatus,
     VulnerabilityUnreliableIndicators,
     VulnerabilityZeroRisk,
 )
@@ -39,9 +39,6 @@ from newutils.datetime import (
 )
 import pytest
 from typing import (
-    Dict,
-    List,
-    Tuple,
     Union,
 )
 from unittest.mock import (
@@ -215,7 +212,7 @@ pytestmark = [
 async def test_get_open_vulnerabilities_specific_by_type(
     mock_loaders_finding_vulnerabilities_released_nzr: AsyncMock,
     finding_id: str,
-    expected: Dict[str, Tuple[Dict[str, str], ...]],
+    expected: dict[str, tuple[dict[str, str], ...]],
 ) -> None:
 
     mocked_objects, mocked_paths, mocks_args = [
@@ -256,7 +253,7 @@ async def test_get_reattack_requester() -> None:
         ["422286126", [0, 0, 1, 0]],
     ],
 )
-async def test_get_treatments(finding_id: str, expected: List[int]) -> None:
+async def test_get_treatments(finding_id: str, expected: list[int]) -> None:
     context = get_new_context()
     finding_vulns_loader = context.finding_vulnerabilities_released_nzr
     vulns = await finding_vulns_loader.load(finding_id)
@@ -300,14 +297,16 @@ async def test_get_updated_manager_mail_content(
     vulnerabilities: dict[str, list[dict[str, Union[str, ToolItem]]]],
 ) -> None:
     test_data = get_updated_manager_mail_content(vulnerabilities)
-    expected_output = "test/data/lib_path/f060/csharp.cs (12)\nhttps://example.com (phone)\n"  # noqa: E501 pylint: disable=line-too-long
+    expected_output = (
+        "test/data/lib_path/f060/csharp.cs (12)\nhttps://example.com (phone)\n"
+    )
     assert test_data == expected_output
 
 
 async def test_group_vulnerabilities() -> None:
     loaders = get_new_context()
     vulns = await loaders.finding_vulnerabilities_all.load("422286126")
-    test_data = group_vulnerabilities(vulns)
+    test_data = group_vulnerabilities(tuple(vulns))
     expected_output = (
         Vulnerability(
             created_by="unittest@fluidattacks.com",

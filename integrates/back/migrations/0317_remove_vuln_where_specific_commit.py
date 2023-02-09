@@ -91,7 +91,7 @@ async def get_finding_vulnerabilities(
     vulnerabilities = await loaders.finding_vulnerabilities_all.load(
         finding_id
     )
-    return vulnerabilities
+    return vulnerabilities  # type: ignore
 
 
 async def process_group(loaders: Dataloaders, group_name: str) -> None:

@@ -178,7 +178,7 @@ async def _update_finding_evidence(
     description: Optional[str] = None,
     validate_name: Optional[bool] = False,
 ) -> None:
-    finding: Finding = await loaders.finding.load(finding_id)  # type:ignore
+    finding: Finding = await loaders.finding.load(finding_id)  # type: ignore
     await validate_evidence(
         evidence_id, file_object, loaders, finding, validate_name
     )
