@@ -358,7 +358,9 @@ class FindingVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
         return vulns
 
 
-class FindingVulnerabilitiesDraftConnectionLoader(DataLoader):
+class FindingVulnerabilitiesDraftConnectionLoader(
+    DataLoader[FindingVulnerabilitiesRequest, VulnerabilitiesConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[FindingVulnerabilitiesRequest]
@@ -382,7 +384,9 @@ class FindingVulnerabilitiesDraftConnectionLoader(DataLoader):
         )
 
 
-class FindingVulnerabilitiesNonDeletedLoader(DataLoader):
+class FindingVulnerabilitiesNonDeletedLoader(
+    DataLoader[str, list[Vulnerability]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader

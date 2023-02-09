@@ -75,6 +75,7 @@ from time import (
 )
 from typing import (
     cast,
+    Iterable,
     NamedTuple,
     Optional,
     Union,
@@ -749,7 +750,7 @@ def get_by_time_range(
     )
 
 
-def get_date_last_vulns(vulns: tuple[Vulnerability, ...]) -> datetime:
+def get_date_last_vulns(vulns: Iterable[Vulnerability]) -> datetime:
     """Get date of the last vulnerabilities."""
     last_date = max(vuln.state.modified_date for vuln in vulns)
     day_week = last_date.weekday()
@@ -774,7 +775,7 @@ def get_last_vulnerabilities_date(
 
 
 def get_first_week_dates(
-    vulns: tuple[Vulnerability, ...],
+    vulns: Iterable[Vulnerability],
     min_date: Optional[datetime] = None,
 ) -> tuple[datetime, datetime]:
     """Get first week vulnerabilities."""

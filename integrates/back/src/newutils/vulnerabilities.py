@@ -265,9 +265,9 @@ def _format_tool_item(
 
 
 async def format_vulnerabilities(
-    group_name: str, loaders: Any, vulnerabilities: Tuple[Vulnerability, ...]
-) -> Dict[str, List[Dict[str, Union[str, Item]]]]:
-    finding: Dict[str, List[Dict[str, Union[str, Item]]]] = {
+    group_name: str, loaders: Any, vulnerabilities: Iterable[Vulnerability]
+) -> dict[str, list[dict[str, Union[str, Item]]]]:
+    finding: dict[str, list[dict[str, Union[str, Item]]]] = {
         "ports": [],
         "lines": [],
         "inputs": [],

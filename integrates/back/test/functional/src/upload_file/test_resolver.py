@@ -67,7 +67,7 @@ async def _get_vulns(
         (
             dict(
                 commit_hash=vuln.state.commit,
-                repo_nickname=roots_nickname[vuln.root_id],
+                repo_nickname=roots_nickname[vuln.root_id or ""],
                 specific=vuln.state.specific,
                 state_status=vuln.state.status.value,
                 stream=vuln.stream,
