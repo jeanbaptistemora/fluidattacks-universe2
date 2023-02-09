@@ -1,5 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 import { changeSubmittedFormatter } from "./changeSubmittedFormatter";
 import type { ISubmittedTableProps } from "./types";
@@ -11,8 +12,13 @@ import type { ICellHelper } from "components/Table/types";
 const SubmittedTable: React.FC<ISubmittedTableProps> = (
   props: ISubmittedTableProps
 ): JSX.Element => {
-  const { acceptanceVulns, isOpenRejectLocationSelected, setAcceptanceVulns } =
-    props;
+  const {
+    acceptanceVulns,
+    isConfirmRejectLocationSelected,
+    setAcceptanceVulns,
+  } = props;
+
+  const { t } = useTranslation();
 
   const handleRejectSubmitted = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
@@ -29,7 +35,7 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
     }
   };
 
-  const handleOpenSubmitted = (vulnInfo?: IVulnDataAttr): void => {
+  const handleConfirmSubmitted = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
@@ -47,18 +53,22 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
   const columns: ColumnDef<IVulnDataAttr>[] = [
     {
       accessorKey: "where",
-      header: "Where",
+      header: t(
+        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.where"
+      ),
     },
     {
       accessorKey: "specific",
-      header: "Specific",
+      header: t(
+        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.specific"
+      ),
     },
     {
       accessorKey: "acceptance",
       cell: (cell: ICellHelper<IVulnDataAttr>): JSX.Element =>
         changeSubmittedFormatter(
           cell.row.original,
-          handleOpenSubmitted,
+          handleConfirmSubmitted,
           handleRejectSubmitted
         ),
       header: "Acceptance",
@@ -67,7 +77,7 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
 
   return (
     <React.StrictMode>
-      {isOpenRejectLocationSelected ? (
+      {isConfirmRejectLocationSelected ? (
         <Table columns={columns} data={acceptanceVulns} id={"submittedTable"} />
       ) : undefined}
     </React.StrictMode>

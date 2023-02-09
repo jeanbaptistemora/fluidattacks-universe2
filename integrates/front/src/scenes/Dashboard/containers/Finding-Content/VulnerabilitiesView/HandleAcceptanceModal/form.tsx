@@ -35,8 +35,8 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
       values.treatment === "ACCEPTED_UNDEFINED";
     const isConfirmRejectZeroRiskSelected: boolean =
       values.treatment === "CONFIRM_REJECT_ZERO_RISK";
-    const isOpenRejectLocationSelected: boolean =
-      values.treatment === "OPEN_REJECT_LOCATION";
+    const isConfirmRejectLocationSelected: boolean =
+      values.treatment === "CONFIRM_REJECT_LOCATION";
 
     // Side effects
     const onTreatmentChange: () => void = (): void => {
@@ -45,13 +45,13 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
         vulns,
         setAcceptanceVulns,
         isConfirmRejectZeroRiskSelected,
-        isOpenRejectLocationSelected
+        isConfirmRejectLocationSelected
       );
     };
     useEffect(onTreatmentChange, [
       isAcceptedUndefinedSelected,
       isConfirmRejectZeroRiskSelected,
-      isOpenRejectLocationSelected,
+      isConfirmRejectLocationSelected,
       setAcceptanceVulns,
       vulns,
     ]);
@@ -85,7 +85,7 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
           <Col100>
             <SubmittedTable
               acceptanceVulns={acceptanceVulnerabilities}
-              isOpenRejectLocationSelected={isOpenRejectLocationSelected}
+              isConfirmRejectLocationSelected={isConfirmRejectLocationSelected}
               setAcceptanceVulns={setAcceptanceVulns}
             />
           </Col100>
