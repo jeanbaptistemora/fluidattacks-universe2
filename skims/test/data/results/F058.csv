@@ -1,0 +1,19 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F058,lines,namespace/skims/test/data/lib_path/f058/AndroidManifest.xml,4,489,skims,058. Debugging enabled in production - APK,application.android:debuggable enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+>  4 |  <application android:debuggable=""true"" android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+  13 |  </application>
+  14 | </manifest>
+     ^ Col 0
+",android.apk_debugging_enabled

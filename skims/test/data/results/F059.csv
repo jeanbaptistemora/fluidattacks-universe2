@@ -1,0 +1,13 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F059,lines,namespace/skims/test/data/lib_root/f059/java_insecure_log.java,3,209,skims,059. Sensitive information stored in logs,The application displays sensitive info in the logs in namespace/skims/test/data/lib_root/f059/java_insecure_log.java,"
+  1 | public class Test{
+  2 |     public void insecure(){
+> 3 |   log.info(""Dangerous"" + System.getenv()); // Insecure
+  4 |  }
+  5 |
+  6 |     public void secure(){
+  7 |   log.info(""Hello world""); // secure
+  8 |  }
+  9 | }
+    ^ Col 0
+",java.java_sensitive_log_info

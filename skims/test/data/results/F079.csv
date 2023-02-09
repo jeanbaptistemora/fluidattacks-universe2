@@ -1,0 +1,18 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F079,lines,namespace/skims/test/data/lib_path/f079/Scripts/_references.js,1,829,skims,079. Non-upgradable dependencies,Non upgradeable dependency in namespace/skims/test/data/lib_path/f079/Scripts/_references.js,"
+> 1 | ///<autosync enabled=""true"" />
+  2 | ///<reference path=""modernizr-2.6.2.js""/>
+  3 | ///<reference path=""jquery-1.10.2.js""/>
+  4 | ///<reference path=""jquery.validate.js""/>
+  5 | ///<reference path=""jquery.validate.unobtrusive.js""/>
+  6 | ///<reference path=""bootstrap.js""/>
+  7 | ///<reference path=""respond.js""/>
+    ^ Col 0
+",generic.non_upgradeable_deps
+F079,lines,namespace/skims/test/data/lib_path/f079/Scripts/jquery-1.10.2.intellisense.js,1,829,skims,079. Non-upgradable dependencies,Non upgradeable dependency in namespace/skims/test/data/lib_path/f079/Scripts/jquery-1.10.2.intellisense.js,"
+> 1 | function CalculateSum(number1, number2)
+  2 | {
+  3 |   return Number(number1) + Number(number2)
+  4 | }
+    ^ Col 0
+",generic.non_upgradeable_deps

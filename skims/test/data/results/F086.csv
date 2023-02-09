@@ -1,0 +1,14 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F086,lines,namespace/skims/test/data/lib_path/f086/html_unsafe.html,8,353,skims,086. Missing subresource integrity check,"The application does not properly check the integrity of resources loaded from third-party servers.
+ in namespace/skims/test/data/lib_path/f086/html_unsafe.html","
+  1 | <!DOCTYPE html>
+  2 | <html xml:lang>
+  3 |  <head>
+  4 |   <title>Vulnerable for not checking integrity of resources</title>
+  5 |  </head>
+  6 |  <body></body>
+  7 |  <!-- No sub resource_integrity -->
+> 8 |  <script src=""https://example.com/example-framework.js""></script>
+  9 | </html>
+    ^ Col 0
+",html.html_has_not_sub_resource_integrity

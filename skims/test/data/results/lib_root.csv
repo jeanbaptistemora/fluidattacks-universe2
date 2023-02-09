@@ -38,51 +38,6 @@ F428,lines,namespace/skims/test/data/lib_root/f428/json_inapropiated_comments.js
   12 | ]
      ^ Col 0
 ",conf_files.json_inappropriate_elements
-F164,lines,namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json","
-   1 | {
-   2 |     ""iisSettings"": {
-   3 |         ""windowsAuthentication"": false,
-   4 |         ""anonymousAuthentication"": false,
-   5 |         ""iisExpress"": {
-   6 |             ""applicationUrl"": ""http://localhost:7287"",
->  7 |             ""sslPort"": 0
-   8 |         }
-   9 |     }
-  10 | }
-     ^ Col 0
-",conf_files.json_ssl_port_missing
-F239,lines,namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,13,200,skims,239. Technical information leak - Errors,The error handling configuration of the server allows the visualization of detailed information of its processes through the UseSetting method. in namespace/skims/test/data/lib_root/f239/csharp_info_leak_errors.cs,"
-   1 | using System;
-   2 |
-   3 | namespace API
-   4 | {
-   5 |     public class Program
-   6 |     {
-   7 |         public static void Main()
-   8 |         {
-   9 |             BuildWebHost();
-  10 |         }
-  11 |
-  12 |         public static IWebHost BuildWebHost() =>
-> 13 |             WebHost.CreateDefaultBuilder()
-  14 |                    .UseSetting(WebHostDefaults.DetailedErrorsKey, ""true"")
-  15 |                    .Build();
-  16 |     }
-  17 | }
-     ^ Col 0
-",csharp.csharp_info_leak_errors
-F059,lines,namespace/skims/test/data/lib_root/f059/java_insecure_log.java,3,209,skims,059. Sensitive information stored in logs,The application displays sensitive info in the logs in namespace/skims/test/data/lib_root/f059/java_insecure_log.java,"
-  1 | public class Test{
-  2 |     public void insecure(){
-> 3 |   log.info(""Dangerous"" + System.getenv()); // Insecure
-  4 |  }
-  5 |
-  6 |     public void secure(){
-  7 |   log.info(""Hello world""); // secure
-  8 |  }
-  9 | }
-    ^ Col 0
-",java.java_sensitive_log_info
 F234,lines,namespace/skims/test/data/lib_root/f234/java_println_statements.java,16,209,skims,234. Technical information leak - Stacktrace,error stacktrace can be printed in namespace/skims/test/data/lib_root/f234/java_println_statements.java,"
    6 |   private static Logger logger = LogManager.getLogger(Log4jExample.class);
    7 |
@@ -120,36 +75,6 @@ F234,lines,namespace/skims/test/data/lib_root/f237/java_print_stacktrace.java,7,
   10 | }
      ^ Col 0
 ",java.java_info_leak_stacktrace
-F098,lines,namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,"
-   1 | using System;
-   2 | using System.IO;
-   3 |
-   4 | public partial class WebForm : System.Web.UI.Page
-   5 | {
-   6 |     protected void Page_Load(object sender, EventArgs e)
-   7 |     {
-   8 |         string userInput = Request.Params[""UserInput""];
-   9 |
-> 10 |         var elem = File.Open(userInput, FileMode.Open);
-  11 |
-  12 |     }
-  13 | }
-     ^ Col 0
-",c_sharp.c_sharp_path_injection
-F056,lines,namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,5,284,skims,056. Anonymous connection,Anonymous connection is allowed in the app settings in namespace/skims/test/data/lib_root/f056/json_anon_connection_config.json,"
-   1 | {
-   2 |     ""$schema"": ""http://json.schemastore.org/launchsettings.json"",
-   3 |     ""iisSettings"": {
-   4 |         ""windowsAuthentication"": false,
->  5 |         ""anonymousAuthentication"": true,
-   6 |         ""iisExpress"": {
-   7 |             ""applicationUrl"": ""http://localhost:63958"",
-   8 |             ""sslPort"": 44378
-   9 |         }
-  10 |     }
-  11 | }
-     ^ Col 0
-",conf_files.json_anon_connection_config
 F309,lines,namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,8,287,skims,309. Insecurely generated token - JWT,Token JWT is not signed with a strong cipher algorithm or not signed at all. in namespace/skims/test/data/lib_root/f309/js_insecure_jwt_token.js,"
    1 | const jwt = require('jsonwebtoken');
    2 |
@@ -327,51 +252,6 @@ F148,lines,namespace/skims/test/data/lib_root/f148/c_sharp_ftp_insecure_method.c
   15 |
      ^ Col 7
 ",c_sharp.cs_insecure_channel
-F034,lines,namespace/skims/test/data/lib_root/f034/java_weak_random.java,9,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
- in namespace/skims/test/data/lib_root/f034/java_weak_random.java","
-   1 | import java.util.Random;
-   2 |
-   3 | public class BenchmarkTest00167 extends HttpServlet {
-   4 |  @Override
-   5 |  public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   6 |   long l = new java.util.Random().nextLong();
-   7 |   String rememberMeKey = Long.toString(l);
-   8 |   String cookieName = ""rememberMe"";
->  9 |     request.getSession().setAttribute(cookieName, rememberMeKey);
-  10 |  }
-  11 | }
-     ^ Col 0
-",java.java_weak_random
-F034,lines,namespace/skims/test/data/lib_root/f034/js_weak_random.js,7,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/js_weak_random.js,"
-   1 | import { Router } from ""express"";
-   2 |
-   3 | const router = Router();
-   4 |
-   5 | function routa(req, res) {
-   6 |   let key = Math.random().toString();
->  7 |   res.cookie(""rememberKey"", key);
-   8 |   res.json({ ok: true });
-   9 | }
-  10 | router.get(""/test148"", routa);
-  11 |
-  12 | //Should not report
-  13 | const ran_numb = Math.random();
-     ^ Col 0
-",javascript.javascript_weak_random
-F034,lines,namespace/skims/test/data/lib_root/f034/ts_weak_random.ts,6,330,skims,034. Insecure generation of random numbers,Use of Javascript Math.random in namespace/skims/test/data/lib_root/f034/ts_weak_random.ts,"
-   1 | import { Router } from ""express"";
-   2 |
-   3 | const router = Router();
-   4 | function routa(req, res) {
-   5 |   let key = Math.random().toString();
->  6 |   res.cookie(""rememberKey"", key);
-   7 |   res.json({ ok: true });
-   8 | }
-   9 | router.get(""/test148"", routa);
-  10 |
-  11 | export default router;
-     ^ Col 0
-",typescript.typescript_weak_random
 F160,lines,namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,10,378,skims,160. Excessive privileges - Temporary Files,Use of C# Path.GetTempFileName in namespace/skims/test/data/lib_root/f160/c_sharp_file_create_temp_file.cs,"
    1 | using System;
    2 | using System.IO;
@@ -561,106 +441,6 @@ F381,lines,namespace/skims/test/data/lib_root/f381/tfm_check_required_version.tf
   21 | }
      ^ Col 0
 ",terraform.check_required_version
-F083,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,12,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
- in namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js","
-   2 | const fs = require(""fs"");
-   3 |
-   4 | function xml_parser_vuln() {
-   5 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-   6 |
-   7 |   const config = {
-   8 |     noblanks: true,
-   9 |     noent: true,
-  10 |     nocdata: true,
-  11 |   };
-> 12 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  13 |
-  14 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  15 | }
-  16 |
-  17 | function xml_parser_fail() {
-  18 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  19 |
-  20 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  21 |     noblanks: true,
-  22 |     noent: true,
-     ^ Col 0
-",javascript.js_xml_parser
-F083,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,20,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
- in namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js","
-  10 |     nocdata: true,
-  11 |   };
-  12 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  13 |
-  14 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  15 | }
-  16 |
-  17 | function xml_parser_fail() {
-  18 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  19 |
-> 20 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  21 |     noblanks: true,
-  22 |     noent: true,
-  23 |     nocdata: true,
-  24 |   });
-  25 | }
-  26 |
-  27 | function xml_parser_good() {
-  28 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  29 |
-  30 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-     ^ Col 0
-",javascript.js_xml_parser
-F083,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,14,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
- in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
-   4 | const fs = require(""fs"");
-   5 |
-   6 | function xml_parser_vuln() {
-   7 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-   8 |
-   9 |   const config = {
-  10 |     noblanks: true,
-  11 |     noent: true,
-  12 |     nocdata: true,
-  13 |   };
-> 14 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  15 |
-  16 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  17 | }
-  18 |
-  19 | function xml_parser_fail() {
-  20 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  21 |
-  22 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  23 |     noblanks: true,
-  24 |     noent: true,
-     ^ Col 0
-",typescript.ts_xml_parser
-F083,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,22,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
- in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
-  12 |     nocdata: true,
-  13 |   };
-  14 |   const xmlDoc = libxmljs.parseXmlString(xml, config); // Noncompliant: noent set to true
-  15 |
-  16 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-  17 | }
-  18 |
-  19 | function xml_parser_fail() {
-  20 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  21 |
-> 22 |   const xmlDoc = libxmljs.parseXmlString(xml, {
-  23 |     noblanks: true,
-  24 |     noent: true,
-  25 |     nocdata: true,
-  26 |   });
-  27 | }
-  28 |
-  29 | function xml_parser_good() {
-  30 |   const xml = fs.readFileSync(""xxe.xml"", ""utf8"");
-  31 |
-  32 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
-     ^ Col 0
-",typescript.ts_xml_parser
 F414,lines,namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs,9,644,skims,414. Insecure service configuration - Header Checking,"property EnableHeaderChecking set in false disabled the encoding of the carriage return and newline characters, \r and \n, that are found in response headers.
  in namespace/skims/test/data/lib_root/f414/c_sharp_disabled_http_header_check.cs","
    1 |
@@ -1139,28 +919,6 @@ F107,lines,namespace/skims/test/data/lib_root/f107/java_ldap_injection.java,14,9
   18 |
      ^ Col 14
 ",java.java_ldap_injection
-F100,lines,namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs,11,918,skims,100. Server-side request forgery (SSRF),"It is possible to induce the application's server into making requests to an arbitrary domain
- in namespace/skims/test/data/lib_root/f100/c_sharp_ssrf.cs","
-   1 | using System.Net;
-   2 | using System;
-   3 | namespace testmod
-   4 | {
-   5 |
-   6 |     public class Controllers
-   7 |     {
-   8 |         public void ReadContentOfURL(HttpRequest url)
-   9 |         {
-  10 |             //insecure
-> 11 |             WebRequest req = WebRequest.Create(url);
-  12 |
-  13 |             //secure
-  14 |             string staticUrl = ""https://someurl.com"";
-  15 |             WebRequest request = WebRequest.Create(staticUrl);
-  16 |         }
-  17 |     }
-  18 | }
-     ^ Col 0
-",c_sharp.c_sharp_insec_create
 F368,lines,namespace/skims/test/data/lib_root/f368/java_host_key.java,11,923,skims,368. Unrestricted access between network segments - StrictHostKeyChecking,Connections should not be made to unknown servers or servers that have changed their keys in namespace/skims/test/data/lib_root/f368/java_host_key.java,"
    1 | import com.jcraft.jsch.JSch;
    2 | import com.jcraft.jsch.Session;

@@ -1,0 +1,17 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F098,lines,namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,10,22,skims,098. External control of file name or path,Potentially untrusted HTTP request input reaches the path of a file operation. in namespace/skims/test/data/lib_root/f098/c_sharp_path_injection.cs,"
+   1 | using System;
+   2 | using System.IO;
+   3 |
+   4 | public partial class WebForm : System.Web.UI.Page
+   5 | {
+   6 |     protected void Page_Load(object sender, EventArgs e)
+   7 |     {
+   8 |         string userInput = Request.Params[""UserInput""];
+   9 |
+> 10 |         var elem = File.Open(userInput, FileMode.Open);
+  11 |
+  12 |     }
+  13 | }
+     ^ Col 0
+",c_sharp.c_sharp_path_injection

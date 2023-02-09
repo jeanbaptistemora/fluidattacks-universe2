@@ -1,0 +1,43 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,skims,075. Unauthorized access to files - APK Content Provider,application.android:exported enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+   4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+> 13 |   <provider android:authorities=""com.andriod.databasetest.contentprovider"" android:exported=""true"" android:granturipermi
+     | ssions=""true"" android:name="".db.ContentProviderDb"">
+  14 |   </provider>
+  15 |  </application>
+  16 | </manifest>
+     ^ Col 0
+",android.apk_exported_cp
+F075,lines,namespace/skims/test/data/lib_path/f075/AndroidManifest.xml,13,284,skims,075. Unauthorized access to files - APK Content Provider,application.android:grantUriPermissions enabled,"
+   1 | <manifest android:shareduserid=""android.uid.system"" android:versioncode=""4"" android:versionname=""1.0"" package=""com.andro
+     | id.zerosms"" xmlns:android=""http://schemas.android.com/apk/res/android"">
+   2 |  <uses-permission android:name=""android.permission.SEND_SMS"">
+   3 |  </uses-permission>
+   4 |  <application android:icon=""@7F020002"" android:label=""@7F040001"">
+   5 |   <activity android:label=""@7F040000"" android:name="".ZeroSMS"" android:process=""com.android.phone"">
+   6 |    <intent-filter>
+   7 |     <action android:name=""android.intent.action.MAIN"">
+   8 |     </action>
+   9 |     <category android:name=""android.intent.category.LAUNCHER"">
+  10 |     </category>
+  11 |    </intent-filter>
+  12 |   </activity>
+> 13 |   <provider android:authorities=""com.andriod.databasetest.contentprovider"" android:exported=""true"" android:granturipermi
+     | ssions=""true"" android:name="".db.ContentProviderDb"">
+  14 |   </provider>
+  15 |  </application>
+  16 | </manifest>
+     ^ Col 0
+",android.apk_exported_cp

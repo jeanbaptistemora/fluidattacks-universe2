@@ -1,0 +1,14 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F164,lines,namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json,7,16,skims,164. Insecure service configuration,"Ssl port was not configured properly, so the server will use a randomly available port to establish the connection. in namespace/skims/test/data/lib_root/f164/json_ssl_port_missing.json","
+   1 | {
+   2 |     ""iisSettings"": {
+   3 |         ""windowsAuthentication"": false,
+   4 |         ""anonymousAuthentication"": false,
+   5 |         ""iisExpress"": {
+   6 |             ""applicationUrl"": ""http://localhost:7287"",
+>  7 |             ""sslPort"": 0
+   8 |         }
+   9 |     }
+  10 | }
+     ^ Col 0
+",conf_files.json_ssl_port_missing

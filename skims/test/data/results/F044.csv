@@ -1,0 +1,49 @@
+finding,kind,what,where,cwe,stream,title,description,snippet,method
+F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml,39,650,skims,044. Insecure HTTP methods enabled,All http methods are enabled in namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml,"
+  29 |               ""Resource"": [""execute-api: /*""],
+  30 |             },
+  31 |           ]
+  32 |       MethodSettings:
+  33 |         - ResourcePath: ""/*""
+  34 |           HttpMethod: ""Get""
+  35 |           MetricsEnabled: ""true""
+  36 |           DataTraceEnabled: ""false""
+  37 |           LoggingLevel: !Ref LogLevel
+  38 |         - ResourcePath: ""/*""
+> 39 |           HttpMethod: ""*""
+  40 |           MetricsEnabled: ""true""
+  41 |           DataTraceEnabled: ""false""
+  42 |           LoggingLevel: !Ref LogLevel
+  43 |         - ResourcePath: ""/*""
+  44 |           MetricsEnabled: ""true""
+  45 |           DataTraceEnabled: ""false""
+  46 |           LoggingLevel: !Ref LogLevel
+  47 |       Tags:
+  48 |         ORGANIZATION: !Ref Organization
+  49 |         PACKAGE: !Ref Package
+     ^ Col 0
+",cloudformation.cnf_http_methods_enabled
+F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json,62,650,skims,044. Insecure HTTP methods enabled,All http methods are enabled in namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json,"
+   52 |             ""ResourcePath"": ""/*"",
+   53 |             ""HttpMethod"": ""Get"",
+   54 |             ""MetricsEnabled"": ""true"",
+   55 |             ""DataTraceEnabled"": ""false"",
+   56 |             ""LoggingLevel"": {
+   57 |               ""Ref"": ""LogLevel""
+   58 |             }
+   59 |           },
+   60 |           {
+   61 |             ""ResourcePath"": ""/*"",
+>  62 |             ""HttpMethod"": ""*"",
+   63 |             ""MetricsEnabled"": ""true"",
+   64 |             ""DataTraceEnabled"": ""false"",
+   65 |             ""LoggingLevel"": {
+   66 |               ""Ref"": ""LogLevel""
+   67 |             }
+   68 |           },
+   69 |           {
+   70 |             ""ResourcePath"": ""/*"",
+   71 |             ""MetricsEnabled"": ""true"",
+   72 |             ""DataTraceEnabled"": ""false"",
+      ^ Col 0
+",cloudformation.cnf_http_methods_enabled

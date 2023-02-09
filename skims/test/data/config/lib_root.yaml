@@ -5,12 +5,6 @@ output:
   file_path: skims/test/outputs/lib_root.csv
   format: CSV
 checks:
-  - F034
-  - F056
-  - F059
-  - F083
-  - F098
-  - F100
   - F107
   - F112
   - F127
@@ -18,9 +12,7 @@ checks:
   - F143
   - F148
   - F160
-  - F164
   - F234
-  - F239
   - F280
   - F297
   - F309
