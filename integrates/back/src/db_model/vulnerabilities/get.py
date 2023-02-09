@@ -412,7 +412,9 @@ class FindingVulnerabilitiesNonDeletedLoader(
         ]
 
 
-class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
+class FindingVulnerabilitiesReleasedNonZeroRiskLoader(
+    DataLoader[str, list[Vulnerability]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader
@@ -434,7 +436,9 @@ class FindingVulnerabilitiesReleasedNonZeroRiskLoader(DataLoader):
         ]
 
 
-class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
+class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(
+    DataLoader[FindingVulnerabilitiesZrRequest, VulnerabilitiesConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[FindingVulnerabilitiesZrRequest]
@@ -451,7 +455,9 @@ class FindingVulnerabilitiesReleasedNonZeroRiskConnectionLoader(DataLoader):
         )
 
 
-class FindingVulnerabilitiesReleasedZeroRiskLoader(DataLoader):
+class FindingVulnerabilitiesReleasedZeroRiskLoader(
+    DataLoader[str, list[Vulnerability]]
+):
     def __init__(self, dataloader: DataLoader) -> None:
         super().__init__()
         self.dataloader = dataloader

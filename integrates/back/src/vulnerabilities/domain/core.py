@@ -94,6 +94,7 @@ from typing import (
     Any,
     cast,
     Counter,
+    Iterable,
     Optional,
     Union,
 )
@@ -415,7 +416,7 @@ async def get_open_vulnerabilities_specific_by_type(
 
 
 def get_treatments_count(
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Iterable[Vulnerability],
 ) -> Treatments:
     treatment_counter = Counter(
         vuln.treatment.status

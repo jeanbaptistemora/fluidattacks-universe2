@@ -19,10 +19,8 @@ from itertools import (
 )
 from typing import (
     Counter,
-    List,
+    Iterable,
     NamedTuple,
-    Set,
-    Tuple,
 )
 
 FindingsTags = NamedTuple(
@@ -30,17 +28,17 @@ FindingsTags = NamedTuple(
     [
         ("counter", Counter[str]),
         ("counter_finding", Counter[str]),
-        ("findings", List[str]),
-        ("tags", Set[str]),
+        ("findings", list[str]),
+        ("tags", set[str]),
     ],
 )
 
 
 async def get_data_finding(
-    finding_title: str, vulnerabilities: Tuple[Vulnerability, ...]
+    finding_title: str, vulnerabilities: Iterable[Vulnerability]
 ) -> FindingsTags:
     title = finding_title.split(".")[0]
-    tags: List[str] = list(
+    tags: list[str] = list(
         filter(
             None,
             chain.from_iterable(map(lambda x: x.tags or [], vulnerabilities)),
@@ -94,9 +92,9 @@ async def get_data(group: str) -> FindingsTags:
 
 
 def format_data(data: FindingsTags) -> dict:
-    max_value: List[Tuple[str, int]] = data.counter_finding.most_common(1)
-    tags: Set[str] = {tag for tag, _ in data.counter.most_common()[:10]}
-    findings: Set[str] = {
+    max_value: list[tuple[str, int]] = data.counter_finding.most_common(1)
+    tags: set[str] = {tag for tag, _ in data.counter.most_common()[:10]}
+    findings: set[str] = {
         finding
         for finding in data.findings
         for tag in tags

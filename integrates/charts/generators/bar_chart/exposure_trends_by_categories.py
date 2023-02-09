@@ -73,8 +73,8 @@ from typing import (
 class GroupInformation(NamedTuple):
     categories: dict[str, str]
     cvssf: dict[str, Decimal]
-    finding_vulnerabilities: tuple[tuple[Vulnerability, ...], ...]
-    findings: tuple[Finding, ...]
+    finding_vulnerabilities: list[list[Vulnerability]]
+    findings: list[Finding]
 
 
 def get_categories() -> dict[str, str]:
@@ -102,7 +102,7 @@ async def get_data_vulnerabilities(
     group: str,
     loaders: Dataloaders,
 ) -> GroupInformation:
-    findings = tuple(await loaders.group_findings.load(group))
+    findings = await loaders.group_findings.load(group)
     finding_cvssf: dict[str, Decimal] = {
         finding.id: get_cvssf(get_severity_score(finding.severity))
         for finding in findings
@@ -123,7 +123,7 @@ async def get_data_vulnerabilities(
     return GroupInformation(
         categories=finding_category,
         cvssf=finding_cvssf,
-        finding_vulnerabilities=tuple(vulnerabilities),
+        finding_vulnerabilities=vulnerabilities,
         findings=findings,
     )
 

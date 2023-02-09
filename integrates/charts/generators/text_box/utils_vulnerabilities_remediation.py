@@ -63,6 +63,7 @@ from pandas import (
     DatetimeIndex,
 )
 from typing import (
+    Iterable,
     NamedTuple,
     Optional,
 )
@@ -141,7 +142,7 @@ def had_state_by_then(
     last_day: datetime,
     findings_cvssf: dict[str, Decimal],
     state: VulnerabilityStateStatus,
-    vulnerabilities: tuple[Vulnerability, ...],
+    vulnerabilities: Iterable[Vulnerability],
     sprint: bool = False,
 ) -> Decimal:
     lasts_valid_states: tuple[Optional[VulnerabilityState], ...]
