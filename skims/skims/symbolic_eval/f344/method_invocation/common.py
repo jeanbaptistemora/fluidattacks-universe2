@@ -28,9 +28,16 @@ def get_async_danger_imports(graph: Graph) -> Set[str]:
 
 
 def js_ls_sensitive_data(args: SymbolicEvalArgs) -> SymbolicEvaluation:
+    is_danger_method: bool = False
     node = args.graph.nodes[args.n_id]
     dangerous_imports: Set[str] = get_async_danger_imports(args.graph)
-    args.evaluation[args.n_id] = node.get("expression") in dangerous_imports
+    if (
+        (method_expression := node.get("expression"))
+        and (method_name := method_expression.split(".")[0])
+        and (method_name in dangerous_imports)
+    ):
+        is_danger_method = True
+    args.evaluation[args.n_id] = is_danger_method
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
 
 
