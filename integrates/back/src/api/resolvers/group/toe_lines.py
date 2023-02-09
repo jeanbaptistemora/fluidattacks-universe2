@@ -24,6 +24,7 @@ from search.operations import (
 )
 from typing import (
     Any,
+    Optional,
 )
 
 
@@ -84,12 +85,24 @@ def toe_lines_filter(**kwargs: Any) -> dict[str, Any]:
 def get_items_to_filter(
     filters: dict[str, Any],
     kwargs: Any,
+    parameter: Optional[str] = None,
+    range_condition: Optional[str] = None,
 ) -> list[dict[str, Any]]:
     items_to_filter = [
-        {(field if path == "common" else f"{path}.{field}"): kwargs.get(field)}
+        {
+            (field if path == "common" else f"{path}.{field}"): (
+                {range_condition: filter_value}
+                if range_condition
+                else filter_value
+            ),
+        }
         for path, fields in filters.items()
         for field in fields
-        if kwargs.get(field)
+        if (
+            filter_value := kwargs.get(
+                f"{parameter}_{field}" if parameter else field
+            )
+        )
     ]
     return items_to_filter
 
@@ -116,42 +129,19 @@ def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
 
 
 def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
-    must_range_filters: list[dict[str, Any]] = []
 
-    if min_loc := kwargs.get("min_loc"):
-        must_range_filters.append({"state.loc": {"gte": min_loc}})
+    from_to_filters: dict[str, Any] = {
+        "common": {"modified_date"},
+        "state": ["seen_at"],
+    }
 
-    if max_loc := kwargs.get("max_loc"):
-        must_range_filters.append({"state.loc": {"lte": max_loc}})
+    min_max_filters: dict[str, Any] = {"state": ["loc", "attacked_lines"]}
 
-    if min_attacked_lines := kwargs.get("min_attacked_lines"):
-        must_range_filters.append(
-            {"state.attacked_lines": {"gte": min_attacked_lines}}
-        )
-
-    if max_attacked_lines := kwargs.get("max_attacked_lines"):
-        must_range_filters.append(
-            {"state.attacked_lines": {"lte": max_attacked_lines}}
-        )
-
-    if from_modified_date := kwargs.get("from_modified_date"):
-        must_range_filters.append(
-            {"modified_date": {"gte": str(from_modified_date.date())}}
-        )
-
-    if to_modified_date := kwargs.get("to_modified_date"):
-        must_range_filters.append(
-            {"modified_date": {"lte": str(to_modified_date.date())}}
-        )
-
-    if from_seen_at := kwargs.get("from_seen_at"):
-        must_range_filters.append(
-            {"state.seen_at": {"gte": str(from_seen_at.date())}}
-        )
-
-    if to_seen_at := kwargs.get("to_seen_at"):
-        must_range_filters.append(
-            {"state.seen_at": {"lte": str(to_seen_at.date())}}
-        )
+    must_range_filters: list[dict[str, Any]] = [
+        *get_items_to_filter(from_to_filters, kwargs, "from", "gte"),
+        *get_items_to_filter(min_max_filters, kwargs, "min", "gte"),
+        *get_items_to_filter(from_to_filters, kwargs, "to", "lte"),
+        *get_items_to_filter(min_max_filters, kwargs, "max", "lte"),
+    ]
 
     return must_range_filters
