@@ -3,19 +3,27 @@ from .arch import (
     project_dag,
 )
 from arch_lint.dag.check import (
-    check_dag,
+    check_dag_map,
+    dag_map_completeness,
 )
 from arch_lint.forbidden import (
     check_forbidden,
 )
 from arch_lint.graph import (
+    FullPathModule,
     ImportGraph,
 )
 from arch_lint.private import (
     check_private,
 )
 
-root = "target_redshift"
+root = FullPathModule.assert_module("target_redshift")
+local_graph = ImportGraph.from_modules(root, False)
+lib_roots = ("fa_singer_io",)
+ext_graph = ImportGraph.from_modules(
+    frozenset([root] + [FullPathModule.assert_module(r) for r in lib_roots]),
+    True,
+)
 
 
 def test_dag_creation() -> None:
@@ -23,8 +31,11 @@ def test_dag_creation() -> None:
 
 
 def test_dag() -> None:
-    graph = ImportGraph.build_graph(root, True)
-    check_dag(project_dag(), graph, graph.root)
+    check_dag_map(project_dag(), local_graph)
+
+
+def test_dag_completeness() -> None:
+    dag_map_completeness(project_dag(), local_graph, root)
 
 
 def test_forbidden_creation() -> None:
@@ -32,11 +43,9 @@ def test_forbidden_creation() -> None:
 
 
 def test_forbidden() -> None:
-    graph = ImportGraph.build_graph(root, True)
     allowlist_map = forbidden_allowlist()
-    check_forbidden(allowlist_map, graph)
+    check_forbidden(allowlist_map, ext_graph)
 
 
 def test_private() -> None:
-    graph = ImportGraph.build_graph(root, False)
-    check_private(graph, graph.root)
+    check_private(ext_graph, root)

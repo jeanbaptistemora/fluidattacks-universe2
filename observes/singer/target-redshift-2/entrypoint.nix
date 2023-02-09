@@ -8,8 +8,8 @@ fetchNixpkgs: projectPath: observesIndex: let
   arch-lint = let
     src = builtins.fetchGit {
       url = "https://gitlab.com/dmurciaatfluid/arch_lint";
-      ref = "refs/tags/v1.0.0";
-      rev = "753e5bd2ed248adc92951611b09780dcedb4e0b6";
+      ref = "refs/tags/v2.3.0";
+      rev = "b2d79d8824dfd1b8f191777c006ab208d38352e3";
     };
   in
     import src {
