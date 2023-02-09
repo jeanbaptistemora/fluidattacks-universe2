@@ -126,7 +126,7 @@ def format_tours(item: Item) -> StakeholderTours:
     return StakeholderTours(
         new_group=bool(item["new_group"]),
         new_root=bool(item["new_root"]),
-        new_risk_exposure=bool(item.get("new_risk_exposure", "")),
+        new_risk_exposure=bool(item.get("new_risk_exposure", False)),
     )
 
 

@@ -396,7 +396,7 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
             tours=StakeholderTours(
                 new_group=tours["new_group"],
                 new_root=tours["new_root"],
-                new_risk_exposure=bool(tours.get("new_risk_exposure", "")),
+                new_risk_exposure=bool(tours.get("new_risk_exposure", False)),
             ),
         ),
         email=email,
