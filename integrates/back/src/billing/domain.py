@@ -424,10 +424,10 @@ async def customer_portal(
     )
 
 
+@validations.validate_file_name_deco("file.filename")
+@validations.validate_fields_deco(["file.content_type"])
 async def validate_file(file: UploadFile) -> None:
     mib = 1048576
-    validations.validate_file_name(file.filename)
-    validations.validate_fields([file.content_type])
     allowed_mimes = [
         "image/gif",
         "image/jpeg",
@@ -465,9 +465,9 @@ async def validate_legal_document(
     rut: Optional[UploadFile], tax_id: Optional[UploadFile]
 ) -> None:
     if rut:
-        await validate_file(rut)
+        await validate_file(file=rut)
     if tax_id:
-        await validate_file(tax_id)
+        await validate_file(file=tax_id)
 
 
 def document_extension(document: UploadFile) -> str:
@@ -484,6 +484,8 @@ def document_extension(document: UploadFile) -> str:
     return extension
 
 
+@validations.validate_field_length_deco("business_name", 60)
+@validations.validate_fields_deco(["business_name", "email"])
 async def update_documents(
     *,
     org: Organization,
@@ -500,8 +502,6 @@ async def update_documents(
     documents = OrganizationDocuments()
     org_name = org.name.lower()
     business_name = business_name.lower()
-    validations.validate_field_length(business_name, 60)
-    validations.validate_fields([business_name, email])
 
     if org.payment_methods:
         actual_payment_method = list(
@@ -621,6 +621,8 @@ async def create_credit_card_payment_method(
     return result
 
 
+@validations.validate_field_length_deco("business_name", limit=60)
+@validations.validate_fields_deco(["business_name"])
 async def create_other_payment_method(
     *,
     org: Organization,
@@ -634,8 +636,6 @@ async def create_other_payment_method(
     tax_id: Optional[UploadFile] = None,
 ) -> bool:
     """Create other payment method and associate it to the organization"""
-    validations.validate_field_length(business_name, 60)
-    validations.validate_fields([business_name])
     if rut:
         validations.validate_sanitized_csv_input(
             rut.filename, rut.content_type
@@ -698,6 +698,8 @@ async def create_other_payment_method(
     )
 
 
+@validations.validate_field_length_deco("business_name", 60)
+@validations.validate_fields_deco(["business_name"])
 async def update_payment_method(
     *,
     org: Organization,
@@ -730,10 +732,6 @@ async def update_payment_method(
         )[0].last_four_digits
         == ""
     ):
-        # validate business_name
-        if business_name is not None:
-            validations.validate_field_length(business_name, 60)
-            validations.validate_fields([business_name])
         # get actual payment methods
         other_payment_methods: list[OrganizationPaymentMethods] = []
         if org.payment_methods:
