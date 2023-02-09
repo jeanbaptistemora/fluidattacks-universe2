@@ -30,7 +30,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            enrollment: { enrolled: false },
+            enrolled: false,
             userEmail: "jdoe@fluidattacks.com",
             userName: "John Doe",
           },
@@ -79,7 +79,7 @@ describe("Welcome", (): void => {
       result: {
         data: {
           me: {
-            enrollment: { enrolled: true },
+            enrolled: true,
             userEmail: "jdoe@fluidattacks.com",
             userName: "John Doe",
           },

@@ -47,7 +47,7 @@ const Welcome: React.FC = (): JSX.Element => {
     return <div />;
   }
 
-  const isEnrolled = data.me.enrollment.enrolled;
+  const isEnrolled: boolean = data.me.enrolled;
 
   if (isEnrolled) {
     if (sessionStorage.getItem("trial") === "true") {

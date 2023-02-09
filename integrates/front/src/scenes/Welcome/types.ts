@@ -1,13 +1,9 @@
-interface IEnrollment {
-  enrolled: boolean;
-}
-
 interface IGetStakeholderEnrollmentResult {
   me: {
-    enrollment: IEnrollment;
+    enrolled: boolean;
     userEmail: string;
     userName: string;
   };
 }
 
-export type { IGetStakeholderEnrollmentResult, IEnrollment };
+export type { IGetStakeholderEnrollmentResult };
