@@ -6,7 +6,11 @@
 }:
 makeScript {
   searchPaths = {
-    bin = [inputs.nixpkgs.kubectl];
+    bin = [
+      inputs.nixpkgs.findutils
+      inputs.nixpkgs.gawk
+      inputs.nixpkgs.kubectl
+    ];
     kubeConfig = [".kubernetes"];
     source = [outputs."/common/utils/aws"];
   };

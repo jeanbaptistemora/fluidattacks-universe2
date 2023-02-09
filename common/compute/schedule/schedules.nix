@@ -113,7 +113,7 @@
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
-      "/integrates/back/destroy/eph"
+      "/integrates/back/deploy/dev/destroy"
     ];
 
     schedule_expression = "cron(0 1 * * ? *)";
