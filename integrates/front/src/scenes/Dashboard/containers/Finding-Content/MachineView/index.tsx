@@ -96,6 +96,15 @@ const MachineView: React.FC = (): JSX.Element => {
   const isLoading: boolean =
     submittingMachineJob || dataNS === NetworkStatus.refetch;
 
+  const submitJobOnClick = useCallback(
+    async (roots: string[]): Promise<FetchResult<ISubmitMachineJobResult>> => {
+      return submitMachineJob({
+        variables: { findingId, rootNicknames: roots },
+      });
+    },
+    [findingId, submitMachineJob]
+  );
+
   if (_.isUndefined(dataRoots) || _.isEmpty(dataRoots)) {
     return <div />;
   }
@@ -108,14 +117,6 @@ const MachineView: React.FC = (): JSX.Element => {
   const rootNicknames: string[] = rootNicknamesSorted
     .filter((root: IGroupRoot): boolean => root.state === "ACTIVE")
     .map((root: IGroupRoot): string => root.nickname);
-
-  async function submitJobOnClick(
-    roots: string[]
-  ): Promise<FetchResult<ISubmitMachineJobResult>> {
-    return submitMachineJob({
-      variables: { findingId, rootNicknames: roots },
-    });
-  }
 
   return (
     <React.StrictMode>
