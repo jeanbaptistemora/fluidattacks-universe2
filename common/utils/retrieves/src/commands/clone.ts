@@ -14,12 +14,12 @@ import { window, workspace } from "vscode";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
 import { getGroupsPath, ignoreFiles } from "../utils/file";
 
-function extractRoot(
+const extractRoot = (
   rootPath: string,
   fusionPath: string,
   rootNickname: string,
   gitignore: string[]
-): void {
+): void => {
   const file = rootPath;
 
   const gunzip = createGunzip();
@@ -50,9 +50,9 @@ function extractRoot(
   extract.on("error", (_error): void => {
     void window.showErrorMessage("Failed to extract repo");
   });
-}
+};
 
-function clone(node: GitRootTreeItem): void {
+const clone = (node: GitRootTreeItem): void => {
   if (!workspace.workspaceFolders) {
     return;
   }
@@ -79,6 +79,6 @@ function clone(node: GitRootTreeItem): void {
       extractRoot(tarFile, fusionPath, node.nickname, node.gitignore);
     });
   });
-}
+};
 
 export { clone };

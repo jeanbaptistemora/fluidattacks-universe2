@@ -5,19 +5,19 @@ import { glob } from "glob";
 // eslint-disable-next-line import/no-unresolved
 import { workspace } from "vscode";
 
-function removeFilesCallback(_err: Error | null, paths: string[]): void {
+const removeFilesCallback = (_err: Error | null, paths: string[]): void => {
   paths.forEach((path: string): void => {
     rmSync(path, { force: true, recursive: true });
   });
-}
+};
 
-function ignoreFiles(path: string, patterns: string[]): void {
+const ignoreFiles = (path: string, patterns: string[]): void => {
   patterns.forEach((pattern: string): void => {
     glob(join(path, pattern), removeFilesCallback);
   });
-}
+};
 
-function getGroupsPath(): string {
+const getGroupsPath = (): string => {
   if (!workspace.workspaceFolders) {
     return "";
   }
@@ -27,7 +27,7 @@ function getGroupsPath(): string {
   }
 
   return join(currentPath.split("groups")[0], "groups");
-}
+};
 
 const getRootInfoFromPath = (
   path: string

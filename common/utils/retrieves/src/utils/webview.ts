@@ -4,9 +4,13 @@ import type { ExtensionContext, Webview } from "vscode";
 // eslint-disable-next-line import/no-unresolved
 import { ExtensionMode, Uri } from "vscode";
 
-function getUri(webview: Webview, extensionUri: Uri, pathList: string[]): Uri {
+const getUri = (
+  webview: Webview,
+  extensionUri: Uri,
+  pathList: string[]
+): Uri => {
   return webview.asWebviewUri(Uri.joinPath(extensionUri, ...pathList));
-}
+};
 
 const getWebviewContent = (
   context: ExtensionContext,

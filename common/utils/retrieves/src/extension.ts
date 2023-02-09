@@ -20,7 +20,7 @@ import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLi
 import { subscribeToDocumentChanges } from "./diagnostics/vulnerabilities";
 import { GroupsProvider } from "./providers/groups";
 
-function activate(context: ExtensionContext): void {
+const activate = (context: ExtensionContext): void => {
   if (!workspace.workspaceFolders) {
     return;
   }
@@ -61,6 +61,6 @@ function activate(context: ExtensionContext): void {
   subscribeToDocumentChanges(context, retrievesDiagnostics);
 
   commands.registerCommand("retrieves.addSelectedText", addLineToYaml);
-}
+};
 
 export { activate };

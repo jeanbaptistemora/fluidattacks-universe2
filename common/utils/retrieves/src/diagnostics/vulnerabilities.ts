@@ -20,12 +20,12 @@ const SEVERITY_MAP = {
   VULNERABLE: DiagnosticSeverity.Error,
 };
 
-function createDiagnostic(
+const createDiagnostic = (
   groupName: string,
   doc: TextDocument | undefined,
   lineOfText: TextLine,
   vulnerability: IVulnerability
-): Diagnostic {
+): Diagnostic => {
   const diagnostic = new Diagnostic(
     lineOfText.range,
     vulnerability.finding.description,
@@ -42,7 +42,7 @@ function createDiagnostic(
   diagnostic.source = "retrieves";
 
   return diagnostic;
-}
+};
 
 const setDiagnostics = async (
   retrievesDiagnostics: DiagnosticCollection,
@@ -92,10 +92,10 @@ const handleDiagnostics = async (
   void setDiagnostics(retrievesDiagnostics, document, gitRoot.id);
 };
 
-function subscribeToDocumentChanges(
+const subscribeToDocumentChanges = (
   context: ExtensionContext,
   emojiDiagnostics: DiagnosticCollection
-): void {
+): void => {
   if (window.activeTextEditor) {
     void handleDiagnostics(emojiDiagnostics, window.activeTextEditor.document);
   }
@@ -114,6 +114,6 @@ function subscribeToDocumentChanges(
       void handleDiagnostics(emojiDiagnostics, event.document);
     })
   );
-}
+};
 
 export { subscribeToDocumentChanges };

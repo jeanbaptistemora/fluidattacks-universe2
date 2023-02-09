@@ -22,7 +22,7 @@ class GitRootTreeItem extends TreeItem {
   }
 }
 
-async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
+const getGitRoots = async (groupName: string): Promise<GitRootTreeItem[]> => {
   const roots: IGitRoot[] = await getGroupGitRoots(groupName);
 
   const toGitRoot = (root: IGitRoot): GitRootTreeItem => {
@@ -45,6 +45,6 @@ async function getGitRoots(groupName: string): Promise<GitRootTreeItem[]> {
     .map((dep): GitRootTreeItem => toGitRoot(dep));
 
   return deps;
-}
+};
 
 export { getGitRoots, GitRootTreeItem };

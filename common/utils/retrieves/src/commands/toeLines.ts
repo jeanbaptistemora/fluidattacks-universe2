@@ -12,10 +12,10 @@ import { API_CLIENT } from "../utils/apollo";
 import { getGroupsPath } from "../utils/file";
 import { getWebviewContent } from "../utils/webview";
 
-async function getToeLines(
+const getToeLines = async (
   groupName: string,
   rootId: string
-): Promise<IEdge[]> {
+): Promise<IEdge[]> => {
   const result = await Promise.resolve(
     API_CLIENT.query({
       query: GET_TOE_LINES,
@@ -60,9 +60,9 @@ async function getToeLines(
   }
 
   return edges;
-}
+};
 
-function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
+const toeLines = (context: ExtensionContext, node: GitRootTreeItem): void => {
   const panel = window.createWebviewPanel(
     "toe-lines",
     "Toe Lines",
@@ -165,6 +165,6 @@ function toeLines(context: ExtensionContext, node: GitRootTreeItem): void {
 
   // eslint-disable-next-line fp/no-mutation
   panel.webview.html = getWebviewContent(context, panel.webview);
-}
+};
 
 export { toeLines };

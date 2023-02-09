@@ -9,23 +9,23 @@
     "commands": [
       {
         "command": "retrieves.clone",
-        "title": "Clone"
+        "title": "Clone git root"
       },
       {
         "command": "retrieves.lines",
-        "title": "Attacked Lines"
+        "title": "Attacked lines"
       },
       {
         "command": "retrieves.environmentUrls",
-        "title": "Git Environment Urls"
+        "title": "Environment Urls"
       },
       {
         "command": "retrieves.updateToeLinesAttackedLines",
-        "title": "Attacked"
+        "title": "Mark file as attacked"
       },
       {
         "command": "retrieves.addSelectedText",
-        "title": "Add selected text"
+        "title": "Add selected text to yaml"
       }
     ],
     "configuration": [
@@ -209,5 +209,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.17.0"
+  "version": "0.18.0"
 }

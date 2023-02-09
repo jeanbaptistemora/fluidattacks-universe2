@@ -21,7 +21,7 @@ interface IHtmlItem {
   type: string;
 }
 
-function getHeaders(): IHtmlItem {
+const getHeaders = (): IHtmlItem => {
   const columnNames = [
     "filename",
     "attacked",
@@ -47,9 +47,9 @@ function getHeaders(): IHtmlItem {
     content: row,
     type: "vscode-data-grid-row",
   };
-}
+};
 
-function formatToeLines(rootPath: string, toeLines: IEdge[]): IHtmlItem[] {
+const formatToeLines = (rootPath: string, toeLines: IEdge[]): IHtmlItem[] => {
   return toeLines.map((item): IHtmlItem => {
     const columns = [
       item.node.filename,
@@ -82,7 +82,7 @@ function formatToeLines(rootPath: string, toeLines: IEdge[]): IHtmlItem[] {
       type: "vscode-data-grid-row",
     };
   });
-}
+};
 
 export class ToeLinesPanel {
   public static currentPanel: ToeLinesPanel | undefined;
