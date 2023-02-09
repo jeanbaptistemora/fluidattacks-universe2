@@ -5,25 +5,15 @@ from fa_purity import (
     Cmd,
     Stream,
 )
-from fa_purity.stream.factory import (
-    unsafe_from_cmd,
-)
 from fa_purity.stream.transform import (
     consume,
 )
 from fa_singer_io.singer import (
     SingerMessage,
 )
-from fa_singer_io.singer.deserializer import (
-    from_file,
-)
-from io import (
-    TextIOWrapper,
-)
 from redshift_client.id_objs import (
     SchemaId,
 )
-import sys
 from target_redshift import (
     grouper,
 )
@@ -36,17 +26,11 @@ from target_redshift.strategy import (
 
 
 @dataclass(frozen=True)
-class Emitter:
+class OutputEmitter:
+    _data: Stream[SingerMessage]
     loader: SingerLoader
     strategy: LoadingStrategy
     records_limit: int
-
-    @property
-    def _data(self) -> Stream[SingerMessage]:
-        cmd = Cmd.from_cmd(
-            lambda: TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
-        )
-        return unsafe_from_cmd(cmd.map(from_file).map(lambda x: iter(x)))
 
     def load_procedure(self, schema: SchemaId) -> Cmd[None]:
         return (

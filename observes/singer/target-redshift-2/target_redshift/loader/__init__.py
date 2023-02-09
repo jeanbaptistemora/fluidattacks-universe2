@@ -1,5 +1,4 @@
 from ._common import (
-    MutableTableMap,
     SingerHandler,
     SingerHandlerOptions,
 )
@@ -14,18 +13,12 @@ from fa_purity import (
     Maybe,
     Stream,
 )
-from fa_purity.stream.factory import (
-    unsafe_from_cmd,
-)
 from fa_purity.stream.transform import (
     consume,
 )
 from fa_singer_io.singer import (
     SingerMessage,
     SingerSchema,
-)
-from fa_singer_io.singer.deserializer import (
-    from_file,
 )
 from io import (
     TextIOWrapper,
@@ -37,12 +30,6 @@ from redshift_client.table.client import (
     TableClient,
 )
 import sys
-from target_redshift.grouper import (
-    group_records,
-)
-from target_redshift.loader import (
-    _handlers,
-)
 from target_redshift.loader._handlers import (
     StateKeeperS3,
 )
@@ -51,18 +38,12 @@ from target_redshift.loader._loaders import (
 )
 
 
-def _stdin_buffer() -> Cmd[TextIOWrapper]:
-    return Cmd.from_cmd(
-        lambda: TextIOWrapper(sys.stdin.buffer, encoding="utf-8")
-    )
-
-
 def from_s3(
-    schema: SchemaId, client: TableClient, s3_handler: S3Handler
+    data: Stream[SingerMessage],
+    schema: SchemaId,
+    client: TableClient,
+    s3_handler: S3Handler,
 ) -> Cmd[None]:
-    data: Stream[SingerMessage] = unsafe_from_cmd(
-        _stdin_buffer().map(from_file).map(lambda x: iter(x))
-    )
     mock_options = SingerHandlerOptions(True, 1, 1)
     handler = SingerHandler(schema, client, mock_options, Maybe.empty())
     nothing = Cmd.from_cmd(lambda: None)

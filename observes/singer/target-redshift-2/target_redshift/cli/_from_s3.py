@@ -29,6 +29,9 @@ from redshift_client.table.client import (
 from target_redshift import (
     loader,
 )
+from target_redshift.input import (
+    InputEmitter,
+)
 from target_redshift.loader import (
     S3Handler,
 )
@@ -79,6 +82,12 @@ def _new_s3_resource() -> Cmd[S3ServiceResource]:
     required=True,
     help="arn of an iam role for S3 access",
 )
+@click.option(
+    "--ignore-failed",
+    type=bool,
+    is_flag=True,
+    help="ignore json items that does not decode to a singer message",
+)
 @pass_ctx
 def from_s3(
     ctx: CmdContext,
@@ -86,8 +95,10 @@ def from_s3(
     bucket: str,
     prefix: str,
     role: str,
+    ignore_failed: bool,
 ) -> NoReturn:
     _schema = SchemaId(schema_name)
+    _input = InputEmitter(ignore_failed).input_stream
 
     def _main(conn: DbConnection) -> Cmd[None]:
         client = new_client(conn, LOG)
@@ -108,7 +119,7 @@ def from_s3(
             )
             return table_client.bind(
                 lambda tc: handler.bind(
-                    lambda h: loader.from_s3(target, tc, h)
+                    lambda h: loader.from_s3(_input, target, tc, h)
                 )
             )
 

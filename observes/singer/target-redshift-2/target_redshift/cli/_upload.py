@@ -14,6 +14,11 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     Maybe,
+    Stream,
+)
+from fa_singer_io.singer import (
+    SingerMessage,
+    SingerRecord,
 )
 import logging
 from mypy_boto3_s3.client import (
@@ -37,14 +42,17 @@ from redshift_client.table.client import (
 from target_redshift._utils import (
     S3FileObjURI,
 )
-from target_redshift.emitter import (
-    Emitter,
+from target_redshift.input import (
+    InputEmitter,
 )
 from target_redshift.loader import (
     Loaders,
     SingerHandlerOptions,
     SingerLoader,
     StateKeeperS3,
+)
+from target_redshift.output import (
+    OutputEmitter,
 )
 from target_redshift.strategy import (
     LoadingStrategy,
@@ -64,6 +72,7 @@ LOG = logging.getLogger(__name__)
 
 @dataclass(frozen=True)
 class _Upload:
+    _data: Stream[SingerMessage]
     client: SqlClient
     client_2: TableClient
     options: SingerHandlerOptions
@@ -86,7 +95,9 @@ class _Upload:
         ).value_or(strategies.recreate_all_schema(self.target))
 
     def emit(self) -> Cmd[None]:
-        return Emitter(self.loader, self.strategy, self.records_limit).main()
+        return OutputEmitter(
+            self._data, self.loader, self.strategy, self.records_limit
+        ).main()
 
     @staticmethod
     def _new_s3_client() -> Cmd[S3Client]:
@@ -96,6 +107,7 @@ class _Upload:
     def from_connection(
         cls,
         conn: DbConnection,
+        data: Stream[SingerMessage],
         target: SchemaId,
         options: SingerHandlerOptions,
         records_limit: int,
@@ -113,6 +125,7 @@ class _Upload:
             lambda sql: table_client.bind(
                 lambda table: keeper.map(
                     lambda k: _Upload(
+                        data,
                         sql,
                         table,
                         options,
@@ -175,6 +188,12 @@ class _Upload:
     default=None,
     help="set of table names (separated by comma) that would not be recreated but will also receive new data",
 )
+@click.option(
+    "--ignore-failed",
+    type=bool,
+    is_flag=True,
+    help="ignore json items that does not decode to a singer message",
+)
 @pass_ctx
 def destroy_and_upload(
     ctx: CmdContext,
@@ -185,6 +204,7 @@ def destroy_and_upload(
     threads: int,
     s3_state: Optional[str],
     persistent_tables: Optional[str],
+    ignore_failed: bool,
 ) -> NoReturn:
     target = SchemaId(schema_name)
     options = SingerHandlerOptions(
@@ -202,10 +222,11 @@ def destroy_and_upload(
         .map(lambda raw: frozenset(raw.split(",")))
         .bind_optional(lambda f: f if f else None)
     )
+    _input = InputEmitter(ignore_failed).input_stream
     connection = connect(ctx.db_id, ctx.creds, False, IsolationLvl.AUTOCOMMIT)
     cmd: Cmd[None] = start_session() + connection.bind(
         lambda conn: _Upload.from_connection(
-            conn, target, options, records_limit, _state, _persistent
+            conn, _input, target, options, records_limit, _state, _persistent
         )
     ).bind(lambda u: u.emit())
     cmd.compute()
