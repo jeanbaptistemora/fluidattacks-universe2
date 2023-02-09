@@ -29,7 +29,7 @@ from typing import (
         "phone",
         "groups_length",
         "assigned",
-        "enrollment",
+        "enrolled",
     ),
     (
         (
@@ -43,16 +43,7 @@ from typing import (
             },
             3,
             [],
-            {
-                "enrolled": True,
-                "trial": {
-                    "completed": True,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            True,
         ),
         (
             "user@gmail.com",
@@ -65,16 +56,7 @@ from typing import (
             },
             1,
             [{"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b"}],
-            {
-                "enrolled": True,
-                "trial": {
-                    "completed": True,
-                    "extensionDate": "2017-04-05 19:45:11",
-                    "extensionDays": 5,
-                    "startDate": "2017-04-05 19:45:11",
-                    "state": "EXTENDED_ENDED",
-                },
-            },
+            True,
         ),
         (
             "user_manager@gmail.com",
@@ -87,16 +69,7 @@ from typing import (
             },
             1,
             [{"id": "de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad"}],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "vulnerability_manager@gmail.com",
@@ -109,16 +82,7 @@ from typing import (
             },
             1,
             [{"id": "be09edb7-cd5c-47ed-bee4-97c645acdce8"}],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "hacker@gmail.com",
@@ -131,16 +95,7 @@ from typing import (
             },
             2,
             [],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "reattacker@gmail.com",
@@ -153,16 +108,7 @@ from typing import (
             },
             1,
             [],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "resourcer@gmail.com",
@@ -175,16 +121,7 @@ from typing import (
             },
             1,
             [],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "reviewer@gmail.com",
@@ -197,16 +134,7 @@ from typing import (
             },
             2,
             [],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "service_forces@gmail.com",
@@ -215,16 +143,7 @@ from typing import (
             None,
             1,
             [],
-            {
-                "enrolled": False,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            False,
         ),
         (
             "customer_manager@fluidattacks.com",
@@ -237,16 +156,7 @@ from typing import (
             },
             1,
             [],
-            {
-                "enrolled": True,
-                "trial": {
-                    "completed": False,
-                    "extensionDate": "",
-                    "extensionDays": 0,
-                    "startDate": "",
-                    "state": "TRIAL_ENDED",
-                },
-            },
+            True,
         ),
     ),
 )
@@ -258,7 +168,7 @@ async def test_get_me(
     phone: dict[str, str],
     groups_length: int,
     assigned: list[dict[str, str]],
-    enrollment: dict[str, Any],
+    enrolled: bool,
 ) -> None:
     assert populate
     org_name: str = "orgtest"
@@ -270,7 +180,7 @@ async def test_get_me(
     assert "errors" not in result
     assert '{"hasAccessToken": false' in result["data"]["me"]["accessToken"]
     assert result["data"]["me"]["callerOrigin"] == "API"
-    assert enrollment
+    assert result["data"]["me"]["enrolled"] == enrolled
     assert result["data"]["me"]["vulnerabilitiesAssigned"] == assigned
     assert not result["data"]["me"]["isConcurrentSession"]
     assert len(result["data"]["me"]["notificationsPreferences"]["email"]) == 18

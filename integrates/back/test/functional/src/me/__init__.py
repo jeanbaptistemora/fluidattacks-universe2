@@ -19,9 +19,7 @@ async def get_result(
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
-            enrollment {{
-                enrolled
-            }}
+            enrolled
             isConcurrentSession
             notificationsPreferences{{
                 email

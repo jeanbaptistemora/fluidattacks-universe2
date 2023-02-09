@@ -8,9 +8,6 @@ from collections import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.enums import (
     GitCloningStatus,
     Source,
@@ -77,12 +74,6 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
-        "enrollments": (
-            Enrollment(
-                email="user@gmail.com",
-                enrolled=True,
-            ),
-        ),
         "events": [
             {
                 "event": Event(

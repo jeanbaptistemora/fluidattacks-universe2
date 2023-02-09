@@ -174,6 +174,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=user_email,
+                    enrolled=True,
                     first_name="",
                     last_name="",
                     registration_date=None,
@@ -198,6 +199,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=user_manager_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
@@ -218,6 +220,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=hacker_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
@@ -238,6 +241,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=resourcer_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
@@ -248,6 +252,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=reattacker_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
@@ -278,6 +283,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=reviewer_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
@@ -298,6 +304,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=service_forces_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                 ),
@@ -319,6 +326,7 @@ def generic_data(  # pylint: disable=too-many-locals
                 ),
                 Stakeholder(
                     email=vuln_manager_email,
+                    enrolled=False,
                     legal_remember=False,
                     is_registered=True,
                     phone=StakeholderPhone(
