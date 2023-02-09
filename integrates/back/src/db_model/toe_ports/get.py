@@ -105,7 +105,9 @@ async def _get_historic_state(
     return list(map(format_state, response.items))
 
 
-class ToePortHistoricStateLoader(DataLoader):
+class ToePortHistoricStateLoader(
+    DataLoader[ToePortRequest, list[ToePortState]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToePortRequest]
@@ -165,7 +167,9 @@ async def _get_toe_ports_by_group(
     )
 
 
-class GroupToePortsLoader(DataLoader):
+class GroupToePortsLoader(
+    DataLoader[GroupToePortsRequest, ToePortsConnection]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[GroupToePortsRequest]
@@ -175,7 +179,7 @@ class GroupToePortsLoader(DataLoader):
         )
 
     async def load_nodes(self, request: GroupToePortsRequest) -> list[ToePort]:
-        connection: ToePortsConnection = await self.load(request)
+        connection = await self.load(request)
         return list(edge.node for edge in connection.edges)
 
 

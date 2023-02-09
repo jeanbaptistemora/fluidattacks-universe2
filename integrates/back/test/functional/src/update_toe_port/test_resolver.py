@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from db_model.toe_ports.types import (
     ToePortRequest,
-    ToePortState,
 )
 import pytest
 from typing import (
@@ -69,9 +68,7 @@ async def test_update_toe_port(
     )
     assert toe_port
     assert toe_port.state.be_present == be_present
-    historic: tuple[
-        ToePortState, ...
-    ] = await loaders.toe_port_historic_state.load(
+    historic = await loaders.toe_port_historic_state.load(
         ToePortRequest(
             group_name=group_name, address=address, port=port, root_id=root_id
         )

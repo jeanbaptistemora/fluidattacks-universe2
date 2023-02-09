@@ -24,7 +24,6 @@ from search.operations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -37,7 +36,7 @@ async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **kwargs: Any,
-) -> Optional[ToeLinesConnection]:
+) -> ToeLinesConnection:
     toe_lines_filters: dict[str, Any] = toe_lines_filter(**kwargs)
 
     results = await search(
@@ -51,7 +50,6 @@ async def resolve(
     )
 
     toe_lines = tuple(format_toe_lines(result) for result in results.items)
-
     response = ToeLinesConnection(
         edges=tuple(
             ToeLinesEdge(
@@ -63,6 +61,7 @@ async def resolve(
         page_info=results.page_info,
         total=results.total,
     )
+
     return response
 
 

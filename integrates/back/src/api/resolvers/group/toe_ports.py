@@ -40,7 +40,7 @@ async def resolve(  # pylint: disable=too-many-arguments
     after: Optional[str] = None,
     be_present: Optional[bool] = None,
     first: Optional[int] = None,
-) -> Optional[ToePortsConnection]:
+) -> ToePortsConnection:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     if root_id is not None:
