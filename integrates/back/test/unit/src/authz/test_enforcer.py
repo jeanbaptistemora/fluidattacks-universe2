@@ -1,9 +1,11 @@
 import authz
 from authz.enforcer import (
+    get_group_level_enforcer,
     get_organization_level_enforcer,
     get_user_level_enforcer,
 )
 from authz.model import (
+    get_group_level_roles_model,
     get_organization_level_roles_model,
 )
 from back.test.unit.src.utils import (  # pylint: disable=import-error
@@ -120,23 +122,9 @@ async def test_organization_level_enforcer(
             ), f"{role} should not be able to do {action}"
 
 
-# pylint: disable=consider-using-dict-items
-@patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@patch(
-    "dynamodb.operations.get_resource",
-    new_callable=AsyncMock,
-)
 @pytest.mark.parametrize(
-    ["subject", "group", "role"],
+    ["email", "group", "role"],
     [
-        [
-            "integrates@fluidattacks.com",
-            "unittesting",
-            "admin",
-        ],
         [
             "integratesuser@gmail.com",
             "unittesting",
@@ -164,26 +152,38 @@ async def test_organization_level_enforcer(
         ],
     ],
 )
-@pytest.mark.changes_db
+@patch(MODULE_AT_TEST + "get_user_level_role", new_callable=AsyncMock)
+@patch(
+    MODULE_AT_TEST + "Dataloaders.stakeholder_groups_access",
+    new_callable=AsyncMock,
+)
 async def test_get_group_level_enforcer(
-    # pylint: disable=too-many-arguments
-    mock_resource: AsyncMock,
-    mock_table_resource: AsyncMock,
-    subject: str,
+    mock_dataloaders_stakeholder_groups_access: AsyncMock,
+    mock_get_user_level_role: AsyncMock,
+    email: str,
     group: str,
     role: str,
-    dynamo_resource: ServiceResource,
 ) -> None:
-    def mock_batch_get_item(**kwargs: Any) -> Any:
-        return dynamo_resource.batch_get_item(**kwargs)
-
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    model = authz.get_group_level_roles_model(subject)
-    mock_table_resource.return_value.query.side_effect = mock_query
-    mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
-    enforcer = await authz.get_group_level_enforcer(get_new_context(), subject)
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_dataloaders_stakeholder_groups_access.load,
+            mock_get_user_level_role,
+        ],
+        ["Dataloaders.stakeholder_groups_access", "get_user_level_role"],
+        [
+            [email],
+            [email],
+        ],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    model = get_group_level_roles_model(email)
+    loaders: Dataloaders = get_new_context()
+    enforcer = await get_group_level_enforcer(loaders, email)
     for action in model[role]["actions"]:
         assert enforcer(group, action), f"{role} should be able to do {action}"
     for other_role in model:
@@ -191,8 +191,7 @@ async def test_get_group_level_enforcer(
             assert not enforcer(
                 group, action
             ), f"{role} should not be able to do {action}"
-    assert mock_table_resource.called is True
-    assert mock_resource.called is True
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @pytest.mark.parametrize(
