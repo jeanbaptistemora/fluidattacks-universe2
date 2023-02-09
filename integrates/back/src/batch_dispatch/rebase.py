@@ -98,11 +98,7 @@ async def _get_vulnerabilities_to_rebase(
         if vuln.root_id == git_root.id
         and vuln.state.commit is not None
         and vuln.type == VulnerabilityType.LINES
-        and vuln.state.status
-        in (
-            VulnerabilityStateStatus.VULNERABLE,
-            VulnerabilityStateStatus.SAFE,
-        )
+        and vuln.state.status in (VulnerabilityStateStatus.VULNERABLE,)
     )
     return vulnerabilities
 
