@@ -3,18 +3,15 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.toe_ports.types import (
-    ToePort,
     ToePortRequest,
     ToePortState,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -52,7 +49,7 @@ async def test_update_toe_port(
 ) -> None:
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -64,12 +61,13 @@ async def test_update_toe_port(
     assert "errors" not in result
     assert "success" in result["data"]["updateToePort"]
     assert result["data"]["updateToePort"]["success"]
-    loaders: Dataloaders = get_new_context()
-    toe_port: ToePort = await loaders.toe_port.load(
+    loaders = get_new_context()
+    toe_port = await loaders.toe_port.load(
         ToePortRequest(
             group_name=group_name, address=address, port=port, root_id=root_id
         )
     )
+    assert toe_port
     assert toe_port.state.be_present == be_present
     historic: tuple[
         ToePortState, ...
@@ -116,7 +114,7 @@ async def test_update_toe_port_not_present(
     assert populate
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,
@@ -159,7 +157,7 @@ async def test_update_toe_port_access_denied(
     assert populate
     assert populate
     group_name: str = "group1"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         address=address,
         port=port,
         group_name=group_name,

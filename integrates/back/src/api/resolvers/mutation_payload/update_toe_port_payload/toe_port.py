@@ -1,26 +1,24 @@
 from api.mutations import (
     UpdateToePortPayload,
 )
+from custom_exceptions import (
+    ToePortNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
-from datetime import (
-    datetime,
-)
 from db_model.toe_ports.types import (
+    ToePort,
     ToePortRequest,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 async def resolve(
     parent: UpdateToePortPayload, info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[datetime]:
+) -> ToePort:
     loaders: Dataloaders = info.context.loaders
     request = ToePortRequest(
         address=parent.address,
@@ -29,4 +27,8 @@ async def resolve(
         root_id=parent.root_id,
     )
     loaders.toe_port.clear(request)
-    return await loaders.toe_port.load(request)
+    toe_port = await loaders.toe_port.load(request)
+    if toe_port is None:
+        raise ToePortNotFound()
+
+    return toe_port

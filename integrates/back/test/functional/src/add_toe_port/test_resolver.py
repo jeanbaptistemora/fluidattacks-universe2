@@ -6,7 +6,6 @@ from dataloaders import (
     get_new_context,
 )
 from db_model.toe_ports.types import (
-    ToePort,
     ToePortRequest,
 )
 import pytest
@@ -54,11 +53,12 @@ async def test_add_toe_port(
     assert "success" in result["data"]["addToePort"]
     assert result["data"]["addToePort"]["success"]
     loaders: Dataloaders = get_new_context()
-    toe_port: ToePort = await loaders.toe_port.load(
+    toe_port = await loaders.toe_port.load(
         ToePortRequest(
             group_name=group_name, address=address, port=port, root_id=root_id
         )
     )
+    assert toe_port
     assert toe_port.address == address
     assert toe_port.port == port
     assert toe_port.root_id == root_id

@@ -7,6 +7,9 @@ from api.mutations import (
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
+from custom_exceptions import (
+    ToePortNotFound,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -58,7 +61,7 @@ async def mutate(  # pylint: disable=too-many-arguments
 ) -> UpdateToePortPayload:
     try:
         user_info = await sessions_domain.get_jwt_content(info.context)
-        user_email: str = user_info["user_email"]
+        user_email = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
         current_value = await loaders.toe_port.load(
             ToePortRequest(
@@ -68,6 +71,9 @@ async def mutate(  # pylint: disable=too-many-arguments
                 root_id=root_id,
             )
         )
+        if current_value is None:
+            raise ToePortNotFound()
+
         be_present_to_update = (
             None
             if be_present is current_value.state.be_present

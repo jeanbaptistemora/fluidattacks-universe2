@@ -22,6 +22,7 @@ from custom_exceptions import (
     ToeLinesAlreadyUpdated,
     ToeLinesNotFound,
     ToePortAlreadyUpdated,
+    ToePortNotFound,
 )
 from dataloaders import (
     Dataloaders,
@@ -572,8 +573,8 @@ async def _process_toe_port(
             modified_by,
             is_moving_toe_port=True,
         )
-    except RepeatedToePort:
-        current_value: ToePort = await loaders.toe_port.load(
+    except RepeatedToePort as ex:
+        current_value = await loaders.toe_port.load(
             ToePortRequest(
                 address=toe_port.address,
                 port=toe_port.port,
@@ -581,6 +582,9 @@ async def _process_toe_port(
                 root_id=toe_port.root_id,
             )
         )
+        if current_value is None:
+            raise ToePortNotFound() from ex
+
         attributes_to_update = ToePortAttributesToUpdate(
             attacked_at=toe_port.state.attacked_at,
             attacked_by=toe_port.state.attacked_by,

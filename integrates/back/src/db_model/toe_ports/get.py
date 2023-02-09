@@ -37,12 +37,13 @@ from dynamodb.model import (
     TABLE,
 )
 from typing import (
+    Iterable,
     Optional,
 )
 
 
 async def _get_toe_ports(
-    requests: list[ToePortRequest],
+    requests: Iterable[ToePortRequest],
 ) -> list[Optional[ToePort]]:
     primary_keys = tuple(
         keys.build_key(
@@ -71,10 +72,10 @@ async def _get_toe_ports(
     return list(response[request] for request in requests)
 
 
-class ToePortLoader(DataLoader):
+class ToePortLoader(DataLoader[ToePortRequest, Optional[ToePort]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[ToePortRequest]
+        self, requests: Iterable[ToePortRequest]
     ) -> list[Optional[ToePort]]:
         return await _get_toe_ports(requests)
 
@@ -107,7 +108,7 @@ async def _get_historic_state(
 class ToePortHistoricStateLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[ToePortRequest]
+        self, requests: Iterable[ToePortRequest]
     ) -> list[list[ToePortState]]:
         return list(
             await collect(
@@ -167,7 +168,7 @@ async def _get_toe_ports_by_group(
 class GroupToePortsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[GroupToePortsRequest]
+        self, requests: Iterable[GroupToePortsRequest]
     ) -> list[ToePortsConnection]:
         return list(
             await collect(tuple(map(_get_toe_ports_by_group, requests)))
@@ -232,7 +233,7 @@ async def _get_toe_ports_by_root(
 class RootToePortsLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, requests: list[RootToePortsRequest]
+        self, requests: Iterable[RootToePortsRequest]
     ) -> list[Optional[ToePortsConnection]]:
         return list(
             await collect(tuple(map(_get_toe_ports_by_root, requests)))
