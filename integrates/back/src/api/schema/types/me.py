@@ -2,6 +2,7 @@ from api.resolvers.me import (
     access_token,
     credentials,
     drafts,
+    enrolled,
     enrollment,
     finding_reattacks_connection,
     has_drafts_rejected,
@@ -28,6 +29,7 @@ ME = ObjectType("Me")
 ME.set_field("accessToken", access_token.resolve)
 ME.set_field("credentials", credentials.resolve)
 ME.set_field("drafts", drafts.resolve)
+ME.set_field("enrolled", enrolled.resolve)
 ME.set_field("enrollment", enrollment.resolve)
 ME.set_field(
     "findingReattacksConnection", finding_reattacks_connection.resolve

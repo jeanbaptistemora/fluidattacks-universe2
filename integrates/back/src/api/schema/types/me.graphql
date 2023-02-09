@@ -8,6 +8,8 @@ type Me {
   credentials: [Credentials!]
   "New findings yet to be approved"
   drafts: [Finding!]
+  "If true, the user has completed initial enrollment process successfully"
+  enrolled: Boolean!
   "Enrollment information"
   enrollment: Enrollment!
   @deprecated(
