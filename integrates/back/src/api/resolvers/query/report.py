@@ -58,8 +58,8 @@ from newutils.findings import (
     is_valid_finding_title,
 )
 from newutils.validations import (
-    validate_field_length,
-    validate_fields,
+    validate_field_length_deco,
+    validate_fields_deco,
 )
 from newutils.vulnerabilities import (
     get_inverted_state_converted,
@@ -127,6 +127,8 @@ def _filter_unique_report(
     return new_type == additional_info.get("report_type")
 
 
+@validate_fields_deco(["location"])
+@validate_field_length_deco("location", limit=100, is_greater_than_limit=False)
 @enforce_group_level_auth_async
 # noqa pylint: disable=too-many-locals
 async def _get_url_group_report(
@@ -262,16 +264,6 @@ async def _get_finding_title(finding_title: Optional[str]) -> str:
     return ""
 
 
-def _validate_location(location: Optional[str]) -> None:
-    if location:
-        validate_fields([location])
-        validate_field_length(
-            location,
-            limit=100,
-            is_greater_than_limit=False,
-        )
-
-
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(  # pylint: disable=too-many-locals
@@ -371,7 +363,6 @@ async def resolve(  # pylint: disable=too-many-locals
     _validate_max_severity(**kwargs)
     _validate_days(kwargs.get("last_report", None))
     _validate_closing_date(closing_date=kwargs.get("max_release_date", None))
-    _validate_location(location=kwargs.get("location", None))
 
     return {
         "success": await _get_url_group_report(
