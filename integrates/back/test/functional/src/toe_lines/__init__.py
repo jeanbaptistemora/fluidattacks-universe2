@@ -15,6 +15,7 @@ def get_query() -> str:
     return """
         query(
             $attackedBy: String
+            $comments: String
             $fromModifiedDate: DateTime
             $fromSeenAt: DateTime
             $groupName: String!
@@ -33,6 +34,7 @@ def get_query() -> str:
                 name
                 toeLines(
                     attackedBy: $attackedBy
+                    comments: $comments
                     fromModifiedDate: $fromModifiedDate
                     fromSeenAt: $fromSeenAt
                     hasVulnerabilities: $hasVulnerabilities
