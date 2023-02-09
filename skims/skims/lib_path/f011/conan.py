@@ -30,7 +30,7 @@ def conan_conanfile_txt(content: str, path: str) -> Iterator[DependencyType]:
         elif line_deps:
             if not line:
                 break
-            pkg_name, pkg_version = line.split("/")
+            pkg_name, pkg_version = get_dep_info(line)
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
