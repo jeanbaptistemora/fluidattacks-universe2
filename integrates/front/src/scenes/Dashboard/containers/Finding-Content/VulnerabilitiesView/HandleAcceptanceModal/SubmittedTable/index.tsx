@@ -14,7 +14,7 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
 ): JSX.Element => {
   const {
     acceptanceVulns,
-    isConfirmRejectLocationSelected,
+    isConfirmRejectVulnerabilitySelected,
     setAcceptanceVulns,
   } = props;
 
@@ -77,7 +77,7 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
 
   return (
     <React.StrictMode>
-      {isConfirmRejectLocationSelected ? (
+      {isConfirmRejectVulnerabilitySelected ? (
         <Table columns={columns} data={acceptanceVulns} id={"submittedTable"} />
       ) : undefined}
     </React.StrictMode>

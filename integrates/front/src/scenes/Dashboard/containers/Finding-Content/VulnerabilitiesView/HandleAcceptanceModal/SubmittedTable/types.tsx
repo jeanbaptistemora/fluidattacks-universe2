@@ -2,7 +2,7 @@ import type { IVulnDataAttr } from "../types";
 
 interface ISubmittedTableProps {
   acceptanceVulns: IVulnDataAttr[];
-  isConfirmRejectLocationSelected: boolean;
+  isConfirmRejectVulnerabilitySelected: boolean;
   setAcceptanceVulns: (vulns: IVulnDataAttr[]) => void;
 }
 

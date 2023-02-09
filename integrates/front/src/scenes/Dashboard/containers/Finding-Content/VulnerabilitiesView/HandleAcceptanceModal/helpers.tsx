@@ -32,7 +32,7 @@ const onTreatmentChangeHelper = (
   vulns: IVulnerabilitiesAttr[],
   setAcceptanceVulns: (pendingVulnsToHandleAcceptance: IVulnDataAttr[]) => void,
   isConfirmRejectZeroRiskSelected: boolean,
-  isConfirmRejectLocationSelected: boolean
+  isConfirmRejectVulnerabilitySelected: boolean
 ): void => {
   if (isAcceptedUndefinedSelected) {
     const pendingVulnsToHandleAcceptance: IVulnDataAttr[] =
@@ -42,7 +42,7 @@ const onTreatmentChangeHelper = (
     const requestedZeroRiskVulns: IVulnDataAttr[] =
       getRequestedZeroRiskVulns(vulns);
     setAcceptanceVulns([...requestedZeroRiskVulns]);
-  } else if (isConfirmRejectLocationSelected) {
+  } else if (isConfirmRejectVulnerabilitySelected) {
     const submittedVulns: IVulnDataAttr[] = getSubmittedVulns(vulns);
     setAcceptanceVulns([...submittedVulns]);
   } else {
@@ -100,6 +100,42 @@ const acceptanceProps = (
             },
           ],
   };
+};
+
+const confirmVulnerabilityHelper = (
+  isConfirmRejectVulnerabilitySelected: boolean,
+  confirmVulnerabilities: (
+    options?: MutationFunctionOptions | undefined
+  ) => Promise<FetchResult>,
+  confirmedVulns: IVulnDataAttr[],
+  values: {
+    justification: string;
+  }
+): void => {
+  if (isConfirmRejectVulnerabilitySelected && !_.isEmpty(confirmedVulns)) {
+    Object.entries(
+      _.groupBy(
+        confirmedVulns,
+        (vulnerability: IVulnDataAttr): string => vulnerability.findingId
+      )
+    ).forEach(
+      async ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataAttr[]
+      ]): Promise<void> => {
+        const confirmedVulnIds: string[] = chunkedVulnerabilities.map(
+          (vulnerability: IVulnDataAttr): string => vulnerability.id
+        );
+        await confirmVulnerabilities({
+          variables: {
+            findingId,
+            justification: values.justification,
+            vulnerabilities: confirmedVulnIds,
+          },
+        });
+      }
+    );
+  }
 };
 
 const confirmZeroRiskProps = (
@@ -346,12 +382,50 @@ const isRejectZeroRiskSelectedHelper = (
   }
 };
 
+const rejectVulnerabilityHelper = (
+  isConfirmRejectVulnerabilitySelected: boolean,
+  rejectVulnerabilities: (
+    options?: MutationFunctionOptions | undefined
+  ) => Promise<FetchResult>,
+  values: {
+    justification: string;
+  },
+  rejectedVulns: IVulnDataAttr[]
+): void => {
+  if (isConfirmRejectVulnerabilitySelected && !_.isEmpty(rejectedVulns)) {
+    Object.entries(
+      _.groupBy(
+        rejectedVulns,
+        (vulnerability: IVulnDataAttr): string => vulnerability.findingId
+      )
+    ).forEach(
+      async ([findingId, chunkedVulnerabilities]: [
+        string,
+        IVulnDataAttr[]
+      ]): Promise<void> => {
+        const rejectedVulnIds: string[] = chunkedVulnerabilities.map(
+          (vulnerability: IVulnDataAttr): string => vulnerability.id
+        );
+        await rejectVulnerabilities({
+          variables: {
+            findingId,
+            justification: values.justification,
+            vulnerabilities: rejectedVulnIds,
+          },
+        });
+      }
+    );
+  }
+};
+
 export {
   acceptanceProps,
   confirmZeroRiskProps,
+  confirmVulnerabilityHelper,
   isAcceptedUndefinedSelectedHelper,
   isConfirmZeroRiskSelectedHelper,
   isRejectZeroRiskSelectedHelper,
   onTreatmentChangeHelper,
+  rejectVulnerabilityHelper,
   rejectZeroRiskProps,
 };
