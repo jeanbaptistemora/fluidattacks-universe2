@@ -81,7 +81,7 @@ async def in_trial(
         loaders.trial.load(user_email),
     )
 
-    if not stakeholder.enrolled:
+    if stakeholder and not stakeholder.enrolled:
         return True
 
     if trial:

@@ -8,10 +8,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-    StakeholderPhone,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -31,7 +27,6 @@ from stakeholders.utils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from verify import (
     operations as verify_operations,
@@ -55,10 +50,8 @@ async def resolve(
         info.context
     )
     stakeholder_email: str = user_info["user_email"]
-    stakeholder: Stakeholder = await loaders.stakeholder.load(
-        stakeholder_email
-    )
-    user_phone: Optional[StakeholderPhone] = stakeholder.phone
+    stakeholder = await loaders.stakeholder.load(stakeholder_email)
+    user_phone = stakeholder.phone if stakeholder else None
     if not user_phone:
         raise RequiredNewPhoneNumber()
 

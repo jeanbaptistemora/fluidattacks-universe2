@@ -8,9 +8,6 @@ from dataloaders import (
 from db_model.stakeholders import (
     get_historic_state,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from decimal import (
     Decimal,
 )
@@ -32,8 +29,8 @@ async def test_update_notification_preferences(
 ) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.email == email
     assert (
         "ACCESS_GRANTED" in stakeholder.state.notifications_preferences.email
@@ -50,6 +47,7 @@ async def test_update_notification_preferences(
 
     loaders.stakeholder.clear_all()
     stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert (
         "ACCESS_GRANTED"
         not in stakeholder.state.notifications_preferences.email

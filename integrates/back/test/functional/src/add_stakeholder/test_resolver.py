@@ -4,9 +4,6 @@ from . import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -26,5 +23,6 @@ async def test_admin(populate: bool) -> None:
     assert "success" in result["data"]["addStakeholder"]
     assert result["data"]["addStakeholder"]["success"]
     loaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.email == email

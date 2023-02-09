@@ -2,6 +2,9 @@ from .common import (
     GENERAL_TAG,
     send_mails_async,
 )
+from aioextensions import (
+    collect,
+)
 from context import (
     BASE_URL,
 )
@@ -26,6 +29,9 @@ from mailer.utils import (
 )
 from newutils import (
     datetime as datetime_utils,
+)
+from stakeholders.domain import (
+    get_stakeholder,
 )
 from typing import (
     Any,
@@ -62,7 +68,9 @@ async def send_mail_event_report(  # pylint: disable=too-many-locals
     recipients: list[str] = await get_group_stakeholders_emails(
         loaders, group_name
     )
-    stakeholders = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await collect(
+        list(get_stakeholder(loaders, email) for email in recipients)
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

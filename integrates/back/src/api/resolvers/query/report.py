@@ -28,10 +28,6 @@ from datetime import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-    StakeholderPhone,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityTreatmentStatus,
@@ -172,8 +168,8 @@ async def _get_url_group_report(
     ):
         raise ReportAlreadyRequested()
     loaders: Dataloaders = info.context.loaders
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-    user_phone: Optional[StakeholderPhone] = stakeholder.phone
+    stakeholder = await loaders.stakeholder.load(user_email)
+    user_phone = stakeholder.phone if stakeholder else None
     if not user_phone:
         raise RequiredNewPhoneNumber()
 

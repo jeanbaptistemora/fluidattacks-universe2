@@ -26,9 +26,6 @@ from db_model.enums import (
 from db_model.findings.types import (
     Finding,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
     VulnerabilityTreatmentStatus,
@@ -53,6 +50,9 @@ from newutils import (
     datetime as datetime_utils,
     validations,
     vulnerabilities as vulns_utils,
+)
+from stakeholders.domain import (
+    get_stakeholder,
 )
 from typing import (
     Optional,
@@ -470,7 +470,7 @@ async def validate_and_send_notification_request(
         list(vuln.state.where for vuln in assigned_vulns)
     )
 
-    stakeholder: Stakeholder = await loaders.stakeholder.load(assigned)
+    stakeholder = await get_stakeholder(loaders, assigned)
     await send_treatment_change_mail(
         loaders=loaders,
         assigned=assigned,

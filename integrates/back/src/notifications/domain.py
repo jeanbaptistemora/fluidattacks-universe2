@@ -26,9 +26,6 @@ from db_model.groups.types import (
     Group,
     GroupState,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -62,8 +59,8 @@ from typing import (
 async def _get_recipient_first_name_async(
     loaders: Dataloaders, email: str
 ) -> str:
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    first_name = stakeholder.first_name
+    stakeholder = await loaders.stakeholder.load(email)
+    first_name = stakeholder.first_name if stakeholder else ""
     if not first_name:
         first_name = email.split("@")[0]
     else:

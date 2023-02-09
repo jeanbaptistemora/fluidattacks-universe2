@@ -47,9 +47,6 @@ from db_model.roots.types import (
     IPRoot,
     URLRoot,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
@@ -103,6 +100,9 @@ from roots import (
 )
 from settings import (
     LOGGING,
+)
+from stakeholders import (
+    domain as stakeholder_domain,
 )
 from toe.inputs import (
     domain as toe_inputs_domain,
@@ -607,7 +607,9 @@ async def get_recipients(
     source_group_name: str,
     target_group_name: str,
 ) -> list[str]:
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email_to[0])
+    stakeholder = await stakeholder_domain.get_stakeholder(
+        loaders, email_to[0]
+    )
     if (
         Notification.ROOT_UPDATE
         not in stakeholder.state.notifications_preferences.email

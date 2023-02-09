@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -42,7 +39,8 @@ async def test_update_stakeholder_phone(
     assert "errors" not in result
     assert result["data"]["updateStakeholderPhone"]["success"]
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert (
         stakeholder.phone.national_number  # type: ignore
         == new_phone["nationalNumber"]

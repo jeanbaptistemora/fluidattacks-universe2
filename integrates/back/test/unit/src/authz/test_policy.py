@@ -354,16 +354,11 @@ async def test_revoke_group_level_role(
     ],
 )
 @patch(
-    get_mocked_path("loaders.stakeholder_with_fallback.load"),
-    new_callable=AsyncMock,
-)
-@patch(
     get_mocked_path("stakeholders_model.update_metadata"),
     new_callable=AsyncMock,
 )
 async def test_revoke_user_level_role(
     mock_stakeholder_update_metadata: AsyncMock,
-    mock_stakeholder_with_fallback: AsyncMock,
     email: str,
 ) -> None:
 
@@ -372,11 +367,6 @@ async def test_revoke_user_level_role(
         get_mocked_path("stakeholders_model.update_metadata"),
         json.dumps([email]),
     )
-    mock_stakeholder_with_fallback.return_value = get_mock_response(
-        get_mocked_path("loaders.stakeholder_with_fallback.load"),
-        json.dumps([email]),
-    )
     await revoke_user_level_role(loaders, email)
 
     assert mock_stakeholder_update_metadata.called is True
-    assert mock_stakeholder_with_fallback.called is True

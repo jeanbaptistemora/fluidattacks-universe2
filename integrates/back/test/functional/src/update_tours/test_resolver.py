@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -39,7 +36,8 @@ async def test_update_tours(
     assert "errors" not in result
     assert result["data"]["updateTours"]["success"]
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.tours.new_group is True
     assert stakeholder.tours.new_risk_exposure is True
     assert stakeholder.tours.new_root is True

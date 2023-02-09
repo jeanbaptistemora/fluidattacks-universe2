@@ -26,9 +26,6 @@ from db_model.groups.enums import (
 from db_model.groups.types import (
     Group,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from db_model.subscriptions.enums import (
     SubscriptionEntity,
     SubscriptionFrequency,
@@ -143,8 +140,8 @@ async def _send_mail_analytics(
             )
             return
 
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    if (
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder and (
         Notification.CHARTS_REPORT
         not in stakeholder.state.notifications_preferences.email
     ):

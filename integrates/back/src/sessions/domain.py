@@ -4,7 +4,6 @@ from context import (
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
 )
-import contextlib
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
@@ -23,7 +22,6 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.stakeholders.types import (
-    Stakeholder,
     StakeholderMetadataToUpdate,
     StakeholderSessionToken,
     StateSessionType,
@@ -220,11 +218,10 @@ async def remove_session_token(content: Dict[str, Any], email: str) -> None:
 
 
 async def verify_session_token(content: Dict[str, Any], email: str) -> None:
-    try:
-        loaders: Dataloaders = get_new_context()
-        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    except StakeholderNotFound as ex:
-        raise InvalidAuthorization() from ex
+    loaders: Dataloaders = get_new_context()
+    stakeholder = await loaders.stakeholder.load(email)
+    if not stakeholder:
+        raise InvalidAuthorization()
 
     if stakeholder.session_token:
         if stakeholder.session_token.state == StateSessionType.REVOKED:
@@ -254,11 +251,9 @@ async def create_session_web(request: Request, email: str) -> None:
 
 
 async def get_session_key(email: str) -> Optional[str]:
-    session_key: Optional[str] = None
-    with contextlib.suppress(StakeholderNotFound):
-        loaders: Dataloaders = get_new_context()
-        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-        session_key = stakeholder.session_key
+    loaders: Dataloaders = get_new_context()
+    stakeholder = await loaders.stakeholder.load(email)
+    session_key = stakeholder.session_key if stakeholder else None
     return session_key
 
 

@@ -23,9 +23,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     DraftRejection,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
@@ -49,6 +46,9 @@ from newutils import (
 )
 from sessions import (
     domain as sessions_domain,
+)
+from stakeholders.domain import (
+    get_stakeholder,
 )
 from typing import (
     Optional,
@@ -84,9 +84,7 @@ async def mutate(
             reviewer_email=user_info["user_email"],
             source=source,
         )
-        stakeholder: Stakeholder = await loaders.stakeholder.load(
-            rejection.rejected_by
-        )
+        stakeholder = await get_stakeholder(loaders, rejection.rejected_by)
         if (
             source != Source.MACHINE
             and Notification.NEW_DRAFT

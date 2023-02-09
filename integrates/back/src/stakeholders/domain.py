@@ -95,6 +95,13 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_stakeholder(loaders: Dataloaders, email: str) -> Stakeholder:
+    stakeholder = await loaders.stakeholder.load(email)
+    if not stakeholder:
+        raise StakeholderNotFound()
+    return stakeholder
+
+
 async def acknowledge_concurrent_session(email: str) -> None:
     """Acknowledge termination of concurrent session."""
     await stakeholders_model.update_metadata(
@@ -211,7 +218,7 @@ async def has_valid_access_token(
     """Verify if has active access token and match."""
     if not await exists(loaders, email):
         return False
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await get_stakeholder(loaders, email)
     if context and stakeholder.access_token:
         if sessions_utils.validate_hash_token(stakeholder.access_token, jti):
             if is_fluid_staff(email) and email.lower().startswith("forces."):
@@ -410,7 +417,7 @@ async def verify(
     verification_code: Optional[str],
 ) -> None:
     """Start a verification process using OTP"""
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await get_stakeholder(loaders, email)
     stakeholder_phone: Optional[StakeholderPhone] = stakeholder.phone
     phone_to_verify = stakeholder_phone if new_phone is None else new_phone
     if new_phone:
@@ -450,8 +457,6 @@ async def verify(
 
 
 async def exists(loaders: Dataloaders, email: str) -> bool:
-    try:
-        await loaders.stakeholder.load(email)
+    if await loaders.stakeholder.load(email):
         return True
-    except StakeholderNotFound:
-        return False
+    return False

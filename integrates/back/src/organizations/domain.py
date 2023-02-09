@@ -332,8 +332,8 @@ async def complete_register_for_organization_invitation(
             role="user",
             is_register_after_complete=True,
         )
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    if not stakeholder.enrolled:
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder and not stakeholder.enrolled:
         enrollment: Enrollment = await loaders.enrollment.load(email)
         if not enrollment.enrolled:
             await stakeholders_domain.update(

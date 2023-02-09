@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -42,5 +39,6 @@ async def test_acknowledge_concurrent_session(
     assert result["data"]["acknowledgeConcurrentSession"]["success"]
 
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.is_concurrent_session is False

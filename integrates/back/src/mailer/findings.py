@@ -4,6 +4,9 @@ from .common import (
     send_mails_async,
     VERIFY_TAG,
 )
+from aioextensions import (
+    collect,
+)
 import authz
 from context import (
     BASE_URL,
@@ -48,6 +51,7 @@ from mailer.utils import (
     get_organization_name,
 )
 from stakeholders.domain import (
+    get_stakeholder,
     is_fluid_staff,
 )
 from typing import (
@@ -94,7 +98,9 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    stakeholders = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await collect(
+        list(get_stakeholder(loaders, email) for email in recipients)
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
@@ -264,7 +270,9 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(loaders, group_name)
-    stakeholders = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await collect(
+        list(get_stakeholder(loaders, email) for email in recipients)
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
@@ -332,7 +340,9 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         loaders, group_name
     )
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
-    stakeholders = await loaders.stakeholder.load_many(recipients)
+    stakeholders = await collect(
+        list(get_stakeholder(loaders, email) for email in recipients)
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

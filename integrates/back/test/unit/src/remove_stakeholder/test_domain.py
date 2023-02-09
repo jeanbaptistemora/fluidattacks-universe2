@@ -14,9 +14,6 @@ from db_model.group_access.types import (
     GroupAccessState,
     GroupConfirmDeletion,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from group_access import (
     domain as group_access_domain,
 )
@@ -169,7 +166,8 @@ async def test_remove_stakeholder() -> None:
     modified_by: str = "admin@test.test"
     await autoenroll_stakeholder(email, "FirstName", "LastName")
 
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.email == email
     assert stakeholder.role == "user"
 

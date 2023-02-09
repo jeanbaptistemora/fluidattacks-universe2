@@ -2,6 +2,9 @@ from .common import (
     GENERAL_TAG,
     send_mails_async,
 )
+from aioextensions import (
+    collect,
+)
 import authz
 from context import (
     BASE_URL,
@@ -20,6 +23,9 @@ from group_access import (
 )
 from mailer.utils import (
     get_organization_name,
+)
+from stakeholders.domain import (
+    get_stakeholder,
 )
 from typing import (
     Any,
@@ -41,7 +47,9 @@ async def send_mail_updated_treatment(
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     managers = await group_access_domain.get_managers(loaders, group_name)
-    stakeholders = await loaders.stakeholder.load_many(managers)
+    stakeholders = await collect(
+        list(get_stakeholder(loaders, manager) for manager in managers)
+    )
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders

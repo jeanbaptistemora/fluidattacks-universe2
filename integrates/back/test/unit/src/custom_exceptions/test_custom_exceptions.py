@@ -15,7 +15,6 @@ from custom_exceptions import (
     InvalidSchema,
     OrganizationNotFound,
     RepeatedValues,
-    StakeholderNotFound,
     UnableToSendSms,
     UnavailabilityError,
     VulnNotFound,
@@ -470,8 +469,7 @@ async def test_stakeholder_not_found(
     mock_resource.return_value.batch_get_item.side_effect = mock_batch_get_item
     email: str = "testanewuser@test.test"
     loaders: Dataloaders = get_new_context()
-    with pytest.raises(StakeholderNotFound):
-        await loaders.stakeholder.load(email)
+    assert not await loaders.stakeholder.load(email)
     assert mock_resource.called is True
 
 

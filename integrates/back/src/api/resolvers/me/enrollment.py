@@ -4,9 +4,6 @@ from dataloaders import (
 from db_model.enrollment.types import (
     Enrollment,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -22,9 +19,9 @@ async def resolve(
     user_email = str(parent["user_email"])
     loaders: Dataloaders = info.context.loaders
     enrollment: Enrollment = await loaders.enrollment.load(user_email)
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    stakeholder = await loaders.stakeholder.load(user_email)
 
-    if stakeholder.enrolled:
+    if stakeholder and stakeholder.enrolled:
         return Enrollment(
             email=stakeholder.email, enrolled=stakeholder.enrolled
         )

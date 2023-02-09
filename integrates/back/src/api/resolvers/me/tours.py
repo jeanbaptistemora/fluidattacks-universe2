@@ -8,6 +8,9 @@ from db_model.stakeholders.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from stakeholders.domain import (
+    get_stakeholder,
+)
 from typing import (
     Any,
     Dict,
@@ -19,5 +22,5 @@ async def resolve(
 ) -> StakeholderTours:
     user_email = str(parent["user_email"])
     loaders: Dataloaders = info.context.loaders
-    stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
+    stakeholder: Stakeholder = await get_stakeholder(loaders, user_email)
     return stakeholder.tours

@@ -24,7 +24,6 @@ from db_model.enrollment.types import (
 )
 from db_model.stakeholders.types import (
     NotificationsPreferences,
-    Stakeholder,
     StakeholderMetadataToUpdate,
     StakeholderState,
 )
@@ -253,7 +252,9 @@ async def log_stakeholder_in(
     first_name = stakeholder.first_name[:29]
     last_name = stakeholder.last_name[:29]
     if await stakeholders_domain.exists(loaders, email):
-        stakeholder_in_db: Stakeholder = await loaders.stakeholder.load(email)
+        stakeholder_in_db = await stakeholders_domain.get_stakeholder(
+            loaders, email
+        )
         enrollment: Enrollment = await loaders.enrollment.load(email)
         if not stakeholder_in_db.enrolled and not enrollment.enrolled:
             await analytics.mixpanel_track(email, "AutoenrollmentWelcome")

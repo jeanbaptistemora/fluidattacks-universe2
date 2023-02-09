@@ -22,6 +22,9 @@ from graphql.type.definition import (
 from sessions import (
     domain as sessions_domain,
 )
+from stakeholders.domain import (
+    get_stakeholder,
+)
 
 
 @enforce_organization_level_auth_async
@@ -34,7 +37,7 @@ async def _resolve_for_organization(
     if not organization_id:
         raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    return await loaders.stakeholder.load(email)
+    return await get_stakeholder(loaders, email)
 
 
 @enforce_group_level_auth_async
@@ -47,7 +50,7 @@ async def _resolve_for_group(
     if not group_name:
         raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    return await loaders.stakeholder.load(email)
+    return await get_stakeholder(loaders, email)
 
 
 @convert_kwargs_to_snake_case

@@ -97,7 +97,6 @@ from db_model.groups.types import (
     GroupUnreliableIndicators,
 )
 from db_model.stakeholders.types import (
-    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from db_model.types import (
@@ -252,15 +251,15 @@ async def complete_register_for_group_invitation(
         await stakeholders_domain.register(email)
         await authz.grant_user_level_role(email, "user")
 
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-    if not stakeholder.is_registered:
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder and not stakeholder.is_registered:
         coroutines.extend(
             [
                 stakeholders_domain.register(email),
                 authz.grant_user_level_role(email, "user"),
             ]
         )
-    if not stakeholder.enrolled:
+    if stakeholder and not stakeholder.enrolled:
         enrollment: Enrollment = await loaders.enrollment.load(email)
         if not enrollment.enrolled:
             coroutines.extend(

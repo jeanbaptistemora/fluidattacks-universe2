@@ -2,9 +2,6 @@ from . import (
     get_result,
     get_stakeholder_organizations,
 )
-from custom_exceptions import (
-    StakeholderNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -51,8 +48,7 @@ async def test_unsubscribe_from_group(
 
     loaders: Dataloaders = get_new_context()
     if to_be_removed:
-        with pytest.raises(StakeholderNotFound):
-            await loaders.stakeholder.load(email)
+        assert not await loaders.stakeholder.load(email)
     else:
         assert await loaders.stakeholder.load(email)
 

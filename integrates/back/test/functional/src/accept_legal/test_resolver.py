@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -36,14 +33,16 @@ async def test_accept_legal(
     populate: bool, email: str, remember: bool
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
     assert populate
+    assert stakeholder
     assert stakeholder.legal_remember == remember
     result: Dict[str, Any] = await get_result(
         user=email,
     )
     new_loaders: Dataloaders = get_new_context()
-    new_stakeholder: Stakeholder = await new_loaders.stakeholder.load(email)
+    new_stakeholder = await new_loaders.stakeholder.load(email)
+    assert new_stakeholder
     assert new_stakeholder.legal_remember is False
 
     assert "errors" not in result

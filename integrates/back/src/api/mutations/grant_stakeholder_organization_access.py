@@ -50,6 +50,9 @@ from organizations import (
 from sessions import (
     domain as sessions_domain,
 )
+from stakeholders.domain import (
+    get_stakeholder,
+)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -79,8 +82,8 @@ async def mutate(
             raise StakeholderHasOrganizationAccess()
 
         with suppress(StakeholderNotFound):
-            stakeholder: Stakeholder = await loaders.stakeholder.load(
-                stakeholder_email
+            stakeholder: Stakeholder = await get_stakeholder(
+                loaders, stakeholder_email
             )
             invitation_state = org_access_utils.format_invitation_state(
                 invitation=organization_access.invitation,

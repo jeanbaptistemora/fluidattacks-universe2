@@ -1,6 +1,3 @@
-from custom_exceptions import (
-    StakeholderNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -73,8 +70,9 @@ async def test_remove_inactive_stakeholders() -> None:
         "inactive_imamura2@fluidattacks.com"
     )
     assert inactive_stakeholder2
-    with pytest.raises(StakeholderNotFound):
-        await loaders.stakeholder.load("inactive_imamura1@fluidattacks.com")
+    assert not await (
+        loaders.stakeholder.load("inactive_imamura1@fluidattacks.com")
+    )
 
     # Second run, set inactivity period policy
     await orgs_domain.update_policies(
@@ -99,5 +97,6 @@ async def test_remove_inactive_stakeholders() -> None:
         "active_imamura3@fluidattacks.com"
     )
     assert active_stakeholder3
-    with pytest.raises(StakeholderNotFound):
-        await loaders.stakeholder.load("inactive_imamura2@fluidattacks.com")
+    assert not await (
+        loaders.stakeholder.load("inactive_imamura2@fluidattacks.com")
+    )

@@ -12,10 +12,6 @@ from dataloaders import (
 from db_model.organizations.types import (
     Organization,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-    StakeholderPhone,
-)
 from decorators import (
     concurrent_decorators,
     enforce_organization_level_auth_async,
@@ -66,8 +62,8 @@ async def resolve(
     )
     if not sessions_utils.is_api_token(user_info):
         user_email: str = user_info["user_email"]
-        stakeholder: Stakeholder = await loaders.stakeholder.load(user_email)
-        user_phone: Optional[StakeholderPhone] = stakeholder.phone
+        stakeholder = await loaders.stakeholder.load(user_email)
+        user_phone = stakeholder.phone if stakeholder else None
         if not user_phone:
             raise RequiredNewPhoneNumber()
 

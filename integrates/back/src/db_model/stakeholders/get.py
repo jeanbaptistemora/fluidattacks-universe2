@@ -16,7 +16,6 @@ from boto3.dynamodb.conditions import (
 )
 from custom_exceptions import (
     ErrorLoadingStakeholders,
-    StakeholderNotFound,
 )
 from db_model import (
     TABLE,
@@ -97,21 +96,23 @@ async def get_historic_state(*, email: str) -> list[StakeholderState]:
 
 async def _get_stakeholders_no_fallback(
     *, emails: Iterable[str]
-) -> list[Stakeholder]:
+) -> list[Optional[Stakeholder]]:
     emails_formatted = [email.lower().strip() for email in emails]
     items = await _get_stakeholder_items(emails=emails_formatted)
 
-    if len(items) != len(emails_formatted):
-        raise StakeholderNotFound()
-
-    return [
-        next(
-            format_stakeholder(item)
-            for item in items
-            if (item.get("email") or str(item["pk"]).split("#")[1]) == email
+    stakeholders: list[Optional[Stakeholder]] = []
+    for email in emails_formatted:
+        stakeholder = next(
+            (
+                format_stakeholder(item)
+                for item in items
+                if (item.get("email") or str(item["pk"]).split("#")[1])
+                == email
+            ),
+            None,
         )
-        for email in emails_formatted
-    ]
+        stakeholders.append(stakeholder)
+    return stakeholders
 
 
 async def _get_stakeholders_with_fallback(
@@ -141,9 +142,11 @@ async def _get_stakeholders_with_fallback(
     return stakeholders
 
 
-class StakeholderLoader(DataLoader[str, Stakeholder]):
+class StakeholderLoader(DataLoader[str, Optional[Stakeholder]]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(self, emails: Iterable[str]) -> list[Stakeholder]:
+    async def batch_load_fn(
+        self, emails: Iterable[str]
+    ) -> list[Optional[Stakeholder]]:
         return await _get_stakeholders_no_fallback(emails=emails)
 
 

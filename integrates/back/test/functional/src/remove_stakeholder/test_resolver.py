@@ -10,18 +10,12 @@ from back.test.functional.src.update_notification_preferences import (
 from back.test.functional.src.utils import (
     confirm_deletion,
 )
-from custom_exceptions import (
-    StakeholderNotFound,
-)
 from dataloaders import (
     Dataloaders,
     get_new_context,
 )
 from db_model.stakeholders.get import (
     get_historic_state,
-)
-from db_model.stakeholders.types import (
-    Stakeholder,
 )
 from decimal import (
     Decimal,
@@ -76,8 +70,9 @@ async def test_remove_stakeholder(
     assert "errors" not in result
     assert result["data"]["updateNotificationsPreferences"]["success"]
     old_loaders: Dataloaders = get_new_context()
-    old_stakeholder: Stakeholder = await old_loaders.stakeholder.load(email)
+    old_stakeholder = await old_loaders.stakeholder.load(email)
     historic_state = await get_historic_state(email=email)
+    assert old_stakeholder
     assert old_stakeholder.email == email
     assert old_stakeholder.state is not None
     assert (
@@ -115,8 +110,7 @@ async def test_remove_stakeholder(
     await confirm_deletion(loaders=get_new_context(), email=email)
 
     new_loaders: Dataloaders = get_new_context()
-    with pytest.raises(StakeholderNotFound):
-        await new_loaders.stakeholder.load(email)
+    assert not await new_loaders.stakeholder.load(email)
 
     historic_state = await get_historic_state(email=email)
     assert len(historic_state) == 0

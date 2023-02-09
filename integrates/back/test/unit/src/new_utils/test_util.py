@@ -29,7 +29,6 @@ from db_model import (
     stakeholders as stakeholders_model,
 )
 from db_model.stakeholders.types import (
-    Stakeholder,
     StakeholderMetadataToUpdate,
     StakeholderSessionToken,
     StateSessionType,
@@ -380,7 +379,8 @@ async def test_create_user() -> None:
 
     now: datetime = datetime.now(tz=timezone)
     email: str = "integratesuser2@fluidattacks.com"
-    user_info: Stakeholder = await loaders.stakeholder.load(email)
+    user_info = await loaders.stakeholder.load(email)
+    assert user_info
     assert user_info.is_registered
     assert user_info.last_login_date
     assert user_info.last_login_date < now
@@ -393,7 +393,8 @@ async def test_create_user() -> None:
         ),
     )
     new_loader: Dataloaders = get_new_context()
-    new_user_info: Stakeholder = await new_loader.stakeholder.load(email)
+    new_user_info = await new_loader.stakeholder.load(email)
+    assert new_user_info
     assert new_user_info.last_login_date
     assert new_user_info.last_login_date > now
 

@@ -85,7 +85,7 @@ async def get_recipient_first_name(
 ) -> Optional[str]:
     first_name = email.split("@")[0]
     if await stakeholders_domain.exists(loaders, email):
-        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+        stakeholder = await loaders.stakeholder.load(email)
     else:
         stakeholder = Stakeholder(email=email)
     is_constant: bool = email.lower() in {

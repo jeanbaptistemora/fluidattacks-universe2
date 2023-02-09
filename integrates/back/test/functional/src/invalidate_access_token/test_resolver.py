@@ -5,9 +5,6 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 import pytest
 from typing import (
     Any,
@@ -37,7 +34,8 @@ async def test_invalidate_access_token(
 ) -> None:
     assert populate
     loaders: Dataloaders = get_new_context()
-    stakeholder: Stakeholder = await loaders.stakeholder.load(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
     assert stakeholder.access_token is not None
     assert stakeholder.access_token.iat == iat
     result: Dict[str, Any] = await get_result(
@@ -48,5 +46,6 @@ async def test_invalidate_access_token(
     assert "success" in result["data"]["invalidateAccessToken"]
     assert result["data"]["invalidateAccessToken"]["success"]
     new_loader = get_new_context()
-    new_stakeholder: Stakeholder = await new_loader.stakeholder.load(email)
+    new_stakeholder = await new_loader.stakeholder.load(email)
+    assert new_stakeholder
     assert new_stakeholder.access_token is None

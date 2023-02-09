@@ -40,7 +40,6 @@ from db_model.organization_access.types import (
     OrganizationAccessRequest,
 )
 from db_model.stakeholders.types import (
-    Stakeholder,
     StakeholderMetadataToUpdate,
 )
 from newutils import (
@@ -183,8 +182,8 @@ async def get_user_level_role(
 ) -> str:
     user_role: str = ""
     with suppress(StakeholderNotFound):
-        stakeholder: Stakeholder = await loaders.stakeholder.load(email)
-        if stakeholder.role:
+        stakeholder = await loaders.stakeholder.load(email)
+        if stakeholder and stakeholder.role:
             user_role = stakeholder.role
 
     return user_role
@@ -300,10 +299,8 @@ async def revoke_organization_level_role(
 
 
 async def revoke_user_level_role(loaders: Dataloaders, email: str) -> None:
-    stakeholder: Stakeholder = await loaders.stakeholder_with_fallback.load(
-        email
-    )
-    if stakeholder.role:
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder and stakeholder.role:
         await stakeholders_model.update_metadata(
             email=email,
             metadata=StakeholderMetadataToUpdate(role=""),
