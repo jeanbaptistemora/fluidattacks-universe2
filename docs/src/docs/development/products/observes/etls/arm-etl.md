@@ -103,7 +103,7 @@ This process is triggered by an schedule. It has a frequency of execution
 of one week.
 
 ```bash
-m . /computeOnAwsBatch/observesDynamoSchema
+m . /observes/etl/dynamo_etl_conf/bin run DETERMINE_SCHEMA
 ```
 
 ## Common issues
