@@ -1,21 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { Switch } from "components/Switch";
 
-export const changeFormatter = (
-  row: Record<string, string>,
-  changeFunction: (arg1: Record<string, string>) => void
-): JSX.Element => {
-  function handleOnChange(): void {
+interface IChangeFormatterProps {
+  row: Record<string, string>;
+  changeFunction: (arg1: Record<string, string>) => void;
+}
+
+const ChangeFormatter: React.FC<IChangeFormatterProps> = ({
+  row,
+  changeFunction,
+}: IChangeFormatterProps): JSX.Element => {
+  const handleOnChange = useCallback((): void => {
     changeFunction(row);
-  }
+  }, [changeFunction, row]);
 
   return (
     <Switch
       checked={!("state" in row) || row.state.toUpperCase() !== "INACTIVE"}
       label={{ off: "Inactive", on: "Active" }}
-      // eslint-disable-next-line
-      onChange={handleOnChange} // NOSONAR
+      onChange={handleOnChange}
     />
   );
+};
+export const changeFormatter = (
+  row: Record<string, string>,
+  changeFunction: (arg1: Record<string, string>) => void
+): JSX.Element => {
+  return <ChangeFormatter changeFunction={changeFunction} row={row} />;
 };
