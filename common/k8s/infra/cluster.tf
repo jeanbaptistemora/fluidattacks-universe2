@@ -47,28 +47,26 @@ module "cluster" {
         MIME-Version: 1.0
 
         --==BOUNDARY==
-        Content-Type: text/x-shellscript; charset="us-ascii"
+        Content-Type: text/cloud-config; charset="us-ascii"
+        MIME-Version: 1.0
+        Content-Transfer-Encoding: 7bit
+        Content-Disposition: attachment; filename="cloud-config.txt"
 
-        #!/bin/bash
+        disk_setup:
+          /dev/nvme1n1:
+            table_type: mbr
+            layout: true
+            overwrite: true
 
-        # Install dependencies
-        yum install -y parted
+        fs_setup:
+          - label: nvme
+            filesystem: ext4
+            device: /dev/nvme1n1
+            partition: auto
+            overwrite: true
 
-        # Make disk gpt and create partitions
-        parted /dev/nvme1n1 --script -- mklabel gpt
-        parted -a optimal /dev/nvme1n1 mkpart primary 0% 100%
-
-        # Wait for partition to be visible
-        sleep 1
-
-        # Make partitions xfs
-        mkfs -t xfs /dev/nvme1n1p1
-
-        # Mount partitions
-        service containerd stop
-        mkdir -p /run/containerd
-        mount /dev/nvme1n1p1 /run/containerd
-        service containerd start
+        mounts:
+          - [/dev/nvme1n1, /run/containerd]
 
         --==BOUNDARY==--
       EOT
