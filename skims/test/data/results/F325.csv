@@ -947,6 +947,206 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   80 |                 {
      ^ Col 0
 ",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   12 |             Action: rds:CreateDBInstance
+   13 |             Condition:
+   14 |               StringEquals:
+   15 |                 rds:DatabaseEngine: mysql
+   16 |           - Effect: Allow
+   17 |             Action: rds:CreateGlobalCluster
+   18 |             Resource:
+   19 |               - ''
+   20 |               - ec2:StartInstances
+   21 |               - s3:GetObject
+>  22 |               - '*'
+   23 |             Condition:
+   24 |               StringEquals:
+   25 |                 rds:DatabaseClass: db.t2.micro
+   26 |           - Effect: Allow
+   27 |             Action:
+   28 |               - rds:*
+   29 |             Resource:
+   30 |               - ''
+   31 |               - ec2:StartInstances
+   32 |               - s3:GetObject
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   23 |             Condition:
+   24 |               StringEquals:
+   25 |                 rds:DatabaseClass: db.t2.micro
+   26 |           - Effect: Allow
+   27 |             Action:
+   28 |               - rds:*
+   29 |             Resource:
+   30 |               - ''
+   31 |               - ec2:StartInstances
+   32 |               - s3:GetObject
+>  33 |               - '*'
+   34 |             Condition:
+   35 |               StringEquals:
+   36 |                 rds:DatabaseClass: db.t2.micro
+   37 |           - Effect: Allow
+   38 |             Action:
+   39 |               - rds:ModifyDBCluster*
+   40 |             Resource:
+   41 |               - ''
+   42 |               - ec2:StartInstances
+   43 |               - s3:GetObject
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   34 |             Condition:
+   35 |               StringEquals:
+   36 |                 rds:DatabaseClass: db.t2.micro
+   37 |           - Effect: Allow
+   38 |             Action:
+   39 |               - rds:ModifyDBCluster*
+   40 |             Resource:
+   41 |               - ''
+   42 |               - ec2:StartInstances
+   43 |               - s3:GetObject
+>  44 |               - '*'
+   45 |             Condition:
+   46 |               StringEquals:
+   47 |                 rds:DatabaseClass: db.t2.micro
+   48 |           - Effect: Allow
+   49 |             Action:
+   50 |               - rds:CreateDBSnapshot
+   51 |             Resource: '*'
+   52 |             Condition:
+   53 |               StringEquals:
+   54 |                 rds:DatabaseClass: db.t2.micro
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,51,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
+   41 |               - ''
+   42 |               - ec2:StartInstances
+   43 |               - s3:GetObject
+   44 |               - '*'
+   45 |             Condition:
+   46 |               StringEquals:
+   47 |                 rds:DatabaseClass: db.t2.micro
+   48 |           - Effect: Allow
+   49 |             Action:
+   50 |               - rds:CreateDBSnapshot
+>  51 |             Resource: '*'
+   52 |             Condition:
+   53 |               StringEquals:
+   54 |                 rds:DatabaseClass: db.t2.micro
+   55 |       Groups:
+   56 |         - TestDBGroup
+   57 |   RootRole:
+   58 |     Type: AWS::IAM::Role
+   59 |     Properties:
+   60 |       AssumeRolePolicyDocument:
+   61 |         Version: '2012-10-17'
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+   17 |                 }
+   18 |               }
+   19 |             },
+   20 |             {
+   21 |               ""Effect"": ""Allow"",
+   22 |               ""Action"": ""rds:CreateGlobalCluster"",
+   23 |               ""Resource"": [
+   24 |                 """",
+   25 |                 ""ec2:StartInstances"",
+   26 |                 ""s3:GetObject"",
+>  27 |                 ""*""
+   28 |               ],
+   29 |               ""Condition"": {
+   30 |                 ""StringEquals"": {
+   31 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   32 |                 }
+   33 |               }
+   34 |             },
+   35 |             {
+   36 |               ""Effect"": ""Allow"",
+   37 |               ""Action"": [
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+   34 |             },
+   35 |             {
+   36 |               ""Effect"": ""Allow"",
+   37 |               ""Action"": [
+   38 |                 ""rds:*""
+   39 |               ],
+   40 |               ""Resource"": [
+   41 |                 """",
+   42 |                 ""ec2:StartInstances"",
+   43 |                 ""s3:GetObject"",
+>  44 |                 ""*""
+   45 |               ],
+   46 |               ""Condition"": {
+   47 |                 ""StringEquals"": {
+   48 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   49 |                 }
+   50 |               }
+   51 |             },
+   52 |             {
+   53 |               ""Effect"": ""Allow"",
+   54 |               ""Action"": [
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+   51 |             },
+   52 |             {
+   53 |               ""Effect"": ""Allow"",
+   54 |               ""Action"": [
+   55 |                 ""rds:ModifyDBCluster*""
+   56 |               ],
+   57 |               ""Resource"": [
+   58 |                 """",
+   59 |                 ""ec2:StartInstances"",
+   60 |                 ""s3:GetObject"",
+>  61 |                 ""*""
+   62 |               ],
+   63 |               ""Condition"": {
+   64 |                 ""StringEquals"": {
+   65 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   66 |                 }
+   67 |               }
+   68 |             },
+   69 |             {
+   70 |               ""Effect"": ""Allow"",
+   71 |               ""Action"": [
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
+ in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
+   64 |                 ""StringEquals"": {
+   65 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   66 |                 }
+   67 |               }
+   68 |             },
+   69 |             {
+   70 |               ""Effect"": ""Allow"",
+   71 |               ""Action"": [
+   72 |                 ""rds:CreateDBSnapshot""
+   73 |               ],
+>  74 |               ""Resource"": ""*"",
+   75 |               ""Condition"": {
+   76 |                 ""StringEquals"": {
+   77 |                   ""rds:DatabaseClass"": ""db.t2.micro""
+   78 |                 }
+   79 |               }
+   80 |             }
+   81 |           ]
+   82 |         },
+   83 |         ""Groups"": [
+   84 |           ""TestDBGroup""
+      ^ Col 0
+",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    12 |             Action: rds:CreateDBInstance
