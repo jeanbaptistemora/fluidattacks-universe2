@@ -5,4 +5,3 @@ from typing import (
 
 class Credentials(NamedTuple):
     user: str
-    key: str

@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2023, 09:06 AM",
+    "DateLastModified": "Feb 09, 2023, 09:47 AM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -3177,6 +3177,116 @@
               },
               "sk_2": {
                 "S": "USER#active_imamura3@fluidattacks.com"
+              }
+            },
+            {
+              "pk": {
+                "S": "USER#jdoe@testcompany.com"
+              },
+              "sk": {
+                "S": "USER#jdoe@testcompany.com"
+              },
+              "registration_date": {
+                "S": "2022-02-09T16:54:12+00:00"
+              },
+              "last_login_date": {
+                "S": "2022-02-09T16:54:12+00:00"
+              },
+              "role": {
+                "S": "user"
+              },
+              "pk_2": {
+                "S": "USER#all"
+              },
+              "sk_2": {
+                "S": "USER#jdoe@testcompany.com"
+              },
+              "state": {
+                "M": {
+                  "modified_date": {
+                    "S": "2022-02-09T16:54:12+00:00"
+                  },
+                  "modified_by": {
+                    "S": "jdoe@testcompany.com"
+                  },
+                  "notifications_preferences": {
+                    "M": {
+                      "sms": {
+                        "L": []
+                      },
+                      "email": {
+                        "L": [
+                          {
+                            "S": "ACCESS_GRANTED"
+                          },
+                          {
+                            "S": "AGENT_TOKEN"
+                          },
+                          {
+                            "S": "CHARTS_REPORT"
+                          },
+                          {
+                            "S": "EVENT_REPORT"
+                          },
+                          {
+                            "S": "FILE_UPDATE"
+                          },
+                          {
+                            "S": "GROUP_INFORMATION"
+                          },
+                          {
+                            "S": "GROUP_REPORT"
+                          },
+                          {
+                            "S": "NEW_COMMENT"
+                          },
+                          {
+                            "S": "NEW_DRAFT"
+                          },
+                          {
+                            "S": "PORTFOLIO_UPDATE"
+                          },
+                          {
+                            "S": "REMEDIATE_FINDING"
+                          },
+                          {
+                            "S": "REMINDER_NOTIFICATION"
+                          },
+                          {
+                            "S": "ROOT_UPDATE"
+                          },
+                          {
+                            "S": "SERVICE_UPDATE"
+                          },
+                          {
+                            "S": "UNSUBSCRIPTION_ALERT"
+                          },
+                          {
+                            "S": "UPDATED_TREATMENT"
+                          },
+                          {
+                            "S": "VULNERABILITY_ASSIGNED"
+                          },
+                          {
+                            "S": "VULNERABILITY_REPORT"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "enrolled": {
+                "BOOL": false
+              },
+              "first_name": {
+                "S": "John"
+              },
+              "last_name": {
+                "S": "Doe"
+              },
+              "is_registered": {
+                "BOOL": true
               }
             }
           ],

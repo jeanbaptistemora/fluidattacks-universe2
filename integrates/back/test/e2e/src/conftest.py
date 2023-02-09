@@ -61,11 +61,7 @@ def credentials() -> Credentials:
         else 1
     )
     user: str = os.environ[f"TEST_E2E_USER_{node_index}"]
-    key: str = os.environ["STARLETTE_SESSION_KEY"]
-    return Credentials(
-        user=user,
-        key=key,
-    )
+    return Credentials(user=user)
 
 
 @pytest.fixture(autouse=True, scope="session")

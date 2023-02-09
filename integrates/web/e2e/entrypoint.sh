@@ -11,7 +11,6 @@ function main {
     && sops_export_vars integrates/secrets/development.yaml \
       JWT_ENCRYPTION_KEY \
       JWT_SECRET \
-      STARLETTE_SESSION_KEY \
       TEST_E2E_USER_1 \
       TEST_E2E_USER_2 \
       TEST_E2E_USER_3 \
@@ -29,7 +28,6 @@ function main {
       pkgGeckoDriver='__argGeckodriver__' \
       PYTHONPATH="${PWD}:${PYTHONPATH:-}" \
       pytest "${args_pytest[@]}" \
-      --disable-pytest-warnings \
       --exitfirst \
       --cov . \
       --cov-report 'term' \
