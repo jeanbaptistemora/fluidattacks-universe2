@@ -3848,6 +3848,16 @@ export const enTranslations: ResourceKey = {
         severityOutOfRange:
           "Vulnerability cannot be accepted, severity outside of range set by the defined policy",
       },
+      handleAcceptanceModal: {
+        submittedTable: {
+          confirm: "Confirm",
+          confirmed: "Confirmed",
+          reject: "Reject",
+          rejected: "Rejected",
+          specific: "Specific",
+          where: "Where",
+        },
+      },
       info: {
         text: "Please select vulnerabilities to reattack",
         title: "Info",

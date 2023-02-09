@@ -1,6 +1,6 @@
 import React from "react";
 
-import { OpenRejectCheckBox } from "./OpenRejectCheckBox";
+import { ConfirmVulnerabilityCheckBox } from "./ConfirmVulnerabilityCheckBox";
 
 import type { IVulnDataAttr } from "../types";
 
@@ -10,7 +10,7 @@ export const changeSubmittedFormatter = (
   deleteFunction: (arg1?: IVulnDataAttr | undefined) => void
 ): JSX.Element => {
   return (
-    <OpenRejectCheckBox
+    <ConfirmVulnerabilityCheckBox
       approveFunction={approveFunction}
       deleteFunction={deleteFunction}
       vulnerabilityRow={row}
