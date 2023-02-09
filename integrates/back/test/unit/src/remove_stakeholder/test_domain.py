@@ -4,6 +4,10 @@ from app.app import (
 from app.views.auth import (
     autoenroll_stakeholder,
 )
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_module_at_test,
+    set_mocks_return_values,
+)
 from dataloaders import (
     apply_context_attrs,
     Dataloaders,
@@ -25,7 +29,6 @@ from newutils.datetime import (
 import pytest
 from remove_stakeholder.domain import (
     complete_deletion,
-    get_confirm_deletion,
     remove_stakeholder_all_organizations,
 )
 from sessions import (
@@ -46,7 +49,13 @@ from starlette.routing import (
 from starlette.staticfiles import (
     StaticFiles,
 )
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
 import uuid
+
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
 # Run async tests
 pytestmark = [
@@ -110,20 +119,36 @@ def create_dummy_simple_session(
     return request
 
 
-@pytest.mark.changes_db
-async def test_confirm_deletion_mail() -> None:
-    email: str = "unittest1@test.test"
-
-    assert await confirm_deletion_mail(email=email)
-    assert bool(
-        await get_confirm_deletion(loaders=get_new_context(), email=email)
+@pytest.mark.parametrize(
+    ["email"],
+    [["unittest@test.com"]],
+)
+@patch(
+    MODULE_AT_TEST + "remove_stakeholder_all_organizations",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "group_access_model.remove", new_callable=AsyncMock)
+async def test_complete_deletion(
+    mock_group_access_model_remove: AsyncMock,
+    mock_remove_stakeholder_all_organizations: AsyncMock,
+    email: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_group_access_model_remove,
+            mock_remove_stakeholder_all_organizations,
+        ],
+        ["group_access_model.remove", "remove_stakeholder_all_organizations"],
+        [[email], [email]],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
     )
-
     await complete_deletion(email=email)
-
-    assert not bool(
-        await get_confirm_deletion(loaders=get_new_context(), email=email)
-    )
+    assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
 @pytest.mark.changes_db

@@ -1,5 +1,4 @@
 import asyncio
-import authz
 import logging
 import pytest
 from settings import (
@@ -11,12 +10,6 @@ from typing import (
 )
 
 logging.config.dictConfig(LOGGING)
-
-
-@pytest.fixture(autouse=True, scope="session")
-async def load_enforcers() -> None:
-    """Load policies from DB into the enforcers."""
-    await authz.grant_user_level_role("unittest", "admin")
 
 
 @pytest.fixture(autouse=True)

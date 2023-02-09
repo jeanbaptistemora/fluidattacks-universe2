@@ -10367,6 +10367,12 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         ]
     },
+    "remove_stakeholder.domain.group_access_model.remove": {
+        '["unittest@test.com"]': "Daniel",
+    },
+    "remove_stakeholder.domain.remove_stakeholder_all_organizations": {
+        '["unittest@test.com"]': "Carlos",
+    },
     "s3.operations.list_files": {
         '["billing-test-file.png"]': ["billing-test-file.png"],
         '["unittesting-test-file.csv"]': ["unittesting-test-file.csv"],
