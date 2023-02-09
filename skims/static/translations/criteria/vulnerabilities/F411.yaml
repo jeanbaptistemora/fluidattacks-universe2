@@ -5,3 +5,6 @@ lib_path.f411.tfm_aws_secret_encrypted_without_kms_key:
 lib_path.f411.cfn_aws_secret_encrypted_without_kms_key:
   en: Property KmsKeyId is either missing or misconfigured
   es: Falta la propiedad KmsKeyId o está mal configurada
+lib_path.f411.ebs_uses_default_kms_key:
+  en: EBS Volumes encrypted with default KMS key
+  es: Volumenes EBS encriptados con KMS key por defecto.
