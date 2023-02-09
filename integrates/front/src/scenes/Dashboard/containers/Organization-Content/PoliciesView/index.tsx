@@ -204,25 +204,18 @@ const Policies: React.FC<IPolicies> = ({
                     </Tooltip>
                   </PoliciesLink>
                 </Label>
-                <Tooltip
-                  disp={"inline"}
-                  id={"minAcceptanceSeverity-tooltip"}
-                  place={"bottom"}
-                  tip={t(
+                <Input
+                  disabled={permissions.cannot(permission)}
+                  name={"minAcceptanceSeverity"}
+                  tooltip={t(
                     `${translationStart}recommended.minAcceptanceSeverity`
                   )}
-                >
-                  <Field
-                    component={FormikText}
-                    disabled={permissions.cannot(permission)}
-                    name={"minAcceptanceSeverity"}
-                    type={"text"}
-                    validate={composeValidators([
-                      isFloatOrInteger,
-                      numberBetween(minSeverity, maxSeverity),
-                    ])}
-                  />
-                </Tooltip>
+                  type={"text"}
+                  validate={composeValidators([
+                    isFloatOrInteger,
+                    numberBetween(minSeverity, maxSeverity),
+                  ])}
+                />
               </Card>
             </Col>
             <Col lg={33} md={50} sm={100}>
