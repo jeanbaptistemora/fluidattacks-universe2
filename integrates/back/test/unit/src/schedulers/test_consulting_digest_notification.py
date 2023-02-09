@@ -352,6 +352,5 @@ def test_digest_comments(
     items: Any,
     outputs: Any,
 ) -> None:
-    assert digest_comments(items[0]) == outputs[0]
-    assert digest_comments(items[1]) == outputs[1]
-    assert digest_comments(items[2]) == outputs[2]
+    for index, item in enumerate(items):
+        assert digest_comments(item) == outputs[index]
