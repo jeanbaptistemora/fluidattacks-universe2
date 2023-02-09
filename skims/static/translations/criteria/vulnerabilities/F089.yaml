@@ -3,6 +3,13 @@ lib_root.f089.trust_boundary_violation:
   en: >
     The application introduces untrusted data into session attributes,
     which could lead to injection attacks.
-  es: >-
+  es: >
     La aplicación introduce datos no sanitizados en los atributos de sesión,
     lo cual podría llevar a ataques por inyección.
+lib_root.f089.parsing_non_validated_data:
+  en: >
+    Direct parsing from localStorage data without any previous validation
+    could lead to injection attacks.
+  es: >
+    El parseo directo de datos del localStorage sin validación previa
+    podría conducir a ataques de inyección.

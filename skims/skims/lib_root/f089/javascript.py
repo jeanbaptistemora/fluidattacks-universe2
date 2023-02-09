@@ -35,7 +35,7 @@ def json_parse_unvalidated_data(
                 yield shard, nid
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="lib_root.f089.trust_boundary_violation",
+        desc_key="lib_root.f089.parsing_non_validated_data",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
