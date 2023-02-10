@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F401,lines,namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,Property expiration_date is either missing or misconfigured in namespace/skims/test/data/lib_path/f401/tfm_azure_kv_secret_no_expiration_date.tf,"
+F401,lines,namespace/skims/test/data/lib_root/f401/tfm_azure_kv_secret_no_expiration_date.tf,1,521,skims,401. Insecure service configuration - AKV Secret Expiration,Property expiration_date is either missing or misconfigured in namespace/skims/test/data/lib_root/f401/tfm_azure_kv_secret_no_expiration_date.tf,"
 >  1 | resource ""azurerm_key_vault_secret"" ""vulnerable"" {
    2 |   name         = ""example""
    3 |   value        = var.value_azsqlrevapp
