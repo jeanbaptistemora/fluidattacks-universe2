@@ -5,7 +5,6 @@ import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import { onTreatmentChangeHelper } from "./helpers";
 import { JustificationField } from "./JustificationField";
 import { SubmittedTable } from "./SubmittedTable";
-import { TreatmentField } from "./TreatmentField";
 import { ZeroRiskTable } from "./ZeroRiskTable";
 
 import { ModalConfirm } from "components/Modal";
@@ -13,7 +12,7 @@ import type {
   IFormValues,
   IHandleVulnerabilitiesAcceptanceModalFormProps,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
-import { Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Row } from "styles/styledComponents";
 
 const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalFormProps> =
   ({
@@ -27,16 +26,17 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
     rejectedVulnerabilities,
     rejectingZeroRisk,
     setAcceptanceVulns,
+    treatment,
     vulns,
   }: IHandleVulnerabilitiesAcceptanceModalFormProps): JSX.Element => {
-    const { values, submitForm } = useFormikContext<IFormValues>();
+    const { submitForm } = useFormikContext<IFormValues>();
 
     const isAcceptedUndefinedSelected: boolean =
-      values.treatment === "ACCEPTED_UNDEFINED";
+      treatment === "ACCEPTED_UNDEFINED";
     const isConfirmRejectZeroRiskSelected: boolean =
-      values.treatment === "CONFIRM_REJECT_ZERO_RISK";
+      treatment === "CONFIRM_REJECT_ZERO_RISK";
     const isConfirmRejectVulnerabilitySelected: boolean =
-      values.treatment === "CONFIRM_REJECT_VULNERABILITY";
+      treatment === "CONFIRM_REJECT_VULNERABILITY";
 
     // Side effects
     const onTreatmentChange: () => void = (): void => {
@@ -58,11 +58,6 @@ const HandleAcceptanceModalForm: React.FC<IHandleVulnerabilitiesAcceptanceModalF
 
     return (
       <Form id={"updateTreatmentAcceptance"}>
-        <Row>
-          <Col50>
-            <TreatmentField />
-          </Col50>
-        </Row>
         <Row>
           <Col100>
             <AcceptedUndefinedTable

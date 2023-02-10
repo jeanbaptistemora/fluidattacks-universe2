@@ -371,16 +371,11 @@ describe("handle vulns acceptance modal", (): void => {
         </MockedProvider>
       </authzPermissionsContext.Provider>
     );
-    await waitFor((): void => {
-      expect(
-        screen.queryByRole("row", { name: "CONFIRM REJECT" })
-      ).toBeInTheDocument();
-    });
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /confirm/iu
+      )
     );
     await userEvent.type(
       screen.getByRole("textbox", { name: "justification" }),
@@ -545,14 +540,9 @@ describe("handle vulns acceptance modal", (): void => {
     );
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
-    );
-    await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /confirm/iu
+      )
     );
     await userEvent.clear(
       screen.getByRole("textbox", { name: "justification" })
@@ -713,14 +703,9 @@ describe("handle vulns acceptance modal", (): void => {
     );
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
-    );
-    await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /reject/iu
+      )
     );
     await userEvent.clear(
       screen.getByRole("textbox", { name: "justification" })
@@ -887,14 +872,9 @@ describe("handle vulns acceptance modal", (): void => {
     );
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
-    );
-    await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /reject/iu
+      )
     );
     await userEvent.clear(
       screen.getByRole("textbox", { name: "justification" })
@@ -988,15 +968,9 @@ describe("handle vulns acceptance modal", (): void => {
     );
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
-    );
-
-    await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_yes")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /confirm/iu
+      )
     );
 
     await waitFor((): void => {
@@ -1102,15 +1076,9 @@ describe("handle vulns acceptance modal", (): void => {
     );
 
     await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
-    );
-
-    await userEvent.click(
-      screen
-        .getByRole("row", { name: "CONFIRM REJECT" })
-        .querySelectorAll("#zeroRiskCheckBox_no")[0]
+      within(screen.getByRole("cell", { name: /confirm reject/iu })).getByText(
+        /reject/iu
+      )
     );
 
     await waitFor((): void => {

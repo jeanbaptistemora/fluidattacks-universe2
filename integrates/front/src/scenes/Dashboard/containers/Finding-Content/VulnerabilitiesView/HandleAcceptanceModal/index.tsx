@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { Formik } from "formik";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { HandleAcceptanceModalForm } from "./form";
@@ -16,7 +16,9 @@ import {
   isRejectZeroRiskSelectedHelper,
   rejectZeroRiskProps,
 } from "./helpers";
+import { getInitialTreatment } from "./utils";
 
+import { FormikSelect } from "components/Input/Formik";
 import { Modal } from "components/Modal";
 import {
   CONFIRM_VULNERABILITIES,
@@ -29,7 +31,7 @@ import type {
   IHandleVulnerabilitiesAcceptanceModalProps,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
-import { authzPermissionsContext } from "utils/authz/config";
+import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
   ({
@@ -40,14 +42,21 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     refetchData,
   }: IHandleVulnerabilitiesAcceptanceModalProps): JSX.Element => {
     const { t } = useTranslation();
+    const attributes: PureAbility<string> = useContext(authzGroupContext);
     const permissions: PureAbility<string> = useAbility(
       authzPermissionsContext
     );
-    const canHandleVulnsAcceptance: boolean = permissions.can(
+    const canHandleVulnerabilitiesAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
-    const canConfirmZeroRiskVuln: boolean = permissions.can(
+    const canConfirmZeroRiskVulnerabilities: boolean = permissions.can(
       "api_mutations_confirm_vulnerabilities_zero_risk_mutate"
+    );
+    const canRejectZeroRiskVulnerabilities: boolean = permissions.can(
+      "api_mutations_reject_vulnerabilities_zero_risk_mutate"
+    );
+    const canUpdateVulns: boolean = attributes.can(
+      "can_report_vulnerabilities"
     );
 
     const [acceptanceVulns, setAcceptanceVulns] = useState<IVulnDataAttr[]>([]);
@@ -55,6 +64,12 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
     const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
     const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
+    const [treatment, setTreatment] = useState(
+      getInitialTreatment(
+        canHandleVulnerabilitiesAcceptance,
+        canConfirmZeroRiskVulnerabilities
+      )
+    );
 
     const onAcceptanceVulnsChange: () => void = (): void => {
       const newAcceptedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
@@ -97,25 +112,14 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       rejectZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
     );
 
-    function getInitialTreatment(
-      canHandleVulnsAccept: boolean,
-      canConfirmZeroRisk: boolean
-    ): string {
-      if (canHandleVulnsAccept) {
-        return "ACCEPTED_UNDEFINED";
-      }
-
-      return canConfirmZeroRisk ? "CONFIRM_REJECT_ZERO_RISK" : "";
-    }
-
     const handleSubmit = useCallback(
       (values: IFormValues): void => {
         const isAcceptedUndefinedSelected: boolean =
-          values.treatment === "ACCEPTED_UNDEFINED";
+          treatment === "ACCEPTED_UNDEFINED";
         const isConfirmRejectZeroRiskSelected: boolean =
-          values.treatment === "CONFIRM_REJECT_ZERO_RISK";
+          treatment === "CONFIRM_REJECT_ZERO_RISK";
         const isConfirmRejectVulnerabilitySelected: boolean =
-          values.treatment === "CONFIRM_REJECT_VULNERABILITY";
+          treatment === "CONFIRM_REJECT_VULNERABILITY";
 
         const formValues = (({ justification }): { justification: string } => ({
           justification,
@@ -153,12 +157,15 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
         handleAcceptance,
         rejectZeroRisk,
         rejectedVulns,
+        treatment,
       ]
     );
 
-    const initialTreatment: string = getInitialTreatment(
-      canHandleVulnsAcceptance,
-      canConfirmZeroRiskVuln
+    const handleTreatmentChange = useCallback(
+      (event: React.ChangeEvent<HTMLSelectElement>): void => {
+        setTreatment(event.target.value);
+      },
+      []
     );
 
     return (
@@ -167,11 +174,42 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
           open={true}
           title={t("searchFindings.tabDescription.handleAcceptanceModal.title")}
         >
+          <div className={"ph1-5"}>
+            <FormikSelect
+              field={{
+                name: "treatment",
+                onBlur: (): void => undefined,
+                onChange: handleTreatmentChange,
+                value: treatment,
+              }}
+              form={{ errors: {}, touched: {} }}
+              label={t("searchFindings.tabDescription.treatment.title")}
+              name={"treatment"}
+            >
+              <option value={""} />
+              {canHandleVulnerabilitiesAcceptance ? (
+                <option value={"ACCEPTED_UNDEFINED"}>
+                  {t(
+                    "searchFindings.tabDescription.treatment.acceptedUndefined"
+                  )}
+                </option>
+              ) : undefined}
+              {canConfirmZeroRiskVulnerabilities &&
+              canRejectZeroRiskVulnerabilities &&
+              canUpdateVulns ? (
+                <option value={"CONFIRM_REJECT_ZERO_RISK"}>
+                  {t(
+                    "searchFindings.tabDescription.treatment.confirmRejectZeroRisk"
+                  )}
+                </option>
+              ) : undefined}
+            </FormikSelect>
+          </div>
+          <br />
           <Formik
             enableReinitialize={true}
             initialValues={{
               justification: "",
-              treatment: initialTreatment,
             }}
             name={"updateTreatmentAcceptance"}
             onSubmit={handleSubmit}
@@ -187,6 +225,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
               rejectedVulnerabilities={rejectedVulns}
               rejectingZeroRisk={rejectingZeroRisk}
               setAcceptanceVulns={setAcceptanceVulns}
+              treatment={treatment}
               vulns={vulns}
             />
           </Formik>

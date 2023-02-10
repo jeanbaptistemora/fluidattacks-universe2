@@ -10,7 +10,6 @@ interface IVulnDataAttr {
 
 interface IFormValues {
   justification: string;
-  treatment: string;
 }
 
 interface IHandleVulnerabilitiesAcceptanceModalProps {
@@ -31,6 +30,7 @@ interface IHandleVulnerabilitiesAcceptanceModalFormProps {
   confirmingZeroRisk: boolean;
   rejectingZeroRisk: boolean;
   setAcceptanceVulns: React.Dispatch<React.SetStateAction<IVulnDataAttr[]>>;
+  treatment: string;
   handleCloseModal: () => void;
   vulns: IVulnerabilitiesAttr[];
 }
