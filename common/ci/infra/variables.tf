@@ -1,4 +1,4 @@
-variable "gitlabTokenFluidattacks" {}
+variable "gitlabRunnerToken" {}
 
 data "local_file" "init_runner" {
   filename = "./init/runner.sh"

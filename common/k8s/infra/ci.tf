@@ -1,4 +1,4 @@
-variable "gitlabTokenFluidattacks" {}
+variable "gitlabRunnerToken" {}
 
 module "ci_cache" {
   source  = "npalm/gitlab-runner/aws//modules/cache"
@@ -53,7 +53,7 @@ resource "helm_release" "ci" {
   name        = each.value.name
   namespace   = "dev"
   repository  = "https://charts.gitlab.io/"
-  version     = "0.49.1"
+  version     = "0.49.2"
 
   values = [
     yamlencode(
@@ -132,6 +132,6 @@ resource "helm_release" "ci" {
 
   set_sensitive {
     name  = "runnerRegistrationToken"
-    value = var.gitlabTokenFluidattacks
+    value = var.gitlabRunnerToken
   }
 }

@@ -45,20 +45,20 @@ in {
   secretsForEnvFromSops = {
     commonCiProd = {
       vars = [
-        "GITLAB_TOKEN_FLUIDATTACKS"
+        "GITLAB_RUNNER_TOKEN"
       ];
       manifest = "/common/secrets/prod.yaml";
     };
     commonCiDev = {
       vars = [
-        "GITLAB_TOKEN_FLUIDATTACKS"
+        "GITLAB_RUNNER_TOKEN"
       ];
       manifest = "/common/secrets/dev.yaml";
     };
   };
   secretsForTerraformFromEnv = {
     commonCi = {
-      gitlabTokenFluidattacks = "GITLAB_TOKEN_FLUIDATTACKS";
+      gitlabRunnerToken = "GITLAB_RUNNER_TOKEN";
     };
   };
   testTerraform = {

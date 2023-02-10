@@ -75,7 +75,7 @@ module "runners" {
     iops                  = 3000
   }
   gitlab_runner_registration_config = {
-    registration_token = var.gitlabTokenFluidattacks
+    registration_token = var.gitlabRunnerToken
     tag_list           = join(",", each.value.tags)
     description        = "common-ci-${each.key}"
     locked_to_project  = "true"
