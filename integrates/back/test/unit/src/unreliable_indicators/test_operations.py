@@ -15,7 +15,6 @@ from db_model.findings.types import (
     FindingUnreliableIndicators,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityUnreliableIndicators,
 )
 from decimal import (
@@ -72,9 +71,8 @@ async def test_update_unreliable_indicators_by_deps() -> None:
     finding = await loaders.finding.load(finding_id)
     assert finding
     assert finding.unreliable_indicators == expected_finding_output
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
+    vulnerability = await loaders.vulnerability.load(vulnerability_id)
+    assert vulnerability
     expected_vulnerability_output = VulnerabilityUnreliableIndicators(
         unreliable_efficacy=Decimal("0"),
         unreliable_last_reattack_date=datetime.fromisoformat(

@@ -11,9 +11,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityVerificationStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
@@ -52,11 +49,13 @@ async def test_request_vulnerabilities_verification(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
 
     loaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.verification
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
+    assert vulnerability.verification
     assert (
-        vuln.verification.status == VulnerabilityVerificationStatus.REQUESTED
+        vulnerability.verification.status
+        == VulnerabilityVerificationStatus.REQUESTED
     )
 
     result: dict[str, Any] = await get_result(
@@ -77,10 +76,14 @@ async def test_request_vulnerabilities_verification(
     assert vuln_id in finding.verification.vulnerability_ids
     assert finding.verification.modified_by == email
     loaders.vulnerability.clear(vuln_id)
-    vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == new_status
-    assert vuln.verification
-    assert vuln.verification.status == VulnerabilityVerificationStatus.VERIFIED
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == new_status
+    assert vulnerability.verification
+    assert (
+        vulnerability.verification.status
+        == VulnerabilityVerificationStatus.VERIFIED
+    )
 
 
 @pytest.mark.asyncio

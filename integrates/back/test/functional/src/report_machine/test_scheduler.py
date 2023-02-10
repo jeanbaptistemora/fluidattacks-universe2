@@ -92,6 +92,7 @@ async def test_persist_result(populate: bool) -> None:
             closed_vuln = await loaders.vulnerability.load(
                 "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"
             )
+            assert closed_vuln
             closed_vuln_historic = (
                 await loaders.vulnerability_historic_state.load(
                     "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"

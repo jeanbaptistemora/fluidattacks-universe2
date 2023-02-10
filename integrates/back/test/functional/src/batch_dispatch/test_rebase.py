@@ -8,11 +8,7 @@ from batch_dispatch import (
     rebase,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from newutils.datetime import (
     get_as_epoch,
@@ -21,22 +17,20 @@ from newutils.datetime import (
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
 @pytest.mark.asyncio
 @pytest.mark.resolver_test_group("batch_dispatch")
 async def test_clone_roots_real_ssh(
-    generic_data: Dict[str, Any],
+    generic_data: dict[str, Any],
 ) -> None:
-    loaders: Dataloaders = get_new_context()
-
-    assert (
-        await loaders.vulnerability.load(
-            "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
-        )
-    ).state.specific == "5"
+    loaders = get_new_context()
+    vulnerability = await loaders.vulnerability.load(
+        "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
+    )
+    assert vulnerability
+    assert vulnerability.state.specific == "5"
     action = BatchProcessing(
         action_name=Action.REBASE.value,
         entity="unittesting",
@@ -48,12 +42,17 @@ async def test_clone_roots_real_ssh(
         key="2",
     )
     await rebase.rebase(item=action)
+
     loaders.vulnerability.clear_all()
-    vuln: Vulnerability = await loaders.vulnerability.load(
+    vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
-    assert vuln.state.specific == "11"  # this line has been changed
-    assert (
-        await loaders.vulnerability.load("4dbc01e0-4cfc-4b77-9b71-bb7566c60bg")
-    ).state.specific == "3"
-    assert vuln.state.snippet is not None
+    assert vulnerability
+    assert vulnerability.state.specific == "11"  # this line has been changed
+
+    vulnerability2 = await loaders.vulnerability.load(
+        "4dbc01e0-4cfc-4b77-9b71-bb7566c60bg"
+    )
+    assert vulnerability2
+    assert vulnerability2.state.specific == "3"
+    assert vulnerability2.state.snippet is not None

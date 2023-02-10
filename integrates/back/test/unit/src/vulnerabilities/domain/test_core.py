@@ -3,7 +3,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     set_mocks_return_values,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -212,7 +211,7 @@ pytestmark = [
 async def test_get_open_vulnerabilities_specific_by_type(
     mock_loaders_finding_vulnerabilities_released_nzr: AsyncMock,
     finding_id: str,
-    expected: dict[str, tuple[dict[str, str], ...]],
+    expected: dict[str, tuple[Vulnerability, ...]],
 ) -> None:
 
     mocked_objects, mocked_paths, mocks_args = [
@@ -226,19 +225,20 @@ async def test_get_open_vulnerabilities_specific_by_type(
         paths_list=mocked_paths,
         mocks_args=mocks_args,
     )
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     result = await get_open_vulnerabilities_specific_by_type(
         loaders, finding_id
     )
     assert all(mock_object.called is True for mock_object in mocked_objects)
-    assert result == expected  # type: ignore
+    assert result == expected
 
 
 async def test_get_reattack_requester() -> None:
     loaders = get_new_context()
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
+    vulnerability = await loaders.vulnerability.load(
         "3bcdb384-5547-4170-a0b6-3b397a245465"
     )
+    assert vulnerability
     requester = await get_reattack_requester(
         loaders,
         vuln=vulnerability,
@@ -513,7 +513,7 @@ async def test_mask_vulnerability(
         mocks_args=mocks_args,
     )
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
 
     await mask_vulnerability(
         loaders=loaders,

@@ -1,5 +1,4 @@
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from datetime import (
@@ -45,7 +44,7 @@ def test_as_range() -> None:
 
 
 async def test_format_vulnerabilities() -> None:
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     finding_id = "422286126"
     group_name: str = "unittesting"
     finding_vulns = await loaders.finding_vulnerabilities.load(finding_id)
@@ -102,10 +101,11 @@ async def test_get_vuln_closing_date() -> None:
     closing_date = datetime(2019, 1, 8).date()
     assert test_data == closing_date
 
-    loaders: Dataloaders = get_new_context()
-    open_vulnerability: Vulnerability = await loaders.vulnerability.load(
+    loaders = get_new_context()
+    open_vulnerability = await loaders.vulnerability.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
+    assert open_vulnerability
     test_data = get_closing_date(open_vulnerability)
     assert test_data is None
 
@@ -139,10 +139,11 @@ async def test_get_vuln_opening_date() -> None:
     result_date = get_opening_date(vuln=test_vuln, min_date=min_date)
     assert result_date is None
 
-    loaders: Dataloaders = get_new_context()
+    loaders = get_new_context()
     test_open_vuln = await loaders.vulnerability.load(
         "80d6a69f-a376-46be-98cd-2fdedcffdcc0"
     )
+    assert test_open_vuln
     result_date = get_opening_date(test_open_vuln)
     expected_output = datetime(2020, 9, 9).date()
     assert result_date == expected_output

@@ -387,7 +387,7 @@ async def populate_vulnerabilities(data: list[dict[str, Any]]) -> bool:
             for current_value, vulnerability in zip(
                 current_vulnerabilities, data
             )
-            if "historic_state" in vulnerability
+            if current_value and "historic_state" in vulnerability
         ]
     )
     loaders = get_new_context()
@@ -401,7 +401,7 @@ async def populate_vulnerabilities(data: list[dict[str, Any]]) -> bool:
             for current_value, vulnerability in zip(
                 current_vulnerabilities, data
             )
-            if "historic_treatment" in vulnerability
+            if current_value and "historic_treatment" in vulnerability
         ]
     )
     loaders = get_new_context()
@@ -415,7 +415,7 @@ async def populate_vulnerabilities(data: list[dict[str, Any]]) -> bool:
             for current_value, vulnerability in zip(
                 current_vulnerabilities, data
             )
-            if "historic_verification" in vulnerability
+            if current_value and "historic_verification" in vulnerability
         ]
     )
     loaders = get_new_context()
@@ -429,7 +429,7 @@ async def populate_vulnerabilities(data: list[dict[str, Any]]) -> bool:
             for current_value, vulnerability in zip(
                 current_vulnerabilities, data
             )
-            if "historic_zero_risk" in vulnerability
+            if current_value and "historic_zero_risk" in vulnerability
         ]
     )
 

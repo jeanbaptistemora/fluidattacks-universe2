@@ -279,9 +279,8 @@ async def test_upload_file(
 
     vuln_loader = loaders.vulnerability
     open_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
-    vuln_open_verified: Vulnerability = await vuln_loader.load(
-        open_verified_id
-    )
+    vuln_open_verified = await vuln_loader.load(open_verified_id)
+    assert vuln_open_verified
     assert (
         vuln_open_verified.unreliable_indicators
         == VulnerabilityUnreliableIndicators(
@@ -299,9 +298,8 @@ async def test_upload_file(
         )
     )
     closed_verified_id = "be09edb7-cd5c-47ed-bee4-97c645acdce9"
-    vuln_closed_verified: Vulnerability = await vuln_loader.load(
-        closed_verified_id
-    )
+    vuln_closed_verified = await vuln_loader.load(closed_verified_id)
+    assert vuln_closed_verified
     assert (
         vuln_closed_verified.unreliable_indicators
         == VulnerabilityUnreliableIndicators(
@@ -322,9 +320,8 @@ async def test_upload_file(
         )
     )
     changed_source_id = "be09edb7-cd5c-47ed-bee4-97c645acdceb"
-    vuln_changed_source: Vulnerability = await vuln_loader.load(
-        changed_source_id
-    )
+    vuln_changed_source = await vuln_loader.load(changed_source_id)
+    assert vuln_changed_source
     assert vuln_changed_source.state.source == Source.ANALYST
 
     finding = await loaders.finding.load(finding_id)

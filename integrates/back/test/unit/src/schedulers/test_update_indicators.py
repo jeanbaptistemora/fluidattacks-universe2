@@ -1,6 +1,3 @@
-from collections import (
-    OrderedDict,
-)
 from dataloaders import (
     get_new_context,
 )
@@ -9,9 +6,6 @@ from datetime import (
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 from decimal import (
     Decimal,
@@ -46,21 +40,16 @@ pytestmark = [
 
 
 def test_create_data_format_chart() -> None:
-    registers = OrderedDict(
-        [
-            (
-                "Sep 24 - 30, 2018",  # NOSONAR
-                {
-                    "found": 2,
-                    "accepted": 0,
-                    "closed": 0,
-                    "assumed_closed": 0,
-                    "opened": 2,
-                },
-            )
-        ]
-    )
-    test_data = create_data_format_chart(registers)  # type: ignore
+    registers = {
+        "Sep 24 - 30, 2018": {  # NOSONAR
+            "found": Decimal(2),
+            "accepted": Decimal(0),
+            "closed": Decimal(0),
+            "assumed_closed": Decimal(0),
+            "opened": Decimal(2),
+        },
+    }
+    test_data = create_data_format_chart(registers)
     expected_output = [
         [{"y": 2, "x": "Sep 24 - 30, 2018"}],
         [{"y": 0, "x": "Sep 24 - 30, 2018"}],
@@ -156,9 +145,10 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
         "dynamodb.operations.get_table_resource", new_callable=mock.AsyncMock
     ) as mock_table_resource:
         mock_table_resource.return_value.query.side_effect = mock_query
-        vulnerability: Vulnerability = await loaders.vulnerability.load(
+        vulnerability = await loaders.vulnerability.load(
             "15375781-31f2-4953-ac77-f31134225747"
         )
+        assert vulnerability
         finding = await loaders.finding.load(vulnerability.finding_id)
         assert finding
         historic_state = await loaders.vulnerability_historic_state.load(
