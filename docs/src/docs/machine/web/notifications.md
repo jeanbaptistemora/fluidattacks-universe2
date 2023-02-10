@@ -511,18 +511,6 @@ vulnerability fixes.
 
 ![Add stakeholders](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075293/docs/web/notifications/add_stakeholders.png)
 
-### Analytics notification
-
-This notification will be sent to
-you if you are a user who has completed
-the ARM [free trial registration](/machine/web/free-trial)
-letting you know what information
-you can find in the ARM
-[Analytics](/machine/web/analytics),
-encouraging you to explore this section.
-
-![Analytics notification](https://res.cloudinary.com/fluid-attacks/image/upload/v1675075728/docs/web/notifications/analytics_free_trail.png)
-
 ### Define treatments
 
 This notification will be sent to
