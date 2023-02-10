@@ -12,6 +12,7 @@ from custom_exceptions import (
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
     InvalidReportFilter,
+    InvalidSeverity,
     InvalidSeverityUpdateValues,
     InvalidSpacesField,
     NumberOutOfRange,
@@ -1525,3 +1526,17 @@ def test_check_and_set_min_time_to_remediate() -> None:
         validations.check_and_set_min_time_to_remediate("-5")
     with pytest.raises(InvalidMinTimeToRemediate):
         validations.check_and_set_min_time_to_remediate("abc")
+
+
+def test_validate_severity_range_deco() -> None:
+    @validations.validate_severity_range_deco(
+        "severity", min_value=Decimal(2), max_value=Decimal(6)
+    )
+    def decorated_func(severity: int) -> float:
+        return severity
+
+    assert decorated_func(severity=3)
+    with pytest.raises(InvalidSeverity):
+        decorated_func(severity=7)
+    with pytest.raises(InvalidSeverity):
+        decorated_func(severity=1)

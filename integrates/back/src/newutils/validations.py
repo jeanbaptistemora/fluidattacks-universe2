@@ -1,6 +1,7 @@
 # pylint: disable=too-many-lines
 import bleach
 from custom_exceptions import (
+    CustomBaseException,
     DuplicateDraftFound,
     ErrorFileNameAlreadyExists,
     IncompleteSeverity,
@@ -13,6 +14,7 @@ from custom_exceptions import (
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
     InvalidReportFilter,
+    InvalidSeverity,
     InvalidSeverityUpdateValues,
     InvalidSpacesField,
     NumberOutOfRange,
@@ -29,6 +31,9 @@ from db_model.findings.types import (
 )
 from db_model.groups.types import (
     GroupFile,
+)
+from decimal import (
+    Decimal,
 )
 import functools
 import itertools
@@ -975,12 +980,13 @@ def validate_int_range_deco(
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             value = get_attr_value(field=field, kwargs=kwargs, obj_type=int)
-            if inclusive:
-                if not lower_bound <= value <= upper_bound:
-                    raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
-            else:
-                if not lower_bound < value < upper_bound:
-                    raise NumberOutOfRange(lower_bound, upper_bound, inclusive)
+            check_range(
+                value,
+                lower_bound,
+                upper_bound,
+                inclusive,
+                NumberOutOfRange(lower_bound, upper_bound, inclusive),
+            )
             return func(*args, **kwargs)
 
         return decorated
@@ -1181,6 +1187,57 @@ def validate_symbols_deco(field: str) -> Callable:
                 raise InvalidReportFilter(
                     "Password should include symbols characters"
                 )
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def check_range(
+    value: int,
+    lower_bound: int,
+    upper_bound: int,
+    inclusive: bool,
+    ex: CustomBaseException,
+) -> None:
+    if inclusive:
+        if not lower_bound <= value <= upper_bound:
+            raise ex
+    else:
+        if not lower_bound < value < upper_bound:
+            raise ex
+
+
+def check_range_severity(
+    severity: int,
+    min_value: Decimal,
+    max_value: Decimal,
+    ex: CustomBaseException,
+) -> None:
+    if severity and severity != -1:
+        check_range(
+            severity,
+            int(min_value),
+            int(max_value),
+            False,
+            ex,
+        )
+
+
+def validate_severity_range_deco(
+    field: str, min_value: Decimal, max_value: Decimal
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            severity = get_attr_value(field=field, kwargs=kwargs, obj_type=int)
+            check_range_severity(
+                severity,
+                min_value,
+                max_value,
+                InvalidSeverity([min_value, max_value]),
+            )
             return func(*args, **kwargs)
 
         return decorated
