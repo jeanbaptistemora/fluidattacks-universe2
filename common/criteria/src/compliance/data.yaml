@@ -1023,6 +1023,9 @@ cwe:
     "1325":
       title: Improperly controlled sequential memory allocation
       link: https://cwe.mitre.org/data/definitions/1325.html
+    "1395":
+      title: Dependency on Vulnerable Third-Party Component
+      link: https://cwe.mitre.org/data/definitions/1395.html
   metadata: {}
 eprivacy:
   title: ePrivacy Directive
@@ -2694,7 +2697,8 @@ cwe25:
       title: Missing authentication for critical function
       link: https://cwe.mitre.org/data/definitions/306.html
     "119":
-      title: Improper restriction of operations within the bounds of a memory buffer
+      title: Improper restriction of operations within the bounds of a
+        memory buffer
       link: https://cwe.mitre.org/data/definitions/119.html
     "276":
       title: Incorrect default permissions
@@ -2703,9 +2707,8 @@ cwe25:
       title: Server-side request forgery (SSRF)
       link: https://cwe.mitre.org/data/definitions/918.html
     "362":
-      title:
-        Concurrent execution using shared resource with improper synchronization
-        (Race condition)
+      title: Concurrent execution using shared resource with
+        improper synchronization (Race condition)
       link: https://cwe.mitre.org/data/definitions/362.html
     "400":
       title: Uncontrolled Resource Consumption
