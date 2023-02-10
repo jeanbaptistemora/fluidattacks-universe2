@@ -79,11 +79,11 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     return null;
   }, [eventStatus, isEditing, openRejectSolutionModal, openSolvingModal, t]);
 
-  return (
-    <Row>
-      <ButtonToolbarStartRow>
-        <DisplayButtons />
-        {(canUpdateEvent || canUpdateEventSolvingReason) && isEditing ? (
+  if ((canUpdateEvent || canUpdateEventSolvingReason) && isEditing) {
+    return (
+      <Row>
+        <ButtonToolbarStartRow>
+          <DisplayButtons />
           <React.Fragment>
             <Button onClick={onToggleEdit} variant={"secondary"}>
               <React.Fragment>
@@ -107,7 +107,16 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
               </Button>
             </Tooltip>
           </React.Fragment>
-        ) : canUpdateEvent || canUpdateEventSolvingReason ? (
+        </ButtonToolbarStartRow>
+      </Row>
+    );
+  }
+
+  return (
+    <Row>
+      <ButtonToolbarStartRow>
+        <DisplayButtons />
+        {canUpdateEvent || canUpdateEventSolvingReason ? (
           <Tooltip
             id={"group.events.description.edit.tooltip.btn"}
             tip={t("group.events.description.edit.tooltip")}
