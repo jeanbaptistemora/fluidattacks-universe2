@@ -176,6 +176,7 @@
     - /testPython/skims@benchmark_weakrand
     - /testPython/skims@benchmark_xpathi
     - /testPython/skims@benchmark_xss
+    - /testPython/skims@graph_generation
     - /testPython/skims@instance_references
     - /testPython/skims@lib_apk
     - /testPython/skims@lib_http
@@ -4311,6 +4312,34 @@
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
+/testPython/skims@graph_generation:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@graph_generation
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 0
+    MAKES_GIT_DEPTH: 0
 /testPython/skims@instance_references:
   after_script:
     - cp ~/.makes/provenance-* .

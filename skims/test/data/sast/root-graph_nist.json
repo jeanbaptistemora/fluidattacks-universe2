@@ -4255,7 +4255,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs",
+      "path": "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -32048,7 +32048,7 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs": 0,
+    "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs": 0,
     "skims/test/data/benchmark/nist/HouseController.cs": 1,
     "skims/test/data/benchmark/nist/StudentController.cs": 2,
     "skims/test/data/benchmark/nist/block_chaining_insecure.cs": 3

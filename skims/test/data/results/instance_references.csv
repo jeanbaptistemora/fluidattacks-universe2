@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
- in OWASP/src/App.java","
+F034,lines,OWASP/App.java,34,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
+ in OWASP/App.java","
    24 |
    25 |     public void test_01() {
    26 |         HttpServletRequest request = new HttpServletRequest();
@@ -24,8 +24,8 @@ F034,lines,OWASP/src/App.java,34,330,skims,034. Insecure generation of random nu
    44 |         request.getSession().setAttribute(cookieName, currentUser[lastName]);
       ^ Col 0
 ",java.java_weak_random
-F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
- in OWASP/src/App.java","
+F034,lines,OWASP/App.java,44,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
+ in OWASP/App.java","
    34 |         request.getSession().setAttribute(cookieName, cookieKey);
    35 |     }
    36 |
@@ -49,8 +49,8 @@ F034,lines,OWASP/src/App.java,44,330,skims,034. Insecure generation of random nu
    54 |
       ^ Col 0
 ",java.java_weak_random
-F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
- in OWASP/src/App.java","
+F034,lines,OWASP/App.java,88,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
+ in OWASP/App.java","
    78 |
    79 |     public void test_06() {
    80 |         HttpServletRequest request = new HttpServletRequest();
@@ -74,8 +74,8 @@ F034,lines,OWASP/src/App.java,88,330,skims,034. Insecure generation of random nu
    98 |         request.getSession().setAttribute(cookieName, currentUser);
       ^ Col 0
 ",java.java_weak_random
-F034,lines,OWASP/src/App.java,98,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
- in OWASP/src/App.java","
+F034,lines,OWASP/App.java,98,330,skims,034. Insecure generation of random numbers,"The application uses insecure methods to generate random numbers and assigns them to sensitive parameters
+ in OWASP/App.java","
    88 |         request.getSession().setAttribute(cookieName, cookieKey);
    89 |     }
    90 |

@@ -15,22 +15,17 @@ from utils.encodings import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.skims_test_group("unittesting")
+@pytest.mark.skims_test_group("graph_generation")
 @pytest.mark.parametrize(
     "files_to_test,suffix_out",
     [
         (
             (
-                "skims/test/data/benchmark/instance_references/src/App.java",
-                "skims/test/data/benchmark/instance_references/src/User.java",
-            ),
-            "instance_ref",
-        ),
-        (
-            (
-                "skims/test/data/benchmark/owasp/BenchmarkTest00001.java",
-                "skims/test/data/benchmark/owasp/BenchmarkTest00008.java",
-                "skims/test/data/benchmark/owasp/BenchmarkTest00167.java",
+                "skims/test/data/benchmark/owasp/App.java",
+                "skims/test/data/benchmark/owasp/User.java",
+                "skims/test/data/benchmark/owasp/Test001.java",
+                "skims/test/data/benchmark/owasp/Test008.java",
+                "skims/test/data/benchmark/owasp/Test167.java",
             ),
             "benchmark",
         ),
@@ -61,10 +56,7 @@ from utils.encodings import (
         ),
         (
             (
-                (
-                    "skims/test/data/benchmark/nist/"
-                    "CWE89_SQL_Injection__Web_Params_Get_Web_CommandText_01.cs"
-                ),
+                "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs",
                 "skims/test/data/benchmark/nist/StudentController.cs",
                 "skims/test/data/benchmark/nist/HouseController.cs",
                 "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
