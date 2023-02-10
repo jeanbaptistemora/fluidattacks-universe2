@@ -167,6 +167,15 @@ edit or remove users.
   in a .CSV file.
   For more information,
   click [here](/machine/web/export)
+- **OAuth connection:**
+  Connection between the providers
+  GitLab - GitHub - Bitbucket - Azure
+  with the ARM platform.
+- **Add repositories Out of Scope:**
+  Repositories that are not yet part of any
+  group of the organization.
+  You can add them in bulk or as a unit
+  in your required group.
 
 ## Roles table
 
@@ -194,7 +203,8 @@ for each role.
 |View vulnerabilities |X   |X                    |X           |
 |ORG vulnerabilities download |    |             |X           |
 |support channels     |X   |X                    |X           |
-|Add Azure credentials|    |                     |X           |
+|OAuth connection     |    |                     |X           |
+|Add repositories Out of Scope|    |             |X           |
 |Compliance Report    |X   |X                    |X           |
 |Add ORG credentials  |    |                     |X           |
 |ORG policies         |    |                     |X           |
