@@ -7,6 +7,7 @@ from model.core_model import (
     MethodsEnum,
     Platform,
 )
+import re
 from typing import (
     Iterator,
     Tuple,
@@ -16,7 +17,7 @@ from typing import (
 def get_dep_info(dep_line: str) -> Tuple[str, str]:
     product, version = dep_line.split("@")[0].split("/")
     if "[" in version:
-        version = version.replace("[", "").replace("]", "").split(",")[0]
+        version = re.sub(r"[\[\]]", "", version).split(",")[0]
     return product, version
 
 
