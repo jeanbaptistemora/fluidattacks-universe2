@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -16,7 +15,7 @@ async def get_result(
     user: str,
     finding: str,
     vulnerability: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     justification: str = "this is a comenting test of a request "
     "verification in vulns"  # pylint: disable=pointless-string-statement
     query: str = f"""
@@ -31,7 +30,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

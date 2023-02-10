@@ -10,9 +10,6 @@ from db_model.findings.enums import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
@@ -58,7 +55,8 @@ async def test_request_verification_vuln(
     assert finding
     assert finding.verification
     assert finding.verification.status == FVStatus.REQUESTED
-    vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
     assert vulnerability.verification
     assert (
         vulnerability.verification.status

@@ -19,9 +19,6 @@ from db_model.findings.enums import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
@@ -93,18 +90,19 @@ async def test_solve_event_on_hold(
     assert populate
     loaders = get_new_context()
     event = await loaders.event.load(event_id)
+    assert event
+    assert event.state.status == EventStateStatus.CREATED
     finding = await loaders.finding.load(
         "3c475384-834c-47b0-ac71-a41a022e401c"
     )
     assert finding
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
-    )
-    assert event
-    assert event.state.status == EventStateStatus.CREATED
     assert finding.verification
     assert finding.verification.status == FinVStatus.ON_HOLD
     assert finding.verification.modified_by == email
+    vulnerability = await loaders.vulnerability.load(
+        "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
+    )
+    assert vulnerability
     assert vulnerability.verification
     assert (
         vulnerability.verification.status
@@ -116,7 +114,6 @@ async def test_solve_event_on_hold(
     assert "success" in result["data"]["solveEvent"]
 
     loaders = get_new_context()
-    event = await loaders.event.load(event_id)
     finding = await loaders.finding.load(
         "3c475384-834c-47b0-ac71-a41a022e401c"
     )
@@ -124,6 +121,7 @@ async def test_solve_event_on_hold(
     vulnerability = await loaders.vulnerability.load(
         "4dbc03e0-4cfc-4b33-9b70-bb7566c460bd"
     )
+    assert vulnerability
     requester = await get_reattack_requester(loaders, vulnerability)
     assert requester
     solve_consult: str = "The reattacks are back to"
@@ -136,6 +134,7 @@ async def test_solve_event_on_hold(
             comment_type=CommentType.VERIFICATION, finding_id=finding.id
         )
     )
+    event = await loaders.event.load(event_id)
     assert event
     assert event.state.status == EventStateStatus.SOLVED
     assert event.state.modified_by == email
