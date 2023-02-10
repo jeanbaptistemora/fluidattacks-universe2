@@ -16,6 +16,7 @@ import {
   isRejectZeroRiskSelectedHelper,
   rejectZeroRiskProps,
 } from "./helpers";
+import { PermanentlyAcceptedForm } from "./PermanentlyAcceptedForm";
 import { getInitialTreatment } from "./utils";
 
 import { FormikSelect } from "components/Input/Formik";
@@ -206,29 +207,39 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
             </FormikSelect>
           </div>
           <br />
-          <Formik
-            enableReinitialize={true}
-            initialValues={{
-              justification: "",
-            }}
-            name={"updateTreatmentAcceptance"}
-            onSubmit={handleSubmit}
-          >
-            <HandleAcceptanceModalForm
-              acceptanceVulnerabilities={acceptanceVulns}
-              acceptedVulnerabilities={acceptedVulns}
-              confirmingZeroRisk={confirmingZeroRisk}
-              handleCloseModal={handleCloseModal}
-              handlingAcceptance={handlingAcceptance}
-              hasAcceptedVulns={hasAcceptedVulns}
-              hasRejectedVulns={hasRejectedVulns}
-              rejectedVulnerabilities={rejectedVulns}
-              rejectingZeroRisk={rejectingZeroRisk}
-              setAcceptanceVulns={setAcceptanceVulns}
-              treatment={treatment}
-              vulns={vulns}
+          {treatment === "ACCEPTED_UNDEFINED" ? undefined : (
+            <Formik
+              enableReinitialize={true}
+              initialValues={{
+                justification: "",
+              }}
+              name={"updateTreatmentAcceptance"}
+              onSubmit={handleSubmit}
+            >
+              <HandleAcceptanceModalForm
+                acceptanceVulnerabilities={acceptanceVulns}
+                acceptedVulnerabilities={acceptedVulns}
+                confirmingZeroRisk={confirmingZeroRisk}
+                handleCloseModal={handleCloseModal}
+                handlingAcceptance={handlingAcceptance}
+                hasAcceptedVulns={hasAcceptedVulns}
+                hasRejectedVulns={hasRejectedVulns}
+                rejectedVulnerabilities={rejectedVulns}
+                rejectingZeroRisk={rejectingZeroRisk}
+                setAcceptanceVulns={setAcceptanceVulns}
+                treatment={treatment}
+                vulns={vulns}
+              />
+            </Formik>
+          )}
+          {treatment === "ACCEPTED_UNDEFINED" ? (
+            <PermanentlyAcceptedForm
+              findingId={findingId}
+              onCancel={handleCloseModal}
+              refetchData={refetchData}
+              vulnerabilities={vulns}
             />
-          </Formik>
+          ) : undefined}
         </Modal>
       </React.StrictMode>
     );

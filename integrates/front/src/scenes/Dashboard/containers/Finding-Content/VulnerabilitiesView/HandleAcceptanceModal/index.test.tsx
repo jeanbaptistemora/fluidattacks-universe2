@@ -137,7 +137,6 @@ describe("handle vulns acceptance modal", (): void => {
     expect(screen.getByRole("checkbox")).toBeChecked();
 
     await userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
-    await userEvent.click(screen.getByRole("checkbox", { name: "APPROVED" }));
 
     expect(screen.getByRole("checkbox")).not.toBeChecked();
 
