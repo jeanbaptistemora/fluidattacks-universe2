@@ -1,6 +1,5 @@
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f400.cloudformation import (
@@ -11,17 +10,11 @@ from lib_path.f400.cloudformation import (
     cfn_elb_has_access_logging_disabled,
     cfn_trails_not_multiregion,
 )
-from lib_path.f400.terraform import (
-    tfm_lambda_tracing_disabled,
-)
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from parse_hcl2.loader import (
-    load_blocking as load_terraform,
 )
 from typing import (
     Any,
@@ -85,13 +78,6 @@ def run_cfn_ec2_monitoring_disabled(
 
 
 @SHIELD_BLOCKING
-def run_tfm_lambda_tracing_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_lambda_tracing_disabled(content=content, path=path, model=model)
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -125,14 +111,5 @@ def analyze(
                     content, file_extension, path, template
                 ),
             )
-
-    if file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
-        model = load_terraform(stream=content, default=[])
-
-        results = (
-            *results,
-            run_tfm_lambda_tracing_disabled(content, path, model),
-        )
 
     return results

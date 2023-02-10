@@ -5615,7 +5615,7 @@ class MethodsEnum(Enum):
     TFM_LAMBDA_TRACING_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_lambda_tracing_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.FLOR_CALDERON,
         technique=TechniqueEnum.BASIC_SAST,

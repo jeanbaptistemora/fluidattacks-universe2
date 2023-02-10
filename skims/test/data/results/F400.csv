@@ -182,8 +182,7 @@ F400,lines,namespace/skims/test/data/lib_root/f400/tfm_distribution_has_logging_
   33 |   default_cache_behavior {
      ^ Col 0
 ",terraform.tfm_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,37,778,skims,400. Traceability Loss - AWS,Missing tracing_config property or is misconfigured to make traceability in namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,"
-  27 |     mode = ""Active""
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_lambda_trace_disabled.tf,38,778,skims,400. Traceability Loss - AWS,Missing tracing_config property or is misconfigured to make traceability in namespace/skims/test/data/lib_root/f400/tfm_lambda_trace_disabled.tf,"
   28 |   }
   29 |   # ... other configuration ...
   30 | }
@@ -193,8 +192,8 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,
   34 |   role          = aws_iam_role.iam_for_lambda.arn
   35 |   handler       = ""index.test""
   36 |
-> 37 |   tracing_config {
-  38 |     mode = ""PassThrough""
+  37 |   tracing_config {
+> 38 |     mode = ""PassThrough""
   39 |   }
   40 |   # ... other configuration ...
   41 | }
@@ -204,9 +203,10 @@ F400,lines,namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,
   45 |   role          = aws_iam_role.iam_for_lambda.arn
   46 |   handler       = ""index.test""
   47 |
+  48 |   ephemeral_storage {
      ^ Col 0
 ",terraform.tfm_lambda_tracing_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,43,778,skims,400. Traceability Loss - AWS,Missing tracing_config property or is misconfigured to make traceability in namespace/skims/test/data/lib_path/f400/tfm_lambda_trace_disabled.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_lambda_trace_disabled.tf,43,778,skims,400. Traceability Loss - AWS,Missing tracing_config property or is misconfigured to make traceability in namespace/skims/test/data/lib_root/f400/tfm_lambda_trace_disabled.tf,"
   32 | resource ""aws_lambda_function"" ""test_lambda_insecure_trace"" {
   33 |   function_name = ""lambda_function_insecure""
   34 |   role          = aws_iam_role.iam_for_lambda.arn
