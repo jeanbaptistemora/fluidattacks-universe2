@@ -11,14 +11,10 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model import (
-    portfolios as portfolios_model,
-)
 from db_model.groups.types import (
     Group,
 )
 from db_model.portfolios.types import (
-    Portfolio,
     PortfolioRequest,
 )
 from organizations import (
@@ -28,12 +24,6 @@ from organizations import (
 from typing import (
     Iterable,
 )
-
-
-async def remove(organization_name: str, portfolio_id: str) -> None:
-    await portfolios_model.remove(
-        organization_name=organization_name, portfolio_id=portfolio_id
-    )
 
 
 async def filter_allowed_tags(
@@ -113,9 +103,3 @@ async def is_tag_allowed(
         group in stakeholder_portfolios_group_names
         for group in portfolio.groups
     )
-
-
-async def update(
-    portfolio: Portfolio,
-) -> None:
-    await portfolios_model.update(portfolio=portfolio)

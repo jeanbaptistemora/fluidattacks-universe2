@@ -8,6 +8,9 @@ from dataloaders import (
     Dataloaders,
     get_new_context,
 )
+from db_model import (
+    portfolios as portfolios_model,
+)
 from db_model.groups.enums import (
     GroupStateStatus,
 )
@@ -33,9 +36,6 @@ from organizations import (
 )
 from schedulers.common import (
     info,
-)
-from tags import (
-    domain as tags_domain,
 )
 from typing import (
     Any,
@@ -192,7 +192,7 @@ async def update_organization_indicators(
         updated_tags.append(tag)
         tag_info = calculate_tag_indicators(tag, tags_dict, indicator_list)
         portfolio = format_portfolio_indicators(tag, org_name, tag_info)
-        await tags_domain.update(portfolio)
+        await portfolios_model.update(portfolio=portfolio)
     return updated_tags
 
 
@@ -222,7 +222,10 @@ async def update_portfolios() -> None:
             tag.id for tag in org_tags if tag.id not in updated_tags
         ]
         await collect(
-            tags_domain.remove(org_name, tag_id) for tag_id in deleted_tags
+            portfolios_model.remove(
+                organization_name=org_name, portfolio_id=tag_id
+            )
+            for tag_id in deleted_tags
         )
 
 
