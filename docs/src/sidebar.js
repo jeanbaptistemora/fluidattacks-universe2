@@ -152,6 +152,7 @@ const About = [
       "about/compare/shiftleft",
       "about/compare/snyk",
       "about/compare/sonarqube",
+      "about/compare/soos",
       "about/compare/synopsys",
       "about/compare/tenable",
       "about/compare/veracode",
