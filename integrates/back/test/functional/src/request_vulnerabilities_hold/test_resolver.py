@@ -20,9 +20,6 @@ from db_model.findings.enums import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityVerificationStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
@@ -67,7 +64,8 @@ async def test_request_hold_vuln(
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
     assert finding
-    vulnerability: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
     assert (
         vulnerability.unreliable_indicators.unreliable_last_reattack_requester
         != ""
@@ -89,10 +87,11 @@ async def test_request_hold_vuln(
     loaders = get_new_context()
     finding = await loaders.finding.load(finding_id)
     assert finding
-    vulnerability = await loaders.vulnerability.load(vuln_id)
     assert finding.verification
     assert finding.verification.status == FVStatus.ON_HOLD
     assert finding.verification.modified_by == email
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
     assert vulnerability.verification
     assert (
         vulnerability.verification.status

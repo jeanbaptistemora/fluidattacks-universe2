@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
     Optional,
 )
 
@@ -19,7 +18,7 @@ async def get_result(
     vulnerability: str,
     reasons: list[str],
     other_reason: Optional[str],
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query: str = """
             mutation RejectVulnerabilities(
                 $findingId: String!,

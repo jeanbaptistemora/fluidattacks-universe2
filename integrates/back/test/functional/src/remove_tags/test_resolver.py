@@ -2,16 +2,11 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
-)
-from db_model.vulnerabilities.types import (
-    Vulnerability,
 )
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -24,11 +19,12 @@ async def test_remove_single_tag(populate: bool) -> None:
     vuln_id: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
     tag_to_remove = "tag3"
 
-    loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.tags == ["tag1", "tag2", "tag3"]
+    loaders = get_new_context()
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.tags == ["tag1", "tag2", "tag3"]
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=user_email,
         finding=finding_id,
         vuln_id=vuln_id,
@@ -39,8 +35,9 @@ async def test_remove_single_tag(populate: bool) -> None:
     assert result["data"]["removeTags"]["success"]
 
     loaders.vulnerability.clear(vuln_id)
-    vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.tags == ["tag1", "tag2"]
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.tags == ["tag1", "tag2"]
 
 
 @pytest.mark.asyncio
@@ -59,16 +56,17 @@ async def test_remove_all_tags(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     vuln_id: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vuln_id=vuln_id
     )
     assert "errors" not in result
     assert "success" in result["data"]["removeTags"]
     assert result["data"]["removeTags"]["success"]
 
-    loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.tags is None
+    loaders = get_new_context()
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.tags is None
 
 
 @pytest.mark.asyncio
@@ -84,7 +82,7 @@ async def test_remove_tags_fail(populate: bool, email: str) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     vuln_uuid: str = "be09edb7-cd5c-47ed-bee4-97c645acdce8"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vuln_id=vuln_uuid
     )
     assert "errors" in result

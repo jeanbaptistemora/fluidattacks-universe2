@@ -7,7 +7,6 @@ from dataloaders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -17,7 +16,7 @@ async def get_result(
     finding: str,
     accepted_vulnerability_id: str,
     rejected_vulnerability_id: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     query = f"""
         mutation {{
             handleVulnerabilitiesAcceptance(
@@ -31,7 +30,7 @@ async def get_result(
             }}
         }}
     """
-    data: Dict[str, Any] = {"query": query}
+    data: dict[str, Any] = {"query": query}
     return await get_graphql_result(
         data,
         stakeholder=user,

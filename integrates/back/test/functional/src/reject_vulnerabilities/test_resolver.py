@@ -2,19 +2,14 @@ from . import (
     get_result,
 )
 from dataloaders import (
-    Dataloaders,
     get_new_context,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -46,11 +41,12 @@ async def test_reject_vulnerabilities(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    loaders: Dataloaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.SUBMITTED
+    loaders = get_new_context()
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == VulnerabilityStateStatus.SUBMITTED
 
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         vulnerability=vuln_id,
@@ -61,9 +57,10 @@ async def test_reject_vulnerabilities(
     assert result["data"]["rejectVulnerabilities"]["success"]
 
     loaders.vulnerability.clear(vuln_id)
-    vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.REJECTED
-    assert vuln.state.modified_by == email
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == VulnerabilityStateStatus.REJECTED
+    assert vulnerability.state.modified_by == email
 
 
 @pytest.mark.asyncio
@@ -124,7 +121,7 @@ async def test_reject_vulnerabilities_fail(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         vulnerability=vuln_id,

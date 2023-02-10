@@ -14,9 +14,6 @@ from db_model.vulnerabilities.enums import (
     VulnerabilityStateStatus,
     VulnerabilityZeroRiskStatus as VZeroRiskStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
@@ -38,10 +35,11 @@ async def test_reject_vulnerabilities_zero_risk(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.zero_risk
-    assert vuln.zero_risk.status == VZeroRiskStatus.REQUESTED
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
+    assert vulnerability.zero_risk
+    assert vulnerability.zero_risk.status == VZeroRiskStatus.REQUESTED
 
     result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id
@@ -51,10 +49,11 @@ async def test_reject_vulnerabilities_zero_risk(
     assert result["data"]["rejectVulnerabilitiesZeroRisk"]["success"]
 
     loaders.vulnerability.clear(vuln_id)
-    vuln = await loaders.vulnerability.load(vuln_id)
-    assert vuln.state.status == VulnerabilityStateStatus.VULNERABLE
-    assert vuln.zero_risk
-    assert vuln.zero_risk.status == VZeroRiskStatus.REJECTED
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.state.status == VulnerabilityStateStatus.VULNERABLE
+    assert vulnerability.zero_risk
+    assert vulnerability.zero_risk.status == VZeroRiskStatus.REJECTED
     zero_risk_comments = await loaders.finding_comments.load(
         FindingCommentsRequest(
             comment_type=CommentType.ZERO_RISK, finding_id=finding_id
@@ -81,8 +80,9 @@ async def test_reject_vulnerabilities_zero_risk_fail(
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders = get_new_context()
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
-    assert vuln.zero_risk is None
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.zero_risk is None
 
     result: dict[str, Any] = await get_result(
         user=email, finding=finding_id, vulnerability=vuln_id

@@ -10,15 +10,15 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
@@ -102,14 +102,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     evidences=FindingEvidences(
                         evidence1=FindingEvidence(
                             description="evidence1",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-evidence1",  # noqa: E501 pylint: disable=line-too-long
+                            url="group1-3c475384-834c-47b0-ac71-"
+                            "a41a022e401c-evidence1",
                             modified_date=datetime.fromisoformat(
                                 "2020-11-19T13:37:10+00:00"
                             ),
                         ),
                         records=FindingEvidence(
                             description="records",
-                            url="group1-3c475384-834c-47b0-ac71-a41a022e401c-records",  # noqa: E501 pylint: disable=line-too-long
+                            url="group1-3c475384-834c-47b0-ac71-"
+                            "a41a022e401c-records",
                             modified_date=datetime.fromisoformat(
                                 "2111-11-19T13:37:10+00:00"
                             ),
@@ -226,7 +228,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,  # noqa: E501 pylint: disable=line-too-long
+                        acceptance_status=(
+                            VulnerabilityAcceptanceStatus.SUBMITTED
+                        ),
                     ),
                 ],
             },
@@ -275,7 +279,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,  # noqa: E501 pylint: disable=line-too-long
+                        acceptance_status=(
+                            VulnerabilityAcceptanceStatus.SUBMITTED
+                        ),
                     ),
                 ],
             },
@@ -324,7 +330,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,  # noqa: E501 pylint: disable=line-too-long
+                        acceptance_status=(
+                            VulnerabilityAcceptanceStatus.SUBMITTED
+                        ),
                     ),
                 ],
             },
@@ -373,7 +381,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                             "2018-04-09T00:45:11+00:00"
                         ),
                         status=VulnerabilityTreatmentStatus.ACCEPTED_UNDEFINED,
-                        acceptance_status=VulnerabilityAcceptanceStatus.SUBMITTED,  # noqa: E501 pylint: disable=line-too-long
+                        acceptance_status=(
+                            VulnerabilityAcceptanceStatus.SUBMITTED
+                        ),
                     ),
                 ],
             },

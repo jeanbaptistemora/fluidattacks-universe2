@@ -10,13 +10,9 @@ from dataloaders import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityAcceptanceStatus,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -47,18 +43,18 @@ async def test_handle_vulnerabilities_acceptance(
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
     loaders = get_new_context()
 
-    accepted_vuln: Vulnerability = await loaders.vulnerability.load(
-        accepted_vulnerability_id
-    )
-    rejected_vuln: Vulnerability = await loaders.vulnerability.load(
-        rejected_vulnerability_id
-    )
+    accepted_vuln = await loaders.vulnerability.load(accepted_vulnerability_id)
+    assert accepted_vuln
+    assert accepted_vuln.treatment
+    rejected_vuln = await loaders.vulnerability.load(rejected_vulnerability_id)
+    assert rejected_vuln
+    assert rejected_vuln.treatment
     assert (
-        accepted_vuln.treatment.acceptance_status  # type: ignore
-        == rejected_vuln.treatment.acceptance_status  # type: ignore
+        accepted_vuln.treatment.acceptance_status
+        == rejected_vuln.treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.SUBMITTED
     )
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         accepted_vulnerability_id=accepted_vulnerability_id,
@@ -70,12 +66,16 @@ async def test_handle_vulnerabilities_acceptance(
     loaders.vulnerability.clear_all()
     loaders.vulnerability_historic_treatment.clear(accepted_vulnerability_id)
     accepted_vuln = await loaders.vulnerability.load(accepted_vulnerability_id)
+    assert accepted_vuln
+    assert accepted_vuln.treatment
     rejected_vuln = await loaders.vulnerability.load(rejected_vulnerability_id)
+    assert rejected_vuln
+    assert rejected_vuln.treatment
     assert (
-        accepted_vuln.treatment.acceptance_status  # type: ignore
+        accepted_vuln.treatment.acceptance_status
         == VulnerabilityAcceptanceStatus.APPROVED
     )
-    assert rejected_vuln.treatment.acceptance_status is None  # type: ignore
+    assert rejected_vuln.treatment.acceptance_status is None
 
 
 @pytest.mark.asyncio
@@ -93,7 +93,7 @@ async def test_handle_vulnerabilities_acceptance_fail_1(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         accepted_vulnerability_id="6f023c26-5x10-4ded-aa27-xx563c2206ax",
@@ -143,7 +143,7 @@ async def test_handle_vulnerabilities_acceptance_fail_2(
 ) -> None:
     assert populate
     finding_id: str = "3c475384-834c-47b0-ac71-a41a022e401c"
-    result: Dict[str, Any] = await get_result(
+    result: dict[str, Any] = await get_result(
         user=email,
         finding=finding_id,
         accepted_vulnerability_id=accepted_vulnerability_id,
