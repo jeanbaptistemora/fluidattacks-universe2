@@ -47,7 +47,7 @@ F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_loggi
   36 |           }
      ^ Col 0
 ",cloudformation.cfn_cf_distribution_has_logging_disabled
-F400,lines,namespace/skims/test/data/lib_path/f400/elb_test.tf,9,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/elb_test.tf,"
+F400,lines,namespace/skims/test/data/lib_root/f400/tfm_elb_logging_disabled.tf,9,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_root/f400/tfm_elb_logging_disabled.tf,"
    1 | resource ""aws_elb"" ""bar"" {
    2 |   name               = ""foobar-terraform-elb""
    3 |   availability_zones = [""us-west-2a"", ""us-west-2b"", ""us-west-2c""]

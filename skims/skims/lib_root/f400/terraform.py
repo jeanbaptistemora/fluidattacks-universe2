@@ -67,6 +67,46 @@ def _trails_not_multiregion(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
+def _elb_logging_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+    expected_block = "access_logs"
+    expected_block_attr = "enabled"
+    has_block = False
+    for c_id in adj_ast(graph, nid, name=expected_block):
+        has_block = True
+        for b_id in adj_ast(graph, c_id, label_type="Pair"):
+            key, value = get_key_value(graph, b_id)
+            if key == expected_block_attr:
+                if value.lower() == "false":
+                    return b_id
+                return None
+    if not has_block:
+        return nid
+    return None
+
+
+def tfm_elb_logging_disabled(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_ELB_LOGGING_DISABLED
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_elb"):
+                if report := _elb_logging_disabled(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f400.has_logging_disabled",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_trails_not_multiregion(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

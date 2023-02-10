@@ -5583,7 +5583,7 @@ class MethodsEnum(Enum):
     TFM_ELB_LOGGING_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_elb_logging_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

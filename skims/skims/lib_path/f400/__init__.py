@@ -12,7 +12,6 @@ from lib_path.f400.cloudformation import (
     cfn_trails_not_multiregion,
 )
 from lib_path.f400.terraform import (
-    tfm_elb_logging_disabled,
     tfm_lambda_tracing_disabled,
 )
 from model.core_model import (
@@ -86,13 +85,6 @@ def run_cfn_ec2_monitoring_disabled(
 
 
 @SHIELD_BLOCKING
-def run_tfm_elb_logging_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_elb_logging_disabled(content=content, path=path, model=model)
-
-
-@SHIELD_BLOCKING
 def run_tfm_lambda_tracing_disabled(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -140,7 +132,6 @@ def analyze(
 
         results = (
             *results,
-            run_tfm_elb_logging_disabled(content, path, model),
             run_tfm_lambda_tracing_disabled(content, path, model),
         )
 
