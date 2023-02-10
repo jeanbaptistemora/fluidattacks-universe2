@@ -58,7 +58,7 @@ def cfn_iam_has_wildcard_resource_on_write_action(
             )
         ),
         path=path,
-        method=MethodsEnum.CFN_IAM_WILDCARD_WRITE,
+        method=MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_WILDCARD_RESOURCES,
     )
 
 

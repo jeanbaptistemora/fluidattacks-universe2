@@ -921,7 +921,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   53 |                 Action: '*'
   54 |                 Resource: s3:GetObject
      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json,70,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_iam.yaml.json","
   60 |         ""Path"": ""/"",
@@ -946,7 +946,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_privileges_over_i
   79 |               ""Statement"": [
   80 |                 {
      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    12 |             Action: rds:CreateDBInstance
@@ -971,7 +971,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    31 |               - ec2:StartInstances
    32 |               - s3:GetObject
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    23 |             Condition:
@@ -996,7 +996,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    42 |               - ec2:StartInstances
    43 |               - s3:GetObject
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    34 |             Condition:
@@ -1021,7 +1021,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    53 |               StringEquals:
    54 |                 rds:DatabaseClass: db.t2.micro
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml,51,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml","
    41 |               - ''
@@ -1046,7 +1046,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    60 |       AssumeRolePolicyDocument:
    61 |         Version: '2012-10-17'
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
    17 |                 }
@@ -1071,7 +1071,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    36 |               ""Effect"": ""Allow"",
    37 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
    34 |             },
@@ -1096,7 +1096,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    53 |               ""Effect"": ""Allow"",
    54 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
    51 |             },
@@ -1121,7 +1121,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    70 |               ""Effect"": ""Allow"",
    71 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource_on_write_action.yaml.json","
    64 |                 ""StringEquals"": {
@@ -1146,7 +1146,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_has_wildcard_resource
    83 |         ""Groups"": [
    84 |           ""TestDBGroup""
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,22,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    12 |             Action: rds:CreateDBInstance
@@ -1171,7 +1171,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    31 |               - ec2:StartInstances
    32 |               - s3:GetObject
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,33,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    23 |             Condition:
@@ -1196,7 +1196,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    42 |               - ec2:StartInstances
    43 |               - s3:GetObject
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    34 |             Condition:
@@ -1221,7 +1221,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    53 |               - arn:aws:s3:::HRBucket/Payroll
    54 |               - arn:aws:s3:::HRBucket/Payroll/*
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,51,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    41 |               - ''
@@ -1246,7 +1246,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    60 |       Groups:
    61 |         - TestDBGroup
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,105,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
    95 |               - ec2:StartInstances
@@ -1271,7 +1271,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   114 |       AssumeRolePolicyDocument:
   115 |         Version: '2012-10-17'
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,131,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
   121 |             NotAction:
@@ -1296,7 +1296,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   140 |                 Action: '*'
   141 |                 Resource: s3:GetObject
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml,134,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml","
   124 |       Policies:
@@ -1321,7 +1321,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   143 |           PolicyDocument:
   144 |             Version: '2012-10-17'
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,27,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    17 |                 }
@@ -1346,7 +1346,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    36 |               ""Effect"": ""Allow"",
    37 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,44,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    34 |             },
@@ -1371,7 +1371,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    53 |               ""Effect"": ""Allow"",
    54 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,61,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    51 |             },
@@ -1396,7 +1396,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    70 |               ""Effect"": ""Allow"",
    71 |               ""Action"": [
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,74,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
    64 |                 ""StringEquals"": {
@@ -1421,7 +1421,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
    83 |               }
    84 |             }
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,160,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
   150 |               ""Resource"": ""*"",
@@ -1446,7 +1446,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   169 |         ""Groups"": [
   170 |           ""TestDBGroup""
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,203,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
   193 |         ""Path"": ""/"",
@@ -1471,7 +1471,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   212 |           },
   213 |           {
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json,208,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_configured.yaml.json","
   198 |               ""Version"": ""2012-10-17"",
@@ -1496,7 +1496,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_policy_miss_config
   217 |               ""Statement"": [
   218 |                 {
       ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml,23,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml","
   13 |             Action:
@@ -1521,7 +1521,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   32 |         - arn:aws:iam::aws:policy/AdministratorAccess
   33 |         - arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess
      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json,32,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileged.yaml.json","
   22 |         ""Path"": ""/"",
@@ -1546,7 +1546,7 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_iam_is_role_over_privileg
   41 |               ""Statement"": [
   42 |                 {
      ^ Col 0
-",cloudformation.cfn_iam_has_wildcard_resource_on_write_action
+",cloudformation.cfn_iam_permissions_policy_wildcard_resources
 F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,30,250,skims,325. Excessive privileges - Wildcards,"Write actions are allowed on all resources
  in namespace/skims/test/data/lib_path/f325/terraform.tf","
   20 |     ]

@@ -5103,7 +5103,7 @@ class MethodsEnum(Enum):
         file_name="cloudformation",
         name="cfn_iam_permissions_policy_wildcard_resources",
         module="lib_path",
-        finding=FindingEnum.F165,
+        finding=FindingEnum.F325,
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.BASIC_SAST,
     )
