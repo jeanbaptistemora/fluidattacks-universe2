@@ -5663,7 +5663,7 @@ class MethodsEnum(Enum):
     TFM_AWS_EFS_UNENCRYPTED = MethodInfo(
         file_name="terraform",
         name="tfm_aws_efs_unencrypted",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F406,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

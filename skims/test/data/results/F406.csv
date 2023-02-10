@@ -95,7 +95,7 @@ F406,lines,namespace/skims/test/data/lib_path/f406/cfn_aws_efs_unencrypted.yaml.
   33 | }
      ^ Col 0
 ",cloudformation.cfn_aws_efs_unencrypted
-F406,lines,namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_path/f406/tfm_aws_efs_unencrypted.tf,"
+F406,lines,namespace/skims/test/data/lib_root/f406/tfm_aws_efs_unencrypted.tf,3,16,skims,406. Non-encrypted confidential information - EFS,The Encrypted property should be enabled in namespace/skims/test/data/lib_root/f406/tfm_aws_efs_unencrypted.tf,"
   1 | resource ""aws_efs_file_system"" ""enabled"" {
   2 |   creation_token = ""example""
 > 3 |   encrypted      = false
