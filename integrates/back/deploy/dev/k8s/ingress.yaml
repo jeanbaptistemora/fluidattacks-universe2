@@ -12,9 +12,10 @@ metadata:
     alb.ingress.kubernetes.io/security-groups: CloudFlare
     alb.ingress.kubernetes.io/healthcheck-path: /
     alb.ingress.kubernetes.io/success-codes: 200,302
-    alb.ingress.kubernetes.io/unhealthy-threshold-count: '6'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: "6"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    external-dns.alpha.kubernetes.io/cloudflare-proxied: 'true'
+    alb.ingress.kubernetes.io/target-node-labels: worker_group=dev
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "true"
 spec:
   rules:
     - host: ${CI_COMMIT_REF_NAME}.app.fluidattacks.com
