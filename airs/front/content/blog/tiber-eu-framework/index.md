@@ -104,6 +104,12 @@ This group belongs to the authority
 and is responsible for the supervision of the test
 to ensure compliance with the framework's requirements.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 The TIBER-EU also manages requirements for TI and RT providers.
 The entity to be tested must verify they are met
 before working with these companies.

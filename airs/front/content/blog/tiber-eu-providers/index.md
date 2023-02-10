@@ -115,6 +115,12 @@ In addition,
 the entity should request evidence from the prospective supplier
 about its information security policies.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 ### Guidelines related to red teaming providers
 
 According to the TIBER-EU Framework,

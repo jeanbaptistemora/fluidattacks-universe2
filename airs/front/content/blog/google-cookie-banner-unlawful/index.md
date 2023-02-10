@@ -82,6 +82,12 @@ with an option to reject all cookies
 as simple as that to accept them all.
 Cue Google's new cookie consent option.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ## Reject all cookies upon the first click
 
 The introduction of the "Reject all" button was announced last week

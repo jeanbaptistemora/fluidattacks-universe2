@@ -123,6 +123,13 @@ the supply chain risk needs to be monitored,
 quantitatively measured
 and also be included in the firm's [incident response plan](../incident-response-plan/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 And one more important piece of advice in this publication
 is for organizations to have policies
 on acquiring systems from the supply chain

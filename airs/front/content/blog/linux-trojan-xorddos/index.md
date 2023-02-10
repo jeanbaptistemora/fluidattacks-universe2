@@ -81,6 +81,12 @@ It uses clever ways to conceal how it got there,
 like downloading itself to a temporary file storage directory
 or overwriting log files.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 This Trojan has several persistence mechanisms,
 that is,
 techniques to keep its access to systems across restarts.
