@@ -49,9 +49,7 @@ def go_insecure_hash(
 def go_insecure_cipher(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    danger_methods = {
-        "des.NewTripleDESCipher",
-    }
+    danger_methods = {"des.NewTripleDESCipher", "blowfish.NewCipher"}
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.GO):

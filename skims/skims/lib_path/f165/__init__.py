@@ -9,7 +9,6 @@ from lib_path.f165.cloudformation import (
     cfn_iam_allow_not_principal_trust_policy,
     cfn_iam_allow_not_resource_perms_policies,
     cfn_iam_is_policy_applying_to_users,
-    cfn_iam_wildcard_resources_perms_policies,
 )
 from lib_path.f165.terraform import (
     tfm_iam_role_is_over_privileged,
@@ -44,15 +43,6 @@ def run_cfn_iam_allow_not_action_perms_policies(
     content: str, file_ext: str, path: str, template: Any
 ) -> Vulnerabilities:
     return cfn_iam_allow_not_action_perms_policies(
-        content=content, file_ext=file_ext, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_cfn_iam_wildcard_resources_perms_policies(
-    content: str, file_ext: str, path: str, template: Any
-) -> Vulnerabilities:
-    return cfn_iam_wildcard_resources_perms_policies(
         content=content, file_ext=file_ext, path=path, template=template
     )
 
@@ -119,9 +109,6 @@ def analyze(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_allow_not_action_perms_policies(
-                    content, file_extension, path, template
-                ),
-                run_cfn_iam_wildcard_resources_perms_policies(
                     content, file_extension, path, template
                 ),
                 run_cfn_iam_is_policy_applying_to_users(

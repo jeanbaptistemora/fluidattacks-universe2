@@ -7,7 +7,11 @@ import (
 	"golang.org/x/crypto/ripemd160"
 	"crypto/sha1"
 	"crypto/sha512"
+	"crypto/cipher"
+	"crypto/blowfish"
+	"fmt"
 )
+
 
 func main() {
 
@@ -20,4 +24,5 @@ func main() {
 	ede2Key := []byte("example key 1234")
 
 	Cdes, _ := des.NewTripleDESCipher(ede2Key)
+	block, _ := blowfish.NewCipher(key)
 }

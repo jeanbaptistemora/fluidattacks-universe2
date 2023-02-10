@@ -515,28 +515,52 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_rsa.cs,10,31
   15 | }
      ^ Col 0
 ",c_sharp.c_sharp_rsa_secure_mode
-F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,22,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,27,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
    8 |  ""crypto/sha1""
    9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-> 22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+  18 |  Hripemd:= ripemd160.New()
+  19 |  Hmd4 = md4.New()
+  20 |  Hmd5 = md5.New()
+  21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+  26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+> 27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
+     ^ Col 0
+",go.go_insecure_cipher
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,26,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
+   8 |  ""crypto/sha1""
+   9 |  ""crypto/sha512""
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+  18 |  Hripemd:= ripemd160.New()
+  19 |  Hmd4 = md4.New()
+  20 |  Hmd5 = md5.New()
+  21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+> 26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
      ^ Col 0
 ",go.go_insecure_cipher
 F052,lines,namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,10,310,skims,052. Insecure encryption algorithm,Use of insecure encryption algorithm in namespace/skims/test/data/lib_root/f052/java_cipher_jmqi.java,"
@@ -1886,100 +1910,100 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_insecure_hash.cs,9,31
   18 | }
      ^ Col 0
 ",c_sharp.c_sharp_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,17,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,21,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
    8 |  ""crypto/sha1""
    9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-> 17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+  18 |  Hripemd:= ripemd160.New()
+  19 |  Hmd4 = md4.New()
+  20 |  Hmd5 = md5.New()
+> 21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+  26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,16,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,20,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
    8 |  ""crypto/sha1""
    9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-> 16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+  18 |  Hripemd:= ripemd160.New()
+  19 |  Hmd4 = md4.New()
+> 20 |  Hmd5 = md5.New()
+  21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+  26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,15,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,19,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
    8 |  ""crypto/sha1""
    9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-  14 |  Hripemd:= ripemd160.New()
-> 15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+  18 |  Hripemd:= ripemd160.New()
+> 19 |  Hmd4 = md4.New()
+  20 |  Hmd5 = md5.New()
+  21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+  26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
      ^ Col 0
 ",go.go_insecure_hash
-F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,14,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
-   3 | import (
-   4 |  ""crypto/des""
-   5 |  ""crypto/md4""
-   6 |  ""crypto/md5""
-   7 |  ""golang.org/x/crypto/ripemd160""
+F052,lines,namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,18,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/go_insecure_crypto.go,"
    8 |  ""crypto/sha1""
    9 |  ""crypto/sha512""
-  10 | )
-  11 |
-  12 | func main() {
-  13 |
-> 14 |  Hripemd:= ripemd160.New()
-  15 |  Hmd4 = md4.New()
-  16 |  Hmd5 = md5.New()
-  17 |  Hsha1 := sha1.New()
-  18 |  Hsha512 := sha512.New()
-  19 |
-  20 |  ede2Key := []byte(""example key 1234"")
-  21 |
-  22 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
-  23 | }
+  10 |  ""crypto/cipher""
+  11 |  ""crypto/blowfish""
+  12 |  ""fmt""
+  13 | )
+  14 |
+  15 |
+  16 | func main() {
+  17 |
+> 18 |  Hripemd:= ripemd160.New()
+  19 |  Hmd4 = md4.New()
+  20 |  Hmd5 = md5.New()
+  21 |  Hsha1 := sha1.New()
+  22 |  Hsha512 := sha512.New()
+  23 |
+  24 |  ede2Key := []byte(""example key 1234"")
+  25 |
+  26 |  Cdes, _ := des.NewTripleDESCipher(ede2Key)
+  27 |  block, _ := blowfish.NewCipher(key)
+  28 | }
      ^ Col 0
 ",go.go_insecure_hash
 F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,25,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
