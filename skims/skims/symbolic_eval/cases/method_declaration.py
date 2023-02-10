@@ -4,9 +4,6 @@ from model.core_model import (
 from symbolic_eval.f343.method_declaration import (
     evaluate as evaluate_method_declaration_f343,
 )
-from symbolic_eval.f344.method_declaration import (
-    evaluate as evaluate_method_declaration_f344,
-)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -18,7 +15,6 @@ from typing import (
 
 FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F343: evaluate_method_declaration_f343,
-    FindingEnum.F344: evaluate_method_declaration_f344,
 }
 
 

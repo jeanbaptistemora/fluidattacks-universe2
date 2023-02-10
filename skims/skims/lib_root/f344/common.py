@@ -71,10 +71,9 @@ def vuln_assignment_n_ids(
     vuln_nodes: Set[NId] = set()
     for path in get_backward_paths(graph, n_id):
         if evaluation := evaluate(method, graph, path, n_id):
-            this_n_ids = filter(
-                lambda x: x.startswith("this_"), evaluation.triggers
+            vuln_n_ids = set(
+                map(lambda x: x.split("this_")[1], evaluation.triggers)
             )
-            vuln_n_ids = set(map(lambda x: x.split("this_")[1], this_n_ids))
             vuln_nodes.update(vuln_n_ids)
     return vuln_nodes
 
