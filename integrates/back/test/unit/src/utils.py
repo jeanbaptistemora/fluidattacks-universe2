@@ -71,6 +71,9 @@ from db_model.groups.types import (
     GroupFile,
     GroupState,
 )
+from db_model.organization_access.types import (
+    OrganizationAccess,
+)
 from db_model.organizations.enums import (
     OrganizationStateStatus,
 )
@@ -10367,8 +10370,80 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             )
         ]
     },
+    "remove_stakeholder.domain.Dataloaders.stakeholder_organizations_access": {
+        '["integratesuser@gmail.com"]': [
+            OrganizationAccess(
+                organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                email="integratesuser@gmail.com",
+                expiration_time=None,
+                has_access=None,
+                invitation=None,
+                role="user_manager",
+            ),
+            OrganizationAccess(
+                organization_id="ORG#956e9107-fd8d-49bc-b550-5609a7a1f6ac",
+                email="integratesuser@gmail.com",
+                expiration_time=None,
+                has_access=None,
+                invitation=None,
+                role="user_manager",
+            ),
+            OrganizationAccess(
+                organization_id="ORG#c2ee2d15-04ab-4f39-9795-fbe30cdeee86",
+                email="integratesuser@gmail.com",
+                expiration_time=None,
+                has_access=None,
+                invitation=None,
+                role=None,
+            ),
+            OrganizationAccess(
+                organization_id="ORG#c6cecc0e-bb92-4079-8b6d-c4e815c10bb1",
+                email="integratesuser@gmail.com",
+                expiration_time=None,
+                has_access=None,
+                invitation=None,
+                role="user_manager",
+            ),
+        ],
+    },
+    "remove_stakeholder.domain.group_access_domain.get_stakeholder_groups_names": {  # noqa: E501 pylint: disable=line-too-long
+        '["integratesuser@gmail.com"]': [
+            [
+                "asgard",
+                "barranquilla",
+                "gotham",
+                "metropolis",
+                "monteria",
+                "oneshottest",
+                "unittesting",
+            ],
+            [],
+        ]
+    },
+    "remove_stakeholder.domain.group_access_domain.remove_access": {
+        '["integratesuser@gmail.com"]': [
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+        ]
+    },
     "remove_stakeholder.domain.group_access_model.remove": {
         '["unittest@test.com"]': None,
+    },
+    "remove_stakeholder.domain.orgs_domain.remove_access": {
+        '["integratesuser@gmail.com", "admin@test.com"]': [
+            None,
+            None,
+            None,
+            None,
+        ]
+    },
+    "remove_stakeholder.domain.stakeholders_domain.remove": {
+        '["integratesuser@gmail.com"]': None,
     },
     "remove_stakeholder.domain.remove_stakeholder_all_organizations": {
         '["unittest@test.com"]': None,

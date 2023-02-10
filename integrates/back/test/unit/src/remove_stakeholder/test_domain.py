@@ -7,6 +7,7 @@ from app.views.auth import (
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_module_at_test,
     set_mocks_return_values,
+    set_mocks_side_effects,
 )
 from dataloaders import (
     apply_context_attrs,
@@ -185,7 +186,7 @@ async def test_confirm_deletion() -> None:
 
 
 @pytest.mark.changes_db
-async def test_remove_stakeholder() -> None:
+async def test_remove_stakeholder_() -> None:
     loaders: Dataloaders = get_new_context()
     email: str = "testanewuser@test.test"
     modified_by: str = "admin@test.test"
@@ -200,3 +201,73 @@ async def test_remove_stakeholder() -> None:
         email=email, modified_by=modified_by
     )
     assert await loaders.stakeholder_subscriptions.load(email) == []
+
+
+@pytest.mark.parametrize(
+    ["email", "modified_by"],
+    [["integratesuser@gmail.com", "admin@test.com"]],
+)
+@patch(MODULE_AT_TEST + "stakeholders_domain.remove", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "orgs_domain.remove_access", new_callable=AsyncMock)
+@patch(
+    MODULE_AT_TEST + "Dataloaders.stakeholder_organizations_access",
+    new_callable=AsyncMock,
+)
+@patch(
+    MODULE_AT_TEST + "group_access_domain.remove_access",
+    new_callable=AsyncMock,
+)
+@patch(
+    MODULE_AT_TEST + "group_access_domain.get_stakeholder_groups_names",
+    new_callable=AsyncMock,
+)
+async def test_remove_stakeholder(  # pylint: disable=too-many-arguments
+    mock_group_access_domain_get_stakeholder_groups_names: AsyncMock,
+    mock_group_access_domain_remove_access: AsyncMock,
+    mock_dataloaders_stakeholder_organizations_access: AsyncMock,
+    mock_orgs_domain_remove_access: AsyncMock,
+    mock_stakeholders_domain_remove: AsyncMock,
+    email: str,
+    modified_by: str,
+) -> None:
+    mocks_args, mocked_objects, mocked_paths = [
+        [[email], [email], [email, modified_by]],
+        [
+            mock_group_access_domain_get_stakeholder_groups_names,
+            mock_group_access_domain_remove_access,
+            mock_orgs_domain_remove_access,
+        ],
+        [
+            "group_access_domain.get_stakeholder_groups_names",
+            "group_access_domain.remove_access",
+            "orgs_domain.remove_access",
+        ],
+    ]
+
+    assert set_mocks_side_effects(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    assert set_mocks_return_values(
+        mocks_args=[[email], [email]],
+        mocked_objects=[
+            mock_dataloaders_stakeholder_organizations_access.load,
+            mock_stakeholders_domain_remove,
+        ],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=[
+            "Dataloaders.stakeholder_organizations_access",
+            "stakeholders_domain.remove",
+        ],
+    )
+
+    await remove_stakeholder_all_organizations(
+        email=email, modified_by=modified_by
+    )
+    assert all(mock_object.called is True for mock_object in mocked_objects)
+    assert (
+        mock_dataloaders_stakeholder_organizations_access.load.called is True
+    )
+    assert mock_stakeholders_domain_remove.called is True
