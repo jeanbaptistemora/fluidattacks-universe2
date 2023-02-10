@@ -164,7 +164,7 @@ const GroupEventsView: React.FC = (): JSX.Element => {
       selectOptions: [
         {
           header: t(castEventStatus("VERIFICATION_REQUESTED")),
-          value: "Pending",
+          value: "Pending verification",
         },
         { header: t(castEventStatus("CREATED")), value: "Unsolved" },
         { header: t(castEventStatus("SOLVED")), value: "Solved" },
