@@ -158,6 +158,74 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
     return <ModalConfirm onCancel={onClose} />;
   }, [hasAPIToken, onClose]);
 
+  const UpdateAccessToken = useCallback((): JSX.Element | null => {
+    if (mtResponse.data === undefined) {
+      if (hasAPIToken) {
+        return (
+          <Fragment>
+            <Text mb={1}>
+              <Text disp={"inline"} fw={7}>
+                {t("updateAccessToken.tokenCreated")}
+              </Text>
+              &nbsp;
+              {new Date(Number.parseInt(issuedAt, 10) * msToSec)
+                .toISOString()
+                .substring(0, yyyymmdd)}
+            </Text>
+            <ConfirmDialog
+              message={
+                <React.Fragment>
+                  <label>
+                    <b>{t("updateAccessToken.warning")}</b>
+                  </label>
+                  <Text mb={1}>
+                    <Text disp={"inline"} fw={7}>
+                      {t("updateAccessToken.tokenLastUsed")}
+                    </Text>
+                    &nbsp;
+                    {lastAccessTokenUseFromNow}
+                  </Text>
+                </React.Fragment>
+              }
+              title={t("updateAccessToken.invalidate")}
+            >
+              {(confirm): JSX.Element => {
+                return (
+                  <Button
+                    onClick={handleInvalidateAPIToken(confirm)}
+                    variant={"secondary"}
+                  >
+                    {t("updateAccessToken.invalidate")}
+                  </Button>
+                );
+              }}
+            </ConfirmDialog>
+          </Fragment>
+        );
+      }
+
+      return null;
+    }
+
+    return (
+      <Gap disp={"block"} mh={0}>
+        <Text fw={7}>{t("updateAccessToken.message")}</Text>
+        <TextArea disabled={true} name={"sessionJwt"} rows={5} />
+        <Button onClick={handleCopy} variant={"secondary"}>
+          {t("updateAccessToken.copy.copy")}
+        </Button>
+      </Gap>
+    );
+  }, [
+    handleCopy,
+    handleInvalidateAPIToken,
+    hasAPIToken,
+    issuedAt,
+    lastAccessTokenUseFromNow,
+    mtResponse.data,
+    t,
+  ]);
+
   return (
     <Modal onClose={onClose} open={open} title={t("updateAccessToken.title")}>
       <Formik
@@ -187,57 +255,7 @@ const APITokenModal: React.FC<IAPITokenModalProps> = ({
               />
             </Fragment>
           )}
-          {mtResponse.data === undefined ? (
-            hasAPIToken ? (
-              <Fragment>
-                <Text mb={1}>
-                  <Text disp={"inline"} fw={7}>
-                    {t("updateAccessToken.tokenCreated")}
-                  </Text>
-                  &nbsp;
-                  {new Date(Number.parseInt(issuedAt, 10) * msToSec)
-                    .toISOString()
-                    .substring(0, yyyymmdd)}
-                </Text>
-                <ConfirmDialog
-                  message={
-                    <React.Fragment>
-                      <label>
-                        <b>{t("updateAccessToken.warning")}</b>
-                      </label>
-                      <Text mb={1}>
-                        <Text disp={"inline"} fw={7}>
-                          {t("updateAccessToken.tokenLastUsed")}
-                        </Text>
-                        &nbsp;
-                        {lastAccessTokenUseFromNow}
-                      </Text>
-                    </React.Fragment>
-                  }
-                  title={t("updateAccessToken.invalidate")}
-                >
-                  {(confirm): JSX.Element => {
-                    return (
-                      <Button
-                        onClick={handleInvalidateAPIToken(confirm)}
-                        variant={"secondary"}
-                      >
-                        {t("updateAccessToken.invalidate")}
-                      </Button>
-                    );
-                  }}
-                </ConfirmDialog>
-              </Fragment>
-            ) : undefined
-          ) : (
-            <Gap disp={"block"} mh={0}>
-              <Text fw={7}>{t("updateAccessToken.message")}</Text>
-              <TextArea disabled={true} name={"sessionJwt"} rows={5} />
-              <Button onClick={handleCopy} variant={"secondary"}>
-                {t("updateAccessToken.copy.copy")}
-              </Button>
-            </Gap>
-          )}
+          <UpdateAccessToken />
           <CloseModal />
         </Form>
       </Formik>
