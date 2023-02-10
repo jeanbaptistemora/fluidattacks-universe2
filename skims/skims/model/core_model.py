@@ -2394,6 +2394,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_COGNITO_HAS_MFA_DISABLED = MethodInfo(
+        file_name="aws",
+        name="cognito_has_mfa_disabled",
+        module="dast",
+        finding=FindingEnum.F081,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_MFA_DISABLED_FOR_USERS_WITH_CONSOLE_PASSWD = MethodInfo(
         file_name="aws",
         name="mfa_disabled_for_users_with_console_password",
