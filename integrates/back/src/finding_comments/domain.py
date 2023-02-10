@@ -1,4 +1,5 @@
 from aioextensions import (
+    collect,
     schedule,
 )
 import authz
@@ -31,6 +32,7 @@ from group_access.domain import (
     get_stakeholders_subscribed_to_consult,
 )
 from itertools import (
+    chain,
     filterfalse,
 )
 from mailer import (
@@ -159,20 +161,73 @@ async def remove_comments(finding_id: str) -> None:
     await finding_comments_model.remove_finding_comments(finding_id=finding_id)
 
 
+async def _get_finding_comments(
+    *,
+    loaders: Dataloaders,
+    comment_type: CommentType,
+    finding_id: str,
+) -> list[FindingComment]:
+    return await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=comment_type,
+            finding_id=finding_id,
+        )
+    )
+
+
+async def _get_finding_verification_comments(
+    *,
+    loaders: Dataloaders,
+    comment_type: CommentType,
+    finding_id: str,
+) -> list[FindingComment]:
+    if comment_type == CommentType.OBSERVATION:
+        return []
+
+    return await loaders.finding_comments.load(
+        FindingCommentsRequest(
+            comment_type=CommentType.VERIFICATION,
+            finding_id=finding_id,
+        )
+    )
+
+
+async def get_unformatted_comments(
+    *,
+    loaders: Dataloaders,
+    comment_type: CommentType,
+    finding_id: str,
+) -> list[FindingComment]:
+    return list(
+        chain.from_iterable(
+            await collect(
+                [
+                    _get_finding_comments(
+                        finding_id=finding_id,
+                        loaders=loaders,
+                        comment_type=comment_type,
+                    ),
+                    _get_finding_verification_comments(
+                        finding_id=finding_id,
+                        loaders=loaders,
+                        comment_type=comment_type,
+                    ),
+                ]
+            )
+        )
+    )
+
+
 async def get_comments(
     loaders: Dataloaders,
     group_name: str,
     finding_id: str,
     user_email: str,
 ) -> tuple[FindingComment, ...]:
-    comments = await loaders.finding_comments.load(
-        FindingCommentsRequest(
-            comment_type=CommentType.COMMENT, finding_id=finding_id
-        )
-    ) + await loaders.finding_comments.load(
-        FindingCommentsRequest(
-            comment_type=CommentType.VERIFICATION, finding_id=finding_id
-        )
+    comments: list[FindingComment] = await get_unformatted_comments(
+        loaders=loaders,
+        comment_type=CommentType.COMMENT,
+        finding_id=finding_id,
     )
     historic_verification = await loaders.finding_historic_verification.load(
         finding_id

@@ -40,7 +40,6 @@ from db_model.finding_comments.enums import (
 )
 from db_model.finding_comments.types import (
     FindingComment,
-    FindingCommentsRequest,
 )
 from db_model.findings.enums import (
     FindingStateStatus,
@@ -79,9 +78,6 @@ from findings import (
 from findings.types import (
     FindingDescriptionToUpdate,
     Tracking,
-)
-from itertools import (
-    chain,
 )
 import logging
 import logging.config
@@ -154,37 +150,6 @@ async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:
     return finding
 
 
-async def _get_finding_comments(
-    *,
-    loaders: Dataloaders,
-    comment_type: CommentType,
-    finding_id: str,
-) -> list[FindingComment]:
-    return await loaders.finding_comments.load(
-        FindingCommentsRequest(
-            comment_type=comment_type,
-            finding_id=finding_id,
-        )
-    )
-
-
-async def _get_finding_verification_comments(
-    *,
-    loaders: Dataloaders,
-    comment_type: CommentType,
-    finding_id: str,
-) -> list[FindingComment]:
-    if comment_type == CommentType.OBSERVATION:
-        return []
-
-    return await loaders.finding_comments.load(
-        FindingCommentsRequest(
-            comment_type=CommentType.VERIFICATION,
-            finding_id=finding_id,
-        )
-    )
-
-
 @authz.validate_handle_comment_scope_deco(
     "loaders",
     "comment_data.content",
@@ -209,23 +174,12 @@ async def add_comment(
         if not enforcer(group_name, "post_finding_observation"):
             raise PermissionDenied()
     if parent_comment != "0":
-        all_finding_comments: list[FindingComment] = list(
-            chain.from_iterable(
-                await collect(
-                    [
-                        _get_finding_comments(
-                            finding_id=finding_id,
-                            loaders=loaders,
-                            comment_type=comment_data.comment_type,
-                        ),
-                        _get_finding_verification_comments(
-                            finding_id=finding_id,
-                            loaders=loaders,
-                            comment_type=comment_data.comment_type,
-                        ),
-                    ]
-                )
-            )
+        all_finding_comments: list[
+            FindingComment
+        ] = await comments_domain.get_unformatted_comments(
+            loaders=loaders,
+            comment_type=comment_data.comment_type,
+            finding_id=finding_id,
         )
         finding_comments = {comment.id for comment in all_finding_comments}
         if parent_comment not in finding_comments:
@@ -957,7 +911,6 @@ async def add_reattack_justification(  # pylint: disable=too-many-arguments
                         is_closed=True,
                     ),
                 )
-
         await comments_domain.add(
             loaders,
             FindingComment(
