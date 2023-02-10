@@ -59,6 +59,21 @@ from typing import (
 T = TypeVar("T")
 
 
+def check_exp(field: str, regexp: str, ex: CustomBaseException) -> None:
+    if not re.match(regexp, field.replace("\n", " ").strip(), re.MULTILINE):
+        raise ex
+
+
+def check_email(email: str, ex: CustomBaseException) -> None:
+    if "+" in email:
+        raise ex
+    check_exp(
+        email,
+        r"^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
+        ex,
+    )
+
+
 def validate_email_address(email: str) -> bool:
     if "+" in email:
         raise InvalidField("email address")
@@ -79,17 +94,8 @@ def validate_email_address_deco(field: str) -> Callable:
             field_content = get_attr_value(
                 field=field, kwargs=kwargs, obj_type=str
             )
-            if "+" in field_content:
-                raise InvalidField("email address")
-            try:
-                check_field(
-                    field_content,
-                    r"^([a-zA-Z0-9_\-\.]+)@"
-                    r"([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$",
-                )
-                return func(*args, **kwargs)
-            except InvalidChar as ex:
-                raise InvalidField("email address") from ex
+            check_email(field_content, InvalidField("email address"))
+            return func(*args, **kwargs)
 
         return decorated
 
@@ -165,12 +171,30 @@ def validate_url(url: Optional[str]) -> None:
         )
 
 
+def check_url(
+    url: Optional[str],
+    ex: CustomBaseException,
+) -> None:
+    clean_url: str = url if url is not None else ""
+    encoded_chars_whitelist: List[str] = ["%20"]
+    for encoded_char in encoded_chars_whitelist:
+        clean_url = clean_url.replace(encoded_char, "")
+
+    if clean_url:
+        allowed_chars = r"a-zA-Z0-9(),./:;@_$#=\?-"
+        check_exp(
+            clean_url,
+            rf'^[{allowed_chars.replace("=", "")}]+[{allowed_chars}]*$',
+            ex,
+        )
+
+
 def validate_url_deco(url_field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
             url = get_attr_value(field=url_field, kwargs=kwargs, obj_type=str)
-            validate_url(url=url)
+            check_url(url=url, ex=InvalidChar())
             return func(*args, **kwargs)
 
         return decorated
