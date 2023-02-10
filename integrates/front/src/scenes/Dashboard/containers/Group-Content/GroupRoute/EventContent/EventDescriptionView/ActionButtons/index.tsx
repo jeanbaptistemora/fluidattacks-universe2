@@ -8,7 +8,7 @@ import {
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Fragment } from "react";
+import React, { Fragment, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "components/Button";
@@ -43,41 +43,46 @@ const ActionButtons: React.FC<IActionButtonsProps> = ({
     "api_mutations_update_event_solving_reason_mutate"
   );
 
+  const DisplayButtons = useCallback((): JSX.Element | null => {
+    if (!(isEditing || eventStatus === "SOLVED")) {
+      return (
+        <Fragment>
+          <Can do={"api_mutations_solve_event_mutate"}>
+            <Button onClick={openSolvingModal} variant={"primary"}>
+              <FontAwesomeIcon icon={faCheck} />
+              &nbsp;
+              {t("group.events.description.markAsSolved")}
+            </Button>
+          </Can>
+          {eventStatus === "VERIFICATION_REQUESTED" ? (
+            <Can do={"api_mutations_reject_event_solution_mutate"}>
+              <Tooltip
+                id={
+                  "group.events.description.rejectSolution.button.tooltip.btn"
+                }
+                tip={t(
+                  "group.events.description.rejectSolution.button.tooltip"
+                )}
+              >
+                <Button onClick={openRejectSolutionModal} variant={"secondary"}>
+                  <FontAwesomeIcon icon={faXmark} />
+                  &nbsp;
+                  {t("group.events.description.rejectSolution.button.text")}
+                </Button>
+              </Tooltip>
+            </Can>
+          ) : undefined}
+        </Fragment>
+      );
+    }
+
+    return null;
+  }, [eventStatus, isEditing, openRejectSolutionModal, openSolvingModal, t]);
+
   return (
     <Row>
       <ButtonToolbarStartRow>
-        {isEditing ? undefined : eventStatus === "SOLVED" ? undefined : (
-          <Fragment>
-            <Can do={"api_mutations_solve_event_mutate"}>
-              <Button onClick={openSolvingModal} variant={"primary"}>
-                <FontAwesomeIcon icon={faCheck} />
-                &nbsp;
-                {t("group.events.description.markAsSolved")}
-              </Button>
-            </Can>
-            {eventStatus === "VERIFICATION_REQUESTED" ? (
-              <Can do={"api_mutations_reject_event_solution_mutate"}>
-                <Tooltip
-                  id={
-                    "group.events.description.rejectSolution.button.tooltip.btn"
-                  }
-                  tip={t(
-                    "group.events.description.rejectSolution.button.tooltip"
-                  )}
-                >
-                  <Button
-                    onClick={openRejectSolutionModal}
-                    variant={"secondary"}
-                  >
-                    <FontAwesomeIcon icon={faXmark} />
-                    &nbsp;
-                    {t("group.events.description.rejectSolution.button.text")}
-                  </Button>
-                </Tooltip>
-              </Can>
-            ) : undefined}
-          </Fragment>
-        )}
+        <DisplayButtons />
         {(canUpdateEvent || canUpdateEventSolvingReason) && isEditing ? (
           <React.Fragment>
             <Button onClick={onToggleEdit} variant={"secondary"}>
