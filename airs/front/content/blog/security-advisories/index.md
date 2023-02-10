@@ -91,6 +91,12 @@ either in coordinated vulnerability disclosure
 or lack of vendor response,
 we must release a proof of concept.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
+
 Of course,
 our policy allows time for vendors to reply,
 acknowledging the vulnerability

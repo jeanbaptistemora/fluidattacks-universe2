@@ -113,8 +113,8 @@ there is also **ethical hacking**.
 
 ## Ethical hacking
 
-[Ethical hacking](../../solutions/ethical-hacking/)
-is perhaps the best way to respond to malicious hacking.
+Ethical hacking is perhaps the best way
+to respond to malicious hacking.
 In ethical hacking,
 cyberattacks are conducted by white hat hackers
 in favor of organizations' cybersecurity.
@@ -124,6 +124,12 @@ techniques and procedures.
 The big difference is that
 the attack is carried out with the system owner's consent,
 who will be responsible for remediating the reported security vulnerabilities.
+
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
 
 In ethical hacking,
 experts must keep up to date

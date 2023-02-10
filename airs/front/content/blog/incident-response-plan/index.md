@@ -88,6 +88,13 @@ adding approximately $1M,
 as well as the time of their discovery,
 adding 58 days.)
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 Someone like a chief information security officer (CISO)
 would rely on those entrusted to carry out the response
 to validate the state of the environment and,

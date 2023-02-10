@@ -119,6 +119,13 @@ As they pointed out,
 details and links may be kept restricted
 until a majority of users are updated with a fix."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 Based on their report
 and [what we've seen](https://therecord.media/google-releases-emergency-security-update-for-chrome-users-after-second-0-day-of-2022-discovered/)
 [on the web](https://threatpost.com/google-chrome-bug-actively-exploited-zero-day/179161/),

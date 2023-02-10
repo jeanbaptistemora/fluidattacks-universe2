@@ -136,6 +136,12 @@ The following are the new ones:
 
 - Secure coding
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 As could be easily guessed,
 the first three belong to the organizational theme;
 the fourth, to the physical theme;
