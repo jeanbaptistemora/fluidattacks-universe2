@@ -12,14 +12,31 @@ repo_update: true
 repo_upgrade: all
 
 packages:
- - jq
  - rsync
 
+disk_setup:
+  /dev/nvme1n1:
+    table_type: mbr
+    layout: true
+    overwrite: true
+
+fs_setup:
+  - label: nvme
+    filesystem: ext4
+    device: /dev/nvme1n1
+    partition: auto
+    overwrite: true
+
+mounts:
+  - [/dev/nvme1n1, /mnt/docker]
+
+write_files:
+- content: |
+    {"data-root": "/mnt/docker/", "storage-driver": "overlay" }
+  path: /etc/docker/daemon.json
+
 runcmd:
- - [ mkfs.ext4, /dev/nvme1n1 ]
- - [ mount, -t, ext4, /dev/nvme1n1, /mnt/]
  - [ rsync, -avPHSX, /var/lib/docker/, /mnt/docker/ ]
- - [ sh, -c, 'echo {\"data-root\": \"/mnt/docker/\", \"storage-driver\": \"overlay\" } > /etc/docker/daemon.json' ]
  - [ service, docker, restart ]
 
 --==BOUNDARY==
