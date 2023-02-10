@@ -6,6 +6,9 @@ from lib_path.f011.composer import (
     composer_json,
     composer_lock,
 )
+from lib_path.f011.conan import (
+    conan_conanfile_txt,
+)
 from lib_path.f011.gem import (
     gem_gemfile,
     gem_gemfile_lock,
@@ -643,6 +646,37 @@ def test_maven_sbt() -> None:
     for line_num in [*range(3, 8), 10, *range(14, 18), *range(20, 22), 23]:
         if pkg_info := sbt_dep.search(content[line_num]):
             pkg_name = f'{pkg_info.group("pkg")}:{pkg_info.group("module")}'
+            version = pkg_info.group("version")
+
+            try:
+                next_dep = next(generator_dep)
+                pkg_item = itemgetter("item")(next_dep[0])
+                item = itemgetter("item")(next_dep[1])
+            except StopIteration:
+                assertion = not assertion
+                break
+            if not (pkg_item in pkg_name and version == item):
+                assertion = not assertion
+                break
+
+    assert assertion
+
+
+@pytest.mark.skims_test_group("unittesting")
+def test_conan_conanfile_txt() -> None:
+    conan_dep: Pattern[str] = re.compile(
+        r"^(?P<product>[\w\-]+)\/\[?(?P<version>[^\],]+)"
+    )
+    path: str = "skims/test/data/lib_path/f011/conanfile.txt"
+    file_contents: str = get_file_info_from_path(path)
+    content: List[str] = file_contents.splitlines()
+    generator_dep = conan_conanfile_txt.__wrapped__(  # type: ignore
+        file_contents, path
+    )
+    assertion: bool = True
+    for line_num in range(1, 13):
+        if pkg_info := conan_dep.search(content[line_num]):
+            pkg_name = pkg_info.group("product")
             version = pkg_info.group("version")
 
             try:
