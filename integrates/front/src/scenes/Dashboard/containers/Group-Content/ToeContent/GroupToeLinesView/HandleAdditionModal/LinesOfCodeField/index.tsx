@@ -1,9 +1,8 @@
-import { Field } from "formik";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-import { ControlLabel, FormGroup } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
+import { InputNumber } from "components/Input";
+import { FormGroup } from "styles/styledComponents";
 import {
   composeValidators,
   isOptionalInteger,
@@ -29,16 +28,11 @@ const LinesOfCodeField: React.FC = (): JSX.Element => {
 
   return (
     <FormGroup>
-      <ControlLabel>
-        <b>{t("group.toe.lines.addModal.fields.loc")} </b>
-      </ControlLabel>
-      <Field
-        component={FormikText}
-        min={"0"}
+      <InputNumber
+        label={t("group.toe.lines.addModal.fields.loc")}
+        min={0}
         name={"loc"}
         onKeyDown={handleKeyDown}
-        step={"1"}
-        type={"number"}
         validate={composeValidators([
           required,
           isOptionalInteger,
