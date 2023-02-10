@@ -238,6 +238,7 @@ def c_sharp_insecure_cipher(
         "TripleDES",
         "TripleDESCng",
         "TripleDESCryptoServiceProvider",
+        "Blowfish",
     }
 
     def n_ids() -> Iterable[GraphShardNode]:
