@@ -427,11 +427,11 @@ async def _process_toe_input(
     )
     try:
         await toe_inputs_add(
-            loaders,
-            target_group_name,
-            toe_input.component,
-            toe_input.entry_point,
-            attributes_to_add,
+            loaders=loaders,
+            entry_point=target_group_name,
+            component=toe_input.component,
+            group_name=toe_input.entry_point,
+            attributes=attributes_to_add,
             is_moving_toe_input=True,
         )
     except RepeatedToeInput as exc:
