@@ -5,7 +5,6 @@ from decorators import (
     concurrent_decorators,
     enforce_group_level_auth_async,
     require_asm,
-    require_squad,
 )
 from finding_comments import (
     domain as comments_domain,
@@ -24,9 +23,7 @@ from typing import (
 )
 
 
-@concurrent_decorators(
-    enforce_group_level_auth_async, require_asm, require_squad
-)
+@concurrent_decorators(enforce_group_level_auth_async, require_asm)
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,

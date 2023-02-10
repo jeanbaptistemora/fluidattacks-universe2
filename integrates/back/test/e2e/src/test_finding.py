@@ -121,8 +121,18 @@ def test_finding_comments(
         "This is a comenting test",
         timeout,
     )
+    assert utils.wait_for_text(
+        driver,
+        "Reply",
+        timeout,
+    )
+    assert utils.wait_for_name(
+        driver,
+        "comment-editor",
+        timeout,
+    )
 
-    # Enter finding consulting not access
+    # Enter finding consulting
     driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/vulns")
     assert utils.wait_for_text(
         driver,
@@ -135,7 +145,7 @@ def test_finding_comments(
     )
     assert utils.wait_for_text(
         driver,
-        "Access denied",
+        "No comments",
         timeout,
     )
 
@@ -147,6 +157,11 @@ def test_finding_comments(
     assert utils.wait_for_text(
         driver,
         "No comments",
+        timeout,
+    )
+    assert utils.wait_for_name(
+        driver,
+        "comment-editor",
         timeout,
     )
 
