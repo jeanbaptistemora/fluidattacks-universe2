@@ -47,7 +47,7 @@ F408,lines,namespace/skims/test/data/lib_path/f408/cfn_api_gateway_access_loggin
   30 | }
      ^ Col 0
 ",cloudformation.cfn_api_gateway_access_logging_disabled
-F408,lines,namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,408. Traceability Loss - API Gateway,Property access_log_settings is either missing or misconfigured in namespace/skims/test/data/lib_path/f408/tfm_api_gateway_access_logging_disabled.tf,"
+F408,lines,namespace/skims/test/data/lib_root/f408/tfm_api_gateway_access_logging_disabled.tf,1,778,skims,408. Traceability Loss - API Gateway,Property access_log_settings is either missing or misconfigured in namespace/skims/test/data/lib_root/f408/tfm_api_gateway_access_logging_disabled.tf,"
 > 1 | resource ""aws_api_gateway_stage"" ""example"" {
   2 |   deployment_id = aws_api_gateway_deployment.example.id
   3 |   rest_api_id   = aws_api_gateway_rest_api.example.id
