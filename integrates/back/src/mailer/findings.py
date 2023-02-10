@@ -398,7 +398,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
             email_to=stakeholders_email,
             context=email_context,
             tags=GENERAL_TAG,
-            subject=f"[ARM] {finding_title} {state} with escape in "
+            subject=f"[ARM] {finding_title} {state} as escape in "
             + f"[{group_name}].",
             template_name="vulnerability_report",
         )
