@@ -8,9 +8,6 @@ from dataloaders import (
 from db_model import (
     stakeholders as stakeholders_model,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from decorators import (
     retry_on_exceptions,
 )
@@ -38,12 +35,8 @@ mail_abandoned_trial_notification = retry_on_exceptions(
 async def send_abandoned_trial_notification() -> None:
     loaders: Dataloaders = get_new_context()
     for stakeholder in await stakeholders_model.get_all_stakeholders():
-        enrollment: Enrollment = await loaders.enrollment.load(
-            stakeholder.email
-        )
         if (
             not stakeholder.enrolled
-            and not enrollment.enrolled
             and stakeholder.registration_date
             and (
                 delta_hours := (

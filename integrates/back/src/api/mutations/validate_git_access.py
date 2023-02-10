@@ -7,9 +7,6 @@ from ariadne.utils import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from decorators import (
     require_login,
 )
@@ -48,14 +45,12 @@ async def mutate(
     url = kwargs["url"]
     branch = kwargs["branch"]
     secret = orgs_utils.format_credentials_secret_type(kwargs["credentials"])
-
-    enrollment: Enrollment = await loaders.enrollment.load(user_email)
     stakeholder = await loaders.stakeholder.load(user_email)
 
     await roots_validations.validate_git_access(
         url=url, branch=branch, secret=secret, loaders=loaders
     )
-    if stakeholder and not stakeholder.enrolled and not enrollment.enrolled:
+    if stakeholder and not stakeholder.enrolled:
         await analytics.mixpanel_track(
             user_email,
             "AutoenrollCheckAccess",
