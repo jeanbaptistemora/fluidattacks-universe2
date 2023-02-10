@@ -384,12 +384,9 @@ async def full_access_policies(
                             *[
                                 Location(
                                     access_patterns=(
-                                        f"/Document/Statement/{index}/Effect",
-                                        f"/Document/Statement/{index}/Action",
-                                        (
-                                            f"/Document/Statement/{index}"
-                                            "/Resource"
-                                        ),
+                                        f"/Statement/{index}/Effect",
+                                        f"/Statement/{index}/Action",
+                                        f"/Statement/{index}/Resource",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
@@ -410,7 +407,7 @@ async def full_access_policies(
                 *build_vulnerabilities(
                     locations=locations,
                     method=(core_model.MethodsEnum.AWS_FULL_ACCESS_POLICIES),
-                    aws_response=policy_names,
+                    aws_response=pol_access,
                 ),
             )
 
@@ -479,12 +476,9 @@ async def open_passrole(
                             *[
                                 Location(
                                     access_patterns=(
-                                        f"/Document/Statement/{index}/Effect",
-                                        f"/Document/Statement/{index}/Action",
-                                        (
-                                            f"/Document/Statement/{index}"
-                                            "/Resource"
-                                        ),
+                                        f"/Statement/{index}/Effect",
+                                        f"/Statement/{index}/Action",
+                                        f"/Statement/{index}/Resource",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
@@ -504,7 +498,7 @@ async def open_passrole(
                 *build_vulnerabilities(
                     locations=locations,
                     method=(core_model.MethodsEnum.AWS_OPEN_PASSROLE),
-                    aws_response=policy_names,
+                    aws_response=pol_access,
                 ),
             )
 
@@ -578,11 +572,8 @@ async def permissive_policy(
                             *[
                                 Location(
                                     access_patterns=(
-                                        f"/Document/Statement/{index}/Action",
-                                        (
-                                            f"/Document/Statement/{index}"
-                                            "/Resource"
-                                        ),
+                                        f"/Statement/{index}/Action",
+                                        f"/Statement/{index}/Resource",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
@@ -602,7 +593,7 @@ async def permissive_policy(
                 *build_vulnerabilities(
                     locations=locations,
                     method=(core_model.MethodsEnum.AWS_PERMISSIVE_POLICY),
-                    aws_response=policy_names,
+                    aws_response=pol_access,
                 ),
             )
 
@@ -659,10 +650,10 @@ async def has_permissive_role_policies(
                         *[
                             Location(
                                 access_patterns=(
-                                    f"/Statement/{index}/Effect",
-                                    f"/Statement/{index}/Action",
+                                    f"/{index}/Effect",
+                                    f"/{index}/Action",
                                 ),
-                                arn=(f"{statement['Resource']}"),
+                                arn=(f"{role['RoleName']}"),
                                 values=(
                                     statement["Effect"],
                                     statement["Action"],
@@ -680,7 +671,7 @@ async def has_permissive_role_policies(
                 *build_vulnerabilities(
                     locations=locations,
                     method=method,
-                    aws_response=policy_role,
+                    aws_response=policy_statements,
                 ),
             )
 
@@ -736,7 +727,7 @@ async def full_access_to_ssm(
                             *[
                                 Location(
                                     access_patterns=(
-                                        f"/Document/Statement/{index}/Action",
+                                        f"/Statement/{index}/Action",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=(
@@ -755,7 +746,7 @@ async def full_access_to_ssm(
                 *build_vulnerabilities(
                     locations=locations,
                     method=(core_model.MethodsEnum.AWS_FULL_ACCESS_SSM),
-                    aws_response=policy_names,
+                    aws_response=pol_access,
                 ),
             )
 
@@ -811,10 +802,7 @@ async def negative_statement(
                             *[
                                 Location(
                                     access_patterns=(
-                                        (
-                                            "/Document/Statement"
-                                            f"/{index}/NotAction"
-                                        ),
+                                        f"/Statement/{index}/NotAction",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=policy_statements[index][
@@ -836,10 +824,7 @@ async def negative_statement(
                             *[
                                 Location(
                                     access_patterns=(
-                                        (
-                                            "/Document/Statement"
-                                            f"/{index}/NotResource"
-                                        ),
+                                        f"/Statement/{index}/NotResource",
                                     ),
                                     arn=(f"{policy['Arn']}"),
                                     values=policy_statements[index][
@@ -858,7 +843,7 @@ async def negative_statement(
                 *build_vulnerabilities(
                     locations=locations,
                     method=(core_model.MethodsEnum.AWS_NEGATIVE_STATEMENT),
-                    aws_response=policy_names,
+                    aws_response=pol_access,
                 ),
             )
 
@@ -890,7 +875,7 @@ async def users_with_password_and_access_keys(
                 map(lambda x: x["Status"], access_key_metadata)
             )
 
-            login_profile = {}
+            login_profile = None
             try:
                 login_profile = await run_boto3_fun(
                     credentials,
@@ -905,9 +890,9 @@ async def users_with_password_and_access_keys(
                 locations = [
                     *[
                         Location(
-                            access_patterns=(),
+                            access_patterns=("/AccessKeyMetadata",),
                             arn=(f"{user['Arn']}"),
-                            values=(),
+                            values=access_keys["AccessKeyMetadata"],
                             description=t(
                                 "src.lib_path.f031."
                                 "iam_group_missing_role_based_security"

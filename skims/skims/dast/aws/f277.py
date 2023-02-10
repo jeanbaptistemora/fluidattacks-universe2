@@ -206,4 +206,8 @@ async def have_old_access_keys(
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
-] = (has_old_ssh_public_keys,)
+] = (
+    has_old_ssh_public_keys,
+    have_old_creds_enabled,
+    have_old_access_keys,
+)

@@ -311,6 +311,30 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_negative_statement.tf,33
   43 |         ""NotAction"": ""*"",
      ^ Col 0
 ",terraform.terraform_negative_statement
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),/Statement/3/NotResource: iam:bucket,250,skims,031. Excessive privileges - AWS,"Excessive privileges, avoid the use of negative statements","
+  11 |         {
+  12 |             ""Effect"": ""Allow"",
+  13 |             ""Action"": ""*"",
+  14 |             ""Resource"": ""*""
+  15 |         },
+  16 |         {
+  17 |             ""Effect"": ""Allow"",
+  18 |             ""Action"": [
+  19 |                 ""ssm:*""
+  20 |             ],
+  21 |             ""Resource"": ""*""
+  22 |         },
+  23 |         {
+  24 |             ""Effect"": ""Allow"",
+  25 |             ""NotAction"": ""*"",
+> 26 |             ""NotResource"": [
+  27 |                 ""iam:bucket""
+  28 |             ]
+  29 |         }
+  30 |     ]
+  31 | }
+     ^ Col 0
+",aws.negative_statement
 F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml,11,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yaml","
    1 | ---
    2 | Resources:
@@ -516,30 +540,90 @@ F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess: AttachmentCount/1 (name
   13 | }
      ^ Col 0
 ",aws.admin_policy_attached
-F031,inputs,arn:aws:iam::aws:user/user1 (namespace),IAM Group is granted privileges but not through a Role,250,skims,031. Excessive privileges - AWS,IAM Group is granted privileges but not through a Role,"
-   1 | {
-   2 |     ""Policies"": [
-   3 |         {
-   4 |             ""PolicyName"": ""unsafePol"",
-   5 |             ""PolicyId"": ""pol-018de572ae43404d8"",
-   6 |             ""Arn"": ""arn:aws:iam::aws:policy/AdministratorAccess"",
-   7 |             ""Path"": ""server-certificate/ProdServerCert"",
-   8 |             ""DefaultVersionId"": ""pol-018"",
-   9 |             ""AttachmentCount"": 1,
-  10 |             ""PermissionsBoundaryUsageCount"": 1,
-  11 |             ""IsAttachable"": true,
-  12 |             ""Description"": ""string"",
-  13 |             ""CreateDate"": ""2015/01/01"",
-  14 |             ""UpdateDate"": ""2015/01/01""
-  15 |         }
-  16 |     ],
-  17 |     ""IsTruncated"": true,
-  18 |     ""Marker"": ""4f23ro"",
-  19 |     ""Buckets"": [
-  20 |         {
-  21 |             ""Name"": ""bucket-018de572ae43404d8""
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),Effect: Allow; Action: *; Resource: *,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources","
+   4 |         {
+   5 |             ""Effect"": ""Allow"",
+   6 |             ""Action"": [
+   7 |                 ""iam:PassRole""
+   8 |             ],
+   9 |             ""Resource"": ""*""
+  10 |         },
+  11 |         {
+  12 |             ""Effect"": ""Allow"",
+  13 |             ""Action"": ""*"",
+> 14 |             ""Resource"": ""*""
+  15 |         },
+  16 |         {
+  17 |             ""Effect"": ""Allow"",
+  18 |             ""Action"": [
+  19 |                 ""ssm:*""
+  20 |             ],
+  21 |             ""Resource"": ""*""
+  22 |         },
+  23 |         {
+  24 |             ""Effect"": ""Allow"",
+     ^ Col 0
+",aws.group_with_inline_policies
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),Action: ['ssm:*']; Resource: *,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources","
+  11 |         {
+  12 |             ""Effect"": ""Allow"",
+  13 |             ""Action"": ""*"",
+  14 |             ""Resource"": ""*""
+  15 |         },
+  16 |         {
+  17 |             ""Effect"": ""Allow"",
+  18 |             ""Action"": [
+  19 |                 ""ssm:*""
+  20 |             ],
+> 21 |             ""Resource"": ""*""
+  22 |         },
+  23 |         {
+  24 |             ""Effect"": ""Allow"",
+  25 |             ""NotAction"": ""*"",
+  26 |             ""NotResource"": [
+  27 |                 ""iam:bucket""
+  28 |             ]
+  29 |         }
+  30 |     ]
+  31 | }
+     ^ Col 0
+",aws.permissive_policy
+F031,inputs,arn:aws:iam::aws:user/user1 (namespace),/AccessKeyMetadata: {'Status': True},250,skims,031. Excessive privileges - AWS,IAM Group is granted privileges but not through a Role,"
+  50 |     ""PolicyDocument"": {
+  51 |         ""Statement"": ""[{\""Effect\"":\""Allow\"",\""Action\"":[\""*\""],\""Resource\"":\""*\"",},]""
+  52 |     },
+  53 |     ""Users"": [
+  54 |         {
+  55 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  56 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  57 |         }
+  58 |     ],
+  59 |     ""AttachedPolicies"": [
+  60 |         {
+  61 |             ""PolicyName"": ""inlinePolicy1"",
+  62 |             ""PolicyArn"": ""policyArn""
+  63 |         }
+  64 |     ],
+> 65 |     ""AccessKeyMetadata"": [
+  66 |         {
+  67 |             ""Status"": true
+  68 |         }
+  69 |     ]
+  70 | }
      ^ Col 0
 ",aws.users_with_password_and_access_keys
+F031,inputs,rol-018de572ae43404d8 (namespace),Effect: Allow; Action: ['*'],250,skims,031. Excessive privileges - AWS,IAM Role Policy grants wildcard privileges.,"
+  1 | [
+  2 |     {
+  3 |         ""Effect"": ""Allow"",
+> 4 |         ""Action"": [
+  5 |             ""*""
+  6 |         ],
+  7 |         ""Resource"": ""*""
+  8 |     }
+  9 | ]
+    ^ Col 0
+",aws.has_permissive_role_policies
 F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,10,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role in namespace/skims/test/data/lib_path/f031/cfn_iam_user_missing_role_based_security.yaml,"
    1 | ---
    2 | Resources:
@@ -661,27 +745,27 @@ F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_user_missing_role_bas
      ^ Col 0
 ",terraform.tfm_iam_user_missing_role_based_security
 F031,inputs,arn:aws:iam::aws:user/user1 (namespace),/PolicyNames: inlinePolicy1,250,skims,031. Excessive privileges - AWS,IAM User is granted privileges but not through a Role,"
-  30 |             ""Grantee"": {
-  31 |                 ""DisplayName"": ""string"",
-  32 |                 ""EmailAddress"": ""string"",
-  33 |                 ""ID"": ""string"",
-  34 |                 ""Type"": ""CanonicalUser"",
-  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
-  36 |             },
-  37 |             ""Permission"": ""FULL_CONTROL""
-  38 |         }
-  39 |     ],
-> 40 |     ""PolicyNames"": [
-  41 |         ""inlinePolicy1""
-  42 |     ],
-  43 |     ""Users"": [
-  44 |         {
-  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
-  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
-  47 |         }
-  48 |     ],
-  49 |     ""AttachedPolicies"": [
-  50 |         {
+  37 |             },
+  38 |             ""Permission"": ""FULL_CONTROL""
+  39 |         }
+  40 |     ],
+  41 |     ""Roles"": [
+  42 |         {
+  43 |             ""RoleName"": ""rol-018de572ae43404d8"",
+  44 |             ""Arn"": ""arn:aws:iam::aws:user/rol1""
+  45 |         }
+  46 |     ],
+> 47 |     ""PolicyNames"": [
+  48 |         ""inlinePolicy1""
+  49 |     ],
+  50 |     ""PolicyDocument"": {
+  51 |         ""Statement"": ""[{\""Effect\"":\""Allow\"",\""Action\"":[\""*\""],\""Resource\"":\""*\"",},]""
+  52 |     },
+  53 |     ""Users"": [
+  54 |         {
+  55 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  56 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  57 |         }
      ^ Col 0
 ",aws.user_with_inline_policies
 F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,41,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_public_access.yaml,"
@@ -829,27 +913,27 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_publ
      ^ Col 0
 ",terraform.tfm_bucket_policy_allows_public_access
 F031,inputs,arn:aws:s3:::bucket-018de572ae43404d8 (namespace),/Grants/0/Permission: FULL_CONTROL,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
-  27 |     },
-  28 |     ""Grants"": [
-  29 |         {
-  30 |             ""Grantee"": {
-  31 |                 ""DisplayName"": ""string"",
-  32 |                 ""EmailAddress"": ""string"",
-  33 |                 ""ID"": ""string"",
-  34 |                 ""Type"": ""CanonicalUser"",
-  35 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
-  36 |             },
-> 37 |             ""Permission"": ""FULL_CONTROL""
-  38 |         }
-  39 |     ],
-  40 |     ""PolicyNames"": [
-  41 |         ""inlinePolicy1""
-  42 |     ],
-  43 |     ""Users"": [
-  44 |         {
-  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
-  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
-  47 |         }
+  28 |     },
+  29 |     ""Grants"": [
+  30 |         {
+  31 |             ""Grantee"": {
+  32 |                 ""DisplayName"": ""string"",
+  33 |                 ""EmailAddress"": ""string"",
+  34 |                 ""ID"": ""string"",
+  35 |                 ""Type"": ""CanonicalUser"",
+  36 |                 ""URI"": ""http://acs.amazonaws.com/groups/global/AllUsers""
+  37 |             },
+> 38 |             ""Permission"": ""FULL_CONTROL""
+  39 |         }
+  40 |     ],
+  41 |     ""Roles"": [
+  42 |         {
+  43 |             ""RoleName"": ""rol-018de572ae43404d8"",
+  44 |             ""Arn"": ""arn:aws:iam::aws:user/rol1""
+  45 |         }
+  46 |     ],
+  47 |     ""PolicyNames"": [
+  48 |         ""inlinePolicy1""
      ^ Col 0
 ",aws.public_buckets
 F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,25,250,skims,031. Excessive privileges - AWS,The policy grant excessive privileges for attachment to a specific role. in namespace/skims/test/data/lib_path/f031/tfm_iam_excessive_role_policy.tf,"
@@ -1020,28 +1104,52 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ss
   78 |     resources = [
      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),/Statement/2/Action: ['ssm:*'],250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent,"
+   8 |             ],
+   9 |             ""Resource"": ""*""
+  10 |         },
+  11 |         {
+  12 |             ""Effect"": ""Allow"",
+  13 |             ""Action"": ""*"",
+  14 |             ""Resource"": ""*""
+  15 |         },
+  16 |         {
+  17 |             ""Effect"": ""Allow"",
+> 18 |             ""Action"": [
+  19 |                 ""ssm:*""
+  20 |             ],
+  21 |             ""Resource"": ""*""
+  22 |         },
+  23 |         {
+  24 |             ""Effect"": ""Allow"",
+  25 |             ""NotAction"": ""*"",
+  26 |             ""NotResource"": [
+  27 |                 ""iam:bucket""
+  28 |             ]
+     ^ Col 0
+",aws.full_access_to_ssm
 F031,inputs,arn:aws:iam::aws:user/user1 (namespace),"/AttachedPolicies: [{'PolicyName': 'inlinePolicy1', 'PolicyArn': 'policyArn'}]",250,skims,031. Excessive privileges - AWS,Users must not have policies directly attached.,"
-  39 |     ],
-  40 |     ""PolicyNames"": [
-  41 |         ""inlinePolicy1""
-  42 |     ],
-  43 |     ""Users"": [
-  44 |         {
-  45 |             ""UserName"": ""bucket-018de572ae43404d8"",
-  46 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
-  47 |         }
-  48 |     ],
-> 49 |     ""AttachedPolicies"": [
-  50 |         {
-  51 |             ""PolicyName"": ""inlinePolicy1"",
-  52 |             ""PolicyArn"": ""policyArn""
-  53 |         }
-  54 |     ],
-  55 |     ""AccessKeyMetadata"": [
-  56 |         {
-  57 |             ""Status"": true
-  58 |         }
-  59 |     ]
+  49 |     ],
+  50 |     ""PolicyDocument"": {
+  51 |         ""Statement"": ""[{\""Effect\"":\""Allow\"",\""Action\"":[\""*\""],\""Resource\"":\""*\"",},]""
+  52 |     },
+  53 |     ""Users"": [
+  54 |         {
+  55 |             ""UserName"": ""bucket-018de572ae43404d8"",
+  56 |             ""Arn"": ""arn:aws:iam::aws:user/user1""
+  57 |         }
+  58 |     ],
+> 59 |     ""AttachedPolicies"": [
+  60 |         {
+  61 |             ""PolicyName"": ""inlinePolicy1"",
+  62 |             ""PolicyArn"": ""policyArn""
+  63 |         }
+  64 |     ],
+  65 |     ""AccessKeyMetadata"": [
+  66 |         {
+  67 |             ""Status"": true
+  68 |         }
+  69 |     ]
      ^ Col 0
 ",aws.policies_attached_to_users
 F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,5,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges in namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,"
@@ -1068,3 +1176,27 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_open_passrole.tf,5,250,s
   21 |         ""Resource"": ""arn:aws:iam::*:role/EC2-roles-for-XYZ-*""
      ^ Col 0
 ",terraform.terraform_open_passrole
+F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),Effect: Allow; Action: *; Resource: *,250,skims,031. Excessive privileges - AWS,iam:PassRole with wildcard resource allows an elevation of privileges,"
+   4 |         {
+   5 |             ""Effect"": ""Allow"",
+   6 |             ""Action"": [
+   7 |                 ""iam:PassRole""
+   8 |             ],
+   9 |             ""Resource"": ""*""
+  10 |         },
+  11 |         {
+  12 |             ""Effect"": ""Allow"",
+  13 |             ""Action"": ""*"",
+> 14 |             ""Resource"": ""*""
+  15 |         },
+  16 |         {
+  17 |             ""Effect"": ""Allow"",
+  18 |             ""Action"": [
+  19 |                 ""ssm:*""
+  20 |             ],
+  21 |             ""Resource"": ""*""
+  22 |         },
+  23 |         {
+  24 |             ""Effect"": ""Allow"",
+     ^ Col 0
+",aws.open_passrole

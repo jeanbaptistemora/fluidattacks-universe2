@@ -863,30 +863,174 @@ F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,6,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
-   9 |                 {
-  10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-> 19 |             ""ToPort"": 8001,
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 500,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 88,
+>  7 |             ""ToPort"": 500,
+   8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
-  22 |                     ""GroupId"": ""sg-018de572ae43404d8"",
-  23 |                     ""UserId"": ""fluidattacks""
-  24 |                 }
-  25 |             ]
-  26 |         }
-  27 |     ],
-  28 |     ""OwnerId"": ""dev"",
-  29 |     ""GroupId"": ""sg-018de572ae43404d8"",
      ^ Col 0
 ",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+>  7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 50; ToPort: 70,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_dns"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 50,
+>  7 |             ""ToPort"": 70,
+   8 |             ""IpProtocol"": ""udp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 19; ToPort: 22,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_ftp"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 19,
+>  7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+>  7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d9 (namespace),FromPort: 1; ToPort: 2,16,skims,024. Unrestricted access between network segments - AWS,Avoid SecurityGroup ingress/egress rules with port ranges,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_rfc1918"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 1,
+>  7 |             ""ToPort"": 2,
+   8 |             ""IpProtocol"": ""ftp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""172.16.0.0/12""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""1:1:1:0/12""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.insecure_port_range_in_security_group
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Default security groups allows connection to or from anyone.,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.default_seggroup_allows_all_traffic
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,6,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated in namespace/skims/test/data/lib_path/f024/cfn_ec2_instances_without_profile.yaml,"
    1 | ---
    2 | Resources:
@@ -959,6 +1103,29 @@ F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_instances_without_pro
   27 |   ami           = data.aws_ami.ubuntu.id
      ^ Col 0
 ",terraform.tfm_ec2_instances_without_profile
+F024,inputs,arn:aws:ec2::fluid_234:instance-id/fluidunsafeinstance_234 (namespace),EC2 instances should have an IamInstanceProfile associated,16,skims,024. Unrestricted access between network segments - AWS,EC2 instances should have an IamInstanceProfile associated,"
+   1 | {
+   2 |     ""Groups"": [
+   3 |         {
+   4 |             ""GroupName"": ""string"",
+   5 |             ""GroupId"": ""string""
+   6 |         }
+   7 |     ],
+   8 |     ""Instances"": [
+   9 |         {
+  10 |             ""AmiLaunchIndex"": 123,
+  11 |             ""ImageId"": ""string"",
+  12 |             ""InstanceId"": ""fluidunsafeinstance_234"",
+  13 |             ""State"": {
+  14 |                 ""Code"": 123,
+  15 |                 ""Name"": ""pending""
+  16 |             }
+  17 |         }
+  18 |     ],
+  19 |     ""OwnerId"": ""fluid_234""
+  20 | }
+     ^ Col 0
+",aws.instances_without_profile
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | ---
@@ -1409,6 +1576,56 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_ftp_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
+","
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.unrestricted_ftp_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 19; ToPort: 22; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port 20/21 to the necessary IP addresses
+","
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.unrestricted_ftp_access
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | ---
@@ -1959,6 +2176,206 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 50; ToPort: 70; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_dns"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 50,
+   7 |             ""ToPort"": 70,
+   8 |             ""IpProtocol"": ""udp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 50; ToPort: 70; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   6 |             ""FromPort"": 50,
+   7 |             ""ToPort"": 70,
+   8 |             ""IpProtocol"": ""udp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d8"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.unrestricted_dns_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_ftp_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 19; ToPort: 22; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_ftp"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_ftp_access
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Group must restrict access to TCP port and UDP 53 to the necessary IP addresses
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_ftp_access
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,19,16,skims,024. Unrestricted access between network segments - AWS,"Missing egress rules allows all egress traffic, explicitly define egress rules in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
    9 |           IpProtocol: tcp
   10 |           ToPort: 8888
@@ -2223,218 +2640,1346 @@ F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,1,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_allows_all_outbound_traffic
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 1521,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 11211,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
-   3 |     ""GroupName"": ""sec1"",
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 2438,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 11211,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup_openallports"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3306,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 11211,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 1521,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
-   3 |     ""GroupName"": ""sec1"",
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3389,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 1521,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup_openallports"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 1521,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 22,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
-   3 |     ""GroupName"": ""sec1"",
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 5432,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 19; ToPort: 22; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 22,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup_ftp"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 6379,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 22,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup_openallports"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
-   6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 7199,"
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 22,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 19; ToPort: 22; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 22,"
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 2438,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 2438,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 2438,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 27017,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 27017,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 27017,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3306,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3306,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3306,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3389,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3389,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 3389,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 500; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
    6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   7 |             ""ToPort"": 500,
+   8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 500; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 445,"
+   6 |             ""FromPort"": 88,
+   7 |             ""ToPort"": 500,
+   8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d8"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 5432,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 5432,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 5432,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 6379,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 6379,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 6379,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 7199,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 7199,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 7199,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8111,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8111,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8111,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8888,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8888,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 8888,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 9160,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 9160,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.allows_anyone_to_admin_ports
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIpv6: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must deny connections to port 9160,"
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+> 16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+  22 |                     ""GroupId"": ""sg-018de572ae43404d11"",
+  23 |                     ""UserId"": ""fluidattacks""
+  24 |                 }
+  25 |             ]
+  26 |         }
      ^ Col 0
 ",aws.allows_anyone_to_admin_ports
 F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have 0.0.0.0/0 CIDRs,"
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
    6 |             ""FromPort"": 88,
-   7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-> 10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   7 |             ""ToPort"": 500,
+   8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have 0.0.0.0/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have 0.0.0.0/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_dns"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 50,
+   7 |             ""ToPort"": 70,
+   8 |             ""IpProtocol"": ""udp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have 0.0.0.0/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_ftp"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have 0.0.0.0/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have ::/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 88,
+   7 |             ""ToPort"": 500,
+   8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have ::/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have ::/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_dns"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 50,
+   7 |             ""ToPort"": 70,
+   8 |             ""IpProtocol"": ""udp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have ::/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_ftp"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 19,
+   7 |             ""ToPort"": 22,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.unrestricted_cidrs
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: ::/0,16,skims,024. Unrestricted access between network segments - AWS,Must not have ::/0 CIDRs,"
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
@@ -2664,6 +4209,31 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_dns_
   21 |     cidr_blocks = ""127.0.0.1/32""
      ^ Col 0
 ",terraform.tfm_ec2_has_security_groups_ip_ranges_in_rfc1918
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d9 (namespace),/IpPermissions/0/IpRanges/0/CidrIp: 172.16.0.0/12,16,skims,024. Unrestricted access between network segments - AWS,"Security groups contain RFC-1918 CIDRs open
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_rfc1918"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 1,
+   7 |             ""ToPort"": 2,
+   8 |             ""IpProtocol"": ""ftp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""172.16.0.0/12""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""1:1:1:0/12""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.security_groups_ip_ranges_in_rfc1918
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml,11,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_has_open_all_ports_to_the_public.yaml","
    1 | ---
@@ -2914,6 +4484,81 @@ F024,lines,namespace/skims/test/data/lib_path/f024/tfm_ec2_has_unrestricted_port
   51 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_ec2_has_open_all_ports_to_the_public
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_default"",
+   3 |     ""GroupName"": ""default"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.open_all_ports_to_the_public
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+","
+   1 | {
+   2 |     ""Description"": ""myunsafegroup_openallports"",
+   3 |     ""GroupName"": ""sec1"",
+   4 |     ""IpPermissions"": [
+   5 |         {
+   6 |             ""FromPort"": 0,
+   7 |             ""ToPort"": 65535,
+   8 |             ""IpProtocol"": ""tcp"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+> 11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
+  20 |             ""UserIdGroupPairs"": [
+  21 |                 {
+     ^ Col 0
+",aws.open_all_ports_to_the_public
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d10 (namespace),FromPort: 0; ToPort: 65535; CidrIp: 0.0.0.0/0,16,skims,024. Unrestricted access between network segments - AWS,"Security groups has all ports open to the public
+","
+  27 |     ],
+  28 |     ""OwnerId"": ""dev"",
+  29 |     ""GroupId"": ""sg-018de572ae43404d10"",
+  30 |     ""IpPermissionsEgress"": [
+  31 |         {
+  32 |             ""FromPort"": 0,
+  33 |             ""ToPort"": 65535,
+  34 |             ""IpProtocol"": ""2"",
+  35 |             ""IpRanges"": [
+  36 |                 {
+> 37 |                     ""CidrIp"": ""0.0.0.0/0""
+  38 |                 }
+  39 |             ],
+  40 |             ""Ipv6Ranges"": [
+  41 |                 {
+  42 |                     ""CidrIpv6"": ""0:0:0:0/0""
+  43 |                 }
+  44 |             ],
+  45 |             ""PrefixListIds"": [],
+  46 |             ""UserIdGroupPairs"": []
+  47 |         }
+     ^ Col 0
+",aws.open_all_ports_to_the_public
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,10,16,skims,024. Unrestricted access between network segments - AWS,"The ingress rules of the SecurityGroups allow access to administrative ports to everyone
  in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml","
    1 | ---
@@ -4664,34 +6309,33 @@ F024,lines,namespace/skims/test/data/lib_root/f024/tfm_ec2_without_egress.tf,9,1
   21 |   name        = ""allow_tls""
      ^ Col 0
 ",terraform.tfm_aws_ec2_cfn_unrestricted_ip_protocols
-F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 8001; IpProtocol: (-1),16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
+F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 88; ToPort: 500; IpProtocol: (-1),16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
 ","
    1 | {
-   2 |     ""Description"": ""mygroup"",
+   2 |     ""Description"": ""myunsafegroup"",
    3 |     ""GroupName"": ""sec1"",
    4 |     ""IpPermissions"": [
    5 |         {
    6 |             ""FromPort"": 88,
->  7 |             ""IpProtocol"": ""-1"",
-   8 |             ""IpRanges"": [
-   9 |                 {
-  10 |                     ""CidrIp"": ""0.0.0.0/0""
-  11 |                 }
-  12 |             ],
-  13 |             ""Ipv6Ranges"": [
-  14 |                 {
-  15 |                     ""CidrIpv6"": ""string""
-  16 |                 }
-  17 |             ],
-  18 |             ""PrefixListIds"": [],
-  19 |             ""ToPort"": 8001,
+   7 |             ""ToPort"": 500,
+>  8 |             ""IpProtocol"": ""-1"",
+   9 |             ""IpRanges"": [
+  10 |                 {
+  11 |                     ""CidrIp"": ""0.0.0.0/0""
+  12 |                 }
+  13 |             ],
+  14 |             ""Ipv6Ranges"": [
+  15 |                 {
+  16 |                     ""CidrIpv6"": ""::/0""
+  17 |                 }
+  18 |             ],
+  19 |             ""PrefixListIds"": [],
   20 |             ""UserIdGroupPairs"": [
   21 |                 {
      ^ Col 0
 ",aws.unrestricted_ip_protocols
 F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),FromPort: 123; ToPort: 123; IpProtocol: (-1),16,skims,024. Unrestricted access between network segments - AWS,"The ingress/egress rules of the SecurityGroup allow the use of all ip protocols
 ","
-  23 |                     ""UserId"": ""fluidattacks""
   24 |                 }
   25 |             ]
   26 |         }
@@ -4701,17 +6345,18 @@ F024,inputs,arn:aws:ec2::dev:security-group/sg-018de572ae43404d8 (namespace),Fro
   30 |     ""IpPermissionsEgress"": [
   31 |         {
   32 |             ""FromPort"": 123,
-> 33 |             ""IpProtocol"": ""-1"",
-  34 |             ""IpRanges"": [
-  35 |                 {
-  36 |                     ""CidrIp"": ""0.0.0.0/0""
-  37 |                 }
-  38 |             ],
-  39 |             ""Ipv6Ranges"": [
-  40 |                 {
-  41 |                     ""CidrIpv6"": ""0:0:0:0/0""
-  42 |                 }
-  43 |             ],
+  33 |             ""ToPort"": 123,
+> 34 |             ""IpProtocol"": ""-1"",
+  35 |             ""IpRanges"": [
+  36 |                 {
+  37 |                     ""CidrIp"": ""0.0.0.0/0""
+  38 |                 }
+  39 |             ],
+  40 |             ""Ipv6Ranges"": [
+  41 |                 {
+  42 |                     ""CidrIpv6"": ""0:0:0:0/0""
+  43 |                 }
+  44 |             ],
      ^ Col 0
 ",aws.unrestricted_ip_protocols
 F024,lines,namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,7,16,skims,024. Unrestricted access between network segments - AWS,The ingress/egress rules of the SecurityGroup use cidrs open to everyone in namespace/skims/test/data/lib_path/f024/cfn_ec2_allows_anyone_to_admin_ports.yaml,"

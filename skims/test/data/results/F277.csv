@@ -10,3 +10,51 @@ F277,inputs,arn:aws:iam:::fluidattacks (namespace),/0/UploadDate: 2022_11_01 04:
   8 | ]
     ^ Col 0
 ",aws.has_old_ssh_public_keys
+F277,inputs,arn:aws:iam::myUser (namespace),/access_key_2_last_rotated: 2022_11_01 04:16:13_04:00,521,skims,277. Weak credential policy - Password Expiration,src.lib_path.f277.have_old_access_keys,"
+  1 | {
+  2 |     ""user"": ""fluid"",
+  3 |     ""arn"": ""arn:aws:iam::myUser"",
+  4 |     ""password_enabled"": ""true"",
+  5 |     ""access_key_1_active"": ""true"",
+  6 |     ""access_key_2_active"": ""true"",
+  7 |     ""access_key_1_last_rotated"": ""2022-11-01 04:16:13-04:00"",
+> 8 |     ""access_key_2_last_rotated"": ""2022-11-01 04:16:13-04:00""
+  9 | }
+    ^ Col 0
+",aws.have_old_access_keys
+F277,inputs,arn:aws:iam::myUser (namespace),/access_key_1_last_rotated: 2022_11_01 04:16:13_04:00,521,skims,277. Weak credential policy - Password Expiration,src.lib_path.f277.have_old_access_keys,"
+  1 | {
+  2 |     ""user"": ""fluid"",
+  3 |     ""arn"": ""arn:aws:iam::myUser"",
+  4 |     ""password_enabled"": ""true"",
+  5 |     ""access_key_1_active"": ""true"",
+  6 |     ""access_key_2_active"": ""true"",
+> 7 |     ""access_key_1_last_rotated"": ""2022-11-01 04:16:13-04:00"",
+  8 |     ""access_key_2_last_rotated"": ""2022-11-01 04:16:13-04:00""
+  9 | }
+    ^ Col 0
+",aws.have_old_access_keys
+F277,inputs,arn:aws:iam::myUser (namespace),/User/PasswordLastUsed: 2022_11_01 04:16:13_04:00,521,skims,277. Weak credential policy - Password Expiration,src.lib_path.f277.have_old_creds_enabled,"
+   1 | {
+   2 |     ""Users"": [
+   3 |         {
+   4 |             ""UserName"": ""fluidattacks"",
+   5 |             ""Arn"": ""arn:aws:iam::123456789012:user/fluid""
+   6 |         }
+   7 |     ],
+   8 |     ""SSHPublicKeys"": [
+   9 |         {
+  10 |             ""UserName"": ""fluidattacks"",
+  11 |             ""SSHPublicKeyId"": ""ssh:42673"",
+  12 |             ""Status"": ""Active"",
+  13 |             ""UploadDate"": ""2022-11-01 04:16:13-04:00""
+  14 |         }
+  15 |     ],
+  16 |     ""Content"": ""b'user,arn,password_enabled,access_key_1_active,access_key_2_active,access_key_1_last_rotated,access_key
+     | _2_last_rotated\\nfluid,arn:aws:iam::myUser,true,true,true,2022-11-01 04:16:13-04:00,2022-11-01 04:16:13-04:00'"",
+  17 |     ""User"": {
+> 18 |         ""PasswordLastUsed"": ""2022-11-01 04:16:13-04:00""
+  19 |     }
+  20 | }
+     ^ Col 0
+",aws.have_old_creds_enabled

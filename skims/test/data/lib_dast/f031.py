@@ -4,6 +4,16 @@ from typing import (
 
 
 def mock_data() -> dict[str, Any]:
+    policy = (
+        '{"Version":"2008-10-17",'
+        '"Statement":['
+        '{"Effect":"Allow","Action":["iam:PassRole",],"Resource":"*",},'
+        '{"Effect":"Allow","Action":"*","Resource":"*",},'
+        '{"Effect":"Allow","Action":["ssm:*",],"Resource":"*",},'
+        '{"Effect":"Allow","NotAction":"*","NotResource":["iam:bucket",],},'
+        "],}"
+    )
+    statement = '[{"Effect":"Allow","Action":["*"],"Resource":"*",},]'
     return {
         "Policies": [
             {
@@ -20,8 +30,9 @@ def mock_data() -> dict[str, Any]:
                 "UpdateDate": "2015/01/01",
             },
         ],
-        "IsTruncated": True,
-        "Marker": "4f23ro",
+        "PolicyVersion": {
+            "Document": policy,
+        },
         "Buckets": [
             {
                 "Name": "bucket-018de572ae43404d8",
@@ -40,9 +51,18 @@ def mock_data() -> dict[str, Any]:
                 "Permission": "FULL_CONTROL",
             },
         ],
+        "Roles": [
+            {
+                "RoleName": "rol-018de572ae43404d8",
+                "Arn": "arn:aws:iam::aws:user/rol1",
+            }
+        ],
         "PolicyNames": [
             "inlinePolicy1",
         ],
+        "PolicyDocument": {
+            "Statement": statement,
+        },
         "Users": [
             {
                 "UserName": "bucket-018de572ae43404d8",
