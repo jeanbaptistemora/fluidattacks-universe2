@@ -719,12 +719,13 @@ class CreatorPdf:
             ):
                 finding_state_pie[3] += 1
         pie(
-            finding_state_pie,
+            x=finding_state_pie,
+            autopct="%1.0f%%",
+            colors=colors,
             explode=explode,
             labels=finding_state_pielabels,
-            autopct="%1.0f%%",
+            normalize=False,
             startangle=90,
-            colors=colors,
         )
         axis("equal")
         pie_filename = f"{self.tpl_img_path}/finding_graph_{group}.png"
