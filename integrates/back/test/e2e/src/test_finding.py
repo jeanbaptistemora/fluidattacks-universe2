@@ -1,6 +1,10 @@
 # pylint: disable=import-error, useless-suppression, too-many-arguments
+# pylint: disable=too-many-locals
 from model import (
     Credentials,
+)
+from selenium.common.exceptions import (
+    NoSuchElementException,
 )
 from selenium.webdriver.common.by import (
     By,
@@ -11,6 +15,7 @@ from selenium.webdriver.remote.webdriver import (
 from selenium.webdriver.support.select import (
     Select,
 )
+import time
 import utils
 
 
@@ -26,8 +31,20 @@ def test_finding_description(
     utils.login(
         driver, asm_endpoint, credentials, jwt_secret, jwt_encryption_key
     )
-
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
+
+    # Close risk exposure tour
+    time.sleep(2)
+    try:
+        close_tour = utils.wait_for_id(
+            driver,
+            "close-tour",
+            timeout,
+        )
+        close_tour.click()
+    except NoSuchElementException:
+        pass
+
     finding = utils.wait_for_text(
         driver,
         "060. Insecure service configuration - Host verification",
@@ -286,6 +303,19 @@ def test_finding_reattack(
     )
     # Enter finding
     driver.get(f"{asm_endpoint}/orgs/okada/groups/unittesting/vulns")
+
+    # Close risk exposure tour
+    time.sleep(2)
+    try:
+        close_tour = utils.wait_for_id(
+            driver,
+            "close-tour",
+            timeout,
+        )
+        close_tour.click()
+    except NoSuchElementException:
+        pass
+
     finding = utils.wait_for_text(
         driver,
         "014. Insecure functionality",

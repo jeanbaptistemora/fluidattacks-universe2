@@ -177,11 +177,12 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     void updateTours({
       variables: {
         newGroup: user.tours.newGroup,
+        newRiskExposure: user.tours.newRiskExposure,
         newRoot: true,
       },
     });
     closeModal();
-  }, [closeModal, updateTours, user.tours.newGroup]);
+  }, [closeModal, updateTours, user.tours]);
 
   const [addGitRoot] = useMutation(ADD_GIT_ROOT, {
     onCompleted: (): void => {

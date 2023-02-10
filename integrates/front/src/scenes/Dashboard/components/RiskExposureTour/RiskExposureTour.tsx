@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory, useRouteMatch } from "react-router-dom";
@@ -91,18 +92,28 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
           {
             ...BaseStep,
             content: (
-              <Container pt={"10px"}>
-                <Text
-                  fw={7}
-                  mb={2}
-                  tone={"light"}
-                >{`New feature: ${findingRiskExposure} Risk Exposure.`}</Text>
-                <Text tone={"light"}>
-                  <Text disp={"inline"} fw={7} tone={"light"}>
-                    {"Accelerate remediation "}
+              <Container>
+                <Container align={"center"} display={"flex"} justify={"end"}>
+                  <Button
+                    icon={faClose}
+                    id={"close-tour"}
+                    onClick={finishTour}
+                    variant={"secondary"}
+                  />
+                </Container>
+                <Container pt={"10px"}>
+                  <Text
+                    fw={7}
+                    mb={2}
+                    tone={"light"}
+                  >{`New feature: ${findingRiskExposure} Risk Exposure.`}</Text>
+                  <Text tone={"light"}>
+                    <Text disp={"inline"} fw={7} tone={"light"}>
+                      {"Accelerate remediation "}
+                    </Text>
+                    {"prioritizing by Risk Exposure."}
                   </Text>
-                  {"prioritizing by Risk Exposure."}
-                </Text>
+                </Container>
                 <Container
                   align={"center"}
                   display={"flex"}
@@ -116,6 +127,7 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
                 </Container>
               </Container>
             ),
+            hideCloseButton: true,
             placement: "auto",
             styles: tourStyle,
             target: "#riskExposureColumn",
@@ -134,13 +146,23 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
           {
             ...BaseStep,
             content: (
-              <Container pt={"10px"}>
-                <Text fw={7} mb={2} tone={"light"}>
-                  {"% Risk Exposure"}
-                </Text>
-                <Text tone={"light"}>
-                  {`For example, decrease ${findingRiskExposure} of your Total Risk Exposure by fixing all the vulnerabilities of this type`}
-                </Text>
+              <Container>
+                <Container align={"center"} display={"flex"} justify={"end"}>
+                  <Button
+                    icon={faClose}
+                    id={"close-tour"}
+                    onClick={finishTour}
+                    variant={"secondary"}
+                  />
+                </Container>
+                <Container pt={"10px"}>
+                  <Text fw={7} mb={2} tone={"light"}>
+                    {"% Risk Exposure"}
+                  </Text>
+                  <Text tone={"light"}>
+                    {`For example, decrease ${findingRiskExposure} of your Total Risk Exposure by fixing all the vulnerabilities of this type`}
+                  </Text>
+                </Container>
                 <Container
                   align={"center"}
                   display={"flex"}
@@ -154,6 +176,7 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
                 </Container>
               </Container>
             ),
+            hideCloseButton: true,
             placement: "auto",
             styles: tourStyle,
             target: "#riskExposureCard",
