@@ -112,8 +112,9 @@ Reload your terminal for changes to be loaded.
 
    You can reload the environment at any moment with: $ direnv allow
 
-   1) none        3) integratesBack  5) skims
-   2) forces      4) melts
+   1) airs       4) integratesBack    7) reviews
+   2) common     5) integratesForces  8) skims
+   3) docs       6) melts             9) sorts
    Selection: <type a number here>
    ```
 
