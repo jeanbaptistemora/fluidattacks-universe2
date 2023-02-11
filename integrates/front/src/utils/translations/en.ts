@@ -246,9 +246,7 @@ export const enTranslations: ResourceKey = {
       "And that's it. You're about to start finding vulnerabilities.",
     acceptTerms: "By signing up, you agree with Fluid Attacks'",
     addRepository: "Add a code repository we can start hacking",
-    alreadyInTrial:
-      "Oops! It seems like you've already enjoyed a free trial. " +
-      "Please contact your manager to request access.",
+    alreadyInTrial: "Oops! It seems like you've already enjoyed a free trial.",
     and: "and",
     branch: {
       label: "Branch",

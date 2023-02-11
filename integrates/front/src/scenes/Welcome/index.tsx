@@ -48,13 +48,24 @@ const Welcome: React.FC = (): JSX.Element => {
   }
 
   const isEnrolled: boolean = data.me.enrolled;
+  const validManaged = ["NOT_MANAGED", "MANAGED", "TRIAL"];
+  const subscribedOrgs = data.me.organizations.filter(
+    (org): boolean =>
+      org.groups.filter((group): boolean =>
+        validManaged.includes(group.managed)
+      ).length > 0
+  );
 
   if (isEnrolled) {
     if (sessionStorage.getItem("trial") === "true") {
       return <EnrolledUser />;
     }
-
-    return <Dashboard />;
+    if (
+      data.me.trial === null ||
+      !(data.me.trial.completed && subscribedOrgs.length === 0)
+    ) {
+      return <Dashboard />;
+    }
   }
 
   if (sessionStorage.getItem("trial") === "true") {

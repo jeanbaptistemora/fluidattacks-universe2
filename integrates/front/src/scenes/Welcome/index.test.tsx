@@ -31,6 +31,10 @@ describe("Welcome", (): void => {
         data: {
           me: {
             enrolled: false,
+            organizations: [],
+            trial: {
+              completed: false,
+            },
             userEmail: "jdoe@fluidattacks.com",
             userName: "John Doe",
           },
@@ -80,6 +84,8 @@ describe("Welcome", (): void => {
         data: {
           me: {
             enrolled: true,
+            organizations: [],
+            trial: null,
             userEmail: "jdoe@fluidattacks.com",
             userName: "John Doe",
           },
