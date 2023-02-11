@@ -101,6 +101,12 @@ with argument lists and using reliable escaping functions.
 This would restrict customization,
 reducing the risk of suffering an attack.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 Moving on to a somewhat similar kind of attack:
 Vulnerable versions of Bundler,
 a package manager for application dependencies in Ruby,

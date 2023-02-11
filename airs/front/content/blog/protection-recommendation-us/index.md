@@ -107,6 +107,12 @@ on their roles in their organizations' posture
 and about [response processes](https://www.cisa.gov/sites/default/files/publications/Ransomware_Response_Checklist_508.pdf)
 to [ransomware attacks.](https://www.cisa.gov/stopransomware/ransomware-guide)
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 ## The White House's Fact Sheet
 
 A week ago,

@@ -125,6 +125,12 @@ overcoming the ancient use of beacons for elementary messages).
 For material objects were no longer being delivered
 but *only* information.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' BAS solution right now"
+/>
+
 Each message could straightforwardly travel through the network.
 Via a telescope,
 the telegraph operators watched

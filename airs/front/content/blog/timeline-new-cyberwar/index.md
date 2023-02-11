@@ -121,6 +121,12 @@ Additionally,
 to make it known
 whether they were on the side of Ukraine or Russia.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## February 25
 
 Members of the [hacktivist group Anonymous](https://www.zdnet.com/article/anonymous-hacktivists-ransomware-groups-get-involved-in-ukraine-russia-conflict/)
