@@ -19,6 +19,7 @@ import type {
   IConfirmVulnZeroRiskResultAttr,
   IConfirmVulnerabilitiesResultAttr,
   IHandleVulnerabilitiesAcceptanceResultAttr,
+  IRejectVulnerabilitiesResultAttr,
   IRejectZeroRiskVulnResultAttr,
   IVulnDataAttr,
 } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
@@ -442,7 +443,8 @@ const rejectVulnerabilityHelper = (
     options?: MutationFunctionOptions | undefined
   ) => Promise<FetchResult>,
   values: {
-    justification: string;
+    reasons: string[];
+    otherReason?: string;
   },
   rejectedVulns: IVulnDataAttr[]
 ): void => {
@@ -463,13 +465,63 @@ const rejectVulnerabilityHelper = (
         await rejectVulnerabilities({
           variables: {
             findingId,
-            justification: values.justification,
+            otherReason: values.otherReason,
+            reasons: values.reasons,
             vulnerabilities: rejectedVulnIds,
           },
         });
       }
     );
   }
+};
+
+const rejectVulnerabilityProps = (
+  refetchData: () => void,
+  handleCloseModal: () => void,
+  findingId?: string
+): MutationHookOptions => {
+  return {
+    onCompleted: (data: IRejectVulnerabilitiesResultAttr): void => {
+      if (data.rejectVulnerabilities.success) {
+        msgSuccess(
+          translate.t("groupAlerts.rejectedVulnerabilitySuccess"),
+          translate.t("groupAlerts.updatedTitle")
+        );
+        refetchData();
+        handleCloseModal();
+      }
+    },
+    onError: ({ graphQLErrors }: ApolloError): void => {
+      graphQLErrors.forEach((error: GraphQLError): void => {
+        if (
+          error.message ===
+          "Exception - Zero risk vulnerability is not requested"
+        ) {
+          msgError(translate.t("groupAlerts.zeroRiskIsNotRequested"));
+        } else {
+          msgError(translate.t("groupAlerts.errorTextsad"));
+          Logger.warning("An error occurred confirming zero risk vuln", error);
+        }
+      });
+    },
+    refetchQueries: (): InternalRefetchQueriesInclude =>
+      findingId === undefined
+        ? []
+        : [
+            {
+              query: GET_FINDING_AND_GROUP_INFO,
+              variables: {
+                findingId,
+              },
+            },
+            {
+              query: GET_FINDING_HEADER,
+              variables: {
+                findingId,
+              },
+            },
+          ],
+  };
 };
 
 export {
@@ -482,5 +534,6 @@ export {
   isRejectZeroRiskSelectedHelper,
   onTreatmentChangeHelper,
   rejectVulnerabilityHelper,
+  rejectVulnerabilityProps,
   rejectZeroRiskProps,
 };

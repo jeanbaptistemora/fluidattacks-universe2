@@ -59,6 +59,12 @@ interface IRejectZeroRiskVulnResultAttr {
   };
 }
 
+interface IRejectVulnerabilitiesResultAttr {
+  rejectVulnerabilities: {
+    success: boolean;
+  };
+}
+
 export type {
   IConfirmVulnerabilitiesResultAttr,
   IConfirmVulnZeroRiskResultAttr,
@@ -67,5 +73,6 @@ export type {
   IHandleVulnerabilitiesAcceptanceModalProps,
   IHandleVulnerabilitiesAcceptanceResultAttr,
   IRejectZeroRiskVulnResultAttr,
+  IRejectVulnerabilitiesResultAttr,
   IVulnDataAttr,
 };

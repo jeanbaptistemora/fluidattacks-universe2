@@ -9,7 +9,8 @@ interface ISubmittedFormProps {
 }
 
 interface IFormValues {
-  justification: string;
+  rejectionReasons: string[];
+  otherRejectionReason?: string;
 }
 
 export type { IFormValues, ISubmittedFormProps };
