@@ -103,6 +103,7 @@ def get_items_to_filter(
                 f"{parameter}_{field}" if parameter else field
             )
         )
+        is not None
     ]
     return items_to_filter
 
