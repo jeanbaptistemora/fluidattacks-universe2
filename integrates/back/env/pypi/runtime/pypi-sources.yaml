@@ -27,6 +27,7 @@ closure:
   boto3-type-annotations: 0.3.1
   botocore: 1.27.59
   bracex: 2.3.post1
+  bugsnag: 4.3.0
   cachetools: 5.3.0
   celery: 5.2.7
   certifi: 2022.12.7
@@ -148,6 +149,7 @@ closure:
   wcmatch: "8.4"
   wcwidth: 0.2.6
   webencodings: 0.5.1
+  webob: 1.8.7
   wrapt: 1.14.1
   yarl: 1.8.2
   zenpy: 2.0.24
@@ -344,6 +346,12 @@ links:
   - name: bracex-2.3.post1.tar.gz
     sha256: 14qnsxpwb9h3zw0pjqbaw2adm794rfzalav9q3gd61ndnb43zcp7
     url: https://files.pythonhosted.org/packages/b3/96/d53e290ddf6215cfb24f93449a1835eff566f79a1f332cf046a978df0c9e/bracex-2.3.post1.tar.gz
+  - name: bugsnag-4.3.0-py3-none-any.whl
+    sha256: 1nzpxc6pays12krcddyv21c1gcjnmp8hqms4m27x3zyrhmfsfk5z
+    url: https://files.pythonhosted.org/packages/ef/f4/1b32463387ffac556744a869b84e9f5191ee1c5ed9ffd7f6191ef6699598/bugsnag-4.3.0-py3-none-any.whl
+  - name: bugsnag-4.3.0.tar.gz
+    sha256: 0dzx70psbkh8rvgjrwjgjz240gp3gqaz84v3bivr4l6yzakq5bpn
+    url: https://files.pythonhosted.org/packages/63/df/4a1d987eae4f60635e8064a37c1f320b6f715d19230f95b8080062f55fb4/bugsnag-4.3.0.tar.gz
   - name: cachetools-5.3.0-py3-none-any.whl
     sha256: 1m793lns2a17x4vkxvzfcfbnlpdnk15mv8ssr2k8w02whhg1m7j2
     url: https://files.pythonhosted.org/packages/db/14/2b48a834d349eee94677e8702ea2ef98b7c674b090153ea8d3f6a788584e/cachetools-5.3.0-py3-none-any.whl
@@ -1364,6 +1372,12 @@ links:
   - name: webencodings-0.5.1.tar.gz
     sha256: 08qrgrc4hrximb2gqnl69g01s93rhf2842jfxdjljc1dbwj1qsmk
     url: https://files.pythonhosted.org/packages/0b/02/ae6ceac1baeda530866a85075641cec12989bd8d31af6d5ab4a3e8c92f47/webencodings-0.5.1.tar.gz
+  - name: WebOb-1.8.7-py2.py3-none-any.whl
+    sha256: 16zqij909ys74l0fq6wcq8hf8q0rldf8nvwm7gx18719b41y7akk
+    url: https://files.pythonhosted.org/packages/62/9c/e94a9982e9f31fc35cf46cdc543a6c2c26cb7174635b5fd25b0bbc6a7bc0/WebOb-1.8.7-py2.py3-none-any.whl
+  - name: WebOb-1.8.7.tar.gz
+    sha256: 08y3y377s370nzv8wsnbxm8h69n28px49w28wjnwyng53cagakmn
+    url: https://files.pythonhosted.org/packages/c7/45/ee5f034fb4ebe3236fa49e5a4fcbc54444dd22ecf33079cf56f9606d479d/WebOb-1.8.7.tar.gz
   - name: wrapt-1.14.1-cp39-cp39-macosx_10_9_x86_64.whl
     sha256: 10sk6ggx6vmy5r230v4rcmd2qhf7azgvnhy4rjakillqgln84cij
     url: https://files.pythonhosted.org/packages/d9/ab/3ba5816dd466ffd7242913708771d258569825ab76fd29d7fd85b9361311/wrapt-1.14.1-cp39-cp39-macosx_10_9_x86_64.whl

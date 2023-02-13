@@ -141,6 +141,9 @@ from starlette.routing import (
 from starlette.staticfiles import (
     StaticFiles,
 )
+from telemetry import (
+    instrumentation,
+)
 from telemetry.instrumentation import (
     instrument,
 )
@@ -371,7 +374,12 @@ def get_validation_rules(
 
 STARLETTE_APP = Starlette(
     debug=DEBUG,
-    on_startup=[dynamo_startup, search_startup, s3_startup],
+    on_startup=[
+        dynamo_startup,
+        instrumentation.initialize,
+        s3_startup,
+        search_startup,
+    ],
     on_shutdown=[dynamo_shutdown, search_shutdown, s3_shutdown],
     routes=[
         Route("/", templates.login),
