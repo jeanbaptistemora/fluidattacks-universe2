@@ -48,7 +48,7 @@ class StakeholderPhone(NamedTuple):
 class StakeholderTours(NamedTuple):
     new_group: bool = False
     new_root: bool = False
-    new_risk_exposure: bool = False
+    new_risk_exposure: bool = True
 
 
 class StakeholderState(NamedTuple):
