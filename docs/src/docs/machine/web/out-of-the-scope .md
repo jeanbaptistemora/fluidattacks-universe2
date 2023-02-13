@@ -6,22 +6,26 @@ slug: /machine/web/out-of-the-scope
 ---
 
 This section refers to repositories
-that are not yet associated to any
-group in the ARM platform.
+not yet associated with any group
+in the
+[ARM platform](/machine/web/arm) of this organization.
 
-To see if you have any Azure
-type credentials,
-you can check in the
-[Global credentials](/machine/web/machine/web/global-credentials/)
-view in the column named **Type**.
+This list of roots displayed is based on
+the four providers that the ARM supports, which are:
 
-![azure in credentials](https://res.cloudinary.com/fluid-attacks/image/upload/v1671712645/docs/web/azure/out_of_scope.png)
+- **GitLab:** List the groups/projects that the user has access to.
+- **GitHub:** List the organizations/repositories the user has access to.
+- **Bitbucket:** List the workspaces/projects/repositories
+  that the user has access to.
+- **Azure:** List the organizations/repositories the user has access to.
 
-If you don't know how to add
-an Azure DevOps PAT credential,
-you can do it in two parts:
-[Scope](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pat)
-or [Global credentials](/machine/web/machine/web/global-credentials/).
+To see how to connect to these providers,
+we invite you to enter the
+[Global Credentials](/machine/web/machine/web/global-credentials)
+section,
+going to the Add repositories via OAuth section.
+
+![OAuth view](https://res.cloudinary.com/fluid-attacks/image/upload/v1676300113/docs/web/azure/Four_providers.png)
 
 When you see that you have
 listed the credentials,

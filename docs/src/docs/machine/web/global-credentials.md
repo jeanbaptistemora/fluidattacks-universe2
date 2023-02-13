@@ -186,4 +186,5 @@ button.
 
 > **Note:** The credential will be removed along with
 > its repositories listed in the
-> Out of the scope section.
+> [Out of the scope](/machine/web/out-of-the-scope)
+> section.
