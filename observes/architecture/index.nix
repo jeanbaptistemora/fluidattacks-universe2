@@ -87,6 +87,16 @@ in {
     formstack = standard_1 "${singerPath}/tap-formstack";
     git = standard_1 "${singerPath}/tap-git";
     gitlab = standard_2 "${singerPath}/tap-gitlab";
+    google_sheets = let
+      root = "${singerPath}/tap-google-sheets";
+    in {
+      inherit root;
+      bin = "${root}/bin";
+      env = {
+        runtime = "${root}/env/runtime";
+        dev = "${root}/env/dev";
+      };
+    };
     json = standard_3 "${singerPath}/tap-json";
     mailchimp = standard_1 "${singerPath}/tap-mailchimp";
     mandrill = standard_3 "${singerPath}/tap-mandrill";

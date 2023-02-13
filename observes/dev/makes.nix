@@ -14,6 +14,7 @@
     observesTapBugsnag = tap.bugsnag;
     observesTapDynamo = tap.dynamo;
     observesTapGitlab = tap.gitlab;
+    observesTapGoogleSheets = tap.google_sheets;
     observesTapJson = tap.json;
     observesTapMandrill = tap.mandrill;
     observesTargetRedshift = target.redshift_2;
