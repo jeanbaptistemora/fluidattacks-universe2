@@ -25,8 +25,10 @@ def get_query() -> str:
             $lastCommit: String
             $maxAttackedLines: Int
             $maxLoc: Int
+            $maxSortsRiskLevel: Int
             $minAttackedLines: Int
             $minLoc: Int
+            $minSortsRiskLevel: Int
             $rootId: ID
             $toFirstAttackAt: DateTime
             $toModifiedDate: DateTime
@@ -45,8 +47,10 @@ def get_query() -> str:
                     lastCommit: $lastCommit
                     maxAttackedLines: $maxAttackedLines
                     maxLoc: $maxLoc
+                    maxSortsRiskLevel: $maxSortsRiskLevel
                     minAttackedLines: $minAttackedLines
                     minLoc: $minLoc
+                    minSortsRiskLevel: $minSortsRiskLevel
                     rootId: $rootId
                     toFirstAttackAt: $toFirstAttackAt
                     toModifiedDate: $toModifiedDate
