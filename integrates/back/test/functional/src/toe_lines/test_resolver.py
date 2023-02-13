@@ -653,3 +653,31 @@ async def test_get_toe_lines_by_min_sorts_risk_level(
         ]
         == 80
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_max_sorts_risk_level(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "maxSortsRiskLevel": -1,
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"][
+            "sortsRiskLevel"
+        ]
+        == -1
+    )
