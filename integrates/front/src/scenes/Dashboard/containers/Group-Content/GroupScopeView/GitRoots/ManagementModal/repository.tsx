@@ -1,3 +1,4 @@
+/* eslint-disable react/no-multi-comp */
 /* eslint-disable complexity, react/forbid-component-props */
 import { Buffer } from "buffer";
 
@@ -64,6 +65,78 @@ interface IRepositoryProps {
   runTour: boolean;
   finishTour: () => void;
 }
+
+interface ICredentialsTypeProps {
+  credExists: boolean;
+  values: IFormValues;
+}
+
+const CredentialsType: FC<ICredentialsTypeProps> = ({
+  credExists,
+  values,
+}: ICredentialsTypeProps): JSX.Element | null => {
+  const { t } = useTranslation();
+
+  if (values.credentials.type === "SSH" && !credExists) {
+    return (
+      <TextArea
+        label={t("group.scope.git.repo.credentials.sshKey")}
+        name={"credentials.key"}
+        placeholder={t("group.scope.git.repo.credentials.sshHint")}
+      />
+    );
+  } else if (values.credentials.type === "HTTPS" && !credExists) {
+    return (
+      <Fragment>
+        {values.credentials.auth === "USER" ? (
+          <Row>
+            <Col>
+              <Input
+                label={t("group.scope.git.repo.credentials.user")}
+                name={"credentials.user"}
+                required={true}
+              />
+            </Col>
+            <Col>
+              <Input
+                label={t("group.scope.git.repo.credentials.password")}
+                name={"credentials.password"}
+                required={true}
+              />
+            </Col>
+          </Row>
+        ) : undefined}
+        {values.credentials.auth === "TOKEN" ? (
+          <Row>
+            <Col>
+              <Input
+                label={t("group.scope.git.repo.credentials.token")}
+                name={"credentials.token"}
+                required={true}
+              />
+            </Col>
+            {values.credentials.isPat ? (
+              <Col>
+                <Input
+                  label={t(
+                    "group.scope.git.repo.credentials.azureOrganization.text"
+                  )}
+                  name={"credentials.azureOrganization"}
+                  required={true}
+                  tooltip={t(
+                    "group.scope.git.repo.credentials.azureOrganization.tooltip"
+                  )}
+                />
+              </Col>
+            ) : undefined}
+          </Row>
+        ) : undefined}
+      </Fragment>
+    );
+  }
+
+  return null;
+};
 
 const Repository: FC<IRepositoryProps> = ({
   initialValues,
@@ -425,65 +498,7 @@ const Repository: FC<IRepositoryProps> = ({
                       required={!isEditing}
                     />
                   </Col>
-                  {values.credentials.type === "SSH" && !credExists ? (
-                    <TextArea
-                      label={t("group.scope.git.repo.credentials.sshKey")}
-                      name={"credentials.key"}
-                      placeholder={t(
-                        "group.scope.git.repo.credentials.sshHint"
-                      )}
-                    />
-                  ) : values.credentials.type === "HTTPS" && !credExists ? (
-                    <Fragment>
-                      {values.credentials.auth === "USER" ? (
-                        <Row>
-                          <Col>
-                            <Input
-                              label={t("group.scope.git.repo.credentials.user")}
-                              name={"credentials.user"}
-                              required={true}
-                            />
-                          </Col>
-                          <Col>
-                            <Input
-                              label={t(
-                                "group.scope.git.repo.credentials.password"
-                              )}
-                              name={"credentials.password"}
-                              required={true}
-                            />
-                          </Col>
-                        </Row>
-                      ) : undefined}
-                      {values.credentials.auth === "TOKEN" ? (
-                        <Row>
-                          <Col>
-                            <Input
-                              label={t(
-                                "group.scope.git.repo.credentials.token"
-                              )}
-                              name={"credentials.token"}
-                              required={true}
-                            />
-                          </Col>
-                          {values.credentials.isPat ? (
-                            <Col>
-                              <Input
-                                label={t(
-                                  "group.scope.git.repo.credentials.azureOrganization.text"
-                                )}
-                                name={"credentials.azureOrganization"}
-                                required={true}
-                                tooltip={t(
-                                  "group.scope.git.repo.credentials.azureOrganization.tooltip"
-                                )}
-                              />
-                            </Col>
-                          ) : undefined}
-                        </Row>
-                      ) : undefined}
-                    </Fragment>
-                  ) : undefined}
+                  <CredentialsType credExists={credExists} values={values} />
                   {!showGitAlert && validateGitMsg.message !== "" ? (
                     <Alert
                       onTimeOut={setShowGitAlert}
