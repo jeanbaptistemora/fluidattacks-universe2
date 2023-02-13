@@ -3849,6 +3849,8 @@
     - capec.70
     - capec.560
     - cis.4_7
+    - cwe.1392
+    - cwe.1393
     - nerccip.007-6_R5_4
     - nist.PR_AC-1
     - bizec.APP-07
@@ -8749,15 +8751,17 @@
     - capec.161
     - capec.212
     - cis.9_4
-    - cwe.284
-    - cwe.602
-    - cwe.749
     - cwe.78
     - cwe.98
     - cwe.114
+    - cwe.284
     - cwe.444
     - cwe.548
+    - cwe.602
     - cwe.693
+    - cwe.749
+    - cwe.1392
+    - cwe.1393
     - owasp10.A1
     - owasp10.A4
     - owasp10.A5
