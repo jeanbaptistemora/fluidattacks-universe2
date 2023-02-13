@@ -7,8 +7,11 @@ slug: machine/web/global-credentials
 
 In this section,
 you will be able to perform two actions:
-Add credentials at the organization level
-and perform the connection via OAuth to the providers,
+[Add credentials](/machine/web/machine/web/global-credentials/#organization-credentials)
+at the organization level
+and perform the connection via
+[OAuth](/machine/web/machine/web/global-credentials/#add-repositories-via-oauth)
+to the providers,
 which are: **GitLab - GitHub - Bitbucket - Azure**.
 
 ## Organization credentials
@@ -39,7 +42,8 @@ are described below:
   [SSH](/machine/web/groups/scope/roots#adding-a-root-with-the-ssh-key)
   or [Azure DevOps PAT](/machine/web/groups/scope/roots#adding-a-root-with-the-azure-devops-pat).
   You can also see in this column the connection
-  of the providers via OAuth.
+  of the providers via
+  [OAuth](/machine/web/machine/web/global-credentials#add-repositories-via-oauth).
 - **Owner:**
   The person who created the credential.
 
@@ -130,3 +134,56 @@ where you can select the provider of your
 convenience that you want to authorize to connect to the ARM.
 
 ![Gitlab provider](https://res.cloudinary.com/fluid-attacks/image/upload/v1676278513/docs/web/credentials/Four_providers.png)
+
+When you click on it,
+you will be redirected to the **provider's authorization** page,
+where you will be asked to authorize the
+connection between the ARM and your account.
+When you click on **Authorize**,
+the connection between these two services will be established.
+
+![Authorize provider](https://res.cloudinary.com/fluid-attacks/image/upload/v1676280659/docs/web/credentials/authorize.png)
+
+When you authorize,
+you will be redirected to the ARM
+to the [Global Credentials](/machine/web/machine/web/global-credentials)
+view,
+where you can see the new credential created as OAuth.
+
+![credential create](https://res.cloudinary.com/fluid-attacks/image/upload/v1676281581/docs/web/credentials/adding_autho.png)
+
+> **Note:** The service you select will no longer
+> be shown in since the connection has already been made.
+
+With this connection with your provider
+we will be able to access your organization and,
+with this,
+to all the repositories that you have there.
+It will take into account the repositories that
+have had activity in the last 60 days.
+To see the list of these,
+you can do it in the
+[Out of the scope](/machine/web/azure-credentials/)
+section.
+
+![out of the scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282098/docs/web/credentials/out_of_scope.png)
+
+> **Note:** The list of repositories that are listed
+> in this view are repositories that are not associated
+> with any group of that specific organization in the ARM.
+> To see these,
+> you must wait about 30 to 1 hour while the service connection is made.
+
+## OAuth functionalities
+
+### Remove oauth connection
+
+You can remove the **OAuth credential** by
+selecting the credential to be removed followed by the **Remove**
+button.
+
+![oauth remove](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282499/docs/web/credentials/remove.png)
+
+> **Note:** The credential will be removed along with
+> its repositories listed in the
+> Out of the scope section.
