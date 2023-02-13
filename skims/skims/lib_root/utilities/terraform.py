@@ -4,10 +4,14 @@ from model.graph_model import (
 )
 from typing import (
     Iterator,
+    Optional,
     Tuple,
 )
 from utils import (
     graph as g,
+)
+from utils.graph import (
+    adj_ast,
 )
 
 
@@ -21,6 +25,16 @@ def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
         else ""
     )
     return key, value
+
+
+def get_attribute(
+    graph: Graph, object_id: NId, expected_attr: str
+) -> Tuple[Optional[str], str]:
+    for attr_id in adj_ast(graph, object_id, label_type="Pair"):
+        key, value = get_key_value(graph, attr_id)
+        if key == expected_attr:
+            return key, value
+    return None, ""
 
 
 def iterate_resource(graph: Graph, expected_resource: str) -> Iterator[NId]:

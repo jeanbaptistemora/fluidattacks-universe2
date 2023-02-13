@@ -1,5 +1,5 @@
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,21 +19,7 @@ from sast.query import (
 from typing import (
     Iterable,
     Optional,
-    Tuple,
 )
-from utils.graph import (
-    adj_ast,
-)
-
-
-def get_attribute(
-    graph: Graph, object_id: NId, expected_attr: str
-) -> Tuple[Optional[str], str]:
-    for attr_id in adj_ast(graph, object_id, label_type="Pair"):
-        key, value = get_key_value(graph, attr_id)
-        if key == expected_attr:
-            return key, value
-    return None, ""
 
 
 def _azure_key_vault_not_recoverable(graph: Graph, nid: NId) -> Optional[NId]:
