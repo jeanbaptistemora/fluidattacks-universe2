@@ -1,9 +1,6 @@
 from app.app import (
     confirm_deletion,
 )
-from app.views.auth import (
-    autoenroll_stakeholder,
-)
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_module_at_test,
     set_mocks_return_values,
@@ -11,7 +8,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from dataloaders import (
     apply_context_attrs,
-    Dataloaders,
     get_new_context,
 )
 from db_model.group_access.types import (
@@ -185,24 +181,6 @@ async def test_confirm_deletion() -> None:
     )
 
 
-@pytest.mark.changes_db
-async def test_remove_stakeholder_() -> None:
-    loaders: Dataloaders = get_new_context()
-    email: str = "testanewuser@test.test"
-    modified_by: str = "admin@test.test"
-    await autoenroll_stakeholder(email, "FirstName", "LastName")
-
-    stakeholder = await loaders.stakeholder.load(email)
-    assert stakeholder
-    assert stakeholder.email == email
-    assert stakeholder.role == "user"
-
-    await remove_stakeholder_all_organizations(
-        email=email, modified_by=modified_by
-    )
-    assert await loaders.stakeholder_subscriptions.load(email) == []
-
-
 @pytest.mark.parametrize(
     ["email", "modified_by"],
     [["integratesuser@gmail.com", "admin@test.com"]],
@@ -221,7 +199,8 @@ async def test_remove_stakeholder_() -> None:
     MODULE_AT_TEST + "group_access_domain.get_stakeholder_groups_names",
     new_callable=AsyncMock,
 )
-async def test_remove_stakeholder(  # pylint: disable=too-many-arguments
+async def test_remove_stakeholder_all_organizations(
+    # pylint: disable=too-many-arguments
     mock_group_access_domain_get_stakeholder_groups_names: AsyncMock,
     mock_group_access_domain_remove_access: AsyncMock,
     mock_dataloaders_stakeholder_organizations_access: AsyncMock,

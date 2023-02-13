@@ -10544,7 +10544,7 @@ def create_dummy_info(request: Request) -> GraphQLResolveInfo:
 
 
 def get_module_at_test(file_path: str) -> str:
-    match = search(r".*\/(.*\/.*)", file_path)
+    match = search(r"src/(.*)", file_path)
     if match:
         test_module = match.group(1)
     module_at_test = (
