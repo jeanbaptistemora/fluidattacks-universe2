@@ -3298,6 +3298,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    XML_ALLOWS_ALL_DOMAINS = MethodInfo(
+        file_name="xml",
+        name="xml_allows_all_domains",
+        module="lib_path",
+        finding=FindingEnum.F060,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     DOTNETCONFIG_HAS_DEBUG_ENABLED = MethodInfo(
         file_name="dotnetconfig",
         name="dotnetconfig_has_debug_enabled",
