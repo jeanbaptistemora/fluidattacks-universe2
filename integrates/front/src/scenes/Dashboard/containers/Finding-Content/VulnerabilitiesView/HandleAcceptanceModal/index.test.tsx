@@ -1023,7 +1023,7 @@ describe("handle vulns acceptance modal", (): void => {
         action: "api_mutations_handle_vulnerabilities_acceptance_mutate",
       },
       {
-        action: "see_dropdown_to_reject_zero_risk",
+        action: "see_dropdown_to_confirm_zero_risk",
       },
     ]);
     const mokedVulns: IVulnerabilitiesAttr[] = [

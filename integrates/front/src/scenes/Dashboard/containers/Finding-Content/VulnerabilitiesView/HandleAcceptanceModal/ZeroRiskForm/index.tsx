@@ -1,4 +1,6 @@
 import { useMutation } from "@apollo/client";
+import type { PureAbility } from "@casl/ability";
+import { useAbility } from "@casl/react";
 import { Form, Formik } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -6,8 +8,7 @@ import { object, string } from "yup";
 
 import type { IFormValues, IZeroRiskFormProps } from "./types";
 
-import { getVulnsPendingOfAcceptance } from "../../utils";
-import { AcceptedUndefinedTable } from "../AcceptedUndefinedTable";
+import { getRequestedZeroRiskVulns } from "../../utils";
 import {
   confirmZeroRiskProps,
   isConfirmZeroRiskSelectedHelper,
@@ -19,8 +20,10 @@ import {
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "../queries";
 import type { IVulnDataAttr } from "../types";
-import { TextArea } from "components/Input";
+import { ZeroRiskTable } from "../ZeroRiskTable";
+import { Select, TextArea } from "components/Input";
 import { ModalConfirm } from "components/Modal";
+import { authzPermissionsContext } from "utils/authz/config";
 
 const ZeroRiskForm: React.FC<IZeroRiskFormProps> = ({
   groupName,
@@ -30,11 +33,15 @@ const ZeroRiskForm: React.FC<IZeroRiskFormProps> = ({
   vulnerabilities,
 }: IZeroRiskFormProps): JSX.Element => {
   const { t } = useTranslation();
+  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const canSeeDropDownToConfirmZeroRisk: boolean = permissions.can(
+    "see_dropdown_to_confirm_zero_risk"
+  );
 
   // State
   const [acceptanceVulnerabilities, setAcceptanceVulnerabilities] = useState<
     IVulnDataAttr[]
-  >(getVulnsPendingOfAcceptance(vulnerabilities));
+  >(getRequestedZeroRiskVulns(vulnerabilities));
   const [confirmedVulnerabilities, setConfirmedVulnerabilities] = useState<
     IVulnDataAttr[]
   >([]);
@@ -110,19 +117,59 @@ const ZeroRiskForm: React.FC<IZeroRiskFormProps> = ({
     >
       <Form id={"zeroRiskForm"}>
         <div className={"ph1-5"}>
-          <AcceptedUndefinedTable
+          <ZeroRiskTable
             acceptanceVulns={acceptanceVulnerabilities}
-            isAcceptedUndefinedSelected={true}
+            isConfirmRejectZeroRiskSelected={true}
             setAcceptanceVulns={setAcceptanceVulnerabilities}
           />
           <br />
-          <TextArea
-            label={t(
-              "searchFindings.tabDescription.remediationModal.observations"
-            )}
-            name={"justification"}
-            required={true}
-          />
+          {canSeeDropDownToConfirmZeroRisk ? (
+            <Select
+              label={t(
+                "searchFindings.tabDescription.remediationModal.observations"
+              )}
+              name={"justification"}
+              required={true}
+            >
+              <option value={""} />
+              {confirmedVulnerabilities.length > 0 ? (
+                <React.Fragment>
+                  <option value={"FP"}>
+                    {t(
+                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
+                    )}
+                  </option>
+                  <option value={"Out of the scope"}>
+                    {t(
+                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.outOfTheScope"
+                    )}
+                  </option>
+                </React.Fragment>
+              ) : undefined}
+              {rejectedVulnerabilities.length > 0 ? (
+                <React.Fragment>
+                  <option value={"FN"}>
+                    {t(
+                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
+                    )}
+                  </option>
+                  <option value={"Complementary control"}>
+                    {t(
+                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
+                    )}
+                  </option>
+                </React.Fragment>
+              ) : undefined}
+            </Select>
+          ) : (
+            <TextArea
+              label={t(
+                "searchFindings.tabDescription.remediationModal.observations"
+              )}
+              name={"justification"}
+              required={true}
+            />
+          )}
         </div>
         <br />
         <ModalConfirm

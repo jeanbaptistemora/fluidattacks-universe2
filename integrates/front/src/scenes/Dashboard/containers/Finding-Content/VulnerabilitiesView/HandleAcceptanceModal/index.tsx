@@ -18,6 +18,7 @@ import {
 } from "./helpers";
 import { PermanentlyAcceptedForm } from "./PermanentlyAcceptedForm";
 import { getInitialTreatment } from "./utils";
+import { ZeroRiskForm } from "./ZeroRiskForm";
 
 import { FormikSelect } from "components/Input/Formik";
 import { Modal } from "components/Modal";
@@ -207,7 +208,9 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
             </FormikSelect>
           </div>
           <br />
-          {treatment === "ACCEPTED_UNDEFINED" ? undefined : (
+          {["ACCEPTED_UNDEFINED", "CONFIRM_REJECT_ZERO_RISK"].includes(
+            treatment
+          ) ? undefined : (
             <Formik
               enableReinitialize={true}
               initialValues={{
@@ -235,6 +238,15 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
           {treatment === "ACCEPTED_UNDEFINED" ? (
             <PermanentlyAcceptedForm
               findingId={findingId}
+              onCancel={handleCloseModal}
+              refetchData={refetchData}
+              vulnerabilities={vulns}
+            />
+          ) : undefined}
+          {treatment === "CONFIRM_REJECT_ZERO_RISK" ? (
+            <ZeroRiskForm
+              findingId={findingId}
+              groupName={groupName}
               onCancel={handleCloseModal}
               refetchData={refetchData}
               vulnerabilities={vulns}
