@@ -26,12 +26,17 @@
       {
         "command": "retrieves.addSelectedText",
         "title": "Add selected text to yaml"
+      },
+      {
+        "command": "retrieves.goToCriteria",
+        "title": "Go to criteria"
       }
     ],
     "configuration": [
       {
         "properties": {
-          "retrieves.api_token": {
+          "retrieves.apiToken": {
+            "description": "ARM api token",
             "type": "string"
           },
           "retrieves.extraGroups": {
@@ -56,6 +61,11 @@
         {
           "command": "retrieves.addSelectedText",
           "group": "navigation",
+          "when": "retrieves.groupsAvailable && editorTextFocus"
+        },
+        {
+          "command": "retrieves.goToCriteria",
+          "group": "navigation",
           "when": "editorTextFocus"
         }
       ],
@@ -63,19 +73,19 @@
         {
           "command": "retrieves.clone",
           "group": "git",
-          "when": "config.git.enabled"
+          "when": "retrieves.groupsAvailable && config.git.enabled"
         }
       ],
       "explorer/context": [
         {
           "command": "retrieves.clone",
           "group": "git",
-          "when": "config.git.enabled && resourcePath =~ **/services/groups/([a-z]*)/fusion/([a-z]*)$/"
+          "when": "retrieves.groupsAvailable && config.git.enabled && resourcePath =~ **/services/groups/([a-z]*)/fusion/([a-z]*)$/"
         },
         {
           "command": "retrieves.updateToeLinesAttackedLines",
           "group": "navigation",
-          "when": "resourcePath =~ **/groups/** && resourceScheme == file"
+          "when": "retrieves.groupsAvailable && resourcePath =~ **/groups/** && resourceScheme == file"
         }
       ],
       "view/item/context": [
@@ -95,7 +105,7 @@
       "webview/context": [
         {
           "command": "retrieves.updateToeLinesAttackedLines",
-          "when": "webviewSection == 'filename'"
+          "when": "retrieves.groupsAvailable && webviewSection == 'filename'"
         }
       ]
     },
@@ -105,7 +115,8 @@
           "contextualTitle": "Retrieves",
           "icon": "media/dep.svg",
           "id": "user_groups",
-          "name": "User Groups"
+          "name": "User Groups",
+          "when": "retrieves.groupsAvailable"
         }
       ]
     },
@@ -209,5 +220,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.18.0"
+  "version": "0.19.0"
 }

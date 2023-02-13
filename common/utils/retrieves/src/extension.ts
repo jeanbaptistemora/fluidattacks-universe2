@@ -2,7 +2,8 @@
  * The module 'vscode' contains the VS Code extensibility API
  * Import the module and reference it with the alias vscode in your code below
  */
-import { partial } from "ramda";
+import { flatten, partial } from "ramda";
+import { simpleGit } from "simple-git";
 import type { ExtensionContext } from "vscode";
 import {
   commands,
@@ -12,55 +13,108 @@ import {
   // eslint-disable-next-line import/no-unresolved
 } from "vscode";
 
+import { getGroups } from "./api/groups";
+import { getGroupGitRootsSimple } from "./api/root";
 import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
 import { environmentUrls } from "./commands/environmentUrls";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
-import { subscribeToDocumentChanges } from "./diagnostics/vulnerabilities";
+import {
+  setDiagnosticsToAllFiles,
+  subscribeToDocumentChanges,
+} from "./diagnostics/vulnerabilities";
 import { GroupsProvider } from "./providers/groups";
+import type { IGitRoot } from "./types";
 
-const activate = (context: ExtensionContext): void => {
-  if (!workspace.workspaceFolders) {
+const activate = async (context: ExtensionContext): Promise<void> => {
+  void commands.executeCommand(
+    "setContext",
+    "retrieves.groupsAvailable",
+    false
+  );
+
+  const apiToken: string | undefined =
+    process.env.INTEGRATES_API_TOKEN ??
+    workspace.getConfiguration("retrieves").get("api_token") ??
+    workspace.getConfiguration("retrieves").get("apiToken");
+  await context.globalState.update("apiKey", apiToken);
+  if (apiToken === undefined || !workspace.workspaceFolders) {
     return;
   }
-  const currentWorkinDir = workspace.workspaceFolders[0].uri.path;
-  if (!currentWorkinDir.includes("groups")) {
-    void window.showWarningMessage("This doesn't look like a group directory");
 
-    return;
-  }
-
-  // eslint-disable-next-line fp/no-mutating-methods
-  context.subscriptions.push(
-    commands.registerCommand("retrieves.lines", partial(toeLines, [context]))
-  );
-
-  // eslint-disable-next-line fp/no-mutating-methods
-  context.subscriptions.push(
-    commands.registerCommand(
-      "retrieves.environmentUrls",
-      partial(environmentUrls, [context])
-    )
-  );
-
-  void window.registerTreeDataProvider("user_groups", new GroupsProvider());
-
-  void commands.registerCommand("retrieves.clone", clone);
-
-  void commands.registerCommand(
-    "retrieves.updateToeLinesAttackedLines",
-    updateToeLinesAttackedLines
-  );
-
+  const currentWorkingDir = workspace.workspaceFolders[0].uri.path;
   const retrievesDiagnostics =
     languages.createDiagnosticCollection("retrieves");
   // eslint-disable-next-line fp/no-mutating-methods
   context.subscriptions.push(retrievesDiagnostics);
 
-  subscribeToDocumentChanges(context, retrievesDiagnostics);
+  if (currentWorkingDir.includes("groups")) {
+    void commands.executeCommand(
+      "setContext",
+      "retrieves.groupsAvailable",
+      true
+    );
+    // eslint-disable-next-line fp/no-mutating-methods
+    context.subscriptions.push(
+      commands.registerCommand("retrieves.lines", partial(toeLines, [context]))
+    );
 
-  commands.registerCommand("retrieves.addSelectedText", addLineToYaml);
+    // eslint-disable-next-line fp/no-mutating-methods
+    context.subscriptions.push(
+      commands.registerCommand(
+        "retrieves.environmentUrls",
+        partial(environmentUrls, [context])
+      )
+    );
+
+    void window.registerTreeDataProvider("user_groups", new GroupsProvider());
+
+    void commands.registerCommand("retrieves.clone", clone);
+
+    void commands.registerCommand(
+      "retrieves.updateToeLinesAttackedLines",
+      updateToeLinesAttackedLines
+    );
+
+    commands.registerCommand("retrieves.addSelectedText", addLineToYaml);
+
+    subscribeToDocumentChanges(context, retrievesDiagnostics);
+  } else {
+    const repo = simpleGit(currentWorkingDir);
+    const gitRemote = (await repo.listRemote(["--get-url"])).toString();
+    const gitRoot = flatten(
+      await Promise.all(
+        (
+          await getGroups()
+        ).map(async (group): Promise<IGitRoot[]> => {
+          const result = await getGroupGitRootsSimple(group);
+
+          return result;
+        })
+      )
+    ).find((root): boolean => {
+      return (
+        root.url === gitRemote ||
+        root.nickname === currentWorkingDir.split("/").slice(-1)[0]
+      );
+    });
+
+    if (gitRoot === undefined) {
+      await window.showWarningMessage("Could not identify the repository");
+
+      return;
+    }
+    await context.globalState.update("rootNickname", gitRoot.nickname);
+
+    await setDiagnosticsToAllFiles(
+      retrievesDiagnostics,
+      gitRoot.groupName,
+      gitRoot.id,
+      gitRoot.nickname,
+      currentWorkingDir
+    );
+  }
 };
 
 export { activate };

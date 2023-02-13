@@ -5,17 +5,13 @@ import type { Event, TreeDataProvider, TreeItem } from "vscode";
 import {
   EventEmitter,
   TreeItemCollapsibleState,
-  window,
-  workspace,
   // eslint-disable-next-line import/no-unresolved
 } from "vscode";
 
-import { GET_GROUPS } from "../queries";
+import { getGroups } from "../api/groups";
 import type { GitRootTreeItem } from "../treeItems/gitRoot";
 import { getGitRoots } from "../treeItems/gitRoot";
 import { GroupTreeItem } from "../treeItems/group";
-import type { Organization } from "../types";
-import { API_CLIENT } from "../utils/apollo";
 
 type EventGroup = GroupTreeItem | undefined | void;
 type TreeItems = GitRootTreeItem[] | GroupTreeItem[];
@@ -42,36 +38,12 @@ class GroupsProvider implements TreeDataProvider<GroupTreeItem> {
       return Promise.resolve(getGitRoots(element.label));
     }
 
-    return Promise.resolve(this.getGroups());
+    return Promise.resolve(this.getGroupsItems());
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private async getGroups(): Promise<GroupTreeItem[]> {
-    const groups: string[] = [
-      ...workspace.getConfiguration("retrieves").get("extraGroups", []),
-      ...(await Promise.resolve(
-        API_CLIENT.query({ query: GET_GROUPS })
-          .then(
-            (result: {
-              data: {
-                me: {
-                  organizations: Organization[];
-                };
-              };
-            }): string[] =>
-              result.data.me.organizations
-                .map((org: Organization): string[] =>
-                  org.groups.map((group): string => group.name)
-                )
-                .flat()
-          )
-          .catch((_err): [] => {
-            void window.showErrorMessage(String(_err));
-
-            return [];
-          })
-      )),
-    ];
+  private async getGroupsItems(): Promise<GroupTreeItem[]> {
+    const groups: string[] = await getGroups();
     const toGroup = (groupName: string): GroupTreeItem =>
       new GroupTreeItem(groupName, TreeItemCollapsibleState.Collapsed);
 

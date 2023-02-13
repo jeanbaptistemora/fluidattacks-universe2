@@ -147,9 +147,10 @@ const toeLines = (context: ExtensionContext, node: GitRootTreeItem): void => {
           void panel.webview.postMessage({
             command,
             payload:
-              (workspace.getConfiguration("retrieves").get("api_token") ??
-                "") ||
-              (process.env.INTEGRATES_API_TOKEN ?? ""),
+              workspace.getConfiguration("retrieves").get("api_token") ??
+              workspace.getConfiguration("retrieves").get("apiToken") ??
+              process.env.INTEGRATES_API_TOKEN ??
+              "",
             // The requestId is used to identify the response
             requestId,
           } as MessageHandlerData<string>);
