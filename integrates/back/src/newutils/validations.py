@@ -45,6 +45,7 @@ from typing import (
     Any,
     Callable,
     cast,
+    Dict,
     Iterable,
     List,
     NamedTuple,
@@ -121,35 +122,39 @@ def isinstance_namedtuple(obj: object) -> bool:
     )
 
 
-def check_all_attr(obj: object, regex: str) -> None:
+def check_all_attr(obj: object, regex: str, ex: CustomBaseException) -> None:
     for val in list(cast(NamedTuple, obj)._asdict().values()):
-        check_field(str(val), regex)
+        check_exp(str(val), regex, ex)
+
+
+def check_fields(
+    fields: Iterable[str], kwargs: Dict, ex: CustomBaseException
+) -> None:
+    allowed_chars = (
+        r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@&_$#=¡!¿"
+        r"\,\.\*\-\?\"\[\]\|\(\)\/\{\}\>\+"
+    )
+    regex = rf'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
+    for field in fields:
+        value = kwargs.get(field)
+        if isinstance_namedtuple(value):
+            check_all_attr(value, regex, ex)
+        elif "." in field:
+            obj_name, attr_name = field.split(".")
+            obj = kwargs.get(obj_name)
+            if obj_name in kwargs:
+                field_content = getattr(obj, attr_name)
+                if field_content:
+                    check_exp(str(field_content), regex, ex)
+        elif field in kwargs and value:
+            check_exp(str(value), regex, ex)
 
 
 def validate_fields_deco(fields: Iterable[str]) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
         def decorated(*args: Any, **kwargs: Any) -> Any:
-            allowed_chars = (
-                r"a-zA-Z0-9ñáéíóúäëïöüÑÁÉÍÓÚÄËÏÖÜ\s'~:;%@&_$#=¡!¿"
-                r"\,\.\*\-\?\"\[\]\|\(\)\/\{\}\>\+"
-            )
-            regex = rf'^[{allowed_chars.replace("=", "")}][{allowed_chars}]*$'
-
-            for field in fields:
-                value = kwargs.get(field)
-                if isinstance_namedtuple(value):
-                    check_all_attr(value, regex)
-                elif "." in field:
-                    obj_name, attr_name = field.split(".")
-                    obj = kwargs.get(obj_name)
-                    if obj_name in kwargs:
-                        field_content = getattr(obj, attr_name)
-                        if field_content:
-                            check_field(str(field_content), regex)
-                elif field in kwargs and value:
-                    check_field(str(value), regex)
-
+            check_fields(fields, kwargs, InvalidChar())
             return func(*args, **kwargs)
 
         return decorated
