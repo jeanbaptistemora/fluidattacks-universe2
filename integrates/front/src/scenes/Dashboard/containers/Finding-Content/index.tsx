@@ -400,17 +400,15 @@ const FindingContent: React.FC = (): JSX.Element => {
                     </Can>
                   ) : undefined}
                   {isDraft ? undefined : (
-                    <Have I={"has_squad"}>
-                      <Can do={"api_resolvers_finding_consulting_resolve"}>
-                        <Tab
-                          id={"commentItem"}
-                          link={`${url}/consulting`}
-                          tooltip={t("searchFindings.tabComments.tooltip")}
-                        >
-                          {t("searchFindings.tabComments.tabTitle")}
-                        </Tab>
-                      </Can>
-                    </Have>
+                    <Can do={"api_resolvers_finding_consulting_resolve"}>
+                      <Tab
+                        id={"commentItem"}
+                        link={`${url}/consulting`}
+                        tooltip={t("searchFindings.tabComments.tooltip")}
+                      >
+                        {t("searchFindings.tabComments.tabTitle")}
+                      </Tab>
+                    </Can>
                   )}
                   <Can do={"api_resolvers_finding_observations_resolve"}>
                     <Tab

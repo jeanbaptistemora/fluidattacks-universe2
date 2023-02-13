@@ -1,11 +1,13 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
 import { GroupConsultingView } from "scenes/Dashboard/containers/Group-Content/GroupConsultingView";
 import { GET_GROUP_CONSULTING } from "scenes/Dashboard/containers/Group-Content/GroupConsultingView/queries";
+import { authzGroupContext } from "utils/authz/config";
 
 describe("GroupConsultingView", (): void => {
   const mocks: readonly MockedResponse[] = [
@@ -90,11 +92,15 @@ describe("GroupConsultingView", (): void => {
     expect.hasAssertions();
 
     render(
-      <MemoryRouter initialEntries={["/unittesting"]}>
-        <MockedProvider addTypename={false} mocks={mocks}>
-          <Route component={GroupConsultingView} path={"/:groupName"} />
-        </MockedProvider>
-      </MemoryRouter>
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_squad" }])}
+      >
+        <MemoryRouter initialEntries={["/unittesting"]}>
+          <MockedProvider addTypename={false} mocks={mocks}>
+            <Route component={GroupConsultingView} path={"/:groupName"} />
+          </MockedProvider>
+        </MemoryRouter>
+      </authzGroupContext.Provider>
     );
     await waitFor((): void => {
       expect(screen.queryByText("Hello world")).toBeInTheDocument();

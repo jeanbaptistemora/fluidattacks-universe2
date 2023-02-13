@@ -100,6 +100,7 @@ describe("CommentsView", (): void => {
     });
 
     expect(screen.queryByText("comments.orderBy.label")).toBeInTheDocument();
+    expect(screen.queryByText("comments.reply")).not.toBeInTheDocument();
 
     jest.clearAllMocks();
   });
@@ -177,6 +178,9 @@ describe("CommentsView", (): void => {
     await waitFor((): void => {
       expect(screen.queryByText("Observation comment")).toBeInTheDocument();
     });
+
+    expect(screen.getByText("comments.reply")).toBeInTheDocument();
+
     jest.clearAllMocks();
   });
 });

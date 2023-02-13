@@ -1,7 +1,0 @@
-"Verification type definition"
-type Verification {
-  "Date of verification in the format YYYY-MM-DD hh:mm:ss"
-  date: String!
-  "Verification status"
-  status: String!
-}

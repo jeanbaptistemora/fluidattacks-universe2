@@ -94,9 +94,6 @@ from .treatment import (
 from .treatment_summary import (
     TREATMENT_SUMMARY,
 )
-from .verification import (
-    VERIFICATION,
-)
 from .vulnerability import (
     VULNERABILITY,
 )
@@ -210,7 +207,6 @@ TYPES: Tuple[ObjectType, ...] = (
     UPDATE_TOE_PORT_PAYLOAD,
     URLROOT,
     UNFULFILLED_STANDARDS,
-    VERIFICATION,
     VERIFICATION_SUMMARY,
     VULNERABILITY,
     VULNERABILITY_HISTORIC_STATE,

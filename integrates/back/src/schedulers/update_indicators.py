@@ -971,11 +971,11 @@ def get_found_vulnerabilities(
 
 
 def get_severity_level(severity: Decimal) -> str:
-    if severity <= 3.9:
+    if severity <= Decimal("3.9"):
         return "low"
-    if 4 <= severity <= 6.9:
+    if Decimal("4.0") <= severity <= Decimal("6.9"):
         return "medium"
-    if 7 <= severity <= 8.9:
+    if Decimal("7.0") <= severity <= Decimal("8.9"):
         return "high"
 
     return "critical"

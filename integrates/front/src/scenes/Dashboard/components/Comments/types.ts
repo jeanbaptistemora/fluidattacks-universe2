@@ -23,6 +23,7 @@ interface ICommentsProps {
     comment: ICommentStructure,
     callbackFn: IPostCallback
   ) => void;
+  isObservation?: boolean;
 }
 
 interface ICommentContext {

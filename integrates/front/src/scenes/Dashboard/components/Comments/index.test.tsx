@@ -1,3 +1,4 @@
+import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
@@ -8,6 +9,7 @@ import { commentContext } from "./context";
 import type { ICommentStructure } from "./types";
 
 import { Comments } from ".";
+import { authzGroupContext } from "utils/authz/config";
 
 describe("Comments section", (): void => {
   const onLoadComments: jest.Mock = jest.fn();
@@ -32,7 +34,13 @@ describe("Comments section", (): void => {
   it("should render an empty comment section", async (): Promise<void> => {
     expect.hasAssertions();
 
-    render(<Comments onLoad={jest.fn()} onPostComment={jest.fn()} />);
+    render(
+      <Comments
+        isObservation={true}
+        onLoad={jest.fn()}
+        onPostComment={jest.fn()}
+      />
+    );
 
     expect(screen.getByRole("textbox")).toBeInTheDocument();
 
@@ -46,7 +54,13 @@ describe("Comments section", (): void => {
   it("should load comments on render", async (): Promise<void> => {
     expect.hasAssertions();
 
-    render(<Comments onLoad={onLoadComments} onPostComment={jest.fn()} />);
+    render(
+      <Comments
+        isObservation={true}
+        onLoad={onLoadComments}
+        onPostComment={jest.fn()}
+      />
+    );
 
     await waitFor((): void => {
       expect(onLoadComments).toHaveBeenCalledTimes(1);
@@ -77,15 +91,20 @@ describe("Comments section", (): void => {
     expect.hasAssertions();
 
     const { container } = render(
-      <commentContext.Provider value={{ replying: mockComment.id }}>
-        <Comment
-          backgroundEnabled={false}
-          comments={[mockComment]}
-          id={mockComment.id}
-          onPost={jest.fn()}
-          orderBy={"newest"}
-        />
-      </commentContext.Provider>
+      <authzGroupContext.Provider
+        value={new PureAbility([{ action: "has_squad" }])}
+      >
+        <commentContext.Provider value={{ replying: mockComment.id }}>
+          <Comment
+            backgroundEnabled={false}
+            comments={[mockComment]}
+            id={mockComment.id}
+            isObservation={false}
+            onPost={jest.fn()}
+            orderBy={"newest"}
+          />
+        </commentContext.Provider>
+      </authzGroupContext.Provider>
     );
 
     expect(container.querySelectorAll(".comment")).toHaveLength(1);

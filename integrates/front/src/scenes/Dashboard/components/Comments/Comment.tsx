@@ -15,6 +15,7 @@ import type {
   ICommentContext,
   ICommentStructure,
 } from "scenes/Dashboard/components/Comments/types";
+import { Have } from "utils/authz/Have";
 
 interface ICommentProps {
   id: number;
@@ -22,6 +23,7 @@ interface ICommentProps {
   onPost: (editorText: string) => void;
   backgroundEnabled: boolean;
   orderBy: string;
+  isObservation: boolean;
 }
 
 const CommentChildren = styled.div`
@@ -41,6 +43,7 @@ const Comment: FC<ICommentProps> = ({
   onPost,
   backgroundEnabled,
   orderBy,
+  isObservation = false,
 }: ICommentProps): JSX.Element => {
   const { t } = useTranslation();
   const { replying, setReplying }: ICommentContext = useContext(commentContext);
@@ -101,9 +104,11 @@ const Comment: FC<ICommentProps> = ({
               <CommentContent>{_.trim(rootComment.content)}</CommentContent>
             </Linkify>
           </Text>
-          <Button onClick={replyHandler} variant={"primary"}>
-            {t("comments.reply")}
-          </Button>
+          <Have I={"has_squad"} passThrough={isObservation}>
+            <Button onClick={replyHandler} variant={"primary"}>
+              {t("comments.reply")}
+            </Button>
+          </Have>
           {replying === rootComment.id && (
             <div className={"mt2"}>
               <CommentEditor id={id} onPost={onPost} />
@@ -118,6 +123,7 @@ const Comment: FC<ICommentProps> = ({
                     backgroundEnabled={!backgroundEnabled}
                     comments={comments}
                     id={childComment.id}
+                    isObservation={isObservation}
                     key={childComment.id}
                     onPost={onPost}
                     orderBy={orderBy}

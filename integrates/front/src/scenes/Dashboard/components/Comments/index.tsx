@@ -20,10 +20,12 @@ import type {
 } from "scenes/Dashboard/components/Comments/types";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
+import { Have } from "utils/authz/Have";
 
 export const Comments: React.FC<ICommentsProps> = ({
   onLoad,
   onPostComment,
+  isObservation = false,
 }: ICommentsProps): JSX.Element => {
   const { t } = useTranslation();
   const { userEmail, userName }: IAuthContext = useContext(authContext);
@@ -106,7 +108,9 @@ export const Comments: React.FC<ICommentsProps> = ({
   return (
     <React.StrictMode>
       <commentContext.Provider value={value}>
-        <CommentEditor id={0} onPost={postHandler} />
+        <Have I={"has_squad"} passThrough={isObservation}>
+          <CommentEditor id={0} onPost={postHandler} />
+        </Have>
         <br />
         {comments.length > 1 && (
           <div className={"w-25 w-50-m mb3"}>
@@ -134,6 +138,7 @@ export const Comments: React.FC<ICommentsProps> = ({
                   backgroundEnabled={false}
                   comments={comments}
                   id={comment.id}
+                  isObservation={isObservation}
                   onPost={postHandler}
                   orderBy={orderBy}
                 />

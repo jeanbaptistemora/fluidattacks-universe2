@@ -5,7 +5,7 @@ import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
-import React, { useCallback, useContext } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import { handleAddCommentErrorHelper } from "./helpers";
@@ -44,6 +44,10 @@ const CommentsView: React.FC = (): JSX.Element => {
       : params.type.slice(0, PARAM_NO_OBSERVATIONS);
 
   const { userEmail }: IAuthContext = useContext(authContext);
+  const isObservation = useMemo(
+    (): boolean => params.type === "observations",
+    [params.type]
+  );
 
   const handleErrors: (error: ApolloError) => void = useCallback(
     ({ graphQLErrors }: ApolloError): void => {
@@ -140,7 +144,11 @@ const CommentsView: React.FC = (): JSX.Element => {
   return (
     <React.StrictMode>
       <div>
-        <Comments onLoad={getData} onPostComment={handlePost} />
+        <Comments
+          isObservation={isObservation}
+          onLoad={getData}
+          onPostComment={handlePost}
+        />
       </div>
     </React.StrictMode>
   );

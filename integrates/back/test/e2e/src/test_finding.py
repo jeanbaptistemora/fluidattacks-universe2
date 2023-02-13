@@ -12,8 +12,14 @@ from selenium.webdriver.common.by import (
 from selenium.webdriver.remote.webdriver import (
     WebDriver,
 )
+from selenium.webdriver.support import (
+    expected_conditions as ec,
+)
 from selenium.webdriver.support.select import (
     Select,
+)
+from selenium.webdriver.support.wait import (
+    WebDriverWait,
 )
 import time
 import utils
@@ -149,7 +155,7 @@ def test_finding_comments(
         timeout,
     )
 
-    # Enter finding consulting
+    # Enter finding consulting as reading only
     driver.get(f"{asm_endpoint}/orgs/okada/groups/oneshottest/vulns")
     assert utils.wait_for_text(
         driver,
@@ -164,6 +170,14 @@ def test_finding_comments(
         driver,
         "No comments",
         timeout,
+    )
+    assert WebDriverWait(driver, timeout).until(
+        ec.invisibility_of_element_located(
+            (
+                By.NAME,
+                "comment-editor",
+            )
+        )
     )
 
     # Enter finding observation
