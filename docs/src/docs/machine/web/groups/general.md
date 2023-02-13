@@ -51,7 +51,7 @@ Clicking on any of these four boxes
 will redirect you to the
 **Out of the Scope** section.
 If you want to know more about this section,
-click [here](/machine/web/azure-credentials).
+click [here](/machine/web/out-of-the-scope).
 
 ## Group table
 

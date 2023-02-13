@@ -388,7 +388,7 @@ which can consult with the credentials
 available in the [Credentials](/machine/web/machine/web/global-credentials/)
 tab.
 to learn more about this section,
-you can enter [here.](/machine/web/azure-credentials)
+you can enter [here.](/machine/web/out-of-the-scope)
 
 ### Credentials
 

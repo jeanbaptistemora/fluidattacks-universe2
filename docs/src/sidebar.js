@@ -736,7 +736,7 @@ const Machine = [
       },
       "machine/web/portfolios",
       "machine/web/stakeholders",
-      "machine/web/azure-credentials",
+      "machine/web/out-of-the-scope",
       "machine/web/global-credentials",
       "machine/web/compliance",
     ],

@@ -163,7 +163,7 @@ It will take into account the repositories that
 have had activity in the last 60 days.
 To see the list of these,
 you can do it in the
-[Out of the scope](/machine/web/azure-credentials/)
+[Out of the scope](/machine/web/out-of-the-scope)
 section.
 
 ![out of the scope](https://res.cloudinary.com/fluid-attacks/image/upload/v1676282098/docs/web/credentials/out_of_scope.png)

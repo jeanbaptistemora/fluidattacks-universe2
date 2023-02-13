@@ -1,8 +1,8 @@
 ---
-id: azure-credentials
-title: Azure Credentials
-sidebar_label: Azure Credentials
-slug: /machine/web/azure-credentials
+id: out-of-the-scope
+title: Out of the scope
+sidebar_label: Out of the scope
+slug: /machine/web/out-of-the-scope
 ---
 
 This section refers to repositories
