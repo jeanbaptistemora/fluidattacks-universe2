@@ -810,7 +810,7 @@ async def update_historics_dates(
     historic_state = await loaders.vulnerability_historic_state.load(
         vulnerability_id
     )
-    historic_state = cast(
+    historic_state_adjusted = cast(
         tuple[VulnerabilityState, VulnerabilityState],
         db_model_utils.adjust_historic_dates(
             tuple(
@@ -824,12 +824,12 @@ async def update_historics_dates(
     )
     await vulns_model.update_historic(
         current_value=vulnerability,
-        historic=historic_state,
+        historic=historic_state_adjusted,
     )
     await vulns_model.update_metadata(
         finding_id=finding_id,
         metadata=VulnerabilityMetadataToUpdate(
-            created_date=historic_state[0].modified_date
+            created_date=historic_state_adjusted[0].modified_date
         ),
         vulnerability_id=vulnerability_id,
     )

@@ -246,38 +246,20 @@ async def update_vulnerabilities_indicators(
     )
 
 
-async def _get_historic_treatment(
-    loaders: Dataloaders, vulnerability_id: str
-) -> tuple[VulnerabilityTreatment, ...]:
-    return tuple(
-        await loaders.vulnerability_historic_treatment.load(vulnerability_id)
-    )
-
-
-async def _get_historic_state(
-    loaders: Dataloaders, vulnerability_id: str
-) -> tuple[VulnerabilityState, ...]:
-    return tuple(
-        await loaders.vulnerability_historic_state.load(vulnerability_id)
-    )
-
-
 async def _get_vulnerability_data(
     loaders: Dataloaders, vuln_id: str
 ) -> tuple[
     tuple[VulnerabilityTreatment, ...],
     tuple[VulnerabilityState, ...],
 ]:
-    historics = await collect(
-        (
-            _get_historic_treatment(loaders, vuln_id),
-            _get_historic_state(loaders, vuln_id),
-        )
+    historic_state = await loaders.vulnerability_historic_state.load(vuln_id)
+    historic_treatment = await loaders.vulnerability_historic_treatment.load(
+        vuln_id
     )
 
     return (
-        cast(tuple[VulnerabilityTreatment, ...], historics[0]),
-        cast(tuple[VulnerabilityState, ...], historics[1]),
+        tuple(historic_treatment),
+        tuple(historic_state),
     )
 
 

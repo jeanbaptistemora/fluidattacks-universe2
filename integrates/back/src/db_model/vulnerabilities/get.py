@@ -561,7 +561,9 @@ class VulnerabilityLoader(DataLoader[str, Optional[Vulnerability]]):
         )
 
 
-class VulnerabilityHistoricStateLoader(DataLoader):
+class VulnerabilityHistoricStateLoader(
+    DataLoader[str, list[VulnerabilityState]]
+):
     async def load_many_chained(
         self, vulnerability_ids: Iterable[str]
     ) -> list[VulnerabilityState]:

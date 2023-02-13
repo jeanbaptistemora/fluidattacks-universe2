@@ -150,7 +150,7 @@ async def _get_mean_time_to_reattack(
                 number_of_reattacks -= 1
             if is_verifying(verification, start):
                 start = _get_in_between_state(
-                    historic_state,
+                    tuple(historic_state),
                     verification.modified_date,
                 )
 

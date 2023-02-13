@@ -122,7 +122,10 @@ async def test_get_accepted_vulns(dynamo_resource: ServiceResource) -> None:
         )
     test_data = sum(
         get_accepted_vulns(
-            historic_state, historic_treatment, severity, last_day
+            tuple(historic_state),
+            tuple(historic_treatment),
+            severity,
+            last_day,
         ).vulnerabilities
         for historic_state, historic_treatment, severity in zip(
             historic_states,
@@ -157,7 +160,7 @@ async def test_get_by_time_range(dynamo_resource: ServiceResource) -> None:
     assert mock_table_resource.called is True
     vulnerability_severity = get_severity_score(finding.severity)
     test_data = get_by_time_range(
-        historic_state,
+        tuple(historic_state),
         VulnerabilityStateStatus.VULNERABLE,
         vulnerability_severity,
         last_day,
@@ -233,20 +236,31 @@ async def test_get_status_vulns_by_time_range(
             findings_severity[vulnerabilities.finding_id]
             for vulnerabilities in vulnerabilities
         ]
-        historic_states = await loaders.vulnerability_historic_state.load_many(
-            [vulnerabilities.id for vulnerabilities in vulnerabilities]
+        vulnerability_ids = [
+            vulnerabilities.id for vulnerabilities in vulnerabilities
+        ]
+        historic_states = tuple(
+            tuple(historic)
+            for historic in (
+                await loaders.vulnerability_historic_state.load_many(
+                    vulnerability_ids
+                )
+            )
         )
-        historic_treatments = (
-            await loaders.vulnerability_historic_treatment.load_many(
-                [vulnerabilities.id for vulnerabilities in vulnerabilities]
+        historic_treatments = tuple(
+            tuple(historic)
+            for historic in (
+                await loaders.vulnerability_historic_treatment.load_many(
+                    vulnerability_ids
+                )
             )
         )
     assert mock_table_resource.called is True
     test_data = get_status_vulns_by_time_range(
         vulnerabilities=tuple(vulnerabilities),
         vulnerabilities_severity=vulnerabilities_severity,
-        vulnerabilities_historic_states=tuple(historic_states),
-        vulnerabilities_historic_treatments=tuple(historic_treatments),
+        vulnerabilities_historic_states=historic_states,
+        vulnerabilities_historic_treatments=historic_treatments,
         first_day=first_day,
         last_day=last_day,
     )

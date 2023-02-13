@@ -69,11 +69,12 @@ async def _process_vuln(
     historic_state = await loaders.vulnerability_historic_state.load(vuln.id)
     fixed_historic_state = tuple(
         entry
-        if entry.modified_date.endswith(
+        if entry.modified_date.endswith(  # type: ignore
             ISO8601_TZ_SUFFIX,
         )
         else entry._replace(
-            modified_date=f"{entry.modified_date}" f"{ISO8601_TZ_SUFFIX}",
+            modified_date=f"{entry.modified_date}"  # type: ignore
+            f"{ISO8601_TZ_SUFFIX}",
         )
         for entry in historic_state
     )
