@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<network-security-config>
+  <!-- vuln1 -->
+  <!-- Must mark line 7 -->
+  <base-config
+    strongBoxUnlocked="false"
+    cleartextTrafficPermitted="true"
+    encryptionDetected="false"
+  >
+  </base-config>
+  <domain-config>
+    <domain includeSubdomains="true">example.com</domain>
+    <trust-anchor>
+      <certificates src="system" />
+    </trust-anchor>
+  </domain-config>
+</network-security-config>

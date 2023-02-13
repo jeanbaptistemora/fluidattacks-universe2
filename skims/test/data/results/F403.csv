@@ -99,3 +99,49 @@ F403,lines,namespace/skims/test/data/lib_path/f403/AndroidInsecureConfiguration.
   26 |     <any-other-tag></any-other-tag>
      ^ Col 0
 ",conf_files.xml_insecure_configuration
+F403,lines,namespace/skims/test/data/lib_path/f403/BaseConfigVuln.xml,5,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/BaseConfigVuln.xml","
+   1 | <?xml version=""1.0"" encoding=""UTF-8""?>
+   2 | <network-security-config>
+   3 |   <!-- vuln1 -->
+   4 |   <!-- Must mark line 7 -->
+>  5 |   <base-config
+   6 |     strongBoxUnlocked=""false""
+   7 |     cleartextTrafficPermitted=""true""
+   8 |     encryptionDetected=""false""
+   9 |   >
+  10 |   </base-config>
+  11 |   <domain-config>
+  12 |     <domain includeSubdomains=""true"">example.com</domain>
+  13 |     <trust-anchor>
+  14 |       <certificates src=""system"" />
+  15 |     </trust-anchor>
+  16 |   </domain-config>
+  17 | </network-security-config>
+     ^ Col 0
+",conf_files.xml_insecure_configuration
+F403,lines,namespace/skims/test/data/lib_path/f403/MultilineDangerousAttribute.xml,10,319,skims,403. Insecure service configuration - usesCleartextTraffic,"Ensure your application doesn't have android:usesCleartextTraffic set to true, in order to prevent the reading of not encrypted resources.
+ in namespace/skims/test/data/lib_path/f403/MultilineDangerousAttribute.xml","
+   1 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   2 | <!-- Must Fail -->
+   3 |
+   4 | <?xml version=""1.0"" encoding=""utf-8"" standalone=""no""?>
+   5 | <!-- Must Fail -->
+   6 |
+   7 | <widget xmlns:android=""http://schemas.android.com/apk/res/android"">
+   8 |   <!-- Vuln 1 -->
+   9 |   <!-- MustMark the line 15, to be sure exact pointing mark mechanism is working -->
+> 10 |   <application
+  11 |     android:allowTaskReparenting=""true""
+  12 |     android:allowBackup=""true""
+  13 |     android:theme=""resource or theme""
+  14 |     android:uiOptions=""none""
+  15 |     android:usesCleartextTraffic=""true""
+  16 |     android:vmSafeMode=""true""
+  17 |   >
+  18 |   </application>
+  19 |
+  20 |   <!-- Safe1 -->
+  21 |   <!-- Safe, should not mark anything -->
+     ^ Col 0
+",conf_files.xml_insecure_configuration
