@@ -103,6 +103,13 @@ The list goes on:
 [Cisco](https://tools.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-apache-log4j-qRuKNEbd),
 etc.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 ## A patch a day keeps the attackers away
 
 This vulnerability asked for an urgent call to action.

@@ -119,6 +119,13 @@ The global annual cost of cybercrime [is predicted](https://cybersecurityventure
 to be $6 trillion this year and increase 15% per year,
 reaching $10.5 trillion by 2025.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 ## Prevention trends in 2021
 
 The increase in security breaches and ransomware attacks

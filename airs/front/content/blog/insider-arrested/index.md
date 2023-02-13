@@ -97,6 +97,12 @@ at the time the suspect's internet connection went down at his residence,
 and resumed as his internet service was reenabled.
 All the evidence pointed in the same direction\!
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 Who was this person?
 Well,
 he was one of the developers at Ubiquiti.

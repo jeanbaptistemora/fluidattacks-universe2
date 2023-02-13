@@ -93,6 +93,12 @@ Also,
 they need to ensure their software components come from trusted sources
 and are digitally signed.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ### Code reusability
 
 It's important to ensure
