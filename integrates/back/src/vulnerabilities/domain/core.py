@@ -62,6 +62,9 @@ from db_model.vulnerabilities.types import (
 from db_model.vulnerabilities.update import (
     update_event_index,
 )
+from decimal import (
+    Decimal,
+)
 from finding_comments import (
     domain as comments_domain,
 )
@@ -77,6 +80,11 @@ from newutils import (
     datetime as datetime_utils,
     validations as validations_utils,
     vulnerabilities as vulns_utils,
+)
+from newutils.validations import (
+    validate_field_length_deco,
+    validate_severity_range_deco,
+    validate_url_deco,
 )
 from notifications import (
     domain as notifications_domain,
@@ -856,6 +864,12 @@ async def update_historics_dates(
     )
 
 
+@validate_severity_range_deco(
+    "custom_severity", min_value=Decimal(0), max_value=Decimal(1000000000)
+)
+@validate_url_deco("bug_tracking_system_url")
+@validate_field_length_deco("bug_tracking_system_url", limit=80)
+@validate_field_length_deco("tags_to_append", limit=30)
 async def update_metadata(
     *,
     loaders: Dataloaders,

@@ -26,12 +26,16 @@ from db_model.vulnerabilities.types import (
 )
 import hashlib
 import html
+from newutils.validations import (
+    validate_fields_deco,
+)
 from newutils.vulnerabilities import (
     get_missing_dependency,
     ignore_advisories,
 )
 from typing import (
     Any,
+    List,
     Optional,
 )
 from uuid import (
@@ -232,3 +236,8 @@ def format_vulnerability_locations(where: list[str]) -> str:
     for location in set(where):
         location_str += f"{location}\n"
     return location_str
+
+
+@validate_fields_deco(["tags"])
+def format_tags(tags: List[str]) -> List[str]:
+    return [html.unescape(tag.strip()) for tag in tags if tag.strip()]

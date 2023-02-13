@@ -127,6 +127,14 @@ def check_all_attr(obj: object, regex: str, ex: CustomBaseException) -> None:
         check_exp(str(val), regex, ex)
 
 
+def check_all_list(
+    list_to_check: List[str], regex: str, ex: CustomBaseException
+) -> None:
+    for val in list_to_check:
+        if val:
+            check_exp(str(val), regex, ex)
+
+
 def check_fields(
     fields: Iterable[str], kwargs: Dict, ex: CustomBaseException
 ) -> None:
@@ -139,6 +147,8 @@ def check_fields(
         value = kwargs.get(field)
         if isinstance_namedtuple(value):
             check_all_attr(value, regex, ex)
+        elif isinstance(value, list):
+            check_all_list(value, regex, ex)
         elif "." in field:
             obj_name, attr_name = field.split(".")
             obj = kwargs.get(obj_name)
@@ -352,6 +362,10 @@ def validate_field_length_deco(
             field_content = get_attr_value(
                 field=field, kwargs=kwargs, obj_type=str
             )
+            if isinstance(field_content, List):
+                for val in field_content:
+                    if (len(val) > limit) != is_greater_than_limit:
+                        raise InvalidFieldLength()
             if field_content is None:
                 return func(*args, **kwargs)
             if (len(field_content) > limit) != is_greater_than_limit:

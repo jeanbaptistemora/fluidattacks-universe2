@@ -48,6 +48,7 @@ import pytest
 from typing import (
     Any,
     Dict,
+    List,
     NamedTuple,
     Optional,
     Set,
@@ -215,6 +216,14 @@ def test_validate_fields_deco() -> None:
         return obj
 
     assert decorated_func_full_obj(obj=test_object)
+
+    test_list = ["test", "valid", "valid%"]
+
+    @validations.validate_fields_deco(["test_list"])
+    def decorated_func_full_list(test_list: List) -> List:
+        return test_list
+
+    assert decorated_func_full_list(test_list=test_list)
 
     @validations.validate_fields_deco(
         ["test_object.field1", "test_object.field2"]
