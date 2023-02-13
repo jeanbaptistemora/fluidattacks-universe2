@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from gitlab.v4.objects import (
     MergeRequest,
     Project as GitlabProject,
@@ -7,7 +10,6 @@ from gql import (
 )
 from typing import (
     Any,
-    Callable,
     NamedTuple,
 )
 

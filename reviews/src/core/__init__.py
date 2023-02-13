@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from config import (
     load,
 )
@@ -23,9 +26,6 @@ from gitlab.v4.objects import (
     Project as GitlabProject,
 )
 import os
-from typing import (
-    Callable,
-)
 from utils.logs import (
     log,
 )
