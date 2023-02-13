@@ -7,7 +7,7 @@ import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IPaymentMethodAttr } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikDropdown, FormikText } from "utils/forms/fields";
+import { FormikText } from "utils/forms/fields";
 
 interface IUpdateSubscriptionProps {
   current: string;
@@ -94,8 +94,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                   "organization.tabs.billing.groups.updateSubscription.subscription"
                 )}
               </ControlLabel>
-              <Field
-                component={FormikDropdown}
+              <Select
                 disabled={
                   !permissions.includes(
                     "api_mutations_update_subscription_mutate"
@@ -113,7 +112,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                     </option>
                   )
                 )}
-              </Field>
+              </Select>
             </div>
             <ModalConfirm disabled={true} onCancel={onClose} />
           </Form>
