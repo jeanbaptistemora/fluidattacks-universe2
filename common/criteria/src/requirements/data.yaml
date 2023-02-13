@@ -7309,6 +7309,7 @@
     oneshot: true
   references:
     - cwe.287
+    - cwe.1390
     - capec.115
     - soc2.CC6_1
     - nyshield.5575_B_2
@@ -8527,6 +8528,7 @@
     - cwe.287
     - cwe.306
     - cwe.603
+    - cwe.1390
     - iso27001.9_4_2
     - nerccip.003-8_3_2
     - nerccip.005-5_R1_4
@@ -10033,6 +10035,7 @@
     - cwe.287
     - cwe.306
     - cwe.862
+    - cwe.1390
     - owasp10.A7
     - owaspm10.M4
     - nydfs.500_12
@@ -11089,6 +11092,7 @@
   references:
     - cwe.287
     - cwe.640
+    - cwe.1390
     - nist80063.5_1_1_2
     - cmmc.IA_L2-3_5_7
     - iec62443.IAC-1_7
@@ -12860,6 +12864,7 @@
     oneshot: true
   references:
     - cwe.287
+    - cwe.1390
     - owasp10.A7
     - nist.PR_AC-7
     - nydfs.500_12
