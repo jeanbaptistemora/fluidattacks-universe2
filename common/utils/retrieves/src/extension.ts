@@ -18,6 +18,7 @@ import { getGroupGitRootsSimple } from "./api/root";
 import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
 import { environmentUrls } from "./commands/environmentUrls";
+import { goToCriteria } from "./commands/goToCriteria";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
 import {
@@ -48,6 +49,11 @@ const activate = async (context: ExtensionContext): Promise<void> => {
     languages.createDiagnosticCollection("retrieves");
   // eslint-disable-next-line fp/no-mutating-methods
   context.subscriptions.push(retrievesDiagnostics);
+
+  void commands.registerCommand(
+    "retrieves.goToCriteria",
+    partial(goToCriteria, [retrievesDiagnostics])
+  );
 
   if (currentWorkingDir.includes("groups")) {
     void commands.executeCommand(
