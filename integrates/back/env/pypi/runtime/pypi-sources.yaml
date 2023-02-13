@@ -54,7 +54,7 @@ closure:
   googleapis-common-protos: 1.58.0
   graphql-core: 3.2.3
   grimp: "1.3"
-  grpcio: 1.52.0
+  grpcio: 1.51.1
   h11: 0.14.0
   hijri-converter: 2.2.4
   holidays: 0.11.3.1
@@ -586,30 +586,30 @@ links:
   - name: grimp-1.3.tar.gz
     sha256: 1xdsc1r5xg9cs20kh8h1lq4qn70f1wybmmj0qkp8rvzb3ksachpd
     url: https://files.pythonhosted.org/packages/f5/e0/5b0124caa6859281d2a77d0a60fcf3e582f3da1dcf337a8979553daf26f0/grimp-1.3.tar.gz
-  - name: grpcio-1.52.0-cp39-cp39-linux_armv7l.whl
-    sha256: 0sw48pxg8ya8n8j5zas7svc4jr727xa7d3fms2nakkv720wk4rj8
-    url: https://files.pythonhosted.org/packages/7d/32/49f0d08fe0f0657b1ccd429dfcd1fdb069da72baf185713faf998e6f657e/grpcio-1.52.0-cp39-cp39-linux_armv7l.whl
-  - name: grpcio-1.52.0-cp39-cp39-macosx_10_10_universal2.whl
-    sha256: 0b5hr51ymj6qx7l8cw2mnfbfsf5z2plj8rap2nr2lfqry9ggqg67
-    url: https://files.pythonhosted.org/packages/a0/b2/652a39d1d3611141f61648dec1e058c1c2890ffbd10f53fa4c1ceef9ccb8/grpcio-1.52.0-cp39-cp39-macosx_10_10_universal2.whl
-  - name: grpcio-1.52.0-cp39-cp39-manylinux_2_17_aarch64.whl
-    sha256: 12lxnp27p939hyw71d66lmb6h8a9s384v8ha331ip2mbc9dadgiv
-    url: https://files.pythonhosted.org/packages/6d/64/6d21b5891ba84e6c3c6456e4923e8275d0115a6879118a7ba8a7daea979f/grpcio-1.52.0-cp39-cp39-manylinux_2_17_aarch64.whl
-  - name: grpcio-1.52.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 059mlxpbz5ipc5vkyxcz7z2xspdvp7pljy6gvqy09xw9qzryla3i
-    url: https://files.pythonhosted.org/packages/ff/4a/b1868b0ae3f395fed64b9eed6c91887ac8061ca599e2685d67cb097d2ec5/grpcio-1.52.0-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: grpcio-1.52.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 01iivjalzk0hza3dadmdbywsci8qfv1xhjknh46j0da7vh875k41
-    url: https://files.pythonhosted.org/packages/15/3d/665b85834fc3208ccd3ec5930fb4e9663917d5236a4d4ce6814831d786c7/grpcio-1.52.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: grpcio-1.52.0-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 0sggnqav69rxn9irn04pz1aj5107dnyyasjr6hyk0w197wd4719f
-    url: https://files.pythonhosted.org/packages/b4/a8/df70697192fc8ba91ec7657c862c6d12b5dc12e15669123ccc56543f322f/grpcio-1.52.0-cp39-cp39-musllinux_1_1_i686.whl
-  - name: grpcio-1.52.0-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 0x29h3gm03261zfv4ipamfl15k65bnicp6lrwx2zqpj2qdd1iqvi
-    url: https://files.pythonhosted.org/packages/50/dc/23399613bf8d115de24da3ca4ba597a836228abde79abcb0c999c37c2587/grpcio-1.52.0-cp39-cp39-musllinux_1_1_x86_64.whl
-  - name: grpcio-1.52.0.tar.gz
-    sha256: 1nsgm8q4yahzdab4m3irffdw9zklq4kb7f8hki1ayfgw54ysim55
-    url: https://files.pythonhosted.org/packages/ed/b7/6c5cf5c73445b28ac25347c78c6f2d76f2ed9a5d5966bd45b6904b3e7a51/grpcio-1.52.0.tar.gz
+  - name: grpcio-1.51.1-cp39-cp39-linux_armv7l.whl
+    sha256: 0rwvyjsq3lhl0sng36s62spacv98ggai8dr4ap67n5czhpggmpsr
+    url: https://files.pythonhosted.org/packages/4c/18/8a0775da46d6e6993d0dbcd4e351f339f41891e6e31c161a3ef3337d8c0f/grpcio-1.51.1-cp39-cp39-linux_armv7l.whl
+  - name: grpcio-1.51.1-cp39-cp39-macosx_10_10_x86_64.whl
+    sha256: 1wdladn37lqmflfw8fa0zn71g0w5my3zxsk9adzvfcyh24s57mns
+    url: https://files.pythonhosted.org/packages/60/61/3da77877887d5d3888c42cd917ffd89c80ea6dfa21c55a754acc512b5576/grpcio-1.51.1-cp39-cp39-macosx_10_10_x86_64.whl
+  - name: grpcio-1.51.1-cp39-cp39-manylinux_2_17_aarch64.whl
+    sha256: 0xrqycb3dwmwn31hiip3jxn69pzbmvcxcd49xn7mp0m773m26i2c
+    url: https://files.pythonhosted.org/packages/24/c7/9b290c58e0a0588e8fbf60392728181de8b39cc6cdb2b8a1298afd34f85a/grpcio-1.51.1-cp39-cp39-manylinux_2_17_aarch64.whl
+  - name: grpcio-1.51.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 1rkjwb5rs64p8bdq407sxs239kn72hdj9xqjhd4z5bg57173bi8d
+    url: https://files.pythonhosted.org/packages/f1/4c/b3926a862d62649103241447885d6bc48f653ba82024a099c5a8b758fdd6/grpcio-1.51.1-cp39-cp39-manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: grpcio-1.51.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1kp08vnhdngj44w1av1rnp1vhf7w6ii4s6dc1ralably321pkmlp
+    url: https://files.pythonhosted.org/packages/fc/62/bccba142a6ad670727fb329579d18ab44e8b3585b23068baa0b7196b86b6/grpcio-1.51.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: grpcio-1.51.1-cp39-cp39-musllinux_1_1_i686.whl
+    sha256: 028fqfrspdz98yzmkm776kiw8wczyanybmf8x78nx6z430c9i3ak
+    url: https://files.pythonhosted.org/packages/00/a2/ef2b25a5d64535c29f46a4a3da86bf0d7c8fbb15d3a58472a75e711dc0be/grpcio-1.51.1-cp39-cp39-musllinux_1_1_i686.whl
+  - name: grpcio-1.51.1-cp39-cp39-musllinux_1_1_x86_64.whl
+    sha256: 15ama7xv5avwszvvf9zy48n0xfa6rknd06s3dz5gk0sa2kaxqdcj
+    url: https://files.pythonhosted.org/packages/2f/30/c9045678dc910821360ac601f721bb777f0738565fd860bcb0add8b0ceab/grpcio-1.51.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: grpcio-1.51.1.tar.gz
+    sha256: 0ylzdhc7mal59ml9xzbs06gbih81s9crqgdl74bjc73vasvc5pz6
+    url: https://files.pythonhosted.org/packages/c4/8a/61f84aa2f061395a1aa9faaf325fa200da44191c9631082f33d46602efff/grpcio-1.51.1.tar.gz
   - name: h11-0.14.0-py3-none-any.whl
     sha256: 0qd7z9p38dwx215048q708vd1sn2abdh1mb3hg66ii2ip324mzp3
     url: https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl
