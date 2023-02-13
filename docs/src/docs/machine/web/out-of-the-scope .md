@@ -27,40 +27,56 @@ going to the Add repositories via OAuth section.
 
 ![OAuth view](https://res.cloudinary.com/fluid-attacks/image/upload/v1676300113/docs/web/azure/Four_providers.png)
 
-When you see that you have
-listed the credentials,
-you go to the Out of Scope view,
-and there you can see all the
-repositories that are not yet
-associated with the ARM and
-that you have access with the
-token given by adding an
-[Azure DevOps PAT](/machine/web/groups/scope/roots/#adding-a-root-with-the-azure-devops-pat)
-credential where you have access
-to read source code.
+Once the connectivity and permissions
+authorization is completed,
+the repositories that had activity
+in the **last 60 days** and are
+**not associated with the ARM**
+will be listed in this section.
+Keep in mind that listing the information will
+take about **30 to 1 hour**.
 
-![azure credentials view](https://res.cloudinary.com/fluid-attacks/image/upload/v1671713003/docs/web/azure/out_of_scope_view.png)
+![azure credentials view](https://res.cloudinary.com/fluid-attacks/image/upload/v1676313865/docs/web/azure/out_of_scope.png)
 
-To add the repositories click
-on the **plus symbol** in the action column.
+With the repositories listed,
+you decide which ones you want to
+add to be part of the analysis
+and to which group.
+You can add them in bulk or by unit.
 
-![plus action](https://res.cloudinary.com/fluid-attacks/image/upload/v1671713134/docs/web/azure/pluss_action.png)
+You must click on the **plus symbol**
+in the action column to add a single repository.
+
+![single repository](https://res.cloudinary.com/fluid-attacks/image/upload/v1676314104/docs/web/azure/adding_by_unit.png)
 
 When you click on it,
-you can specify to which
-group of that organization
-you will add that repository.
+you can specify to which group
+of that organization you will add that repository.
 
 ![justification](https://res.cloudinary.com/fluid-attacks/image/upload/v1671713422/docs/web/azure/justification.png)
 
-When you click on the Confirm button,
+To click on the **Confirm button,**
 you can start adding a new root,
 as seen in the scope view,
 having already set the URL of the
-repository I had already chosen.
+repository I had already chosen and the branch too.
 
-![add](https://res.cloudinary.com/fluid-attacks/image/upload/v1671713552/docs/web/azure/add.png)
+![add](https://res.cloudinary.com/fluid-attacks/image/upload/v1676314360/docs/web/azure/adding_root.png)
 
-In this way,
-I select and add an Azure repository
-to be analyzed.
+To **add several repositories,**
+select them with the check box on the left,
+followed by the add new roots button.
+
+![add several](https://res.cloudinary.com/fluid-attacks/image/upload/v1676314539/docs/web/azure/adding_bu_bulk.png)
+
+You will get a pop-up window asking
+which selected roots will be part of the group.
+
+![justification many roots](https://res.cloudinary.com/fluid-attacks/image/upload/v1671713422/docs/web/azure/justification.png)
+
+When you select the group,
+you will get a pop-up window where
+you can fill in the requested information.
+If you want to know what each field refers to,
+you can enter it
+[here](/machine/web/groups/scope/roots/#add-new-root).
