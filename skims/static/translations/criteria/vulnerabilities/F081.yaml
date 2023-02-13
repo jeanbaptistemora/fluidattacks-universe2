@@ -8,7 +8,7 @@ lib_path.f081.root_without_mfa:
 lib_path.f081.mfa_disabled_for_users_with_console_password:
   en: IAM Users with console password are not protected by MFA.
   es: Usuario IAM con contraseña por consola no esta protegido por MFA
-lib_path.f081.has_mfa_disabled:
+lib_path.f081.iam_has_mfa_disabled:
   en: Users with password enabled and without MFA
   es: Usuario con contraseña habilitada y sin MFA
 lib_path.f081.cognito_mfa_disabled:

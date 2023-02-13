@@ -27,7 +27,7 @@ from typing import (
 )
 
 
-async def has_mfa_disabled(
+async def iam_has_mfa_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     await run_boto3_fun(
@@ -51,7 +51,7 @@ async def has_mfa_disabled(
                     access_patterns=("/mfa_active",),
                     arn=(f"{user_arn}"),
                     values=(user_has_mfa,),
-                    description=("lib_path.f081.has_mfa_disabled"),
+                    description=("lib_path.f081.iam_has_mfa_disabled"),
                 ),
             ]
 
@@ -155,11 +155,74 @@ async def mfa_disabled_for_users_with_console_password(
     return vulns
 
 
+async def get_paginated_items(
+    credentials: AwsCredentials,
+) -> List:
+    """Get all items in paginated API calls."""
+    pools = []
+    args: Dict[str, Any] = {
+        "credentials": credentials,
+        "service": "cognito-idp",
+        "function": "list_user_pools",
+        "parameters": {"MaxResults": 50},
+    }
+    data = await run_boto3_fun(**args)
+    object_name = "UserPools"
+    pools += data.get(object_name, [])
+
+    next_token = data.get("NextMarker", None)
+    while next_token:
+        args["parameters"]["NextMarker"] = next_token
+        data = await run_boto3_fun(**args)
+        pools += data.get(object_name, [])
+        next_token = data.get("NextMarker", None)
+
+    return pools
+
+
+async def cognito_mfa_disabled(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    vulns: core_model.Vulnerabilities = ()
+    pools = await get_paginated_items(credentials)
+    method = core_model.MethodsEnum.AWS_COGNITO_HAS_MFA_DISABLED
+    for pool in pools:
+        response: Dict[str, Any] = await run_boto3_fun(
+            credentials,
+            service="cognito-idp",
+            function="get_user_pool_mfa_config",
+            parameters={"UserPoolId": str(pool["Id"])},
+        )
+        mfa = response.get("MfaConfiguration", "")
+        locations: List[Location] = []
+        if mfa != "ON":
+            locations = [
+                Location(
+                    access_patterns=("/MfaConfiguration",),
+                    arn=(pool["Id"]),
+                    values=(mfa,),
+                    description=("lib_path.f081.cognito_mfa_disabled"),
+                ),
+            ]
+
+            vulns = (
+                *vulns,
+                *build_vulnerabilities(
+                    locations=locations,
+                    method=method,
+                    aws_response=response,
+                ),
+            )
+
+    return vulns
+
+
 CHECKS: Tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
     ...,
 ] = (
-    has_mfa_disabled,
+    cognito_mfa_disabled,
+    iam_has_mfa_disabled,
     root_without_mfa,
     mfa_disabled_for_users_with_console_password,
 )

@@ -2388,7 +2388,7 @@ class MethodsEnum(Enum):
     )
     AWS_IAM_HAS_MFA_DISABLED = MethodInfo(
         file_name="aws",
-        name="has_mfa_disabled",
+        name="iam_has_mfa_disabled",
         module="dast",
         finding=FindingEnum.F081,
         developer=DeveloperEnum.LUIS_SAAVEDRA,

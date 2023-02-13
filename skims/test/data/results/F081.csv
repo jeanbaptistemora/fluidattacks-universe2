@@ -1,12 +1,12 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F081,inputs,myUser1 (namespace),/mfa_active: false,308,skims,081. Lack of multi-factor authentication,lib_path.f081.has_mfa_disabled,"
+F081,inputs,myUser1 (namespace),/mfa_active: false,308,skims,081. Lack of multi-factor authentication,lib_path.f081.iam_has_mfa_disabled,"
   1 | {
   2 |     ""arn"": ""myUser1"",
 > 3 |     ""mfa_active"": ""false"",
   4 |     ""password_enabled"": ""true""
   5 | }
     ^ Col 0
-",aws.has_mfa_disabled
+",aws.iam_has_mfa_disabled
 F081,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/MFADevices: [],308,skims,081. Lack of multi-factor authentication,lib_path.f081.mfa_disabled_for_users_with_console_password,"
    1 | {
    2 |     ""Content"": ""b'arn,mfa_active,password_enabled\\nmyUser1,false,true\\nmyUser2,true,false\\nmyUser3,true,true'"",
