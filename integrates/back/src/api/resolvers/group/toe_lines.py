@@ -135,7 +135,9 @@ def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
         "state": ["seen_at", "first_attack_at"],
     }
 
-    min_max_filters: dict[str, Any] = {"state": ["loc", "attacked_lines"]}
+    min_max_filters: dict[str, Any] = {
+        "state": ["loc", "attacked_lines", "sorts_risk_level"]
+    }
 
     must_range_filters: list[dict[str, Any]] = [
         *get_items_to_filter(from_to_filters, kwargs, "from", "gte"),

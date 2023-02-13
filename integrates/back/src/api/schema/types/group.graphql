@@ -206,6 +206,10 @@ type Group {
     minAttackedLines: Int
     "Id of the root the lines is associated with"
     rootId: ID
+    "Min priority (IA/ML)"
+    minSortsRiskLevel: Int
+    "Max priority (IA/ML)"
+    maxSortsRiskLevel: Int
   ): ToeLinesConnection!
   "Target of Evaluation ports information"
   toePorts(
