@@ -58,6 +58,7 @@ from typing import (
     Optional,
 )
 from vulnerabilities.domain.core import (
+    get_vulnerability,
     should_send_update_treatment,
 )
 from vulnerabilities.domain.utils import (
@@ -379,9 +380,7 @@ async def update_vulnerabilities_treatment(
     vulnerability_id: str,
     treatment: VulnerabilityTreatmentToUpdate,
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     vulns_utils.validate_closed(vulnerability)
     if vulnerability.finding_id != finding.id:
         raise VulnNotFound()

@@ -36,6 +36,9 @@ from newutils.vulnerabilities import (
 from settings.logger import (
     LOGGING,
 )
+from vulnerabilities.domain.core import (
+    get_vulnerability,
+)
 from vulnerabilities.domain.utils import (
     get_hash,
     get_hash_from_machine_vuln,
@@ -168,7 +171,7 @@ async def rebase(
             finding_id=finding_id,
             metadata=VulnerabilityMetadataToUpdate(
                 hash=await get_hash_from_machine_vuln(
-                    loaders, await loaders.vulnerability.load(vulnerability_id)
+                    loaders, await get_vulnerability(loaders, vulnerability_id)
                 )
             ),
         )

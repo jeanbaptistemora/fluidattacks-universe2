@@ -125,6 +125,16 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
+async def get_vulnerability(
+    loaders: Dataloaders, vulnerability_id: str
+) -> Vulnerability:
+    vulnerability = await loaders.vulnerability.load(vulnerability_id)
+    if vulnerability is None:
+        raise VulnNotFound()
+
+    return vulnerability
+
+
 async def confirm_vulnerabilities_zero_risk(
     *,
     loaders: Dataloaders,
@@ -244,9 +254,7 @@ async def remove_vulnerability(  # pylint: disable=too-many-arguments
     email: str,
     include_closed_vuln: bool = False,
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     if vulnerability.state.status == VulnerabilityStateStatus.DELETED:
         raise VulnNotFound()
     if (
@@ -791,7 +799,7 @@ async def update_historics_dates(
         ),
     )
     loaders.vulnerability.clear(vulnerability_id)
-    vulnerability = await loaders.vulnerability.load(vulnerability_id)
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     await vulns_model.update_historic(
         current_value=vulnerability,
         historic=historic_state,
@@ -818,7 +826,7 @@ async def update_historics_dates(
         ),
     )
     loaders.vulnerability.clear(vulnerability_id)
-    vulnerability = await loaders.vulnerability.load(vulnerability_id)
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     await vulns_model.update_historic(
         current_value=vulnerability,
         historic=historic_treatment,
@@ -834,9 +842,7 @@ async def update_metadata(
     custom_severity: Optional[int],
     tags_to_append: Optional[list[str]],
 ) -> None:
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     all_tags = []
     if vulnerability.tags:
         all_tags.extend(vulnerability.tags)
@@ -945,17 +951,17 @@ async def verify(
     vulns_to_close_from_file: list[Vulnerability],
     context: Optional[Any] = None,
 ) -> None:
-    for vuln_id in closed_vulns_ids:
+    list_closed_vulns: list[Vulnerability] = []
+    for vuln_id in sorted(closed_vulns_ids):
         loaders.vulnerability.clear(vuln_id)
+        list_closed_vulns.append(await get_vulnerability(loaders, vuln_id))
 
-    list_closed_vulns: list[
-        Vulnerability
-    ] = await loaders.vulnerability.load_many(sorted(closed_vulns_ids))
     if context:
         user_data = await sessions_domain.get_jwt_content(context)
         modified_by = str(user_data["user_email"])
     else:
         modified_by = "machine@fluidattacks.com"
+
     await collect(
         update_metadata_and_state(
             vulnerability=vuln_to_close,
@@ -1117,10 +1123,8 @@ async def update_description(  # noqa: MC0001 # NOSONAR
 ) -> None:
     if all(attribute is None for attribute in description):
         raise RequiredFieldToBeUpdate()
-    vulnerability: Vulnerability = await loaders.vulnerability.load(
-        vulnerability_id
-    )
 
+    vulnerability = await get_vulnerability(loaders, vulnerability_id)
     updated_commit = validate_and_get_updated_commit(
         vulnerability, description
     )
