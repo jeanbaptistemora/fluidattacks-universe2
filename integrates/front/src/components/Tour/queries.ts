@@ -4,7 +4,7 @@ import type { DocumentNode } from "graphql";
 const UPDATE_TOURS: DocumentNode = gql`
   mutation updateTours(
     $newGroup: Boolean!
-    $newRiskExposure: Boolean
+    $newRiskExposure: Boolean!
     $newRoot: Boolean!
   ) {
     updateTours(

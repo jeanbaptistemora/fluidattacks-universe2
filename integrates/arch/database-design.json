@@ -1107,6 +1107,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1233,6 +1236,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1296,6 +1302,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -1404,6 +1413,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -1547,6 +1559,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1601,6 +1616,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1654,6 +1672,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -1797,6 +1818,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1851,6 +1875,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -1904,6 +1931,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2044,6 +2074,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2097,6 +2130,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2227,6 +2263,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2281,6 +2320,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2334,6 +2376,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2442,6 +2487,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2572,6 +2620,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2625,6 +2676,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2692,6 +2746,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2829,6 +2886,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2880,6 +2940,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -2930,6 +2993,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -2984,6 +3050,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }
@@ -3049,6 +3118,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -3100,6 +3172,9 @@
                   },
                   "new_root": {
                     "BOOL": false
+                  },
+                  "new_risk_exposure": {
+                    "BOOL": false
                   }
                 }
               },
@@ -3150,6 +3225,9 @@
                     "BOOL": false
                   },
                   "new_root": {
+                    "BOOL": false
+                  },
+                  "new_risk_exposure": {
                     "BOOL": false
                   }
                 }

@@ -2,8 +2,8 @@
 """
 Add newRiskExposure tour attribute to stakeholders
 
-Execution Time:
-Finalization Time:
+Execution Time:    2023-02-13 at 18:36:47 UTC
+Finalization Time: 2023-02-13 at 18:37:07 UTC
 """
 
 from aioextensions import (
