@@ -260,12 +260,12 @@ async def test_validate_past_acceptance_days(
         return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
     mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = (
+    historic_treatment = [
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.UNTREATED,
-        ),
-    )
+        )
+    ]
     finding_severity = Decimal("3.0")
     accepted_until = datetime.fromisoformat(acceptance_date).astimezone(
         tz=timezone.utc
@@ -293,12 +293,12 @@ async def test_validate_acceptance_severity(
         return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
     mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = (
+    historic_treatment = [
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.UNTREATED,
-        ),
-    )
+        )
+    ]
     finding_severity = Decimal("8.5")
     accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
         tz=timezone.utc
@@ -351,7 +351,7 @@ async def test_validate_number_acceptances(
         return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
 
     mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = (
+    historic_treatment = [
         VulnerabilityTreatment(
             modified_date=datetime.fromisoformat("2020-01-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.ACCEPTED,
@@ -363,7 +363,7 @@ async def test_validate_number_acceptances(
             modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
             status=VulnerabilityTreatmentStatus.UNTREATED,
         ),
-    )
+    ]
     finding_severity = Decimal("3.0")
     accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
         tz=timezone.utc

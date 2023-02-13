@@ -121,9 +121,7 @@ async def get_treatment_changes(
     loaders: Dataloaders,
     vuln: Vulnerability,
 ) -> int:
-    historic: tuple[
-        VulnerabilityTreatment, ...
-    ] = await loaders.vulnerability_historic_treatment.load(vuln.id)
+    historic = await loaders.vulnerability_historic_treatment.load(vuln.id)
     if historic:
         first_treatment = historic[0]
         return (

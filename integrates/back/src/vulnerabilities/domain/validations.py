@@ -50,6 +50,9 @@ import re
 from string import (
     hexdigits,
 )
+from typing import (
+    Iterable,
+)
 from urllib.parse import (
     urlparse,
 )
@@ -107,7 +110,7 @@ async def validate_acceptance_severity(
 async def validate_number_acceptances(
     loaders: Dataloaders,
     group_name: str,
-    historic_treatment: tuple[VulnerabilityTreatment, ...],
+    historic_treatment: Iterable[VulnerabilityTreatment],
 ) -> None:
     """
     Check that a vulnerability to temporarily accept does not exceed the
@@ -138,7 +141,7 @@ async def validate_accepted_treatment_change(
     accepted_until: datetime,
     finding_severity: Decimal,
     group_name: str,
-    historic_treatment: tuple[VulnerabilityTreatment, ...],
+    historic_treatment: Iterable[VulnerabilityTreatment],
 ) -> None:
     await collect(
         [

@@ -585,7 +585,9 @@ class VulnerabilityHistoricStateLoader(
         )
 
 
-class VulnerabilityHistoricTreatmentLoader(DataLoader):
+class VulnerabilityHistoricTreatmentLoader(
+    DataLoader[str, list[VulnerabilityTreatment]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: Iterable[str]
@@ -601,7 +603,9 @@ class VulnerabilityHistoricTreatmentLoader(DataLoader):
         )
 
 
-class VulnerabilityHistoricVerificationLoader(DataLoader):
+class VulnerabilityHistoricVerificationLoader(
+    DataLoader[str, list[VulnerabilityVerification]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: Iterable[str]
@@ -617,7 +621,9 @@ class VulnerabilityHistoricVerificationLoader(DataLoader):
         )
 
 
-class VulnerabilityHistoricZeroRiskLoader(DataLoader):
+class VulnerabilityHistoricZeroRiskLoader(
+    DataLoader[str, list[VulnerabilityZeroRisk]]
+):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: Iterable[str]

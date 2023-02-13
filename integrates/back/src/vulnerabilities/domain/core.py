@@ -846,7 +846,7 @@ async def update_historics_dates(
     historic_treatment = await loaders.vulnerability_historic_treatment.load(
         vulnerability_id
     )
-    historic_treatment = cast(
+    historic_treatment_adjusted = cast(
         tuple[VulnerabilityTreatment, VulnerabilityTreatment],
         db_model_utils.adjust_historic_dates(
             tuple(
@@ -860,7 +860,7 @@ async def update_historics_dates(
     )
     await vulns_model.update_historic(
         current_value=vulnerability,
-        historic=historic_treatment,
+        historic=historic_treatment_adjusted,
     )
 
 
