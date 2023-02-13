@@ -16,9 +16,6 @@ from db_model.findings.enums import (
 from db_model.findings.types import (
     FindingUnreliableIndicators,
 )
-from db_model.vulnerabilities.types import (
-    Vulnerability,
-)
 import pytest
 
 
@@ -52,11 +49,8 @@ async def test_approve_draft(
     finding = await loaders.finding.load(finding_id)
     assert finding
     assert finding.state.status == FindingStateStatus.APPROVED
-
-    vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
     assert finding.approval
     approval_date: datetime = finding.approval.modified_date
-    assert vuln.created_date == approval_date
     finding_indicators: FindingUnreliableIndicators = (
         finding.unreliable_indicators
     )
@@ -72,6 +66,9 @@ async def test_approve_draft(
         finding_indicators.unreliable_oldest_vulnerability_report_date
         == approval_date
     )
+    vulnerability = await loaders.vulnerability.load(vuln_id)
+    assert vulnerability
+    assert vulnerability.created_date == approval_date
 
 
 @pytest.mark.asyncio
