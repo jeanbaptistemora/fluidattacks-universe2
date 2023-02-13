@@ -3219,6 +3219,7 @@
     - cwe.263
     - cwe.521
     - cwe.640
+    - cwe.1391
     - nerccip.007-6_R5_6
     - mitre.M1027
     - mitre.M1036
@@ -3331,6 +3332,7 @@
     - cwe.521
     - cwe.522
     - cwe.640
+    - cwe.1391
     - nerccip.007-6_R5_5
     - nist80063.5_1_1_2
     - owasp10.A7
@@ -3378,6 +3380,7 @@
     - cwe.521
     - cwe.522
     - cwe.640
+    - cwe.1391
     - nerccip.007-6_R5_5
     - owasp10.A7
     - mitre.M1027
@@ -3474,6 +3477,7 @@
     - cwe.759
     - cwe.760
     - cwe.916
+    - cwe.1391
     - nist80063.5_1_1_2
     - iec62443.CR-1_7
     - issaf.D_8
@@ -3684,6 +3688,7 @@
     - pci.8_3_6
     - cwe.522
     - cwe.640
+    - cwe.1391
   metadata: {}
 "140":
   en:
@@ -10967,6 +10972,7 @@
     - capec.560
     - cwe.521
     - cwe.640
+    - cwe.1391
     - nist80063.5_1_1_2
     - owasp10.A7
     - mitre.M1027
