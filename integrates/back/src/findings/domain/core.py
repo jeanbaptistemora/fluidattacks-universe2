@@ -420,8 +420,8 @@ async def get_status(loaders: Dataloaders, finding_id: str) -> str:
 
 
 def get_tracking_vulnerabilities(
-    vulns_state: tuple[tuple[VulnerabilityState, ...], ...],
-    vulns_treatment: tuple[tuple[VulnerabilityTreatment, ...], ...],
+    vulns_state: Iterable[Iterable[VulnerabilityState]],
+    vulns_treatment: Iterable[Iterable[VulnerabilityTreatment]],
 ) -> list[Tracking]:
     """Get tracking vulnerabilities dictionary."""
     states_actions = vulns_utils.get_state_actions(vulns_state)
@@ -434,6 +434,7 @@ def get_tracking_vulnerabilities(
             ),
         )
     )
+
     return [
         Tracking(
             cycle=index,

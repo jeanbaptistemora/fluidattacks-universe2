@@ -93,12 +93,9 @@ from typing import (
     Any,
     cast,
     Counter,
-    Dict,
     Iterable,
-    List,
     NamedTuple,
     Optional,
-    Tuple,
     Union,
 )
 
@@ -160,8 +157,8 @@ def is_sequence(specific: str) -> bool:
 
 
 def filter_no_treatment_vulns(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -171,8 +168,8 @@ def filter_no_treatment_vulns(
 
 
 def filter_non_deleted(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -185,8 +182,8 @@ def filter_non_deleted(
 
 
 def filter_open_vulns(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -195,8 +192,8 @@ def filter_open_vulns(
 
 
 def filter_closed_vulns(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -205,8 +202,8 @@ def filter_closed_vulns(
 
 
 def filter_released_vulns(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -215,8 +212,8 @@ def filter_released_vulns(
 
 
 def filter_non_confirmed_zero_risk(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vulnerability
         for vulnerability in vulnerabilities
@@ -227,8 +224,8 @@ def filter_non_confirmed_zero_risk(
 
 
 def filter_non_zero_risk(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulnerabilities
@@ -242,8 +239,8 @@ def filter_non_zero_risk(
 
 
 def filter_remediated(
-    vulnerabilities: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulnerabilities: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vulnerability
         for vulnerability in vulnerabilities
@@ -318,7 +315,7 @@ async def format_vulnerabilities(
 
 
 def format_where(
-    where: str, vulnerabilities: Tuple[Vulnerability, ...]
+    where: str, vulnerabilities: tuple[Vulnerability, ...]
 ) -> str:
     for vuln in vulnerabilities:
         where = f"{where}{vuln.state.where} ({vuln.state.specific})\n"
@@ -349,14 +346,14 @@ def get_closing_date(
 
 
 def get_mean_remediate_vulnerabilities_cvssf(
-    vulns: Tuple[Vulnerability, ...],
-    finding_cvssf: Dict[str, Decimal],
+    vulns: tuple[Vulnerability, ...],
+    finding_cvssf: dict[str, Decimal],
     min_date: Optional[datetype] = None,
 ) -> Decimal:
     total_days: Decimal = Decimal("0.0")
     open_vuln_dates = [get_opening_date(vuln, min_date) for vuln in vulns]
     filtered_open_vuln_dates = [date for date in open_vuln_dates if date]
-    closed_vuln_dates: List[Tuple[Optional[datetype], Decimal]] = [
+    closed_vuln_dates: list[tuple[Optional[datetype], Decimal]] = [
         (
             get_closing_date(vuln, min_date),
             finding_cvssf[vuln.finding_id],
@@ -394,7 +391,7 @@ def get_mean_remediate_vulnerabilities_cvssf(
 
 
 def get_mean_remediate_vulnerabilities(
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
     min_date: Optional[datetype] = None,
 ) -> Decimal:
     """Get mean time to remediate a vulnerability."""
@@ -434,7 +431,7 @@ def get_cvssf(severity: Decimal) -> Decimal:
     )
 
 
-def get_ranges(numberlist: List[int]) -> str:
+def get_ranges(numberlist: list[int]) -> str:
     """Transform list into ranges."""
     range_str = ",".join(
         as_range(g)
@@ -447,15 +444,15 @@ def get_ranges(numberlist: List[int]) -> str:
 
 
 def get_report_dates(
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[datetime, ...]:
+    vulns: tuple[Vulnerability, ...],
+) -> tuple[datetime, ...]:
     """Get report dates for vulnerabilities."""
     return tuple(vuln.created_date for vuln in vulns)
 
 
 def group_specific(
-    vulns: Tuple[Vulnerability, ...], vuln_type: VulnerabilityType
-) -> Tuple[Vulnerability, ...]:
+    vulns: tuple[Vulnerability, ...], vuln_type: VulnerabilityType
+) -> tuple[Vulnerability, ...]:
     """Group vulnerabilities by its specific field."""
     sorted_by_where = sort_vulnerabilities(vulns)
     grouped_vulns = []
@@ -495,15 +492,15 @@ def group_specific(
 
 
 def sort_vulnerabilities(
-    item: Tuple[Vulnerability, ...]
-) -> Tuple[Vulnerability, ...]:
+    item: tuple[Vulnerability, ...]
+) -> tuple[Vulnerability, ...]:
     """Sort a vulnerability by its where field."""
     return tuple(
         sorted(item, key=lambda vulnerability: vulnerability.state.where)
     )
 
 
-def range_to_list(range_value: str) -> List[str]:
+def range_to_list(range_value: str) -> list[str]:
     """Convert a range value into list."""
     limits = range_value.split("-")
     init_val = int(limits[0])
@@ -515,7 +512,7 @@ def range_to_list(range_value: str) -> List[str]:
     return specific_values
 
 
-def ungroup_specific(specific: str) -> List[str]:
+def ungroup_specific(specific: str) -> list[str]:
     """Ungroup specific value."""
     values = specific.split(",")
     specific_values = []
@@ -529,18 +526,18 @@ def ungroup_specific(specific: str) -> List[str]:
 
 
 def adjust_historic_treatment_dates(
-    historic: Tuple[VulnerabilityTreatment, ...],
-) -> Tuple[VulnerabilityTreatment, ...]:
+    historic: tuple[VulnerabilityTreatment, ...],
+) -> tuple[VulnerabilityTreatment, ...]:
     return cast(
-        Tuple[VulnerabilityTreatment, ...],
+        tuple[VulnerabilityTreatment, ...],
         adjust_historic_dates(historic),
     )
 
 
 def get_treatment_from_org_finding_policy(
     *, modified_date: datetime, user_email: str
-) -> Tuple[VulnerabilityTreatment, ...]:
-    treatments: Tuple[
+) -> tuple[VulnerabilityTreatment, ...]:
+    treatments: tuple[
         VulnerabilityTreatment, ...
     ] = adjust_historic_treatment_dates(
         (
@@ -566,8 +563,8 @@ def get_treatment_from_org_finding_policy(
 
 
 def _get_vuln_state_action(
-    historic_state: Tuple[VulnerabilityState, ...],
-) -> List[Action]:
+    historic_state: Iterable[VulnerabilityState],
+) -> list[Action]:
     actions: list[Action] = [
         Action(
             action=state.status.value,
@@ -582,8 +579,8 @@ def _get_vuln_state_action(
 
 
 def get_state_actions(
-    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
-) -> List[Action]:
+    vulns_state: Iterable[Iterable[VulnerabilityState]],
+) -> list[Action]:
     states_actions = list(
         itertools.chain.from_iterable(
             _get_vuln_state_action(historic_state)
@@ -594,13 +591,14 @@ def get_state_actions(
         action._replace(times=times)
         for action, times in Counter(states_actions).most_common()
     ]
+
     return actions
 
 
 def _get_vuln_treatment_actions(
-    historic_treatment: Tuple[VulnerabilityTreatment, ...],
-) -> List[Action]:
-    actions: List[Action] = [
+    historic_treatment: Iterable[VulnerabilityTreatment],
+) -> list[Action]:
+    actions = [
         Action(
             action=treatment.status.value,
             date=str(treatment.modified_date.date()),
@@ -628,8 +626,8 @@ def _get_vuln_treatment_actions(
 
 
 def get_treatment_actions(
-    vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
-) -> List[Action]:
+    vulns_treatment: Iterable[Iterable[VulnerabilityTreatment]],
+) -> list[Action]:
     treatments_actions = list(
         itertools.chain.from_iterable(
             _get_vuln_treatment_actions(historic_treatment)
@@ -640,11 +638,12 @@ def get_treatment_actions(
         action._replace(times=times)
         for action, times in Counter(treatments_actions).most_common()
     ]
+
     return actions
 
 
 def get_treatment_changes(
-    historic_treatment: Tuple[VulnerabilityTreatment, ...]
+    historic_treatment: tuple[VulnerabilityTreatment, ...]
 ) -> int:
     if historic_treatment:
         first_treatment = historic_treatment[0]
