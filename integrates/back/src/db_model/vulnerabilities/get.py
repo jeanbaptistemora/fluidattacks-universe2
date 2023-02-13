@@ -548,7 +548,7 @@ class EventVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
         )
 
 
-class VulnerabilityLoader(DataLoader):
+class VulnerabilityLoader(DataLoader[str, Optional[Vulnerability]]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: Iterable[str]
