@@ -68,6 +68,9 @@ import tempfile
 from typing import (
     Optional,
 )
+from vulnerabilities.domain import (
+    get_vulnerabilities,
+)
 from vulnerabilities.domain.rebase import (
     rebase as rebase_vulnerability,
 )
@@ -243,9 +246,10 @@ async def rebase_root(
             )
         ]
     )
-    loaders.vulnerability.clear_all()
-    vulnerabilities_snippet = await loaders.vulnerability.load_many(
-        [vuln.id for vuln in vulnerabilities]
+    vulnerabilities_snippet = await get_vulnerabilities(
+        loaders=loaders,
+        vulnerability_ids=[vuln.id for vuln in vulnerabilities],
+        clear_loader=True,
     )
     futures = []
     for vuln in vulnerabilities_snippet:

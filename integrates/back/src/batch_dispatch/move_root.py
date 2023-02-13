@@ -190,28 +190,31 @@ async def _process_vuln(
             }
         },
     )
-    new_vulnerability = await loaders.vulnerability.load(new_id)
+    new_vulnerability = await vulns_domain.get_vulnerability(loaders, new_id)
     await vulns_model.update_historic(
         current_value=new_vulnerability,
         historic=tuple(historic_state) or (vuln.state,),
     )
     if historic_treatment:
-        loaders.vulnerability.clear(vuln.id)
-        new_vulnerability = await loaders.vulnerability.load(new_id)
+        new_vulnerability = await vulns_domain.get_vulnerability(
+            loaders, new_id, clear_loader=True
+        )
         await vulns_model.update_historic(
             current_value=new_vulnerability,
             historic=tuple(historic_treatment),
         )
     if historic_verification:
-        loaders.vulnerability.clear(vuln.id)
-        new_vulnerability = await loaders.vulnerability.load(new_id)
+        new_vulnerability = await vulns_domain.get_vulnerability(
+            loaders, new_id, clear_loader=True
+        )
         await vulns_model.update_historic(
             current_value=new_vulnerability,
             historic=tuple(historic_verification),
         )
     if historic_zero_risk:
-        loaders.vulnerability.clear(vuln.id)
-        new_vulnerability = await loaders.vulnerability.load(new_id)
+        new_vulnerability = await vulns_domain.get_vulnerability(
+            loaders, new_id, clear_loader=True
+        )
         await vulns_model.update_historic(
             current_value=new_vulnerability,
             historic=tuple(historic_zero_risk),

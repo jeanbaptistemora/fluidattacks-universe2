@@ -36,7 +36,6 @@ from db_model.roots.types import (
     RootUnreliableIndicatorsToUpdate,
 )
 from db_model.vulnerabilities.types import (
-    Vulnerability,
     VulnerabilityUnreliableIndicatorsToUpdate,
 )
 from decorators import (
@@ -384,8 +383,8 @@ async def update_vulnerability_unreliable_indicators(
     attrs_to_update: set[EntityAttr],
 ) -> None:
     try:
-        vulnerability: Vulnerability = await loaders.vulnerability.load(
-            vulnerability_id
+        vulnerability = await vulns_domain.get_vulnerability(
+            loaders, vulnerability_id
         )
     except VulnNotFound as exc:
         LOGGER.exception(

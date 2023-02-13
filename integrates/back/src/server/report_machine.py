@@ -153,12 +153,8 @@ from toe.inputs.types import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
     Optional,
-    Set,
-    Tuple,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -169,6 +165,9 @@ from unreliable_indicators.operations import (
 from urllib.parse import (
     ParseResult,
     urlparse,
+)
+from vulnerabilities import (
+    domain as vulns_domain,
 )
 from vulnerabilities.domain.snippet import (
     set_snippet,
@@ -200,7 +199,7 @@ SNIPPETS_COLUMNS: int = 12 * SNIPPETS_CONTEXT
 
 class Context(NamedTuple):
     loaders: Dataloaders
-    headers: Dict[str, str]
+    headers: dict[str, str]
 
 
 class SignalHandler:  # pylint: disable=too-few-public-methods
@@ -217,7 +216,7 @@ class SignalHandler:  # pylint: disable=too-few-public-methods
 async def get_config(
     execution_id: str,
     config_path: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     # config_path is useful to test this flow locally
     if config_path is not None:
         with open(config_path, "rb") as config_file:
@@ -242,7 +241,7 @@ async def get_config(
 async def get_sarif_log(
     execution_id: str,
     sarif_path: Optional[str] = None,
-) -> Optional[Dict[str, Any]]:
+) -> Optional[dict[str, Any]]:
     # sarif_path is useful to test this flow locally
     if sarif_path is not None:
         with open(sarif_path, "rb") as sarif_file:
@@ -264,7 +263,7 @@ async def get_sarif_log(
             return None
 
 
-def generate_cssv_vector(criteria_vulnerability: Dict[str, Any]) -> str:
+def generate_cssv_vector(criteria_vulnerability: dict[str, Any]) -> str:
     score = criteria_vulnerability["score"]
     base = score["base"]
     temporal = score["temporal"]
@@ -309,16 +308,16 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
     string = boxify(string=string)
 
     # This is the number of pixes needed to draw this text, may be big
-    size: Tuple[int, int] = DUMMY_DRAWING.textsize(string, font=font)
+    size: tuple[int, int] = DUMMY_DRAWING.textsize(string, font=font)
     size = (
         size[0] + 2 * margin,
         size[1] + 2 * margin,
     )
-    watermark_size: Tuple[int, int] = (
+    watermark_size: tuple[int, int] = (
         size[0] // 2,
         watermark.size[1] * size[0] // watermark.size[0] // 2,
     )
-    watermark_position: Tuple[int, int] = (
+    watermark_position: tuple[int, int] = (
         (size[0] - watermark_size[0]) // 2,
         (size[1] - watermark_size[1]) // 2,
     )
@@ -356,7 +355,7 @@ async def to_png(*, string: str, margin: int = 25) -> UploadFile:
 
 
 def _get_finding_severity(
-    criteria_vulnerability: Dict[str, Any],
+    criteria_vulnerability: dict[str, Any],
 ) -> Finding31Severity:
     return Finding31Severity(
         attack_complexity=AttackComplexity[
@@ -398,10 +397,10 @@ def _get_finding_severity(
 
 
 async def _update_finding_metadata(
-    finding_data: Tuple[str, str, str],
+    finding_data: tuple[str, str, str],
     finding: Finding,
-    criteria_vulnerability: Dict[str, Any],
-    criteria_requirements: Dict[str, Any],
+    criteria_vulnerability: dict[str, Any],
+    criteria_requirements: dict[str, Any],
 ) -> None:
     group_name, vulnerability_id, language = finding_data
     language = language.lower()
@@ -447,8 +446,8 @@ async def _create_draft(
     group_name: str,
     vulnerability_id: str,
     language: str,
-    criteria_vulnerability: Dict[str, Any],
-    criteria_requirements: Dict[str, Any],
+    criteria_vulnerability: dict[str, Any],
+    criteria_requirements: dict[str, Any],
 ) -> Finding:
     language = language.lower()
     severity_info = _get_finding_severity(criteria_vulnerability)
@@ -482,7 +481,7 @@ async def _create_draft(
 
 
 def _get_path_from_sarif_vulnerability(
-    vulnerability: Dict[str, Any], ignore_cve: bool = False
+    vulnerability: dict[str, Any], ignore_cve: bool = False
 ) -> str:
     if vulnerability["properties"]["kind"] == "inputs":
         what = _get_input_url(vulnerability)
@@ -533,11 +532,11 @@ def _get_path_from_sarif_vulnerability(
 
 
 def _get_vulns_with_reattack(  # NOSONAR
-    stream: Dict[str, Any],
-    integrates_vulnerabilities: Tuple[Vulnerability, ...],
+    stream: dict[str, Any],
+    integrates_vulnerabilities: tuple[Vulnerability, ...],
     state: str,
-) -> Tuple[Vulnerability, ...]:
-    result: Tuple[Vulnerability, ...] = ()
+) -> tuple[Vulnerability, ...]:
+    result: tuple[Vulnerability, ...] = ()
     for vulnerability in integrates_vulnerabilities:
         if not (
             vulnerability.verification
@@ -558,7 +557,7 @@ def _get_vulns_with_reattack(  # NOSONAR
 
 
 def _get_input_url(
-    vuln: Dict[str, Any], repo_nickname: Optional[str] = None
+    vuln: dict[str, Any], repo_nickname: Optional[str] = None
 ) -> str:
     url: str
     if vuln["properties"].get("has_redirect", False):
@@ -576,10 +575,10 @@ def _get_input_url(
 
 
 def _build_vulnerabilities_stream_from_sarif(
-    vulnerabilities: List[Dict[str, Any]],
+    vulnerabilities: list[dict[str, Any]],
     commit_hash: str,
     repo_nickname: str,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     return {
         "inputs": [
             {
@@ -621,11 +620,11 @@ def _build_vulnerabilities_stream_from_sarif(
 
 
 def _build_vulnerabilities_stream_from_integrates(
-    vulnerabilities: Tuple[Vulnerability, ...],
+    vulnerabilities: tuple[Vulnerability, ...],
     git_root: GitRoot,
     state: Optional[str] = None,
     commit: Optional[str] = None,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     state = state or "closed"
     return {
         "inputs": [
@@ -664,11 +663,11 @@ def _build_vulnerabilities_stream_from_integrates(
 
 
 def _machine_vulns_to_close(
-    sarif_vulns: List[Dict[str, Any]],
-    existing_open_machine_vulns: Tuple[Vulnerability, ...],
-    execution_config: Dict[str, Any],
-) -> Tuple[Vulnerability, ...]:
-    sarif_hashes: Set[int] = {vuln["guid"] for vuln in sarif_vulns}
+    sarif_vulns: list[dict[str, Any]],
+    existing_open_machine_vulns: tuple[Vulnerability, ...],
+    execution_config: dict[str, Any],
+) -> tuple[Vulnerability, ...]:
+    sarif_hashes: set[int] = {vuln["guid"] for vuln in sarif_vulns}
 
     return tuple(
         vuln
@@ -706,15 +705,15 @@ def _machine_vulns_to_close(
 
 
 async def ensure_toe_inputs(
-    loaders: Dataloaders, group_name: str, root_id: str, stream: Dict[str, Any]
+    loaders: Dataloaders, group_name: str, root_id: str, stream: dict[str, Any]
 ) -> None:
-    vulns_for_toe: List[Dict[str, Any]] = [
+    vulns_for_toe: list[dict[str, Any]] = [
         vuln
         for vuln in stream["inputs"]
         if vuln["state"] == "open" and vuln["skims_technique"] != "APK"
     ]
     if vulns_for_toe:
-        parsed_toes: List[ParseResult] = [
+        parsed_toes: list[ParseResult] = [
             parsed_url
             for vuln in vulns_for_toe
             if (parsed_url := urlparse(vuln["url"].split(" ")[0]))
@@ -765,9 +764,9 @@ async def persist_vulnerabilities(
     group_name: str,
     git_root: GitRoot,
     finding: Finding,
-    stream: Dict[str, Any],
+    stream: dict[str, Any],
     organization_name: str,
-) -> Optional[Set[str]]:
+) -> Optional[set[str]]:
     finding_policy = await policies_domain.get_finding_policy_by_name(
         loaders=loaders,
         organization_name=organization_name,
@@ -804,20 +803,20 @@ async def persist_vulnerabilities(
 async def upload_evidences(
     loaders: Dataloaders,
     finding: Finding,
-    machine_vulnerabilities: List[Dict[str, Any]],
+    machine_vulnerabilities: list[dict[str, Any]],
 ) -> bool:
     success: bool = True
     evidence_ids = [("evidence_route_5", "evidence_route_5")]
     number_of_samples: int = min(
         len(machine_vulnerabilities), len(evidence_ids)
     )
-    result_samples: Tuple[dict[str, Any], ...] = tuple(
+    result_samples: tuple[dict[str, Any], ...] = tuple(
         random.sample(machine_vulnerabilities, k=number_of_samples),
     )
     evidence_descriptions = [
         result["message"]["text"] for result in result_samples
     ]
-    evidence_streams: Tuple[UploadFile, ...] = tuple()
+    evidence_streams: tuple[UploadFile, ...] = tuple()
     for result in result_samples:
         evidence_streams = (
             *evidence_streams,
@@ -878,8 +877,8 @@ async def release_finding(
 
 
 def _filter_vulns_already_reported(
-    sarif_vulns: Dict[str, Any],
-    existing_open_machine_vulns: Tuple[Vulnerability, ...],
+    sarif_vulns: dict[str, Any],
+    existing_open_machine_vulns: tuple[Vulnerability, ...],
 ) -> Any:
     vulns_already_reported = {
         vuln.hash
@@ -907,8 +906,8 @@ def _filter_vulns_already_reported(
 
 
 async def update_vulns_already_reported(
-    sarif_vulns: Dict[str, Any],
-    existing_open_machine_vulns: Tuple[Vulnerability, ...],
+    sarif_vulns: dict[str, Any],
+    existing_open_machine_vulns: tuple[Vulnerability, ...],
 ) -> None:
     """Some field of the vulnerability can change, but it is still the same
     vulnerability, the status of the vulnerability must be updated.
@@ -963,9 +962,9 @@ async def upload_snippet(
     loaders: Dataloaders,
     root: GitRoot,
     vuln_id: str,
-    sarif_vulns: List[Any],
+    sarif_vulns: list[Any],
 ) -> None:
-    current_vuln: Vulnerability = await loaders.vulnerability.load(vuln_id)
+    current_vuln = await vulns_domain.get_vulnerability(loaders, vuln_id)
     if current_vuln.state.status != VulnerabilityStateStatus.VULNERABLE:
         return
 
@@ -1007,12 +1006,12 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     group_name: str,
     vulnerability_id: str,
-    criteria_vulnerability: Dict[str, Any],
-    criteria_requirements: Dict[str, Any],
+    criteria_vulnerability: dict[str, Any],
+    criteria_requirements: dict[str, Any],
     language: str,
     git_root: GitRoot,
-    sarif_log: Dict[str, Any],
-    execution_config: Dict[str, Any],
+    sarif_log: dict[str, Any],
+    execution_config: dict[str, Any],
     organization_name: str,
     finding: Optional[Finding] = None,
     auto_approve: bool = False,
@@ -1044,7 +1043,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     if not finding:
         return None
 
-    existing_open_machine_vulns: Tuple[Vulnerability, ...] = tuple(
+    existing_open_machine_vulns: tuple[Vulnerability, ...] = tuple(
         vuln
         for vuln in await loaders.finding_vulnerabilities.load(finding.id)
         if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
@@ -1143,7 +1142,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
 async def get_current_execution(
     root_id: str,
     batch_job_id: str,
-    findings_executed: Optional[List[MachineFindingResult]] = None,
+    findings_executed: Optional[list[MachineFindingResult]] = None,
     commit: Optional[str] = None,
 ) -> Optional[RootMachineExecution]:
 
@@ -1169,8 +1168,8 @@ async def get_current_execution(
 
 async def process_execution(
     execution_id: str,
-    criteria_vulns: Optional[Dict[str, Any]] = None,
-    criteria_reqs: Optional[Dict[str, Any]] = None,
+    criteria_vulns: Optional[dict[str, Any]] = None,
+    criteria_reqs: Optional[dict[str, Any]] = None,
     config_path: Optional[str] = None,
     sarif_path: Optional[str] = None,
 ) -> bool:
@@ -1207,7 +1206,7 @@ async def process_execution(
         )
         return False
 
-    rules_id: Set[str] = {
+    rules_id: set[str] = {
         item["id"] for item in results["runs"][0]["tool"]["driver"]["rules"]
     }
     if not rules_id:
@@ -1218,7 +1217,7 @@ async def process_execution(
     }
 
     group_findings = await loaders.group_drafts_and_findings.load(group_name)
-    rules_finding: Tuple[Tuple[str, Optional[Finding]], ...] = ()
+    rules_finding: tuple[tuple[str, Optional[Finding]], ...] = ()
     for criteria_vuln_id in rules_id:
         for finding in group_findings:
             if finding.title.startswith(f"{criteria_vuln_id}."):
