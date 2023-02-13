@@ -12,7 +12,6 @@ data "aws_iam_role" "main" {
     "prod_airs",
     "prod_common",
     "prod_docs",
-    "prod_forces",
     "prod_integrates",
     "prod_melts",
     "prod_observes",

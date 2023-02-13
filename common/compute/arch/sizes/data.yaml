@@ -7,10 +7,6 @@ common_nano:
   cpu: 1
   memory: 1900
   queue: common_small
-forces_nano:
-  cpu: 1
-  memory: 1900
-  queue: forces_small
 integrates_nano:
   cpu: 1
   memory: 1900

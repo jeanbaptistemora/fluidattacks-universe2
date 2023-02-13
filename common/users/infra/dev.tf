@@ -196,7 +196,6 @@ locals {
           "dev",
           "prod_airs",
           "prod_docs",
-          "prod_forces",
           "prod_integrates",
           "prod_melts",
           "prod_observes",
