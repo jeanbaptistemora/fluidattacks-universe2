@@ -12363,7 +12363,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/sast/test_cfg.cs",
+      "path": "skims/test/data/graphs/syntax/test_cfg.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -34310,7 +34310,7 @@
       "metadata": {
         "language": "dart"
       },
-      "path": "skims/test/data/sast/test_cfg.dart",
+      "path": "skims/test/data/graphs/syntax/test_cfg.dart",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -60300,7 +60300,7 @@
       "metadata": {
         "language": "go"
       },
-      "path": "skims/test/data/sast/test_cfg.go",
+      "path": "skims/test/data/graphs/syntax/test_cfg.go",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -92119,7 +92119,7 @@
       "metadata": {
         "language": "kotlin"
       },
-      "path": "skims/test/data/sast/test_cfg.kt",
+      "path": "skims/test/data/graphs/syntax/test_cfg.kt",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -97792,9 +97792,9 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/sast/test_cfg.cs": 0,
-    "skims/test/data/sast/test_cfg.dart": 1,
-    "skims/test/data/sast/test_cfg.go": 2,
-    "skims/test/data/sast/test_cfg.kt": 3
+    "skims/test/data/graphs/syntax/test_cfg.cs": 0,
+    "skims/test/data/graphs/syntax/test_cfg.dart": 1,
+    "skims/test/data/graphs/syntax/test_cfg.go": 2,
+    "skims/test/data/graphs/syntax/test_cfg.kt": 3
   }
 }

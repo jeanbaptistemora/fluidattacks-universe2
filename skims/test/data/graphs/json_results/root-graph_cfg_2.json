@@ -18531,7 +18531,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/sast/test_cfg.java",
+      "path": "skims/test/data/graphs/syntax/test_cfg.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -45633,7 +45633,7 @@
       "metadata": {
         "language": "javascript"
       },
-      "path": "skims/test/data/sast/test_cfg.js",
+      "path": "skims/test/data/graphs/syntax/test_cfg.js",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -71638,7 +71638,7 @@
       "metadata": {
         "language": "tsx"
       },
-      "path": "skims/test/data/sast/test_cfg.ts",
+      "path": "skims/test/data/graphs/syntax/test_cfg.ts",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -76721,8 +76721,8 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/sast/test_cfg.java": 0,
-    "skims/test/data/sast/test_cfg.js": 1,
-    "skims/test/data/sast/test_cfg.ts": 2
+    "skims/test/data/graphs/syntax/test_cfg.java": 0,
+    "skims/test/data/graphs/syntax/test_cfg.js": 1,
+    "skims/test/data/graphs/syntax/test_cfg.ts": 2
   }
 }

@@ -12,4 +12,4 @@ path:
     - Generate.java
   lib_path: false
   lib_root: true
-working_dir: skims/test/data/benchmark/owasp
+working_dir: skims/test/data/graphs/owasp

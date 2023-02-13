@@ -4255,7 +4255,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs",
+      "path": "skims/test/data/graphs/nist/CWE89_SQL_Injection.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -17386,7 +17386,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/benchmark/nist/HouseController.cs",
+      "path": "skims/test/data/graphs/nist/HouseController.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -27478,7 +27478,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/benchmark/nist/StudentController.cs",
+      "path": "skims/test/data/graphs/nist/StudentController.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -31498,7 +31498,7 @@
       "metadata": {
         "language": "c_sharp"
       },
-      "path": "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
+      "path": "skims/test/data/graphs/nist/block_chaining_insecure.cs",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -32048,9 +32048,9 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs": 0,
-    "skims/test/data/benchmark/nist/HouseController.cs": 1,
-    "skims/test/data/benchmark/nist/StudentController.cs": 2,
-    "skims/test/data/benchmark/nist/block_chaining_insecure.cs": 3
+    "skims/test/data/graphs/nist/CWE89_SQL_Injection.cs": 0,
+    "skims/test/data/graphs/nist/HouseController.cs": 1,
+    "skims/test/data/graphs/nist/StudentController.cs": 2,
+    "skims/test/data/graphs/nist/block_chaining_insecure.cs": 3
   }
 }

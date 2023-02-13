@@ -1776,7 +1776,7 @@
       "metadata": {
         "language": "json"
       },
-      "path": "skims/test/data/sast/test_cfg.json",
+      "path": "skims/test/data/graphs/syntax/test_cfg.json",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -5277,7 +5277,7 @@
       "metadata": {
         "language": "hcl"
       },
-      "path": "skims/test/data/sast/test_cfg.tf",
+      "path": "skims/test/data/graphs/syntax/test_cfg.tf",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -7711,7 +7711,7 @@
       "metadata": {
         "language": "yaml"
       },
-      "path": "skims/test/data/sast/test_cfg.yaml",
+      "path": "skims/test/data/graphs/syntax/test_cfg.yaml",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -8253,8 +8253,8 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/sast/test_cfg.json": 0,
-    "skims/test/data/sast/test_cfg.tf": 1,
-    "skims/test/data/sast/test_cfg.yaml": 2
+    "skims/test/data/graphs/syntax/test_cfg.json": 0,
+    "skims/test/data/graphs/syntax/test_cfg.tf": 1,
+    "skims/test/data/graphs/syntax/test_cfg.yaml": 2
   }
 }

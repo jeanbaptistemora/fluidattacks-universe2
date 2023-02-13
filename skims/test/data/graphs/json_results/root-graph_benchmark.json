@@ -10223,7 +10223,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/benchmark/owasp/App.java",
+      "path": "skims/test/data/graphs/owasp/App.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -19458,7 +19458,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/benchmark/owasp/Test001.java",
+      "path": "skims/test/data/graphs/owasp/Test001.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -24873,7 +24873,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/benchmark/owasp/Test008.java",
+      "path": "skims/test/data/graphs/owasp/Test008.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -32907,7 +32907,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/benchmark/owasp/Test167.java",
+      "path": "skims/test/data/graphs/owasp/Test167.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -37784,7 +37784,7 @@
       "metadata": {
         "language": "java"
       },
-      "path": "skims/test/data/benchmark/owasp/User.java",
+      "path": "skims/test/data/graphs/owasp/User.java",
       "syntax": {},
       "syntax_graph": {
         "edges": {
@@ -38541,10 +38541,10 @@
   ],
   "shards_by_language_class": {},
   "shards_by_path": {
-    "skims/test/data/benchmark/owasp/App.java": 0,
-    "skims/test/data/benchmark/owasp/Test001.java": 1,
-    "skims/test/data/benchmark/owasp/Test008.java": 2,
-    "skims/test/data/benchmark/owasp/Test167.java": 3,
-    "skims/test/data/benchmark/owasp/User.java": 4
+    "skims/test/data/graphs/owasp/App.java": 0,
+    "skims/test/data/graphs/owasp/Test001.java": 1,
+    "skims/test/data/graphs/owasp/Test008.java": 2,
+    "skims/test/data/graphs/owasp/Test167.java": 3,
+    "skims/test/data/graphs/owasp/User.java": 4
   }
 }

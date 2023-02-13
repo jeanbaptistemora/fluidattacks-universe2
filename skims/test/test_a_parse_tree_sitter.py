@@ -21,45 +21,45 @@ from utils.encodings import (
     [
         (
             (
-                "skims/test/data/benchmark/owasp/App.java",
-                "skims/test/data/benchmark/owasp/User.java",
-                "skims/test/data/benchmark/owasp/Test001.java",
-                "skims/test/data/benchmark/owasp/Test008.java",
-                "skims/test/data/benchmark/owasp/Test167.java",
+                "skims/test/data/graphs/owasp/App.java",
+                "skims/test/data/graphs/owasp/User.java",
+                "skims/test/data/graphs/owasp/Test001.java",
+                "skims/test/data/graphs/owasp/Test008.java",
+                "skims/test/data/graphs/owasp/Test167.java",
             ),
             "benchmark",
         ),
         (
             (
-                "skims/test/data/sast/test_cfg.cs",
-                "skims/test/data/sast/test_cfg.dart",
-                "skims/test/data/sast/test_cfg.go",
-                "skims/test/data/sast/test_cfg.kt",
+                "skims/test/data/graphs/syntax/test_cfg.cs",
+                "skims/test/data/graphs/syntax/test_cfg.dart",
+                "skims/test/data/graphs/syntax/test_cfg.go",
+                "skims/test/data/graphs/syntax/test_cfg.kt",
             ),
             "cfg",
         ),
         (
             (
-                "skims/test/data/sast/test_cfg.java",
-                "skims/test/data/sast/test_cfg.js",
-                "skims/test/data/sast/test_cfg.ts",
+                "skims/test/data/graphs/syntax/test_cfg.java",
+                "skims/test/data/graphs/syntax/test_cfg.js",
+                "skims/test/data/graphs/syntax/test_cfg.ts",
             ),
             "cfg_2",
         ),
         (
             (
-                "skims/test/data/sast/test_cfg.json",
-                "skims/test/data/sast/test_cfg.tf",
-                "skims/test/data/sast/test_cfg.yaml",
+                "skims/test/data/graphs/syntax/test_cfg.json",
+                "skims/test/data/graphs/syntax/test_cfg.tf",
+                "skims/test/data/graphs/syntax/test_cfg.yaml",
             ),
             "cfg_path",
         ),
         (
             (
-                "skims/test/data/benchmark/nist/CWE89_SQL_Injection.cs",
-                "skims/test/data/benchmark/nist/StudentController.cs",
-                "skims/test/data/benchmark/nist/HouseController.cs",
-                "skims/test/data/benchmark/nist/block_chaining_insecure.cs",
+                "skims/test/data/graphs/nist/CWE89_SQL_Injection.cs",
+                "skims/test/data/graphs/nist/StudentController.cs",
+                "skims/test/data/graphs/nist/HouseController.cs",
+                "skims/test/data/graphs/nist/block_chaining_insecure.cs",
             ),
             "nist",
         ),
@@ -78,13 +78,12 @@ async def test_graph_generation(
 
     expected_path = os.path.join(
         os.environ["STATE"],
-        f"skims/test/data/sast/root-graph_{suffix_out}.json",
+        f"skims/test/data/graphs/json_results/root-graph_{suffix_out}.json",
     )
     os.makedirs(os.path.dirname(expected_path), exist_ok=True)
     with open(expected_path, "w", encoding="utf-8") as handle:
         handle.write(graph_db_as_json_str)
 
-    with open(
-        f"skims/test/data/sast/root-graph_{suffix_out}.json", encoding="utf-8"
-    ) as handle:
+    results_path = "skims/test/data/graphs/json_results/root-graph"
+    with open(f"{results_path}_{suffix_out}.json", encoding="utf-8") as handle:
         assert graph_db_as_json_str == handle.read()
