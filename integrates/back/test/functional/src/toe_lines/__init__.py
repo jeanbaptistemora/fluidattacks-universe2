@@ -16,6 +16,7 @@ def get_query() -> str:
         query(
             $attackedBy: String
             $comments: String
+            $fromFirstAttackAt: DateTime
             $fromModifiedDate: DateTime
             $fromSeenAt: DateTime
             $groupName: String!
@@ -27,6 +28,7 @@ def get_query() -> str:
             $minAttackedLines: Int
             $minLoc: Int
             $rootId: ID
+            $toFirstAttackAt: DateTime
             $toModifiedDate: DateTime
             $toSeenAt: DateTime
         ) {
@@ -35,6 +37,7 @@ def get_query() -> str:
                 toeLines(
                     attackedBy: $attackedBy
                     comments: $comments
+                    fromFirstAttackAt: $fromFirstAttackAt
                     fromModifiedDate: $fromModifiedDate
                     fromSeenAt: $fromSeenAt
                     hasVulnerabilities: $hasVulnerabilities
@@ -45,6 +48,7 @@ def get_query() -> str:
                     minAttackedLines: $minAttackedLines
                     minLoc: $minLoc
                     rootId: $rootId
+                    toFirstAttackAt: $toFirstAttackAt
                     toModifiedDate: $toModifiedDate
                     toSeenAt: $toSeenAt
                 ) {

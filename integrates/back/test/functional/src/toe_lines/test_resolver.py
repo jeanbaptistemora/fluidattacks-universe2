@@ -569,3 +569,31 @@ async def test_get_toe_lines_by_comments(populate: bool, email: str) -> None:
         variables=variables,
     )
     assert len(result["data"]["group"]["toeLines"]["edges"]) == 3
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_from_first_attack_at(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "fromFirstAttackAt": "2020-02-19T15:41:04+00:00",
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"][
+            "firstAttackAt"
+        ]
+        == "2020-02-19T15:41:04+00:00"
+    )
