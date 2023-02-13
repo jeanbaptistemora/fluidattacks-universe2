@@ -724,7 +724,7 @@ class CreatorPdf:
             colors=colors,
             explode=explode,
             labels=finding_state_pielabels,
-            normalize=False,
+            normalize=sum(finding_state_pie) > 0,
             startangle=90,
         )
         axis("equal")
