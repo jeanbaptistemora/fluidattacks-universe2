@@ -74,8 +74,6 @@ from db_model.vulnerabilities.types import (
     VulnerabilityState,
     VulnerabilityTool,
     VulnerabilityTreatment,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
 )
 from db_model.vulnerabilities.utils import (
     get_current_treatment_converted,
@@ -833,28 +831,6 @@ def format_vulnerability_treatment_item(
         item["acceptance_status"] = treatment.acceptance_status.value
     if treatment.assigned:
         item["assigned"] = treatment.assigned
-    return item
-
-
-def format_vulnerability_verification_item(
-    verification: VulnerabilityVerification,
-) -> Item:
-    item = {
-        "date": datetime_utils.get_as_str(verification.modified_date),
-        "status": verification.status.value,
-    }
-    return item
-
-
-def format_vulnerability_zero_risk_item(
-    zero_risk: VulnerabilityZeroRisk,
-) -> Item:
-    item = {
-        "comment_id": zero_risk.comment_id,
-        "email": zero_risk.modified_by,
-        "date": datetime_utils.get_as_str(zero_risk.modified_date),
-        "status": zero_risk.status.value,
-    }
     return item
 
 
