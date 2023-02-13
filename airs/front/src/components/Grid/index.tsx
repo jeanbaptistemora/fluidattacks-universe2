@@ -9,6 +9,8 @@ const Grid: React.FC<IGridProps> = ({
   columnsMd,
   columnsSm,
   gap,
+  pv,
+  ph,
 }): JSX.Element => {
   return (
     <StyledGrid
@@ -16,6 +18,8 @@ const Grid: React.FC<IGridProps> = ({
       columnsMd={columnsMd}
       columnsSm={columnsSm}
       gap={gap}
+      ph={ph}
+      pv={pv}
     >
       {children}
     </StyledGrid>

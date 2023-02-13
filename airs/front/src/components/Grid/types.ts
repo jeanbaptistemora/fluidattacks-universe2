@@ -6,6 +6,8 @@ interface IGridProps {
   columnsMd?: Nums1To4;
   columnsSm?: Nums1To4;
   gap: string;
+  pv?: string;
+  ph?: string;
 }
 
 export type { IGridProps, Nums1To4 };
