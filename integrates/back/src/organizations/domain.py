@@ -40,7 +40,6 @@ from datetime import (
 )
 from db_model import (
     credentials as credentials_model,
-    enrollment as enrollment_model,
     organization_access as org_access_model,
     organization_finding_policies as policies_model,
     organizations as orgs_model,
@@ -64,9 +63,6 @@ from db_model.credentials.types import (
     OauthGithubSecret,
     OauthGitlabSecret,
     SshSecret,
-)
-from db_model.enrollment.types import (
-    Enrollment,
 )
 from db_model.enums import (
     CredentialType,
@@ -337,9 +333,6 @@ async def complete_register_for_organization_invitation(
         await stakeholders_domain.update(
             email=email,
             metadata=StakeholderMetadataToUpdate(enrolled=True),
-        )
-        await enrollment_model.add(
-            enrollment=Enrollment(email=email, enrolled=True)
         )
 
 

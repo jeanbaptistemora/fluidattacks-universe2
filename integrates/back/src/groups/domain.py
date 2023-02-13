@@ -51,7 +51,6 @@ from datetime import (
     datetime,
 )
 from db_model import (
-    enrollment as enrollment_model,
     forces as forces_model,
     groups as groups_model,
     toe_inputs as toe_inputs_model,
@@ -60,9 +59,6 @@ from db_model import (
 )
 from db_model.constants import (
     POLICIES_FORMATTED,
-)
-from db_model.enrollment.types import (
-    Enrollment,
 )
 from db_model.enums import (
     Notification,
@@ -260,21 +256,13 @@ async def complete_register_for_group_invitation(
             ]
         )
     if stakeholder and not stakeholder.enrolled:
-        coroutines.extend(
-            [
-                stakeholders_domain.update(
-                    email=email,
-                    metadata=StakeholderMetadataToUpdate(
-                        enrolled=True,
-                    ),
+        coroutines.append(
+            stakeholders_domain.update(
+                email=email,
+                metadata=StakeholderMetadataToUpdate(
+                    enrolled=True,
                 ),
-                enrollment_model.add(
-                    enrollment=Enrollment(
-                        email=email,
-                        enrolled=True,
-                    )
-                ),
-            ]
+            )
         )
 
     await collect(coroutines)

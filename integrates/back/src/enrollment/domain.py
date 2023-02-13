@@ -13,7 +13,6 @@ from db_model import (
     trials as trials_model,
 )
 from db_model.enrollment.types import (
-    Enrollment,
     EnrollmentMetadataToUpdate,
 )
 from db_model.stakeholders.types import (
@@ -81,12 +80,6 @@ async def add_enrollment(
             extension_date=None,
             extension_days=0,
             start_date=datetime_utils.get_utc_now(),
-        )
-    )
-    await enrollment_model.add(
-        enrollment=Enrollment(
-            email=user_email,
-            enrolled=True,
         )
     )
     await stakeholders_domain.update(
