@@ -959,6 +959,11 @@ def validate_commit_hash(commit_hash: str) -> None:
         raise InvalidCommitHash()
 
 
+def check_commit_hash(commit_hash: str, ex: CustomBaseException) -> None:
+    # validate SHA-1 or SHA-256
+    check_exp(commit_hash, r"^[A-Fa-f0-9]{40}$|^[A-Fa-f0-9]{64}$", ex)
+
+
 def validate_commit_hash_deco(field: str) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)
@@ -966,19 +971,7 @@ def validate_commit_hash_deco(field: str) -> Callable:
             commit_hash = str(
                 get_attr_value(field=field, kwargs=kwargs, obj_type=str)
             )
-            if not (
-                # validate SHA-1
-                re.match(
-                    r"^[A-Fa-f0-9]{40}$",
-                    commit_hash,
-                )
-                # validate SHA-256
-                or re.match(
-                    r"^[A-Fa-f0-9]{64}$",
-                    commit_hash,
-                )
-            ):
-                raise InvalidCommitHash()
+            check_commit_hash(commit_hash, InvalidCommitHash())
             return func(*args, **kwargs)
 
         return decorated
