@@ -3,6 +3,8 @@ from syntax_graph.syntax_readers.python import (
     assignment as python_assignment,
     attribute as python_attribute,
     call as python_call,
+    class_definition as python_class_definition,
+    expression_statement as python_expression_statement,
     function_definition as python_function_definition,
     identifier as python_identifier,
     import_statement as python_import_statement,
@@ -41,6 +43,18 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "call",
         },
         syntax_reader=python_call.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "class_definition",
+        },
+        syntax_reader=python_class_definition.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "expression_statement",
+        },
+        syntax_reader=python_expression_statement.reader,
     ),
     Dispatcher(
         applicable_types={
