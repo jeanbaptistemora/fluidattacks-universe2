@@ -39,58 +39,6 @@ def _get_pools(key_id, retry, secret, session_token):
     )
 
 
-@api(risk=HIGH, kind=DAST)
-@unknown_if(BotoCoreError, RequestException)
-def mfa_disabled(
-    key_id: str, secret: str, session_token: str = None, retry: bool = True
-) -> tuple:
-    """
-    Check if Cognito has Multi-factor Authentication.
-
-    https://docs.aws.amazon.com/cognito/latest/developerguide/
-    managing-security.html
-
-    :param key_id: AWS Key Id
-    :param secret: AWS Key Secret
-    """
-    vulns, safes = [], []
-    pools = _get_pools(key_id, retry, secret, session_token)
-    for pool in pools:
-        mfa = aws.run_boto3_func(
-            key_id=key_id,
-            secret=secret,
-            service="cognito-idp",
-            func="get_user_pool_mfa_config",
-            boto3_client_kwargs={"aws_session_token": session_token},
-            param="MfaConfiguration",
-            UserPoolId=pool["Id"],
-            retry=retry,
-        )
-
-        if not mfa == "ON":
-            vulns.append(
-                (
-                    pool["Id"],
-                    (
-                        "User Pools must have Multi-Factor "
-                        "Authentication enabled"
-                    ),
-                )
-            )
-
-    msg_open: str = f"Multi-Factor Authentication is not enabled"
-    msg_closed: str = f"Multi-Factor Authentication is enabled"
-
-    return _get_result_as_tuple(
-        service="Cognito",
-        objects="MFA",
-        msg_open=msg_open,
-        msg_closed=msg_closed,
-        vulns=vulns,
-        safes=safes,
-    )
-
-
 @api(risk=MEDIUM, kind=DAST)
 @unknown_if(BotoCoreError, RequestException)
 def advanced_security_disabled(
