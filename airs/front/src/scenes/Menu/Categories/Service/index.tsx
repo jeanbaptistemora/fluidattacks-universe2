@@ -26,58 +26,58 @@ const ServiceMenu: React.FC<IServiceProps> = ({
         mb={3}
       >
         <Container
-          maxWidth={width > 960 ? "450px" : "1440px"}
+          maxWidth={width > 960 ? "370px" : "1440px"}
           ph={4}
           scroll={"y"}
         >
           <Container
-            borderBottomColor={"#b0b0bf"}
+            borderBottomColor={"#dddde3"}
             height={"36px"}
             mb={3}
             pb={3}
           >
-            <Text color={"#8f8fa3"}>
+            <Text color={"#8f8fa3"} size={"xs"}>
               {translate.t("menu.services.allInOne.title")}
             </Text>
           </Container>
-          <Container ph={3}>
+          <Container>
             <AirsLink
               hoverColor={"#bf0b1a"}
               href={"/services/continuous-hacking/"}
             >
-              <Text color={"#121216"} mb={3} weight={"bold"}>
+              <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                 {translate.t("menu.services.allInOne.continuous.title")}
               </Text>
             </AirsLink>
-            <Text color={"#535365"} mb={3} size={"small"}>
+            <Text color={"#535365"} mb={3} size={"xs"}>
               {translate.t("menu.services.allInOne.continuous.subtitle")}
             </Text>
           </Container>
         </Container>
-        <Container maxWidth={width > 960 ? "800px" : "1440px"} ph={4}>
-          <Container borderBottomColor={"#b0b0bf"} height={"36px"} pb={3}>
-            <Text color={"#8f8fa3"}>
+        <Container maxWidth={width > 960 ? "710px" : "1440px"} ph={4}>
+          <Container borderBottomColor={"#dddde3"} height={"36px"} pb={3}>
+            <Text color={"#8f8fa3"} size={"xs"}>
               {translate.t("menu.services.solutions.title")}
             </Text>
           </Container>
-          <Grid columns={2} columnsMd={1} columnsSm={1} gap={"1rem"}>
+          <Grid columns={2} columnsMd={1} columnsSm={1} gap={"1rem"} ph={"0px"}>
             <Container>
               <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
-                <Text color={"#121216"} mb={3} weight={"bold"}>
+                <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.services.solutions.applicationSec.title")}
                 </Text>
               </AirsLink>
-              <Text color={"#535365"} size={"small"}>
+              <Text color={"#535365"} size={"xs"}>
                 {translate.t("menu.services.solutions.applicationSec.subtitle")}
               </Text>
             </Container>
             <Container>
               <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
-                <Text color={"#121216"} mb={3} weight={"bold"}>
+                <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.services.solutions.compliance.title")}
                 </Text>
               </AirsLink>
-              <Text color={"#535365"} size={"small"}>
+              <Text color={"#535365"} size={"xs"}>
                 {translate.t("menu.services.solutions.compliance.subtitle")}
               </Text>
             </Container>
