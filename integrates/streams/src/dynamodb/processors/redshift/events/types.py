@@ -4,9 +4,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from typing import (
-    Optional,
-)
 
 
 @dataclass(frozen=True)
@@ -18,8 +15,8 @@ class MetadataTableRow:
     event_date: datetime
     group_name: str
     hacker: str
-    root_id: Optional[str]
-    solution_reason: Optional[str]
-    solving_date: Optional[datetime]
+    root_id: str | None
+    solution_reason: str | None
+    solving_date: datetime | None
     status: str
     type: str

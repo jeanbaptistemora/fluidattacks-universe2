@@ -1,11 +1,12 @@
+from collections.abc import (
+    Callable,
+)
 from enum import (
     Enum,
 )
 from typing import (
     Any,
-    Callable,
     NamedTuple,
-    Optional,
 )
 
 Item = dict[str, Any]
@@ -25,8 +26,8 @@ class StreamEvent(str, Enum):
 
 class Record(NamedTuple):
     event_name: StreamEvent
-    new_image: Optional[Item]
-    old_image: Optional[Item]
+    new_image: Item | None
+    old_image: Item | None
     pk: str
     sequence_number: str
     sk: str

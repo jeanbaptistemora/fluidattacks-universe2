@@ -7,16 +7,13 @@ from datetime import (
 from decimal import (
     Decimal,
 )
-from typing import (
-    Optional,
-)
 
 
 @dataclass(frozen=True)
 class MetadataTableRow:
     # pylint: disable=invalid-name
     id: str
-    cvss_version: Optional[str]
+    cvss_version: str | None
     group_name: str
     hacker_email: str
     requirements: str

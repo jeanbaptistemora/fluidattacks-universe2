@@ -4,9 +4,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from typing import (
-    Optional,
-)
 
 
 @dataclass(frozen=True)
@@ -27,23 +24,23 @@ class MetadataTableRow:
     language: str
     name: str
     organization_id: str
-    sprint_duration: Optional[int]
-    sprint_start_date: Optional[datetime]
+    sprint_duration: int | None
+    sprint_start_date: datetime | None
 
 
 @dataclass(frozen=True)
 class StateTableRow:
     # pylint: disable=invalid-name,too-many-instance-attributes
     id: str
-    comments: Optional[str]
+    comments: str | None
     has_machine: bool
     has_squad: bool
-    justification: Optional[str]
+    justification: str | None
     managed: str
     modified_by: str
     modified_date: datetime
-    pending_deletion_date: Optional[datetime]
-    service: Optional[str]
+    pending_deletion_date: datetime | None
+    service: str | None
     status: str
     tier: str
     type: str

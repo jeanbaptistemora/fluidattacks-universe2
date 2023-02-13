@@ -4,9 +4,6 @@ from datetime import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Optional,
-)
 
 FLUID_IDENTIFIER = "@fluidattacks.com"
 
@@ -14,7 +11,7 @@ FLUID_IDENTIFIER = "@fluidattacks.com"
 def format_row_metadata(
     item: Item,
 ) -> Item:
-    unreliable_solving_date: Optional[str] = item.get(
+    unreliable_solving_date: str | None = item.get(
         "unreliable_indicators", {}
     ).get("unreliable_solving_date", None)
     return dict(

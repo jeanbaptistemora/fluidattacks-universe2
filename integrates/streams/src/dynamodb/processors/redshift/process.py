@@ -11,6 +11,9 @@ from . import (
 from .operations import (
     db_cursor,
 )
+from collections.abc import (
+    Iterator,
+)
 from dynamodb.types import (
     Item,
     Record,
@@ -22,9 +25,6 @@ from operator import (
 )
 from psycopg2.extensions import (
     cursor as cursor_cls,
-)
-from typing import (
-    Iterator,
 )
 
 FLUID_IDENTIFIER = "@fluidattacks.com"

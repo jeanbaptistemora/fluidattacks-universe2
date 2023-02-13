@@ -10,7 +10,7 @@
             outputs."/integrates/streams/runtime"
           ];
         };
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/streams/src";
       };
     };

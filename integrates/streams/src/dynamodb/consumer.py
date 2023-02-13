@@ -23,9 +23,6 @@ import logging
 from time import (
     sleep,
 )
-from typing import (
-    Optional,
-)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -41,8 +38,8 @@ class RecordProcessor(processor.RecordProcessorBase):
     def checkpoint(
         self,
         checkpointer: Checkpointer,
-        sequence_number: Optional[str] = None,
-        sub_sequence_number: Optional[int] = None,
+        sequence_number: str | None = None,
+        sub_sequence_number: int | None = None,
     ) -> None:
         """Keep track of progress so the KCL can pick up from there later"""
         retries = 0

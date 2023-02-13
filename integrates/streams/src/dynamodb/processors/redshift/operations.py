@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     contextmanager,
 )
@@ -20,8 +23,6 @@ from psycopg2.extensions import (
 )
 from typing import (
     Any,
-    Iterator,
-    Optional,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -65,7 +66,7 @@ def initialize_schema() -> None:
 
 def execute(
     sql_query: sql.Composed,
-    sql_vars: Optional[dict[str, Any]] = None,
+    sql_vars: dict[str, Any] | None = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
         with db_cursor() as cursor:
@@ -74,7 +75,7 @@ def execute(
 
 def execute_many(
     sql_query: sql.Composed,
-    sql_vars: Optional[list[dict[str, Any]]] = None,
+    sql_vars: list[dict[str, Any]] | None = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
         with db_cursor() as cursor:
@@ -83,7 +84,7 @@ def execute_many(
 
 def execute_batch(
     sql_query: sql.Composed,
-    sql_vars: Optional[list[dict[str, Any]]] = None,
+    sql_vars: list[dict[str, Any]] | None = None,
 ) -> None:
     if FI_ENVIRONMENT == "prod":
         with db_cursor() as cursor:

@@ -4,9 +4,6 @@ from dataclasses import (
 from datetime import (
     datetime,
 )
-from typing import (
-    Optional,
-)
 
 
 @dataclass(frozen=True)
@@ -15,8 +12,8 @@ class MetadataTableRow:
     id: str
     finding_id: str
     type: str
-    custom_severity: Optional[int]
-    skims_method: Optional[str]
+    custom_severity: int | None
+    skims_method: str | None
 
 
 @dataclass(frozen=True)
@@ -35,8 +32,8 @@ class TreatmentTableRow:
     id: str
     modified_date: datetime
     status: str
-    accepted_until: Optional[datetime]
-    acceptance_status: Optional[str]
+    accepted_until: datetime | None
+    acceptance_status: str | None
 
 
 @dataclass(frozen=True)

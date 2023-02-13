@@ -24,7 +24,6 @@ from operator import (
 import requests  # type: ignore
 from typing import (
     Any,
-    Optional,
 )
 import uuid
 
@@ -34,11 +33,11 @@ LOGGER = logging.getLogger(__name__)
 
 def _determine_vuln_event(
     stream_event: StreamEvent,
-    new_vuln: Optional[Item],
-    old_vuln: Optional[Item],
+    new_vuln: Item | None,
+    old_vuln: Item | None,
     is_finding_released: bool,
-) -> Optional[HookEvent]:
-    event: Optional[HookEvent] = None
+) -> HookEvent | None:
+    event: HookEvent | None = None
     if new_vuln is not None:
         if (
             # A vulnerability was reported to a finding
@@ -60,9 +59,9 @@ def _determine_vuln_event(
 
 
 def _get_attribute(
-    attr: str, new_record: Optional[Item], old_record: Optional[Item]
+    attr: str, new_record: Item | None, old_record: Item | None
 ) -> Any:
-    value: Optional[Any] = None
+    value = None
     if new_record is not None and attr in new_record:
         value = new_record[attr]
     if value is None and old_record is not None and attr in old_record:
