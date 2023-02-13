@@ -3,6 +3,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
+import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IPaymentMethodAttr } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
@@ -73,7 +74,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                 <RequiredField>{"*"}&nbsp;</RequiredField>
                 {t("organization.tabs.billing.groups.paymentMethod")}
               </ControlLabel>
-              <Field component={FormikDropdown} name={"paymentId"}>
+              <Select name={"paymentId"}>
                 <option value={""} />
                 {paymentMethods.map(
                   (method): JSX.Element => (
@@ -84,7 +85,7 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
                     }`}</option>
                   )
                 )}
-              </Field>
+              </Select>
             </div>
             <div className={"pt2"}>
               <ControlLabel>
