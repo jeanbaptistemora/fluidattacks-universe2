@@ -21779,6 +21779,70 @@
           "TableData": [
             {
               "finding_id": {
+                "S": "457497318"
+              },
+              "full_name": {
+                "S": "user Integrates"
+              },
+              "comment_type": {
+                "S": "COMMENT"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#457497318"
+              },
+              "pk": {
+                "S": "CMNT#1558048728999"
+              },
+              "id": {
+                "S": "1558048728999"
+              },
+              "creation_date": {
+                "S": "2021-01-19T15:41:04+00:00"
+              },
+              "content": {
+                "S": "This is a comment."
+              },
+              "email": {
+                "S": "integratesuser@gmail.com"
+              }
+            },
+            {
+              "finding_id": {
+                "S": "457497318"
+              },
+              "full_name": {
+                "S": "hacker Integrates"
+              },
+              "comment_type": {
+                "S": "OBSERVATION"
+              },
+              "parent_id": {
+                "S": "0"
+              },
+              "sk": {
+                "S": "FIN#457497318"
+              },
+              "pk": {
+                "S": "CMNT#1558048729999"
+              },
+              "id": {
+                "S": "1558048729999"
+              },
+              "creation_date": {
+                "S": "2022-01-19T15:41:04+00:00"
+              },
+              "content": {
+                "S": "This is an observation."
+              },
+              "email": {
+                "S": "integrateshacker@fluidattacks.com"
+              }
+            },
+            {
+              "finding_id": {
                 "S": "463558592"
               },
               "full_name": {

@@ -168,7 +168,7 @@ def test_finding_comments(
     )
     assert utils.wait_for_text(
         driver,
-        "No comments",
+        "This is a comment.",
         timeout,
     )
     assert WebDriverWait(driver, timeout).until(
@@ -179,20 +179,28 @@ def test_finding_comments(
             )
         )
     )
+    assert WebDriverWait(driver, timeout).until(
+        ec.invisibility_of_element_located(
+            (
+                By.XPATH,
+                "//*[text()[contains(., 'Reply')]]",
+            )
+        )
+    )
 
     # Enter finding observation
     driver.get(
         f"{asm_endpoint}/orgs/okada/groups/oneshottest/"
         "vulns/457497318/observations"
     )
-    assert utils.wait_for_text(
-        driver,
-        "No comments",
-        timeout,
-    )
     assert utils.wait_for_name(
         driver,
         "comment-editor",
+        timeout,
+    )
+    assert utils.wait_for_text(
+        driver,
+        "Reply",
         timeout,
     )
 
