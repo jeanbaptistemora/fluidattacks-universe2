@@ -1,0 +1,5 @@
+[requires]
+    glm/0.9.7.6
+
+[full_requires]
+    zlib/1.2.11@conan/stable:ec336a8e46e06995be9ad34dc1a7477dff42a7df
