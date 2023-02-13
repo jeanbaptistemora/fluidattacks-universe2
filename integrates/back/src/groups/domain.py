@@ -260,24 +260,22 @@ async def complete_register_for_group_invitation(
             ]
         )
     if stakeholder and not stakeholder.enrolled:
-        enrollment: Enrollment = await loaders.enrollment.load(email)
-        if not enrollment.enrolled:
-            coroutines.extend(
-                [
-                    stakeholders_domain.update(
+        coroutines.extend(
+            [
+                stakeholders_domain.update(
+                    email=email,
+                    metadata=StakeholderMetadataToUpdate(
+                        enrolled=True,
+                    ),
+                ),
+                enrollment_model.add(
+                    enrollment=Enrollment(
                         email=email,
-                        metadata=StakeholderMetadataToUpdate(
-                            enrolled=True,
-                        ),
-                    ),
-                    enrollment_model.add(
-                        enrollment=Enrollment(
-                            email=email,
-                            enrolled=True,
-                        )
-                    ),
-                ]
-            )
+                        enrolled=True,
+                    )
+                ),
+            ]
+        )
 
     await collect(coroutines)
 

@@ -5,9 +5,6 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from enrollment import (
     domain as enrollment_domain,
 )
@@ -53,10 +50,11 @@ async def test_should_add_enrollment(
     assert result["data"]["addEnrollment"]["success"]
 
     loaders.trial.clear_all()
-    loaders.enrollment.clear_all()
+    loaders.stakeholder.clear_all()
     trial = await loaders.trial.load(email)
-    enrollment: Enrollment = await loaders.enrollment.load(email)
-    assert enrollment.enrolled
+    stakeholder = await loaders.stakeholder.load(email)
+    assert stakeholder
+    assert stakeholder.enrolled is True
     assert trial
     assert trial.start_date
     assert (
