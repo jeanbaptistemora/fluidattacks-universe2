@@ -13,9 +13,6 @@ from db_model.credentials.get import (
     OrganizationCredentialsLoader,
     UserCredentialsLoader,
 )
-from db_model.enrollment.get import (
-    EnrollmentLoader,
-)
 from db_model.event_comments.get import (
     EventCommentsLoader,
 )
@@ -146,7 +143,6 @@ from typing import (
 class Dataloaders(NamedTuple):
     compliance_unreliable_indicators: ComplianceUnreliableIndicatorsLoader
     credentials: CredentialsLoader
-    enrollment: EnrollmentLoader
     environment_secrets: GitEnvironmentSecretsLoader
     event_historic_state: EventsHistoricStateLoader
     event: EventLoader
@@ -319,7 +315,6 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
             ComplianceUnreliableIndicatorsLoader()
         ),
         credentials=CredentialsLoader(),
-        enrollment=EnrollmentLoader(),
         environment_secrets=GitEnvironmentSecretsLoader(),
         event_historic_state=EventsHistoricStateLoader(),
         event=event_loader,

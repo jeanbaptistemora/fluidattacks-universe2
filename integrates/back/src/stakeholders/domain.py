@@ -30,7 +30,6 @@ from datetime import (
     datetime,
 )
 from db_model import (
-    enrollment as enrollment_model,
     findings as findings_model,
     stakeholders as stakeholders_model,
     subscriptions as subscriptions_model,
@@ -150,8 +149,6 @@ async def remove(email: str) -> None:
         ),
         workers=8,
     )
-
-    await enrollment_model.remove(email=email)
     await stakeholders_model.remove(email=email)
     LOGGER.info(
         "Stakeholder removed from db",

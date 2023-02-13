@@ -1,3 +1,5 @@
+# type: ignore
+
 # pylint: disable=invalid-name
 """
 Clear flag enrolled in enrollment_metadata facet for stakeholders

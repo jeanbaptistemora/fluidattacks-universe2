@@ -1,3 +1,5 @@
+# type: ignore
+
 # pylint: disable=invalid-name
 """
 Populates the stakeholder enrolled attribute with data previosly stored
