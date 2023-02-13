@@ -126,13 +126,34 @@ LOGGER = logging.getLogger(__name__)
 
 
 async def get_vulnerability(
-    loaders: Dataloaders, vulnerability_id: str
+    loaders: Dataloaders,
+    vulnerability_id: str,
+    clear_loader: bool = False,
 ) -> Vulnerability:
+    if clear_loader:
+        loaders.vulnerability.clear(vulnerability_id)
+
     vulnerability = await loaders.vulnerability.load(vulnerability_id)
     if vulnerability is None:
         raise VulnNotFound()
 
     return vulnerability
+
+
+async def get_vulnerabilities(
+    loaders: Dataloaders,
+    vulnerability_ids: Iterable[str],
+    clear_loader: bool = False,
+) -> list[Vulnerability]:
+    if clear_loader:
+        for key in vulnerability_ids:
+            loaders.vulnerability.clear(key)
+
+    vulnerabilities = await loaders.vulnerability.load_many(vulnerability_ids)
+    if None in vulnerabilities:
+        raise VulnNotFound()
+
+    return cast(list[Vulnerability], vulnerabilities)
 
 
 async def confirm_vulnerabilities_zero_risk(
@@ -798,8 +819,9 @@ async def update_historics_dates(
             )
         ),
     )
-    loaders.vulnerability.clear(vulnerability_id)
-    vulnerability = await get_vulnerability(loaders, vulnerability_id)
+    vulnerability = await get_vulnerability(
+        loaders, vulnerability_id, clear_loader=True
+    )
     await vulns_model.update_historic(
         current_value=vulnerability,
         historic=historic_state,
@@ -825,8 +847,9 @@ async def update_historics_dates(
             )
         ),
     )
-    loaders.vulnerability.clear(vulnerability_id)
-    vulnerability = await get_vulnerability(loaders, vulnerability_id)
+    vulnerability = await get_vulnerability(
+        loaders, vulnerability_id, clear_loader=True
+    )
     await vulns_model.update_historic(
         current_value=vulnerability,
         historic=historic_treatment,
@@ -951,11 +974,9 @@ async def verify(
     vulns_to_close_from_file: list[Vulnerability],
     context: Optional[Any] = None,
 ) -> None:
-    list_closed_vulns: list[Vulnerability] = []
-    for vuln_id in sorted(closed_vulns_ids):
-        loaders.vulnerability.clear(vuln_id)
-        list_closed_vulns.append(await get_vulnerability(loaders, vuln_id))
-
+    list_closed_vulns = await get_vulnerabilities(
+        loaders, sorted(closed_vulns_ids), clear_loader=True
+    )
     if context:
         user_data = await sessions_domain.get_jwt_content(context)
         modified_by = str(user_data["user_email"])
