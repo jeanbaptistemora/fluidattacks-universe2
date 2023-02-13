@@ -32,10 +32,11 @@ def header_allow_all_methods(content: str, path: str) -> Vulnerabilities:
                 col_no: int = tag.sourcepos
                 yield line_no, col_no
 
+    desc = "src.lib_path.f044.severless_bucket_has_https_methos_enabled"
     return get_vulnerabilities_from_iterator_blocking(
         content=content,
-        description_key="lib_path.f152.xml_x_frame_options",
+        description_key=desc,
         iterator=iterator(),
         path=path,
-        method=MethodsEnum.XML_X_FRAME_OPTIONS,
+        method=MethodsEnum.XML_HEADER_ALLOW_ALL_METHODS,
     )

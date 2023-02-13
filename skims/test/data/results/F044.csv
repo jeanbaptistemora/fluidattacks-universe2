@@ -47,7 +47,7 @@ F044,lines,namespace/skims/test/data/lib_path/f044/http_method_enabled.yaml.json
    72 |             ""DataTraceEnabled"": ""false"",
       ^ Col 0
 ",cloudformation.cnf_http_methods_enabled
-F152,lines,namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config,25,693,skims,152. Insecure or unset HTTP headers - X-Frame Options,"El encabezado de respuesta HTTP X-Frame-Options puede ser usado para indicar si debería permitírsele a un navegador renderizar una página en un <frame>, <iframe>, <embed> u <object>. Las páginas web pueden usarlo para evitar ataques de click-jacking, asegurándose de que su contenido no es embebido en otros sitios. in namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config","
+F044,lines,namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config,25,650,skims,044. Insecure HTTP methods enabled,All http methods are enabled in namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.config,"
    15 |   -->
    16 |   <system.web>
    17 |     <compilation debug=""true"" targetFramework=""4.7.2"" />
@@ -70,4 +70,4 @@ F152,lines,namespace/skims/test/data/lib_path/f044/xml_header_allow_all_methods.
    34 |   <runtime>
    35 |     <assemblyBinding xmlns=""urn:schemas-microsoft-com:asm.v1"">
       ^ Col 0
-",conf_files.xml_x_frame_options
+",conf_files.xml_header_allow_all_methods
