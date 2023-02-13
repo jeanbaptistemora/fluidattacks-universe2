@@ -171,6 +171,7 @@ const Repository: FC<IRepositoryProps> = ({
   const organizationCredentials = _.isUndefined(organizationCredentialsData)
     ? []
     : organizationCredentialsData.organization.credentials;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const groupedExistingCreds =
     organizationCredentials.length > 0
       ? Object.fromEntries(
@@ -239,27 +240,30 @@ const Repository: FC<IRepositoryProps> = ({
     return false;
   };
 
-  function onChangeExits(event: ChangeEvent<HTMLInputElement>): void {
-    if (event.target.value === "") {
-      formRef.current?.setFieldValue("credentials.typeCredential", "");
-      formRef.current?.setFieldValue("credentials.type", "");
-      formRef.current?.setFieldValue("credentials.name", "");
-      formRef.current?.setFieldValue("credentials.id", "");
-      setCredExists(manyRows || false);
-      setDisabledCredsEdit(manyRows || false);
-    } else {
-      const currentCred = groupedExistingCreds[event.target.value];
-      formRef.current?.setFieldValue(
-        "credentials.typeCredential",
-        formatTypeCredentials(currentCred)
-      );
-      formRef.current?.setFieldValue("credentials.type", currentCred.type);
-      formRef.current?.setFieldValue("credentials.name", currentCred.name);
-      formRef.current?.setFieldValue("credentials.id", currentCred.id);
-      setCredExists(true);
-      setDisabledCredsEdit(true);
-    }
-  }
+  const onChangeExits = useCallback(
+    (event: ChangeEvent<HTMLInputElement>): void => {
+      if (event.target.value === "") {
+        formRef.current?.setFieldValue("credentials.typeCredential", "");
+        formRef.current?.setFieldValue("credentials.type", "");
+        formRef.current?.setFieldValue("credentials.name", "");
+        formRef.current?.setFieldValue("credentials.id", "");
+        setCredExists(manyRows || false);
+        setDisabledCredsEdit(manyRows || false);
+      } else {
+        const currentCred = groupedExistingCreds[event.target.value];
+        formRef.current?.setFieldValue(
+          "credentials.typeCredential",
+          formatTypeCredentials(currentCred)
+        );
+        formRef.current?.setFieldValue("credentials.type", currentCred.type);
+        formRef.current?.setFieldValue("credentials.name", currentCred.name);
+        formRef.current?.setFieldValue("credentials.id", currentCred.id);
+        setCredExists(true);
+        setDisabledCredsEdit(true);
+      }
+    },
+    [groupedExistingCreds, manyRows]
+  );
 
   return (
     <Formik
