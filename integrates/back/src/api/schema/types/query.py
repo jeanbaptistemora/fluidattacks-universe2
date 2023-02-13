@@ -1,6 +1,5 @@
 from api.resolvers.query import (
     billing,
-    enrollment,
     environment_url,
     event,
     events,
@@ -28,7 +27,6 @@ from ariadne import (
 
 QUERY = QueryType()
 QUERY.set_field("billing", billing.resolve)
-QUERY.set_field("enrollment", enrollment.resolve)
 QUERY.set_field("event", event.resolve)
 QUERY.set_field("events", events.resolve)
 QUERY.set_field("finding", finding.resolve)

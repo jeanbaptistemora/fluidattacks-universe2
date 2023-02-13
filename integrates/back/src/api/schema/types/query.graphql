@@ -3,17 +3,6 @@ type Query {
   "Billing entity"
   billing: Billing
 
-  "Enrollment entity"
-  enrollment(
-    "User email"
-    email: String!
-  ): Enrollment!
-  @deprecated(
-    reason: """
-      This field will be removed after 2023/05/25.
-    """
-  )
-
   "Environment URL entity"
   environmentUrl(
     "Name of the group to query"

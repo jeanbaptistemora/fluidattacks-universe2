@@ -103,9 +103,6 @@ from .vulnerability_historic_state import (
 from api.schema.types.credentials import (
     CREDENTIALS,
 )
-from api.schema.types.enrollment import (
-    ENROLLMENT,
-)
 from api.schema.types.event_evidence import (
     EVENT_EVIDENCE,
 )
@@ -160,7 +157,6 @@ TYPES: Tuple[ObjectType, ...] = (
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
-    ENROLLMENT,
     EVENT,
     EVENT_EVIDENCE,
     EVENT_EVIDENCE_ITEM,
