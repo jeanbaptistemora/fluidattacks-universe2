@@ -23,7 +23,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
         display={width > 960 ? "flex" : "inline"}
         height={"100%"}
         justify={"center"}
-        ph={3}
+        ph={4}
         scroll={"y"}
       >
         <Container maxWidth={width > 960 ? "650px" : "1440px"} mb={3} mr={4}>

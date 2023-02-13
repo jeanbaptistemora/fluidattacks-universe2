@@ -20,7 +20,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
   return (
     <Container bgColor={"#ffffff"} display={display}>
       <Container display={"flex"} height={"230px"} justify={"center"} ph={4}>
-        <Container maxWidth={"800px"} mr={4}>
+        <Container maxWidth={width > 960 ? "800px" : "100%"} mr={4}>
           <Container
             borderBottomColor={"#dddde3"}
             height={"36px"}
