@@ -125,7 +125,8 @@ our [Attack Resistance Management (ARM) platform](../../product-overview/).
 <cta-banner
   buttontxt="Read more"
   link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' BAS solution right now"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
 />
 
 ## Why do we need breach and attack simulation?
