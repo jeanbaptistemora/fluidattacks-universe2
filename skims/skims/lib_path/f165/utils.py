@@ -148,7 +148,8 @@ def _yield_nodes_from_stmt(
         ) if isinstance(not_actions.raw, List) else not_actions
 
     if (
-        hasattr(stmt.inner, "get")
+        hasattr(stmt, "inner")
+        and hasattr(stmt.inner, "get")
         and (not_resource := stmt.inner.get("NotResource"))
         and method == MethodsEnum.CFN_IAM_PERMISSIONS_POLICY_NOT_RESOURCE
     ):
