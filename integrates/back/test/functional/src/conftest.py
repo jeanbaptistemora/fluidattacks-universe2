@@ -5,9 +5,6 @@ from asyncio import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -115,20 +112,6 @@ def generic_data(  # pylint: disable=too-many-locals
             "R359": "R359. Avoid using generic exceptions.",
         },
         "db_data": {
-            "enrollments": (
-                Enrollment(
-                    email=admin_email,
-                    enrolled=True,
-                ),
-                Enrollment(
-                    email=admin_fluid_email,
-                    enrolled=True,
-                ),
-                Enrollment(
-                    email=customer_manager_fluid_email,
-                    enrolled=True,
-                ),
-            ),
             "stakeholders": [
                 Stakeholder(
                     email=admin_email,

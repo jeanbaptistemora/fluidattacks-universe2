@@ -5,9 +5,6 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.groups.enums import (
     GroupLanguage,
     GroupManaged,
@@ -47,12 +44,6 @@ import pytest_asyncio
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
-        "enrollments": [
-            Enrollment(
-                email="janedoe@janedoe.com",
-                enrolled=True,
-            ),
-        ],
         "trials": [
             Trial(
                 email="janedoe@janedoe.com",

@@ -5,9 +5,6 @@ from back.test import (
 from datetime import (
     datetime,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -19,15 +16,10 @@ import pytest_asyncio
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate() -> bool:
     data = {
-        "enrollments": [
-            Enrollment(
-                email="johndoe@fluidattacks.com",
-                enrolled=True,
-            ),
-        ],
         "stakeholders": [
             Stakeholder(
                 email="johndoe@fluidattacks.com",
+                enrolled=True,
                 first_name="John",
                 is_registered=True,
                 last_name="Doe",
