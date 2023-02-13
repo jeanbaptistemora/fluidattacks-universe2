@@ -52,7 +52,7 @@ taking into account the following:
   detectable only via source code
   are not considered false negatives.
 
-## Indicator calculaion
+## Indicator calculation
 
 - Compute CVSSF for each location
   (CVSSF = 4 ^ (4 - CVSS))
