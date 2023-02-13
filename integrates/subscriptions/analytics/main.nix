@@ -1,5 +1,4 @@
 {
-  inputs,
   makeScript,
   outputs,
   ...
@@ -11,7 +10,6 @@ makeScript {
   name = "integrates-subscriptions-analytics";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python39
       outputs."/integrates/db"
     ];
     source = [

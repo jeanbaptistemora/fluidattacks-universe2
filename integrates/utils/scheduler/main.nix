@@ -11,7 +11,6 @@ makeScript {
   name = "integrates-scheduler";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.python39
       inputs.nixpkgs.tokei
       inputs.nixpkgs.nix
       outputs."/melts"

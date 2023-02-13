@@ -8,7 +8,7 @@ closure:
   jmespath: 1.0.1
   more-itertools: 8.14.0
   opensearch-py: 2.0.0
-  psycopg2: 2.9.3
+  psycopg2: 2.9.5
   python-dateutil: 2.8.2
   requests: 2.28.1
   s3transfer: 0.6.0
@@ -71,9 +71,9 @@ links:
   - name: opensearch-py-2.0.0.tar.gz
     sha256: 0lhwm3c9zkq504iyjy4ayfrksqcg6ffxw16hm8pyfzamahd4ayqv
     url: https://files.pythonhosted.org/packages/1b/0c/0eb55e670d71a3d62820c7870df3430db09c20a9bad0f9603e36f067a61c/opensearch-py-2.0.0.tar.gz
-  - name: psycopg2-2.9.3.tar.gz
-    sha256: 1099as8ind9kpz30rmqzc3nir668fmpkxwayrj2sjka3ycdiv14f
-    url: https://files.pythonhosted.org/packages/d1/1e/b450599a27b1809bccbd4e369f397cb18dc56b875778d961f9ae180b54b7/psycopg2-2.9.3.tar.gz
+  - name: psycopg2-2.9.5.tar.gz
+    sha256: 0ni4kq6p7hbkm2qsky998q36q5gq5if4nwd8hwhjx5rsd0p6s955
+    url: https://files.pythonhosted.org/packages/89/d6/cd8c46417e0f7a16b4b0fc321f4ab676a59250d08fce5b64921897fb07cc/psycopg2-2.9.5.tar.gz
   - name: python_dateutil-2.8.2-py2.py3-none-any.whl
     sha256: 1aaxjfp4lrz8c6qls3vdhw554lan3khy9afyvdcvrssk6kf067cn
     url: https://files.pythonhosted.org/packages/36/7a/87837f39d0296e723bb9b62bbb257d0355c7f6128853c78955f57342a56d/python_dateutil-2.8.2-py2.py3-none-any.whl

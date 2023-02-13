@@ -15,7 +15,7 @@ makeDerivation {
   builder = ./builder.sh;
   name = "integrates-secrets-lint";
   searchPaths.bin = [
-    inputs.nixpkgs.python39Packages.yamllint
+    inputs.nixpkgs.python311Packages.yamllint
     inputs.nixpkgs.yq
   ];
 }
