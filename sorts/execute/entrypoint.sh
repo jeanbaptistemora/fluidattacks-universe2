@@ -16,7 +16,7 @@ function execute {
     echo '[WARNING] No repositories to test' \
       && return 0
   fi \
-    && echo '[INFO] Running sorts:' \
+    && echo "[INFO] Running sorts on group ${group}:" \
     && if sorts "groups/${group}"; then
       echo "[INFO] Succesfully executed on: ${group}" \
         && success='true'
