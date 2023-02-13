@@ -458,7 +458,7 @@ cwe:
       a measuring stick for security tools,
       and as a baseline for weakness identification,
       mitigation and prevention efforts.
-      The version used in this section is CWE™ List v4.8.
+      The version used in this section is CWE™ List v4.10.
   es:
     summary: __empty__
   definitions:
@@ -1023,6 +1023,21 @@ cwe:
     "1325":
       title: Improperly controlled sequential memory allocation
       link: https://cwe.mitre.org/data/definitions/1325.html
+    "1390":
+      title: Weak Authentication
+      link: https://cwe.mitre.org/data/definitions/1390.html
+    "1391":
+      title: Use of Weak Credentials
+      link: https://cwe.mitre.org/data/definitions/1391.html
+    "1392":
+      title: Use of Default Credentials
+      link: https://cwe.mitre.org/data/definitions/1392.html
+    "1393":
+      title: Use of Default Password
+      link: https://cwe.mitre.org/data/definitions/1393.html
+    "1394":
+      title: Use of Default Cryptographic Key
+      link: https://cwe.mitre.org/data/definitions/1394.html
     "1395":
       title: Dependency on Vulnerable Third-Party Component
       link: https://cwe.mitre.org/data/definitions/1395.html
