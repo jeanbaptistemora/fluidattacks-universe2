@@ -1,4 +1,4 @@
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 
 interface IZeroRiskTableProps {
   acceptanceVulns: IVulnDataAttr[];

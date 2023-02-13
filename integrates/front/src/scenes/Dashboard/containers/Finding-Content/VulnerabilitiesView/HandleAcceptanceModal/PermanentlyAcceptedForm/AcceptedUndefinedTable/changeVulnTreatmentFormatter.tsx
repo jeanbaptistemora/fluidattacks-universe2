@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 import { Switch } from "components/Switch";
 
 interface IChangeVulnTreatmentFormatterProps {

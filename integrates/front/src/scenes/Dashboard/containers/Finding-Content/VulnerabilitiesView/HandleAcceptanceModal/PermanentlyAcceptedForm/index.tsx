@@ -4,10 +4,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
+import { AcceptedUndefinedTable } from "./AcceptedUndefinedTable";
 import type { IFormValues, IPermanentlyAcceptedFormProps } from "./types";
 
 import { getVulnsPendingOfAcceptance } from "../../utils";
-import { AcceptedUndefinedTable } from "../AcceptedUndefinedTable";
 import { acceptanceProps, isAcceptedUndefinedSelectedHelper } from "../helpers";
 import { HANDLE_VULNS_ACCEPTANCE } from "../queries";
 import type { IVulnDataAttr } from "../types";

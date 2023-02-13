@@ -4,7 +4,7 @@ import React from "react";
 import { changeVulnTreatmentFormatter } from "./changeVulnTreatmentFormatter";
 import type { IAcceptedUndefinedTableProps } from "./types";
 
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 

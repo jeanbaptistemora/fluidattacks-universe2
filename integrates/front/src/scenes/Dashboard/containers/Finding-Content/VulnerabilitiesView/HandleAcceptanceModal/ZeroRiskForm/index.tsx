@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
 import type { IFormValues, IZeroRiskFormProps } from "./types";
+import { ZeroRiskTable } from "./ZeroRiskTable";
 
 import { getRequestedZeroRiskVulns } from "../../utils";
 import {
@@ -20,7 +21,6 @@ import {
   REJECT_VULNERABILITIES_ZERO_RISK,
 } from "../queries";
 import type { IVulnDataAttr } from "../types";
-import { ZeroRiskTable } from "../ZeroRiskTable";
 import { Select, TextArea } from "components/Input";
 import { ModalConfirm } from "components/Modal";
 import { authzPermissionsContext } from "utils/authz/config";

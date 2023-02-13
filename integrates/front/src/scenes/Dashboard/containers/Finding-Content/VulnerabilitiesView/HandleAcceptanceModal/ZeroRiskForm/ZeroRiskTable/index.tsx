@@ -1,26 +1,23 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import React from "react";
-import { useTranslation } from "react-i18next";
 
-import { changeSubmittedFormatter } from "./changeSubmittedFormatter";
-import type { ISubmittedTableProps } from "./types";
+import { changeZeroRiskFormatter } from "./changeZeroRiskFormatter";
+import type { IZeroRiskTableProps } from "./types";
 
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 
-const SubmittedTable: React.FC<ISubmittedTableProps> = (
-  props: ISubmittedTableProps
+const ZeroRiskTable: React.FC<IZeroRiskTableProps> = (
+  props: IZeroRiskTableProps
 ): JSX.Element => {
   const {
     acceptanceVulns,
-    isConfirmRejectVulnerabilitySelected,
+    isConfirmRejectZeroRiskSelected,
     setAcceptanceVulns,
   } = props;
 
-  const { t } = useTranslation();
-
-  const handleRejectSubmitted = (vulnInfo?: IVulnDataAttr): void => {
+  const handleRejectZeroRisk = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
@@ -35,7 +32,7 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
     }
   };
 
-  const handleConfirmSubmitted = (vulnInfo?: IVulnDataAttr): void => {
+  const handleConfirmZeroRisk = (vulnInfo?: IVulnDataAttr): void => {
     if (vulnInfo) {
       const newVulnList: IVulnDataAttr[] = acceptanceVulns.map(
         (vuln: IVulnDataAttr): IVulnDataAttr =>
@@ -53,23 +50,19 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
   const columns: ColumnDef<IVulnDataAttr>[] = [
     {
       accessorKey: "where",
-      header: t(
-        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.where"
-      ),
+      header: "Where",
     },
     {
       accessorKey: "specific",
-      header: t(
-        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.specific"
-      ),
+      header: "Specific",
     },
     {
       accessorKey: "acceptance",
       cell: (cell: ICellHelper<IVulnDataAttr>): JSX.Element =>
-        changeSubmittedFormatter(
+        changeZeroRiskFormatter(
           cell.row.original,
-          handleConfirmSubmitted,
-          handleRejectSubmitted
+          handleConfirmZeroRisk,
+          handleRejectZeroRisk
         ),
       header: "Acceptance",
     },
@@ -77,11 +70,15 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
 
   return (
     <React.StrictMode>
-      {isConfirmRejectVulnerabilitySelected ? (
-        <Table columns={columns} data={acceptanceVulns} id={"submittedTable"} />
+      {isConfirmRejectZeroRiskSelected ? (
+        <Table
+          columns={columns}
+          data={acceptanceVulns}
+          id={"vulnsToHandleAcceptance"}
+        />
       ) : undefined}
     </React.StrictMode>
   );
 };
 
-export { SubmittedTable };
+export { ZeroRiskTable };

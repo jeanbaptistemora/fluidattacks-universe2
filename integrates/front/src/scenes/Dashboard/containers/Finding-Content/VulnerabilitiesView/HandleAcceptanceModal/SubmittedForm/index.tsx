@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
+import { SubmittedTable } from "./SubmittedTable";
 import type { IFormValues, ISubmittedFormProps } from "./types";
 
 import { getSubmittedVulns } from "../../utils";
@@ -12,7 +13,6 @@ import {
   confirmVulnerabilityProps,
 } from "../helpers";
 import { CONFIRM_VULNERABILITIES } from "../queries";
-import { SubmittedTable } from "../SubmittedTable";
 import type { IVulnDataAttr } from "../types";
 import { ModalConfirm } from "components/Modal";
 

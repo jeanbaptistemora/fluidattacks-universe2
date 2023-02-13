@@ -2,7 +2,7 @@ import React from "react";
 
 import { ConfirmVulnerabilityCheckBox } from "./ConfirmVulnerabilityCheckBox";
 
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 
 export const changeSubmittedFormatter = (
   row: IVulnDataAttr,

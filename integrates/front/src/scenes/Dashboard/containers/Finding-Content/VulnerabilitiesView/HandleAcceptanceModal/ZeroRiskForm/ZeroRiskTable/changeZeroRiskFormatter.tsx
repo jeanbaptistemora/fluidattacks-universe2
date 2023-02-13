@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import type { IVulnDataAttr } from "../types";
+import type { IVulnDataAttr } from "../../types";
 import { MixedCheckBoxButton } from "components/MixedCheckBoxButton";
 
 interface IChangeZeroRiskFormatterProps {
