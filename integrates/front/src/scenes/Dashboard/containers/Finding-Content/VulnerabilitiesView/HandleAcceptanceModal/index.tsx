@@ -1,38 +1,16 @@
-import { useMutation } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Formik } from "formik";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { HandleAcceptanceModalForm } from "./form";
-import {
-  acceptanceProps,
-  confirmVulnerabilityHelper,
-  confirmVulnerabilityProps,
-  confirmZeroRiskProps,
-  isAcceptedUndefinedSelectedHelper,
-  isConfirmZeroRiskSelectedHelper,
-  isRejectZeroRiskSelectedHelper,
-  rejectZeroRiskProps,
-} from "./helpers";
 import { PermanentlyAcceptedForm } from "./PermanentlyAcceptedForm";
+import { SubmittedForm } from "./SubmittedForm";
 import { getInitialTreatment } from "./utils";
 import { ZeroRiskForm } from "./ZeroRiskForm";
 
 import { FormikSelect } from "components/Input/Formik";
 import { Modal } from "components/Modal";
-import {
-  CONFIRM_VULNERABILITIES,
-  CONFIRM_VULNERABILITIES_ZERO_RISK,
-  HANDLE_VULNS_ACCEPTANCE,
-  REJECT_VULNERABILITIES_ZERO_RISK,
-} from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/queries";
-import type {
-  IFormValues,
-  IHandleVulnerabilitiesAcceptanceModalProps,
-  IVulnDataAttr,
-} from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
+import type { IHandleVulnerabilitiesAcceptanceModalProps } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/types";
 import { authzGroupContext, authzPermissionsContext } from "utils/authz/config";
 
 const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps> =
@@ -61,11 +39,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       "can_report_vulnerabilities"
     );
 
-    const [acceptanceVulns, setAcceptanceVulns] = useState<IVulnDataAttr[]>([]);
-    const [acceptedVulns, setAcceptedVulns] = useState<IVulnDataAttr[]>([]);
-    const [rejectedVulns, setRejectedVulns] = useState<IVulnDataAttr[]>([]);
-    const [hasAcceptedVulns, setHasAcceptedVulns] = useState<boolean>(false);
-    const [hasRejectedVulns, setHasRejectedVulns] = useState<boolean>(false);
+    // State
     const [treatment, setTreatment] = useState(
       getInitialTreatment(
         canHandleVulnerabilitiesAcceptance,
@@ -73,96 +47,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
       )
     );
 
-    const onAcceptanceVulnsChange: () => void = (): void => {
-      const newAcceptedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
-        (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-          vuln.acceptance === "APPROVED" ? [...acc, vuln] : acc,
-        []
-      );
-      const newRejectedVulns: IVulnDataAttr[] = acceptanceVulns.reduce(
-        (acc: IVulnDataAttr[], vuln: IVulnDataAttr): IVulnDataAttr[] =>
-          vuln.acceptance === "REJECTED" ? [...acc, vuln] : acc,
-        []
-      );
-      setAcceptedVulns(newAcceptedVulns);
-      setRejectedVulns(newRejectedVulns);
-      setHasAcceptedVulns(newAcceptedVulns.length !== 0);
-      setHasRejectedVulns(newRejectedVulns.length !== 0);
-    };
-    useEffect(onAcceptanceVulnsChange, [acceptanceVulns]);
-
-    // GraphQL operations
-    const [handleAcceptance, { loading: handlingAcceptance }] = useMutation(
-      HANDLE_VULNS_ACCEPTANCE,
-      acceptanceProps(refetchData, handleCloseModal, findingId)
-    );
-    const [confirmZeroRisk, { loading: confirmingZeroRisk }] = useMutation(
-      CONFIRM_VULNERABILITIES_ZERO_RISK,
-      confirmZeroRiskProps(refetchData, handleCloseModal, findingId)
-    );
-    const [confirmVulnerability] = useMutation(
-      CONFIRM_VULNERABILITIES,
-      confirmVulnerabilityProps(
-        refetchData,
-        handleCloseModal,
-        groupName,
-        findingId
-      )
-    );
-    const [rejectZeroRisk, { loading: rejectingZeroRisk }] = useMutation(
-      REJECT_VULNERABILITIES_ZERO_RISK,
-      rejectZeroRiskProps(refetchData, handleCloseModal, groupName, findingId)
-    );
-
-    const handleSubmit = useCallback(
-      (values: IFormValues): void => {
-        const isAcceptedUndefinedSelected: boolean =
-          treatment === "ACCEPTED_UNDEFINED";
-        const isConfirmRejectZeroRiskSelected: boolean =
-          treatment === "CONFIRM_REJECT_ZERO_RISK";
-        const isConfirmRejectVulnerabilitySelected: boolean =
-          treatment === "CONFIRM_REJECT_VULNERABILITY";
-
-        const formValues = (({ justification }): { justification: string } => ({
-          justification,
-        }))(values);
-
-        confirmVulnerabilityHelper(
-          isConfirmRejectVulnerabilitySelected,
-          confirmVulnerability,
-          acceptedVulns
-        );
-        isAcceptedUndefinedSelectedHelper(
-          isAcceptedUndefinedSelected,
-          handleAcceptance,
-          acceptedVulns,
-          formValues,
-          rejectedVulns
-        );
-        isConfirmZeroRiskSelectedHelper(
-          isConfirmRejectZeroRiskSelected,
-          confirmZeroRisk,
-          acceptedVulns,
-          formValues
-        );
-        isRejectZeroRiskSelectedHelper(
-          isConfirmRejectZeroRiskSelected,
-          rejectZeroRisk,
-          formValues,
-          rejectedVulns
-        );
-      },
-      [
-        acceptedVulns,
-        confirmVulnerability,
-        confirmZeroRisk,
-        handleAcceptance,
-        rejectZeroRisk,
-        rejectedVulns,
-        treatment,
-      ]
-    );
-
+    // Handle actions
     const handleTreatmentChange = useCallback(
       (event: React.ChangeEvent<HTMLSelectElement>): void => {
         setTreatment(event.target.value);
@@ -173,68 +58,38 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     return (
       <React.StrictMode>
         <Modal
+          onClose={handleCloseModal}
           open={true}
           title={t("searchFindings.tabDescription.handleAcceptanceModal.title")}
         >
-          <div className={"ph1-5"}>
-            <FormikSelect
-              field={{
-                name: "treatment",
-                onBlur: (): void => undefined,
-                onChange: handleTreatmentChange,
-                value: treatment,
-              }}
-              form={{ errors: {}, touched: {} }}
-              label={t("searchFindings.tabDescription.treatment.title")}
-              name={"treatment"}
-            >
-              <option value={""} />
-              {canHandleVulnerabilitiesAcceptance ? (
-                <option value={"ACCEPTED_UNDEFINED"}>
-                  {t(
-                    "searchFindings.tabDescription.treatment.acceptedUndefined"
-                  )}
-                </option>
-              ) : undefined}
-              {canConfirmZeroRiskVulnerabilities &&
-              canRejectZeroRiskVulnerabilities &&
-              canUpdateVulns ? (
-                <option value={"CONFIRM_REJECT_ZERO_RISK"}>
-                  {t(
-                    "searchFindings.tabDescription.treatment.confirmRejectZeroRisk"
-                  )}
-                </option>
-              ) : undefined}
-            </FormikSelect>
-          </div>
+          <FormikSelect
+            field={{
+              name: "treatment",
+              onBlur: (): void => undefined,
+              onChange: handleTreatmentChange,
+              value: treatment,
+            }}
+            form={{ errors: {}, touched: {} }}
+            label={t("searchFindings.tabDescription.treatment.title")}
+            name={"treatment"}
+          >
+            <option value={""} />
+            {canHandleVulnerabilitiesAcceptance ? (
+              <option value={"ACCEPTED_UNDEFINED"}>
+                {t("searchFindings.tabDescription.treatment.acceptedUndefined")}
+              </option>
+            ) : undefined}
+            {canConfirmZeroRiskVulnerabilities &&
+            canRejectZeroRiskVulnerabilities &&
+            canUpdateVulns ? (
+              <option value={"CONFIRM_REJECT_ZERO_RISK"}>
+                {t(
+                  "searchFindings.tabDescription.treatment.confirmRejectZeroRisk"
+                )}
+              </option>
+            ) : undefined}
+          </FormikSelect>
           <br />
-          {["ACCEPTED_UNDEFINED", "CONFIRM_REJECT_ZERO_RISK"].includes(
-            treatment
-          ) ? undefined : (
-            <Formik
-              enableReinitialize={true}
-              initialValues={{
-                justification: "",
-              }}
-              name={"updateTreatmentAcceptance"}
-              onSubmit={handleSubmit}
-            >
-              <HandleAcceptanceModalForm
-                acceptanceVulnerabilities={acceptanceVulns}
-                acceptedVulnerabilities={acceptedVulns}
-                confirmingZeroRisk={confirmingZeroRisk}
-                handleCloseModal={handleCloseModal}
-                handlingAcceptance={handlingAcceptance}
-                hasAcceptedVulns={hasAcceptedVulns}
-                hasRejectedVulns={hasRejectedVulns}
-                rejectedVulnerabilities={rejectedVulns}
-                rejectingZeroRisk={rejectingZeroRisk}
-                setAcceptanceVulns={setAcceptanceVulns}
-                treatment={treatment}
-                vulns={vulns}
-              />
-            </Formik>
-          )}
           {treatment === "ACCEPTED_UNDEFINED" ? (
             <PermanentlyAcceptedForm
               findingId={findingId}
@@ -245,6 +100,15 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
           ) : undefined}
           {treatment === "CONFIRM_REJECT_ZERO_RISK" ? (
             <ZeroRiskForm
+              findingId={findingId}
+              groupName={groupName}
+              onCancel={handleCloseModal}
+              refetchData={refetchData}
+              vulnerabilities={vulns}
+            />
+          ) : undefined}
+          {treatment === "CONFIRM_REJECT_VULNERABILITY" ? (
+            <SubmittedForm
               findingId={findingId}
               groupName={groupName}
               onCancel={handleCloseModal}

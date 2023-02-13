@@ -79,28 +79,26 @@ const PermanentlyAcceptedForm: React.FC<IPermanentlyAcceptedFormProps> = ({
     <Formik
       enableReinitialize={true}
       initialValues={{ justification: "" }}
-      name={"permanentlyAccepted"}
+      name={"permanentlyAcceptedForm"}
       onSubmit={handleSubmit}
       validationSchema={object().shape({
         justification: string().required(t("validations.required")),
       })}
     >
-      <Form id={"updateTreatmentAcceptance"}>
-        <div className={"ph1-5"}>
-          <AcceptedUndefinedTable
-            acceptanceVulns={acceptanceVulnerabilities}
-            isAcceptedUndefinedSelected={true}
-            setAcceptanceVulns={setAcceptanceVulnerabilities}
-          />
-          <br />
-          <TextArea
-            label={t(
-              "searchFindings.tabDescription.remediationModal.observations"
-            )}
-            name={"justification"}
-            required={true}
-          />
-        </div>
+      <Form id={"permanentlyAcceptedForm"}>
+        <AcceptedUndefinedTable
+          acceptanceVulns={acceptanceVulnerabilities}
+          isAcceptedUndefinedSelected={true}
+          setAcceptanceVulns={setAcceptanceVulnerabilities}
+        />
+        <br />
+        <TextArea
+          label={t(
+            "searchFindings.tabDescription.remediationModal.observations"
+          )}
+          name={"justification"}
+          required={true}
+        />
         <br />
         <ModalConfirm
           disabled={

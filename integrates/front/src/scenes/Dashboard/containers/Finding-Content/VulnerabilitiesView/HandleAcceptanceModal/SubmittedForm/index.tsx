@@ -92,13 +92,11 @@ const SubmittedForm: React.FC<ISubmittedFormProps> = ({
       })}
     >
       <Form id={"submittedForm"}>
-        <div className={"ph1-5"}>
-          <SubmittedTable
-            acceptanceVulns={acceptanceVulnerabilities}
-            isConfirmRejectVulnerabilitySelected={true}
-            setAcceptanceVulns={setAcceptanceVulnerabilities}
-          />
-        </div>
+        <SubmittedTable
+          acceptanceVulns={acceptanceVulnerabilities}
+          isConfirmRejectVulnerabilitySelected={true}
+          setAcceptanceVulns={setAcceptanceVulnerabilities}
+        />
         <br />
         <ModalConfirm
           disabled={

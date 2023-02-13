@@ -116,61 +116,59 @@ const ZeroRiskForm: React.FC<IZeroRiskFormProps> = ({
       })}
     >
       <Form id={"zeroRiskForm"}>
-        <div className={"ph1-5"}>
-          <ZeroRiskTable
-            acceptanceVulns={acceptanceVulnerabilities}
-            isConfirmRejectZeroRiskSelected={true}
-            setAcceptanceVulns={setAcceptanceVulnerabilities}
+        <ZeroRiskTable
+          acceptanceVulns={acceptanceVulnerabilities}
+          isConfirmRejectZeroRiskSelected={true}
+          setAcceptanceVulns={setAcceptanceVulnerabilities}
+        />
+        <br />
+        {canSeeDropDownToConfirmZeroRisk ? (
+          <Select
+            label={t(
+              "searchFindings.tabDescription.remediationModal.observations"
+            )}
+            name={"justification"}
+            required={true}
+          >
+            <option value={""} />
+            {confirmedVulnerabilities.length > 0 ? (
+              <React.Fragment>
+                <option value={"FP"}>
+                  {t(
+                    "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
+                  )}
+                </option>
+                <option value={"Out of the scope"}>
+                  {t(
+                    "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.outOfTheScope"
+                  )}
+                </option>
+              </React.Fragment>
+            ) : undefined}
+            {rejectedVulnerabilities.length > 0 ? (
+              <React.Fragment>
+                <option value={"FN"}>
+                  {t(
+                    "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
+                  )}
+                </option>
+                <option value={"Complementary control"}>
+                  {t(
+                    "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
+                  )}
+                </option>
+              </React.Fragment>
+            ) : undefined}
+          </Select>
+        ) : (
+          <TextArea
+            label={t(
+              "searchFindings.tabDescription.remediationModal.observations"
+            )}
+            name={"justification"}
+            required={true}
           />
-          <br />
-          {canSeeDropDownToConfirmZeroRisk ? (
-            <Select
-              label={t(
-                "searchFindings.tabDescription.remediationModal.observations"
-              )}
-              name={"justification"}
-              required={true}
-            >
-              <option value={""} />
-              {confirmedVulnerabilities.length > 0 ? (
-                <React.Fragment>
-                  <option value={"FP"}>
-                    {t(
-                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.fp"
-                    )}
-                  </option>
-                  <option value={"Out of the scope"}>
-                    {t(
-                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.confirmation.outOfTheScope"
-                    )}
-                  </option>
-                </React.Fragment>
-              ) : undefined}
-              {rejectedVulnerabilities.length > 0 ? (
-                <React.Fragment>
-                  <option value={"FN"}>
-                    {t(
-                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.fn"
-                    )}
-                  </option>
-                  <option value={"Complementary control"}>
-                    {t(
-                      "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
-                    )}
-                  </option>
-                </React.Fragment>
-              ) : undefined}
-            </Select>
-          ) : (
-            <TextArea
-              label={t(
-                "searchFindings.tabDescription.remediationModal.observations"
-              )}
-              name={"justification"}
-              required={true}
-            />
-          )}
-        </div>
+        )}
         <br />
         <ModalConfirm
           disabled={
