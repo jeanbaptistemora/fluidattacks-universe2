@@ -3851,6 +3851,7 @@
     - cis.4_7
     - cwe.1392
     - cwe.1393
+    - cwe.1394
     - nerccip.007-6_R5_4
     - nist.PR_AC-1
     - bizec.APP-07
@@ -8762,6 +8763,7 @@
     - cwe.749
     - cwe.1392
     - cwe.1393
+    - cwe.1394
     - owasp10.A1
     - owasp10.A4
     - owasp10.A5
