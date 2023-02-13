@@ -152,6 +152,7 @@
   "nist_c_sharp_f052",
   "nist_c_sharp_f063",
   "nist_c_sharp_f107",
+  "sarif_report",
   "unittesting",
   "vulnerableapp",
   "vulnerable_js_app",

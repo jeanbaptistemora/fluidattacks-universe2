@@ -1,0 +1,11 @@
+---
+language: EN
+namespace: namespace
+output:
+  file_path: skims/test/outputs/report.sarif
+  format: SARIF
+checks:
+  - F052
+path:
+  include:
+    - skims/test/data/lib_root/f052/js_insecure_cipher.js

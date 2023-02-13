@@ -189,6 +189,7 @@
     - /testPython/skims@nist_c_sharp_f052
     - /testPython/skims@nist_c_sharp_f063
     - /testPython/skims@nist_c_sharp_f107
+    - /testPython/skims@sarif_report
     - /testPython/skims@unittesting
     - /testPython/skims@vulnerableapp
     - /testPython/skims@vulnerable_js_app
@@ -4670,6 +4671,34 @@
     - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
   script:
     - m . /testPython/skims@nist_c_sharp_f107
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+/testPython/skims@sarif_report:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 week
+    name: coverage_xml_$CI_COMMIT_REF_NAME_$CI_COMMIT_SHA
+    paths:
+      - skims/.coverage*
+      - provenance-*
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|skims)/
+  script:
+    - m . /testPython/skims@sarif_report
   stage: test-code
   tags:
     - small
