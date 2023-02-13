@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F412,lines,namespace/skims/test/data/lib_path/f412/azure_key_valut.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f412/azure_key_valut.tf","
+F412,lines,namespace/skims/test/data/lib_root/f412/tfm_azure_key_vault_not_recoverable.tf,1,463,skims,412. Lack of protection against deletion - Azure Key Vault,"Properties soft_delete_enabled, purge_protection_enabled are missing or misconfigured in namespace/skims/test/data/lib_root/f412/tfm_azure_key_vault_not_recoverable.tf","
 >  1 | resource ""azurerm_key_vault"" ""vulnerable"" {
    2 |   name                       = ""examplekeyvault""
    3 |   location                   = azurerm_resource_group.example.location

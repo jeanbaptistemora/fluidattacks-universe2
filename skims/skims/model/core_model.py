@@ -5711,7 +5711,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_KEY_VAULT_NOT_RECOVER = MethodInfo(
         file_name="terraform",
         name="tfm_azure_key_vault_not_recoverable",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F412,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
