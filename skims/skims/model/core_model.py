@@ -1698,6 +1698,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_SALT_IS_HARDCODED = MethodInfo(
+        file_name="javascript",
+        name="js_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_SALT_IS_HARDCODED = MethodInfo(
+        file_name="typescript",
+        name="ts_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
         name="jwt_token",
