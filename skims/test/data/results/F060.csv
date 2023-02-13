@@ -1,4 +1,12 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F060,lines,namespace/skims/test/data/lib_path/f060/xml_domain_wildcard.xml,4,396,skims,060. Insecure service configuration - Host verification,Make sure the domains property is different from  in namespace/skims/test/data/lib_path/f060/xml_domain_wildcard.xml,"
+  1 | <?xml version =""1.0""?>
+  2 | <!DOCTYPE cross-domain-policy SYSTEM ""http://www.macromedia.com.xml/dtds/cross-domain-policy.dtd"">
+  3 | <cross-domain-policy>
+> 4 |   <allow-acces-from domain=""*"" />
+  5 | </cross-domain-policy>
+    ^ Col 0
+",xml.xml_allows_all_domains
 F060,lines,namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,2,396,skims,060. Insecure service configuration - Host verification,Make sure the host property is different from  in namespace/skims/test/data/lib_root/f060/json_allowed_hosts.json,"
    1 | {
 >  2 |   ""AllowedHosts"": ""*"",

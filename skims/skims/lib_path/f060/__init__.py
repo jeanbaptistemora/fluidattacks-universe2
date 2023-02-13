@@ -1,6 +1,9 @@
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
+from lib_path.f060.conf_files import (
+    allow_acces_from_any_domain,
+)
 from lib_path.f060.dotnetconfig import (
     has_ssl_disabled,
 )
@@ -19,6 +22,14 @@ def run_has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
 
 
 @SHIELD_BLOCKING
+def run_allow_acces_from_any_domain(
+    content: str,
+    path: str,
+) -> Vulnerabilities:
+    return allow_acces_from_any_domain(content=content, path=path)
+
+
+@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -32,6 +43,12 @@ def analyze(
         results = (
             *results,
             run_has_ssl_disabled(content, path),
+        )
+    if file_extension in ("xml", "jmx"):
+        content = content_generator()
+        results = (
+            *results,
+            run_allow_acces_from_any_domain(content, path),
         )
 
     return results
