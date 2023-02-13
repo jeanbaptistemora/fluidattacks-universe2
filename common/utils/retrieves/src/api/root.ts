@@ -1,7 +1,12 @@
 // eslint-disable-next-line import/no-unresolved
 import { window } from "vscode";
 
-import { GET_GIT_ROOT, GET_GIT_ROOTS, GET_VULNERABILITIES } from "../queries";
+import {
+  GET_GIT_ROOT,
+  GET_GIT_ROOTS,
+  GET_GIT_ROOTS_SIMPLE,
+  GET_VULNERABILITIES,
+} from "../queries";
 import type { IGitRoot, IVulnerability } from "../types";
 import { API_CLIENT } from "../utils/apollo";
 
@@ -12,7 +17,22 @@ const getGroupGitRoots = async (groupName: string): Promise<IGitRoot[]> => {
       variables: { groupName },
     });
 
-  return result.data.group.roots;
+  return result.data.group.roots.map((root): IGitRoot => {
+    return { ...root, groupName };
+  });
+};
+const getGroupGitRootsSimple = async (
+  groupName: string
+): Promise<IGitRoot[]> => {
+  const result: { data: { group: { roots: IGitRoot[] } } } =
+    await API_CLIENT.query({
+      query: GET_GIT_ROOTS_SIMPLE,
+      variables: { groupName },
+    });
+
+  return result.data.group.roots.map((root): IGitRoot => {
+    return { ...root, groupName };
+  });
 };
 
 const getGitRootVulnerabilities = async (
@@ -45,4 +65,9 @@ const getGitRoot = async (
   return result.data.root;
 };
 
-export { getGitRootVulnerabilities, getGroupGitRoots, getGitRoot };
+export {
+  getGitRootVulnerabilities,
+  getGroupGitRoots,
+  getGitRoot,
+  getGroupGitRootsSimple,
+};

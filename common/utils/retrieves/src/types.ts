@@ -14,6 +14,7 @@ interface IGitRoot {
   state: "ACTIVE" | "INACTIVE";
   gitignore: string[];
   downloadUrl?: string;
+  url?: string;
   gitEnvironmentUrls: {
     id: string;
     url: string;

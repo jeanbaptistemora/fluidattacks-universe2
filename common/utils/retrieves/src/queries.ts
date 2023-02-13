@@ -26,10 +26,25 @@ const GET_GIT_ROOTS = gql`
           downloadUrl
           gitignore
           state
+          url
           gitEnvironmentUrls {
             url
             id
           }
+        }
+      }
+    }
+  }
+`;
+const GET_GIT_ROOTS_SIMPLE = gql`
+  query GetGitRoots($groupName: String!) {
+    group(groupName: $groupName) {
+      roots {
+        ... on GitRoot {
+          id
+          nickname
+          state
+          url
         }
       }
     }
@@ -140,6 +155,7 @@ const GET_FINDING = gql`
 export {
   GET_GROUPS,
   GET_GIT_ROOTS,
+  GET_GIT_ROOTS_SIMPLE,
   GET_TOE_LINES,
   GET_VULNERABILITIES,
   UPDATE_TOE_LINES_ATTACKED,

@@ -1,5 +1,7 @@
+import { existsSync } from "fs";
 import { join } from "path";
 
+import { groupBy } from "ramda";
 import type {
   DiagnosticCollection,
   ExtensionContext,
@@ -75,6 +77,33 @@ const setDiagnostics = async (
   retrievesDiagnostics.set(document.uri, fileDiagnostics);
 };
 
+const setDiagnosticsFromRoot = (
+  retrievesDiagnostics: DiagnosticCollection,
+  document: TextDocument,
+  groupName: string,
+  rootNickname: string,
+  vulnerabilities: IVulnerability[]
+): void => {
+  const fileDiagnostics = vulnerabilities
+    .filter(
+      (vuln): boolean =>
+        vuln.where.includes(document.fileName.split(rootNickname)[1]) &&
+        ["VULNERABLE", "SUBMITTED"].includes(vuln.state)
+    )
+    .filter((element): boolean => {
+      return !Number.isNaN(parseInt(element.specific, 10));
+    })
+    .map((vuln): Diagnostic => {
+      const lineIndex = parseInt(vuln.specific, 10);
+      const lineOfText = document.lineAt(
+        lineIndex > 0 ? lineIndex - 1 : lineIndex
+      );
+
+      return createDiagnostic(groupName, document, lineOfText, vuln);
+    });
+  retrievesDiagnostics.set(document.uri, fileDiagnostics);
+};
+
 const handleDiagnostics = async (
   retrievesDiagnostics: DiagnosticCollection,
   document: TextDocument
@@ -116,4 +145,31 @@ const subscribeToDocumentChanges = (
   );
 };
 
-export { subscribeToDocumentChanges };
+const setDiagnosticsToAllFiles = async (
+  retrievesDiagnostics: DiagnosticCollection,
+  groupName: string,
+  rootId: string,
+  rootNickname: string,
+  workspacePath: string
+): Promise<void> => {
+  const vulnerabilities = await getGitRootVulnerabilities(groupName, rootId);
+  const vulnsGrupByPath = groupBy((vuln): string => {
+    return vuln.where.split(" ")[0].replace(`${rootNickname}/`, "");
+  }, vulnerabilities);
+  Object.keys(vulnsGrupByPath).forEach(async (filePath): Promise<void> => {
+    const uri = Uri.parse(join(workspacePath, filePath));
+    if (!existsSync(uri.path)) {
+      return;
+    }
+    const document = await workspace.openTextDocument(uri);
+    setDiagnosticsFromRoot(
+      retrievesDiagnostics,
+      document,
+      groupName,
+      rootNickname,
+      vulnsGrupByPath[filePath]
+    );
+  });
+};
+
+export { subscribeToDocumentChanges, setDiagnosticsToAllFiles };
