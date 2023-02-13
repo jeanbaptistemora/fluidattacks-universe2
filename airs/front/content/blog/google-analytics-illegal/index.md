@@ -94,6 +94,12 @@ the Privacy Shield was not complying with the GDPR.
 Thanks to another long and arduous effort,
 this new agreement was invalidated with the "Schrems II" ruling in 2020.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 Once again,
 the parties involved,
 companies in the U.S. and EU,

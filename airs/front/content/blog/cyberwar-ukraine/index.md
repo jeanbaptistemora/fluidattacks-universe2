@@ -132,6 +132,13 @@ indicating \[the\] involvement of hacker groups
 associated with Russian special services
 in the incident."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 The seemingly [low magnitude of the impact](https://www.zdnet.com/article/ukraine-says-70-state-websites-were-defaced-10-were-subjected-to-unauthorized-interference/)
 of this incident
 made some people consider it exaggerated

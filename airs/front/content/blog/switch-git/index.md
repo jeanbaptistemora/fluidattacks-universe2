@@ -115,6 +115,12 @@ Its benefits are clear:
 **code quality**
 and **collaboration**.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/devsecops/"
+  title="Get started with Fluid Attacks' DevSecOps solution right now"
+/>
+
 The distributed VCS can be cloned.
 In this model,
 every developer has a clone as their local repository

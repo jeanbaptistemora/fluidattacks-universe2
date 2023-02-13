@@ -85,6 +85,12 @@ which researchers named **NotLegit** (don't ask us why\!),
 reportedly,
 left hundreds of source code repositories exposed for anyone to see.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 ## Time for the long-overdue fixes
 
 As [reported](https://blog.wiz.io/azure-app-service-source-code-leak/),
