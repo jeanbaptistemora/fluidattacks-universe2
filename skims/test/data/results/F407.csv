@@ -118,7 +118,7 @@ F407,inputs,arn:aws:ec2:::VolumeId/fluidvolumeunsafe2 (namespace),Property Block
   8 | }
     ^ Col 0
 ",aws.ebs_has_encryption_disabled
-F407,lines,namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property root_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_path/f407/tfm_aws_ebs_volumes_unencrypted.tf,"
+F407,lines,namespace/skims/test/data/lib_root/f407/tfm_aws_ebs_volumes_unencrypted.tf,4,16,skims,407. Non-encrypted confidential information - EBS Volumes,Property root_block_device.encrypted is either missing or misconfigured in namespace/skims/test/data/lib_root/f407/tfm_aws_ebs_volumes_unencrypted.tf,"
   1 | resource ""aws_launch_configuration"" ""example"" {
   2 |   instance_type = ""t2.micro""
   3 |   root_block_device {
