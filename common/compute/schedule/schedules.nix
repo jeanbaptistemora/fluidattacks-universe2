@@ -25,60 +25,6 @@
       "management:type" = "product";
     };
   };
-  forces_process_groups_break = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/forces/process-groups/break"
-    ];
-
-    schedule_expression = "cron(0 9 */2 * ? *)";
-    size = "forces_nano";
-    awsRole = "prod_forces";
-    attempts = 3;
-    timeout = 86400;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "forces_process_groups_break";
-      "management:area" = "cost";
-      "management:product" = "forces";
-      "management:type" = "product";
-    };
-  };
-  forces_process_groups_pass = {
-    enabled = true;
-    command = [
-      "m"
-      "gitlab:fluidattacks/universe@trunk"
-      "/integrates/forces/process-groups/pass"
-    ];
-
-    schedule_expression = "cron(0 12 * * ? *)";
-    size = "forces_nano";
-    awsRole = "prod_forces";
-    attempts = 3;
-    timeout = 86400;
-    parallel = 1;
-
-    environment = [
-      "CACHIX_AUTH_TOKEN"
-      "UNIVERSE_API_TOKEN"
-    ];
-
-    tags = {
-      "Name" = "forces_process_groups_pass";
-      "management:area" = "cost";
-      "management:product" = "forces";
-      "management:type" = "product";
-    };
-  };
   integrates_abandoned_trial_notification = {
     enabled = true;
     command = [
