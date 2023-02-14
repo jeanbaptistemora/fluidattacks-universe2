@@ -13,11 +13,11 @@
 /* eslint @typescript-eslint/no-unsafe-member-access: 0*/
 /* eslint @typescript-eslint/no-unsafe-call: 0*/
 /* eslint @typescript-eslint/no-explicit-any: 0*/
+import dayjs from "dayjs";
 import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import { decode } from "he";
-import { utc } from "moment";
 import React from "react";
 
 import { BlogSeo } from "../components/BlogSeo";
@@ -54,7 +54,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
     title,
     writer,
   } = data.markdownRemark.frontmatter;
-  const fDate = utc(new Date(date)).format("LL");
+  const fDate = dayjs(new Date(date)).format("MMMM D, YYYY");
 
   return (
     <React.Fragment>
@@ -74,7 +74,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
         author={author}
         date={fDate}
         dateModified={
-          modified ? utc(modified.toLocaleString()).format("LL") : fDate
+          modified ? dayjs(new Date(modified)).format("MMMM D, YYYY") : fDate
         }
         description={description}
         image={image.replace(".webp", ".pn g")}

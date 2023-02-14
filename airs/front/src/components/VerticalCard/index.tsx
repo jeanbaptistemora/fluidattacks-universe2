@@ -1,5 +1,5 @@
+import dayjs from "dayjs";
 import { decode } from "he";
-import { utc } from "moment";
 import React from "react";
 
 import { CardFooter, Separator } from "./styledComponents";
@@ -35,7 +35,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   widthMd,
   widthSm,
 }): JSX.Element => {
-  const fDate = utc(new Date(date)).format("LL");
+  const fDate = dayjs(new Date(date)).format("MMMM D, YYYY");
 
   if (author && date && subtitle) {
     return (

@@ -40,7 +40,7 @@ in {
           gitlabExtra = {
             rules = gitlabOnlyProd;
             stage = "deploy-app";
-            tags = ["small"];
+            tags = ["large"];
           };
         }
         {
