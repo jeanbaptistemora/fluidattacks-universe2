@@ -81,6 +81,12 @@ environment](https://stackoverflow.com/a/2126185). This refers to an
 isolated test environment where malware functionalities can be observed
 without major threats to servers and other resources.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/secure-code-review/"
+  title="Get started with Fluid Attacks' Secure Code Review solution right now"
+/>
+
 Emotet’s destructiveness throughout the years was huge, with the
 remediation of each incident in the US
 [costing](https://us-cert.cisa.gov/ncas/alerts/TA18-201A) up to $1M. In

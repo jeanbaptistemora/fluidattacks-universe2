@@ -93,6 +93,13 @@ previously known as Sensitive Data Exposure, its consequence. It shows
 that more effort should be put into identifying sensitive information
 and protecting it with up-to-date encryption techniques.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 Although [Injection](https://owasp.org/Top10/A03_2021-Injection/) had
 its thunder stolen by the previous two, it keeps being extremely
 problematic. It has [many

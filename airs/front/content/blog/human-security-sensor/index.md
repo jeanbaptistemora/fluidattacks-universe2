@@ -103,6 +103,12 @@ and describe their appearance and suspicious actions, or they may be
 able to detect a new device. Of course, there is a limit to what
 employees may be able to report.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ## What can employees as human sensors detect?
 
 In Vielberth et al.'s model, human sensors can detect threat sources,

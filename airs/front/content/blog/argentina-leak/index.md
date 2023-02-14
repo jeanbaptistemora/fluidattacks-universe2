@@ -118,6 +118,13 @@ and there was no massive leak.
 Yikes\!
 What was found later proved that was not the case.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 ## And the attacker’s name is…​
 
 In late October,

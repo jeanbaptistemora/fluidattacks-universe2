@@ -71,6 +71,13 @@ Vulnerabilities](https://us-cert.cisa.gov/ncas/alerts/aa21-209a)).
 What are these exposures? Let’s make a summary of what is in the alert
 document.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 - **Path traversal** (see `Fluid Attacks` Documentation: [Path
   Traversal](https://docs.fluidattacks.com/criteria/vulnerabilities/063)).
   In short, a software component can be hacked if it allows accessing

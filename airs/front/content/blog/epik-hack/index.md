@@ -102,6 +102,13 @@ assessment for one of Epik’s users. He said that "with all the data in
 the leak \[…​\] any attacker could easily take over the websites of
 countless Epik customers."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 ## WHOIS compromised?
 
 The official information about the breach [posted in

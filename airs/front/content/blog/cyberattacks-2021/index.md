@@ -93,6 +93,13 @@ US." Impressively, not long after, the Department of Justice [seized
 $2.3M](https://www.justice.gov/opa/pr/department-justice-seizes-23-million-cryptocurrency-paid-ransomware-extortionists-darkside)
 in cryptocurrency from the ransom paid to DarkSide.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 In late May, JBS Foods, the world’s largest meat supplier, [was
 attacked](../jbs-revil-cyberattack/) with ransomware. As a consequence,
 operations were shut down [for a few

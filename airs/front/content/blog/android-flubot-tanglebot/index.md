@@ -114,6 +114,13 @@ The message provides a legit-looking link.
 When the user taps on it,
 the game is on.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 Probably the first noticeable red flag is that the user is presented
 with a request to update Adobe Flash Player in order to visualize the
 content. As the success of this campaign has proven, many people are not
