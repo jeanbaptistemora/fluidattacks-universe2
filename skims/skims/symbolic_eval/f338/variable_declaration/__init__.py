@@ -16,6 +16,7 @@ from typing import (
 METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_SALT_IS_HARDCODED: variable_is_harcoded,
     MethodsEnum.JS_SALT_IS_HARDCODED: variable_is_harcoded,
+    MethodsEnum.JAVA_SALT_IS_HARDCODED: variable_is_harcoded,
 }
 
 

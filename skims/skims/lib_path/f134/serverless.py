@@ -63,7 +63,7 @@ def _serverless_iterate_vulnerabilities(
                 yield origin
 
 
-def severles_cors_wildcard(
+def severless_cors_wildcard(
     content: str,
     path: str,
     template: Any,
@@ -77,5 +77,5 @@ def severles_cors_wildcard(
             )
         ),
         path=path,
-        method=MethodsEnum.YML_SERVERLES_CORS,
+        method=MethodsEnum.YML_SERVERLESS_CORS,
     )

@@ -34,10 +34,10 @@ def is_in_path(graph: Graph, nid: NId, key_dict: str, value: str) -> bool:
     return False
 
 
-def serverles_cors_true(
+def serverless_cors_true(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.YML_SERVERLES_CORS
+    method = MethodsEnum.YML_SERVERLESS_CORS
 
     def n_ids() -> Iterable[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.YAML):

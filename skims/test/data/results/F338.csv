@@ -56,6 +56,31 @@ F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,74
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/java_salt_is_hardcoded.java,40,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/java_salt_is_hardcoded.java","
+  24 |     byte[] hashedPassword = md.digest(password.getBytes());
+  25 |     return Base64.getEncoder().encodeToString(hashedPassword);
+  26 |   }
+  27 | }
+  28 |
+  29 | public class PasswordExampleNotSafe {
+  30 |   private static final String SALT = ""HARDCODED_SALT"";
+  31 |
+  32 |   public static void main(String[] args) throws NoSuchAlgorithmException {
+  33 |     String password = ""myPassword"";
+  34 |     String saltedHash = hashPassword(password);
+  35 |     System.out.println(""Salted Hash: "" + saltedHash);
+  36 |   }
+  37 |
+  38 |   private static String hashPassword(String password) throws NoSuchAlgorithmException {
+  39 |     MessageDigest md = MessageDigest.getInstance(""SHA-256"");
+> 40 |     md.update(SALT.getBytes());
+  41 |     byte[] hashedPassword = md.digest(password.getBytes());
+  42 |     return Base64.getEncoder().encodeToString(hashedPassword);
+  43 |   }
+  44 | }
+     ^ Col 0
+",java.java_salt_is_harcoded
 F338,lines,namespace/skims/test/data/lib_root/f338/javascript_salt_is_hardcoded.js,13,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
  in namespace/skims/test/data/lib_root/f338/javascript_salt_is_hardcoded.js","
    1 | import { createHash } from ""crypto"";

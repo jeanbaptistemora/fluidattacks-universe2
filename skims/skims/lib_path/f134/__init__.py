@@ -2,8 +2,8 @@ from lib_path.common import (
     EXTENSIONS_YAML,
     SHIELD_BLOCKING,
 )
-from lib_path.f134.serverles import (
-    severles_cors_wildcard,
+from lib_path.f134.serverless import (
+    severless_cors_wildcard,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -19,10 +19,10 @@ from typing import (
 
 
 @SHIELD_BLOCKING
-def run_severles_cors_wildcard(
+def run_severless_cors_wildcard(
     content: str, path: str, template: Any
 ) -> Vulnerabilities:
-    return severles_cors_wildcard(
+    return severless_cors_wildcard(
         content=content, path=path, template=template
     )
 
@@ -39,6 +39,6 @@ def analyze(
     if file_extension in EXTENSIONS_YAML:
         content = content_generator()
         for template in load_templates_blocking(content, fmt=file_extension):
-            results = (run_severles_cors_wildcard(content, path, template),)
+            results = (run_severless_cors_wildcard(content, path, template),)
 
     return results

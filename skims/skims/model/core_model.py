@@ -3794,7 +3794,7 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.BRIAM_AGUDELO,
         technique=TechniqueEnum.BASIC_SAST,
     )
-    YML_SERVERLES_CORS = MethodInfo(
+    YML_SERVERLESS_CORS = MethodInfo(
         file_name="yaml",
         name="json_ssl_port_missing",
         module="lib_root",
