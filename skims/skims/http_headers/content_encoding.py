@@ -4,18 +4,14 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def _is_content_encoding(name: str) -> bool:
     return name.lower() == "content-encoding"
 
 
-def parse(line: str) -> Optional[ContentEncodingHeader]:
-    portions: List[str] = line.split(":", maxsplit=1)
+def parse(line: str) -> ContentEncodingHeader | None:
+    portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
     name, value = portions

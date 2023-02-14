@@ -7,17 +7,13 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def _is_strict_transport_security(name: str) -> bool:
     return name.lower() == "strict-transport-security"
 
 
-def _parse_max_age(token: str) -> Optional[int]:
+def _parse_max_age(token: str) -> int | None:
     portions = token.split("=", maxsplit=1)
 
     if len(portions) == 2:
@@ -29,11 +25,11 @@ def _parse_max_age(token: str) -> Optional[int]:
     return None
 
 
-def parse(line: str) -> Optional[StrictTransportSecurityHeader]:
+def parse(line: str) -> StrictTransportSecurityHeader | None:
     # Strict-Transport-Security: max-age=<expire-time>
     # Strict-Transport-Security: max-age=<expire-time>; includeSubDomains
     # Strict-Transport-Security: max-age=<expire-time>; preload
-    portions: List[str] = line.split(":", maxsplit=1)
+    portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
     if len(portions) != 2:
@@ -44,9 +40,9 @@ def parse(line: str) -> Optional[StrictTransportSecurityHeader]:
     if not _is_strict_transport_security(name):
         return None
 
-    include_sub_domains: Optional[bool] = None
-    max_age: Optional[int] = None
-    preload: Optional[bool] = None
+    include_sub_domains: bool | None = None
+    max_age: int | None = None
+    preload: bool | None = None
 
     portions = value.split(get_header_value_delimiter(value))
     portions = list(map(methodcaller("strip"), portions))

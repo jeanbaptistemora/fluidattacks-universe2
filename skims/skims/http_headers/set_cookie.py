@@ -4,10 +4,6 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def _is_set_cookie(name: str) -> bool:
@@ -15,15 +11,15 @@ def _is_set_cookie(name: str) -> bool:
 
 
 def _get_assignation_value(parameter: str) -> str:
-    parts: List[str] = parameter.split("=", maxsplit=1)
+    parts: list[str] = parameter.split("=", maxsplit=1)
     return parts[1].strip()
 
 
-def parse(line: str) -> Optional[SetCookieHeader]:
+def parse(line: str) -> SetCookieHeader | None:
     # Set-Cookie: <cookie-name>=<cookie-value>; Secure
     # Set-Cookie: <cookie-name>=<cookie-value>; HttpOnly
 
-    raw_portions: List[str] = line.split(":", maxsplit=1)
+    raw_portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), raw_portions))
 
     name = portions[0]
@@ -33,12 +29,12 @@ def parse(line: str) -> Optional[SetCookieHeader]:
 
     raw_content = portions[1]
 
-    attributes: List[str] = raw_content.split(";")
+    attributes: list[str] = raw_content.split(";")
     attributes = list(map(methodcaller("strip"), attributes))
 
     cookie, parameters = attributes[0], attributes[1:]
 
-    content: List[str] = cookie.split("=", maxsplit=1)
+    content: list[str] = cookie.split("=", maxsplit=1)
     content = list(map(methodcaller("strip"), content))
 
     cookie_name = content[0]

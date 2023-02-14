@@ -1,6 +1,5 @@
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -10,6 +9,6 @@ class Advisory(NamedTuple):
     package_manager: str
     vulnerable_version: str
     source: str
-    created_at: Optional[str] = None
-    modified_at: Optional[str] = None
-    severity: Optional[str] = None
+    created_at: str | None = None
+    modified_at: str | None = None
+    severity: str | None = None

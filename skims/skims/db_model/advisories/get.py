@@ -13,6 +13,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -20,15 +23,11 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Tuple,
-)
 
 
 async def _get_advisories(
     *, platform: str, package_name: str
-) -> Tuple[Advisory, ...]:
+) -> tuple[Advisory, ...]:
     primary_key = keys.build_key(
         facet=TABLE.facets["advisories"],
         values={"platform": platform, "pkg_name": package_name},
@@ -49,8 +48,8 @@ async def _get_advisories(
 class AdvisoriesLoader(DataLoader):
     # pylint: disable=method-hidden
     async def batch_load_fn(  # type: ignore
-        self, ad_keys: Iterable[Tuple[str, str]]
-    ) -> Tuple[Advisory, ...]:
+        self, ad_keys: Iterable[tuple[str, str]]
+    ) -> tuple[Advisory, ...]:
         return await collect(
             tuple(
                 _get_advisories(  # type: ignore

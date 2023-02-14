@@ -7,21 +7,16 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    Dict,
-    List,
-    Optional,
-)
 
 
 def _is_content_security_policy(name: str) -> bool:
     return name.lower() == "content-security-policy"
 
 
-def parse(line: str) -> Optional[ContentSecurityPolicyHeader]:
+def parse(line: str) -> ContentSecurityPolicyHeader | None:
     # Content-Security-Policy: <policy-directive>; <policy-directive>
 
-    portions: List[str] = line.split(":", maxsplit=1)
+    portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
     # Get the name in `name: value`
@@ -31,7 +26,7 @@ def parse(line: str) -> Optional[ContentSecurityPolicyHeader]:
         return None
 
     # Get the value in `name: value`
-    directives: Dict[str, List[str]] = {}
+    directives: dict[str, list[str]] = {}
     if portions:
         value = portions.pop(0).lower()
 

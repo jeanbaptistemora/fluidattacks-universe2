@@ -1,11 +1,9 @@
 from typing import (
     Any,
-    Dict,
     NamedTuple,
-    Tuple,
 )
 
-Item = Dict[str, Any]
+Item = dict[str, Any]
 
 
 class PrimaryKey(NamedTuple):
@@ -14,7 +12,7 @@ class PrimaryKey(NamedTuple):
 
 
 class Facet(NamedTuple):
-    attrs: Tuple[str, ...]
+    attrs: tuple[str, ...]
     pk_alias: str
     sk_alias: str
 
@@ -25,8 +23,8 @@ class Index(NamedTuple):
 
 
 class Table(NamedTuple):
-    facets: Dict[str, Facet]
-    indexes: Dict[str, Index]
+    facets: dict[str, Facet]
+    indexes: dict[str, Index]
     name: str
     primary_key: PrimaryKey
 
@@ -37,5 +35,5 @@ class PageInfo(NamedTuple):
 
 
 class QueryResponse(NamedTuple):
-    items: Tuple[Item, ...]
+    items: tuple[Item, ...]
     page_info: PageInfo

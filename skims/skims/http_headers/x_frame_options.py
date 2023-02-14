@@ -4,18 +4,14 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def _is_x_frame_options(name: str) -> bool:
     return name.lower() == "x-frame-options"
 
 
-def parse(line: str) -> Optional[XFrameOptionsHeader]:
-    portions: List[str] = line.split(":", maxsplit=1)
+def parse(line: str) -> XFrameOptionsHeader | None:
+    portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
     if len(portions) != 2:

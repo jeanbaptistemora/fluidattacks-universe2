@@ -6,16 +6,12 @@ from serializers import (
     SNIPPETS_COLUMNS,
     SnippetViewport,
 )
-from typing import (
-    Dict,
-    Optional,
-)
 
 
 def snippet(
     url: str,
-    header: Optional[str],
-    headers: Dict[str, str],
+    header: str | None,
+    headers: dict[str, str],
     columns_per_line: int = SNIPPETS_COLUMNS,
     value: str = "",
 ) -> str:

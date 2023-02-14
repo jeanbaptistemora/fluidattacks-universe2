@@ -4,20 +4,16 @@ from http_headers.types import (
 from operator import (
     methodcaller,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def _is_upgrade_insecure_requests(name: str) -> bool:
     return name.lower() == "upgrade-insecure-requests"
 
 
-def parse(line: str) -> Optional[UpgradeInsecureRequestsHeader]:
+def parse(line: str) -> UpgradeInsecureRequestsHeader | None:
     # upgrade-insecure-requests: 1
 
-    portions: List[str] = line.split(":", maxsplit=1)
+    portions: list[str] = line.split(":", maxsplit=1)
     portions = list(map(methodcaller("strip"), portions))
 
     name = portions.pop(0)

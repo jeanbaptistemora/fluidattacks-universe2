@@ -16,7 +16,6 @@ from dynamodb.types import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 RESOURCE_OPTIONS = {
@@ -41,7 +40,7 @@ RESOURCE_OPTIONS = {
 SESSION = aioboto3.Session()
 CONTEXT_STACK = None
 RESOURCE = None
-TABLE_RESOURCES: Dict[str, CustomTableResource] = {}
+TABLE_RESOURCES: dict[str, CustomTableResource] = {}
 
 
 async def dynamo_startup() -> None:

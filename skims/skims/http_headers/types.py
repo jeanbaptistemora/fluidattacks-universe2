@@ -2,11 +2,7 @@ from datetime import (
     datetime,
 )
 from typing import (
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
@@ -23,7 +19,7 @@ class ContentEncodingHeader(NamedTuple):
 class ContentSecurityPolicyHeader(NamedTuple):
     name: str
 
-    directives: Dict[str, List[str]]
+    directives: dict[str, list[str]]
 
 
 class DateHeader(NamedTuple):
@@ -45,14 +41,14 @@ class SetCookieHeader(NamedTuple):
 class StrictTransportSecurityHeader(NamedTuple):
     name: str
 
-    include_sub_domains: Optional[bool]
+    include_sub_domains: bool | None
     max_age: int
-    preload: Optional[bool]
+    preload: bool | None
 
 
 class ReferrerPolicyHeader(NamedTuple):
     name: str
-    values: List[str]
+    values: list[str]
 
 
 class UpgradeInsecureRequestsHeader(NamedTuple):
@@ -89,19 +85,18 @@ class XFrameOptionsHeader(NamedTuple):
     value: str
 
 
-Header = Optional[
-    Union[
-        AcceptHeader,
-        ContentEncodingHeader,
-        ContentSecurityPolicyHeader,
-        DateHeader,
-        ReferrerPolicyHeader,
-        StrictTransportSecurityHeader,
-        UpgradeInsecureRequestsHeader,
-        XXSSProtectionHeader,
-        XCacheHeader,
-        XContentTypeOptionsHeader,
-        XFrameOptionsHeader,
-        SetCookieHeader,
-    ]
-]
+Header = (
+    AcceptHeader
+    | ContentEncodingHeader
+    | ContentSecurityPolicyHeader
+    | DateHeader
+    | ReferrerPolicyHeader
+    | StrictTransportSecurityHeader
+    | UpgradeInsecureRequestsHeader
+    | XXSSProtectionHeader
+    | XCacheHeader
+    | XContentTypeOptionsHeader
+    | XFrameOptionsHeader
+    | SetCookieHeader
+    | None
+)

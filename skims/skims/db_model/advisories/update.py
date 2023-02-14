@@ -9,6 +9,9 @@ from .utils import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     AdvisoryDoesNotExist,
     AdvisoryNotModified,
@@ -22,10 +25,6 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 ACTION = "updated"
 
@@ -34,12 +33,12 @@ async def update(
     *,
     advisory: Advisory,
     checked: bool = False,
-    to_storage: Optional[List[Advisory]] = None,
+    to_storage: Iterable[Advisory] | None = None,
 ) -> None:
     try:
         await _update(advisory=advisory, checked=checked)
         if to_storage is not None:
-            to_storage.append(advisory)
+            list(to_storage).append(advisory)
     except (InvalidVulnerableVersion,) as exc:
         print_exc(exc, ACTION, advisory, f" ({advisory.vulnerable_version})")
     except (InvalidSeverity,) as exc:

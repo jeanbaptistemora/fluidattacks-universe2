@@ -9,9 +9,6 @@ from http_headers.common import (
 from http_headers.types import (
     DateHeader,
 )
-from typing import (
-    Optional,
-)
 
 # Date: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT
 FORMAT: str = "%a, %d %b %Y %H:%M:%S GMT"
@@ -21,7 +18,7 @@ def _is_date(name: str) -> bool:
     return name.lower() == "date"
 
 
-def parse(line: str) -> Optional[DateHeader]:
+def parse(line: str) -> DateHeader | None:
     if data := parse_key_value(
         is_header=_is_date,
         line=line,

@@ -11,6 +11,9 @@ from .utils import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     AdvisoryAlreadyCreated,
     InvalidSeverity,
@@ -24,10 +27,6 @@ from dynamodb import (
     operations,
 )
 import simplejson as json
-from typing import (
-    List,
-    Optional,
-)
 
 ACTION = "added"
 
@@ -36,12 +35,12 @@ async def add(
     *,
     advisory: Advisory,
     no_overwrite: bool = False,
-    to_storage: Optional[List[Advisory]] = None,
+    to_storage: Iterable[Advisory] | None = None,
 ) -> None:
     try:
         await _add(advisory=advisory, no_overwrite=no_overwrite)
         if to_storage is not None:
-            to_storage.append(advisory)
+            list(to_storage).append(advisory)
     except (InvalidVulnerableVersion,) as exc:
         print_exc(exc, ACTION, advisory, f" ({advisory.vulnerable_version})")
     except (InvalidSeverity,) as exc:

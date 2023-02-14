@@ -2,13 +2,9 @@ from dynamodb.types import (
     Facet,
     PrimaryKey,
 )
-from typing import (
-    Dict,
-    Set,
-)
 
 # Constants
-RESERVED_WORDS: Set[str] = {
+RESERVED_WORDS: set[str] = {
     "#",
 }
 
@@ -21,7 +17,7 @@ def _validate_key_words(*, key: str) -> None:
             )
 
 
-def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
+def _build_composite_key(*, template: str, values: dict[str, str]) -> str:
     template_parts = tuple(part for part in template.split("#"))
     key_parts = tuple(
         part if part.isupper() else values.get(part) for part in template_parts
@@ -30,7 +26,7 @@ def _build_composite_key(*, template: str, values: Dict[str, str]) -> str:
     return "#".join(part for part in key_parts if part)
 
 
-def build_key(*, facet: Facet, values: Dict[str, str]) -> PrimaryKey:
+def build_key(*, facet: Facet, values: dict[str, str]) -> PrimaryKey:
     for key in values:
         _validate_key_words(key=key)
 

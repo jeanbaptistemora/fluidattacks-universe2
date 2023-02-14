@@ -3,13 +3,11 @@ from dynamodb.resource import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
-async def scan(table: str, scan_attrs: Dict[str, Any]) -> List[Any]:
-    response_items: List[Any]
+async def scan(table: str, scan_attrs: dict[str, Any]) -> list[Any]:
+    response_items: list[Any]
     dynamodb_resource = await get_resource()
     dynamo_table = await dynamodb_resource.Table(table)
     response = await dynamo_table.scan(**scan_attrs)

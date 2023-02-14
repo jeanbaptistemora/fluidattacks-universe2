@@ -15,10 +15,6 @@ from db_model.advisories.constants import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Dict,
-    Tuple,
-)
 from utils.function import (
     semver_match,
 )
@@ -27,7 +23,7 @@ from utils.logs import (
 )
 
 VALID_RANGES = ("=", "<", ">", ">=", "<=")
-CVSS_BASE_METRICS: Dict[str, Tuple[str, ...]] = {
+CVSS_BASE_METRICS: dict[str, tuple[str, ...]] = {
     "AV": ("N", "A", "L", "P"),
     "AC": ("L", "H"),
     "PR": ("N", "L", "H"),
