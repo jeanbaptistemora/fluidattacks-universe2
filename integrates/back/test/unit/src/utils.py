@@ -195,7 +195,6 @@ mocked_paths: Dict[str, str] = {
     "grant_user_level_role": "authz.policy.grant_user_level_role",
     "group_access_domain.add_access": "group_access.domain.add_access",
     "group_access_domain.get_managers": "group_access.domain.get_managers",
-    "group_access_domain.get_stakeholders_email_by_preferences": "group_access.domain.get_stakeholders_email_by_preferences",  # noqa: E501 pylint: disable=line-too-long
     "group_access_model.update_metadata": "db_model.group_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "group_access_model.remove": "db_model.group_access.remove",
     "group_comments_model.add": "db_model.group_comments.add",
@@ -220,6 +219,7 @@ mocked_paths: Dict[str, str] = {
     "loaders.stakeholder.load": "db_model.stakeholders.get.StakeholderLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.stakeholder_with_fallback.load": "db_model.stakeholders.get.StakeholderWithFallbackLoader.load",  # noqa: E501 pylint: disable=line-too-long
     "loaders.trial.load": "db_model.trials.get.TrialLoader.load",
+    "mailer_utils.get_group_emails_by_notification": "mailer.utils.get_group_emails_by_notification",  # noqa: E501 pylint: disable=line-too-long
     "operations.put_item": "dynamodb.operations.put_item",
     "operations.update_item": "dynamodb.operations.update_item",
     "org_access_model.update_metadata": "db_model.organization_access.update_metadata",  # noqa: E501 pylint: disable=line-too-long
@@ -10239,21 +10239,21 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             "integratesuser@gmail.com",
         ],
     },
-    "group_access.domain.get_stakeholders_email_by_preferences": {
-        '["unittesting"]': [
-            "continuoushack2@gmail.com",
-            "continuoushacking@gmail.com",
-            "customer_manager@fluidattacks.com",
-            "integratesuser@gmail.com",
-            "unittest2@fluidattacks.com",
-        ],
-    },
     "group_access.domain.update": {
         '["unittest@fluidattacks.com", "unittesting"]': None,
     },
     "mailer.groups.send_mail_devsecops_agent_token": {
         '["integratesmanager@gmail.com", "unittesting", true]': None,
         '["integratesmanager@gmail.com", "unittesting", false]': None,
+    },
+    "mailer.utils.get_group_emails_by_notification": {
+        '["unittesting", "devsecops_agent"]': [
+            "continuoushack2@gmail.com",
+            "continuoushacking@gmail.com",
+            "customer_manager@fluidattacks.com",
+            "integratesuser@gmail.com",
+            "unittest2@fluidattacks.com",
+        ],
     },
     "newutils.files.assert_uploaded_file_mime": {
         '["test-file-records.csv", "images"]': False,

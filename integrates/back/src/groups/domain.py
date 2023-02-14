@@ -126,6 +126,7 @@ import logging
 import logging.config
 from mailer import (
     groups as groups_mail,
+    utils as mailer_utils,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -1662,14 +1663,10 @@ async def send_mail_devsecops_agent(
     had_token: bool,
 ) -> None:
     report_date = datetime_utils.get_utc_now()
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    stakeholders_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.AGENT_TOKEN,
-            roles=roles,
-        )
+    stakeholders_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="devsecops_agent",
     )
 
     await groups_mail.send_mail_devsecops_agent_token(

@@ -218,6 +218,7 @@ async def get_stakeholders_email_by_preferences(
     notification: str,
     roles: set[str],
     exclude_trial: bool = False,
+    only_fluid_staff: bool = False,
 ) -> list[str]:
     group = await loaders.group.load(group_name)
     trial = (
@@ -239,6 +240,10 @@ async def get_stakeholders_email_by_preferences(
         for stakeholder in stakeholders_data
         if notification in stakeholder.state.notifications_preferences.email
         and not (exclude_trial and is_trial)
+        and not (
+            only_fluid_staff
+            and not stakeholder.email.endswith("@fluidattacks.com")
+        )
     ]
     return stakeholders_email
 

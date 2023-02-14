@@ -514,17 +514,15 @@ async def test_remove_pending_deletion_date(
     ],
 )
 @patch(
-    get_mocked_path("groups_mail.send_mail_devsecops_agent_token"),
+    get_mocked_path("mailer_utils.get_group_emails_by_notification"),
     new_callable=AsyncMock,
 )
 @patch(
-    get_mocked_path(
-        "group_access_domain.get_stakeholders_email_by_preferences"
-    ),
+    get_mocked_path("groups_mail.send_mail_devsecops_agent_token"),
     new_callable=AsyncMock,
 )
 async def test_send_mail_devsecops_agent(
-    mock_group_access_domain_get_stakeholders_email_by_preferences: AsyncMock,
+    mock_mailer_utils_get_group_emails_by_notification: AsyncMock,
     mock_groups_mail_send_mail_devsecops_agent_token: AsyncMock,
     group_name: str,
     responsible: str,
@@ -534,14 +532,17 @@ async def test_send_mail_devsecops_agent(
     mocks_args: List[List[Any]]
     mocked_objects, mocked_paths, mocks_args = [
         [
-            mock_group_access_domain_get_stakeholders_email_by_preferences,
+            mock_mailer_utils_get_group_emails_by_notification,
             mock_groups_mail_send_mail_devsecops_agent_token,
         ],
         [
-            "group_access_domain.get_stakeholders_email_by_preferences",
+            "mailer_utils.get_group_emails_by_notification",
             "groups_mail.send_mail_devsecops_agent_token",
         ],
-        [[group_name], [responsible, group_name, had_token]],
+        [
+            [group_name, "devsecops_agent"],
+            [responsible, group_name, had_token],
+        ],
     ]
 
     assert set_mocks_return_values(
