@@ -257,7 +257,7 @@
     };
   };
   integrates_remove_inactive_stakeholders = {
-    enabled = true;
+    enabled = false;
     command = [
       "m"
       "gitlab:fluidattacks/universe@trunk"
