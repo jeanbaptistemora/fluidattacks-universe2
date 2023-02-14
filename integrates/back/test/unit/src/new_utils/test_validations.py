@@ -11,6 +11,7 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
+    InvalidParameter,
     InvalidReportFilter,
     InvalidSeverity,
     InvalidSeverityUpdateValues,
@@ -1549,3 +1550,15 @@ def test_validate_severity_range_deco() -> None:
         decorated_func(severity=7)
     with pytest.raises(InvalidSeverity):
         decorated_func(severity=1)
+
+
+def test_validate_field_exist_deco() -> None:
+    @validations.validate_field_exist_deco("missing")
+    def decorated_func(missing: Optional[str]) -> Optional[str]:
+        return missing
+
+    assert decorated_func(missing="something")
+    with pytest.raises(InvalidParameter):
+        decorated_func(missing="")
+    with pytest.raises(InvalidParameter):
+        decorated_func(missing=None)

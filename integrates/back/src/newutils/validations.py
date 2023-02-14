@@ -13,6 +13,7 @@ from custom_exceptions import (
     InvalidFieldLength,
     InvalidMarkdown,
     InvalidMinTimeToRemediate,
+    InvalidParameter,
     InvalidReportFilter,
     InvalidSeverity,
     InvalidSeverityUpdateValues,
@@ -1274,6 +1275,19 @@ def validate_severity_range_deco(
                 max_value,
                 InvalidSeverity([min_value, max_value]),
             )
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def validate_field_exist_deco(field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            if not kwargs[field]:
+                raise InvalidParameter(field)
             return func(*args, **kwargs)
 
         return decorated

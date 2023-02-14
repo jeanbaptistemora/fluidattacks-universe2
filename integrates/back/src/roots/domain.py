@@ -263,6 +263,7 @@ def _is_allowed(url: str) -> bool:
     return url not in RESTRICTED_REPO_URLS
 
 
+@validation_utils.validate_field_exist_deco("environment")
 async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     user_email: str,
@@ -284,8 +285,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
-    if not kwargs["environment"]:
-        raise InvalidParameter("environment")
     validation_utils.validate_fields([url])
     validation_utils.validate_sanitized_csv_input(
         nickname, kwargs["url"], kwargs["environment"]
