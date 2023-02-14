@@ -9,9 +9,11 @@ from opentelemetry import (
     metrics,
     trace,
 )
-from opentelemetry.exporter.otlp.proto.grpc import (
-    metric_exporter,
-    trace_exporter,
+from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import (
+    OTLPMetricExporter,
+)
+from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
+    OTLPSpanExporter,
 )
 from opentelemetry.instrumentation.aiohttp_client import (
     AioHttpClientInstrumentor,
@@ -77,34 +79,32 @@ def initialize() -> None:
             SERVICE_NAME: "integrates",
         }
     )
+    span_exporter = OTLPSpanExporter(
+        compression=Compression.Gzip,
+        endpoint="https://otlp.nr-data.net:4318/v1/traces",
+        headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
+    )
+    span_processor = BatchSpanProcessor(
+        max_queue_size=8192,
+        span_exporter=span_exporter,
+    )
+    tracer_provider = TracerProvider(resource=resource)
+    tracer_provider.add_span_processor(span_processor)
+
+    metric_exporter = OTLPMetricExporter(
+        compression=Compression.Gzip,
+        endpoint="https://otlp.nr-data.net:4318/v1/metrics",
+        headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
+    )
+    metric_reader = PeriodicExportingMetricReader(metric_exporter)
+    meter_provider = MeterProvider(
+        metric_readers=[metric_reader],
+        resource=resource,
+    )
 
     if FI_ENVIRONMENT == "production":
-        span_exporter = trace_exporter.OTLPSpanExporter(
-            compression=Compression.Gzip,
-            endpoint="https://otlp.nr-data.net:4318/v1/traces",
-            headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
-        )
-        span_processor = BatchSpanProcessor(
-            max_queue_size=8192,
-            span_exporter=span_exporter,
-        )
-        trace.set_tracer_provider(TracerProvider(resource=resource))
-        getattr(trace.get_tracer_provider(), "add_span_processor")(
-            span_processor
-        )
-
-        metric_exporter_ = metric_exporter.OTLPMetricExporter(
-            compression=Compression.Gzip,
-            endpoint="https://otlp.nr-data.net:4318/v1/metrics",
-            headers=cast(Any, {"api-key": FI_NEW_RELIC_LICENSE_KEY}),
-        )
-        metric_reader = PeriodicExportingMetricReader(metric_exporter_)
-        metrics.set_meter_provider(
-            MeterProvider(
-                metric_readers=[metric_reader],
-                resource=resource,
-            )
-        )
+        trace.set_tracer_provider(tracer_provider)
+        metrics.set_meter_provider(meter_provider)
 
 
 def instrument(app: Starlette) -> None:
