@@ -8,6 +8,10 @@ from aiohttp.client_exceptions import (
     ClientResponseError,
 )
 import asyncio
+from collections.abc import (
+    AsyncIterator,
+    Mapping,
+)
 import contextlib
 from forces.apis.integrates import (
     get_api_token,
@@ -22,7 +26,6 @@ from forces.utils.logs import (
 )
 from typing import (
     Any,
-    AsyncIterator,
     TypeVar,
 )
 
@@ -31,7 +34,7 @@ TVar = TypeVar("TVar")  # pylint: disable=invalid-name
 
 
 class ApiError(Exception):
-    def __init__(self, *errors: dict[str, Any]) -> None:
+    def __init__(self, *errors: Mapping[str, Any]) -> None:
         self.messages: list[str] = []
         for error in errors:
             if message := error.get("message"):
@@ -66,7 +69,7 @@ async def execute(
     query: str,
     operation_name: str,
     variables: dict[str, Any] | None = None,
-    default: Any | None = None,
+    default: object | None = None,
     **kwargs: Any,
 ) -> TVar:
     async with session(**kwargs) as client:

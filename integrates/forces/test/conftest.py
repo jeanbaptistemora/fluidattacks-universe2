@@ -1,8 +1,8 @@
-import os
-import pytest
-from typing import (
+from collections.abc import (
     Iterator,
 )
+import os
+import pytest
 
 
 @pytest.fixture(scope="session")

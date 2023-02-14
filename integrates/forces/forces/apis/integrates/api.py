@@ -1,6 +1,11 @@
 """Fluid Forces integrates api module."""
 
 import asyncio
+from collections.abc import (
+    AsyncGenerator,
+    Callable,
+    Mapping,
+)
 from datetime import (
     datetime,
 )
@@ -24,15 +29,13 @@ from forces.utils.logs import (
 )
 from typing import (
     Any,
-    AsyncGenerator,
-    Callable,
     cast,
     TypeVar,
 )
 
 # Constants
 # pylint: disable=invalid-name
-TFun = TypeVar("TFun", bound=Callable[..., Any])
+TFun = TypeVar("TFun", bound=Callable[..., object])
 SHIELD: Callable[[TFun], TFun] = shield(
     retries=8 if guess_environment() == "production" else 1,
     sleep_between_retries=5,
@@ -81,7 +84,7 @@ async def get_findings(group: str, **kwargs: str) -> set[str]:
 @SHIELD
 async def get_vulnerabilities(
     finding_id: str, **kwargs: str
-) -> list[dict[str, str | list[dict[str, dict[str, Any]]]]]:
+) -> list[dict[str, str | list[dict[str, dict[str, object]]]]]:
     """
     Returns the vulnerabilities of a finding.
 
@@ -169,7 +172,7 @@ async def get_vulnerabilities(
 
 
 @SHIELD
-async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
+async def get_finding(finding: str, **kwargs: str) -> dict[str, object]:
     """
     Returns a finding.
 
@@ -201,7 +204,7 @@ async def get_finding(finding: str, **kwargs: str) -> dict[str, Any]:
 
 async def vulns_generator(
     group_name: str, **kwargs: str
-) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, Any]]]], None]:
+) -> AsyncGenerator[dict[str, str | list[dict[str, dict[str, object]]]], None]:
     """
     Returns a generator with all the vulnerabilities of a group.
 
@@ -219,7 +222,7 @@ async def vulns_generator(
 async def upload_report(  # pylint: disable=too-many-arguments
     config: ForcesConfig,
     execution_id: str,
-    git_metadata: dict[str, str],
+    git_metadata: Mapping[str, str],
     log_file: str,
     report: ForcesData,
     exit_code: str,
@@ -381,7 +384,9 @@ async def get_groups_access(
     )
 
 
-async def get_git_remotes(group: str, **kwargs: Any) -> list[dict[str, str]]:
+async def get_git_remotes(
+    group: str, **kwargs: object
+) -> list[dict[str, str]]:
     query = """
         query ForcesGetGitRoots($group: String!) {
           group(groupName: $group){
@@ -406,7 +411,7 @@ async def get_git_remotes(group: str, **kwargs: Any) -> list[dict[str, str]]:
 
 
 async def get_forces_user_and_org_data(
-    **kwargs: Any,
+    **kwargs: object,
 ) -> tuple[str | None, str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
     for group, global_brk_severity, vuln_grace_period in groups:

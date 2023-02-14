@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterable,
+)
 import fnmatch
 from forces.model import (
     KindEnum,
@@ -38,7 +41,7 @@ def filter_repo(
 
 
 def filter_vulnerabilities(
-    vulnerabilities: list[Vulnerability],
+    vulnerabilities: Iterable[Vulnerability],
     verbose_level: int,
 ) -> tuple[Vulnerability, ...]:
     """Helper method to filter vulns in findings based on the requested vuln

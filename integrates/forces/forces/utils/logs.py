@@ -3,6 +3,9 @@ from aioextensions import (
     in_thread,
 )
 import bugsnag
+from collections.abc import (
+    Set,
+)
 from contextvars import (
     ContextVar,
 )
@@ -66,7 +69,7 @@ _LOGGER.setLevel(logging.INFO)
 _LOGGER.propagate = False
 
 
-def set_up_handlers(interfaces: set[Console]) -> None:
+def set_up_handlers(interfaces: Set[Console]) -> None:
     """Configures and sets up logging handlers for the main logger object"""
     for interface in interfaces:
         handler: logging.Handler = RichHandler(
@@ -80,11 +83,11 @@ def set_up_handlers(interfaces: set[Console]) -> None:
 set_up_handlers({CONSOLE_INTERFACE, LOGGING_INTERFACE})
 
 
-def blocking_log(level: str, msg: str, *args: Any) -> None:
+def blocking_log(level: str, msg: str, *args: object) -> None:
     getattr(_LOGGER, level)(msg, *args)
 
 
-async def log(level: str, msg: str, *args: Any) -> None:
+async def log(level: str, msg: str, *args: object) -> None:
     await in_thread(getattr(_LOGGER, level), msg, *args)
 
 

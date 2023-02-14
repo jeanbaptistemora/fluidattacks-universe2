@@ -1,6 +1,9 @@
 from asyncio import (
     sleep,
 )
+from collections.abc import (
+    Callable,
+)
 from forces.utils.env import (
     guess_environment,
 )
@@ -14,9 +17,7 @@ from more_itertools import (
 )
 from typing import (
     Any,
-    Callable,
     cast,
-    Type,
     TypeVar,
 )
 
@@ -41,8 +42,8 @@ class StopRetrying(Exception):
 
 def shield(
     *,
-    on_error_return: Any = RAISE,
-    on_exceptions: tuple[Type[BaseException], ...] = (
+    on_error_return: object = RAISE,
+    on_exceptions: tuple[type[BaseException], ...] = (
         BaseException,
         RetryAndFinallyReturn,
     ),
