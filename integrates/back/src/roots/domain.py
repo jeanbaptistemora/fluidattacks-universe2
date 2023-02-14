@@ -446,6 +446,9 @@ async def add_ip_root(
     return root.id
 
 
+@validation_utils.validate_fields_deco(["url"])
+@validation_utils.validate_sanitized_csv_input_deco(["url", "nickname"])
+@validation_utils.validate_url_deco("url")
 async def add_url_root(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     user_email: str,
@@ -455,9 +458,6 @@ async def add_url_root(  # pylint: disable=too-many-locals
     group_name = str(kwargs["group_name"]).lower()
     nickname: str = str(kwargs["nickname"])
     url: str = str(kwargs["url"])
-    validation_utils.validate_fields([url])
-    validation_utils.validate_sanitized_csv_input(url, nickname)
-    validation_utils.validate_url(url)
 
     try:
         url_attributes = parse_url(url)
@@ -1584,8 +1584,8 @@ async def move_root(
         query = "" if root.state.query is None else f"?{root.state.query}"
         path = "" if root.state.path == "/" else root.state.path
         new_root_id = await add_url_root(
-            loaders,
-            email,
+            loaders=loaders,
+            user_email=email,
             ensure_org_uniqueness=False,
             group_name=target_group_name,
             nickname=root.state.nickname,

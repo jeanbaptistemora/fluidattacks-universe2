@@ -212,7 +212,7 @@ def validate_nickname_is_unique(
 def validate_nickname_is_unique_deco(
     nickname_field: str,
     roots_fields: str,
-    old_nickname_field: str,
+    old_nickname_field: str = "",
 ) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)

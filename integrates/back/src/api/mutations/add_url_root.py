@@ -41,7 +41,7 @@ async def mutate(
     user_email: str = user_info["user_email"]
 
     root = await roots_domain.add_url_root(
-        info.context.loaders, user_email, **kwargs
+        loaders=info.context.loaders, user_email=user_email, **kwargs
     )
     logs_utils.cloudwatch_log(
         info.context,
