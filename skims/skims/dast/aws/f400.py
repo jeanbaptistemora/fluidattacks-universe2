@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def elbv2_has_access_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="elbv2", function="describe_load_balancers"
     )
     method = core_model.MethodsEnum.AWS_ELBV2_HAS_ACCESS_LOGGING_DISABLED
@@ -37,8 +36,8 @@ async def elbv2_has_access_logging_disabled(
     if balancers:
         for balancer in balancers:
             load_balancer_arn = balancer["LoadBalancerArn"]
-            locations: List[Location] = []
-            key_rotation: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            key_rotation: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="elbv2",
                 function="describe_load_balancer_attributes",
@@ -79,7 +78,7 @@ async def elbv2_has_access_logging_disabled(
 async def cloudfront_has_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudfront", function="list_distributions"
     )
     method = core_model.MethodsEnum.AWS_CLOUDFRONT_HAS_LOGGING_DISABLED
@@ -89,8 +88,8 @@ async def cloudfront_has_logging_disabled(
         for dist in distributions["Items"]:
             dist_id = dist["Id"]
             dist_arn = dist["ARN"]
-            locations: List[Location] = []
-            config: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            config: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="cloudfront",
                 function="get_distribution",
@@ -129,7 +128,7 @@ async def cloudfront_has_logging_disabled(
 async def cloudtrail_trails_not_multiregion(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudtrail", function="describe_trails"
     )
     method = core_model.MethodsEnum.AWS_CLOUDTRAIL_TRAILS_NOT_MULTIREGION
@@ -138,7 +137,7 @@ async def cloudtrail_trails_not_multiregion(
     if trails:
         for trail in trails:
             trail_arn = trail["TrailARN"]
-            locations: List[Location] = []
+            locations: list[Location] = []
             if not trail["IsMultiRegionTrail"]:
                 locations = [
                     Location(
@@ -166,7 +165,7 @@ async def cloudtrail_trails_not_multiregion(
 async def is_trail_bucket_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudtrail", function="describe_trails"
     )
     method = core_model.MethodsEnum.AWS_IS_TRAIL_BUCKET_LOGGING_DISABLED
@@ -174,10 +173,10 @@ async def is_trail_bucket_logging_disabled(
     vulns: core_model.Vulnerabilities = ()
     if trails:
         for trail in trails:
-            locations: List[Location] = []
+            locations: list[Location] = []
             t_arn = trail["TrailARN"]
             t_bucket = trail["S3BucketName"]
-            logging: Dict[str, Any] = await run_boto3_fun(
+            logging: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_logging",
@@ -211,7 +210,7 @@ async def is_trail_bucket_logging_disabled(
 async def s3_has_server_access_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     method = core_model.MethodsEnum.AWS_S3_HAS_ACCESS_LOGGING_DISABLED
@@ -220,8 +219,8 @@ async def s3_has_server_access_logging_disabled(
     if buckets:
         for bucket in buckets:
             bucket_name = bucket["Name"]
-            locations: List[Location] = []
-            bucket_logging: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            bucket_logging: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_logging",
@@ -257,7 +256,7 @@ async def s3_has_server_access_logging_disabled(
 async def ec2_monitoring_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
     reservations = response.get("Reservations", []) if response else []
@@ -265,7 +264,7 @@ async def ec2_monitoring_disabled(
     vulns: core_model.Vulnerabilities = ()
     if reservations:
         for instances in reservations:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, i in enumerate(instances["Instances"]):
                 monitoring = i.get("Monitoring", "")
                 if monitoring["State"] != "enabled":
@@ -299,7 +298,7 @@ async def ec2_monitoring_disabled(
 async def cf_distribution_has_logging_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudfront", function="list_distributions"
     )
     method = core_model.MethodsEnum.AWS_CF_DISTRIBUTION_HAS_LOGGING_DISABLED
@@ -309,8 +308,8 @@ async def cf_distribution_has_logging_disabled(
         for dist in distributions["Items"]:
             dist_id = dist["Id"]
             dist_arn = dist["ARN"]
-            locations: List[Location] = []
-            config: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            config: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="cloudfront",
                 function="get_distribution_config",
@@ -342,8 +341,8 @@ async def cf_distribution_has_logging_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     is_trail_bucket_logging_disabled,

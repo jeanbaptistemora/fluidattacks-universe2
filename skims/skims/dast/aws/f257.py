@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def ec2_has_not_termination_protection(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
     reservations = response.get("Reservations", []) if response else []
@@ -36,9 +35,9 @@ async def ec2_has_not_termination_protection(
     vulns: core_model.Vulnerabilities = ()
     if reservations:
         for instances in reservations:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for instance in instances.get("Instances", []):
-                disable_api_termination: Dict[str, Any] = await run_boto3_fun(
+                disable_api_termination: dict[str, Any] = await run_boto3_fun(
                     credentials,
                     service="ec2",
                     function="describe_instance_attribute",
@@ -78,7 +77,7 @@ async def ec2_has_not_termination_protection(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (ec2_has_not_termination_protection,)

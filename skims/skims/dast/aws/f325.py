@@ -1,4 +1,9 @@
 import ast
+from collections.abc import (
+    Callable,
+    Coroutine,
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -22,12 +27,6 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Pattern,
-    Tuple,
 )
 from zone import (
     t,
@@ -38,7 +37,7 @@ def service_is_present_action(action: str, service: str) -> bool:
     """Check if a service is present in an action."""
     success = False
     with suppress(KeyError):
-        if isinstance(action, List):
+        if isinstance(action, list):
             success = service in [act.split(":")[0] for act in action]
         elif action == "*":
             success = True
@@ -50,7 +49,7 @@ def service_is_present_action(action: str, service: str) -> bool:
 async def iam_has_privileges_over_iam(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -61,8 +60,8 @@ async def iam_has_privileges_over_iam(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            policy_version: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            policy_version: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -79,7 +78,7 @@ async def iam_has_privileges_over_iam(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
@@ -117,9 +116,9 @@ async def iam_has_privileges_over_iam(
 
 
 def iterate_kms_has_master_keys_exposed_to_everyone(
-    key_policy: Dict[str, Any], alias: Dict[str, Any]
-) -> List[Location]:
-    locations: List[Location] = []
+    key_policy: dict[str, Any], alias: dict[str, Any]
+) -> list[Location]:
+    locations: list[Location] = []
     for index, item in enumerate(key_policy["Statement"]):
         if item["Principal"]["AWS"] == "*" and "Condition" not in item:
             locations = [
@@ -140,7 +139,7 @@ def iterate_kms_has_master_keys_exposed_to_everyone(
 async def kms_has_master_keys_exposed_to_everyone(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="kms",
         function="list_aliases",
@@ -151,7 +150,7 @@ async def kms_has_master_keys_exposed_to_everyone(
     if aliases:
         for alias in aliases:
             with suppress(KeyError):
-                list_key_policies: Dict[str, Any] = await run_boto3_fun(
+                list_key_policies: dict[str, Any] = await run_boto3_fun(
                     credentials,
                     service="kms",
                     function="list_key_policies",
@@ -161,7 +160,7 @@ async def kms_has_master_keys_exposed_to_everyone(
                 )
                 policy_names = list_key_policies.get("PolicyNames", {})
                 for policy in policy_names:
-                    get_key_policy: Dict[str, Any] = await run_boto3_fun(
+                    get_key_policy: dict[str, Any] = await run_boto3_fun(
                         credentials,
                         service="kms",
                         function="get_key_policy",
@@ -193,7 +192,7 @@ async def kms_has_master_keys_exposed_to_everyone(
 
 def resource_all(resource: Any) -> bool:
     """Check if an action is permitted for any resource."""
-    if isinstance(resource, List):
+    if isinstance(resource, list):
         success = any(map(resource_all, resource))
     elif isinstance(resource, str):
         success = resource == "*"
@@ -203,18 +202,18 @@ def resource_all(resource: Any) -> bool:
     return success
 
 
-def force_list(obj: Any) -> List[Any]:
+def force_list(obj: Any) -> list[Any]:
     """Wrap the element in a list, or if list, leave it intact."""
     if not obj:
         ret = []
-    elif isinstance(obj, List):
+    elif isinstance(obj, list):
         ret = obj
     else:
         ret = [obj]
     return ret
 
 
-def policy_actions_has_privilege(action: List, privilege: str) -> bool:
+def policy_actions_has_privilege(action: Iterable, privilege: str) -> bool:
     """Check if an action have a privilege."""
     write_actions: dict = services.ACTIONS
     success = False
@@ -237,9 +236,9 @@ def policy_actions_has_privilege(action: List, privilege: str) -> bool:
 
 
 def get_locations(
-    policy_statements: List, policy: Dict[str, Any]
-) -> List[Location]:
-    locations: List[Location] = []
+    policy_statements: Iterable, policy: dict[str, Any]
+) -> list[Location]:
+    locations: list[Location] = []
     for item in policy_statements:
         item = ast.literal_eval(str(item))
         if (
@@ -272,7 +271,7 @@ def get_locations(
 async def iam_has_wildcard_resource_on_write_action(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -286,7 +285,7 @@ async def iam_has_wildcard_resource_on_write_action(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -302,7 +301,7 @@ async def iam_has_wildcard_resource_on_write_action(
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             locations = get_locations(policy_statements, policy)
@@ -320,14 +319,14 @@ async def iam_has_wildcard_resource_on_write_action(
 
 
 def _get_wildcard_nodes(
-    act_res: List,
-    pattern: Pattern,
-    policy: Dict[str, Any],
-    policy_statements: List[Dict[str, Any]],
+    act_res: Iterable,
+    pattern: re.Pattern,
+    policy: dict[str, Any],
+    policy_statements: Iterable[dict[str, Any]],
     index: int,
-) -> List[Location]:
-    locations: List[Location] = []
-    action = policy_statements[index]["Action"]
+) -> list[Location]:
+    locations: list[Location] = []
+    action = list(policy_statements)[index]["Action"]
     for index_act, act in enumerate(act_res):
         if pattern.match(act):
             locations = [
@@ -336,9 +335,9 @@ def _get_wildcard_nodes(
                     access_patterns=(),
                     arn=(f"{policy['Arn']}"),
                     values=(
-                        policy_statements[index]["Effect"],
+                        list(policy_statements)[index]["Effect"],
                         action[index_act]
-                        if isinstance(action, List)
+                        if isinstance(action, list)
                         else action,
                     ),
                     description=t(
@@ -350,18 +349,18 @@ def _get_wildcard_nodes(
 
 
 def _is_statement_miss_configured(
-    stmt: Dict[str, Any],
+    stmt: dict[str, Any],
     index: int,
-    policy: Dict[str, Any],
-    policy_statements: List[Dict[str, Any]],
+    policy: dict[str, Any],
+    policy_statements: Iterable[dict[str, Any]],
 ) -> Any:
-    wildcard_action: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+    wildcard_action: re.Pattern = re.compile(r"^((\*)|(\w+:\*))$")
     effect = stmt.get("Effect")
     no_action = stmt.get("NotAction")
     no_resource = stmt.get("NotResource")
-    locations: List[Location] = []
+    locations: list[Location] = []
     if effect == "Allow":
-        if no_action and isinstance(no_action, List):
+        if no_action and isinstance(no_action, list):
             locations = [
                 *locations,
                 Location(
@@ -374,7 +373,7 @@ def _is_statement_miss_configured(
                 ),
             ]
 
-        if no_resource and isinstance(no_resource, List):
+        if no_resource and isinstance(no_resource, list):
             locations = [
                 *locations,
                 Location(
@@ -392,7 +391,7 @@ def _is_statement_miss_configured(
             locations = [
                 *locations,
                 *_get_wildcard_nodes(
-                    action if isinstance(action, List) else [action],
+                    action if isinstance(action, list) else [action],
                     wildcard_action,
                     policy,
                     policy_statements,
@@ -405,7 +404,7 @@ def _is_statement_miss_configured(
 async def iam_is_policy_miss_configured(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -417,8 +416,8 @@ async def iam_is_policy_miss_configured(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -434,7 +433,7 @@ async def iam_is_policy_miss_configured(
             policy_statements = ast.literal_eval(
                 str(pol_access.get("Statement", []))
             )
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, policy_statement in enumerate(policy_statements):
@@ -456,8 +455,8 @@ async def iam_is_policy_miss_configured(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     kms_has_master_keys_exposed_to_everyone,

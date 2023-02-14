@@ -1,7 +1,7 @@
-# SPDX-FileCopyrightText: 2022 Fluid Attacks <development@fluidattacks.com>
-#
-# SPDX-License-Identifier: MPL-2.0
-
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -18,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -32,7 +27,7 @@ from zone import (
 async def cloudtrail_files_not_validated(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudtrail", function="describe_trails"
     )
     method = core_model.MethodsEnum.AWS_CLOUDTRAIL_FILES_NOT_VALIDATED
@@ -40,7 +35,7 @@ async def cloudtrail_files_not_validated(
     vulns: core_model.Vulnerabilities = ()
     if trails:
         for trail in trails:
-            locations: List[Location] = []
+            locations: list[Location] = []
             trail_arn = trail["TrailARN"]
             if trail["LogFileValidationEnabled"]:
                 locations = [
@@ -66,7 +61,7 @@ async def cloudtrail_files_not_validated(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (cloudtrail_files_not_validated,)

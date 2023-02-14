@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -29,11 +33,6 @@ from model.core_model import (
 import pytz
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -41,7 +40,7 @@ async def has_old_ssh_public_keys(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.AWS_IAM_HAS_OLD_SSH_PUBLIC_KEYS
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_users",
@@ -53,7 +52,7 @@ async def has_old_ssh_public_keys(
 
     if users:
         for user in users:
-            access_keys: Dict[str, Any] = await run_boto3_fun(
+            access_keys: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_ssh_public_keys",
@@ -62,7 +61,7 @@ async def has_old_ssh_public_keys(
                 },
             )
             keys = access_keys["SSHPublicKeys"]
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, key in enumerate(keys):
                 if key["UploadDate"] < three_months_ago:
                     locations = [
@@ -94,7 +93,7 @@ async def have_old_creds_enabled(
     await run_boto3_fun(
         credentials, service="iam", function="generate_credential_report"
     )
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_credential_report"
     )
 
@@ -107,7 +106,7 @@ async def have_old_creds_enabled(
         if user["password_enabled"] != "true":
             continue
 
-        get_user: Dict[str, Any] = await run_boto3_fun(
+        get_user: dict[str, Any] = await run_boto3_fun(
             credentials,
             service="iam",
             function="get_user",
@@ -149,7 +148,7 @@ async def have_old_access_keys(
     await run_boto3_fun(
         credentials, service="iam", function="generate_credential_report"
     )
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_credential_report"
     )
 
@@ -160,7 +159,7 @@ async def have_old_access_keys(
     credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
 
     for user in credentials_report:
-        locations: List[Location] = []
+        locations: list[Location] = []
         if any(
             (
                 user["access_key_1_active"] != "true",
@@ -203,8 +202,8 @@ async def have_old_access_keys(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     has_old_ssh_public_keys,

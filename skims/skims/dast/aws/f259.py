@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def dynamodb_has_not_point_in_time_recovery(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="dynamodb", function="list_tables"
     )
     table_names = response.get("TableNames", []) if response else []
@@ -36,9 +35,9 @@ async def dynamodb_has_not_point_in_time_recovery(
     vulns: core_model.Vulnerabilities = ()
     if table_names:
         for table in table_names:
-            locations: List[Location] = []
+            locations: list[Location] = []
 
-            table_backup: Dict[str, Any] = await run_boto3_fun(
+            table_backup: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="dynamodb",
                 function="describe_continuous_backups",
@@ -46,7 +45,7 @@ async def dynamodb_has_not_point_in_time_recovery(
                     "TableName": table,
                 },
             )
-            describe_table: Dict[str, Any] = await run_boto3_fun(
+            describe_table: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="dynamodb",
                 function="describe_table",
@@ -96,7 +95,7 @@ async def dynamodb_has_not_point_in_time_recovery(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (dynamodb_has_not_point_in_time_recovery,)

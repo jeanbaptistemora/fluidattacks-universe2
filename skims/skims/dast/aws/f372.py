@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def elbv2_listeners_not_using_https(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="elbv2", function="describe_load_balancers"
     )
     balancers = response.get("LoadBalancers", []) if response else []
@@ -36,10 +35,10 @@ async def elbv2_listeners_not_using_https(
     vulns: core_model.Vulnerabilities = ()
     if balancers:
         for balancer in balancers:
-            locations: List[Location] = []
+            locations: list[Location] = []
             load_balancer_arn = balancer["LoadBalancerArn"]
 
-            attributes: Dict[str, Any] = await run_boto3_fun(
+            attributes: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="elbv2",
                 function="describe_listeners",
@@ -72,9 +71,9 @@ async def elbv2_listeners_not_using_https(
 
 
 def _iterate_locations(
-    distribution: Dict[str, Any], dist_arn: str
-) -> List[Location]:
-    locations: List[Location] = []
+    distribution: dict[str, Any], dist_arn: str
+) -> list[Location]:
+    locations: list[Location] = []
     distribution_config = distribution["DistributionConfig"]
     if (
         "DefaultCacheBehavior" in distribution_config
@@ -130,7 +129,7 @@ def _iterate_locations(
 async def cft_serves_content_over_http(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudfront", function="list_distributions"
     )
     distribution_list = (
@@ -143,7 +142,7 @@ async def cft_serves_content_over_http(
             dist_id = dist["Id"]
             dist_arn = dist["ARN"]
 
-            config: Dict[str, Any] = await run_boto3_fun(
+            config: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="cloudfront",
                 function="get_distribution",
@@ -165,8 +164,8 @@ async def cft_serves_content_over_http(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     cft_serves_content_over_http,

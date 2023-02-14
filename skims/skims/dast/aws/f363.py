@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,10 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    Tuple,
 )
 
 
@@ -25,7 +25,7 @@ async def not_requires_uppercase(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -57,7 +57,7 @@ async def not_requires_lowercase(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -89,7 +89,7 @@ async def not_requires_symbols(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -121,7 +121,7 @@ async def not_requires_numbers(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -153,7 +153,7 @@ async def min_password_len_unsafe(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     min_length: int = 14
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -184,7 +184,7 @@ async def min_password_len_unsafe(
 async def password_reuse_unsafe(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -217,7 +217,7 @@ async def password_reuse_unsafe(
 async def password_expiration_unsafe(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_password_policy"
     )
     user = await run_boto3_fun(credentials, service="iam", function="get_user")
@@ -248,8 +248,8 @@ async def password_expiration_unsafe(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     not_requires_uppercase,

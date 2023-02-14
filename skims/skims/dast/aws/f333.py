@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -17,11 +21,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -31,7 +30,7 @@ from zone import (
 async def ec2_has_terminate_shutdown_behavior(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_instances",
@@ -41,9 +40,9 @@ async def ec2_has_terminate_shutdown_behavior(
     vulns: core_model.Vulnerabilities = ()
     if reservations:
         for instances in reservations:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for instance in instances["Instances"]:
-                shutdown_behavior: Dict[str, Any] = await run_boto3_fun(
+                shutdown_behavior: dict[str, Any] = await run_boto3_fun(
                     credentials,
                     service="ec2",
                     function="describe_instance_attribute",
@@ -92,9 +91,9 @@ async def ec2_has_terminate_shutdown_behavior(
 
 
 def iterate_ec2_has_associate_public_ip_address(
-    instance: Dict[str, Any], instances: Dict[str, Any]
-) -> List[Location]:
-    locations: List[Location] = []
+    instance: dict[str, Any], instances: dict[str, Any]
+) -> list[Location]:
+    locations: list[Location] = []
     for index, interface in enumerate(instance["NetworkInterfaces"]):
         if "Association" in interface and interface["Association"]["PublicIp"]:
             locations = [
@@ -122,7 +121,7 @@ def iterate_ec2_has_associate_public_ip_address(
 async def ec2_has_associate_public_ip_address(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_instances",
@@ -151,14 +150,14 @@ async def ec2_has_associate_public_ip_address(
 async def ec2_iam_instances_without_profile(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
     instances = response.get("Reservations", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     for instance in instances:
-        locations: List[Location] = []
+        locations: list[Location] = []
         for config in instance["Instances"]:
             if (
                 "IamInstanceProfile" not in config.keys()
@@ -195,7 +194,7 @@ async def ec2_iam_instances_without_profile(
 async def has_unused_ec2_key_pairs(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_key_pairs"
     )
     key_pairs = response.get("KeyPairs", []) if response else []
@@ -203,12 +202,12 @@ async def has_unused_ec2_key_pairs(
     vulns: core_model.Vulnerabilities = ()
 
     for key in key_pairs:
-        locations: List[Location] = []
+        locations: list[Location] = []
         filters = [
             {"Name": "instance-state-name", "Values": ["running"]},
             {"Name": "key-name", "Values": [key["KeyName"]]},
         ]
-        instances: Dict[str, Any] = await run_boto3_fun(
+        instances: dict[str, Any] = await run_boto3_fun(
             credentials,
             service="ec2",
             function="describe_instances",
@@ -239,7 +238,7 @@ async def has_unused_ec2_key_pairs(
 async def has_unused_seggroups(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -247,7 +246,7 @@ async def has_unused_seggroups(
 
     if security_groups:
         for group in security_groups:
-            locations: List[Location] = []
+            locations: list[Location] = []
             net_interfaces = await run_boto3_fun(
                 credentials,
                 service="ec2",
@@ -299,7 +298,7 @@ async def has_unused_seggroups(
 async def has_unencrypted_amis(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_images",
@@ -310,7 +309,7 @@ async def has_unencrypted_amis(
 
     if images:
         for image in images:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, block in enumerate(image["BlockDeviceMappings"]):
                 with suppress(KeyError):
                     if not block["Ebs"].get("Encrypted", True):
@@ -352,7 +351,7 @@ async def has_unencrypted_amis(
 async def has_publicly_shared_amis(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_images",
@@ -360,7 +359,7 @@ async def has_publicly_shared_amis(
     )
     images = response.get("Images", []) if response else []
     vulns: core_model.Vulnerabilities = ()
-    locations: List[Location] = []
+    locations: list[Location] = []
     for image in images:
         if image.get("Public", False):
             locations = [
@@ -386,7 +385,7 @@ async def has_unencrypted_snapshots(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     vulns: core_model.Vulnerabilities = ()
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="sts",
         function="get_caller_identity",
@@ -395,7 +394,7 @@ async def has_unencrypted_snapshots(
     if not response.get("Account", False):
         return vulns
 
-    describe_snapshots: Dict[str, Any] = await run_boto3_fun(
+    describe_snapshots: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_snapshots",
@@ -403,7 +402,7 @@ async def has_unencrypted_snapshots(
     )
     snapshots = describe_snapshots.get("Snapshots", [])
     method = core_model.MethodsEnum.AWS_EC2_HAS_UNENCRYPTED_SNAPSHOTS
-    locations: List[Location] = []
+    locations: list[Location] = []
     if snapshots:
         for snapshot in snapshots:
             snapshot_id = snapshot["SnapshotId"]
@@ -437,7 +436,7 @@ async def has_defined_user_data(
     https://www.mitiga.io/blog/identifying-userdata-script-manipulation-
     accelerates-investigation
     """
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_instances",
@@ -447,9 +446,9 @@ async def has_defined_user_data(
     vulns: core_model.Vulnerabilities = ()
     if reservations:
         for instances in reservations:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for instance in instances["Instances"]:
-                describe_instance_attribute: Dict[
+                describe_instance_attribute: dict[
                     str, Any
                 ] = await run_boto3_fun(
                     credentials,
@@ -491,7 +490,7 @@ async def has_defined_user_data(
 async def has_instances_using_unapproved_amis(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_instances",
@@ -501,9 +500,9 @@ async def has_instances_using_unapproved_amis(
     vulns: core_model.Vulnerabilities = ()
     if reservations:
         for instances in reservations:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for instance in instances["Instances"]:
-                describe_images: Dict[str, Any] = await run_boto3_fun(
+                describe_images: dict[str, Any] = await run_boto3_fun(
                     credentials,
                     service="ec2",
                     function="describe_images",
@@ -543,8 +542,8 @@ async def has_instances_using_unapproved_amis(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     ec2_has_terminate_shutdown_behavior,

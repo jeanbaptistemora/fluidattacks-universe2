@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def elb2_has_not_deletion_protection(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="elbv2", function="describe_load_balancers"
     )
     balancers = response.get("LoadBalancers", []) if response else []
@@ -36,10 +35,10 @@ async def elb2_has_not_deletion_protection(
     vulns: core_model.Vulnerabilities = ()
     if balancers:
         for balancer in balancers:
-            locations: List[Location] = []
+            locations: list[Location] = []
             load_balancer_arn = balancer["LoadBalancerArn"]
 
-            attributes: Dict[str, Any] = await run_boto3_fun(
+            attributes: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="elbv2",
                 function="describe_load_balancer_attributes",
@@ -76,7 +75,7 @@ async def elb2_has_not_deletion_protection(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (elb2_has_not_deletion_protection,)

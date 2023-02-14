@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def rds_has_not_deletion_protection(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="rds", function="describe_db_instances"
     )
     db_instances = response.get("DBInstances", []) if response else []
@@ -36,7 +35,7 @@ async def rds_has_not_deletion_protection(
     vulns: core_model.Vulnerabilities = ()
     if db_instances:
         for instance in db_instances:
-            locations: List[Location] = []
+            locations: list[Location] = []
             if not instance.get("DeletionProtection", False):
                 instance_arn = instance["DBInstanceArn"]
                 locations = [
@@ -64,7 +63,7 @@ async def rds_has_not_deletion_protection(
 async def rds_has_not_automated_backups(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="rds", function="describe_db_instances"
     )
     db_instances = response.get("DBInstances", []) if response else []
@@ -72,7 +71,7 @@ async def rds_has_not_automated_backups(
     vulns: core_model.Vulnerabilities = ()
     if db_instances:
         for instance in db_instances:
-            locations: List[Location] = []
+            locations: list[Location] = []
             if instance.get("BackupRetentionPeriod") == 0:
                 instance_arn = instance["DBInstanceArn"]
                 locations = [
@@ -96,8 +95,8 @@ async def rds_has_not_automated_backups(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     rds_has_not_deletion_protection,

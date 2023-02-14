@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def kms_key_is_key_rotation_absent_or_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="kms", function="list_keys"
     )
     method = core_model.MethodsEnum.AWS_KMS_IS_KEY_ROTATION_DISABLED
@@ -36,8 +35,8 @@ async def kms_key_is_key_rotation_absent_or_disabled(
     vulns: core_model.Vulnerabilities = ()
     if keys:
         for key in keys:
-            locations: List[Location] = []
-            key_rotation: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            key_rotation: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="kms",
                 function="get_key_rotation_status",
@@ -84,7 +83,7 @@ async def kms_key_is_key_rotation_absent_or_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (kms_key_is_key_rotation_absent_or_disabled,)

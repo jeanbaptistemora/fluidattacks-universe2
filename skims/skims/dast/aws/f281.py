@@ -1,4 +1,9 @@
 import ast
+from collections.abc import (
+    Callable,
+    Coroutine,
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -18,11 +23,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -30,9 +30,9 @@ from zone import (
 
 
 def iterate_s3_has_insecure_transport(
-    bucket_name: str, bucket_statements: List
-) -> List[Location]:
-    locations: List[Location] = []
+    bucket_name: str, bucket_statements: Iterable
+) -> list[Location]:
+    locations: list[Location] = []
     for index, stm in enumerate(bucket_statements):
         with suppress(KeyError):
             if (
@@ -89,7 +89,7 @@ def iterate_s3_has_insecure_transport(
 async def s3_has_insecure_transport(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -98,7 +98,7 @@ async def s3_has_insecure_transport(
     if buckets:
         for bucket in buckets:
             bucket_name = bucket["Name"]
-            bucket_policy_string: Dict[str, Any] = await run_boto3_fun(
+            bucket_policy_string: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_policy",
@@ -112,7 +112,7 @@ async def s3_has_insecure_transport(
             bucket_statements = ast.literal_eval(
                 str(policy.get("Statement", []))
             )
-            if not isinstance(bucket_statements, List):
+            if not isinstance(bucket_statements, list):
                 bucket_statements = [bucket_statements]
 
             locations = iterate_s3_has_insecure_transport(
@@ -130,7 +130,7 @@ async def s3_has_insecure_transport(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (s3_has_insecure_transport,)

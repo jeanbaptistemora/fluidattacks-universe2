@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def s3_bucket_versioning_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     method = core_model.MethodsEnum.AWS_S3_BUCKET_VERSIONING_DISABLED
@@ -36,9 +35,9 @@ async def s3_bucket_versioning_disabled(
     vulns: core_model.Vulnerabilities = ()
     if buckets:
         for bucket in buckets:
-            locations: List[Location] = []
+            locations: list[Location] = []
             bucket_name = bucket["Name"]
-            bucket_versioning: Dict[str, Any] = await run_boto3_fun(
+            bucket_versioning: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_versioning",
@@ -82,7 +81,7 @@ async def s3_bucket_versioning_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (s3_bucket_versioning_disabled,)

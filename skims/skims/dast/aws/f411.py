@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,16 +27,16 @@ from zone import (
 async def ebs_uses_default_kms_key(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_volumes"
     )
     method = core_model.MethodsEnum.AWS_EBS_USES_DEFAULT_KMS_KEY
     volumes = response.get("Volumes", []) if response else []
     vulns: core_model.Vulnerabilities = ()
-    list_aliases: Dict[str, Any] = await run_boto3_fun(
+    list_aliases: dict[str, Any] = await run_boto3_fun(
         credentials, service="kms", function="list_aliases"
     )
-    locations: List[Location] = []
+    locations: list[Location] = []
     kms_aliases = list_aliases.get("Aliases", []) if list_aliases else []
     for volume in volumes:
         vol_key = volume.get("KmsKeyId", "")
@@ -74,10 +73,10 @@ async def ebs_uses_default_kms_key(
 
 async def get_paginated_items(
     credentials: AwsCredentials,
-) -> List:
+) -> list:
     """Get all items in paginated API calls."""
     pools = []
-    args: Dict[str, Any] = {
+    args: dict[str, Any] = {
         "credentials": credentials,
         "service": "efs",
         "function": "describe_file_systems",
@@ -103,14 +102,14 @@ async def efs_uses_default_kms_key(
     filesystems = await get_paginated_items(credentials)
     vulns: core_model.Vulnerabilities = ()
     method = core_model.MethodsEnum.AWS_EFS_USES_DEFAULT_KMS_KEY
-    list_aliases: Dict[str, Any] = await run_boto3_fun(
+    list_aliases: dict[str, Any] = await run_boto3_fun(
         credentials, service="kms", function="list_aliases"
     )
     kms_aliases = list_aliases.get("Aliases", []) if list_aliases else []
     for filesystem in filesystems:
         vol_key = filesystem.get("KmsKeyId", "")
         if vol_key:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for alias in kms_aliases:
                 if (
                     alias.get("TargetKeyId", "") == vol_key.split("/")[1]
@@ -143,8 +142,8 @@ async def efs_uses_default_kms_key(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     efs_uses_default_kms_key,

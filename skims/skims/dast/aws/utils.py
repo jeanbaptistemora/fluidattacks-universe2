@@ -1,5 +1,8 @@
 import aioboto3
 import botocore
+from collections.abc import (
+    Iterable,
+)
 from dast.aws.types import (
     Location,
 )
@@ -20,9 +23,6 @@ from serializers import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
 )
 from utils.logs import (
     log_exception_blocking,
@@ -53,9 +53,9 @@ def _build_where(location: Location) -> str:
 
 
 def build_vulnerabilities(
-    locations: List[Location],
+    locations: Iterable[Location],
     method: MethodsEnum,
-    aws_response: Dict[str, Any],
+    aws_response: dict[str, Any],
 ) -> core_model.Vulnerabilities:
     str_content = json.dumps(aws_response, indent=4, default=str)
     json_paths = calculate(str_content)
@@ -98,8 +98,8 @@ async def run_boto3_fun(
     credentials: AwsCredentials,
     service: str,
     function: str,
-    parameters: Optional[Dict[str, Any]] = None,
-) -> Dict[str, Any]:
+    parameters: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     try:
         session = aioboto3.Session(
             aws_access_key_id=credentials.access_key_id,

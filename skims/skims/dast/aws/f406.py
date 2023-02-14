@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -27,10 +26,10 @@ from zone import (
 
 async def get_paginated_items(
     credentials: AwsCredentials,
-) -> List:
+) -> list:
     """Get all items in paginated API calls."""
     pools = []
-    args: Dict[str, Any] = {
+    args: dict[str, Any] = {
         "credentials": credentials,
         "service": "efs",
         "function": "describe_file_systems",
@@ -57,7 +56,7 @@ async def efs_is_encryption_disabled(
     vulns: core_model.Vulnerabilities = ()
     filesystems = await get_paginated_items(credentials)
     for filesystem in filesystems:
-        locations: List[Location] = []
+        locations: list[Location] = []
         if not filesystem.get("Encrypted"):
             locations = [
                 Location(
@@ -79,7 +78,7 @@ async def efs_is_encryption_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (efs_is_encryption_disabled,)

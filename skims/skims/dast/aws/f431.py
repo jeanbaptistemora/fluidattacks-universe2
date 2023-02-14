@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -29,13 +28,13 @@ from zone import (
 async def has_unencrypted_logs(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudtrail", function="describe_trails"
     )
     method = core_model.MethodsEnum.AWS_EBS_USES_DEFAULT_KMS_KEY
     trails = response.get("trailList", []) if response else []
     vulns: core_model.Vulnerabilities = ()
-    locations: List[Location] = []
+    locations: list[Location] = []
     if trails:
         for trail in trails:
             trail_arn = trail["TrailARN"]
@@ -64,7 +63,7 @@ async def has_unencrypted_logs(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (has_unencrypted_logs,)
