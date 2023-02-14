@@ -1,6 +1,54 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F236,lines,namespace/skims/test/data/lib_path/f236/tsconfig.json,19,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
- in namespace/skims/test/data/lib_path/f236/tsconfig.json","
+F236,lines,namespace/skims/test/data/lib_root/f236/angular.json,13,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
+ in namespace/skims/test/data/lib_root/f236/angular.json","
+   1 | {
+   2 |     ""build"":{
+   3 |         ""attr"": true,
+   4 |         ""attr_2"": ""2"",
+   5 |         ""configurations"":{
+   6 |             ""config_1"": [""activate"", ""write""],
+   7 |             ""config_2"": false,
+   8 |             ""development"":{
+   9 |                 ""buildOptimizer"": false,
+  10 |                 ""optimization"": false,
+  11 |                 ""vendorChunk"": true,
+  12 |                 ""extractLicenses"": false,
+> 13 |                 ""sourceMap"": true,
+  14 |                 ""namedChunks"": true
+  15 |             }
+  16 |         }
+  17 |
+  18 |     }
+  19 | }
+     ^ Col 0
+",tsconfig.tsconfig_sourcemap_enabled
+F236,lines,namespace/skims/test/data/lib_root/f236/serv_launch.json,17,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
+ in namespace/skims/test/data/lib_root/f236/serv_launch.json","
+   2 |     ""version"": ""1.0"",
+   3 |     ""configurations"":[
+   4 |         {
+   5 |             ""type"": ""node"",
+   6 |             ""request"": ""launch"",
+   7 |             ""program"": ""/bin/serverless"",
+   8 |             ""args"": [
+   9 |                 ""offline"",
+  10 |                 ""start"",
+  11 |                 ""--httpPort"",
+  12 |                 ""4000"",
+  13 |                 ""--noTimeout"",
+  14 |                 ""--stage"",
+  15 |                 ""dev""
+  16 |             ],
+> 17 |             ""sourceMaps"": true,
+  18 |             ""console"": ""integratedTerminal"",
+  19 |             ""env"":{}
+  20 |         }
+  21 |     ]
+  22 | }
+     ^ Col 0
+",tsconfig.tsconfig_sourcemap_enabled
+F236,lines,namespace/skims/test/data/lib_root/f236/tsconfig.json,19,200,skims,236. Technical information leak - SourceMap,"The sourcemap property is set to true, which makes it easier for a malicious actor to parse the application.
+ in namespace/skims/test/data/lib_root/f236/tsconfig.json","
    9 |       ""es2018.promise""
   10 |     ],
   11 |     ""module"": ""esnext"",

@@ -1,0 +1,19 @@
+{
+    "build":{
+        "attr": true,
+        "attr_2": "2",
+        "configurations":{
+            "config_1": ["activate", "write"],
+            "config_2": false,
+            "development":{
+                "buildOptimizer": false,
+                "optimization": false,
+                "vendorChunk": true,
+                "extractLicenses": false,
+                "sourceMap": true,
+                "namedChunks": true
+            }
+        }
+
+    }
+}

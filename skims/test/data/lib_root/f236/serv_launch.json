@@ -1,0 +1,22 @@
+{
+    "version": "1.0",
+    "configurations":[
+        {
+            "type": "node",
+            "request": "launch",
+            "program": "/bin/serverless",
+            "args": [
+                "offline",
+                "start",
+                "--httpPort",
+                "4000",
+                "--noTimeout",
+                "--stage",
+                "dev"
+            ],
+            "sourceMaps": true,
+            "console": "integratedTerminal",
+            "env":{}
+        }
+    ]
+}

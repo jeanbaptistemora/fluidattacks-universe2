@@ -4718,7 +4718,7 @@ class MethodsEnum(Enum):
     TSCONFIG_SOURCEMAP_ENABLED = MethodInfo(
         file_name="tsconfig",
         name="tsconfig_sourcemap_enabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F236,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
