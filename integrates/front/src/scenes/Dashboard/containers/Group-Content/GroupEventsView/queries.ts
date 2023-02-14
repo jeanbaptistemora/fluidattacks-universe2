@@ -17,7 +17,6 @@ const GET_EVENTS: DocumentNode = gql`
             id
             nickname
           }
-
           ... on URLRoot {
             id
             nickname

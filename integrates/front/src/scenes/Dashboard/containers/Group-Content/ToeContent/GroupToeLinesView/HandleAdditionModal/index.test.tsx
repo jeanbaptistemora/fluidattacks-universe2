@@ -60,7 +60,6 @@ describe("handle toe lines addition modal", (): void => {
             roots: [
               {
                 __typename: "GitRoot",
-                environmentUrls: ["https://test.test.com"],
                 id: "4039d098-ffc5-4984-8ed3-eb17bca98e19",
                 nickname: "universe",
                 state: "ACTIVE",
