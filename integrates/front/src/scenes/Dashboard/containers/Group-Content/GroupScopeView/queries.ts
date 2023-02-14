@@ -111,7 +111,6 @@ const GET_GIT_ROOT_DETAILS = gql`
           status
         }
         environment
-        environmentUrls
         gitignore
         id
         lastCloningStatusUpdate

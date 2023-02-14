@@ -26,7 +26,6 @@ const GET_ROOTS: DocumentNode = gql`
       roots {
         ... on GitRoot {
           __typename
-          environmentUrls
           gitEnvironmentUrls {
             url
             id
