@@ -1,6 +1,8 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    get_module_at_test,
+    set_mocks_return_values,
 )
 from batch.dal import (
     delete_action,
@@ -29,6 +31,8 @@ from unittest.mock import (
     patch,
 )
 
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
+
 pytestmark = [
     pytest.mark.asyncio,
 ]
@@ -40,13 +44,16 @@ pytestmark = [
         ["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f652110"],
     ],
 )
-@patch(get_mocked_path("dynamodb_ops.delete_item"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "dynamodb_ops.delete_item", new_callable=AsyncMock)
 async def test_delete_action(
     mock_dynamodb_ops_delete_item: AsyncMock, key: str
 ) -> None:
-    mock_dynamodb_ops_delete_item.return_value = get_mock_response(
-        get_mocked_path("dynamodb_ops.delete_item"),
-        json.dumps([key]),
+
+    assert set_mocks_return_values(
+        mocks_args=[[key]],
+        mocked_objects=[mock_dynamodb_ops_delete_item],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["dynamodb_ops.delete_item"],
     )
     assert await delete_action(dynamodb_pk=key)
     assert mock_dynamodb_ops_delete_item.called is True
@@ -68,25 +75,30 @@ async def test_delete_action(
         ],
     ],
 )
-@patch(get_mocked_path("dynamodb_ops.query"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "dynamodb_ops.query", new_callable=AsyncMock)
 async def test_get_action(
     mock_dynamodb_ops_query: AsyncMock, key: str, expected_bool: bool
 ) -> None:
-    mock_dynamodb_ops_query.return_value = get_mock_response(
-        get_mocked_path("dynamodb_ops.query"),
-        json.dumps([key]),
+    assert set_mocks_return_values(
+        mocks_args=[[key]],
+        mocked_objects=[mock_dynamodb_ops_query],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["dynamodb_ops.query"],
     )
     action = await get_action(action_dynamo_pk=key)
     assert bool(action) is expected_bool
+    assert mock_dynamodb_ops_query.called is True
 
 
-@patch(get_mocked_path("dynamodb_ops.scan"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "dynamodb_ops.scan", new_callable=AsyncMock)
 async def test_get_actions(
     mock_dynamodb_ops_scan: AsyncMock,
 ) -> None:
-    mock_dynamodb_ops_scan.return_value = get_mock_response(
-        get_mocked_path("dynamodb_ops.scan"),
-        json.dumps([]),
+    assert set_mocks_return_values(
+        mocks_args=[[]],
+        mocked_objects=[mock_dynamodb_ops_scan],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["dynamodb_ops.scan"],
     )
     all_actions = await get_actions()
     assert all_actions

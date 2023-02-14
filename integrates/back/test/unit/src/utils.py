@@ -172,10 +172,7 @@ mocked_paths: Dict[str, str] = {
     "comments_domain.remove_comments": "finding_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "credentials_model.remove_organization_credentials": "db_model.credentials.remove_organization_credentials",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
-    "dynamodb_ops.delete_item": "dynamodb.operations_legacy.delete_item",
     "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
-    "dynamodb_ops.query": "dynamodb.operations_legacy.query",
-    "dynamodb_ops.scan": "dynamodb.operations_legacy.scan",
     "event_comments_domain.add": "event_comments.domain.add",
     "event_comments_domain.remove_comments": "event_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "events_model.add": "db_model.events.add",
@@ -543,6 +540,100 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         ' "unittesting", "1"]': None,
         '["Test comment", "unittest@fluidattacks.com",'
         ' "unittesting", "0"]': None,
+    },
+    "batch.dal.dynamodb_ops.delete_item": {
+        '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
+        '52110"]': True,
+    },
+    "batch.dal.dynamodb_ops.query": {
+        '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long
+            dict(
+                additional_info=json.dumps(
+                    dict(
+                        report_type="XLS",
+                        treatments=["ACCEPTED", "UNTREATED"],
+                        states=["VULNERABLE"],
+                        verifications=["REQUESTED"],
+                        closing_date="null",
+                        finding_title="038",
+                        age=1100,
+                        min_severity="2.7",
+                        max_severity="null",
+                    )
+                ),
+                subject="unittesting@fluidattacks.com",
+                action_name="report",
+                pk="ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",  # noqa: E501 pylint: disable=line-too-long
+                time="1616116348",
+                entity="unittesting",
+                queue="small",
+            )
+        ],
+        '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501 pylint: disable=line-too-long
+    },
+    "batch.dal.dynamodb_ops.scan": {
+        "[]": [
+            {
+                "additional_info": json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "UNTREATED",
+                        ],
+                        "states": ["SAFE"],
+                        "verifications": ["VERIFIED"],
+                        "closing_date": "2020-06-01T00:00:00",
+                        "finding_title": "065",
+                        "age": "null",
+                        "min_severity": "null",
+                        "max_severity": "null",
+                        "last_report": "null",
+                        "min_release_date": "null",
+                        "max_release_date": "null",
+                        "location": "",
+                    }
+                ),
+                "subject": "unittesting@fluidattacks.com",
+                "action_name": "report",
+                "pk": "78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
+                "time": "1672248409",
+                "entity": "unittesting",
+                "queue": "integrates_medium",
+            },
+            {
+                "additional_info": json.dumps(
+                    {
+                        "report_type": "XLS",
+                        "treatments": [
+                            "ACCEPTED",
+                            "ACCEPTED_UNDEFINED",
+                            "IN_PROGRESS",
+                            "UNTREATED",
+                        ],
+                        "states": ["SAFE", "VULNERABLE"],
+                        "verifications": [],
+                        "closing_date": "null",
+                        "finding_title": "068",
+                        "age": 1300,
+                        "min_severity": "2.9",
+                        "max_severity": "4.3",
+                        "last_report": "null",
+                        "min_release_date": "null",
+                        "max_release_date": "null",
+                        "location": "",
+                    }
+                ),
+                "subject": "unittesting@fluidattacks.com",
+                "action_name": "report",
+                "pk": "ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",  # noqa: E501 pylint: disable=line-too-long
+                "time": "1672248409",
+                "entity": "unittesting",
+                "queue": "integrates_medium",
+            },
+        ],
     },
     "db_model.trials.get.TrialLoader.load": {
         '["org_testusermanager1@gmail.com"]': Trial(
@@ -3756,102 +3847,8 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittest@fluidattacks.com", "2022-01-24 17:46:10+00:00", "ASM", '
         '"7777", "SAFE", "192.168.1.18", null, null, null, null, null]]': None,
     },
-    "dynamodb.operations_legacy.delete_item": {
-        '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
-        '52110"]': True,
-    },
     "dynamodb.operations_legacy.put_item": {
         '["b48ee2ddd5d3869cf9e5f9a419db6d3d01858af338cae057aec9c1618fc5b790", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
-    },
-    "dynamodb.operations_legacy.query": {
-        '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long
-            dict(
-                additional_info=json.dumps(
-                    dict(
-                        report_type="XLS",
-                        treatments=["ACCEPTED", "UNTREATED"],
-                        states=["VULNERABLE"],
-                        verifications=["REQUESTED"],
-                        closing_date="null",
-                        finding_title="038",
-                        age=1100,
-                        min_severity="2.7",
-                        max_severity="null",
-                    )
-                ),
-                subject="unittesting@fluidattacks.com",
-                action_name="report",
-                pk="ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a",  # noqa: E501 pylint: disable=line-too-long
-                time="1616116348",
-                entity="unittesting",
-                queue="small",
-            )
-        ],
-        '["049ee0097a137f2961578929a800a5f23f93f59806b901ee3324abf6eb5a4828"]': [],  # noqa: E501 pylint: disable=line-too-long
-    },
-    "dynamodb.operations_legacy.scan": {
-        "[]": [
-            {
-                "additional_info": json.dumps(
-                    {
-                        "report_type": "XLS",
-                        "treatments": [
-                            "ACCEPTED",
-                            "ACCEPTED_UNDEFINED",
-                            "IN_PROGRESS",
-                            "UNTREATED",
-                        ],
-                        "states": ["SAFE"],
-                        "verifications": ["VERIFIED"],
-                        "closing_date": "2020-06-01T00:00:00",
-                        "finding_title": "065",
-                        "age": "null",
-                        "min_severity": "null",
-                        "max_severity": "null",
-                        "last_report": "null",
-                        "min_release_date": "null",
-                        "max_release_date": "null",
-                        "location": "",
-                    }
-                ),
-                "subject": "unittesting@fluidattacks.com",
-                "action_name": "report",
-                "pk": "78ebd9f895b8efcd4e6d4cf40d3dbcf3f6fc2ac655537edc0b0465bd3a80871c",  # noqa: E501 pylint: disable=line-too-long
-                "time": "1672248409",
-                "entity": "unittesting",
-                "queue": "integrates_medium",
-            },
-            {
-                "additional_info": json.dumps(
-                    {
-                        "report_type": "XLS",
-                        "treatments": [
-                            "ACCEPTED",
-                            "ACCEPTED_UNDEFINED",
-                            "IN_PROGRESS",
-                            "UNTREATED",
-                        ],
-                        "states": ["SAFE", "VULNERABLE"],
-                        "verifications": [],
-                        "closing_date": "null",
-                        "finding_title": "068",
-                        "age": 1300,
-                        "min_severity": "2.9",
-                        "max_severity": "4.3",
-                        "last_report": "null",
-                        "min_release_date": "null",
-                        "max_release_date": "null",
-                        "location": "",
-                    }
-                ),
-                "subject": "unittesting@fluidattacks.com",
-                "action_name": "report",
-                "pk": "ecfa753fb705d90f4636906dcd2fb8db7ddb06cb356e14fe0fb57c23e92fafb5",  # noqa: E501 pylint: disable=line-too-long
-                "time": "1672248409",
-                "entity": "unittesting",
-                "queue": "integrates_medium",
-            },
-        ],
     },
     "db_model.organizations.add": {
         '["org_testusermanager1@gmail.com", "Colombia", "esdeath"]': None,
