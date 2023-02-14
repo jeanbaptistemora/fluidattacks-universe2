@@ -74,7 +74,7 @@ closure:
   markupsafe: 2.1.2
   matplotlib: 3.6.3
   mixpanel: 4.9.0
-  more-itertools: 8.4.0
+  more-itertools: 9.0.0
   msrest: 0.6.21
   multidict: 6.0.4
   networkx: 2.8.8
@@ -772,12 +772,12 @@ links:
   - name: mixpanel-4.9.0.tar.gz
     sha256: 174crvvgp78r5f5hc6xh1cql6m69jiw31cz3xa3ww8l6ml575djj
     url: https://files.pythonhosted.org/packages/1a/e3/f40e7289010081fad3f0f2f2ae1de6408ea4bdbaa0e01c937f8a36c942c7/mixpanel-4.9.0.tar.gz
-  - name: more_itertools-8.4.0-py3-none-any.whl
-    sha256: 18n56k1620y82g8x9h51w0z2qljlq60ms5l50q019lix0sr390dp
-    url: https://files.pythonhosted.org/packages/ef/9b/6c35ec5483710492e21252465160ee508170159f7e0e2d6cd769022f52f6/more_itertools-8.4.0-py3-none-any.whl
-  - name: more-itertools-8.4.0.tar.gz
-    sha256: 1r8pibxmwndv34wkhrgmdfiwd2bhhfkm8scgkmy5rpvv2v3hriv8
-    url: https://files.pythonhosted.org/packages/67/4a/16cb3acf64709eb0164e49ba463a42dc45366995848c4f0cf770f57b8120/more-itertools-8.4.0.tar.gz
+  - name: more_itertools-9.0.0-py3-none-any.whl
+    sha256: 0h8zbiggm4iziwqca4kd16kdmjccmfpfchnrdg58f30xx3bq63i5
+    url: https://files.pythonhosted.org/packages/5d/87/1ec3fcc09d2c04b977eabf8a1083222f82eaa2f46d5a4f85f403bf8e7b30/more_itertools-9.0.0-py3-none-any.whl
+  - name: more-itertools-9.0.0.tar.gz
+    sha256: 1ax1dsr090zxlcr6q00lawds80r3wbir0fc0n4h0bvvq13j5fqjs
+    url: https://files.pythonhosted.org/packages/13/b3/397aa9668da8b1f0c307bc474608653d46122ae0563d1d32f60e24fa0cbd/more-itertools-9.0.0.tar.gz
   - name: msrest-0.6.21-py2.py3-none-any.whl
     sha256: 10ipxqnywh90m70gjbbvzyd2rz7s81j266h1hrlfjc2khhf52h68
     url: https://files.pythonhosted.org/packages/e8/cc/6c96bfb3d3cf4c3bdedfa6b46503223f4c2a4fa388377697e0f8082a4fed/msrest-0.6.21-py2.py3-none-any.whl
