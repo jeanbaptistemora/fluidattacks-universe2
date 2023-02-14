@@ -20,6 +20,8 @@ import { useTranslation } from "react-i18next";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "./queries";
 
 import { Button } from "components/Button";
+import type { IFilter } from "components/Filter";
+import { Filters, useFilters } from "components/Filter";
 import { Modal } from "components/Modal";
 import { formatLinkHandler } from "components/Table/formatters/linkFormatter";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
@@ -359,6 +361,59 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     },
   ];
 
+  const [filters, setFilters] = useState<IFilter<IVulnRowAttr>[]>([
+    {
+      id: "organizationName",
+      key: "organizationName",
+      label: "Organization",
+      selectOptions: (vulns: IVulnRowAttr[]): string[] =>
+        [
+          ...new Set(vulns.map((vuln): string => vuln.organizationName ?? "")),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "groupName",
+      key: "groupName",
+      label: t("organization.tabs.groups.newGroup.name"),
+      type: "text",
+    },
+    {
+      id: "finding-title",
+      key: (row, value): boolean => {
+        if (_.isEmpty(value)) return true;
+        if (_.isEmpty(row.finding?.title)) return false;
+
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        return row.finding!.title.includes(value!);
+      },
+      label: t("searchFindings.tabVuln.vulnTable.vulnerabilityType.title"),
+      type: "text",
+    },
+    {
+      id: "verification",
+      key: "verification",
+      label: t("searchFindings.tabVuln.vulnTable.verification"),
+      selectOptions: (vulns: IVulnRowAttr[]): string[] =>
+        [
+          ...new Set(vulns.map((vuln): string => vuln.organizationName ?? "")),
+        ].filter(Boolean),
+      type: "select",
+    },
+    {
+      id: "severity",
+      key: "severity",
+      label: t("searchFindings.tabDescription.severity"),
+      type: "numberRange",
+    },
+    {
+      id: "tag",
+      key: "tag",
+      label: t("searchFindings.tabVuln.vulnTable.tags"),
+      type: "text",
+    },
+  ]);
+
   useEffect((): void => {
     if (
       columnFilters.filter(
@@ -485,6 +540,8 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
     [handleCloseUpdateModal]
   );
 
+  const filteredData = useFilters(vulnerabilities, filters);
+
   if (_.isUndefined(userData) || _.isEmpty(userData)) {
     return <div />;
   }
@@ -498,6 +555,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
             columnFilterSetter={setColumnFilters}
             columnFilterState={columnFilters}
             columns={columns}
+            enableColumnFilters={false}
             extraButtons={
               <ButtonToolbarRow>
                 <Button
@@ -538,6 +596,13 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
                 />
               </ButtonToolbarRow>
             }
+            filters={
+              <Filters
+                dataset={vulnerabilities}
+                filters={filters}
+                setFilters={setFilters}
+              />
+            }
             findingState={"VULNERABLE"}
             isEditing={false}
             isFindingReleased={true}
@@ -556,7 +621,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
             )}
             onVulnSelect={openRemediationModal}
             refetchData={refetchVulnerabilitiesAssigned}
-            vulnerabilities={vulnerabilities}
+            vulnerabilities={filteredData}
           />
         </div>
       </div>
