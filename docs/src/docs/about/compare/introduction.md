@@ -60,6 +60,13 @@ Here are the descriptions of each topic:
   Ability to perform vulnerability exploitation
   according to customer's requirements.
 
-- **Zero-day vulnerabilities:**
-  Ability to find zero-day vulnerabilities while
-  do the scans or pentest.
+- **Demo:**
+  Could have a demo meeting where shows how works
+  the platform and its features.
+
+- **Free trial:**
+  Offers the option of a free trial of tools,
+  either for a limited time or with limited features.
+
+- **Payment from website:**
+  Payments can be made from the website.
