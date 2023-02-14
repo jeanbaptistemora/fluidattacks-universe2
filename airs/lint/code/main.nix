@@ -15,7 +15,7 @@ makeScript {
   name = "airs-lint-code";
   searchPaths = {
     bin = [
-      inputs.nixpkgs.nodejs-16_x
+      inputs.nixpkgs.nodejs-18_x
     ];
     source = [
       outputs."/common/utils/aws"

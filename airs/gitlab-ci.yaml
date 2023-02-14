@@ -17,7 +17,7 @@
     - m . /airs/eph
   stage: deploy-app
   tags:
-    - small
+    - large
   variables:
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1

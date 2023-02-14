@@ -35,7 +35,7 @@ const VerticalCard: React.FC<IVerticalCard> = ({
   widthMd,
   widthSm,
 }): JSX.Element => {
-  const fDate = utc(date.toLocaleString()).format("LL");
+  const fDate = utc(new Date(date)).format("LL");
 
   if (author && date && subtitle) {
     return (

@@ -54,7 +54,7 @@ const BlogsIndex: React.FC<IQueryData> = ({
     title,
     writer,
   } = data.markdownRemark.frontmatter;
-  const fDate = utc(date.toLocaleString()).format("LL");
+  const fDate = utc(new Date(date)).format("LL");
 
   return (
     <React.Fragment>

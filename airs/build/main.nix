@@ -20,7 +20,7 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.gnugrep
       inputs.nixpkgs.gnused
-      inputs.nixpkgs.nodejs-16_x
+      inputs.nixpkgs.nodejs-18_x
       inputs.nixpkgs.utillinux
     ];
     source = [

@@ -16,7 +16,7 @@ makeScript {
       inputs.nixpkgs.findutils
       inputs.nixpkgs.gnused
       inputs.nixpkgs.gzip
-      inputs.nixpkgs.nodejs-16_x
+      inputs.nixpkgs.nodejs-18_x
       inputs.nixpkgs.python37
       inputs.nixpkgs.utillinux
       outputs."/common/utils/bugsnag/announce"

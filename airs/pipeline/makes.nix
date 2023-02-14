@@ -32,7 +32,7 @@ in {
           gitlabExtra = {
             rules = gitlabOnlyDev;
             stage = "deploy-app";
-            tags = ["small"];
+            tags = ["large"];
           };
         }
         {
