@@ -9,11 +9,7 @@ from dataloaders import (
     Dataloaders,
 )
 from db_model import (
-    enrollment as enrollment_model,
     trials as trials_model,
-)
-from db_model.enrollment.types import (
-    EnrollmentMetadataToUpdate,
 )
 from db_model.stakeholders.types import (
     StakeholderMetadataToUpdate,
@@ -107,14 +103,4 @@ async def add_enrollment(
         mp_country_code=organization.country,
         organization=organization.name,
         User=full_name,
-    )
-
-
-async def update_metadata(
-    email: str,
-    metadata: EnrollmentMetadataToUpdate,
-) -> None:
-    await enrollment_model.update_metadata(
-        email=email,
-        metadata=metadata,
     )
