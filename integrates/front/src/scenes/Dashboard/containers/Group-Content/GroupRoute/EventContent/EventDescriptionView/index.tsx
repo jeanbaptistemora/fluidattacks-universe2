@@ -18,6 +18,7 @@ import type {
   IUpdateEventAttr,
 } from "./types";
 
+import { Input } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import {
@@ -426,13 +427,10 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </FormGroup>
                     {values.reason === "OTHER" ? (
                       <FormGroup>
-                        <ControlLabel>
-                          {t(
+                        <Input
+                          label={t(
                             "searchFindings.tabSeverity.common.deactivation.other"
                           )}
-                        </ControlLabel>
-                        <Field
-                          component={FormikText}
                           name={"other"}
                           validate={composeValidators([required])}
                         />
