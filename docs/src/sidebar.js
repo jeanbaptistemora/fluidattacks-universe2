@@ -492,7 +492,10 @@ const Development = [
   {
     type: "category",
     label: "Values",
-    items: ["development/values/daily-progress"],
+    items: [
+      "development/values/daily-progress",
+      "development/values/quality"
+    ],
   },
   {
     type: "category",
