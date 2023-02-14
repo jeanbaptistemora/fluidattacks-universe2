@@ -431,6 +431,7 @@ const Development = [
               "development/products/integrates/back/async-python",
               "development/products/integrates/back/graphql-api",
               "development/products/integrates/back/migrations",
+              "development/products/integrates/back/testing",
             ],
           },
           "development/products/integrates/frontend",

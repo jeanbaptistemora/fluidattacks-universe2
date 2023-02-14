@@ -313,6 +313,24 @@ when diagnosing issues on the front:
   to view more details and suggestions
   or try a snippet on https://testing-playground.com/.
 
+## Frontend Testing
+
+Frontend tests are classified into the following levels:
+
+- **Unit tests:**
+  From the test,
+  start to create a function.
+
+- **End-to-end tests:**
+  These tests verify that the flows a user
+  follows work as expected,
+  for example:
+  loading a web page,
+  logging in,
+  verifying email notifications,
+  and online payments,
+  validating that these flows are done and that they work correctly.
+
 [react]: https://reactjs.org/
 [ts]: https://www.typescriptlang.org/
 [eslint]: https://eslint.org/
