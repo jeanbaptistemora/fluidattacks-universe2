@@ -165,6 +165,7 @@ import uuid
 logging.config.dictConfig(LOGGING)
 
 # Constants
+EMAIL_INTEGRATES = "integrates@fluidattacks.com"
 LOGGER = logging.getLogger(__name__)
 
 
@@ -691,6 +692,62 @@ async def remove_credentials(
     await credentials_model.remove(
         credential_id=credentials_id,
         organization_id=organization_id,
+    )
+
+
+async def reassign_stakeholder_credentials(
+    *,
+    loaders: Dataloaders,
+    email: str,
+    organization_id: str,
+) -> None:
+    if not (user_credentials := await loaders.user_credentials.load(email)):
+        return
+
+    current_owner_role = await authz.get_organization_level_role(
+        loaders, email, organization_id
+    )
+    org_stakeholders = await loaders.organization_stakeholders_access.load(
+        organization_id
+    )
+    email_candidates_to_reassign = [
+        org_access.email
+        for org_access in org_stakeholders
+        if org_access.role == current_owner_role
+    ]
+    new_owner = (
+        email_candidates_to_reassign[0]
+        if email_candidates_to_reassign
+        else EMAIL_INTEGRATES
+    )
+    await collect(
+        tuple(
+            credentials_model.update_credential_state(
+                current_value=credentials.state,
+                credential_id=credentials.id,
+                organization_id=organization_id,
+                state=credentials.state._replace(
+                    modified_by=new_owner,
+                    modified_date=datetime_utils.get_utc_now(),
+                ),
+                force_update_owner=True,
+            )
+            for credentials in user_credentials
+        )
+    )
+    LOGGER.info(
+        "Credentials owner reassigned",
+        extra={
+            "extra": {
+                "credentials_ids": [
+                    credentials.id for credentials in user_credentials
+                ],
+                "email": email,
+                "new_owner": new_owner,
+                "organization_id": organization_id,
+                "organization_role": current_owner_role,
+            }
+        },
     )
 
 
