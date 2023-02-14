@@ -1036,6 +1036,12 @@ type Mutation {
     "Reason for the removal of environment URLs"
     reason: RootDeactivationReason
   ): SimplePayload!
+    @deprecated(
+      reason: """
+      This will be removed after 2023/08/14.
+      Use `addGitEnvironmentUrl` or `removeEnvironmentUrl` instead.
+      """
+    )
 
   "Updates a Group's Git root and its attributes"
   updateGitRoot(

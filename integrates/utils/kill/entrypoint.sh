@@ -5,7 +5,6 @@ function main {
     3000 # front
     8001 # back
     8022 # dynamodb
-    9000 # storage
     9200 # opensearch
   )
 

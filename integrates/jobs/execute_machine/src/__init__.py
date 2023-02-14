@@ -213,7 +213,6 @@ def get_roots(token: str, group_name: str) -> Optional[List[Dict[str, Any]]]:
             group(groupName: $groupName) {
                 roots {
                     ... on GitRoot {
-                        environmentUrls
                         gitEnvironmentUrls {
                           url
                           id

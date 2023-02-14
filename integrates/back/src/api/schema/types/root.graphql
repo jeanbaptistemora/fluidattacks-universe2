@@ -68,6 +68,12 @@ type GitRoot implements IRoot {
   environment: String!
   "URLs to access the environment"
   environmentUrls: [String!]!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/08/14.
+      Use `gitEnvironmentUrls` instead.
+      """
+    )
   "URLs to access the environment"
   gitEnvironmentUrls: [GitEnvironmentUrl]!
   "Repository paths to be ignored"
