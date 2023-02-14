@@ -172,7 +172,6 @@ mocked_paths: Dict[str, str] = {
     "comments_domain.remove_comments": "finding_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "credentials_model.remove_organization_credentials": "db_model.credentials.remove_organization_credentials",  # noqa: E501 pylint: disable=line-too-long
     "download_evidence_file": "findings.domain.evidence.download_evidence_file",  # noqa: E501 pylint: disable=line-too-long
-    "dynamodb_ops.put_item": "dynamodb.operations_legacy.put_item",
     "event_comments_domain.add": "event_comments.domain.add",
     "event_comments_domain.remove_comments": "event_comments.domain.remove_comments",  # noqa: E501 pylint: disable=line-too-long
     "events_model.add": "db_model.events.add",
@@ -544,6 +543,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "batch.dal.dynamodb_ops.delete_item": {
         '["44aa89bddf5e0a5b1aca2551799b71ff593c95a89f4402b84697e9b29f6'
         '52110"]': True,
+    },
+    "batch.dal.dynamodb_ops.put_item": {
+        '["b48ee2ddd5d3869cf9e5f9a419db6d3d01858af338cae057aec9c1618fc5b790", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
     },
     "batch.dal.dynamodb_ops.query": {
         '["ac25d6d18e368c34a41103a9f6dbf0a787cf2551d6ef5884c844085d26013e0a"]': [  # noqa: E501 pylint: disable=line-too-long
@@ -3846,9 +3848,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["463461507", "e248e8e0-0323-41c7-bc02-4ee61d09f9c4", '
         '["unittest@fluidattacks.com", "2022-01-24 17:46:10+00:00", "ASM", '
         '"7777", "SAFE", "192.168.1.18", null, null, null, null, null]]': None,
-    },
-    "dynamodb.operations_legacy.put_item": {
-        '["b48ee2ddd5d3869cf9e5f9a419db6d3d01858af338cae057aec9c1618fc5b790", "1673453501", "integrates_small"]': True  # noqa: E501 pylint: disable=line-too-long
     },
     "db_model.organizations.add": {
         '["org_testusermanager1@gmail.com", "Colombia", "esdeath"]': None,

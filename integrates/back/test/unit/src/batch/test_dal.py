@@ -1,6 +1,4 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
-    get_mock_response,
-    get_mocked_path,
     get_module_at_test,
     set_mocks_return_values,
 )
@@ -307,7 +305,7 @@ async def test_put_action_to_batch(action: BatchProcessing) -> None:
         ],
     ],
 )
-@patch(get_mocked_path("dynamodb_ops.put_item"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "dynamodb_ops.put_item", new_callable=AsyncMock)
 async def test_put_action_to_dynamodb(  # pylint: disable=too-many-arguments
     mock_dynamodb_ops_put_item: AsyncMock,
     action_name: str,
@@ -326,16 +324,18 @@ async def test_put_action_to_dynamodb(  # pylint: disable=too-many-arguments
             additional_info,
         ]
     )
-    mock_dynamodb_ops_put_item.return_value = get_mock_response(
-        get_mocked_path("dynamodb_ops.put_item"),
-        json.dumps(
+
+    assert set_mocks_return_values(
+        mocks_args=[
             [
                 key,
                 time,
                 queue,
-            ],
-            default=str,
-        ),
+            ]
+        ],
+        mocked_objects=[mock_dynamodb_ops_put_item],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["dynamodb_ops.put_item"],
     )
     result = await put_action_to_dynamodb(
         action_name=action_name,
