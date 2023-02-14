@@ -68,12 +68,11 @@ Reload your terminal for changes to be loaded.
      [ 1 ] dev
      [ 2 ] prod_airs
      [ 3 ] prod_docs
-     [ 4 ] prod_forces
-     [ 5 ] prod_integrates
-     [ 6 ] prod_melts
-     [ 7 ] prod_observes
-     [ 8 ] prod_skims
-     [ 9 ] prod_sorts
+     [ 4 ] prod_integrates
+     [ 5 ] prod_melts
+     [ 6 ] prod_observes
+     [ 7 ] prod_skims
+     [ 8 ] prod_sorts
    Selection: <type a number here>
    ```
 
