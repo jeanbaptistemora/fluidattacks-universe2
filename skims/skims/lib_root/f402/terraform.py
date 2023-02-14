@@ -27,17 +27,58 @@ def _azure_app_service_logging_disabled(
     graph: Graph, nid: NId
 ) -> Optional[NId]:
     if logs := get_argument(graph, nid, "logs"):
-        fail_key, fail_val = get_attribute(
+        fail_key, fail_val, _ = get_attribute(
             graph, logs, "failed_request_tracing_enabled"
         )
-        det_key, det_val = get_attribute(
+        det_key, det_val, _ = get_attribute(
             graph, logs, "detailed_error_messages_enabled"
         )
         if (not fail_key or fail_val.lower() == "false") or (
             not det_key or det_val.lower() == "false"
         ):
             return logs
+    else:
+        return nid
     return None
+
+
+def _azure_sql_server_audit_log_retention(
+    graph: Graph, nid: NId
+) -> Optional[NId]:
+    if logs := get_argument(graph, nid, "extended_auditing_policy"):
+        ret_key, ret_val, attr_id = get_attribute(
+            graph, logs, "retention_in_days"
+        )
+        if not ret_key:
+            return logs
+        if ret_val.isdigit() and int(ret_val) <= 90:
+            return attr_id
+    else:
+        return nid
+    return None
+
+
+def tfm_azure_sql_server_audit_log_retention(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_SQL_LOG_RETENT
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "azurerm_sql_server"):
+                if report := _azure_sql_server_audit_log_retention(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f402.tfm_azure_sql_server_audit_log_retention",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_azure_app_service_logging_disabled(

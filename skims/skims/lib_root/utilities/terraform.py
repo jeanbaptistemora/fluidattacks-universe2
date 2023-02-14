@@ -37,12 +37,12 @@ def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
 
 def get_attribute(
     graph: Graph, object_id: NId, expected_attr: str
-) -> Tuple[Optional[str], str]:
+) -> Tuple[Optional[str], str, NId]:
     for attr_id in adj_ast(graph, object_id, label_type="Pair"):
         key, value = get_key_value(graph, attr_id)
         if key == expected_attr:
-            return key, value
-    return None, ""
+            return key, value, attr_id
+    return None, "", ""
 
 
 def iterate_resource(graph: Graph, expected_resource: str) -> Iterator[NId]:

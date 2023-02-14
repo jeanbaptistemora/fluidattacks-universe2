@@ -1,6 +1,6 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Traceability Loss - Azure,"Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
- in namespace/skims/test/data/lib_path/f402/tfm_azure_sql_server_audit_log_retention.tf","
+F402,lines,namespace/skims/test/data/lib_root/f402/tfm_azure_sql_server_audit_log_retention.tf,30,778,skims,402. Traceability Loss - Azure,"Ensure property extended_auditing_policy.retention_in_days is greater than 90 days
+ in namespace/skims/test/data/lib_root/f402/tfm_azure_sql_server_audit_log_retention.tf","
   12 |     storage_account_access_key_is_secondary = true
   13 |     retention_in_days                       = 100
   14 |   }

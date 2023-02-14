@@ -23,8 +23,8 @@ from typing import (
 
 
 def _azure_key_vault_not_recoverable(graph: Graph, nid: NId) -> Optional[NId]:
-    soft_key, soft_val = get_attribute(graph, nid, "soft_delete_enabled")
-    pur_key, pur_val = get_attribute(graph, nid, "purge_protection_enabled")
+    soft_key, soft_val, _ = get_attribute(graph, nid, "soft_delete_enabled")
+    pur_key, pur_val, _ = get_attribute(graph, nid, "purge_protection_enabled")
     if (
         not soft_key
         or soft_val.lower() == "false"

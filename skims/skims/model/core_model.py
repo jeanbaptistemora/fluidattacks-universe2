@@ -5671,7 +5671,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_SQL_LOG_RETENT = MethodInfo(
         file_name="terraform",
         name="tfm_azure_sql_server_audit_log_retention",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F402,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

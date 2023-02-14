@@ -3,7 +3,6 @@ from lib_path.common import (
     SHIELD_BLOCKING,
 )
 from lib_path.f402.terraform import (
-    tfm_azure_sql_server_audit_log_retention,
     tfm_azure_storage_logging_disabled,
 )
 from model.core_model import (
@@ -29,15 +28,6 @@ def run_tfm_azure_storage_logging_disabled(
 
 
 @SHIELD_BLOCKING
-def run_tfm_azure_sql_server_audit_log_retention(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_azure_sql_server_audit_log_retention(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def analyze(
     content_generator: Callable[[], str],
     file_extension: str,
@@ -51,6 +41,5 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             run_tfm_azure_storage_logging_disabled(content, path, model),
-            run_tfm_azure_sql_server_audit_log_retention(content, path, model),
         )
     return results
