@@ -82,7 +82,6 @@ class GitRootState(NamedTuple):
     url: str
     credential_id: Optional[str] = None
     environment_urls: list[str] = []
-    git_environment_urls: list[RootEnvironmentUrl] = []
     gitignore: list[str] = []
     other: Optional[str] = None
     reason: Optional[str] = None

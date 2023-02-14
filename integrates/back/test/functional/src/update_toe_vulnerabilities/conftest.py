@@ -26,7 +26,6 @@ from db_model.roots.types import (
     GitRootState,
     IPRoot,
     IPRootState,
-    RootEnvironmentUrl,
     URLRoot,
     URLRootState,
 )
@@ -160,12 +159,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=["https://test.com"],
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="https://test.com",
-                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                            )
-                        ],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -202,12 +195,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=["https://test.com"],
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="https://test.com",
-                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                            )
-                        ],
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",

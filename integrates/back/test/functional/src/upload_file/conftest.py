@@ -309,12 +309,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=["https://test.com"],
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="https://test.com",
-                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                            )
-                        ],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -330,6 +324,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
+                "git_environment_urls": [
+                    RootEnvironmentUrl(
+                        url="https://test.com",
+                        id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                    )
+                ],
             },
             {
                 "root": GitRoot(
@@ -351,12 +351,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=["https://.com"],
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="https://testtest.com",
-                                id="683d198c-f88d-4a92-a02d-7377ad2dca45",
-                            )
-                        ],
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -372,6 +366,12 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
+                "git_environment_urls": [
+                    RootEnvironmentUrl(
+                        url="https://testtest.com",
+                        id="683d198c-f88d-4a92-a02d-7377ad2dca45",
+                    )
+                ],
             },
             {
                 "root": IPRoot(

@@ -51,7 +51,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment_urls=[],
                         environment="production",
-                        git_environment_urls=[],
                         gitignore=[],
                         includes_health_check=False,
                         modified_by=generic_data["global_vars"][
@@ -90,7 +89,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment_urls=[],
                         environment="production",
-                        git_environment_urls=[],
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",

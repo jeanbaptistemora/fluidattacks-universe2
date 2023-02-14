@@ -3962,7 +3962,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                     "https://app.fluidattacks.com",
                     "https://test.com",
                 ],
-                git_environment_urls=[],
                 gitignore=["bower_components/*", "node_modules/*"],
                 other=None,
                 reason=None,

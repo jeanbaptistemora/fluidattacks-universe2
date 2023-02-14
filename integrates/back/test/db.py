@@ -440,7 +440,7 @@ async def populate_roots(data: list[dict[str, Any]]) -> bool:
             roots_model.add_root_environment_url(item["root"].id, url)
             for item in data
             if isinstance(item["root"], GitRoot)
-            for url in item["root"].state.git_environment_urls
+            for url in item.get("git_environment_urls", [])
         ]
     )
 

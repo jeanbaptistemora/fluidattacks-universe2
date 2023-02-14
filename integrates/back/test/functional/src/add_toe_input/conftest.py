@@ -55,13 +55,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=["https://test.com"],
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="https://test.com",
-                                id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
-                                group_name="group_1",
-                            )
-                        ],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
@@ -77,6 +70,13 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
+                "git_environment_urls": [
+                    RootEnvironmentUrl(
+                        url="https://test.com",
+                        id="78dd64d3198473115a7f5263d27bed15f9f2fc07",
+                        group_name="group_1",
+                    )
+                ],
             },
             {
                 "root": IPRoot(

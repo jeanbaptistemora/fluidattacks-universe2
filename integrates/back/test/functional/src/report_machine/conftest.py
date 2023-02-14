@@ -128,13 +128,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         branch="master",
                         environment_urls=[],
                         environment="production",
-                        git_environment_urls=[
-                            RootEnvironmentUrl(
-                                url="http://localhost:48000/",
-                                id="3aca06ef047ca0195f8ffc7ea5b64605b3f779cb",
-                                secrets=[],
-                            )
-                        ],
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",
@@ -150,6 +143,13 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
+                "git_environment_urls": [
+                    RootEnvironmentUrl(
+                        url="http://localhost:48000/",
+                        id="3aca06ef047ca0195f8ffc7ea5b64605b3f779cb",
+                        secrets=[],
+                    )
+                ],
             },
             {
                 "root": GitRoot(
@@ -171,7 +171,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                         branch="master",
                         environment_urls=[],
                         environment="production",
-                        git_environment_urls=[],
                         gitignore=[],
                         includes_health_check=False,
                         modified_by="admin@gmail.com",

@@ -49,7 +49,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         environment="production",
                         environment_urls=[],
-                        git_environment_urls=[],
                         gitignore=[],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",

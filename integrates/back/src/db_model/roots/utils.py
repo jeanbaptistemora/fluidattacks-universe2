@@ -45,7 +45,6 @@ def format_git_state(state: Item) -> GitRootState:
         credential_id=state.get("credential_id"),
         environment_urls=state["environment_urls"],
         environment=state["environment"],
-        git_environment_urls=[],
         gitignore=state["gitignore"],
         includes_health_check=state["includes_health_check"],
         modified_by=state["modified_by"],
