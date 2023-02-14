@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!-- Must Fail -->
 
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!-- Must Fail -->
-
 <widget xmlns:android="http://schemas.android.com/apk/res/android">
   <!-- Vuln 1 -->
   <!-- MustMark the line 15, to be sure exact pointing mark mechanism is working -->

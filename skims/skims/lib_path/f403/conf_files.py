@@ -7,23 +7,27 @@ from bs4.element import (
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
+from lib_path.utilities.xml import (
+    get_attribute_line,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
 from typing import (
     Iterator,
+    Optional,
     Set,
     Tuple,
 )
 
 
-def check_insecure_configuration(tag: Tag, insecure_names: Set[str]) -> bool:
+def get_insecure_attr(tag: Tag, insecure_names: Set[str]) -> Optional[str]:
     for insecure_name in insecure_names:
         if (
             insecure_conf := tag.attrs.get(insecure_name)
         ) and insecure_conf.lower() == "true":
-            return True
+            return insecure_name
 
     if (
         tag.name == "preferance"
@@ -32,8 +36,8 @@ def check_insecure_configuration(tag: Tag, insecure_names: Set[str]) -> bool:
         and (attr_value := tag.attrs.get("value"))
         and attr_value.lower() == "true"
     ):
-        return True
-    return False
+        return "android-usescleartexttraffic"
+    return None
 
 
 def insecure_configuration(content: str, path: str) -> Vulnerabilities:
@@ -51,10 +55,13 @@ def insecure_configuration(content: str, path: str) -> Vulnerabilities:
         soup = BeautifulSoup(content, features="html.parser")
 
         for tag in soup.find_all(vulnerable_tags):
-            if isinstance(tag, Tag) and check_insecure_configuration(
-                tag, insecure_configurations
+            if isinstance(tag, Tag) and (
+                danger_attr := get_insecure_attr(tag, insecure_configurations)
             ):
-                line_no: int = tag.sourceline
+                if attr_line := get_attribute_line(tag, content, danger_attr):
+                    line_no = attr_line
+                else:
+                    line_no = tag.sourceline
                 col_no: int = tag.sourcepos
 
                 yield line_no, col_no
