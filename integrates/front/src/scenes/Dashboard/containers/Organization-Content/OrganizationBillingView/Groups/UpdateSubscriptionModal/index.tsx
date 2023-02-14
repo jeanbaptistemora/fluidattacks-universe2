@@ -1,13 +1,12 @@
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { object, string } from "yup";
 
-import { Select } from "components/Input";
+import { Input, Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import type { IPaymentMethodAttr } from "scenes/Dashboard/containers/Organization-Content/OrganizationBillingView/types";
 import { ControlLabel, RequiredField } from "styles/styledComponents";
-import { FormikText } from "utils/forms/fields";
 
 interface IUpdateSubscriptionProps {
   current: string;
@@ -59,12 +58,9 @@ export const UpdateSubscriptionModal: React.FC<IUpdateSubscriptionProps> = ({
         {(): JSX.Element => (
           <Form>
             <div className={"flex flex-wrap w-100"}>
-              <ControlLabel>
-                {t("organization.tabs.billing.groups.name")}
-              </ControlLabel>
-              <Field
-                component={FormikText}
+              <Input
                 disabled={true}
+                label={t("organization.tabs.billing.groups.name")}
                 name={"groupName"}
                 value={groupName}
               />
