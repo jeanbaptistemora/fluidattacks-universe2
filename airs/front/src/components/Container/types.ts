@@ -56,6 +56,7 @@ interface IContainerProps {
   minWidthSm?: string;
   scroll?: TScroll;
   shadow?: boolean;
+  shadowBottom?: boolean;
   textHoverColor?: string;
   topBar?: string;
   width?: string;

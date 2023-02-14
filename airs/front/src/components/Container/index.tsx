@@ -51,6 +51,7 @@ const Container: React.FC<IContainerProps> = ({
   pvMd,
   pvSm,
   shadow,
+  shadowBottom,
   textHoverColor,
   topBar,
   width,
@@ -106,6 +107,7 @@ const Container: React.FC<IContainerProps> = ({
       pvMd={pvMd}
       pvSm={pvSm}
       shadow={shadow}
+      shadowBottom={shadowBottom}
       textHoverColor={textHoverColor}
       topBar={topBar}
       width={width}

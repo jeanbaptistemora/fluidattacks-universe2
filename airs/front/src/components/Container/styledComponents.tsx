@@ -139,8 +139,15 @@ const getMarginTop = (mt: number, mtMd?: number, mtSm?: number): string => {
   return `mt${mt}`;
 };
 
-const getShadow = (shadow: boolean): string =>
-  shadow ? "box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);" : "";
+const getShadow = (shadow: boolean, shadowBottom?: boolean): string => {
+  if (shadowBottom === true) {
+    return "box-shadow: 0px 10px 7px -2px rgba(0,0,0,0.16);";
+  } else if (shadow) {
+    return "box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.16);";
+  }
+
+  return "";
+};
 
 const StyledContainer = styled.div.attrs<IContainerProps>(
   ({
@@ -213,6 +220,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     position = "unset",
     scroll = "none",
     shadow = false,
+    shadowBottom = false,
     textHoverColor = "",
     topBar,
     width = "100%",
@@ -235,7 +243,7 @@ const StyledContainer = styled.div.attrs<IContainerProps>(
     overflow-y: ${scroll.includes("y") ? "auto" : "unset"};
     position: ${position};
     transition: all 0.3s ease;
-    ${getShadow(shadow)}
+    ${getShadow(shadow, shadowBottom)}
     ${getBorder(
       borderColor,
       borderBottomColor,
