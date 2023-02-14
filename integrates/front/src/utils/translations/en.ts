@@ -3061,6 +3061,7 @@ export const enTranslations: ResourceKey = {
         accepted: "Temporarily accepted",
         acceptedUndefined: "Permanently accepted",
         approvedBy: "Approved by",
+        confirmRejectVulnerability: "Confirm/Reject vulnerability",
         confirmRejectZeroRisk: "Confirm/Reject zero risk",
         confirmZeroRisk: "Confirm zero risk",
         inProgress: "In progress",

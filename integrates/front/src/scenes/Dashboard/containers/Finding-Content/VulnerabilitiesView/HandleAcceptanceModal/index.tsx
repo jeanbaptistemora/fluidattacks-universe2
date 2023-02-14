@@ -29,6 +29,12 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const canHandleVulnerabilitiesAcceptance: boolean = permissions.can(
       "api_mutations_handle_vulnerabilities_acceptance_mutate"
     );
+    const canConfirmVulnerabilities: boolean = permissions.can(
+      "api_mutations_confirm_vulnerabilities_mutate"
+    );
+    const canRejectVulnerabilities: boolean = permissions.can(
+      "api_mutations_reject_vulnerabilities_mutate"
+    );
     const canConfirmZeroRiskVulnerabilities: boolean = permissions.can(
       "api_mutations_confirm_vulnerabilities_zero_risk_mutate"
     );
@@ -43,6 +49,7 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
     const [treatment, setTreatment] = useState(
       getInitialTreatment(
         canHandleVulnerabilitiesAcceptance,
+        canConfirmVulnerabilities,
         canConfirmZeroRiskVulnerabilities
       )
     );
@@ -77,6 +84,15 @@ const HandleAcceptanceModal: React.FC<IHandleVulnerabilitiesAcceptanceModalProps
             {canHandleVulnerabilitiesAcceptance ? (
               <option value={"ACCEPTED_UNDEFINED"}>
                 {t("searchFindings.tabDescription.treatment.acceptedUndefined")}
+              </option>
+            ) : undefined}
+            {canConfirmVulnerabilities &&
+            canRejectVulnerabilities &&
+            canUpdateVulns ? (
+              <option value={"CONFIRM_REJECT_VULNERABILITY"}>
+                {t(
+                  "searchFindings.tabDescription.treatment.confirmRejectVulnerability"
+                )}
               </option>
             ) : undefined}
             {canConfirmZeroRiskVulnerabilities &&
