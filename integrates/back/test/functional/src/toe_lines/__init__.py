@@ -15,6 +15,7 @@ def get_query() -> str:
     return """
         query(
             $attackedBy: String
+            $bePresent: Boolean
             $comments: String
             $fromFirstAttackAt: DateTime
             $fromModifiedDate: DateTime
@@ -38,6 +39,7 @@ def get_query() -> str:
                 name
                 toeLines(
                     attackedBy: $attackedBy
+                    bePresent: $bePresent
                     comments: $comments
                     fromFirstAttackAt: $fromFirstAttackAt
                     fromModifiedDate: $fromModifiedDate
