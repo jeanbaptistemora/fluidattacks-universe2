@@ -1714,6 +1714,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JAVA_SALT_IS_HARDCODED = MethodInfo(
+        file_name="java",
+        name="java_salt_is_harcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
         name="jwt_token",
