@@ -175,6 +175,10 @@ type Group {
     filename: String
     "Amount of element to return"
     first: Int
+    "From attack moment in iso format"
+    fromAttackedAt: DateTime
+    "To attack moment in iso format"
+    toAttackedAt: DateTime
     "From modified date to filter"
     fromModifiedDate: DateTime
     "To modified date to filter"
