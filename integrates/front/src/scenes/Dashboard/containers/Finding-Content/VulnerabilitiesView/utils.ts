@@ -64,7 +64,8 @@ function isPendingToAcceptance(
 ): boolean {
   return (
     getVulnsPendingOfAcceptance(vulnerabilities).length > 0 ||
-    getRequestedZeroRiskVulns(vulnerabilities).length > 0
+    getRequestedZeroRiskVulns(vulnerabilities).length > 0 ||
+    getSubmittedVulns(vulnerabilities).length > 0
   );
 }
 export {
