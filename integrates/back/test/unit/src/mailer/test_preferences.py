@@ -11,9 +11,7 @@ from typing import (
     ["notifications", "expected"],
     [
         [
-            [
-                "devsecops_agent",
-            ],
+            ["devsecops_agent", "group_alert"],
             [
                 "email_preferences",
                 "exclude_trial",
@@ -26,3 +24,4 @@ from typing import (
 def test_mail_preferences(notifications: str, expected: List[str]) -> None:
     for notification in notifications:
         assert list(MAIL_PREFERENCES[notification].keys()) == expected
+        assert None not in MAIL_PREFERENCES[notification].values()

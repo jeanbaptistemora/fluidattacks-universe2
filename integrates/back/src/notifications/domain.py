@@ -35,6 +35,7 @@ from group_access import (
 import html
 from mailer import (
     groups as groups_mail,
+    utils as mailer_utils,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -119,14 +120,10 @@ async def delete_group(
     org_id = group.organization_id
     organization = await get_organization(loaders, org_id)
     org_name = organization.name
-    roles: set[str] = {"customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.GROUP_INFORMATION,
-            roles=roles,
-        )
+    users_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="group_alert",
     )
     users_email.extend(FI_MAIL_PRODUCTION.split(","))
     await groups_mail.send_mail_group_alert(
