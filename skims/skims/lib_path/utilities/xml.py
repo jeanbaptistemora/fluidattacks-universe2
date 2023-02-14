@@ -7,8 +7,12 @@ from typing import (
 )
 
 
+def lookahead_from_str(original_str: str) -> str:
+    return "(?=.*" + original_str + ")"
+
+
 def get_original_opening_tag(tag: Tag, content: str) -> Optional[str]:
-    tag_opening_re = re.compile(r"^<[^>]*", re.DOTALL)
+    tag_opening_re = re.compile(r"^<[^>]*>", re.DOTALL)
     split_opening_re = re.compile(r"\s+", re.DOTALL | re.M | re.I)
 
     if (
@@ -19,10 +23,13 @@ def get_original_opening_tag(tag: Tag, content: str) -> Optional[str]:
         split_list = split_opening_re.split(tag_str)
         if len(split_list) < 2:
             return None
+
         match_pat = split_list[0].replace("<", r"<\s*")
         for attr_str in split_list[1:-1]:
-            match_pat = match_pat + "(?=.*" + attr_str + ")"
-        match_pat = match_pat + "[^>]*>"
+            match_pat = match_pat + lookahead_from_str(attr_str)
+
+        closure = split_list[-1].replace(">", "")
+        match_pat = match_pat + lookahead_from_str(closure) + "[^>]*>"
 
         main_reg_ex = re.compile(match_pat, re.DOTALL | re.M | re.I)
 
