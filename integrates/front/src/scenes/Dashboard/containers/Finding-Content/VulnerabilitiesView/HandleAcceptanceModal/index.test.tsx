@@ -10,6 +10,7 @@ import { GET_FINDING_HEADER } from "../../queries";
 import type { IVulnerabilitiesAttr } from "../types";
 import { HandleAcceptanceModal } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/HandleAcceptanceModal/index";
 import {
+  CONFIRM_VULNERABILITIES,
   CONFIRM_VULNERABILITIES_ZERO_RISK,
   HANDLE_VULNS_ACCEPTANCE,
   REJECT_VULNERABILITIES_ZERO_RISK,
@@ -1111,5 +1112,144 @@ describe("handle vulns acceptance modal", (): void => {
         "searchFindings.tabDescription.handleAcceptanceModal.zeroRiskJustification.rejection.complementaryControl"
       )
     ).toHaveLength(expectedComplementaryControlLength);
+  });
+
+  it("should handle confirm vulnerability", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const handleRefetchData: jest.Mock = jest.fn();
+    const handleCloseModal: jest.Mock = jest.fn();
+    const mockedPermissions = new PureAbility<string>([
+      {
+        action: "api_mutations_confirm_vulnerabilities_mutate",
+      },
+    ]);
+    const mocksMutation: MockedResponse[] = [
+      {
+        request: {
+          query: CONFIRM_VULNERABILITIES,
+          variables: {
+            findingId: "422286126",
+            vulnerabilities: ["ab25380d-dfe1-4cde-aefd-acca6990d6aa"],
+          },
+        },
+        result: { data: { confirmVulnerabilities: { success: true } } },
+      },
+    ];
+    const mocksFindingHeader: MockedResponse = {
+      request: {
+        query: GET_FINDING_HEADER,
+        variables: {
+          findingId: "422286126",
+        },
+      },
+      result: {
+        data: {
+          finding: {
+            closedVulns: 0,
+            currentState: "CREATED",
+            id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+            minTimeToRemediate: 60,
+            openVulns: 0,
+            releaseDate: null,
+            reportDate: null,
+            severityScore: 1,
+            status: "VULNERABLE",
+            title: "",
+            tracking: [],
+          },
+        },
+      },
+    };
+    const mocksFindingVulnInfo: MockedResponse[] = [
+      {
+        request: {
+          query: GET_FINDING_AND_GROUP_INFO,
+          variables: {
+            findingId: "422286126",
+            groupName: "group_name",
+          },
+        },
+        result: {
+          data: {
+            finding: {
+              findingId: "422286126",
+              remediated: false,
+              status: "VULNERABLE",
+              verified: false,
+            },
+            group: {
+              groupName: "group_name",
+              subscription: "",
+            },
+          },
+        },
+      },
+    ];
+    const mokedVulns: IVulnerabilitiesAttr[] = [
+      {
+        findingId: "422286126",
+        historicTreatment: [
+          {
+            acceptanceDate: "",
+            acceptanceStatus: "SUBMITTED",
+            assigned: "assigned-user-1",
+            date: "2019-07-05 09:56:40",
+            justification: "test justification",
+            treatment: "ACCEPTED_UNDEFINED",
+            user: "user@test.com",
+          },
+        ],
+        id: "ab25380d-dfe1-4cde-aefd-acca6990d6aa",
+        specific: "",
+        state: "SUBMITTED",
+        where: "",
+        zeroRisk: null,
+      },
+    ];
+    render(
+      <authzPermissionsContext.Provider value={mockedPermissions}>
+        <MockedProvider
+          addTypename={false}
+          mocks={[
+            ...mocksMutation,
+            mocksFindingHeader,
+            ...mocksFindingVulnInfo,
+          ]}
+        >
+          <authzGroupContext.Provider
+            value={new PureAbility([{ action: "can_report_vulnerabilities" }])}
+          >
+            <HandleAcceptanceModal
+              findingId={"422286126"}
+              groupName={"group name"}
+              handleCloseModal={handleCloseModal}
+              refetchData={handleRefetchData}
+              vulns={mokedVulns}
+            />
+          </authzGroupContext.Provider>
+        </MockedProvider>
+      </authzPermissionsContext.Provider>
+    );
+    await userEvent.click(
+      screen.getByText(
+        /searchfindings\.tabvuln\.handleacceptancemodal\.submittedform\.submittedtable\.confirm/iu
+      )
+    );
+    await waitFor((): void => {
+      expect(screen.queryByText("components.modal.confirm")).not.toBeDisabled();
+    });
+    await userEvent.click(screen.getByText("components.modal.confirm"));
+    await waitFor((): void => {
+      expect(handleRefetchData).toHaveBeenCalledTimes(1);
+    });
+
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
+    expect(msgSuccess).toHaveBeenCalledWith(
+      "Vulnerability has been confirmed",
+      "Correct!"
+    );
   });
 });
