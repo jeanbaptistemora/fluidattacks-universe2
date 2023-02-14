@@ -103,6 +103,50 @@ we will use TDD for this:
   For this example, we create the test in
   `/integrates/back/test/unit/src/new_utils/test_validations.py`
 
-To follow the structure of the repository,
-specifying that we will find the function we are going to test
-`/integrates/back/src/new_utils/validations.py`
+```python
+def test_validate_file_name() -> None:
+    good_name = "good_name"
+    bad_name = "bad_name"
+    assert validate_file_name(good_name)
+    assert not validate_file_name(bad_name)
+
+```
+
+- To follow the structure of the repository,
+  specifying that we will find the function we are going to test
+  `/integrates/back/src/new_utils/validations.py`
+  The first version of our function is:
+
+```python
+def validate_file_name(name: str) -> None:
+    pass
+
+```
+
+When we run the test,
+it fails as expected:
+
+![Test fail](https://res.cloudinary.com/fluid-attacks/image/upload/v1676375093/docs/development/values/failed.png)
+
+The test fails because our function does not yet
+return values that allow us to validate its behavior.
+
+- Now let's write the code necessary for our test to work,
+  leave our test the same  and modify our function.
+
+```python
+def validate_file_name(name: str) -> bool:
+    if name == "good_name":
+        return True
+    else:
+        return False
+
+```
+
+Now our function returns a boolean that,
+in the case of receiving as parameter (name) "good_name,"
+will be True and otherwise False;
+when testing it,
+our test is successful.
+
+![Test succesful](https://res.cloudinary.com/fluid-attacks/image/upload/v1676375620/docs/development/values/succesful.png)
