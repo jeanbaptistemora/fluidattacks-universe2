@@ -305,6 +305,24 @@ resource "kubernetes_daemon_set_v1" "node_exporter" {
 
       spec {
         host_network = true
+
+        affinity {
+          node_affinity {
+            required_during_scheduling_ignored_during_execution {
+              node_selector_term {
+                match_expressions {
+                  key      = "worker_group"
+                  operator = "In"
+                  values = [
+                    "dev",
+                    "prod_integrates"
+                  ]
+                }
+              }
+            }
+          }
+        }
+
         container {
           args = [
             "--path.sysfs=/host/sys",
@@ -319,6 +337,7 @@ resource "kubernetes_daemon_set_v1" "node_exporter" {
 
           port {
             container_port = 9100
+            host_port      = 9100
             protocol       = "TCP"
           }
 
