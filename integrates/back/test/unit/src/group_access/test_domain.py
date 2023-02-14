@@ -29,6 +29,9 @@ from newutils import (
     datetime as datetime_utils,
 )
 import pytest
+from typing import (
+    Any,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -355,3 +358,62 @@ async def test_remove_access(  # pylint: disable=too-many-arguments
     loaders: Dataloaders = get_new_context()
     await remove_access(loaders, email, group_name)
     assert all(mock_object.called is True for mock_object in mocked_objects)
+
+
+@pytest.mark.parametrize(
+    ("email", "group_name", "data_to_update"),
+    (
+        (
+            "integratesuser@gmail.com",
+            "unittesting",
+            GroupAccessMetadataToUpdate(
+                state=GroupAccessState(
+                    modified_date=datetime.fromisoformat(
+                        "2023-02-14T00:43:18+00:00"
+                    )
+                ),
+                responsibility="Responsible for testing the historic facet",
+            ),
+        ),
+    ),
+)
+@patch(
+    MODULE_AT_TEST + "group_access_model.update_metadata",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "Dataloaders.group_access", new_callable=AsyncMock)
+async def test_update(
+    mock_dataloaders_group_access: AsyncMock,
+    mock_group_access_model_update_metadata: AsyncMock,
+    email: str,
+    group_name: str,
+    data_to_update: GroupAccessMetadataToUpdate,
+) -> None:
+    mocked_objects, mocked_paths = [
+        [
+            mock_dataloaders_group_access.load,
+            mock_group_access_model_update_metadata,
+        ],
+        [
+            "Dataloaders.group_access",
+            "group_access_model.update_metadata",
+        ],
+    ]
+    mocks_args: list[list[Any]] = [
+        [email, group_name],
+        [email, group_name, data_to_update],
+        [[email, group_name], [email, group_name, data_to_update]],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+    await update(
+        loaders=loaders,
+        email=email,
+        group_name=group_name,
+        metadata=data_to_update,
+    )

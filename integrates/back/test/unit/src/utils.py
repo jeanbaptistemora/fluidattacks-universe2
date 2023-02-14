@@ -9934,6 +9934,21 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["unittest@fluidattacks.com", "unittesting", "user"]': None,
     },
     "group_access.domain.Dataloaders.group_access": {
+        '["integratesuser@gmail.com", "unittesting"]': GroupAccess(
+            email="integratesuser@gmail.com",
+            group_name="unittesting",
+            state=GroupAccessState(
+                modified_date=datetime.fromisoformat(
+                    "2020-01-01T20:07:57+00:00"
+                )
+            ),
+            confirm_deletion=None,
+            expiration_time=None,
+            has_access=True,
+            invitation=None,
+            responsibility="Test",
+            role="user_manager",
+        ),
         '["unittesting", "unittest@fluidattacks.com"]': GroupAccess(
             email="unittest@fluidattacks.com",
             group_name="unittesting",
@@ -10233,6 +10248,11 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             "continuoushacking@gmail.com",
             "integratesuser@gmail.com",
         ],
+    },
+    "group_access.domain.group_access_model.update_metadata": {
+        '["integratesuser@gmail.com", "unittesting", '
+        '[["2023-02-14 00:43:18+00:00"], null, null, null, null, '
+        '"Responsible for testing the historic facet", null]]': None,
     },
     "group_access.domain.update": {
         '["unittest@fluidattacks.com", "unittesting"]': None,
