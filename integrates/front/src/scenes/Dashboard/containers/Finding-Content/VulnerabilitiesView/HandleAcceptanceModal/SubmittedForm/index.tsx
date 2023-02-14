@@ -29,19 +29,15 @@ const SubmittedForm: React.FC<ISubmittedFormProps> = ({
 }: ISubmittedFormProps): JSX.Element => {
   const { t } = useTranslation();
 
-  const rejectionReasons: Record<string, string> = {
-    CONSISTENCY:
-      "There are consistency issues with the vulnerabilities, the severity " +
-      "or the evidence",
-    EVIDENCE: "The evidence is insufficient",
-    NAMING:
-      "The vulnerabilities should be submitted under another Finding type",
-    OMISSION: "More data should be gathered before submission",
-    SCORING: "Faulty severity scoring",
-    WRITING: "The writing could be improved",
-    // eslint-disable-next-line sort-keys
-    OTHER: "Another reason",
-  };
+  const rejectionReasons: string[] = [
+    "CONSISTENCY",
+    "EVIDENCE",
+    "NAMING",
+    "OMISSION",
+    "SCORING",
+    "WRITING",
+    "OTHER",
+  ];
 
   // State
   const [acceptanceVulnerabilities, setAcceptanceVulnerabilities] = useState<
@@ -131,9 +127,13 @@ const SubmittedForm: React.FC<ISubmittedFormProps> = ({
           otherwise: string(),
           then: string().required(t("validations.required")),
         }),
-        rejectionReasons: array()
-          .min(1, t("validations.someRequired"))
-          .of(string().required(t("validations.required"))),
+        rejectionReasons: array().when([], {
+          is: (): boolean => rejectedVulnerabilities.length === 0,
+          otherwise: array()
+            .min(1, t("validations.someRequired"))
+            .of(string().required(t("validations.required"))),
+          then: array().notRequired(),
+        }),
       })}
     >
       {({ values }): JSX.Element => {
@@ -149,16 +149,22 @@ const SubmittedForm: React.FC<ISubmittedFormProps> = ({
                 <br />
                 <Gap disp={"block"} mv={6}>
                   <Label required={true}>
-                    {t("group.drafts.reject.reason")}
+                    {t(
+                      "searchFindings.tabVuln.handleAcceptanceModal.submittedForm.reject.reasonForRejection"
+                    )}
                   </Label>
-                  {Object.entries(rejectionReasons).map(
-                    ([reason, explanation]): JSX.Element => (
+                  {rejectionReasons.map(
+                    (reason): JSX.Element => (
                       <Checkbox
                         id={reason}
                         key={`rejectionReasons.${reason}`}
-                        label={t(`group.drafts.reject.${reason.toLowerCase()}`)}
+                        label={t(
+                          `searchFindings.tabVuln.handleAcceptanceModal.submittedForm.reject.${reason.toLowerCase()}.text`
+                        )}
                         name={"rejectionReasons"}
-                        tooltip={explanation}
+                        tooltip={t(
+                          `searchFindings.tabVuln.handleAcceptanceModal.submittedForm.reject.${reason.toLowerCase()}.info`
+                        )}
                         value={reason}
                       />
                     )
@@ -166,7 +172,9 @@ const SubmittedForm: React.FC<ISubmittedFormProps> = ({
                   {values.rejectionReasons.includes("OTHER") ? (
                     <TextArea
                       id={"reject-draft-other-reason"}
-                      label={t("group.drafts.reject.otherReason")}
+                      label={t(
+                        "searchFindings.tabVuln.handleAcceptanceModal.submittedForm.reject.why"
+                      )}
                       name={"otherRejectionReason"}
                       required={true}
                     />

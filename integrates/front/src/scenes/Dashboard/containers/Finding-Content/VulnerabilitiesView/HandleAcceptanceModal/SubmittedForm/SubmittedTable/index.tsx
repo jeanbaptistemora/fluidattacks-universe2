@@ -54,13 +54,13 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
     {
       accessorKey: "where",
       header: t(
-        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.where"
+        "searchFindings.tabVuln.handleAcceptanceModal.submittedForm.submittedTable.where"
       ),
     },
     {
       accessorKey: "specific",
       header: t(
-        "searchFindings.tabVuln.handleAcceptanceModal.submittedTable.specific"
+        "searchFindings.tabVuln.handleAcceptanceModal.submittedForm.submittedTable.specific"
       ),
     },
     {
@@ -71,7 +71,9 @@ const SubmittedTable: React.FC<ISubmittedTableProps> = (
           handleConfirmSubmitted,
           handleRejectSubmitted
         ),
-      header: "Acceptance",
+      header: t(
+        "searchFindings.tabVuln.handleAcceptanceModal.submittedForm.submittedTable.acceptance"
+      ),
     },
   ];
 

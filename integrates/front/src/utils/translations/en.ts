@@ -1553,6 +1553,7 @@ export const enTranslations: ResourceKey = {
     acceptanceApproved: "Indefinite acceptance has been approved",
     acceptanceRejected: "Indefinite acceptance has been rejected",
     accessDenied: "Access denied",
+    confirmedVulnerabilitySuccess: "Vulnerability has been confirmed",
     confirmedZeroRiskSuccess: "Zero risk vulnerability has been confirmed",
     draftAlreadyApproved: "This finding has already been approved",
     draftAlreadySubmitted: "This finding has already been submitted",
@@ -1604,6 +1605,7 @@ export const enTranslations: ResourceKey = {
     portValue: "Port value should be between 0 and 65535.",
     rangeError: "Range limits are wrong.",
     recordsRemoved: "Records have been removed successfully",
+    rejectedVulnerabilitySuccess: "Vulnerability has been rejected",
     rejectedZeroRiskSuccess: "Zero risk vulnerability has been rejected",
     reportAlreadyRequested:
       "Please wait until the already requested report finishes processing before " +
@@ -1623,6 +1625,7 @@ export const enTranslations: ResourceKey = {
     verifiedSuccess: "The vulnerability was marked as verified",
     verifiedSuccessPlural: "The vulnerabilities were marked as verified",
     vulnClosed: "Vulnerability has already been closed",
+    vulnerabilityIsNotSubmitted: "Vulnerability has not been submitted",
     zeroRiskAlreadyRequested: "Zero risk vulnerability already requested",
     zeroRiskAlreadyUploaded:
       "Uploaded vulnerability is a confirmed Zero Risk: {{info}}",
@@ -3848,13 +3851,48 @@ export const enTranslations: ResourceKey = {
           "Vulnerability cannot be accepted, severity outside of range set by the defined policy",
       },
       handleAcceptanceModal: {
-        submittedTable: {
-          confirm: "Confirm",
-          confirmed: "Confirmed",
-          reject: "Reject",
-          rejected: "Rejected",
-          specific: "Specific",
-          where: "Where",
+        submittedForm: {
+          reject: {
+            consistency: {
+              info: "There are consistency issues with the vulnerabilities, the severity or the evidence",
+              text: "Consistency",
+            },
+            evidence: {
+              info: "The evidence is insufficient",
+              text: "Evidence",
+            },
+            naming: {
+              info: "The vulnerabilities should be submitted under another Finding type",
+              text: "Naming",
+            },
+            omission: {
+              info: "More data should be gathered before submission",
+              text: "Omission",
+            },
+            other: {
+              info: "Another reason",
+              text: "Other",
+            },
+            reasonForRejection: "Reason for rejection",
+            scoring: {
+              info: "Faulty severity scoring",
+              text: "Scoring",
+            },
+            why: "Why?",
+            writing: {
+              info: "The writing could be improved",
+              text: "Writing",
+            },
+          },
+          submittedTable: {
+            acceptance: "Acceptance",
+            confirm: "Confirm",
+            confirmed: "Confirmed",
+            reject: "Reject",
+            rejected: "Rejected",
+            specific: "Specific",
+            where: "Where",
+          },
         },
       },
       info: {
