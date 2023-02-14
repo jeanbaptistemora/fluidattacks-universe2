@@ -34,7 +34,7 @@ const createDiagnostic = (
     vulnerability.finding.id,
     vulnerability.id,
     lineOfText.range,
-    vulnerability.finding.description,
+    `VULNERABILITY: ${vulnerability.finding.description}`,
     SEVERITY_MAP[vulnerability.state]
   );
   // eslint-disable-next-line fp/no-mutation

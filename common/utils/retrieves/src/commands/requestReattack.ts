@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { groupBy, range } from "ramda";
 import type { DiagnosticCollection, InputBoxValidationMessage } from "vscode";
 // eslint-disable-next-line import/no-unresolved
@@ -69,12 +70,16 @@ const requestReattack = async (
     },
   });
 
+  if (_.isUndefined(justification)) {
+    return;
+  }
+
   await Promise.all(
     Object.keys(diagnosticsGroupByFinding).map(
       async (findingId): Promise<void> => {
         const result = await requestReattackMutation(
           findingId,
-          justification ?? "Reattack from vscode",
+          justification,
           diagnosticsGroupByFinding[findingId].map(
             (diagnostic): string => diagnostic.vulnerabilityId ?? ""
           )

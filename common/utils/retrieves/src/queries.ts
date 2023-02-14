@@ -169,6 +169,26 @@ const REQUEST_VULNERABILITIES_VERIFICATION = gql`
   }
 `;
 
+const ACCEPT_VULNERABILITY_TEMPORARY = gql`
+  mutation AcceptVulnerability(
+    $findingId: String!
+    $vulnerabilityId: ID!
+    $acceptanceDate: String
+    $justification: String!
+    $treatment: UpdateClientDescriptionTreatment!
+  ) {
+    updateVulnerabilitiesTreatment(
+      acceptanceDate: $acceptanceDate
+      findingId: $findingId
+      justification: $justification
+      treatment: $treatment
+      vulnerabilityId: $vulnerabilityId
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   GET_GROUPS,
   GET_GIT_ROOTS,
@@ -179,4 +199,5 @@ export {
   GET_FINDING,
   GET_GIT_ROOT,
   REQUEST_VULNERABILITIES_VERIFICATION,
+  ACCEPT_VULNERABILITY_TEMPORARY,
 };

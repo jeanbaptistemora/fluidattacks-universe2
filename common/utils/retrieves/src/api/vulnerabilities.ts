@@ -1,6 +1,9 @@
 import type { ApolloError } from "@apollo/client";
 
-import { REQUEST_VULNERABILITIES_VERIFICATION } from "../queries";
+import {
+  ACCEPT_VULNERABILITY_TEMPORARY,
+  REQUEST_VULNERABILITIES_VERIFICATION,
+} from "../queries";
 import { API_CLIENT } from "../utils/apollo";
 
 interface IRequestReattackData {
@@ -9,6 +12,13 @@ interface IRequestReattackData {
 
 interface IRequestReattackRespose {
   data: IRequestReattackData;
+}
+interface IAcceptVulnerabilityData {
+  requestVulnerabilitiesVerification: { success: boolean; message?: string };
+}
+
+interface IAcceptVulnerabilityResponse {
+  data: IAcceptVulnerabilityData;
 }
 
 const requestReattack = async (
@@ -39,4 +49,36 @@ const requestReattack = async (
   return result;
 };
 
-export { requestReattack };
+const acceptVulnerabilityTemporary = async (
+  findingId: string,
+  vulnerabilityId: string,
+  acceptanceDate: string,
+  justification: string,
+  treatment: string
+): Promise<IAcceptVulnerabilityData> => {
+  const result: IAcceptVulnerabilityData = (
+    await API_CLIENT.mutate({
+      mutation: ACCEPT_VULNERABILITY_TEMPORARY,
+      variables: {
+        acceptanceDate,
+        findingId,
+        justification,
+        treatment,
+        vulnerabilityId,
+      },
+    }).catch((err: ApolloError): IAcceptVulnerabilityResponse => {
+      return {
+        data: {
+          requestVulnerabilitiesVerification: {
+            message: err.message,
+            success: false,
+          },
+        },
+      };
+    })
+  ).data;
+
+  return result;
+};
+
+export { requestReattack, acceptVulnerabilityTemporary };
