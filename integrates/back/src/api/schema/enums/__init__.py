@@ -162,7 +162,7 @@ ENUMS: Tuple[EnumType, ...] = (
         },
     ),
     EnumType(
-        "EnrollmentTrialState",
+        "TrialState",
         {
             "EXTENDED": "EXTENDED",
             "EXTENDED_ENDED": "EXTENDED_ENDED",

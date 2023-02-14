@@ -260,8 +260,8 @@ enum ManagedType {
   UNDER_REVIEW
 }
 
-"Enrollment trial state"
-enum EnrollmentTrialState {
+"Trial state"
+enum TrialState {
   "On extended trial"
   EXTENDED
   "Extended trial ended"

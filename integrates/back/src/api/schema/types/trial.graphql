@@ -9,5 +9,5 @@ type Trial {
   "Beginning date of the ARM trial"
   startDate: String!
   "Trial state based on its dates"
-  state: EnrollmentTrialState!
+  state: TrialState!
 }
