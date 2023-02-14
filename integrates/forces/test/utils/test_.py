@@ -42,6 +42,7 @@ def test_check_policy_compliance() -> None:
         report_date=(datetime.now(tz=TIMEZONE) - timedelta(hours=5)),
         exploitability=4.5,
         root_nickname=None,
+        compliance=True,
     )
     assert check_policy_compliance(test_config, compliant_vuln)
     non_compliant_vuln = Vulnerability(
@@ -53,6 +54,7 @@ def test_check_policy_compliance() -> None:
         report_date=(datetime.now(tz=TIMEZONE) - timedelta(days=10)),
         exploitability=4.5,
         root_nickname=None,
+        compliance=False,
     )
     assert not check_policy_compliance(test_config, non_compliant_vuln)
 
@@ -76,6 +78,7 @@ async def test_set_exit_code() -> None:
                 report_date=(datetime.now(tz=TIMEZONE) - timedelta(hours=5)),
                 exploitability=5.0,
                 root_nickname=None,
+                compliance=False,
             )
         ],
     )

@@ -104,6 +104,7 @@ def test_filter_repo() -> None:
         report_date=datetime.now(tz=ZoneInfo("America/Bogota")),
         exploitability=4.5,
         root_nickname=None,
+        compliance=True,
     )
     assert filter_repo(
         vuln=vuln,

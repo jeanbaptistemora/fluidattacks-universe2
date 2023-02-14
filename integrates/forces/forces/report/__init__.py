@@ -39,6 +39,7 @@ from forces.report.styles import (
 )
 from forces.utils.strict_mode import (
     check_policy_compliance,
+    get_policy_compliance,
 )
 from operator import (
     attrgetter,
@@ -178,12 +179,9 @@ def format_finding_table(
         table.add_row(
             vuln_state,
             style_report(vuln_state, str(finding_summary[vuln_state])),
-            end_section=vuln_state == VulnerabilityState.ACCEPTED
-            and config.verbose_level == 1,
         )
-    if config.verbose_level != 1:
-        vulns_data: Table = format_vuln_table(config, filtered_vulns)
-        table.add_row("vulns", vulns_data, end_section=True)
+    vulns_data: Table = format_vuln_table(config, filtered_vulns)
+    table.add_row("vulns", vulns_data, end_section=True)
 
     return table
 
@@ -201,7 +199,6 @@ def format_rich_report(
     @param `kind`: A kind from the `KindEnum`, can be
     `ALL`, `STATIC` or `DYNAMIC`
     """
-    # Finding report table
     report_table = Table(
         title="Findings Report",
         show_header=False,
@@ -216,7 +213,7 @@ def format_rich_report(
         filtered_vulns = filter_vulnerabilities(
             finding.vulnerabilities, config.verbose_level
         )
-        if filtered_vulns or config.verbose_level == 1:
+        if filtered_vulns:
             report_table = format_finding_table(
                 config, finding, filtered_vulns, report_table
             )
@@ -271,6 +268,16 @@ async def generate_raw_report(
             root_nickname=str(vuln["rootNickname"])
             if vuln.get("rootNickName")
             else None,
+            compliance=get_policy_compliance(
+                config=config,
+                report_date=datetime.fromisoformat(
+                    str(vuln["reportDate"])
+                ).replace(tzinfo=ZoneInfo("America/Bogota")),
+                severity=Decimal(str(vuln["severity"]))
+                if vuln["severity"] is not None
+                else findings_dict[find_id].severity,
+                state=VulnerabilityState[str(vuln["state"])],
+            ),
         )
 
         if not filter_kind(vulnerability, config.kind):

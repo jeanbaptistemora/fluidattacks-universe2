@@ -47,18 +47,15 @@ def filter_vulnerabilities(
     """Helper method to filter vulns in findings based on the requested vuln
     states set by the verbosity level of the report"""
     verbosity: dict[int, set[VulnerabilityState]] = {
-        1: set(),
+        1: {VulnerabilityState.VULNERABLE},  # Non-compliant vuln mode
         2: {VulnerabilityState.VULNERABLE},
         3: {VulnerabilityState.VULNERABLE, VulnerabilityState.SAFE},
         4: set(VulnerabilityState),
     }
-    return (
-        tuple(
-            filter(
-                lambda vuln: vuln.state in verbosity[verbose_level],
-                vulnerabilities,
-            )
+    return tuple(
+        filter(
+            lambda vuln: vuln.state in verbosity[verbose_level]
+            and (not vuln.compliance if verbose_level == 1 else True),
+            vulnerabilities,
         )
-        if verbose_level != 1
-        else tuple()
     )

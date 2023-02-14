@@ -32,6 +32,25 @@ def choose_min_breaking_severity(
     )
 
 
+def get_policy_compliance(
+    config: ForcesConfig,
+    report_date: datetime,
+    severity: Decimal,
+    state: VulnerabilityState,
+) -> bool:
+    """
+    Returns `True` if the vulnerability complies with the Agent strict mode
+    policies (severity threshold & grace period), `False` otherwise
+    """
+    current_date: datetime = datetime.now(tz=timezone.utc)
+    time_diff: timedelta = current_date - report_date
+    return not (
+        state == VulnerabilityState.VULNERABLE
+        and severity >= config.breaking_severity
+        and abs(time_diff.days) >= config.grace_period
+    )
+
+
 def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
     """
     Returns `False` if the vulnerability does not comply with the Agent strict
@@ -54,8 +73,8 @@ async def set_forces_exit_code(
             "info",
             (
                 "Checking for [red]vulnerable[/] spots with a "
-                "[bright_yellow]severity[/] score over "
-                f"{config.breaking_severity}"
+                "[bright_yellow]severity[/] score of "
+                f"{config.breaking_severity} and above"
             ),
         )
         await log(
