@@ -11,7 +11,7 @@ from typing import (
     ["notifications", "expected"],
     [
         [
-            ["devsecops_agent", "group_alert"],
+            ["devsecops_agent", "group_alert", "update_group_info"],
             [
                 "email_preferences",
                 "exclude_trial",

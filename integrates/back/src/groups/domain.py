@@ -1604,14 +1604,10 @@ async def update_group_info(
 ) -> None:
     group: Group = await loaders.group.load(group_name)
 
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    stakeholders_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.GROUP_INFORMATION,
-            roles=roles,
-        )
+    stakeholders_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="update_group_info",
     )
 
     await update_metadata(
