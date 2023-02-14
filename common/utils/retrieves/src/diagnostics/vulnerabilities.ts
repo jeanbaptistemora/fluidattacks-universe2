@@ -3,16 +3,18 @@ import { join } from "path";
 
 import { groupBy } from "ramda";
 import type {
+  Diagnostic,
   DiagnosticCollection,
   ExtensionContext,
   TextDocument,
   TextLine,
 } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { Diagnostic, DiagnosticSeverity, Uri, window, workspace } from "vscode";
+import { DiagnosticSeverity, Uri, window, workspace } from "vscode";
 
 import { getGitRootVulnerabilities, getGroupGitRoots } from "../api/root";
 import type { IVulnerability } from "../types";
+import { VulnerabilityDiagnostic } from "../types";
 import { getRootInfoFromPath } from "../utils/file";
 
 const SEVERITY_MAP = {
@@ -27,8 +29,10 @@ const createDiagnostic = (
   doc: TextDocument | undefined,
   lineOfText: TextLine,
   vulnerability: IVulnerability
-): Diagnostic => {
-  const diagnostic = new Diagnostic(
+): VulnerabilityDiagnostic => {
+  const diagnostic = new VulnerabilityDiagnostic(
+    vulnerability.finding.id,
+    vulnerability.id,
     lineOfText.range,
     vulnerability.finding.description,
     SEVERITY_MAP[vulnerability.state]
@@ -93,7 +97,7 @@ const setDiagnosticsFromRoot = (
     .filter((element): boolean => {
       return !Number.isNaN(parseInt(element.specific, 10));
     })
-    .map((vuln): Diagnostic => {
+    .map((vuln): VulnerabilityDiagnostic => {
       const lineIndex = parseInt(vuln.specific, 10);
       const lineOfText = document.lineAt(
         lineIndex > 0 ? lineIndex - 1 : lineIndex

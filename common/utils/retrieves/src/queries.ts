@@ -36,6 +36,7 @@ const GET_GIT_ROOTS = gql`
     }
   }
 `;
+
 const GET_GIT_ROOTS_SIMPLE = gql`
   query GetGitRoots($groupName: String!) {
     group(groupName: $groupName) {
@@ -152,6 +153,22 @@ const GET_FINDING = gql`
   }
 `;
 
+const REQUEST_VULNERABILITIES_VERIFICATION = gql`
+  mutation RequestVulnerabilitiesVerification(
+    $findingId: String!
+    $justification: String!
+    $vulnerabilities: [String]!
+  ) {
+    requestVulnerabilitiesVerification(
+      findingId: $findingId
+      justification: $justification
+      vulnerabilities: $vulnerabilities
+    ) {
+      success
+    }
+  }
+`;
+
 export {
   GET_GROUPS,
   GET_GIT_ROOTS,
@@ -161,4 +178,5 @@ export {
   UPDATE_TOE_LINES_ATTACKED,
   GET_FINDING,
   GET_GIT_ROOT,
+  REQUEST_VULNERABILITIES_VERIFICATION,
 };

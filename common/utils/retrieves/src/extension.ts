@@ -19,6 +19,7 @@ import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
 import { environmentUrls } from "./commands/environmentUrls";
 import { goToCriteria } from "./commands/goToCriteria";
+import { requestReattack } from "./commands/requestReattack";
 import { toeLines } from "./commands/toeLines";
 import { updateToeLinesAttackedLines } from "./commands/updateToeLinesAttackedLines";
 import {
@@ -53,6 +54,11 @@ const activate = async (context: ExtensionContext): Promise<void> => {
   void commands.registerCommand(
     "retrieves.goToCriteria",
     partial(goToCriteria, [retrievesDiagnostics])
+  );
+
+  void commands.registerCommand(
+    "retrieves.requestReattack",
+    partial(requestReattack, [retrievesDiagnostics])
   );
 
   if (currentWorkingDir.includes("groups")) {

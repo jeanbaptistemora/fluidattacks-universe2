@@ -1,3 +1,8 @@
+/* eslint-disable fp/no-mutation */
+import type { DiagnosticSeverity, Range } from "vscode";
+// eslint-disable-next-line import/no-unresolved
+import { Diagnostic } from "vscode";
+
 interface IGroup {
   name: string;
   subscription: string;
@@ -52,6 +57,24 @@ interface IFinding {
   id: string;
   title: string;
 }
+class VulnerabilityDiagnostic extends Diagnostic {
+  public vulnerabilityId?: string;
+
+  public findingId?: string;
+
+  public constructor(
+    findingId: string,
+    vulnId: string,
+    range: Range,
+    message: string,
+    severity?: DiagnosticSeverity
+  ) {
+    super(range, message, severity);
+
+    this.vulnerabilityId = vulnId;
+    this.findingId = findingId;
+  }
+}
 
 export type {
   IGroup as Group,
@@ -63,3 +86,5 @@ export type {
   IVulnerability,
   IFinding,
 };
+
+export { VulnerabilityDiagnostic };

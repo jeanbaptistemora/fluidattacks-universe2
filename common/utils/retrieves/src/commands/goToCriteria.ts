@@ -2,14 +2,15 @@ import type { DiagnosticCollection } from "vscode";
 // eslint-disable-next-line import/no-unresolved
 import { Uri, env, window } from "vscode";
 
+import type { VulnerabilityDiagnostic } from "../types";
+
 const goToCriteria = (retrievesDiagnostics: DiagnosticCollection): void => {
   const { activeTextEditor } = window;
   if (!activeTextEditor) {
     return;
   }
-  const fileDiagnostics = retrievesDiagnostics.get(
-    activeTextEditor.document.uri
-  );
+  const fileDiagnostics: readonly VulnerabilityDiagnostic[] | undefined =
+    retrievesDiagnostics.get(activeTextEditor.document.uri);
 
   if (!fileDiagnostics) {
     void window.showInformationMessage(

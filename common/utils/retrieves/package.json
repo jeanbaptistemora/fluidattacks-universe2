@@ -30,6 +30,10 @@
       {
         "command": "retrieves.goToCriteria",
         "title": "Go to criteria"
+      },
+      {
+        "command": "retrieves.requestReattack",
+        "title": "Request Reattack"
       }
     ],
     "configuration": [
@@ -60,13 +64,18 @@
       "editor/context": [
         {
           "command": "retrieves.addSelectedText",
-          "group": "navigation",
-          "when": "retrieves.groupsAvailable && editorTextFocus"
+          "group": "retrieves",
+          "when": "retrieves.groupsAvailable && editorHasSelection"
         },
         {
           "command": "retrieves.goToCriteria",
-          "group": "navigation",
+          "group": "retrieves",
           "when": "editorTextFocus"
+        },
+        {
+          "command": "retrieves.requestReattack",
+          "group": "retrieves",
+          "when": "editorHasSelection"
         }
       ],
       "editor/title/context": [
@@ -198,6 +207,7 @@
   "engines": {
     "vscode": "^1.71.0"
   },
+  "icon": "media/icon.png",
   "main": "./dist/extension.js",
   "name": "retrieves",
   "publisher": "fluidattacks",
@@ -220,5 +230,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.19.0"
+  "version": "0.22.0"
 }
