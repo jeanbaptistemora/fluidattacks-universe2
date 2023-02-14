@@ -22,6 +22,10 @@ def reader(args: SyntaxGraphArgs) -> NId:
         "(",
         ")",
         ",",
+        "[",
+        "]",
+        "{",
+        "}",
     }
 
     valid_childs = [
