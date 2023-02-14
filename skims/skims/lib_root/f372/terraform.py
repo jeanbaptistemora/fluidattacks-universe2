@@ -2,6 +2,7 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
+    get_argument,
     get_attribute,
     get_key_value,
     iterate_resource,
@@ -65,6 +66,45 @@ def _elb2_uses_insecure_protocol(graph: Graph, nid: NId) -> Optional[NId]:
         if pro_val in unsafe_protos:
             return pro_id
     return None
+
+
+def _aws_sec_group_using_http(graph: Graph, nid: NId) -> Optional[NId]:
+    if ingress := get_argument(graph, nid, "ingress"):
+        prot_key, prot_val, prot_id = get_attribute(graph, ingress, "protocol")
+        from_port_key, from_port_val, _ = get_attribute(
+            graph, ingress, "from_port"
+        )
+        if (
+            prot_key
+            and prot_val in {"6", "tcp"}
+            and from_port_key
+            and from_port_val == "80"
+        ):
+            return prot_id
+    return None
+
+
+def tfm_aws_sec_group_using_http(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AWS_SEC_GROUP_USING_HTTP
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_security_group"):
+                if report := _aws_sec_group_using_http(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f372.tfm_aws_sec_group_using_http",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_elb2_uses_insecure_protocol(

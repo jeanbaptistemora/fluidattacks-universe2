@@ -5407,7 +5407,7 @@ class MethodsEnum(Enum):
     TFM_AWS_SEC_GROUP_USING_HTTP = MethodInfo(
         file_name="terraform",
         name="tfm_aws_sec_group_using_http",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

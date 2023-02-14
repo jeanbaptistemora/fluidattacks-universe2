@@ -1,5 +1,5 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
-F372,lines,namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,11,650,skims,372. Use of an insecure channel - HTTP,An insecure protocol (HTTP) is being used in namespace/skims/test/data/lib_path/f372/tfm_aws_sec_group_using_http.tf,"
+F372,lines,namespace/skims/test/data/lib_root/f372/tfm_aws_sec_group_using_http.tf,11,650,skims,372. Use of an insecure channel - HTTP,An insecure protocol (HTTP) is being used in namespace/skims/test/data/lib_root/f372/tfm_aws_sec_group_using_http.tf,"
    1 | resource ""aws_security_group"" ""allow_tls"" {
    2 |
    3 |   name        = ""allow_tls""
