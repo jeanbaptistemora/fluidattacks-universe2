@@ -714,7 +714,9 @@ async def reassign_stakeholder_credentials(
     email_candidates_to_reassign = [
         org_access.email
         for org_access in org_stakeholders
-        if org_access.role == current_owner_role
+        if email != org_access.email
+        and not re.match(r"forces\..*@fluidattacks.com", org_access.email)
+        and org_access.role == current_owner_role
     ]
     new_owner = (
         email_candidates_to_reassign[0]
