@@ -5452,6 +5452,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    CONAN_CONANFILE_TXT_DEV = MethodInfo(
+        file_name="conan",
+        name="conan_conanfile_txt",
+        module="lib_path",
+        finding=FindingEnum.F393,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     GEM_GEMFILE_DEV = MethodInfo(
         file_name="gem",
         name="gem_gemfile_dev",
