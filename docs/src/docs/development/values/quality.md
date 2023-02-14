@@ -88,9 +88,13 @@ To do TDD we must:
   look for possible code optimizations to
   improve performance.
 
-You should click here to see the different
+You should click
+[here](/development/products/integrates/backend/testing/)
+to see the different
 types of tests that are applied in the Backend
-and here to see the ones applied in the Frontend.
+and
+[here](/development/products/integrates/frontend#frontend-testing)
+to see the ones applied in the Frontend.
 
 ## Example of how to implement TDD
 
