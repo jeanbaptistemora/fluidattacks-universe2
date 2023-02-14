@@ -57,6 +57,7 @@ in {
       // {
         src = "${etlsPath}/code/code_etl";
       };
+    google_sheets = standard_3 "${etlsPath}/google-sheets";
   };
   common = {
     asm_dal = override_attrs (standard_2 "${commonPath}/asm-dal") (

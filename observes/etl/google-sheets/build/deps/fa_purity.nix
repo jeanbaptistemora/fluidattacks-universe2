@@ -1,4 +1,4 @@
-let
+{nixpkgs}: let
   src = builtins.fetchGit {
     url = "https://gitlab.com/dmurciaatfluid/purity";
     rev = "45ddbd204ab1f75180f165f50188f2e59371c26a";

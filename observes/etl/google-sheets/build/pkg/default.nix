@@ -1,31 +1,27 @@
 {
   lib,
-  metadata,
-  python_pkgs,
   src,
-}: let
-  runtime_deps = with python_pkgs; [
-    fa-purity
-    utils-logger
+  metadata,
+  build_deps,
+  runtime_deps,
+  test_deps,
+}:
+lib.buildPythonPackage rec {
+  pname = metadata.name;
+  version = metadata.version;
+  format = "pyproject";
+  type_check = ./check/types.sh;
+  test_check = ./check/tests.sh;
+  checkPhase = [
+    ''
+      source ${type_check} \
+      && source ${test_check}
+    ''
   ];
-  build_deps = with python_pkgs; [flit-core];
-  test_deps = with python_pkgs; [
-    arch-lint
-    mypy
-    pylint
-    pytest
-  ];
-  pkg = (import ./build.nix) {
-    inherit lib src metadata runtime_deps build_deps test_deps;
-  };
-  build_env = extraLibs:
-    lib.buildEnv {
-      inherit extraLibs;
-      ignoreCollisions = false;
-    };
-in {
-  inherit pkg;
-  env.runtime = build_env runtime_deps;
-  env.dev = build_env (runtime_deps ++ test_deps);
-  env.bin = build_env [pkg];
+  doCheck = true;
+  pythonImportsCheck = [pname];
+  buildInputs = build_deps;
+  propagatedBuildInputs = runtime_deps;
+  checkInputs = test_deps;
+  inherit src;
 }

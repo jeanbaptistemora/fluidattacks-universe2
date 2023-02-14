@@ -1,30 +1,38 @@
-fetchNixpkgs: projectPath: observesIndex: let
-  python_version = "python311";
+{
+  fetchNixpkgs,
+  projectPath,
+  observesIndex,
+}: let
+  python_version = "python310";
   nixpkgs = fetchNixpkgs {
     rev = "97bdf4893d643e47d2bd62e9a2ec77c16ead6b9f";
     sha256 = "pOglCsO0/pvfHvVEb7PrKhnztYYNurZZKrc9YfumhJQ=";
   };
-
-  utils-logger."${python_version}" = let
-    src = projectPath observesIndex.common.utils_logger_2.root;
-  in
-    import src {
-      inherit python_version src;
-      nixpkgs =
-        nixpkgs
-        // {
-          inherit fa-purity;
-        };
+  utils-logger-src = projectPath observesIndex.common.utils_logger_2.root;
+  nix-filter = let
+    src = builtins.fetchGit {
+      url = "https://github.com/numtide/nix-filter";
+      rev = "fc282c5478e4141842f9644c239a41cfe9586732";
     };
+  in
+    import src;
 
   out = import ./build {
     inherit python_version;
     nixpkgs =
       nixpkgs
       // {
-        inherit utils-logger;
+        inherit utils-logger-src;
       };
-    src = ./.;
+    src = nix-filter {
+      root = ./.;
+      include = [
+        "google_sheets_etl"
+        "tests"
+        "pyproject.toml"
+        "mypy.ini"
+      ];
+    };
   };
 in
   out
