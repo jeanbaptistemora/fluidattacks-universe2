@@ -10,6 +10,7 @@ interface IInputProps extends IInputBase<HTMLInputElement> {
   childRight?: ReactNode;
   list?: string;
   placeholder?: string;
+  value?: number | string;
   type?: "email" | "number" | "password" | "text";
 }
 
