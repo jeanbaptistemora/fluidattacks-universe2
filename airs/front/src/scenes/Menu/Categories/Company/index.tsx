@@ -18,9 +18,19 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
   const { width } = useWindowSize();
 
   return (
-    <Container bgColor={"#ffffff"} display={display}>
-      <Container display={"flex"} height={"230px"} justify={"center"} ph={4}>
-        <Container maxWidth={width > 960 ? "800px" : "100%"} mr={4}>
+    <Container
+      bgColor={"#ffffff"}
+      display={display}
+      shadowBottom={width > 1240}
+    >
+      <Container
+        display={"flex"}
+        height={"max-content"}
+        justify={"center"}
+        pb={3}
+        ph={4}
+      >
+        <Container maxWidth={width > 1200 ? "800px" : "100%"} mr={4}>
           <Container
             borderBottomColor={"#dddde3"}
             height={"36px"}
