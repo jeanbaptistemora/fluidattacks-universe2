@@ -5679,7 +5679,7 @@ class MethodsEnum(Enum):
     TFM_AZURE_STORAGE_LOG_DISABLED = MethodInfo(
         file_name="terraform",
         name="tfm_azure_storage_logging_disabled",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F402,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

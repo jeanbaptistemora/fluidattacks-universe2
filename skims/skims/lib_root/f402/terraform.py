@@ -58,6 +58,50 @@ def _azure_sql_server_audit_log_retention(
     return None
 
 
+def _azure_storage_logging_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+    if queue := get_argument(graph, nid, "queue_properties"):
+        if logging := get_argument(graph, queue, "logging"):
+            attrs = [
+                get_attribute(graph, logging, req)
+                for req in ["delete", "read", "write"]
+            ]
+            if not all(
+                (
+                    val.lower() == "true" if req else False
+                    for req, val, _ in attrs
+                )
+            ):
+                return logging
+        else:
+            return queue
+    else:
+        return nid
+    return None
+
+
+def tfm_azure_storage_logging_disabled(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AZURE_STORAGE_LOG_DISABLED
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "azurerm_storage_account"):
+                if report := _azure_storage_logging_disabled(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_path.f402.tfm_azure_storage_logging_disabled",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_azure_sql_server_audit_log_retention(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

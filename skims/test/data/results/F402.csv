@@ -24,8 +24,8 @@ F402,lines,namespace/skims/test/data/lib_root/f402/tfm_azure_sql_server_audit_lo
   32 | }
      ^ Col 0
 ",terraform.tfm_azure_sql_server_audit_log_retention
-F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf,28,778,skims,402. Traceability Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
- in namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_disabled.tf","
+F402,lines,namespace/skims/test/data/lib_root/f402/tfm_azure_storage_logging_disabled.tf,28,778,skims,402. Traceability Loss - Azure,"Ensure storage logging for queue service has read, write, and delete requests enabled
+ in namespace/skims/test/data/lib_root/f402/tfm_azure_storage_logging_disabled.tf","
   15 |     }
   16 |   }
   17 | }
