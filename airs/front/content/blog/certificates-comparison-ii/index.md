@@ -110,6 +110,13 @@ certification demands excellent skills to **attack the vulnerabilities
 of a system** and also verifies the candidate’s full-understanding of
 the steps followed during the attack.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 ## [**eLearnSecurity Mobile Application Penetration Tester (eMAPT)**](https://elearnsecurity.com/product/emapt-certification/)
 
 Granted by eLearnSecurity.\

@@ -100,6 +100,12 @@ issues is essential. This is the case, for example, in Europe, where
 there are joint regulations thanks to the [General Data Protection
 Regulation](../gdpr-compliance/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 ## America Results
 
 The United States and Canada remain on the regional podium occupying

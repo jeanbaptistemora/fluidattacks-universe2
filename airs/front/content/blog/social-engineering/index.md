@@ -80,6 +80,12 @@ in the survey, which prompted them to share sensitive information. Out
 of 150 targets, he got 17 usernames, 18 passwords and 17 sets of
 password-reset questions.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 ## Weapons of influence
 
 Social engineers' techniques are often analyzed using the principles of

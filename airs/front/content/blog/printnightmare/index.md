@@ -92,6 +92,13 @@ Windows 7](https://www.zdnet.com/article/install-immediately-microsoft-delivers-
 which had lost general support more than a year ago. Microsoft
 recommended its installation asap.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 After Microsoft deployed patches for other versions of Windows ([printer
 driver installation
 restrictions](https://support.microsoft.com/en-us/topic/kb5005010-restricting-installation-of-new-printer-drivers-after-applying-the-july-6-2021-updates-31b91c02-05bc-4ada-a7ea-183b129578a7)

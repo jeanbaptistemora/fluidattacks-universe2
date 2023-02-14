@@ -96,6 +96,13 @@ in which it concluded that 70% of businesses attacked by ransomware
 paid, a figure that by 2020 only decreased by 2%, according to
 [Statista](https://www.statista.com/statistics/701282/ransomware-experience-of-companies/).
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/penetration-testing/"
+  title="Get started with Fluid Attacks' Penetration Testing solution
+  right now"
+/>
+
 Of course, all of this results in a vicious circle that can be completed
 in two steps. First, cybercriminals encrypt information and demand money
 to unlock it. Second, insurance pays those demands to release the

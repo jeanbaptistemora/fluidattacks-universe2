@@ -90,6 +90,12 @@ the ".LockBit" extension variant and even a version in which the Tor
 browser ([generally used for the Dark Web](../dark-web/)) is no longer
 required.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/security-testing/"
+  title="Get started with Fluid Attacks' Security Testing solution right now"
+/>
+
 On the other hand, among the improvements to this malware that were
 reported later, we can recognize its ability to disable the security
 prompts that users receive when an application tries to run as

@@ -98,7 +98,7 @@ environments](https://blog.netwrix.com/2019/04/04/comptia-security-vs-sscp-cissp
 Granted by Practical DevSecOps.\
 It is a beginner-intermediate certification.
 If most certificates are focused on pentesters
-who want to be part of a [red team](../../solutions/red-teaming/),
+who want to be part of a red team,
 the CDP is designed for developers
 to strengthen their techniques,
 especially those
@@ -113,6 +113,12 @@ The exam lasts 12 hours. Upon completion, [the
 candidates](https://medium.com/devops4me/review-study-guide-certified-devsecops-professional-cdp-be3cf8ae95e5)
 "should be able to implement the real DevSecOps approach in the CI/CD
 pipeline and doing security tasks at scale."
+
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/red-teaming/"
+  title="Get started with Fluid Attacks' Red Teaming solution right now"
+/>
 
 ## [**Offensive Security Certified Professional (OSCP)**](https://www.offensive-security.com/pwk-oscp/)
 

@@ -101,6 +101,13 @@ input](https://owasp.org/www-community/attacks/SQL_Injection) to then
 place SQL commands in the control plane, which did not exist there
 before." That’s why the consequent procedure gives unexpected results.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/attack-simulation/"
+  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
+  right now"
+/>
+
 To enlighten you a bit more,
 you can watch the example
 [in this video](https://youtu.be/FHCTfA9cCXs?t=84).

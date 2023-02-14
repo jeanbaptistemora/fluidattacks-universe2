@@ -91,6 +91,12 @@ presentation, hackers (including ethical ones) obtain, for example,
 technical details of the target, technical constraints, and enumeration
 of possible controls and data.
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/ethical-hacking/"
+  title="Get started with Fluid Attacks' Ethical Hacking solution right now"
+/>
+
 By detecting many of the security flaws available for exploitation,
 human error often comes into the hackers' sights as well. Access to
 systems can be facilitated by deceptive communication with company

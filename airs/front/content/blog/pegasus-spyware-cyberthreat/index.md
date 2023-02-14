@@ -123,6 +123,13 @@ were targeting "[a vulnerability in the graphics library of the phone,
 running version android 4.4.4 and
 above](https://www.youtube.com/watch?v=opYd4LE0G5U)."
 
+<cta-banner
+  buttontxt="Read more"
+  link="/solutions/vulnerability-management/"
+  title="Get started with Fluid Attacks' Vulnerability Management solution
+  right now"
+/>
+
 Other ways in which the zero-click attack can be performed are through
 "[security bug in voice calls made through apps like
 WhatsApp](https://www.youtube.com/watch?v=m2XR3W8QQFM)." If this weren’t
