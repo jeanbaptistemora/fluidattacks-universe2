@@ -290,11 +290,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
-    validation_utils.validate_fields([url])
-    validation_utils.validate_sanitized_csv_input(
-        nickname, kwargs["url"], kwargs["environment"]
-    )
-    validations.validate_nickname(nickname)
     validations.validate_nickname_is_unique(
         nickname, await loaders.group_roots.load(group_name)
     )
