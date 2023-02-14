@@ -8,8 +8,6 @@ from model import (
 import os
 from typing import (
     Any,
-    Optional,
-    Set,
 )
 from utils.logs import (
     log_blocking,
@@ -17,7 +15,7 @@ from utils.logs import (
 import yaml
 
 
-def load_checks(config: Any) -> Set[core_model.FindingEnum]:
+def load_checks(config: Any) -> set[core_model.FindingEnum]:
     # All checks by default, or the selected by the checks field
     return (
         {
@@ -30,7 +28,7 @@ def load_checks(config: Any) -> Set[core_model.FindingEnum]:
     )
 
 
-def load(group: Optional[str], path: str) -> core_model.SkimsConfig:
+def load(group: str | None, path: str) -> core_model.SkimsConfig:
     template = confuse.Configuration("skims", read=False)
     template.set_file(path)
     template.read(user=False, defaults=False)

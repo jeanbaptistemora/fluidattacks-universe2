@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,18 +18,13 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 async def has_default_security_groups_in_use(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
     reservations = response.get("Reservations", []) if response else []
@@ -33,7 +32,7 @@ async def has_default_security_groups_in_use(
     method = core_model.MethodsEnum.AWS_HAS_DEFAULT_SECURITY_GROUPS_IN_USE
     for res in reservations:
         for instance in res["Instances"]:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, security_group in enumerate(instance["SecurityGroups"]):
                 group_name = security_group["GroupName"]
                 if "default" in group_name:
@@ -69,7 +68,7 @@ async def use_default_security_group(
 ) -> core_model.Vulnerabilities:
     security_group_attributes = {"SecurityGroups", "SecurityGroupIds"}
     method = core_model.MethodsEnum.AWS_DEFAULT_SECURITY_GROUP
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_launch_template_versions",
@@ -82,7 +81,7 @@ async def use_default_security_group(
     launch_template_versions = response.get("LaunchTemplateVersions", {})
     if launch_template_versions:
         for template_version in launch_template_versions:
-            locations: List[Location] = []
+            locations: list[Location] = []
             template_data = template_version.get("LaunchTemplateData", {})
             if not any(
                 template_data.get(attr, False)
@@ -113,8 +112,8 @@ async def use_default_security_group(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     use_default_security_group,

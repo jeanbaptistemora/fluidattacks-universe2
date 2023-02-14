@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,23 +18,18 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 def _get_vuln_db_instances(
-    response: Dict[str, Any]
+    response: dict[str, Any]
 ) -> core_model.Vulnerabilities:
     db_instances = response.get("DBInstances", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if db_instances:
         for index, instance in enumerate(db_instances):
             instance_arn = instance["DBInstanceArn"]
-            locations: List[Location] = []
+            locations: list[Location] = []
 
             if instance.get("PubliclyAccessible", False):
                 locations = [
@@ -55,14 +54,14 @@ def _get_vuln_db_instances(
 
 
 def _get_vulns_db_clusters(
-    response: Dict[str, Any]
+    response: dict[str, Any]
 ) -> core_model.Vulnerabilities:
     db_clusters = response.get("DBClusters", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if db_clusters:
         for index, clusters in enumerate(db_clusters):
             cluster_arn = clusters["DBClusterArn"]
-            locations: List[Location] = []
+            locations: list[Location] = []
             if clusters.get("PubliclyAccessible", False):
                 locations = [
                     *locations,
@@ -91,11 +90,11 @@ async def has_public_instances(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     vulns: core_model.Vulnerabilities = ()
-    describe_db_instances: Dict[str, Any] = await run_boto3_fun(
+    describe_db_instances: dict[str, Any] = await run_boto3_fun(
         credentials, service="rds", function="describe_db_instances"
     )
 
-    describe_db_clusters: Dict[str, Any] = await run_boto3_fun(
+    describe_db_clusters: dict[str, Any] = await run_boto3_fun(
         credentials, service="rds", function="describe_db_clusters"
     )
     vulns = (
@@ -106,7 +105,7 @@ async def has_public_instances(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (has_public_instances,)

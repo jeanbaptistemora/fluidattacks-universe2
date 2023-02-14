@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -21,11 +25,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -33,7 +32,7 @@ async def users_with_multiple_access_keys(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.AWS_USER_WITH_MULTIPLE_ACCESS_KEYS
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_users",
@@ -44,7 +43,7 @@ async def users_with_multiple_access_keys(
 
     if users:
         for user in users:
-            access_keys: Dict[str, Any] = await run_boto3_fun(
+            access_keys: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_access_keys",
@@ -53,7 +52,7 @@ async def users_with_multiple_access_keys(
                 },
             )
             access_key_metadata = access_keys["AccessKeyMetadata"]
-            locations: List[Location] = []
+            locations: list[Location] = []
             access_keys_activated = list(
                 filter(
                     lambda y: y == "Active",
@@ -89,10 +88,10 @@ async def root_has_access_keys(
     await run_boto3_fun(
         credentials, service="iam", function="generate_credential_report"
     )
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_credential_report"
     )
-    locations: List[Location] = []
+    locations: list[Location] = []
     vulns: core_model.Vulnerabilities = ()
     users_csv = StringIO(response.get("Content", b"").decode())
     credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
@@ -131,7 +130,7 @@ async def has_not_support_role(
     vulns: core_model.Vulnerabilities = ()
     attached_times: int = 0
     policy_arn = "arn:aws:iam::aws:policy/AWSSupportAccess"
-    entities: Dict[str, Any] = await run_boto3_fun(
+    entities: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_entities_for_policy",
@@ -140,7 +139,7 @@ async def has_not_support_role(
         },
     )
 
-    locations: List[Location] = []
+    locations: list[Location] = []
     attached_times = (
         len(list(filter(None, entities["PolicyUsers"])))
         + len(list(filter(None, entities["PolicyGroups"])))
@@ -176,7 +175,7 @@ async def has_root_active_signing_certificates(
     await run_boto3_fun(
         credentials, service="iam", function="generate_credential_report"
     )
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_credential_report"
     )
     vulns: core_model.Vulnerabilities = ()
@@ -190,7 +189,7 @@ async def has_root_active_signing_certificates(
             root_user.get("cert_2_active") == "true",
         )
     )
-    locations: List[Location] = []
+    locations: list[Location] = []
     if root_has_active_signing_certs:
         key_names = ("cert_1_active", "cert_2_active")
         for index, name in enumerate(key_names):
@@ -219,8 +218,8 @@ async def has_root_active_signing_certificates(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     users_with_multiple_access_keys,

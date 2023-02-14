@@ -1,6 +1,9 @@
 from collections import (
     UserList,
 )
+from collections.abc import (
+    Iterator,
+)
 from metaloaders.model import (
     Node,
     Type,
@@ -8,8 +11,6 @@ from metaloaders.model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
@@ -45,7 +46,7 @@ def patch_statement_node(stmt: Node) -> Node:
     return stmt
 
 
-def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
+def patch_statement(stmt: Any | Node) -> Any | Node:
     # https://docs.aws.amazon.com/IAM/latest/UserGuide
     #   /reference_policies_elements_effect.html
     if isinstance(stmt, Node) and stmt.data_type == Type.OBJECT:
@@ -59,9 +60,7 @@ def patch_statement(stmt: Union[Any, Node]) -> Union[Any, Node]:
     return stmt
 
 
-def yield_statements_from_policy(
-    policy: Union[Any, Node]
-) -> Iterator[Union[Any, Node]]:
+def yield_statements_from_policy(policy: Any | Node) -> Iterator[Any | Node]:
     if isinstance(policy, Node) and policy.inner.get("PolicyDocument", None):
         yield from yield_statements_from_policy_document(
             policy.inner.get("PolicyDocument")
@@ -73,8 +72,8 @@ def yield_statements_from_policy(
 
 
 def yield_statements_from_policy_document(
-    document: Union[Any, Node]
-) -> Iterator[Union[Any, Node]]:
+    document: Any | Node,
+) -> Iterator[Any | Node]:
     if (
         isinstance(document, Node)
         and hasattr(document.inner, "get")

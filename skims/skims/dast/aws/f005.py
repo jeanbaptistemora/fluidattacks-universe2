@@ -1,4 +1,8 @@
 import ast
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -18,11 +22,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -32,7 +31,7 @@ from zone import (
 async def allows_priv_escalation_by_policies_versions(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -45,8 +44,8 @@ async def allows_priv_escalation_by_policies_versions(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -63,7 +62,7 @@ async def allows_priv_escalation_by_policies_versions(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, stm in enumerate(policy_statements):
@@ -110,7 +109,7 @@ async def allows_priv_escalation_by_policies_versions(
 async def allows_priv_escalation_by_attach_policy(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -121,8 +120,8 @@ async def allows_priv_escalation_by_attach_policy(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -139,7 +138,7 @@ async def allows_priv_escalation_by_attach_policy(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, stm in enumerate(policy_statements):
@@ -182,8 +181,8 @@ async def allows_priv_escalation_by_attach_policy(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     allows_priv_escalation_by_policies_versions,

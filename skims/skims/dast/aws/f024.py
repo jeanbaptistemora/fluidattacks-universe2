@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -17,11 +21,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -49,13 +48,13 @@ async def allows_anyone_to_admin_ports(
         445,  # CIFS
     }
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
-    vulns: Tuple[Vulnerability, ...] = ()
+    vulns: tuple[Vulnerability, ...] = ()
     security_groups = response.get("SecurityGroups", []) if response else []
     for group in security_groups:
-        locations: List[Location] = []
+        locations: list[Location] = []
         for port in admin_ports:
             for index, perm in enumerate(group["IpPermissions"]):
                 if "FromPort" not in perm and "ToPort" not in perm:
@@ -130,7 +129,7 @@ async def allows_anyone_to_admin_ports(
 async def unrestricted_cidrs(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -200,7 +199,7 @@ async def unrestricted_cidrs(
 async def unrestricted_ip_protocols(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -279,7 +278,7 @@ async def security_groups_ip_ranges_in_rfc1918(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     rfc1918 = {"10.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16"}
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -329,7 +328,7 @@ async def security_groups_ip_ranges_in_rfc1918(
 async def unrestricted_dns_access(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -337,7 +336,7 @@ async def unrestricted_dns_access(
 
     if security_groups:
         for group in security_groups:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
                     if ip_permission["FromPort"] <= 53 <= ip_permission[
@@ -423,7 +422,7 @@ async def unrestricted_dns_access(
 async def unrestricted_ftp_access(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -431,7 +430,7 @@ async def unrestricted_ftp_access(
 
     if security_groups:
         for group in security_groups:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
                     if (
@@ -523,7 +522,7 @@ async def unrestricted_ftp_access(
 async def open_all_ports_to_the_public(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -531,7 +530,7 @@ async def open_all_ports_to_the_public(
 
     if security_groups:
         for group in security_groups:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
                     if (
@@ -629,7 +628,7 @@ async def open_all_ports_to_the_public(
 async def default_seggroup_allows_all_traffic(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -639,7 +638,7 @@ async def default_seggroup_allows_all_traffic(
         for group in security_groups:
             if group["GroupName"] != "default":
                 continue
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, ip_permission in enumerate(group["IpPermissions"]):
                 locations = [
                     *[
@@ -681,14 +680,14 @@ async def default_seggroup_allows_all_traffic(
 async def instances_without_profile(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_instances"
     )
     instances = response.get("Reservations", []) if response else []
     vulns: core_model.Vulnerabilities = ()
 
     for i in instances:
-        locations: List[Location] = []
+        locations: list[Location] = []
         for config in i["Instances"]:
             if (
                 "IamInstanceProfile" not in config.keys()
@@ -725,7 +724,7 @@ async def instances_without_profile(
 async def insecure_port_range_in_security_group(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="ec2", function="describe_security_groups"
     )
     security_groups = response.get("SecurityGroups", []) if response else []
@@ -733,7 +732,7 @@ async def insecure_port_range_in_security_group(
 
     if security_groups:
         for group in security_groups:
-            locations: List[Location] = []
+            locations: list[Location] = []
             for index, rule in enumerate(group["IpPermissions"]):
                 with suppress(KeyError):
                     if rule["FromPort"] != rule["ToPort"]:
@@ -775,8 +774,8 @@ async def insecure_port_range_in_security_group(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     allows_anyone_to_admin_ports,

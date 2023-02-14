@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -28,7 +27,7 @@ from zone import (
 async def bucket_has_object_lock_disabled(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -36,9 +35,9 @@ async def bucket_has_object_lock_disabled(
     vulns: core_model.Vulnerabilities = ()
     if buckets:
         for bucket in buckets:
-            locations: List[Location] = []
+            locations: list[Location] = []
             bucket_name = bucket["Name"]
-            bucket_grants: Dict[str, Any] = await run_boto3_fun(
+            bucket_grants: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_object_lock_configuration",
@@ -94,7 +93,7 @@ async def bucket_has_object_lock_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (bucket_has_object_lock_disabled,)

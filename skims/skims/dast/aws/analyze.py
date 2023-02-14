@@ -60,11 +60,9 @@ from state.ephemeral import (
 from typing import (
     Any,
     Dict,
-    List,
-    Tuple,
 )
 
-CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+CHECKS: tuple[tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F005, [*f005.CHECKS]),
     (core_model.FindingEnum.F016, [*f016.CHECKS]),
     (core_model.FindingEnum.F024, [*f024.CHECKS]),
@@ -106,7 +104,7 @@ async def analyze(
     stores: Dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
 
-    vulnerabilities: List[Vulnerability] = list(
+    vulnerabilities: list[Vulnerability] = list(
         collapse(
             await collect(
                 [

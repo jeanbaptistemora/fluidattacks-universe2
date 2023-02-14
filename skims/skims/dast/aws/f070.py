@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,11 +18,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -26,7 +25,7 @@ async def uses_insecure_security_policy(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    predifined_ssl_policy_values: List[str] = [
+    predifined_ssl_policy_values: list[str] = [
         "ELBSecurityPolicy-2015-05",
         "ELBSecurityPolicy-2016-08",
         "ELBSecurityPolicy-FS-2018-06",
@@ -47,23 +46,23 @@ async def uses_insecure_security_policy(
         "ELBSecurityPolicy-TLS13-1-3-2021-06",
     ]
 
-    safe_ssl_policy_values: List[str] = [
+    safe_ssl_policy_values: list[str] = [
         "ELBSecurityPolicy-FS-1-2-Res-2020-10",
         "ELBSecurityPolicy-TLS13-1-2-Res-2021-06",
         "ELBSecurityPolicy-TLS13-1-3-2021-06",
     ]
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="elbv2", function="describe_load_balancers"
     )
     balancers = response.get("LoadBalancers", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if balancers:
         for balancer in balancers:
-            locations: List[Location] = []
+            locations: list[Location] = []
             load_balancer_arn = balancer["LoadBalancerArn"]
 
-            listeners: Dict[str, Any] = await run_boto3_fun(
+            listeners: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="elbv2",
                 function="describe_listeners",
@@ -113,14 +112,14 @@ async def target_group_insecure_port(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="elbv2", function="describe_target_groups"
     )
     target_groups = response.get("TargetGroups", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     if target_groups:
         for index, target_group in enumerate(target_groups):
-            locations: List[Location] = []
+            locations: list[Location] = []
             port = target_group.get("Port", "")
             target_type = target_group.get("TargetType", "")
             if target_type == "lambda":
@@ -161,8 +160,8 @@ async def target_group_insecure_port(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     target_group_insecure_port,

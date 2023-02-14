@@ -1,12 +1,8 @@
 import json
 import os
 import tree_sitter
-from typing import (
-    Dict,
-    Tuple,
-)
 
-GRAMMARS: Dict[str, str] = dict(
+GRAMMARS: dict[str, str] = dict(
     c_sharp=os.environ["envTreeSitterCSharp"],
     dart=os.environ["envTreeSitterDart"],
     go=os.environ["envTreeSitterGo"],
@@ -24,10 +20,10 @@ GRAMMARS: Dict[str, str] = dict(
 )
 
 
-def get_fields(src: str) -> Dict[str, Tuple[str, ...]]:
+def get_fields(src: str) -> dict[str, tuple[str, ...]]:
     path: str = os.path.join(src, "src", "node-types.json")
     with open(path, encoding="utf-8") as handle:
-        fields: Dict[str, Tuple[str, ...]] = {
+        fields: dict[str, tuple[str, ...]] = {
             node["type"]: fields
             for node in json.load(handle)
             for fields in [tuple(node.get("fields", {}))]

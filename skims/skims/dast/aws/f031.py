@@ -7,6 +7,10 @@ from botocore import (
 from botocore.client import (
     Config,
 )
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -27,11 +31,6 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from utils.logs import (
     log_exception_blocking,
@@ -44,7 +43,7 @@ from zone import (
 async def admin_policy_attached(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_policies"
     )
     policies = response.get("Policies", []) if response else []
@@ -56,7 +55,7 @@ async def admin_policy_attached(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
+            locations: list[Location] = []
             if (
                 policy["Arn"] in elevated_policies
                 and policy["AttachmentCount"] != 0
@@ -95,7 +94,7 @@ async def admin_policy_attached(
 async def bucket_objects_can_be_listed(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -136,7 +135,7 @@ async def bucket_objects_can_be_listed(
 async def public_buckets(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -146,9 +145,9 @@ async def public_buckets(
     vulns: core_model.Vulnerabilities = ()
     if buckets:
         for bucket in buckets:
-            locations: List[Location] = []
+            locations: list[Location] = []
             bucket_name = bucket["Name"]
-            bucket_grants: Dict[str, Any] = await run_boto3_fun(
+            bucket_grants: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_acl",
@@ -193,7 +192,7 @@ async def public_buckets(
 async def group_with_inline_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_groups"
     )
     groups = response.get("Groups", []) if response else []
@@ -201,7 +200,7 @@ async def group_with_inline_policies(
     vulns: core_model.Vulnerabilities = ()
     if groups:
         for group in groups:
-            group_policies: Dict[str, Any] = await run_boto3_fun(
+            group_policies: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_group_policies",
@@ -209,7 +208,7 @@ async def group_with_inline_policies(
             )
             policy_names = group_policies.get("PolicyNames", [])
 
-            locations: List[Location] = []
+            locations: list[Location] = []
             if policy_names:
                 locations = [
                     *[
@@ -242,7 +241,7 @@ async def group_with_inline_policies(
 async def user_with_inline_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_users"
     )
     users = response.get("Users", []) if response else []
@@ -250,7 +249,7 @@ async def user_with_inline_policies(
     vulns: core_model.Vulnerabilities = ()
     if users:
         for user in users:
-            user_policies: Dict[str, Any] = await run_boto3_fun(
+            user_policies: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_user_policies",
@@ -259,7 +258,7 @@ async def user_with_inline_policies(
 
             policy_names = user_policies.get("PolicyNames", [])
 
-            locations: List[Location] = []
+            locations: list[Location] = []
             if policy_names:
                 locations = [
                     *[
@@ -292,7 +291,7 @@ async def user_with_inline_policies(
 async def policies_attached_to_users(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_users"
     )
     users = response.get("Users", []) if response else []
@@ -300,7 +299,7 @@ async def policies_attached_to_users(
     vulns: core_model.Vulnerabilities = ()
     if users:
         for user in users:
-            user_policies: Dict[str, Any] = await run_boto3_fun(
+            user_policies: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_attached_user_policies",
@@ -308,7 +307,7 @@ async def policies_attached_to_users(
             )
             attached_policies = user_policies.get("AttachedPolicies", [])
 
-            locations: List[Location] = []
+            locations: list[Location] = []
             if attached_policies:
                 locations = [
                     *[
@@ -340,7 +339,7 @@ async def policies_attached_to_users(
 async def full_access_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -351,8 +350,8 @@ async def full_access_policies(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -369,7 +368,7 @@ async def full_access_policies(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
@@ -427,7 +426,7 @@ def _match_iam_passrole(action: str) -> bool:
 async def open_passrole(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -438,8 +437,8 @@ async def open_passrole(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -524,7 +523,7 @@ def _is_action_permissive(action: Any) -> bool:
 async def permissive_policy(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -534,8 +533,8 @@ async def permissive_policy(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -552,7 +551,7 @@ async def permissive_policy(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
@@ -603,7 +602,7 @@ async def permissive_policy(
 async def has_permissive_role_policies(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_roles",
@@ -612,7 +611,7 @@ async def has_permissive_role_policies(
     vulns: core_model.Vulnerabilities = ()
     method = core_model.MethodsEnum.AWS_HAS_PERMISSIVE_ROLE_POLICY
 
-    async def get_role_policies(role_name: str) -> List:
+    async def get_role_policies(role_name: str) -> list:
         response = await run_boto3_fun(
             credentials,
             service="iam",
@@ -623,7 +622,7 @@ async def has_permissive_role_policies(
 
     async def get_policy_role(
         policy_name: str, role_name: str
-    ) -> Dict[Any, str]:
+    ) -> dict[Any, str]:
         response = await run_boto3_fun(
             credentials,
             service="iam",
@@ -633,7 +632,7 @@ async def has_permissive_role_policies(
         return response["PolicyDocument"]
 
     for role in roles:
-        locations: List[Location] = []
+        locations: list[Location] = []
         role_policies = await get_role_policies(role["RoleName"])
         for policy_name in role_policies:
             policy_role = await get_policy_role(policy_name, role["RoleName"])
@@ -681,7 +680,7 @@ async def has_permissive_role_policies(
 async def full_access_to_ssm(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -691,8 +690,8 @@ async def full_access_to_ssm(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -709,7 +708,7 @@ async def full_access_to_ssm(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
@@ -756,7 +755,7 @@ async def full_access_to_ssm(
 async def negative_statement(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="iam",
         function="list_policies",
@@ -766,8 +765,8 @@ async def negative_statement(
     vulns: core_model.Vulnerabilities = ()
     if policies:
         for policy in policies:
-            locations: List[Location] = []
-            pol_ver: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            pol_ver: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="get_policy_version",
@@ -784,7 +783,7 @@ async def negative_statement(
                 str(pol_access.get("Statement", []))
             )
 
-            if not isinstance(policy_statements, List):
+            if not isinstance(policy_statements, list):
                 policy_statements = [policy_statements]
 
             for index, item in enumerate(policy_statements):
@@ -853,7 +852,7 @@ async def negative_statement(
 async def users_with_password_and_access_keys(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_users"
     )
     users = response.get("Users", []) if response else []
@@ -862,7 +861,7 @@ async def users_with_password_and_access_keys(
     if users:
         for user in users:
             locations = []
-            access_keys: Dict[str, Any] = await run_boto3_fun(
+            access_keys: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_access_keys",
@@ -913,8 +912,8 @@ async def users_with_password_and_access_keys(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     admin_policy_attached,

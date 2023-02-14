@@ -1,4 +1,8 @@
 import ast
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from contextlib import (
     suppress,
 )
@@ -18,11 +22,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 from zone import (
     t,
@@ -32,7 +31,7 @@ from zone import (
 async def acl_public_buckets(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -40,10 +39,10 @@ async def acl_public_buckets(
     vulns: core_model.Vulnerabilities = ()
     if buckets:
         for bucket in buckets:
-            locations: List[Location] = []
+            locations: list[Location] = []
             bucket_name = bucket["Name"]
 
-            bucket_grants: Dict[str, Any] = await run_boto3_fun(
+            bucket_grants: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_acl",
@@ -82,9 +81,9 @@ async def acl_public_buckets(
 
 
 def iterate_s3_buckets_allow_unauthorized_public_access(
-    policies_statements: List, bucket_name: str
+    policies_statements: list, bucket_name: str
 ) -> core_model.Vulnerabilities:
-    locations: List[Location] = []
+    locations: list[Location] = []
     vulns: core_model.Vulnerabilities = ()
     method = (
         core_model.MethodsEnum.AWS_S3_BUCKETS_ALLOW_UNAUTHORIZED_PUBLIC_ACCESS
@@ -135,7 +134,7 @@ def iterate_s3_buckets_allow_unauthorized_public_access(
 async def s3_buckets_allow_unauthorized_public_access(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="s3", function="list_buckets"
     )
     buckets = response.get("Buckets", []) if response else []
@@ -144,7 +143,7 @@ async def s3_buckets_allow_unauthorized_public_access(
         for bucket in buckets:
             bucket_name = bucket["Name"]
 
-            bucket_policy: Dict[str, Any] = await run_boto3_fun(
+            bucket_policy: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_policy",
@@ -169,22 +168,22 @@ async def s3_buckets_allow_unauthorized_public_access(
 async def is_trail_bucket_public(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="cloudtrail", function="describe_trails"
     )
     method = core_model.MethodsEnum.AWS_IAM_IS_TRAIL_BUCKET_PUBLIC
-    trail_list = response.get("trailList", []) if response else []
+    trail_list = response.get("traillist", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     public_acl = "http://acs.amazonaws.com/groups/global/AllUsers"
     perms = ["READ", "WRITE", "FULL_CONTROL", "READ_ACP", "WRITE_ACP"]
 
     if trail_list:
         for trail in trail_list:
-            locations: List[Location] = []
+            locations: list[Location] = []
             trail_arn = trail["TrailARN"]
             trail_bucket = trail["S3BucketName"]
 
-            get_bucket_acl: Dict[str, Any] = await run_boto3_fun(
+            get_bucket_acl: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="s3",
                 function="get_bucket_acl",
@@ -227,8 +226,8 @@ async def is_trail_bucket_public(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     is_trail_bucket_public,

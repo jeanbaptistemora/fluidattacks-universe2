@@ -1,3 +1,6 @@
+from collections.abc import (
+    Mapping,
+)
 from contextlib import (
     suppress,
 )
@@ -16,9 +19,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
-    Union,
 )
 from utils.repositories import (
     get_repo_branch,
@@ -49,12 +49,12 @@ def simplify_sarif(obj: Any) -> Any:
     return simplified_obj
 
 
-def _get_criteria_vulns() -> Dict[str, Any]:
+def _get_criteria_vulns() -> dict[str, Any]:
     with open(CRITERIA_VULNERABILITIES, encoding="utf-8") as handle:
         return yaml.safe_load(handle)
 
 
-def _get_criteria_requirements() -> Dict[str, Any]:
+def _get_criteria_requirements() -> dict[str, Any]:
     with open(CRITERIA_REQUIREMENTS, encoding="utf-8") as handle:
         return yaml.safe_load(handle)
 
@@ -125,7 +125,7 @@ def _taxa_is_present(base: sarif_om.SarifLog, taxa_id: str) -> bool:
     return False
 
 
-def _get_sca_info(what: str) -> Optional[Dict[str, Any]]:
+def _get_sca_info(what: str) -> dict[str, Any] | None:
     try:
         str_info = what.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -142,7 +142,7 @@ def _get_sca_info(what: str) -> Optional[Dict[str, Any]]:
     return None
 
 
-def _get_missing_dependency(what: str) -> Optional[Dict[str, Any]]:
+def _get_missing_dependency(what: str) -> dict[str, Any] | None:
     try:
         str_info = what.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -166,7 +166,7 @@ def _format_what(vulnerability: core_model.Vulnerability) -> str:
     return what
 
 
-def _format_were(were: str) -> Union[int, str]:
+def _format_were(were: str) -> int | str:
     try:
         return int(were)
     except ValueError:
@@ -175,8 +175,8 @@ def _format_were(were: str) -> Union[int, str]:
 
 def _get_vuln_properties(
     vulnerability: core_model.Vulnerability, rule_id: str
-) -> Dict[str, Any]:
-    properties: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    properties: dict[str, Any] = {}
     if (
         vulnerability.skims_metadata.technique == core_model.TechniqueEnum.SCA
         and (sca_info := _get_sca_info(vulnerability.what))
@@ -197,7 +197,7 @@ def _get_vuln_properties(
 
 def _get_sarif(
     config: core_model.SkimsConfig,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: Mapping[core_model.FindingEnum, EphemeralStore],
 ) -> sarif_om.SarifLog:
     base = sarif_om.SarifLog(
         version="2.1.0",
@@ -357,6 +357,6 @@ def _get_sarif(
 
 def get_sarif(
     config: core_model.SkimsConfig,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
-) -> Dict[str, Any]:
+    stores: Mapping[core_model.FindingEnum, EphemeralStore],
+) -> dict[str, Any]:
     return simplify_sarif(_get_sarif(config, stores))

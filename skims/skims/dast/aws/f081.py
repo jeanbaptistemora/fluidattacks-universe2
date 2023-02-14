@@ -1,4 +1,8 @@
 import botocore
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 import csv
 from dast.aws.types import (
     Location,
@@ -19,11 +23,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -33,14 +32,14 @@ async def iam_has_mfa_disabled(
     await run_boto3_fun(
         credentials, service="iam", function="generate_credential_report"
     )
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_credential_report"
     )
     vulns: core_model.Vulnerabilities = ()
     users_csv = StringIO(response.get("Content", b"").decode())
     credentials_report = tuple(csv.DictReader(users_csv, delimiter=","))
     for user in credentials_report:
-        locations: List[Location] = []
+        locations: list[Location] = []
         user_arn = user["arn"]
         user_config = user["password_enabled"]
         user_has_mfa = user["mfa_active"]
@@ -71,7 +70,7 @@ async def root_without_mfa(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="get_account_summary"
     )
     vulns: core_model.Vulnerabilities = ()
@@ -102,7 +101,7 @@ async def mfa_disabled_for_users_with_console_password(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials, service="iam", function="list_users"
     )
     method = (
@@ -122,8 +121,8 @@ async def mfa_disabled_for_users_with_console_password(
             except botocore.exceptions.ClientError:
                 continue
 
-            locations: List[Location] = []
-            user_policies: Dict[str, Any] = await run_boto3_fun(
+            locations: list[Location] = []
+            user_policies: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="iam",
                 function="list_mfa_devices",
@@ -157,10 +156,10 @@ async def mfa_disabled_for_users_with_console_password(
 
 async def get_paginated_items(
     credentials: AwsCredentials,
-) -> List:
+) -> list:
     """Get all items in paginated API calls."""
     pools = []
-    args: Dict[str, Any] = {
+    args: dict[str, Any] = {
         "credentials": credentials,
         "service": "cognito-idp",
         "function": "list_user_pools",
@@ -187,14 +186,14 @@ async def cognito_mfa_disabled(
     pools = await get_paginated_items(credentials)
     method = core_model.MethodsEnum.AWS_COGNITO_HAS_MFA_DISABLED
     for pool in pools:
-        response: Dict[str, Any] = await run_boto3_fun(
+        response: dict[str, Any] = await run_boto3_fun(
             credentials,
             service="cognito-idp",
             function="get_user_pool_mfa_config",
             parameters={"UserPoolId": str(pool["Id"])},
         )
         mfa = response.get("MfaConfiguration", "")
-        locations: List[Location] = []
+        locations: list[Location] = []
         if mfa != "ON":
             locations = [
                 Location(
@@ -217,8 +216,8 @@ async def cognito_mfa_disabled(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     cognito_mfa_disabled,

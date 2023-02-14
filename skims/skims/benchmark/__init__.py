@@ -4,11 +4,7 @@ import json
 import os
 from typing import (
     Any,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -16,10 +12,10 @@ from utils.logs import (
 
 
 class Result(NamedTuple):
-    cwe: Tuple[str, ...]
+    cwe: tuple[str, ...]
     is_vulnerable: bool
 
-    category: Optional[str] = None
+    category: str | None = None
 
     def shares_cwe_with(self, other: "Result") -> bool:
         return bool(set(self.cwe).intersection(set(other.cwe)))
@@ -45,9 +41,9 @@ def cast_to_boolean(boolean: str) -> bool:
     raise NotImplementedError(boolean)
 
 
-def load_benchmark_expected_results() -> Dict[str, Result]:
+def load_benchmark_expected_results() -> dict[str, Result]:
     with open(os.environ["EXPECTED_RESULTS_CSV"], encoding="utf-8") as file:
-        mapping: Dict[str, Result] = {
+        mapping: dict[str, Result] = {
             row["# test name"]
             + ".java": Result(
                 category=row[" category"],
@@ -61,8 +57,8 @@ def load_benchmark_expected_results() -> Dict[str, Result]:
     return mapping
 
 
-def load_benchmark_skims_results() -> Dict[str, List[Result]]:
-    mapping: Dict[str, List[Result]] = {}
+def load_benchmark_skims_results() -> dict[str, list[Result]]:
+    mapping: dict[str, list[Result]] = {}
 
     for path in glob.glob("skims/test/outputs/benchmark_owasp_*.csv"):
         with open(path, encoding="utf-8") as file:
@@ -84,7 +80,7 @@ def calculate_positive_results(
     result: Result,
     true_positives: int,
     false_positives: int,
-) -> Tuple[bool, int, int]:
+) -> tuple[bool, int, int]:
     if result.is_vulnerable:
         success = True
         true_positives += 1
@@ -99,7 +95,7 @@ def calculate_negative_results(
     result: Result,
     true_negatives: int,
     false_negatives: int,
-) -> Tuple[bool, int, int]:
+) -> tuple[bool, int, int]:
     if result.is_vulnerable:
         success = False
         false_negatives += 1
@@ -111,7 +107,7 @@ def calculate_negative_results(
 
 
 def load_skims_results() -> Score:
-    errors_per_category: Dict[Optional[str], int] = {}
+    errors_per_category: dict[str | None, int] = {}
     false_negatives: int = 0
     false_positives: int = 0
     true_negatives: int = 0
@@ -179,7 +175,7 @@ def load_skims_results() -> Score:
 
 def main() -> None:
     score: Score = load_skims_results()
-    results_owasp: Dict[str, Any] = {
+    results_owasp: dict[str, Any] = {
         "stream": "owasp",
         "record": {},
     }

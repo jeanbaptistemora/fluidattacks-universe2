@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -14,18 +18,13 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
 async def vpcs_without_flowlog(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="ec2",
         function="describe_vpcs",
@@ -35,9 +34,9 @@ async def vpcs_without_flowlog(
     vulns: core_model.Vulnerabilities = ()
     if vpcs:
         for vpc in vpcs:
-            locations: List[Location] = []
+            locations: list[Location] = []
             cloud_id = vpc["VpcId"]
-            net_interfaces: Dict[str, Any] = await run_boto3_fun(
+            net_interfaces: dict[str, Any] = await run_boto3_fun(
                 credentials,
                 service="ec2",
                 function="describe_flow_logs",
@@ -66,7 +65,7 @@ async def vpcs_without_flowlog(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (vpcs_without_flowlog,)

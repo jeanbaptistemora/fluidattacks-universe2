@@ -1,7 +1,8 @@
+from collections.abc import (
+    Iterable,
+)
 from typing import (
     Any,
-    List,
-    Union,
 )
 
 
@@ -29,7 +30,7 @@ def is_resource_permissive(resource: str) -> bool:
     return resource == "*"
 
 
-def is_public_principal(principals: Union[List[str], str]) -> bool:
+def is_public_principal(principals: Iterable[str] | str) -> bool:
     principal_list = (
         principals if isinstance(principals, list) else [principals]
     )

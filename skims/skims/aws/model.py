@@ -3,9 +3,7 @@ from enum import (
 )
 from typing import (
     Any,
-    List,
     NamedTuple,
-    Optional,
 )
 
 
@@ -23,16 +21,16 @@ class AWSIamPolicyStatement(NamedTuple):
 
 class AWSIamManagedPolicyArns(NamedTuple):
     column: int
-    data: Optional[List[str]]
+    data: list[str] | None
     line: int
 
 
 class AWSS3Bucket(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
-    name: Optional[str] = None
-    tf_reference: Optional[str] = None
+    name: str | None = None
+    tf_reference: str | None = None
 
 
 class AWSS3SSEConfig(NamedTuple):
@@ -57,7 +55,7 @@ class AWSS3LogginConfig(NamedTuple):
 
 class AWSS3BucketPolicy(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
@@ -69,161 +67,161 @@ class AWSS3Acl(NamedTuple):
 
 class AWSCloudfrontDistribution(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSCTrail(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEbs(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEbsVolume(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSDynamoDBTable(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSInstance(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSElb(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSElbV2(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSLbTargetGroup(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSDbInstance(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEbsEncryptionByDefault(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSRdsCluster(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSRdsClusterInstance(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSKmsKey(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEFS(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSSecretsManagerSecret(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSLaunchTemplate(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSIamManagedPolicy(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSIamRole(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEC2(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEC2Rule(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSEfsFileSystem(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSLaunchConfiguration(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSApiGatewayStage(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSDefaultNetworkAcl(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSLambdaFunction(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 
 class AWSServerlessApi(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int

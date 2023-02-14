@@ -1,4 +1,8 @@
 import ast
+from collections.abc import (
+    Callable,
+    Coroutine,
+)
 from dast.aws.types import (
     Location,
 )
@@ -15,11 +19,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Coroutine,
-    Dict,
-    List,
-    Tuple,
 )
 
 
@@ -27,7 +26,7 @@ async def unencrypted_buckets(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
 
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="s3",
         function="list_buckets",
@@ -36,8 +35,8 @@ async def unencrypted_buckets(
     buckets = response.get("Buckets", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     for bucket in buckets:
-        locations: List[Location] = []
-        encryption: Dict[str, Any] = await run_boto3_fun(
+        locations: list[Location] = []
+        encryption: dict[str, Any] = await run_boto3_fun(
             credentials,
             service="s3",
             function="get_bucket_encryption",
@@ -70,7 +69,7 @@ async def bucket_policy_has_server_side_encryption_disable(
     credentials: AwsCredentials,
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.AWS_BUCKET_POLICY_ENCRYPTION_DISABLE
-    response: Dict[str, Any] = await run_boto3_fun(
+    response: dict[str, Any] = await run_boto3_fun(
         credentials,
         service="s3",
         function="list_buckets",
@@ -78,8 +77,8 @@ async def bucket_policy_has_server_side_encryption_disable(
     buckets = response.get("Buckets", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     for bucket in buckets:
-        locations: List[Location] = []
-        bucket_policy_string: Dict[str, Any] = await run_boto3_fun(
+        locations: list[Location] = []
+        bucket_policy_string: dict[str, Any] = await run_boto3_fun(
             credentials,
             service="s3",
             function="get_bucket_policy",
@@ -133,8 +132,8 @@ async def bucket_policy_has_server_side_encryption_disable(
     return vulns
 
 
-CHECKS: Tuple[
-    Callable[[AwsCredentials], Coroutine[Any, Any, Tuple[Vulnerability, ...]]],
+CHECKS: tuple[
+    Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     unencrypted_buckets,

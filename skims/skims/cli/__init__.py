@@ -16,9 +16,6 @@ import textwrap
 from time import (
     time,
 )
-from typing import (
-    Optional,
-)
 from utils.bugs import (
     add_bugsnag_data,
     initialize_bugsnag,
@@ -84,7 +81,7 @@ def cli(
 @GROUP()
 def cli_scan(
     config: str,
-    group: Optional[str],
+    group: str | None,
 ) -> None:
     CTX.config = None
 
@@ -109,7 +106,7 @@ def cli_scan(
 @shield_blocking(on_error_return=False)
 def cli_scan_wrapped(
     config: str,
-    group: Optional[str],
+    group: str | None,
 ) -> bool:
     import core.scan
 
