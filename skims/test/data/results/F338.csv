@@ -56,3 +56,42 @@ F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,74
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/javascript_salt_is_hardcoded.js,13,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/javascript_salt_is_hardcoded.js","
+   1 | import { createHash } from ""crypto"";
+   2 |
+   3 | function hashPasswordSecure(password) {
+   4 |   const salt = crypto.randomBytes(16).toString(""hex"");
+   5 |   const hash = crypto.createHash(""sha256"");
+   6 |   hash.update(password + salt);
+   7 |   return salt + hash.digest(""hex"");
+   8 | }
+   9 |
+  10 | function hashPassword(password) {
+  11 |   const salt = ""HARDCODED_SALT"";
+  12 |   const hash = createHash(""sha256"");
+> 13 |   hash.update(password + salt);
+  14 |   return hash.digest(""hex"");
+  15 | }
+     ^ Col 0
+",javascript.js_salt_is_harcoded
+F338,lines,namespace/skims/test/data/lib_root/f338/typescript_salt_is_hardcoded.ts,14,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/typescript_salt_is_hardcoded.ts","
+   1 | import * as crypto from 'crypto';
+   2 |
+   3 | function hashPassword(password: string): string {
+   4 |   const salt = crypto.randomBytes(16).toString('hex');
+   5 |   const hash = crypto.createHash('sha256');
+   6 |   hash.update(password + salt);
+   7 |   return salt + hash.digest('hex');
+   8 | }
+   9 |
+  10 |
+  11 | function hashPasswordHardcoded(password: string): string {
+  12 |   const salt = ""HARDCODED_SALT"";
+  13 |   const hash = crypto.createHash('sha256');
+> 14 |   hash.update(password + salt);
+  15 |   return hash.digest('hex');
+  16 | }
+     ^ Col 0
+",typescript.ts_salt_is_harcoded
