@@ -150,6 +150,7 @@
     "graphql": "^16.6.0",
     "html-creator": "^0.6.2",
     "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21",
     "ramda": "^0.28.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -162,6 +163,7 @@
   "devDependencies": {
     "@estruyf/vscode": "^1.1.0",
     "@types/glob": "^7.2.0",
+    "@types/lodash": "4.14.191",
     "@types/mocha": "^9.1.1",
     "@types/node": "16.x",
     "@types/react": "^18.0.27",
@@ -230,5 +232,5 @@
     "watch:ext": "webpack --mode development --watch --config ./webpack/extension.config.js",
     "watch:wv": "webpack serve --mode development --config ./webpack/webview.config.js"
   },
-  "version": "0.22.0"
+  "version": "0.24.0"
 }

@@ -1,10 +1,11 @@
 import { groupBy, range } from "ramda";
-import type { DiagnosticCollection } from "vscode";
+import type { DiagnosticCollection, InputBoxValidationMessage } from "vscode";
 // eslint-disable-next-line import/no-unresolved
-import { window } from "vscode";
+import { InputBoxValidationSeverity, window } from "vscode";
 
 import { requestReattack as requestReattackMutation } from "../api/vulnerabilities";
 import type { VulnerabilityDiagnostic } from "../types";
+import { validTextField } from "../utils/validations";
 
 const requestReattack = async (
   retrievesDiagnostics: DiagnosticCollection
@@ -36,12 +37,44 @@ const requestReattack = async (
     (item): string => item.findingId ?? "",
     diagnostics
   );
+
+  const justification = await window.showInputBox({
+    placeHolder: "justification",
+    title: "Reattack justification",
+    validateInput: (message): InputBoxValidationMessage | undefined => {
+      if (message.length < 10) {
+        return {
+          message:
+            "The length of the justification must be greater than 10 characters",
+          severity: InputBoxValidationSeverity.Error,
+        };
+      }
+      if (message.length > 10000) {
+        return {
+          message:
+            "The length of the justification must be less than 10000 characters",
+          severity: InputBoxValidationSeverity.Error,
+        };
+      }
+      const validationMessage = validTextField(message);
+
+      if (validationMessage !== undefined) {
+        return {
+          message: validationMessage,
+          severity: InputBoxValidationSeverity.Error,
+        };
+      }
+
+      return undefined;
+    },
+  });
+
   await Promise.all(
     Object.keys(diagnosticsGroupByFinding).map(
       async (findingId): Promise<void> => {
         const result = await requestReattackMutation(
           findingId,
-          "Reattack from vscode",
+          justification ?? "Reattack from vscode",
           diagnosticsGroupByFinding[findingId].map(
             (diagnostic): string => diagnostic.vulnerabilityId ?? ""
           )
