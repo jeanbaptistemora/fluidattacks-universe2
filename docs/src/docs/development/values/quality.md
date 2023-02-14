@@ -69,3 +69,40 @@ The purpose of TDD is to be able to achieve:
 - The Code must comply with the requirements that have been established.
 
 To do TDD we must:
+
+- **Create the test:**
+  The developer creates the precise test
+  to validate a specific functionality.
+  Since they are writing tests based on the
+  assumption of how the code will work,
+  they are bound to fail at the beginning.
+
+- **Write the implementation:**
+  Write the most straightforward code to make the test work.
+
+- **Execute the test:**
+  Verify that the test works correctly.
+
+- **Code refactoring:**
+  Once the test is successfully executed,
+  look for possible code optimizations to
+  improve performance.
+
+You should click here to see the different
+types of tests that are applied in the Backend
+and here to see the ones applied in the Frontend.
+
+## Example of how to implement TDD
+
+We need to design a function that validates
+the name of the files that customers upload in
+different processes while using our product;
+we will use TDD for this:
+
+- We write a test that validates what we require and fails.
+  For this example, we create the test in
+  `/integrates/back/test/unit/src/new_utils/test_validations.py`
+
+To follow the structure of the repository,
+specifying that we will find the function we are going to test
+`/integrates/back/src/new_utils/validations.py`
