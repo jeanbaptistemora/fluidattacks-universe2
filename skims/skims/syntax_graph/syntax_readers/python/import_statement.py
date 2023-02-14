@@ -17,15 +17,19 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
+    nodes: list[dict[str, str]] = []
+    name_id = graph.nodes[args.n_id].get("label_field_name")
+    if not name_id:
+        name_id = graph.nodes[args.n_id]["label_field_module_name"]
 
-    name_id = graph.nodes[args.n_id]["label_field_name"]
     module_name = node_to_str(graph, name_id)
-    nodes: list[dict[str, str]] = [
+    nodes.append(
         {
             "expression": module_name,
             "corrected_n_id": name_id,
-        },
-    ]
+        }
+    )
+
     imported_names = match_ast_group_d(graph, args.n_id, "dotted_name")
     for _id in imported_names[1:]:
         nodes.append(

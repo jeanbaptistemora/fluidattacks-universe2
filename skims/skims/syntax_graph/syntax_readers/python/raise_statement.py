@@ -14,4 +14,5 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, "raise")
-    return build_throw_node(args, expression_id=str(match["__0__"]))
+    expr_id = match.get("__0__")
+    return build_throw_node(args, expr_id)

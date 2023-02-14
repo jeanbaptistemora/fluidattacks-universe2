@@ -14,6 +14,6 @@ from utils.graph import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     match = match_ast(args.ast_graph, args.n_id, "return", "yield")
-    if len(match) == 2:
-        return build_return_node(args, value_id=str(match["__0__"]))
+    if val_id := match.get("__0__"):
+        return build_return_node(args, val_id)
     return build_return_node(args, None)

@@ -5,8 +5,10 @@ from syntax_graph.syntax_readers.python import (
     as_pattern as python_as_pattern,
     assignment as python_assignment,
     attribute as python_attribute,
+    await_expression as python_await_expression,
     binary_expression as python_binary_expression,
     boolean_literal as python_boolean_literal,
+    break_statement as python_break_statement,
     call as python_call,
     class_definition as python_class_definition,
     comment as python_comment,
@@ -90,6 +92,12 @@ PYTHON_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "await",
+        },
+        syntax_reader=python_await_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "binary_operator",
             "boolean_operator",
             "comparison_operator",
@@ -102,6 +110,12 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "true",
         },
         syntax_reader=python_boolean_literal.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "break_statement",
+        },
+        syntax_reader=python_break_statement.reader,
     ),
     Dispatcher(
         applicable_types={

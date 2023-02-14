@@ -13,5 +13,9 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    _, c_id, _ = adj_ast(args.ast_graph, args.n_id)
+    childs = adj_ast(args.ast_graph, args.n_id)
+    if len(childs) == 3:
+        c_id = childs[1]
+    else:
+        c_id = childs[-2]
     return build_parenthesized_expression_node(args, c_id)
