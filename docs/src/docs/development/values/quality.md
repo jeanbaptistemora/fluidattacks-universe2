@@ -150,3 +150,66 @@ when testing it,
 our test is successful.
 
 ![Test succesful](https://res.cloudinary.com/fluid-attacks/image/upload/v1676375620/docs/development/values/succesful.png)
+
+- Now it is time to refactor;
+  we already have a structure with a known
+  parameter (name) that works;
+  we need to think about how this parameter
+  can change and affect our function.
+  Additionally,
+  we must ask ourselves:
+  what makes a file name invalid or incorrect?
+  For this example,
+  the definition of a valid name will be that
+  it does not contain the following special characters:
+  `!, @,#,$,%,^,&,*`
+  this will be validated using regular expressions:
+
+```python
+import re
+def validate_file_name(name: str) -> bool:
+    if re.search("[!@#$%^&*]", name):
+        return False
+    return True
+
+```
+
+If we run our test without changes,
+it fails because when we call our
+function with the argument **"bad_name,"**
+our function returns **True**
+since this name does not contain any
+of the characters considered invalid.
+
+![second fail](https://res.cloudinary.com/fluid-attacks/image/upload/v1676379764/docs/development/values/secod_filed.png)
+
+- Let's modify our test to validate what happens
+  in case the arguments contain them.
+
+```python
+def test_validate_file_name() -> None:
+    good_name = "good_name"
+    bad_name = "bad_name@#"
+    assert validate_file_name(good_name)
+    assert not validate_file_name(bad_name)
+
+```
+
+![passed](https://res.cloudinary.com/fluid-attacks/image/upload/v1676381578/docs/development/values/passed.png)
+
+- Now we have a function that corresponds to the
+  requirements established in the design;
+  the cycle can keep repeating,
+  as new needs or restrictions are identified,
+  for example,
+  files have extensions such as .jpg,
+  .py.
+  yaml,
+  how should this be handled?
+  Is the length of the file name relevant?
+  Should it be considered invalid beyond a certain length?
+  Do we prefer our function to return False
+  if the file has an invalid name,
+  or is it preferable to raise an exception?
+  All these questions will lead us to iterate
+  on our code to improve and meet the requirements.
