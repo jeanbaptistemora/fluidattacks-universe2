@@ -6,6 +6,7 @@ from lib_root.f372.terraform import (
     tfm_azure_kv_only_accessible_over_https,
     tfm_azure_sa_insecure_transfer,
     tfm_elb2_uses_insecure_protocol,
+    tfm_serves_content_over_http,
 )
 from model import (
     core_model,
@@ -19,4 +20,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, tfm_azure_kv_only_accessible_over_https),
     (FINDING, tfm_azure_sa_insecure_transfer),
     (FINDING, tfm_elb2_uses_insecure_protocol),
+    (FINDING, tfm_serves_content_over_http),
 )

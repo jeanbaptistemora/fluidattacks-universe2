@@ -5375,7 +5375,7 @@ class MethodsEnum(Enum):
     TFM_CONTENT_HTTP = MethodInfo(
         file_name="terraform",
         name="tfm_serves_content_over_http",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

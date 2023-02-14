@@ -23,6 +23,7 @@ from sast.query import (
 )
 from typing import (
     Iterable,
+    Iterator,
     Optional,
 )
 from utils.graph import (
@@ -82,6 +83,48 @@ def _aws_sec_group_using_http(graph: Graph, nid: NId) -> Optional[NId]:
         ):
             return prot_id
     return None
+
+
+def aux_serves_content_over_http(
+    graph: Graph, nid: NId, arg: str
+) -> Iterator[NId]:
+    key_cond = "viewer_protocol_policy"
+    if cache := get_argument(graph, nid, arg):
+        attr_key, attr_val, attr_id = get_attribute(graph, cache, key_cond)
+        if attr_key and attr_val == "allow-all":
+            yield attr_id
+
+
+def _serves_content_over_http(graph: Graph, nid: NId) -> Iterator[NId]:
+    yield from aux_serves_content_over_http(
+        graph, nid, "default_cache_behavior"
+    )
+    yield from aux_serves_content_over_http(
+        graph, nid, "ordered_cache_behavior"
+    )
+
+
+def tfm_serves_content_over_http(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_CONTENT_HTTP
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_cloudfront_distribution"):
+                for report in _serves_content_over_http(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f372.serves_content_over_http",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_aws_sec_group_using_http(

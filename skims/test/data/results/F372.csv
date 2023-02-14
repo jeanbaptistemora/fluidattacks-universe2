@@ -239,7 +239,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_serves_content_over_http.
   79 |       },
      ^ Col 8
 ",cloudformation.cfn_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/test.tf,"
+F372,lines,namespace/skims/test/data/lib_root/f372/test.tf,37,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/test.tf,"
   27 |     target_origin_id = local.s3_origin_id
   28 |
   29 |     forwarded_values {
@@ -263,7 +263,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,37,650,skims,372. Use
   47 |     target_origin_id = local.s3_origin_id
      ^ Col 0
 ",terraform.tfm_serves_content_over_http
-F372,lines,namespace/skims/test/data/lib_path/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_path/f372/test.tf,"
+F372,lines,namespace/skims/test/data/lib_root/f372/test.tf,62,650,skims,372. Use of an insecure channel - HTTP,Property viewer_protocol_policy.allow-all is either missing or misconfigured in namespace/skims/test/data/lib_root/f372/test.tf,"
   52 |
   53 |       cookies {
   54 |         forward = ""none""
