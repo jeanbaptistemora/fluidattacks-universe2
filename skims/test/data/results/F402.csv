@@ -49,7 +49,7 @@ F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_storage_logging_dis
   35 | }
      ^ Col 0
 ",terraform.tfm_azure_storage_logging_disabled
-F402,lines,namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,23,778,skims,402. Traceability Loss - Azure,Properties failed_request_tracing_enabled or detailed_error_messages_enabled are missing or misconfigured in namespace/skims/test/data/lib_path/f402/tfm_azure_failed_request_tracing_disabled.tf,"
+F402,lines,namespace/skims/test/data/lib_root/f402/tfm_azure_failed_request_tracing_disabled.tf,23,778,skims,402. Traceability Loss - Azure,Properties failed_request_tracing_enabled or detailed_error_messages_enabled are missing or misconfigured in namespace/skims/test/data/lib_root/f402/tfm_azure_failed_request_tracing_disabled.tf,"
    9 |     detailed_error_messages_enabled = true
   10 |   }
   11 |   auth_settings {

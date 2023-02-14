@@ -12,7 +12,6 @@ from parse_hcl2.common import (
     get_block_block,
 )
 from parse_hcl2.structure.azure import (
-    iter_azurerm_app_service,
     iter_azurerm_sql_server,
     iter_azurerm_storage_account,
 )
@@ -43,28 +42,6 @@ def _tfm_azure_storage_logging_disabled_iterate_vulnerabilities(
             body=resource.data,
         ):
             yield from _tfm_get_queue_vulns(queue_props)
-        else:
-            yield resource
-
-
-def _tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        if logs := get_argument(
-            key="logs",
-            body=resource.data,
-        ):
-            failed_request = get_block_attribute(
-                block=logs, key="failed_request_tracing_enabled"
-            )
-            detailed_error = get_block_attribute(
-                block=logs, key="detailed_error_messages_enabled"
-            )
-            if (not failed_request or failed_request.val is False) or (
-                not detailed_error or detailed_error.val is False
-            ):
-                yield logs
         else:
             yield resource
 
@@ -104,24 +81,6 @@ def tfm_azure_storage_logging_disabled(
         ),
         path=path,
         method=MethodsEnum.TFM_AZURE_STORAGE_LOG_DISABLED,
-    )
-
-
-def tfm_azure_app_service_logging_disabled(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "lib_path.f402.tfm_azure_failed_request_tracing_disabled"
-        ),
-        iterator=get_cloud_iterator(
-            _tfm_azure_app_service_logging_disabled_iterate_vulnerabilities(
-                resource_iterator=iter_azurerm_app_service(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_AZURE_APP_LOG_DISABLED,
     )
 
 
