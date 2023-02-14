@@ -466,7 +466,7 @@ def validate_nickname_deco(nickname_field: str) -> Callable:
             nickname: str = get_attr_value(
                 field=nickname_field, kwargs=kwargs, obj_type=str
             )
-            if not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
+            if nickname and not re.match(r"^[a-zA-Z_0-9-]{1,128}$", nickname):
                 raise InvalidChar()
             return func(*args, **kwargs)
 

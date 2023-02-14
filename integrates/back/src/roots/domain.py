@@ -264,6 +264,11 @@ def _is_allowed(url: str) -> bool:
 
 
 @validation_utils.validate_field_exist_deco("environment")
+@validation_utils.validate_fields_deco(["url"])
+@validation_utils.validate_sanitized_csv_input_deco(
+    ["nickname", "url", "environment"]
+)
+@validations.validate_nickname_deco("nickname")
 async def add_git_root(  # pylint: disable=too-many-locals
     loaders: Dataloaders,
     user_email: str,

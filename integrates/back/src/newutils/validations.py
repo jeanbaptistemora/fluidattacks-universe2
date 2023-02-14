@@ -912,7 +912,7 @@ def validate_sanitized_csv_input(*fields: str) -> None:
 def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
     def decorator(func: Callable) -> Callable:
         @functools.wraps(func)
-        def wrapper(**kwargs: str) -> None:
+        def wrapper(*args: Any, **kwargs: Any) -> None:
             """Checks for the presence of any character that could be
             interpreted as the start of a formula by a spreadsheet editor
             according to
@@ -956,7 +956,7 @@ def validate_sanitized_csv_input_deco(field_names: List[str]) -> Callable:
                             for separator in separators
                         ):
                             raise UnsanitizedInputFound()
-            return func(**kwargs)
+            return func(*args, **kwargs)
 
         return wrapper
 
