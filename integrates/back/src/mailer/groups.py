@@ -125,7 +125,7 @@ async def send_abandoned_trial_notification(
             f"[{fname}], start your Continuous Hacking Free Trial"
             + ("" if first_time else " (reminder)")
         ),
-        template_name="abandoned_trial_notification",
+        template_name="abandoned_trial",
     )
 
 
@@ -147,7 +147,7 @@ async def send_add_stakeholders_notification(
             f"[{fname}], make the most of your Free Trial: "
             "add stakeholders to your group."
         ),
-        template_name="add_stakeholders_notification",
+        template_name="add_stakeholders",
     )
 
 
@@ -169,7 +169,7 @@ async def send_define_treatments_notification(
             f"[{fname}], define treatments for your vulnerabilities. "
             "Make the most out of your Free Trial"
         ),
-        template_name="define_treatments_notification",
+        template_name="define_treatments",
     )
 
 
@@ -188,7 +188,7 @@ async def send_add_repositories_notification(
         email_to=[info.email_to],
         context=context,
         subject=(f"[{fname}], add more repos; find more vulnerabilities!"),
-        template_name="add_repositories_notification",
+        template_name="add_repositories",
     )
 
 
@@ -203,7 +203,7 @@ async def send_support_channels_notification(
             f"[{fname}], Need help with Continuous Hacking? "
             "Use our support channels."
         ),
-        template_name="support_channels_notification",
+        template_name="support_channels",
     )
 
 
@@ -222,7 +222,7 @@ async def send_devsecops_agent_notification(
         email_to=[info.email_to],
         context=context,
         subject=(f"[{fname}], remediate faster with our DevSecOps Agent!"),
-        template_name="devsecops_agent_notification",
+        template_name="devsecops_agent",
     )
 
 
@@ -241,7 +241,7 @@ async def send_trial_reports_notification(
         email_to=[info.email_to],
         context=context,
         subject=(f"[{fname}], download vulnerability reports."),
-        template_name="trial_reports_notification",
+        template_name="trial_reports",
     )
 
 
@@ -255,7 +255,7 @@ async def send_upgrade_squad_notification(
         subject=(
             f"[{fname}], find more severe vulnerabilities with Squad Plan!"
         ),
-        template_name="upgrade_squad_notification",
+        template_name="upgrade_squad",
     )
 
 
@@ -277,7 +277,7 @@ async def send_trial_ending_notification(
         email_to=[info.email_to],
         context=context,
         subject=(f"[{fname}], your free trial ends in 3 days."),
-        template_name="trial_ending_notification",
+        template_name="trial_ending",
     )
 
 
@@ -289,7 +289,7 @@ async def send_how_improve_notification(
         loaders,
         email_to=[info.email_to],
         subject=(f"[{fname}], how can we improve?"),
-        template_name="how_improve_notification",
+        template_name="how_improve",
     )
 
 
@@ -311,7 +311,7 @@ async def send_trial_ended_notification(
             f"[{fname}], your free trial has ended. "
             "Here’s what you can do next."
         ),
-        template_name="trial_ended_notification",
+        template_name="trial_ended",
     )
 
 
@@ -858,7 +858,7 @@ async def send_mail_updated_group_information(
         },
         tags=GENERAL_TAG,
         subject=f"[ARM] Group information has been modified in [{group_name}]",
-        template_name="updated_group_information",
+        template_name="updated_group_info",
     )
 
 
@@ -905,7 +905,7 @@ async def send_mail_reminder(
         tags=GENERAL_TAG,
         subject="[ARM] Reminder",
         context=context,
-        template_name="reminder_notification",
+        template_name="reminder",
     )
 
 
@@ -963,7 +963,7 @@ async def send_mail_missing_environment_alert(
             f"[ARM] ACTION NEEDED: Your group [{group_name}] is incomplete"
         ),
         context=context,
-        template_name="missing_environment_alert",
+        template_name="missing_environment",
     )
 
 

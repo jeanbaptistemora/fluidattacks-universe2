@@ -36,5 +36,5 @@ async def send_mail_to_get_squad_plan(
         context=email_context,
         tags=GENERAL_TAG,
         subject="[ARM] New lead assigned",
-        template_name="contact_sales_onboarding",
+        template_name="contact_sales",
     )
