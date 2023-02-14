@@ -42,7 +42,10 @@
     name = "integrates-back-runtime";
     sourcesYaml = ./pypi-sources.yaml;
     searchPathsBuild = {
-      bin = [inputs.nixpkgs.gcc inputs.nixpkgs.postgresql];
+      bin = [
+        inputs.nixpkgs.gcc
+        inputs.nixpkgs.postgresql
+      ];
     };
     searchPathsRuntime = {
       bin = [
@@ -70,7 +73,6 @@ in
       ];
       source = [
         pythonRequirements
-        outputs."/common/utils/safe-pickle"
         outputs."/common/utils/serializers"
         outputs."/common/utils/git_self"
       ];
