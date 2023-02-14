@@ -179,6 +179,10 @@ type Group {
     fromAttackedAt: DateTime
     "To attack moment in iso format"
     toAttackedAt: DateTime
+    "From date until lines was present in ToE"
+    fromBePresentUntil: DateTime
+    "To date until lines was present in ToE"
+    toBePresentUntil: DateTime
     "From modified date to filter"
     fromModifiedDate: DateTime
     "To modified date to filter"
