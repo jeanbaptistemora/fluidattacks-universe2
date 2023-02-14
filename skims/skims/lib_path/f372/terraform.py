@@ -1,6 +1,5 @@
 from aws.model import (
     AWSCloudfrontDistribution,
-    AWSLbTargetGroup,
 )
 from lib_path.common import (
     get_cloud_iterator,
@@ -15,17 +14,12 @@ from model.core_model import (
 )
 from parse_hcl2.common import (
     get_argument,
-    get_attribute,
     get_block_attribute,
     iterate_block_attributes,
 )
 from parse_hcl2.structure.aws import (
     iter_aws_cloudfront_distribution,
-    iter_aws_lb_target_group,
     iter_aws_security_group,
-)
-from parse_hcl2.tokens import (
-    Attribute,
 )
 from typing import (
     Any,
@@ -63,24 +57,6 @@ def _tfm_content_over_http_iterate_vulnerabilities(
             )
 
 
-def _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
-    resource_iterator: Iterator[AWSLbTargetGroup],
-) -> Iterator[Union[Attribute, AWSLbTargetGroup]]:
-    for res in resource_iterator:
-        unsafe_protos = ("HTTP",)
-        protocol = get_attribute(res.data, "protocol")
-        target_type = get_attribute(res.data, "target_type")
-        is_proto_required = (
-            target_type.val != "lambda" if target_type else False
-        )
-        if not is_proto_required:
-            continue
-        if protocol is None:
-            yield res
-        elif protocol.val in unsafe_protos:
-            yield protocol
-
-
 def _tfm_aws_sec_group_using_http(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -101,22 +77,6 @@ def _tfm_aws_sec_group_using_http(
                 and from_port.val == 80
             ):
                 yield protocol
-
-
-def tfm_elb2_uses_insecure_protocol(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f372.elb2_uses_insecure_protocol",
-        iterator=get_cloud_iterator(
-            _tfm_elb2_uses_insecure_protocol_iterate_vulnerabilities(
-                resource_iterator=iter_aws_lb_target_group(model=model)
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_ELB2_INSEC_PROTO,
-    )
 
 
 def tfm_serves_content_over_http(

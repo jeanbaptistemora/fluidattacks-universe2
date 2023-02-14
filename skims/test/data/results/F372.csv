@@ -445,7 +445,7 @@ F372,lines,namespace/skims/test/data/lib_path/f372/cfn_elb2_uses_insecure_protoc
   69 |     },
      ^ Col 0
 ",cloudformation.cfn_elb2_uses_insecure_protocol
-F372,lines,namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,10,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_path/f372/tfm_elb2_uses_insecure_protocol.tf,"
+F372,lines,namespace/skims/test/data/lib_root/f372/tfm_elb2_uses_insecure_protocol.tf,10,650,skims,372. Use of an insecure channel - HTTP,TargetGroup should use a safe protocol (HTTPS) in namespace/skims/test/data/lib_root/f372/tfm_elb2_uses_insecure_protocol.tf,"
    1 | resource ""aws_lb_target_group"" ""ip-example"" {
    2 |   name        = ""tf-example-lb-tg""
    3 |   protocol    = ""HTTP""

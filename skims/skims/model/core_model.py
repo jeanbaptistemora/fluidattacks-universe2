@@ -5383,7 +5383,7 @@ class MethodsEnum(Enum):
     TFM_ELB2_INSEC_PROTO = MethodInfo(
         file_name="terraform",
         name="tfm_elb2_uses_insecure_protocol",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F372,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

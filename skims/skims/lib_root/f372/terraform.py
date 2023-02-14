@@ -2,6 +2,7 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
+    get_attribute,
     get_key_value,
     iterate_resource,
 )
@@ -51,6 +52,42 @@ def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> Optional[NId]:
         if key == expected_attr and value.lower() == "false":
             return b_id
     return None
+
+
+def _elb2_uses_insecure_protocol(graph: Graph, nid: NId) -> Optional[NId]:
+    unsafe_protos = ("HTTP",)
+    pro_key, pro_val, pro_id = get_attribute(graph, nid, "protocol")
+    tar_key, tar_val, _ = get_attribute(graph, nid, "target_type")
+    is_proto_required = tar_val != "lambda" if tar_key else False
+    if is_proto_required:
+        if pro_key is None:
+            return nid
+        if pro_val in unsafe_protos:
+            return pro_id
+    return None
+
+
+def tfm_elb2_uses_insecure_protocol(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_ELB2_INSEC_PROTO
+
+    def n_ids() -> Iterable[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in iterate_resource(graph, "aws_lb_target_group"):
+                if report := _elb2_uses_insecure_protocol(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f372.elb2_uses_insecure_protocol",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_azure_kv_only_accessible_over_https(

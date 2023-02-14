@@ -9,7 +9,6 @@ from lib_path.f372.cloudformation import (
 )
 from lib_path.f372.terraform import (
     tfm_aws_sec_group_using_http,
-    tfm_elb2_uses_insecure_protocol,
     tfm_serves_content_over_http,
 )
 from model.core_model import (
@@ -56,15 +55,6 @@ def run_tfm_serves_content_over_http(
 
 
 @SHIELD_BLOCKING
-def run_tfm_elb2_uses_insecure_protocol(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_elb2_uses_insecure_protocol(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_tfm_aws_sec_group_using_http(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -98,7 +88,6 @@ def analyze(
         model = load_terraform(stream=content, default=[])
         results = (
             run_tfm_serves_content_over_http(content, path, model),
-            run_tfm_elb2_uses_insecure_protocol(content, path, model),
             run_tfm_aws_sec_group_using_http(content, path, model),
         )
 
