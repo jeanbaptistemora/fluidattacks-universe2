@@ -699,6 +699,7 @@ async def reassign_stakeholder_credentials(
     *,
     loaders: Dataloaders,
     email: str,
+    modified_by: str,
     organization_id: str,
 ) -> None:
     if not (user_credentials := await loaders.user_credentials.load(email)):
@@ -743,6 +744,7 @@ async def reassign_stakeholder_credentials(
                     credentials.id for credentials in user_credentials
                 ],
                 "email": email,
+                "modified_by": modified_by,
                 "new_owner": new_owner,
                 "organization_id": organization_id,
                 "organization_role": current_owner_role,
@@ -765,17 +767,11 @@ async def remove_access(
             for group in org_group_names
         )
     )
-    user_credentials = await loaders.user_credentials.load(email)
-    await collect(
-        tuple(
-            remove_credentials(
-                loaders=loaders,
-                organization_id=organization_id,
-                credentials_id=credential.id,
-                modified_by=modified_by,
-            )
-            for credential in user_credentials
-        )
+    await reassign_stakeholder_credentials(
+        loaders=loaders,
+        email=email,
+        modified_by=modified_by,
+        organization_id=organization_id,
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
     LOGGER.info(
@@ -783,6 +779,7 @@ async def remove_access(
         extra={
             "extra": {
                 "email": email,
+                "modified_by": modified_by,
                 "organization_id": organization_id,
             }
         },

@@ -1486,6 +1486,7 @@ async def remove_stakeholder(
             "extra": {
                 "email": email_to_revoke,
                 "group_name": group_name,
+                "modified_by": modified_by,
             }
         },
     )

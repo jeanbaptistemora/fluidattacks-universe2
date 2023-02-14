@@ -34,8 +34,6 @@ from stakeholders import (
     domain as stakeholders_domain,
 )
 
-EMAIL_INTEGRATES = "integrates@fluidattacks.com"
-
 
 def _get_last_activity(stakeholder: Stakeholder) -> datetime:
     last_login_date = (
@@ -110,7 +108,7 @@ async def process_organization(
             orgs_domain.remove_access(
                 organization_id=organization.id,
                 email=stakeholder.email,
-                modified_by=EMAIL_INTEGRATES,
+                modified_by=orgs_domain.EMAIL_INTEGRATES,
             )
             for stakeholder in inactive_stakeholders
         ),
