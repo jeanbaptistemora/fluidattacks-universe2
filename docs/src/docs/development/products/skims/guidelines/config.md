@@ -80,6 +80,16 @@ ssl:
       port: 443
 
 # Description:
+#  DAST for AWS cloud environments.
+dast:
+  # Description:
+  #   Development credentials used to access the AWS console
+  # Example:
+  aws_credentials:
+    - access_key_id: "000f"
+      secret_access_key: "000f"
+
+# Description:
 #   Findings to analyze.
 #   The complete list of findings can be found here:
 #   https://gitlab.com/fluidattacks/universe/-/blob/trunk/skims/manifests/findings.lst

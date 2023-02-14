@@ -6,15 +6,14 @@ slug: /development/products/skims/guidelines/sast/libroot
 ---
 
 The lib_root module of skims searches deterministic vulnerabilities in
-code files for the most commonly used development languages in our clients'
-stack.
+code files for complex programming languages
 
-As mentioned in the introduction, for the languages supported by this library
-and that are in active development, the following three-step procedure
+Due to the complexity of the code, in order to avoid false positives and still
+be able to detect complex vulnerabilities, the following three-step procedure
 is used:
 
-1. Parse the code file into a graph object using third-party libraries
-1. Optimize the parsed graph to improve execution speed and development
+1. Parse the file into a graph object using OS libraries
+1. Run recursive algorithms to optimize the graph
 1. Search vulnerabilities in the optimized graph and create report
 
 For developers, the following sections explain in more detail this process and
@@ -25,7 +24,7 @@ the algorithms used in this module.
 Parse the code to a graph called the AST (Abstract Syntax Tree) using OS
 libraries.
 
-For C#, Java, JavaScript, TypeScript, the library is
+Most of the languages are supported by
 [tree-sitter](https://github.com/tree-sitter/)
 
 For Dart, the library is
@@ -34,14 +33,14 @@ For Dart, the library is
 These libraries analyze a code file and parse it into a graph by
 creating different nodes that represent each declaration of the code. Each
 node is identified by a unique ID and other attributes and is connected
-to one or several nodes as they relate to one another.
+to one or several nodes.
 
-For example, a method declaration node can have several children, such as
+For example, a method declaration node can have several children nodes, such as
 the arguments list, the execution block of the method, and any modifiers or
 annotations unique to each language.
 
-The parser node definitions and rules for each language is stored inside a
-JSON object usually called "node-types" in the library repository.
+The parser rules are stored in a JSON object usually called "node-types"
+in the library repository.
 For instance, the JavaScript logic can be found in this
 [file](https://github.com/tree-sitter/tree-sitter-javascript/blob/master/src/node-types.json)
 
@@ -50,24 +49,27 @@ each node type that each language has. This information is crucial for the
 next step in this module.
 
 The AST graphs are generally very good representations of the code, however,
-we have found that the AST graphs have two major problems:
+we have found that the AST graphs have major problems:
 
-- They usually contain a lot of unnecessary information, such as
-  all the nodes for code syntax symbols, such as {}, ;, etc.
-  which makes search algorithms computationally more expensive
-  and inefficient.
-
+- They do not implicitly contain a representation of the flow of the code,
+  including all the possible paths that can be used to reach every statement
+  within a file, created by each different control structure, such as a
+  conditional, or a loop.
 - The node label types change between languages, which makes it harder
   to program the search methods. For example, in java, function invocation nodes
   are identified as `method_invocation`, whereas in JavaScript, they are
   identified as `call_expression`.
+- They usually contain a lot of unnecessary information, such as
+  all the nodes for code syntax symbols, such as {}, ;, etc.
+  which makes search algorithms computationally more expensive
+  and inefficient.
 
 In order to solve these deficiencies, the AST graph goes through a
 re-parsing in the following step.
 
 ## 2. Graph optimization
 
-The AST graph is re-parsed into an optimized graph called the
+The AST graph is converted into an optimized graph called the
 **syntax graph**.
 
 As mentioned above, the purpose of this step is two-fold:
@@ -76,14 +78,15 @@ As mentioned above, the purpose of this step is two-fold:
 - Generate a standard graph, using common terminology to represent coding
   concepts that are similar between languages.
 
-The re-parsing is done by running the AST through a recursive algorithm
-and then generating connections between nodes.
+This is done by running the AST through a recursive algorithm
+and then generating additional connections between nodes in order to accurately
+represent the execution flow of the code.
 
-These connections or edges, as they are called, are meant to represent
-the execution order of the code and are an important tool in order to program
-methods that depend on this execution order.
+These connections or edges, as they are called, are an important tool in order
+to search complex vulnerabilities that depend on many conditions in the code
+while ensuring that no false positives are reported.
 
-Each step is analyzed in more detail in the following subsections.
+Each step is explained in more detail in the following subsections.
 
 ### 2.1 Syntax graph
 
@@ -124,8 +127,8 @@ errors on client files.
 
 ### 2.2 Syntax CFG
 
-As mentioned before, in order to be able to identify vulnerabilities in code
-that depend on several conditions, it is crucial to establish connections
+In order to be able to identify vulnerabilities in code
+that depend on several conditions, it is crucial to generate connections
 between the nodes of the graph that represent the execution order of the code.
 
 This is why the syntax graph goes through this step, called the syntax CFG,
@@ -340,13 +343,9 @@ To see the parsed graphs (Both the AST and the syntax graph),
 you can run skims using the --debug flag.
 
 This will generate SVG files in the ~.skims folder in your home directory.
-A total of four SVG files are currently generated, the first is the AST and
-the last one is the Syntax graph.
-(Note: The use and definition of the second and third SVG files is outside
-the scope of this documentation because they are in the process of
-being deprecated)
+A total of two SVG files are generated, the first is the AST and
+the second is the Syntax graph.
 
-You can run the debugger of your code editor or use as many `print`
-statements as you need, in order to see how each step is executed.
-As mentioned in each step, each `generic` function found in each module is
+You can run the debugger of your IDE in order to see how each step is executed.
+Each `generic` function found in each module is
 the origin point of the algorithm, so it is the most helpful to follow.

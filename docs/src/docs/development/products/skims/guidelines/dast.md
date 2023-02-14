@@ -5,20 +5,27 @@ sidebar_label: DAST
 slug: /development/products/skims/guidelines/dast
 ---
 
-DAST refers to "Dinamic Application Security Testing", and it is performed
-by searching vulnerabilities in dynamic environments such as url endpoints and
+DAST refers to "Dynamic Application Security Testing", and it is performed
+by searching vulnerabilities in dynamic environments such as url end points and
 servers.
 
-Methods are divided between several libraries, depending on what is being
-checked on the environment.
+Currently, the following three libraries have active methods
 
-## Lib http vulnerabilities
+## LIB HTTP
 
 This library checks environments and endpoints that host our clients
 applications and reviews vulnerabilities in the http responses,
 such as missing or miss configured headers.
 
-## Lib ssl vulnerabilities
+## LIB SSL
 
 This library checks environments for vulnerabilities related to
 connections, handshakes and other server-related checks.
+
+## LIB DAST
+
+This library checks cloud environments safely scanning the configuration
+of the client.
+
+Currently, only AWS configurations have methods, which check
+vulnerabilities in the client infrastructure using the boto3 library.

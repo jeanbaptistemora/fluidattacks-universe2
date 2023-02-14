@@ -5,34 +5,25 @@ sidebar_label: Libpath
 slug: /development/products/skims/guidelines/sast/libpath
 ---
 
-The lib_path module of skims searches deterministic vulnerabilities in
-infrastructure as code (IaC) software tools. This currently includes checks for
-tools such as terraform, cloud formation, Kubernetes, bash scripts,
-Dockerfiles, among others.
-
 The following two-step procedure is used:
 
-1. Parse the supported extensions files into iterable objects
-1. Search the vulnerability using string methods or regex
-
-For developers, the following sections explain in more detail this process and
-the algorithms used in this module.
+1. Parse a file written in the supported extensions into an iterable object
+1. Search vulnerabilities by looping through the object looking for
+  miss configured values or properties.
 
 ## 1. Code parsing
 
-Most files use methods that have been developed over time to extract the
-relevant information as an iterable object.
+There are several parsing methods that have been developed overtime in order
+to describe the most important characteristics of a given configuration file.
+In general, files are parsed into a dictionary consisting of nodes or other
+similar data structures which contain all the relevant information.
 
-For each method and extension supported, different classes are defined to
-be able to take advantage of OOP capabilities.
-
-It is recommended that, before programming any new methods,
-look around the code base and see if any of the existing functions in the
-library already provide the functionality needed.
+It is recommended that the developer uses similar methods within the library
+to check for existing helper functions and methodologies.
 
 ## 2. Vulnerability search
 
-The iterable objects result of the parsing methods are generally made up of
+The data structures result of the parsing methods are generally made up of
 Nodes or Dictionaries that contain key-value pairs to describe the contents
 of the file.
 
