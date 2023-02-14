@@ -1,0 +1,10 @@
+---
+lib_root.f338.salt_is_hardcoded:
+  en: >
+    The salt is a string that is hardcoded into the function. Every time the
+    function is run, the same salt will be used, which could be a security issue
+    if an attacker were to discover the salt.
+  es: >
+    La variable salt esta hardcodeada en la función. Cada vez que se
+    ejecuta la función, se utilizará la misma salt, lo que podría ser un problema
+    de seguridad si un atacante la descrubriera.

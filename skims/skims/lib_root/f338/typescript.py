@@ -30,11 +30,11 @@ def ts_salting_is_harcoded(
             if shard.syntax_graph is None:
                 continue
             graph = shard.syntax_graph
-            for n_id in has_dangerous_param(graph):
+            for n_id in has_dangerous_param(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(
-        desc_key="src.lib_root.f280.non_secure_construction_of_cookies",
+        desc_key="lib_root.f338.salt_is_hardcoded",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,
