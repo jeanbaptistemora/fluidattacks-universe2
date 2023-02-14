@@ -8435,6 +8435,7 @@
     - cis.16_5
     - cwe.353
     - cwe.507
+    - cwe.1395
     - iso27001.12_6_1
     - owasp10.A6
     - owaspm10.M8
