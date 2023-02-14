@@ -15,6 +15,14 @@ from utils.graph import (
 )
 
 
+def get_argument(graph: Graph, nid: NId, expected_block: str) -> Optional[str]:
+    for block_id in adj_ast(graph, nid, label_type="Object"):
+        name = graph.nodes[block_id].get("name")
+        if name == expected_block:
+            return block_id
+    return None
+
+
 def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]

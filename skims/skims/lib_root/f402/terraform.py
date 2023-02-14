@@ -1,4 +1,5 @@
 from lib_root.utilities.terraform import (
+    get_argument,
     get_attribute,
     iterate_resource,
 )
@@ -20,17 +21,6 @@ from typing import (
     Iterable,
     Optional,
 )
-from utils.graph import (
-    adj_ast,
-)
-
-
-def get_argument(graph: Graph, nid: NId, expected_block: str) -> Optional[str]:
-    for block_id in adj_ast(graph, nid, label_type="Object"):
-        name = graph.nodes[block_id].get("name")
-        if name == expected_block:
-            return block_id
-    return None
 
 
 def _azure_app_service_logging_disabled(
