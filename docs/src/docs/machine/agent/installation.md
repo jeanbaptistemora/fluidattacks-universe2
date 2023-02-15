@@ -68,18 +68,18 @@ The arguments are:
 - `--dynamic / --static`: Check for only DAST / SAST vulnerabilities
   respectively (optional).
 - `--verbose`: Declare the level of detail of the report (default `vvv`).
-  - `v`: Show only the number of vulnerable, safe and accepted finds.
-  - `vv`: Show only vulnerable finds.
+  - `v`: Show non-compliant, vulnerable finds that would break policy[^1][^2]
+    (and thus the build in Strict mode).
+  - `vv`: Show vulnerable finds regardless of policy compliance.
   - `vvv`: Show vulnerable and safe finds.
   - `vvvv`: Show vulnerable, safe and accepted finds.
   - You can use `-v`, `-vv`, `-vvv`, `-vvvv`.
 - `--strict / --lax`: Run forces in strict mode (default `--lax`).
 - `--repo-name`: Git repository name (optional).
+- `--repo-path`: Git repository path (optional).
 - `--breaking`: Strict mode severity customization.
-  Vulnerable finds
-  with a severity below this threshold
-  will not break the pipeline.
-  This option takes values
+  Vulnerable finds with a severity below this threshold
+  will not break the pipeline. This option takes values
   between 0.0 (recommended) all the way up to 10.0 (optional).
 
 > **Note:** Strict mode customization like severity thresholds
@@ -88,6 +88,9 @@ The arguments are:
 > In the case of `--breaking`,
 > the value passed to this CLI option takes
 > precedence over the value set in ARM.
+
+[^1]: [Grace period policy](/machine/web/organization/policies#grace-period-where-newly-reported-vulnerabilities-wont-break-the-build)
+[^2]: [Minimum CVSS score policy](/machine/web/organization/policies#minimum-cvss-31-score-of-an-open-vulnerability-for-devsecops)
 
 ## Examples run the Agent on your local machine
 
@@ -99,7 +102,7 @@ context to visualize the execution.
 
 Once docker is successfully installed
 on your local machine,
-we need to Run the  **Docker image**,
+we need to Run the **Docker image**,
 which will help us to download all
 the dependencies of forces.
 You do it with the following command:
@@ -171,7 +174,7 @@ jobs:
     container: fluidattacks/forces:new
     options: --volume "$PWD:/src"
     steps:
-    - bash: forces --token <your-token> --repo-name <repository name>
+      - bash: forces --token <your-token> --repo-name <repository name>
 ```
 
 In `Jenkins`, the configuration file should look like this:
