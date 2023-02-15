@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -6,14 +9,10 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def bash_using_sshpass(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
             if re.match(r"(\s+|^)sshpass -p", line):
                 yield (line_number, 0)

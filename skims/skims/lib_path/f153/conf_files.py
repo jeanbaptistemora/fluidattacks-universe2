@@ -4,16 +4,15 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
-)
-from typing import (
-    Iterator,
-    Tuple,
 )
 
 
@@ -45,7 +44,7 @@ def _next_sibling(tag: Tag) -> bool:
 
 
 def xml_accept_header(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """
         Search for Accept headers with wildcard value in
         a Web.config source file or package.

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEC2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -18,8 +21,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 SECURITY_GROUP_ATTRIBUTES = {"SecurityGroups", "SecurityGroupIds"}
@@ -28,7 +29,7 @@ SECURITY_GROUP_ATTRIBUTES = {"SecurityGroups", "SecurityGroupIds"}
 def _cfn_ec2_use_default_security_group_iterate_vulnerabilities(
     file_ext: str,
     res_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for res in res_iterator:
         res = (
             lt_data

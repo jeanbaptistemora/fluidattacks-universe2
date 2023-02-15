@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -11,9 +14,6 @@ from model.core_model import (
 import os
 import requirements
 import subprocess  # nosec
-from typing import (
-    Iterator,
-)
 from utils.fs import (
     get_file_content_block,
 )

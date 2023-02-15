@@ -2,6 +2,9 @@ from aws.model import (
     AWSS3Bucket,
     AWSS3SSEConfig,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -19,7 +22,6 @@ from parse_hcl2.structure.aws import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 
 

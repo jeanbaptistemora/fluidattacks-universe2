@@ -1,6 +1,9 @@
 from aws.model import (
     AWSIamRole,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -21,7 +24,6 @@ from parse_hcl2.tokens import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 
 

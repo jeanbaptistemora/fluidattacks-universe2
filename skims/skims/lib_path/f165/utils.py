@@ -1,6 +1,9 @@
 from aws.model import (
     AWSIamManagedPolicy,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_line_by_extension,
 )
@@ -13,23 +16,19 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    List,
-    Pattern,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
 )
 
-WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
-WILDCARD_RESOURCE: Pattern = re.compile(r"^(\*)$")
+WILDCARD_ACTION: re.Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+WILDCARD_RESOURCE: re.Pattern = re.compile(r"^(\*)$")
 
 
-def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
+def get_wildcard_nodes(act_res: Node, pattern: re.Pattern) -> Iterator[Node]:
     for act in (
         act_res.data
-        if (hasattr(act_res, "raw") and isinstance(act_res.raw, List))
+        if (hasattr(act_res, "raw") and isinstance(act_res.raw, list))
         else [act_res]
     ):
         if hasattr(act, "raw") and pattern.match(act.raw):
@@ -48,7 +47,7 @@ def check_type(
             column=not_actions.start_column,
             data=not_actions.data,
             line=get_line_by_extension(not_actions.start_line, file_ext),
-        ) if isinstance(not_actions.raw, List) else not_actions
+        ) if isinstance(not_actions.raw, list) else not_actions
 
     if (
         not_princ := stmt.inner.get("NotPrincipal")
@@ -82,7 +81,7 @@ def iam_trust_policies_checks(
     file_ext: str,
     iam_iterator: Iterator[Node],
     method: MethodsEnum,
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
             yield from check_assume_role_policies(
@@ -93,7 +92,7 @@ def iam_trust_policies_checks(
 
 
 def get_wildcard_nodes_for_resources(
-    actions: Node, resources: Node, pattern: Pattern
+    actions: Node, resources: Node, pattern: re.Pattern
 ) -> Iterator[Node]:
     exceptions = {
         "ec2:DescribeInstanceStatus",
@@ -113,14 +112,14 @@ def get_wildcard_nodes_for_resources(
     }
     for res in (
         resources.data
-        if hasattr(resources, "raw") and isinstance(resources.raw, List)
+        if hasattr(resources, "raw") and isinstance(resources.raw, list)
         else [resources]
     ):
         is_action_in_exceptions = list(
             map(
                 lambda action: str(action.raw) in exceptions,
                 actions.data
-                if hasattr(actions, "raw") and isinstance(actions.raw, List)
+                if hasattr(actions, "raw") and isinstance(actions.raw, list)
                 else [actions],
             )
         )
@@ -145,7 +144,7 @@ def _yield_nodes_from_stmt(
             column=not_actions.start_column,
             data=not_actions.data,
             line=get_line_by_extension(not_actions.start_line, file_ext),
-        ) if isinstance(not_actions.raw, List) else not_actions
+        ) if isinstance(not_actions.raw, list) else not_actions
 
     if (
         hasattr(stmt, "inner")
@@ -157,7 +156,7 @@ def _yield_nodes_from_stmt(
             column=not_resource.start_column,
             data=not_resource.data,
             line=get_line_by_extension(not_resource.start_line, file_ext),
-        ) if isinstance(not_resource.raw, List) else not_resource
+        ) if isinstance(not_resource.raw, list) else not_resource
 
 
 def _check_policy_documents(
@@ -180,7 +179,7 @@ def cfn_iam_permissions_policies_checks(
     file_ext: str,
     iam_iterator: Iterator[Node],
     method: MethodsEnum,
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         policies = iam_res.inner.get("Policies")
         yield from _check_policy_documents(policies, file_ext, method)
@@ -189,7 +188,7 @@ def cfn_iam_permissions_policies_checks(
 def cfn_iam_is_policy_applying_to_users_check(
     file_ext: str,
     iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         if users := iam_res.inner.get("Users"):
             yield AWSIamManagedPolicy(

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -12,8 +15,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Iterator,
-    Tuple,
 )
 
 
@@ -47,7 +48,7 @@ def _iterate_serverless_envs(template: Node) -> Iterator[Node]:
 
 def _serverless_iterate_vulnerabilities(
     env_vars_iterator: Iterator[Node],
-) -> Iterator[Tuple[int, int]]:
+) -> Iterator[tuple[int, int]]:
     for env_var in env_vars_iterator:
         if http := env_var.inner.get("http"):
             cors = (

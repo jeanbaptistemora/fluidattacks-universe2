@@ -1,6 +1,9 @@
 from aws.model import (
     AWSS3Bucket,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -20,7 +23,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 from utils.function import (
     get_node_by_keys,

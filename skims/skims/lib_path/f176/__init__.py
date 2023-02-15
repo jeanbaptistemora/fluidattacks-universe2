@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     EXTENSIONS_BASH,
     EXTENSIONS_YAML,
@@ -12,10 +15,6 @@ from lib_path.f176.docker import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -35,8 +34,8 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
 
     if (file_name in NAMES_DOCKERFILE) or (
         "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML

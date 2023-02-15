@@ -1,6 +1,9 @@
 from aws.model import (
     AWSRdsCluster,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -18,15 +21,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_rds_is_not_inside_a_db_subnet_group_iterate_vulnerabilities(
     file_ext: str,
     rds_iterator: Iterator[Node],
-) -> Iterator[Union[AWSRdsCluster, Node]]:
+) -> Iterator[AWSRdsCluster | Node]:
     for rds_res in rds_iterator:
         if hasattr(rds_res, "raw") and "DBSubnetGroupName" not in rds_res.raw:
             yield AWSRdsCluster(

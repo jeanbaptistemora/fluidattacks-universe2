@@ -4,6 +4,9 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -12,16 +15,9 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Dict,
-    Iterator,
-    List,
-    Optional,
-    Tuple,
-)
 
 
-def parse_tag(a_href: Tag) -> Dict[str, Optional[str]]:
+def parse_tag(a_href: Tag) -> dict[str, str | None]:
     parsed: dict = {
         "href": a_href.get("href"),
         "target": a_href.get("target"),
@@ -29,20 +25,20 @@ def parse_tag(a_href: Tag) -> Dict[str, Optional[str]]:
     }
 
     for key, value in parsed.items():
-        if isinstance(value, List):
+        if isinstance(value, list):
             parsed.update({key: " ".join(value)})
 
     return parsed
 
 
 def has_reverse_tabnabbing(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         http_re = re.compile(r"^http(s)?://|^\{.*\}")
         rel_re = re.compile(r"(?=.*noopener)(?=.*noreferrer)")
         html_obj = BeautifulSoup(content, features="html.parser")
 
         for a_href in html_obj.findAll("a", attrs={"href": http_re}):
-            parsed: Dict[str, Optional[str]] = parse_tag(a_href)
+            parsed: dict[str, str | None] = parse_tag(a_href)
 
             if (
                 parsed["href"]

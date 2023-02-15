@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Set,
+)
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -6,11 +10,6 @@ from lib_path.f079.generic import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Set,
-    Tuple,
 )
 
 
@@ -25,8 +24,8 @@ def analyze(
     raw_content_generator: Callable[[], bytes],
     unique_nu_paths: Set[str],
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
 
     if path in unique_nu_paths:
         results = (
