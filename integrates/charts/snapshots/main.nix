@@ -17,7 +17,7 @@ makeScript {
   searchPaths = {
     bin = [
       inputs.nixpkgs.noto-fonts
-      inputs.nixpkgs.python39
+      inputs.nixpkgs.python311
       inputs.nixpkgs.roboto
       inputs.nixpkgs.roboto-mono
       outputs."/integrates/db"

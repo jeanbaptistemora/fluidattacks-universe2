@@ -3,7 +3,6 @@ closure:
   attrs: 22.2.0
   certifi: 2022.12.7
   cffi: 1.15.1
-  exceptiongroup: 1.1.0
   h11: 0.14.0
   idna: "3.4"
   outcome: 1.2.0
@@ -35,42 +34,33 @@ links:
   - name: certifi-2022.12.7.tar.gz
     sha256: 1qx9a09rssb1fa6jwmpn332irnqlm9j4v108nij5j4cp7964p0im
     url: https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz
-  - name: cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 11gmbafr477z9yi4wnhssjq0yl22qkvgkxvy1rwdv3ikg1xxp8jl
-    url: https://files.pythonhosted.org/packages/18/8f/5ff70c7458d61fa8a9752e5ee9c9984c601b0060aae0c619316a1e1f1ee5/cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1c1xnyjfpxj24z3x1jn56krs8niw059mnvwfnfyva228jkfk3lgw
-    url: https://files.pythonhosted.org/packages/3a/75/a162315adeaf47e94a3b7f886a8e31d77b9e525a387eef2d6f0efc96a7c8/cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 05a4lrdsljvfkwx5a13p39ka2yllhjwsry4v5x2p57hw21hyhwvl
-    url: https://files.pythonhosted.org/packages/85/1f/a3c533f8d377da5ca7edb4f580cc3edc1edbebc45fac8bb3ae60f1176629/cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 17dyjs9k7ki1wp2g0a71j2pfny2wwgm98yi09lm9412rk2g7k6kc
-    url: https://files.pythonhosted.org/packages/77/b7/d3618d612be01e184033eab90006f8ca5b5edafd17bf247439ea4e167d8a/cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-    sha256: 1139rcr86ndz4yb698gk1mvs1xvwxa1qb3y88ldzk1p575qf1k9v
-    url: https://files.pythonhosted.org/packages/a9/ba/e082df21ebaa9cb29f2c4e1d7e49a29b90fcd667d43632c6674a16d65382/cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-    sha256: 0ddy82522hhcmk797a2xzgrb7wjqdv5aaza2qa1cxaj665h7kark
-    url: https://files.pythonhosted.org/packages/af/cb/53b7bba75a18372d57113ba934b27d0734206c283c1dfcc172347fbd9f76/cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 09rby40y4f63b0836nqs7ff3ccfl15gd9kbpfg3g7svqhs9qnnax
-    url: https://files.pythonhosted.org/packages/2d/86/3ca57cddfa0419f6a95d1c8478f8f622ba597e3581fd501bbb915b20eb75/cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 0xkgjw4zdra6fiznkmh3hig7xrzv99gyp1znkydfag3lcafbn3yv
-    url: https://files.pythonhosted.org/packages/ad/26/7b3a73ab7d82a64664c7c4ea470e4ec4a3c73bb4f02575c543a41e272de5/cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 1wvvd6falwz712pcj5sakxipzx57p0ny3p97ja6mi0gg5dm5rn4q
-    url: https://files.pythonhosted.org/packages/da/ff/ab939e2c7b3f40d851c0f7192c876f1910f3442080c9c846532993ec3cef/cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 1b55wqi6jqc59whxyhsbpchbg1gkzsd8aayg91565anx538sy21x
+    url: https://files.pythonhosted.org/packages/23/8b/2e8c2469eaf89f7273ac685164949a7e644cdfe5daf1c036564208c3d26b/cffi-1.15.1-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 10yv34n4r0ff4516kz4rsxw9pp7hkzkhqy3vjxfmikqp5v7sx69p
+    url: https://files.pythonhosted.org/packages/f9/96/fc9e118c47b7adc45a0676f413b4a47554e5f3b6c99b8607ec9726466ef1/cffi-1.15.1-cp311-cp311-macosx_11_0_arm64.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 1famq0miz3ss7dznk4wblyhsslzn56h74m90ak8y8ijqaaggx4d5
+    url: https://files.pythonhosted.org/packages/10/72/617ee266192223a38b67149c830bd9376b69cf3551e1477abc72ff23ef8e/cffi-1.15.1-cp311-cp311-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 132y1p1l48rshdby208ji0w0wyszr60ld66rk8f5dlnp3hldnj1m
+    url: https://files.pythonhosted.org/packages/91/bc/b7723c2fe7a22eee71d7edf2102cd43423d5f95ff3932ebaa2f82c7ec8d0/cffi-1.15.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 09a365swa86iv2kjnwk330i0cf3g0ja05varkfpq2y1xvsnriz4i
+    url: https://files.pythonhosted.org/packages/5d/4e/4e0bb5579b01fdbfd4388bd1eb9394a989e1336203a4b7f700d887b233c1/cffi-1.15.1-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0g4ydgckf8pza7kqlzyck2v1ggid7xaxzil3dznclnlqqci1yhcl
+    url: https://files.pythonhosted.org/packages/37/5a/c37631a86be838bdd84cc0259130942bf7e6e32f70f4cab95f479847fb91/cffi-1.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-musllinux_1_1_i686.whl
+    sha256: 1vsr1w77r608q3fxyz13rbman7shh3bynb90f2nnmiv2wbd5nhh3
+    url: https://files.pythonhosted.org/packages/71/d7/0fe0d91b0bbf610fb7254bb164fa8931596e660d62e90fb6289b7ee27b09/cffi-1.15.1-cp311-cp311-musllinux_1_1_i686.whl
+  - name: cffi-1.15.1-cp311-cp311-musllinux_1_1_x86_64.whl
+    sha256: 1s6106w45syc6fmn0n5cmd1xr50c3h5xvlvp4shkchd0xap6akfc
+    url: https://files.pythonhosted.org/packages/d3/56/3e94aa719ae96eeda8b68b3ec6e347e0a23168c6841dc276ccdcdadc9f32/cffi-1.15.1-cp311-cp311-musllinux_1_1_x86_64.whl
   - name: cffi-1.15.1.tar.gz
     sha256: 1y9lr651svbzf1m03s4lqbnbv2byx8f6f0ml7hjm24vvlfwvy06l
     url: https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz
-  - name: exceptiongroup-1.1.0-py3-none-any.whl
-    sha256: 07pc9dpm531932k6rlf40ak70dvvmf0pn45367h2svkmvaivsz1j
-    url: https://files.pythonhosted.org/packages/e8/14/9c6a7e5f12294ccd6975a45e02899ed25468cd7c2c86f3d9725f387f9f5f/exceptiongroup-1.1.0-py3-none-any.whl
-  - name: exceptiongroup-1.1.0.tar.gz
-    sha256: 08yzvxf6h6kcz5kspnrkaig7lfvxlky49pf20jsf35s41a07vdmw
-    url: https://files.pythonhosted.org/packages/15/ab/dd27fb742b19a9d020338deb9ab9a28796524081bca880ac33c172c9a8f6/exceptiongroup-1.1.0.tar.gz
   - name: h11-0.14.0-py3-none-any.whl
     sha256: 0qd7z9p38dwx215048q708vd1sn2abdh1mb3hg66ii2ip324mzp3
     url: https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl
@@ -143,4 +133,4 @@ links:
   - name: wsproto-1.2.0.tar.gz
     sha256: 0rahm1j9danv1l6i6as80acwv16ycihxkhrvwjiqh9drxhk5ymmd
     url: https://files.pythonhosted.org/packages/c9/4a/44d3c295350d776427904d73c189e10aeae66d7f555bb2feee16d1e4ba5a/wsproto-1.2.0.tar.gz
-python: "3.9"
+python: "3.11"
