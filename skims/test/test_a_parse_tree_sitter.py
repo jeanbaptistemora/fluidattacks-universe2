@@ -63,6 +63,10 @@ from utils.encodings import (
             ),
             "nist",
         ),
+        (
+            ("skims/test/data/graphs/syntax/syntax_cfg.py",),
+            "syntax_python",
+        ),
     ],
 )
 async def test_graph_generation(

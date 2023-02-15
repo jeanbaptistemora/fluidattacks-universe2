@@ -11,7 +11,7 @@ from typing import (
 
 def build_conditional_access_expression_node(
     args: SyntaxGraphArgs,
-    condition: NId,
+    condition: str,
     binding: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
@@ -21,7 +21,6 @@ def build_conditional_access_expression_node(
     )
 
     if binding:
-
         args.syntax_graph.add_edge(
             args.n_id,
             args.generic(args.fork_n_id(binding)),

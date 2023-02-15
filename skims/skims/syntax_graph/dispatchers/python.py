@@ -3,6 +3,7 @@ from syntax_graph.syntax_readers.python import (
     argument_list as python_argument_list,
     array as python_array,
     as_pattern as python_as_pattern,
+    assert_statement as python_assert_statement,
     assignment as python_assignment,
     attribute as python_attribute,
     await_expression as python_await_expression,
@@ -14,6 +15,8 @@ from syntax_graph.syntax_readers.python import (
     comment as python_comment,
     comprehension as python_comprehension,
     continue_statement as python_continue_statement,
+    decorated_definition as python_decorated_definition,
+    decorator as python_decorator,
     dictionary as python_dictionary,
     else_clause as python_else_clause,
     except_clause as python_except_clause,
@@ -67,6 +70,7 @@ PYTHON_DISPATCHERS: Dispatchers = (
         applicable_types={
             "list",
             "tuple",
+            "tuple_pattern",
             "pattern_list",
             "set",
         },
@@ -77,6 +81,12 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "as_pattern",
         },
         syntax_reader=python_as_pattern.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "assert_statement",
+        },
+        syntax_reader=python_assert_statement.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -98,6 +108,7 @@ PYTHON_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "augmented_assignment",
             "binary_operator",
             "boolean_operator",
             "comparison_operator",
@@ -141,6 +152,18 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "pass_statement",
         },
         syntax_reader=python_continue_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "decorated_definition",
+        },
+        syntax_reader=python_decorated_definition.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "decorator",
+        },
+        syntax_reader=python_decorator.reader,
     ),
     Dispatcher(
         applicable_types={
@@ -226,6 +249,7 @@ PYTHON_DISPATCHERS: Dispatchers = (
         applicable_types={
             "dictionary_comprehension",
             "list_comprehension",
+            "set_comprehension",
         },
         syntax_reader=python_comprehension.reader,
     ),

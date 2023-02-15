@@ -13,5 +13,5 @@ from utils.graph import (
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
-    condition = adj_ast(args.ast_graph, args.n_id)[-1]
-    return build_conditional_access_expression_node(args, condition, None)
+    binding = adj_ast(args.ast_graph, args.n_id)[-1]
+    return build_conditional_access_expression_node(args, "IfClause", binding)
