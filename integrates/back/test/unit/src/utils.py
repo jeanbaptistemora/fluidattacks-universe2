@@ -10446,6 +10446,9 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             None,
         ]
     },
+    "remove_stakeholder.domain.group_access_domain.update": {
+        '["unittest2@test.test"]': None,
+    },
     "remove_stakeholder.domain.group_access_model.remove": {
         '["unittest@test.com"]': None,
     },

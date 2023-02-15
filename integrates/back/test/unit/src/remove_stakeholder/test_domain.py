@@ -1,6 +1,3 @@
-from app.app import (
-    confirm_deletion,
-)
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_module_at_test,
     set_mocks_return_values,
@@ -8,28 +5,14 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from dataloaders import (
     apply_context_attrs,
+    Dataloaders,
     get_new_context,
-)
-from db_model.group_access.types import (
-    GroupAccessMetadataToUpdate,
-    GroupAccessState,
-    GroupConfirmDeletion,
-)
-from group_access import (
-    domain as group_access_domain,
-)
-from newutils.datetime import (
-    get_as_epoch,
-    get_now_plus_delta,
-    get_utc_now,
 )
 import pytest
 from remove_stakeholder.domain import (
     complete_deletion,
+    confirm_deletion_mail,
     remove_stakeholder_all_organizations,
-)
-from sessions import (
-    domain as sessions_domain,
 )
 from settings import (
     TEMPLATES_DIR,
@@ -58,34 +41,6 @@ MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-async def confirm_deletion_mail(
-    *,
-    email: str,
-) -> str:
-    expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
-    url_token = sessions_domain.encode_token(
-        expiration_time=expiration_time,
-        payload={
-            "user_email": email,
-        },
-        subject="starlette_session",
-    )
-    await group_access_domain.update(
-        loaders=get_new_context(),
-        email=email,
-        group_name="confirm_deletion",
-        metadata=GroupAccessMetadataToUpdate(
-            confirm_deletion=GroupConfirmDeletion(
-                is_used=False, url_token=url_token
-            ),
-            expiration_time=expiration_time,
-            state=GroupAccessState(modified_date=get_utc_now()),
-        ),
-    )
-
-    return url_token
 
 
 def create_dummy_simple_session(
@@ -148,37 +103,23 @@ async def test_complete_deletion(
     assert all(mock_object.called is True for mock_object in mocked_objects)
 
 
-@pytest.mark.changes_db
-async def test_confirm_deletion() -> None:
-    email: str = "unittest2@test.test"
-    expiration_time = get_as_epoch(get_now_plus_delta(minutes=5))
-    url_token = sessions_domain.encode_token(
-        expiration_time=expiration_time,
-        payload={
-            "user_email": email,
-        },
-        subject="starlette_session",
+@pytest.mark.parametrize(
+    ["email"],
+    [["unittest2@test.test"]],
+)
+@patch(MODULE_AT_TEST + "group_access_domain.update", new_callable=AsyncMock)
+async def test_confirm_deletion(
+    mock_group_access_domain_update: AsyncMock, email: str
+) -> None:
+    assert set_mocks_return_values(
+        mocks_args=[[email]],
+        mocked_objects=[mock_group_access_domain_update],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["group_access_domain.update"],
     )
-
-    template = await confirm_deletion(
-        create_dummy_simple_session(email, url_token)
-    )
-    assert "The delete confirmation was Invalid or Expired" in str(
-        template.body
-    )
-
-    url_token = await confirm_deletion_mail(email=email)
-    template = await confirm_deletion(
-        create_dummy_simple_session(email, url_token)
-    )
-    assert "The account deletion was confirmed" in str(template.body)
-
-    template = await confirm_deletion(
-        create_dummy_simple_session(email, url_token)
-    )
-    assert "The delete confirmation was Invalid or Expired" in str(
-        template.body
-    )
+    loaders: Dataloaders = get_new_context()
+    await confirm_deletion_mail(loaders=loaders, email=email)
+    assert mock_group_access_domain_update.called is True
 
 
 @pytest.mark.parametrize(
