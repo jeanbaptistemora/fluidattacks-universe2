@@ -98,10 +98,15 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     file_report=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.FILE_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles={},
+        roles={
+            "resourcer",
+            "customer_manager",
+            "user_manager",
+            "hacker",
+        },
     ),
     free_trial=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -164,10 +169,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     portfolio_report=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.PORTFOLIO_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles={},
+        roles={"resourcer", "customer_manager", "user_manager"},
     ),
     remediate_finding=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -284,10 +289,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     user_unsubscribed=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.UNSUBSCRIPTION_ALERT,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles={},
+        roles={"resourcer", "customer_manager", "user_manager"},
     ),
     users_weekly_report=dict(
         email_preferences=Notification.GROUP_INFORMATION,

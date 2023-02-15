@@ -60,9 +60,6 @@ from db_model import (
 from db_model.constants import (
     POLICIES_FORMATTED,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.events.types import (
     GroupEventsRequest,
 )
@@ -1233,19 +1230,10 @@ async def send_mail_file_report(
     modified_date: date,
     uploaded_date: Optional[date] = None,
 ) -> None:
-    roles: set[str] = {
-        "resourcer",
-        "customer_manager",
-        "user_manager",
-        "hacker",
-    }
-    stakeholders_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.FILE_UPDATE,
-            roles=roles,
-        )
+    stakeholders_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="file_report",
     )
 
     await groups_mail.send_mail_file_report(
@@ -1531,14 +1519,10 @@ async def send_mail_unsubscribed(
     group_name: str,
 ) -> None:
     report_date = datetime_utils.get_utc_now()
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    stakeholders_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.UNSUBSCRIPTION_ALERT,
-            roles=roles,
-        )
+    stakeholders_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="user_unsubscribed",
     )
 
     await groups_mail.send_mail_stakeholder_unsubscribed(
@@ -1827,14 +1811,10 @@ async def send_mail_portfolio_report(
     is_added: bool = False,
     modified_date: datetime,
 ) -> None:
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    stakeholders_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.PORTFOLIO_UPDATE,
-            roles=roles,
-        )
+    stakeholders_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="portfolio_report",
     )
 
     await groups_mail.send_mail_portfolio_report(
