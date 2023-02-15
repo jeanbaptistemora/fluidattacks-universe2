@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     NAMES_DOCKERFILE,
     SHIELD_BLOCKING,
@@ -7,10 +10,6 @@ from lib_path.f427.docker import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -31,9 +30,9 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
 
-    results: Tuple[Vulnerabilities, ...] = ()
+    results: tuple[Vulnerabilities, ...] = ()
     content = content_generator()
 
     if file_name in NAMES_DOCKERFILE:

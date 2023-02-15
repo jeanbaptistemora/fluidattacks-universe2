@@ -2,16 +2,13 @@ from bs4.element import (
     Tag,
 )
 import re
-from typing import (
-    Optional,
-)
 
 
 def lookahead_from_str(original_str: str) -> str:
     return "(?=.*" + original_str + ")"
 
 
-def get_original_opening_tag(tag: Tag, content: str) -> Optional[str]:
+def get_original_opening_tag(tag: Tag, content: str) -> str | None:
     tag_opening_re = re.compile(r"^<[^>]*>", re.DOTALL)
     split_opening_re = re.compile(r"\s+", re.DOTALL | re.M | re.I)
 
@@ -40,9 +37,7 @@ def get_original_opening_tag(tag: Tag, content: str) -> Optional[str]:
     return None
 
 
-def get_attribute_line(
-    tag: Tag, content: str, dang_attr: str
-) -> Optional[int]:
+def get_attribute_line(tag: Tag, content: str, dang_attr: str) -> int | None:
     current_line = tag.sourceline
     if original_tag := get_original_opening_tag(tag, content):
         attrs_by_line = original_tag.split("\n")

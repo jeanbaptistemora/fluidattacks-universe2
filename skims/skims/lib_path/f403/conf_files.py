@@ -4,6 +4,10 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -14,15 +18,9 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
-from typing import (
-    Iterator,
-    Optional,
-    Set,
-    Tuple,
-)
 
 
-def get_insecure_attr(tag: Tag, insecure_names: Set[str]) -> Optional[str]:
+def get_insecure_attr(tag: Tag, insecure_names: Set[str]) -> str | None:
     for insecure_name in insecure_names:
         if (
             insecure_conf := tag.attrs.get(insecure_name)
@@ -41,7 +39,7 @@ def get_insecure_attr(tag: Tag, insecure_names: Set[str]) -> Optional[str]:
 
 
 def insecure_configuration(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         vulnerable_tags = {
             "application",
             "domain-config",

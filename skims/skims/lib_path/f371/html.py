@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
     has_attributes,
@@ -14,14 +17,10 @@ from pyparsing import (
     SkipTo,
     stringEnd,
 )
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def is_header_content_type_missing(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """Check if Content-Type header is missing.
 
         Verifies if the file has the tags::

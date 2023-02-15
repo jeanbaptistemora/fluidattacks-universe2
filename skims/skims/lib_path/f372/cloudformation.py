@@ -1,6 +1,9 @@
 from aws.model import (
     AWSElbV2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -19,8 +22,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -29,7 +30,7 @@ from utils.function import (
 
 def _cfn_get_node_vulnerabilities(
     dist_config: Any,
-) -> Iterator[Union[Any, Node]]:
+) -> Iterator[Any | Node]:
     def_cache_beh = (
         dist_config.inner["DefaultCacheBehavior"]
         if "DefaultCacheBehavior" in dist_config.inner
@@ -55,8 +56,8 @@ def _cfn_get_node_vulnerabilities(
 
 
 def _cfn_content_over_http_iterate_vulnerabilities(
-    distributions_iterator: Iterator[Union[Any, Node]]
-) -> Iterator[Union[Any, Node]]:
+    distributions_iterator: Iterator[Any | Node],
+) -> Iterator[Any | Node]:
     for dist in distributions_iterator:
         dist_config = dist.inner["DistributionConfig"]  # type: ignore
         if isinstance(dist_config, Node):
@@ -66,7 +67,7 @@ def _cfn_content_over_http_iterate_vulnerabilities(
 def _cfn_elb2_uses_insecure_protocol_iterate_vulnerabilities(
     file_ext: str,
     t_groups_iterator: Iterator[Node],
-) -> Iterator[Union[AWSElbV2, Node]]:
+) -> Iterator[AWSElbV2 | Node]:
     for t_group in t_groups_iterator:
         protocol_node = get_node_by_keys(t_group, ["Protocol"])
         target_type = get_node_by_keys(t_group, ["TargetType"])

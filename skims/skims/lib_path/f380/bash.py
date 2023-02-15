@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -6,17 +9,10 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Iterator,
-    List,
-    Pattern,
-    Set,
-    Tuple,
-)
 
 
 def check_digest(line: str) -> bool:
-    digest_re: Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
+    digest_re: re.Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
     return bool(digest_re.search(line))
 
 
@@ -30,15 +26,15 @@ def get_joint_line(line_no: int, lines: list) -> str:
 
 
 def image_has_digest(content: str, path: str) -> Vulnerabilities:  # NOSONAR
-    def iterator(vuln_lines: Set) -> Iterator[Tuple[int, int]]:
+    def iterator(vuln_lines: set) -> Iterator[tuple[int, int]]:
         for vuln_line in vuln_lines:
             yield vuln_line, 0
 
     commands_to_check = {"docker run", "podman run"}
-    line_breaks: Set = set()
-    vulns_found: Set = set()
+    line_breaks: set = set()
+    vulns_found: set = set()
 
-    lines: List = content.splitlines()
+    lines: list = content.splitlines()
 
     for line_number, line in enumerate(lines, start=1):
         if not line.lstrip().startswith("#") and any(

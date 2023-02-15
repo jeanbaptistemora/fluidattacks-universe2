@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -11,22 +14,16 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Iterator,
-    Pattern,
-    Set,
-    Tuple,
-)
 
 
-def check_array_of_nodes(node: Node, key: str) -> Set[Node]:
-    match_nodes: Set[Node] = set()
+def check_array_of_nodes(node: Node, key: str) -> set[Node]:
+    match_nodes: set[Node] = set()
     for sub_tree in node.data:
         match_nodes.update(get_values_by_key(sub_tree, key, match_nodes))
     return match_nodes
 
 
-def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
+def get_values_by_key(node: Node, key: str, nodes: set[Node]) -> set[Node]:
     if not isinstance(node.data, dict):
         return nodes
     for parent, sub_tree in node.data.items():
@@ -43,14 +40,14 @@ def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
 
 
 def check_digest(line: str) -> bool:
-    env_var_re: Pattern = re.compile(r"\{.+\}")
-    digest_re: Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
+    env_var_re: re.Pattern = re.compile(r"\{.+\}")
+    digest_re: re.Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
     return bool(env_var_re.search(line) or digest_re.search(line))
 
 
 def _k8s_image_has_digest(
     template: Node,
-) -> Iterator[Tuple[int, int]]:
+) -> Iterator[tuple[int, int]]:
     if (
         isinstance(template, Node)
         and hasattr(template, "raw")

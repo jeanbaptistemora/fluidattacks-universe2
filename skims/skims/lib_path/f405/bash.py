@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -6,16 +9,12 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def excessive_privileges_for_others(  # NOSONAR
     content: str, path: str
 ) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         for index, lines in enumerate(content.splitlines(), 1):
             if "chmod" in lines and not lines.startswith("#"):
                 for item in lines.split(" "):

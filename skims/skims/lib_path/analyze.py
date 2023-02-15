@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from concurrent.futures.process import (
     ProcessPoolExecutor,
 )
@@ -94,10 +97,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Set,
-    Tuple,
 )
 from utils.fs import (
     generate_file_raw_content_blocking,
@@ -112,7 +111,7 @@ from utils.logs import (
 MEBIBYTE: int = 1048576
 MAX_READ: int = 64 * MEBIBYTE
 
-CHECKS: Tuple[Tuple[core_model.FindingEnum, Any], ...] = (
+CHECKS: tuple[tuple[core_model.FindingEnum, Any], ...] = (
     (core_model.FindingEnum.F009, f009.analyze),
     (core_model.FindingEnum.F011, f011.analyze),
     (core_model.FindingEnum.F015, f015.analyze),
@@ -189,7 +188,7 @@ def analyze_one_path(  # noqa: MC0001
     unique_nv_paths: Set[str],
     unique_paths_count: int,
     file_content: str,
-) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
+) -> dict[core_model.FindingEnum, list[core_model.Vulnerabilities]]:
     """Execute all findings against the provided file.
 
     :param path: Path to the file who's object of analysis
@@ -214,7 +213,7 @@ def analyze_one_path(  # noqa: MC0001
     file_name, file_extension = splitext(file_info)
     file_extension = file_extension[1:]
 
-    result: Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]] = {}
+    result: dict[core_model.FindingEnum, list[core_model.Vulnerabilities]] = {}
 
     for finding, analyzer in CHECKS:
         if finding not in CTX.config.checks:
@@ -249,7 +248,7 @@ def _analyze_one_path(  # noqa: MC0001
     unique_nu_paths: Set[str],
     unique_nv_paths: Set[str],
     unique_paths_count: int,
-) -> Dict[core_model.FindingEnum, List[core_model.Vulnerabilities]]:
+) -> dict[core_model.FindingEnum, list[core_model.Vulnerabilities]]:
     content = get_file_content_block(path)
     return analyze_one_path(
         index=index,
@@ -262,8 +261,8 @@ def _analyze_one_path(  # noqa: MC0001
 
 
 def _handle_result(
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
-    result: Tuple[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
+    result: tuple[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     stores[result[0]].store(result[1])
 
@@ -278,7 +277,7 @@ def _handle_exception(
 def analyze(
     *,
     paths: Paths,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(finding in CTX.config.checks for finding, _ in CHECKS):
         # No findings will be executed, early abort

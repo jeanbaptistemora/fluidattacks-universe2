@@ -2,6 +2,10 @@ from aioextensions import (
     run,
 )
 import ast
+from collections.abc import (
+    Callable,
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -59,15 +63,7 @@ from serializers import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    Iterator,
-    List,
-    Optional,
-    Set,
-    Tuple,
     TypeVar,
-    Union,
 )
 from utils.fs import (
     get_file_content_block,
@@ -86,32 +82,32 @@ from zone import (
 
 # Constants
 Tfun = TypeVar("Tfun", bound=Callable[..., Any])
-DependencyType = Tuple[frozendict, frozendict]
+DependencyType = tuple[frozendict, frozendict]
 
 # Reusable Components
 C_STYLE_COMMENT: ParserElement = cppStyleComment
 SHARP_STYLE_COMMENT: ParserElement = pythonStyleComment
 
-NAMES_DOCKERFILE: Set[str] = {"Dockerfile"}
-EXTENSIONS_BASH: Set[str] = {"sh"}
-EXTENSIONS_CSHARP: Set[str] = {"cs"}
-EXTENSIONS_JAVA: Set[str] = {"java"}
-EXTENSIONS_JAVA_PROPERTIES: Set[str] = {"properties"}
-EXTENSIONS_JAVASCRIPT: Set[str] = {"js", "jsx", "ts", "tsx"}
-EXTENSIONS_JSON: Set[str] = {"json"}
-EXTENSIONS_PYTHON: Set[str] = {"py", "pyw"}
-EXTENSIONS_TERRAFORM: Set[str] = {"tf"}
-EXTENSIONS_SWIFT: Set[str] = {"swift"}
-EXTENSIONS_YAML: Set[str] = {"yml", "yaml"}
-EXTENSIONS_CLOUDFORMATION: Set[str] = EXTENSIONS_YAML | EXTENSIONS_JSON
+NAMES_DOCKERFILE: set[str] = {"Dockerfile"}
+EXTENSIONS_BASH: set[str] = {"sh"}
+EXTENSIONS_CSHARP: set[str] = {"cs"}
+EXTENSIONS_JAVA: set[str] = {"java"}
+EXTENSIONS_JAVA_PROPERTIES: set[str] = {"properties"}
+EXTENSIONS_JAVASCRIPT: set[str] = {"js", "jsx", "ts", "tsx"}
+EXTENSIONS_JSON: set[str] = {"json"}
+EXTENSIONS_PYTHON: set[str] = {"py", "pyw"}
+EXTENSIONS_TERRAFORM: set[str] = {"tf"}
+EXTENSIONS_SWIFT: set[str] = {"swift"}
+EXTENSIONS_YAML: set[str] = {"yml", "yaml"}
+EXTENSIONS_CLOUDFORMATION: set[str] = EXTENSIONS_YAML | EXTENSIONS_JSON
 BACKTICK_QUOTED_STRING: QuotedString = QuotedString("`", escChar="\\")
 SINGLE_QUOTED_STRING: QuotedString = QuotedString("'", escChar="\\")
 DOUBLE_QUOTED_STRING: QuotedString = QuotedString('"', escChar="\\")
 NUMBER: Word = Word("0123456789abcdefABCDEFxX.")
 VAR_NAME_JAVA: ParserElement = Word(alphas + "$_", alphanums + "$_")
 VAR_ATTR_JAVA: ParserElement = delimitedList(VAR_NAME_JAVA, ".", True)
-TRUE_OPTIONS: Set[
-    Union[str, bool, int]
+TRUE_OPTIONS: set[
+    str | bool | int
 ] = {  # NOSONAR # pylint: disable=duplicate-value
     "true",
     "True",
@@ -119,8 +115,8 @@ TRUE_OPTIONS: Set[
     "1",
     1,
 }
-FALSE_OPTIONS: Set[
-    Union[str, bool, int]
+FALSE_OPTIONS: set[
+    str | bool | int
 ] = {  # NOSONAR # pylint: disable=duplicate-value
     "false",
     "False",
@@ -170,7 +166,7 @@ def has_attributes(content: str, tag: str, attrs: dict) -> bool:
 def get_matching_lines_blocking(
     content: str,
     grammar: ParserElement,
-) -> Tuple[core_model.GrammarMatch, ...]:
+) -> tuple[core_model.GrammarMatch, ...]:
     # Pyparsing's scanString expands tabs to 'n' number of spaces
     # But we count tabs as '1' char width
     # This forces the parser to not offset when a file contains tabs
@@ -178,7 +174,7 @@ def get_matching_lines_blocking(
     content = "\n".join(
         line for line in content.splitlines() if len(line) < 1000
     )
-    matches: Tuple[core_model.GrammarMatch, ...] = tuple(
+    matches: tuple[core_model.GrammarMatch, ...] = tuple(
         core_model.GrammarMatch(
             start_column=col(start_char, content) - 1,
             start_line=lineno(start_char, content),
@@ -225,7 +221,7 @@ def get_vulnerabilities_blocking(
 def get_vulnerabilities_from_iterator_blocking(
     content: str,
     description_key: str,
-    iterator: Iterator[Tuple[int, int]],
+    iterator: Iterator[tuple[int, int]],
     path: str,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
@@ -253,7 +249,7 @@ def get_vulnerabilities_from_iterator_blocking(
 def get_vulnerabilities_include_parameter(
     content: str,
     description_key: str,
-    iterator: Iterator[Tuple[int, int, str]],
+    iterator: Iterator[tuple[int, int, str]],
     path: str,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
@@ -337,7 +333,7 @@ def is_cidr(cidr: str) -> bool:
 
 def get_cloud_iterator(
     statements_iterator: Iterator[Any],
-) -> Iterator[Tuple[int, int]]:
+) -> Iterator[tuple[int, int]]:
     return (
         (
             stmt.start_line if hasattr(stmt, "start_line") else stmt.line,
@@ -428,9 +424,9 @@ async def _translate_dependencies_to_vulnerabilities(
     return results
 
 
-def get_subdependencies(package: str, yarn_dict: lockfile) -> Tuple:
-    subdependencies: List[str] = []
-    version: Optional[str] = None
+def get_subdependencies(package: str, yarn_dict: lockfile) -> tuple:
+    subdependencies: list[str] = []
+    version: str | None = None
     for pkg_key, pkg_info in yarn_dict.items():
         # There may be keys in the yarn.lock file like this:
         # pkg@v1, pkg@v2, pkg@v3
@@ -444,11 +440,11 @@ def get_subdependencies(package: str, yarn_dict: lockfile) -> Tuple:
 
 def add_lines_enumeration(
     windower: Iterator[
-        Tuple[Tuple[int, str], Tuple[int, str]],
+        tuple[tuple[int, str], tuple[int, str]],
     ],
-    tree: Dict[str, str],
-) -> Dict[str, Dict[str, Any]]:
-    enumerated_tree: Dict[str, Dict[str, Any]] = {}
+    tree: dict[str, str],
+) -> dict[str, dict[str, Any]]:
+    enumerated_tree: dict[str, dict[str, Any]] = {}
     for (product_line, product), (version_line, version) in windower:
         product, version = product.strip(), version.strip()
         if (
@@ -471,16 +467,16 @@ def add_lines_enumeration(
     return enumerated_tree
 
 
-def build_subdep_name(dependencies: Dict[str, str]) -> List[str]:
-    dependencies_list: List[str] = []
+def build_subdep_name(dependencies: dict[str, str]) -> list[str]:
+    dependencies_list: list[str] = []
     for key, value in dependencies.items():
         dependencies_list.append(key + "@" + value)
     return dependencies_list
 
 
 def run_over_subdeps(
-    subdeps: List[str], tree: Dict[str, str], yarn_dict: lockfile
-) -> Dict[str, str]:
+    subdeps: list[str], tree: dict[str, str], yarn_dict: lockfile
+) -> dict[str, str]:
     while subdeps:
         current_subdep = subdeps[0]
         new_subdeps, version = get_subdependencies(current_subdep, yarn_dict)
@@ -499,13 +495,13 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
     path_yarn: str,
     path_json: str,
     dependencies_type: core_model.DependenciesTypeEnum,
-) -> Dict[str, Dict[str, Any]]:
+) -> dict[str, dict[str, Any]]:
     # Dependencies type could be "devDependencies" for dev dependencies
     # or "dependencies" for prod dependencies
-    enumerated_tree: Dict[str, Dict[str, Any]] = {}
+    enumerated_tree: dict[str, dict[str, Any]] = {}
     yarn_content = get_file_content_block(path_yarn)
     windower: Iterator[
-        Tuple[Tuple[int, str], Tuple[int, str]]
+        tuple[tuple[int, str], tuple[int, str]]
     ] = windowed(  # type: ignore
         fillvalue="",
         n=2,
@@ -514,7 +510,7 @@ def build_dependencies_tree(  # pylint: disable=too-many-locals
     )
     yarn_dict = lockfile.Lockfile.from_file(path_yarn).data
     package_json_parser = json_parser.parse(get_file_content_block(path_json))
-    tree: Dict[str, str] = {}
+    tree: dict[str, str] = {}
     if dependencies_type.value in package_json_parser:
         package_json_dict = package_json_parser[dependencies_type.value]
         for json_pkg_name, json_pkg_version in package_json_dict.items():

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSCTrail,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -18,8 +21,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -29,7 +30,7 @@ from utils.function import (
 def _cfn_log_files_not_validated_iterate_vulnerabilities(
     file_ext: str,
     trails_iterator: Iterator[Node],
-) -> Iterator[Union[AWSCTrail, Node]]:
+) -> Iterator[AWSCTrail | Node]:
     values = ["true", "True", True, "1", 1]
     for trail in trails_iterator:
         log_file_val = get_node_by_keys(trail, ["EnableLogFileValidation"])

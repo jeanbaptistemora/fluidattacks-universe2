@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -8,12 +11,8 @@ from model.core_model import (
     Platform,
 )
 import re
-from typing import (
-    Iterator,
-    Pattern,
-)
 
-PUB_DEV_DEP: Pattern[str] = re.compile(
+PUB_DEV_DEP: re.Pattern[str] = re.compile(
     r"^\s{2}(?P<pkg>[^\s]+):\s(?P<version>[^\s]*)$"
 )
 

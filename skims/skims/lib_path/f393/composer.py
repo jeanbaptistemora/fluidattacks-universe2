@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     pkg_deps_to_vulns,
@@ -8,9 +11,6 @@ from model.core_model import (
 )
 from parse_json import (
     loads_blocking as json_loads_blocking,
-)
-from typing import (
-    Iterator,
 )
 
 

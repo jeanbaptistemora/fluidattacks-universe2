@@ -1,6 +1,9 @@
 from aws.model import (
     AWSApiGatewayStage,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -18,7 +21,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 
 

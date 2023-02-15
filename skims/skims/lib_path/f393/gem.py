@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from gemfileparser import (
     GemfileParser,
 )
@@ -14,18 +17,14 @@ from parse_gemfile import (
     parse_line,
 )
 import re
-from typing import (
-    Iterator,
-    Pattern,
-)
 
-GEMFILE_DEP: Pattern[str] = re.compile(
+GEMFILE_DEP: re.Pattern[str] = re.compile(
     r'^\s*(?P<gem>gem ".*?",?( "[><~=]{0,2}\s?[\d\.]+",?){0,2})'
 )
-NOT_PROD_DEP: Pattern[str] = re.compile(
+NOT_PROD_DEP: re.Pattern[str] = re.compile(
     r":group => \[?[:\w\-, ]*(:development|:test)"
 )
-NOT_PROD_GROUP: Pattern[str] = re.compile(r"(\s*)group :(test|development)")
+NOT_PROD_GROUP: re.Pattern[str] = re.compile(r"(\s*)group :(test|development)")
 
 
 # pylint: disable=unused-argument

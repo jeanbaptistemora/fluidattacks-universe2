@@ -1,6 +1,9 @@
 from aws.model import (
     AWSKmsKey,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -19,15 +22,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_kms_key_is_key_rotation_absent_or_disabled_iter_vulns(
     file_ext: str,
     keys_iterator: Iterator[Node],
-) -> Iterator[Union[AWSKmsKey, Node]]:
+) -> Iterator[AWSKmsKey | Node]:
     key_spec_symmetric = "SYMMETRIC_DEFAULT"
     for key in keys_iterator:
         en_key_rot = key.inner.get("EnableKeyRotation")

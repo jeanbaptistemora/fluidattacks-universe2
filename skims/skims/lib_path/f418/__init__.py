@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     EXTENSIONS_YAML,
     NAMES_DOCKERFILE,
@@ -15,8 +18,6 @@ from parse_cfn.loader import (
 )
 from typing import (
     Any,
-    Callable,
-    Tuple,
 )
 
 
@@ -47,9 +48,9 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
 
-    results: Tuple[Vulnerabilities, ...] = ()
+    results: tuple[Vulnerabilities, ...] = ()
     content = content_generator()
 
     if "docker" in file_name.lower() and file_extension in EXTENSIONS_YAML:

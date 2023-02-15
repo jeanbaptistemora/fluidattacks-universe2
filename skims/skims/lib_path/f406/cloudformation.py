@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEFS,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -19,15 +22,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_aws_efs_unencrypted_iter_vulns(
     file_ext: str,
     res_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEFS, Node]]:
+) -> Iterator[AWSEFS | Node]:
     for res in res_iterator:
         encrypted = res.inner.get("Encrypted")
         if encrypted is None:

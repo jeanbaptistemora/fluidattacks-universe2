@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -18,10 +21,6 @@ from lib_path.f393.pub import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -67,7 +66,7 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
 
     if (file_name, file_extension) == ("package", "json"):
         return (run_npm_package_json(content_generator(), path),)

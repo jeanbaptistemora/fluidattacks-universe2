@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -12,12 +15,10 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    Tuple,
 )
 
 
-def _docker_compose_read_only(template: Node) -> Iterator[Tuple[int, int]]:
+def _docker_compose_read_only(template: Node) -> Iterator[tuple[int, int]]:
     if (  # pylint: disable=too-many-boolean-expressions
         isinstance(template, Node)
         and (hasattr(template.inner, "get"))
@@ -49,7 +50,7 @@ def docker_compose_read_only(
 
 
 def docker_using_add_command(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
             if re.match(r"^ADD[ \t]+.", line):
                 yield (line_number, 0)

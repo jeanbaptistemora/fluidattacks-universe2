@@ -6,6 +6,9 @@ from aws.model import (
     AWSElbV2,
     AWSS3Bucket,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -30,8 +33,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -55,7 +56,7 @@ def _cfn_bucket_has_logging_conf_disabled_iterate_vulnerabilities(
 def _cfn_elb_has_access_logging_disabled_iterate_vulnerabilities(
     file_ext: str,
     load_balancers_iterator: Iterator[Node],
-) -> Iterator[Union[AWSElb, Node]]:
+) -> Iterator[AWSElb | Node]:
     for elb in load_balancers_iterator:
         access_log = get_node_by_keys(elb, ["AccessLoggingPolicy", "Enabled"])
         if not isinstance(access_log, Node):
@@ -89,7 +90,7 @@ def _cfn_distribution_has_logging_disabled_iterate_vulnerabilities(
 def _cfn_trails_not_multiregion_iterate_vulnerabilities(
     file_ext: str,
     trails_iterator: Iterator[Node],
-) -> Iterator[Union[AWSCTrail, Node]]:
+) -> Iterator[AWSCTrail | Node]:
     for trail in trails_iterator:
         multi_reg = trail.inner.get("IsMultiRegionTrail")
         if not isinstance(multi_reg, Node):
@@ -105,7 +106,7 @@ def _cfn_trails_not_multiregion_iterate_vulnerabilities(
 def _cfn_ec2_monitoring_disabled_iterate_vulnerabilities(
     file_ext: str,
     res_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for res in res_iterator:
         monitoring = res.inner.get("Monitoring")
         if monitoring is None:
@@ -121,7 +122,7 @@ def _cfn_ec2_monitoring_disabled_iterate_vulnerabilities(
 def _cfn_elb2_has_access_logs_s3_disabled_iterate_vulnerabilities(
     file_ext: str,
     load_balancers_iterator: Iterator[Node],
-) -> Iterator[Union[AWSElbV2, Node]]:
+) -> Iterator[AWSElbV2 | Node]:
     for elb in load_balancers_iterator:
         attrs = elb.inner.get("LoadBalancerAttributes")
         if not isinstance(attrs, Node):

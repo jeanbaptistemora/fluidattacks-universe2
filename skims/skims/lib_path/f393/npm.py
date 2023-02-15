@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from frozendict import (
     frozendict,
 )
@@ -14,9 +17,6 @@ from model.core_model import (
 )
 from parse_json import (
     loads_blocking as json_loads_blocking,
-)
-from typing import (
-    Iterator,
 )
 
 
