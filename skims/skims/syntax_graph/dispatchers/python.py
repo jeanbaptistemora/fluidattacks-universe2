@@ -42,6 +42,7 @@ from syntax_graph.syntax_readers.python import (
     raise_statement as python_raise_statement,
     reserved_word as python_reserved_word,
     return_statement as python_return_statement,
+    splat_pattern as python_splat_pattern,
     string_literal as python_string_literal,
     subscript as python_subscript,
     try_statement as python_try_statement,
@@ -333,6 +334,13 @@ PYTHON_DISPATCHERS: Dispatchers = (
             "yield",
         },
         syntax_reader=python_return_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "list_splat_pattern",
+            "dictionary_splat_pattern",
+        },
+        syntax_reader=python_splat_pattern.reader,
     ),
     Dispatcher(
         applicable_types={

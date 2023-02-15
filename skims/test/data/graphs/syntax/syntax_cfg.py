@@ -1,3 +1,7 @@
+import asyncio
+from collections.abc import (
+    Callable,
+)
 from itertools import (
     accumulate,
     chain,
@@ -70,6 +74,9 @@ def comprehensions() -> None:
     except IndexError as err:
         if str(err) == "Error":
             print("Error")
+    finally:
+        # some code that should always execute
+        print("This code will always execute!")
 
 
 def get_artifact(env_var: str) -> str:
@@ -85,7 +92,8 @@ def get_fields_by_language() -> None:
     for lang in ["spanish", "english"]:
         if len(lang) < 3:
             continue
-
+        if not lang.startswith("s"):
+            break
         path: str = os.path.join(TREE_SITTER_PARSERS, f"{lang}-fields.json")
         with open(path, encoding="utf-8") as file:
             FIELDS_BY_LANGUAGE[lang] = json.load(file)
@@ -97,3 +105,40 @@ def capital_case(country_name: str) -> str:
 
 def test_capital_case() -> None:
     assert capital_case("semaphore") == "Semaphore"
+
+
+def my_decorator(func: Callable) -> Callable:
+    def wrapper() -> None:
+        print("Before the function is called.")
+        func()
+        print("After the function is called.")
+
+    return wrapper
+
+
+@my_decorator
+def say_hello() -> None:
+    print("Hello!")
+
+
+async def my_async_function() -> None:
+    print("Start")
+    await asyncio.sleep(1)  # Wait for one second
+    print("End")
+
+
+def all_parameters(
+    *args: int,
+    positional_arg: str = "hello",
+    default_arg: str = "world",
+    keyword_only_arg: int,
+    **kwargs: str,
+) -> None:
+    print("positional_arg:", positional_arg)
+    print("default_arg:", default_arg)
+    print("args:", args)
+    print("keyword_only_arg:", keyword_only_arg)
+    print("kwargs:", kwargs)
+
+
+all_parameters(3, 4, keyword_only_arg=42, another_key="hi")
