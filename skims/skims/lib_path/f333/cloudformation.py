@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEC2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -21,15 +24,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
     file_ext: str,
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         if "IamInstanceProfile" not in ec2_res.inner:
             yield AWSEC2(
@@ -41,7 +42,7 @@ def _cfn_ec2_has_not_an_iam_instance_profile_iterate_vulnerabilities(
 
 def _cfn_ec2_associate_public_ip_address_iter_vulns(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         if hasattr(ec2_res, "raw") and "LaunchTemplateData" in ec2_res.raw:
             ec2_res = ec2_res.inner.get("LaunchTemplateData")
@@ -66,7 +67,7 @@ def _cfn_ec2_associate_public_ip_address_iter_vulns(
 def _cfn_ec2_has_terminate_shutdown_behavior_iter_vulns(
     file_ext: str,
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         if launch_temp_data := ec2_res.inner.get("LaunchTemplateData"):
             if shut_behavior := launch_temp_data.inner.get(

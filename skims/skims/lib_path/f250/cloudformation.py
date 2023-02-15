@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEC2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -21,15 +24,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
     file_ext: str,
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         if hasattr(ec2_res, "raw") and "Encrypted" not in ec2_res.raw:
             yield AWSEC2(
@@ -55,7 +56,7 @@ def _cfn_ec2_has_unencrypted_volumes_iterate_vulnerabilities(
 def _cfn_ec2_instance_unencrypted_ebs_block_devices_iter_vulns(
     file_ext: str,
     res_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for res in res_iterator:
         if encrypted := res.inner.get("Encrypted"):
             if hasattr(encrypted, "raw") and encrypted.raw not in TRUE_OPTIONS:

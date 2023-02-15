@@ -1,6 +1,9 @@
 from aws.model import (
     AWSDynamoDBTable,
 )
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -21,8 +24,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -32,7 +33,7 @@ from utils.function import (
 def _cfn_has_not_point_in_time_recovery_iterate_vulnerabilities(
     file_ext: str,
     tables_iterator: Iterator[Node],
-) -> Iterator[Union[AWSDynamoDBTable, Node]]:
+) -> Iterator[AWSDynamoDBTable | Node]:
     values = ["false", "False", False, "0", 0]
     for table in tables_iterator:
         pt_recovery = get_node_by_keys(

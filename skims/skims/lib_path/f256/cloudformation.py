@@ -1,6 +1,9 @@
 from aws.model import (
     AWSRdsCluster,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -19,8 +22,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -28,8 +29,8 @@ from utils.function import (
 
 
 def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
-    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
-) -> Iterator[Union[AWSRdsCluster, Node]]:
+    rds_iterator: Iterator[AWSRdsCluster | Node],
+) -> Iterator[AWSRdsCluster | Node]:
     for rds_res in rds_iterator:
         ret_period = get_node_by_keys(
             rds_res, ["BackupRetentionPeriod"]  # type: ignore
@@ -45,7 +46,7 @@ def _cfn_rds_has_not_automated_backups_iterate_vulnerabilities(
 def _cfn_rds_has_not_termination_protection_iterate_vulnerabilities(
     file_ext: str,
     rds_iterator: Iterator[Node],
-) -> Iterator[Union[AWSRdsCluster, Node]]:
+) -> Iterator[AWSRdsCluster | Node]:
     for rds_res in rds_iterator:
         del_protection_node = get_node_by_keys(rds_res, ["DeletionProtection"])
         if isinstance(del_protection_node, Node):

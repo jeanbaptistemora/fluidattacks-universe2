@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -6,10 +9,6 @@ from lib_path.f346.android import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -25,8 +24,8 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
 
     if (file_name, file_extension) == ("AndroidManifest", "xml"):
         results = (run_has_dangerous_permissions(content_generator(), path),)

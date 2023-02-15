@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -12,8 +15,6 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    Tuple,
 )
 
 COMMANDS_REGEX = [
@@ -34,7 +35,7 @@ def get_container_image(content: str) -> bool:
 
 
 def container_without_user(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         no_line = (0, 0)
         has_user = False
         for _, line in enumerate(content.splitlines(), start=1):
@@ -53,7 +54,7 @@ def container_without_user(content: str, path: str) -> Vulnerabilities:
 
 
 def container_with_user_root(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         for line_number, line in enumerate(content.splitlines(), start=1):
             if re.match(r"^USER root", line):
                 yield (line_number, 0)
@@ -67,7 +68,7 @@ def container_with_user_root(content: str, path: str) -> Vulnerabilities:
     )
 
 
-def _docker_compose_without_user(template: Node) -> Iterator[Tuple[int, int]]:
+def _docker_compose_without_user(template: Node) -> Iterator[tuple[int, int]]:
     if (  # pylint: disable=too-many-boolean-expressions
         isinstance(template, Node)
         and (hasattr(template.inner, "get"))

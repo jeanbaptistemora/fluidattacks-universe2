@@ -1,6 +1,9 @@
 from aws.model import (
     AWSRdsCluster,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -19,8 +22,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -30,7 +31,7 @@ from utils.function import (
 def _cfn_rds_has_unencrypted_storage_iterate_vulnerabilities(
     file_ext: str,
     rds_iterator: Iterator[Node],
-) -> Iterator[Union[AWSRdsCluster, Node]]:
+) -> Iterator[AWSRdsCluster | Node]:
     for red_res in rds_iterator:
         st_enc_node = get_node_by_keys(red_res, ["StorageEncrypted"])
         if isinstance(st_enc_node, Node):

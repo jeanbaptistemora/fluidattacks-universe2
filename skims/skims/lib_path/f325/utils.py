@@ -10,6 +10,9 @@ from aws.model import (
 from aws.services import (
     ACTIONS_NEW,
 )
+from collections.abc import (
+    Iterator,
+)
 from metaloaders.model import (
     Node,
 )
@@ -19,22 +22,17 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    List,
-    Optional,
-    Pattern,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
 )
 
-WILDCARD_ACTION: Pattern = re.compile(r"^((\*)|(\w+:\*))$")
+WILDCARD_ACTION: re.Pattern = re.compile(r"^((\*)|(\w+:\*))$")
 
 
 def permissive_policy_iterate_vulnerabilities(
-    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
+) -> Iterator[AWSIamPolicyStatement | Node]:
     for stmt in statements_iterator:
         stmt_raw = (
             stmt.raw
@@ -70,15 +68,15 @@ def permissive_policy_iterate_vulnerabilities(
             yield stmt
 
 
-def get_wildcard_nodes(act_res: Node, pattern: Pattern) -> Iterator[Node]:
-    for act in act_res.data if isinstance(act_res.raw, List) else [act_res]:
+def get_wildcard_nodes(act_res: Node, pattern: re.Pattern) -> Iterator[Node]:
+    for act in act_res.data if isinstance(act_res.raw, list) else [act_res]:
         if pattern.match(act.raw):
             yield act
 
 
 def cfn_kms_key_has_master_keys_exposed_to_everyone_iter_vulns(
     keys_iterator: Iterator[Node],
-) -> Iterator[Union[AWSKmsKey, Node]]:
+) -> Iterator[AWSKmsKey | Node]:
     for key in keys_iterator:
         statements = get_node_by_keys(key, ["KeyPolicy", "Statement"])
         if not statements:
@@ -116,7 +114,7 @@ def _policy_actions_has_privilege(action_node: Node) -> bool:
     return False
 
 
-def _resource_all(resource_node: Node) -> Optional[Node]:
+def _resource_all(resource_node: Node) -> Node | None:
     """Check if an action is permitted for any resource."""
     resources = (
         resource_node.data
@@ -148,7 +146,7 @@ def _policy_statement_privilege(statements: Node) -> Iterator[Node]:
 
 def cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
     iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         policies = (
             iam_res.inner["Policies"].data
@@ -165,7 +163,7 @@ def cfn_iam_has_wildcard_resource_on_write_action_iter_vulns(
 
 def cfn_iam_has_wildcard_resource_on_write_action_trust_policies(
     iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
             statements = (
@@ -186,7 +184,7 @@ def policy_document_actions_wilrcard(stmt: Node) -> Iterator[Node]:
 
 def cfn_iam_is_policy_actions_wildcard(
     iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         if pol_document := iam_res.inner.get("PolicyDocument"):
             statements = pol_document.inner.get("Statement")
@@ -222,7 +220,7 @@ def _check_policy_documents(
 def cfn_iam_permissions_policies_checks(
     iam_iterator: Iterator[Node],
     method: MethodsEnum,
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         policies = iam_res.inner.get("Policies")
         yield from _check_policy_documents(policies, method)
@@ -254,7 +252,7 @@ def check_assume_role_policies(
 def iam_trust_policies_checks(
     iam_iterator: Iterator[Node],
     method: MethodsEnum,
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for iam_res in iam_iterator:
         if assume_role_policy := iam_res.inner.get("AssumeRolePolicyDocument"):
             yield from check_assume_role_policies(

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from kubernetes.structure import (
     get_containers_capabilities,
     get_label_and_data,
@@ -15,12 +18,6 @@ from metaloaders.model import (
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
-)
-from typing import (
-    Dict,
-    Iterator,
-    List,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -42,7 +39,7 @@ def _k8s_check_add_capability(
             yield cap_add[0]
 
 
-def get_allow_privileges_findings(tag: Node) -> Union[Node, None]:
+def get_allow_privileges_findings(tag: Node) -> Node | None:
     has_security_context: bool = False
     for node, node_data in tag.data.items():
         if node.data == "securityContext":
@@ -60,7 +57,7 @@ def get_allow_privileges_findings(tag: Node) -> Union[Node, None]:
 def _k8s_allow_privilege_escalation_enabled(
     template: Node,
 ) -> Iterator[Node]:
-    vulns_found: List[Node] = []
+    vulns_found: list[Node] = []
     for container in iter_containers_type(template):
         for container_props in container:
             if finding := get_allow_privileges_findings(container_props):
@@ -69,7 +66,7 @@ def _k8s_allow_privilege_escalation_enabled(
     yield from vulns_found
 
 
-def _k8s_check_pod_root_container(template: Node) -> Union[Node, None]:
+def _k8s_check_pod_root_container(template: Node) -> Node | None:
     if (pod_spec := get_pod_spec(template)) and (
         pod_root := get_node_by_keys(
             pod_spec, ["securityContext", "runAsNonRoot"]
@@ -80,8 +77,8 @@ def _k8s_check_pod_root_container(template: Node) -> Union[Node, None]:
 
 
 def get_container_root_vuln_line(  # NOSONAR
-    container_ctx: Dict[Node, Node], pod_has_safe_config: bool
-) -> Union[Node, None]:
+    container_ctx: dict[Node, Node], pod_has_safe_config: bool
+) -> Node | None:
     for sec_ctx, ctx_element in container_ctx.items():
         if container_non_root := ctx_element.inner.get("runAsNonRoot"):
             if not container_non_root.data:
@@ -93,7 +90,7 @@ def get_container_root_vuln_line(  # NOSONAR
 
 def _k8s_check_container_root(
     container_props: Node, pod_has_safe_config: bool
-) -> Union[Node, None]:
+) -> Node | None:
     if container_ctx := get_label_and_data(container_props, "securitycontext"):
         if vuln := get_container_root_vuln_line(
             container_ctx, pod_has_safe_config
@@ -123,7 +120,7 @@ def _k8s_root_container(
                 yield vuln
 
 
-def get_read_only_findings(tag: Node) -> Union[Node, None]:
+def get_read_only_findings(tag: Node) -> Node | None:
     has_security_context: bool = False
     for node, node_data in tag.data.items():
         if node.data == "securityContext":
@@ -141,7 +138,7 @@ def get_read_only_findings(tag: Node) -> Union[Node, None]:
 def _k8s_root_filesystem_read_only(
     template: Node,
 ) -> Iterator[Node]:
-    vulns_found: List[Node] = []
+    vulns_found: list[Node] = []
     for container in iter_containers_type(template):
         for container_props in container:
             if finding := get_read_only_findings(container_props):
@@ -159,7 +156,7 @@ def _k8s_check_run_as_user(
             yield as_user
 
 
-def _k8s_check_pod_seccomp(template: Node) -> Union[Node, None]:
+def _k8s_check_pod_seccomp(template: Node) -> Node | None:
     if (pod_spec := get_pod_spec(template)) and (
         pod_type := get_node_by_keys(
             pod_spec, ["securityContext", "seccompProfile", "type"]
@@ -170,8 +167,8 @@ def _k8s_check_pod_seccomp(template: Node) -> Union[Node, None]:
 
 
 def get_seccomp_vuln_line(  # NOSONAR
-    container_ctx: Dict[Node, Node], pod_has_safe_config: bool
-) -> Union[Node, None]:
+    container_ctx: dict[Node, Node], pod_has_safe_config: bool
+) -> Node | None:
     for sec_ctx, ctx_element in container_ctx.items():
         if container_seccomp_profile := ctx_element.inner.get(
             "seccompProfile"
@@ -183,7 +180,7 @@ def get_seccomp_vuln_line(  # NOSONAR
                 elif not pod_has_safe_config:
                     return container_type
             elif not pod_has_safe_config:
-                seccomp_node: Union[Dict[Node, Node], None]
+                seccomp_node: dict[Node, Node] | None
                 if seccomp_node := get_label_and_data(
                     ctx_element, "seccompprofile"
                 ):
@@ -195,7 +192,7 @@ def get_seccomp_vuln_line(  # NOSONAR
 
 def _k8s_check_container_seccomp(
     container_props: Node, pod_has_safe_config: bool
-) -> Union[Node, None]:
+) -> Node | None:
     if container_ctx := get_label_and_data(container_props, "securitycontext"):
         if vuln := get_seccomp_vuln_line(container_ctx, pod_has_safe_config):
             return vuln

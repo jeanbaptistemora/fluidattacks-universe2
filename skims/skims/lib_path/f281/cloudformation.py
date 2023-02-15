@@ -1,6 +1,9 @@
 from aws.model import (
     AWSS3BucketPolicy,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -19,18 +22,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Optional,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
 )
 
 
-def aux_cfn_bucket_policy(
-    secure_transport: Optional[Node], effect: str
-) -> bool:
+def aux_cfn_bucket_policy(secure_transport: Node | None, effect: str) -> bool:
     if isinstance(secure_transport, Node) and (
         (effect == "Deny" and secure_transport.raw in TRUE_OPTIONS)
         or (effect == "Allow" and secure_transport.raw in FALSE_OPTIONS)
@@ -41,7 +39,7 @@ def aux_cfn_bucket_policy(
 
 def _cfn_bucket_policy_has_secure_transport_iterate_vulnerabilities(
     policies_iterator: Iterator[Node],
-) -> Iterator[Union[AWSS3BucketPolicy, Node]]:
+) -> Iterator[AWSS3BucketPolicy | Node]:
     for policy in policies_iterator:
         statements = get_node_by_keys(policy, ["PolicyDocument", "Statement"])
         if not statements:

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSS3Bucket,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -18,8 +21,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -29,7 +30,7 @@ from utils.function import (
 def _cfn_s3_bucket_versioning_disabled_iterate_vulnerabilities(
     file_ext: str,
     res_iterator: Iterator[Node],
-) -> Iterator[Union[AWSS3Bucket, Node]]:
+) -> Iterator[AWSS3Bucket | Node]:
     for res in res_iterator:
         bck_config = get_node_by_keys(
             res, ["VersioningConfiguration", "Status"]

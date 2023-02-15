@@ -1,6 +1,9 @@
 from aws.model import (
     AWSS3Bucket,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -17,14 +20,12 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_public_buckets_iterate_vulnerabilities(
     buckets_iterator: Iterator[Node],
-) -> Iterator[Union[AWSS3Bucket, Node]]:
+) -> Iterator[AWSS3Bucket | Node]:
     for bucket in buckets_iterator:
         if (
             hasattr(bucket, "raw")

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     SHIELD_BLOCKING,
@@ -13,8 +16,6 @@ from parse_cfn.loader import (
 )
 from typing import (
     Any,
-    Callable,
-    Tuple,
 )
 
 
@@ -33,8 +34,8 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
 
     if file_extension in EXTENSIONS_CLOUDFORMATION:
         content = content_generator()

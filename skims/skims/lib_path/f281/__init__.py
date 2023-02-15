@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
     EXTENSIONS_TERRAFORM,
@@ -20,8 +23,6 @@ from parse_hcl2.loader import (
 )
 from typing import (
     Any,
-    Callable,
-    Tuple,
 )
 
 
@@ -49,8 +50,8 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
 
     content = content_generator()
     if file_extension in EXTENSIONS_CLOUDFORMATION:

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -11,9 +14,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Dict,
-    Iterator,
-    Tuple,
 )
 from utils.function import (
     get_node_by_keys,
@@ -23,7 +23,7 @@ from utils.function import (
 def check_port(port: Node) -> bool:
     port_80 = False
     protocol_tcp = False
-    if isinstance(port.data, Dict):
+    if isinstance(port.data, dict):
         for key, val in port.data.items():
             if (
                 isinstance(key, Node)
@@ -44,7 +44,7 @@ def check_port(port: Node) -> bool:
     return False
 
 
-def _kubernetes_insecure_port(template: Node) -> Iterator[Tuple[int, int]]:
+def _kubernetes_insecure_port(template: Node) -> Iterator[tuple[int, int]]:
     if (
         isinstance(template, Node)
         and hasattr(template, "raw")

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEC2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -19,15 +22,13 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_ec2_has_not_termination_protection_iterate_vulnerabilities(
     file_ext: str,
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2 in ec2_iterator:
         ec2_res_data = ec2.inner.get("LaunchTemplateData") or ec2
         if (

@@ -1,4 +1,7 @@
 import bs4
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -6,16 +9,11 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
-from typing import (
-    Iterator,
-    Set,
-    Tuple,
-)
 
 
 def has_dangerous_permissions(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
-        dangerous_permissions: Set[str] = {
+    def iterator() -> Iterator[tuple[int, int]]:
+        dangerous_permissions: set[str] = {
             "android.permission.ACCEPT_HANDOVER",
             "android.permission.ACCESS_BACKGROUND_LOCATION",
             "android.permission.ACCESS_COARSE_LOCATION",

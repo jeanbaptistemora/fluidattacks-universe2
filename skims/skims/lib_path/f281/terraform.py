@@ -1,6 +1,9 @@
 from aws.model import (
     AWSIamPolicyStatement,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     FALSE_OPTIONS,
     get_cloud_iterator,
@@ -16,7 +19,6 @@ from parse_hcl2.structure.aws import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 from utils.function import (
     get_dict_values,

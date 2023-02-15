@@ -1,6 +1,9 @@
 from aws.model import (
     AWSSecretsManagerSecret,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -17,8 +20,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -76,8 +77,8 @@ def get_insecure_generate_secret_vulns(
 
 
 def _cfn_insecure_generate_secret_string_iterate_vulnerabilities(
-    secrets_iterator: Iterator[Union[AWSSecretsManagerSecret, Node]],
-) -> Iterator[Union[AWSSecretsManagerSecret, Node]]:
+    secrets_iterator: Iterator[AWSSecretsManagerSecret | Node],
+) -> Iterator[AWSSecretsManagerSecret | Node]:
     for secret in secrets_iterator:
         gen_secret_str = get_node_by_keys(
             secret, ["GenerateSecretString"]  # type: ignore

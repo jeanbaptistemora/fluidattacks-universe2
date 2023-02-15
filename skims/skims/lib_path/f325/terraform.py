@@ -4,6 +4,9 @@ from aws.model import (
 from aws.services import (
     ACTIONS_NEW,
 )
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -25,7 +28,6 @@ from parse_hcl2.structure.aws import (
 import re
 from typing import (
     Any,
-    Iterator,
 )
 
 
