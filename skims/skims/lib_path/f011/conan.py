@@ -51,3 +51,19 @@ def conan_conanfile_py(content: str, path: str) -> Iterator[DependencyType]:
             yield format_pkg_dep(
                 pkg_name, pkg_version, line_number, line_number
             )
+
+
+# pylint: disable=unused-argument
+@pkg_deps_to_vulns(Platform.CONAN, MethodsEnum.CONAN_CONANINFO_TXT)
+def conan_conaninfo_txt(content: str, path: str) -> Iterator[DependencyType]:
+    line_deps: bool = False
+    for line_number, line in enumerate(content.splitlines(), 1):
+        if line.startswith("[requires]"):
+            line_deps = True
+        elif line_deps:
+            if not line:
+                break
+            pkg_name, pkg_version = get_dep_info(line)
+            yield format_pkg_dep(
+                pkg_name, pkg_version, line_number, line_number
+            )
