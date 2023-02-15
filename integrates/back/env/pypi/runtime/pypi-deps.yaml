@@ -10,7 +10,7 @@ ariadne:
   version: 0.17.1
   extras:
     - file-uploads
-async-lru: 1.0.2
+async-lru: 1.0.3
 atlassian-python-api: 3.32.2
 Authlib: 0.15.6
 azure-devops: 6.0.0b4

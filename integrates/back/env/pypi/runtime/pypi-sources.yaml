@@ -12,7 +12,7 @@ closure:
   arch-lint: 2.1.1
   ariadne: 0.17.1
   asgiref: 3.6.0
-  async-lru: 1.0.2
+  async-lru: 1.0.3
   async-timeout: 4.0.2
   atlassian-python-api: 3.32.2
   attrs: 22.2.0
@@ -140,7 +140,7 @@ closure:
   tomli: 2.0.1
   twilio: 7.7.0
   types-deprecated: 1.2.9
-  typing-extensions: 4.4.0
+  typing-extensions: 4.5.0
   unidiff: 0.6.0
   urllib3: 1.26.14
   uvloop: 0.17.0
@@ -268,9 +268,12 @@ links:
   - name: asgiref-3.6.0.tar.gz
     sha256: 01lmjidadid0czd32d2c21lb6q78ri0pr0i74a4qqg4dppkxyrwm
     url: https://files.pythonhosted.org/packages/78/2d/797c0537426266d6c9377a2ed6a4ac61e50c2d5b1ab4da101a4b9bfe26e2/asgiref-3.6.0.tar.gz
-  - name: async_lru-1.0.2.tar.gz
-    sha256: 1jvplhv57byilm08jsi0p91xzh2g1vq9cvwnnwqwrx8rfq19ia5s
-    url: https://files.pythonhosted.org/packages/7e/c1/a3d6207deaaeb582d16dc9a0fd217f192efc9487ce59897131cf9a2bdc1c/async_lru-1.0.2.tar.gz
+  - name: async_lru-1.0.3-py3-none-any.whl
+    sha256: 0p21gxdqaxysx8bfd6jww09nyqw32np0s8qd4vzi2qpb7wq2qsga
+    url: https://files.pythonhosted.org/packages/7e/31/a374a167be43c68e369ab954b4bf843f63484b6e1a739f90109a2d6864fb/async_lru-1.0.3-py3-none-any.whl
+  - name: async-lru-1.0.3.tar.gz
+    sha256: 0ankphghvzdgfwv64wvdb47gjnvi1ys58wbi7v7yc57b2llrpjy2
+    url: https://files.pythonhosted.org/packages/fe/67/4cb179c14ffa8b4a35fbe02255744bee4cbbaf61b35612c96ba4a618e4d5/async-lru-1.0.3.tar.gz
   - name: async_timeout-4.0.2-py3-none-any.whl
     sha256: 0g1v719nh6l516d6f7cq3j2zbz9cwhbf99ficqyl21qdypyf98cc
     url: https://files.pythonhosted.org/packages/d6/c1/8991e7c5385b897b8c020cdaad718c5b087a6626d1d11a23e1ea87e325a7/async_timeout-4.0.2-py3-none-any.whl
@@ -1303,12 +1306,12 @@ links:
   - name: types-Deprecated-1.2.9.tar.gz
     sha256: 1ymn1cwm0b9ij252myk8rns64chj423w7p4ikqsnb62h564yak70
     url: https://files.pythonhosted.org/packages/45/2f/c0e57815699277d3ecb3cc974c4ffee0afc37a593437328766a42a525dd2/types-Deprecated-1.2.9.tar.gz
-  - name: typing_extensions-4.4.0-py3-none-any.whl
-    sha256: 17j8jbywq5cjgh6354wyh9y47cvrbyw1hqj9xhsmsrcg81j4iyhn
-    url: https://files.pythonhosted.org/packages/0b/8e/f1a0a5a76cfef77e1eb6004cb49e5f8d72634da638420b9ea492ce8305e8/typing_extensions-4.4.0-py3-none-any.whl
-  - name: typing_extensions-4.4.0.tar.gz
-    sha256: 1al7634rq9zqw1s7d1nbry0l23c05s0wrc8jihcxvy1bp55l648m
-    url: https://files.pythonhosted.org/packages/e3/a7/8f4e456ef0adac43f452efc2d0e4b242ab831297f1bac60ac815d37eb9cf/typing_extensions-4.4.0.tar.gz
+  - name: typing_extensions-4.5.0-py3-none-any.whl
+    sha256: 1d0ijp0h547p1zg34jpx03fyxcx8jg1fnc8ldp0qm6fx75f0hczv
+    url: https://files.pythonhosted.org/packages/31/25/5abcd82372d3d4a3932e1fa8c3dbf9efac10cc7c0d16e78467460571b404/typing_extensions-4.5.0-py3-none-any.whl
+  - name: typing_extensions-4.5.0.tar.gz
+    sha256: 1jx7ki3sji60v7h2805b2phq9ynsvshj5xiygdh9kmirj6kz9daw
+    url: https://files.pythonhosted.org/packages/d3/20/06270dac7316220643c32ae61694e451c98f8caf4c8eab3aa80a2bedf0df/typing_extensions-4.5.0.tar.gz
   - name: unidiff-0.6.0-py2.py3-none-any.whl
     sha256: 121sv4hl6clm9vqxi7d92yzf6ycwsbrb4ca9w98l7k1c95m9bpg1
     url: https://files.pythonhosted.org/packages/da/9f/39b58c6c029bedb759d6ba1cf3e8ae56908513c4d4c7f423498724229f2c/unidiff-0.6.0-py2.py3-none-any.whl

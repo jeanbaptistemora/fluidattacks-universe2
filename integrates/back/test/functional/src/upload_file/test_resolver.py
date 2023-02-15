@@ -493,7 +493,7 @@ async def test_upload_file_oneshot_able(populate: bool, email: str) -> None:
         group="group1",
         has_squad="false",
         has_machine="false",
-        subscription=GroupSubscriptionType.ONESHOT,
+        subscription=GroupSubscriptionType.ONESHOT.value,
     )
     assert "errors" not in mutation_1
     assert mutation_1["data"]["updateGroup"]["success"]
@@ -513,7 +513,7 @@ async def test_upload_file_oneshot_able(populate: bool, email: str) -> None:
         group="group1",
         has_squad="false",
         has_machine="false",
-        subscription=GroupSubscriptionType.CONTINUOUS,
+        subscription=GroupSubscriptionType.CONTINUOUS.value,
     )
     assert "errors" not in mutation_2
     assert mutation_2["data"]["updateGroup"]["success"]
