@@ -30,13 +30,13 @@ const NavbarInnerContainer: StyledComponent<
     relative
     w-100
     z-5
-    mw-1366
     mr-auto
     ml-auto
     h-navbar
-    ph-body
   `,
-})``;
+})`
+  max-width: 1266px;
+`;
 
 const NavbarList: StyledComponent<
   "ul",

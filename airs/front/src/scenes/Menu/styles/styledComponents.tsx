@@ -1,3 +1,4 @@
+/* eslint import/no-namespace:0 */
 import type { StyledComponent } from "styled-components";
 import styled from "styled-components";
 
@@ -39,7 +40,6 @@ const MenuMobileInnerContainer: StyledComponent<
   top-0
   z-max
   overflow-y-auto
-  fadein
   `,
 })`
   background-color: #ffffff;
@@ -53,6 +53,7 @@ const MenuFootContainer = styled.div.attrs({
   left-0
   bottom-0
   fixed
+  fadein
   `,
 })<{ display: boolean }>`
   display: ${({ display }): string => (display ? "flex" : "none")};
@@ -62,9 +63,49 @@ const MenuFootContainer = styled.div.attrs({
   height: 90px;
 `;
 
+const ContainerWithSlide = styled.div.attrs({
+  classname: `
+  w-auto
+  `,
+})<{ display: boolean }>`
+  display: ${({ display }): string => (display ? "block" : "none")};
+
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  animation: fadeInRight 0.4s ease-in-out;
+`;
+
+const SlideMenu = styled.div.attrs({
+  classname: ``,
+})<{ display: boolean; status: number }>`
+  height: 300px;
+  display: ${({ display }): string => (display ? "block" : "none")};
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0%);
+    }
+  }
+  animation: ${({ status }): string =>
+    status > 1 ? "fadeInLeft 0.4s ease-in-out" : ""};
+`;
+
 export {
+  ContainerWithSlide,
   MenuFootContainer,
   MenuMobileContainer,
   MenuMobileInnerContainer,
   NavbarContainer,
+  SlideMenu,
 };
