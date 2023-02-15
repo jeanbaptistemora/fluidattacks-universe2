@@ -729,6 +729,9 @@ def _validate_git_root_url(root: GitRoot, gitignore: list[str]) -> None:
         raise InvalidRootExclusion()
 
 
+@validation_utils.validate_field_exist_deco("environment")
+@validation_utils.validate_fields_deco(["url"])
+@validation_utils.validate_sanitized_csv_input_deco(["url", "environment"])
 async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     loaders: Dataloaders,
     user_email: str,
@@ -742,8 +745,6 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
 
-    validation_utils.validate_fields([url])
-    validation_utils.validate_sanitized_csv_input(kwargs["environment"], url)
     if not (
         isinstance(root, GitRoot)
         and root.state.status == RootStatus.ACTIVE
@@ -751,9 +752,6 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
-
-    if not kwargs["environment"]:
-        raise InvalidParameter("environment")
 
     if kwargs.get("nickname") and kwargs.get("nickname") != nickname:
         validation_utils.validate_sanitized_csv_input(kwargs["nickname"])
