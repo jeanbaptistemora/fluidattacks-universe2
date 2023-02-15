@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f034.common import (
     weak_random,
 )
@@ -13,9 +16,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def js_weak_random(
@@ -23,7 +23,7 @@ def js_weak_random(
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_WEAK_RANDOM
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVASCRIPT,
         ):

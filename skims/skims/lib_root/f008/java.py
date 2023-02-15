@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from model import (
     core_model,
     graph_model,
@@ -19,10 +23,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    Set,
 )
 from utils import (
     graph as g,
@@ -65,7 +65,7 @@ def unsafe_xss_content(
     java = GraphLanguage.JAVA
     danger_methods = {"format", "write", "println", "printf", "print"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):
             if shard.syntax_graph is None:
                 continue

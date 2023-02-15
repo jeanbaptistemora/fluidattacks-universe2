@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -15,11 +19,6 @@ from sast.query import (
 from symbolic_eval.utils import (
     get_object_identifiers,
 )
-from typing import (
-    Iterable,
-    List,
-    Optional,
-)
 from utils import (
     graph as g,
 )
@@ -29,8 +28,8 @@ from utils.string import (
 
 
 def is_insec_squema(
-    graph: Graph, n_id: str, identifiers: List[str]
-) -> Optional[NId]:
+    graph: Graph, n_id: str, identifiers: Iterable[str]
+) -> NId | None:
     if not (
         (split_expr := split_last(graph.nodes[n_id].get("expression")))
         and split_expr[0] in identifiers
@@ -55,7 +54,7 @@ def xsl_transform_object(
     method = MethodsEnum.CS_XSL_TRANSFORM_OBJECT
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -84,7 +83,7 @@ def schema_by_url(
     method = MethodsEnum.CS_SCHEMA_BY_URL
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

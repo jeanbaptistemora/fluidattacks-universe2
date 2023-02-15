@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_argument,
     get_attr_from_block,
@@ -20,11 +23,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Iterator,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
@@ -42,7 +40,7 @@ VULNERABLE_MIN_PROT_VERSIONS = [
 
 def _azure_serves_content_over_insecure_protocols(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_attr = "min_tls_version"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, c_id)
@@ -53,7 +51,7 @@ def _azure_serves_content_over_insecure_protocols(
     return nid
 
 
-def _aws_elb_without_sslpolicy(graph: Graph, nid: NId) -> Optional[NId]:
+def _aws_elb_without_sslpolicy(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "ssl_policy"
     is_vuln = True
     for c_id in adj_ast(graph, nid, label_type="Pair"):
@@ -101,7 +99,7 @@ def tfm_aws_serves_content_over_insecure_protocols(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AWS_INSEC_PROTO
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -126,7 +124,7 @@ def tfm_azure_serves_content_over_insecure_protocols(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_INSEC_PROTO
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -151,7 +149,7 @@ def tfm_aws_elb_without_sslpolicy(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AWS_ELB_WITHOUT_SSLPOLICY
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

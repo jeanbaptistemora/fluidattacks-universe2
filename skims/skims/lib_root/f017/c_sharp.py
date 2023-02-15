@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
@@ -22,17 +26,13 @@ from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
 )
-from typing import (
-    Iterable,
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
 def is_insecure_decoder(
-    graph: Graph, n_id: str, obj_identifiers: List[str]
+    graph: Graph, n_id: str, obj_identifiers: Iterable[str]
 ) -> bool:
     method = MethodsEnum.CS_VERIFY_DECODER
     exp = graph.nodes[n_id]["expression"]
@@ -69,7 +69,7 @@ def verify_decoder(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_VERIFY_DECODER
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -98,7 +98,7 @@ def jwt_signed(
     method = MethodsEnum.CS_JWT_SIGNED
     object_name = {"JwtBuilder"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

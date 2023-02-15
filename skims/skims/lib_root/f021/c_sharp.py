@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
 )
@@ -23,9 +26,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
-)
-from typing import (
-    Iterable,
 )
 
 
@@ -54,7 +54,7 @@ def xpath_injection(
     c_sharp = GraphLanguage.CSHARP
     danger_meths = {"SelectSingleNode"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -85,7 +85,7 @@ def xpath_injection_evaluate(
     c_sharp = GraphLanguage.CSHARP
     danger_meths = {"Evaluate"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

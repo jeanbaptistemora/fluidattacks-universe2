@@ -11,16 +11,13 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
-def remote_command_exec_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def remote_command_exec_nodes(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_methods = {"execSync", "exec"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):

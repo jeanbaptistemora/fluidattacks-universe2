@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f008.common import (
     unsafe_xss_content_nodes,
 )
@@ -15,9 +18,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def unsafe_xss_content(
@@ -26,7 +26,7 @@ def unsafe_xss_content(
     javascript = GraphLanguage.JAVASCRIPT
     method = MethodsEnum.JS_UNSAFE_XSS_CONTENT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(javascript):
             if shard.syntax_graph is None:
                 continue

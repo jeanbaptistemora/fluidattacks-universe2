@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,10 +19,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
@@ -27,7 +26,7 @@ from utils.graph import (
 
 def _iam_user_missing_role_based_security(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_attr = "name"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
         key, _ = get_key_value(graph, c_id)
@@ -36,7 +35,7 @@ def _iam_user_missing_role_based_security(
     return None
 
 
-def _iam_excessive_privileges(graph: Graph, nid: NId) -> Optional[NId]:
+def _iam_excessive_privileges(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "managed_policy_arns"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
         key, _ = get_key_value(graph, c_id)
@@ -56,7 +55,7 @@ def tfm_iam_user_missing_role_based_security(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_IAM_MISSING_SECURITY
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -79,7 +78,7 @@ def tfm_iam_excessive_privileges(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_ADMIN_MANAGED_POLICIES
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

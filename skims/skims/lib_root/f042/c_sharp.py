@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
     yield_syntax_graph_object_creation,
@@ -22,16 +25,12 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils import (
     graph as g,
 )
 
 
-def is_insecure_cookie_object(graph: Graph, object_nid: str) -> Optional[NId]:
+def is_insecure_cookie_object(graph: Graph, object_nid: str) -> NId | None:
     method = MethodsEnum.CS_INSEC_COOKIES
     security_props = {"HttpOnly", "Secure"}
 
@@ -62,7 +61,7 @@ def insecurely_generated_cookies(
     method = MethodsEnum.CS_INSEC_COOKIES
     object_name = {"HttpCookie"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.CSHARP,
         ):

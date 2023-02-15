@@ -2,16 +2,13 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
-def crypto_credentials(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def crypto_credentials(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_methods = {
         "cryptojs.enc.base64.parse",
         "cryptojs.enc.utf16.parse",

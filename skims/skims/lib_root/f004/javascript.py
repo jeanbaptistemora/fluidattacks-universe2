@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f004.common import (
     remote_command_exec_nodes,
 )
@@ -15,9 +18,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def remote_command_execution(
@@ -26,7 +26,7 @@ def remote_command_execution(
     javascript = GraphLanguage.JAVASCRIPT
     method = MethodsEnum.JS_REMOTE_COMMAND_EXECUTION
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(javascript):
             if shard.syntax_graph is None:
                 continue

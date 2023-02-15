@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     iterate_resource,
 )
@@ -15,10 +18,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
@@ -26,7 +25,7 @@ from utils.graph import (
 
 def _azure_linux_vm_insecure_authentication(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_block = "admin_ssh_key"
     if len(adj_ast(graph, nid, name=expected_block)) == 0:
         return nid
@@ -35,7 +34,7 @@ def _azure_linux_vm_insecure_authentication(
 
 def _azure_virtual_machine_insecure_authentication(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_block = "os_profile_linux_config"
     expected_block_attr = "ssh_keys"
     for c_id in adj_ast(graph, nid, name=expected_block):
@@ -49,7 +48,7 @@ def tfm_azure_virtual_machine_insecure_authentication(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_VM_INSEC_AUTH
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -76,7 +75,7 @@ def tfm_azure_linux_vm_insecure_authentication(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_LNX_VM_INSEC_AUTH
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

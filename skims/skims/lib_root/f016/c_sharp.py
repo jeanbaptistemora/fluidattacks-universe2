@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
@@ -24,11 +28,6 @@ from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
 )
-from typing import (
-    Iterable,
-    List,
-    Optional,
-)
 from utils import (
     graph as g,
 )
@@ -45,7 +44,7 @@ def get_eval_danger(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     return False
 
 
-def is_point_manager_vulnerable(graph: Graph, n_id: str) -> Optional[NId]:
+def is_point_manager_vulnerable(graph: Graph, n_id: str) -> NId | None:
     method = MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
     member_str = (
         "Switch.System.ServiceModel."
@@ -64,7 +63,7 @@ def is_point_manager_vulnerable(graph: Graph, n_id: str) -> Optional[NId]:
 
 
 def is_insecure_protocol(
-    graph: Graph, n_id: str, obj_identifiers: List[str]
+    graph: Graph, n_id: str, obj_identifiers: Iterable[str]
 ) -> bool:
     method = MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
     if (
@@ -82,7 +81,7 @@ def weak_protocol(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_WEAK_PROTOCOL
 
-    def n_ids() -> Iterable[MetadataGraphShardNode]:
+    def n_ids() -> Iterator[MetadataGraphShardNode]:
         metadata = {}
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
@@ -123,7 +122,7 @@ def service_point_manager_disabled(
     method = MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -151,7 +150,7 @@ def insecure_shared_access_protocol(
     method = MethodsEnum.CS_INSECURE_SHARED_ACCESS_PROTOCOL
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -180,7 +179,7 @@ def httpclient_no_revocation_list(
     method = MethodsEnum.CS_HTTPCLIENT_NO_REVOCATION_LIST
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

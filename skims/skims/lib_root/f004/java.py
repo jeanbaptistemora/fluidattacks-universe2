@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model import (
     core_model,
     graph_model,
@@ -19,9 +22,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -47,7 +47,7 @@ def remote_command_execution(
     java = GraphLanguage.JAVA
     danger_methods = {"command", "exec", "start"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):
             if shard.syntax_graph is None:
                 continue

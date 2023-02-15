@@ -11,9 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -28,8 +25,8 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def weak_random(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def weak_random(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for n_id in g.matching_nodes(
         graph,
         label_type="MethodInvocation",

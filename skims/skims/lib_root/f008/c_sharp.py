@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from itertools import (
     chain,
 )
@@ -23,11 +27,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    Iterator,
-    Set,
 )
 from utils import (
     graph as g,
@@ -65,7 +64,7 @@ def insec_addheader_write(
     danger_methods = {"AddHeader", "Write"}
     danger_members = {"StatusDescription"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

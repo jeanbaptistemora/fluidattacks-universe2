@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -18,10 +22,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
-)
-from typing import (
-    Iterable,
-    Set,
 )
 from utils import (
     graph as g,
@@ -62,8 +62,8 @@ def check_no_password_argument(triggers: Set[str]) -> bool:
     return False
 
 
-def get_weak_policies_ids(graph: Graph, n_id: NId) -> Set[NId]:
-    weak_nodes: Set[NId] = set()
+def get_weak_policies_ids(graph: Graph, n_id: NId) -> set[NId]:
+    weak_nodes: set[NId] = set()
     parent_id = g.pred(graph, n_id)[0]
     al_id = graph.nodes[parent_id].get("arguments_id")
     opt_id = g.match_ast(graph, al_id).get("__0__")
@@ -83,9 +83,9 @@ def get_weak_policies_ids(graph: Graph, n_id: NId) -> Set[NId]:
     return weak_nodes
 
 
-def get_vuln_nodes(graph: Graph) -> Set[NId]:
+def get_vuln_nodes(graph: Graph) -> set[NId]:
     config_options = "Configure<IdentityOptions>"
-    vuln_nodes: Set[NId] = set()
+    vuln_nodes: set[NId] = set()
     for nid in g.matching_nodes(
         graph,
         label_type="MemberAccess",
@@ -110,7 +110,7 @@ def get_eval_danger(graph: Graph, n_id: NId) -> bool:
 def weak_credential_policy(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.CSHARP,
         ):
@@ -136,7 +136,7 @@ def no_password(
     c_sharp = GraphLanguage.CSHARP
     bad_types = {"Microsoft", "EntityFrameworkCore", "DbContextOptionsBuilder"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

@@ -11,10 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-    Tuple,
-)
 from utils import (
     graph as g,
 )
@@ -34,7 +30,7 @@ def is_node_vuln(
 
 
 def is_insecure_param(
-    graph: Graph, params_ids: Tuple, method: MethodsEnum
+    graph: Graph, params_ids: tuple, method: MethodsEnum
 ) -> bool:
     for p_id in params_ids:
         n_attrs = graph.nodes[p_id]
@@ -46,8 +42,8 @@ def is_insecure_param(
     return False
 
 
-def is_insecure_cookie(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def is_insecure_cookie(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
         n_attrs = graph.nodes[n_id]

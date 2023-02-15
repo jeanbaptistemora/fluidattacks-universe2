@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_object_creation,
 )
@@ -22,9 +25,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -73,7 +73,7 @@ def sql_injection(
     danger_objects = {"SqlCommand"}
     method = MethodsEnum.CS_SQL_INJECTION
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -100,7 +100,7 @@ def sql_user_params(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_UNSAFE_SQL_STATEMENT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):

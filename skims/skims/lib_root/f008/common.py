@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from model.core_model import (
     MethodsEnum,
 )
@@ -10,10 +13,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    List,
-    Set,
 )
 from utils import (
     graph as g,
@@ -34,8 +33,8 @@ def is_node_vuln(
     return False
 
 
-def unsafe_xss_content_nodes(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def unsafe_xss_content_nodes(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_set = {"userconnection"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):

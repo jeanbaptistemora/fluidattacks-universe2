@@ -17,9 +17,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -37,8 +34,8 @@ def get_eval_danger(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def insecure_dynamic_xpath(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_dynamic_xpath(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_methods = {"select", "parse"}
     if not (
         file_imports_module(graph, "fs")
