@@ -18,7 +18,11 @@ const ServiceMenu: React.FC<IServiceProps> = ({
   const { width } = useWindowSize();
 
   return (
-    <Container bgColor={"#ffffff"} display={display}>
+    <Container
+      bgColor={"#ffffff"}
+      display={display}
+      shadowBottom={width > 1240}
+    >
       <Container
         display={width > 960 ? "flex" : "block"}
         height={"max-content"}
