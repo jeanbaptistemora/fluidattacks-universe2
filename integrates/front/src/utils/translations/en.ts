@@ -2795,7 +2795,7 @@ export const enTranslations: ResourceKey = {
     mediumSeverity: "Medium",
     noFindingsFound: {
       subtitle: "Soon you will see the findings here",
-      title: "We are testing your application to find vilnerabilities",
+      title: "We are testing your application to find vulnerabilities",
     },
     noneSeverity: "None",
     notificationTable: {

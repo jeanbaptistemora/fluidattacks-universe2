@@ -46,6 +46,7 @@ import {
 import { REMOVE_FINDING_MUTATION } from "../../Finding-Content/queries";
 import { formatPercentage } from "../ToeContent/GroupToeLinesView/utils";
 import { Button } from "components/Button";
+import { Empty } from "components/Empty";
 import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Select } from "components/Input";
@@ -53,6 +54,7 @@ import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
+import { searchingFindings } from "resources";
 import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { RiskExposureTour } from "scenes/Dashboard/components/RiskExposureTour/RiskExposureTour";
 import { GET_FINDINGS } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
@@ -527,68 +529,77 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      <Table
-        columnToggle={true}
-        columnVisibilitySetter={setColumnVisibility}
-        columnVisibilityState={columnVisibility}
-        columns={tableColumns}
-        data={filteredFindings}
-        expandedRow={handleRowExpand}
-        extraButtons={
-          <React.Fragment>
-            <Can do={"api_mutations_remove_finding_mutate"}>
-              <Tooltip
-                id={"searchFindings.delete.btn.tooltip"}
-                tip={t("searchFindings.delete.btn.tooltip")}
-              >
-                <Button
-                  disabled={selectedFindings.length === 0 || deleting}
-                  icon={faTrashAlt}
-                  onClick={openDeleteModal}
+      {!loading && _.isEmpty(findings) ? (
+        <Empty
+          srcImage={searchingFindings}
+          subtitle={t("searchFindings.noFindingsFound.subtitle")}
+          title={t("searchFindings.noFindingsFound.title")}
+        />
+      ) : (
+        <Table
+          columnToggle={true}
+          columnVisibilitySetter={setColumnVisibility}
+          columnVisibilityState={columnVisibility}
+          columns={tableColumns}
+          data={filteredFindings}
+          expandedRow={handleRowExpand}
+          extraButtons={
+            <React.Fragment>
+              <Can do={"api_mutations_remove_finding_mutate"}>
+                <Tooltip
+                  id={"searchFindings.delete.btn.tooltip"}
+                  tip={t("searchFindings.delete.btn.tooltip")}
                 >
-                  {t("searchFindings.delete.btn.text")}
-                </Button>
-              </Tooltip>
-            </Can>
-            <Can I={"api_resolvers_query_report__get_url_group_report"}>
-              <Tooltip
-                id={"group.findings.report.btn.tooltip.id"}
-                tip={t("group.findings.report.btn.tooltip")}
-              >
-                <Button
-                  icon={faArrowRight}
-                  iconSide={"right"}
-                  id={"reports"}
-                  onClick={openReportsModal}
-                  variant={"primary"}
+                  <Button
+                    disabled={selectedFindings.length === 0 || deleting}
+                    icon={faTrashAlt}
+                    onClick={openDeleteModal}
+                  >
+                    {t("searchFindings.delete.btn.text")}
+                  </Button>
+                </Tooltip>
+              </Can>
+              <Can I={"api_resolvers_query_report__get_url_group_report"}>
+                <Tooltip
+                  id={"group.findings.report.btn.tooltip.id"}
+                  tip={t("group.findings.report.btn.tooltip")}
                 >
-                  {t("group.findings.report.btn.text")}
-                </Button>
-              </Tooltip>
-            </Can>
-          </React.Fragment>
-        }
-        filters={
-          <Filters
-            dataset={findings}
-            filters={filters}
-            permaset={[filterVal, setFilterVal]}
-            setFilters={setFilters}
-          />
-        }
-        id={"tblFindings"}
-        onRowClick={goToFinding}
-        onSearch={handleSearch}
-        rowSelectionSetter={
-          permissions.can("api_mutations_remove_finding_mutate")
-            ? setSelectedFindings
-            : undefined
-        }
-        rowSelectionState={selectedFindings}
-        searchPlaceholder={t("searchFindings.searchPlaceholder")}
-        sortingSetter={setSorting}
-        sortingState={sorting}
-      />
+                  <Button
+                    icon={faArrowRight}
+                    iconSide={"right"}
+                    id={"reports"}
+                    onClick={openReportsModal}
+                    variant={"primary"}
+                  >
+                    {t("group.findings.report.btn.text")}
+                  </Button>
+                </Tooltip>
+              </Can>
+            </React.Fragment>
+          }
+          filters={
+            <Filters
+              dataset={findings}
+              filters={filters}
+              permaset={[filterVal, setFilterVal]}
+              setFilters={setFilters}
+            />
+          }
+          id={"tblFindings"}
+          onRowClick={goToFinding}
+          onSearch={handleSearch}
+          rowSelectionSetter={
+            permissions.can("api_mutations_remove_finding_mutate")
+              ? setSelectedFindings
+              : undefined
+          }
+          rowSelectionState={selectedFindings}
+          searchPlaceholder={t("searchFindings.searchPlaceholder")}
+          sortingSetter={setSorting}
+          sortingState={sorting}
+        />
+      )}
+
       <ReportsModal
         enableCerts={hasMachine && filledGroupInfo}
         isOpen={isReportsModalOpen}
