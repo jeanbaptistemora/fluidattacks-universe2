@@ -1989,7 +1989,7 @@ class MethodsEnum(Enum):
     TFM_AWS_INSEC_PROTO = MethodInfo(
         file_name="terraform",
         name="tfm_aws_serves_content_over_insecure_protocols",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F016,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

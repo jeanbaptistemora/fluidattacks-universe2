@@ -261,7 +261,22 @@ F016,lines,namespace/skims/test/data/lib_path/f016/cfn_serves_content_over_insec
   53 |
      ^ Col 8
 ",cloudformation.cfn_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
+F016,lines,namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,"
+   1 | resource ""azurerm_storage_account"" ""example"" {
+   2 |   name                     = ""storageaccountname""
+   3 |   resource_group_name      = azurerm_resource_group.example.name
+   4 |   location                 = azurerm_resource_group.example.location
+   5 |   account_tier             = ""Standard""
+   6 |   account_replication_type = ""GRS""
+>  7 |   min_tls_version          = ""TLS1_0""
+   8 |
+   9 |   tags = {
+  10 |     environment = ""staging""
+  11 |   }
+  12 | }
+     ^ Col 0
+",terraform.tfm_azure_serves_content_over_insecure_protocols
+F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,9,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,"
    1 | resource ""aws_cloudfront_distribution"" ""my_distribution"" {
    2 |
    3 |   origin {
@@ -285,7 +300,7 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,9,326,skims,016. Inse
   21 |     prefix          = ""myprefix""
      ^ Col 0
 ",terraform.tfm_aws_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_path/f016/test.tf,"
+F016,lines,namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,26,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/tfm_aws_serves_content_over_insecure_protocols.tf,"
    8 |       origin_protocol_policy = ""match-viewer""
    9 |       origin_ssl_protocols   = [""TLSv1"", ""TLSv1.1"", ""TLSv1.2""]
   10 |     }
@@ -309,21 +324,6 @@ F016,lines,namespace/skims/test/data/lib_path/f016/test.tf,26,326,skims,016. Ins
   28 | }
      ^ Col 0
 ",terraform.tfm_aws_serves_content_over_insecure_protocols
-F016,lines,namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,7,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of an insecure protocol in namespace/skims/test/data/lib_root/f016/azurerm_storage_account_test.tf,"
-   1 | resource ""azurerm_storage_account"" ""example"" {
-   2 |   name                     = ""storageaccountname""
-   3 |   resource_group_name      = azurerm_resource_group.example.name
-   4 |   location                 = azurerm_resource_group.example.location
-   5 |   account_tier             = ""Standard""
-   6 |   account_replication_type = ""GRS""
->  7 |   min_tls_version          = ""TLS1_0""
-   8 |
-   9 |   tags = {
-  10 |     environment = ""staging""
-  11 |   }
-  12 | }
-     ^ Col 0
-",terraform.tfm_azure_serves_content_over_insecure_protocols
 F016,lines,namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs (Tls),10,326,skims,016. Insecure encryption algorithm - SSL/TLS,The application makes use of the Tls protocol which is insecure in namespace/skims/test/data/lib_root/f016/c_sharp_weak_protocol.cs,"
    1 |
    2 |

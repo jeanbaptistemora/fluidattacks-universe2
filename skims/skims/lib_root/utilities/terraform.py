@@ -15,6 +15,16 @@ from utils.graph import (
 )
 
 
+def get_attr_from_block(
+    graph: Graph, nid: NId, expected_block: str, expected_attr: str
+) -> Optional[Tuple[Optional[str], str, NId]]:
+    if argument := get_argument(graph, nid, expected_block):
+        attr_key, _, attr_id = get_attribute(graph, argument, expected_attr)
+        if attr_key:
+            return attr_key, "", attr_id
+    return None
+
+
 def get_argument(graph: Graph, nid: NId, expected_block: str) -> Optional[str]:
     for block_id in adj_ast(graph, nid, label_type="Object"):
         name = graph.nodes[block_id].get("name")
@@ -50,3 +60,12 @@ def iterate_resource(graph: Graph, expected_resource: str) -> Iterator[NId]:
         name = graph.nodes[nid].get("name")
         if name and name == expected_resource:
             yield nid
+
+
+def list_has_string(graph: Graph, nid: NId, value: str) -> bool:
+    child_ids = adj_ast(graph, nid)
+    for c_id in child_ids:
+        curr_value = graph.nodes[c_id].get("value")
+        if curr_value and curr_value == value:
+            return True
+    return False
