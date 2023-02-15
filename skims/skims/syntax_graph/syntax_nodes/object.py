@@ -11,7 +11,10 @@ from typing import (
 
 
 def build_object_node(
-    args: SyntaxGraphArgs, c_ids: Iterator[NId], name: Optional[str] = None
+    args: SyntaxGraphArgs,
+    c_ids: Iterator[NId],
+    name: Optional[str] = None,
+    tf_reference: Optional[str] = None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -20,6 +23,9 @@ def build_object_node(
 
     if name:
         args.syntax_graph.nodes[args.n_id]["name"] = name
+
+    if tf_reference:
+        args.syntax_graph.nodes[args.n_id]["tf_reference"] = tf_reference
 
     for c_id in c_ids:
         args.syntax_graph.add_edge(

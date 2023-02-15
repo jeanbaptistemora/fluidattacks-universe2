@@ -5555,7 +5555,8 @@
           },
           "131": {
             "label_type": "Object",
-            "name": "aws_s3_bucket_policy"
+            "name": "aws_s3_bucket_policy",
+            "tf_reference": "aws_s3_bucket_policy.s3_bucket"
           },
           "144": {
             "key_id": "145",
@@ -5742,11 +5743,13 @@
           },
           "3": {
             "label_type": "Object",
-            "name": "aws_s3_bucket"
+            "name": "aws_s3_bucket",
+            "tf_reference": "aws_s3_bucket.s3_bucket"
           },
           "36": {
             "label_type": "Object",
-            "name": "aws_s3_bucket_website_configuration"
+            "name": "aws_s3_bucket_website_configuration",
+            "tf_reference": "aws_s3_bucket_website_configuration.s3_bucket"
           },
           "49": {
             "key_id": "50",
@@ -5803,7 +5806,8 @@
           },
           "95": {
             "label_type": "Object",
-            "name": "aws_s3_bucket_acl"
+            "name": "aws_s3_bucket_acl",
+            "tf_reference": "aws_s3_bucket_acl.s3_bucket"
           }
         }
       }

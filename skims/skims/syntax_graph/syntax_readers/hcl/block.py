@@ -10,6 +10,7 @@ from syntax_graph.types import (
 from utils.graph import (
     adj_ast,
     match_ast_d,
+    match_ast_group,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -23,13 +24,17 @@ def reader(args: SyntaxGraphArgs) -> NId:
     }
     graph = args.ast_graph
 
-    name_id = match_ast_d(graph, args.n_id, "string_lit")
+    identifiers_id = match_ast_group(graph, args.n_id, "string_lit")
     name = ""
-    if name_id:
-        name = node_to_str(graph, str(name_id))[1:-1]
+    tf_reference = None
+    if len(identifiers_id["string_lit"]) == 2:
+        name_id = identifiers_id["string_lit"]
+        name = node_to_str(graph, str(name_id[0]))[1:-1]
+        reference = node_to_str(graph, str(name_id[1]))[1:-1]
+        tf_reference = f"{name}.{reference}"
     else:
-        name_id = match_ast_d(graph, args.n_id, "identifier")
-        name = node_to_str(graph, str(name_id))
+        identifier = match_ast_d(graph, args.n_id, "identifier")
+        name = node_to_str(graph, str(identifier))
 
     body_id = match_ast_d(graph, args.n_id, "body")
 
@@ -43,4 +48,5 @@ def reader(args: SyntaxGraphArgs) -> NId:
             if graph.nodes[_id]["label_type"] in valid_parameters
         ),
         name=name,
+        tf_reference=tf_reference,
     )
