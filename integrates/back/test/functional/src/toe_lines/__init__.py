@@ -18,6 +18,7 @@ def get_query() -> str:
             $bePresent: Boolean
             $comments: String
             $fromAttackedAt: DateTime
+            $fromBePresentUntil: DateTime
             $fromFirstAttackAt: DateTime
             $fromModifiedDate: DateTime
             $fromSeenAt: DateTime
@@ -33,6 +34,7 @@ def get_query() -> str:
             $minSortsRiskLevel: Int
             $rootId: ID
             $toAttackedAt: DateTime
+            $toBePresentUntil: DateTime
             $toFirstAttackAt: DateTime
             $toModifiedDate: DateTime
             $toSeenAt: DateTime
@@ -44,6 +46,7 @@ def get_query() -> str:
                     bePresent: $bePresent
                     comments: $comments
                     fromAttackedAt: $fromAttackedAt
+                    fromBePresentUntil: $fromBePresentUntil
                     fromFirstAttackAt: $fromFirstAttackAt
                     fromModifiedDate: $fromModifiedDate
                     fromSeenAt: $fromSeenAt
@@ -58,6 +61,7 @@ def get_query() -> str:
                     minSortsRiskLevel: $minSortsRiskLevel
                     rootId: $rootId
                     toAttackedAt: $toAttackedAt
+                    toBePresentUntil: $toBePresentUntil
                     toFirstAttackAt: $toFirstAttackAt
                     toModifiedDate: $toModifiedDate
                     toSeenAt: $toSeenAt

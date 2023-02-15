@@ -213,7 +213,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     attacked_by="test3@test.com",
                     attacked_lines=120,
                     be_present=True,
-                    be_present_until=None,
+                    be_present_until=datetime.fromisoformat(
+                        "2022-01-19T15:41:04+00:00"
+                    ),
                     comments="comment 3",
                     first_attack_at=datetime.fromisoformat(
                         "2020-01-14T15:41:04+00:00"
