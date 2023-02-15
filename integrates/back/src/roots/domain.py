@@ -729,6 +729,30 @@ def _validate_git_root_url(root: GitRoot, gitignore: list[str]) -> None:
         raise InvalidRootExclusion()
 
 
+@validations.validate_git_root_deco("root")
+@validations.validate_active_root_deco("root")
+def _check_repeated_root(
+    *,
+    url: str,
+    branch: str,
+    group_name: str,
+    root: GitRoot,
+    root_vulnerabilities: Any,
+    organization_roots: Iterable[Root],
+) -> None:
+    if url != root.state.url:
+        if root_vulnerabilities:
+            raise HasVulns()
+        if not validations.is_git_unique(
+            url,
+            branch,
+            group_name,
+            organization_roots,
+            include_inactive=True,
+        ):
+            raise RepeatedRoot()
+
+
 @validation_utils.validate_field_exist_deco("environment")
 @validation_utils.validate_fields_deco(["url"])
 @validation_utils.validate_sanitized_csv_input_deco(["url", "environment"])
@@ -740,15 +764,13 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     root_id: str = kwargs["id"]
     group_name = str(kwargs["group_name"]).lower()
     group: Group = await loaders.group.load(group_name)
-    root = await get_root(loaders, root_id, group_name)
+    root: GitRoot = cast(GitRoot, await get_root(loaders, root_id, group_name))
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
     nickname: str = root.state.nickname
 
     if not (
-        isinstance(root, GitRoot)
-        and root.state.status == RootStatus.ACTIVE
-        and validations.is_valid_url(url)
+        validations.is_valid_url(url)
         and validations.is_valid_git_branch(branch)
     ):
         raise InvalidParameter()
@@ -762,21 +784,19 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         )
         nickname = kwargs["nickname"]
 
-    if url != root.state.url:
-        if await loaders.root_vulnerabilities.load(root.id):
-            raise HasVulns()
-        organization = await orgs_utils.get_organization(
-            loaders, group.organization_id
-        )
-        organization_name = organization.name
-        if not validations.is_git_unique(
-            url,
-            branch,
-            group_name,
-            await loaders.organization_roots.load(organization_name),
-            include_inactive=True,
-        ):
-            raise RepeatedRoot()
+    organization = await orgs_utils.get_organization(
+        loaders, group.organization_id
+    )
+    _check_repeated_root(
+        url=url,
+        branch=branch,
+        group_name=group_name,
+        root=root,
+        root_vulnerabilities=await loaders.root_vulnerabilities.load(root.id),
+        organization_roots=await loaders.organization_roots.load(
+            organization.name
+        ),
+    )
 
     health_check_changed: bool = (
         kwargs["includes_health_check"] != root.state.includes_health_check
