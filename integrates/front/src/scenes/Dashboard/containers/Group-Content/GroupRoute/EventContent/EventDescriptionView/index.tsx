@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { Fragment, useCallback, useState } from "react";
@@ -38,7 +38,7 @@ import {
 } from "styles/styledComponents";
 import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
-import { EditableField, FormikDropdown, FormikText } from "utils/forms/fields";
+import { EditableField, FormikText } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { composeValidators, required } from "utils/validations";
@@ -621,8 +621,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                   </ControlLabel>
                                 </EditableFieldTitle50>
                                 <Col50>
-                                  <Field
-                                    component={FormikDropdown}
+                                  <Select
                                     name={"solvingReason"}
                                     validate={composeValidators([required])}
                                   >
@@ -637,7 +636,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                         </option>
                                       )
                                     )}
-                                  </Field>
+                                  </Select>
                                   {values.solvingReason === "OTHER" ? (
                                     <Fragment>
                                       <br />
