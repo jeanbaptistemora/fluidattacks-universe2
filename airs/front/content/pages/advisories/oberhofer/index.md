@@ -92,11 +92,7 @@ cookie to the attacker's server logs.
 
 ![vulnerability-orangescrum](https://user-images.githubusercontent.com/51862990/216176343-4430e676-1622-4af1-a866-3f773e6f6682.png)
 
-<video width="835" height="505" controls>
-    <source src="https://rb.gy/yvhpbc"
-    type="video/mp4">
-    <p>POC-XSS-OrangeScrum</p>
-</video>
+![POC-XSS-OrangeScrum](https://user-images.githubusercontent.com/51862990/219088654-19f5e13c-908f-4db1-b458-c2e23783e92b.gif)
 
 ![cookie-leak-orangescrum](https://user-images.githubusercontent.com/51862990/216176496-96c7ad03-4a72-4eb3-adad-1f614f8ff508.png)
 
