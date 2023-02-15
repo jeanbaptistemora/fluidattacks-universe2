@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+)
 from contextlib import (
     suppress,
 )
@@ -22,11 +25,7 @@ from serializers import (
 import textwrap
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
     NamedTuple,
-    Union,
 )
 from vulnerabilities import (
     build_inputs_vuln,
@@ -47,13 +46,13 @@ class Location(NamedTuple):
 
 
 class Locations(NamedTuple):
-    locations: List[Location]
+    locations: list[Location]
 
     def append(
         self,
         desc: str,
         snippet: str,
-        **desc_kwargs: Union[core_model.LocalesEnum, Any],
+        **desc_kwargs: core_model.LocalesEnum | Any,
     ) -> None:
         self.locations.append(
             Location(
@@ -175,9 +174,9 @@ def _check_dns_records(ctx: DNSCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-CHECKS: Dict[
+CHECKS: dict[
     core_model.FindingEnum,
-    List[Callable[[DNSCheckCtx], core_model.Vulnerabilities]],
+    list[Callable[[DNSCheckCtx], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F182: [_check_dns_records],
 }

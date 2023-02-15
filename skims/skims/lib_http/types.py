@@ -1,9 +1,7 @@
 import aiohttp
 import bs4
 from typing import (
-    Dict,
     NamedTuple,
-    Optional,
 )
 from urllib.parse import (
     ParseResult,
@@ -14,13 +12,13 @@ from urllib.parse import (
 class URLContext(NamedTuple):
     components: ParseResult
     content: str
-    custom_f023: Optional[aiohttp.ClientResponse]
+    custom_f023: aiohttp.ClientResponse | None
     has_redirect: bool
-    headers_raw: Dict[str, str]
+    headers_raw: dict[str, str]
     is_html: bool
     original_url: str
     soup: bs4.BeautifulSoup
-    timestamp_ntp: Optional[float]
+    timestamp_ntp: float | None
     url: str
     response_status: int
 

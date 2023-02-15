@@ -5,6 +5,10 @@ from __future__ import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 import contextlib
 from lib_http.types import (
     URLContext,
@@ -23,12 +27,7 @@ from serializers import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Union,
 )
 from urllib.parse import (
     urlparse,
@@ -53,7 +52,7 @@ class Location(NamedTuple):
         cls: Any,
         tag: Tag,
         desc: str,
-        desc_kwargs: Optional[Dict[str, Union[LocalesEnum, Any]]] = None,
+        desc_kwargs: dict[str, LocalesEnum | Any] | None = None,
     ) -> Location:
         return Location(
             column=tag.sourcepos,
@@ -70,7 +69,7 @@ class ContentCheckCtx(NamedTuple):
 
 
 def build_vulnerabilities(
-    locations: List[Location],
+    locations: Iterable[Location],
     ctx: ContentCheckCtx,
     method: MethodsEnum,
 ) -> core_model.Vulnerabilities:
@@ -103,7 +102,7 @@ def build_vulnerabilities(
 def _sub_resource_integrity(
     ctx: ContentCheckCtx,
 ) -> core_model.Vulnerabilities:
-    locations: List[Location] = []
+    locations: list[Location] = []
 
     for script in ctx.url.soup.find_all("script"):
         if not script.get("integrity") and (src := script.get("src")):
@@ -132,7 +131,7 @@ def _sub_resource_integrity(
 
 
 def _view_state(ctx: ContentCheckCtx) -> core_model.Vulnerabilities:
-    locations: List[Location] = []
+    locations: list[Location] = []
 
     for tag in ctx.url.soup.find_all("input"):
         if tag.get("name") == "__VIEWSTATE" and (value := tag.get("value")):
@@ -160,9 +159,9 @@ def get_check_ctx(url: URLContext) -> ContentCheckCtx:
     )
 
 
-CHECKS: Dict[
+CHECKS: dict[
     core_model.FindingEnum,
-    List[Callable[[ContentCheckCtx], core_model.Vulnerabilities]],
+    list[Callable[[ContentCheckCtx], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F036: [_view_state],
     core_model.FindingEnum.F086: [_sub_resource_integrity],

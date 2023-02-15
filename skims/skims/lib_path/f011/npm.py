@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from frozendict import (
     frozendict,
 )
@@ -17,10 +20,6 @@ from more_itertools import (
 )
 from parse_json import (
     loads_blocking as json_loads_blocking,
-)
-from typing import (
-    Iterator,
-    Tuple,
 )
 
 
@@ -104,7 +103,7 @@ def npm_yarn_lock(content: str, path: str) -> Iterator[DependencyType]:
 
     except FileNotFoundError:
         windower: Iterator[
-            Tuple[Tuple[int, str], Tuple[int, str]],
+            tuple[tuple[int, str], tuple[int, str]],
         ] = windowed(  # type: ignore
             fillvalue="",
             n=2,

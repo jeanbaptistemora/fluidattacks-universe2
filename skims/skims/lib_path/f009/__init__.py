@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     EXTENSIONS_JAVA_PROPERTIES,
     EXTENSIONS_YAML,
@@ -27,8 +30,6 @@ from parse_cfn.loader import (
 )
 from typing import (
     Any,
-    Callable,
-    Tuple,
 )
 
 
@@ -79,10 +80,10 @@ def analyze(
     file_name: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
 
     content = content_generator()
-    results: Tuple[Vulnerabilities, ...] = ()
+    results: tuple[Vulnerabilities, ...] = ()
 
     if file_extension in {
         "groovy",

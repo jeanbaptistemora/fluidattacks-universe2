@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -8,37 +12,33 @@ from model.core_model import (
     Platform,
 )
 import re
-from typing import (
-    Dict,
-    Iterator,
-    List,
-    Match,
-    Pattern,
-    Tuple,
-)
 
-GO_DIRECTIVE: Pattern[str] = re.compile(r"(?P<directive>require|replace) \(")
-GO_MOD_DEP: Pattern[str] = re.compile(
+GO_DIRECTIVE: re.Pattern[str] = re.compile(
+    r"(?P<directive>require|replace) \("
+)
+GO_MOD_DEP: re.Pattern[str] = re.compile(
     r"^\s+(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
-GO_REPLACE: Pattern[str] = re.compile(
+GO_REPLACE: re.Pattern[str] = re.compile(
     r"^\s+(?P<old_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<old_ver>\S+))?\s=>"
     r"\s(?P<new_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<new_ver>\S+))?$"
 )
-GO_REP_DEP: Pattern[str] = re.compile(
+GO_REP_DEP: re.Pattern[str] = re.compile(
     r"replace\s(?P<old_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<old_ver>\S+))?\s=>"
     r"\s(?P<new_prod>.+?/[\w\-\.~]+?)(/v\d+)?(\sv(?P<new_ver>\S+))?$"
 )
-GO_REQ_MOD_DEP: Pattern[str] = re.compile(
+GO_REQ_MOD_DEP: re.Pattern[str] = re.compile(
     r"require\s(?P<product>.+?/[\w\-\.~]+?)(/v\d+)?\sv(?P<version>\S+)"
 )
-GO_VERSION: Pattern[str] = re.compile(
+GO_VERSION: re.Pattern[str] = re.compile(
     r"\ngo (?P<major>\d)\.(?P<minor>\d+)(\.\d+)?\n"
 )
 
 
 def add_require(
-    matched: Match[str], req_dict: Dict[str, DependencyType], line_number: int
+    matched: re.Match[str],
+    req_dict: dict[str, DependencyType],
+    line_number: int,
 ) -> None:
     product = matched.group("product")
     version = matched.group("version")
@@ -48,8 +48,8 @@ def add_require(
 
 
 def replace_req(
-    req_dict: Dict[str, DependencyType],
-    replace_list: List[Tuple[Match[str], int]],
+    req_dict: dict[str, DependencyType],
+    replace_list: Iterable[tuple[re.Match[str], int]],
 ) -> Iterator[DependencyType]:
     for matched, line_number in replace_list:
         old_pkg = matched.group("old_prod")
@@ -67,8 +67,8 @@ def replace_req(
 
 def resolve_go_deps(content: str) -> Iterator[DependencyType]:
     go_req_directive: str = ""
-    replace_list: List[Tuple[Match[str], int]] = []
-    req_dict: Dict[str, DependencyType] = {}
+    replace_list: list[tuple[re.Match[str], int]] = []
+    req_dict: dict[str, DependencyType] = {}
     for line_number, line in enumerate(content.splitlines(), 1):
         if matched := GO_REQ_MOD_DEP.search(line):
             add_require(matched, req_dict, line_number)

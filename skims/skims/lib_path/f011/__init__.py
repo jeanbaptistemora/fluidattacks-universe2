@@ -1,4 +1,7 @@
 import bs4
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -40,10 +43,6 @@ from lib_path.f011.pub import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -154,7 +153,7 @@ def analyze(  # noqa: MC0001
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
     if file_extension == "xml" and _is_pom_xml(content_generator()):
         return (run_maven_pom_xml(content_generator(), path),)
 
@@ -180,7 +179,7 @@ def analyze_2(  # noqa: MC0001
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
+) -> tuple[Vulnerabilities, ...]:
     # pylint: disable=too-many-return-statements
     if (file_name, file_extension) == ("packages", "config"):
         return (run_nuget_pkgs_config(content_generator(), path),)

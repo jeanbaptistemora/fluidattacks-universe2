@@ -1,4 +1,7 @@
 import bs4
+from collections.abc import (
+    Iterator,
+)
 import glob
 from lib_path.common import (
     DependencyType,
@@ -12,11 +15,6 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Dict,
-    Iterator,
-    List,
-    Pattern,
-    Tuple,
 )
 from utils.fs import (
     get_file_content_block,
@@ -28,8 +26,8 @@ TEXT = r'[^"\']+'
 WS = r"\s*"
 
 # Regexes
-RE_LINE_COMMENT: Pattern[str] = re.compile(r"^.*" rf"{WS}//" r".*$")
-RE_GRADLE_A: Pattern[str] = re.compile(
+RE_LINE_COMMENT: re.Pattern[str] = re.compile(r"^.*" rf"{WS}//" r".*$")
+RE_GRADLE_A: re.Pattern[str] = re.compile(
     r"^.*"
     rf"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
     rf"group{WS}:{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}"
@@ -37,13 +35,13 @@ RE_GRADLE_A: Pattern[str] = re.compile(
     rf"(?:,{WS}version{WS}:{WS}{QUOTE}(?P<version>{TEXT}){QUOTE}{WS})?"
     rf".*$"
 )
-RE_GRADLE_B: Pattern[str] = re.compile(
+RE_GRADLE_B: re.Pattern[str] = re.compile(
     r"^.*"
     rf"{WS}(?:compile|compileOnly|implementation){WS}[(]?{WS}"
     rf"{QUOTE}(?P<statement>{TEXT}){QUOTE}"
     rf".*$"
 )
-RE_SBT: Pattern[str] = re.compile(
+RE_SBT: re.Pattern[str] = re.compile(
     r"^[^%]*"
     rf"{WS}{QUOTE}(?P<group>{TEXT}){QUOTE}{WS}%"
     rf"{WS}{QUOTE}(?P<name>{TEXT}){QUOTE}{WS}%"
@@ -52,7 +50,7 @@ RE_SBT: Pattern[str] = re.compile(
 )
 
 
-def _get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
+def _get_properties(root: bs4.BeautifulSoup) -> dict[str, str]:
     return {
         property.name.lower(): property.get_text()
         for properties in root.find_all("properties", limit=2)
@@ -61,7 +59,7 @@ def _get_properties(root: bs4.BeautifulSoup) -> Dict[str, str]:
     }
 
 
-def avoid_cmt(line: str, is_block_cmt: bool) -> Tuple[str, bool]:
+def avoid_cmt(line: str, is_block_cmt: bool) -> tuple[str, bool]:
     if RE_LINE_COMMENT.match(line):
         line = line.split("//", 1)[0]
     if is_block_cmt:
@@ -120,15 +118,15 @@ def _is_pom_xml(content: str) -> bool:
     return False
 
 
-def _get_parent_paths(path: str) -> List[str]:
-    paths: List[str] = []
-    split_path: List[str] = path.split("/")
+def _get_parent_paths(path: str) -> list[str]:
+    paths: list[str] = []
+    split_path: list[str] = path.split("/")
     for pos in range(1, len(split_path) - 1):
         paths.append("/".join(split_path[0:pos]))
     return paths[::-1]
 
 
-def _interpolate(path: str, value: str) -> List[Any]:
+def _interpolate(path: str, value: str) -> list[Any]:
     is_match: bool = False
     content = get_file_content_block(path)
 

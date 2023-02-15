@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -7,10 +10,6 @@ from model.core_model import (
 )
 from parse_java_properties import (
     load as load_java_properties,
-)
-from typing import (
-    Iterator,
-    Tuple,
 )
 
 
@@ -61,7 +60,7 @@ def java_properties_sensitive_data(content: str, path: str) -> Vulnerabilities:
         "ws.aws.password",
     }
 
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         data = load_java_properties(
             content,
             include_comments=True,

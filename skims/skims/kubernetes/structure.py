@@ -1,10 +1,8 @@
+from collections.abc import (
+    Iterator,
+)
 from metaloaders.model import (
     Node,
-)
-from typing import (
-    Dict,
-    Iterator,
-    Union,
 )
 
 
@@ -67,7 +65,7 @@ def iter_security_context(
                 yield ctx if ctx and ctx.data else elem
 
 
-def get_pod_spec(template: Node) -> Union[Node, None]:
+def get_pod_spec(template: Node) -> Node | None:
     if (
         check_template_integrity(template)
         and (kind := template.inner.get("kind"))
@@ -78,9 +76,7 @@ def get_pod_spec(template: Node) -> Union[Node, None]:
     return None
 
 
-def get_label_and_data(
-    template: Node, label: str
-) -> Union[Dict[Node, Node], None]:
+def get_label_and_data(template: Node, label: str) -> dict[Node, Node] | None:
     for label_tag, data in template.data.items():
         if (
             label_tag.data

@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Generator,
+)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
@@ -28,12 +32,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    Set,
-    Tuple,
 )
 from utils.fs import (
     resolve_paths,
@@ -45,12 +43,12 @@ from utils.logs import (
     log_blocking,
 )
 
-CHECKS: Tuple[
-    Tuple[
+CHECKS: tuple[
+    tuple[
         Callable[[APKContext], Any],
-        Dict[
+        dict[
             core_model.FindingEnum,
-            List[Callable[[Any], core_model.Vulnerabilities]],
+            list[Callable[[Any], core_model.Vulnerabilities]],
         ],
     ],
     ...,
@@ -60,7 +58,7 @@ CHECKS: Tuple[
 @shield_blocking(on_error_return=[])
 def analyze_one(
     apk_ctx: APKContext,
-) -> Tuple[core_model.Vulnerability, ...]:
+) -> tuple[core_model.Vulnerability, ...]:
     return tuple(
         vulnerability
         for get_check_ctx, checks in CHECKS
@@ -71,7 +69,7 @@ def analyze_one(
     )
 
 
-def get_apk_contexts() -> Iterable[APKContext]:
+def get_apk_contexts() -> Generator[APKContext, None, None]:
     ok_paths, nu_paths, nv_paths = resolve_paths(
         include=CTX.config.apk.include,
         exclude=CTX.config.apk.exclude,
@@ -87,7 +85,7 @@ def get_apk_contexts() -> Iterable[APKContext]:
 
 def analyze(
     *,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(
         finding in CTX.config.checks
@@ -96,8 +94,8 @@ def analyze(
     ):
         return
 
-    unique_apk_contexts: Set[APKContext] = set(get_apk_contexts())
-    vulnerabilities: Tuple[core_model.Vulnerability, ...] = tuple(
+    unique_apk_contexts: set[APKContext] = set(get_apk_contexts())
+    vulnerabilities: tuple[core_model.Vulnerability, ...] = tuple(
         collapse(
             (analyze_one(x) for x in unique_apk_contexts),
             base_type=core_model.Vulnerability,

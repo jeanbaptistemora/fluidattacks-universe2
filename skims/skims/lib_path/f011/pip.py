@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -8,9 +11,6 @@ from model.core_model import (
     Platform,
 )
 import requirements
-from typing import (
-    Iterator,
-)
 
 
 # pylint: disable=unused-argument

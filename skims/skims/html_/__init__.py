@@ -1,12 +1,11 @@
 from bs4 import (
     BeautifulSoup,
 )
+from collections.abc import (
+    Generator,
+)
 from string import (
     whitespace,
-)
-from typing import (
-    Iterable,
-    Optional,
 )
 from urllib.parse import (
     ParseResult,
@@ -14,7 +13,7 @@ from urllib.parse import (
 )
 
 
-def is_html(string: str, soup: Optional[BeautifulSoup] = None) -> bool:
+def is_html(string: str, soup: BeautifulSoup | None = None) -> bool:
     string = string.strip(whitespace)
 
     if string.startswith("{"):
@@ -27,7 +26,7 @@ def is_html(string: str, soup: Optional[BeautifulSoup] = None) -> bool:
     return soup.find("html", recursive=False) is not None
 
 
-def get_urls(soup: BeautifulSoup) -> Iterable[str]:
+def get_urls(soup: BeautifulSoup) -> Generator[str, None, None]:
     for tag, attr in (
         ("a", "href"),
         ("iframe", "src"),
@@ -41,7 +40,7 @@ def get_urls(soup: BeautifulSoup) -> Iterable[str]:
 def get_sameorigin_urls(
     components: ParseResult,
     soup: BeautifulSoup,
-) -> Iterable[str]:
+) -> Generator[str, None, None]:
     for url in get_urls(soup):
         url_c: ParseResult = urlparse(url)
 

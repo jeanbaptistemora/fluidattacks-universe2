@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -16,16 +19,12 @@ from model.core_model import (
 import re
 from typing import (
     Any,
-    Iterator,
-    Pattern,
-    Set,
-    Tuple,
 )
 
 # Constants
 WS = r"\s*"
 WSM = r"\s+"
-DOCKERFILE_ENV: Pattern[str] = re.compile(
+DOCKERFILE_ENV: re.Pattern[str] = re.compile(
     rf"^{WS}ENV{WS}(?P<key>[\w\.]+)(?:{WS}={WS}|{WSM})(?P<value>[^$].+?){WS}$",
 )
 
@@ -60,8 +59,8 @@ def _iterate_docker_c_envs(template: Node) -> Iterator[Node]:
 
 def _docker_compose_env_secrets_iterate_vulnerabilities(
     env_vars_iterator: Iterator[Node],
-) -> Iterator[Tuple[int, int]]:
-    secret_smells: Set[str] = {
+) -> Iterator[tuple[int, int]]:
+    secret_smells: set[str] = {
         "api_key",
         "jboss_pass",
         "license_key",
@@ -103,7 +102,7 @@ def docker_compose_env_secrets(
 
 
 def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
-    secret_smells: Set[str] = {
+    secret_smells: set[str] = {
         "api_key",
         "jboss_pass",
         "license_key",
@@ -111,7 +110,7 @@ def dockerfile_env_secrets(content: str, path: str) -> Vulnerabilities:
         "secret",
     }
 
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         for line_no, line in enumerate(content.splitlines(), start=1):
             if match := DOCKERFILE_ENV.match(line):
                 secret: str = match.group("key").lower()

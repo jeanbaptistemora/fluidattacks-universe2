@@ -9,6 +9,10 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from model import (
     core_model,
 )
@@ -29,17 +33,11 @@ from serializers import (
     SnippetViewport,
 )
 import textwrap
-from typing import (
-    Callable,
-    Dict,
-    List,
-    Set,
-)
 
 
 def is_method_present(
     dex: DalvikVMFormat, class_name: str, method: str, descriptor: str
-) -> List[str]:
+) -> list[str]:
     """Search if method is present in decompiled code."""
     met_ana = dex.get_method_analysis_by_name(
         class_name=class_name, method_name=method, method_descriptor=descriptor
@@ -98,7 +96,7 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.apk_obj is not None:
-        signatures: List[str] = ctx.apk_ctx.apk_obj.get_signature_names()
+        signatures: list[str] = ctx.apk_ctx.apk_obj.get_signature_names()
 
         if not signatures:
             _add_apk_unsigned_not_signed_location(ctx, locations)
@@ -113,7 +111,7 @@ def _apk_unsigned(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 def _add_no_root_check_location(
     ctx: APKCheckCtx,
     locations: Locations,
-    methods: List[str],
+    methods: Iterable[str],
 ) -> None:
     locations.append(
         desc="no_root_check",
@@ -141,8 +139,8 @@ def _add_no_root_check_location(
 
 def _get_method_names(
     get_analysis: androguard.core.analysis.analysis.Analysis,
-) -> List[str]:
-    names: List[str] = sorted(
+) -> list[str]:
+    names: list[str] = sorted(
         set(map(attrgetter("name"), get_analysis.get_methods()))
     )
 
@@ -151,8 +149,8 @@ def _get_method_names(
 
 def _get_class_names(
     get_analysis: androguard.core.analysis.analysis.Analysis,
-) -> List[str]:
-    names: List[str] = sorted(
+) -> list[str]:
+    names: list[str] = sorted(
         set(map(attrgetter("name"), get_analysis.get_classes()))
     )
 
@@ -163,7 +161,7 @@ def _no_root_check(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
     if ctx.apk_ctx.analysis is not None:
-        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
+        method_names: list[str] = _get_method_names(ctx.apk_ctx.analysis)
 
         if not any(
             method_name
@@ -292,7 +290,7 @@ def _add_no_obfuscation_location(
 def _no_obfuscation(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
-    class_names_unobfuscated: Set[str] = {
+    class_names_unobfuscated: set[str] = {
         "androidx/annotation/",
         "javax/inject/",
         "androidx/browser/",
@@ -447,7 +445,7 @@ def _add_webview_caches_javascript_location(
 def _add_webview_allows_resource_access(
     ctx: APKCheckCtx,
     locations: Locations,
-    source: List[str],
+    source: Iterable[str],
 ) -> None:
     locations.append(
         desc="webview_allows_resource_access",
@@ -487,7 +485,7 @@ def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     if ctx.apk_ctx.analysis is not None:
         act_source = get_activities_source(ctx.apk_ctx.analysis.vms)
-        effective_dangerous: List[str] = []
+        effective_dangerous: list[str] = []
 
         is_vulnerable: bool = (
             "setJavaScriptEnabled" in act_source
@@ -517,7 +515,7 @@ def _webview_vulnerabilities(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
 
 def _add_has_frida(
-    ctx: APKCheckCtx, locations: Locations, source: List[str]
+    ctx: APKCheckCtx, locations: Locations, source: Iterable[str]
 ) -> None:
     locations.append(
         desc="has_frida",
@@ -556,7 +554,7 @@ def _has_frida(
             locations=locations,
             method=core_model.MethodsEnum.HAS_FRIDA,
         )
-    frida_gadgets: List[str] = [x for x in apk_obj.get_files() if "frida" in x]
+    frida_gadgets: list[str] = [x for x in apk_obj.get_files() if "frida" in x]
     is_frida_gadget_in_files: bool = bool(frida_gadgets)
 
     if is_frida_gadget_in_files:
@@ -625,7 +623,7 @@ def _not_verifies_ssl_hostname(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 def _add_uses_insecure_delete(
     ctx: APKCheckCtx,
     locations: Locations,
-    methods: List[str],
+    methods: Iterable[str],
 ) -> None:
     locations.append(
         desc="uses_insecure_delete",
@@ -656,9 +654,9 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     if ctx.apk_ctx.analysis is not None:
         dex = ctx.apk_ctx.analysis
-        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
+        method_names: list[str] = _get_method_names(ctx.apk_ctx.analysis)
 
-        deletes_insecure: List[str] = is_method_present(
+        deletes_insecure: list[str] = is_method_present(
             dex, "Ljava/io/File;", "delete", "()Z"
         )
 
@@ -675,7 +673,7 @@ def _uses_insecure_delete(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 def _add_socket_uses_get_insecure(
     ctx: APKCheckCtx,
     locations: Locations,
-    methods: List[str],
+    methods: Iterable[str],
 ) -> None:
     locations.append(
         desc="uses_get_insecure",
@@ -704,7 +702,7 @@ def _add_socket_uses_get_insecure(
 def _add_uses_http_resources(
     ctx: APKCheckCtx,
     locations: Locations,
-    methods: List[str],
+    methods: Iterable[str],
 ) -> None:
     locations.append(
         desc="uses_http_resources",
@@ -856,9 +854,9 @@ def _uses_insecure_sockets(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
 
     if ctx.apk_ctx.analysis is not None:
         dex = ctx.apk_ctx.analysis
-        method_names: List[str] = _get_method_names(ctx.apk_ctx.analysis)
+        method_names: list[str] = _get_method_names(ctx.apk_ctx.analysis)
 
-        uses_get_insecure: List[str] = is_method_present(
+        uses_get_insecure: list[str] = is_method_present(
             dex=dex,
             class_name="Landroid/net/SSLCertificateSocketFactory;",
             method="getInsecure",
@@ -878,9 +876,9 @@ def _uses_insecure_sockets(ctx: APKCheckCtx) -> core_model.Vulnerabilities:
     )
 
 
-CHECKS: Dict[
+CHECKS: dict[
     core_model.FindingEnum,
-    List[Callable[[APKCheckCtx], core_model.Vulnerabilities]],
+    list[Callable[[APKCheckCtx], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F046: [_no_obfuscation],
     core_model.FindingEnum.F048: [_no_root_check],

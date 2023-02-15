@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -8,13 +11,9 @@ from model.core_model import (
     Platform,
 )
 import re
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
-def get_dep_info(dep_line: str) -> Tuple[str, str]:
+def get_dep_info(dep_line: str) -> tuple[str, str]:
     product, version = dep_line.lstrip().split("@")[0].split("/")
     if "[" in version:
         version = re.sub(r"[\[\]]", "", version).split(",")[0]

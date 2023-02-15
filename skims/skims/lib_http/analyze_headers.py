@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+)
 from http_headers import (
     as_string,
     content_encoding,
@@ -32,12 +35,7 @@ from multidict import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Union,
 )
 from vulnerabilities import (
     build_inputs_vuln,
@@ -59,14 +57,12 @@ class Location(NamedTuple):
 
 
 class Locations(NamedTuple):
-    locations: List[Location]
+    locations: list[Location]
 
     def append(
         self,
         desc: str,
-        desc_kwargs: Optional[
-            Dict[str, Union[core_model.LocalesEnum, Any]]
-        ] = None,
+        desc_kwargs: dict[str, core_model.LocalesEnum | Any] | None = None,
         identifier: str = "",
     ) -> None:
         self.locations.append(
@@ -82,7 +78,7 @@ class Locations(NamedTuple):
 
 def _create_vulns(
     locations: Locations,
-    header: Optional[Header],
+    header: Header | None,
     ctx: HeaderCheckCtx,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
@@ -219,7 +215,7 @@ def _content_security_policy(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if header := ctx.headers_parsed.get("ContentSecurityPolicyHeader"):
         _content_security_policy_block_all_mixed_content(locations, header)
@@ -241,7 +237,7 @@ def _upgrade_insecure_requests(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    head: Optional[Header] = None
+    head: Header | None = None
 
     if not ctx.headers_parsed.get("UpgradeInsecureRequestsHeader") and (
         not (head := ctx.headers_parsed.get("ContentSecurityPolicyHeader"))
@@ -259,7 +255,7 @@ def _upgrade_insecure_requests(
 
 def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if (
         (header := ctx.headers_parsed.get("DateHeader"))
@@ -292,7 +288,7 @@ def _date(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 def _location(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if response := ctx.url_ctx.custom_f023:
         # Exception: WF(Cannot factorize function)
@@ -316,7 +312,7 @@ def _referrer_policy(
         return ()
 
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if header := ctx.headers_parsed.get("ReferrerPolicyHeader"):
         for value in header.values:
@@ -366,7 +362,7 @@ def _set_cookie_httponly(
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
 
-    headers: List[Header] = ctx.headers_parsed.getall(
+    headers: list[Header] = ctx.headers_parsed.getall(
         key="SetCookieHeader", default=[]
     )
 
@@ -395,7 +391,7 @@ def _set_cookie_samesite(
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
 
-    headers: List[Header] = ctx.headers_parsed.getall(
+    headers: list[Header] = ctx.headers_parsed.getall(
         key="SetCookieHeader", default=[]
     )
 
@@ -424,7 +420,7 @@ def _set_cookie_secure(
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
 
-    headers: List[Header] = ctx.headers_parsed.getall(
+    headers: list[Header] = ctx.headers_parsed.getall(
         key="SetCookieHeader", default=[]
     )
 
@@ -452,7 +448,7 @@ def _strict_transport_security(
     ctx: HeaderCheckCtx,
 ) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if val := ctx.headers_parsed.get("StrictTransportSecurityHeader"):
         if val.max_age < 31536000:
@@ -475,7 +471,7 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
         return ()
 
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if val := ctx.headers_parsed.get("WWWAuthenticate"):
         # Exception: WF(Cannot factorize function)
@@ -492,7 +488,7 @@ def _www_authenticate(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    header: Optional[Header] = None
+    header: Header | None = None
 
     if val := ctx.headers_parsed.get("XContentTypeOptionsHeader"):
         if val.value != "nosniff":
@@ -510,7 +506,7 @@ def _x_content_type_options(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
 
 def _breach_possible(ctx: HeaderCheckCtx) -> core_model.Vulnerabilities:
     locations = Locations(locations=[])
-    headers: List[Header] = ctx.headers_parsed.getall(
+    headers: list[Header] = ctx.headers_parsed.getall(
         key="ContentEncodingHeader", default=[]
     )
 
@@ -563,9 +559,9 @@ def get_check_ctx(url: URLContext) -> HeaderCheckCtx:
     )
 
 
-CHECKS: Dict[
+CHECKS: dict[
     core_model.FindingEnum,
-    List[Callable[[HeaderCheckCtx], core_model.Vulnerabilities]],
+    list[Callable[[HeaderCheckCtx], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F015: [_www_authenticate],
     core_model.FindingEnum.F023: [_location],

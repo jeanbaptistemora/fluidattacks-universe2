@@ -1,4 +1,7 @@
 import bs4
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -7,9 +10,6 @@ from lib_path.common import (
 from model.core_model import (
     MethodsEnum,
     Platform,
-)
-from typing import (
-    Iterator,
 )
 
 

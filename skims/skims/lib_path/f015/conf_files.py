@@ -4,6 +4,9 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -12,14 +15,10 @@ from model.core_model import (
     Vulnerabilities,
 )
 import re
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def jmx_header_basic(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
 
         soup = BeautifulSoup(content, features="html.parser")
         for tag in soup.find_all("stringprop"):
@@ -47,7 +46,7 @@ def jmx_header_basic(content: str, path: str) -> Vulnerabilities:
 
 
 def basic_auth_method(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """
         Search for a Basic auth method in a config file.
         """

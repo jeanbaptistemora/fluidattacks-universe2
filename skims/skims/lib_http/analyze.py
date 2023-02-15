@@ -1,4 +1,7 @@
 import bs4
+from collections.abc import (
+    Callable,
+)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
@@ -34,12 +37,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
-    Optional,
-    Set,
-    Tuple,
 )
 import urllib.parse
 from utils.function import (
@@ -56,12 +53,12 @@ from utils.ntp import (
     get_offset,
 )
 
-CHECKS: Tuple[
-    Tuple[
+CHECKS: tuple[
+    tuple[
         Callable[[URLContext], Any],
-        Dict[
+        dict[
             core_model.FindingEnum,
-            List[Callable[[Any], core_model.Vulnerabilities]],
+            list[Callable[[Any], core_model.Vulnerabilities]],
         ],
     ],
     ...,
@@ -78,11 +75,11 @@ def analyze_one(
     index: int,
     url: URLContext,
     unique_count: int,
-) -> Tuple[core_model.Vulnerability, ...]:
+) -> tuple[core_model.Vulnerability, ...]:
     log_blocking(
         "info", "Analyzing http %s of %s: %s", index, unique_count, url
     )
-    vulns: Tuple[core_model.Vulnerability, ...] = tuple()
+    vulns: tuple[core_model.Vulnerability, ...] = tuple()
 
     for get_check_ctx, checks in CHECKS:
         url_ctx = get_check_ctx(url)
@@ -110,8 +107,8 @@ def analyze_one(
 async def get_url(
     url: str,
     *,
-    ntp_offset: Optional[float],
-) -> Optional[URLContext]:
+    ntp_offset: float | None,
+) -> URLContext | None:
     async with create_session() as session:  # type: ignore
         if response := await request(session, "GET", url):
             redirect_url = str(response.url)  # Update with the redirected URL
@@ -151,19 +148,19 @@ async def get_url(
     return None
 
 
-async def get_urls() -> Set[URLContext]:
-    urls: Set[URLContext] = set()
-    urls_done: Set[str] = set()
+async def get_urls() -> set[URLContext]:
+    urls: set[URLContext] = set()
+    urls_done: set[str] = set()
     urls_pending: SimpleQueue = SimpleQueue()
 
-    ntp_offset: Optional[float] = get_offset()
+    ntp_offset: float | None = get_offset()
 
     for url in set(CTX.config.dast.http.include):
         urls_pending.put(url)
 
     while not urls_pending.empty():
         url = urls_pending.get()
-        url_ctx: Optional[URLContext] = await get_url(
+        url_ctx: URLContext | None = await get_url(
             url,
             ntp_offset=ntp_offset,
         )
@@ -183,7 +180,7 @@ async def get_urls() -> Set[URLContext]:
 
 async def analyze(
     *,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if not any(
         finding in CTX.config.checks
@@ -192,11 +189,11 @@ async def analyze(
     ):
         return
 
-    unique_urls: Set[URLContext] = await get_urls()
+    unique_urls: set[URLContext] = await get_urls()
     unique_count: int = len(unique_urls)
 
     with ThreadPoolExecutor() as executor:
-        vulnerabilities: Tuple[core_model.Vulnerability, ...] = tuple(
+        vulnerabilities: tuple[core_model.Vulnerability, ...] = tuple(
             collapse(
                 (
                     analyze_one(
