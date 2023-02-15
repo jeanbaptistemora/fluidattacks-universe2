@@ -7,6 +7,9 @@ from lib_root.f338.java import (
 from lib_root.f338.javascript import (
     js_salting_is_harcoded,
 )
+from lib_root.f338.kotlin import (
+    kotlin_salting_is_harcoded,
+)
 from lib_root.f338.typescript import (
     ts_salting_is_harcoded,
 )
@@ -21,4 +24,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, js_salting_is_harcoded),
     (FINDING, ts_salting_is_harcoded),
     (FINDING, java_salting_is_harcoded),
+    (FINDING, kotlin_salting_is_harcoded),
 )

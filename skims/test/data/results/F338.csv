@@ -100,6 +100,31 @@ F338,lines,namespace/skims/test/data/lib_root/f338/javascript_salt_is_hardcoded.
   15 | }
      ^ Col 0
 ",javascript.js_salt_is_harcoded
+F338,lines,namespace/skims/test/data/lib_root/f338/kotlin_salt_is_hardcoded.kt,32,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/kotlin_salt_is_hardcoded.kt","
+  15 |     return Base64.getEncoder().encodeToString(salt)
+  16 | }
+  17 |
+  18 | fun hashPassword(password: String, salt: String): String {
+  19 |     val md = MessageDigest.getInstance(""SHA-256"")
+  20 |     md.update(salt.toByteArray())
+  21 |     val hashedPassword = md.digest(password.toByteArray())
+  22 |     return Base64.getEncoder().encodeToString(hashedPassword)
+  23 | }
+  24 |
+  25 |
+  26 |
+  27 |
+  28 | private val SALT = ""HARDCODED_SALT""
+  29 |
+  30 | fun hashPasswordInsecure(password: String): String {
+  31 |     val md = MessageDigest.getInstance(""SHA-256"")
+> 32 |     md.update(SALT.toByteArray())
+  33 |     val hashedPassword = md.digest(password.toByteArray())
+  34 |     return Base64.getEncoder().encodeToString(hashedPassword)
+  35 | }
+     ^ Col 0
+",kotlin.kotlin_salt_is_hardcoded
 F338,lines,namespace/skims/test/data/lib_root/f338/typescript_salt_is_hardcoded.ts,14,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
  in namespace/skims/test/data/lib_root/f338/typescript_salt_is_hardcoded.ts","
    1 | import * as crypto from 'crypto';
