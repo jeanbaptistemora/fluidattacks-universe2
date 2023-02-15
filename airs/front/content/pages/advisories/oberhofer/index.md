@@ -93,7 +93,7 @@ cookie to the attacker's server logs.
 ![vulnerability-orangescrum](https://user-images.githubusercontent.com/51862990/216176343-4430e676-1622-4af1-a866-3f773e6f6682.png)
 
 <video width="835" height="505" controls>
-    <source src="https://rb.gy/yvhpbc"
+    <source src="https://streamable.com/e/0bb1c1"
     type="video/mp4">
     <p>POC-XSS-OrangeScrum</p>
 </video>
