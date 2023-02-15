@@ -18,7 +18,7 @@ import type {
   IUpdateEventAttr,
 } from "./types";
 
-import { Input } from "components/Input";
+import { Input, Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import {
@@ -404,13 +404,10 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                 <Row>
                   <Col100>
                     <FormGroup>
-                      <ControlLabel>
-                        {t(
+                      <Select
+                        label={t(
                           "searchFindings.tabSeverity.common.deactivation.reason.label"
                         )}
-                      </ControlLabel>
-                      <Field
-                        component={FormikDropdown}
                         name={"reason"}
                         validate={composeValidators([required])}
                       >
@@ -423,7 +420,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                             </option>
                           )
                         )}
-                      </Field>
+                      </Select>
                     </FormGroup>
                     {values.reason === "OTHER" ? (
                       <FormGroup>
