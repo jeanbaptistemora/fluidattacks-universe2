@@ -12,7 +12,7 @@ import {
 } from "./utils";
 
 import { ExternalLink } from "components/ExternalLink";
-import { Editable, TextArea } from "components/Input";
+import { Editable, Select, TextArea } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { ActionButtons } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/ActionButtons";
@@ -24,7 +24,7 @@ import { validateNotEmpty } from "scenes/Dashboard/containers/Group-Content/Grou
 import { ControlLabel, FormGroup } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Have } from "utils/authz/Have";
-import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import {
   composeValidators,
   maxLength,
@@ -383,10 +383,8 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                         <b>{t("searchFindings.tabDescription.sorts.text")}</b>
                       </ControlLabel>
                       <br />
-                      <Field
-                        component={FormikDropdown}
+                      <Select
                         name={"sorts"}
-                        type={"text"}
                         validate={composeValidators([required])}
                       >
                         <option value={""} />
@@ -396,7 +394,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                         <option value={"YES"}>
                           {t("group.findings.boolean.True")}
                         </option>
-                      </Field>
+                      </Select>
                     </FormGroup>
                   </Tooltip>
                 </Col>
