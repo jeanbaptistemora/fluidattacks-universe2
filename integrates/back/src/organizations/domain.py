@@ -118,6 +118,7 @@ from mailer import (
 from newutils import (
     datetime as datetime_utils,
     groups as groups_utils,
+    validations as validations_utils,
 )
 from newutils.organization_access import (
     format_invitation_state,
@@ -508,7 +509,7 @@ async def add_organization(
     if email:
         user_role: str = (
             "customer_manager"
-            if stakeholders_domain.is_fluid_staff(email)
+            if validations_utils.is_fluid_staff(email)
             else "user_manager"
         )
         await add_stakeholder(

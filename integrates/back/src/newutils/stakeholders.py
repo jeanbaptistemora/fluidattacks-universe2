@@ -19,7 +19,3 @@ def format_invitation_state(invitation: Item, is_registered: bool) -> str:
     if not is_registered:
         return "UNREGISTERED"
     return "REGISTERED"
-
-
-def is_fluid_staff(email: str) -> bool:
-    return email.endswith("@fluidattacks.com")

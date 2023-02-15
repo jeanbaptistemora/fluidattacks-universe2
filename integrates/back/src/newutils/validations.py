@@ -161,6 +161,10 @@ def check_fields(
             check_exp(str(value), regex, ex)
 
 
+def is_fluid_staff(email: str) -> bool:
+    return email.endswith("@fluidattacks.com")
+
+
 def validate_fields_deco(fields: Iterable[str]) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @functools.wraps(func)

@@ -22,9 +22,6 @@ from custom_exceptions import (
 from dataloaders import (
     Dataloaders,
 )
-from db_model.stakeholders.types import (
-    Stakeholder,
-)
 from http.client import (
     RemoteDisconnected,
 )
@@ -47,9 +44,6 @@ from settings import (
 )
 from simplejson.errors import (
     JSONDecodeError,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -84,10 +78,7 @@ async def get_recipient_first_name(
     is_access_granted: bool = False,
 ) -> Optional[str]:
     first_name = email.split("@")[0]
-    if await stakeholders_domain.exists(loaders, email):
-        stakeholder = await loaders.stakeholder.load(email)
-    else:
-        stakeholder = Stakeholder(email=email)
+    stakeholder = await loaders.stakeholder.load(email)
     is_constant: bool = email.lower() in {
         *[fi_email.lower() for fi_email in FI_MAIL_CONTINUOUS.split(",")],
         *[fi_email.lower() for fi_email in FI_MAIL_COS.split(",")],

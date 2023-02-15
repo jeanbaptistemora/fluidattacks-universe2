@@ -7,7 +7,7 @@ from dynamodb.types import (
 from newutils.datetime import (
     format_comment_datetime,
 )
-from newutils.stakeholders import (
+from newutils.validations import (
     is_fluid_staff,
 )
 

@@ -135,6 +135,7 @@ from newutils import (
     vulnerabilities as vulns_utils,
 )
 from newutils.validations import (
+    is_fluid_staff,
     validate_alphanumeric_field_deco,
     validate_email_address_deco,
     validate_field_length_deco,
@@ -408,9 +409,7 @@ async def add_group(
         # Only Fluid staff can be customer managers
         # Customers are granted the user manager role
         role: str = (
-            "customer_manager"
-            if stakeholders_domain.is_fluid_staff(email)
-            else "user_manager"
+            "customer_manager" if is_fluid_staff(email) else "user_manager"
         )
         await authz.grant_group_level_role(loaders, email, group_name, role)
 

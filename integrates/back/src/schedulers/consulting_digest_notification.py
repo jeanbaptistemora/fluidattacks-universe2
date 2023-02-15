@@ -57,7 +57,7 @@ from mailer.utils import (
 )
 from newutils import (
     datetime as datetime_utils,
-    stakeholders as stakeholders_utils,
+    validations as validations_utils,
 )
 from organizations import (
     domain as orgs_domain,
@@ -229,7 +229,7 @@ def digest_comments(
                 comment.creation_date, "%Y-%m-%d %H:%M"
             ),
             "name": "Fluid Attacks"
-            if stakeholders_utils.is_fluid_staff(comment.email)
+            if validations_utils.is_fluid_staff(comment.email)
             else comment.full_name.rstrip()
             if comment.full_name
             else comment.email.split("@")[0],

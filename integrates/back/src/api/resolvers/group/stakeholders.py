@@ -18,11 +18,11 @@ from graphql.type.definition import (
 from group_access.domain import (
     get_group_stakeholders,
 )
+from newutils import (
+    validations,
+)
 from sessions import (
     domain as sessions_domain,
-)
-from stakeholders import (
-    domain as stakeholders_domain,
 )
 
 
@@ -46,12 +46,12 @@ async def resolve(
     user_email: str = user_data["user_email"]
     stakeholders = await get_group_stakeholders(loaders, parent.name)
 
-    exclude_fluid_staff = not stakeholders_domain.is_fluid_staff(user_email)
+    exclude_fluid_staff = not validations.is_fluid_staff(user_email)
     if exclude_fluid_staff:
         stakeholders = [
             stakeholder
             for stakeholder in stakeholders
-            if not stakeholders_domain.is_fluid_staff(stakeholder.email)
+            if not validations.is_fluid_staff(stakeholder.email)
         ]
 
     return stakeholders

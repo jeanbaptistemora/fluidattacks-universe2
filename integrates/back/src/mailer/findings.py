@@ -4,9 +4,6 @@ from .common import (
     send_mails_async,
     VERIFY_TAG,
 )
-from aioextensions import (
-    collect,
-)
 import authz
 from context import (
     BASE_URL,
@@ -50,9 +47,8 @@ from group_access import (
 from mailer.utils import (
     get_organization_name,
 )
-from stakeholders.domain import (
-    get_stakeholder,
-    is_fluid_staff,
+from newutils import (
+    validations,
 )
 from typing import (
     Any,
@@ -98,13 +94,12 @@ async def send_mail_comment(  # pylint: disable=too-many-locals
         "user_email": user_mail,
     }
 
-    stakeholders = await collect(
-        list(get_stakeholder(loaders, email) for email in recipients)
-    )
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
-        if Notification.NEW_COMMENT
+        if stakeholder
+        and Notification.NEW_COMMENT
         in stakeholder.state.notifications_preferences.email
     ]
     reviewers = FI_MAIL_REVIEWERS.split(",")
@@ -270,13 +265,12 @@ async def send_mail_remediate_finding(  # pylint: disable=too-many-arguments
 ) -> None:
     org_name = await get_organization_name(loaders, group_name)
     recipients = await group_access_domain.get_reattackers(loaders, group_name)
-    stakeholders = await collect(
-        list(get_stakeholder(loaders, email) for email in recipients)
-    )
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
-        if Notification.REMEDIATE_FINDING
+        if stakeholder
+        and Notification.REMEDIATE_FINDING
         in stakeholder.state.notifications_preferences.email
     ]
     mail_context: dict[str, Any] = {
@@ -340,13 +334,12 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         loaders, group_name
     )
     recipients = [stakeholder.email for stakeholder in group_stakeholders]
-    stakeholders = await collect(
-        list(get_stakeholder(loaders, email) for email in recipients)
-    )
+    stakeholders = await loaders.stakeholder.load_many(recipients)
     stakeholders_email = [
         stakeholder.email
         for stakeholder in stakeholders
-        if _should_send_vulnerability_mail(
+        if stakeholder
+        and _should_send_vulnerability_mail(
             severity_score=severity_score,
             stakeholder=stakeholder,
             group_findings=group_findings,
@@ -391,7 +384,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         stakeholders_email = [
             stakeholder.email
             for stakeholder in stakeholders
-            if is_fluid_staff(stakeholder.email)
+            if stakeholder and validations.is_fluid_staff(stakeholder.email)
         ]
         await send_mails_async(
             loaders,
