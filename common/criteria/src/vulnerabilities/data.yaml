@@ -22057,14 +22057,14 @@
     title: Technical information leak - Errors
     description: >
       Es posible hacer que el servidor arroje
-      errores despues de anlizar los endpoints
-      con diferentes tecnicas como: enviar masivas
-      peticiones al endpoint, enviar masivos
-      carácteres en el body de la aplicación.
+      errores después de analizar los endpoints
+      con diferentes técnicas como: enviar
+      peticiones masivas al endpoint, enviar
+      caracteres masivos en el body de la aplicación.
     impact: >
       Obtener información técnica del servidor.
     recommendation: >
-      Usar mensajes genericos para indicar
+      Usar mensajes genéricos para indicar
       errores por parte del servidor y evitar
       enviar información técnica.
     threat: >
