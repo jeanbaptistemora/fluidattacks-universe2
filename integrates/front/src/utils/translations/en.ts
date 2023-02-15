@@ -2793,6 +2793,10 @@ export const enTranslations: ResourceKey = {
     },
     lowSeverity: "Low",
     mediumSeverity: "Medium",
+    noFindingsFound: {
+      subtitle: "Soon you will see the findings here",
+      title: "We are testing your application to find vilnerabilities",
+    },
     noneSeverity: "None",
     notificationTable: {
       email: "Email",

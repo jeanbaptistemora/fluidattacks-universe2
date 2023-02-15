@@ -6,7 +6,9 @@ import loginGoogleLogo from "./loginGoogleLogo.png";
 import loginLogo from "./loginLogo.png";
 import loginMicrosoftLogo from "./loginMicrosoftLogo.png";
 import loginNewFeat from "./loginNewFeat.png";
+import redLoader from "./redLoader.json";
 import lotScan from "./scan.json";
+import searchingFindings from "./searchingFindings.png";
 import signUpBGR from "./SignUpBGR.png";
 import signUpLogo from "./SignUpLogo.png";
 import starMedium from "./StarMedium.png";
@@ -22,6 +24,8 @@ export {
   loginGoogleLogo,
   loginMicrosoftLogo,
   loginBitBucketLogo,
+  redLoader,
+  searchingFindings,
   signUpBGR,
   starSolid,
   starMedium,
