@@ -295,8 +295,33 @@ const formatToeLines: (toeLinesEdges: IToeLinesEdge[]) => IToeLinesData[] = (
     })
   );
 
+const formatLinesFilter: (state: string) => string[] | string = (
+  state: string
+): string[] | string => {
+  const linesParameters: Record<string, string[] | string> = {
+    attackedAt: ["fromAttackedAt", "toAttackedAt"],
+    attackedBy: "attackedBy",
+    attackedLines: ["minAttackedLines", "maxAttackedLines"],
+    bePresent: "bePresent",
+    bePresentUntil: ["fromBePresentUntil", "toBePresentUntil"],
+    comments: "comments",
+    filename: "filename",
+    firstAttackAt: ["fromFirstAttackAt", "toFirstAttackAt"],
+    hasVulnerabilities: "hasVulnerabilities",
+    lastAuthor: "lastAuthor",
+    lastCommit: "lastCommit",
+    loc: ["minLoc", "maxLoc"],
+    modifiedDate: ["fromModifiedDate", "toModifiedDate"],
+    seenAt: ["fromSeenAt", "toSeenAt"],
+    sortsRiskLevel: ["minSortsRiskLevel", "maxSortsRiskLevel"],
+  };
+
+  return linesParameters[state];
+};
+
 export {
   formatBePresent,
+  formatLinesFilter,
   formatPercentage,
   formatRootId,
   formatToeLines,
