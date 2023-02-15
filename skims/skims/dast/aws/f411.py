@@ -142,10 +142,65 @@ async def efs_uses_default_kms_key(
     return vulns
 
 
+async def fsx_uses_default_kms_key(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    describe_file_systems: dict[str, Any] = await run_boto3_fun(
+        credentials, service="fsx", function="describe_file_systems"
+    )
+    filesystems = (
+        describe_file_systems.get("FileSystems", [])
+        if describe_file_systems
+        else []
+    )
+
+    vulns: core_model.Vulnerabilities = ()
+    method = core_model.MethodsEnum.AWS_FSX_USES_DEFAULT_KMS_KEY
+    list_aliases: dict[str, Any] = await run_boto3_fun(
+        credentials, service="kms", function="list_aliases"
+    )
+    kms_aliases = list_aliases.get("Aliases", []) if list_aliases else []
+
+    for filesystem in filesystems:
+        vol_key = filesystem.get("KmsKeyId", "")
+        if not vol_key:
+            locations: list[Location] = []
+            for alias in kms_aliases:
+                if (
+                    alias.get("TargetKeyId", "") == vol_key.split("/")[1]
+                    and str(alias.get("AliasName", "")) == "alias/aws/fsx"
+                ):
+                    locations = [
+                        Location(
+                            arn=(
+                                "arn:aws:ec2:::FileSystemId/"
+                                f"{filesystem['FileSystemId']}"
+                            ),
+                            description=t(
+                                "lib_path.f411.efs_uses_default_kms_key"
+                            ),
+                            values=(),
+                            access_patterns=(),
+                        ),
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=(method),
+                            aws_response=alias,
+                        ),
+                    )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
 ] = (
     efs_uses_default_kms_key,
     ebs_uses_default_kms_key,
+    fsx_uses_default_kms_key,
 )
