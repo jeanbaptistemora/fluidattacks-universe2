@@ -10,30 +10,42 @@ import {
 } from "react-icons/bs";
 import { IoMdClose } from "react-icons/io";
 
+import { Search } from "./Search";
+
 import { AirsLink } from "../../../components/AirsLink";
 import { Button } from "../../../components/Button";
 import { CloudImage } from "../../../components/CloudImage";
 import { Container } from "../../../components/Container";
 import type { TDisplay } from "../../../components/Container/types";
 import { Text } from "../../../components/Typography";
+import {
+  NavbarInnerContainer,
+  NavbarList,
+} from "../../../styles/styledComponents";
 import { useWindowSize } from "../../../utils/hooks/useWindowSize";
 import { CompanyMenu } from "../Categories/Company";
 import { PlatformMenu } from "../Categories/Platform";
 import { ResourcesMenu } from "../Categories/Resources";
 import { ServiceMenu } from "../Categories/Service";
 import {
+  ContainerWithSlide,
   MenuFootContainer,
   MenuMobileInnerContainer,
+  SlideMenu,
 } from "../styles/styledComponents";
 
 interface IServiceProps {
   display: TDisplay;
   handleClick: () => void;
+  status: number;
+  setStatus: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const DropdownMenu: React.FC<IServiceProps> = ({
   display,
   handleClick,
+  status,
+  setStatus,
 }): JSX.Element => {
   const { width } = useWindowSize();
   const [categoryShowed, setCategoryShowed] = useState(0);
@@ -54,14 +66,22 @@ const DropdownMenu: React.FC<IServiceProps> = ({
     "Resources",
     "Company",
   ];
-
+  const searchIndices = [
+    {
+      description: `fluidattacks_airs`,
+      keywords: `fluidattacks_airs`,
+      name: `fluidattacks_airs`,
+      title: `fluidattacks_airs`,
+    },
+  ];
   const handleClickButton = useCallback(
     (el: number): (() => void) =>
       (): void => {
+        setStatus(2);
         setCategoryShowed(0);
         setCategoryShowed(el);
       },
-    []
+    [setStatus]
   );
 
   const { trackEvent } = useMatomo();
@@ -72,38 +92,27 @@ const DropdownMenu: React.FC<IServiceProps> = ({
 
   return (
     <MenuMobileInnerContainer
-      style={{ display: width < 1200 ? display : "none" }}
+      style={{ display: width < 1240 ? display : "none" }}
     >
-      <Container
-        align={"center"}
-        display={width < 1201 ? "flex" : "none"}
-        height={"100px"}
-        justify={"center"}
-        wrap={"wrap"}
-      >
-        <Container justify={"start"} width={"19%"}>
+      <NavbarInnerContainer id={"inner_navbar"}>
+        <NavbarList className={"poppins"} id={"navbar_list"}>
           <div className={"w-auto flex flex-nowrap"}>
-            <Link className={"db tc pa1 no-underline"} to={"/"}>
-              <Container width={"160px"}>
-                <CloudImage
-                  alt={"Fluid Attacks logo navbar"}
-                  src={"logo-fluid-2022"}
-                />
-              </Container>
-            </Link>
+            <li>
+              <Link className={"db tc pa1 no-underline"} to={"/"}>
+                <Container ph={3} pv={2} width={"160px"}>
+                  <CloudImage
+                    alt={"Fluid Attacks logo navbar"}
+                    src={"airs/menu/Logo.png"}
+                  />
+                </Container>
+              </Link>
+            </li>
           </div>
-        </Container>
-        <Container
-          align={"center"}
-          display={width > 727 ? "flex" : "none"}
-          justify={"end"}
-          width={"68%"}
-        >
           <Container
-            align={"center"}
-            display={width > 481 ? "flex" : "none"}
+            display={width < 720 ? "none" : "flex"}
             justify={"end"}
-            width={"80%"}
+            minWidth={"447px"}
+            width={width > 1240 ? "auto" : "80%"}
             wrap={"nowrap"}
           >
             <AirsLink href={"/contact-us/"}>
@@ -123,20 +132,20 @@ const DropdownMenu: React.FC<IServiceProps> = ({
               </Button>
             </AirsLink>
           </Container>
-        </Container>
-        <Container
-          align={"center"}
-          display={width < 1201 ? "flex" : "none"}
-          height={"auto"}
-          justify={"end"}
-          justifySm={"end"}
-          width={width > 727 ? "5%" : "71%"}
-        >
-          <Button onClick={handleClick} size={"sm"} variant={"ghost"}>
-            <IoMdClose size={20} />
-          </Button>
-        </Container>
-      </Container>
+          <Container
+            display={width < 1241 ? "flex" : "none"}
+            justify={"center"}
+            justifyMd={"end"}
+            justifySm={"end"}
+            maxWidth={width > 720 ? "50px" : "90%"}
+          >
+            <Button onClick={handleClick} variant={"ghost"}>
+              <IoMdClose size={width > 960 ? 20 : 25} />
+            </Button>
+          </Container>
+        </NavbarList>
+      </NavbarInnerContainer>
+
       <Container
         bgColor={"#ffffff"}
         display={width < 1201 ? display : "none"}
@@ -144,10 +153,8 @@ const DropdownMenu: React.FC<IServiceProps> = ({
         position={"absolute"}
         width={"100%"}
       >
-        <Container
-          display={categoryShowed === 0 ? "block" : "none"}
-          height={"300px"}
-        >
+        <SlideMenu display={categoryShowed === 0} status={status}>
+          <Search indices={searchIndices} />
           <Container ph={4} width={"auto"} widthSm={"100%"}>
             <Button
               display={"block"}
@@ -286,7 +293,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
               </Container>
             </Button>
           </Container>
-        </Container>
+        </SlideMenu>
         <MenuFootContainer display={categoryShowed === 0} id={"menufoot"}>
           <Container
             align={"center"}
@@ -320,10 +327,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
             </Container>
           </Container>
         </MenuFootContainer>
-        <Container
-          display={categoryShowed === 0 ? "none" : "block"}
-          width={"auto"}
-        >
+        <ContainerWithSlide display={categoryShowed !== 0}>
           <Container borderBottomColor={"#2e2e38"} mb={3}>
             <Button
               icon={
@@ -341,7 +345,7 @@ const DropdownMenu: React.FC<IServiceProps> = ({
             </Button>
           </Container>
           {contents[categoryShowed]}
-        </Container>
+        </ContainerWithSlide>
       </Container>
     </MenuMobileInnerContainer>
   );

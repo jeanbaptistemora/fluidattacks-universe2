@@ -25,6 +25,7 @@ import { useWindowSize } from "../../utils/hooks/useWindowSize";
 export const NavbarComponent: React.FC = (): JSX.Element => {
   const { trackEvent } = useMatomo();
   const { width } = useWindowSize();
+  const [menuStatus, setMenuStatus] = useState(0);
   const [categoryServices, setCategoryServices] = useState(false);
   const [categoryResources, setCategoryResources] = useState(false);
   const [categoryPlatform, setCategoryPlatform] = useState(false);
@@ -39,13 +40,14 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
   const [menu, setMenu] = useState(false);
 
   const handleClick = useCallback((): void => {
+    setMenuStatus(menuStatus === 0 ? 1 : 0);
     setMenu(!menu);
     if (menu) {
       document.body.setAttribute("style", "overflow-y: auto;");
     } else {
       document.body.setAttribute("style", "overflow-y: hidden;");
     }
-  }, [menu]);
+  }, [menu, menuStatus]);
   const handleClickButton = useCallback(
     (category: string): (() => void) =>
       (): void => {
@@ -79,10 +81,10 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
           <div className={"w-auto flex flex-nowrap"}>
             <li>
               <Link className={"db tc pa1 no-underline"} to={"/"}>
-                <Container pv={2} width={"160px"}>
+                <Container ph={3} pv={2} width={"160px"}>
                   <CloudImage
                     alt={"Fluid Attacks logo navbar"}
-                    src={"logo-fluid-2022"}
+                    src={"airs/menu/Logo.png"}
                   />
                 </Container>
               </Link>
@@ -90,7 +92,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
           </div>
           <Container
             center={true}
-            display={width > 1200 ? "flex" : "none"}
+            display={width > 1240 ? "flex" : "none"}
             width={"auto"}
           >
             <Button
@@ -134,7 +136,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             display={width < 720 ? "none" : "flex"}
             justify={"end"}
             minWidth={"447px"}
-            width={width > 1200 ? "auto" : "80%"}
+            width={width > 1240 ? "auto" : "80%"}
             wrap={"nowrap"}
           >
             <AirsLink href={"/contact-us/"}>
@@ -155,14 +157,14 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             </AirsLink>
           </Container>
           <Container
-            display={width < 1201 ? "flex" : "none"}
+            display={width < 1241 ? "flex" : "none"}
             justify={"center"}
             justifyMd={"end"}
             justifySm={"end"}
             maxWidth={width > 720 ? "50px" : "90%"}
           >
             <Button onClick={handleClick} variant={"ghost"}>
-              <FiMenu size={20} />
+              <FiMenu size={width > 960 ? 20 : 25} />
             </Button>
           </Container>
         </NavbarList>
@@ -174,6 +176,8 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
       <DropdownMenu
         display={menu ? "block" : "none"}
         handleClick={handleClick}
+        setStatus={setMenuStatus}
+        status={menuStatus}
       />
     </NavbarContainer>
   );
