@@ -30,7 +30,7 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
         justify={"center"}
         mb={3}
       >
-        <Container maxWidth={width > 1200 ? "370px" : "1440px"} pb={4} ph={4}>
+        <Container maxWidth={width > 1200 ? "460px" : "1440px"} pb={4} ph={4}>
           <Container
             borderBottomColor={"#dddde3"}
             height={"36px"}
@@ -71,7 +71,7 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
             </Text>
           </Container>
         </Container>
-        <Container maxWidth={width > 960 ? "800px" : "1440px"} ph={4}>
+        <Container maxWidth={width > 960 ? "833px" : "1440px"} ph={4}>
           <Container
             borderBottomColor={"#dddde3"}
             height={"36px"}

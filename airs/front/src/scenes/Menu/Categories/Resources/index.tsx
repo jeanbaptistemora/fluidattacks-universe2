@@ -30,7 +30,12 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
         ph={4}
         pv={3}
       >
-        <Container maxWidth={width > 960 ? "650px" : "1440px"} mb={3} mr={4}>
+        <Container
+          maxWidth={width > 960 ? "650px" : "1440px"}
+          mb={3}
+          mr={4}
+          ph={4}
+        >
           <Container ph={width > 1200 ? 3 : 0}>
             <Container borderBottomColor={"#dddde3"} height={"36px"} mb={3}>
               <Text color={"#8f8fa3"} size={"xs"}>
@@ -75,7 +80,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
           </Container>
         </Container>
         <Container maxWidth={width > 960 ? "650px" : "1440px"} scroll={"y"}>
-          <Container ph={3}>
+          <Container ph={4}>
             <Container borderBottomColor={"#dddde3"} pb={3}>
               <Text color={"#8f8fa3"} size={"xs"}>
                 {translate.t("menu.resources.help.title")}

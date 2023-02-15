@@ -30,7 +30,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
         pb={3}
         ph={4}
       >
-        <Container maxWidth={width > 1200 ? "800px" : "100%"} mr={4}>
+        <Container maxWidth={width > 1200 ? "1218px" : "100%"}>
           <Container
             borderBottomColor={"#dddde3"}
             height={"36px"}
@@ -44,7 +44,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
           <Grid
             columns={width > 1200 ? 4 : 2}
             columnsMd={1}
-            gap={width > 1200 ? "1rem" : "1.25rem"}
+            gap={width > 1200 ? "4rem" : "1.25rem"}
             ph={"0px"}
             pv={"0px"}
           >

@@ -30,7 +30,7 @@ const ServiceMenu: React.FC<IServiceProps> = ({
         mb={3}
       >
         <Container
-          maxWidth={width > 960 ? "370px" : "1440px"}
+          maxWidth={width > 960 ? "457px" : "1440px"}
           ph={4}
           scroll={"y"}
         >
@@ -58,7 +58,7 @@ const ServiceMenu: React.FC<IServiceProps> = ({
             </Text>
           </Container>
         </Container>
-        <Container maxWidth={width > 960 ? "710px" : "1440px"} ph={4}>
+        <Container maxWidth={width > 960 ? "832px" : "1440px"} ph={4}>
           <Container borderBottomColor={"#dddde3"} height={"36px"} pb={3}>
             <Text color={"#8f8fa3"} size={"xs"}>
               {translate.t("menu.services.solutions.title")}
