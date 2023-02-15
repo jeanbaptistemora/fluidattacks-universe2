@@ -1,4 +1,4 @@
 ---
-pandas: 1.3.4
+pandas: 1.5.3
 ruamel.yaml: 0.17.21
 selenium: 4.8.0

@@ -3,18 +3,16 @@ closure:
   attrs: 22.2.0
   certifi: 2022.12.7
   cffi: 1.15.1
-  exceptiongroup: 1.1.0
   h11: 0.14.0
   idna: "3.4"
   numpy: 1.24.2
   outcome: 1.2.0
-  pandas: 1.3.4
+  pandas: 1.5.3
   pycparser: "2.21"
   pysocks: 1.7.1
   python-dateutil: 2.8.2
   pytz: 2022.7.1
   ruamel.yaml: 0.17.21
-  ruamel.yaml.clib: 0.2.7
   selenium: 4.8.0
   six: 1.16.0
   sniffio: 1.3.0
@@ -42,42 +40,33 @@ links:
   - name: certifi-2022.12.7.tar.gz
     sha256: 1qx9a09rssb1fa6jwmpn332irnqlm9j4v108nij5j4cp7964p0im
     url: https://files.pythonhosted.org/packages/37/f7/2b1b0ec44fdc30a3d31dfebe52226be9ddc40cd6c0f34ffc8923ba423b69/certifi-2022.12.7.tar.gz
-  - name: cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 11gmbafr477z9yi4wnhssjq0yl22qkvgkxvy1rwdv3ikg1xxp8jl
-    url: https://files.pythonhosted.org/packages/18/8f/5ff70c7458d61fa8a9752e5ee9c9984c601b0060aae0c619316a1e1f1ee5/cffi-1.15.1-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1c1xnyjfpxj24z3x1jn56krs8niw059mnvwfnfyva228jkfk3lgw
-    url: https://files.pythonhosted.org/packages/3a/75/a162315adeaf47e94a3b7f886a8e31d77b9e525a387eef2d6f0efc96a7c8/cffi-1.15.1-cp39-cp39-macosx_11_0_arm64.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 05a4lrdsljvfkwx5a13p39ka2yllhjwsry4v5x2p57hw21hyhwvl
-    url: https://files.pythonhosted.org/packages/85/1f/a3c533f8d377da5ca7edb4f580cc3edc1edbebc45fac8bb3ae60f1176629/cffi-1.15.1-cp39-cp39-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 17dyjs9k7ki1wp2g0a71j2pfny2wwgm98yi09lm9412rk2g7k6kc
-    url: https://files.pythonhosted.org/packages/77/b7/d3618d612be01e184033eab90006f8ca5b5edafd17bf247439ea4e167d8a/cffi-1.15.1-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-    sha256: 1139rcr86ndz4yb698gk1mvs1xvwxa1qb3y88ldzk1p575qf1k9v
-    url: https://files.pythonhosted.org/packages/a9/ba/e082df21ebaa9cb29f2c4e1d7e49a29b90fcd667d43632c6674a16d65382/cffi-1.15.1-cp39-cp39-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-    sha256: 0ddy82522hhcmk797a2xzgrb7wjqdv5aaza2qa1cxaj665h7kark
-    url: https://files.pythonhosted.org/packages/af/cb/53b7bba75a18372d57113ba934b27d0734206c283c1dfcc172347fbd9f76/cffi-1.15.1-cp39-cp39-manylinux_2_17_s390x.manylinux2014_s390x.whl
-  - name: cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 09rby40y4f63b0836nqs7ff3ccfl15gd9kbpfg3g7svqhs9qnnax
-    url: https://files.pythonhosted.org/packages/2d/86/3ca57cddfa0419f6a95d1c8478f8f622ba597e3581fd501bbb915b20eb75/cffi-1.15.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 0xkgjw4zdra6fiznkmh3hig7xrzv99gyp1znkydfag3lcafbn3yv
-    url: https://files.pythonhosted.org/packages/ad/26/7b3a73ab7d82a64664c7c4ea470e4ec4a3c73bb4f02575c543a41e272de5/cffi-1.15.1-cp39-cp39-musllinux_1_1_i686.whl
-  - name: cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 1wvvd6falwz712pcj5sakxipzx57p0ny3p97ja6mi0gg5dm5rn4q
-    url: https://files.pythonhosted.org/packages/da/ff/ab939e2c7b3f40d851c0f7192c876f1910f3442080c9c846532993ec3cef/cffi-1.15.1-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 1b55wqi6jqc59whxyhsbpchbg1gkzsd8aayg91565anx538sy21x
+    url: https://files.pythonhosted.org/packages/23/8b/2e8c2469eaf89f7273ac685164949a7e644cdfe5daf1c036564208c3d26b/cffi-1.15.1-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 10yv34n4r0ff4516kz4rsxw9pp7hkzkhqy3vjxfmikqp5v7sx69p
+    url: https://files.pythonhosted.org/packages/f9/96/fc9e118c47b7adc45a0676f413b4a47554e5f3b6c99b8607ec9726466ef1/cffi-1.15.1-cp311-cp311-macosx_11_0_arm64.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 1famq0miz3ss7dznk4wblyhsslzn56h74m90ak8y8ijqaaggx4d5
+    url: https://files.pythonhosted.org/packages/10/72/617ee266192223a38b67149c830bd9376b69cf3551e1477abc72ff23ef8e/cffi-1.15.1-cp311-cp311-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 132y1p1l48rshdby208ji0w0wyszr60ld66rk8f5dlnp3hldnj1m
+    url: https://files.pythonhosted.org/packages/91/bc/b7723c2fe7a22eee71d7edf2102cd43423d5f95ff3932ebaa2f82c7ec8d0/cffi-1.15.1-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+    sha256: 09a365swa86iv2kjnwk330i0cf3g0ja05varkfpq2y1xvsnriz4i
+    url: https://files.pythonhosted.org/packages/5d/4e/4e0bb5579b01fdbfd4388bd1eb9394a989e1336203a4b7f700d887b233c1/cffi-1.15.1-cp311-cp311-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl
+  - name: cffi-1.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0g4ydgckf8pza7kqlzyck2v1ggid7xaxzil3dznclnlqqci1yhcl
+    url: https://files.pythonhosted.org/packages/37/5a/c37631a86be838bdd84cc0259130942bf7e6e32f70f4cab95f479847fb91/cffi-1.15.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: cffi-1.15.1-cp311-cp311-musllinux_1_1_i686.whl
+    sha256: 1vsr1w77r608q3fxyz13rbman7shh3bynb90f2nnmiv2wbd5nhh3
+    url: https://files.pythonhosted.org/packages/71/d7/0fe0d91b0bbf610fb7254bb164fa8931596e660d62e90fb6289b7ee27b09/cffi-1.15.1-cp311-cp311-musllinux_1_1_i686.whl
+  - name: cffi-1.15.1-cp311-cp311-musllinux_1_1_x86_64.whl
+    sha256: 1s6106w45syc6fmn0n5cmd1xr50c3h5xvlvp4shkchd0xap6akfc
+    url: https://files.pythonhosted.org/packages/d3/56/3e94aa719ae96eeda8b68b3ec6e347e0a23168c6841dc276ccdcdadc9f32/cffi-1.15.1-cp311-cp311-musllinux_1_1_x86_64.whl
   - name: cffi-1.15.1.tar.gz
     sha256: 1y9lr651svbzf1m03s4lqbnbv2byx8f6f0ml7hjm24vvlfwvy06l
     url: https://files.pythonhosted.org/packages/2b/a8/050ab4f0c3d4c1b8aaa805f70e26e84d0e27004907c5b8ecc1d31815f92a/cffi-1.15.1.tar.gz
-  - name: exceptiongroup-1.1.0-py3-none-any.whl
-    sha256: 07pc9dpm531932k6rlf40ak70dvvmf0pn45367h2svkmvaivsz1j
-    url: https://files.pythonhosted.org/packages/e8/14/9c6a7e5f12294ccd6975a45e02899ed25468cd7c2c86f3d9725f387f9f5f/exceptiongroup-1.1.0-py3-none-any.whl
-  - name: exceptiongroup-1.1.0.tar.gz
-    sha256: 08yzvxf6h6kcz5kspnrkaig7lfvxlky49pf20jsf35s41a07vdmw
-    url: https://files.pythonhosted.org/packages/15/ab/dd27fb742b19a9d020338deb9ab9a28796524081bca880ac33c172c9a8f6/exceptiongroup-1.1.0.tar.gz
   - name: h11-0.14.0-py3-none-any.whl
     sha256: 0qd7z9p38dwx215048q708vd1sn2abdh1mb3hg66ii2ip324mzp3
     url: https://files.pythonhosted.org/packages/95/04/ff642e65ad6b90db43e668d70ffb6736436c7ce41fcc549f4e9472234127/h11-0.14.0-py3-none-any.whl
@@ -90,18 +79,18 @@ links:
   - name: idna-3.4.tar.gz
     sha256: 1d1cs1in0lmm61sjmlach9qvyq3xm3xcb49vhclx7mzain754kw1
     url: https://files.pythonhosted.org/packages/8b/e1/43beb3d38dba6cb420cefa297822eac205a277ab43e5ba5d5c46faf96438/idna-3.4.tar.gz
-  - name: numpy-1.24.2-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 12p1m1kbhls8wsig0vq9mk4rxqr3c9rp4cr95pvpi9q7qg7yg6a1
-    url: https://files.pythonhosted.org/packages/ca/e0/f719500114ec3d291718ddbb1bfc3d1db7f9adb17b5c69aa617fe95c17fc/numpy-1.24.2-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: numpy-1.24.2-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 0zyarkgy2r4shav9ss8q9a1sj1fzxssv1c3slwbkmzcn309cxgdd
-    url: https://files.pythonhosted.org/packages/38/77/b0afa98a670cb255f15155a856ef257a82aa0b72e435f5f58da31d9dc944/numpy-1.24.2-cp39-cp39-macosx_11_0_arm64.whl
-  - name: numpy-1.24.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1jvskdaczrjcirp0q812a23q57b7xgmhhw5il7nqczc3ig42r6w8
-    url: https://files.pythonhosted.org/packages/ba/2b/404f675b848033b23d688e5bdc55ec1d62b62f5568dda7f80edb147b637e/numpy-1.24.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: numpy-1.24.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 106pkdv9aqk4vaxla0dbw144xqmjds1i6bxhfjzs6glvqn5bjjzn
-    url: https://files.pythonhosted.org/packages/f4/f4/45e6e3f7a23b9023554903a122c95585e9787f9403d386bafb7a95d24c9b/numpy-1.24.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: numpy-1.24.2-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 0njasj9d67mfiz1r11x5q0i9ysy2i455ypdaam32kx0303ggvs3x
+    url: https://files.pythonhosted.org/packages/1b/a7/9582b169194a05642fcd05026b2e55fa7539230bfc28de7e13f116b0cd0b/numpy-1.24.2-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: numpy-1.24.2-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 1813844l4kc56xr6b9y8dqf2rvg230bara1fdqn5q01azblvsws1
+    url: https://files.pythonhosted.org/packages/01/04/a8b0bb5ffd6b36cb9ff9b67ca6966d55c4a9fdb40ace81a2b33d1559c3b7/numpy-1.24.2-cp311-cp311-macosx_11_0_arm64.whl
+  - name: numpy-1.24.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 10dj1sxylklz52szhj60s1n3xzwzal0kdc3p1w126hf11p9sxv2c
+    url: https://files.pythonhosted.org/packages/8b/1a/34ba69424c19e4c3bd5d393d58ec5b8ff85711e77209a2d43563bf7fb178/numpy-1.24.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: numpy-1.24.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0479124m35f42c6myagkxjz9k8p2gihl9yv798h379k10m2gh8ws
+    url: https://files.pythonhosted.org/packages/b6/d7/b208a4a534732e4a978003768ac7b8c14fcd4ca5b1653ce4fb4c2826f3a4/numpy-1.24.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
   - name: numpy-1.24.2.tar.gz
     sha256: 08ibxgknpvn35wmgqjlwxwns96hb4bvimfkw2z6v43481r9ryfh0
     url: https://files.pythonhosted.org/packages/e4/a9/6704bb5e1d1d778d3a6ee1278a8d8134f0db160e09d52863a24edb58eab5/numpy-1.24.2.tar.gz
@@ -111,21 +100,24 @@ links:
   - name: outcome-1.2.0.tar.gz
     sha256: 0wi6bmsfn73aw1hbpa1nhhshlx9k2vxcl7kp3z7h78sxwhyvv0kg
     url: https://files.pythonhosted.org/packages/dd/91/741e1626e89fdc3664169e16300c59eefa4b23540cc6d6c70450f885098f/outcome-1.2.0.tar.gz
-  - name: pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1yddvd92vw412gfjxzvng4ki8wv21pkinir3hifvbrny0z7m0xyl
-    url: https://files.pythonhosted.org/packages/3b/52/d5475578dc252c13e0823b9a715c2e17002dcdaee9defba0d2b2659112df/pandas-1.3.4-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1aqv5j6zs51sygf96p5rg8jzd6jzawdxcx258ykzmn0k02fc079d
-    url: https://files.pythonhosted.org/packages/31/29/1d4fa5419507150b3c68404970615c37e56f9b6855da73b182c3024414d0/pandas-1.3.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 1ad49g5an5gwrzw70ll8caqq60ynli15hg8chdpayyfv4wjhmq8h
-    url: https://files.pythonhosted.org/packages/48/b4/1081d66b71c4dfc1bc1e19d6f2abbf93ed42f69df7703eb323742d45423e/pandas-1.3.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 0hy1sb30c2b7samimpg8ma3irlvh3k0y1fj1v8bxbr6jmh4pdirm
-    url: https://files.pythonhosted.org/packages/4a/71/b78cb9d1d88f0177da9a6ca6548244d52540a22cf730492231287a5eb93f/pandas-1.3.4-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: pandas-1.3.4.tar.gz
-    sha256: 1z3gm521wpm3j13rwhlb4f2x0645zvxkgxij37i3imdpy39iiam2
-    url: https://files.pythonhosted.org/packages/58/58/b729eda34f78060e14cb430c91d4f7ba3cf1e34797976877a3a1125ea5b2/pandas-1.3.4.tar.gz
+  - name: pandas-1.5.3-cp311-cp311-macosx_10_9_universal2.whl
+    sha256: 1p5llazpl78zh8i3f25j2nl7x24w46ah954y36bfr4fa06f58wv9
+    url: https://files.pythonhosted.org/packages/e2/24/a26af514113fd5eca2d8fe41ba4f22f70dfe6afefde4a6beb6a203570935/pandas-1.5.3-cp311-cp311-macosx_10_9_universal2.whl
+  - name: pandas-1.5.3-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 0p9h0r9pgqj6ga0b512fdx3jbjd1ms1jh6717g6svrgd7jhqv6n3
+    url: https://files.pythonhosted.org/packages/53/c9/d2f910dace7ef849b626980d0fd033b9cded36568949c8d560c9630ad2e0/pandas-1.5.3-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: pandas-1.5.3-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 1g1z67mabk1hrdv056zabys54y8jsj6mxzlxv9gm6an829yhjvgp
+    url: https://files.pythonhosted.org/packages/b0/be/1843b9aff84b98899663e7cad9f45513dfdd11d69cb5bd85c648aaf6a8d4/pandas-1.5.3-cp311-cp311-macosx_11_0_arm64.whl
+  - name: pandas-1.5.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 1bhrb2v65z7fj50pi1kx0nxj1x4lmnbaf3cvhvn9qq7dc073jx74
+    url: https://files.pythonhosted.org/packages/63/8d/c2bd356b9d4baf1c5cf8d7e251fb4540e87083072c905430da48c2bb31eb/pandas-1.5.3-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: pandas-1.5.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 1xn74f6x7a5sj555lvca701fk0hfa9gzbcymrba8ln510qj9aasz
+    url: https://files.pythonhosted.org/packages/56/73/3351beeb807dca69fcc3c4966bcccc51552bd01549a9b13c04ab00a43f21/pandas-1.5.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: pandas-1.5.3.tar.gz
+    sha256: 1cdhngylzh352wx5s3sjyznn7a6kmjqcfg97hgqm5h3yb9zgv8vl
+    url: https://files.pythonhosted.org/packages/74/ee/146cab1ff6d575b54ace8a6a5994048380dc94879b0125b25e62edcb9e52/pandas-1.5.3.tar.gz
   - name: pycparser-2.21-py2.py3-none-any.whl
     sha256: 1agwca0hgbpwmr9snhxafqjhfd52mq083rw5n7vf25amallm9r4f
     url: https://files.pythonhosted.org/packages/62/d5/5f610ebe421e85889f2e55e33b7f9a6795bd982198517d912eb1c76e1a53/pycparser-2.21-py2.py3-none-any.whl
@@ -156,21 +148,6 @@ links:
   - name: ruamel.yaml-0.17.21.tar.gz
     sha256: 1bxp4dfkzzsndf9f8fspr4jc85nwf5243b616lm7a4pjlabycz4b
     url: https://files.pythonhosted.org/packages/46/a9/6ed24832095b692a8cecc323230ce2ec3480015fbfa4b79941bd41b23a3c/ruamel.yaml-0.17.21.tar.gz
-  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1n8kl63521i9kgfj4w75i82wgxsylm5rq6xpa8vkmy5q3ry6dh2v
-    url: https://files.pythonhosted.org/packages/f5/ac/dda2d23d652bc2f6db886496ad632957af82e33d22c1088cc0ac87c496b5/ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_12_0_arm64.whl
-    sha256: 1l9m7ick2ywwf2kblnkqc2hfqxn671mbxabnj2bqpmk8g10qskaa
-    url: https://files.pythonhosted.org/packages/d2/3e/179eeeabcbbfe173ecd2bb3f958e22011c0a2c18f75674a75f62928f55eb/ruamel.yaml.clib-0.2.7-cp39-cp39-macosx_12_0_arm64.whl
-  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux2014_aarch64.whl
-    sha256: 0h1nrlih1gk4swf4xx2kd0s04g69ljydfgnylyqkh592l326p6mz
-    url: https://files.pythonhosted.org/packages/ff/66/4c05485243e24c6db5d7305063304c410b5539577becc89e4539d2897e41/ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux2014_aarch64.whl
-  - name: ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
-    sha256: 0sqs41wls30fw2apqmr19pq1g2b3amnc9daq60i76p8513zh3cx7
-    url: https://files.pythonhosted.org/packages/35/bc/a1f58a339ffe891d92492f47b1dfa90b0957ccf8ad11f35f653a1a6b8c4e/ruamel.yaml.clib-0.2.7-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl
-  - name: ruamel.yaml.clib-0.2.7.tar.gz
-    sha256: 15wlbw7wys3nana0xgip8mgjlpcr1f2qwrvivf04377a5ddgs20z
-    url: https://files.pythonhosted.org/packages/d5/31/a3e6411947eb7a4f1c669f887e9e47d61a68f9d117f10c3c620296694a0b/ruamel.yaml.clib-0.2.7.tar.gz
   - name: selenium-4.8.0-py3-none-any.whl
     sha256: 10v6jbjl6qfvcjjl5zvfzxwjy1dkxdv55px7290kn9wvxbj8xwi0
     url: https://files.pythonhosted.org/packages/d9/4c/d18374c7652b575c93838ffa728415826ae6108156b65e96344922130e9e/selenium-4.8.0-py3-none-any.whl
@@ -219,4 +196,4 @@ links:
   - name: wsproto-1.2.0.tar.gz
     sha256: 0rahm1j9danv1l6i6as80acwv16ycihxkhrvwjiqh9drxhk5ymmd
     url: https://files.pythonhosted.org/packages/c9/4a/44d3c295350d776427904d73c189e10aeae66d7f555bb2feee16d1e4ba5a/wsproto-1.2.0.tar.gz
-python: "3.9"
+python: "3.11"
