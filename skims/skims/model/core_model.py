@@ -2818,6 +2818,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_FSX_USES_DEFAULT_KMS_KEY = MethodInfo(
+        file_name="aws",
+        name="fsx_uses_default_kms_key",
+        module="dast",
+        finding=FindingEnum.F411,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_CLOUDFRONT_HAS_LOGGING_DISABLED = MethodInfo(
         file_name="aws",
         name="cloudfront_has_logging_disabled",
@@ -2845,6 +2853,14 @@ class MethodsEnum(Enum):
     AWS_S3_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
         file_name="aws",
         name="s3_has_server_access_logging_disabled",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
+    AWS_EKS_HAS_ACCESS_LOGGING_DISABLED = MethodInfo(
+        file_name="aws",
+        name="eks_has_server_access_logging_disabled",
         module="dast",
         finding=FindingEnum.F400,
         developer=DeveloperEnum.LUIS_SAAVEDRA,
