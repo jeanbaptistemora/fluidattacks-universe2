@@ -14,7 +14,7 @@ from forces.model import (
     VulnerabilityType,
 )
 from forces.utils.strict_mode import (
-    check_policy_compliance,
+    get_policy_compliance,
     set_forces_exit_code,
 )
 import pytest
@@ -44,7 +44,12 @@ def test_check_policy_compliance() -> None:
         root_nickname=None,
         compliance=True,
     )
-    assert check_policy_compliance(test_config, compliant_vuln)
+    assert get_policy_compliance(
+        config=test_config,
+        report_date=compliant_vuln.report_date,
+        severity=compliant_vuln.severity,
+        state=compliant_vuln.state,
+    )
     non_compliant_vuln = Vulnerability(
         type=VulnerabilityType.DAST,
         where="somewhere",
@@ -56,7 +61,12 @@ def test_check_policy_compliance() -> None:
         root_nickname=None,
         compliance=False,
     )
-    assert not check_policy_compliance(test_config, non_compliant_vuln)
+    assert not get_policy_compliance(
+        config=test_config,
+        report_date=non_compliant_vuln.report_date,
+        severity=non_compliant_vuln.severity,
+        state=non_compliant_vuln.state,
+    )
 
 
 @pytest.mark.asyncio

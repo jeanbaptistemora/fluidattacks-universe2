@@ -38,7 +38,6 @@ from forces.report.styles import (
     style_summary,
 )
 from forces.utils.strict_mode import (
-    check_policy_compliance,
     get_policy_compliance,
 )
 from operator import (
@@ -144,12 +143,11 @@ def format_vuln_table(
             end_section=not config.strict,
         )
         if config.strict:
-            compliance = check_policy_compliance(config, vuln)
             vuln_table.add_row(
                 "compliance",
                 style_report(
                     "compliance",
-                    "Compliant" if compliance else "No, breaks build",
+                    "Compliant" if vuln.compliance else "No, breaks build",
                 ),
                 end_section=True,
             )

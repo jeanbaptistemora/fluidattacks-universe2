@@ -9,7 +9,6 @@ from decimal import (
 from forces.model import (
     Finding,
     ForcesConfig,
-    Vulnerability,
     VulnerabilityState,
 )
 from forces.utils.logs import (
@@ -51,20 +50,6 @@ def get_policy_compliance(
     )
 
 
-def check_policy_compliance(config: ForcesConfig, vuln: Vulnerability) -> bool:
-    """
-    Returns `False` if the vulnerability does not comply with the Agent strict
-    mode org policies (severity threshold and the grace period)
-    """
-    current_date: datetime = datetime.now(tz=timezone.utc)
-    time_diff: timedelta = current_date - vuln.report_date
-    return not (
-        vuln.state == VulnerabilityState.VULNERABLE
-        and vuln.severity >= config.breaking_severity
-        and abs(time_diff.days) >= config.grace_period
-    )
-
-
 async def set_forces_exit_code(
     config: ForcesConfig, findings: tuple[Finding, ...]
 ) -> int:
@@ -86,9 +71,9 @@ async def set_forces_exit_code(
         )
         for finding in findings:
             for vuln in finding.vulnerabilities:
-                current_date: datetime = datetime.now(tz=timezone.utc)
-                time_diff: timedelta = current_date - vuln.report_date
-                if not check_policy_compliance(config, vuln):
+                if not vuln.compliance:
+                    current_date: datetime = datetime.now(tz=timezone.utc)
+                    time_diff: timedelta = current_date - vuln.report_date
                     await log(
                         "warning",
                         (
