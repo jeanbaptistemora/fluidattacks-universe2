@@ -3,6 +3,7 @@ from . import (
     get_result,
     update_services,
 )
+import asyncio
 from custom_exceptions import (
     InvalidCannotModifyNicknameWhenClosing,
     InvalidNewVulnState,
@@ -253,6 +254,7 @@ async def test_upload_file(
         ],
         key=_get_key,
     )
+    await asyncio.sleep(8)
     group_vulns = await get_group_vulnerabilities(
         user=email,
         group_name="group1",

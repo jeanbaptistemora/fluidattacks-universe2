@@ -620,17 +620,15 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     if not is_valid:
         raise InvalidParameter()
 
-    # pylint: disable=unnecessary-comprehension
-    urls_deleted: list[str] = [
-        url
-        for url in set(root.state.environment_urls).difference(
-            set(environment_urls)
-        )
-    ]
+    root_urls = await loaders.root_environment_urls.load(root_id)
+    urls = {
+        url.url
+        for url in root_urls
+        if url.url_type == RootEnvironmentUrlType.URL
+    }
+    urls_deleted: list[str] = list(set(urls).difference(set(environment_urls)))
     urls_added: list[str] = [
-        url
-        for url in environment_urls
-        if url not in root.state.environment_urls
+        url for url in environment_urls if url not in urls
     ]
 
     if urls_deleted:
@@ -652,17 +650,19 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     )
 
     if urls_added or urls_deleted:
-        await send_mail_environment(
-            loaders=loaders,
-            modified_date=modified_date,
-            group_name=group_name,
-            git_root=root.state.nickname,
-            git_root_url=root.state.url,
-            urls_added=urls_added,
-            urls_deleted=urls_deleted,
-            user_email=user_email,
-            other=other,
-            reason=reason,
+        schedule(
+            send_mail_environment(
+                loaders=loaders,
+                modified_date=modified_date,
+                group_name=group_name,
+                git_root=root.state.nickname,
+                git_root_url=root.state.url,
+                urls_added=urls_added,
+                urls_deleted=urls_deleted,
+                user_email=user_email,
+                other=other,
+                reason=reason,
+            )
         )
 
     await roots_model.update_root_state(
@@ -1757,7 +1757,8 @@ async def remove_environment_url(root_id: str, url: str) -> None:
     )
 
 
-async def send_mail_environment(  # pylint: disable=too-many-arguments
+async def send_mail_environment(
+    *,
     loaders: Dataloaders,
     modified_date: datetime,
     group_name: str,
@@ -1770,13 +1771,13 @@ async def send_mail_environment(  # pylint: disable=too-many-arguments
     reason: Optional[str] = None,
 ) -> None:
     roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
+    users_email: list[
+        str
+    ] = await group_access_domain.get_stakeholders_email_by_preferences(
+        loaders=loaders,
+        group_name=group_name,
+        notification=Notification.ROOT_UPDATE,
+        roles=roles,
     )
 
     await groups_mail.send_mail_environment_report(
