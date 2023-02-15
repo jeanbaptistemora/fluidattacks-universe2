@@ -15,7 +15,7 @@ from typing import (
 
 
 def get_dep_info(dep_line: str) -> Tuple[str, str]:
-    product, version = dep_line.split("@")[0].split("/")
+    product, version = dep_line.lstrip().split("@")[0].split("/")
     if "[" in version:
         version = re.sub(r"[\[\]]", "", version).split(",")[0]
     return product, version
