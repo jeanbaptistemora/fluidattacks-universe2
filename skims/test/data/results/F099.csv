@@ -91,7 +91,7 @@ F099,lines,namespace/skims/test/data/lib_path/f099/cfn_unencrypted_buckets.yaml.
   21 |             }
      ^ Col 0
 ",cloudformation.cfn_unencrypted_buckets
-F099,lines,namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_path/f099/tfm_unencrypted_buckets.tf,"
+F099,lines,namespace/skims/test/data/lib_root/f099/tfm_unencrypted_buckets.tf,1,311,skims,099. Non-encrypted confidential information - S3 Server Side Encryption,Property BucketEncryption is either missing or misconfigured in namespace/skims/test/data/lib_root/f099/tfm_unencrypted_buckets.tf,"
 >  1 | resource ""aws_s3_bucket"" ""unencrypted_bucket_1"" {
    2 |   bucket = ""my_unencrypted_bucket_1""
    3 |   acl    = ""private""

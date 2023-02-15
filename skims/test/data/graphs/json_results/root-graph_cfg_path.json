@@ -5535,7 +5535,7 @@
           },
           "111": {
             "label_type": "Literal",
-            "value": "aws_s3_bucket",
+            "value": "aws_s3_bucket.s3_bucket.id",
             "value_type": "string"
           },
           "120": {
@@ -5570,7 +5570,7 @@
           },
           "147": {
             "label_type": "Literal",
-            "value": "aws_s3_bucket",
+            "value": "aws_s3_bucket.s3_bucket.id",
             "value_type": "string"
           },
           "156": {
@@ -5637,7 +5637,7 @@
           },
           "19": {
             "label_type": "Literal",
-            "value": "var",
+            "value": "var.bucket_name",
             "value_type": "string"
           },
           "190": {
@@ -5718,7 +5718,7 @@
           },
           "249": {
             "label_type": "Literal",
-            "value": "aws_s3_bucket",
+            "value": "aws_s3_bucket.s3_bucket.arn",
             "value_type": "string"
           },
           "25": {
@@ -5738,7 +5738,7 @@
           },
           "28": {
             "label_type": "Literal",
-            "value": "var",
+            "value": "var.tags",
             "value_type": "string"
           },
           "3": {
@@ -5763,7 +5763,7 @@
           },
           "52": {
             "label_type": "Literal",
-            "value": "aws_s3_bucket",
+            "value": "aws_s3_bucket.s3_bucket.id",
             "value_type": "string"
           },
           "61": {
