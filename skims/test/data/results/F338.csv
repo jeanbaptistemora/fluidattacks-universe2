@@ -56,6 +56,28 @@ F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,74
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/go_salt_is_hardcoded.go,16,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/go_salt_is_hardcoded.go","
+   1 | package main
+   2 |
+   3 | import (
+   4 |  ""crypto/sha256""
+   5 |  ""encoding/hex""
+   6 |  ""math/rand""
+   7 |  ""time""
+   8 | )
+   9 |
+  10 |
+  11 |
+  12 | var salt string = ""HARDCODED_SALT""
+  13 |
+  14 | func hashPasswordHardcoded(password string) string {
+  15 |  h := sha256.New()
+> 16 |  h.Write([]byte(password + salt))
+  17 |  return hex.EncodeToString(h.Sum(nil))
+  18 | }
+     ^ Col 0
+",go.go_salt_is_hardcoded
 F338,lines,namespace/skims/test/data/lib_root/f338/java_salt_is_hardcoded.java,40,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
  in namespace/skims/test/data/lib_root/f338/java_salt_is_hardcoded.java","
   24 |     byte[] hashedPassword = md.digest(password.getBytes());

@@ -1,6 +1,9 @@
 from lib_root.f338.c_sharp import (
     check_hashes_salt as csharp_check_hashes_salt,
 )
+from lib_root.f338.go import (
+    go_salting_is_harcoded,
+)
 from lib_root.f338.java import (
     java_salting_is_harcoded,
 )
@@ -25,4 +28,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, ts_salting_is_harcoded),
     (FINDING, java_salting_is_harcoded),
     (FINDING, kotlin_salting_is_harcoded),
+    (FINDING, go_salting_is_harcoded),
 )
