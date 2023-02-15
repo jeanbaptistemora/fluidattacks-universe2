@@ -307,6 +307,12 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         only_fluid_staff=False,
         roles={},
     ),
+    vulnerability_rejection=dict(
+        email_preferences=Notification.GROUP_INFORMATION,
+        exclude_trial=False,
+        only_fluid_staff=False,
+        roles={},
+    ),
     vulnerability_report=dict(
         email_preferences=Notification.GROUP_INFORMATION,
         exclude_trial=False,
