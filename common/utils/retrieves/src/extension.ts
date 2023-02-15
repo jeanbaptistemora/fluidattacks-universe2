@@ -15,6 +15,7 @@ import {
 
 import { getGroups } from "./api/groups";
 import { getGroupGitRootsSimple } from "./api/root";
+import { acceptVulnerabilityTemporary } from "./commands/acceptVulnerabilityTemporary";
 import { addLineToYaml } from "./commands/addLineToYaml";
 import { clone } from "./commands/clone";
 import { environmentUrls } from "./commands/environmentUrls";
@@ -30,9 +31,14 @@ import { GroupsProvider } from "./providers/groups";
 import type { IGitRoot } from "./types";
 
 const activate = async (context: ExtensionContext): Promise<void> => {
-  void commands.executeCommand(
+  await commands.executeCommand(
     "setContext",
     "retrieves.groupsAvailable",
+    false
+  );
+  await commands.executeCommand(
+    "setContext",
+    "retrieves.identifiedRepository",
     false
   );
 
@@ -59,6 +65,10 @@ const activate = async (context: ExtensionContext): Promise<void> => {
   void commands.registerCommand(
     "retrieves.requestReattack",
     partial(requestReattack, [retrievesDiagnostics])
+  );
+  void commands.registerCommand(
+    "retrieves.acceptVulnerabilityTemporary",
+    partial(acceptVulnerabilityTemporary, [retrievesDiagnostics])
   );
 
   if (currentWorkingDir.includes("groups")) {
@@ -117,6 +127,11 @@ const activate = async (context: ExtensionContext): Promise<void> => {
 
       return;
     }
+    await commands.executeCommand(
+      "setContext",
+      "retrieves.identifiedRepository",
+      true
+    );
     await context.globalState.update("rootNickname", gitRoot.nickname);
 
     await setDiagnosticsToAllFiles(

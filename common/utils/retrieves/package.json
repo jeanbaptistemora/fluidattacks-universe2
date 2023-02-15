@@ -34,6 +34,10 @@
       {
         "command": "retrieves.requestReattack",
         "title": "Request Reattack"
+      },
+      {
+        "command": "retrieves.acceptVulnerabilityTemporary",
+        "title": "Accept Vulnerability Temporary"
       }
     ],
     "configuration": [
@@ -70,12 +74,17 @@
         {
           "command": "retrieves.goToCriteria",
           "group": "retrieves",
-          "when": "editorTextFocus"
+          "when": "editorTextFocus && retrieves.identifiedRepository || retrieves.groupsAvailable && editorTextFocus"
         },
         {
           "command": "retrieves.requestReattack",
           "group": "retrieves",
-          "when": "editorHasSelection"
+          "when": "retrieves.identifiedRepository && editorHasSelection || retrieves.identifiedRepository && editorTextFocus"
+        },
+        {
+          "command": "retrieves.acceptVulnerabilityTemporary",
+          "group": "retrieves",
+          "when": "retrieves.identifiedRepository && editorHasSelection || retrieves.identifiedRepository && editorTextFocus"
         }
       ],
       "editor/title/context": [
