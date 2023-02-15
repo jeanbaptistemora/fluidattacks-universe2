@@ -9,7 +9,7 @@
             outputs."/integrates/back/env/pypi/type-stubs"
           ];
         };
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/back/src";
       };
       integratesBackChartsGenerators = {
@@ -18,7 +18,7 @@
           outputs."/integrates/back/charts/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/charts/generators";
       };
     };
@@ -34,7 +34,7 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/back/deploy/permissions_matrix";
       };
       integratesBackMigrations = {
@@ -42,7 +42,7 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/back/migrations";
       };
       integratesBackTest = {
@@ -51,7 +51,7 @@
           outputs."/integrates/back/env/pypi/runtime"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/back/test";
       };
       integratesBackTestE2e = {
@@ -68,7 +68,7 @@
           outputs."/integrates/back/charts/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/charts/collector";
       };
       integratesBackCharts = {
@@ -77,7 +77,7 @@
           outputs."/integrates/back/charts/pypi"
           outputs."/integrates/back/env/pypi/type-stubs"
         ];
-        python = "3.9";
+        python = "3.11";
         src = "/integrates/charts";
       };
     };

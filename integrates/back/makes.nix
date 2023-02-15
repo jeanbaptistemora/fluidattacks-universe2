@@ -5,7 +5,7 @@
   ];
   securePythonWithBandit = {
     integratesBack = {
-      python = "3.9";
+      python = "3.11";
       target = "/integrates/back/src";
     };
   };
