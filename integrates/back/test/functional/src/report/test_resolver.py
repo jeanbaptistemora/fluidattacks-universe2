@@ -1,9 +1,13 @@
 from . import (
+    get_batch_job,
     get_result,
     get_result_closing_date,
     get_result_states,
     get_result_treatments,
     run,
+)
+from batch.dal import (
+    delete_action,
 )
 from custom_exceptions import (
     InvalidAcceptanceSeverity,
@@ -90,19 +94,54 @@ async def test_get_report_second_time_fail(populate: bool, email: str) -> None:
 @pytest.mark.parametrize(
     ["email"],
     [
-        ["admin@gmail.com"],
         ["user_manager@gmail.com"],
-        ["vulnerability_manager@gmail.com"],
-        ["hacker@gmail.com"],
-        ["customer_manager@fluidattacks.com"],
     ],
 )
-async def test_get_report_second_time(populate: bool, email: str) -> None:
+async def test_get_report_group2(populate: bool, email: str) -> None:
     assert populate
-    group: str = "group1"
+    group: str = "group2"
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name=group,
+    )
+    assert "success" in result["data"]["report"]
+    assert result["data"]["report"]["success"]
+
+    batch_action = await get_batch_job(
+        entity="group1", additional_info="PDF", subject=email
+    )
+    assert await delete_action(dynamodb_pk=batch_action.key)
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["b_group", "email", "a_group"],
+    [
+        ["group1", "admin@gmail.com", "group2"],
+        ["group2", "user_manager@gmail.com", "group1"],
+        ["group1", "vulnerability_manager@gmail.com", "group1"],
+        ["group1", "hacker@gmail.com", "group1"],
+        ["group1", "customer_manager@fluidattacks.com", "group1"],
+    ],
+)
+async def test_get_report_second_time(
+    populate: bool,
+    b_group: str,
+    email: str,
+    a_group: str,
+) -> None:
+    assert populate
+    if a_group == b_group:
+        batch_action = await get_batch_job(
+            entity=b_group, additional_info="PDF", subject=email
+        )
+        assert await delete_action(dynamodb_pk=batch_action.key)
+        return
+
     assert (
         await run(
-            entity=group,
+            entity=b_group,
             additional_info="PDF",
             subject=email,
         )
@@ -110,7 +149,7 @@ async def test_get_report_second_time(populate: bool, email: str) -> None:
     )
     result: dict[str, Any] = await get_result(
         user=email,
-        group_name=group,
+        group_name=a_group,
     )
     assert "success" in result["data"]["report"]
     assert result["data"]["report"]["success"]
@@ -710,4 +749,26 @@ async def test_get_report_invalid_severity(
     assert "errors" in result_data
     assert result_data["errors"][0]["message"] == str(
         InvalidAcceptanceSeverity()
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("report")
+@pytest.mark.parametrize(
+    ["group", "email"],
+    [
+        ["group1", "admin@gmail.com"],
+    ],
+)
+async def test_get_report_data_report(
+    populate: bool, group: str, email: str
+) -> None:
+    assert populate
+    assert (
+        await run(
+            entity=group,
+            additional_info="DATA",
+            subject=email,
+        )
+        == 0
     )

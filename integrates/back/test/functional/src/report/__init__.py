@@ -21,7 +21,7 @@ from typing import (
 )
 
 
-async def _get_batch_job(
+async def get_batch_job(
     *, entity: str, additional_info: str, subject: str
 ) -> BatchProcessing:
     all_actions = await get_actions()
@@ -37,7 +37,7 @@ async def _get_batch_job(
 
 
 async def run(*, entity: str, additional_info: str, subject: str) -> int:
-    batch_action = await _get_batch_job(
+    batch_action = await get_batch_job(
         entity=entity, additional_info=additional_info, subject=subject
     )
     cmd_args: List[str] = [
