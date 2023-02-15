@@ -18,11 +18,17 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
   const { width } = useWindowSize();
 
   return (
-    <Container bgColor={"#ffffff"} display={display} scroll={"y"}>
+    <Container
+      bgColor={"#ffffff"}
+      display={display}
+      scroll={"y"}
+      shadowBottom={width > 1240}
+    >
       <Container
         display={width > 960 ? "flex" : "inline"}
         height={"max-content"}
         justify={"center"}
+        mb={3}
       >
         <Container maxWidth={width > 1200 ? "370px" : "1440px"} pb={4} ph={4}>
           <Container
