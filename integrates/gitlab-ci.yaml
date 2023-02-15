@@ -351,6 +351,35 @@
     GIT_DEPTH: 1
     MAKES_GIT_DEPTH: 1
     MAKES_NON_ROOT: 1
+/integrates/back/test/functional__add_credit_card_payment_method:
+  after_script:
+    - cp ~/.makes/provenance-* .
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - integrates/.coverage*
+      - provenance-*
+    when: on_success
+  image: ghcr.io/fluidattacks/makes:22.11
+  interruptible: true
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_PIPELINE_SOURCE == "trigger"
+      when: never
+    - if: $CI_COMMIT_TITLE =~ /^(all|integrates)/
+  script:
+    - m . /integrates/back/test/functional 'add_credit_card_payment_method'
+  stage: test-code
+  tags:
+    - small
+  variables:
+    GIT_DEPTH: 1
+    MAKES_GIT_DEPTH: 1
+    MAKES_NON_ROOT: 1
 /integrates/back/test/functional__add_draft:
   after_script:
     - cp ~/.makes/provenance-* .
@@ -4482,6 +4511,7 @@
     - /integrates/back/test/functional__acknowledge_concurrent_session
     - /integrates/back/test/functional__activate_root
     - /integrates/back/test/functional__add_credentials
+    - /integrates/back/test/functional__add_credit_card_payment_method
     - /integrates/back/test/functional__add_draft
     - /integrates/back/test/functional__add_enrollment
     - /integrates/back/test/functional__add_event
@@ -4516,7 +4546,6 @@
     - /integrates/back/test/functional__download_vulnerability_file
     - /integrates/back/test/functional__event
     - /integrates/back/test/functional__events
-    - /integrates/back/test/functional__expire_free_trial
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4545,6 +4574,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__expire_free_trial
     - /integrates/back/test/functional__finding
     - /integrates/back/test/functional__forces_executions
     - /integrates/back/test/functional__get_organization_finding_policy
@@ -4584,7 +4614,6 @@
     - /integrates/back/test/functional__remove_vulnerability
     - /integrates/back/test/functional__report
     - /integrates/back/test/functional__report_machine
-    - /integrates/back/test/functional__request_event_verification
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4613,6 +4642,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__request_event_verification
     - /integrates/back/test/functional__request_vulnerabilities_hold
     - /integrates/back/test/functional__request_vulnerabilities_verification
     - /integrates/back/test/functional__request_vulnerabilities_zero_risk
@@ -4652,7 +4682,6 @@
     - /integrates/back/test/functional__update_group_policies
     - /integrates/back/test/functional__update_group_stakeholder
     - /integrates/back/test/functional__update_ip_root
-    - /integrates/back/test/functional__update_notification_preferences
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
@@ -4681,6 +4710,7 @@
   image: ghcr.io/fluidattacks/makes:22.11
   interruptible: true
   needs:
+    - /integrates/back/test/functional__update_notification_preferences
     - /integrates/back/test/functional__update_organization_policies
     - /integrates/back/test/functional__update_organization_stakeholder
     - /integrates/back/test/functional__update_root_cloning_status
