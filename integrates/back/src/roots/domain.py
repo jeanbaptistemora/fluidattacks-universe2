@@ -729,6 +729,21 @@ def _validate_git_root_url(root: GitRoot, gitignore: list[str]) -> None:
         raise InvalidRootExclusion()
 
 
+@validation_utils.validate_sanitized_csv_input_deco(["new_nickname"])
+@validations.validate_nickname_deco("new_nickname")
+@validations.validate_nickname_is_unique_deco(
+    nickname_field="new_nickname",
+    roots_fields="roots",
+    old_nickname_field="nickname",
+)
+def _assign_nickname(  # pylint: disable=unused-argument
+    nickname: str, new_nickname: str, roots: Iterable[Root]
+) -> str:
+    if new_nickname and new_nickname != nickname:
+        return new_nickname
+    return nickname
+
+
 @validations.validate_git_root_deco("root")
 @validations.validate_active_root_deco("root")
 def _check_repeated_root(
@@ -775,14 +790,11 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     ):
         raise InvalidParameter()
 
-    if kwargs.get("nickname") and kwargs.get("nickname") != nickname:
-        validation_utils.validate_sanitized_csv_input(kwargs["nickname"])
-        validations.validate_nickname(kwargs["nickname"])
-        validations.validate_nickname_is_unique(
-            kwargs["nickname"],
-            await loaders.group_roots.load(group_name),
-        )
-        nickname = kwargs["nickname"]
+    nickname = _assign_nickname(
+        nickname=nickname,
+        new_nickname=kwargs.get("nickname"),
+        roots=await loaders.group_roots.load(group_name),
+    )
 
     organization = await orgs_utils.get_organization(
         loaders, group.organization_id
