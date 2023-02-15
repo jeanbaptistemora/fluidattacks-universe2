@@ -8,12 +8,6 @@ Content-Transfer-Encoding: 7bit
 Content-Disposition: attachment; filename="cloud-config.txt"
 
 #cloud-config
-repo_update: true
-repo_upgrade: all
-
-packages:
- - rsync
-
 disk_setup:
   /dev/nvme1n1:
     table_type: mbr
@@ -28,36 +22,37 @@ fs_setup:
     overwrite: true
 
 mounts:
-  - [/dev/nvme1n1, /mnt/docker]
+  - [/dev/nvme1n1, /var/run/docker]
+
+bootcmd:
+  - echo ECS_CONTAINER_START_TIMEOUT=1h  >> /etc/ecs/ecs.config
+  - echo ECS_CONTAINER_STOP_TIMEOUT=120s  >> /etc/ecs/ecs.config
+  - echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true  >> /etc/ecs/ecs.config
+  - echo ECS_ENGINE_TASK_CLEANUP_WAIT_DURATION=5m  >> /etc/ecs/ecs.config
+  - echo ECS_ENABLE_UNTRACKED_IMAGE_CLEANUP=true  >> /etc/ecs/ecs.config
+  - echo ECS_IMAGE_CLEANUP_INTERVAL=11m  >> /etc/ecs/ecs.config
+  - echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=1s  >> /etc/ecs/ecs.config
+  - echo ECS_IMAGE_PULL_BEHAVIOR=always  >> /etc/ecs/ecs.config
+  - echo ECS_IMAGE_PULL_INACTIVITY_TIMEOUT=1h  >> /etc/ecs/ecs.config
+  - echo ECS_NUM_IMAGES_DELETE_PER_CYCLE=10000  >> /etc/ecs/ecs.config
+  - echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1s  >> /etc/ecs/ecs.config
+  - echo ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true  >> /etc/ecs/ecs.config
 
 write_files:
 - content: |
-    {"data-root": "/mnt/docker/", "storage-driver": "overlay" }
-  path: /etc/docker/daemon.json
+    # The max number of open files for the daemon itself, and all
+    # running containers.  The default value of 1048576 mirrors the value
+    # used by the systemd service unit.
+    DAEMON_MAXFILES=1048576
 
-runcmd:
- - [ rsync, -avPHSX, /var/lib/docker/, /mnt/docker/ ]
- - [ service, docker, restart ]
+    # Additional startup options for the Docker daemon, for example:
+    # OPTIONS="--ip-forward=true --iptables=true"
+    # By default we limit the number of open files per container
+    OPTIONS="--default-ulimit nofile=32768:65536 --storage-driver overlay"
 
---==BOUNDARY==
-Content-Type: text/x-shellscript; charset="us-ascii"
-
-#!/bin/bash
-# Set any ECS agent configuration options
-{
-  echo ECS_CONTAINER_START_TIMEOUT=1h
-  echo ECS_CONTAINER_STOP_TIMEOUT=120s
-  echo ECS_ENABLE_SPOT_INSTANCE_DRAINING=true
-  echo ECS_ENGINE_TASK_CLEANUP_WAIT_DURATION=5m
-  echo ECS_ENABLE_UNTRACKED_IMAGE_CLEANUP=true
-  echo ECS_IMAGE_CLEANUP_INTERVAL=11m
-  echo ECS_IMAGE_MINIMUM_CLEANUP_AGE=1s
-  echo ECS_IMAGE_PULL_BEHAVIOR=always
-  echo ECS_IMAGE_PULL_INACTIVITY_TIMEOUT=1h
-  echo ECS_NUM_IMAGES_DELETE_PER_CYCLE=10000
-  echo NON_ECS_IMAGE_MINIMUM_CLEANUP_AGE=1s
-  echo ECS_ENABLE_TASK_IAM_ROLE_NETWORK_HOST=true
-
-}  >> /etc/ecs/ecs.config
+    # How many seconds the sysvinit script waits for the pidfile to appear
+    # when starting the daemon.
+    DAEMON_PIDFILE_TIMEOUT=10
+  path: /etc/sysconfig/docker
 
 --==BOUNDARY==--

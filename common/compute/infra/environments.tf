@@ -229,7 +229,7 @@ resource "aws_batch_compute_environment" "main" {
 
   compute_resources {
     bid_percentage = 100
-    image_id       = "ami-0c09d65d2051ada93"
+    image_id       = "ami-05e7fa5a3b6085a75"
     type           = each.value.type
 
     max_vcpus = each.value.max_vcpus
