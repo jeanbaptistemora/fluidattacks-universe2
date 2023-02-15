@@ -18,20 +18,20 @@ from typing import (
 )
 
 
-def java_salting_is_harcoded(
+def kotlin_salting_is_harcoded(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    method = MethodsEnum.JAVA_SALT_IS_HARDCODED
+    method = MethodsEnum.KOTLIN_SALT_IS_HARDCODED
 
     def n_ids() -> Iterable[GraphShardNode]:
-        for shard in graph_db.shards_by_language(
-            GraphLanguage.JAVA,
-        ):
-            if shard.syntax_graph is None:
-                continue
-            graph = shard.syntax_graph
-            for n_id in has_dangerous_param(graph, method):
-                yield shard, n_id
+        yield from (
+            (shard, n_id)
+            for shard in graph_db.shards_by_language(
+                GraphLanguage.KOTLIN,
+            )
+            if shard.syntax_graph
+            for n_id in has_dangerous_param(shard.syntax_graph, method)
+        )
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f338.salt_is_hardcoded",

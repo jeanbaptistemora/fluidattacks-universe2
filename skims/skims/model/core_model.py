@@ -1722,6 +1722,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JHON_ROMERO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    KOTLIN_SALT_IS_HARDCODED = MethodInfo(
+        file_name="kotlin",
+        name="kotlin_salt_is_hardcoded",
+        module="lib_root",
+        finding=FindingEnum.F338,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JWT_TOKEN = MethodInfo(
         file_name="conf_files",
         name="jwt_token",

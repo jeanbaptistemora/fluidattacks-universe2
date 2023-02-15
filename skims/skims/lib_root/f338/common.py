@@ -28,12 +28,11 @@ def is_salt_harcoded(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
 
 
 def has_dangerous_param(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
-    sensitive_methods = {"salt"}
+    sensitive_methods = {"salt", "SALT"}
 
-    for n_id in g.matching_nodes(graph, label_type="SymbolLookup"):
-        if graph.nodes[n_id].get("symbol") in sensitive_methods:
-            if is_salt_harcoded(graph, n_id, method):
-                vuln_nodes.append(n_id)
-
-    return vuln_nodes
+    return [
+        n_id
+        for n_id in g.matching_nodes(graph, label_type="SymbolLookup")
+        if graph.nodes[n_id].get("symbol") in sensitive_methods
+        and is_salt_harcoded(graph, n_id, method)
+    ]
