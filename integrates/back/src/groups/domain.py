@@ -1606,7 +1606,7 @@ async def update_group_info(
     stakeholders_email = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
         group_name=group_name,
-        notification="update_group_info",
+        notification="updated_group_info",
     )
 
     await update_metadata(
