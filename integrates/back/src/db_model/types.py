@@ -28,7 +28,7 @@ class Policies(NamedTuple):
     max_acceptance_severity: Optional[Decimal] = DEFAULT_MAX_SEVERITY
     max_number_acceptances: Optional[int] = None
     min_acceptance_severity: Optional[Decimal] = DEFAULT_MIN_SEVERITY
-    min_breaking_severity: Optional[Decimal] = DEFAULT_MIN_SEVERITY
+    min_breaking_severity: Optional[Decimal] = None
     vulnerability_grace_period: Optional[int] = None
 
 

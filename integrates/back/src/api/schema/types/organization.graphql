@@ -70,7 +70,7 @@ type Organization {
   Minimum CVSS 3.1 score of an `open` vulnerability for DevSecOps to break
   the build in strict mode
   """
-  minBreakingSeverity: Float!
+  minBreakingSeverity: Float
   "Number of authors of integration repositories out of the scope"
   missedAuthors: Int
   "Number of commits of integration repositories out of the scope"

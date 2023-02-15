@@ -1,6 +1,3 @@
-from db_model.constants import (
-    DEFAULT_MIN_SEVERITY,
-)
 from db_model.organizations.types import (
     Organization,
 )
@@ -10,11 +7,14 @@ from decimal import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
+from typing import (
+    Optional,
+)
 
 
 async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Decimal:
-    return parent.policies.min_breaking_severity or DEFAULT_MIN_SEVERITY
+) -> Optional[Decimal]:
+    return parent.policies.min_breaking_severity

@@ -1083,7 +1083,7 @@ async def test_get_organization_default_values(
     assert result["data"]["organization"]["maxAcceptanceSeverity"] == 10.0
     assert result["data"]["organization"]["maxNumberAcceptances"] is None
     assert result["data"]["organization"]["minAcceptanceSeverity"] == 0.0
-    assert result["data"]["organization"]["minBreakingSeverity"] == 0.0
+    assert result["data"]["organization"]["minBreakingSeverity"] is None
     assert result["data"]["organization"]["vulnerabilityGracePeriod"] == 0
     assert result["data"]["organization"]["name"] == org_name.lower()
     assert sorted(groups) == []
