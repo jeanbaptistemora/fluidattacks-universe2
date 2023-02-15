@@ -439,7 +439,7 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
         "finding": finding.title,
         "finding_url": (
             f"{BASE_URL}/orgs/{org_name}/groups/{finding.group_name}"
-            f"/drafts/{finding.id}/description"
+            f"/vulns/{finding.id}/locations"
         ),
         "vulns_props": vulnerabilities_properties,
         "responsible": finding.hacker_email,
