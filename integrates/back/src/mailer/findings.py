@@ -38,6 +38,9 @@ from db_model.stakeholders.types import (
     Stakeholder,
     StakeholderState,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityStateReason,
+)
 from decimal import (
     Decimal,
 )
@@ -395,3 +398,63 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
             + f"[{group_name}].",
             template_name="vulnerability_report",
         )
+
+
+async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
+    loaders: Dataloaders,
+    finding: Finding,
+    stakeholder_email: str,
+    rejection_reasons: set[VulnerabilityStateReason],
+    other_reason: Optional[str],
+    vulnerabilities_properties: dict[str, dict[str, dict[str, str]]],
+    severity_score: Decimal,
+    severity_level: str,
+) -> None:
+    org_name = await get_organization_name(loaders, finding.group_name)
+    recipients = FI_MAIL_REVIEWERS.split(",")
+    recipients.append(stakeholder_email)
+    explanations: dict[VulnerabilityStateReason, str] = {
+        VulnerabilityStateReason.CONSISTENCY: (
+            "There are consistency issues with the vulnerabilities, the"
+            " severity or the evidence"
+        ),
+        VulnerabilityStateReason.EVIDENCE: "The evidence is insufficient",
+        VulnerabilityStateReason.NAMING: (
+            "The vulnerabilities should be submitted under another Finding "
+            "type"
+        ),
+        VulnerabilityStateReason.OMISSION: (
+            "More data should be gathered before submission"
+        ),
+        VulnerabilityStateReason.SCORING: "Faulty severity scoring",
+        VulnerabilityStateReason.WRITING: "The writing could be improved",
+        VulnerabilityStateReason.OTHER: other_reason or "",
+    }
+    reasons: dict[str, str] = {
+        str(reason.value).capitalize(): explanation
+        for reason, explanation in explanations.items()
+        if reason in rejection_reasons
+    }
+    email_context: dict[str, Any] = {
+        "finding": finding.title,
+        "finding_url": (
+            f"{BASE_URL}/orgs/{org_name}/groups/{finding.group_name}"
+            f"/drafts/{finding.id}/description"
+        ),
+        "vulns_props": vulnerabilities_properties,
+        "responsible": finding.hacker_email,
+        "severity_score": severity_score,
+        "severity_level": severity_level,
+        "reasons": reasons,
+    }
+    await send_mails_async(
+        loaders,
+        recipients,
+        context=email_context,
+        tags=GENERAL_TAG,
+        subject=(
+            f"[ARM] Rejected vulnerability [{finding.title}] in"
+            f" [{finding.group_name}]"
+        ),
+        template_name="vulnerability_rejection",
+    )
