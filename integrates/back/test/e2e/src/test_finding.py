@@ -4,7 +4,7 @@ from model import (
     Credentials,
 )
 from selenium.common.exceptions import (
-    NoSuchElementException,
+    TimeoutException,
 )
 from selenium.webdriver.common.by import (
     By,
@@ -48,7 +48,7 @@ def test_finding_description(
             timeout,
         )
         close_tour.click()
-    except NoSuchElementException:
+    except TimeoutException:
         pass
 
     finding = utils.wait_for_text(
@@ -335,7 +335,7 @@ def test_finding_reattack(
             timeout,
         )
         close_tour.click()
-    except NoSuchElementException:
+    except TimeoutException:
         pass
 
     finding = utils.wait_for_text(

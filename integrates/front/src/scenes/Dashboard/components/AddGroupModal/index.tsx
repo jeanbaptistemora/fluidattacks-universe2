@@ -80,7 +80,9 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
   });
 
   const finishTour = useCallback((): void => {
-    void updateTours({ variables: { newGroup: true, newRoot: false } });
+    void updateTours({
+      variables: { newGroup: true, newRiskExposure: true, newRoot: false },
+    });
     onClose();
   }, [onClose, updateTours]);
 

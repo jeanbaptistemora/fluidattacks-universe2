@@ -86,6 +86,6 @@ async def in_trial(
 
     if trial:
         if trial.completed and organization:
-            return organization.payment_methods is None
+            return not bool(organization.payment_methods)
         return True
     return False
