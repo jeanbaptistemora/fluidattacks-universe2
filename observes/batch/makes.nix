@@ -205,7 +205,7 @@ in {
 
     observesDynamoSegment = scheduled_job {
       name = "dynamo_etl_parallel";
-      size = "observes_nano";
+      size = "observes_small";
       attempts = 1;
       timeout = 24 * 3600;
       command = ["m" "gitlab:fluidattacks/universe@trunk" "/observes/etl/dynamo/parallel"];
