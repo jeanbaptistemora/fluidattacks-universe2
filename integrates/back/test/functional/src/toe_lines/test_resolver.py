@@ -786,3 +786,31 @@ async def test_get_toe_lines_by_from_be_present_until(
         ]
         == "2022-01-19T15:41:04+00:00"
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.resolver_test_group("toe_lines")
+@pytest.mark.parametrize(
+    ["email"],
+    [
+        ["admin@fluidattacks.com"],
+    ],
+)
+async def test_get_toe_lines_by_to_be_present_until(
+    populate: bool, email: str
+) -> None:
+    variables: dict[str, Any] = {
+        "toBePresentUntil": "2021-01-19T15:41:04+00:00"
+    }
+    assert populate
+    result: dict[str, Any] = await get_result(
+        user=email,
+        group_name="group1",
+        variables=variables,
+    )
+    assert (
+        result["data"]["group"]["toeLines"]["edges"][0]["node"][
+            "bePresentUntil"
+        ]
+        == "2021-01-19T15:41:04+00:00"
+    )
