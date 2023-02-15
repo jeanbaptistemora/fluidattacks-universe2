@@ -494,11 +494,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                               </ControlLabel>
                             </EditableFieldTitle50>
                             <Col50>
-                              <Field
-                                component={FormikDropdown}
-                                name={"eventType"}
-                                validate={required}
-                              >
+                              <Select name={"eventType"} validate={required}>
                                 <option value={""} />
                                 <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
                                   {t(
@@ -549,7 +545,7 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                                 <option value={"VPN_ISSUES"}>
                                   {t(castEventType("VPN_ISSUES"))}
                                 </option>
-                              </Field>
+                              </Select>
                             </Col50>
                           </Row>
                         </Col50>
