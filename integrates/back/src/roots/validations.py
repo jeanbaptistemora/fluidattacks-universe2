@@ -4,6 +4,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidGitCredentials,
     InvalidGitRoot,
+    InvalidParameter,
     InvalidRootComponent,
     InvalidUrl,
     RepeatedRootNickname,
@@ -644,3 +645,22 @@ async def validate_git_credentials(
             organization_id=organization_id,
             credential_id=credential_id,
         )
+
+
+def validate_url_branch_deco(url_field: str, branch_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            url: str = get_attr_value(
+                field=url_field, kwargs=kwargs, obj_type=str
+            )
+            branch: str = get_attr_value(
+                field=branch_field, kwargs=kwargs, obj_type=str
+            )
+            if not (is_valid_url(url) and is_valid_git_branch(branch)):
+                raise InvalidParameter()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper

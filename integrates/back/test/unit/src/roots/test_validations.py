@@ -3,6 +3,7 @@ from custom_exceptions import (
     InvalidChar,
     InvalidGitCredentials,
     InvalidGitRoot,
+    InvalidParameter,
     InvalidRootComponent,
     InvalidUrl,
     RepeatedRootNickname,
@@ -50,6 +51,7 @@ from roots.validations import (
     validate_nickname,
     validate_nickname_deco,
     validate_nickname_is_unique_deco,
+    validate_url_branch_deco,
     working_credentials,
 )
 from typing import (
@@ -325,4 +327,27 @@ async def test_validate_nickname_is_unique_deco() -> None:
             nickname="universe",
             roots=(root,),
             old_nickname="valid-username_2",
+        )
+
+
+def test_validate_url_branch() -> None:
+    @validate_url_branch_deco(url_field="url", branch_field="branch")
+    def decorated_func(url: str, branch: str) -> str:
+        return url + branch
+
+    decorated_func(
+        url="ssh://git@ssh.dev.azure.com:v3/company/project/",
+        branch="master",
+    )
+
+    with pytest.raises(InvalidParameter):
+        decorated_func(
+            url="ssh://git@ssh.dev.azure.com:v3/company/project/",
+            branch="( ͡° ͜ʖ ͡°)",
+        )
+
+    with pytest.raises(InvalidParameter):
+        decorated_func(
+            url="randomstring",
+            branch="master",
         )
