@@ -29,6 +29,8 @@ function main {
     && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --repo-name universe --lax \
     && echo "[INFO] Running DevSecOps agent strict check..." \
     && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --breaking 10.0 --strict \
+    && echo "[INFO] Running DevSecOps agent empty report check..." \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -v --breaking 10.0 --strict \
     || return 1
 }
 
