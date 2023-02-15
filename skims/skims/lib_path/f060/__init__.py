@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from lib_path.common import (
     SHIELD_BLOCKING,
 )
@@ -9,10 +12,6 @@ from lib_path.f060.dotnetconfig import (
 )
 from model.core_model import (
     Vulnerabilities,
-)
-from typing import (
-    Callable,
-    Tuple,
 )
 
 
@@ -35,8 +34,8 @@ def analyze(
     file_extension: str,
     path: str,
     **_: None,
-) -> Tuple[Vulnerabilities, ...]:
-    results: Tuple[Vulnerabilities, ...] = ()
+) -> tuple[Vulnerabilities, ...]:
+    results: tuple[Vulnerabilities, ...] = ()
     content = content_generator()
 
     if file_extension == "config":

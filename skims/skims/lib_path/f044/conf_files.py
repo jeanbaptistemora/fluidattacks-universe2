@@ -4,6 +4,9 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -11,14 +14,10 @@ from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
 )
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def header_allow_all_methods(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         soup = BeautifulSoup(content, features="html.parser")
 
         for tag in soup.find_all("add"):

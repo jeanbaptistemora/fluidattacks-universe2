@@ -1,6 +1,9 @@
 from aws.model import (
     AWSRdsCluster,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -18,8 +21,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -27,8 +28,8 @@ from utils.function import (
 
 
 def _cfn_rds_is_publicly_accessible_iterate_vulnerabilities(
-    rds_iterator: Iterator[Union[AWSRdsCluster, Node]],
-) -> Iterator[Union[AWSRdsCluster, Node]]:
+    rds_iterator: Iterator[AWSRdsCluster | Node],
+) -> Iterator[AWSRdsCluster | Node]:
     for rds_res in rds_iterator:
         publicy_acc = get_node_by_keys(
             rds_res, ["PubliclyAccessible"]  # type: ignore

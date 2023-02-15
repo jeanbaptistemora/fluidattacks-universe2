@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -8,11 +11,6 @@ from model.core_model import (
 from parse_java_properties import (
     load as load_java_properties,
 )
-from typing import (
-    Iterator,
-    Set,
-    Tuple,
-)
 from utils.crypto import (
     is_iana_cipher_suite_vulnerable,
     is_open_ssl_cipher_suite_vulnerable,
@@ -21,9 +19,9 @@ from utils.crypto import (
 
 def java_properties_missing_ssl(content: str, path: str) -> Vulnerabilities:
     missing_ssl_key: str = "ibm.mq.use_ssl"
-    missing_ssl_values: Set[str] = {"false"}
+    missing_ssl_values: set[str] = {"false"}
 
-    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
+    def _iterate_vulnerabilities() -> Iterator[tuple[int, int]]:
         for line_no, (key, val) in load_java_properties(content).items():
             if key == missing_ssl_key and val in missing_ssl_values:
                 yield line_no, 0
@@ -42,7 +40,7 @@ def java_properties_weak_cipher_suite(
 ) -> Vulnerabilities:
     weak_cipher_suite: str = "ibm.mq.cipher.suite"
 
-    def _iterate_vulnerabilities() -> Iterator[Tuple[int, int]]:
+    def _iterate_vulnerabilities() -> Iterator[tuple[int, int]]:
         for line_no, (key, val) in load_java_properties(content).items():
             if key == weak_cipher_suite and (
                 is_iana_cipher_suite_vulnerable(val)

@@ -1,6 +1,9 @@
 from aws.model import (
     AWSIamManagedPolicy,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -24,14 +27,12 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
     users_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for user in users_iterator:
         policies_node = user.inner.get("Policies", None)
         if policies_node:
@@ -41,7 +42,7 @@ def _cfn_iam_user_missing_role_based_security_iterate_vulnerabilities(
 
 def _iam_yield_full_access_ssm_vuln(
     action: Any,
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     if hasattr(action, "raw") and isinstance(action.raw, list):
         for act in action.data:
             if hasattr(act, "raw") and act.raw == "ssm:*":
@@ -53,7 +54,7 @@ def _iam_yield_full_access_ssm_vuln(
 
 def _cfn_iam_has_full_access_to_ssm_iterate_vulnerabilities(
     iam_iterator: Iterator[Node],
-) -> Iterator[Union[AWSIamManagedPolicy, Node]]:
+) -> Iterator[AWSIamManagedPolicy | Node]:
     for stmt in iam_iterator:
         effect = stmt.inner.get("Effect")
         action = stmt.inner.get("Action")

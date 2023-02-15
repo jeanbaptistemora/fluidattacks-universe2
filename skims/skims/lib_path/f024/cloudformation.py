@@ -1,6 +1,9 @@
 from aws.model import (
     AWSEC2,
 )
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -28,8 +31,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
@@ -95,7 +96,7 @@ def _cfn_iter_vulnerable_admin_ports(
 
 def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         rfc1918 = {
             "10.0.0.0/8",
@@ -113,7 +114,7 @@ def _cfn_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
 
 def _cfn_ec2_has_unrestricted_ports_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         from_port = ec2_res.inner.get("FromPort")
         to_port = ec2_res.inner.get("ToPort")
@@ -138,8 +139,8 @@ def _groups_without_egress_iter_vulnerabilities(
 
 
 def _instances_without_role_iter_vulns(
-    instaces_iterator: Iterator[Union[Any, Node]]
-) -> Iterator[Union[Any, Node]]:
+    instaces_iterator: Iterator[Any | Node],
+) -> Iterator[Any | Node]:
     for instance in instaces_iterator:
         if (
             hasattr(instance, "raw")
@@ -188,7 +189,7 @@ def _protocol_iter_vulnerabilities(
 
 def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         cidr = (
             (
@@ -212,7 +213,7 @@ def _cfn_ec2_has_open_all_ports_to_the_public_iter_vulns(
 
 def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         cidr = (
             (
@@ -236,7 +237,7 @@ def _cfn_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
 
 def _cfn_ec2_has_unrestricted_ftp_access_iterate_vulnerabilities(
     ec2_iterator: Iterator[Node],
-) -> Iterator[Union[AWSEC2, Node]]:
+) -> Iterator[AWSEC2 | Node]:
     for ec2_res in ec2_iterator:
         cidr = (
             (

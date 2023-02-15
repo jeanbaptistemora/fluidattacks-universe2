@@ -2,6 +2,9 @@ from aws.model import (
     AWSEC2,
     AWSEC2Rule,
 )
+from collections.abc import (
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -38,8 +41,6 @@ from parse_hcl2.tokens import (
 )
 from typing import (
     Any,
-    Iterator,
-    Optional,
 )
 
 
@@ -272,7 +273,7 @@ def _tfm_aws_ec2_cfn_unrestricted_ip_protocols_iterate_vulnerabilities(
 
 
 def _insecure_ec2_tfm_cidrs(
-    block: Any, ip_type: str, rule: Optional[str]
+    block: Any, ip_type: str, rule: str | None
 ) -> bool:
     unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
     unrestricted_ipv6 = IPv6Network("::/0")

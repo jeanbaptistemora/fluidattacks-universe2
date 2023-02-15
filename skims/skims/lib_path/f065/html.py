@@ -1,6 +1,9 @@
 from bs4 import (
     BeautifulSoup,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
     has_attributes,
@@ -12,14 +15,10 @@ from model.core_model import (
 from pyparsing import (
     CaselessKeyword,
 )
-from typing import (
-    Iterator,
-    Tuple,
-)
 
 
 def has_autocomplete(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """
         Check if *input* or *form* tags have *autocomplete*
         attribute set to *off*.
@@ -73,7 +72,7 @@ def has_autocomplete(content: str, path: str) -> Vulnerabilities:
 
 
 def is_cacheable(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """Check if cache is possible.
 
         Verifies if the file has the tags::

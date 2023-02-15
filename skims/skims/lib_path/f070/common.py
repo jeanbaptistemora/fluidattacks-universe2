@@ -1,8 +1,4 @@
-from typing import (
-    List,
-)
-
-PREDEFINED_SSL_POLICY_VALUES: List[str] = [
+PREDEFINED_SSL_POLICY_VALUES: list[str] = [
     "ELBSecurityPolicy-2015-05",
     "ELBSecurityPolicy-2016-08",
     "ELBSecurityPolicy-FS-2018-06",
@@ -22,7 +18,7 @@ PREDEFINED_SSL_POLICY_VALUES: List[str] = [
     "ELBSecurityPolicy-TLS13-1-2-Res-2021-06",
     "ELBSecurityPolicy-TLS13-1-3-2021-06",
 ]
-SAFE_SSL_POLICY_VALUES: List[str] = [
+SAFE_SSL_POLICY_VALUES: list[str] = [
     "ELBSecurityPolicy-FS-1-2-Res-2020-10",
     "ELBSecurityPolicy-TLS13-1-2-Res-2021-06",
     "ELBSecurityPolicy-TLS13-1-3-2021-06",

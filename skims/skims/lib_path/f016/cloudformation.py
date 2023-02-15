@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -19,9 +23,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    List,
-    Union,
 )
 from utils.function import (
     get_node_by_keys,
@@ -30,7 +31,7 @@ from utils.function import (
 
 def _helper_insecure_protocols(
     origins: Node,
-    vulnerable_origin_ssl_protocols: List[str],
+    vulnerable_origin_ssl_protocols: Iterable[str],
 ) -> Iterator[Node]:
     for origin in origins.data:
         orig_ssl_prots = get_node_by_keys(
@@ -46,8 +47,8 @@ def _helper_insecure_protocols(
 
 
 def _cfn_content_over_insecure_protocols_iterate_vulnerabilities(
-    distributions_iterator: Iterator[Union[Any, Node]]
-) -> Iterator[Union[Any, Node]]:
+    distributions_iterator: Iterator[Any | Node],
+) -> Iterator[Any | Node]:
 
     for dist in distributions_iterator:
         dist_config = dist.inner["DistributionConfig"]  # type: ignore

@@ -4,16 +4,15 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
-)
-from typing import (
-    Iterator,
-    Tuple,
 )
 
 
@@ -29,7 +28,7 @@ def has_remove_banner(soup: BeautifulSoup) -> bool:
 
 
 def not_suppress_vuln_header(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """
         Search for X-Powered-By headers in a Web.config source file or package.
         """

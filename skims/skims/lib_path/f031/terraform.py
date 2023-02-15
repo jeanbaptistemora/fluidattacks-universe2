@@ -1,6 +1,10 @@
 from aws.model import (
     AWSIamPolicyStatement,
 )
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -30,13 +34,10 @@ from parse_hcl2.structure.aws import (
 import re
 from typing import (
     Any,
-    Iterator,
-    List,
-    Union,
 )
 
 
-def action_has_full_access_to_ssm(actions: Union[str, List[str]]) -> bool:
+def action_has_full_access_to_ssm(actions: str | Iterable[str]) -> bool:
     actions_list = actions if isinstance(actions, list) else [actions]
     for action in actions_list:
         if action == "ssm:*":
@@ -77,8 +78,8 @@ def check_role_name(
 
 
 def action_has_attach_role(
-    actions: Union[str, List[str]],
-    resources: Union[str, List[str]],
+    actions: str | Iterable[str],
+    resources: str | Iterable[str],
     managed_policies_iterator: Iterator[Any],
     role_iterator: Iterator[Any],
 ) -> bool:
@@ -121,8 +122,8 @@ def _tfm_iam_role_excessive_privilege(
 
 
 def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
-    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
+) -> Iterator[AWSIamPolicyStatement | Node]:
     for stmt in statements_iterator:
         stmt_raw = (
             stmt.raw

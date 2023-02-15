@@ -11,19 +11,18 @@ from aws.model import (
     AWSIamPolicyStatement,
     AWSS3BucketPolicy,
 )
+from collections.abc import (
+    Iterator,
+)
 from lark import (
     Tree,
 )
 from metaloaders.model import (
     Node,
 )
-from typing import (
-    Iterator,
-    Union,
-)
 
 
-def _is_s3_action_writeable(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
+def _is_s3_action_writeable(actions: AWSS3BucketPolicy | Node) -> bool:
     actions_list = actions if isinstance(actions, list) else [actions]
     action_start_with = [
         "Copy",
@@ -45,8 +44,8 @@ def _is_s3_action_writeable(actions: Union[AWSS3BucketPolicy, Node]) -> bool:
 
 
 def bucket_policy_allows_public_access_iterate_vulnerabilities(
-    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
+) -> Iterator[AWSIamPolicyStatement | Node]:
     for stmt in statements_iterator:
         stmt_raw = (
             stmt.raw
@@ -73,7 +72,7 @@ def match_iam_passrole(action: str) -> bool:
 
 def get_node_open_pass_vulns(
     stmt: Node,
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+) -> Iterator[AWSIamPolicyStatement | Node]:
     actions = stmt.inner.get("Action")
     resources = stmt.inner.get("Resource")
     has_permissive_resources = any(map(is_resource_permissive, resources.raw))
@@ -104,8 +103,8 @@ def aux_open_passrole_iterate_vulnerabilities(
 
 
 def open_passrole_iterate_vulnerabilities(
-    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]],
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
+) -> Iterator[AWSIamPolicyStatement | Node]:
     for stmt in statements_iterator:
         stmt_raw = (
             stmt.raw
@@ -124,7 +123,7 @@ def open_passrole_iterate_vulnerabilities(
 def get_node_negative_stmt_vulns(
     stmt: Node,
     stmt_raw: Node,
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+) -> Iterator[AWSIamPolicyStatement | Node]:
     if "NotAction" in stmt_raw:
         yield from (
             action
@@ -141,8 +140,8 @@ def get_node_negative_stmt_vulns(
 
 
 def negative_statement_iterate_vulnerabilities(
-    statements_iterator: Iterator[Union[AWSIamPolicyStatement, Node]]
-) -> Iterator[Union[AWSIamPolicyStatement, Node]]:
+    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
+) -> Iterator[AWSIamPolicyStatement | Node]:
     for stmt in statements_iterator:
         stmt_raw = (
             stmt.raw
@@ -168,8 +167,8 @@ def negative_statement_iterate_vulnerabilities(
 
 
 def admin_policies_attached_iterate_vulnerabilities(
-    managed_policies_iterator: Iterator[Union[Node, AWSIamManagedPolicyArns]],
-) -> Iterator[Union[Node, AWSIamManagedPolicyArns]]:
+    managed_policies_iterator: Iterator[Node | AWSIamManagedPolicyArns],
+) -> Iterator[Node | AWSIamManagedPolicyArns]:
     elevated_policies = {
         "PowerUserAccess",
         "IAMFullAccess",

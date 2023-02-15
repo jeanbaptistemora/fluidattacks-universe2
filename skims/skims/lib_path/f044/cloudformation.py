@@ -1,6 +1,9 @@
 from aws.model import (
     AWSServerlessApi,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_from_iterator_blocking,
@@ -17,7 +20,6 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
 )
 from utils.function import (
     get_node_by_keys,

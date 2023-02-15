@@ -4,6 +4,9 @@ from bs4 import (
 from bs4.element import (
     Tag,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
@@ -13,12 +16,10 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Iterator,
-    Tuple,
 )
 
 
-def analyse_tags(custom_headers: Any) -> Tuple[bool, int, int]:
+def analyse_tags(custom_headers: Any) -> tuple[bool, int, int]:
     vulnerable: bool = True
     line_no: int = 0
     col_no: int = 0
@@ -35,7 +36,7 @@ def analyse_tags(custom_headers: Any) -> Tuple[bool, int, int]:
 
 
 def has_ssl_disabled(content: str, path: str) -> Vulnerabilities:
-    def iterator() -> Iterator[Tuple[int, int]]:
+    def iterator() -> Iterator[tuple[int, int]]:
         """
         Check if SSL is disabled in ``ApplicationHost.config``.
 

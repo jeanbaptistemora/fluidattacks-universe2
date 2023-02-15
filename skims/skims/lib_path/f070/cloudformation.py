@@ -1,6 +1,9 @@
 from aws.model import (
     AWSElbV2,
 )
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_line_by_extension,
@@ -23,14 +26,12 @@ from parse_cfn.structure import (
 )
 from typing import (
     Any,
-    Iterator,
-    Union,
 )
 
 
 def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
     listeners_iterator: Iterator[Node],
-) -> Iterator[Union[AWSElbV2, Node]]:
+) -> Iterator[AWSElbV2 | Node]:
     for listener in listeners_iterator:
         ssl_policy = listener.inner.get("SslPolicy")
         if (
@@ -45,7 +46,7 @@ def _cfn_elb2_uses_insecure_security_policy_iterate_vulnerabilities(
 def _cfn_elb2_target_group_insecure_port_iterate_vulnerabilities(
     file_ext: str,
     resources_iterator: Iterator[Node],
-) -> Iterator[Union[AWSElbV2, Node]]:
+) -> Iterator[AWSElbV2 | Node]:
     for target_group in resources_iterator:
         port = target_group.inner.get("Port")
         target_type = (
