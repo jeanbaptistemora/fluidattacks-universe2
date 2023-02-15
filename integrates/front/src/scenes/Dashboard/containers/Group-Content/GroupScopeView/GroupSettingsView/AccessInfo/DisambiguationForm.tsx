@@ -5,7 +5,7 @@ import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import { UpdateDisambiguation } from "./updateDisambiguation";
+import { UpdateDisambiguation } from "./UpdateDisambiguation";
 
 import { Text } from "components/Text";
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/AccessInfo";

@@ -1,16 +1,16 @@
 import MDEditor from "@uiw/react-md-editor";
 import type { FieldInputProps } from "formik";
-import { ErrorMessage, Field, Form, useFormikContext } from "formik";
+import { Field, Form, useFormikContext } from "formik";
 import _ from "lodash";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import { Alert } from "components/Alert";
+import { UpdateGroupContext } from "./UpdateGroupContext";
+
 import { Text } from "components/Text";
 import type { IGroupAccessInfo } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/AccessInfo";
 import { ActionButtons } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/AccessInfo/ActionButtons";
-import { ValidationError } from "utils/forms/fields/styles";
 import { maxLength } from "utils/validations";
 
 const MAX_GROUP_CONTEXT_LENGTH = 20000;
@@ -75,32 +75,8 @@ const GroupContextForm: React.FC<IGroupContextForm> = ({
       <React.StrictMode>
         <Form id={"editGroupAccessInfo"}>
           <Field name={"groupContext"} validate={maxGroupContextLength}>
-            {({
-              field,
-              form: { values, setFieldValue },
-            }: IFieldProps): JSX.Element => {
-              function handleMDChange(value: string | undefined): void {
-                setFieldValue("groupContext", value);
-              }
-
-              return (
-                <React.Fragment>
-                  <MDEditor
-                    height={200}
-                    highlightEnable={false}
-                    onChange={handleMDChange}
-                    // PrefixCls={""}
-                    value={values.groupContext}
-                  />
-                  <ValidationError>
-                    <ErrorMessage name={field.name} />
-                  </ValidationError>
-                  <Alert>
-                    {"*"}&nbsp;
-                    {t("searchFindings.groupAccessInfoSection.markdownAlert")}
-                  </Alert>
-                </React.Fragment>
-              );
+            {({ field, form }: IFieldProps): JSX.Element => {
+              return <UpdateGroupContext field={field} form={form} />;
             }}
           </Field>
           <ActionButtons
