@@ -474,7 +474,7 @@ async def add_url_root(  # pylint: disable=too-many-locals
     path: str = url_attributes.path or "/"
     query: Optional[str] = url_attributes.query
     default_port = "443" if url_attributes.scheme == "https" else "80"
-    port = url_attributes.port if url_attributes.port else default_port
+    port = str(url_attributes.port) if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
 
     group: Group = await loaders.group.load(group_name)
