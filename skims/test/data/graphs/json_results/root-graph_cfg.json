@@ -62604,6 +62604,11 @@
               "label_ast": "AST"
             }
           },
+          "316": {
+            "322": {
+              "label_ast": "AST"
+            }
+          },
           "326": {
             "327": {
               "label_ast": "AST"
@@ -66138,9 +66143,14 @@
             "label_type": "ArgumentList"
           },
           "316": {
-            "label_type": "Literal",
+            "label_type": "TypeConversion",
             "value": "\"Forbidden\"",
             "value_type": "[]byte"
+          },
+          "322": {
+            "label_type": "Literal",
+            "value": "\"Forbidden\"",
+            "value_type": "string"
           },
           "326": {
             "arguments_id": "331",

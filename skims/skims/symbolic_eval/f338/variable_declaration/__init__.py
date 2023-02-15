@@ -4,6 +4,9 @@ from model.core_model import (
 from symbolic_eval.f338.variable_declaration.common import (
     variable_is_harcoded,
 )
+from symbolic_eval.f338.variable_declaration.go import (
+    go_variable_is_harcoded,
+)
 from symbolic_eval.types import (
     Evaluator,
     SymbolicEvalArgs,
@@ -18,6 +21,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_SALT_IS_HARDCODED: variable_is_harcoded,
     MethodsEnum.JAVA_SALT_IS_HARDCODED: variable_is_harcoded,
     MethodsEnum.KOTLIN_SALT_IS_HARDCODED: variable_is_harcoded,
+    MethodsEnum.GO_SALT_IS_HARDCODED: go_variable_is_harcoded,
 }
 
 
