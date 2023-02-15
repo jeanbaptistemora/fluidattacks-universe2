@@ -332,6 +332,15 @@ locals {
             "arn:aws:sqs:us-east-1:205810638802:celery",
           ]
         },
+        {
+          Sid    = "XRay"
+          Effect = "Allow"
+          Action = [
+            "PutTelemetryRecords",
+            "PutTraceSegments"
+          ]
+          Resource = ["*"]
+        }
       ]
 
       cloudflare = {

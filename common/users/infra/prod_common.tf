@@ -62,6 +62,7 @@ locals {
             "sts:*",
             "support:*",
             "tag:*",
+            "xray:*"
           ]
           Resource = ["*"]
         },
