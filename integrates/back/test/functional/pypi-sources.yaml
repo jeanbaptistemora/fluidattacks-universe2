@@ -2,7 +2,6 @@ closure:
   attrs: 22.2.0
   colorama: 0.4.6
   coverage: 7.1.0
-  exceptiongroup: 1.1.0
   freezegun: 0.3.15
   iniconfig: 2.0.0
   packaging: "23.0"
@@ -13,7 +12,6 @@ closure:
   pytest-mock: 3.10.0
   python-dateutil: 2.8.2
   six: 1.16.0
-  tomli: 2.0.1
 links:
   - name: attrs-22.2.0-py3-none-any.whl
     sha256: 0dh84hdmdqvlyjqw0dqfbvfg6y4gh7w9h3qp96yqv1kqcxzmrs99
@@ -27,39 +25,33 @@ links:
   - name: colorama-0.4.6.tar.gz
     sha256: 0i3fpq0w5mbfdpy3z9p5raw4fg17jxr6jwh5l8qhavpdnxf5ys88
     url: https://files.pythonhosted.org/packages/d8/53/6f443c9a4a8358a93a6792e2acffb9d9d5cb0a5cfd8802644b7b1c9a02e4/colorama-0.4.6.tar.gz
-  - name: coverage-7.1.0-cp39-cp39-macosx_10_9_x86_64.whl
-    sha256: 1xhjfs72lylq7h1amlxbgk72nsd3fhq6halndfsk4fac13rdbw9b
-    url: https://files.pythonhosted.org/packages/1e/b5/dc65a49335dd78e1def7e0ec84bd144ba442b74e29a7dd236c551bd8b6bf/coverage-7.1.0-cp39-cp39-macosx_10_9_x86_64.whl
-  - name: coverage-7.1.0-cp39-cp39-macosx_11_0_arm64.whl
-    sha256: 1ym09rgq12vhhqfkjy34d6g03l6930yan8nxwfi8kn0lcpc5vf4q
-    url: https://files.pythonhosted.org/packages/be/bf/217ad144ffb569b73d83e18eb794fedd9926cf636a9df2629de191e7c3ae/coverage-7.1.0-cp39-cp39-macosx_11_0_arm64.whl
-  - name: coverage-7.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-    sha256: 1p74vmq3j81frlb8jv0kif90kr2q260291ldjc8sc1f51jw2vniq
-    url: https://files.pythonhosted.org/packages/cb/8f/2f5c5f2dd93d90d03e246aa84ba5e756929cd2fa15890af97ba0c4f84ddf/coverage-7.1.0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
-  - name: coverage-7.1.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-    sha256: 04c3wk3lcsmddpvp9vxxxhpsccidl39fr2hrdr0gx7psg08d6r1i
-    url: https://files.pythonhosted.org/packages/45/a0/d3986ff9a585e8053893c05606be3a812ff7407869d1006c8abbba5e6179/coverage-7.1.0-cp39-cp39-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
-  - name: coverage-7.1.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-    sha256: 0qv0jfi6hlvb6r5w8kdwkny15n7vfp01aj4pm6wqh7ik0yfafqfv
-    url: https://files.pythonhosted.org/packages/d7/77/7e63d1b143df33195b3c468953aa87613324483adebb240d28486b4f3ac5/coverage-7.1.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-  - name: coverage-7.1.0-cp39-cp39-musllinux_1_1_aarch64.whl
-    sha256: 028x3pyslzjdgsp0wi3gyn0hklhr2rh2lf2pg98v4w6ykqn0kjww
-    url: https://files.pythonhosted.org/packages/cc/eb/3c2096bfcca48d5966a38c3fe8e144599cb8cb0fb46accae29072a6121f0/coverage-7.1.0-cp39-cp39-musllinux_1_1_aarch64.whl
-  - name: coverage-7.1.0-cp39-cp39-musllinux_1_1_i686.whl
-    sha256: 1n33l223r2ycccz2gw73admlbqggz0gxwkyi2ggahg6cyv82dzrk
-    url: https://files.pythonhosted.org/packages/b6/28/dc2b4d89a5a043ae6010bd02c6b93574d6031218f466a5e02686c4ee2187/coverage-7.1.0-cp39-cp39-musllinux_1_1_i686.whl
-  - name: coverage-7.1.0-cp39-cp39-musllinux_1_1_x86_64.whl
-    sha256: 030sw3mz9vlxd90ipmh9gdfdqwr52dw7vjanvj82x5gflicxczfl
-    url: https://files.pythonhosted.org/packages/76/f1/1754166ef29b4fc4db8f0cc03007bfafea9c6fd7e4453ad04118a6264903/coverage-7.1.0-cp39-cp39-musllinux_1_1_x86_64.whl
+  - name: coverage-7.1.0-cp311-cp311-macosx_10_9_x86_64.whl
+    sha256: 0h0h7ijx0l7jlpgbgbvw6sim0fmsxivgn9b7qh4d9vwyaga436ys
+    url: https://files.pythonhosted.org/packages/76/cb/36a1cf1c75caa970533dd6e3edd92a98f1997686c3c4acbceaa92ff6a06e/coverage-7.1.0-cp311-cp311-macosx_10_9_x86_64.whl
+  - name: coverage-7.1.0-cp311-cp311-macosx_11_0_arm64.whl
+    sha256: 0nmlx8hdrc2wpzgyi1yfdax39k4dh2aywkzpxkhbxr2ackbmxcf5
+    url: https://files.pythonhosted.org/packages/13/4a/d452bd3a9e749151afd107c34b66f69ae1f8bbd48bfc2ed2a6b89748c4d8/coverage-7.1.0-cp311-cp311-macosx_11_0_arm64.whl
+  - name: coverage-7.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+    sha256: 0kr7w4r9mgnp87b1v9680qsghn5mbk4ai29ax9ha8zjhh9jhfbfi
+    url: https://files.pythonhosted.org/packages/8f/42/9e3920032dbe70ec83bf60672d28ff764fb7ad49bac060411a68a54b8758/coverage-7.1.0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl
+  - name: coverage-7.1.0-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+    sha256: 08j25nwfjilfbvx17j4lycbpdpmkry7yyv61hgqipbhx0dcpfqg2
+    url: https://files.pythonhosted.org/packages/47/c8/de630d1b872cc65f1878536e00fc0a1b610508f018ad90f957b171de06a6/coverage-7.1.0-cp311-cp311-manylinux_2_5_i686.manylinux1_i686.manylinux_2_17_i686.manylinux2014_i686.whl
+  - name: coverage-7.1.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+    sha256: 0ipi5nzy0p9vmh91vjgvj1s1jk9nv52c5w22qzy7lrp9m4gqir64
+    url: https://files.pythonhosted.org/packages/37/84/6d932952986f5e44a38229ab6ef34ecb438bf29d0c3eb23da1f7582fd44d/coverage-7.1.0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+  - name: coverage-7.1.0-cp311-cp311-musllinux_1_1_aarch64.whl
+    sha256: 06v2lrdna8i66ndwava4dbbjnjlr89709vvadalb8jh92m98hn4x
+    url: https://files.pythonhosted.org/packages/1c/2b/5d1387301c36f3bcb040aa5d51372475d85642711fb2237b5545eb564fa5/coverage-7.1.0-cp311-cp311-musllinux_1_1_aarch64.whl
+  - name: coverage-7.1.0-cp311-cp311-musllinux_1_1_i686.whl
+    sha256: 1hpvr2nby0ij8n0ib3w7jp0fx62lkqslqp3whyk302m8wj7b7vpz
+    url: https://files.pythonhosted.org/packages/1d/5f/f5b1e50e7806758d3a189e565eea2b54199658f27fff2da36d915f042e16/coverage-7.1.0-cp311-cp311-musllinux_1_1_i686.whl
+  - name: coverage-7.1.0-cp311-cp311-musllinux_1_1_x86_64.whl
+    sha256: 03h8zwfic4jdql5g50w2gxj9296bf61crvyvjdg1ny1hdw95zbrv
+    url: https://files.pythonhosted.org/packages/9d/1f/0332d1a22abe7462e6bf12906c95dc1b89ad288611a891f9189fb2e62678/coverage-7.1.0-cp311-cp311-musllinux_1_1_x86_64.whl
   - name: coverage-7.1.0.tar.gz
     sha256: 0rd29i64ccrpl2ihxq2yi3xdr2qsrl2m6jwp9y3w83jn8gjqy60h
     url: https://files.pythonhosted.org/packages/18/a0/bfa6c6ab7a5f0aeb69dd169d956ead54133f5bca68a5945c4569ea2c40b3/coverage-7.1.0.tar.gz
-  - name: exceptiongroup-1.1.0-py3-none-any.whl
-    sha256: 07pc9dpm531932k6rlf40ak70dvvmf0pn45367h2svkmvaivsz1j
-    url: https://files.pythonhosted.org/packages/e8/14/9c6a7e5f12294ccd6975a45e02899ed25468cd7c2c86f3d9725f387f9f5f/exceptiongroup-1.1.0-py3-none-any.whl
-  - name: exceptiongroup-1.1.0.tar.gz
-    sha256: 08yzvxf6h6kcz5kspnrkaig7lfvxlky49pf20jsf35s41a07vdmw
-    url: https://files.pythonhosted.org/packages/15/ab/dd27fb742b19a9d020338deb9ab9a28796524081bca880ac33c172c9a8f6/exceptiongroup-1.1.0.tar.gz
   - name: freezegun-0.3.15-py2.py3-none-any.whl
     sha256: 1cl9xzg793d272f9dvxlgjf17nczfzbdgsxzfvhs6z3wbfh5giw2
     url: https://files.pythonhosted.org/packages/17/5d/1b9d6d3c7995fff473f35861d674e0113a5f0bd5a72fe0199c3f254665c7/freezegun-0.3.15-py2.py3-none-any.whl
@@ -120,10 +112,4 @@ links:
   - name: six-1.16.0.tar.gz
     sha256: 09n9qih9rpj95q3r4a40li7hk6swma11syvgwdc68qm1fxsc6q8y
     url: https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz
-  - name: tomli-2.0.1-py3-none-any.whl
-    sha256: 1k0fqfdylinb57s2aqwprahwbrsk3babg4gghz4g06hnlvky77ck
-    url: https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl
-  - name: tomli-2.0.1.tar.gz
-    sha256: 0kwazq3i18rphcr8gak4fgzdcj5w5bbn4k4j2l6ma32gj496qlny
-    url: https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz
-python: "3.9"
+python: "3.11"
