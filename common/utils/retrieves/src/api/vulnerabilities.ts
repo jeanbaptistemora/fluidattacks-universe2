@@ -14,7 +14,7 @@ interface IRequestReattackRespose {
   data: IRequestReattackData;
 }
 interface IAcceptVulnerabilityData {
-  requestVulnerabilitiesVerification: { success: boolean; message?: string };
+  updateVulnerabilitiesTreatment: { success: boolean; message?: string };
 }
 
 interface IAcceptVulnerabilityResponse {
@@ -69,7 +69,7 @@ const acceptVulnerabilityTemporary = async (
     }).catch((err: ApolloError): IAcceptVulnerabilityResponse => {
       return {
         data: {
-          requestVulnerabilitiesVerification: {
+          updateVulnerabilitiesTreatment: {
             message: err.message,
             success: false,
           },
@@ -82,3 +82,4 @@ const acceptVulnerabilityTemporary = async (
 };
 
 export { requestReattack, acceptVulnerabilityTemporary };
+export type { IAcceptVulnerabilityData };
