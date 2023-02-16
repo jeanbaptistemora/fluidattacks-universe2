@@ -17,7 +17,6 @@ from syntax_graph.syntax_readers.java import (
     class_body as java_class_body,
     class_declaration as java_class_declaration,
     comment as java_comment,
-    conditional_expression as java_conditional_expression,
     continue_statement as java_continue_statement,
     declaration_block as java_declaration_block,
     dimensions_expr as java_dimensions_expr,
@@ -35,7 +34,6 @@ from syntax_graph.syntax_readers.java import (
     import_declaration as java_import_declaration,
     instanceof_expression as java_instanceof_expression,
     interface_declaration as java_interface_declaration,
-    interpolation as java_interpolation,
     lambda_expression as java_lambda_expression,
     method_declaration as java_method_declaration,
     method_invocation as java_method_invocation,
@@ -185,12 +183,6 @@ JAVA_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
-            "conditional_expression",
-        },
-        syntax_reader=java_conditional_expression.reader,
-    ),
-    Dispatcher(
-        applicable_types={
             "continue_statement",
         },
         syntax_reader=java_continue_statement.reader,
@@ -286,12 +278,6 @@ JAVA_DISPATCHERS: Dispatchers = (
             "interface_declaration",
         },
         syntax_reader=java_interface_declaration.reader,
-    ),
-    Dispatcher(
-        applicable_types={
-            "interpolation",
-        },
-        syntax_reader=java_interpolation.reader,
     ),
     Dispatcher(
         applicable_types={
