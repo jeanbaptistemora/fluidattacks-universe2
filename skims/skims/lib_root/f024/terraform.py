@@ -198,6 +198,63 @@ def _ec2_has_security_groups_ip_ranges_in_rfc1918(
             yield cidr_id
 
 
+def _ec2_has_unrestricted_dns_access(graph: Graph, nid: NId) -> Iterator[NId]:
+    public_cidrs = {
+        "::/0",
+        "0.0.0.0/0",
+    }
+    cidr, cidr_val, cidr_id = get_attribute(graph, nid, "cidr_blocks")
+    if not cidr:
+        cidr, cidr_val, cidr_id = get_attribute(graph, nid, "ipv6_cidr_blocks")
+    if cidr_id:
+        cidr_vals = set(cidr_val if isinstance(cidr_val, list) else [cidr_val])
+        valid_cidrs = filter(is_cidr, cidr_vals)
+        from_port, from_port_val, from_port_id = get_attribute(
+            graph, nid, "from_port"
+        )
+        to_port, to_port_val, _ = get_attribute(graph, nid, "to_port")
+        port_range = (
+            set(
+                range(
+                    int(from_port_val),
+                    int(to_port_val) + 1,
+                )
+            )
+            if from_port and to_port
+            else set()
+        )
+        if public_cidrs.intersection(valid_cidrs) and 53 in port_range:
+            yield from_port_id
+
+
+def tfm_ec2_has_unrestricted_dns_access(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_EC2_UNRESTRICTED_DNS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_security_group"),
+                iterate_resource(graph, "aws_security_group_rule"),
+                iterate_resource(graph, "ingress"),
+                iterate_resource(graph, "egress"),
+            ):
+                for report in _ec2_has_unrestricted_dns_access(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024.ec2_has_unrestricted_dns_access",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

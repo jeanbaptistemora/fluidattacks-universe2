@@ -20,7 +20,6 @@ from lib_path.f024.cloudformation import (
 )
 from lib_path.f024.terraform import (
     tfm_ec2_has_open_all_ports_to_the_public,
-    tfm_ec2_has_unrestricted_dns_access,
     tfm_ec2_has_unrestricted_ftp_access,
 )
 from model.core_model import (
@@ -93,15 +92,6 @@ def run_cfn_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return cfn_ec2_has_unrestricted_ports(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_ec2_has_unrestricted_dns_access(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ec2_has_unrestricted_dns_access(
-        content=content, path=path, model=model
     )
 
 
@@ -201,7 +191,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_tfm_ec2_has_unrestricted_dns_access,
                     run_tfm_ec2_has_unrestricted_ftp_access,
                     run_tfm_ec2_has_open_all_ports_to_the_public,
                 )
