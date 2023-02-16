@@ -44,71 +44,6 @@ from typing import (
 )
 
 
-def _tfm_iter_vulnerable_admin_ports(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    admin_ports = {
-        22,  # SSH
-        1521,  # Oracle
-        1433,  # MSSQL
-        1434,  # MSSQL
-        2438,  # Oracle
-        3306,  # MySQL
-        3389,  # RDP
-        5432,  # Postgres
-        6379,  # Redis
-        7199,  # Cassandra
-        8111,  # DAX
-        8888,  # Cassandra
-        9160,  # Cassandra
-        11211,  # Memcached
-        27017,  # MongoDB
-        445,  # CIFS
-    }
-    unrestricted_ipv4 = IPv4Network("0.0.0.0/0")
-    unrestricted_ipv6 = IPv6Network("::/0")
-    for resource in resource_iterator:
-        unrestricted_ip = False
-        cidr_ip = get_attribute(resource.data, "cidr_blocks")
-        cidr_ipv6 = get_attribute(resource.data, "ipv6_cidr_blocks")
-        with suppress(AddressValueError, KeyError):
-            unrestricted_ip = (
-                cidr_ipv6 is not None
-                and IPv6Network(
-                    cidr_ipv6.val,
-                    strict=False,
-                )
-                == unrestricted_ipv6
-            )
-        with suppress(AddressValueError, KeyError):
-            unrestricted_ip = (
-                IPv4Network(
-                    cidr_ip.val,
-                    strict=False,
-                )
-                == unrestricted_ipv4
-                if cidr_ip
-                else unrestricted_ip
-            ) or unrestricted_ip
-        from_port = get_attribute(resource.data, "from_port")
-        to_port = get_attribute(resource.data, "to_port")
-        port_range = (
-            set(
-                range(
-                    int(from_port.val),
-                    int(to_port.val) + 1,
-                )
-            )
-            if from_port
-            and to_port
-            and validate_port_values(from_port, to_port)
-            else set()
-        )
-        if unrestricted_ip and admin_ports.intersection(port_range):
-            yield from_port
-            yield to_port
-
-
 def _tfm_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -388,26 +323,6 @@ def _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
                 and float(from_port_attr.val) != float(to_port_attr.val)
             ):
                 yield resource
-
-
-def tfm_aws_allows_anyone_to_admin_ports(
-    content: str,
-    path: str,
-    model: Any,
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=("src.lib_path.f024_aws.allows_anyone_to_admin_ports"),
-        iterator=get_cloud_iterator(
-            _tfm_iter_vulnerable_admin_ports(
-                resource_iterator=chain(
-                    iter_aws_sg_ingress_egress(model=model, ingress=True),
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_ANYONE_ADMIN_PORTS,
-    )
 
 
 def tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(

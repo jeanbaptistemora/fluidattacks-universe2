@@ -3037,7 +3037,7 @@ class MethodsEnum(Enum):
     TFM_ANYONE_ADMIN_PORTS = MethodInfo(
         file_name="terraform",
         name="tfm_allows_anyone_to_admin_ports",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
