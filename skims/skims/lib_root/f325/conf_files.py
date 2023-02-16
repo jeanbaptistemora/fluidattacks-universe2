@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.json import (
     get_key_value,
     is_parent,
@@ -15,9 +18,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -40,7 +40,7 @@ def principal_wildcard(
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_PRINCIPAL_WILDCARD
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JSON):
             if shard.syntax_graph is None:
                 continue

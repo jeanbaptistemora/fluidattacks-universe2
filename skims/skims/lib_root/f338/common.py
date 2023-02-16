@@ -11,9 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -27,7 +24,7 @@ def is_salt_harcoded(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def has_dangerous_param(graph: Graph, method: MethodsEnum) -> List[NId]:
+def has_dangerous_param(graph: Graph, method: MethodsEnum) -> list[NId]:
     sensitive_methods = {"salt", "SALT"}
 
     return [

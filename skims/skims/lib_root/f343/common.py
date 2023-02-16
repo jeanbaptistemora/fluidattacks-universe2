@@ -14,16 +14,12 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Optional,
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> Optional[NId]:
+def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> NId | None:
     for path in get_backward_paths(graph, n_id):
         if evaluation := evaluate(method, graph, path, n_id):
             if "custom_function" in evaluation.triggers:
@@ -39,8 +35,8 @@ def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> Optional[NId]:
 
 def webpack_insecure_compression(
     graph: Graph, method: MethodsEnum
-) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     if dangerous_library := get_default_alias(
         graph, "compression-webpack-plugin"
     ):

@@ -11,10 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Dict,
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -28,7 +24,7 @@ def is_insec_invocation(graph: Graph, n_id: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def _has_dangerous_literal(graph: Graph, args: Dict) -> bool:
+def _has_dangerous_literal(graph: Graph, args: dict) -> bool:
     sensitive_params = {'"Set-Cookie"', '"connect.sid"'}
     if (
         len(args) == 2
@@ -40,8 +36,8 @@ def _has_dangerous_literal(graph: Graph, args: Dict) -> bool:
     return False
 
 
-def has_dangerous_param(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_dangerous_param(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     sensitive_methods = {"res.setHeader", "res.cookie"}
 
     for member in g.matching_nodes(graph, label_type="MethodInvocation"):

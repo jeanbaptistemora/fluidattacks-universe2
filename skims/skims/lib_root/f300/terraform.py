@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -19,16 +22,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _azure_app_authentication_off(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_app_authentication_off(graph: Graph, nid: NId) -> NId | None:
     expected_block = "auth_settings"
     expected_block_attr = "enabled"
     has_attr = False
@@ -51,7 +50,7 @@ def _azure_app_authentication_off(graph: Graph, nid: NId) -> Optional[NId]:
 
 def _azure_as_client_certificates_enabled(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_attr = "client_cert_enabled"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -71,7 +70,7 @@ def tfm_azure_as_client_certificates_enabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_CLIENT_CERT_ENABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -94,7 +93,7 @@ def tfm_azure_app_authentication_off(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_APP_AUTH_OFF
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

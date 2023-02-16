@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f343.common import (
     webpack_insecure_compression,
 )
@@ -13,9 +16,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def ts_insecure_compression(
@@ -23,7 +23,7 @@ def ts_insecure_compression(
 ) -> Vulnerabilities:
     method: MethodsEnum = MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

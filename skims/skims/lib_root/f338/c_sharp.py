@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_object_creation,
 )
@@ -21,9 +24,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-)
 
 
 def eval_hashes_salt(graph: Graph, n_id: NId) -> bool:
@@ -40,7 +40,7 @@ def check_hashes_salt(
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

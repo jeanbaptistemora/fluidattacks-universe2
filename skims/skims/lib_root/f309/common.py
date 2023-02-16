@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from model import (
     core_model,
 )
@@ -10,9 +13,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Set,
 )
 from utils import (
     graph as g,

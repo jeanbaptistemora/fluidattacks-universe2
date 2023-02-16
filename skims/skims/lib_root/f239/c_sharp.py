@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -21,9 +24,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-)
 
 
 def is_node_danger(graph: Graph, n_id: NId) -> bool:
@@ -42,7 +42,7 @@ def info_leak_errors(
     method = MethodsEnum.CS_INFO_LEAK_ERRORS
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

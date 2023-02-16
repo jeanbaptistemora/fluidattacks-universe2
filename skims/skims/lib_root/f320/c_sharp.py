@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
@@ -21,9 +24,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-)
 
 
 def is_node_danger(graph: Graph, nid: NId) -> bool:
@@ -44,7 +44,7 @@ def ldap_connections_authenticated(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_LDAP_CONN_AUTH
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.CSHARP,
         ):

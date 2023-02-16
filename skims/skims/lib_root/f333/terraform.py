@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -19,18 +22,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _ec2_has_not_an_iam_instance_profile(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _ec2_has_not_an_iam_instance_profile(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "iam_instance_profile"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -42,9 +39,7 @@ def _ec2_has_not_an_iam_instance_profile(
     return None
 
 
-def _ec2_has_terminate_shutdown_behavior(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _ec2_has_terminate_shutdown_behavior(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "instance_initiated_shutdown_behavior"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -58,9 +53,7 @@ def _ec2_has_terminate_shutdown_behavior(
     return None
 
 
-def _aux_ec2_associate_public_ip_address(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _aux_ec2_associate_public_ip_address(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "associate_public_ip_address"
     for b_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, b_id)
@@ -69,7 +62,7 @@ def _aux_ec2_associate_public_ip_address(
     return None
 
 
-def _ec2_associate_public_ip_address(graph: Graph, nid: NId) -> Optional[NId]:
+def _ec2_associate_public_ip_address(graph: Graph, nid: NId) -> NId | None:
     obj_type = graph.nodes[nid].get("name")
     if obj_type and obj_type == "aws_instance":
         return _aux_ec2_associate_public_ip_address(graph, nid)
@@ -84,7 +77,7 @@ def tfm_ec2_associate_public_ip_address(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EC2_ASSOC_PUB_IP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -110,7 +103,7 @@ def tfm_ec2_has_terminate_shutdown_behavior(
 ) -> Vulnerabilities:
     method = MethodsEnum.EC2_TERMINATE_SHUTDOWN_BEHAVIOR
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -133,7 +126,7 @@ def tfm_ec2_has_not_an_iam_instance_profile(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EC2_NO_IAM
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -12,17 +15,13 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_print_methods(graph: Graph) -> Set[str]:
-    print_methods: Set[str] = {"print"}
+def get_print_methods(graph: Graph) -> set[str]:
+    print_methods: set[str] = {"print"}
     nodes = graph.nodes
     for n_id in g.matching_nodes(graph, label_type="Import"):
         imported_package = nodes[n_id].get("expression")
@@ -64,7 +63,7 @@ def prints_danger_values(graph: Graph, n_id: NId) -> bool:
 def has_print_statements(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.DART,
         ):

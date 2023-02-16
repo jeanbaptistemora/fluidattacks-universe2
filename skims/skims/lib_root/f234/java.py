@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -12,17 +15,13 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_vuln_nodes(graph: Graph) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+def get_vuln_nodes(graph: Graph) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     for n_id in g.matching_nodes(graph, label_type="CatchClause"):
         childs = g.match_ast(graph, n_id, "CatchParameter", "ExecutionBlock")
         param = childs.get("CatchParameter")
@@ -51,7 +50,7 @@ def get_vuln_nodes(graph: Graph) -> Set[NId]:
 def info_leak_stacktrace(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVA,
         ):

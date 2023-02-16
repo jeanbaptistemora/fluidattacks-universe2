@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f344.common import (
     local_storage_from_assignment,
     local_storage_from_http,
@@ -14,9 +17,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def ts_local_storage_with_sensitive_data(
@@ -24,7 +24,7 @@ def ts_local_storage_with_sensitive_data(
 ) -> Vulnerabilities:
     method: MethodsEnum = MethodsEnum.TS_LOCAL_STORAGE_WITH_SENSITIVE_DATA
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):
@@ -47,7 +47,7 @@ def ts_local_storage_sens_data_assignment(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_LOCAL_STORAGE_SENS_DATA_ASSIGNMENT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

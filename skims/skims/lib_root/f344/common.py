@@ -14,16 +14,13 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_local_storage_values_n_ids(graph: Graph) -> Set[NId]:
-    n_ids: Set[NId] = set()
+def get_local_storage_values_n_ids(graph: Graph) -> set[NId]:
+    n_ids: set[NId] = set()
     for n_id in g.matching_nodes(
         graph, label_type="MethodInvocation", expression="localStorage.setItem"
     ):
@@ -43,16 +40,16 @@ def is_vuln(graph: Graph, method: MethodsEnum, n_id: NId) -> bool:
     return False
 
 
-def local_storage_from_http(graph: Graph, method: MethodsEnum) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+def local_storage_from_http(graph: Graph, method: MethodsEnum) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     for n_id in get_local_storage_values_n_ids(graph):
         if is_vuln(graph, method, n_id):
             vuln_nodes.add(n_id)
     return vuln_nodes
 
 
-def get_assignment_values_n_ids(graph: Graph) -> Set[NId]:
-    n_ids: Set[NId] = set()
+def get_assignment_values_n_ids(graph: Graph) -> set[NId]:
+    n_ids: set[NId] = set()
     nodes: NodeView = graph.nodes
     for n_id in g.matching_nodes(graph, label_type="Assignment"):
         if (
@@ -67,8 +64,8 @@ def get_assignment_values_n_ids(graph: Graph) -> Set[NId]:
 
 def vuln_assignment_n_ids(
     graph: Graph, method: MethodsEnum, n_id: NId
-) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     for path in get_backward_paths(graph, n_id):
         if evaluation := evaluate(method, graph, path, n_id):
             vuln_n_ids = set(
@@ -80,8 +77,8 @@ def vuln_assignment_n_ids(
 
 def local_storage_from_assignment(
     graph: Graph, method: MethodsEnum
-) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     for n_id in get_assignment_values_n_ids(graph):
         vuln_n_ids = vuln_assignment_n_ids(graph, method, n_id)
         vuln_nodes.update(vuln_n_ids)

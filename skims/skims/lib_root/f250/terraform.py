@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,17 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Iterator,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _ebs_unencrypted_by_default(graph: Graph, nid: NId) -> Optional[NId]:
+def _ebs_unencrypted_by_default(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "enabled"
     for b_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, b_id)
@@ -35,7 +33,7 @@ def _ebs_unencrypted_by_default(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _ebs_unencrypted_volumes(graph: Graph, nid: NId) -> Optional[NId]:
+def _ebs_unencrypted_volumes(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "encrypted"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -82,7 +80,7 @@ def tfm_ec2_instance_unencrypted_ebs_block_devices(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EC2_UNENCRYPTED_BLOCK_DEVICES
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -109,7 +107,7 @@ def tfm_ebs_unencrypted_volumes(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EBS_UNENCRYPTED_VOLUMES
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -132,7 +130,7 @@ def tfm_ebs_unencrypted_by_default(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EBS_UNENCRYPTED_DEFAULT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

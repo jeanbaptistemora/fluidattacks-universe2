@@ -1,12 +1,12 @@
+from collections.abc import (
+    Iterator,
+)
 from model import (
     core_model,
     graph_model,
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -16,7 +16,7 @@ from utils import (
 def has_print_statements(
     graph_db: graph_model.GraphDB,
 ) -> core_model.Vulnerabilities:
-    def n_ids() -> Iterable[graph_model.GraphShardNode]:
+    def n_ids() -> Iterator[graph_model.GraphShardNode]:
 
         print_methods = {"print", "println"}
 

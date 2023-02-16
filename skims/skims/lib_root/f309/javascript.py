@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f309.common import (
     is_insecure_jwt,
 )
@@ -15,9 +18,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def uses_insecure_jwt_token(
@@ -26,7 +26,7 @@ def uses_insecure_jwt_token(
     method = core_model.MethodsEnum.JS_INSECURE_JWT_TOKEN
     jwt_methods = {"sign", "verify"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVASCRIPT,
         ):

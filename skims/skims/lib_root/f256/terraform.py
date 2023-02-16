@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,16 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _has_not_automated_backups(graph: Graph, nid: NId) -> Optional[NId]:
+def _has_not_automated_backups(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "backup_retention_period"
     for b_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, b_id)
@@ -34,7 +33,7 @@ def _has_not_automated_backups(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _no_deletion_protection(graph: Graph, nid: NId) -> Optional[NId]:
+def _no_deletion_protection(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "deletion_protection"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -54,7 +53,7 @@ def tfm_db_no_deletion_protection(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_DB_NO_DELETION_PROTEC
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -77,7 +76,7 @@ def tfm_rds_no_deletion_protection(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_RDS_NO_DELETION_PROTEC
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -100,7 +99,7 @@ def tfm_rds_has_not_automated_backups(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_RDS_NOT_AUTO_BACKUPS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -123,7 +122,7 @@ def tfm_db_has_not_automated_backups(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_DB_NOT_AUTO_BACKUPS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

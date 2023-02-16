@@ -11,10 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-    Tuple,
-)
 from utils import (
     graph as g,
 )
@@ -23,10 +19,10 @@ from utils.string import (
 )
 
 
-def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> List[str]:
-    vuln_nodes: List[str] = []
+def get_vuln_nodes(graph: Graph, method: MethodsEnum) -> list[str]:
+    vuln_nodes: list[str] = []
     for nid in g.matching_nodes(graph, label_type="MethodInvocation"):
-        f_name: Tuple[str, str] = split_on_last_dot(
+        f_name: tuple[str, str] = split_on_last_dot(
             graph.nodes[nid]["expression"]
         )
         if f_name[-1] == "query" and is_argument_vuln(graph, nid, method):
