@@ -1,5 +1,7 @@
 "Notifications preferences type definition"
 type NotificationsPreferences {
+  "Available notifications for user"
+  available: [NotificationsName!]!
   "Email channel to notifications preferences"
   email: [NotificationsName!]!
   "Configuration parameters for sending notifications"

@@ -18,6 +18,7 @@ class NotificationsParameters(NamedTuple):
 
 
 class NotificationsPreferences(NamedTuple):
+    available: list[str] = []
     email: list[str] = []
     sms: list[str] = []
     parameters: NotificationsParameters = NotificationsParameters()

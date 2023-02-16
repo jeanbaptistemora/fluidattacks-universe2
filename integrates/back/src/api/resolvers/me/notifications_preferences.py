@@ -1,6 +1,9 @@
 from dataloaders import (
     Dataloaders,
 )
+from db_model.enums import (
+    Notification,
+)
 from db_model.stakeholders.types import (
     NotificationsPreferences,
 )
@@ -22,4 +25,6 @@ async def resolve(
     email = str(parent["user_email"])
     stakeholder = await get_stakeholder(loaders, email)
 
-    return stakeholder.state.notifications_preferences
+    return stakeholder.state.notifications_preferences._replace(
+        available=list(Notification)
+    )
