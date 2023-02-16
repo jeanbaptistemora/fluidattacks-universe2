@@ -4747,6 +4747,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    DART_INSECURE_LOGGING = MethodInfo(
+        file_name="dart",
+        name="dart_insecure_logging",
+        module="lib_root",
+        finding=FindingEnum.F091,
+        developer=DeveloperEnum.JHON_ROMERO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_INSECURE_LOGGING = MethodInfo(
         file_name="javascript",
         name="javascript_insecure_logging",
