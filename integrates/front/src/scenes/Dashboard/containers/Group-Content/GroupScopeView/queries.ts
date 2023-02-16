@@ -92,6 +92,7 @@ const GET_ROOT_ENVIRONMENT_URLS: DocumentNode = gql`
   query GetRootEnvironmentUrls($groupName: String!, $rootId: ID!) {
     root(groupName: $groupName, rootId: $rootId) {
       ... on GitRoot {
+        id
         gitEnvironmentUrls {
           url
           id

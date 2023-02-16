@@ -25,7 +25,6 @@ interface IManagementModalProps {
   nicknames: string[];
   onClose: () => void;
   onSubmitRepo: (values: IFormValues) => Promise<void>;
-  onUpdate: () => void;
   runTour: boolean;
   finishTour: () => void;
 }
@@ -70,7 +69,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
   nicknames,
   onClose,
   onSubmitRepo,
-  onUpdate,
   runTour,
   finishTour,
 }: IManagementModalProps): JSX.Element => {
@@ -170,7 +168,6 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
               <Environments
                 groupName={groupName}
                 onClose={onClose}
-                onUpdate={onUpdate}
                 rootInitialValues={initialValues}
               />
             </Route>

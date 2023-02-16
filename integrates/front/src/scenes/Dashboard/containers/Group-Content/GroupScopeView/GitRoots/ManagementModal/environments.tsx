@@ -33,7 +33,6 @@ interface IEnvironmentsProps {
   rootInitialValues: IFormValues;
   groupName: string;
   onClose: () => void;
-  onUpdate: () => void;
 }
 
 interface IEnvironmentUrlItem extends IBasicEnvironmentUrl {
@@ -44,14 +43,13 @@ const Environments: FC<IEnvironmentsProps> = ({
   rootInitialValues,
   groupName,
   onClose,
-  onUpdate,
 }: IEnvironmentsProps): JSX.Element => {
   const { t } = useTranslation();
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isAddEnvModalOpen, setIsAddEnvModalOpen] = useState(false);
   const initialValues = { ...rootInitialValues, other: "", reason: "" };
-  const { data, refetch } = useQuery<{
+  const { data, loading } = useQuery<{
     root: { gitEnvironmentUrls: IBasicEnvironmentUrl[] };
   }>(GET_ROOT_ENVIRONMENT_URLS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -65,22 +63,29 @@ const Environments: FC<IEnvironmentsProps> = ({
     useStoredState<VisibilityState>("tblGitRootSecrets-visibilityState", {
       element: permissions.can("api_mutations_remove_environment_url_mutate"),
     });
-  const [removeEnvironmentUrl] = useMutation(REMOVE_ENVIRONMENT_URL, {
-    onCompleted: async (): Promise<void> => {
-      await refetch();
-      onUpdate();
-      msgSuccess(
-        t("group.scope.git.removeEnvironment.success"),
-        t("group.scope.git.removeEnvironment.successTitle")
-      );
-    },
-    onError: ({ graphQLErrors }): void => {
-      graphQLErrors.forEach((error): void => {
-        msgError(t("groupAlerts.errorTextsad"));
-        Logger.error("Couldn't remove enviroment url", error);
-      });
-    },
-  });
+  const [removeEnvironmentUrl, { loading: isRemoving }] = useMutation(
+    REMOVE_ENVIRONMENT_URL,
+    {
+      onCompleted: (): void => {
+        msgSuccess(
+          t("group.scope.git.removeEnvironment.success"),
+          t("group.scope.git.removeEnvironment.successTitle")
+        );
+      },
+      onError: ({ graphQLErrors }): void => {
+        graphQLErrors.forEach((error): void => {
+          msgError(t("groupAlerts.errorTextsad"));
+          Logger.error("Couldn't remove enviroment url", error);
+        });
+      },
+      refetchQueries: [
+        {
+          query: GET_ROOT_ENVIRONMENT_URLS,
+          variables: { groupName, rootId: initialValues.id },
+        },
+      ],
+    }
+  );
 
   const openAddModal = useCallback((): void => {
     setIsAddEnvModalOpen(true);
@@ -122,6 +127,7 @@ const Environments: FC<IEnvironmentsProps> = ({
               {(confirm): JSX.Element => {
                 return (
                   <Button
+                    disabled={loading || isRemoving}
                     id={"git-root-remove-environment-url"}
                     onClick={onConfirmDelete(confirm, gitEnvironment)}
                     variant={"secondary"}
@@ -135,7 +141,7 @@ const Environments: FC<IEnvironmentsProps> = ({
         };
       }
     );
-  }, [data, onConfirmDelete, t]);
+  }, [data, isRemoving, loading, onConfirmDelete, t]);
 
   return (
     <Fragment>
@@ -170,8 +176,6 @@ const Environments: FC<IEnvironmentsProps> = ({
         <AddEnvironment
           closeFunction={closeAddModal}
           groupName={groupName}
-          onSubmit={refetch}
-          onUpdate={onUpdate}
           rootId={initialValues.id}
         />
       </Modal>

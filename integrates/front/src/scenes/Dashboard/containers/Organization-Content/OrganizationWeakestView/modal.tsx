@@ -27,8 +27,6 @@ import {
 } from "scenes/Dashboard/containers/Organization-Content/OrganizationWeakestView/utils";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
 
 export const PlusModal: React.FC<IPlusModalProps> = ({
   organizationId,
@@ -231,7 +229,6 @@ export const PlusModal: React.FC<IPlusModalProps> = ({
           nicknames={[]}
           onClose={closeModal}
           onSubmitRepo={handleGitSubmit}
-          onUpdate={refetchRepositories}
           runTour={false}
         />
       )}

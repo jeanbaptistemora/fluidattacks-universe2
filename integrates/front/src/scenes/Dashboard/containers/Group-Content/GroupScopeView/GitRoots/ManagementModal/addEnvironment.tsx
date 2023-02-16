@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
-import { ADD_ENVIRONMENT_URL } from "../../queries";
+import { ADD_ENVIRONMENT_URL, GET_ROOT_ENVIRONMENT_URLS } from "../../queries";
 import { Input, Label, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
@@ -26,8 +26,6 @@ interface IAddEnvironmentProps {
   groupName: string;
   rootId: string;
   closeFunction: () => void;
-  onSubmit: () => void;
-  onUpdate: () => void;
 }
 
 interface IFormProps {
@@ -48,8 +46,6 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
   groupName,
   rootId,
   closeFunction,
-  onSubmit,
-  onUpdate,
 }: IAddEnvironmentProps): JSX.Element => {
   const { t } = useTranslation();
   const formInitialValues: IFormProps = {
@@ -98,8 +94,6 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
         t("group.scope.git.addEnvironment.success"),
         t("group.scope.git.addEnvironment.successTittle")
       );
-      onSubmit();
-      onUpdate();
       closeFunction();
     },
     onError: ({ graphQLErrors }): void => {
@@ -108,6 +102,9 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
         Logger.error("Couldn't add environment url", error);
       });
     },
+    refetchQueries: [
+      { query: GET_ROOT_ENVIRONMENT_URLS, variables: { groupName, rootId } },
+    ],
   });
   const submitForm = useCallback(
     async ({
