@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -25,42 +25,29 @@ from utils.graph import (
 
 
 def _ebs_unencrypted_by_default(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "enabled"
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr and value.lower() == "false":
-            return b_id
+    attr, attr_val, attr_id = get_attribute(graph, nid, "enabled")
+    if attr and attr_val.lower() == "false":
+        return attr_id
     return None
 
 
 def _ebs_unencrypted_volumes(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "encrypted"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() == "false":
-                return b_id
-            return None
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "encrypted")
+    if not attr:
         return nid
+    if attr_val.lower() == "false":
+        return attr_id
     return None
 
 
 def _aux_ec2_instance_unencrypted_ebs_block_devices(
     graph: Graph, c_id: NId
 ) -> Iterator[NId]:
-    expected_block_attr = "encrypted"
-    has_attr = False
-    for b_id in adj_ast(graph, c_id, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_block_attr:
-            has_attr = True
-            if value.lower() == "false":
-                yield b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, c_id, "encrypted")
+    if not attr:
         yield c_id
+    if attr_val.lower() == "false":
+        yield attr_id
 
 
 def _ec2_instance_unencrypted_ebs_block_devices(

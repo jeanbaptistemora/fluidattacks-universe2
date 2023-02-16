@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,17 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _public_buckets(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "acl"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, c_id)
-        if key == expected_attr and value == "public-read-write":
-            return c_id
+    attr, attr_val, attr_id = get_attribute(graph, nid, "acl")
+    if attr and attr_val == "public-read-write":
+        return attr_id
     return None
 
 

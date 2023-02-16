@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,32 +19,23 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _has_not_automated_backups(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "backup_retention_period"
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr and value == "0":
-            return b_id
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "backup_retention_period"
+    )
+    if attr and attr_val == "0":
+        return attr_id
     return None
 
 
 def _no_deletion_protection(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "deletion_protection"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() == "false":
-                return b_id
-            return None
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "deletion_protection")
+    if not attr:
         return nid
+    if attr_val.lower() == "false":
+        return attr_id
     return None
 
 
