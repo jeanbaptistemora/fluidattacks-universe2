@@ -7,7 +7,7 @@ slug: /about/compare/detectify
 
 One of the most common questions about
 Fluid Attacks’ Continuous Hacking is
-how it compares to Detectify's service.
+how it compares to Detectify's services.
 The following comparison table allows
 you to understand how both providers perform
 on different attributes that may be essential
@@ -32,4 +32,4 @@ to meet your company’s cybersecurity needs.
 | **Free trial**               | Yes                                                                                                                                                                                                                                                                                                                 | Yes                                                                                                                                                                                                                                                                            | Yes                                                                                                                                                  |
 | **Payment from website**     | Yes                                                                                                                                                                                                                                                                                                                 | Yes                                                                                                                                                                                                                                                                            | Yes                                                                                                                                                  |
 
-*References were last checked on March 30, 2022.
+*References were last checked on February 15, 2023.
