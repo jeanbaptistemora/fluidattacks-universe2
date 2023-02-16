@@ -19,10 +19,7 @@ module "cluster" {
     ci_small = {
       max_size = 450
 
-      instance_types = [
-        "c5d.large",
-        "c5ad.large",
-      ]
+      instance_types = ["c5ad.large"]
 
       iam_role_additional_policies = {
         ci_cache = module.ci_cache.policy_arn
@@ -101,7 +98,7 @@ module "cluster" {
         xvda = {
           device_name = "/dev/xvda"
           ebs = {
-            volume_size           = 35
+            volume_size           = 75
             volume_type           = "gp3"
             encrypted             = true
             delete_on_termination = true

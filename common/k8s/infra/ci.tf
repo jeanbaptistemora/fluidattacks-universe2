@@ -30,7 +30,10 @@ locals {
         cpu    = "1200m"
         memory = "2500Mi"
       }
-      tags = ["small"]
+      limits = {
+        memory = "3800Mi"
+      }
+      tags = ["small-k8s"]
     }
     large = {
       name          = "ci-large"
@@ -40,7 +43,10 @@ locals {
         cpu    = "1200m"
         memory = "4000Mi"
       }
-      tags = ["large"]
+      limits = {
+        memory = "7800Mi"
+      }
+      tags = ["large-k8s"]
     }
   }
 }
@@ -81,8 +87,8 @@ resource "helm_release" "ci" {
         }
         resources = {
           requests = {
-            memory = "2500Mi"
-            cpu    = "1200m"
+            cpu    = local.ci.small.requests.cpu
+            memory = local.ci.small.requests.memory
           }
         }
         nodeSelector = {
@@ -98,17 +104,22 @@ resource "helm_release" "ci" {
           config         = <<-EOF
             [[runners]]
               name = "${each.value.name}"
-              request_concurrency = 10
+              request_concurrency = 500
               output_limit = 16384
 
               [runners.kubernetes]
                 pull_policy = "always"
                 cpu_request = "${each.value.requests.cpu}"
                 memory_request = "${each.value.requests.memory}"
+                memory_limit = "${each.value.limits.memory}"
+                ephemeral_storage_request = "5Gi"
+                ephemeral_storage_limit = "60Gi"
                 helper_cpu_request = "1m"
                 helper_memory_request = "1Mi"
+                helper_ephemeral_storage_request = "2Gi"
+                helper_ephemeral_storage_limit = "15Gi"
                 namespace = "dev"
-                poll_timeout = 600
+                poll_timeout = 900
                 privileged = true
                 [runners.kubernetes.node_selector]
                   worker_group = "${each.value.node_selector}"
