@@ -32,8 +32,8 @@ const TOE_LINES_FRAGMENT: DocumentNode = gql`
 
 const GET_TOE_LINES: DocumentNode = gql`
   query GetToeLines(
-    $groupName: String!
     $after: String
+    $attackedBy: String
     $bePresent: Boolean
     $canGetAttackedAt: Boolean!
     $canGetAttackedBy: Boolean!
@@ -41,16 +41,58 @@ const GET_TOE_LINES: DocumentNode = gql`
     $canGetBePresentUntil: Boolean!
     $canGetComments: Boolean!
     $canGetFirstAttackAt: Boolean!
+    $comments: String
     $first: Int
+    $fromAttackedAt: DateTime
+    $fromBePresentUntil: DateTime
+    $fromFirstAttackAt: DateTime
+    $fromModifiedDate: DateTime
+    $fromSeenAt: DateTime
+    $groupName: String!
+    $hasVulnerabilities: Boolean
+    $lastAuthor: String
+    $lastCommit: String
+    $maxAttackedLines: Int
+    $maxLoc: Int
+    $maxSortsRiskLevel: Int
+    $minAttackedLines: Int
+    $minLoc: Int
+    $minSortsRiskLevel: Int
     $rootId: ID
+    $toAttackedAt: DateTime
+    $toBePresentUntil: DateTime
+    $toFirstAttackAt: DateTime
+    $toModifiedDate: DateTime
+    $toSeenAt: DateTime
   ) {
     group(groupName: $groupName) {
       name
       toeLines(
-        bePresent: $bePresent
         after: $after
+        attackedBy: $attackedBy
+        bePresent: $bePresent
+        comments: $comments
         first: $first
+        fromAttackedAt: $fromAttackedAt
+        fromBePresentUntil: $fromBePresentUntil
+        fromFirstAttackAt: $fromFirstAttackAt
+        fromModifiedDate: $fromModifiedDate
+        fromSeenAt: $fromSeenAt
+        hasVulnerabilities: $hasVulnerabilities
+        lastAuthor: $lastAuthor
+        lastCommit: $lastCommit
+        maxAttackedLines: $maxAttackedLines
+        maxLoc: $maxLoc
+        maxSortsRiskLevel: $maxSortsRiskLevel
+        minAttackedLines: $minAttackedLines
+        minLoc: $minLoc
+        minSortsRiskLevel: $minSortsRiskLevel
         rootId: $rootId
+        toAttackedAt: $toAttackedAt
+        toBePresentUntil: $toBePresentUntil
+        toFirstAttackAt: $toFirstAttackAt
+        toModifiedDate: $toModifiedDate
+        toSeenAt: $toSeenAt
       ) {
         edges {
           node {
