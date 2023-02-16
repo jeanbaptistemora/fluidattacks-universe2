@@ -29,10 +29,46 @@ pytestmark = [
 
 
 @pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "group_name",
+        "component",
+        "entry_point",
+        "attributes",
+        "is_moving_toe_input",
+    ],
+    [
+        [
+            "unittesting",
+            "https://test.com/test/new.aspx",
+            "btnTest",
+            ToeInputAttributesToAdd(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                attacked_by="test@test.com",
+                be_present=True,
+                has_vulnerabilities=False,
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="new@test.com",
+                unreliable_root_id="",
+            ),
+            True,
+        ],
+    ],
+)
 @freeze_time("2022-11-11T05:00:00+00:00")
-async def test_add() -> None:
+async def test_add(
+    group_name: str,
+    component: str,
+    entry_point: str,
+    attributes: ToeInputAttributesToAdd,
+    is_moving_toe_input: bool,
+) -> None:
     loaders = get_new_context()
-    group_name = "unittesting"
     toe_input = ToeInput(
         component="https://test.com/test/new.aspx",
         entry_point="btnTest",
@@ -55,22 +91,11 @@ async def test_add() -> None:
     )
     await toe_inputs_domain.add(
         loaders=loaders,
-        entry_point="btnTest",
-        component="https://test.com/test/new.aspx",
+        entry_point=entry_point,
+        component=component,
         group_name=group_name,
-        attributes=ToeInputAttributesToAdd(
-            attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-            attacked_by="test@test.com",
-            be_present=True,
-            has_vulnerabilities=False,
-            first_attack_at=datetime.fromisoformat(
-                "2021-02-12T05:00:00+00:00"
-            ),
-            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-            seen_first_time_by="new@test.com",
-            unreliable_root_id="",
-        ),
-        is_moving_toe_input=True,
+        attributes=attributes,
+        is_moving_toe_input=is_moving_toe_input,
     )
     group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(
         GroupToeInputsRequest(group_name=group_name)
