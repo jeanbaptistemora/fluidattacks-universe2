@@ -22,6 +22,7 @@ METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_SALT_IS_HARDCODED: variable_is_harcoded,
     MethodsEnum.KOTLIN_SALT_IS_HARDCODED: variable_is_harcoded,
     MethodsEnum.GO_SALT_IS_HARDCODED: go_variable_is_harcoded,
+    MethodsEnum.DART_SALT_IS_HARDCODED: variable_is_harcoded,
 }
 
 
