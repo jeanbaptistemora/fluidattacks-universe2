@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -27,26 +27,19 @@ from utils.graph import (
 def _iam_user_missing_role_based_security(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_attr = "name"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, c_id)
-        if key == expected_attr:
-            return c_id
+    expected_attr = get_attribute(graph, nid, "name")
+    if expected_attr[0]:
+        return expected_attr[2]
     return None
 
 
 def _iam_excessive_privileges(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "managed_policy_arns"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, c_id)
-        value_id = graph.nodes[c_id]["value_id"]
-        if (
-            key == expected_attr
-            and graph.nodes[value_id]["label_type"] == "ArrayInitializer"
-        ):
-            for array_elem in adj_ast(graph, value_id):
-                if "AdministratorAccess" in graph.nodes[array_elem]["value"]:
-                    return array_elem
+    _, _, attr_id = get_attribute(graph, nid, "managed_policy_arns")
+    value_id = graph.nodes[attr_id]["value_id"]
+    if graph.nodes[value_id]["label_type"] == "ArrayInitializer":
+        for array_elem in adj_ast(graph, value_id):
+            if "AdministratorAccess" in graph.nodes[array_elem]["value"]:
+                return array_elem
     return None
 
 

@@ -5,7 +5,6 @@ from lib_root.utilities.terraform import (
     get_argument,
     get_attr_from_block,
     get_attribute,
-    get_key_value,
     iterate_resource,
     list_has_string,
 )
@@ -23,9 +22,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 VULNERABLE_ORIGIN_SSL_PROTOCOLS = ["SSLv3", "TLSv1", "TLSv1.1"]
 
@@ -41,24 +37,17 @@ VULNERABLE_MIN_PROT_VERSIONS = [
 def _azure_serves_content_over_insecure_protocols(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_attr = "min_tls_version"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, c_id)
-        if key == expected_attr:
-            if value in ("TLS1_0", "TLS1_1"):
-                return c_id
-            return None
-    return nid
+    attr, attr_value, attr_id = get_attribute(graph, nid, "min_tls_version")
+    if not attr:
+        return nid
+    if attr_value in ("TLS1_0", "TLS1_1"):
+        return attr_id
+    return None
 
 
 def _aws_elb_without_sslpolicy(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "ssl_policy"
-    is_vuln = True
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, c_id)
-        if key == expected_attr:
-            is_vuln = False
-    if is_vuln:
+    expected_attr = get_attribute(graph, nid, "ssl_policy")
+    if not expected_attr[0]:
         return nid
     return None
 

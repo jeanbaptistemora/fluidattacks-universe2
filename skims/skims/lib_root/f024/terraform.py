@@ -20,7 +20,6 @@ from lib_root.f024.constants import (
 from lib_root.utilities.terraform import (
     get_argument,
     get_attribute,
-    get_key_value,
     is_cidr,
     iterate_resource,
 )
@@ -38,70 +37,65 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _ec2_instances_without_profile(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "iam_instance_profile"
-    is_vuln = True
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, c_id)
-        if key == expected_attr:
-            is_vuln = False
-    if is_vuln:
+    expected_attr, _, _ = get_attribute(graph, nid, "iam_instance_profile")
+    if not expected_attr:
         return nid
     return None
 
 
 def _aws_ec2_allows_all_outbound_traffic(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "egress"
-    if len(adj_ast(graph, nid, name=expected_block)) == 0:
+    if not get_argument(graph, nid, "egress"):
         return nid
     return None
 
 
 def _aws_allows_anyone_to_admin_ports(graph: Graph, nid: NId) -> Iterator[NId]:
-    unrestricted_ip = False
-    cidr_ip, cidr_ip_val, _ = get_attribute(graph, nid, "cidr_blocks")
-    cidr_ipv6, cidr_ipv6_val, _ = get_attribute(graph, nid, "ipv6_cidr_blocks")
-    with suppress(AddressValueError, KeyError):
-        unrestricted_ip = (
-            cidr_ipv6 is not None
-            and IPv6Network(
-                cidr_ipv6_val,
-                strict=False,
-            )
-            == UNRESTRICTED_IPV6
+    type_attr = get_attribute(graph, nid, "type")
+    if type_attr[0] is None or (type_attr[0] and type_attr[1] == "ingress"):
+        unrestricted_ip = False
+        cidr_ip, cidr_ip_val, _ = get_attribute(graph, nid, "cidr_blocks")
+        cidr_ipv6, cidr_ipv6_val, _ = get_attribute(
+            graph, nid, "ipv6_cidr_blocks"
         )
-    with suppress(AddressValueError, KeyError):
-        unrestricted_ip = (
-            IPv4Network(
-                cidr_ip_val,
-                strict=False,
+        with suppress(AddressValueError, KeyError):
+            unrestricted_ip = (
+                cidr_ipv6 is not None
+                and IPv6Network(
+                    cidr_ipv6_val,
+                    strict=False,
+                )
+                == UNRESTRICTED_IPV6
             )
-            == UNRESTRICTED_IPV4
-            if cidr_ip
-            else unrestricted_ip
-        ) or unrestricted_ip
-    from_port, from_port_val, from_port_id = get_attribute(
-        graph, nid, "from_port"
-    )
-    to_port, to_port_val, to_port_id = get_attribute(graph, nid, "to_port")
-    port_range = (
-        set(
-            range(
-                int(from_port_val),
-                int(to_port_val) + 1,
-            )
+        with suppress(AddressValueError, KeyError):
+            unrestricted_ip = (
+                IPv4Network(
+                    cidr_ip_val,
+                    strict=False,
+                )
+                == UNRESTRICTED_IPV4
+                if cidr_ip
+                else unrestricted_ip
+            ) or unrestricted_ip
+        from_port, from_port_val, from_port_id = get_attribute(
+            graph, nid, "from_port"
         )
-        if from_port and to_port
-        else set()
-    )
-    if unrestricted_ip and ADMIN_PORTS.intersection(port_range):
-        yield from_port_id
-        yield to_port_id
+        to_port, to_port_val, to_port_id = get_attribute(graph, nid, "to_port")
+        port_range = (
+            set(
+                range(
+                    int(from_port_val),
+                    int(to_port_val) + 1,
+                )
+            )
+            if from_port and to_port
+            else set()
+        )
+        if unrestricted_ip and ADMIN_PORTS.intersection(port_range):
+            yield from_port_id
+            yield to_port_id
 
 
 def _aux_ec2_has_unrestricted_ports(graph: Graph, nid: NId) -> Iterator[NId]:

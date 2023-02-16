@@ -2,6 +2,8 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -18,16 +20,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _azure_linux_vm_insecure_authentication(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_block = "admin_ssh_key"
-    if len(adj_ast(graph, nid, name=expected_block)) == 0:
+    if get_argument(graph, nid, "admin_ssh_key") is None:
         return nid
     return None
 
@@ -35,11 +33,10 @@ def _azure_linux_vm_insecure_authentication(
 def _azure_virtual_machine_insecure_authentication(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_block = "os_profile_linux_config"
-    expected_block_attr = "ssh_keys"
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        if len(adj_ast(graph, c_id, 2, value=expected_block_attr)) == 0:
-            return c_id
+    if argument := get_argument(graph, nid, "os_profile_linux_config"):
+        attr_key, _, _ = get_attribute(graph, argument, "ssh_keys")
+        if not attr_key:
+            return argument
     return None
 
 
