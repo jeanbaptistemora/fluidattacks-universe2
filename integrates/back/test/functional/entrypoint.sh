@@ -38,7 +38,8 @@ function main {
     update_group
   )
 
-  source __argIntegratesBackEnv__/template dev \
+  : \
+    && source __argIntegratesBackEnv__/template dev \
     && sops_export_vars integrates/secrets/development.yaml \
       TEST_SSH_KEY \
     && if [[ ${needs_s3[*]} =~ ${resolver_test_group} ]]; then

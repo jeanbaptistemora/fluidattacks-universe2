@@ -13,8 +13,7 @@ function serve {
       -classpath "__argOpensearch__/lib/*" \
       "org.opensearch.bootstrap.OpenSearch" \
       -Epath.data="${STATE}/data" \
-      -Epath.logs="${STATE}/logs" \
-    || return 1
+      -Epath.logs="${STATE}/logs"
 }
 
 function serve_daemon {
@@ -22,8 +21,7 @@ function serve_daemon {
     && kill_port "9200" \
     && { serve "${@}" & } \
     && wait_port 300 "0.0.0.0:9200" \
-    && info "Opensearch is ready" \
-    || return 1
+    && info "Opensearch is ready"
 }
 
 function main {
@@ -32,8 +30,7 @@ function main {
       serve_daemon "${@}"
     else
       serve "${@}"
-    fi \
-    || return 1
+    fi
 }
 
 main "${@}"

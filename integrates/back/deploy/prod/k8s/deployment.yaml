@@ -11,7 +11,7 @@ spec:
       app: integrates-${NAME}
   strategy:
     rollingUpdate:
-      maxSurge: 10%
+      maxSurge: 25%
       maxUnavailable: 10%
   template:
     metadata:
