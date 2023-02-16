@@ -32,7 +32,7 @@
         "ACCOUNT_ID"
         "ALERT_SMS"
         "ALERT_USERS"
-        "API_KEY"
+        "CHECKLY_API_KEY"
         "ENV_BITBUCKET_PWD"
         "ENV_BITBUCKET_USER"
         "ENV_INTEGRATES_API_TOKEN"
@@ -44,7 +44,7 @@
         "ACCOUNT_ID"
         "ALERT_SMS"
         "ALERT_USERS"
-        "API_KEY"
+        "CHECKLY_API_KEY"
         "ENV_BITBUCKET_PWD"
         "ENV_BITBUCKET_USER"
         "ENV_INTEGRATES_API_TOKEN"
@@ -57,7 +57,7 @@
       accountId = "ACCOUNT_ID";
       alertSms = "ALERT_SMS";
       alertUsers = "ALERT_USERS";
-      apiKey = "API_KEY";
+      apiKey = "CHECKLY_API_KEY";
       envBitBucketPwd = "ENV_BITBUCKET_PWD";
       envBitBucketUser = "ENV_BITBUCKET_USER";
       envIntegratesApiToken = "ENV_INTEGRATES_API_TOKEN";
