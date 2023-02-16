@@ -21,6 +21,7 @@ from lib_root.utilities.terraform import (
     get_argument,
     get_attribute,
     get_key_value,
+    is_cidr,
     iterate_resource,
 )
 from model.core_model import (
@@ -177,6 +178,56 @@ def _aws_ec2_unrestricted_cidrs(graph: Graph, nid: NId) -> Iterator[NId]:
             yield from _aux_ingress_unrestricted_cidrs(graph, ingress)
     elif graph.nodes[nid]["name"] == "aws_security_group_rule":
         yield from _aux_ingress_unrestricted_cidrs(graph, nid)
+
+
+def _ec2_has_security_groups_ip_ranges_in_rfc1918(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    rfc1918 = {
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+    }
+    cidr, cidr_val, cidr_id = get_attribute(graph, nid, "cidr_blocks")
+    if not cidr:
+        cidr, cidr_val, cidr_id = get_attribute(graph, nid, "ipv6_cidr_blocks")
+    if cidr_id:
+        cidr_vals = set(cidr_val if isinstance(cidr_val, list) else [cidr_val])
+        valid_cidrs = filter(is_cidr, cidr_vals)
+        if rfc1918.intersection(valid_cidrs):
+            yield cidr_id
+
+
+def tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_EC2_SEC_GROUPS_RFC1918
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_security_group"),
+                iterate_resource(graph, "aws_security_group_rule"),
+                iterate_resource(graph, "ingress"),
+                iterate_resource(graph, "egress"),
+            ):
+                for report in _ec2_has_security_groups_ip_ranges_in_rfc1918(
+                    graph, nid
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key=(
+            "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
+        ),
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_aws_ec2_unrestricted_cidrs(

@@ -22,30 +22,6 @@ from typing import (
 )
 
 
-def _tfm_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for ec2_res in resource_iterator:
-        rfc1918 = {
-            "10.0.0.0/8",
-            "172.16.0.0/12",
-            "192.168.0.0/16",
-        }
-        cidr_block = get_attribute(
-            ec2_res.data, "cidr_blocks"
-        ) or get_attribute(ec2_res.data, "ipv6_cidr_blocks")
-        if cidr_block is None:
-            continue
-        cidr_vals = set(
-            cidr_block.val
-            if isinstance(cidr_block.val, list)
-            else [cidr_block.val]
-        )
-        valid_cidrs = filter(is_cidr, cidr_vals)
-        if rfc1918.intersection(valid_cidrs):
-            yield cidr_block
-
-
 def _tfm_ec2_has_unrestricted_dns_access_iterate_vulnerabilities(
     resource_iterator: Iterator[Any],
 ) -> Iterator[Any]:
@@ -152,30 +128,6 @@ def _tfm_ec2_has_open_all_ports_to_the_public_iter_vulns(
             and (int(to_port.val) - int(from_port.val)) >= 65535
         ):
             yield from_port
-
-
-def tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
-    content: str,
-    path: str,
-    model: Any,
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key=(
-            "src.lib_path.f024.ec2_has_security_groups_ip_ranges_in_rfc1918"
-        ),
-        iterator=get_cloud_iterator(
-            _tfm_ec2_has_security_groups_ip_ranges_in_rfc1918_iter_vulns(
-                resource_iterator=iter_aws_sg_ingress_egress(
-                    model=model,
-                    ingress=True,
-                    egress=True,
-                ),
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_EC2_SEC_GROUPS_RFC1918,
-    )
 
 
 def tfm_ec2_has_unrestricted_dns_access(

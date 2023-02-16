@@ -3045,7 +3045,7 @@ class MethodsEnum(Enum):
     TFM_EC2_SEC_GROUPS_RFC1918 = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_security_groups_ip_ranges_in_rfc1918",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
