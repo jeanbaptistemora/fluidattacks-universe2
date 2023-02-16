@@ -8,6 +8,8 @@ import type {
   IToeLinesEdge,
 } from "./types";
 
+import type { IFilter } from "components/Filter";
+
 const NOEXTENSION = ".no.extension.";
 const PERCENTBASE = 100;
 const COMMIT_LENGTH = 7;
@@ -319,13 +321,35 @@ const formatLinesFilter: (state: string) => string[] | string = (
   return linesParameters[state];
 };
 
+const unformatFilterValues: (
+  value: IFilter<IToeLinesData>
+) => Record<string, unknown> = (
+  value: IFilter<IToeLinesData>
+): Record<string, unknown> => {
+  const unformat = (): Record<string, unknown> => {
+    const titleFormat = formatLinesFilter(value.id);
+
+    if (typeof titleFormat === "string")
+      return _.isUndefined(value.value)
+        ? { [titleFormat]: undefined }
+        : { [titleFormat]: value.value };
+
+    return {
+      [titleFormat[0]]: value.rangeValues?.[0],
+      [titleFormat[1]]: value.rangeValues?.[1],
+    };
+  };
+
+  return unformat();
+};
+
 export {
   formatBePresent,
-  formatLinesFilter,
   formatPercentage,
   formatRootId,
   formatToeLines,
   getFilteredData,
   getToeLinesIndex,
   onSelectSeveralToeLinesHelper,
+  unformatFilterValues,
 };
