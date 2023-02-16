@@ -29,3 +29,6 @@ src.lib_path.f400.tfm_lambda_func_has_trace_disabled:
 src.lib_path.f400.is_trail_bucket_logging_disabled:
   en: Trail buckets have logging disabled
   es: Trail Buckets tienen el registro deshabilitado
+src.lib_path.f400.eks_has_disable_cluster_logging:
+  en: EkS clusters have control plane logging disabled.
+  es: Los clústeres de EkS tienen el registro del plano de control deshabilitado.

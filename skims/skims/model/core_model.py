@@ -2842,6 +2842,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_EKS_HAS_DISABLED_CLUSTER_LOGGING = MethodInfo(
+        file_name="aws",
+        name="eks_has_disable_cluster_logging",
+        module="dast",
+        finding=FindingEnum.F400,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_CLOUDFRONT_HAS_LOGGING_DISABLED = MethodInfo(
         file_name="aws",
         name="cloudfront_has_logging_disabled",
