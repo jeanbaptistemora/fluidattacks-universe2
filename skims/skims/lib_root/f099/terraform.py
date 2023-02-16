@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_argument,
     get_attribute,
@@ -16,10 +19,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
-    Iterator,
 )
 
 
@@ -44,7 +43,7 @@ def tfm_unencrypted_buckets(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_UNENCRYPTED_BUCKETS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

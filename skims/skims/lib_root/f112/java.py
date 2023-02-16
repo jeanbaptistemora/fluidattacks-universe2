@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -17,10 +21,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    Set,
 )
 from utils import (
     graph as g,
@@ -49,7 +49,7 @@ def sql_injection(
     danger_methods = {"addBatch", "execute", "executeQuery", "executeUpdate"}
     danger_set = {"userparameters", "userconnection"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):
             if shard.syntax_graph is None:
                 continue

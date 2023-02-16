@@ -5,9 +5,6 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -22,8 +19,8 @@ def has_args(graph: Graph, method_id: NId) -> bool:
     return False
 
 
-def insecure_cookies(graph: Graph) -> List[str]:
-    vuln_nodes: List[str] = []
+def insecure_cookies(graph: Graph) -> list[str]:
+    vuln_nodes: list[str] = []
     danger_methods = {
         "cookieService.set",
         "CookieService.set",

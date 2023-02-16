@@ -13,9 +13,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 
 
 def is_insecure_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
@@ -26,8 +23,8 @@ def is_insecure_header(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     return False
 
 
-def insecure_http_headers(graph: Graph, method: MethodsEnum) -> List[str]:
-    vuln_nodes: List[str] = []
+def insecure_http_headers(graph: Graph, method: MethodsEnum) -> list[str]:
+    vuln_nodes: list[str] = []
     for n_id in yield_syntax_graph_object_creation(graph, {"HttpHeaders"}):
         if is_insecure_header(graph, n_id, method):
             vuln_nodes.append(n_id)

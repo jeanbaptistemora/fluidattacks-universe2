@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
 )
@@ -11,10 +14,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    Iterator,
 )
 from utils import (
     graph as g,
@@ -57,7 +56,7 @@ def node_is_vulnerable(graph: Graph, params: Iterator[NId]) -> bool:
     return True
 
 
-def get_vulns_n_ids(graph: Graph) -> Iterable[NId]:
+def get_vulns_n_ids(graph: Graph) -> Iterator[NId]:
     for n_id in g.matching_nodes(
         graph, label_type="MethodInvocation", expression="window.open"
     ):

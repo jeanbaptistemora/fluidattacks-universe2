@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from lib_root.utilities.javascript import (
     file_imports_module,
 )
@@ -13,10 +16,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    List,
-    Set,
 )
 from utils import (
     graph as g,
@@ -45,8 +44,8 @@ def has_create_pool(graph: Graph) -> bool:
     return False
 
 
-def sql_injection(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def sql_injection(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_set = {"userconnection"}
 
     if not file_imports_module(graph, "mysql"):

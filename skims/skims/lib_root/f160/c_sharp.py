@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -9,9 +12,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -28,7 +28,7 @@ def c_sharp_file_create_temp_file(
     c_sharp = GraphShardMetadataLanguage.CSHARP
     danger_methods = complete_attrs_on_set({"System.IO.Path.GetTempFileName"})
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f128.common import (
     insecure_cookies,
 )
@@ -13,9 +16,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def typescript_insecure_cookies(
@@ -24,7 +24,7 @@ def typescript_insecure_cookies(
     method = MethodsEnum.TS_INSECURE_COOKIE
     desc = "lib_http.analyze_headers.set_cookie_httponly.missing_httponly"
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

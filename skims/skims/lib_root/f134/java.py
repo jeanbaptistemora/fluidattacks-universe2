@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -17,9 +20,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -65,7 +65,7 @@ def insecure_cors_origin(
     method = MethodsEnum.JAVA_INSECURE_CORS_ORIGIN
     insecure_methods = {"add", "allowedorigins", "addallowedorigin"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVA,
         ):

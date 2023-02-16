@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -20,11 +24,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    Iterator,
-    Set,
 )
 from utils import (
     graph as g,
@@ -79,7 +78,7 @@ def java_file_create_temp_file(
     danger_methods = complete_attrs_on_set({"java.io.File.createTempFile"})
     method = MethodsEnum.JAVA_CREATE_TEMP_FILE
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):

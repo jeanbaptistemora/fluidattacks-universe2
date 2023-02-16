@@ -14,9 +14,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -36,8 +33,8 @@ def only_one_argument(graph: Graph, n_id: NId) -> bool:
     return False
 
 
-def has_eval(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_eval(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     sensitive_methods = {"eval", "Function"}
 
     for member in chain(

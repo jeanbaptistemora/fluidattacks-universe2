@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,16 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _public_buckets(graph: Graph, nid: NId) -> Optional[NId]:
+def _public_buckets(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "acl"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, c_id)
@@ -39,7 +38,7 @@ def tfm_public_buckets(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_PUBLIC_BUCKETS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f143.common import (
     has_eval,
     is_insec_invocation,
@@ -14,9 +17,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def uses_eval(
@@ -24,7 +24,7 @@ def uses_eval(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_USES_EVAL
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

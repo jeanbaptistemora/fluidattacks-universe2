@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -19,18 +22,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _aux_azure_sa_default_network_access(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _aux_azure_sa_default_network_access(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "default_action"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -44,7 +41,7 @@ def _aux_azure_sa_default_network_access(
     return None
 
 
-def _azure_sa_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_sa_default_network_access(graph: Graph, nid: NId) -> NId | None:
     obj_type = graph.nodes[nid].get("name")
     if obj_type:
         if obj_type == "azurerm_storage_account_network_rules":
@@ -55,7 +52,7 @@ def _azure_sa_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> Optional[NId]:
+def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> NId | None:
     danger_values = {
         "::/0",
         "0.0.0.0/0",
@@ -70,7 +67,7 @@ def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _azure_kv_danger_bypass(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_kv_danger_bypass(graph: Graph, nid: NId) -> NId | None:
     expected_block = "network_acls"
     expected_block_attr = "bypass"
     has_block = False
@@ -87,7 +84,7 @@ def _azure_kv_danger_bypass(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _azure_kv_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_kv_default_network_access(graph: Graph, nid: NId) -> NId | None:
     expected_block = "network_acls"
     expected_block_attr = "default_action"
     has_block = False
@@ -106,7 +103,7 @@ def _azure_kv_default_network_access(graph: Graph, nid: NId) -> Optional[NId]:
 
 def _azure_unrestricted_access_network_segments(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     expected_attr = "public_network_enabled"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -126,7 +123,7 @@ def tfm_aws_acl_broad_network_access(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AWS_ACL_BROAD_NETWORK_ACCESS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -149,7 +146,7 @@ def tfm_azure_kv_danger_bypass(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_KV_DANGER_BYPASS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -172,7 +169,7 @@ def tfm_azure_kv_default_network_access(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_KV_DEFAULT_ACCESS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -195,7 +192,7 @@ def tfm_azure_unrestricted_access_network_segments(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_UNRESTRICTED_ACCESS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -220,7 +217,7 @@ def tfm_azure_sa_default_network_access(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_SA_DEFAULT_ACCESS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

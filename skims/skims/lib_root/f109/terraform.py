@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,16 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _rds_instance_inside_subnet(graph: Graph, nid: NId) -> Optional[NId]:
+def _rds_instance_inside_subnet(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "db_subnet_group_name"
     subnet = False
     for c_id in adj_ast(graph, nid, label_type="Pair"):
@@ -42,7 +41,7 @@ def tfm_db_cluster_inside_subnet(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_DB_INSIDE_SUBNET
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -65,7 +64,7 @@ def tfm_rds_instance_inside_subnet(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_RDS_INSIDE_SUBNET
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

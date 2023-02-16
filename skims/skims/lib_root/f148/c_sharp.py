@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -10,9 +13,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 from utils import (
     graph as g,
 )
@@ -24,7 +24,7 @@ def cs_insecure_channel(
     method = MethodsEnum.CS_INSECURE_CHANNEL
     c_sharp = GraphShardMetadataLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
 
         for shard in graph_db.shards_by_language(c_sharp):
 

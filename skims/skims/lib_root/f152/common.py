@@ -13,13 +13,10 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 
 
-def insecure_http_headers(graph: Graph, method: MethodsEnum) -> List[str]:
-    vuln_nodes: List[str] = []
+def insecure_http_headers(graph: Graph, method: MethodsEnum) -> list[str]:
+    vuln_nodes: list[str] = []
     for n_id in yield_syntax_graph_object_creation(graph, {"HttpHeaders"}):
         for path in get_backward_paths(graph, n_id):
             evaluation = evaluate(method, graph, path, n_id)

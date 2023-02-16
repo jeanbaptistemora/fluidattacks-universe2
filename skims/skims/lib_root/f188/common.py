@@ -11,9 +11,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -43,8 +40,8 @@ def is_message_on_args(
     return False
 
 
-def has_dangerous_param(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_dangerous_param(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     sensitive_methods = {"window.addEventListener"}
     method = MethodsEnum.TSX_LACK_OF_VALIDATION_EVENT_LISTENER
     for member in g.matching_nodes(graph, label_type="MethodInvocation"):

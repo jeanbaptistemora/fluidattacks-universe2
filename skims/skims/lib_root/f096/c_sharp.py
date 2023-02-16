@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     get_first_member_syntax_graph,
     yield_syntax_graph_object_creation,
@@ -22,10 +26,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
     get_object_identifiers,
-)
-from typing import (
-    Iterable,
-    List,
 )
 from utils import (
     graph as g,
@@ -53,7 +53,7 @@ def is_deserialization_dangerous(graph: Graph, nid: NId) -> bool:
 
 
 def is_type_handle_dangerous(
-    graph: Graph, member: NId, obj_names: List[str]
+    graph: Graph, member: NId, obj_names: Iterable[str]
 ) -> bool:
     method = MethodsEnum.CS_TYPE_NAME_HANDLING
 
@@ -86,7 +86,7 @@ def insecure_deserialization(
         "ObjectStateFormatter",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.CSHARP,
         ):
@@ -111,7 +111,7 @@ def check_xml_serializer(
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -136,7 +136,7 @@ def js_deserialization(
     c_sharp = GraphLanguage.CSHARP
     serializer = {"JavaScriptSerializer"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -160,7 +160,7 @@ def type_name_handling(
     c_sharp = GraphLanguage.CSHARP
     serializer = {"JsonSerializerSettings"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

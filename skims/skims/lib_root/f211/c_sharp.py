@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
@@ -21,16 +24,12 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_regex_node(graph: Graph, expr: str) -> Optional[NId]:
+def get_regex_node(graph: Graph, expr: str) -> NId | None:
     if regex_name := expr.split(".")[0]:
         for vid in g.matching_nodes(graph, label_type="VariableDeclaration"):
             if graph.nodes[vid].get("variable") == regex_name:
@@ -137,7 +136,7 @@ def vuln_regular_expression(
     c_sharp = GraphLanguage.CSHARP
     regex_methods = {"IsMatch", "Match", "Matches"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -164,7 +163,7 @@ def regex_injection(
     method = MethodsEnum.CS_REGEX_INJETCION
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

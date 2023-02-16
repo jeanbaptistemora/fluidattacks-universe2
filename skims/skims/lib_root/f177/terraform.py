@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -19,10 +22,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
@@ -30,7 +29,7 @@ from utils.graph import (
 SECURITY_GROUP_ATTRIBUTES = {"security_groups", "vpc_security_group_ids"}
 
 
-def _use_default_security_group(graph: Graph, nid: NId) -> Optional[NId]:
+def _use_default_security_group(graph: Graph, nid: NId) -> NId | None:
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
         key, _ = get_key_value(graph, b_id)
@@ -46,7 +45,7 @@ def ec2_use_default_security_group(
 ) -> Vulnerabilities:
     method = MethodsEnum.EC2_DEFAULT_SEC_GROUP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
