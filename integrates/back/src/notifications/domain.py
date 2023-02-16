@@ -15,9 +15,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.groups.enums import (
     GroupManaged,
     GroupStateJustification as GroupReason,
@@ -28,9 +25,6 @@ from db_model.groups.types import (
 )
 from db_model.vulnerabilities.types import (
     Vulnerability,
-)
-from group_access import (
-    domain as group_access_domain,
 )
 import html
 from mailer import (
@@ -234,14 +228,10 @@ async def send_mail_services(
     group_changes: dict[str, Any],
     requester_email: str,
 ) -> None:
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.SERVICE_UPDATE,
-            roles=roles,
-        )
+    users_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="updated_services",
     )
 
     await groups_mail.send_mail_updated_services(

@@ -187,10 +187,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     root_added=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        email_preferences=Notification.ROOT_UPDATE,
+        exclude_trial=True,
         only_fluid_staff=False,
-        roles={},
+        roles={"resourcer", "customer_manager", "user_manager"},
     ),
     root_cloning_status=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -205,10 +205,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     root_deactivated=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.ROOT_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles={},
+        roles={"resourcer", "customer_manager", "user_manager"},
     ),
     root_moved=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -271,10 +271,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles={},
     ),
     updated_services=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.SERVICE_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles={},
+        roles={"resourcer", "customer_manager", "user_manager"},
     ),
     updated_treatment=dict(
         email_preferences=Notification.GROUP_INFORMATION,

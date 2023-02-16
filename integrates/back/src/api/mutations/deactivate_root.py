@@ -19,7 +19,6 @@ from dataloaders import (
 )
 from db_model.enums import (
     GitCloningStatus,
-    Notification,
 )
 from db_model.groups.types import (
     Group,
@@ -46,11 +45,9 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 from mailer import (
     groups as groups_mail,
+    utils as mailer_utils,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -217,12 +214,10 @@ async def deactivate_root(  # pylint: disable=too-many-locals
         vulnerability_ids=[vuln.id for vuln in root_vulnerabilities],
     )
     root_age = (datetime_utils.get_utc_now() - historic_state_date).days
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    emails = await group_access_domain.get_stakeholders_email_by_preferences(
+    emails = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
         group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+        notification="root_deactivated",
     )
     await groups_mail.send_mail_deactivated_root(
         loaders=loaders,

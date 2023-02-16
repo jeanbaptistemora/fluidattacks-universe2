@@ -17,9 +17,6 @@ from datetime import (
     date,
     datetime,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.groups.types import (
     Group,
     GroupMetadataToUpdate,
@@ -27,8 +24,8 @@ from db_model.groups.types import (
 from db_model.roots.types import (
     GitRootCloning,
 )
-from group_access.domain import (
-    get_stakeholders_email_by_preferences,
+from mailer import (
+    utils as mailer_utils,
 )
 from mailer.types import (
     TrialEngagementInfo,
@@ -392,13 +389,10 @@ async def send_mail_added_root(
     user_role = await authz.get_group_level_role(
         loaders, responsible, group_name
     )
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    email_to: list[str] = await get_stakeholders_email_by_preferences(
+    email_to = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
         group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
-        exclude_trial=True,
+        notification="root_added",
     )
     await send_mails_async(
         loaders,
