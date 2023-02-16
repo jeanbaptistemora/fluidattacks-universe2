@@ -43,11 +43,12 @@ async def get_group_emails_by_notification(
     notification: str,
 ) -> list[str]:
     preferences = MAIL_PREFERENCES.get(notification, {})
+    group_roles = preferences.get("roles", {}).get("group", {})
     return await get_stakeholders_email_by_preferences(
         loaders=loaders,
         group_name=group_name,
         notification=preferences.get("email_preferences", ""),
-        roles=preferences.get("roles", []),
+        roles=group_roles,
         exclude_trial=preferences.get("exclude_trial", False),
         only_fluid_staff=preferences.get("only_fluid_staff", False),
     )
