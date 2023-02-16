@@ -64,9 +64,10 @@ resource "helm_release" "ci" {
   values = [
     yamlencode(
       {
+        image                         = "gitlab/gitlab-runner:ubuntu-v15.8.2"
         imagePullPolicy               = "IfNotPresent"
         replicas                      = "${each.value.replicas}"
-        gitlabUrl                     = "https://gitlab.com/"
+        gitlabUrl                     = "https://gitlab.com./"
         unregisterRunners             = true
         terminationGracePeriodSeconds = 86400
         concurrent                    = 1000
@@ -78,6 +79,10 @@ resource "helm_release" "ci" {
         }
         metrics = {
           enabled = true
+        }
+        podSecurityContext = {
+          fsGroup   = 999
+          runAsUser = 999
         }
         securityContext = {
           allowPrivilegeEscalation = false
@@ -114,6 +119,7 @@ resource "helm_release" "ci" {
                 memory_limit = "${each.value.limits.memory}"
                 ephemeral_storage_request = "5Gi"
                 ephemeral_storage_limit = "60Gi"
+                helper_image_flavor = "ubuntu"
                 helper_cpu_request = "1m"
                 helper_memory_request = "1Mi"
                 helper_ephemeral_storage_request = "2Gi"
@@ -123,8 +129,6 @@ resource "helm_release" "ci" {
                 privileged = true
                 [runners.kubernetes.node_selector]
                   worker_group = "${each.value.node_selector}"
-                [dns_config]
-                  nameservers = ["1.1.1.1", "8.8.8.8", "8.8.4.4"]
 
               [runners.cache]
                 Type = "s3"
