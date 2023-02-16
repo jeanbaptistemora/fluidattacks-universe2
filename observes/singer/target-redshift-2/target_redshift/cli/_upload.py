@@ -18,7 +18,6 @@ from fa_purity import (
 )
 from fa_singer_io.singer import (
     SingerMessage,
-    SingerRecord,
 )
 import logging
 from mypy_boto3_s3.client import (
