@@ -41,11 +41,7 @@ import { Text } from "components/Text";
 import { groupContext } from "scenes/Dashboard/group/context";
 import type { IGroupContext } from "scenes/Dashboard/group/types";
 import { Can } from "utils/authz/Can";
-import {
-  FormikArrayField,
-  FormikDropdown,
-  FormikText,
-} from "utils/forms/fields";
+import { FormikArrayField, FormikDropdown } from "utils/forms/fields";
 import { Logger } from "utils/logger";
 import { openUrl } from "utils/resourceHelpers";
 import {
@@ -334,8 +330,7 @@ const Repository: FC<IRepositoryProps> = ({
                       <Label required={true}>
                         {t("group.scope.git.repo.url")}
                       </Label>
-                      <Field
-                        component={FormikText}
+                      <Input
                         id={"git-root-add-repo-url"}
                         name={"url"}
                         type={"text"}
