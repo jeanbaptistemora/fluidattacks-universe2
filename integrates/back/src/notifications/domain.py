@@ -346,7 +346,7 @@ async def new_password_protected_report(
             "date": datetime_utils.get_as_str(today, "%Y-%m-%d"),
             "year": datetime_utils.get_as_str(today, "%Y"),
             "time": datetime_utils.get_as_str(today, "%H:%M"),
-            "groupname": group_name,
+            "group_name": group_name,
             "subject": subject,
             "filelink": file_link,
         },

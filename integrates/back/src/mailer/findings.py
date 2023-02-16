@@ -446,6 +446,7 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
         "severity_score": severity_score,
         "severity_level": severity_level,
         "reasons": reasons,
+        "group": finding.group_name,
     }
     await send_mails_async(
         loaders,

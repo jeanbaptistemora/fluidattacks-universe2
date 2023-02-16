@@ -2045,6 +2045,7 @@ async def send_mail_policies(
             f"{BASE_URL}/orgs/{organization_data.name}"
             f"/groups/{group_name}/scope"
         ),
+        "group": group_name,
         "policies_content": policies_content,
         "responsible": responsible,
         "date": modified_date,

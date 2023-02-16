@@ -360,7 +360,7 @@ async def send_mail_group_report(
         context=context,
         tags=GENERAL_TAG,
         subject=f'[ARM] {context["filetype"]} report for '
-        + f'[{context["groupname"]}]',
+        + f'[{context["group_name"]}]',
         template_name="group_report",
     )
 
