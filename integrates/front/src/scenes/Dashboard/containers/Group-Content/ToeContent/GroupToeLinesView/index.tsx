@@ -420,16 +420,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
 
   const baseFilters: IFilter<IToeLinesData>[] = [
     {
-      id: "rootNickname",
-      key: "rootNickname",
-      label: t("group.toe.lines.root"),
-      selectOptions: (lines: IToeLinesData[]): string[] =>
-        [
-          ...new Set(lines.map((datapoint): string => datapoint.rootNickname)),
-        ].filter(Boolean),
-      type: "select",
-    },
-    {
       id: "filename",
       key: "filename",
       label: t("group.toe.lines.filename"),
@@ -492,32 +482,9 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       type: "select",
     },
     {
-      id: "coverage",
-      key: (arg0, _value, rangeValues): boolean => {
-        if (_.isNil(rangeValues)) return true;
-        const coverage = arg0.coverage * 100;
-        const isHigher = _.isEmpty(rangeValues[0])
-          ? true
-          : coverage >= parseInt(rangeValues[0], 10);
-        const isLower = _.isEmpty(rangeValues[1])
-          ? true
-          : coverage <= parseInt(rangeValues[1], 10);
-
-        return isHigher && isLower;
-      },
-      label: t("group.toe.lines.coverage"),
-      type: "numberRange",
-    },
-    {
       id: "attackedLines",
       key: "attackedLines",
       label: t("group.toe.lines.attackedLines"),
-      type: "text",
-    },
-    {
-      id: "daysToAttack",
-      key: "daysToAttack",
-      label: t("group.toe.lines.daysToAttack"),
       type: "numberRange",
     },
     {
@@ -546,12 +513,6 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       id: "comments",
       key: "comments",
       label: t("group.toe.lines.comments"),
-      type: "text",
-    },
-    {
-      id: "sortsSuggestions",
-      key: "sortsSuggestions",
-      label: t("group.toe.lines.sortsSuggestions"),
       type: "text",
     },
     {
