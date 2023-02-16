@@ -28,9 +28,10 @@ import { renderDescription } from "./description";
 import { assigneesFormatter } from "./formatters/assigneesFormatter";
 import { locationsFormatter } from "./formatters/locationsFormatter";
 import { severityFormatter } from "./formatters/severityFormatter";
-import { GET_GROUP_VULNERABILITIES } from "./queries";
+import { GET_GROUP_VULNERABILITIES, GET_ROOTS } from "./queries";
 import type {
   IGroupVulnerabilities,
+  IRoot,
   IVulnerabilitiesResume,
   IVulnerability,
 } from "./types";
@@ -267,6 +268,18 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     }
   );
 
+  const { data: rootsData } = useQuery<{ group: { roots: IRoot[] } }>(
+    GET_ROOTS,
+    {
+      onError: ({ graphQLErrors }: ApolloError): void => {
+        graphQLErrors.forEach((error: GraphQLError): void => {
+          Logger.error("Couldn't load roots", error);
+        });
+      },
+      variables: { groupName },
+    }
+  );
+
   useEffect((): void => {
     if (!_.isUndefined(data) && !_.isUndefined(setOpenVulnerabilities)) {
       setOpenVulnerabilities(
@@ -326,6 +339,15 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
     !_.isEmpty(data?.group.description) &&
     !_.isEmpty(data?.group.businessId) &&
     !_.isEmpty(data?.group.businessName);
+
+  const activeRoots: IRoot[] =
+    rootsData === undefined
+      ? []
+      : [
+          ...rootsData.group.roots.filter(
+            (root): boolean => root.state === "ACTIVE"
+          ),
+        ];
 
   const findings: IFindingAttr[] = useMemo(
     (): IFindingAttr[] =>
@@ -529,7 +551,7 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   return (
     <React.StrictMode>
-      {!loading && _.isEmpty(findings) ? (
+      {!loading && _.isEmpty(findings) && !_.isEmpty(activeRoots) ? (
         <Empty
           srcImage={searchingFindings}
           subtitle={t("searchFindings.noFindingsFound.subtitle")}
