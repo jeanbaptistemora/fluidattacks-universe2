@@ -1,57 +1,18 @@
 import type { ApolloError } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
 import type { Dayjs } from "dayjs";
-import type { FieldValidator } from "formik";
-import { Field, Form, Formik } from "formik";
+import { Formik } from "formik";
 import type { GraphQLError } from "graphql";
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { array, object, string } from "yup";
 
+import { AddModalForm } from "./form";
+
 import { GET_ROOTS } from "../../GroupScopeView/queries";
 import type { Root } from "../../GroupScopeView/types";
-import { AffectedReattackAccordion } from "../AffectedReattackAccordion";
-import { GET_VERIFIED_FINDING_INFO } from "../AffectedReattackAccordion/queries";
-import type {
-  IFinding,
-  IFindingsQuery,
-} from "../AffectedReattackAccordion/types";
-import { InputDateTime, InputFile, TextArea } from "components/Input";
-import { Modal, ModalConfirm } from "components/Modal";
-import {
-  Col100,
-  Col50,
-  ControlLabel,
-  FormGroup,
-  Row,
-} from "styles/styledComponents";
-import { authzGroupContext } from "utils/authz/config";
-import { castEventType } from "utils/formatHelpers";
-import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
-import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
+import { Modal } from "components/Modal";
 import { Logger } from "utils/logger";
-import {
-  composeValidators,
-  dateTimeBeforeToday,
-  isValidAmountOfFiles,
-  isValidEvidenceName,
-  isValidFileSize,
-  maxLength,
-  required,
-  validDatetime,
-  validEventFile,
-  validEvidenceImage,
-  validTextField,
-} from "utils/validations";
-
-const MAX_EVENT_DETAILS_LENGTH = 300;
-const maxEventDetailsLength = maxLength(MAX_EVENT_DETAILS_LENGTH);
-
-const MAX_FILE_SIZE = 10;
-const maxFileSize = isValidFileSize(MAX_FILE_SIZE);
-const MAX_AMOUNT_OF_FILES = 6;
-const maxAmountOfFiles = isValidAmountOfFiles(MAX_AMOUNT_OF_FILES);
 
 interface IFormValues {
   eventDate: Dayjs | string;
@@ -79,25 +40,6 @@ const AddModal: React.FC<IAddModalProps> = ({
   onSubmit,
 }: IAddModalProps): JSX.Element => {
   const { t } = useTranslation();
-
-  const { data: findingsData } = useQuery<IFindingsQuery>(
-    GET_VERIFIED_FINDING_INFO,
-    {
-      onError: ({ graphQLErrors }: ApolloError): void => {
-        graphQLErrors.forEach((error: GraphQLError): void => {
-          Logger.error("Couldn't load reattack vulns", error);
-        });
-      },
-      variables: { groupName },
-    }
-  );
-  const attributes: PureAbility<string> = useContext(authzGroupContext);
-  const findings =
-    findingsData === undefined ? [] : findingsData.group.findings;
-  const canOnHold: boolean = attributes.can("can_report_vulnerabilities");
-  const hasReattacks = findings.some(
-    (finding: IFinding): boolean => !finding.verified
-  );
 
   const { data } = useQuery<{ group: { roots: Root[] } }>(GET_ROOTS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
@@ -145,11 +87,6 @@ const AddModal: React.FC<IAddModalProps> = ({
       }),
   });
 
-  const validEvidenceName: FieldValidator = isValidEvidenceName(
-    organizationName,
-    groupName
-  );
-
   return (
     <Modal onClose={onClose} open={true} title={t("group.events.new")}>
       <Formik
@@ -169,174 +106,17 @@ const AddModal: React.FC<IAddModalProps> = ({
         validationSchema={validations}
       >
         {({ dirty, isSubmitting, values, setFieldValue }): JSX.Element => {
-          function handleAffectsReattacksBtnChange(switchValue: boolean): void {
-            setFieldValue("affectsReattacks", switchValue);
-          }
-
           return (
-            <Form>
-              <Row>
-                <Col50>
-                  <InputDateTime
-                    label={t("group.events.form.date")}
-                    name={"eventDate"}
-                    validate={composeValidators([
-                      required,
-                      validDatetime,
-                      dateTimeBeforeToday,
-                    ])}
-                  />
-                </Col50>
-                <Col50>
-                  <FormGroup>
-                    <ControlLabel>{t("group.events.form.type")}</ControlLabel>
-                    <Field
-                      component={FormikDropdown}
-                      name={"eventType"}
-                      validate={required}
-                    >
-                      <option value={""} />
-                      <option value={"AUTHORIZATION_SPECIAL_ATTACK"}>
-                        {t(castEventType("AUTHORIZATION_SPECIAL_ATTACK"))}
-                      </option>
-                      <option value={"CLIENT_EXPLICITLY_SUSPENDS_PROJECT"}>
-                        {t(castEventType("CLIENT_EXPLICITLY_SUSPENDS_PROJECT"))}
-                      </option>
-                      <option value={"CLONING_ISSUES"}>
-                        {t(castEventType("CLONING_ISSUES"))}
-                      </option>
-                      <option value={"CREDENTIAL_ISSUES"}>
-                        {t(castEventType("CREDENTIAL_ISSUES"))}
-                      </option>
-                      <option value={"DATA_UPDATE_REQUIRED"}>
-                        {t(castEventType("DATA_UPDATE_REQUIRED"))}
-                      </option>
-                      <option value={"ENVIRONMENT_ISSUES"}>
-                        {t(castEventType("ENVIRONMENT_ISSUES"))}
-                      </option>
-                      <option value={"INSTALLER_ISSUES"}>
-                        {t(castEventType("INSTALLER_ISSUES"))}
-                      </option>
-                      <option value={"MISSING_SUPPLIES"}>
-                        {t(castEventType("MISSING_SUPPLIES"))}
-                      </option>
-                      <option value={"NETWORK_ACCESS_ISSUES"}>
-                        {t(castEventType("NETWORK_ACCESS_ISSUES"))}
-                      </option>
-                      <option value={"OTHER"}>
-                        {t(castEventType("OTHER"))}
-                      </option>
-                      <option value={"REMOTE_ACCESS_ISSUES"}>
-                        {t(castEventType("REMOTE_ACCESS_ISSUES"))}
-                      </option>
-                      <option value={"TOE_DIFFERS_APPROVED"}>
-                        {t(castEventType("TOE_DIFFERS_APPROVED"))}
-                      </option>
-                      <option value={"VPN_ISSUES"}>
-                        {t(castEventType("VPN_ISSUES"))}
-                      </option>
-                    </Field>
-                  </FormGroup>
-                </Col50>
-              </Row>
-              <Row>
-                <Col100>
-                  <FormGroup>
-                    <ControlLabel>{t("group.events.form.root")}</ControlLabel>
-                    <Field
-                      component={FormikAutocompleteText}
-                      name={"rootNickname"}
-                      placeholder={t("group.events.form.rootPlaceholder")}
-                      suggestions={nicknames}
-                    />
-                  </FormGroup>
-                </Col100>
-              </Row>
-              <Row>
-                <Col100>
-                  <FormGroup>
-                    <TextArea
-                      label={t("group.events.form.details")}
-                      name={"detail"}
-                      validate={composeValidators([
-                        required,
-                        validTextField,
-                        maxEventDetailsLength,
-                      ])}
-                    />
-                  </FormGroup>
-                </Col100>
-              </Row>
-              <Row>
-                <Col50>
-                  <FormGroup>
-                    <InputFile
-                      accept={"image/png,video/webm"}
-                      id={"images"}
-                      label={t("group.events.form.evidence")}
-                      multiple={true}
-                      name={"images"}
-                      validate={composeValidators([
-                        validEvidenceImage,
-                        validEvidenceName,
-                        maxAmountOfFiles,
-                        maxFileSize,
-                      ])}
-                    />
-                  </FormGroup>
-                </Col50>
-                <Col50>
-                  <FormGroup>
-                    <InputFile
-                      accept={
-                        "application/pdf,application/zip,text/csv,text/plain"
-                      }
-                      id={"files"}
-                      label={t("group.events.form.evidenceFile")}
-                      name={"files"}
-                      validate={composeValidators([
-                        validEventFile,
-                        validEvidenceName,
-                        maxFileSize,
-                      ])}
-                    />
-                  </FormGroup>
-                </Col50>
-              </Row>
-              {hasReattacks && canOnHold ? (
-                <FormGroup>
-                  <ControlLabel>
-                    {t("group.events.form.affectedReattacks.sectionTitle")}
-                  </ControlLabel>
-                  <br />
-                  {t("group.events.form.affectedReattacks.switchLabel")}
-                  <br />
-                  <Field
-                    component={FormikSwitchButton}
-                    name={"affectsReattacks"}
-                    offlabel={t("group.events.form.affectedReattacks.no")}
-                    onChange={handleAffectsReattacksBtnChange}
-                    onlabel={t("group.events.form.affectedReattacks.yes")}
-                    type={"checkbox"}
-                  />
-                  {values.affectsReattacks ? (
-                    <React.Fragment>
-                      <br />
-                      {t("group.events.form.affectedReattacks.selection")}
-                      <br />
-                      <br />
-                      <Row>
-                        <AffectedReattackAccordion findings={findings} />
-                      </Row>
-                    </React.Fragment>
-                  ) : undefined}
-                </FormGroup>
-              ) : undefined}
-              <ModalConfirm
-                disabled={!dirty || isSubmitting}
-                onCancel={onClose}
-              />
-            </Form>
+            <AddModalForm
+              dirty={dirty}
+              groupName={groupName}
+              isSubmitting={isSubmitting}
+              nicknames={nicknames}
+              onClose={onClose}
+              organizationName={organizationName}
+              setFieldValue={setFieldValue}
+              values={values}
+            />
           );
         }}
       </Formik>
