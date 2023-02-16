@@ -201,3 +201,30 @@ async def mutation_remove_secret(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_git_root(*, user: str, group: str, root_id: str) -> dict:
+    query = """
+        query GetRoot($groupName: String!, $rootId: ID!) {
+            root(groupName: $groupName, rootId: $rootId) {
+                ... on GitRoot {
+                    id
+                    environmentUrls
+                    gitEnvironmentUrls {
+                        url
+                        urlType
+                    }
+                }
+            }
+        }
+    """
+
+    data = {
+        "query": query,
+        "variables": {"groupName": group, "rootId": root_id},
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )

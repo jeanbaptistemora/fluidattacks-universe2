@@ -16,6 +16,7 @@ from db_model.roots.types import (
     GitRoot,
     GitRootCloning,
     GitRootState,
+    RootEnvironmentUrl,
 )
 import pytest
 import pytest_asyncio
@@ -103,6 +104,16 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     type=RootType.GIT,
                 ),
                 "historic_state": [],
+                "git_environment_urls": [
+                    RootEnvironmentUrl(
+                        url="https://nice-env.net",
+                        id="8691a919992a590458748bc3e385deb82bbdc73a",
+                    ),
+                    RootEnvironmentUrl(
+                        url="https://mistaken-site.ru",
+                        id="a83beb1ed10e7ba4166aa3d6af0835bf57604800",
+                    ),
+                ],
             },
         ],
     }

@@ -1,4 +1,5 @@
 from . import (
+    get_git_root,
     get_result_add,
     get_result_remove,
     mutation_add,
@@ -23,6 +24,7 @@ from datetime import (
 )
 from db_model.roots.types import (
     GitRoot,
+    RootEnvironmentUrlType,
     RootRequest,
     Secret,
 )
@@ -65,7 +67,7 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
     root_id: str = "88637616-41d4-4242-854a-db8ff7fe1ab6"
-    env_urls = ["https://nice-env.com", "https://nice-helper-site.co.uk"]
+    env_urls = ["https://nice-helper-site.co.uk", "https://nice-env.com"]
 
     loaders = get_new_context()
     root = cast(
@@ -74,7 +76,17 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
     assert root.state.modified_date == datetime.fromisoformat(
         "2022-02-10T14:58:10+00:00"
     )
-    assert root.state.environment_urls == []
+    result_group: dict = await get_git_root(
+        user=email,
+        group="group1",
+        root_id=root_id,
+    )
+    assert "errors" not in result_group
+    assert result_group["data"]["root"] == {
+        "environmentUrls": [],
+        "gitEnvironmentUrls": [],
+        "id": "88637616-41d4-4242-854a-db8ff7fe1ab6",
+    }
 
     result: dict[str, Any] = await get_result_add(
         user=email,
@@ -90,6 +102,25 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
         GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
     )
     assert changed_root.state.modified_date.date() == datetime.now().date()
+    result_group = await get_git_root(
+        user=email,
+        group="group1",
+        root_id=root_id,
+    )
+    assert "errors" not in result_group
+    assert sorted(result_group["data"]["root"]["environmentUrls"]) == sorted(
+        env_urls
+    )
+    assert sorted(
+        result_group["data"]["root"]["gitEnvironmentUrls"],
+        key=lambda x: x["url"],
+    ) == sorted(
+        [
+            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            for url in env_urls
+        ],
+        key=lambda x: x["url"],
+    )
     assert changed_root.state.environment_urls == env_urls
 
 
@@ -110,6 +141,25 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     loaders = get_new_context()
     root = cast(
         GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
+    )
+    result_group: dict = await get_git_root(
+        user=email,
+        group="group1",
+        root_id=root_id,
+    )
+    assert "errors" not in result_group
+    assert sorted(result_group["data"]["root"]["environmentUrls"]) == sorted(
+        env_urls
+    )
+    assert sorted(
+        result_group["data"]["root"]["gitEnvironmentUrls"],
+        key=lambda x: x["url"],
+    ) == sorted(
+        [
+            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            for url in env_urls
+        ],
+        key=lambda x: x["url"],
     )
     assert root.state.environment_urls == env_urls
 
@@ -148,6 +198,20 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     changed_root = cast(
         GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
     )
+    result_group = await get_git_root(
+        user=email,
+        group="group1",
+        root_id=root_id,
+    )
+    assert "errors" not in result_group
+    assert result_group["data"]["root"] == {
+        "environmentUrls": [env_urls[0]],
+        "gitEnvironmentUrls": [
+            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            for url in [env_urls[0]]
+        ],
+        "id": "88637616-41d4-4242-854a-db8ff7fe1ab7",
+    }
     assert changed_root.state.environment_urls == [env_urls[0]]
 
 
