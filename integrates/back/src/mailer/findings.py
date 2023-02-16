@@ -47,6 +47,9 @@ from decimal import (
 from group_access import (
     domain as group_access_domain,
 )
+from mailer.enums import (
+    MailVulnerabilityReportState,
+)
 from mailer.utils import (
     get_organization_name,
 )
@@ -327,11 +330,12 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
     responsible: str,
     severity_score: Decimal,
     severity_level: str,
-    is_closed: bool = False,
+    state: MailVulnerabilityReportState = (
+        MailVulnerabilityReportState.REPORTED
+    ),
     remaining_exposure: Optional[int] = None,
 ) -> None:
     group_findings = await loaders.group_findings.load(group_name)
-    state: str = "solved" if is_closed else "reported"
     org_name = await get_organization_name(loaders, group_name)
     group_stakeholders = await group_access_domain.get_group_stakeholders(
         loaders, group_name
@@ -360,7 +364,7 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         "remaining_exposure": remaining_exposure,
         "severity_score": severity_score,
         "severity_level": severity_level.capitalize(),
-        "state": state,
+        "state": str(state.value).lower(),
         "is_escape": False,
     }
     await send_mails_async(
@@ -368,10 +372,13 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
         email_to=stakeholders_email,
         context=email_context,
         tags=GENERAL_TAG,
-        subject=f"[ARM] {finding_title} {state} in [{group_name}].",
+        subject=(
+            f"[ARM] {finding_title} {str(state.value).lower()} in"
+            f" [{group_name}]."
+        ),
         template_name="vulnerability_report",
     )
-    if (not is_closed) and any(
+    if (state is MailVulnerabilityReportState.REPORTED) and any(
         map(
             lambda repo: any(
                 map(
@@ -394,7 +401,10 @@ async def send_mail_vulnerability_report(  # pylint: disable=too-many-locals
             email_to=stakeholders_email,
             context=email_context,
             tags=GENERAL_TAG,
-            subject=f"[ARM] {finding_title} {state} as escape in "
+            subject=(
+                f"[ARM] {finding_title} {str(state.value).lower()} as"
+                " escape in "
+            )
             + f"[{group_name}].",
             template_name="vulnerability_report",
         )
@@ -449,7 +459,6 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
         "severity_score": severity_score,
         "severity_level": severity_level,
         "reasons": reasons,
-        "group": finding.group_name,
     }
     await send_mails_async(
         loaders,

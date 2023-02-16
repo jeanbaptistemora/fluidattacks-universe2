@@ -38,6 +38,9 @@ from itertools import (
 from mailer import (
     findings as findings_mail,
 )
+from mailer.enums import (
+    MailVulnerabilityReportState,
+)
 from typing import (
     Any,
     Optional,
@@ -152,7 +155,7 @@ async def add(
                 remaining_exposure=closed_properties["remaining_exposure"],
                 severity_score=closed_properties["severity_score"],
                 severity_level=closed_properties["severity_level"],
-                is_closed=True,
+                state=MailVulnerabilityReportState.SOLVED,
             )
         )
 
