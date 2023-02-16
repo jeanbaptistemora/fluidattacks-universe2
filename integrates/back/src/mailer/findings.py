@@ -428,7 +428,9 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
         ),
         VulnerabilityStateReason.SCORING: "Faulty severity scoring",
         VulnerabilityStateReason.WRITING: "The writing could be improved",
-        VulnerabilityStateReason.OTHER: other_reason or "",
+        VulnerabilityStateReason.OTHER: other_reason.capitalize()
+        if other_reason
+        else "",
     }
     reasons: dict[str, str] = {
         str(reason.value).capitalize(): explanation
@@ -441,6 +443,7 @@ async def send_mail_reject_vulnerability(  # pylint: disable=too-many-arguments
             f"{BASE_URL}/orgs/{org_name}/groups/{finding.group_name}"
             f"/vulns/{finding.id}/locations"
         ),
+        "group": finding.group_name,
         "vulns_props": vulnerabilities_properties,
         "responsible": finding.hacker_email,
         "severity_score": severity_score,
