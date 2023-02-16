@@ -29,6 +29,7 @@ makeDerivation {
     envTreeSitterPython = inputs.skimsTreeSitterPython;
     envTreeSitterRuby = inputs.skimsTreeSitterRuby;
     envTreeSitterScala = inputs.skimsTreeSitterScala;
+    envTreeSitterSwift = inputs.skimsTreeSitterSwift;
     envTreeSitterTsx = inputs.skimsTreeSitterTsx;
     envTreeSitterYaml = inputs.skimsTreeSitterYaml;
   };

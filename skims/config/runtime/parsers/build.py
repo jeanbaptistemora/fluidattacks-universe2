@@ -15,6 +15,7 @@ GRAMMARS: dict[str, str] = dict(
     python=os.environ["envTreeSitterPython"],
     ruby=os.environ["envTreeSitterRuby"],
     scala=os.environ["envTreeSitterScala"],
+    swift=os.environ["envTreeSitterSwift"],
     tsx=os.path.join(os.environ["envTreeSitterTsx"], "tsx"),
     yaml=os.environ["envTreeSitterYaml"],
 )

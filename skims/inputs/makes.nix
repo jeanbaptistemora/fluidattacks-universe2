@@ -115,6 +115,12 @@
       rev = "0a3dd53a7fc4b352a538397d054380aaa28be54c";
       sha256 = "1lwyipn5b36fskr8cm60qjblj2chf8336zkqbsifq49z1lj0wvpi";
     };
+    skimsTreeSitterSwift = fetchGithub {
+      owner = "fluidattacks";
+      repo = "tree-sitter-swift";
+      rev = "462813c6c589e5ffc859d4ed43dbd2ba6cba8013";
+      sha256 = "ZKoYlzcntlHXED1pSSxYL7rQPG0b4mp/3ulbQ0457hE=";
+    };
     skimsTreeSitterTsx = fetchGithub {
       owner = "tree-sitter";
       repo = "tree-sitter-typescript";

@@ -45,6 +45,7 @@ class GraphShardMetadataLanguage(Enum):
     PYTHON: str = "python"
     RUBY: str = "ruby"
     SCALA: str = "scala"
+    SWIFT: str = "swift"
     TYPESCRIPT: str = "tsx"
     YAML: str = "yaml"
 
