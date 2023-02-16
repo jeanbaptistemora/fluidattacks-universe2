@@ -8,6 +8,9 @@ from lib_path.f393.composer import (
     composer_json_dev,
     composer_lock_dev,
 )
+from lib_path.f393.conan import (
+    conan_conanfile_txt_dev,
+)
 from lib_path.f393.gem import (
     gem_gemfile_dev,
 )
@@ -32,6 +35,11 @@ def run_composer_json_dev(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_composer_lock_dev(content: str, path: str) -> Vulnerabilities:
     return composer_lock_dev(content, path)
+
+
+@SHIELD_BLOCKING
+def run_conan_conanfile_txt_dev(content: str, path: str) -> Vulnerabilities:
+    return conan_conanfile_txt_dev(content, path)
 
 
 @SHIELD_BLOCKING
