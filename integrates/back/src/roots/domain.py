@@ -771,6 +771,7 @@ def _check_repeated_root(
 @validation_utils.validate_field_exist_deco("environment")
 @validation_utils.validate_fields_deco(["url"])
 @validation_utils.validate_sanitized_csv_input_deco(["url", "environment"])
+@validations.validate_url_branch_deco(url_field="url", branch_field="branch")
 async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     loaders: Dataloaders,
     user_email: str,
@@ -782,16 +783,9 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
     root: GitRoot = cast(GitRoot, await get_root(loaders, root_id, group_name))
     url: str = kwargs["url"]
     branch: str = kwargs["branch"]
-    nickname: str = root.state.nickname
-
-    if not (
-        validations.is_valid_url(url)
-        and validations.is_valid_git_branch(branch)
-    ):
-        raise InvalidParameter()
 
     nickname = _assign_nickname(
-        nickname=nickname,
+        nickname=root.state.nickname,
         new_nickname=kwargs.get("nickname"),
         roots=await loaders.group_roots.load(group_name),
     )
