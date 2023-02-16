@@ -120,6 +120,57 @@ def _ec2_has_unrestricted_ports(graph: Graph, nid: NId) -> Iterator[NId]:
         yield from _aux_ec2_has_unrestricted_ports(graph, nid)
 
 
+def aux_aws_ec2_cfn_unrestricted_ip_protocols(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    danger_values = ("-1", -1)
+    protocol, protocol_val, p_id = get_attribute(graph, nid, "protocol")
+    if protocol and protocol_val in danger_values:
+        yield p_id
+
+
+def _aws_ec2_cfn_unrestricted_ip_protocols(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_security_group":
+        if ingress := get_argument(graph, nid, "ingress"):
+            yield from aux_aws_ec2_cfn_unrestricted_ip_protocols(
+                graph, ingress
+            )
+        if egress := get_argument(graph, nid, "egress"):
+            yield from aux_aws_ec2_cfn_unrestricted_ip_protocols(graph, egress)
+    elif graph.nodes[nid]["name"] == "aws_security_group_rule":
+        yield from aux_aws_ec2_cfn_unrestricted_ip_protocols(graph, nid)
+
+
+def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AWS_EC2_CFN_UNRESTR_IP_PROT
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_security_group"),
+                iterate_resource(graph, "aws_security_group_rule"),
+            ):
+                for report in _aws_ec2_cfn_unrestricted_ip_protocols(
+                    graph, nid
+                ):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024_aws.unrestricted_protocols",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_ec2_has_unrestricted_ports(
     graph_db: GraphDB,
 ) -> Vulnerabilities:

@@ -3093,7 +3093,7 @@ class MethodsEnum(Enum):
     TFM_AWS_EC2_CFN_UNRESTR_IP_PROT = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_cfn_unrestricted_ip_protocols",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,
