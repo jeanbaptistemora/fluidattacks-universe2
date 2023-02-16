@@ -43,6 +43,7 @@ _dag: Tuple[FrozenSet[str], ...] = (
     frozenset({"organizations"}),
     frozenset({"mailer"}),
     frozenset({"stakeholders"}),
+    frozenset({"organization_access"}),
     frozenset({"group_access"}),
     frozenset({"authz"}),
     frozenset({"batch"}),
