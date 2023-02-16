@@ -7,14 +7,8 @@ from concurrent.futures import (
 from contextlib import (
     suppress,
 )
-from git.cmd import (
-    Git,
-)
 from git.exc import (
     GitError,
-)
-from git.repo import (
-    Repo,
 )
 import os
 from pathlib import (
@@ -208,26 +202,6 @@ def download_repo_from_s3(
         LOGGER.error("filed to unzip %s", nickname)
 
     os.remove(file_path)
-
-    try:
-        Git().execute(
-            [
-                "git",
-                "config",
-                "--global",
-                "--add",
-                "safe.directory",
-                str(repo_path.resolve()),
-            ]
-        )
-        repo = Repo(repo_path.resolve())
-        repo.git.reset("--hard", "HEAD")
-    except GitError as exc:
-        LOGGER.error("Expand repositories has failed:")
-        LOGGER.info("Repository: %s", repo_path.resolve())
-        LOGGER.info(exc)
-        LOGGER.info("\n")
-        return False
 
     return True
 
