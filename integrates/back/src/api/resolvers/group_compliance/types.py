@@ -1,11 +1,9 @@
+from api.resolvers.types import (
+    Requirement,
+)
 from typing import (
     NamedTuple,
 )
-
-
-class Requirement(NamedTuple):
-    id: str
-    title: str
 
 
 class GroupUnfulfilledStandard(NamedTuple):

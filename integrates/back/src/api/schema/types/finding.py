@@ -26,6 +26,7 @@ from api.resolvers.finding import (
     status,
     tracking,
     treatment_summary,
+    unfulfilled_requirements,
     verification_summary,
     verified,
     vulnerabilities_connection,
@@ -66,6 +67,7 @@ FINDING.set_field("state", state.resolve)
 FINDING.set_field("status", status.resolve)
 FINDING.set_field("tracking", tracking.resolve)
 FINDING.set_field("treatmentSummary", treatment_summary.resolve)
+FINDING.set_field("unfulfilledRequirements", unfulfilled_requirements.resolve)
 FINDING.set_field("verificationSummary", verification_summary.resolve)
 FINDING.set_field("verified", verified.resolve)
 FINDING.set_field(

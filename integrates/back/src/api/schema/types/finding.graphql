@@ -92,6 +92,8 @@ type Finding {
   tracking: [Tracking!]
   "Summary of the number of vulnerabilities in every treatment status"
   treatmentSummary: TreatmentSummary!
+  "Unfulfilled requirements of the standard"
+  unfulfilledRequirements: [Requirement!]!
   "Summary of the number of vulnerabilities in every verification status"
   verificationSummary: VerificationSummary!
   "Is it verified i.e. with open and no remediated vulnerabilities?"

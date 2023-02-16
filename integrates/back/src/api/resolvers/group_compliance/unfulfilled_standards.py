@@ -1,5 +1,7 @@
 from .types import (
     GroupUnfulfilledStandard,
+)
+from api.resolvers.types import (
     Requirement,
 )
 from db_model.groups.types import (
