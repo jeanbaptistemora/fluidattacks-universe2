@@ -25,6 +25,93 @@ jest.mock(
 );
 
 describe("groupToeLinesView", (): void => {
+  const mockedToeLines: MockedResponse = {
+    request: {
+      query: GET_TOE_LINES,
+      variables: {
+        canGetAttackedAt: true,
+        canGetAttackedBy: true,
+        canGetAttackedLines: true,
+        canGetBePresentUntil: true,
+        canGetComments: true,
+        canGetFirstAttackAt: true,
+        first: 150,
+        groupName: "unittesting",
+      },
+    },
+    result: {
+      data: {
+        group: {
+          __typename: "Group",
+          codeLanguages: null,
+          name: "unittesting",
+          toeLines: {
+            __typename: "ToeLinesConnection",
+            edges: [
+              {
+                __typename: "ToeLinesEdge",
+                node: {
+                  __typename: "ToeLines",
+                  attackedAt: "2021-02-20T05:00:00+00:00",
+                  attackedBy: "test2@test.com",
+                  attackedLines: 4,
+                  bePresent: true,
+                  bePresentUntil: "",
+                  comments: "comment 1",
+                  filename: "test/test#.config",
+                  firstAttackAt: "2020-02-19T15:41:04+00:00",
+                  hasVulnerabilities: false,
+                  lastAuthor: "user@gmail.com",
+                  lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                  loc: 8,
+                  modifiedDate: "2020-11-15T15:41:04+00:00",
+                  root: {
+                    id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
+                    nickname: "universe",
+                  },
+                  seenAt: "2020-02-01T15:41:04+00:00",
+                  sortsRiskLevel: 80,
+                  sortsSuggestions: null,
+                },
+              },
+              {
+                __typename: "ToeLinesEdge",
+                node: {
+                  __typename: "ToeLines",
+                  attackedAt: "",
+                  attackedBy: "test@test.com",
+                  attackedLines: 120,
+                  bePresent: false,
+                  bePresentUntil: "2021-01-01T15:41:04+00:00",
+                  comments: "comment 2",
+                  filename: "test2/test.sh",
+                  firstAttackAt: "",
+                  hasVulnerabilities: true,
+                  lastAuthor: "user@gmail.com",
+                  lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                  loc: 172,
+                  modifiedDate: "2020-11-16T15:41:04+00:00",
+                  root: {
+                    id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
+                    nickname: "integrates_1",
+                  },
+                  seenAt: "2020-01-01T15:41:04+00:00",
+                  sortsRiskLevel: 0,
+                  sortsSuggestions: null,
+                },
+              },
+            ],
+            pageInfo: {
+              endCursor: "bnVsbA==",
+              hasNextPage: false,
+            },
+            total: 2,
+          },
+        },
+      },
+    },
+  };
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupToeLinesView).toBe("function");
@@ -33,89 +120,6 @@ describe("groupToeLinesView", (): void => {
   it("should display group toe lines", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedToeLines: MockedResponse = {
-      request: {
-        query: GET_TOE_LINES,
-        variables: {
-          canGetAttackedAt: true,
-          canGetAttackedBy: true,
-          canGetAttackedLines: true,
-          canGetBePresentUntil: true,
-          canGetComments: true,
-          canGetFirstAttackAt: true,
-          first: 150,
-          groupName: "unittesting",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            __typename: "Group",
-            name: "unittesting",
-            toeLines: {
-              __typename: "ToeLinesConnection",
-              edges: [
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "2021-02-20T05:00:00+00:00",
-                    attackedBy: "test2@test.com",
-                    attackedLines: 4,
-                    bePresent: true,
-                    bePresentUntil: "",
-                    comments: "comment 1",
-                    filename: "test/test#.config",
-                    firstAttackAt: "2020-02-19T15:41:04+00:00",
-                    hasVulnerabilities: false,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc: 8,
-                    modifiedDate: "2020-11-15T15:41:04+00:00",
-                    root: {
-                      id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "universe",
-                    },
-                    seenAt: "2020-02-01T15:41:04+00:00",
-                    sortsRiskLevel: 80,
-                  },
-                },
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "",
-                    attackedBy: "test@test.com",
-                    attackedLines: 120,
-                    bePresent: false,
-                    bePresentUntil: "2021-01-01T15:41:04+00:00",
-                    comments: "comment 2",
-                    filename: "test2/test.sh",
-                    firstAttackAt: "",
-                    hasVulnerabilities: true,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    loc: 172,
-                    modifiedDate: "2020-11-16T15:41:04+00:00",
-                    root: {
-                      id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                      nickname: "integrates_1",
-                    },
-                    seenAt: "2020-01-01T15:41:04+00:00",
-                    sortsRiskLevel: 0,
-                  },
-                },
-              ],
-              pageInfo: {
-                endCursor: "bnVsbA==",
-                hasNextPage: false,
-              },
-              total: 2,
-            },
-          },
-        },
-      },
-    };
     const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
@@ -230,92 +234,6 @@ describe("groupToeLinesView", (): void => {
         result: { data: { updateToeLinesAttackedLines: { success: true } } },
       },
     ];
-    const mockedToeLines: MockedResponse = {
-      request: {
-        query: GET_TOE_LINES,
-        variables: {
-          canGetAttackedAt: true,
-          canGetAttackedBy: true,
-          canGetAttackedLines: true,
-          canGetBePresentUntil: true,
-          canGetComments: true,
-          canGetFirstAttackAt: true,
-          first: 150,
-          groupName: "unittesting",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            __typename: "Group",
-            codeLanguages: null,
-            name: "unittesting",
-            toeLines: {
-              __typename: "ToeLinesConnection",
-              edges: [
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "2021-02-20T05:00:00+00:00",
-                    attackedBy: "test2@test.com",
-                    attackedLines: 4,
-                    bePresent: true,
-                    bePresentUntil: "",
-                    comments: "comment 1",
-                    filename: "test/test#.config",
-                    firstAttackAt: "2020-02-19T15:41:04+00:00",
-                    hasVulnerabilities: false,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc: 8,
-                    modifiedDate: "2020-11-15T15:41:04+00:00",
-                    root: {
-                      id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "universe",
-                    },
-                    seenAt: "2020-02-01T15:41:04+00:00",
-                    sortsRiskLevel: 80,
-                    sortsSuggestions: null,
-                  },
-                },
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "",
-                    attackedBy: "test@test.com",
-                    attackedLines: 120,
-                    bePresent: false,
-                    bePresentUntil: "2021-01-01T15:41:04+00:00",
-                    comments: "comment 2",
-                    filename: "test2/test.sh",
-                    firstAttackAt: "",
-                    hasVulnerabilities: true,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    loc: 172,
-                    modifiedDate: "2020-11-16T15:41:04+00:00",
-                    root: {
-                      id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                      nickname: "integrates_1",
-                    },
-                    seenAt: "2020-01-01T15:41:04+00:00",
-                    sortsRiskLevel: 0,
-                    sortsSuggestions: null,
-                  },
-                },
-              ],
-              pageInfo: {
-                endCursor: "bnVsbA==",
-                hasNextPage: false,
-              },
-              total: 2,
-            },
-          },
-        },
-      },
-    };
     const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
@@ -422,92 +340,6 @@ describe("groupToeLinesView", (): void => {
         },
       },
     ];
-    const mockedToeLines: MockedResponse = {
-      request: {
-        query: GET_TOE_LINES,
-        variables: {
-          canGetAttackedAt: true,
-          canGetAttackedBy: true,
-          canGetAttackedLines: true,
-          canGetBePresentUntil: true,
-          canGetComments: true,
-          canGetFirstAttackAt: true,
-          first: 150,
-          groupName: "unittesting",
-        },
-      },
-      result: {
-        data: {
-          group: {
-            __typename: "Group",
-            codeLanguages: null,
-            name: "unittesting",
-            toeLines: {
-              __typename: "ToeLinesConnection",
-              edges: [
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "2021-02-20T05:00:00+00:00",
-                    attackedBy: "test2@test.com",
-                    attackedLines: 4,
-                    bePresent: true,
-                    bePresentUntil: "",
-                    comments: "comment 1",
-                    filename: "test/test#.config",
-                    firstAttackAt: "2020-02-19T15:41:04+00:00",
-                    hasVulnerabilities: false,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-                    loc: 8,
-                    modifiedDate: "2020-11-15T15:41:04+00:00",
-                    root: {
-                      id: "63298a73-9dff-46cf-b42d-9b2f01a56690",
-                      nickname: "universe",
-                    },
-                    seenAt: "2020-02-01T15:41:04+00:00",
-                    sortsRiskLevel: 80,
-                    sortsSuggestions: null,
-                  },
-                },
-                {
-                  __typename: "ToeLinesEdge",
-                  node: {
-                    __typename: "ToeLines",
-                    attackedAt: "",
-                    attackedBy: "test@test.com",
-                    attackedLines: 120,
-                    bePresent: false,
-                    bePresentUntil: "2021-01-01T15:41:04+00:00",
-                    comments: "comment 2",
-                    filename: "test2/test.sh",
-                    firstAttackAt: "",
-                    hasVulnerabilities: true,
-                    lastAuthor: "user@gmail.com",
-                    lastCommit: "f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
-                    loc: 172,
-                    modifiedDate: "2020-11-16T15:41:04+00:00",
-                    root: {
-                      id: "765b1d0f-b6fb-4485-b4e2-2c2cb1555b1a",
-                      nickname: "integrates_1",
-                    },
-                    seenAt: "2020-01-01T15:41:04+00:00",
-                    sortsRiskLevel: 0,
-                    sortsSuggestions: null,
-                  },
-                },
-              ],
-              pageInfo: {
-                endCursor: "bnVsbA==",
-                hasNextPage: false,
-              },
-              total: 2,
-            },
-          },
-        },
-      },
-    };
     const mockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
