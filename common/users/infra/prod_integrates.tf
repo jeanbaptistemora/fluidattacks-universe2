@@ -8,19 +8,9 @@ locals {
           Action = [
             "iam:List*",
             "iam:Get*",
-            "iam:Create*",
+            "iam:Describe*",
           ]
           Resource = ["*"]
-        },
-        {
-          Sid    = "iamWrite"
-          Effect = "Allow"
-          Action = ["*"]
-          Resource = [
-            "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/aws-service-role/dynamodb.application-autoscaling.amazonaws.com/AWSServiceRoleForApplicationAutoScaling_DynamoDBTable",
-            "arn:aws:iam::${data.aws_caller_identity.main.account_id}:role/integrates*",
-            "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/integrates*",
-          ]
         },
         {
           Sid    = "elasticacheRead"
