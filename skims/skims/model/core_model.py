@@ -3101,7 +3101,7 @@ class MethodsEnum(Enum):
     TFM_AWS_EC2_UNRESTRICTED_CIDRS = MethodInfo(
         file_name="terraform",
         name="tfm_aws_ec2_unrestricted_cidrs",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.BASIC_SAST,

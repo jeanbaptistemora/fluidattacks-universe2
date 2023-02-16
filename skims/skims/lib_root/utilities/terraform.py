@@ -37,11 +37,13 @@ def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]
     value_id = graph.nodes[nid]["value_id"]
-    value = (
-        graph.nodes[value_id]["value"]
-        if graph.nodes[value_id].get("value")
-        else ""
-    )
+    value = ""
+    if graph.nodes[value_id]["label_type"] == "ArrayInitializer":
+        child_id = adj_ast(graph, value_id, label_type="Literal")
+        if len(child_id) > 0:
+            value = graph.nodes[child_id[0]].get("value", "")
+    else:
+        value = graph.nodes[value_id].get("value", "")
     return key, value
 
 

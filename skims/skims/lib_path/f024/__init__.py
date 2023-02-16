@@ -19,7 +19,6 @@ from lib_path.f024.cloudformation import (
     cfn_unrestricted_ip_protocols,
 )
 from lib_path.f024.terraform import (
-    tfm_aws_ec2_unrestricted_cidrs,
     tfm_ec2_has_open_all_ports_to_the_public,
     tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
     tfm_ec2_has_unrestricted_dns_access,
@@ -95,15 +94,6 @@ def run_cfn_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return cfn_ec2_has_unrestricted_ports(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_aws_ec2_unrestricted_cidrs(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_aws_ec2_unrestricted_cidrs(
-        content=content, path=path, model=model
     )
 
 
@@ -222,7 +212,6 @@ def analyze(
                 fun(content, path, model)
                 for fun in (
                     run_tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
-                    run_tfm_aws_ec2_unrestricted_cidrs,
                     run_tfm_ec2_has_unrestricted_dns_access,
                     run_tfm_ec2_has_unrestricted_ftp_access,
                     run_tfm_ec2_has_open_all_ports_to_the_public,

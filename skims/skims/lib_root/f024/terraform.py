@@ -143,6 +143,68 @@ def _aws_ec2_cfn_unrestricted_ip_protocols(
         yield from aux_aws_ec2_cfn_unrestricted_ip_protocols(graph, nid)
 
 
+def _ec2_unrestricted_cidrs(
+    ip_val: str, ip_type: str, rule: str | None = None
+) -> bool:
+    with suppress(AddressValueError, KeyError):
+        if ip_type == "ipv4":
+            ipv4_object = IPv4Network(ip_val, strict=False)
+            if ipv4_object == UNRESTRICTED_IPV4 or (
+                rule == "ingress" and ipv4_object.num_addresses > 1
+            ):
+                return True
+        else:
+            ipv6_object = IPv6Network(ip_val, strict=False)
+            if ipv6_object == UNRESTRICTED_IPV6 or (
+                rule == "ingress" and ipv6_object.num_addresses > 1
+            ):
+                return True
+    return False
+
+
+def _aux_ingress_unrestricted_cidrs(graph: Graph, nid: NId) -> Iterator[NId]:
+    ipv4, ipv4_val, ipv4_id = get_attribute(graph, nid, "cidr_blocks")
+    if ipv4 and _ec2_unrestricted_cidrs(ipv4_val, "ipv4"):
+        yield ipv4_id
+    ipv6, ipv6_val, ipv6_id = get_attribute(graph, nid, "ipv6_cidr_blocks")
+    if ipv6 and _ec2_unrestricted_cidrs(ipv6_val, "ipv6"):
+        yield ipv6_id
+
+
+def _aws_ec2_unrestricted_cidrs(graph: Graph, nid: NId) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_security_group":
+        if ingress := get_argument(graph, nid, "ingress"):
+            yield from _aux_ingress_unrestricted_cidrs(graph, ingress)
+    elif graph.nodes[nid]["name"] == "aws_security_group_rule":
+        yield from _aux_ingress_unrestricted_cidrs(graph, nid)
+
+
+def tfm_aws_ec2_unrestricted_cidrs(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_AWS_EC2_UNRESTRICTED_CIDRS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_security_group"),
+                iterate_resource(graph, "aws_security_group_rule"),
+            ):
+                for report in _aws_ec2_unrestricted_cidrs(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024_aws.unrestricted_cidrs",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
 def tfm_aws_ec2_cfn_unrestricted_ip_protocols(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
