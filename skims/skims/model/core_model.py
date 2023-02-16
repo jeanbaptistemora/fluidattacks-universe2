@@ -3061,7 +3061,7 @@ class MethodsEnum(Enum):
     TFM_EC2_UNRESTRICTED_FTP = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_unrestricted_ftp_access",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,

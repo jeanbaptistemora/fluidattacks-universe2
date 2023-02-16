@@ -5,6 +5,7 @@ from lib_root.f024.terraform import (
     tfm_aws_ec2_unrestricted_cidrs,
     tfm_ec2_has_security_groups_ip_ranges_in_rfc1918,
     tfm_ec2_has_unrestricted_dns_access,
+    tfm_ec2_has_unrestricted_ftp_access,
     tfm_ec2_has_unrestricted_ports,
     tfm_ec2_instances_without_profile,
 )
@@ -21,6 +22,7 @@ QUERIES: graph_model.Queries = (
     (FINDING, tfm_aws_ec2_unrestricted_cidrs),
     (FINDING, tfm_ec2_has_security_groups_ip_ranges_in_rfc1918),
     (FINDING, tfm_ec2_has_unrestricted_dns_access),
+    (FINDING, tfm_ec2_has_unrestricted_ftp_access),
     (FINDING, tfm_ec2_has_unrestricted_ports),
     (FINDING, tfm_ec2_instances_without_profile),
 )
