@@ -302,7 +302,7 @@ capec:
       title: Signal strength tracking
       link: https://capec.mitre.org/data/definitions/619.html
     "654":
-      title: Signal strength tracking
+      title: Credential Prompt Impersonation
       link: https://capec.mitre.org/data/definitions/654.html
   metadata: {}
 cis:
