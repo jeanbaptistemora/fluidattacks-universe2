@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,19 +19,11 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _rds_instance_inside_subnet(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "db_subnet_group_name"
-    subnet = False
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, c_id)
-        if key == expected_attr:
-            subnet = True
-    if not subnet:
+    attr = get_attribute(graph, nid, "db_subnet_group_name")
+    if not attr[0]:
         return nid
     return None
 

@@ -5,7 +5,8 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -28,16 +29,11 @@ from utils.graph import (
 
 
 def _aux_azure_sa_default_network_access(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "default_action"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() != "deny":
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "default_action")
+    if not attr:
         return nid
+    if attr_val.lower() != "deny":
+        return attr_id
     return None
 
 
@@ -57,64 +53,45 @@ def _aws_acl_broad_network_access(graph: Graph, nid: NId) -> NId | None:
         "::/0",
         "0.0.0.0/0",
     }
-    expected_block = "ingress"
-    expected_block_attr = "cidr_block"
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr and value in danger_values:
-                return b_id
+    if ingress := get_argument(graph, nid, "ingress"):
+        attr, attr_val, attr_id = get_attribute(graph, ingress, "cidr_block")
+        if attr and attr_val in danger_values:
+            return attr_id
     return None
 
 
 def _azure_kv_danger_bypass(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "network_acls"
-    expected_block_attr = "bypass"
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                has_block = True
-                if value.lower() != "azureservices":
-                    return b_id
-                return None
-    if not has_block:
-        return nid
+    if network := get_argument(graph, nid, "network_acls"):
+        attr, attr_val, attr_id = get_attribute(graph, network, "bypass")
+        if not attr:
+            return nid
+        if attr_val.lower() != "azureservices":
+            return attr_id
     return None
 
 
 def _azure_kv_default_network_access(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "network_acls"
-    expected_block_attr = "default_action"
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                has_block = True
-                if value.lower() != "deny":
-                    return b_id
-                return None
-    if not has_block:
-        return nid
+    if network := get_argument(graph, nid, "network_acls"):
+        attr, attr_val, attr_id = get_attribute(
+            graph, network, "default_action"
+        )
+        if not attr:
+            return nid
+        if attr_val.lower() != "deny":
+            return attr_id
     return None
 
 
 def _azure_unrestricted_access_network_segments(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_attr = "public_network_enabled"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() == "true":
-                return b_id
-            return None
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "public_network_enabled"
+    )
+    if not attr:
         return nid
+    if attr_val.lower() == "true":
+        return attr_id
     return None
 
 

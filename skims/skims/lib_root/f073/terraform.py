@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,17 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _db_instance_publicly_accessible(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "publicly_accessible"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, c_id)
-        if key == expected_attr and value == "true":
-            return c_id
+    if attr := get_attribute(graph, nid, "publicly_accessible"):
+        if attr[0] and attr[1] == "true":
+            return attr[2]
     return None
 
 

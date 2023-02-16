@@ -6,7 +6,7 @@ from lib_path.f070.common import (
     SAFE_SSL_POLICY_VALUES,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -23,35 +23,25 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _lb_target_group_insecure_port(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "port"
-    is_vuln = True
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, c_id)
-        if key == expected_attr:
-            if value == "443":
-                is_vuln = False
-            else:
-                return c_id
-    if is_vuln:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "port")
+    if not attr:
         return nid
+    if attr_val != "443":
+        return attr_id
     return None
 
 
 def _elb2_uses_insecure_security_policy(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "ssl_policy"
-    for c_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, c_id)
-        if key == expected_attr and (
-            value in PREDEFINED_SSL_POLICY_VALUES
-            and value not in SAFE_SSL_POLICY_VALUES
+    if attr := get_attribute(graph, nid, "ssl_policy"):
+        if (
+            attr[0]
+            and attr[1] in PREDEFINED_SSL_POLICY_VALUES
+            and attr[1] not in SAFE_SSL_POLICY_VALUES
         ):
-            return c_id
+            return attr[2]
     return None
 
 
