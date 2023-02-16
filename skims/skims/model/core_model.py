@@ -5508,9 +5508,17 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LEWIS_CONTRERAS,
         technique=TechniqueEnum.SCA,
     )
+    CONAN_CONANFILE_PY_DEV = MethodInfo(
+        file_name="conan",
+        name="conan_conanfile_py_dev",
+        module="lib_path",
+        finding=FindingEnum.F393,
+        developer=DeveloperEnum.LEWIS_CONTRERAS,
+        technique=TechniqueEnum.SCA,
+    )
     CONAN_CONANFILE_TXT_DEV = MethodInfo(
         file_name="conan",
-        name="conan_conanfile_txt",
+        name="conan_conanfile_txt_dev",
         module="lib_path",
         finding=FindingEnum.F393,
         developer=DeveloperEnum.LEWIS_CONTRERAS,
