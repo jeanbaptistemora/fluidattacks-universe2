@@ -56,6 +56,18 @@ F338,lines,namespace/skims/test/data/lib_root/f338/c_sharp_insecure_rfc.cs,10,74
   15 |
      ^ Col 2
 ",c_sharp.csharp_check_hashes_salt
+F338,lines,namespace/skims/test/data/lib_root/f338/dart_salt_is_hardcoded.dart,6,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
+ in namespace/skims/test/data/lib_root/f338/dart_salt_is_hardcoded.dart","
+  1 |
+  2 |
+  3 |
+  4 |
+  5 | {
+> 6 | code(password) + utf8.encode(salt));
+  7 |
+  8 |
+    ^ Col 37
+",dart.dart_salt_is_hardcoded
 F338,lines,namespace/skims/test/data/lib_root/f338/go_salt_is_hardcoded.go,16,749,skims,338. Insecure service configuration - Salt,"The salt is a string that is hardcoded into the function. Every time the function is run, the same salt will be used, which could be a security issue if an attacker were to discover the salt.
  in namespace/skims/test/data/lib_root/f338/go_salt_is_hardcoded.go","
    1 | package main
