@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -15,11 +18,6 @@ from sast.query import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    Optional,
-    Set,
-)
 from utils import (
     graph as g,
 )
@@ -32,9 +30,7 @@ def is_in_path(graph: Graph, method_id: NId, class_id: NId) -> bool:
     return False
 
 
-def get_action_filter(
-    graph: Graph, n_id: NId, filter_name: str
-) -> Optional[NId]:
+def get_action_filter(graph: Graph, n_id: NId, filter_name: str) -> NId | None:
     if attr_list_ids := g.match_ast_group_d(graph, n_id, "AttributeList"):
         for attr_id in attr_list_ids:
             if f_node := g.adj_ast(graph, attr_id)[0]:
@@ -45,8 +41,8 @@ def get_action_filter(
     return None
 
 
-def get_vuln_nodes(graph: Graph) -> Set[NId]:
-    vuln_nodes: Set[NId] = set()
+def get_vuln_nodes(graph: Graph) -> set[NId]:
+    vuln_nodes: set[NId] = set()
     for c_id in g.matching_nodes(graph, label_type="Class"):
 
         if not get_action_filter(graph, c_id, "SecurityCritical"):
@@ -69,7 +65,7 @@ def conflicting_annotations(
 ) -> Vulnerabilities:
     c_sharp = GraphLanguage.CSHARP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

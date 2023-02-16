@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_argument,
     get_attribute,
@@ -17,15 +20,9 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
-def _azure_app_service_logging_disabled(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _azure_app_service_logging_disabled(graph: Graph, nid: NId) -> NId | None:
     if logs := get_argument(graph, nid, "logs"):
         fail_key, fail_val, _ = get_attribute(
             graph, logs, "failed_request_tracing_enabled"
@@ -44,7 +41,7 @@ def _azure_app_service_logging_disabled(
 
 def _azure_sql_server_audit_log_retention(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     if logs := get_argument(graph, nid, "extended_auditing_policy"):
         ret_key, ret_val, attr_id = get_attribute(
             graph, logs, "retention_in_days"
@@ -58,7 +55,7 @@ def _azure_sql_server_audit_log_retention(
     return None
 
 
-def _azure_storage_logging_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_storage_logging_disabled(graph: Graph, nid: NId) -> NId | None:
     if queue := get_argument(graph, nid, "queue_properties"):
         if logging := get_argument(graph, queue, "logging"):
             attrs = [
@@ -84,7 +81,7 @@ def tfm_azure_storage_logging_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_STORAGE_LOG_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -107,7 +104,7 @@ def tfm_azure_sql_server_audit_log_retention(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_SQL_LOG_RETENT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -130,7 +127,7 @@ def tfm_azure_app_service_logging_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_APP_LOG_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

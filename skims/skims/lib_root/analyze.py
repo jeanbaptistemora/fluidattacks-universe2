@@ -127,10 +127,6 @@ from sast.parse import (
 from state.ephemeral import (
     EphemeralStore,
 )
-from typing import (
-    Dict,
-    Tuple,
-)
 
 QUERIES: graph_model.Queries = (
     *f001.QUERIES,
@@ -231,18 +227,18 @@ QUERIES: graph_model.Queries = (
 
 
 def _store_results_callback(
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
     future: Future,
 ) -> None:
     with suppress(Exception):
-        results: Tuple[Vulnerability, ...] = future.result()
+        results: tuple[Vulnerability, ...] = future.result()
         for result in results:
             stores[result.finding].store(result)
 
 
 def analyze(
     *,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
     paths: Paths,
 ) -> None:
     queries: graph_model.Queries = tuple(

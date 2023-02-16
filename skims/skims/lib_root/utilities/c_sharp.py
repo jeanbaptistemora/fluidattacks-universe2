@@ -1,12 +1,13 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from model.graph_model import (
     Graph,
     NId,
 )
 from typing import (
     Any,
-    Iterator,
-    Optional,
-    Set,
 )
 from utils import (
     graph as g,
@@ -29,7 +30,7 @@ def yield_syntax_graph_object_creation(
             yield nid
 
 
-def get_first_member_syntax_graph(graph: Graph, n_id: str) -> Optional[str]:
+def get_first_member_syntax_graph(graph: Graph, n_id: str) -> str | None:
     member: Any = g.match_ast(graph, n_id, "MemberAccess")
     if member.get("MemberAccess") == "None":
         return n_id

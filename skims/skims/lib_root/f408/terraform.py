@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     iterate_resource,
 )
@@ -15,18 +18,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _api_gateway_access_logging_disabled(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _api_gateway_access_logging_disabled(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "access_log_settings"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Object"):
@@ -43,7 +40,7 @@ def tfm_api_gateway_access_logging_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_API_GATEWAY_LOGGING_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

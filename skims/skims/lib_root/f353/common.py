@@ -7,13 +7,10 @@ from model.graph_model import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 
 
-def insecure_jwt_decode(graph: Graph) -> List[str]:
-    vuln_nodes: List[str] = []
+def insecure_jwt_decode(graph: Graph) -> list[str]:
+    vuln_nodes: list[str] = []
     for n_id in yield_syntax_graph_member_access(graph, {"decode"}):
         if graph.nodes[n_id].get("member") == "jwt" and not any(
             graph.nodes[n_path]["label_type"] == "MethodInvocation"

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,18 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _azure_kv_secret_no_expiration_date(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _azure_kv_secret_no_expiration_date(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "expiration_date"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -44,7 +41,7 @@ def tfm_azure_kv_secret_no_expiration_date(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_KV_SECRET_NO_EXPIRATION
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

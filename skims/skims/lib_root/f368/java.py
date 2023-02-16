@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -23,11 +26,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    List,
-    Tuple,
-)
 from utils import (
     graph as g,
 )
@@ -47,10 +45,10 @@ def is_object_vuln(
 
 def is_config_vuln(
     graph: Graph,
-    config_ids: Tuple[NId, ...],
+    config_ids: tuple[NId, ...],
 ) -> bool:
     method = MethodsEnum.JAVA_HOST_KEY_CHECKING
-    conditions: List[str] = []
+    conditions: list[str] = []
     for n_id in config_ids:
         for path in get_backward_paths(graph, n_id):
             evaluation = evaluate(method, graph, path, n_id)
@@ -64,7 +62,7 @@ def is_config_vuln(
 
 def is_session_vuln(
     graph: Graph,
-    session_args: Tuple[NId, ...],
+    session_args: tuple[NId, ...],
 ) -> bool:
     if len(session_args) == 1 and is_object_vuln(graph, session_args[0]):
         return True
@@ -79,7 +77,7 @@ def host_key_checking(
     java = GraphLanguage.JAVA
     danger_methods = {"setConfig"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(java):
             if shard.syntax_graph is None:
                 continue

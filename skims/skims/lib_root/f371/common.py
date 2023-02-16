@@ -5,23 +5,20 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
-def has_innerhtml(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_innerhtml(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for nid in yield_syntax_graph_member_access(graph, {"innerHTML"}):
         vuln_nodes.append(nid)
     return vuln_nodes
 
 
-def has_bypass_sec(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_bypass_sec(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     risky_methods = {
         "bypassSecurityTrustHtml",
         "bypassSecurityTrustScript",
@@ -37,8 +34,8 @@ def has_bypass_sec(graph: Graph) -> List[NId]:
     return vuln_nodes
 
 
-def has_set_inner_html(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_set_inner_html(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for nid in g.matching_nodes(graph, label_type="JsxElement"):
         ast_childs = g.match_ast(graph, nid, "VariableDeclaration")
         child = ast_childs.get("VariableDeclaration")

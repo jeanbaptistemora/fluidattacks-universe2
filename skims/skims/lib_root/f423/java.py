@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
@@ -12,9 +15,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -43,7 +43,7 @@ def uses_exit_method(
         "Runtime.getRuntime.halt",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):

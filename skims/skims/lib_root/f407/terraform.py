@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,16 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _aws_ebs_volumes_unencrypted(graph: Graph, nid: NId) -> Optional[NId]:
+def _aws_ebs_volumes_unencrypted(graph: Graph, nid: NId) -> NId | None:
     expected_block = "root_block_device"
     expected_block_attr = "encrypted"
     has_block = False
@@ -51,7 +50,7 @@ def tfm_aws_ebs_volumes_unencrypted(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AWS_EBS_VOLUMES_UNENCRYPTED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

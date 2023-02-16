@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -14,9 +17,6 @@ from symbolic_eval.utils import (
     get_object_identifiers,
     get_value_member_access,
 )
-from typing import (
-    Iterable,
-)
 
 
 def disabled_http_header_check(
@@ -26,7 +26,7 @@ def disabled_http_header_check(
     c_sharp = GraphLanguage.CSHARP
     http_obj = {"HttpRuntimeSection"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

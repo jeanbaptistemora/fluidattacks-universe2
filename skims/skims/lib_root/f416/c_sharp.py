@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -20,9 +23,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 from utils import (
     graph as g,
@@ -49,7 +49,7 @@ def xaml_injection(
         "System", "Windows", "Markup", "XamlReader", "Load"
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

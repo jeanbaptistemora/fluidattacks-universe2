@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,16 +19,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "monitoring"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -39,9 +38,7 @@ def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _distribution_has_logging_disabled(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _distribution_has_logging_disabled(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "logging_config"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Object"):
@@ -53,7 +50,7 @@ def _distribution_has_logging_disabled(
     return None
 
 
-def _trails_not_multiregion(graph: Graph, nid: NId) -> Optional[NId]:
+def _trails_not_multiregion(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "is_multi_region_trail"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -67,7 +64,7 @@ def _trails_not_multiregion(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _elb_logging_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+def _elb_logging_disabled(graph: Graph, nid: NId) -> NId | None:
     expected_block = "access_logs"
     expected_block_attr = "enabled"
     has_block = False
@@ -84,7 +81,7 @@ def _elb_logging_disabled(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _lambda_tracing_disabled(graph: Graph, nid: NId) -> Optional[NId]:
+def _lambda_tracing_disabled(graph: Graph, nid: NId) -> NId | None:
     expected_block = "tracing_config"
     expected_block_attr = "mode"
     has_block = False
@@ -105,7 +102,7 @@ def tfm_lambda_tracing_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_LAMBDA_TRACING_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -128,7 +125,7 @@ def tfm_elb_logging_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_ELB_LOGGING_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -151,7 +148,7 @@ def tfm_trails_not_multiregion(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_TRAILS_NOT_MULTIREGION
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -174,7 +171,7 @@ def tfm_distribution_has_logging_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_CF_DISTR_LOG_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -197,7 +194,7 @@ def tfm_ec2_monitoring_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_EC2_MONITORING_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

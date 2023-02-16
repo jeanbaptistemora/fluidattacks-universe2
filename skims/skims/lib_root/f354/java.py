@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -17,10 +20,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
     get_forward_paths,
-)
-from typing import (
-    Iterable,
-    List,
 )
 from utils import (
     graph as g,
@@ -53,9 +52,9 @@ def no_size_limit(graph: Graph, parent: str, var_name: str) -> bool:
     return True
 
 
-def get_vuln_nodes(graph: Graph) -> List[str]:
+def get_vuln_nodes(graph: Graph) -> list[str]:
     danger_objs = {"CommonsMultipartResolver", "MultipartConfigFactory"}
-    vuln_nodes: List[str] = []
+    vuln_nodes: list[str] = []
     for n_id in g.matching_nodes(graph, label_type="ObjectCreation"):
         n_name = graph.nodes[n_id].get("name")
 
@@ -70,7 +69,7 @@ def get_vuln_nodes(graph: Graph) -> List[str]:
 def insecure_file_upload_size(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
 
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVA,

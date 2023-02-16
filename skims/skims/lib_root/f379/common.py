@@ -1,13 +1,11 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     Graph,
     NAttrs,
     NAttrsPredicateFunction,
     NId,
-)
-from typing import (
-    Iterable,
-    List,
-    Tuple,
 )
 from utils import (
     graph as g,
@@ -34,9 +32,9 @@ def filter_nodes(
     graph: Graph,
     nodes: Iterable[str],
     predicate: NAttrsPredicateFunction,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     bad_labels = ["comment", "string"]
-    result: Tuple[str, ...] = tuple(
+    result: tuple[str, ...] = tuple(
         n_id
         for n_id in nodes
         if predicate(graph.nodes[n_id])
@@ -45,7 +43,7 @@ def filter_nodes(
     return result
 
 
-def matching_nodes_custom(graph: Graph, value: str) -> Tuple[str, ...]:
+def matching_nodes_custom(graph: Graph, value: str) -> tuple[str, ...]:
     return filter_nodes(graph, graph.nodes, pred_has_labels(value))
 
 
@@ -55,7 +53,7 @@ def is_import_used(
 ) -> bool:
     if identifier == "React":
         return True
-    vuln_nodes: List[NId] = []
+    vuln_nodes: list[NId] = []
 
     for nid_tuple in matching_nodes_custom(graph, value=identifier):
         vuln_nodes.append(nid_tuple)
@@ -65,9 +63,9 @@ def is_import_used(
 
 
 def simple_import(
-    graph: Graph, identifier_nodes: Tuple[NId, ...]
-) -> List[NId]:
-    vuln_nodes: List[NId] = []
+    graph: Graph, identifier_nodes: tuple[NId, ...]
+) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for nid in identifier_nodes:
         name = graph.nodes[nid]["label_text"]
         if not is_import_used(graph, name):
@@ -75,8 +73,8 @@ def simple_import(
     return vuln_nodes
 
 
-def named_imports(graph: Graph, specifier_nodes: Tuple[NId, ...]) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def named_imports(graph: Graph, specifier_nodes: tuple[NId, ...]) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for nid in specifier_nodes:
         if alias := graph.nodes[nid].get("label_field_alias"):
             identifier = graph.nodes[alias]["label_text"]
@@ -88,8 +86,8 @@ def named_imports(graph: Graph, specifier_nodes: Tuple[NId, ...]) -> List[NId]:
     return vuln_nodes
 
 
-def import_is_not_used(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def import_is_not_used(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     for n_id in g.matching_nodes(graph, label_type="import_clause"):
         specifier = g.get_ast_childs(
             graph, n_id, depth=2, label_type="import_specifier"

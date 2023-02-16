@@ -1,11 +1,9 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     Graph,
     NId,
-)
-from typing import (
-    Iterable,
-    Optional,
-    Tuple,
 )
 from utils.graph import (
     match_ast,
@@ -13,9 +11,7 @@ from utils.graph import (
 )
 
 
-def concatenate_name(
-    graph: Graph, n_id: NId, name: Optional[str] = None
-) -> str:
+def concatenate_name(graph: Graph, n_id: NId, name: str | None = None) -> str:
     if name:
         prev_str = "." + name
     else:
@@ -39,7 +35,7 @@ def concatenate_name(
 
 def yield_method_invocation_syntax_graph(
     graph: Graph,
-) -> Iterable[Tuple[str, str]]:
+) -> Iterator[tuple[str, str]]:
     for n_id in matching_nodes(graph, label_type="MethodInvocation"):
         method_name = concatenate_name(graph, n_id)
         yield n_id, method_name

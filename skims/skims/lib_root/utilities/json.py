@@ -1,10 +1,9 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     Graph,
     NId,
-)
-from typing import (
-    List,
-    Tuple,
 )
 from utils import (
     graph as g,
@@ -14,7 +13,7 @@ from utils.graph import (
 )
 
 
-def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
+def get_key_value(graph: Graph, nid: NId) -> tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]
     value_id = graph.nodes[nid]["value_id"]
@@ -26,7 +25,7 @@ def get_key_value(graph: Graph, nid: NId) -> Tuple[str, str]:
     return key, value
 
 
-def is_parent(graph: Graph, nid: NId, parents: List[str]) -> bool:
+def is_parent(graph: Graph, nid: NId, parents: Iterable[str]) -> bool:
     last_nid = nid
     for correct_parent in parents:
         parent = g.search_pred_until_type(graph, last_nid, {"Pair"})

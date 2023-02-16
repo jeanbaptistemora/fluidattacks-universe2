@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -21,19 +24,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Iterator,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _azure_kv_only_accessible_over_https(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _azure_kv_only_accessible_over_https(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "https_only"
     has_attr = False
     for b_id in adj_ast(graph, nid, label_type="Pair"):
@@ -47,7 +43,7 @@ def _azure_kv_only_accessible_over_https(
     return None
 
 
-def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "enable_https_traffic_only"
     for b_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, b_id)
@@ -56,7 +52,7 @@ def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _elb2_uses_insecure_protocol(graph: Graph, nid: NId) -> Optional[NId]:
+def _elb2_uses_insecure_protocol(graph: Graph, nid: NId) -> NId | None:
     unsafe_protos = ("HTTP",)
     pro_key, pro_val, pro_id = get_attribute(graph, nid, "protocol")
     tar_key, tar_val, _ = get_attribute(graph, nid, "target_type")
@@ -69,7 +65,7 @@ def _elb2_uses_insecure_protocol(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _aws_sec_group_using_http(graph: Graph, nid: NId) -> Optional[NId]:
+def _aws_sec_group_using_http(graph: Graph, nid: NId) -> NId | None:
     if ingress := get_argument(graph, nid, "ingress"):
         prot_key, prot_val, prot_id = get_attribute(graph, ingress, "protocol")
         from_port_key, from_port_val, _ = get_attribute(
@@ -109,7 +105,7 @@ def tfm_serves_content_over_http(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_CONTENT_HTTP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -132,7 +128,7 @@ def tfm_aws_sec_group_using_http(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AWS_SEC_GROUP_USING_HTTP
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -155,7 +151,7 @@ def tfm_elb2_uses_insecure_protocol(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_ELB2_INSEC_PROTO
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -178,7 +174,7 @@ def tfm_azure_kv_only_accessible_over_https(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_KV_ONLY_ACCESS_HTTPS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -204,7 +200,7 @@ def tfm_azure_sa_insecure_transfer(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_SA_INSEC_TRANSFER
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_attribute,
     iterate_resource,
@@ -16,13 +19,9 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
-def _azure_key_vault_not_recoverable(graph: Graph, nid: NId) -> Optional[NId]:
+def _azure_key_vault_not_recoverable(graph: Graph, nid: NId) -> NId | None:
     soft_key, soft_val, _ = get_attribute(graph, nid, "soft_delete_enabled")
     pur_key, pur_val, _ = get_attribute(graph, nid, "purge_protection_enabled")
     if (
@@ -40,7 +39,7 @@ def tfm_azure_key_vault_not_recoverable(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_AZURE_KEY_VAULT_NOT_RECOVER
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

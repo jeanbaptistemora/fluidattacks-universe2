@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.terraform import (
     get_key_value,
     iterate_resource,
@@ -16,10 +19,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
@@ -27,7 +26,7 @@ from utils.graph import (
 
 def _kms_key_is_key_rotation_absent_or_disabled(
     graph: Graph, nid: NId
-) -> Optional[NId]:
+) -> NId | None:
     en_key_rot = "enable_key_rotation"
     key_spec = "customer_master_key_spec"
     has_attr = False
@@ -56,7 +55,7 @@ def tfm_kms_key_is_key_rotation_absent_or_disabled(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_KMS_KEY_ROTATION_DISABLED
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

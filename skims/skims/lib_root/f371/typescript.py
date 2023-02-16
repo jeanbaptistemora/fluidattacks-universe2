@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f371.common import (
     has_bypass_sec,
     has_innerhtml,
@@ -18,9 +21,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def uses_innerhtml(
@@ -28,7 +28,7 @@ def uses_innerhtml(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.TS_USES_INNERHTML
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -50,7 +50,7 @@ def ts_bypass_security_trust_url(
 ) -> core_model.Vulnerabilities:
     method = core_model.MethodsEnum.TS_USES_BYPASS_SECURITY_TRUST_URL
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -72,7 +72,7 @@ def ts_dangerously_set_innerhtml(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_USES_DANGEROUSLY_SET_HTML
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVASCRIPT,
         ):
