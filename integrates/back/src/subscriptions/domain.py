@@ -47,8 +47,10 @@ from newutils import (
     reports as reports_utils,
     subscriptions as subscriptions_utils,
 )
+from organization_access import (
+    domain as org_access,
+)
 from organizations import (
-    domain as orgs_domain,
     utils as orgs_utils,
 )
 from settings import (
@@ -84,7 +86,7 @@ async def can_subscribe(
             subject.lower(),
         )
     elif entity == SubscriptionEntity.ORGANIZATION:
-        success = await orgs_domain.has_access(
+        success = await org_access.has_access(
             loaders=loaders,
             email=email,
             organization_id=subject,

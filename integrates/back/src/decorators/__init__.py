@@ -55,8 +55,10 @@ from newutils import (
 from newutils.utils import (
     get_key_or_fallback,
 )
+from organization_access import (
+    domain as orgs_access,
+)
 from organizations import (
-    domain as orgs_domain,
     utils as orgs_utils,
 )
 from sessions import (
@@ -597,7 +599,7 @@ def require_organization_access(func: TVar) -> TVar:
                 authz.get_organization_level_role(
                     loaders, user_email, organization_id
                 ),
-                orgs_domain.has_access(loaders, organization_id, user_email),
+                orgs_access.has_access(loaders, organization_id, user_email),
             ]
         )
 

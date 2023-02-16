@@ -134,6 +134,9 @@ from newutils.validations import (
     validate_start_letter_deco,
     validate_symbols_deco,
 )
+from organization_access import (
+    domain as orgs_access,
+)
 from organizations import (
     utils as orgs_utils,
     validations as orgs_validations,
@@ -578,24 +581,6 @@ async def has_group(
         return False
 
 
-async def has_access(
-    loaders: Dataloaders, organization_id: str, email: str
-) -> bool:
-    if (
-        await authz.get_organization_level_role(
-            loaders, email, organization_id
-        )
-        == "admin"
-    ):
-        return True
-
-    if await loaders.organization_access.load(
-        OrganizationAccessRequest(organization_id=organization_id, email=email)
-    ):
-        return True
-    return False
-
-
 @validate_email_address_deco("email")
 @validate_role_fluid_reqs_deco("email", "role")
 async def invite_to_organization(
@@ -760,7 +745,7 @@ async def remove_access(
     organization_id: str, email: str, modified_by: str
 ) -> None:
     loaders: Dataloaders = get_new_context()
-    if not await has_access(loaders, organization_id, email):
+    if not await orgs_access.has_access(loaders, organization_id, email):
         raise StakeholderNotInOrganization()
 
     org_group_names = await get_group_names(loaders, organization_id)

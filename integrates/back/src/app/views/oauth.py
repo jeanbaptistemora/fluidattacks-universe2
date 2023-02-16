@@ -74,8 +74,8 @@ from oauth.github import (
 from oauth.gitlab import (
     get_refresh_token,
 )
-from organizations.domain import (
-    has_access,
+from organization_access import (
+    domain as orgs_access,
 )
 from organizations.utils import (
     get_organization,
@@ -123,7 +123,7 @@ async def _validate(
     enforcer = await get_organization_level_enforcer(loaders, email)
     if not enforcer(
         organization_id, "api_mutations_add_credentials_mutate"
-    ) or not await has_access(
+    ) or not await orgs_access.has_access(
         loaders=loaders,
         email=email,
         organization_id=organization_id,
@@ -297,7 +297,7 @@ async def oauth_github(request: Request) -> RedirectResponse:
         enforcer = await get_organization_level_enforcer(loaders, email)
         if not enforcer(
             organization_id, "api_mutations_add_credentials_mutate"
-        ) or not await has_access(
+        ) or not await orgs_access.has_access(
             loaders=loaders,
             email=email,
             organization_id=organization_id,

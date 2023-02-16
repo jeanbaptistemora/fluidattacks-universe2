@@ -23,6 +23,9 @@ from db_model.groups.types import (
 from group_access import (
     domain as group_access_domain,
 )
+from organization_access import (
+    domain as org_access,
+)
 from organizations import (
     domain as orgs_domain,
 )
@@ -67,7 +70,7 @@ async def test_add_group(populate: bool, email: str) -> None:
 
     org_group_names = await orgs_domain.get_group_names(loaders, org_id)
     assert group_name in org_group_names
-    assert await orgs_domain.has_access(loaders, org_id, email)
+    assert await org_access.has_access(loaders, org_id, email)
     # Admins are not granted access to the group
     group_users = await group_access_domain.get_group_stakeholders_emails(
         loaders, group_name

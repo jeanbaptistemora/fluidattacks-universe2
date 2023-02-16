@@ -17,8 +17,10 @@ from db_model.groups.types import (
 from db_model.portfolios.types import (
     PortfolioRequest,
 )
+from organization_access import (
+    domain as org_access,
+)
 from organizations import (
-    domain as orgs_domain,
     utils as orgs_utils,
 )
 from typing import (
@@ -64,7 +66,7 @@ async def has_access(loaders: Dataloaders, email: str, subject: str) -> bool:
         if portfolio is None:
             raise PortfolioNotFound()
 
-        organization_access = await orgs_domain.has_access(
+        organization_access = await org_access.has_access(
             loaders=loaders, email=email, organization_id=organization_id
         )
         group_access = await authz.get_group_level_roles(

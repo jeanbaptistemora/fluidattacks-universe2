@@ -36,8 +36,8 @@ from newutils import (
 from newutils.encodings import (
     safe_encode,
 )
-from organizations import (
-    domain as orgs_domain,
+from organization_access import (
+    domain as orgs_access,
 )
 import os
 from sessions import (
@@ -148,7 +148,7 @@ async def handle_authz_claims(
         ):
             raise PermissionError("Access denied")
     elif params.entity == "organization":
-        if not await orgs_domain.has_access(
+        if not await orgs_access.has_access(
             loaders=loaders,
             email=email,
             organization_id=subject,

@@ -147,6 +147,9 @@ from newutils.validations import (
 from notifications import (
     domain as notifications_domain,
 )
+from organization_access import (
+    domain as org_access,
+)
 from organizations import (
     domain as orgs_domain,
     utils as orgs_utils,
@@ -212,7 +215,7 @@ async def complete_register_for_group_invitation(
     )
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    if not await orgs_domain.has_access(loaders, organization_id, email):
+    if not await org_access.has_access(loaders, organization_id, email):
         coroutines.append(
             orgs_domain.add_stakeholder(
                 loaders=loaders,
@@ -345,7 +348,7 @@ async def add_group(
     organization = await orgs_utils.get_organization(
         loaders, organization_name
     )
-    if not await orgs_domain.has_access(loaders, organization.id, email):
+    if not await org_access.has_access(loaders, organization.id, email):
         raise StakeholderNotInOrganization(organization.id)
 
     if await exists(loaders, group_name):
@@ -1444,7 +1447,7 @@ async def remove_stakeholder(
     loaders = get_new_context()
     group: Group = await loaders.group.load(group_name)
     organization_id = group.organization_id
-    has_org_access = await orgs_domain.has_access(
+    has_org_access = await org_access.has_access(
         loaders, organization_id, email_to_revoke
     )
     stakeholder_groups_names = await get_groups_by_stakeholder(
