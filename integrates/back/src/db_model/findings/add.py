@@ -140,6 +140,7 @@ async def add(*, finding: Finding) -> None:  # pylint: disable=too-many-locals
         "requirements": finding.requirements,
         "title": finding.title,
         "threat": finding.threat,
+        "unfulfilled_requirements": finding.unfulfilled_requirements,
         "unreliable_indicators": format_unreliable_indicators_item(
             finding.unreliable_indicators
         ),

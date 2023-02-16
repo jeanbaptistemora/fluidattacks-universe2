@@ -185,6 +185,7 @@ class Finding(NamedTuple):
     sorts: FindingSorts = FindingSorts.NO
     submission: Optional[FindingState] = None
     threat: str = ""
+    unfulfilled_requirements: list[str] = []
     unreliable_indicators: FindingUnreliableIndicators = (
         FindingUnreliableIndicators()
     )

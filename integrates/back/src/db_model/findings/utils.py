@@ -155,6 +155,7 @@ def format_finding(item: Item) -> Finding:
         title=item["title"],
         threat=item["threat"],
         state=state,
+        unfulfilled_requirements=item.get("unfulfilled_requirements", []),
         unreliable_indicators=unreliable_indicators,
         verification=verification,
     )
