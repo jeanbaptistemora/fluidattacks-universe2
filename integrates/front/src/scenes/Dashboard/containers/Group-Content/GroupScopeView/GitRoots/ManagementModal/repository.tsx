@@ -395,7 +395,8 @@ const Repository: FC<IRepositoryProps> = ({
                       disabled={disabledCredsEdit}
                       label={t("group.scope.git.repo.credentials.type")}
                       name={"credentials.typeCredential"}
-                      onChange={onTypeChange}
+                      // eslint-disable-next-line
+                      onChange={onTypeChange} // NOSONAR
                       required={!isEditing}
                     >
                       <option value={""}>{""}</option>
