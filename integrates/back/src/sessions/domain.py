@@ -1,14 +1,24 @@
+from aioextensions import (
+    schedule,
+)
+from botocore.exceptions import (
+    ClientError,
+)
 import collections
 from context import (
     FI_JWT_ENCRYPTION_KEY,
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
 )
+from contextlib import (
+    suppress,
+)
 from custom_exceptions import (
     ExpiredToken,
     InvalidAuthorization,
     SecureAccessException,
     StakeholderNotFound,
+    UnavailabilityError,
 )
 from dataloaders import (
     Dataloaders,
@@ -40,6 +50,7 @@ from jwcrypto.jwt import (
 )
 import logging
 import logging.config
+import pytz
 from sessions import (
     function,
     utils as sessions_utils,
@@ -230,6 +241,41 @@ async def verify_session_token(content: Dict[str, Any], email: str) -> None:
         if stakeholder.session_token.jti != content["jti"]:
             raise ExpiredToken()
     else:
+        raise InvalidAuthorization()
+
+
+async def _has_valid_access_token(
+    loaders: Dataloaders, email: str, context: dict[str, str], jti: str
+) -> bool:
+    """Verify if has active access token and match."""
+    stakeholder = await loaders.stakeholder.load(email)
+    if not stakeholder:
+        return False
+    if context and stakeholder.access_token:
+        if sessions_utils.validate_hash_token(stakeholder.access_token, jti):
+            if email.endswith(
+                "@fluidattacks.com"
+            ) and email.lower().startswith("forces."):
+                return True
+            with suppress(UnavailabilityError, ClientError):
+                schedule(
+                    stakeholders_model.update_metadata(
+                        metadata=StakeholderMetadataToUpdate(
+                            last_api_token_use_date=(
+                                datetime.now(tz=pytz.timezone("UTC"))
+                            ),
+                        ),
+                        email=email,
+                    )
+                )
+            return True
+    return False
+
+
+async def verify_jti(
+    loaders: Dataloaders, email: str, context: Dict[str, str], jti: str
+) -> None:
+    if not await _has_valid_access_token(loaders, email, context, jti):
         raise InvalidAuthorization()
 
 

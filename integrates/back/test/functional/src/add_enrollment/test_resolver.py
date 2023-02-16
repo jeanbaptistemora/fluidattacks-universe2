@@ -5,9 +5,6 @@ from back.test.functional.src.utils import (
 from dataloaders import (
     get_new_context,
 )
-from enrollment import (
-    domain as enrollment_domain,
-)
 from freezegun import (
     freeze_time,
 )
@@ -17,6 +14,9 @@ from newutils import (
 import pytest
 from pytest_mock import (
     MockerFixture,
+)
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 from unittest import (
     mock,
@@ -30,7 +30,7 @@ async def test_should_add_enrollment(
     populate: bool, mocker: MockerFixture
 ) -> None:
     assert populate
-    mail_spy = mocker.spy(enrollment_domain, "mail_free_trial_start")
+    mail_spy = mocker.spy(stakeholders_domain, "mail_free_trial_start")
     query = """
         mutation AddEnrollment {
             addEnrollment {

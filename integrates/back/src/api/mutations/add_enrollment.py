@@ -12,9 +12,6 @@ from decorators import (
     require_corporate_email,
     require_login,
 )
-from enrollment import (
-    domain as enrollment_domain,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
@@ -24,6 +21,9 @@ from newutils import (
 )
 from sessions import (
     domain as sessions_domain,
+)
+from stakeholders import (
+    domain as stakeholders_domain,
 )
 from typing import (
     Any,
@@ -43,7 +43,7 @@ async def mutate(
     user_data = await sessions_domain.get_jwt_content(info.context)
     user_email = user_data["user_email"]
 
-    await enrollment_domain.add_enrollment(
+    await stakeholders_domain.add_enrollment(
         loaders=loaders,
         user_email=user_email,
         full_name=stakeholders_utils.get_full_name(user_data),

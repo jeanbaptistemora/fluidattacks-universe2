@@ -16,10 +16,13 @@ from custom_exceptions import (
     InvalidExpirationTime,
     InvalidField,
     InvalidFieldLength,
+    InvalidParameter,
+    OrganizationNotFound,
     RequiredNewPhoneNumber,
     RequiredVerificationCode,
     SamePhoneNumber,
     StakeholderNotFound,
+    UnableToSendMail,
     UnavailabilityError,
 )
 from dataloaders import (
@@ -33,6 +36,7 @@ from db_model import (
     findings as findings_model,
     stakeholders as stakeholders_model,
     subscriptions as subscriptions_model,
+    trials as trials_model,
     vulnerabilities as vulns_model,
 )
 from db_model.group_access.types import (
@@ -52,16 +56,30 @@ from db_model.stakeholders.types import (
     StakeholderState,
     StakeholderTours,
 )
+from db_model.trials.types import (
+    Trial,
+)
+from decorators import (
+    retry_on_exceptions,
+)
 from group_access import (
     domain as group_access_domain,
 )
 import logging
 import logging.config
+from mailchimp_transactional.api_client import (
+    ApiClientError,
+)
+from mailer.groups import (
+    send_mail_free_trial_start,
+)
 from newutils import (
+    analytics as analytics_utils,
     datetime as datetime_utils,
     logs as logs_utils,
 )
 from newutils.validations import (
+    is_fluid_staff,
     validate_alphanumeric_field_deco,
     validate_email_address_deco,
     validate_field_length_deco,
@@ -215,8 +233,8 @@ async def has_valid_access_token(
     """Verify if has active access token and match."""
     if not await exists(loaders, email):
         return False
-    stakeholder = await get_stakeholder(loaders, email)
-    if context and stakeholder.access_token:
+    stakeholder = await loaders.stakeholder.load(email)
+    if context and stakeholder and stakeholder.access_token:
         if sessions_utils.validate_hash_token(stakeholder.access_token, jti):
             if is_fluid_staff(email) and email.lower().startswith("forces."):
                 return True
@@ -233,10 +251,6 @@ async def has_valid_access_token(
                 )
             return True
     return False
-
-
-def is_fluid_staff(email: str) -> bool:
-    return email.endswith("@fluidattacks.com")
 
 
 async def register(email: str) -> None:
@@ -362,6 +376,63 @@ async def update_invited_stakeholder(
 async def update(*, email: str, metadata: StakeholderMetadataToUpdate) -> None:
     return await stakeholders_model.update_metadata(
         email=email, metadata=metadata
+    )
+
+
+mail_free_trial_start = retry_on_exceptions(
+    exceptions=(UnableToSendMail, ApiClientError),
+    max_attempts=4,
+    sleep_seconds=2,
+)(send_mail_free_trial_start)
+
+
+@validate_email_address_deco("user_email")
+async def add_enrollment(
+    *,
+    loaders: Dataloaders,
+    user_email: str,
+    full_name: str,
+) -> None:
+    if not user_email:
+        raise InvalidParameter()
+
+    await trials_model.add(
+        trial=Trial(
+            completed=False,
+            email=user_email,
+            extension_date=None,
+            extension_days=0,
+            start_date=datetime_utils.get_utc_now(),
+        )
+    )
+    await update(
+        email=user_email, metadata=StakeholderMetadataToUpdate(enrolled=True)
+    )
+
+    stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
+        user_email
+    )
+    organization = await loaders.organization.load(
+        stakeholder_orgs[0].organization_id
+    )
+    if not organization:
+        raise OrganizationNotFound()
+
+    group_names = await group_access_domain.get_stakeholder_groups_names(
+        loaders, user_email, True
+    )
+
+    schedule(
+        mail_free_trial_start(loaders, user_email, full_name, group_names[0])
+    )
+    # Fallback event
+    await analytics_utils.mixpanel_track(
+        user_email,
+        "AutoenrollSubmit",
+        group=group_names[0],
+        mp_country_code=organization.country,
+        organization=organization.name,
+        User=full_name,
     )
 
 
