@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f052.common import (
     insecure_create_cipher,
     insecure_ec_keypair,
@@ -19,9 +22,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def ts_insecure_create_cipher(
@@ -29,7 +29,7 @@ def ts_insecure_create_cipher(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_CREATE_CIPHER
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -53,7 +53,7 @@ def ts_insecure_hash(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_HASH
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT
         ):
@@ -77,7 +77,7 @@ def ts_insecure_encrypt(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_ENCRYPT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -100,7 +100,7 @@ def typescript_insecure_ecdh_key(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_ECDH_KEY
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -123,7 +123,7 @@ def typescript_insecure_rsa_keypair(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_RSA_KEYPAIR
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -146,7 +146,7 @@ def typescript_insecure_ec_keypair(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_INSECURE_EC_KEYPAIR
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.TYPESCRIPT,
         ):
@@ -169,7 +169,7 @@ def typescript_insecure_hash_library(
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_INSECURE_HASH_LIBRARY
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVASCRIPT,
         ):

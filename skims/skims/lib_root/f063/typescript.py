@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f063.common import (
     get_eval_danger,
     insecure_path_traversal,
@@ -17,9 +20,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def typescript_insecure_path_traversal(
@@ -27,7 +27,7 @@ def typescript_insecure_path_traversal(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_PATH_TRAVERSAL
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):
@@ -52,7 +52,7 @@ def zip_slip_injection(
     method = MethodsEnum.TS_ZIP_SLIP
     danger_methods = {"createWriteStream"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

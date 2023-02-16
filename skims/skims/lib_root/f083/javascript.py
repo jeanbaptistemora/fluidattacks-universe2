@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f083.common import (
     get_vuln_nodes,
 )
@@ -13,9 +16,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def xml_parser(
@@ -23,7 +23,7 @@ def xml_parser(
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_XML_PARSER
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVASCRIPT,
         ):

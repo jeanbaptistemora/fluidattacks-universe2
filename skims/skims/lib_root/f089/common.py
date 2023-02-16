@@ -2,18 +2,14 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    List,
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def json_parse_unval_data(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
-    danger_expressions: Set[str] = {
+def json_parse_unval_data(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
+    danger_expressions: set[str] = {
         "localStorage.getItem",
         "sessionStorage.getItem",
     }

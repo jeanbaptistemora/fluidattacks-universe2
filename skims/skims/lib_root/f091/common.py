@@ -14,9 +14,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -35,8 +32,8 @@ def is_logger_unsafe(graph: Graph, n_id: str, method: MethodsEnum) -> bool:
     return False
 
 
-def insecure_logging(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_logging(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_objects = {
         "console",
         "logger",

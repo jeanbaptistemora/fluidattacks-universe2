@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.json import (
     get_key_value,
 )
@@ -14,10 +17,6 @@ from model.graph_model import (
 )
 from sast.query import (
     get_vulnerabilities_from_n_ids,
-)
-from typing import (
-    Iterable,
-    Iterator,
 )
 from utils import (
     graph as g,
@@ -42,7 +41,7 @@ def allowed_hosts(
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_ALLOWED_HOSTS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JSON):
             if shard.syntax_graph is None:
                 continue
@@ -66,7 +65,7 @@ def disable_host_check(
 ) -> Vulnerabilities:
     method = MethodsEnum.JSON_DISABLE_HOST_CHECK
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JSON):
             if shard.syntax_graph is None:
                 continue

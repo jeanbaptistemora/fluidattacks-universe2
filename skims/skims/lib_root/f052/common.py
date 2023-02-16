@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from lib_root.utilities.javascript import (
     get_default_alias,
 )
@@ -14,11 +17,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    List,
-    Set,
-    Tuple,
-)
 from utils import (
     graph as g,
 )
@@ -27,7 +25,7 @@ from utils.string import (
 )
 
 
-def split_function_name(f_names: str) -> Tuple[str, str]:
+def split_function_name(f_names: str) -> tuple[str, str]:
     name_l = f_names.lower().split(".")
     if len(name_l) < 2:
         return "", name_l[-1]
@@ -66,8 +64,8 @@ def get_eval_triggers(
     return False
 
 
-def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     ciphers_methods = {
         "createdecipher",
         "createcipher",
@@ -89,8 +87,8 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_hash(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_methods = complete_attrs_on_set({"crypto.createHash"})
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -104,8 +102,8 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_encrypt(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_encrypt(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     crypto_methods = {"encrypt", "decrypt"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -120,8 +118,8 @@ def insecure_encrypt(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"createecdh"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -138,8 +136,8 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"rsa", "unsafemodulus"}
 
@@ -157,8 +155,8 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"ec", "unsafecurve"}
 
@@ -176,8 +174,8 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_hash_library(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_hash_library(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     if dangerous_name := get_default_alias(graph, "js-sha1"):
         for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
             method_expression = graph.nodes[n_id]["expression"]

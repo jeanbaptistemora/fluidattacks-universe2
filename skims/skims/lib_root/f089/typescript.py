@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.f089.common import (
     json_parse_unval_data,
 )
@@ -13,9 +16,6 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-)
 
 
 def json_parse_unvalidated_data(
@@ -23,7 +23,7 @@ def json_parse_unvalidated_data(
 ) -> Vulnerabilities:
     method = MethodsEnum.TS_JSON_PARSE_UNVALIDATED_DATA
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.TYPESCRIPT,
         ):

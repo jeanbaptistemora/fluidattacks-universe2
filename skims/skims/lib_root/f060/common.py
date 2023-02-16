@@ -2,16 +2,12 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    Dict,
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
-def _has_dangerous_literal(graph: Graph, args: Dict) -> bool:
+def _has_dangerous_literal(graph: Graph, args: dict) -> bool:
     sensitive_params = {'"*"'}
     if (
         len(args) == 2
@@ -23,8 +19,8 @@ def _has_dangerous_literal(graph: Graph, args: Dict) -> bool:
     return False
 
 
-def has_dangerous_param(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def has_dangerous_param(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     sensitive_methods = {"contentWindow.postMessage"}
 
     for member in g.matching_nodes(graph, label_type="MethodInvocation"):

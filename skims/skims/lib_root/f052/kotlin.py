@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -17,9 +20,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 import utils.graph as g
 from utils.string import (
@@ -64,7 +64,7 @@ def kotlin_insecure_hash(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -96,7 +96,7 @@ def kotlin_insecure_hash_instance(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -134,7 +134,7 @@ def kotlin_insecure_cipher(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -169,7 +169,7 @@ def kotlin_insecure_cipher_ssl(
         {"javax.net.ssl.SSLContext.getInstance"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -202,7 +202,7 @@ def kotlin_insecure_cipher_http(
     method = MethodsEnum.KT_INSECURE_CIPHER_HTTP
     danger_methods = {"tlsVersions"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -237,7 +237,7 @@ def kotlin_insecure_key_rsa(
         {"security.spec.RSAKeyGenParameterSpec"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue
@@ -272,7 +272,7 @@ def kotlin_insecure_key_ec(
         {"security.spec.ECGenParameterSpec"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.KOTLIN):
             if shard.syntax_graph is None:
                 continue

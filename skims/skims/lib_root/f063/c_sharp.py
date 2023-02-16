@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from lib_root.utilities.c_sharp import (
     yield_syntax_graph_member_access,
 )
@@ -24,10 +28,6 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    Set,
-)
 from utils import (
     graph as g,
 )
@@ -53,7 +53,7 @@ def open_redirect(
     c_sharp = GraphLanguage.CSHARP
     method = MethodsEnum.CS_OPEN_REDIRECT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -93,7 +93,7 @@ def unsafe_path_traversal(
     }
     danger_set = {"userconnection", "userparameters"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

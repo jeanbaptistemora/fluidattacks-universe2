@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.f070.common import (
     PREDEFINED_SSL_POLICY_VALUES,
     SAFE_SSL_POLICY_VALUES,
@@ -20,16 +23,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils.graph import (
     adj_ast,
 )
 
 
-def _lb_target_group_insecure_port(graph: Graph, nid: NId) -> Optional[NId]:
+def _lb_target_group_insecure_port(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "port"
     is_vuln = True
     for c_id in adj_ast(graph, nid, label_type="Pair"):
@@ -44,9 +43,7 @@ def _lb_target_group_insecure_port(graph: Graph, nid: NId) -> Optional[NId]:
     return None
 
 
-def _elb2_uses_insecure_security_policy(
-    graph: Graph, nid: NId
-) -> Optional[NId]:
+def _elb2_uses_insecure_security_policy(graph: Graph, nid: NId) -> NId | None:
     expected_attr = "ssl_policy"
     for c_id in adj_ast(graph, nid, label_type="Pair"):
         key, value = get_key_value(graph, c_id)
@@ -63,7 +60,7 @@ def tfm_lb_target_group_insecure_port(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_LB_TARGET_INSECURE_PORT
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue
@@ -86,7 +83,7 @@ def tfm_elb2_uses_insecure_security_policy(
 ) -> Vulnerabilities:
     method = MethodsEnum.TFM_ELB2_INSECURE_SEC_POLICY
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.HCL):
             if shard.syntax_graph is None:
                 continue

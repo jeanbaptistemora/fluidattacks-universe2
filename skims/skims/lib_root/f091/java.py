@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.java import (
     yield_method_invocation_syntax_graph,
 )
@@ -19,9 +22,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 
 
@@ -50,7 +50,7 @@ def insecure_logging(
     method = MethodsEnum.JAVA_INSECURE_LOGGING
     danger_methods = {"logger.info", "log.debug", "log.info"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):

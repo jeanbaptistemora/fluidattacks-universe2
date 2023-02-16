@@ -1,3 +1,7 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from itertools import (
     chain,
 )
@@ -26,13 +30,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
-    List,
-    Optional,
-    Set,
-    Tuple,
 )
 import utils.graph as g
 from utils.string import (
@@ -81,7 +78,7 @@ def is_insecure_keys(graph: Graph, n_id: str) -> bool:
 
 def get_crypto_var_names(
     graph: Graph,
-) -> List[NId]:
+) -> list[NId]:
     name_vars = []
     for var_id in g.matching_nodes(graph, label_type="VariableDeclaration"):
         node_var = graph.nodes[var_id]
@@ -92,9 +89,9 @@ def get_crypto_var_names(
 
 def get_mode_node(
     graph: Graph,
-    members: Tuple[str, ...],
+    members: tuple[str, ...],
     identifier: str,
-) -> Optional[NId]:
+) -> NId | None:
     test_node = None
     for member in members:
         if graph.nodes[member].get(identifier) == "Mode":
@@ -116,7 +113,7 @@ def is_rsa_insecure(graph: Graph, n_id: NId) -> bool:
     return False
 
 
-def is_managed_mode_insecure(graph: Graph, n_id: NId) -> Optional[NId]:
+def is_managed_mode_insecure(graph: Graph, n_id: NId) -> NId | None:
     method = MethodsEnum.CS_MANAGED_SECURE_MODE
 
     if g.match_ast_d(graph, n_id, "InitializerExpression"):
@@ -139,7 +136,7 @@ def c_sharp_insecure_keys(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_INSECURE_KEYS
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -164,7 +161,7 @@ def c_sharp_rsa_secure_mode(
 ) -> Vulnerabilities:
     method = MethodsEnum.CS_RSA_SECURE_MODE
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -200,7 +197,7 @@ def c_sharp_managed_secure_mode(
 ) -> Vulnerabilities:
     insecure_objects = {"AesManaged"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.CSHARP,
         ):
@@ -241,7 +238,7 @@ def c_sharp_insecure_cipher(
         "Blowfish",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -282,7 +279,7 @@ def c_sharp_insecure_hash(
         "SHA1Managed",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -308,7 +305,7 @@ def c_sharp_disabled_strong_crypto(
     c_sharp = GraphShardMetadataLanguage.CSHARP
     rules = {"Switch.System.Net.DontEnableSchUseStrongCrypto", "true"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue
@@ -346,7 +343,7 @@ def c_sharp_obsolete_key_derivation(
         "CryptDeriveKey",
     )
 
-    def n_ids() -> Iterable[MetadataGraphShardNode]:
+    def n_ids() -> Iterator[MetadataGraphShardNode]:
         metadata = {}
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:

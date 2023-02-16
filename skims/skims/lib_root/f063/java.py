@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -21,16 +24,12 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 from utils import (
     graph as g,
 )
 
 
-def has_cannonical_check(graph: Graph, symbol: str) -> Optional[NId]:
+def has_cannonical_check(graph: Graph, symbol: str) -> NId | None:
     for node in search_method_invocation_naive(graph, {"getCanonicalPath"}):
         if (
             graph.nodes[graph.nodes[node].get("object_id")].get("symbol")
@@ -71,7 +70,7 @@ def zip_slip_injection(
     method = MethodsEnum.JAVA_ZIP_SLIP_PATH_INJECTION
     read_entry = {"readFileToString"}
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphLanguage.JAVA,
         ):
@@ -104,7 +103,7 @@ def unsafe_path_traversal(
         "java.io.FileOutputStream",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(GraphLanguage.JAVA):
             if shard.syntax_graph is None:
                 continue

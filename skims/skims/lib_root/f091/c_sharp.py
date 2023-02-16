@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -21,16 +24,12 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
-from typing import (
-    Iterable,
-    List,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_insecure_vars(graph: Graph) -> List[str]:
+def get_insecure_vars(graph: Graph) -> list[str]:
     object_methods = {"GetLogger", "GetCurrentClassLogger"}
     object_names = {
         "FileLogger",
@@ -92,7 +91,7 @@ def insecure_logging(
         "Debug",
     }
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(c_sharp):
             if shard.syntax_graph is None:
                 continue

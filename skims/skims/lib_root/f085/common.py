@@ -1,3 +1,6 @@
+from collections.abc import (
+    Set,
+)
 from model.core_model import (
     MethodsEnum,
 )
@@ -11,10 +14,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    List,
-    Set,
 )
 from utils import (
     graph as g,
@@ -80,8 +79,8 @@ def is_insecure_storage(graph: Graph, nid: NId, method: MethodsEnum) -> bool:
     return False
 
 
-def client_storage(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def client_storage(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_names = {
         "localStorage.getItem",
         "localStorage.setItem",

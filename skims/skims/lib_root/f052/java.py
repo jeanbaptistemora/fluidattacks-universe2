@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_root.utilities.common import (
     search_method_invocation_naive,
 )
@@ -23,9 +26,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Iterable,
 )
 import utils.graph as g
 from utils.string import (
@@ -58,7 +58,7 @@ def java_insecure_pass(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -86,7 +86,7 @@ def java_insecure_key_rsa(
         {"java.security.spec.RSAKeyGenParameterSpec"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -120,7 +120,7 @@ def java_insecure_key_ec(
         {"java.security.spec.ECGenParameterSpec"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -154,7 +154,7 @@ def java_insecure_key_secret(
         {"javax.crypto.spec.SecretKeySpec"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -210,7 +210,7 @@ def java_insecure_hash(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -238,7 +238,7 @@ def java_insecure_hash_argument(
         {"java.security.MessageDigest.getInstance"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -275,7 +275,7 @@ def java_insecure_cipher(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -309,7 +309,7 @@ def java_insecure_cipher_ssl(
         {"javax.net.ssl.SSLContext.getInstance"}
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -345,7 +345,7 @@ def java_insecure_cipher_jmqi(
         }
     )
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
@@ -376,7 +376,7 @@ def java_insecure_connection(
 ) -> Vulnerabilities:
     method = MethodsEnum.JAVA_INSECURE_CONNECTION
 
-    def n_ids() -> Iterable[GraphShardNode]:
+    def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
             GraphShardMetadataLanguage.JAVA,
         ):
