@@ -18,6 +18,7 @@ from lib_root.f024.constants import (
     UNRESTRICTED_IPV6,
 )
 from lib_root.utilities.terraform import (
+    get_argument,
     get_attribute,
     get_key_value,
     iterate_resource,
@@ -100,6 +101,49 @@ def _aws_allows_anyone_to_admin_ports(graph: Graph, nid: NId) -> Iterator[NId]:
     if unrestricted_ip and ADMIN_PORTS.intersection(port_range):
         yield from_port_id
         yield to_port_id
+
+
+def _aux_ec2_has_unrestricted_ports(graph: Graph, nid: NId) -> Iterator[NId]:
+    from_port, from_port_val, _ = get_attribute(graph, nid, "from_port")
+    to_port, to_port_val, _ = get_attribute(graph, nid, "to_port")
+    if from_port and to_port and float(from_port_val) != float(to_port_val):
+        yield nid
+
+
+def _ec2_has_unrestricted_ports(graph: Graph, nid: NId) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_security_group":
+        if ingress := get_argument(graph, nid, "ingress"):
+            yield from _aux_ec2_has_unrestricted_ports(graph, ingress)
+        if egress := get_argument(graph, nid, "egress"):
+            yield from _aux_ec2_has_unrestricted_ports(graph, egress)
+    elif graph.nodes[nid]["name"] == "aws_security_group_rule":
+        yield from _aux_ec2_has_unrestricted_ports(graph, nid)
+
+
+def tfm_ec2_has_unrestricted_ports(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_EC2_UNRESTRICTED_PORTS
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_security_group"),
+                iterate_resource(graph, "aws_security_group_rule"),
+            ):
+                for report in _ec2_has_unrestricted_ports(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f024.ec2_has_unrestricted_ports",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_aws_allows_anyone_to_admin_ports(

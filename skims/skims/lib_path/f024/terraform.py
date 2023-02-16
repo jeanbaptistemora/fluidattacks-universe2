@@ -270,61 +270,6 @@ def _tfm_aws_ec2_unrestricted_cidrs_iterate_vulnerabilities(
                 yield ipv6
 
 
-def _ec2_unrestricted_ports_awsec2_vulnerabilities(
-    resource: Any,
-) -> Iterator[Any]:
-    if ingress_block := get_argument(
-        key="ingress",
-        body=resource.data,
-    ):
-        ingress_from_port = get_block_attribute(
-            block=ingress_block, key="from_port"
-        )
-        ingress_to_port = get_block_attribute(
-            block=ingress_block, key="to_port"
-        )
-        if (
-            ingress_from_port
-            and ingress_to_port
-            and validate_port_values(ingress_from_port, ingress_to_port)
-            and float(ingress_from_port.val) != float(ingress_to_port.val)
-        ):
-            yield ingress_block
-    if egress_block := get_argument(
-        key="egress",
-        body=resource.data,
-    ):
-        egress_from_port = get_block_attribute(
-            block=egress_block, key="from_port"
-        )
-        egress_to_port = get_block_attribute(block=egress_block, key="to_port")
-        if (
-            egress_from_port
-            and egress_to_port
-            and validate_port_values(egress_from_port, egress_to_port)
-            and float(egress_from_port.val) != float(egress_to_port.val)
-        ):
-            yield egress_block
-
-
-def _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
-    resource_iterator: Iterator[Any],
-) -> Iterator[Any]:
-    for resource in resource_iterator:
-        if isinstance(resource, AWSEC2):
-            yield from _ec2_unrestricted_ports_awsec2_vulnerabilities(resource)
-        elif isinstance(resource, AWSEC2Rule):
-            from_port_attr = get_attribute(body=resource.data, key="from_port")
-            to_port_attr = get_attribute(body=resource.data, key="to_port")
-            if (
-                from_port_attr
-                and to_port_attr
-                and validate_port_values(from_port_attr, to_port_attr)
-                and float(from_port_attr.val) != float(to_port_attr.val)
-            ):
-                yield resource
-
-
 def tfm_ec2_has_security_groups_ip_ranges_in_rfc1918(
     content: str,
     path: str,
@@ -452,23 +397,4 @@ def tfm_aws_ec2_unrestricted_cidrs(
         ),
         path=path,
         method=MethodsEnum.TFM_AWS_EC2_UNRESTRICTED_CIDRS,
-    )
-
-
-def tfm_ec2_has_unrestricted_ports(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f024.ec2_has_unrestricted_ports",
-        iterator=get_cloud_iterator(
-            _tfm_ec2_has_unrestricted_ports_iterate_vulnerabilities(
-                resource_iterator=chain(
-                    iter_aws_security_group(model=model),
-                    iter_aws_security_group_rule(model=model),
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_EC2_UNRESTRICTED_PORTS,
     )

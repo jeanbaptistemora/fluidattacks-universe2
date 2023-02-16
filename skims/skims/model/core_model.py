@@ -3109,7 +3109,7 @@ class MethodsEnum(Enum):
     TFM_EC2_UNRESTRICTED_PORTS = MethodInfo(
         file_name="terraform",
         name="tfm_ec2_has_unrestricted_ports",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F024,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
