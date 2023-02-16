@@ -83,11 +83,10 @@ The arguments are:
   between 0.0 (recommended) all the way up to 10.0 (optional).
 
 > **Note:** Strict mode customization like severity thresholds
-> and grace periods for new vulnerabilities
-> can also be set in the ARM organization's Policies tab.
-> In the case of `--breaking`,
-> the value passed to this CLI option takes
-> precedence over the value set in ARM.
+> and grace periods for new vulnerabilities can also be set in
+> the ARM organization's Policies tab.
+> In the case of `--breaking`, the value set in ARM, if set, takes
+> precedence over the value passed to this CLI option.
 
 [^1]: [Grace period policy](/machine/web/organization/policies#grace-period-where-newly-reported-vulnerabilities-wont-break-the-build)
 [^2]: [Minimum CVSS score policy](/machine/web/organization/policies#minimum-cvss-31-score-of-an-open-vulnerability-for-devsecops)
