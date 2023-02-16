@@ -1,6 +1,9 @@
 from collections import (
     defaultdict,
 )
+from dataloaders.requirements_file import (
+    RequirementsFileLoader,
+)
 from db_model.azure_repositories.get import (
     OrganizationRepositoriesCommitsLoader,
     OrganizationRepositoriesLoader,
@@ -213,6 +216,7 @@ class Dataloaders(NamedTuple):
     organization: OrganizationLoader
     organization_unreliable_indicators: OrganizationUnreliableIndicatorsLoader
     portfolio: PortfolioLoader
+    requirements_file: RequirementsFileLoader
     root: RootLoader
     root_machine_executions: RootMachineExecutionsLoader
     root_historic_cloning: RootHistoricCloningLoader
@@ -391,6 +395,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
             OrganizationUnreliableRepositoriesConnectionLoader()
         ),
         portfolio=portfolio_loader,
+        requirements_file=RequirementsFileLoader(),
         root=RootLoader(),
         root_historic_cloning=RootHistoricCloningLoader(),
         root_historic_states=RootHistoricStatesLoader(),
