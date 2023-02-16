@@ -54,7 +54,6 @@ async def mutate(
         disambiguation = validations_utils.validate_markdown(
             kwargs.get("disambiguation", "")
         )
-        validations_utils.validate_field_length(disambiguation, 10000)
         await groups_domain.update_metadata(
             group_name=group_name,
             metadata=GroupMetadataToUpdate(

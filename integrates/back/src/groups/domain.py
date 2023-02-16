@@ -1568,6 +1568,8 @@ def assign_metadata(
     )
 
 
+@validate_field_length_deco("metadata.context", limit=20000)
+@validate_field_length_deco("metadata.disambiguation", limit=10000)
 async def update_metadata(
     *,
     group_name: str,

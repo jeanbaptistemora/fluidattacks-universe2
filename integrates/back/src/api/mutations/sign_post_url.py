@@ -22,7 +22,6 @@ from newutils import (
     analytics,
     logs as logs_utils,
     resources as resources_utils,
-    validations as validations_utils,
 )
 from sessions import (
     domain as sessions_domain,
@@ -47,9 +46,8 @@ async def mutate(
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
 
-    validations_utils.validate_file_name(files_data[0]["file_name"])
     signed_url = await resources_utils.upload_file(
-        files_data[0]["file_name"], group_name
+        file_info=files_data[0]["file_name"], group_name=group_name
     )
 
     if signed_url:

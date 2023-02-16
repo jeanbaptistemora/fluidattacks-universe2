@@ -1,3 +1,6 @@
+from newutils import (
+    validations,
+)
 from s3 import (
     operations as s3_ops,
 )
@@ -15,6 +18,7 @@ async def download_file(file_info: str, group_name: str) -> str:
     )
 
 
+@validations.validate_file_name_deco("file_info")
 async def upload_file(
     file_info: str, group_name: str
 ) -> Dict[str, Dict[str, str]]:
