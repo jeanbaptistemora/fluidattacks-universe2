@@ -5,8 +5,9 @@ import { AttackedLinesField } from "./AttackedLinesField";
 import { CommentsField } from "./CommentsField";
 import type { IFormValues, IHandleEditionModalFormProps } from "./types";
 
+import { Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
-import { Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Col50 } from "styles/styledComponents";
 
 const HandleEditionModalForm: React.FC<IHandleEditionModalFormProps> = (
   props: IHandleEditionModalFormProps
