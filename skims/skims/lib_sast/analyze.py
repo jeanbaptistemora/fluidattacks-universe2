@@ -16,15 +16,12 @@ from model.core_model import (
 from state.ephemeral import (
     EphemeralStore,
 )
-from typing import (
-    Dict,
-)
 from utils.logs import (
     log_blocking,
 )
 
 
-def analyze(stores: Dict[FindingEnum, EphemeralStore]) -> None:
+def analyze(stores: dict[FindingEnum, EphemeralStore]) -> None:
     paths = Paths(CTX.config.path.include, CTX.config.path.exclude)
 
     log_blocking("info", "Files to be tested: %s", len(paths.ok_paths))

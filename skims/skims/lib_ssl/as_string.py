@@ -14,9 +14,6 @@ from serializers import (
     SNIPPETS_COLUMNS,
     SnippetViewport,
 )
-from typing import (
-    Dict,
-)
 
 
 def ssl_name2ssl_id(ssl_name: SSLVersionName) -> int:
@@ -294,7 +291,7 @@ class SnippetConstructorES(SnippetConstructor):
         return ssl_vulnerability.description
 
 
-SnippetConstructors: Dict[LocalesEnum, SnippetConstructor] = {
+SnippetConstructors: dict[LocalesEnum, SnippetConstructor] = {
     LocalesEnum.EN: SnippetConstructorEN(),
     LocalesEnum.ES: SnippetConstructorES(),
 }

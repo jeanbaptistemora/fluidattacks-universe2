@@ -31,10 +31,7 @@ from serializers import (
 )
 from typing import (
     Any,
-    List,
     NamedTuple,
-    Optional,
-    Union,
 )
 from vulnerabilities import (
     build_inputs_vuln,
@@ -54,18 +51,18 @@ class APKCheckCtx(NamedTuple):
 class Location(NamedTuple):
     description: str
     snippet: str
-    vuln_line: Optional[str] = None
+    vuln_line: str | None = None
 
 
 class Locations(NamedTuple):
-    locations: List[Location]
+    locations: list[Location]
 
     def append(
         self,
         desc: str,
         snippet: str,
-        vuln_line: Optional[str] = None,
-        **desc_kwargs: Union[LocalesEnum, Any],
+        vuln_line: str | None = None,
+        **desc_kwargs: LocalesEnum | Any,
     ) -> None:
         self.locations.append(
             Location(
@@ -154,7 +151,7 @@ def _get_caseless_attr(tag: bs4.Tag, key: str, default: str) -> str:
 
 
 def _apk_backups_enabled(
-    ctx: APKCheckCtx, kind: Optional[str] = None
+    ctx: APKCheckCtx, kind: str | None = None
 ) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -202,7 +199,7 @@ def _apk_backups_enabled(
 
 
 def _apk_debugging_enabled(
-    ctx: APKCheckCtx, kind: Optional[str] = None
+    ctx: APKCheckCtx, kind: str | None = None
 ) -> core_model.Vulnerabilities:
     locations: Locations = Locations([])
 
@@ -241,7 +238,7 @@ def _apk_debugging_enabled(
 
 
 def _apk_exported_cp(
-    ctx: APKCheckCtx, kind: Optional[str] = None
+    ctx: APKCheckCtx, kind: str | None = None
 ) -> core_model.Vulnerabilities:
     if ctx.apk_ctx.apk_manifest is None:
         return ()
@@ -303,9 +300,9 @@ def _apk_exported_cp(
 
 
 def get_apk_context(path: str) -> APKContext:
-    apk_obj: Optional[APK] = None
-    apk_manifest: Optional[BeautifulSoup] = None
-    analysis: Optional[Analysis] = None
+    apk_obj: APK | None = None
+    apk_manifest: BeautifulSoup | None = None
+    analysis: Analysis | None = None
     if path.endswith("AndroidManifest.xml"):
         # pylint: disable=c-extension-no-member
         apk_manifest_data = lxml.etree.parse(path)  # nosec

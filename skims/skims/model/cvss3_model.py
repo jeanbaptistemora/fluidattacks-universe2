@@ -6,7 +6,6 @@ from model.core_model import (
 )
 from typing import (
     Any,
-    Dict,
     NamedTuple,
 )
 from zone import (
@@ -96,7 +95,7 @@ class Score(NamedTuple):
     severity_scope: SeverityScope
     user_interaction: UserInteraction
 
-    def as_dict(self) -> Dict[str, Any]:
+    def as_dict(self) -> dict[str, Any]:
         return dict(
             attackComplexity=str(self.attack_complexity.value),
             attackVector=str(self.attack_vector.value),

@@ -3,6 +3,10 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from enum import (
     Enum,
 )
@@ -11,20 +15,14 @@ from model import (
 )
 import networkx as nx
 from typing import (
-    Callable,
-    Dict,
-    Iterable,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
-NAttrs = Dict[str, str]
+NAttrs = dict[str, str]
 NAttrsPredicateFunction = Callable[[NAttrs], bool]
 NId = str
 NIdPredicateFunction = Callable[[str], bool]
-GraphSyntax = Dict[str, str]
+GraphSyntax = dict[str, str]
 
 
 class Graph(nx.DiGraph):
@@ -58,7 +56,7 @@ class GraphShardCacheable(NamedTuple):
     graph: Graph
     metadata: GraphShardMetadata
     syntax: GraphSyntax
-    syntax_graph: Optional[Graph]
+    syntax_graph: Graph | None
 
 
 class GraphShard(NamedTuple):
@@ -66,14 +64,14 @@ class GraphShard(NamedTuple):
     metadata: GraphShardMetadata
     path: str
     syntax: GraphSyntax
-    syntax_graph: Optional[Graph]
+    syntax_graph: Graph | None
 
 
 class GraphDB(NamedTuple):
-    context: Dict[str, str]
-    shards: List[GraphShard]
-    shards_by_language_class: Dict[str, Dict[str, str]]
-    shards_by_path: Dict[str, int]
+    context: dict[str, str]
+    shards: list[GraphShard]
+    shards_by_language_class: dict[str, dict[str, str]]
+    shards_by_path: dict[str, int]
 
     def shards_by_path_f(self, path: str) -> GraphShard:
         return self.shards[self.shards_by_path[path]]
@@ -81,7 +79,7 @@ class GraphDB(NamedTuple):
     def shards_by_language(
         self,
         language: GraphShardMetadataLanguage,
-    ) -> List[GraphShard]:
+    ) -> list[GraphShard]:
         return [
             shard
             for shard in self.shards
@@ -89,10 +87,10 @@ class GraphDB(NamedTuple):
         ]
 
 
-MetadataGraphShardNode = Tuple[GraphShard, NId, Dict]
+MetadataGraphShardNode = tuple[GraphShard, NId, dict]
 MetadataGraphShardNodes = Iterable[MetadataGraphShardNode]
-GraphShardNode = Tuple[GraphShard, NId]
+GraphShardNode = tuple[GraphShard, NId]
 GraphShardNodes = Iterable[GraphShardNode]
 
 Query = Callable[[GraphDB], core_model.Vulnerabilities]
-Queries = Tuple[Tuple[core_model.FindingEnum, Query], ...]
+Queries = tuple[tuple[core_model.FindingEnum, Query], ...]

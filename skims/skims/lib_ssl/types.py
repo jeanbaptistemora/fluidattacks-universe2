@@ -14,11 +14,7 @@ from ssl import (
     TLSVersion,
 )
 from typing import (
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
 
@@ -108,24 +104,22 @@ class SSLAlert(NamedTuple):
 class SSLServerHandshake(NamedTuple):
     record: SSLHandshakeRecord
     version_id: SSLVersionId
-    cipher_suite: Optional[SSLSuiteInfo] = None
+    cipher_suite: SSLSuiteInfo | None = None
 
 
 class SSLServerResponse(NamedTuple):
     record: SSLRecord
     version_id: SSLVersionId
-    alert: Optional[SSLAlert] = None
-    handshake: Optional[SSLServerHandshake] = None
+    alert: SSLAlert | None = None
+    handshake: SSLServerHandshake | None = None
 
 
 class SSLContext(NamedTuple):
     host: str = "localhost"
     port: int = 443
-    tls_responses: Tuple[SSLServerResponse, ...] = ()
+    tls_responses: tuple[SSLServerResponse, ...] = ()
 
-    def get_tls_response(
-        self, v_id: SSLVersionId
-    ) -> Optional[SSLServerResponse]:
+    def get_tls_response(self, v_id: SSLVersionId) -> SSLServerResponse | None:
         for tls_response in self.tls_responses:
             if (
                 tls_response.handshake is not None
@@ -134,7 +128,7 @@ class SSLContext(NamedTuple):
                 return tls_response
         return None
 
-    def get_supported_tls_versions(self) -> Tuple[SSLVersionId, ...]:
+    def get_supported_tls_versions(self) -> tuple[SSLVersionId, ...]:
         return tuple(
             tls_response.handshake.version_id
             for tls_response in self.tls_responses
@@ -149,11 +143,11 @@ class SSLSettings(NamedTuple):
     context: SSLContext
     scsv: bool = False
     tls_version: SSLVersionId = SSLVersionId.sslv3_0
-    key_exchange_names: List[str] = ["ANY"]
-    authentication_names: List[str] = ["ANY"]
-    cipher_names: List[str] = ["ANY"]
-    hash_names: List[str] = ["ANY"]
-    intention: Dict[LocalesEnum, str] = {
+    key_exchange_names: list[str] = ["ANY"]
+    authentication_names: list[str] = ["ANY"]
+    cipher_names: list[str] = ["ANY"]
+    hash_names: list[str] = ["ANY"]
+    intention: dict[LocalesEnum, str] = {
         LocalesEnum.EN: "establish SSL/TLS connection",
         LocalesEnum.ES: "establecer conexión SSL/TLS",
     }
@@ -165,7 +159,7 @@ class SSLSettings(NamedTuple):
 class SSLVulnerability(NamedTuple):
     description: str
     ssl_settings: SSLSettings
-    server_response: Optional[SSLServerResponse]
+    server_response: SSLServerResponse | None
     method: MethodsEnum
 
     def get_context(self) -> SSLContext:

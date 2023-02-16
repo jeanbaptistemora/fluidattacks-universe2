@@ -1,13 +1,13 @@
 # pylint: disable=invalid-name, too-many-lines
+from collections.abc import (
+    Iterator,
+)
 from enum import (
     Enum,
     IntEnum,
 )
 from typing import (
-    Iterator,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
 
@@ -125,15 +125,15 @@ class SSLHash(Enum):
 class SSLSuiteInfo(NamedTuple):
     rfc: int
     iana_name: str
-    openssl_name: Optional[str]
-    gnutls_name: Optional[str]
-    code: Optional[Tuple[int, int]]
+    openssl_name: str | None
+    gnutls_name: str | None
+    code: tuple[int, int] | None
     key_exchange: SSLKeyExchange
     authentication: SSLAuthentication
     encryption: SSLEncryption
     ssl_hash: SSLHash
-    tls_versions: Tuple[SSLVersionId, ...]
-    vulnerabilities: Tuple[SSLSuiteVuln, ...]
+    tls_versions: tuple[SSLVersionId, ...]
+    vulnerabilities: tuple[SSLSuiteVuln, ...]
 
     def get_openssl_name(self) -> str:
         if not self.openssl_name:
@@ -6187,7 +6187,7 @@ def get_suite_by_openssl_name(name: str) -> SSLSuiteInfo:
     )
 
 
-def get_suite_by_code(code: Tuple[int, int]) -> SSLSuiteInfo:
+def get_suite_by_code(code: tuple[int, int]) -> SSLSuiteInfo:
     for normal_suite in SSLCipherSuite:
         if code == normal_suite.value.code:
             return normal_suite.value

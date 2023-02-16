@@ -8,12 +8,7 @@ from enum import (
     Enum,
 )
 from typing import (
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Set,
-    Tuple,
 )
 
 
@@ -105,7 +100,7 @@ class FindingMetadata(NamedTuple):
     execution_queue: ExecutionQueue
     impact: str
     recommendation: str
-    requirements: List[int]
+    requirements: list[int]
     threat: str
     title: str
 
@@ -117,7 +112,7 @@ class FindingMetadata(NamedTuple):
         cwe: int,
         execution_queue: ExecutionQueue,
         auto_approve: bool,
-        requirements: List[int],
+        requirements: list[int],
     ) -> FindingMetadata:
         return FindingMetadata(
             auto_approve=auto_approve,
@@ -1269,7 +1264,7 @@ class FindingEnum(Enum):
     )
 
 
-FINDING_ENUM_FROM_STR: Dict[str, FindingEnum] = {
+FINDING_ENUM_FROM_STR: dict[str, FindingEnum] = {
     __finding.name: __finding for __finding in FindingEnum
 }
 
@@ -1291,17 +1286,17 @@ class GrammarMatch(NamedTuple):
 
 
 class SkimsAPKConfig(NamedTuple):
-    exclude: Tuple[str, ...]
-    include: Tuple[str, ...]
+    exclude: tuple[str, ...]
+    include: tuple[str, ...]
 
 
 class SkimsHttpConfig(NamedTuple):
-    include: Tuple[str, ...]
+    include: tuple[str, ...]
 
 
 class SkimsPathConfig(NamedTuple):
-    exclude: Tuple[str, ...]
-    include: Tuple[str, ...]
+    exclude: tuple[str, ...]
+    include: tuple[str, ...]
     lib_path: bool
     lib_root: bool
 
@@ -1312,11 +1307,11 @@ class SkimsSslTarget(NamedTuple):
 
 
 class SkimsSslConfig(NamedTuple):
-    include: Tuple[SkimsSslTarget, ...]
+    include: tuple[SkimsSslTarget, ...]
 
 
 class SkimsDastConfig(NamedTuple):
-    aws_credentials: List[Optional[AwsCredentials]]
+    aws_credentials: list[AwsCredentials | None]
     http: SkimsHttpConfig
     ssl: SkimsSslConfig
 
@@ -1339,16 +1334,16 @@ class AwsCredentials(NamedTuple):
 class SkimsConfig(NamedTuple):
     path: SkimsPathConfig
     apk: SkimsAPKConfig
-    checks: Set[FindingEnum]
-    group: Optional[str]
+    checks: set[FindingEnum]
+    group: str | None
     language: LocalesEnum
     namespace: str
-    output: Optional[SkimsOutputConfig]
+    output: SkimsOutputConfig | None
     start_dir: str
     working_dir: str
-    dast: Optional[SkimsDastConfig]
-    execution_id: Optional[str]
-    commit: Optional[str]
+    dast: SkimsDastConfig | None
+    execution_id: str | None
+    commit: str | None
 
 
 class HTTPProperties(NamedTuple):
@@ -1357,9 +1352,9 @@ class HTTPProperties(NamedTuple):
 
 
 class SkimsVulnerabilityMetadata(NamedTuple):
-    cwe: Tuple[int, ...]
+    cwe: tuple[int, ...]
     description: str
-    http_properties: Optional[HTTPProperties]
+    http_properties: HTTPProperties | None
     snippet: str
     source_method: str
     developer: DeveloperEnum
@@ -1375,7 +1370,7 @@ class Vulnerability(NamedTuple):
     what: str
     where: str
 
-    stream: Optional[str] = "skims"
+    stream: str | None = "skims"
 
     @property
     def digest(self) -> int:
@@ -1409,7 +1404,7 @@ class Vulnerability(NamedTuple):
     @classmethod
     def what_from_integrates(
         cls, kind: VulnerabilityKindEnum, what_on_integrates: str
-    ) -> Tuple[str, str]:
+    ) -> tuple[str, str]:
         if kind in {
             VulnerabilityKindEnum.INPUTS,
             VulnerabilityKindEnum.PORTS,
@@ -1430,7 +1425,7 @@ class Vulnerability(NamedTuple):
         return namespace, what
 
 
-Vulnerabilities = Tuple[Vulnerability, ...]
+Vulnerabilities = tuple[Vulnerability, ...]
 
 
 class DeveloperEnum(Enum):

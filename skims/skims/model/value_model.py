@@ -2,14 +2,13 @@ from operator import (
     itemgetter,
 )
 from typing import (
-    Dict,
     NamedTuple,
 )
 import yaml
 
 
 class ValueToAdd(NamedTuple):
-    data: Dict[str, int]
+    data: dict[str, int]
 
     def add(self, element: str) -> None:
         self.data.setdefault(element, 0)

@@ -3,12 +3,11 @@ import androguard.core.bytecodes.apk
 import bs4
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class APKContext(NamedTuple):
-    analysis: Optional[androguard.core.analysis.analysis.Analysis]
-    apk_manifest: Optional[bs4.BeautifulSoup]
-    apk_obj: Optional[androguard.core.bytecodes.apk.APK]
+    analysis: androguard.core.analysis.analysis.Analysis | None
+    apk_manifest: bs4.BeautifulSoup | None
+    apk_obj: androguard.core.bytecodes.apk.APK | None
     path: str

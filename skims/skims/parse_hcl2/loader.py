@@ -17,7 +17,6 @@ from parse_hcl2.tokens import (
 )
 from typing import (
     Any,
-    List,
 )
 
 # Side effects
@@ -29,10 +28,10 @@ class HCL2Builder(lark.Transformer):
         self.transformer = DictTransformer()
         super().__init__()
 
-    def new_line_and_or_comma(self, args: List[Any]) -> lark.Discard:
+    def new_line_and_or_comma(self, args: list[Any]) -> lark.Discard:
         return self.transformer.new_line_and_or_comma(args)
 
-    def new_line_or_comment(self, args: List[Any]) -> lark.Discard:
+    def new_line_or_comment(self, args: list[Any]) -> lark.Discard:
         return self.transformer.new_line_or_comment(args)
 
 

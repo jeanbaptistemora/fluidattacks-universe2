@@ -2,14 +2,15 @@ from aws.iam.utils import (
     yield_statements_from_policy,
     yield_statements_from_policy_document,
 )
+from collections.abc import (
+    Iterator,
+)
 from metaloaders.model import (
     Node,
     Type,
 )
 from typing import (
     Any,
-    Iterator,
-    Tuple,
 )
 
 
@@ -17,7 +18,7 @@ def iterate_resources(
     template: Node,
     *expected_resource_kinds: str,
     exact: bool = False,
-) -> Iterator[Tuple[Node, Node, Node]]:
+) -> Iterator[tuple[Node, Node, Node]]:
     if not isinstance(template, Node):
         return
     if template.data_type != Type.OBJECT:

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lark import (
     Tree,
 )
@@ -7,25 +10,20 @@ from parse_hcl2.tokens import (
 )
 from typing import (
     Any,
-    Dict,
-    Iterator,
-    List,
-    Optional,
     TypeVar,
-    Union,
 )
 
 Tdefault_co = TypeVar("Tdefault_co", covariant=True)
 
 
-def get_block_attribute(block: Block, key: str) -> Optional[Attribute]:
+def get_block_attribute(block: Block, key: str) -> Attribute | None:
     for attribute in iterate_block_attributes(block):
         if attribute.key == key:
             return attribute
     return None
 
 
-def get_block_block(block: Block, namespace: str) -> Optional[Block]:
+def get_block_block(block: Block, namespace: str) -> Block | None:
     for nested_block in iterate_block_blocks(block):
         if nested_block.namespace and nested_block.namespace[0] == namespace:
             return nested_block
@@ -40,7 +38,7 @@ def get_blocks_by_namespace(block: Block, namespace: str) -> Iterator[Block]:
 
 def get_attribute_by_block(
     block: Block, namespace: str, key: str
-) -> Optional[Attribute]:
+) -> Attribute | None:
     for nested_block in iterate_block_blocks(block):
         if nested_block.namespace and nested_block.namespace[0] == namespace:
             for attribute in iterate_block_attributes(nested_block):
@@ -52,7 +50,7 @@ def get_attribute_by_block(
 def iterate_resources(
     model: Any,
     expected_source: str,
-    *expected_kinds: Optional[str],
+    *expected_kinds: str | None,
 ) -> Iterator[Block]:
     if isinstance(model, Tree):
         for child in model.children:
@@ -87,8 +85,8 @@ def iterate_block_blocks(block: Block) -> Iterator[Block]:
 
 
 def get_argument(
-    body: List[Union[Attribute, Block]], key: str, default: Any = None
-) -> Union[Any, Block]:
+    body: list[Attribute | Block], key: str, default: Any = None
+) -> Any | Block:
     for item in body:
         if isinstance(item, Attribute):
             continue
@@ -98,10 +96,10 @@ def get_argument(
 
 
 def get_attribute(
-    body: List[Union[Attribute, Block]],
+    body: list[Attribute | Block],
     key: str,
-    default: Optional[Tdefault_co] = None,
-) -> Union[Optional[Tdefault_co], Attribute]:
+    default: Tdefault_co | None = None,
+) -> Tdefault_co | None | Attribute:
     for item in body:
         if isinstance(item, Block):
             continue
@@ -110,10 +108,29 @@ def get_attribute(
     return default
 
 
-def get_tree_value(tree: Tree) -> Union[str, Dict[str, str]]:
+def get_tree_value_object(tree: Tree) -> dict[str, str]:
+    value_as_dict: dict[str, str] = {}
+    value: dict[str, str]
+    if tree.data == "object":
+        for child in tree.children:
+            value = get_tree_value_object(child)
+            if isinstance(value, dict):
+                value_as_dict.update(value)
+    if tree.data == "object_elem":
+        children = tree.children
+        return {
+            children[0]: (
+                str(get_tree_value_object(children[1]))
+                if isinstance(children[1], Tree)
+                else children[1]
+            )
+        }
+    return value_as_dict
+
+
+def get_tree_value(tree: Tree) -> str:
     value_as_str: str = ""
-    value_as_dict: Dict[str, str] = {}
-    value: Union[str, Dict[str, str]]
+    value: str
     if tree.data == "get_attr_expr_term":
         for idx, child in enumerate(tree.children):
             value = get_tree_value(child)
@@ -124,24 +141,10 @@ def get_tree_value(tree: Tree) -> Union[str, Dict[str, str]]:
                     value_as_str = ".".join([value_as_str, value])
     if tree.data == "identifier":
         return tree.children[0]
-    if tree.data == "object":
-        for child in tree.children:
-            value = get_tree_value(child)
-            if isinstance(value, dict):
-                value_as_dict.update(value)
-    if tree.data == "object_elem":
-        children = tree.children
-        return {
-            children[0]: (
-                str(get_tree_value(children[1]))
-                if isinstance(children[1], Tree)
-                else children[1]
-            )
-        }
-    return value_as_str or value_as_dict
+    return value_as_str
 
 
-def get_attribute_value(body: List[Union[Attribute, Block]], key: str) -> Any:
+def get_attribute_value(body: list[Attribute | Block], key: str) -> Any:
     attr = get_attribute(body, key)
     if isinstance(attr, Attribute):
         value = attr.val

@@ -1,11 +1,6 @@
 from model.graph_model import (
     GraphShardMetadataLanguage as LanguagesEnum,
 )
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 from utils.fs import (
     decide_language,
     resolve_paths,
@@ -13,9 +8,9 @@ from utils.fs import (
 
 
 class Paths:
-    def __init__(self, include: Tuple[str, ...], exclude: Tuple[str, ...]):
-        self.paths_lang: Dict[str, LanguagesEnum] = {}
-        self.paths_by_lang: Dict[LanguagesEnum, List[str]] = {
+    def __init__(self, include: tuple[str, ...], exclude: tuple[str, ...]):
+        self.paths_lang: dict[str, LanguagesEnum] = {}
+        self.paths_by_lang: dict[LanguagesEnum, list[str]] = {
             lang: [] for lang in LanguagesEnum
         }
 
@@ -24,7 +19,7 @@ class Paths:
             exclude,
         )
 
-    def get_all(self) -> Tuple[str, ...]:
+    def get_all(self) -> tuple[str, ...]:
         return self.ok_paths + self.nu_paths + self.nv_paths
 
     def set_lang(self) -> None:

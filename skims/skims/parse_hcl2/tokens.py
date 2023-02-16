@@ -1,6 +1,5 @@
 from typing import (
     Any,
-    List,
     NamedTuple,
 )
 
@@ -18,8 +17,8 @@ Attribute = NamedTuple(
 Block = NamedTuple(
     "Block",
     [
-        ("namespace", List[Any]),
-        ("body", List[Any]),
+        ("namespace", list[Any]),
+        ("body", list[Any]),
         ("column", int),
         ("line", int),
     ],

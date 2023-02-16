@@ -1,4 +1,8 @@
 # pylint: disable=too-many-lines
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from ctx import (
     CTX,
 )
@@ -41,12 +45,6 @@ from model import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
 )
 from utils.sockets import (
     tcp_connect,
@@ -62,7 +60,7 @@ from zone import (
 
 def tls_connect(
     host: str, port: int, v_id: SSLVersionId
-) -> Optional[SSLServerResponse]:
+) -> SSLServerResponse | None:
     intention_en = "verify if server supports " + ssl_id2ssl_name(v_id)
     ssl_settings = SSLSettings(
         context=SSLContext(host=host, port=port),
@@ -86,7 +84,7 @@ def tls_connect(
 
 
 def _create_core_vulns(
-    ssl_vulnerabilities: List[SSLVulnerability],
+    ssl_vulnerabilities: Iterable[SSLVulnerability],
 ) -> core_model.Vulnerabilities:
     return tuple(
         build_inputs_vuln(
@@ -109,11 +107,9 @@ def _create_core_vulns(
 
 def _create_ssl_vuln(
     ssl_settings: SSLSettings,
-    server_response: Optional[SSLServerResponse],
+    server_response: SSLServerResponse | None,
     method: core_model.MethodsEnum,
-    check_kwargs: Optional[
-        Dict[str, Union[str, core_model.LocalesEnum, Any]]
-    ] = None,
+    check_kwargs: dict[str, str | core_model.LocalesEnum | Any] | None = None,
 ) -> SSLVulnerability:
     return SSLVulnerability(
         ssl_settings=ssl_settings,
@@ -127,12 +123,12 @@ def _create_ssl_vuln(
 
 
 def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuiteInfo] = list(get_suites_with_pfs())
+    suites: list[SSLSuiteInfo] = list(get_suites_with_pfs())
 
-    extensions: List[int] = get_ec_point_formats_ext()
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
 
     en_intention = (
@@ -151,7 +147,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         if v_id == SSLVersionId.tlsv1_3:
             continue
 
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -178,7 +174,7 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
             extensions=extensions,
         )
         sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
+        response: SSLServerResponse | None = parse_server_response(sock)
 
         if response is not None and response.alert is not None:
             ssl_vulnerabilities.append(
@@ -206,9 +202,9 @@ def _pfs_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
+    ssl_vulnerabilities: list[SSLVulnerability] = []
 
-    suites: List[SSLSuiteInfo] = [
+    suites: list[SSLSuiteInfo] = [
         SSLCipherSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA.value,
         SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA.value,
         SSLCipherSuite.DHE_RSA_WITH_AES_256_CBC_SHA.value,
@@ -315,7 +311,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         "y verificar si la conexión es aceptada por el servidor"
     )
 
-    intention: Dict[core_model.LocalesEnum, str] = {
+    intention: dict[core_model.LocalesEnum, str] = {
         core_model.LocalesEnum.EN: en_intention,
         core_model.LocalesEnum.ES: es_intention,
     }
@@ -335,7 +331,7 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         host=ctx.host,
     )
     sock.send(bytes(package))
-    response: Optional[SSLServerResponse] = parse_server_response(sock)
+    response: SSLServerResponse | None = parse_server_response(sock)
 
     if response is not None and response.handshake is not None:
         ssl_vulnerabilities.append(
@@ -355,8 +351,8 @@ def _sslv3_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     en_intention = (
         "Perform a TLSv1.0 request offering any cipher suite and check if\n"
@@ -388,8 +384,8 @@ def _tlsv1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     en_intention = (
         "Perform a TLSv1.1 request offering any cipher suite and check if\n"
@@ -421,8 +417,8 @@ def _tlsv1_1_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     if not tls_versions:
         return tuple()
@@ -464,14 +460,14 @@ def _tlsv1_2_or_higher_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 def _get_weak_enabled_suites_as_vuln(
     ctx: SSLContext,
     v_id: SSLVersionId,
-    cipher_suites: List[SSLSuiteInfo],
-    intention: Dict[core_model.LocalesEnum, str],
+    cipher_suites: Iterable[SSLSuiteInfo],
+    intention: dict[core_model.LocalesEnum, str],
     method: core_model.MethodsEnum,
-    cipher_names: List[str],
-    hash_names: List[str],
-    extensions: Optional[List[int]] = None,
-) -> List[SSLVulnerability]:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
+    cipher_names: Iterable[str],
+    hash_names: Iterable[str],
+    extensions: Iterable[int] | None = None,
+) -> list[SSLVulnerability]:
+    ssl_vulnerabilities: list[SSLVulnerability] = []
 
     for suite in cipher_suites:
         sock = tcp_connect(
@@ -491,7 +487,7 @@ def _get_weak_enabled_suites_as_vuln(
         )
 
         sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
+        response: SSLServerResponse | None = parse_server_response(sock)
 
         if (
             response is not None
@@ -504,8 +500,8 @@ def _get_weak_enabled_suites_as_vuln(
                     ssl_settings=SSLSettings(
                         context=ctx,
                         tls_version=v_id,
-                        cipher_names=cipher_names,
-                        hash_names=hash_names,
+                        cipher_names=list(cipher_names),
+                        hash_names=list(hash_names),
                         intention=intention,
                     ),
                     server_response=response,
@@ -523,10 +519,10 @@ def _get_weak_enabled_suites_as_vuln(
 
 
 def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-    suites: List[SSLSuiteInfo] = list(get_weak_suites())
-    cipher_names: List[str] = [
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    suites: list[SSLSuiteInfo] = list(get_weak_suites())
+    cipher_names: list[str] = [
         "NULL",
         "RC2",
         "RC4",
@@ -536,7 +532,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
         "SM4",
         "CBC",
     ]
-    hash_names: List[str] = [
+    hash_names: list[str] = [
         "SHA",
         "MD5",
         "SM3",
@@ -552,7 +548,7 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
     for v_id in tls_versions:
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -574,15 +570,15 @@ def _weak_ciphers_allowed(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
-    suites: List[SSLSuiteInfo] = list(get_suites_with_cbc())
-    extensions: List[int] = get_ec_point_formats_ext()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    suites: list[SSLSuiteInfo] = list(get_suites_with_cbc())
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
-    cipher_names: List[str] = [
+    cipher_names: list[str] = [
         "CBC",
     ]
-    hash_names: List[str] = [
+    hash_names: list[str] = [
         "ANY",
     ]
     en_intention = (
@@ -598,7 +594,7 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     for v_id in tls_versions:
         if v_id == SSLVersionId.tlsv1_3:
             continue
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -621,8 +617,8 @@ def _cbc_enabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
     if tls_versions:
         min_v_id: SSLVersionId = min(tls_versions)
     else:
@@ -631,7 +627,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if min_v_id == SSLVersionId.tlsv1_2 or len(tls_versions) < 2:
         return tuple()
 
-    suites: List[SSLSuiteInfo] = [
+    suites: list[SSLSuiteInfo] = [
         SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_GCM_SHA384.value,
         SSLCipherSuite.ECDHE_RSA_WITH_AES_256_GCM_SHA384.value,
         SSLCipherSuite.DHE_RSA_WITH_AES_256_GCM_SHA384.value,
@@ -674,7 +670,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         "el servidor acepta la conexión"
     )
 
-    intention: Dict[core_model.LocalesEnum, str] = {
+    intention: dict[core_model.LocalesEnum, str] = {
         core_model.LocalesEnum.EN: en_intention,
         core_model.LocalesEnum.ES: es_intention,
     }
@@ -688,7 +684,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
     if sock is None:
         return tuple()
 
-    extensions: List[int] = get_ec_point_formats_ext()
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
 
@@ -699,7 +695,7 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
         extensions=extensions,
     )
     sock.send(bytes(package))
-    response: Optional[SSLServerResponse] = parse_server_response(sock)
+    response: SSLServerResponse | None = parse_server_response(sock)
 
     if response is not None and response.handshake is not None:
         ssl_vulnerabilities.append(
@@ -719,8 +715,8 @@ def _fallback_scsv_disabled(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
     if SSLVersionId.tlsv1_3 not in tls_versions:
         return tuple()
@@ -764,10 +760,10 @@ def _tlsv1_3_downgrade(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuiteInfo] = [
+    suites: list[SSLSuiteInfo] = [
         SSLCipherSuite.ECDHE_RSA_WITH_AES_256_CBC_SHA.value,
         SSLCipherSuite.ECDHE_ECDSA_WITH_AES_256_CBC_SHA.value,
         SSLCipherSuite.SRP_SHA_DSS_WITH_AES_256_CBC_SHA.value,
@@ -821,7 +817,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLSpecialSuite.EMPTY_RENEGOTIATION_INFO_SCSV.value,
     ]
 
-    extensions: List[int] = get_ec_point_formats_ext()
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
@@ -838,7 +834,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
     for v_id in tls_versions:
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -865,7 +861,7 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             extensions=extensions,
         )
         sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
+        response: SSLServerResponse | None = parse_server_response(sock)
 
         if response is not None and response.handshake is not None:
             package = get_malicious_heartbeat(v_id, n_payload=16384)
@@ -895,10 +891,10 @@ def _heartbleed_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuiteInfo] = [
+    suites: list[SSLSuiteInfo] = [
         SSLSpecialSuite.RESERVED_SUITE_00_62.value,
         SSLSpecialSuite.RESERVED_SUITE_00_61.value,
         SSLSpecialSuite.RESERVED_SUITE_00_64.value,
@@ -911,7 +907,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLSpecialSuite.EMPTY_RENEGOTIATION_INFO_SCSV.value,
     ]
 
-    extensions: List[int] = get_ec_point_formats_ext()
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
@@ -925,7 +921,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
     for v_id in tls_versions:
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -950,7 +946,7 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             extensions=extensions,
         )
         sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
+        response: SSLServerResponse | None = parse_server_response(sock)
 
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
@@ -972,10 +968,10 @@ def _freak_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
 
 
 def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
-    ssl_vulnerabilities: List[SSLVulnerability] = []
-    tls_versions: Tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
+    ssl_vulnerabilities: list[SSLVulnerability] = []
+    tls_versions: tuple[SSLVersionId, ...] = ctx.get_supported_tls_versions()
 
-    suites: List[SSLSuiteInfo] = [
+    suites: list[SSLSuiteInfo] = [
         SSLCipherSuite.DHE_RSA_WITH_CHACHA20_POLY1305_SHA256.value,
         SSLCipherSuite.DHE_RSA_WITH_AES_256_GCM_SHA384.value,
         SSLCipherSuite.DHE_RSA_WITH_AES_128_GCM_SHA256.value,
@@ -988,7 +984,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
         SSLCipherSuite.DHE_RSA_WITH_3DES_EDE_CBC_SHA.value,
     ]
 
-    extensions: List[int] = get_ec_point_formats_ext()
+    extensions: list[int] = get_ec_point_formats_ext()
     extensions += get_elliptic_curves_ext()
     extensions += get_session_ticket_ext()
     extensions += get_heartbeat_ext()
@@ -1002,7 +998,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     )
 
     for v_id in tls_versions:
-        intention: Dict[core_model.LocalesEnum, str] = {
+        intention: dict[core_model.LocalesEnum, str] = {
             core_model.LocalesEnum.EN: (
                 en_intention.format(v_name=ssl_id2ssl_name(v_id))
             ),
@@ -1027,7 +1023,7 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
             extensions=extensions,
         )
         sock.send(bytes(package))
-        response: Optional[SSLServerResponse] = parse_server_response(sock)
+        response: SSLServerResponse | None = parse_server_response(sock)
 
         if response is not None and response.handshake is not None:
             ssl_vulnerabilities.append(
@@ -1049,9 +1045,9 @@ def _raccoon_possible(ctx: SSLContext) -> core_model.Vulnerabilities:
     return _create_core_vulns(ssl_vulnerabilities)
 
 
-CHECKS: Dict[
+CHECKS: dict[
     core_model.FindingEnum,
-    List[Callable[[SSLContext], core_model.Vulnerabilities]],
+    list[Callable[[SSLContext], core_model.Vulnerabilities]],
 ] = {
     core_model.FindingEnum.F052: [_weak_ciphers_allowed],
     core_model.FindingEnum.F094: [_cbc_enabled],

@@ -3,10 +3,11 @@ from collections import (
     UserList,
     UserString,
 )
+from collections.abc import (
+    Iterable,
+)
 from typing import (
     Any,
-    Iterable,
-    Union,
 )
 
 
@@ -25,7 +26,7 @@ class StringToken(UserString):
 class FloatToken(float):
     def __new__(  # type: ignore
         cls,
-        value: Union[float, str, int],
+        value: float | str | int,
         column: int,  # pylint: disable=unused-argument
         line: int,  # pylint: disable=unused-argument
     ) -> float:
@@ -33,7 +34,7 @@ class FloatToken(float):
 
     def __init__(
         self,
-        value: Union[float, str, int],
+        value: float | str | int,
         column: int,
         line: int,
     ):
@@ -45,7 +46,7 @@ class FloatToken(float):
 class IntToken(int):
     def __new__(  # type: ignore
         cls,
-        value: Union[float, str, int],
+        value: float | str | int,
         column: int,  # pylint: disable=unused-argument
         line: int,  # pylint: disable=unused-argument
     ) -> int:
@@ -53,7 +54,7 @@ class IntToken(int):
 
     def __init__(
         self,
-        value: Union[float, str, int],
+        value: float | str | int,
         column: int,
         line: int,
     ):

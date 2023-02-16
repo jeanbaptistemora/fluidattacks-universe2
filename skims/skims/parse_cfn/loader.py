@@ -6,6 +6,10 @@ from cfn_tools.yaml_loader import (
     multi_constructor,
     TAG_MAP,
 )
+from collections.abc import (
+    AsyncIterator,
+    Iterator,
+)
 from contextlib import (
     suppress,
 )
@@ -30,10 +34,6 @@ from parse_json import (
 )
 from typing import (
     Any,
-    AsyncIterator,
-    Iterator,
-    Type as TypeOf,
-    Union,
 )
 from utils.logs import (
     log_exception,
@@ -104,7 +104,7 @@ def load_as_yaml_without_line_number(content: str) -> Any:
 def load_as_yaml(
     content: str,
     *,
-    loader_cls: TypeOf[yaml.SafeLoader] = Loader,
+    loader_cls: type[yaml.SafeLoader] = Loader,
 ) -> Any:
     try:
         loader = loader_cls(content)
@@ -182,9 +182,7 @@ def load_as_json(content: str) -> Any:
     )
 
 
-async def load_templates(
-    content: str, fmt: str
-) -> Union[AsyncIterator[Node], None]:
+async def load_templates(content: str, fmt: str) -> AsyncIterator[Node] | None:
     try:
         templates: Node = await in_process(
             load_cfn,

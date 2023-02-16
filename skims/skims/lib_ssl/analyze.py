@@ -2,6 +2,9 @@ from aioextensions import (
     collect,
     CPU_CORES,
 )
+from collections.abc import (
+    Callable,
+)
 from contextlib import (
     suppress,
 )
@@ -26,11 +29,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
-    Set,
-    Tuple,
 )
 from utils.function import (
     shield,
@@ -39,10 +37,10 @@ from utils.logs import (
     log,
 )
 
-CHECKS: Tuple[
-    Dict[
+CHECKS: tuple[
+    dict[
         core_model.FindingEnum,
-        List[Callable[[Any], core_model.Vulnerabilities]],
+        list[Callable[[Any], core_model.Vulnerabilities]],
     ],
     ...,
 ] = (analyze_protocol.CHECKS,)
@@ -53,7 +51,7 @@ async def analyze_one(
     *,
     index: int,
     ssl_ctx: SSLContext,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
     count: int,
 ) -> None:
 
@@ -67,10 +65,10 @@ async def analyze_one(
                         stores[vulnerability.finding].store(vulnerability)
 
 
-async def get_ssl_contexts() -> Set[SSLContext]:
-    ssl_contexts: Set[SSLContext] = set()
+async def get_ssl_contexts() -> set[SSLContext]:
+    ssl_contexts: set[SSLContext] = set()
     for target in CTX.config.dast.ssl.include:
-        responses: List[SSLServerResponse] = []
+        responses: list[SSLServerResponse] = []
         for v_id in SSLVersionId:
             with suppress(Exception):
                 if v_id != SSLVersionId.sslv3_0 and (
@@ -95,7 +93,7 @@ async def get_ssl_contexts() -> Set[SSLContext]:
 
 async def analyze(
     *,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
 
     if not any(
@@ -103,7 +101,7 @@ async def analyze(
     ):
         return
 
-    unique_ssl_contexts: Set[SSLContext] = await get_ssl_contexts()
+    unique_ssl_contexts: set[SSLContext] = await get_ssl_contexts()
     count: int = len(unique_ssl_contexts)
 
     await collect(

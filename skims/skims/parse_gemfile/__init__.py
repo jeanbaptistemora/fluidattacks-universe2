@@ -1,14 +1,13 @@
+from collections.abc import (
+    Iterable,
+)
 from gemfileparser import (
     Dependency,
     GemfileParser,
 )
-from typing import (
-    List,
-    Tuple,
-)
 
 
-def format_requirements(requirements: List[str]) -> str:
+def format_requirements(requirements: list[str]) -> str:
     formatted: str = ""
     if len(requirements) == 0:
         return formatted
@@ -35,7 +34,7 @@ def format_requirements(requirements: List[str]) -> str:
 
 
 def match_dep_criteria(
-    column_list: List[str],
+    column_list: Iterable[str],
 ) -> Dependency:
     dep = Dependency()
     for column in column_list:
@@ -50,8 +49,8 @@ def match_dep_criteria(
     return dep
 
 
-def parse_line(in_line: str, gem_file: bool) -> Tuple[str, str]:
-    line: List[str] = []
+def parse_line(in_line: str, gem_file: bool) -> tuple[str, str]:
+    line: list[str] = []
     if gem_file:
         line = in_line.split(",")
     else:
@@ -59,7 +58,7 @@ def parse_line(in_line: str, gem_file: bool) -> Tuple[str, str]:
         if len(line) > 1 and (", " in line[1]):
             line = [line[0], *line[1].split(", ")]
 
-    column_list: List[str] = []
+    column_list: list[str] = []
     for column in line:
         stripped_column = (
             column.replace("'", "")
