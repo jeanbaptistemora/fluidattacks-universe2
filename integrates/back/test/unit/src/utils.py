@@ -10487,6 +10487,69 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '["test-vulns.yaml"]': None,
         '["unittesting-test-file.csv"]': None,
     },
+    "toe.inputs.domain.roots_domain.get_root": {
+        '["4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting"]': GitRoot(
+            cloning=GitRootCloning(
+                modified_date=datetime.fromisoformat(
+                    "2020-11-19T13:39:10+00:00"
+                ),
+                reason="root OK",
+                status=GitCloningStatus.OK,
+                commit="5b5c92105b5c92105b5c92105b5c92105b5c9210",
+                commit_date=datetime.fromisoformat(
+                    "2022-02-15T18:45:06+00:00"
+                ),
+            ),
+            created_by="jdoe@fluidattacks.com",
+            created_date=datetime.fromisoformat("2020-11-19T13:37:10+00:00"),
+            group_name="unittesting",
+            id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            organization_name="okada",
+            state=GitRootState(
+                branch="master",
+                environment="production",
+                includes_health_check=True,
+                modified_by="jdoe@fluidattacks.com",
+                modified_date=datetime.fromisoformat(
+                    "2020-11-19T13:37:10+00:00"
+                ),
+                nickname="universe",
+                status=RootStatus.ACTIVE,
+                url="https://gitlab.com/fluidattacks/universe",
+                credential_id=None,
+                environment_urls=[
+                    "https://app.fluidattacks.com",
+                    "https://test.com",
+                ],
+                gitignore=["bower_components/*", "node_modules/*"],
+                other=None,
+                reason=None,
+                use_vpn=False,
+            ),
+            type=RootType.GIT,
+            unreliable_indicators=RootUnreliableIndicators(
+                unreliable_code_languages=[],
+                unreliable_last_status_update=datetime.fromisoformat(
+                    "2020-11-19T13:37:10+00:00"
+                ),
+            ),
+        ),
+    },
+    "toe.inputs.domain.toe_inputs_model.add": {
+        '["unittesting", "https://test.com/test/new.aspx", "btnTest", '
+        '[true, "", "2021-02-12 05:00:00+00:00", "test@test.com", '
+        '"2021-02-12 05:00:00+00:00", "new@test.com", false, '
+        '"2000-01-01 05:00:00+00:00"]]': None,
+        '["unittesting", "https://test.com/test/new.aspx", "btnTest", '
+        '[true, "4039d098-ffc5-4984-8ed3-eb17bca98e19", '
+        '"2021-02-12 05:00:00+00:00", "test@test.com", '
+        '"2021-02-12 05:00:00+00:00", "new@test.com", false, '
+        '"2000-01-01 05:00:00+00:00"]]': None,
+    },
+    "toe.inputs.domain.validate_component": {
+        '["4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting", '
+        '"https://test.com/test/new.aspx"]': None,
+    },
     "vulnerabilities.domain.mask_vulnerability": {
         '["unittest@fluidattacks.com", "457497316"]': None,
     },
