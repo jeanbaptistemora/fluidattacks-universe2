@@ -49,7 +49,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
             pv={"0px"}
           >
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink hoverColor={"#bf0b1a"} href={"/about-us/"}>
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.about.title")}
                 </Text>
@@ -69,7 +69,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink hoverColor={"#bf0b1a"} href={"/partners/"}>
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.partners.title")}
                 </Text>
@@ -79,7 +79,7 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink hoverColor={"#bf0b1a"} href={"/careers/"}>
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.careers.title")}
                 </Text>

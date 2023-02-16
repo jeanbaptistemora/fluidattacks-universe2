@@ -49,7 +49,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
               pv={"0px"}
             >
               <Container>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+                <AirsLink hoverColor={"#bf0b1a"} href={"/blog/"}>
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.learn.blog.title")}
                   </Text>
@@ -57,7 +57,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                 <Text color={"#535365"} mb={3} size={"xs"}>
                   {translate.t("menu.resources.learn.blog.subtitle")}
                 </Text>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+                <AirsLink hoverColor={"#bf0b1a"} href={"/resources/"}>
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.learn.downloadables.title")}
                   </Text>
@@ -88,7 +88,11 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
             </Container>
             <Grid columns={width > 1200 ? 2 : 1} gap={"1rem"} ph={"0px"}>
               <Container>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+                <AirsLink
+                  decoration={"none"}
+                  hoverColor={"#bf0b1a"}
+                  href={"https://docs.fluidattacks.com/"}
+                >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.help.documentation.title")}
                   </Text>
@@ -98,7 +102,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                 </Text>
               </Container>
               <Container ph={width > 1200 ? 3 : 0}>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+                <AirsLink hoverColor={"#bf0b1a"} href={"/faq/"}>
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.help.faq.title")}
                   </Text>
