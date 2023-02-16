@@ -111,4 +111,31 @@ const GET_GROUP_VULNERABILITIES: DocumentNode = gql`
   }
 `;
 
-export { GET_FINDINGS, GET_GROUP_VULNERABILITIES, REQUEST_GROUP_REPORT };
+const GET_ROOTS: DocumentNode = gql`
+  query GetRoots($groupName: String!) {
+    group(groupName: $groupName) {
+      name
+      roots {
+        ... on GitRoot {
+          nickname
+          state
+        }
+        ... on IPRoot {
+          nickname
+          state
+        }
+        ... on URLRoot {
+          nickname
+          state
+        }
+      }
+    }
+  }
+`;
+
+export {
+  GET_FINDINGS,
+  GET_GROUP_VULNERABILITIES,
+  REQUEST_GROUP_REPORT,
+  GET_ROOTS,
+};

@@ -80,7 +80,13 @@ interface IVulnerabilitiesResume {
   wheres: string;
 }
 
+interface IRoot {
+  nickname: string;
+  state: "ACTIVE" | "INACTIVE";
+}
+
 export type {
+  IRoot,
   IGroupFindingsAttr,
   IGroupVulnerabilities,
   IFindingAttr,
