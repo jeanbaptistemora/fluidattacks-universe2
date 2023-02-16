@@ -3,7 +3,7 @@
   "ModelMetadata": {
     "Author": "development@fluidattacks.com",
     "DateCreated": "Feb 08, 2021, 10:37 AM",
-    "DateLastModified": "Feb 09, 2023, 09:47 AM",
+    "DateLastModified": "Feb 16, 2023, 02:08 PM",
     "Description": "",
     "AWSService": "Amazon DynamoDB",
     "Version": "3.0"
@@ -1061,6 +1061,10 @@
         {
           "AttributeName": "last_api_token_use_date",
           "AttributeType": "S"
+        },
+        {
+          "AttributeName": "unfulfilled_requirements",
+          "AttributeType": "L"
         }
       ],
       "TableFacets": [
@@ -30946,7 +30950,8 @@
             "unreliable_indicators",
             "creation",
             "approval",
-            "submission"
+            "submission",
+            "unfulfilled_requirements"
           ],
           "DataAccess": {
             "MySql": {}
