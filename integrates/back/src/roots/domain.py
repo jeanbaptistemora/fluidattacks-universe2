@@ -411,12 +411,11 @@ async def add_ip_root(
     ):
         raise RepeatedRoot()
 
-    nickname = kwargs["nickname"]
     loaders.group_roots.clear(group_name)
-    validation_utils.validate_sanitized_csv_input(nickname)
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+    nickname = _assign_nickname(
+        new_nickname=kwargs["nickname"],
+        nickname="",
+        roots=await loaders.group_roots.load(group_name),
     )
 
     modified_date = datetime_utils.get_utc_now()
@@ -906,10 +905,10 @@ async def update_ip_root(
     if nickname == root.state.nickname:
         return
 
-    validation_utils.validate_sanitized_csv_input(nickname)
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+    _assign_nickname(
+        new_nickname=nickname,
+        nickname="",
+        roots=await loaders.group_roots.load(group_name),
     )
     new_state: IPRootState = IPRootState(
         address=root.state.address,
@@ -956,10 +955,10 @@ async def update_url_root(
     if nickname == root.state.nickname:
         return
 
-    validation_utils.validate_sanitized_csv_input(nickname)
-    validations.validate_nickname(nickname)
-    validations.validate_nickname_is_unique(
-        nickname, await loaders.group_roots.load(group_name)
+    _assign_nickname(
+        new_nickname=nickname,
+        nickname="",
+        roots=await loaders.group_roots.load(group_name),
     )
     new_state: URLRootState = URLRootState(
         host=root.state.host,
@@ -1031,6 +1030,7 @@ async def send_mail_updated_root(
         )
 
 
+@validation_utils.validate_field_length_deco("message", 400)
 async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     loaders: Dataloaders,
     group_name: str,
@@ -1040,7 +1040,6 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     commit: Optional[str] = None,
     commit_date: Optional[datetime] = None,
 ) -> None:
-    validation_utils.validate_field_length(message, 400)
     root = await get_root(loaders, root_id, group_name)
     modified_date = datetime_utils.get_utc_now()
 
