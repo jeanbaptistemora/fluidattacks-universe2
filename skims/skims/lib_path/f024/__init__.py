@@ -3,7 +3,6 @@ from collections.abc import (
 )
 from lib_path.common import (
     EXTENSIONS_CLOUDFORMATION,
-    EXTENSIONS_TERRAFORM,
     SHIELD_BLOCKING,
 )
 from lib_path.f024.cloudformation import (
@@ -18,17 +17,11 @@ from lib_path.f024.cloudformation import (
     cfn_unrestricted_cidrs,
     cfn_unrestricted_ip_protocols,
 )
-from lib_path.f024.terraform import (
-    tfm_ec2_has_open_all_ports_to_the_public,
-)
 from model.core_model import (
     Vulnerabilities,
 )
 from parse_cfn.loader import (
     load_templates_blocking,
-)
-from parse_hcl2.loader import (
-    load_blocking as load_terraform,
 )
 from typing import (
     Any,
@@ -91,15 +84,6 @@ def run_cfn_ec2_has_unrestricted_ports(
 ) -> Vulnerabilities:
     return cfn_ec2_has_unrestricted_ports(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_ec2_has_open_all_ports_to_the_public(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_ec2_has_open_all_ports_to_the_public(
-        content=content, path=path, model=model
     )
 
 
@@ -172,16 +156,5 @@ def analyze(
                     )
                 ),
             )
-
-    if file_extension in EXTENSIONS_TERRAFORM:
-        content = content_generator()
-        model = load_terraform(stream=content, default=[])
-        results = (
-            *results,
-            *(
-                fun(content, path, model)
-                for fun in (run_tfm_ec2_has_open_all_ports_to_the_public,)
-            ),
-        )
 
     return results
