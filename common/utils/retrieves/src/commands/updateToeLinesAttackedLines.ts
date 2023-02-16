@@ -1,36 +1,60 @@
+/* eslint-disable prefer-destructuring */
 // eslint-disable-next-line import/no-unresolved
 import { window } from "vscode";
 
-import { UPDATE_TOE_LINES_ATTACKED } from "../queries";
-import { API_CLIENT } from "../utils/apollo";
+import { getGroupGitRootsSimple, markFileAsAttacked } from "../api/root";
+import { getRootInfoFromPath } from "../utils/file";
 
-const updateToeLinesAttackedLines = (item: {
-  comments: string;
-  filename: string;
-  groupName: string;
-  rootId: string;
-}): void => {
-  API_CLIENT.mutate({
-    mutation: UPDATE_TOE_LINES_ATTACKED,
-    variables: {
-      comments: item.comments,
-      fileName: item.filename,
-      groupName: item.groupName,
-      rootId: item.rootId,
-    },
-  })
-    .then((_result): void => {
-      if (
-        _result.data !== undefined &&
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        (_result.data.updateToeLinesAttackedLines.success as boolean)
-      ) {
-        void window.showInformationMessage("line has been updated");
+const updateToeLinesAttackedLines = async (
+  item:
+    | {
+        comments: string;
+        filename: string;
+        groupName: string;
+        rootId: string;
       }
-    })
-    .catch((error): void => {
-      void window.showErrorMessage(String(error));
-    });
+    | { path: string; schema: string }
+): Promise<void> => {
+  // eslint-disable-next-line fp/no-let, @typescript-eslint/init-declarations
+  let resultMutation;
+
+  if ("path" in item) {
+    const pathInfo = getRootInfoFromPath(item.path);
+    if (pathInfo === null) {
+      return;
+    }
+
+    const { fileRelativePath, groupName, nickname } = pathInfo;
+    const result = await getGroupGitRootsSimple(groupName);
+    const gitRoot = result.find((root): boolean => root.nickname === nickname);
+    if (gitRoot === undefined) {
+      return;
+    }
+
+    // eslint-disable-next-line fp/no-mutation
+    resultMutation = await markFileAsAttacked(
+      groupName,
+      gitRoot.id,
+      fileRelativePath,
+      ""
+    );
+  } else {
+    // eslint-disable-next-line fp/no-mutation
+    resultMutation = await markFileAsAttacked(
+      item.groupName,
+      item.rootId,
+      item.filename,
+      item.comments
+    );
+  }
+
+  if (resultMutation.success) {
+    void window.showInformationMessage("The file has been updated");
+  } else {
+    void window.showErrorMessage(
+      resultMutation.message ?? "Failed to update file"
+    );
+  }
 };
 
 export { updateToeLinesAttackedLines };
