@@ -35,6 +35,7 @@ from custom_exceptions import (
     InvalidField,
     InvalidParameter,
     InvalidRootExclusion,
+    InvalidRootType,
     PermissionDenied,
     RepeatedRoot,
     RequiredCredentials,
@@ -643,7 +644,12 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
     await collect(
         [
             add_root_environment_url(
-                loaders, group_name, root_id, url, url_type="URL"
+                loaders=loaders,
+                group_name=group_name,
+                root_id=root_id,
+                url=url,
+                url_type="URL",
+                user_email=user_email,
             )
             for url in urls_added
         ]
@@ -1710,12 +1716,15 @@ async def _add_secrets_aws(environment_id: str) -> None:
     )
 
 
-async def add_root_environment_url(  # pylint: disable=too-many-arguments
+async def add_root_environment_url(
+    *,
     loaders: Dataloaders,
     group_name: str,
     root_id: str,
     url: str,
     url_type: str,
+    user_email: str,
+    should_notified: bool = False,
     cloud_type: Optional[str] = None,
 ) -> bool:
     _cloud_type: Optional[RootEnvironmentCloud] = None
@@ -1726,7 +1735,10 @@ async def add_root_environment_url(  # pylint: disable=too-many-arguments
     except KeyError as exc:
         raise InvalidField("urlType") from exc
 
-    await loaders.root.load(RootRequest(group_name, root_id))
+    root = await loaders.root.load(RootRequest(group_name, root_id))
+    if not isinstance(root, GitRoot):
+        raise InvalidRootType()
+
     environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),
@@ -1742,6 +1754,22 @@ async def add_root_environment_url(  # pylint: disable=too-many-arguments
 
     if cloud_type and cloud_type == RootEnvironmentCloud.AWS:
         await _add_secrets_aws(environment.id)
+
+    if should_notified:
+        schedule(
+            send_mail_environment(
+                loaders=loaders,
+                modified_date=datetime_utils.get_utc_now(),
+                group_name=group_name,
+                git_root=root.state.nickname,
+                git_root_url=root.state.url,
+                urls_added=[url],
+                urls_deleted=[],
+                user_email=user_email,
+                other=None,
+                reason=None,
+            )
+        )
     return True
 
 
@@ -1790,7 +1818,12 @@ async def send_mail_environment(
 
 
 async def remove_environment_url_id(
-    *, loaders: Dataloaders, root_id: str, url_id: str
+    *,
+    loaders: Dataloaders,
+    root_id: str,
+    url_id: str,
+    user_email: str,
+    group_name: str,
 ) -> str:
     urls = await loaders.root_environment_urls.load(root_id)
     url: Optional[str] = next(
@@ -1801,6 +1834,25 @@ async def remove_environment_url_id(
         raise RootEnvironmentUrlNotFound()
 
     await roots_model.remove_environment_url(root_id, url_id=url_id)
+
+    root = await loaders.root.load(RootRequest(group_name, root_id))
+    if not isinstance(root, GitRoot):
+        raise InvalidRootType()
+
+    schedule(
+        send_mail_environment(
+            loaders=loaders,
+            modified_date=datetime_utils.get_utc_now(),
+            group_name=group_name,
+            git_root=root.state.nickname,
+            git_root_url=root.state.url,
+            urls_added=[],
+            urls_deleted=[url],
+            user_email=user_email,
+            other=None,
+            reason=None,
+        )
+    )
 
     return url
 

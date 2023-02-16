@@ -4,15 +4,8 @@ from api.mutations import (
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
-from custom_exceptions import (
-    InvalidRootType,
-)
 from dataloaders import (
     Dataloaders,
-)
-from db_model.roots.types import (
-    GitRoot,
-    RootRequest,
 )
 from decorators import (
     concurrent_decorators,
@@ -28,6 +21,9 @@ from newutils import (
 )
 from roots import (
     domain as roots_domain,
+)
+from sessions.domain import (
+    get_jwt_content,
 )
 from typing import (
     Optional,
@@ -49,15 +45,16 @@ async def mutate(  # pylint: disable = too-many-arguments
     **_kwargs: None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
-    root = await loaders.root.load(RootRequest(group_name, root_id))
-    if not isinstance(root, GitRoot):
-        raise InvalidRootType()
+    user_info = await get_jwt_content(info.context)
+    user_email = user_info["user_email"]
     await roots_domain.add_root_environment_url(
         loaders=loaders,
         group_name=group_name,
         root_id=root_id,
         url=url,
         url_type=url_type,
+        user_email=user_email,
+        should_notified=True,
         cloud_type=cloud_name,
     )
     logs_utils.cloudwatch_log(

@@ -55,16 +55,18 @@ async def mutate(
     **_kwargs: None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
+    user_info = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_info["user_email"]
     url = await remove_environment_url_id(
         loaders=loaders,
         root_id=root_id,
         url_id=url_id,
+        user_email=user_email,
+        group_name=group_name,
     )
     logs_utils.cloudwatch_log(
         info.context, f"Security: remove git envs {url_id} from root {root_id}"
     )
-    user_info = await sessions_domain.get_jwt_content(info.context)
-    user_email = user_info["user_email"]
 
     try:
         inputs_to_update = await loaders.root_toe_inputs.load_nodes(

@@ -61,11 +61,12 @@ async def main() -> None:
             await collect(
                 [
                     add_root_environment_url(
-                        loaders,
-                        group,
-                        root.id,
-                        env_url.url,
+                        loaders=loaders,
+                        group_name=group,
+                        root_id=root.id,
+                        url=env_url.url,
                         url_type="URL",
+                        user_email="",
                     )
                     for env_url in environment_urls
                 ]
