@@ -506,9 +506,17 @@ describe("Validations", (): void => {
   it("Should be float or integer", (): void => {
     expect.hasAssertions();
 
-    const Num = isFloatOrInteger(1);
+    const Zero = isFloatOrInteger(0);
 
-    expect(Num).toBeUndefined();
+    expect(Zero).toBeUndefined();
+
+    const IntegerOne = isFloatOrInteger(1);
+
+    expect(IntegerOne).toBeUndefined();
+
+    const DecimalOne = isFloatOrInteger(1.4);
+
+    expect(DecimalOne).toBeUndefined();
   });
 
   it("Should'nt be float or integer", (): void => {

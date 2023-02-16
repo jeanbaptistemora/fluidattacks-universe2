@@ -2325,20 +2325,20 @@ export const enTranslations: ResourceKey = {
           acceptanceSeverityRange:
             "Temporal acceptance: CVSS 3.1 score range allowed for assignment",
           inactivityPeriod:
-            "Login inactivity: number of days to remove a stakeholder " +
+            "Login inactivity: Number of days to remove a stakeholder " +
             "due to inactivity",
           maxAcceptanceDays:
-            "Temporal acceptance: maximum number of days for assignment",
+            "Temporal acceptance: Maximum number of days for assignment",
           maxAcceptanceSeverity:
-            "Temporal acceptance: maximum CVSS 3.1 score allowed for assignment",
+            "Temporal acceptance: Maximum CVSS 3.1 score allowed for assignment",
           maxNumberAcceptances:
-            "Temporal acceptance: maximum number of assignments for a single " +
+            "Temporal acceptance: Maximum number of assignments for a single " +
             "vulnerability",
           minAcceptanceSeverity:
-            "Temporal acceptance: minimum CVSS 3.1 score allowed for assignment",
+            "Temporal acceptance: Minimum CVSS 3.1 score allowed for assignment",
           minBreakingSeverity:
-            "DevSecOps: Minimum CVSS 3.1 score from which agent breaks the " +
-            "build for open vulnerabilities",
+            "DevSecOps: Minimum CVSS 3.1 score of vulnerable spots " +
+            "for the agent to break the build in Strict Mode",
           vulnerabilityGracePeriod:
             "DevSecOps: Days before agent starts breaking the build for new " +
             "vulnerabilities",

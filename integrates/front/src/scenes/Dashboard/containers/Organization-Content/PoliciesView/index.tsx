@@ -73,7 +73,7 @@ const Policies: React.FC<IPolicies> = ({
           .toFixed(1)
           .toString(),
         minBreakingSeverity: _.isNull(minBreakingSeverity)
-          ? "0.0"
+          ? ""
           : parseFloat(minBreakingSeverity).toFixed(1).toString(),
         vulnerabilityGracePeriod: _.isNull(vulnerabilityGracePeriod)
           ? ""

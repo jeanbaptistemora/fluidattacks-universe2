@@ -324,7 +324,7 @@ const isFloatOrInteger: Validator = (value: string): string | undefined => {
   function checkNumeric(valueToValidate: never): boolean {
     return !isNaN(valueToValidate - parseFloat(valueToValidate));
   }
-  if (!checkNumeric(value as never)) {
+  if (value !== "" && !checkNumeric(value as never)) {
     return translate.t("validations.numeric");
   }
 
