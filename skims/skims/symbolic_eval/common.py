@@ -1,11 +1,8 @@
 from symbolic_eval.types import (
     SymbolicEvalArgs,
 )
-from typing import (
-    Set,
-)
 
-HTTP_INPUTS: Set[str] = {
+HTTP_INPUTS: set[str] = {
     "Request.Params",
     "Request.Querystring",
     "Request.Form",
@@ -14,7 +11,7 @@ HTTP_INPUTS: Set[str] = {
 }
 
 
-JS_TS_HTTP_INPUTS: Set[str] = {
+JS_TS_HTTP_INPUTS: set[str] = {
     "req.body",
     "req.params",
     "req.query",

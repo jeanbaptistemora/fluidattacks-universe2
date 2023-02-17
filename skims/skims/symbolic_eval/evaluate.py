@@ -61,14 +61,12 @@ from symbolic_eval.types import (
 )
 from typing import (
     cast,
-    Dict,
-    Optional,
 )
 from utils import (
     logs,
 )
 
-EVALUATORS: Dict[str, Evaluator] = {
+EVALUATORS: dict[str, Evaluator] = {
     "Argument": argument.evaluate,
     "ArgumentList": argument_list.evaluate,
     "ArrayAccess": array_access.evaluate,
@@ -142,9 +140,9 @@ def evaluate(
     graph: Graph,
     path: Path,
     n_id: NId,
-) -> Optional[SymbolicEvaluation]:
+) -> SymbolicEvaluation | None:
     try:
-        evaluation: Dict[NId, bool] = {}
+        evaluation: dict[NId, bool] = {}
         return generic(
             SymbolicEvalArgs(
                 generic, method, evaluation, graph, path, n_id, set()

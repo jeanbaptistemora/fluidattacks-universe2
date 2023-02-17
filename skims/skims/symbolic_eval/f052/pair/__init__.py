@@ -10,11 +10,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_mode,
     MethodsEnum.TS_INSECURE_ENCRYPT: insecure_mode,
     MethodsEnum.JS_INSECURE_EC_KEYPAIR: insecure_key_pair,

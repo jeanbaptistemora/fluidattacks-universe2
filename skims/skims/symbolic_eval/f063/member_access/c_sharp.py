@@ -5,11 +5,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Set,
-)
 
-HTTP_INPUTS: Set[str] = {
+HTTP_INPUTS: set[str] = {
     "Cookies",
     "FileName",
     "Form",

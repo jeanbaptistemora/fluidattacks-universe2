@@ -13,11 +13,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REGEX_INJETCION: cs_regex_injection,
     MethodsEnum.CS_VULN_REGEX: cs_vuln_regex,
     MethodsEnum.JAVA_VULN_REGEX: java_vuln_regex,

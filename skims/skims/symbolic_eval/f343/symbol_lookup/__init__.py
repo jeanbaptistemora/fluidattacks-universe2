@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_COMPRESSION_ALGORITHM: js_insecure_compression,
     MethodsEnum.TS_INSECURE_COMPRESSION_ALGORITHM: js_insecure_compression,
 }

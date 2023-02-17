@@ -34,11 +34,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_DISABLED_STRONG_CRYPTO: cs_disabled_strong_crypto,
     MethodsEnum.CS_INSECURE_KEYS: cs_insecure_keys,
     MethodsEnum.CS_RSA_SECURE_MODE: cs_rsa_secure_mode,

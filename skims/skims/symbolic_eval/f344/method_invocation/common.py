@@ -8,16 +8,13 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Set,
-)
 from utils import (
     graph as g,
 )
 
 
-def get_async_danger_imports(graph: Graph) -> Set[str]:
-    danger_imports: Set[str] = {"fetch"}
+def get_async_danger_imports(graph: Graph) -> set[str]:
+    danger_imports: set[str] = {"fetch"}
     if axios_alias := get_default_alias(graph, "axios"):
         danger_imports.add(axios_alias)
     if ky_alias := get_default_alias(graph, "ky"):
@@ -29,7 +26,7 @@ def get_async_danger_imports(graph: Graph) -> Set[str]:
 
 def js_ls_sensitive_data(args: SymbolicEvalArgs) -> SymbolicEvaluation:
     node = args.graph.nodes[args.n_id]
-    dangerous_imports: Set[str] = get_async_danger_imports(args.graph)
+    dangerous_imports: set[str] = get_async_danger_imports(args.graph)
     if (
         (method_expression := node.get("expression"))
         and (method_name := method_expression.split(".")[0])

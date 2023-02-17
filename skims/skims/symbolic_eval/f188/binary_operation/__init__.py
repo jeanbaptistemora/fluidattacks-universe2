@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TSX_LACK_OF_VALIDATION_EVENT_LISTENER: has_origin_check,
     MethodsEnum.JSX_LACK_OF_VALIDATION_EVENT_LISTENER: has_origin_check,
 }

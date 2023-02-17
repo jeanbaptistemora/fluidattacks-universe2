@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Iterator,
+)
 from model.core_model import (
     MethodsEnum,
     Vulnerabilities,
@@ -10,35 +14,30 @@ from model.graph_model import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    Iterator,
-    List,
     NamedTuple,
-    Set,
 )
 from xmlrpc.client import (
     boolean,
 )
 
-Path = List[NId]
+Path = list[NId]
 
 SYMBOLIC_EVAL_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SymbolicEvaluation(NamedTuple):
     danger: boolean
-    triggers: Set[str]
+    triggers: set[str]
 
 
 class SymbolicEvalArgs(NamedTuple):
     generic: Callable[[SYMBOLIC_EVAL_ARGS], SymbolicEvaluation]
     method: MethodsEnum
-    evaluation: Dict[NId, bool]
+    evaluation: dict[NId, bool]
     graph: Graph
     path: Path
     n_id: NId
-    triggers: Set[str]
+    triggers: set[str]
 
     def fork_n_id(self, n_id: NId) -> SYMBOLIC_EVAL_ARGS:
         return SymbolicEvalArgs(

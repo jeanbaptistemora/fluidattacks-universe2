@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_NON_SECURE_CONSTRUCTION_OF_COOKIES: is_user_input,
     MethodsEnum.JS_NON_SECURE_CONSTRUCTION_OF_COOKIES: is_user_input,
 }

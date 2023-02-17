@@ -12,11 +12,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_LOGGING: java_insecure_logging,
     MethodsEnum.JS_INSECURE_LOGGING: javascript_insecure_logging,
     MethodsEnum.TS_INSECURE_LOGGING: javascript_insecure_logging,

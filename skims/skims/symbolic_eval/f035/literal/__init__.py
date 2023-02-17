@@ -10,11 +10,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_NO_PASSWORD: cs_no_password,
     MethodsEnum.CS_WEAK_CREDENTIAL: cs_weak_credential,
 }

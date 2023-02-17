@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_UNSAFE_HTTP_XSS_PROTECTION: insecure_http_headers,
     MethodsEnum.JS_UNSAFE_HTTP_XSS_PROTECTION: insecure_http_headers,
 }
