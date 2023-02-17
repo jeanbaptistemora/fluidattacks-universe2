@@ -18,6 +18,7 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Any,
     List,
 )
 from utils import (
@@ -26,25 +27,16 @@ from utils import (
 
 
 def is_logger_unsafe(graph: Graph, n_id: str) -> bool:
-    method = MethodsEnum.JAVA_INSECURE_LOGGING
-    if test_node := graph.nodes[n_id].get("arguments_id"):
-        for path in get_backward_paths(graph, test_node):
-            evaluation = evaluate(method, graph, path, test_node)
-            if (
-                evaluation
-                and evaluation.danger
-                and "userparams" in evaluation.triggers
-                and not (
-                    "sanitized" in evaluation.triggers
-                    and "characters" in evaluation.triggers
-                )
-            ):
-                return True
+    method = MethodsEnum.DART_INSECURE_LOGGING
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
+            return True
 
     return False
 
 
-def get_expression(graph: Graph, n_id: NId) -> List[str]:
+def get_expression(graph: Graph, n_id: NId) -> List[Any]:
     parent = g.pred_ast(graph, n_id)[0]
     expr = graph.nodes[n_id].get("symbol")
     selector_n_id = g.match_ast_d(graph, parent, "Selector")

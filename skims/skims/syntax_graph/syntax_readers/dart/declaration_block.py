@@ -15,8 +15,9 @@ from utils.graph import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     c_ids = adj_ast(args.ast_graph, args.n_id)
+    if graph.nodes[c_ids[-1]]["label_type"] == "static_final_declaration_list":
+        return args.generic(args.fork_n_id(c_ids[-1]))
     invalid_childs = {"?", ";"}
-
     return build_declaration_block_node(
         args,
         c_ids=(

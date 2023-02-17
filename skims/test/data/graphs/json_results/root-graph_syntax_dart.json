@@ -19210,7 +19210,7 @@
             }
           },
           "224": {
-            "226": {
+            "231": {
               "label_ast": "AST",
               "label_cfg": "CFG"
             },
@@ -19223,24 +19223,6 @@
               "label_cfg": "CFG"
             },
             "278": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            }
-          },
-          "226": {
-            "227": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
-            "228": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
-            "229": {
-              "label_ast": "AST",
-              "label_cfg": "CFG"
-            },
-            "231": {
               "label_ast": "AST",
               "label_cfg": "CFG"
             }
@@ -21576,21 +21558,6 @@
           },
           "224": {
             "label_type": "ClassBody"
-          },
-          "226": {
-            "label_type": "DeclarationBlock"
-          },
-          "227": {
-            "label_type": "ReservedWord",
-            "value": "static"
-          },
-          "228": {
-            "label_type": "ReservedWord",
-            "value": "const"
-          },
-          "229": {
-            "label_type": "ReservedWord",
-            "value": "ImmutablePoint"
           },
           "231": {
             "expression_id": "234",
