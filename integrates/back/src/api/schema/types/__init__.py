@@ -121,8 +121,14 @@ from api.resolvers.integration_repositories_connection.schema import (
 from api.resolvers.integration_repositories_edge.schema import (
     INTEGRATION_REPOSITORIES_EDGE,
 )
+from api.resolvers.machine_job.schema import (
+    MACHINE_JOB,
+)
 from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
+)
+from api.resolvers.vulnerabilities_summary.schema import (
+    VULNERABILITIES_SUMMARY,
 )
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
@@ -185,6 +191,7 @@ TYPES: Tuple[ObjectType, ...] = (
     INTEGRATION_REPOSITORIES_CONNECTION,
     INTEGRATION_REPOSITORIES_EDGE,
     IPROOT,
+    MACHINE_JOB,
     ME,
     MUTATION,
     ORGANIZATION,
@@ -214,6 +221,7 @@ TYPES: Tuple[ObjectType, ...] = (
     URLROOT,
     UNFULFILLED_STANDARDS,
     VERIFICATION_SUMMARY,
+    VULNERABILITIES_SUMMARY,
     VULNERABILITY,
     VULNERABILITY_HISTORIC_STATE,
 )

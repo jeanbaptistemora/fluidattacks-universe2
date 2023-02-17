@@ -1,0 +1,7 @@
+"""Vulnerabilities in the job"""
+type VulnerabilitiesSummary {
+  "Vulnerabilities modified in teh current execution"
+  modified: Int
+  "Vulnerabilities found in the current execution"
+  open: Int
+}
