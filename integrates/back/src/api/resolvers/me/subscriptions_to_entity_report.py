@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from db_model.subscriptions.types import (
     Subscription,
 )
@@ -22,6 +25,7 @@ async def _format_subscriptions(
     ]
 
 
+@ME.field("subscriptionsToEntityReport")
 async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,

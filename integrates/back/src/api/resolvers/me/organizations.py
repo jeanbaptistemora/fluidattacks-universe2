@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from aioextensions import (
     collect,
 )
@@ -21,6 +24,7 @@ from typing import (
 )
 
 
+@ME.field("organizations")
 async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,

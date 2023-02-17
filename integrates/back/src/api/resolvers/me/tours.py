@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -17,6 +20,7 @@ from typing import (
 )
 
 
+@ME.field("tours")
 async def resolve(
     parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> StakeholderTours:

@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@ME.field("credentials")
 async def resolve(
     parent: dict[str, Any], info: GraphQLResolveInfo
 ) -> list[Credentials]:

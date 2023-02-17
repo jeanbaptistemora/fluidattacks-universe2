@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -13,6 +16,7 @@ from typing import (
 )
 
 
+@ME.field("trial")
 async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,

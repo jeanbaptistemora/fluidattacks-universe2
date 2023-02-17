@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -10,6 +13,7 @@ from typing import (
 )
 
 
+@ME.field("role")
 async def resolve(
     parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: str
 ) -> str:

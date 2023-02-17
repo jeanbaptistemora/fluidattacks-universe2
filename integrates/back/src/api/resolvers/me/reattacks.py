@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from db_model.vulnerabilities.types import (
     VulnerabilitiesConnection,
     VulnerabilityEdge,
@@ -20,6 +23,7 @@ from typing import (
 )
 
 
+@ME.field("reattacks")
 @require_login
 async def resolve(
     _parent: dict[str, Any],

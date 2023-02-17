@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from aioextensions import (
     collect,
 )
@@ -27,6 +30,7 @@ from typing import (
 )
 
 
+@ME.field("tags")
 @convert_kwargs_to_snake_case
 @require_organization_access
 async def resolve(

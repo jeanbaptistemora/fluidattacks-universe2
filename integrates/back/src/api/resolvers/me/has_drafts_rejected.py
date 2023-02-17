@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +18,7 @@ from typing import (
 )
 
 
+@ME.field("hasDraftsRejected")
 @require_login
 async def resolve(parent: dict[str, Any], info: GraphQLResolveInfo) -> bool:
     loaders: Dataloaders = info.context.loaders

@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -18,6 +21,7 @@ from typing import (
 )
 
 
+@ME.field("notificationsPreferences")
 async def resolve(
     parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> NotificationsPreferences:

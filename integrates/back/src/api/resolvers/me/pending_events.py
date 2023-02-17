@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -31,6 +34,7 @@ from typing import (
 )
 
 
+@ME.field("pendingEvents")
 @require_login
 async def resolve(
     parent: dict[str, Any],

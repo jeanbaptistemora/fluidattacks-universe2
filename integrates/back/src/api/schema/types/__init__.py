@@ -1,6 +1,3 @@
-from .me import (
-    ME,
-)
 from .mutation import (
     MUTATION,
 )
@@ -124,6 +121,15 @@ from api.resolvers.integration_repositories_edge.schema import (
 from api.resolvers.machine_job.schema import (
     MACHINE_JOB,
 )
+from api.resolvers.me.schema import (
+    ME,
+)
+from api.resolvers.notifications_parameters.schema import (
+    NOTIFICATIONS_PARAMETERS,
+)
+from api.resolvers.notifications_preferences.schema import (
+    NOTIFICATIONS_PREFERENCES,
+)
 from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
 )
@@ -194,6 +200,8 @@ TYPES: Tuple[ObjectType, ...] = (
     MACHINE_JOB,
     ME,
     MUTATION,
+    NOTIFICATIONS_PARAMETERS,
+    NOTIFICATIONS_PREFERENCES,
     ORGANIZATION,
     ORGANIZATION_BILLING,
     ORGANIZATION_COMPLIANCE,

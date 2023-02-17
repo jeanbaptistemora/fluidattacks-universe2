@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -15,6 +18,7 @@ from typing import (
 LOGGER = logging.getLogger(__name__)
 
 
+@ME.field("permissions")
 async def resolve(
     parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: str
 ) -> set[str]:

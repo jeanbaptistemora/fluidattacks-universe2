@@ -1,3 +1,6 @@
+from .schema import (
+    ME,
+)
 from db_model.vulnerabilities.types import (
     Vulnerability,
 )
@@ -21,6 +24,7 @@ from typing import (
 )
 
 
+@ME.field("vulnerabilitiesAssigned")
 async def resolve(
     parent: Dict[str, Any], _info: GraphQLResolveInfo
 ) -> Tuple[Vulnerability, ...]:
