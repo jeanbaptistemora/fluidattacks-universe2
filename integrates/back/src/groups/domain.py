@@ -66,6 +66,7 @@ from db_model.events.types import (
 from db_model.group_access.types import (
     GroupAccess,
     GroupAccessMetadataToUpdate,
+    GroupAccessRequest,
     GroupAccessState,
     GroupInvitation,
 )
@@ -201,6 +202,7 @@ async def complete_register_for_group_invitation(
     invitation = group_access.invitation
     if invitation and invitation.is_used:
         bugsnag.notify(Exception("Token already used"), severity="warning")
+        return
 
     group_name = group_access.group_name
     email = group_access.email
@@ -209,21 +211,13 @@ async def complete_register_for_group_invitation(
         role = invitation.role
         url_token = invitation.url_token
 
-    coroutines: list[Awaitable[None]] = []
-    coroutines.append(
-        authz.grant_group_level_role(loaders, email, group_name, role)
+    await authz.grant_group_level_role(loaders, email, group_name, role)
+    loaders.stakeholder.clear(email)
+    loaders.group_access.clear(
+        GroupAccessRequest(group_name=group_name, email=email)
     )
-    group: Group = await loaders.group.load(group_name)
-    organization_id = group.organization_id
-    if not await org_access.has_access(loaders, organization_id, email):
-        coroutines.append(
-            orgs_domain.add_stakeholder(
-                loaders=loaders,
-                organization_id=organization_id,
-                email=email,
-                role="user",
-            )
-        )
+
+    coroutines: list[Awaitable[None]] = []
     coroutines.append(
         group_access_domain.update(
             loaders=loaders,
@@ -245,18 +239,31 @@ async def complete_register_for_group_invitation(
             ),
         )
     )
-    if not await stakeholders_domain.exists(loaders, email):
-        await stakeholders_domain.register(email)
-        await authz.grant_user_level_role(email, "user")
+    group: Group = await loaders.group.load(group_name)
+    organization_id = group.organization_id
+    if not await org_access.has_access(loaders, organization_id, email):
+        coroutines.append(
+            orgs_domain.add_stakeholder(
+                loaders=loaders,
+                organization_id=organization_id,
+                email=email,
+                role="user",
+            )
+        )
 
-    stakeholder = await loaders.stakeholder.load(email)
-    if stakeholder and not stakeholder.is_registered:
-        coroutines.extend(
+    if not await stakeholders_domain.exists(loaders, email):
+        await collect(
             [
                 stakeholders_domain.register(email),
                 authz.grant_user_level_role(email, "user"),
             ]
         )
+
+    loaders.stakeholder.clear(email)
+    stakeholder = await loaders.stakeholder.load(email)
+    if stakeholder and not stakeholder.is_registered:
+        coroutines.append(stakeholders_domain.register(email))
+
     if stakeholder and not stakeholder.enrolled:
         coroutines.append(
             stakeholders_domain.update(

@@ -1,15 +1,9 @@
 # pylint: disable=import-error
-from aioextensions import (
-    collect,
-)
 from api.schema import (
     SCHEMA,
 )
 from ariadne import (
     graphql,
-)
-from authz.policy import (
-    grant_user_level_role,
 )
 from back.test.unit.src.utils import (
     create_dummy_session,
@@ -37,9 +31,6 @@ from remove_stakeholder.domain import (
     get_confirm_deletion,
     get_email_from_url_token,
 )
-from stakeholders.domain import (
-    register,
-)
 from typing import (
     Any,
     Optional,
@@ -56,12 +47,6 @@ async def complete_register(
     )
     await groups_domain.complete_register_for_group_invitation(
         loaders, group_access
-    )
-    await collect(
-        (
-            register(email),
-            grant_user_level_role(email, "user"),
-        )
     )
 
 
