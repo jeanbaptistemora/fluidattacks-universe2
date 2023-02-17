@@ -12,15 +12,12 @@ function job_compute_bills {
     && aws_login "prod_observes" "3600" \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && export_notifier_key \
     && ensure_gitlab_env_vars \
       INTEGRATES_API_TOKEN \
+    && redshift_env_vars \
     && sops_export_vars 'observes/secrets/prod.yaml' \
-      'REDSHIFT_DATABASE' \
-      'REDSHIFT_HOST' \
-      'REDSHIFT_PASSWORD' \
-      'REDSHIFT_PORT' \
-      'REDSHIFT_USER' \
+      'bugsnag_notifier_code_etl' \
+    && export bugsnag_notifier_key="${bugsnag_notifier_code_etl}" \
     && folder="$(mktemp -d)" \
     && bucket_month="s3://integrates/continuous-data/bills/$(date +%Y)/$(date +%m)" \
     && bucket_day="s3://integrates/continuous-data/bills/$(date +%Y)/$(date +%m)/$(date +%d)" \

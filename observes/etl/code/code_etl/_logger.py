@@ -21,9 +21,9 @@ def set_logger(root_name: str, version: str) -> Cmd[None]:
     conf = n_key.bind(
         lambda key: app_env.map(
             lambda env: BugsnagConf(
-                "service",
+                "etl",
                 version,
-                "./observes/service/jobs_scheduler",
+                "./observes/etl/code",
                 False,
                 key,
                 env,

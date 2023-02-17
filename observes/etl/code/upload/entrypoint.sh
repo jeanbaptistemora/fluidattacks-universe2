@@ -14,7 +14,9 @@ function job_code_upload {
       SERVICES_API_TOKEN \
     && prod_db "${db}" \
     && prod_user "${creds}" \
-    && export_notifier_key \
+    && sops_export_vars 'observes/secrets/prod.yaml' \
+      'bugsnag_notifier_code_etl' \
+    && export bugsnag_notifier_key="${bugsnag_notifier_code_etl}" \
     && echo "[INFO] Working on ${group}" \
     && use_git_repo_services \
     && echo "[INFO] Cloning ${group}" \
