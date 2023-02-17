@@ -5,6 +5,9 @@ from model.graph_model import (
     Graph,
     NId,
 )
+from typing import (
+    Dict,
+)
 from utils import (
     graph as g,
 )
@@ -61,25 +64,27 @@ def get_namespace_alias(graph: Graph, module_name: str) -> str | None:
 
 
 def get_default_alias(graph: Graph, module_name: str) -> str | None:
-    if (
-        default_import_n_ids := g.matching_nodes(
-            graph,
-            label_type="Import",
-            expression='"' + module_name + '"',
-            import_type="default_import",
+    def predicate_matcher(node: Dict[str, str]) -> bool:
+        return bool(
+            (node.get("label_type") == "Import")
+            and (n_exp := node.get("expression"))
+            and (n_exp[1:-1] == module_name)
         )
-    ) and (alias := graph.nodes[default_import_n_ids[0]].get("identifier")):
-        return alias
-    if (
-        default_named_n_ids := g.matching_nodes(
-            graph,
-            label_type="Import",
-            expression='"' + module_name + '"',
-            import_type="named_import",
-            identifier="default",
-        )
-    ) and (alias := graph.nodes[default_named_n_ids[0]].get("label_alias")):
-        return alias
+
+    nodes = graph.nodes
+
+    for n_id in g.filter_nodes(graph, graph.nodes, predicate_matcher):
+        if (nodes[n_id].get("import_type") == "default_import") and (
+            alias := nodes[n_id].get("identifier")
+        ):
+            return alias
+        if (
+            (nodes[n_id].get("import_type") == "named_import")
+            and (nodes[n_id].get("identifier") == "default")
+            and (alias := nodes[n_id].get("label_alias"))
+        ):
+            return alias
+
     for var_n_id in g.matching_nodes(graph, label_type="VariableDeclaration"):
         if _requires_module(graph, var_n_id, module_name) and (
             var_name := graph.nodes[var_n_id].get("variable")
