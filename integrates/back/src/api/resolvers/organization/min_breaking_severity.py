@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from db_model.organizations.types import (
     Organization,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@ORGANIZATION.field("minBreakingSeverity")
 async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,

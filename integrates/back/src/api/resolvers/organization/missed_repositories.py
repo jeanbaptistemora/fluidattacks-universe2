@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -10,6 +13,7 @@ from graphql.type.definition import (
 )
 
 
+@ORGANIZATION.field("missedRepositories")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

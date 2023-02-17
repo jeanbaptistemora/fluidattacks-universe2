@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -39,6 +42,7 @@ from verify.operations import (
 )
 
 
+@ORGANIZATION.field("vulnerabilitiesUrl")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

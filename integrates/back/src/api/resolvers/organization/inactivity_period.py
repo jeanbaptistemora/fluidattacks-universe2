@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from db_model.constants import (
     DEFAULT_INACTIVITY_PERIOD,
 )
@@ -9,6 +12,7 @@ from graphql.type.definition import (
 )
 
 
+@ORGANIZATION.field("inactivityPeriod")
 async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,

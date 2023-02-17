@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from analytics import (
     domain as analytics_domain,
 )
@@ -15,6 +18,7 @@ from graphql.type.definition import (
 )
 
 
+@ORGANIZATION.field("analytics")
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def resolve(

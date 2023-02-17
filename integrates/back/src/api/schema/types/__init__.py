@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .organization import (
-    ORGANIZATION,
-)
 from .prices import (
     PRICES,
 )
@@ -129,6 +126,9 @@ from api.resolvers.notifications_parameters.schema import (
 )
 from api.resolvers.notifications_preferences.schema import (
     NOTIFICATIONS_PREFERENCES,
+)
+from api.resolvers.organization.schema import (
+    ORGANIZATION,
 )
 from api.resolvers.organization_billing.schema import (
     ORGANIZATION_BILLING,

@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 import authz
 from custom_exceptions import (
     InvalidParameter,
@@ -33,6 +36,7 @@ async def _get_org_permissions(
     )
 
 
+@ORGANIZATION.field("permissions")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

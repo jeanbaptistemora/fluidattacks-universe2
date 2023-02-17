@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from azure.devops.v6_0.git.models import (
     GitRepository,
 )
@@ -56,6 +59,7 @@ async def _get_roots(
     }
 
 
+@ORGANIZATION.field("integrationRepositories")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

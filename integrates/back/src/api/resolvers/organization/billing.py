@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from billing import (
     domain as billing_domain,
 )
@@ -23,6 +26,7 @@ from newutils import (
 )
 
 
+@ORGANIZATION.field("billing")
 @concurrent_decorators(
     enforce_organization_level_auth_async,
     require_login,

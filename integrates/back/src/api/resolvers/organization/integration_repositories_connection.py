@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,6 +19,7 @@ from typing import (
 )
 
 
+@ORGANIZATION.field("integrationRepositoriesConnection")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

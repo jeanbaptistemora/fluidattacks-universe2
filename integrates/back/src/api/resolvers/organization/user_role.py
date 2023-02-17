@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -13,6 +16,7 @@ from sessions import (
 )
 
 
+@ORGANIZATION.field("userRole")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

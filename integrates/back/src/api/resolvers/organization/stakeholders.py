@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -21,6 +24,7 @@ from sessions import (
 )
 
 
+@ORGANIZATION.field("stakeholders")
 @enforce_organization_level_auth_async
 async def resolve(
     parent: Organization,

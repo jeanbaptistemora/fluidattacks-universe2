@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -21,6 +24,7 @@ from sessions import (
 )
 
 
+@ORGANIZATION.field("groups")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

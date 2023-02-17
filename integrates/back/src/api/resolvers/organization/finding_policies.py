@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -41,6 +44,7 @@ def _format_policies_for_resolver(
     ]
 
 
+@ORGANIZATION.field("findingPolicies")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,

@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION,
+)
 from db_model.constants import (
     DEFAULT_MIN_SEVERITY,
 )
@@ -12,6 +15,7 @@ from graphql.type.definition import (
 )
 
 
+@ORGANIZATION.field("minAcceptanceSeverity")
 async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
