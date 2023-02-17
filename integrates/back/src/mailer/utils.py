@@ -1,3 +1,7 @@
+from aioextensions import (
+    collect,
+)
+import authz
 from custom_exceptions import (
     OrganizationNotFound,
 )
@@ -52,3 +56,64 @@ async def get_group_emails_by_notification(
         exclude_trial=preferences.get("exclude_trial", False),
         only_fluid_staff=preferences.get("only_fluid_staff", False),
     )
+
+
+async def get_org_groups(loaders: Dataloaders, org_id: str) -> list[Group]:
+    return await loaders.organization_groups.load(org_id)
+
+
+async def get_org_rol(loaders: Dataloaders, email: str, org_id: str) -> str:
+    return await authz.get_organization_level_role(loaders, email, org_id)
+
+
+async def get_group_rol(
+    loaders: Dataloaders, email: str, group_name: str
+) -> str:
+    return await authz.get_group_level_role(loaders, email, group_name)
+
+
+async def get_stakeholder_roles(
+    loaders: Dataloaders, email: str
+) -> dict[str, set[str]]:
+    stakeholder_orgs = await loaders.stakeholder_organizations_access.load(
+        email
+    )
+    org_roles = await collect(
+        [
+            get_org_rol(loaders, email, org.organization_id)
+            for org in stakeholder_orgs
+        ]
+    )
+    org_groups = await collect(
+        [
+            get_org_groups(loaders, org.organization_id)
+            for org in stakeholder_orgs
+        ]
+    )
+    group_roles = await collect(
+        [
+            get_group_rol(loaders, email, item.name)
+            for group in org_groups
+            for item in group
+        ]
+    )
+    return dict(group=set(group_roles), org=set(org_roles))
+
+
+async def get_available_notifications(
+    loaders: Dataloaders, email: str
+) -> list[str]:
+    stakeholder_roles = await get_stakeholder_roles(loaders, email)
+    available_notifications_by_template = [
+        template["email_preferences"]
+        for template in MAIL_PREFERENCES.values()
+        if any(
+            item in stakeholder_roles["group"]
+            for item in template["roles"]["group"]
+        )
+        or any(
+            item in stakeholder_roles["org"]
+            for item in template["roles"]["org"]
+        )
+    ]
+    return sorted(set(available_notifications_by_template))

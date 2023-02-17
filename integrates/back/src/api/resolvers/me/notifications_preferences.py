@@ -1,14 +1,14 @@
 from dataloaders import (
     Dataloaders,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.stakeholders.types import (
     NotificationsPreferences,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
+)
+from mailer import (
+    utils,
 )
 from stakeholders.domain import (
     get_stakeholder,
@@ -26,5 +26,5 @@ async def resolve(
     stakeholder = await get_stakeholder(loaders, email)
 
     return stakeholder.state.notifications_preferences._replace(
-        available=list(Notification)
+        available=await utils.get_available_notifications(loaders, email)
     )
