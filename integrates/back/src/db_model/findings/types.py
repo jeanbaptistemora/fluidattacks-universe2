@@ -221,6 +221,7 @@ class FindingMetadataToUpdate(NamedTuple):
     sorts: Optional[FindingSorts] = None
     threat: Optional[str] = None
     title: Optional[str] = None
+    unfulfilled_requirements: Optional[list[str]] = None
 
 
 class FindingUnreliableIndicatorsToUpdate(NamedTuple):
