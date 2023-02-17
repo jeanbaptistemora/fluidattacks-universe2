@@ -385,4 +385,50 @@ describe("groupToeLinesView", (): void => {
       expect(screen.getAllByRole("spinbutton")[0]).toHaveValue(newValue);
     });
   });
+
+  it("should have filters", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    jest.clearAllMocks();
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
+      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
+      { action: "api_resolvers_toe_lines_comments_resolve" },
+      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
+      { action: "see_toe_lines_coverage" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    const numberOfRows: number = 3;
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
+    });
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    expect(
+      screen.getByRole("textbox", { name: "filename" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("spinbutton", { name: "loc" })[0]
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("spinbutton", { name: "loc" })[1]
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("combobox", { name: "hasVulnerabilities" })
+    ).toBeInTheDocument();
+  });
 });
