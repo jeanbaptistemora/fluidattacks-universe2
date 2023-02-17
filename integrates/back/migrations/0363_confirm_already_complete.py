@@ -1,6 +1,9 @@
 # pylint: disable=invalid-name
 """
 Confirm already completed invation registration
+
+Execution Time:    2023-02-17 at 22:48:54 UTC
+Finalization Time: 2023-02-17 at 22:57:32 UTC
 """
 from aioextensions import (
     run,
