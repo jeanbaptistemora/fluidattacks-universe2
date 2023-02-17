@@ -23,7 +23,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     c_ids = adj_ast(args.ast_graph, args.n_id)
     equalizer = match_ast_d(args.ast_graph, args.n_id, "=")
 
-    if len(c_ids) == 3 and equalizer:
+    if len(c_ids) >= 3 and equalizer:
         var_name = node_to_str(args.ast_graph, c_ids[0])
         return build_variable_declaration_node(args, var_name, None, c_ids[2])
 

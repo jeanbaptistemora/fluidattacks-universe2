@@ -12,7 +12,7 @@ from typing import (
 def build_method_invocation_node(
     args: SyntaxGraphArgs,
     expr: str,
-    expr_id: NId,
+    expr_id: Optional[NId],
     arguments_id: Optional[NId],
     object_id: Optional[NId],
 ) -> NId:
@@ -31,11 +31,12 @@ def build_method_invocation_node(
             label_ast="AST",
         )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(expr_id)),
-        label_ast="AST",
-    )
+    if expr_id:
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(expr_id)),
+            label_ast="AST",
+        )
 
     if arguments_id:
         args.syntax_graph.nodes[args.n_id]["arguments_id"] = arguments_id

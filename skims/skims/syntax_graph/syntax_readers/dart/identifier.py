@@ -25,6 +25,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     symbol = graph.nodes[args.n_id]["label_text"]
     pred_nid = pred(graph, args.n_id)[0]
+    print(graph.nodes[pred_nid]["label_type"])
 
     if (
         graph.nodes[pred_nid]["label_type"]
@@ -42,5 +43,13 @@ def reader(args: SyntaxGraphArgs) -> NId:
         expr = symbol + "." + node_to_str(graph, expr_id)
         args_id = match_ast_d(graph, child_s2, "arguments")
         return build_method_invocation_node(args, expr, expr_id, args_id, None)
+    if (
+        graph.nodes[pred_nid]["label_type"] == "static_final_declaration"
+        and (sel := get_ast_childs(graph, pred_nid, label_type="selector"))
+        and len(sel) == 1
+        and (child_args := match_ast_d(graph, sel[0], "argument_part"))
+    ):
+        args_id = match_ast_d(graph, child_args, "arguments")
+        return build_method_invocation_node(args, symbol, None, args_id, None)
 
     return build_symbol_lookup_node(args, symbol)

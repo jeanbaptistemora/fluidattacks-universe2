@@ -18581,9 +18581,6 @@
           "131": {
             "134": {
               "label_ast": "AST"
-            },
-            "137": {
-              "label_ast": "AST"
             }
           },
           "1310": {
@@ -18647,6 +18644,11 @@
               "label_ast": "AST"
             },
             "1346": {
+              "label_ast": "AST"
+            }
+          },
+          "134": {
+            "137": {
               "label_ast": "AST"
             }
           },
@@ -18822,7 +18824,9 @@
           "146": {
             "149": {
               "label_ast": "AST"
-            },
+            }
+          },
+          "149": {
             "152": {
               "label_ast": "AST"
             }
@@ -19230,7 +19234,9 @@
           "231": {
             "234": {
               "label_ast": "AST"
-            },
+            }
+          },
+          "234": {
             "237": {
               "label_ast": "AST"
             }
@@ -20216,9 +20222,6 @@
           "82": {
             "85": {
               "label_ast": "AST"
-            },
-            "94": {
-              "label_ast": "AST"
             }
           },
           "820": {
@@ -20935,8 +20938,8 @@
             "symbol": "File"
           },
           "131": {
-            "expression_id": "134",
-            "label_type": "InitializedIdentifier",
+            "label_type": "VariableDeclaration",
+            "value_id": "134",
             "variable": "oneSecond"
           },
           "1310": {
@@ -20980,8 +20983,10 @@
             "symbol": "file"
           },
           "134": {
-            "label_type": "SymbolLookup",
-            "symbol": "Duration"
+            "arguments_id": "137",
+            "expression": "Duration",
+            "expression_id": null,
+            "label_type": "MethodInvocation"
           },
           "1340": {
             "label_type": "Selector",
@@ -21142,8 +21147,8 @@
             "symbol": "Paint"
           },
           "146": {
-            "expression_id": "149",
-            "label_type": "InitializedIdentifier",
+            "label_type": "VariableDeclaration",
+            "value_id": "149",
             "variable": "twoSeconds"
           },
           "1487": {
@@ -21151,8 +21156,10 @@
             "value_id": null
           },
           "149": {
-            "label_type": "SymbolLookup",
-            "symbol": "Duration"
+            "arguments_id": "152",
+            "expression": "Duration",
+            "expression_id": null,
+            "label_type": "MethodInvocation"
           },
           "1500": {
             "block_id": "1521",
@@ -21560,13 +21567,15 @@
             "label_type": "ClassBody"
           },
           "231": {
-            "expression_id": "234",
-            "label_type": "InitializedIdentifier",
+            "label_type": "VariableDeclaration",
+            "value_id": "234",
             "variable": "origin"
           },
           "234": {
-            "label_type": "SymbolLookup",
-            "symbol": "ImmutablePoint"
+            "arguments_id": "237",
+            "expression": "ImmutablePoint",
+            "expression_id": null,
+            "label_type": "MethodInvocation"
           },
           "237": {
             "label_type": "ArgumentList"
@@ -22426,8 +22435,8 @@
             "selector_name": "length"
           },
           "82": {
-            "expression_id": "85",
-            "label_type": "InitializedIdentifier",
+            "label_type": "VariableDeclaration",
+            "value_id": "85",
             "variable": "gifts"
           },
           "820": {
@@ -22601,9 +22610,6 @@
             "symbol": "atEndOfPage"
           },
           "935": {
-            "label_type": "ArgumentList"
-          },
-          "94": {
             "label_type": "ArgumentList"
           },
           "941": {
