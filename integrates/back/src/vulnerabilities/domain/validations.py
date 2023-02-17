@@ -37,6 +37,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
+import functools
 from newutils import (
     datetime as datetime_utils,
 )
@@ -46,11 +47,16 @@ from newutils.groups import (
     get_group_max_number_acceptances,
     get_group_min_acceptance_severity,
 )
+from newutils.validations import (
+    get_attr_value,
+)
 import re
 from string import (
     hexdigits,
 )
 from typing import (
+    Any,
+    Callable,
     Iterable,
 )
 from urllib.parse import (
@@ -241,3 +247,25 @@ def validate_source(source: Source) -> None:
         Source.MACHINE,
     }:
         raise InvalidSource()
+
+
+def validate_source_deco(source_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            source = get_attr_value(
+                field=source_field, kwargs=kwargs, obj_type=Source
+            )
+            if source not in {
+                Source.ANALYST,
+                Source.CUSTOMER,
+                Source.DETERMINISTIC,
+                Source.ESCAPE,
+                Source.MACHINE,
+            }:
+                raise InvalidSource()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
