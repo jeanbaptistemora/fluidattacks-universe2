@@ -5,7 +5,7 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -22,20 +22,12 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
-
-SECURITY_GROUP_ATTRIBUTES = {"security_groups", "vpc_security_group_ids"}
 
 
 def _use_default_security_group(graph: Graph, nid: NId) -> NId | None:
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, b_id)
-        if key in SECURITY_GROUP_ATTRIBUTES:
-            has_attr = True
-    if not has_attr:
+    sec_groups, _, _ = get_attribute(graph, nid, "security_groups")
+    vpc_sec_groups, _, _ = get_attribute(graph, nid, "vpc_security_group_ids")
+    if not (sec_groups or vpc_sec_groups):
         return nid
     return None
 

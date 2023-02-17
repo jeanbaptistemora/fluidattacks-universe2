@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,34 +19,23 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _kms_key_is_key_rotation_absent_or_disabled(
     graph: Graph, nid: NId
 ) -> NId | None:
-    en_key_rot = "enable_key_rotation"
-    key_spec = "customer_master_key_spec"
-    has_attr = False
-    insec_id = None
-    non_vuln = False
-
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == key_spec and value != "SYMMETRIC_DEFAULT":
-            non_vuln = True
-        if key == en_key_rot:
-            has_attr = True
-            if value.lower() in {"false", "0"}:
-                insec_id = b_id
-    if non_vuln:
+    en_key_rot, en_key_rot_val, en_key_rot_id = get_attribute(
+        graph, nid, "enable_key_rotation"
+    )
+    key_spec, key_spec_val, _ = get_attribute(
+        graph, nid, "customer_master_key_spec"
+    )
+    if key_spec and key_spec_val != "SYMMETRIC_DEFAULT":
         return None
-    if not has_attr:
+    if not en_key_rot:
         return nid
-    if insec_id:
-        return insec_id
+    if en_key_rot_val in {"false", "0"}:
+        return en_key_rot_id
     return None
 
 
