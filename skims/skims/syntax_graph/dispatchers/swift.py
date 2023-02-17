@@ -1,10 +1,12 @@
 from syntax_graph.syntax_readers.swift import (
+    assignment as swift_assignment,
     class_declaration as swift_class_declaration,
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
     if_statement as swift_if_statement,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
+    while_statement as swift_while_statement,
 )
 from syntax_graph.types import (
     Dispatcher,
@@ -12,6 +14,12 @@ from syntax_graph.types import (
 )
 
 SWIFT_DISPATCHERS: Dispatchers = (
+    Dispatcher(
+        applicable_types={
+            "assignment",
+        },
+        syntax_reader=swift_assignment.reader,
+    ),
     Dispatcher(
         applicable_types={
             "class_declaration",
@@ -48,5 +56,11 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "source_file",
         },
         syntax_reader=swift_source_file.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "while_statement",
+        },
+        syntax_reader=swift_while_statement.reader,
     ),
 )
