@@ -15,13 +15,19 @@ from code_etl.objs import (
     RepoId,
     User,
 )
+from dataclasses import (
+    dataclass,
+)
 from datetime import (
     datetime,
 )
 from fa_purity import (
     Cmd,
     JsonObj,
+    JsonValue,
     Maybe,
+    Result,
+    ResultE,
     Stream,
 )
 from fa_purity.cmd import (
@@ -67,6 +73,7 @@ import requests
 from typing import (
     Dict,
     FrozenSet,
+    NoReturn,
     Optional,
 )
 
@@ -77,49 +84,40 @@ class UnexpectedResponse(Exception):
     pass
 
 
+def _log_and_raise(log: Cmd[None], err: Exception) -> NoReturn:
+    unsafe_unwrap(log)
+    raise err
+
+
+@dataclass(frozen=True)
 class ApiError(Exception):
-    pass
+    errors: JsonValue
+
+    def to_exception(self) -> Exception:
+        return Exception(self)
 
 
-def _from_raw_json(data: JsonObj) -> Optional[str]:
+def _from_raw_json(data: JsonObj) -> ResultE[str]:
     errors = (
         try_get(data, "errors")
         .alt(lambda _: None)
         .swap()
-        .alt(lambda m: ApiError(m))
-        .alt(Exception)
+        .alt(lambda m: ApiError(m).to_exception())
     )
     group = errors.bind(
         lambda _: try_get(data, "data").bind(
             lambda x: Unfolder(x).get("group")
         )
     )
-    LOG.debug(data)
-    return (
-        group.map(
-            lambda g: Maybe.from_result(
-                Unfolder(g).get("organization").alt(lambda _: None)
-            )
-            .map(
-                lambda o: Unfolder(o)
-                .to_primitive(str)
-                .map(lambda x: inl(x, type(None)))
-                .lash(
-                    lambda e: Unfolder(o).to_none().map(lambda x: inl(x, str))
-                )
-                .alt(raise_exception)
-                .unwrap()
-            )
-            .to_result()
-            .to_union()
-        )
-        .alt(raise_exception)
-        .unwrap()
+    return group.bind(
+        lambda g: Unfolder(g)
+        .uget("organization")
+        .bind(lambda u: u.to_primitive(str).alt(Exception))
     )
 
 
 @RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
-def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:  # type: ignore[misc]
+def _get_group_org(token: str, group: str) -> Cmd[str]:  # type: ignore[misc]
     query = """
         query ObservesGetGroupOrganization($groupName: String!){
             group(groupName: $groupName){
@@ -146,9 +144,21 @@ def _get_group_org(token: str, group: str) -> Cmd[Optional[str]]:  # type: ignor
     req = retry_cmd(
         api_handler(Cmd.from_cmd(_request)), 10, lambda i: (i + 1) ^ 2
     )
-    return req.map(
-        lambda r: from_any(r.json()).unwrap()  # type: ignore[misc]
-    ).map(_from_raw_json)
+    result = req.map(
+        lambda r: from_any(r.json()).alt(Exception)  # type: ignore[misc]
+    ).map(lambda r: r.bind(_from_raw_json))
+    return result.map(
+        lambda r: r.alt(
+            lambda e: _log_and_raise(  # type: ignore[misc]
+                Cmd.from_cmd(
+                    lambda: LOG.error(
+                        "Api call fail _get_group_org(%s) i.e. %s", group, e
+                    )
+                ),
+                e,
+            )
+        ).unwrap()
+    )
 
 
 @lru_cache(maxsize=None)  # type: ignore[misc]
