@@ -4,6 +4,9 @@ from collections import (
 from dataloaders.requirements_file import (
     RequirementsFileLoader,
 )
+from dataloaders.vulnerabilities_file import (
+    VulnerabilitiesFileLoader,
+)
 from db_model.azure_repositories.get import (
     OrganizationRepositoriesCommitsLoader,
     OrganizationRepositoriesLoader,
@@ -240,6 +243,7 @@ class Dataloaders(NamedTuple):
     stakeholder_historic_subscription: StakeholderHistoricSubscriptionLoader
     stakeholder_with_fallback: StakeholderWithFallbackLoader
     user_credentials: UserCredentialsLoader
+    vulnerabilities_file: VulnerabilitiesFileLoader
     vulnerability: VulnerabilityLoader
     vulnerability_historic_state: VulnerabilityHistoricStateLoader
     vulnerability_historic_treatment: VulnerabilityHistoricTreatmentLoader
@@ -423,6 +427,7 @@ def get_new_context() -> Dataloaders:  # pylint: disable=too-many-locals
         toe_port_historic_state=ToePortHistoricStateLoader(),
         trial=TrialLoader(),
         user_credentials=UserCredentialsLoader(),
+        vulnerabilities_file=VulnerabilitiesFileLoader(),
         vulnerability=vulnerability_loader,
         vulnerability_historic_state=VulnerabilityHistoricStateLoader(),
         vulnerability_historic_treatment=(
