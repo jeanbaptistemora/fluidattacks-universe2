@@ -396,7 +396,7 @@ export const TasksVulnerabilities: React.FC<ITasksVulnerabilities> = ({
       label: t("searchFindings.tabVuln.vulnTable.verification"),
       selectOptions: (vulns: IVulnRowAttr[]): string[] =>
         [
-          ...new Set(vulns.map((vuln): string => vuln.organizationName ?? "")),
+          ...new Set(vulns.map((vuln): string => vuln.verification ?? "")),
         ].filter(Boolean),
       type: "select",
     },
