@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 public class Test {
 
   public static void main(String[ ] args) {
+    private String car = "Car", plane = "plane", boat = "boat";
     boolean isCar = true;
     String vehicle = "Car";
     try {

@@ -12,8 +12,9 @@ from utils import (
 
 def search(args: SearchArgs) -> Iterator[SearchResult]:
     for c_id in g.adj_cfg(args.graph, args.n_id):
-        if args.graph.nodes[c_id]["label_type"] == "FieldDeclaration":
-            var_id = g.match_ast_d(args.graph, c_id, "VariableDeclaration")
-            if var_id and args.graph.nodes[var_id]["variable"] == args.symbol:
-                yield True, c_id
-                break
+        if (
+            args.graph.nodes[c_id]["label_type"] == "VariableDeclaration"
+            and args.graph.nodes[c_id]["variable"] == args.symbol
+        ):
+            yield True, c_id
+            break
