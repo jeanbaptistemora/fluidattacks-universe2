@@ -22,22 +22,23 @@ from typing import (
 )
 
 
-async def get_organization_name(loaders: Dataloaders, group_name: str) -> str:
-    group: Group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group.organization_id)
-    if not organization:
-        raise OrganizationNotFound()
-    return organization.name
-
-
-async def get_organization_country(
-    loaders: Dataloaders, group_name: str
-) -> Optional[str]:
-    group: Group = await loaders.group.load(group_name)
-    organization = await loaders.organization.load(group.organization_id)
-    if not organization:
-        raise OrganizationNotFound()
-    return organization.country
+async def get_available_notifications(
+    loaders: Dataloaders, email: str
+) -> list[str]:
+    stakeholder_roles = await get_stakeholder_roles(loaders, email)
+    available_notifications_by_template = [
+        template["email_preferences"]
+        for template in MAIL_PREFERENCES.values()
+        if any(
+            item in template["roles"]["group"]
+            for item in stakeholder_roles["group"]
+        )
+        or any(
+            item in template["roles"]["org"]
+            for item in stakeholder_roles["org"]
+        )
+    ]
+    return sorted(set(available_notifications_by_template))
 
 
 async def get_group_emails_by_notification(
@@ -58,6 +59,12 @@ async def get_group_emails_by_notification(
     )
 
 
+async def get_group_rol(
+    loaders: Dataloaders, email: str, group_name: str
+) -> str:
+    return await authz.get_group_level_role(loaders, email, group_name)
+
+
 async def get_org_groups(loaders: Dataloaders, org_id: str) -> list[Group]:
     return await loaders.organization_groups.load(org_id)
 
@@ -66,10 +73,22 @@ async def get_org_rol(loaders: Dataloaders, email: str, org_id: str) -> str:
     return await authz.get_organization_level_role(loaders, email, org_id)
 
 
-async def get_group_rol(
-    loaders: Dataloaders, email: str, group_name: str
-) -> str:
-    return await authz.get_group_level_role(loaders, email, group_name)
+async def get_organization_country(
+    loaders: Dataloaders, group_name: str
+) -> Optional[str]:
+    group: Group = await loaders.group.load(group_name)
+    organization = await loaders.organization.load(group.organization_id)
+    if not organization:
+        raise OrganizationNotFound()
+    return organization.country
+
+
+async def get_organization_name(loaders: Dataloaders, group_name: str) -> str:
+    group: Group = await loaders.group.load(group_name)
+    organization = await loaders.organization.load(group.organization_id)
+    if not organization:
+        raise OrganizationNotFound()
+    return organization.name
 
 
 async def get_stakeholder_roles(
@@ -97,23 +116,7 @@ async def get_stakeholder_roles(
             for item in group
         ]
     )
-    return dict(group=set(group_roles), org=set(org_roles))
-
-
-async def get_available_notifications(
-    loaders: Dataloaders, email: str
-) -> list[str]:
-    stakeholder_roles = await get_stakeholder_roles(loaders, email)
-    available_notifications_by_template = [
-        template["email_preferences"]
-        for template in MAIL_PREFERENCES.values()
-        if any(
-            item in stakeholder_roles["group"]
-            for item in template["roles"]["group"]
-        )
-        or any(
-            item in stakeholder_roles["org"]
-            for item in template["roles"]["org"]
-        )
-    ]
-    return sorted(set(available_notifications_by_template))
+    return dict(
+        group=set(" ".join(group_roles).split()),
+        org=set(" ".join(org_roles).split()),
+    )
