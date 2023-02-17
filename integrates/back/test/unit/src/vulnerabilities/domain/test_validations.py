@@ -1,4 +1,5 @@
 from custom_exceptions import (
+    InvalidPath,
     InvalidSource,
 )
 from db_model.enums import (
@@ -6,6 +7,7 @@ from db_model.enums import (
 )
 import pytest
 from vulnerabilities.domain.validations import (
+    validate_path_deco,
     validate_source_deco,
 )
 
@@ -22,3 +24,13 @@ def test_validate_source_deco() -> None:
     assert decorated_func(source="ANALYST")
     with pytest.raises(InvalidSource):
         decorated_func(source="USER")
+
+
+def test_validate_path_deco() -> None:
+    @validate_path_deco("path")
+    def decorated_func(path: str) -> str:
+        return path
+
+    assert decorated_func(path="C:/Program Files/MyApp")
+    with pytest.raises(InvalidPath):
+        decorated_func(path="C:\\Program Files\\MyApp")

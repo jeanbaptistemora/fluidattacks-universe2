@@ -238,6 +238,23 @@ def validate_path(path: str) -> None:
         raise InvalidPath(expr=f'"values": "{invalid_path}"')
 
 
+def validate_path_deco(path_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            path = get_attr_value(
+                field=path_field, kwargs=kwargs, obj_type=Source
+            )
+            if path.find("\\") >= 0:
+                invalid_path = path.replace("\\", "\\\\")
+                raise InvalidPath(expr=f'"values": "{invalid_path}"')
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
 def validate_source(source: Source) -> None:
     if source not in {
         Source.ANALYST,

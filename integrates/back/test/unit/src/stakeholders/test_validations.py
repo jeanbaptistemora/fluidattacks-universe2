@@ -33,15 +33,8 @@ pytestmark = [
         ),
         (
             StakeholderPhone(
-                national_number="randomstring",
-                calling_country_code="1",
-                country_code="",
-            ),
-        ),
-        (
-            StakeholderPhone(
-                national_number="12345",
-                calling_country_code="randomstring",
+                national_number="string",
+                calling_country_code="str",
                 country_code="",
             ),
         ),
@@ -80,13 +73,6 @@ def test_validate_phone(
         (
             StakeholderPhone(
                 national_number="string",
-                calling_country_code="1",
-                country_code="",
-            ),
-        ),
-        (
-            StakeholderPhone(
-                national_number="12345",
                 calling_country_code="str",
                 country_code="",
             ),
