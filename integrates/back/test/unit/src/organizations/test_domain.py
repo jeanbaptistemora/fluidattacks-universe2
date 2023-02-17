@@ -318,7 +318,6 @@ async def test_has_user_access() -> None:
     assert not await orgs_access.has_access(loaders, org_id, non_existent_user)
 
 
-@pytest.mark.skip(reason="Skip for now, update imports")
 @pytest.mark.parametrize(
     ["organization_id", "email", "modified_by"],
     [
@@ -342,9 +341,9 @@ async def test_has_user_access() -> None:
     new_callable=AsyncMock,
 )
 @patch(MODULE_AT_TEST + "get_group_names", new_callable=AsyncMock)
-@patch(MODULE_AT_TEST + "has_access", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "orgs_access.has_access", new_callable=AsyncMock)
 async def test_remove_access(  # pylint: disable=too-many-arguments
-    mock_has_access: AsyncMock,
+    mock_orgs_access_has_access: AsyncMock,
     mock_get_group_names: AsyncMock,
     mock_group_access_domain_remove_access: AsyncMock,
     mock_dataloaders_user_credentials: AsyncMock,
@@ -358,7 +357,7 @@ async def test_remove_access(  # pylint: disable=too-many-arguments
 ) -> None:
     mocked_objects, mocked_paths, mocks_args = [
         [
-            mock_has_access,
+            mock_orgs_access_has_access,
             mock_get_group_names,
             mock_dataloaders_user_credentials.load,
             mock_org_access_model_remove,
@@ -366,7 +365,7 @@ async def test_remove_access(  # pylint: disable=too-many-arguments
             mock_stakeholders_domain_remove,
         ],
         [
-            "has_access",
+            "orgs_access.has_access",
             "get_group_names",
             "Dataloaders.user_credentials",
             "org_access_model.remove",
@@ -406,9 +405,9 @@ async def test_remove_access(  # pylint: disable=too-many-arguments
     with pytest.raises(StakeholderNotInOrganization):
         assert set_mocks_return_values(
             mocks_args=[[organization_id, "made_up_user@gmail.com"]],
-            mocked_objects=[mock_has_access],
+            mocked_objects=[mock_orgs_access_has_access],
             module_at_test=MODULE_AT_TEST,
-            paths_list=["has_access"],
+            paths_list=["orgs_access.has_access"],
         )
         await remove_access(
             organization_id, "made_up_user@gmail.com", modified_by

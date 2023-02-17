@@ -10335,7 +10335,7 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             None,
         ]
     },
-    "organizations.domain.has_access": {
+    "organizations.domain.orgs_access.has_access": {
         '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
         '"jdoe@fluidattacks.com"]': True,
         '["ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3", '
