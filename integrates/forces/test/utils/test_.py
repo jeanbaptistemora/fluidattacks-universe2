@@ -15,6 +15,7 @@ from forces.model import (
 )
 from forces.utils.strict_mode import (
     get_policy_compliance,
+    set_breaking_severity,
     set_forces_exit_code,
 )
 import pytest
@@ -22,7 +23,16 @@ from zoneinfo import (
     ZoneInfo,
 )
 
+# Constants
 TIMEZONE: ZoneInfo = ZoneInfo("America/Bogota")
+
+
+def test_set_breaking_severity() -> None:
+    assert set_breaking_severity(0.0, 5.0) == Decimal("0.0")
+    assert set_breaking_severity(0.1, 5.0) == Decimal("0.1")
+    assert set_breaking_severity(None, 0.0) == Decimal("0.0")
+    assert set_breaking_severity(None, 5.0) == Decimal("5.0")
+    assert set_breaking_severity(None, None) == Decimal("0.0")
 
 
 def test_check_policy_compliance() -> None:

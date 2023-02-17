@@ -414,12 +414,12 @@ async def get_forces_user_and_org_data(
     **kwargs: object,
 ) -> tuple[str | None, str | None, float | None, int | None]:
     groups = await get_groups_access(**kwargs)
-    for group, global_brk_severity, vuln_grace_period in groups:
+    for group, arm_severity_policy, vuln_grace_period in groups:
         if group["userRole"] == "service_forces":
             return (
                 group["organization"],
                 group["name"],
-                global_brk_severity,
+                arm_severity_policy,
                 vuln_grace_period,
             )
     return (None, None, None, None)

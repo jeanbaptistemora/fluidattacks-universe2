@@ -30,7 +30,7 @@ from forces.utils.logs import (
     rich_log,
 )
 from forces.utils.strict_mode import (
-    choose_min_breaking_severity,
+    set_breaking_severity,
 )
 from io import (
     TextIOWrapper,
@@ -141,9 +141,10 @@ def show_banner() -> None:
     "--breaking",
     required=False,
     default=None,
-    help="""Vulnerable finds with a severity below this threshold will not
-    break the job. This CLI setting overrides the minimum breaking severity
-    value set in your ARM organization/group's policies (Strict mode only)""",
+    help="""Vulnerable spots with a CVSS score below this threshold won't
+    break the build. Keep in mind that the value set, if set, in your ARM
+    organization/group's policies takes precedence over the one passed to
+    this CLI setting. (Strict mode only)""",
     type=click.FloatRange(min=0.0, max=10.0),
 )
 # pylint: disable=too-many-arguments
@@ -223,7 +224,7 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
     (
         organization,
         group,
-        global_brk_severity,
+        arm_severity_policy,
         vuln_grace_period,
     ) = await get_forces_user_and_org_data(api_token=token)
     if not organization or not group:
@@ -258,9 +259,9 @@ async def main_wrapped(  # pylint: disable=too-many-arguments, too-many-locals
         repository_name=repo_name,
         strict=strict,
         verbose_level=verbose,
-        breaking_severity=choose_min_breaking_severity(
-            global_brk_severity=global_brk_severity,
-            local_brk_severity=local_breaking,
+        breaking_severity=set_breaking_severity(
+            arm_severity_policy=arm_severity_policy,
+            cli_severity_policy=local_breaking,
         ),
         grace_period=vuln_grace_period if vuln_grace_period is not None else 0,
     )

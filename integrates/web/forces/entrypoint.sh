@@ -25,12 +25,10 @@ function main {
     && sops_export_vars __argIntegratesSecrets__/secrets/development.yaml \
       TEST_FORCES_TOKEN \
     && resolve_endpoint \
-    && echo "[INFO] Running DevSecOps agent lax check..." \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --repo-name universe --lax \
+    && echo "[INFO] Running DevSecOps agent lax empty report check..." \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --lax -v --repo-name universe \
     && echo "[INFO] Running DevSecOps agent strict check..." \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -vvvv --breaking 10.0 --strict \
-    && echo "[INFO] Running DevSecOps agent empty report check..." \
-    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" -v --breaking 10.0 --strict \
+    && API_ENDPOINT="${endpoint}" forces --token "${TEST_FORCES_TOKEN}" --strict -vvvv --breaking 10.0 \
     || return 1
 }
 

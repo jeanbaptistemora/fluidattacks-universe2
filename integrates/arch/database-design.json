@@ -15312,6 +15312,16 @@
               },
               "created_by": {
                 "S": "unknown"
+              },
+              "policies": {
+                "M": {
+                  "modified_by": {
+                    "S": "integratesmanager@gmail.com"
+                  },
+                  "modified_date": {
+                    "S": "2023-02-15T20:07:57+00:00"
+                  }
+                }
               }
             },
             {
