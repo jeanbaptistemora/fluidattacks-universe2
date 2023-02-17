@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ENVIRONMENT_URL,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -13,6 +16,7 @@ from graphql.type.definition import (
 )
 
 
+@GIT_ENVIRONMENT_URL.field("secrets")
 @enforce_group_level_auth_async
 async def resolve(
     parent: RootEnvironmentUrl, info: GraphQLResolveInfo, **__: None

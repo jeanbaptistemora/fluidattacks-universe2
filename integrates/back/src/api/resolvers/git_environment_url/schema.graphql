@@ -1,0 +1,13 @@
+"Git Root environment url definition"
+type GitEnvironmentUrl implements EnvironmentUrl {
+  "Date of creation"
+  createdAt: DateTime
+  "GitRoot environment url"
+  id: String!
+  "Environment secrets"
+  secrets: [Secret]
+  "Environment url"
+  url: String!
+  "Environment url type"
+  urlType: String!
+}

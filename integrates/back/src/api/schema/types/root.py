@@ -1,6 +1,3 @@
-from api.resolvers.git_environment_url import (
-    secrets as environment_secrets,
-)
 from api.resolvers.git_root import (
     branch,
     cloning_status,
@@ -65,9 +62,6 @@ GITROOT.set_field("uploadUrl", upload_url.resolve)
 GITROOT.set_field("url", url.resolve)
 GITROOT.set_field("useVpn", use_vpn.resolve)
 GITROOT.set_field("vulnerabilities", vulnerabilities.resolve)
-
-ENVIRONMENT_URL: ObjectType = ObjectType("GitEnvironmentUrl")
-ENVIRONMENT_URL.set_field("secrets", environment_secrets.resolve)
 
 IPROOT: ObjectType = ObjectType("IPRoot")
 IPROOT.set_field("address", address.resolve)

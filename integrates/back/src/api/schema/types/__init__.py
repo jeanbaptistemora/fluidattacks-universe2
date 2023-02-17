@@ -2,7 +2,6 @@ from .mutation import (
     MUTATION,
 )
 from .root import (
-    ENVIRONMENT_URL,
     GITROOT,
     IPROOT,
     URLROOT,
@@ -81,6 +80,9 @@ from api.resolvers.forces_execution.schema import (
 )
 from api.resolvers.forces_executions.schema import (
     FORCES_EXECUTIONS,
+)
+from api.resolvers.git_environment_url.schema import (
+    GIT_ENVIRONMENT_URL,
 )
 from api.resolvers.git_root_cloning_status.schema import (
     GIT_ROOT_CLONING_STATUS,
@@ -166,6 +168,9 @@ from api.resolvers.requirement.schema import (
 from api.resolvers.resource.schema import (
     RESOURCE,
 )
+from api.resolvers.secret.schema import (
+    SECRET,
+)
 from api.resolvers.severity.schema import (
     SEVERITY,
 )
@@ -222,7 +227,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FORCES_EXECUTIONS,
     GITROOT,
     GROUP_COMPLIANCE,
-    ENVIRONMENT_URL,
+    GIT_ENVIRONMENT_URL,
     GIT_ROOT_CLONING_STATUS,
     GROUP,
     GROUP_BILLING,
@@ -262,6 +267,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TREATMENT,
     TREATMENT_SUMMARY,
     TRIAL,
+    SECRET,
     SNIPPET,
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
