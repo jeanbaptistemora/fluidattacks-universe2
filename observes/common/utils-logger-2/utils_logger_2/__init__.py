@@ -14,7 +14,7 @@ from fa_purity import (
 )
 import sys
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 
 def set_main_log(
@@ -25,7 +25,7 @@ def set_main_log(
 ) -> Cmd[None]:
     _bug_handler = handlers.bug_handler(conf, LoggingLvl.ERROR)
     _log_handler = handlers.logger_handler(debug, show_time, sys.stderr)
-    _handlers = (_log_handler,) + ((_bug_handler,) if debug else ())
+    _handlers = (_log_handler, _bug_handler)
     env = current_app_env()
     display_env = logger.get_logger(name).bind(
         lambda log: env.bind(lambda e: log.info("%s@%s", (name, e.value)))

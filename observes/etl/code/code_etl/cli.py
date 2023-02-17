@@ -30,6 +30,9 @@ from datetime import (
 from fa_purity import (
     JsonValue,
 )
+from fa_purity.cmd import (
+    unsafe_unwrap,
+)
 from fa_purity.json.factory import (
     loads,
 )
@@ -60,6 +63,9 @@ from typing import (
     NoReturn,
     Optional,
     Tuple,
+)
+from utils_logger_2 import (
+    start_session,
 )
 
 
@@ -204,6 +210,7 @@ def init_table(
 @click.option("--creds", type=click.File("r"), required=True)  # type: ignore[misc]
 @click.pass_context  # type: ignore[misc]
 def main(ctx: Any, db_id: FILE[str], creds: FILE[str]) -> None:  # type: ignore[misc]
+    unsafe_unwrap(start_session())
     if "--help" not in sys.argv[1:]:
         ctx.obj = CmdContext(  # type: ignore[misc]
             id_from_str(db_id.read()),
