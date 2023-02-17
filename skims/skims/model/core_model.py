@@ -2405,6 +2405,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_ELBV2_INSECURE_PROTOCOLS = MethodInfo(
+        file_name="aws",
+        name="elbv2_uses_insecure_ssl_protocol",
+        module="dast",
+        finding=FindingEnum.F016,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_INSECURE_SECURITY_POLICY = MethodInfo(
         file_name="aws",
         name="uses_insecure_security_policy",

@@ -59,3 +59,6 @@ lib_root.f016.httpclient_no_revocation_list:
 lib_path.f016.aws_elb_without_sslpolicy:
   en: Property SslPolicy is either missing or misconfigured
   es: Falta la propiedad SslPolicy o está mal configurada
+lib_path.f016.elbv2_uses_insecure_ssl_protocol:
+  en: Listeners uses unsafe SSL protocol
+  es: Listeners usan protocolos SSL inseguros
