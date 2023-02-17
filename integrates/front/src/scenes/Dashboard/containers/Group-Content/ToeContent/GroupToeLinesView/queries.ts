@@ -42,6 +42,7 @@ const GET_TOE_LINES: DocumentNode = gql`
     $canGetComments: Boolean!
     $canGetFirstAttackAt: Boolean!
     $comments: String
+    $filename: String
     $first: Int
     $fromAttackedAt: DateTime
     $fromBePresentUntil: DateTime
@@ -72,6 +73,7 @@ const GET_TOE_LINES: DocumentNode = gql`
         attackedBy: $attackedBy
         bePresent: $bePresent
         comments: $comments
+        filename: $filename
         first: $first
         fromAttackedAt: $fromAttackedAt
         fromBePresentUntil: $fromBePresentUntil
