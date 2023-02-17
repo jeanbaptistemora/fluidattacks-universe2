@@ -1,26 +1,14 @@
 from .mutation import (
     MUTATION,
 )
-from .prices import (
-    PRICES,
-)
 from .query import (
     QUERY,
-)
-from .report import (
-    REPORT,
-)
-from .resource import (
-    RESOURCE,
 )
 from .root import (
     ENVIRONMENT_URL,
     GITROOT,
     IPROOT,
     URLROOT,
-)
-from .severity import (
-    SEVERITY,
 )
 from .stakeholder import (
     STAKEHOLDER,
@@ -148,8 +136,32 @@ from api.resolvers.organization_compliance_standard.schema import (
 from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
 )
+from api.resolvers.page_info.schema import (
+    PAGE_INFO,
+)
 from api.resolvers.payment_method.schema import (
     PAYMENT_METHOD,
+)
+from api.resolvers.phone.schema import (
+    PHONE,
+)
+from api.resolvers.price.schema import (
+    PRICE,
+)
+from api.resolvers.prices.schema import (
+    PRICES,
+)
+from api.resolvers.report.schema import (
+    REPORT,
+)
+from api.resolvers.requirement.schema import (
+    REQUIREMENT,
+)
+from api.resolvers.resource.schema import (
+    RESOURCE,
+)
+from api.resolvers.severity.schema import (
+    SEVERITY,
 )
 from api.resolvers.vulnerabilities_summary.schema import (
     VULNERABILITIES_SUMMARY,
@@ -158,9 +170,6 @@ from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-)
-from api.schema.types.requirement import (
-    REQUIREMENT,
 )
 from api.schema.types.snippet import (
     SNIPPET,
@@ -226,11 +235,14 @@ TYPES: Tuple[ObjectType, ...] = (
     ORGANIZATION_COMPLIANCE,
     ORGANIZATION_COMPLIANCE_STANDARD,
     ORGANIZATION_INTEGRATION_REPOSITORIES,
+    PAGE_INFO,
     PAYMENT_METHOD,
+    PHONE,
+    PRICE,
     PRICES,
     QUERY,
-    REQUIREMENT,
     REPORT,
+    REQUIREMENT,
     RESOURCE,
     SEVERITY,
     STAKEHOLDER,
