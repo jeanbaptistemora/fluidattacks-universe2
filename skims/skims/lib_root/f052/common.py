@@ -182,3 +182,14 @@ def insecure_hash_library(graph: Graph) -> list[NId]:
             if method_expression.split(".")[0] == dangerous_name:
                 vuln_nodes.append(n_id)
     return vuln_nodes
+
+
+def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
+    if dangerous_name := get_default_alias(graph, "jsonwebtoken"):
+        for n_id in g.matching_nodes(
+            graph, label_type="Placeholder", label_alias=dangerous_name
+        ):
+            if get_eval_danger(graph, n_id, method):
+                vuln_nodes.append(n_id)
+    return vuln_nodes
