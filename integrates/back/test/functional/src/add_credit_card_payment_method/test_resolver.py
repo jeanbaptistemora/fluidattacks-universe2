@@ -24,7 +24,8 @@ from typing import (
         ["4111111111111111", "04", "25", "123", True],
     ],
 )
-async def test_accept_legal(  # pylint: disable=too-many-arguments
+async def test_add_credit_card_payment_method(
+    # pylint: disable=too-many-arguments
     populate: bool,
     card_number: str,
     card_expiration_month: str,
