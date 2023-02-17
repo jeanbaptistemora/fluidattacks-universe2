@@ -6,7 +6,7 @@ import React, { useCallback } from "react";
 import { Button } from "components/Button";
 import { Col80, RemoveTag, Row } from "styles/styledComponents";
 
-interface IActionButtons {
+interface IActionButtonsProps {
   allowEmpty: boolean;
   children: (fieldName: string) => React.ReactNode;
   form: FormikProps<unknown>;
@@ -16,7 +16,7 @@ interface IActionButtons {
   remove: <T>(index: number) => T | undefined;
 }
 
-export const ActionButtons: React.FC<IActionButtons> = ({
+const ActionButtons: React.FC<IActionButtonsProps> = ({
   allowEmpty,
   children,
   form,
@@ -24,7 +24,7 @@ export const ActionButtons: React.FC<IActionButtons> = ({
   name,
   push,
   remove,
-}: IActionButtons): JSX.Element => {
+}: IActionButtonsProps): JSX.Element => {
   const addItem = useCallback((): void => {
     push(initialValue);
   }, [initialValue, push]);
@@ -71,3 +71,6 @@ export const ActionButtons: React.FC<IActionButtons> = ({
     </React.Fragment>
   );
 };
+
+export type { IActionButtonsProps };
+export { ActionButtons };
