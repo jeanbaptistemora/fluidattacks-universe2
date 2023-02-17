@@ -2,13 +2,13 @@ from .schema import (
     IP_ROOT,
 )
 from db_model.roots.types import (
-    IPRoot,
+    Root,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-@IP_ROOT.field("port")
-def resolve(_parent: IPRoot, _info: GraphQLResolveInfo) -> int:
-    return 0
+@IP_ROOT.field("state")
+def resolve(parent: Root, _info: GraphQLResolveInfo) -> str:
+    return parent.state.status

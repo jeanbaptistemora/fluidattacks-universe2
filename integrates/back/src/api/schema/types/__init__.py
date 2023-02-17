@@ -3,7 +3,6 @@ from .mutation import (
 )
 from .root import (
     GITROOT,
-    IPROOT,
     URLROOT,
 )
 from .stakeholder import (
@@ -107,6 +106,9 @@ from api.resolvers.integration_repositories_connection.schema import (
 )
 from api.resolvers.integration_repositories_edge.schema import (
     INTEGRATION_REPOSITORIES_EDGE,
+)
+from api.resolvers.ip_root.schema import (
+    IP_ROOT,
 )
 from api.resolvers.machine_job.schema import (
     MACHINE_JOB,
@@ -235,7 +237,7 @@ TYPES: Tuple[ObjectType, ...] = (
     INTEGRATION_REPOSITORIES,
     INTEGRATION_REPOSITORIES_CONNECTION,
     INTEGRATION_REPOSITORIES_EDGE,
-    IPROOT,
+    IP_ROOT,
     MACHINE_JOB,
     ME,
     MUTATION,

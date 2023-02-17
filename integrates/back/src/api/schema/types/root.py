@@ -19,10 +19,6 @@ from api.resolvers.git_root import (
     use_vpn,
     vulnerabilities,
 )
-from api.resolvers.ip_root import (
-    address,
-    port as ip_port,
-)
 from api.resolvers.root import (
     nickname,
     state,
@@ -62,13 +58,6 @@ GITROOT.set_field("uploadUrl", upload_url.resolve)
 GITROOT.set_field("url", url.resolve)
 GITROOT.set_field("useVpn", use_vpn.resolve)
 GITROOT.set_field("vulnerabilities", vulnerabilities.resolve)
-
-IPROOT: ObjectType = ObjectType("IPRoot")
-IPROOT.set_field("address", address.resolve)
-IPROOT.set_field("nickname", nickname.resolve)
-IPROOT.set_field("port", ip_port.resolve)
-IPROOT.set_field("state", state.resolve)
-IPROOT.set_field("vulnerabilities", vulnerabilities.resolve)
 
 URLROOT: ObjectType = ObjectType("URLRoot")
 URLROOT.set_field("host", host.resolve)

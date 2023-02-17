@@ -54,22 +54,6 @@ type GitRoot implements IRoot {
   vulnerabilities: [Vulnerability!]
 }
 
-"IP Root type definition"
-type IPRoot implements IRoot {
-  "IP address of the environment to test"
-  address: String!
-  "ID of the root"
-  id: ID!
-  "Nickname for the root"
-  nickname: String!
-  "Indicates the port to test. Zero means all ports"
-  port: Int! @deprecated(reason: "This field will be removed after 2023/06/13.")
-  "Whether the root is active or not"
-  state: ResourceState!
-  "Vulnerabilities associated to the root"
-  vulnerabilities: [Vulnerability!]
-}
-
 "URL Root type definition"
 type URLRoot implements IRoot {
   "Domain name or IP of the environment to test"
