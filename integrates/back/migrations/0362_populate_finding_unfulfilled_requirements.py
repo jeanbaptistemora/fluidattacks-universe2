@@ -44,8 +44,14 @@ async def process_finding(
     finding: Finding, vulnerabilities_file: dict[str, Any]
 ) -> None:
     criteria_vulnerability_id = finding.title.split(".")[0].strip()
-    criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
-    requirements: list[str] = criteria_vulnerability["requirements"]
+    criteria_vulnerability = vulnerabilities_file.get(
+        criteria_vulnerability_id
+    )
+    requirements: list[str] = (
+        criteria_vulnerability["requirements"]
+        if criteria_vulnerability
+        else []
+    )
     await findings_model.update_metadata(
         group_name=finding.group_name,
         finding_id=finding.id,
