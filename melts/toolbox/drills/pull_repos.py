@@ -10,6 +10,9 @@ from contextlib import (
 from git.exc import (
     GitError,
 )
+from git.repo import (
+    Repo,
+)
 import os
 from pathlib import (
     Path,
@@ -202,6 +205,16 @@ def download_repo_from_s3(
         LOGGER.error("filed to unzip %s", nickname)
 
     os.remove(file_path)
+
+    try:
+        repo = Repo(repo_path.resolve())
+        repo.git.reset("--hard", "HEAD")
+    except GitError as exc:
+        LOGGER.error("Expand repositories has failed:")
+        LOGGER.info("Repository: %s", repo_path.resolve())
+        LOGGER.info(exc)
+        LOGGER.info("\n")
+        return False
 
     return True
 
