@@ -5,7 +5,7 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -28,37 +28,29 @@ from utils.graph import (
 
 
 def _ec2_has_not_an_iam_instance_profile(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "iam_instance_profile"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-    if not has_attr:
+    attr, _, _ = get_attribute(graph, nid, "iam_instance_profile")
+    if not attr:
         return nid
     return None
 
 
 def _ec2_has_terminate_shutdown_behavior(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "instance_initiated_shutdown_behavior"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() != "terminate":
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "instance_initiated_shutdown_behavior"
+    )
+    if not attr:
         return nid
+    if attr_val.lower() != "terminate":
+        return attr_id
     return None
 
 
 def _aux_ec2_associate_public_ip_address(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "associate_public_ip_address"
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr and value.lower() == "true":
-            return b_id
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "associate_public_ip_address"
+    )
+    if attr and attr_val.lower() == "true":
+        return attr_id
     return None
 
 

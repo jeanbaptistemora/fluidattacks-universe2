@@ -5,7 +5,8 @@ from itertools import (
     chain,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -22,28 +23,16 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _azure_app_authentication_off(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "auth_settings"
-    expected_block_attr = "enabled"
-    has_attr = False
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        has_block = True
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                has_attr = True
-                if value.lower() == "false":
-                    return b_id
-                return None
-        if not has_attr:
-            return c_id
-    if not has_block:
+    if auth := get_argument(graph, nid, "auth_settings"):
+        attr, attr_val, attr_id = get_attribute(graph, auth, "enabled")
+        if not attr:
+            return auth
+        if attr_val.lower() == "false":
+            return attr_id
+    else:
         return nid
     return None
 
@@ -51,17 +40,11 @@ def _azure_app_authentication_off(graph: Graph, nid: NId) -> NId | None:
 def _azure_as_client_certificates_enabled(
     graph: Graph, nid: NId
 ) -> NId | None:
-    expected_attr = "client_cert_enabled"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() == "false":
-                return b_id
-            return None
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "client_cert_enabled")
+    if not attr:
         return nid
+    if attr_val.lower() == "false":
+        return attr_id
     return None
 
 

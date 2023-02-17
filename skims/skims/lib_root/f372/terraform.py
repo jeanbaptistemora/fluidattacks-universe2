@@ -7,7 +7,6 @@ from itertools import (
 from lib_root.utilities.terraform import (
     get_argument,
     get_attribute,
-    get_key_value,
     iterate_resource,
 )
 from model.core_model import (
@@ -24,31 +23,23 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _azure_kv_only_accessible_over_https(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "https_only"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() == "false":
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "https_only")
+    if not attr:
         return nid
+    if attr_val.lower() == "false":
+        return attr_id
     return None
 
 
 def _azure_sa_insecure_transfer(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "enable_https_traffic_only"
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr and value.lower() == "false":
-            return b_id
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "enable_https_traffic_only"
+    )
+    if attr and attr_val.lower() == "false":
+        return attr_id
     return None
 
 

@@ -2,7 +2,8 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,25 +20,15 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _db_no_point_in_time_recovery(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "point_in_time_recovery"
-    expected_block_attr = "enabled"
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                has_block = True
-                if value.lower() == "false":
-                    return b_id
-                return None
-    if not has_block:
-        return nid
+    if point := get_argument(graph, nid, "point_in_time_recovery"):
+        attr, attr_val, attr_id = get_attribute(graph, point, "enabled")
+        if not attr:
+            return nid
+        if attr_val.lower() == "false":
+            return attr_id
     return None
 
 
