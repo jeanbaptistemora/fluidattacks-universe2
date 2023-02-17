@@ -4,9 +4,6 @@ from .mutation import (
 from .organization import (
     ORGANIZATION,
 )
-from .organization_compliance import (
-    ORGANIZATION_COMPLIANCE,
-)
 from .prices import (
     PRICES,
 )
@@ -73,8 +70,14 @@ from api.resolvers.event_evidence.schema import (
 from api.resolvers.event_evidence_item.schema import (
     EVENT_EVIDENCE_ITEM,
 )
+from api.resolvers.execution_edge.schema import (
+    EXECUTION_EDGE,
+)
 from api.resolvers.execution_vulnerabilities.schema import (
     EXECUTION_VULNERABILITIES,
+)
+from api.resolvers.executions_connection.schema import (
+    EXECUTIONS_CONNECTION,
 )
 from api.resolvers.exploit_result.schema import (
     EXPLOIT_RESULT,
@@ -136,6 +139,12 @@ from api.resolvers.organization_billing_active_group.schema import (
 from api.resolvers.organization_billing_author.schema import (
     ORGANIZATION_BILLING_AUTHOR,
 )
+from api.resolvers.organization_compliance.schema import (
+    ORGANIZATION_COMPLIANCE,
+)
+from api.resolvers.organization_compliance_standard.schema import (
+    ORGANIZATION_COMPLIANCE_STANDARD,
+)
 from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
 )
@@ -149,9 +158,6 @@ from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-)
-from api.schema.types.organization_compliance_standard import (
-    ORGANIZATION_COMPLIANCE_STANDARD,
 )
 from api.schema.types.requirement import (
     REQUIREMENT,
@@ -189,7 +195,9 @@ TYPES: Tuple[ObjectType, ...] = (
     EVENT,
     EVENT_EVIDENCE,
     EVENT_EVIDENCE_ITEM,
+    EXECUTION_EDGE,
     EXECUTION_VULNERABILITIES,
+    EXECUTIONS_CONNECTION,
     EXPLOIT_RESULT,
     FINDING_POLICY,
     FINDING_EVIDENCE,

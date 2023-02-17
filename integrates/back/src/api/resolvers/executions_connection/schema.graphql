@@ -1,0 +1,9 @@
+"Executions Connection type definition"
+type ExecutionsConnection {
+  "A list of executions edges"
+  edges: [ExecutionEdge]!
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+  "Total executions found"
+  total: Int
+}

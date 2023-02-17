@@ -1,0 +1,7 @@
+"Execution Edge type definition"
+type ExecutionEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: ForcesExecution!
+}

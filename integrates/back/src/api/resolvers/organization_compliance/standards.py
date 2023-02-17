@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION_COMPLIANCE,
+)
 from .types import (
     OrganizationComplianceStandard,
 )
@@ -23,6 +26,7 @@ from newutils.compliance import (
 )
 
 
+@ORGANIZATION_COMPLIANCE.field("standards")
 async def resolve(
     parent: OrganizationUnreliableIndicators,
     info: GraphQLResolveInfo,

@@ -30,21 +30,3 @@ type ForcesExecution {
   "Object containing arrays of accepted, open and closed vulnerabilities"
   vulnerabilities: ExecutionVulnerabilities
 }
-
-"Execution Edge type definition"
-type ExecutionEdge implements Edge {
-  "The cursor for the edge"
-  cursor: String!
-  "The node with the payload"
-  node: ForcesExecution!
-}
-
-"Executions Connection type definition"
-type ExecutionsConnection {
-  "A list of executions edges"
-  edges: [ExecutionEdge]!
-  "Information to aid in pagination"
-  pageInfo: PageInfo!
-  "Total executions found"
-  total: Int
-}
