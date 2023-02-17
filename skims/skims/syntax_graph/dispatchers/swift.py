@@ -3,6 +3,7 @@ from syntax_graph.syntax_readers.swift import (
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
     if_statement as swift_if_statement,
+    property_declaration as swift_property_declaration,
     source_file as swift_source_file,
 )
 from syntax_graph.types import (
@@ -35,6 +36,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "if_statement",
         },
         syntax_reader=swift_if_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "property_declaration",
+        },
+        syntax_reader=swift_property_declaration.reader,
     ),
     Dispatcher(
         applicable_types={

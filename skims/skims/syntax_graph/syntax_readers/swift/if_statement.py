@@ -21,6 +21,11 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     condition_id = n_attrs.get("label_field_condition")
 
+    if not condition_id and (
+        ident := match_ast_d(graph, args.n_id, "simple_identifier")
+    ):
+        condition_id = ident
+
     if not condition_id:
         raise MissingCaseHandling(f"Bad if statement handling in {args.n_id}")
 
