@@ -3,15 +3,9 @@ from db_model.advisories.types import (
 )
 import glob
 import re
-from typing import (
-    Dict,
-    List,
-    Optional,
-    Pattern,
-)
 import yaml
 
-RE_RANGES: Pattern[str] = re.compile(r"(?=[\(\[]).+?(?<=[\)\]])")
+RE_RANGES: re.Pattern[str] = re.compile(r"(?=[\(\[]).?(?<=[\)\]])")
 URL_ADVISORIES_COMMUNITY: str = (
     "https://gitlab.com/gitlab-org/advisories-community.git"
 )
@@ -53,7 +47,7 @@ def fix_npm_gem_go_range(unformatted_range: str) -> str:
 
 
 def fix_pip_composer_range(str_range: str) -> str:
-    vals_to_change: Dict[str, str] = {"||": " || ", ",": " ", "==": "="}
+    vals_to_change: dict[str, str] = {"||": " || ", ",": " ", "==": "="}
 
     for target, replacement in vals_to_change.items():
         fixed_range = str_range.replace(target, replacement)
@@ -95,7 +89,7 @@ def format_ranges(platform: str, range_str: str) -> str:
 
 
 def get_platform_advisories(
-    advisories: List[Advisory], tmp_dirname: str, platform: str
+    advisories: list[Advisory], tmp_dirname: str, platform: str
 ) -> None:
     filenames = sorted(
         glob.glob(
@@ -110,7 +104,7 @@ def get_platform_advisories(
                 if not (cve_key := parsed_yaml.get("identifier")):
                     continue
                 package_slug = str(parsed_yaml.get("package_slug"))
-                severity: Optional[str] = parsed_yaml.get("cvss_v3")
+                severity: str | None = parsed_yaml.get("cvss_v3")
                 package_key = package_slug.replace(
                     f"{platform}/", "", 1
                 ).lower()
@@ -143,7 +137,7 @@ def get_platform_advisories(
 
 
 def get_advisories_community(
-    advisories: List[Advisory], tmp_dirname: str
+    advisories: list[Advisory], tmp_dirname: str
 ) -> None:
     print("processing advisories-community")
     # pylint: disable=consider-iterating-dictionary

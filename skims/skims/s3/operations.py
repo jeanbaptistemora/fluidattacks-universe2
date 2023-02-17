@@ -1,6 +1,9 @@
 from botocore.exceptions import (
     ClientError,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     UnavailabilityError,
 )
@@ -16,11 +19,6 @@ from tempfile import (
 )
 from typing import (
     Any,
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -28,7 +26,7 @@ from utils.logs import (
 
 
 async def upload_object(
-    file_name: str, dict_object: Dict[str, Any], bucket: str
+    file_name: str, dict_object: dict[str, Any], bucket: str
 ) -> None:
     try:
         client = await get_s3_resource()
@@ -45,8 +43,8 @@ async def upload_object(
 async def download_json_fileobj(
     bucket: str,
     file_name: str,
-) -> Dict[str, Any]:
-    return_value: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    return_value: dict[str, Any] = {}
     with NamedTemporaryFile() as temp:
         try:
             client = await get_s3_resource()
@@ -65,17 +63,17 @@ async def download_json_fileobj(
 async def download_advisories(
     needed_platforms: Iterable[str],
     dl_only_patches: bool = False,
-) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+) -> tuple[dict[str, Any], dict[str, Any]]:
     s3_advisories = {}
     s3_patch_advisories = {}
     bucket_name = "skims.sca"
     for plt in needed_platforms:
         if not dl_only_patches:
-            dict_obj: Dict[str, Any] = await download_json_fileobj(
+            dict_obj: dict[str, Any] = await download_json_fileobj(
                 bucket_name, f"{plt}.json"
             )
             s3_advisories.update({plt: dict_obj})
-        dict_patch_obj: Dict[str, Any] = await download_json_fileobj(
+        dict_patch_obj: dict[str, Any] = await download_json_fileobj(
             bucket_name, f"{plt}_patch.json"
         )
         s3_patch_advisories.update({plt: dict_patch_obj})
@@ -83,8 +81,8 @@ async def download_advisories(
 
 
 async def upload_advisories(
-    to_storage: List[Advisory],
-    s3_advisories: Optional[Dict[str, Any]] = None,
+    to_storage: Iterable[Advisory],
+    s3_advisories: dict[str, Any] | None = None,
     is_patch: bool = False,
 ) -> None:
     s3_advisories = {} if s3_advisories is None else s3_advisories

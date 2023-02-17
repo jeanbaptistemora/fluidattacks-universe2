@@ -68,15 +68,13 @@ from symbolic_eval.utils import (
 )
 from typing import (
     cast,
-    Dict,
-    Set,
 )
 from utils import (
     graph as g,
     logs,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F004: evaluate_method_f004,
     FindingEnum.F008: evaluate_method_f008,
     FindingEnum.F015: evaluate_method_f015,
@@ -94,13 +92,13 @@ FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
     FindingEnum.F368: evaluate_method_f368,
 }
 
-MODIFYING_METHODS: Set[str] = {"add", "push", "put", "get"}
+MODIFYING_METHODS: set[str] = {"add", "push", "put", "get"}
 
 
 def get_invocation_eval(
-    graph: Graph, evaluation: Dict[NId, bool], md_id: NId, mi_id: NId
-) -> Dict[NId, bool]:
-    invocation_eval: Dict[NId, bool] = {}
+    graph: Graph, evaluation: dict[NId, bool], md_id: NId, mi_id: NId
+) -> dict[NId, bool]:
+    invocation_eval: dict[NId, bool] = {}
 
     al_id = graph.nodes[mi_id].get("arguments_id")
     pl_id = graph.nodes[md_id].get("parameters_id")

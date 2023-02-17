@@ -12,8 +12,6 @@ from serializers import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 from vulnerabilities import (
     build_lines_vuln,
@@ -27,11 +25,11 @@ from zone import (
 def get_vulnerability_from_n_id(
     *,
     desc_key: str,
-    desc_params: Dict[str, str],
+    desc_params: dict[str, str],
     graph_shard: graph_model.GraphShard,
     n_id: str,
     method: core_model.MethodsEnum,
-    metadata: Optional[Dict[str, Any]] = None,
+    metadata: dict[str, Any] | None = None,
 ) -> core_model.Vulnerability:
     # Root -> meta -> file graph
     what_data = meta_attrs_label_path = graph_shard.path
@@ -82,7 +80,7 @@ def get_vulnerability_from_n_id(
 def get_vulnerabilities_from_n_ids_metadata(
     *,
     desc_key: str,
-    desc_params: Dict[str, str],
+    desc_params: dict[str, str],
     graph_shard_nodes: graph_model.MetadataGraphShardNodes,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:
@@ -103,7 +101,7 @@ def get_vulnerabilities_from_n_ids_metadata(
 def get_vulnerabilities_from_n_ids(
     *,
     desc_key: str,
-    desc_params: Dict[str, str],
+    desc_params: dict[str, str],
     graph_shard_nodes: graph_model.GraphShardNodes,
     method: core_model.MethodsEnum,
 ) -> core_model.Vulnerabilities:

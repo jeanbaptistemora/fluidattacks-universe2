@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterable,
+)
 from ctx import (
     CTX,
 )
@@ -21,13 +24,6 @@ from s3.resource import (
     s3_shutdown,
     s3_start_resource,
 )
-from typing import (
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
-)
 from utils.function import (
     semver_match,
 )
@@ -35,7 +31,7 @@ from utils.logs import (
     log_blocking,
 )
 
-Database = Optional[Dict[str, Dict[str, Dict[str, str]]]]
+Database = dict[str, dict[str, dict[str, str]]] | None
 
 DATABASE: Database = None
 DATABASE_PATCH: Database = None
@@ -43,7 +39,7 @@ DATABASE_PATCH: Database = None
 
 async def get_advisories_from_s3(
     pkg_name: str, platform: str
-) -> Optional[Iterable[Tuple[str, str]]]:
+) -> Iterable[tuple[str, str]] | None:
     try:
         # pylint: disable=global-statement
         global DATABASE, DATABASE_PATCH
@@ -55,8 +51,8 @@ async def get_advisories_from_s3(
             DATABASE = s3_advisories
             DATABASE_PATCH = s3_patch_advisories
             await s3_shutdown()
-        ads: Dict[str, str] = DATABASE.get(platform, {}).get(pkg_name, {})
-        patch_ads: Dict[str, str] = DATABASE_PATCH.get(platform, {}).get(
+        ads: dict[str, str] = DATABASE.get(platform, {}).get(pkg_name, {})
+        patch_ads: dict[str, str] = DATABASE_PATCH.get(platform, {}).get(
             pkg_name, {}
         )
         ads.update(patch_ads)
@@ -76,12 +72,12 @@ async def get_advisories_from_s3(
 
 async def get_advisories_from_dynamodb(
     pkg_name: str, platform: str
-) -> Optional[Iterable[Tuple[str, str]]]:
+) -> Iterable[tuple[str, str]] | None:
     try:
         remote_ads: Iterable[Advisory] = await AdvisoriesLoader().load(
             (platform.lower(), pkg_name)
         )
-        advisories: Dict[str, str] = {}
+        advisories: dict[str, str] = {}
         for advisory in remote_ads:
             updated_adv = {
                 advisory.associated_advisory: advisory.vulnerable_version
@@ -100,7 +96,7 @@ async def get_advisories_from_dynamodb(
 
 async def get_remote_advisories(
     pkg_name: str, platform: str
-) -> List[Tuple[str, str]]:
+) -> list[tuple[str, str]]:
     if (
         DATABASE is None
         and (
@@ -124,14 +120,14 @@ async def get_vulnerabilities(
     platform: core_model.Platform,
     product: str,
     version: str,
-) -> List[str]:
+) -> list[str]:
     product = product.lower()
     version = version.lower()
 
     advisories = await get_remote_advisories(product, platform.value)
 
     if advisories:
-        vulnerabilities: List[str] = [
+        vulnerabilities: list[str] = [
             ref
             for ref, constraints in advisories
             if semver_match(version, constraints)

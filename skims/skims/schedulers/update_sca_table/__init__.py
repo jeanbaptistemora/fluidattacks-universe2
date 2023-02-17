@@ -6,6 +6,9 @@ from .repositories.advisory_database import (
     get_advisory_database,
     URL_ADVISORY_DATABASE,
 )
+from collections.abc import (
+    Callable,
+)
 from db_model import (
     advisories as advisories_model,
 )
@@ -28,19 +31,13 @@ from s3.resource import (
 from tempfile import (
     TemporaryDirectory,
 )
-from typing import (
-    Callable,
-    List,
-    Optional,
-    Tuple,
-)
 from utils.logs import (
     log_blocking,
 )
 
-Advisories = List[Advisory]
+Advisories = list[Advisory]
 
-REPOSITORIES: List[Tuple[Callable[[Advisories, str], None], str]] = [
+REPOSITORIES: list[tuple[Callable[[Advisories, str], None], str]] = [
     (
         get_advisories_community,
         URL_ADVISORIES_COMMUNITY,
@@ -60,7 +57,7 @@ def fix_advisory(advisory: Advisory) -> Advisory:
     return advisory
 
 
-def clone_repo(url: str) -> Optional[str]:
+def clone_repo(url: str) -> str | None:
     # pylint: disable=consider-using-with
     tmp_dirname = TemporaryDirectory().name
     try:
@@ -87,7 +84,7 @@ async def update_sca() -> None:
 
     # adding to table
     log_blocking("info", "Adding advisories to skims_sca table")
-    to_storage: List[Advisory] = []
+    to_storage: list[Advisory] = []
     for advisory in advisories:
         await advisories_model.add(
             advisory=fix_advisory(advisory), to_storage=to_storage

@@ -6,11 +6,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:

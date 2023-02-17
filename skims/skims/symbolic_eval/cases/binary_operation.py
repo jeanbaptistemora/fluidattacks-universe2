@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F188: evaluate_binary_operation_f188,
 }
 

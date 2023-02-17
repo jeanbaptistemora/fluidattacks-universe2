@@ -53,8 +53,6 @@ from typing import (
     Any,
     Iterator,
     Literal,
-    Optional,
-    Union,
 )
 
 JSONENCODE = Tree(data="identifier", children=["jsonencode"])
@@ -86,7 +84,7 @@ def _iterate_iam_policy_documents_from_resource_with_policy(
 def get_principals_and_not_principals(
     block: Block,
     kind: Literal["principals", "not_principals"],
-) -> Optional[Union[str, dict]]:
+) -> str | dict | None:
     principal_val: dict = {}
     wildcard = "*"
     principals = get_blocks_by_namespace(block, kind)
@@ -110,7 +108,7 @@ def get_principals_and_not_principals(
     return principal_val
 
 
-def get_conditions(block: Block) -> Optional[dict]:
+def get_conditions(block: Block) -> dict | None:
     condition_val: dict = {}
     conditions = get_blocks_by_namespace(block, "condition")
     if not conditions:

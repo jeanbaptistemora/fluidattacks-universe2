@@ -7,7 +7,6 @@ from serialization import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from utils.crypto import (
     get_hash,
@@ -35,7 +34,7 @@ def store_object(
     folder: str,
     key: Any,
     value: Any,
-    ttl: Optional[int] = None,
+    ttl: int | None = None,
 ) -> None:
     """Store an entry in the cache.
 

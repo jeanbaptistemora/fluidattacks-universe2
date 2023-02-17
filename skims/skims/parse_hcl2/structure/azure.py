@@ -10,12 +10,14 @@ from azure.model import (
     AzurermStorageAccountNetworkRules,
     AzurermVirtualMachine,
 )
+from collections.abc import (
+    Iterator,
+)
 from parse_hcl2.common import (
     iterate_resources,
 )
 from typing import (
     Any,
-    Iterator,
 )
 
 

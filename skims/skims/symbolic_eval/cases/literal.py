@@ -69,14 +69,11 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 from utils import (
     graph as g,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F008: evaluate_literal_f008,
     FindingEnum.F012: evaluate_literal_f012,
     FindingEnum.F016: evaluate_literal_f016,

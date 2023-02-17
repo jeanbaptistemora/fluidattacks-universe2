@@ -5,9 +5,6 @@ import glob
 import json
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
 )
 from utils.logs import (
     log_blocking,
@@ -27,10 +24,10 @@ PLATFORMS = {
 
 
 def append_advisories(
-    advisories: List[Advisory],
-    current_advisories: Dict[str, Dict[str, str]],
+    advisories: list[Advisory],
+    current_advisories: dict[str, dict[str, str]],
     vuln_id: str,
-    severity: Optional[str],
+    severity: str | None,
 ) -> None:
     for key_pkg, sub_dict in current_advisories.items():
         advisories.append(
@@ -45,7 +42,7 @@ def append_advisories(
         )
 
 
-def get_limit(events: List[Dict[str, str]]) -> str:
+def get_limit(events: list[dict[str, str]]) -> str:
     if len(events) > 1:
         if (fixed := events[1].get("fixed")) is not None:
             return f" <{fixed}"
@@ -61,26 +58,26 @@ def get_final_range(final_range: str, str_range: str) -> str:
 
 
 def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
-    affected: List[dict],
+    affected: list[dict],
     vuln_id: str,
-    advisories: List[Advisory],
-    severity: Optional[str],
+    advisories: list[Advisory],
+    severity: str | None,
 ) -> None:
-    current_advisories: Dict[str, Dict[str, str]] = {}
+    current_advisories: dict[str, dict[str, str]] = {}
     for pkg_obj in affected:
-        package: Dict[str, Any] = pkg_obj.get("package") or {}
+        package: dict[str, Any] = pkg_obj.get("package") or {}
         ecosystem: str = str(package.get("ecosystem"))
         if (platform := ecosystem.lower()) not in PLATFORMS:
             continue
         pkg_name: str = str(package.get("name")).lower()
-        ranges: List[Dict[str, Any]] = pkg_obj.get("ranges") or []
+        ranges: list[dict[str, Any]] = pkg_obj.get("ranges") or []
         final_range = ""
-        versions: List[str] = pkg_obj.get("versions") or []
+        versions: list[str] = pkg_obj.get("versions") or []
         formatted_versions = ["=" + ver for ver in versions]
         if formatted_versions:
             final_range = " || ".join(formatted_versions)
         for range_ver in ranges:
-            events: List[Dict[str, str]] = range_ver.get("events") or []
+            events: list[dict[str, str]] = range_ver.get("events") or []
             str_range: str
             introduced = f">={events[0].get('introduced')}"
             limit = get_limit(events)
@@ -109,7 +106,7 @@ def get_vulnerabilities_ranges(  # pylint: disable=too-many-locals
 
 
 def get_advisory_database(
-    advisories: List[Advisory], tmp_dirname: str
+    advisories: list[Advisory], tmp_dirname: str
 ) -> None:
     filenames = sorted(
         glob.glob(
@@ -124,10 +121,10 @@ def get_advisory_database(
                 from_json: dict = json.load(stream)
                 vuln_id = str(from_json.get("id"))
                 affected = from_json.get("affected") or []
-                severity: List[Dict[str, str]] = (
+                severity: list[dict[str, str]] = (
                     from_json.get("severity") or []
                 )
-                severity_val: Optional[str] = None
+                severity_val: str | None = None
                 if len(severity) > 0:
                     severity_val = severity[0].get("score")
                 get_vulnerabilities_ranges(

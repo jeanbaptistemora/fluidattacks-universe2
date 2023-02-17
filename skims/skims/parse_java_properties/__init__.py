@@ -1,16 +1,12 @@
 import contextlib
-from typing import (
-    Dict,
-    Tuple,
-)
 
 
 def load(
     content: str,
     include_comments: bool = False,
     exclude_protected_values: bool = False,
-) -> Dict[int, Tuple[str, str]]:
-    mapping: Dict[int, Tuple[str, str]] = {}
+) -> dict[int, tuple[str, str]]:
+    mapping: dict[int, tuple[str, str]] = {}
 
     for line_no, line in enumerate(content.splitlines(), start=1):
         # Strip comments
@@ -47,8 +43,8 @@ def load_as_dict(
     content: str,
     include_comments: bool = False,
     exclude_protected_values: bool = False,
-) -> Dict[str, str]:
-    data: Dict[str, str] = dict(
+) -> dict[str, str]:
+    data: dict[str, str] = dict(
         load(
             content,
             include_comments,

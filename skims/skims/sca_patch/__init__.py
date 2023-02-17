@@ -1,6 +1,9 @@
 from aioextensions import (
     run,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     InvalidActionParameter,
     InvalidPatchItem,
@@ -33,9 +36,6 @@ from s3.resource import (
 import sys
 from typing import (
     Any,
-    Dict,
-    Iterable,
-    List,
 )
 from utils.logs import (
     log_blocking,
@@ -71,7 +71,7 @@ def check_item(item: dict, action: str) -> Advisory:
     )
 
 
-def remove_from_s3(adv: Advisory, s3_advisories: Dict[str, Any]) -> None:
+def remove_from_s3(adv: Advisory, s3_advisories: dict[str, Any]) -> None:
     if (
         adv.package_manager in s3_advisories
         and adv.package_name in s3_advisories[adv.package_manager]
@@ -86,7 +86,7 @@ def remove_from_s3(adv: Advisory, s3_advisories: Dict[str, Any]) -> None:
 
 
 async def update_s3(
-    to_storage: List[Advisory], action: str, needed_platforms: Iterable[str]
+    to_storage: list[Advisory], action: str, needed_platforms: Iterable[str]
 ) -> None:
     try:
         await s3_start_resource()
@@ -118,7 +118,7 @@ async def update_s3(
         await s3_shutdown()
 
 
-def get_platforms(to_storage: List[Advisory]) -> Iterable[str]:
+def get_platforms(to_storage: Iterable[Advisory]) -> Iterable[str]:
     platforms = []
     for adv in to_storage:
         if adv.package_manager not in platforms:
@@ -135,7 +135,7 @@ async def patch_sca(filename: str, action: str) -> None:
             items: Advisories = [
                 check_item(item, action) for item in from_json
             ]
-            to_storage: List[Advisory] = []
+            to_storage: list[Advisory] = []
             for adv in items:
                 if action == ADD:
                     await advisories_model.add(

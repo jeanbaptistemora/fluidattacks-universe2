@@ -6,9 +6,6 @@ from frozendict import (
     frozendict,
 )
 import lark
-from typing import (
-    Optional,
-)
 
 # Constants
 GRAMMAR = r"""
@@ -41,7 +38,7 @@ GRAMMAR = r"""
 def loads_blocking(
     stream: str,
     *,
-    default: Optional[frozendict] = None,
+    default: frozendict | None = None,
 ) -> frozendict:
     json_parser = lark.Lark(
         grammar=GRAMMAR,
@@ -64,7 +61,7 @@ def loads_blocking(
 async def loads(
     stream: str,
     *,
-    default: Optional[frozendict] = None,
+    default: frozendict | None = None,
 ) -> frozendict:
     return await in_process(loads_blocking, stream, default=default)
 

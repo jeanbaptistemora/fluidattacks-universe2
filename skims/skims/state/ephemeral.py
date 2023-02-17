@@ -1,6 +1,11 @@
 from aioextensions import (
     in_thread,
 )
+from collections.abc import (
+    Awaitable,
+    Callable,
+    Iterator,
+)
 from concurrent.futures.thread import (
     ThreadPoolExecutor,
 )
@@ -29,12 +34,7 @@ from tempfile import (
 )
 from typing import (
     Any,
-    Awaitable,
-    Callable,
-    Iterator,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 from utils.fs import (
     mkdir,
@@ -47,7 +47,7 @@ from uuid import (
 # Constants
 EPHEMERAL: str = join(STATE_FOLDER, "ephemeral", uuid().hex)
 ClearFunction = Callable[[], Awaitable[None]]
-GetAFewFunction = Callable[[int], Awaitable[Tuple[Any, ...]]]
+GetAFewFunction = Callable[[int], Awaitable[tuple[Any, ...]]]
 StoreFunction = Callable[[Any], None]
 LengthFunction = Callable[[], int]
 IteratorFunction = Callable[[], Iterator[Vulnerability]]
@@ -62,7 +62,7 @@ class EphemeralStore(NamedTuple):
     iterate: IteratorFunction
     length: LengthFunction
     store: StoreFunction
-    has_errors: Optional[bool] = False
+    has_errors: bool | None = False
 
 
 def get_ephemeral_store() -> EphemeralStore:
@@ -86,7 +86,7 @@ def get_ephemeral_store() -> EphemeralStore:
         with ThreadPoolExecutor(max_workers=cpu_count()) as worker:
             yield from worker.map(read_blob, recurse_dir(folder))
 
-    async def get_a_few(count: int) -> Tuple[Any, ...]:
+    async def get_a_few(count: int) -> tuple[Any, ...]:
         results = []
         for obj in iterate():
             results.append(obj)

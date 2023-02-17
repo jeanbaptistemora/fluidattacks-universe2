@@ -18,14 +18,11 @@ from symbolic_eval.types import (
 from symbolic_eval.utils import (
     get_lookup_path,
 )
-from typing import (
-    Dict,
-)
 from utils import (
     graph as g,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F085: evaluate_symbol_f085,
     FindingEnum.F343: evaluate_symbol_f343,
 }

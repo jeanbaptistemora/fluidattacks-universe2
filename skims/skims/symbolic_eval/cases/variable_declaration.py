@@ -12,11 +12,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {
     FindingEnum.F297: evaluate_variable_declaration_f297,
     FindingEnum.F338: evaluate_variable_declaration_f338,
 }

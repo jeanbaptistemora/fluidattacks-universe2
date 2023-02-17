@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from ctx import (
     CTX,
     TREE_SITTER_PARSERS,
@@ -28,13 +31,6 @@ from tree_sitter import (
     Parser,
     Tree,
 )
-from typing import (
-    Dict,
-    Iterable,
-    Iterator,
-    Optional,
-    Tuple,
-)
 from utils.encodings import (
     json_dump,
 )
@@ -59,8 +55,8 @@ class ParsingError(Exception):
     pass
 
 
-FIELDS_BY_LANGUAGE: Dict[
-    GraphShardMetadataLanguage, Dict[str, Tuple[str, ...]]
+FIELDS_BY_LANGUAGE: dict[
+    GraphShardMetadataLanguage, dict[str, tuple[str, ...]]
 ] = {}
 
 
@@ -198,9 +194,9 @@ def _build_ast_graph(
     counter: Iterator[str],
     graph: Graph,
     *,
-    _edge_index: Optional[str] = None,
-    _parent: Optional[str] = None,
-    _parent_fields: Optional[Dict[int, str]] = None,
+    _edge_index: str | None = None,
+    _parent: str | None = None,
+    _parent_fields: dict[int, str] | None = None,
 ) -> Graph:
     if not isinstance(node, Node):
         raise NotImplementedError()
@@ -267,7 +263,7 @@ def _parse_one_cached(
     content: bytes,
     path: str,
     language: GraphShardMetadataLanguage,
-) -> Optional[GraphShardCacheable]:
+) -> GraphShardCacheable | None:
     raw_tree: Tree = parse_content(content, language)
     node: Node = raw_tree.root_node
 
@@ -320,8 +316,8 @@ def _parse_one_cached(
 def parse_one(
     path: str,
     language: GraphShardMetadataLanguage,
-    content: Optional[bytes] = None,
-) -> Optional[GraphShard]:
+    content: bytes | None = None,
+) -> GraphShard | None:
     if not content:
         return None
     try:
@@ -367,12 +363,12 @@ def parse_one(
     )
 
 
-def _get_content(path: str) -> Tuple[str, Optional[bytes]]:
+def _get_content(path: str) -> tuple[str, bytes | None]:
     full_path = os.path.join(CTX.config.working_dir, path)
     return (path, safe_sync_get_file_raw_content(full_path))
 
 
-def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
+def parse_many(paths: tuple[str, ...]) -> Iterator[GraphShard]:
     paths_and_languages = [
         (path, language)
         for path in paths
@@ -391,7 +387,7 @@ def parse_many(paths: Tuple[str, ...]) -> Iterable[GraphShard]:
             yield parsed
 
 
-def get_graph_db(paths: Tuple[str, ...]) -> GraphDB:
+def get_graph_db(paths: tuple[str, ...]) -> GraphDB:
     # Reproducibility
     paths = tuple(sorted(paths))
 

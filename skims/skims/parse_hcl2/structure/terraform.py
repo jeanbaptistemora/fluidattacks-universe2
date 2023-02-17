@@ -1,17 +1,18 @@
+from collections.abc import (
+    Iterator,
+)
 from parse_hcl2.common import (
     iterate_resources,
 )
 from typing import (
     Any,
-    Iterator,
-    List,
     NamedTuple,
 )
 
 
 class TerraformSettings(NamedTuple):
     column: int
-    data: List[Any]
+    data: list[Any]
     line: int
 
 

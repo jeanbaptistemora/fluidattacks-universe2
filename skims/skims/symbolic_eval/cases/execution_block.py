@@ -9,21 +9,15 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-    List,
-    Tuple,
-    Union,
-)
 from utils import (
     graph as g,
 )
 
-FINDING_EVALUATORS: Dict[FindingEnum, Evaluator] = {}
+FINDING_EVALUATORS: dict[FindingEnum, Evaluator] = {}
 
 
 def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
-    danger_nodes: Union[List[NId], Tuple]
+    danger_nodes: list[NId] | tuple
     if args.n_id in args.path:
         danger_nodes = tuple(args.path[: args.path.index(args.n_id)])
     else:
