@@ -44,6 +44,7 @@ from itertools import (
     islice,
 )
 from mailer import (
+    utils as mailer_utils,
     vulnerabilities as vulns_mailer,
 )
 from newutils import (
@@ -318,19 +319,10 @@ async def send_treatment_report_mail(
     ] = await loaders.vulnerability.load(vulnerability_id)
     if old_vuln_values:
         finding = await get_finding(loaders, old_vuln_values.finding_id)
-        roles: set[str] = {
-            "resourcer",
-            "customer_manager",
-            "user_manager",
-            "vulnerability_manager",
-        }
-        users_email = (
-            await group_access_domain.get_stakeholders_email_by_preferences(
-                loaders=loaders,
-                group_name=finding.group_name,
-                notification=Notification.UPDATED_TREATMENT,
-                roles=roles,
-            )
+        users_email = await mailer_utils.get_group_emails_by_notification(
+            loaders=loaders,
+            group_name=finding.group_name,
+            notification="treatment_report",
         )
         managers_email = await get_managers_by_size(
             loaders, finding.group_name, 3

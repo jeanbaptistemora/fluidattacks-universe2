@@ -68,7 +68,6 @@ from db_model.credentials.types import (
 from db_model.enums import (
     CredentialType,
     GitCloningStatus,
-    Notification,
 )
 from db_model.events.types import (
     Event,
@@ -113,9 +112,6 @@ import git_self
 from git_self import (
     ssh_ls_remote,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 import hashlib
 from itertools import (
     chain,
@@ -125,6 +121,7 @@ import json
 import logging
 from mailer import (
     groups as groups_mail,
+    utils as mailer_utils,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -999,14 +996,10 @@ async def send_mail_updated_root(
     new_state: Union[GitRootState, IPRootState, URLRootState],
     user_email: str,
 ) -> None:
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
+    users_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="updated_root",
     )
 
     old_state: dict[str, Any] = root.state._asdict()
@@ -1157,15 +1150,12 @@ async def send_mail_root_cloning_status(
     modified_date: datetime,
     is_failed: bool,
 ) -> None:
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
+    users_email = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=group_name,
+        notification="root_cloning_status",
     )
+
     creation_date = await get_first_cloning_date(loaders, root_id)
     last_cloning_successful = await get_last_cloning_successful(
         loaders, root_id
@@ -1791,14 +1781,10 @@ async def send_mail_environment(
     other: Optional[str] = None,
     reason: Optional[str] = None,
 ) -> None:
-    roles: set[str] = {"resourcer", "customer_manager", "user_manager"}
-    users_email: list[
-        str
-    ] = await group_access_domain.get_stakeholders_email_by_preferences(
+    users_email = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
         group_name=group_name,
-        notification=Notification.ROOT_UPDATE,
-        roles=roles,
+        notification="environment_report",
     )
 
     await groups_mail.send_mail_environment_report(

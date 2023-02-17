@@ -86,10 +86,12 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     environment_report=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.ROOT_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={"customer_manager", "resourcer", "user_manager"}, org={}
+        ),
     ),
     event_report=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -200,10 +202,12 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         ),
     ),
     root_cloning_status=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.ROOT_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={"customer_manager", "resourcer", "user_manager"}, org={}
+        ),
     ),
     root_credential_report=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -232,10 +236,18 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     treatment_report=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.UPDATED_TREATMENT,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={
+                "customer_manager",
+                "resourcer",
+                "user_manager",
+                "vulnerability_manager",
+            },
+            org={},
+        ),
     ),
     trial_ended=dict(
         email_preferences=Notification.GROUP_INFORMATION,
@@ -276,10 +288,12 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     updated_root=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.ROOT_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={"customer_manager", "resourcer", "user_manager"}, org={}
+        ),
     ),
     updated_services=dict(
         email_preferences=Notification.SERVICE_UPDATE,
@@ -316,10 +330,18 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         roles=dict(group={}, org={}),
     ),
     vulnerabilities_expiring=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.UPDATED_TREATMENT,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(
+            group={
+                "customer_manager",
+                "resourcer",
+                "user_manager",
+                "vulnerability_manager",
+            },
+            org={},
+        ),
     ),
     vulnerability_assigned=dict(
         email_preferences=Notification.GROUP_INFORMATION,

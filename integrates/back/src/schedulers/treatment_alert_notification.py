@@ -15,9 +15,6 @@ from dataloaders import (
 from datetime import (
     datetime,
 )
-from db_model.enums import (
-    Notification,
-)
 from db_model.findings.types import (
     Finding,
 )
@@ -33,12 +30,12 @@ from db_model.vulnerabilities.types import (
 from decorators import (
     retry_on_exceptions,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 import logging
 from mailchimp_transactional.api_client import (
     ApiClientError,
+)
+from mailer import (
+    utils as mailer_utils,
 )
 from mailer.groups import (
     send_mail_treatment_alert,
@@ -167,20 +164,12 @@ async def send_temporal_treatment_report() -> None:
         ]
     )
 
-    roles: set[str] = {
-        "resourcer",
-        "customer_manager",
-        "user_manager",
-        "vulnerability_manager",
-    }
-
     groups_stakeholders_email: tuple[list[str], ...] = await collect(
         [
-            group_access_domain.get_stakeholders_email_by_preferences(
+            mailer_utils.get_group_emails_by_notification(
                 loaders=loaders,
                 group_name=group_name,
-                notification=Notification.UPDATED_TREATMENT,
-                roles=roles,
+                notification="vulnerabilities_expiring",
             )
             for group_name in groups_names
         ]

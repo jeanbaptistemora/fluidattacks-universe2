@@ -37,6 +37,7 @@ pytestmark = [
                 Notification.ROOT_UPDATE,
                 Notification.SERVICE_UPDATE,
                 Notification.UNSUBSCRIPTION_ALERT,
+                Notification.UPDATED_TREATMENT,
             ],
         ],
     ],
