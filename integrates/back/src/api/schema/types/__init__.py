@@ -1,6 +1,3 @@
-from .event import (
-    EVENT,
-)
 from .execution_vulnerabilities import (
     EXECUTION_VULNERABILITIES,
 )
@@ -103,11 +100,14 @@ from api.resolvers.credentials.schema import (
 from api.resolvers.entity_report_subscription.schema import (
     ENTITY_REPORT_SUBSCRIPTION,
 )
+from api.resolvers.event.schema import (
+    EVENT,
+)
+from api.resolvers.event_evidence.schema import (
+    EVENT_EVIDENCE,
+)
 from api.resolvers.event_evidence_item.schema import (
     EVENT_EVIDENCE_ITEM,
-)
-from api.schema.types.event_evidence import (
-    EVENT_EVIDENCE,
 )
 from api.schema.types.group_compliance import (
     GROUP_COMPLIANCE,

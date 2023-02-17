@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,6 +19,7 @@ from typing import (
 )
 
 
+@EVENT.field("root")
 async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,

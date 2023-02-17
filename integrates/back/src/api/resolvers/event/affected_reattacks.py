@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -12,6 +15,7 @@ from graphql.type.definition import (
 )
 
 
+@EVENT.field("affectedReattacks")
 async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,

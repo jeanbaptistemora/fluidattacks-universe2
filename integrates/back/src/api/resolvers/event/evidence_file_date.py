@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from datetime import (
     datetime,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@EVENT.field("evidenceFileDate")
 async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,

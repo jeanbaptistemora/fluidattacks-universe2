@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from db_model.events.enums import (
     EventSolutionReason,
     EventStateStatus,
@@ -13,6 +16,7 @@ from typing import (
 )
 
 
+@EVENT.field("solvingReason")
 async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,

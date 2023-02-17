@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from db_model.events.types import (
     Event,
 )
@@ -9,6 +12,7 @@ from typing import (
 )
 
 
+@EVENT.field("evidenceFile")
 async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,

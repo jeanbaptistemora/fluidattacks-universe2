@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from db_model.events.types import (
     Event,
 )
@@ -6,6 +9,7 @@ from graphql.type.definition import (
 )
 
 
+@EVENT.field("eventType")
 async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,

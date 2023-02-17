@@ -1,3 +1,6 @@
+from .schema import (
+    EVENT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -21,6 +24,7 @@ from typing import (
 )
 
 
+@EVENT.field("consulting")
 async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,
