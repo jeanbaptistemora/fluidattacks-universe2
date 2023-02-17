@@ -1,6 +1,3 @@
-from .billing import (
-    BILLING,
-)
 from .consult import (
     CONSULT,
 )
@@ -99,6 +96,9 @@ from .vulnerability import (
 )
 from .vulnerability_historic_state import (
     VULNERABILITY_HISTORIC_STATE,
+)
+from api.resolvers.billing.schema import (
+    BILLING,
 )
 from api.schema.types.credentials import (
     CREDENTIALS,

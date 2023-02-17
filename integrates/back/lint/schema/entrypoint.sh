@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 function main {
-  local schema_path="integrates/back/src/api/schema/**/*.graphql"
+  local schema_path="integrates/back/src/api/**/*.graphql"
 
   graphql-schema-linter \
     --except 'relay-page-info-spec' \

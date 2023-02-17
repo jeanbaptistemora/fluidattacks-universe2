@@ -20,8 +20,14 @@ from graphql import (
 )
 import os
 
-SCHEMA_PATH: str = os.path.dirname(os.path.abspath(__file__))
-SDL_CONTENT: str = load_schema_from_path(SCHEMA_PATH)
+API_PATH = os.path.join(os.path.dirname(__file__), os.pardir)
+SDL_CONTENT = "\n".join(
+    [
+        load_schema_from_path(f"{API_PATH}/mutations"),
+        load_schema_from_path(f"{API_PATH}/resolvers"),
+        load_schema_from_path(f"{API_PATH}/schema"),
+    ]
+)
 
 SCHEMA: GraphQLSchema = make_executable_schema(
     SDL_CONTENT,

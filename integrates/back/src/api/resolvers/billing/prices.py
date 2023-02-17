@@ -1,3 +1,6 @@
+from .schema import (
+    BILLING,
+)
 from billing import (
     domain as billing_domain,
 )
@@ -12,6 +15,7 @@ from graphql.type.definition import (
 )
 
 
+@BILLING.field("prices")
 @require_login
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **_kwargs: None
