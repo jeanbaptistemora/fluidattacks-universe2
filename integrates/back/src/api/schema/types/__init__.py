@@ -1,17 +1,5 @@
-from .execution_vulnerabilities import (
-    EXECUTION_VULNERABILITIES,
-)
-from .exploit_result import (
-    EXPLOIT_RESULT,
-)
 from .finding import (
     FINDING,
-)
-from .finding_evidence import (
-    FINDING_EVIDENCE,
-)
-from .finding_policy import (
-    FINDING_POLICY,
 )
 from .forces_execution import (
     FORCES_EXECUTION,
@@ -108,6 +96,18 @@ from api.resolvers.event_evidence.schema import (
 )
 from api.resolvers.event_evidence_item.schema import (
     EVENT_EVIDENCE_ITEM,
+)
+from api.resolvers.execution_vulnerabilities.schema import (
+    EXECUTION_VULNERABILITIES,
+)
+from api.resolvers.exploit_result.schema import (
+    EXPLOIT_RESULT,
+)
+from api.resolvers.finding_evidence.schema import (
+    FINDING_EVIDENCE,
+)
+from api.resolvers.finding_policy.schema import (
+    FINDING_POLICY,
 )
 from api.schema.types.group_compliance import (
     GROUP_COMPLIANCE,
