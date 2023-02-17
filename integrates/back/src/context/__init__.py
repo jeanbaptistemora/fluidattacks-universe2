@@ -88,8 +88,6 @@ try:
         "LOG_LEVEL_WATCHTOWER"
     )
     UNIVERSE_API_TOKEN: Optional[str] = os.environ.get("UNIVERSE_API_TOKEN")
-    SERVICES_GITLAB_API_TOKEN = os.environ["SERVICES_GITLAB_API_TOKEN"]
-    SERVICES_GITLAB_API_USER = os.environ["SERVICES_GITLAB_API_USER"]
     STARTDIR = os.environ["STARTDIR"]
 
     # not secrets but must be environment vars
