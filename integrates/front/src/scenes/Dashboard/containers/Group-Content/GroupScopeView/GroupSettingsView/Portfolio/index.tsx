@@ -106,11 +106,8 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     setCurrentRow([]);
   }, [currentRow, groupName, removeGroupTag]);
 
-  if (_.isUndefined(data) || _.isEmpty(data)) {
-    return <div />;
-  }
-
-  const groupTags: string[] = _.isNull(data.group.tags) ? [] : data.group.tags;
+  const groupTags =
+    _.isUndefined(data) || _.isNull(data.group.tags) ? [] : data.group.tags;
 
   const tagsDataset: {
     tagName: string;
@@ -118,28 +115,35 @@ const Portfolio: React.FC<IPortfolioProps> = ({
     tagName: tag,
   }));
 
-  async function handleTagsAdd(values: { tags: string[] }): Promise<void> {
-    const repeatedInputs: string[] = values.tags.filter(
-      (tag: string): boolean => values.tags.filter(_.matches(tag)).length > 1
-    );
-    const repeatedTags: string[] = values.tags.filter(
-      (tag: string): boolean =>
-        tagsDataset.filter(_.matches({ tagName: tag })).length > 0
-    );
+  const handleTagsAdd = useCallback(
+    async (values: { tags: string[] }): Promise<void> => {
+      const repeatedInputs: string[] = values.tags.filter(
+        (tag: string): boolean => values.tags.filter(_.matches(tag)).length > 1
+      );
+      const repeatedTags: string[] = values.tags.filter(
+        (tag: string): boolean =>
+          tagsDataset.filter(_.matches({ tagName: tag })).length > 0
+      );
 
-    if (repeatedInputs.length > 0) {
-      msgError(t("searchFindings.tabResources.repeatedInput"));
-    } else if (repeatedTags.length > 0) {
-      msgError(t("searchFindings.tabResources.repeatedItem"));
-    } else {
-      closeAddModal();
-      await addGroupTags({
-        variables: {
-          groupName,
-          tagsData: JSON.stringify(values.tags),
-        },
-      });
-    }
+      if (repeatedInputs.length > 0) {
+        msgError(t("searchFindings.tabResources.repeatedInput"));
+      } else if (repeatedTags.length > 0) {
+        msgError(t("searchFindings.tabResources.repeatedItem"));
+      } else {
+        closeAddModal();
+        await addGroupTags({
+          variables: {
+            groupName,
+            tagsData: JSON.stringify(values.tags),
+          },
+        });
+      }
+    },
+    [addGroupTags, closeAddModal, groupName, t, tagsDataset]
+  );
+
+  if (_.isUndefined(data) || _.isEmpty(data)) {
+    return <div />;
   }
 
   const columns: ColumnDef<{ tagName: string }>[] = [
