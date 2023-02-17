@@ -31,6 +31,7 @@ function execute {
 function main {
   local parallel="${1}"
   local groups_file
+  local sorted_groups_file
 
   : \
     && aws_login "prod_sorts" "3600" \
@@ -45,8 +46,10 @@ function main {
       'REDSHIFT_PORT' \
       'REDSHIFT_USER' \
     && groups_file="$(mktemp)" \
+    && sorted_groups_file="$(mktemp)" \
     && list_groups "${groups_file}" \
-    && execute_chunk_parallel execute "${groups_file}" "${parallel}" "batch"
+    && sort "${groups_file}" -o "${sorted_groups_file}" \
+    && execute_chunk_parallel execute "${sorted_groups_file}" "${parallel}" "batch"
 
 }
 
