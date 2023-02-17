@@ -157,6 +157,14 @@ async def add_draft(
 
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())
+    vulnerabilities_file = await loaders.vulnerabilities_file.load("")
+    criteria_vulnerability_id = draft_info.title.split(".")[0].strip()
+    criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
+    requirements: list[str] = (
+        criteria_vulnerability["requirements"]
+        if criteria_vulnerability
+        else []
+    )
     draft = Finding(
         hacker_email=user_email,
         attack_vector_description=draft_info.attack_vector_description,
@@ -175,6 +183,7 @@ async def add_draft(
         severity=draft_info.severity,
         title=draft_info.title,
         threat=draft_info.threat,
+        unfulfilled_requirements=requirements,
     )
     await findings_model.add(finding=draft)
     return draft
