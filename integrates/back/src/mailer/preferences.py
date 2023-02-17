@@ -220,10 +220,10 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
         ),
     ),
     root_moved=dict(
-        email_preferences=Notification.GROUP_INFORMATION,
+        email_preferences=Notification.ROOT_UPDATE,
         exclude_trial=False,
         only_fluid_staff=False,
-        roles=dict(group={}, org={}),
+        roles=dict(group={"customer_manager", "user_manager"}, org={}),
     ),
     support_channels=dict(
         email_preferences=Notification.GROUP_INFORMATION,

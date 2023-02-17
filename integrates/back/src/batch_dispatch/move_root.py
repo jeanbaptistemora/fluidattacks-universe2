@@ -81,13 +81,13 @@ from dynamodb.exceptions import (
 from findings import (
     domain as findings_domain,
 )
-from group_access import (
-    domain as group_access_domain,
-)
 import itertools
 import json
 import logging
 import logging.config
+from mailer import (
+    utils as mailer_utils,
+)
 from mailer.common import (
     GENERAL_TAG,
     send_mails_async,
@@ -618,26 +618,16 @@ async def get_recipients(
         not in stakeholder.state.notifications_preferences.email
     ):
         email_to = []
-    roles: set[str] = {
-        "customer_manager",
-        "user_manager",
-    }
-    source_group_emails = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=source_group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
+    source_group_emails = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=source_group_name,
+        notification="root_moved",
     )
     email_to.extend(source_group_emails)
-    target_group_emails = (
-        await group_access_domain.get_stakeholders_email_by_preferences(
-            loaders=loaders,
-            group_name=target_group_name,
-            notification=Notification.ROOT_UPDATE,
-            roles=roles,
-        )
+    target_group_emails = await mailer_utils.get_group_emails_by_notification(
+        loaders=loaders,
+        group_name=target_group_name,
+        notification="root_moved",
     )
     email_to.extend(target_group_emails)
 
