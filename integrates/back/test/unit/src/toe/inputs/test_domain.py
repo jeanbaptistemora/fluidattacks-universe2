@@ -12,15 +12,16 @@ from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
     ToeInputMetadataToUpdate,
-    ToeInputRequest,
     ToeInputState,
 )
 from freezegun import (
     freeze_time,
 )
 import pytest
-from toe.inputs import (
-    domain as toe_inputs_domain,
+from toe.inputs.domain import (
+    add,
+    remove,
+    update,
 )
 from toe.inputs.types import (
     ToeInputAttributesToAdd,
@@ -100,7 +101,7 @@ async def test_add(
             unreliable_root_id="",
         ),
     )
-    await toe_inputs_domain.add(
+    await add(
         loaders=loaders,
         entry_point=entry_point,
         component=component,
@@ -114,33 +115,12 @@ async def test_add(
     assert toe_input in group_toe_inputs
 
 
-@pytest.mark.changes_db
-async def test_delete() -> None:
-    group_name = "unittesting"
-    loaders = get_new_context()
-    group_toe_inputs = await loaders.group_toe_inputs.load_nodes(
-        GroupToeInputsRequest(group_name=group_name)
-    )
-    assert len(group_toe_inputs) == 5
-    current_value = await loaders.toe_input.load(
-        ToeInputRequest(
-            component="https://test.com/test/new.aspx",
-            entry_point="btnTest",
-            group_name=group_name,
-            root_id="",
-        )
-    )
-    assert current_value
-    historic_value = await loaders.toe_input_historic.load(
-        ToeInputRequest(
-            component="https://test.com/test/new.aspx",
-            entry_point="btnTest",
-            group_name=group_name,
-            root_id="",
-        )
-    )
-    if historic_value:
-        assert historic_value == [
+@pytest.mark.parametrize(
+    [
+        "current_value",
+    ],
+    [
+        [
             ToeInput(
                 component="https://test.com/test/new.aspx",
                 entry_point="btnTest",
@@ -158,7 +138,7 @@ async def test_delete() -> None:
                     has_vulnerabilities=False,
                     modified_by="new@test.com",
                     modified_date=datetime.fromisoformat(
-                        "2022-11-11T05:00:00+00:00"
+                        "2023-02-17T23:17:11+00:00"
                     ),
                     seen_at=datetime.fromisoformat(
                         "2000-01-01T05:00:00+00:00"
@@ -166,23 +146,35 @@ async def test_delete() -> None:
                     seen_first_time_by="new@test.com",
                     unreliable_root_id="",
                 ),
-            ),
-        ]
-
-    await toe_inputs_domain.remove(current_value)
-    group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(
-        GroupToeInputsRequest(group_name=group_name)
-    )
-    assert len(group_toe_inputs) == 4
-    if not historic_value:
-        await loaders.toe_input_historic.clear_all().load(
-            ToeInputRequest(
-                component="https://test.com/test/new.aspx",
-                entry_point="btnTest",
-                group_name=group_name,
-                root_id="",
             )
-        )
+        ],
+    ],
+)
+@patch(MODULE_AT_TEST + "toe_inputs_model.remove", new_callable=AsyncMock)
+async def test_delete(
+    mock_toe_inputs_model_remove: AsyncMock, current_value: ToeInput
+) -> None:
+
+    assert set_mocks_return_values(
+        mocks_args=[
+            [
+                current_value.entry_point,
+                current_value.component,
+                current_value.group_name,
+                current_value.state.unreliable_root_id,
+            ]
+        ],
+        mocked_objects=[mock_toe_inputs_model_remove],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["toe_inputs_model.remove"],
+    )
+    await remove(current_value)
+    mock_toe_inputs_model_remove.assert_called_with(
+        entry_point=current_value.entry_point,
+        component=current_value.component,
+        group_name=current_value.group_name,
+        root_id=current_value.state.unreliable_root_id,
+    )
 
 
 @pytest.mark.parametrize(
@@ -260,7 +252,7 @@ async def test_update(
         paths_list=["toe_inputs_model.update_state"],
     )
 
-    await toe_inputs_domain.update(
+    await update(
         current_value=current_value,
         attributes=attributes,
         modified_by=modified_by,

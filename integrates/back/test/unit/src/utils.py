@@ -10546,6 +10546,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"2021-02-12 05:00:00+00:00", "new@test.com", false, '
         '"2000-01-01 05:00:00+00:00"]]': None,
     },
+    "toe.inputs.domain.toe_inputs_model.remove": {
+        '["btnTest", "https://test.com/test/new.aspx", "unittesting", '
+        '""]': None,
+    },
     "toe.inputs.domain.toe_inputs_model.update_state": {
         '[["https://test.com/test/test.aspx", "btnTest", "unittesting", '
         '["2021-02-02 05:00:00+00:00", "test@test.com", false, '
