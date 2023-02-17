@@ -358,6 +358,16 @@ def validate_field_length(
     return True
 
 
+def check_field_length(
+    field: str,
+    limit: int,
+    is_greater_than_limit: bool,
+    ex: CustomBaseException,
+) -> None:
+    if (len(field) > limit) != is_greater_than_limit:
+        raise ex
+
+
 def validate_field_length_deco(
     field: str, limit: int, is_greater_than_limit: bool = False
 ) -> Callable:
@@ -369,12 +379,17 @@ def validate_field_length_deco(
             )
             if isinstance(field_content, List):
                 for val in field_content:
-                    if (len(val) > limit) != is_greater_than_limit:
-                        raise InvalidFieldLength()
+                    check_field_length(
+                        val, limit, is_greater_than_limit, InvalidFieldLength()
+                    )
             if field_content is None:
                 return func(*args, **kwargs)
-            if (len(field_content) > limit) != is_greater_than_limit:
-                raise InvalidFieldLength()
+            check_field_length(
+                field_content,
+                limit,
+                is_greater_than_limit,
+                InvalidFieldLength(),
+            )
             return func(*args, **kwargs)
 
         return decorated
