@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP_COMPLIANCE,
+)
 from .types import (
     GroupUnfulfilledStandard,
 )
@@ -18,6 +21,7 @@ from newutils.findings import (
 )
 
 
+@GROUP_COMPLIANCE.field("unfulfilledStandards")
 async def resolve(
     parent: GroupUnreliableIndicators,
     _info: GraphQLResolveInfo,

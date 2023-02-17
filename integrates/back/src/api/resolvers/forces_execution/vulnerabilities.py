@@ -1,3 +1,6 @@
+from .schema import (
+    FORCES_EXECUTION,
+)
 from db_model.forces.types import (
     ForcesExecution,
 )
@@ -16,6 +19,7 @@ from typing import (
 )
 
 
+@FORCES_EXECUTION.field("vulnerabilities")
 async def resolve(
     parent: Union[dict[str, Any], ForcesExecution],
     _info: GraphQLResolveInfo,

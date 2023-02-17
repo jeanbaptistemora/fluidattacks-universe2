@@ -11,17 +11,3 @@ type GroupBillingAuthor {
   "Root repository of the contributions"
   repository: String
 }
-
-"GroupBilling type definition"
-type GroupBilling {
-  "Authors data"
-  authors: [GroupBillingAuthor!]!
-  "Authors costs for group"
-  costsAuthors: Int!
-  "Base costs for group"
-  costsBase: Int!
-  "Total costs for group"
-  costsTotal: Int!
-  "Number of authors for group"
-  numberAuthors: Int!
-}

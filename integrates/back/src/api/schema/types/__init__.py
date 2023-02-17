@@ -1,17 +1,5 @@
-from .forces_execution import (
-    FORCES_EXECUTION,
-)
-from .forces_executions import (
-    FORCES_EXECUTIONS,
-)
 from .group import (
     GROUP,
-)
-from .group_billing import (
-    GROUP_BILLING,
-)
-from .group_file import (
-    GROUP_FILE,
 )
 from .me import (
     ME,
@@ -109,8 +97,20 @@ from api.resolvers.finding_evidence.schema import (
 from api.resolvers.finding_policy.schema import (
     FINDING_POLICY,
 )
-from api.schema.types.group_compliance import (
+from api.resolvers.forces_execution.schema import (
+    FORCES_EXECUTION,
+)
+from api.resolvers.forces_executions.schema import (
+    FORCES_EXECUTIONS,
+)
+from api.resolvers.group_billing.schema import (
+    GROUP_BILLING,
+)
+from api.resolvers.group_compliance.schema import (
     GROUP_COMPLIANCE,
+)
+from api.resolvers.group_file.schema import (
+    GROUP_FILE,
 )
 from api.schema.types.integration_repositories import (
     INTEGRATION_REPOSITORIES,
