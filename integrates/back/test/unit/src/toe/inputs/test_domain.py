@@ -1,3 +1,7 @@
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_module_at_test,
+    set_mocks_return_values,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -7,6 +11,7 @@ from datetime import (
 from db_model.toe_inputs.types import (
     GroupToeInputsRequest,
     ToeInput,
+    ToeInputMetadataToUpdate,
     ToeInputRequest,
     ToeInputState,
 )
@@ -21,6 +26,12 @@ from toe.inputs.types import (
     ToeInputAttributesToAdd,
     ToeInputAttributesToUpdate,
 )
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
+
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
 # Constants
 pytestmark = [
@@ -174,51 +185,91 @@ async def test_delete() -> None:
         )
 
 
-@pytest.mark.changes_db
+@pytest.mark.parametrize(
+    [
+        "current_value",
+        "attributes",
+        "modified_by",
+        "is_moving_toe_input",
+    ],
+    [
+        [
+            ToeInput(
+                component="https://test.com/test/test.aspx",
+                entry_point="btnTest",
+                group_name="unittesting",
+                state=ToeInputState(
+                    attacked_at=datetime.fromisoformat(
+                        "2021-02-02T05:00:00+00:00"
+                    ),
+                    attacked_by="test@test.com",
+                    be_present=False,
+                    be_present_until=datetime.fromisoformat(
+                        "2021-03-20T15:41:04+00:00"
+                    ),
+                    first_attack_at=datetime.fromisoformat(
+                        "2021-01-02T05:00:00+00:00"
+                    ),
+                    has_vulnerabilities=False,
+                    modified_by="test2@test.com",
+                    modified_date=datetime.fromisoformat(
+                        "2021-02-11T05:00:00+00:00"
+                    ),
+                    seen_at=datetime.fromisoformat(
+                        "2020-03-14T05:00:00+00:00"
+                    ),
+                    seen_first_time_by="test@test.com",
+                    unreliable_root_id="",
+                ),
+            ),
+            ToeInputAttributesToUpdate(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                attacked_by="",
+                be_present=True,
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                has_vulnerabilities=False,
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="edited@test.com",
+                unreliable_root_id="",
+            ),
+            "edited@test.com",
+            True,
+        ],
+    ],
+)
+@patch(
+    MODULE_AT_TEST + "toe_inputs_model.update_state", new_callable=AsyncMock
+)
 @freeze_time("2022-11-11T15:00:00+00:00")
-async def test_update() -> None:
-    group_name = "unittesting"
-    entry_point = "btnTest"
-    component = "https://test.com/test/test.aspx"
-    loaders = get_new_context()
-    current_value = await loaders.toe_input.load(
-        ToeInputRequest(
-            component=component,
-            entry_point=entry_point,
-            group_name=group_name,
-            root_id="",
-        )
+async def test_update(
+    mock_toe_inputs_model_update_state: AsyncMock,
+    current_value: ToeInput,
+    attributes: ToeInputAttributesToUpdate,
+    modified_by: str,
+    is_moving_toe_input: bool,
+) -> None:
+
+    assert set_mocks_return_values(
+        mocks_args=[[current_value, attributes, modified_by]],
+        mocked_objects=[mock_toe_inputs_model_update_state],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["toe_inputs_model.update_state"],
     )
-    assert current_value
-    attributes = ToeInputAttributesToUpdate(
-        attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-        attacked_by="",
-        be_present=True,
-        first_attack_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-        has_vulnerabilities=False,
-        seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-        seen_first_time_by="edited@test.com",
-        unreliable_root_id="",
-    )
+
     await toe_inputs_domain.update(
         current_value=current_value,
         attributes=attributes,
-        modified_by="edited@test.com",
-        is_moving_toe_input=True,
+        modified_by=modified_by,
+        is_moving_toe_input=is_moving_toe_input,
     )
-    toe_input = await loaders.toe_input.clear_all().load(
-        ToeInputRequest(
-            component=component,
-            entry_point=entry_point,
-            group_name=group_name,
-            root_id="",
-        )
-    )
-    assert toe_input == ToeInput(
-        component="https://test.com/test/test.aspx",
-        entry_point="btnTest",
-        group_name=group_name,
-        state=ToeInputState(
+
+    mock_toe_inputs_model_update_state.assert_called_with(
+        current_value=current_value,
+        new_state=ToeInputState(
             attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
             attacked_by="",
             be_present=True,
@@ -232,5 +283,11 @@ async def test_update() -> None:
             seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
             seen_first_time_by="edited@test.com",
             unreliable_root_id="",
+        ),
+        metadata=ToeInputMetadataToUpdate(
+            clean_attacked_at=False,
+            clean_be_present_until=True,
+            clean_first_attack_at=False,
+            clean_seen_at=False,
         ),
     )

@@ -10546,6 +10546,16 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         '"2021-02-12 05:00:00+00:00", "new@test.com", false, '
         '"2000-01-01 05:00:00+00:00"]]': None,
     },
+    "toe.inputs.domain.toe_inputs_model.update_state": {
+        '[["https://test.com/test/test.aspx", "btnTest", "unittesting", '
+        '["2021-02-02 05:00:00+00:00", "test@test.com", false, '
+        '"2021-03-20 15:41:04+00:00", "2021-01-02 05:00:00+00:00", false, '
+        '"test2@test.com", "2021-02-11 05:00:00+00:00", '
+        '"2020-03-14 05:00:00+00:00", "test@test.com", ""]], '
+        '["2021-02-12 05:00:00+00:00", "", true, "2021-02-12 05:00:00+00:00", '
+        'false, "2000-01-01 05:00:00+00:00", "edited@test.com", "", false, '
+        'false, false], "edited@test.com"]': None,
+    },
     "toe.inputs.domain.validate_component": {
         '["4039d098-ffc5-4984-8ed3-eb17bca98e19", "unittesting", '
         '"https://test.com/test/new.aspx"]': None,
