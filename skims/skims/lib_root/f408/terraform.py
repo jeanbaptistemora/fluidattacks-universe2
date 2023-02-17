@@ -2,6 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
+    get_argument,
     iterate_resource,
 )
 from model.core_model import (
@@ -18,19 +19,11 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _api_gateway_access_logging_disabled(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "access_log_settings"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Object"):
-        name = graph.nodes[b_id].get("name")
-        if name == expected_attr:
-            has_attr = True
-    if not has_attr:
+    block = get_argument(graph, nid, "access_log_settings")
+    if not block:
         return nid
     return None
 

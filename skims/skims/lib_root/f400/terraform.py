@@ -2,7 +2,8 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,81 +20,52 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _ec2_monitoring_disabled(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "monitoring"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() in {"false", "0"}:
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(graph, nid, "monitoring")
+    if not attr:
         return nid
+    if attr_val.lower() in {"false", "0"}:
+        return attr_id
     return None
 
 
 def _distribution_has_logging_disabled(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "logging_config"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Object"):
-        name = graph.nodes[b_id].get("name")
-        if name == expected_attr:
-            has_attr = True
-    if not has_attr:
+    block = get_argument(graph, nid, "logging_config")
+    if not block:
         return nid
     return None
 
 
 def _trails_not_multiregion(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "is_multi_region_trail"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() not in {"true", "1"}:
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "is_multi_region_trail"
+    )
+    if not attr:
         return nid
+    if attr_val.lower() not in {"true", "1"}:
+        return attr_id
     return None
 
 
 def _elb_logging_disabled(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "access_logs"
-    expected_block_attr = "enabled"
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        has_block = True
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                if value.lower() == "false":
-                    return b_id
-                return None
-    if not has_block:
+    access = get_argument(graph, nid, "access_logs")
+    if not access:
         return nid
+    attr, attr_val, attr_id = get_attribute(graph, access, "enabled")
+    if attr and attr_val.lower() == "false":
+        return attr_id
     return None
 
 
 def _lambda_tracing_disabled(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "tracing_config"
-    expected_block_attr = "mode"
-    has_block = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        has_block = True
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr and value != "Active":
-                return b_id
-            return None
-    if not has_block:
+    tracing = get_argument(graph, nid, "tracing_config")
+    if not tracing:
         return nid
+    attr, attr_val, attr_id = get_attribute(graph, tracing, "mode")
+    if attr and attr_val != "Active":
+        return attr_id
     return None
 
 

@@ -2,7 +2,8 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_argument,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,28 +20,16 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _aws_ebs_volumes_unencrypted(graph: Graph, nid: NId) -> NId | None:
-    expected_block = "root_block_device"
-    expected_block_attr = "encrypted"
-    has_block = False
-    has_attr = False
-    for c_id in adj_ast(graph, nid, name=expected_block):
-        has_block = True
-        for b_id in adj_ast(graph, c_id, label_type="Pair"):
-            key, value = get_key_value(graph, b_id)
-            if key == expected_block_attr:
-                has_attr = True
-                if value.lower() == "false":
-                    return b_id
-                return None
-        if not has_attr:
-            return c_id
-    if not has_block:
+    if root := get_argument(graph, nid, "root_block_device"):
+        attr, attr_val, attr_id = get_attribute(graph, root, "encrypted")
+        if not attr:
+            return root
+        if attr_val.lower() == "false":
+            return attr_id
+    else:
         return nid
     return None
 

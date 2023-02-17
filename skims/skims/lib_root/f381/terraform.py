@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,19 +19,11 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _check_required_version(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "required_version"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, _ = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-    if not has_attr:
+    attr, _, _ = get_attribute(graph, nid, "required_version")
+    if not attr:
         return nid
     return None
 

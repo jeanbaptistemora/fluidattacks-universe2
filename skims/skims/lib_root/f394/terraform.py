@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.terraform import (
-    get_key_value,
+    get_attribute,
     iterate_resource,
 )
 from model.core_model import (
@@ -19,22 +19,16 @@ from model.graph_model import (
 from sast.query import (
     get_vulnerabilities_from_n_ids,
 )
-from utils.graph import (
-    adj_ast,
-)
 
 
 def _trail_log_files_not_validated(graph: Graph, nid: NId) -> NId | None:
-    expected_attr = "enable_log_file_validation"
-    has_attr = False
-    for b_id in adj_ast(graph, nid, label_type="Pair"):
-        key, value = get_key_value(graph, b_id)
-        if key == expected_attr:
-            has_attr = True
-            if value.lower() in {"false", "0"}:
-                return b_id
-    if not has_attr:
+    attr, attr_val, attr_id = get_attribute(
+        graph, nid, "enable_log_file_validation"
+    )
+    if not attr:
         return nid
+    if attr_val.lower() in {"false", "0"}:
+        return attr_id
     return None
 
 
