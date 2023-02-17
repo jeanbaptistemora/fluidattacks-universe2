@@ -330,9 +330,13 @@ const unformatFilterValues: (
     const titleFormat = formatLinesFilter(value.id);
 
     if (typeof titleFormat === "string")
-      return _.isUndefined(value.value)
+      return _.isNil(value.value) || _.isEmpty(value.value)
         ? { [titleFormat]: undefined }
-        : { [titleFormat]: value.value };
+        : {
+            [titleFormat]: ["true", "false"].includes(value.value)
+              ? JSON.parse(value.value)
+              : value.value,
+          };
 
     return {
       [titleFormat[0]]: value.rangeValues?.[0],

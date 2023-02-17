@@ -497,11 +497,7 @@ const GroupToeLinesView: React.FC<IGroupToeLinesViewProps> = ({
       id: "attackedBy",
       key: "attackedBy",
       label: t("group.toe.lines.attackedBy"),
-      selectOptions: (lines: IToeLinesData[]): string[] =>
-        [
-          ...new Set(lines.map((datapoint): string => datapoint.attackedBy)),
-        ].filter(Boolean),
-      type: "select",
+      type: "text",
     },
     {
       id: "firstAttackAt",
