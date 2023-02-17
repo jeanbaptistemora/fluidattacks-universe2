@@ -17,6 +17,10 @@ from symbolic_eval.evaluate import (
 from symbolic_eval.utils import (
     get_backward_paths,
 )
+from typing import (
+    List,
+    Optional,
+)
 from utils import (
     graph as g,
 )
@@ -64,8 +68,8 @@ def get_eval_triggers(
     return False
 
 
-def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
     ciphers_methods = {
         "createdecipher",
         "createcipher",
@@ -87,8 +91,8 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_hash(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
     danger_methods = complete_attrs_on_set({"crypto.createHash"})
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -103,7 +107,7 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> list[NId]:
 
 
 def insecure_encrypt(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+    vuln_nodes: List[NId] = []
     crypto_methods = {"encrypt", "decrypt"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -118,8 +122,8 @@ def insecure_encrypt(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
     danger_f = {"createecdh"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -136,8 +140,8 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"rsa", "unsafemodulus"}
 
@@ -155,8 +159,8 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
+    vuln_nodes: List[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"ec", "unsafecurve"}
 
@@ -174,8 +178,8 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_hash_library(graph: Graph) -> list[NId]:
-    vuln_nodes: list[NId] = []
+def insecure_hash_library(graph: Graph) -> List[NId]:
+    vuln_nodes: List[NId] = []
     if dangerous_name := get_default_alias(graph, "js-sha1"):
         for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
             method_expression = graph.nodes[n_id]["expression"]
@@ -184,12 +188,34 @@ def insecure_hash_library(graph: Graph) -> list[NId]:
     return vuln_nodes
 
 
-def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: list[NId] = []
-    if dangerous_name := get_default_alias(graph, "jsonwebtoken"):
+def get_danger_n_id(
+    graph: Graph, n_id: NId, method: MethodsEnum
+) -> Optional[NId]:
+    for path in get_backward_paths(graph, n_id):
+        evaluation = evaluate(method, graph, path, n_id)
+        if evaluation and evaluation.danger:
+            return n_id
+    return None
+
+
+def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
+    nodes = graph.nodes
+    vuln_nodes: List[NId] = []
+    if imported_name := get_default_alias(graph, "jsonwebtoken"):
         for n_id in g.matching_nodes(
-            graph, label_type="Placeholder", label_alias=dangerous_name
+            graph,
+            label_type="MethodInvocation",
+            expression=f"{imported_name}.sign",
         ):
-            if get_eval_danger(graph, n_id, method):
+            method_args_n_ids = g.adj_ast(
+                graph, nodes[n_id].get("arguments_id"), 1
+            )
+            if len(method_args_n_ids) < 3:
                 vuln_nodes.append(n_id)
+                continue
+
+            if vuln_node := get_danger_n_id(
+                graph, method_args_n_ids[2], method
+            ):
+                vuln_nodes.append(vuln_node)
     return vuln_nodes
