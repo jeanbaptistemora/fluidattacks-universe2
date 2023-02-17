@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.enums import (
     GroupStateStatus,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@GROUP.field("userDeletion")
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,

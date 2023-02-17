@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from analytics import (
     domain as analytics_domain,
 )
@@ -17,6 +20,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("analytics")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     enforce_group_level_auth_async,

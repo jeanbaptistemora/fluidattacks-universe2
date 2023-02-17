@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -13,6 +16,7 @@ from sessions import (
 )
 
 
+@GROUP.field("userRole")
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,

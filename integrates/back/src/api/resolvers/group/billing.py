@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from billing import (
     domain as billing_domain,
 )
@@ -29,6 +32,7 @@ from organizations import (
 )
 
 
+@GROUP.field("billing")
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_login,

@@ -1,6 +1,3 @@
-from .group import (
-    GROUP,
-)
 from .me import (
     ME,
 )
@@ -102,6 +99,9 @@ from api.resolvers.forces_execution.schema import (
 )
 from api.resolvers.forces_executions.schema import (
     FORCES_EXECUTIONS,
+)
+from api.resolvers.group.schema import (
+    GROUP,
 )
 from api.resolvers.group_billing.schema import (
     GROUP_BILLING,

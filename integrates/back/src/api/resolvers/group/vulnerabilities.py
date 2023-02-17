@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -35,6 +38,7 @@ from typing import (
 LOGGER = logging.getLogger(__name__)
 
 
+@GROUP.field("vulnerabilities")
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,

@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@GROUP.field("maxNumberAcceptances")
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,

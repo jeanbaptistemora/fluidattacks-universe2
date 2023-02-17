@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -19,6 +22,7 @@ from typing import (
 )
 
 
+@GROUP.field("meanRemediate")
 @require_asm
 async def resolve(
     parent: Group,

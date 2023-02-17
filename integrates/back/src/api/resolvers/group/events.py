@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -18,6 +21,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("events")
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_asm,

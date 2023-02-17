@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -25,6 +28,7 @@ from typing import (
 )
 
 
+@GROUP.field("toeInputs")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     enforce_group_level_auth_async,

@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 import authz
 from db_model.groups.types import (
     Group,
@@ -10,6 +13,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("serviceAttributes")
 @enforce_group_level_auth_async
 def resolve(
     parent: Group,

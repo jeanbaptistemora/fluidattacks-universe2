@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.forces.types import (
     ExecutionEdge,
     ExecutionsConnection,
@@ -30,6 +33,7 @@ from typing import (
 )
 
 
+@GROUP.field("executionsConnections")
 @concurrent_decorators(
     require_login,
     enforce_group_level_auth_async,

@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -26,6 +29,7 @@ from sessions import (
 )
 
 
+@GROUP.field("stakeholders")
 @concurrent_decorators(
     enforce_group_level_auth_async,
     require_asm,

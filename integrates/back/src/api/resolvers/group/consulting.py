@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.group_comments.types import (
     GroupComment,
 )
@@ -27,6 +30,7 @@ from typing import (
 )
 
 
+@GROUP.field("consulting")
 @concurrent_decorators(
     enforce_group_level_auth_async, require_asm, require_squad
 )

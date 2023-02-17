@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.enums import (
     GroupStateStatus,
 )
@@ -18,6 +21,7 @@ from typing import (
 )
 
 
+@GROUP.field("deletionDate")
 @require_asm
 async def resolve(
     parent: Group,

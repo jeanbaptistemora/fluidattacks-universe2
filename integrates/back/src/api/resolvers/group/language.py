@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -6,6 +9,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("language")
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,

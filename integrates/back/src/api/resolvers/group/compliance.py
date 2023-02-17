@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -10,6 +13,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("compliance")
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,

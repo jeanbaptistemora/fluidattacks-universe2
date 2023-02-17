@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,6 +19,7 @@ from typing import (
 )
 
 
+@GROUP.field("closedVulnerabilities")
 @require_asm
 async def resolve(
     parent: Group,

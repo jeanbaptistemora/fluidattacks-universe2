@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.enums import (
     GroupManaged,
 )
@@ -9,6 +12,7 @@ from graphql.type.definition import (
 )
 
 
+@GROUP.field("managed")
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,

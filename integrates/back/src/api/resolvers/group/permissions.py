@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 import authz
 from custom_exceptions import (
     InvalidParameter,
@@ -30,6 +33,7 @@ async def _get_group_permissions(
     return await authz.get_group_level_actions(loaders, email, group_name)
 
 
+@GROUP.field("permissions")
 async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,

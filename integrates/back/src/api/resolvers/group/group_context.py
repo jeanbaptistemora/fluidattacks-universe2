@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from db_model.groups.types import (
     Group,
 )
@@ -9,6 +12,7 @@ from typing import (
 )
 
 
+@GROUP.field("groupContext")
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,

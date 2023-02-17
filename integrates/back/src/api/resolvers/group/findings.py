@@ -1,3 +1,6 @@
+from .schema import (
+    GROUP,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -22,6 +25,7 @@ from typing import (
 )
 
 
+@GROUP.field("findings")
 @require_asm
 async def resolve(
     parent: Group,
