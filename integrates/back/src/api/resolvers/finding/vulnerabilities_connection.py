@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -24,6 +27,7 @@ from typing import (
 )
 
 
+@FINDING.field("vulnerabilitiesConnection")
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,

@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from batch.types import (
     Job,
 )
@@ -25,6 +28,7 @@ from typing import (
 )
 
 
+@FINDING.field("machineJobs")
 @enforce_group_level_auth_async
 async def resolve(
     parent: Finding,

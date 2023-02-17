@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -19,6 +22,7 @@ from typing import (
 )
 
 
+@FINDING.field("draftsConnection")
 @enforce_group_level_auth_async
 async def resolve(
     parent: Finding,

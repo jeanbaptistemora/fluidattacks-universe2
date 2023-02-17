@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@FINDING.field("reportDate")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[str]:

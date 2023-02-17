@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from api.resolvers.types import (
     Requirement,
 )
@@ -15,6 +18,7 @@ from graphql.type.definition import (
 )
 
 
+@FINDING.field("unfulfilledRequirements")
 @enforce_group_level_auth_async
 async def resolve(
     parent: Finding,

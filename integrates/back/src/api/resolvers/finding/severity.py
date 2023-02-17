@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.types import (
     Finding,
     Finding20Severity,
@@ -11,6 +14,7 @@ from typing import (
 )
 
 
+@FINDING.field("severity")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Union[Finding20Severity, Finding31Severity]:

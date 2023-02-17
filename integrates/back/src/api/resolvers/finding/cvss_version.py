@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.enums import (
     FindingCvssVersion,
 )
@@ -10,6 +13,7 @@ from graphql.type.definition import (
 )
 
 
+@FINDING.field("cvssVersion")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> str:

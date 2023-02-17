@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -23,6 +26,7 @@ from typing import (
 )
 
 
+@FINDING.field("vulnerabilitiesToReattackConnection")
 async def resolve(
     parent: Finding,
     _info: GraphQLResolveInfo,

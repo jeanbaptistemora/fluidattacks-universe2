@@ -1,6 +1,3 @@
-from .finding import (
-    FINDING,
-)
 from .forces_execution import (
     FORCES_EXECUTION,
 )
@@ -102,6 +99,9 @@ from api.resolvers.execution_vulnerabilities.schema import (
 )
 from api.resolvers.exploit_result.schema import (
     EXPLOIT_RESULT,
+)
+from api.resolvers.finding.schema import (
+    FINDING,
 )
 from api.resolvers.finding_evidence.schema import (
     FINDING_EVIDENCE,

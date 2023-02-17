@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -23,6 +26,7 @@ from typing import (
 )
 
 
+@FINDING.field("consulting")
 @concurrent_decorators(enforce_group_level_auth_async, require_asm)
 async def resolve(
     parent: Finding,

@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -9,6 +12,7 @@ from newutils import (
 )
 
 
+@FINDING.field("verified")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> bool:

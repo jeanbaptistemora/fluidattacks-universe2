@@ -1,3 +1,6 @@
+from .schema import (
+    FINDING,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +18,7 @@ from graphql.type.definition import (
 )
 
 
+@FINDING.field("tracking")
 async def resolve(
     parent: Finding, info: GraphQLResolveInfo, **_kwargs: None
 ) -> list[Tracking]:
