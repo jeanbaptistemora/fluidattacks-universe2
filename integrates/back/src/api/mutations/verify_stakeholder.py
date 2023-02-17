@@ -55,10 +55,10 @@ async def mutate(
 
     try:
         await stakeholders_domain.verify(
-            info.context.loaders,
-            user_email,
-            new_phone,
-            kwargs.get("verification_code"),
+            loaders=info.context.loaders,
+            email=user_email,
+            new_phone=new_phone,
+            verification_code=kwargs.get("verification_code"),
         )
         logs_utils.cloudwatch_log(
             info.context,

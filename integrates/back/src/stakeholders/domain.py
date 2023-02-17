@@ -77,7 +77,7 @@ from stakeholders.utils import (
     get_international_format_phone_number,
 )
 from stakeholders.validations import (
-    validate_phone,
+    validate_phone_deco,
 )
 from typing import (
     Any,
@@ -365,11 +365,11 @@ async def update(*, email: str, metadata: StakeholderMetadataToUpdate) -> None:
     )
 
 
+@validate_phone_deco("new_phone")
 async def update_mobile(
-    email: str, new_phone: StakeholderPhone, verification_code: str
+    *, email: str, new_phone: StakeholderPhone, verification_code: str
 ) -> None:
     """Update the stakeholder's phone number."""
-    validate_phone(new_phone)
     await verify_operations.validate_mobile(
         phone_number=get_international_format_phone_number(new_phone)
     )
@@ -407,7 +407,9 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
     )
 
 
+@validate_phone_deco("new_phone")
 async def verify(
+    *,
     loaders: Dataloaders,
     email: str,
     new_phone: Optional[StakeholderPhone],
@@ -417,8 +419,6 @@ async def verify(
     stakeholder = await get_stakeholder(loaders, email)
     stakeholder_phone: Optional[StakeholderPhone] = stakeholder.phone
     phone_to_verify = stakeholder_phone if new_phone is None else new_phone
-    if new_phone:
-        validate_phone(new_phone)
 
     if not phone_to_verify:
         raise RequiredNewPhoneNumber()

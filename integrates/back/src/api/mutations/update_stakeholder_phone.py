@@ -49,13 +49,13 @@ async def mutate(
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         await stakeholders_domain.update_mobile(
-            user_email,
-            StakeholderPhone(
+            email=user_email,
+            new_phone=StakeholderPhone(
                 national_number=phone["national_number"],
                 calling_country_code=phone["calling_country_code"],
                 country_code="",
             ),
-            verification_code,
+            verification_code=verification_code,
         )
         logs_utils.cloudwatch_log(
             info.context,
