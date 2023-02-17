@@ -4,9 +4,6 @@ from .mutation import (
 from .organization import (
     ORGANIZATION,
 )
-from .organization_billing import (
-    ORGANIZATION_BILLING,
-)
 from .organization_compliance import (
     ORGANIZATION_COMPLIANCE,
 )
@@ -130,8 +127,20 @@ from api.resolvers.notifications_parameters.schema import (
 from api.resolvers.notifications_preferences.schema import (
     NOTIFICATIONS_PREFERENCES,
 )
+from api.resolvers.organization_billing.schema import (
+    ORGANIZATION_BILLING,
+)
+from api.resolvers.organization_billing_active_group.schema import (
+    ORGANIZATION_BILLING_ACTIVE_GROUP,
+)
+from api.resolvers.organization_billing_author.schema import (
+    ORGANIZATION_BILLING_AUTHOR,
+)
 from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
+)
+from api.resolvers.payment_method.schema import (
+    PAYMENT_METHOD,
 )
 from api.resolvers.vulnerabilities_summary.schema import (
     VULNERABILITIES_SUMMARY,
@@ -204,9 +213,12 @@ TYPES: Tuple[ObjectType, ...] = (
     NOTIFICATIONS_PREFERENCES,
     ORGANIZATION,
     ORGANIZATION_BILLING,
+    ORGANIZATION_BILLING_ACTIVE_GROUP,
+    ORGANIZATION_BILLING_AUTHOR,
     ORGANIZATION_COMPLIANCE,
     ORGANIZATION_COMPLIANCE_STANDARD,
     ORGANIZATION_INTEGRATION_REPOSITORIES,
+    PAYMENT_METHOD,
     PRICES,
     QUERY,
     REQUIREMENT,

@@ -1,0 +1,27 @@
+"OrganizationBilling type definition"
+type OrganizationBilling {
+  "Authors data"
+  authors: [OrganizationBillingAuthor!]!
+  "Authors costs for squad subscriptions"
+  costsAuthors: Int!
+  "Base costs for priced subscriptions"
+  costsBase: Int!
+  "Total costs for priced subscriptions"
+  costsTotal: Int!
+  "Number of authors for machine subscriptions"
+  numberAuthorsMachine: Int!
+  "Number of authors for squad subscriptions"
+  numberAuthorsSquad: Int!
+  "Number of authors for all subscriptions"
+  numberAuthorsTotal: Int!
+  "Number of groups with machine subscription"
+  numberGroupsMachine: Int!
+  "Number of groups with squad subscription"
+  numberGroupsSquad: Int!
+  "Total number of groups"
+  numberGroupsTotal: Int!
+  "Payment methods for the organization"
+  paymentMethods: [PaymentMethod]!
+  "Portal URL for managing group tiers"
+  portal: String!
+}

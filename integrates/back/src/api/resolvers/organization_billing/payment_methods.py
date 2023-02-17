@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION_BILLING,
+)
 from billing import (
     domain as billing_domain,
 )
@@ -16,6 +19,7 @@ from organizations import (
 )
 
 
+@ORGANIZATION_BILLING.field("paymentMethods")
 async def resolve(
     parent: OrganizationBilling,
     info: GraphQLResolveInfo,

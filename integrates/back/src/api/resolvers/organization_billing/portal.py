@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION_BILLING,
+)
 from billing import (
     domain as billing_domain,
 )
@@ -21,6 +24,7 @@ from sessions import (
 )
 
 
+@ORGANIZATION_BILLING.field("portal")
 async def resolve(
     parent: OrganizationBilling,
     info: GraphQLResolveInfo,

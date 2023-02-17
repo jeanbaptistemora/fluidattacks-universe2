@@ -1,0 +1,7 @@
+"OrganizationBillingActiveGroup type definition"
+type OrganizationBillingActiveGroup {
+  "Name of the group"
+  name: String!
+  "Group tier (Free, One-Shot, Other, Machine or Squad)"
+  tier: TierType!
+}

@@ -1,0 +1,7 @@
+"OrganizationAuthor type definition"
+type OrganizationBillingAuthor {
+  "Groups the author has contributed to"
+  activeGroups: [OrganizationBillingActiveGroup!]!
+  "Author who has contributed to at least one group in the organization"
+  actor: String!
+}
