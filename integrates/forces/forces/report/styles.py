@@ -8,6 +8,15 @@ from forces.model import (
 )
 
 
+def get_exploitability_measure(score: float) -> str:
+    return {
+        "0.91": "Unproven",
+        "0.94": "Proof of concept",
+        "0.97": "Functional",
+        "1.0": "High",
+    }.get(str(score), "-")
+
+
 def style_severity(severity: Decimal) -> str:
     if Decimal("0.0") < severity < Decimal("4.0"):
         return f"[yellow3]{severity}[/]"

@@ -12,14 +12,12 @@ from forces.model import (
     VulnerabilityState,
     VulnerabilityType,
 )
-from forces.report import (
-    generate_raw_report,
+from forces.report.data import (
+    compile_raw_report,
+    get_group_findings_info,
 )
 from forces.report.filters import (
     filter_repo,
-)
-from forces.report.formatters import (
-    create_findings_dict,
 )
 from forces.report.styles import (
     style_report,
@@ -37,7 +35,7 @@ async def test_create_findings_dict(
     test_group: str,
     test_token: str,
 ) -> None:
-    findings_dict_1 = await create_findings_dict(
+    findings_dict_1 = await get_group_findings_info(
         organization=test_org, group=test_group, api_token=test_token
     )
     for find in findings_dict_1.values():
@@ -49,14 +47,14 @@ async def test_create_findings_dict(
 
 
 @pytest.mark.asyncio
-async def test_generate_report(
+async def test_compile_report(
     test_org: str,
     test_group: str,
     test_token: str,
     test_finding: str,
 ) -> None:
     config = ForcesConfig(organization=test_org, group=test_group)
-    report = await generate_raw_report(
+    report = await compile_raw_report(
         config=config,
         api_token=test_token,
     )
