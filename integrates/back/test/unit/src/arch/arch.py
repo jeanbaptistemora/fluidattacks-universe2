@@ -38,7 +38,6 @@ _dag: Tuple[FrozenSet[str], ...] = (
     frozenset({"subscriptions"}),
     frozenset({"analytics"}),
     frozenset({"tags"}),
-    frozenset({"enrollment"}),
     frozenset({"organizations"}),
     frozenset({"stakeholders"}),
     frozenset({"decorators"}),
