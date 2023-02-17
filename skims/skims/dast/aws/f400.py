@@ -341,6 +341,49 @@ async def cf_distribution_has_logging_disabled(
     return vulns
 
 
+async def eks_has_disable_cluster_logging(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="eks", function="list_clusters"
+    )
+    method = core_model.MethodsEnum.AWS_EKS_HAS_DISABLED_CLUSTER_LOGGING
+    clusters = response.get("clusters", []) if response else []
+    vulns: core_model.Vulnerabilities = ()
+    locations: list[Location] = []
+    for cluster in clusters:
+        cluster_description = await run_boto3_fun(
+            credentials,
+            service="eks",
+            function="describe_cluster",
+            parameters={"name": str(cluster)},
+        )
+
+        for log in cluster_description["logging"]["clusterLogging"]:
+            if log["enabled"] is False:
+                locations = [
+                    Location(
+                        arn=(cluster_description["arn"]),
+                        description=t(
+                            "src.lib_path.f400.eks_has_disable_cluster_logging"
+                        ),
+                        values=(log["enabled"],),
+                        access_patterns=("/enabled",),
+                    ),
+                ]
+
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(method),
+                        aws_response=log,
+                    ),
+                )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -352,4 +395,5 @@ CHECKS: tuple[
     cloudtrail_trails_not_multiregion,
     s3_has_server_access_logging_disabled,
     cf_distribution_has_logging_disabled,
+    eks_has_disable_cluster_logging,
 )
