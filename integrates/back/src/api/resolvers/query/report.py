@@ -253,9 +253,11 @@ def _get_severity_value(field: Optional[float]) -> Optional[Decimal]:
     return None
 
 
-async def _get_finding_title(finding_title: Optional[str]) -> str:
+async def _get_finding_title(
+    loaders: Dataloaders, finding_title: Optional[str]
+) -> str:
     if finding_title:
-        await is_valid_finding_title(finding_title)
+        await is_valid_finding_title(loaders, finding_title)
         return finding_title[:3]
     return ""
 
@@ -279,9 +281,7 @@ async def resolve(  # pylint: disable=too-many-locals
         group: Group = await loaders.group.load(group_name)
         if not group.state.has_machine:
             raise RequestedReportError(
-                expr=(
-                    "Group must have Machine enabled to generate Certificates"
-                )
+                expr="Group must have Machine enabled to generate Certificates"
             )
         if not (
             group.business_id and group.business_name and group.description
@@ -332,7 +332,9 @@ async def resolve(  # pylint: disable=too-many-locals
         else set()
     )
     closing_date: Optional[datetime] = kwargs.get("closing_date", None)
-    finding_title: str = await _get_finding_title(kwargs.get("finding_title"))
+    finding_title: str = await _get_finding_title(
+        loaders, kwargs.get("finding_title")
+    )
     if closing_date is not None:
         _validate_closing_date(closing_date=closing_date)
         states = set(

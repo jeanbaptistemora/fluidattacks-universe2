@@ -5,6 +5,9 @@ from custom_exceptions import (
     InvalidSortsRiskLevelDate,
     InvalidSortsSuggestions,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -118,11 +121,14 @@ def validate_sorts_risk_level_date_deco(
 
 
 async def validate_sort_suggestions(
+    loaders: Dataloaders,
     suggestions: list[SortsSuggestion],
 ) -> None:
     if len(suggestions) > 5:
         raise InvalidSortsSuggestions.new()
-    await is_valid_finding_titles([item.finding_title for item in suggestions])
+    await is_valid_finding_titles(
+        loaders, [item.finding_title for item in suggestions]
+    )
     for item in suggestions:
         if not 0 <= item.probability <= 100:
             raise InvalidSortsSuggestions.new()

@@ -767,7 +767,7 @@ async def update_description(
     description: FindingDescriptionToUpdate,
 ) -> None:
     if description.title:
-        await findings_utils.is_valid_finding_title(description.title)
+        await findings_utils.is_valid_finding_title(loaders, description.title)
 
     finding = await get_finding(loaders, finding_id)
     metadata = FindingMetadataToUpdate(

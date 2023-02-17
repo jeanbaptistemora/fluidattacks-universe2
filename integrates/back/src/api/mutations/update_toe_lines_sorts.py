@@ -85,6 +85,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     sorts_risk_level_date: Optional[datetime] = None,
     sorts_suggestions: Optional[list[dict[str, Any]]] = None,
 ) -> SimplePayloadType:
+    loaders: Dataloaders = info.context.loaders
     if (
         sorts_risk_level is None
         and sorts_suggestions is None
@@ -103,10 +104,9 @@ async def mutate(  # pylint: disable=too-many-arguments
         sorts_suggestions_formatted = _format_sorts_suggestions(
             sorts_suggestions
         )
-        await validate_sort_suggestions(sorts_suggestions_formatted)
+        await validate_sort_suggestions(loaders, sorts_suggestions_formatted)
 
     try:
-        loaders: Dataloaders = info.context.loaders
         roots = await loaders.group_roots.load(group_name)
         root_id = roots_domain.get_root_id_by_nickname(
             root_nickname, tuple(roots), only_git_roots=True
@@ -131,12 +131,12 @@ async def mutate(  # pylint: disable=too-many-arguments
             info.context,
             f"Security: Updated sorts parameters for group {group_name} in "
             f"root {root_nickname} in toes with filename {filename} "
-            f"successfully",
+            "successfully",
         )
     except APP_EXCEPTIONS:
         logs_utils.cloudwatch_log(
             info.context,
-            f"Security: Tried to update sorts parameters for group "
+            "Security: Tried to update sorts parameters for group "
             f"{group_name} in root {root_nickname} in toes with "
             f"filename {filename}",
         )

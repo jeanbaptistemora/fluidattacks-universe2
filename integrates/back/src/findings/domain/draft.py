@@ -147,12 +147,13 @@ def validate_draft_inputs(*, kwargs: list[str]) -> None:
 
 
 async def add_draft(
+    loaders: Dataloaders,
     group_name: str,
     user_email: str,
     draft_info: FindingDraftToAdd,
     source: Source,
 ) -> Finding:
-    await findings_utils.is_valid_finding_title(draft_info.title)
+    await findings_utils.is_valid_finding_title(loaders, draft_info.title)
 
     group_name = group_name.lower()
     finding_id = str(uuid.uuid4())

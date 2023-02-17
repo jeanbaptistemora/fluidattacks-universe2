@@ -10,6 +10,9 @@ from custom_exceptions import (
     InvalidFileStructure,
     InvalidFindingTitle,
 )
+from dataloaders import (
+    Dataloaders,
+)
 from datetime import (
     datetime,
 )
@@ -88,7 +91,7 @@ async def get_requirements_file() -> Dict[str, Any]:
 
 
 async def is_valid_finding_title(
-    title: str, vulns_info: Optional[Dict] = None
+    loaders: Dataloaders, title: str, vulns_info: Optional[Dict] = None
 ) -> bool:
     """
     Validates that new Draft and Finding titles conform to the standard
@@ -96,7 +99,7 @@ async def is_valid_finding_title(
     """
     if re.match(r"^\d{3}\. .+", title):
         if not vulns_info:
-            vulns_info = await get_vulns_file()
+            vulns_info = await loaders.vulnerabilities_file.load("")
         try:
             vuln_number: str = title[:3]
             expected_vuln_title: str = vulns_info[vuln_number]["en"]["title"]
@@ -111,11 +114,15 @@ async def is_valid_finding_title(
     raise InvalidFindingTitle()
 
 
-async def is_valid_finding_titles(titles: list[str]) -> bool:
-    vulns_info = await get_vulns_file()
+async def is_valid_finding_titles(
+    loaders: Dataloaders, titles: list[str]
+) -> bool:
+    vulns_info = await loaders.vulnerabilities_file.load("")
     return all(
         await collect(
-            is_valid_finding_title(title=title, vulns_info=vulns_info)
+            is_valid_finding_title(
+                loaders=loaders, title=title, vulns_info=vulns_info
+            )
             for title in titles
         )
     )

@@ -5,6 +5,9 @@ from custom_exceptions import (
     InvalidSortsRiskLevelDate,
     InvalidSortsSuggestions,
 )
+from dataloaders import (
+    get_new_context,
+)
 from datetime import (
     datetime,
     timedelta,
@@ -89,25 +92,29 @@ def test_validate_sorts_risk_level_date_deco() -> None:
 
 
 async def test_valid_suggestions() -> None:
+    loaders = get_new_context()
     await validate_sort_suggestions(
+        loaders,
         [
             SortsSuggestion(
                 "366. Inappropriate coding practices - Transparency Conflict",
                 50,
             ),
-        ]
+        ],
     )
     with pytest.raises(InvalidSortsSuggestions):
         await validate_sort_suggestions(
+            loaders,
             [
                 SortsSuggestion(
                     "060. Insecure service configuration - Host verification",
                     150,
                 ),
-            ]
+            ],
         )
     with pytest.raises(InvalidSortsSuggestions):
         await validate_sort_suggestions(
+            loaders,
             [
                 SortsSuggestion(
                     "060. Insecure service configuration - Host verification",
@@ -129,7 +136,7 @@ async def test_valid_suggestions() -> None:
                 SortsSuggestion(
                     "428. Inappropriate coding practices - invalid file", 10
                 ),
-            ]
+            ],
         )
 
 

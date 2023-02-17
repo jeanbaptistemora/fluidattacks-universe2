@@ -442,7 +442,8 @@ async def _update_finding_metadata(
         )
 
 
-async def _create_draft(
+async def _create_draft(  # pylint: disable = too-many-arguments
+    loaders: Dataloaders,
     group_name: str,
     vulnerability_id: str,
     language: str,
@@ -473,6 +474,7 @@ async def _create_draft(
     )
 
     return await findings_domain.add_draft(
+        loaders,
         group_name,
         "machine@fluidattacks.com",
         draft_info,
@@ -1025,6 +1027,7 @@ async def process_criteria_vuln(  # pylint: disable=too-many-locals
     if len(sarif_vulns) > 0:
         if finding is None:
             finding = await _create_draft(
+                loaders,
                 group_name,
                 vulnerability_id,
                 language,

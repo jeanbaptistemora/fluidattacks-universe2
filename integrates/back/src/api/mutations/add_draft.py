@@ -115,6 +115,7 @@ async def mutate(
             raise MachineCanNotOperate()
 
         draft = await findings_domain.add_draft(
+            loaders,
             group_name,
             user_email,
             draft_info,

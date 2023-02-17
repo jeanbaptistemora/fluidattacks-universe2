@@ -50,8 +50,8 @@ from vulnerabilities import (
 )
 
 
-async def validate_finding_name(name: str) -> None:
-    if not await findings_utils.is_valid_finding_title(name):
+async def validate_finding_name(loaders: Dataloaders, name: str) -> None:
+    if not await findings_utils.is_valid_finding_title(loaders, name):
         raise InvalidFindingNamePolicy()
 
 
@@ -84,7 +84,7 @@ async def add_finding_policy(
     organization_name: str,
     tags: set[str],
 ) -> None:
-    await validate_finding_name(finding_name)
+    await validate_finding_name(loaders, finding_name)
     finding_policy = await get_finding_policy_by_name(
         loaders=loaders,
         organization_name=organization_name,
