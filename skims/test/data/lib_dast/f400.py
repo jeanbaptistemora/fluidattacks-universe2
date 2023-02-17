@@ -103,4 +103,28 @@ def mock_data() -> dict[str, Any]:
                 "IsOrganizationTrail": False,
             }
         ],
+        "clusters": [
+            "fluidk8sCluster",
+        ],
+        "cluster": {
+            "name": "fluidk8sCluster",
+            "arn": "arn:aws:iam::aws:cluster/fluid",
+            "version": "1",
+            "logging": {
+                "clusterLogging": [
+                    {
+                        "types": [
+                            "api",
+                        ],
+                        "enabled": False,
+                    },
+                    {
+                        "types": [
+                            "controllerManager",
+                        ],
+                        "enabled": True,
+                    },
+                ]
+            },
+        },
     }

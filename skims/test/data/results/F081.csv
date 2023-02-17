@@ -1,4 +1,28 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F081,inputs,fluid_userpool123 (namespace),/MfaConfiguration: OFF,308,skims,081. Lack of multi-factor authentication,lib_path.f081.cognito_mfa_disabled,"
+   1 | {
+   2 |     ""Content"": ""b'arn,mfa_active,password_enabled\\nmyUser1,false,true\\nmyUser2,true,false\\nmyUser3,true,true'"",
+   3 |     ""SummaryMap"": {
+   4 |         ""AccountMFAEnabled"": 0
+   5 |     },
+   6 |     ""Users"": [
+   7 |         {
+   8 |             ""UserName"": ""fluidattacks"",
+   9 |             ""Arn"": ""arn:aws:iam::123456789012:user/fluidAttacks""
+  10 |         }
+  11 |     ],
+  12 |     ""MFADevices"": [],
+  13 |     ""UserPools"": [
+  14 |         {
+  15 |             ""Id"": ""fluid_userpool123"",
+  16 |             ""Name"": ""fluid_up"",
+  17 |             ""Status"": ""Enabled""
+  18 |         }
+  19 |     ],
+> 20 |     ""MfaConfiguration"": ""OFF""
+  21 | }
+     ^ Col 0
+",aws.cognito_has_mfa_disabled
 F081,inputs,myUser1 (namespace),/mfa_active: false,308,skims,081. Lack of multi-factor authentication,lib_path.f081.iam_has_mfa_disabled,"
   1 | {
   2 |     ""arn"": ""myUser1"",
@@ -19,8 +43,16 @@ F081,inputs,arn:aws:iam::123456789012:user/fluidAttacks (namespace),/MFADevices:
    9 |             ""Arn"": ""arn:aws:iam::123456789012:user/fluidAttacks""
   10 |         }
   11 |     ],
-> 12 |     ""MFADevices"": []
-  13 | }
+> 12 |     ""MFADevices"": [],
+  13 |     ""UserPools"": [
+  14 |         {
+  15 |             ""Id"": ""fluid_userpool123"",
+  16 |             ""Name"": ""fluid_up"",
+  17 |             ""Status"": ""Enabled""
+  18 |         }
+  19 |     ],
+  20 |     ""MfaConfiguration"": ""OFF""
+  21 | }
      ^ Col 0
 ",aws.mfa_disabled_for_users_with_console_password
 F081,inputs,arn:aws:iam::RootAccount (namespace),/AccountMFAEnabled: 0,308,skims,081. Lack of multi-factor authentication,lib_path.f081.root_without_mfa,"

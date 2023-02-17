@@ -348,22 +348,22 @@ async def eks_has_disable_cluster_logging(
         credentials, service="eks", function="list_clusters"
     )
     method = core_model.MethodsEnum.AWS_EKS_HAS_DISABLED_CLUSTER_LOGGING
-    clusters = response.get("clusters", []) if response else []
+    cluster_names = response.get("clusters", []) if response else []
     vulns: core_model.Vulnerabilities = ()
     locations: list[Location] = []
-    for cluster in clusters:
-        cluster_description = await run_boto3_fun(
+    for cluster in cluster_names:
+        cluster_desc = await run_boto3_fun(
             credentials,
             service="eks",
             function="describe_cluster",
             parameters={"name": str(cluster)},
         )
-
-        for log in cluster_description["logging"]["clusterLogging"]:
-            if log["enabled"] is False:
+        cluster_attrs = cluster_desc["cluster"]
+        for log in cluster_attrs["logging"]["clusterLogging"]:
+            if not log["enabled"]:
                 locations = [
                     Location(
-                        arn=(cluster_description["arn"]),
+                        arn=(cluster_attrs["arn"]),
                         description=t(
                             "src.lib_path.f400.eks_has_disable_cluster_logging"
                         ),

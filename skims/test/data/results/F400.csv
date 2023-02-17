@@ -1,4 +1,13 @@
 finding,kind,what,where,cwe,stream,title,description,snippet,method
+F400,inputs,arn:aws:iam::aws:cluster/fluid (namespace),/enabled: False,778,skims,400. Traceability Loss - AWS,EkS clusters have control plane logging disabled.,"
+  1 | {
+  2 |     ""types"": [
+  3 |         ""api""
+  4 |     ],
+> 5 |     ""enabled"": false
+  6 | }
+    ^ Col 0
+",aws.eks_has_disable_cluster_logging
 F400,lines,namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,19,778,skims,400. Traceability Loss - AWS,Missing Logging property to make traceability in namespace/skims/test/data/lib_path/f400/cfn_cf_distribution_has_logging_disabled.yaml,"
    6 |       DistributionConfig:
    7 |         Enabled: 'true'

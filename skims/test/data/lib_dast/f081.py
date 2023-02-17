@@ -22,4 +22,12 @@ def mock_data() -> dict[str, Any]:
             },
         ],
         "MFADevices": [],
+        "UserPools": [
+            {
+                "Id": "fluid_userpool123",
+                "Name": "fluid_up",
+                "Status": "Enabled",
+            },
+        ],
+        "MfaConfiguration": "OFF",
     }

@@ -169,12 +169,12 @@ async def get_paginated_items(
     object_name = "UserPools"
     pools += data.get(object_name, [])
 
-    next_token = data.get("NextMarker", None)
+    next_token = data.get("NextToken", None)
     while next_token:
-        args["parameters"]["NextMarker"] = next_token
+        args["parameters"]["NextToken"] = next_token
         data = await run_boto3_fun(**args)
         pools += data.get(object_name, [])
-        next_token = data.get("NextMarker", None)
+        next_token = data.get("NextToken", None)
 
     return pools
 
