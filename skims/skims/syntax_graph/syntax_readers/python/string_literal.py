@@ -8,8 +8,8 @@ from syntax_graph.types import (
     SyntaxGraphArgs,
 )
 from utils.graph import (
+    adj_ast,
     match_ast_d,
-    match_ast_group_d,
 )
 from utils.graph.text_nodes import (
     node_to_str,
@@ -19,8 +19,14 @@ from utils.graph.text_nodes import (
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     text = node_to_str(graph, args.n_id)
-    if interp := match_ast_d(graph, args.n_id, "interpolation"):
-        invocations = match_ast_group_d(graph, interp, "attribute")
-        return build_string_literal_node(args, text, None, invocations)
+    if interp_id := match_ast_d(graph, args.n_id, "interpolation"):
+        childs = adj_ast(graph, interp_id)
+        filtered_ids = (
+            _id
+            for _id in childs
+            if args.ast_graph.nodes[_id]["label_type"] not in {"{", "}"}
+        )
+
+        return build_string_literal_node(args, text, iter(filtered_ids), None)
 
     return build_string_literal_node(args, text)

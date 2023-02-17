@@ -12018,6 +12018,11 @@
               "label_ast": "AST"
             }
           },
+          "150": {
+            "154": {
+              "label_ast": "AST"
+            }
+          },
           "159": {
             "160": {
               "label_ast": "AST",
@@ -13089,6 +13094,11 @@
               "label_ast": "AST"
             }
           },
+          "646": {
+            "650": {
+              "label_ast": "AST"
+            }
+          },
           "655": {
             "656": {
               "label_ast": "AST"
@@ -13293,6 +13303,11 @@
               "label_ast": "AST"
             },
             "746": {
+              "label_ast": "AST"
+            }
+          },
+          "746": {
+            "750": {
               "label_ast": "AST"
             }
           },
@@ -14007,6 +14022,10 @@
             "label_type": "Literal",
             "value": "f\"{amount}\"",
             "value_type": "string"
+          },
+          "154": {
+            "label_type": "SymbolLookup",
+            "symbol": "amount"
           },
           "159": {
             "label_type": "BinaryOperation",
@@ -15110,6 +15129,10 @@
             "value": "f\"{env_var}\"",
             "value_type": "string"
           },
+          "650": {
+            "label_type": "SymbolLookup",
+            "symbol": "env_var"
+          },
           "655": {
             "label_type": "Assignment",
             "value_id": "658",
@@ -15302,6 +15325,10 @@
             "label_type": "Literal",
             "value": "f\"{lang}\"",
             "value_type": "string"
+          },
+          "750": {
+            "label_type": "SymbolLookup",
+            "symbol": "lang"
           },
           "754": {
             "block_id": "776",

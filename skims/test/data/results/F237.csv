@@ -185,3 +185,33 @@ F237,lines,namespace/skims/test/data/lib_root/f237/java_has_print_statements.jav
   20 | }
      ^ Col 0
 ",java.java_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/python_has_print_statements.py,7,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/python_has_print_statements.py","
+   1 | import json
+   2 |
+   3 |
+   4 | def unsafe_print(some_input: str) -> None:
+   5 |     message = ""Variable""
+   6 |     print(json.dumps(some_input))
+>  7 |     print(f""Have {message} concatenation"")
+   8 |
+   9 |
+  10 | def safe_print() -> None:
+  11 |     print(""Regular info that should not be marked as vuln"")
+     ^ Col 0
+",python.python_has_print_statements
+F237,lines,namespace/skims/test/data/lib_root/f237/python_has_print_statements.py,6,200,skims,237. Technical information leak - Print Functions,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f237/python_has_print_statements.py","
+   1 | import json
+   2 |
+   3 |
+   4 | def unsafe_print(some_input: str) -> None:
+   5 |     message = ""Variable""
+>  6 |     print(json.dumps(some_input))
+   7 |     print(f""Have {message} concatenation"")
+   8 |
+   9 |
+  10 | def safe_print() -> None:
+  11 |     print(""Regular info that should not be marked as vuln"")
+     ^ Col 0
+",python.python_has_print_statements
