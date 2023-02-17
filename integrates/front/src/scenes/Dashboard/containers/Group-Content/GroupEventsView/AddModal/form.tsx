@@ -13,7 +13,7 @@ import type {
   IFinding,
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
-import { InputDateTime, InputFile, TextArea } from "components/Input";
+import { InputDateTime, InputFile, Select, TextArea } from "components/Input";
 import { ModalConfirm } from "components/Modal";
 import {
   Col100,
@@ -24,7 +24,7 @@ import {
 } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
-import { FormikAutocompleteText, FormikDropdown } from "utils/forms/fields";
+import { FormikAutocompleteText } from "utils/forms/fields";
 import { FormikSwitchButton } from "utils/forms/fields/SwitchButton/FormikSwitchButton";
 import { Logger } from "utils/logger";
 import {
@@ -134,9 +134,8 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
         </Col50>
         <Col50>
           <FormGroup>
-            <ControlLabel>{t("group.events.form.type")}</ControlLabel>
-            <Field
-              component={FormikDropdown}
+            <Select
+              label={t("group.events.form.type")}
               name={"eventType"}
               validate={required}
             >
@@ -178,7 +177,7 @@ export const AddModalForm: React.FC<IAddModalFormProps> = ({
               <option value={"VPN_ISSUES"}>
                 {t(castEventType("VPN_ISSUES"))}
               </option>
-            </Field>
+            </Select>
           </FormGroup>
         </Col50>
       </Row>
