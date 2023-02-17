@@ -12138,9 +12138,6 @@
             }
           },
           "204": {
-            "205": {
-              "label_ast": "AST"
-            },
             "207": {
               "label_ast": "AST"
             },
@@ -12149,9 +12146,6 @@
             }
           },
           "209": {
-            "210": {
-              "label_ast": "AST"
-            },
             "212": {
               "label_ast": "AST"
             },
@@ -12239,9 +12233,6 @@
             }
           },
           "247": {
-            "248": {
-              "label_ast": "AST"
-            },
             "250": {
               "label_ast": "AST"
             },
@@ -12250,9 +12241,6 @@
             }
           },
           "252": {
-            "253": {
-              "label_ast": "AST"
-            },
             "255": {
               "label_ast": "AST"
             },
@@ -12292,9 +12280,6 @@
             }
           },
           "269": {
-            "270": {
-              "label_ast": "AST"
-            },
             "272": {
               "label_ast": "AST"
             },
@@ -12311,9 +12296,6 @@
             }
           },
           "277": {
-            "278": {
-              "label_ast": "AST"
-            },
             "280": {
               "label_ast": "AST"
             },
@@ -12349,9 +12331,6 @@
             }
           },
           "296": {
-            "297": {
-              "label_ast": "AST"
-            },
             "299": {
               "label_ast": "AST"
             },
@@ -12360,9 +12339,6 @@
             }
           },
           "301": {
-            "302": {
-              "label_ast": "AST"
-            },
             "304": {
               "label_ast": "AST"
             },
@@ -12397,9 +12373,6 @@
             }
           },
           "314": {
-            "315": {
-              "label_ast": "AST"
-            },
             "317": {
               "label_ast": "AST"
             },
@@ -12471,9 +12444,6 @@
             }
           },
           "338": {
-            "339": {
-              "label_ast": "AST"
-            },
             "341": {
               "label_ast": "AST"
             },
@@ -12511,9 +12481,6 @@
             }
           },
           "362": {
-            "363": {
-              "label_ast": "AST"
-            },
             "365": {
               "label_ast": "AST"
             },
@@ -12578,9 +12545,6 @@
             }
           },
           "391": {
-            "392": {
-              "label_ast": "AST"
-            },
             "394": {
               "label_ast": "AST"
             },
@@ -12608,9 +12572,6 @@
             }
           },
           "40": {
-            "41": {
-              "label_ast": "AST"
-            },
             "58": {
               "label_ast": "AST"
             }
@@ -12653,9 +12614,6 @@
             }
           },
           "420": {
-            "421": {
-              "label_ast": "AST"
-            },
             "423": {
               "label_ast": "AST"
             },
@@ -12736,9 +12694,6 @@
             }
           },
           "455": {
-            "456": {
-              "label_ast": "AST"
-            },
             "458": {
               "label_ast": "AST"
             },
@@ -12758,9 +12713,6 @@
             }
           },
           "473": {
-            "474": {
-              "label_ast": "AST"
-            },
             "476": {
               "label_ast": "AST"
             },
@@ -12780,9 +12732,6 @@
             }
           },
           "491": {
-            "492": {
-              "label_ast": "AST"
-            },
             "494": {
               "label_ast": "AST"
             },
@@ -12877,9 +12826,6 @@
             }
           },
           "530": {
-            "531": {
-              "label_ast": "AST"
-            },
             "533": {
               "label_ast": "AST"
             },
@@ -13100,9 +13046,6 @@
             }
           },
           "655": {
-            "656": {
-              "label_ast": "AST"
-            },
             "658": {
               "label_ast": "AST"
             }
@@ -13270,9 +13213,6 @@
             }
           },
           "728": {
-            "729": {
-              "label_ast": "AST"
-            },
             "734": {
               "label_ast": "AST"
             },
@@ -13906,7 +13846,7 @@
             "value_type": "number"
           },
           "1084": {
-            "label_type": "Argument",
+            "label_type": "NamedArgument",
             "value_id": "1087",
             "variable_id": "1085"
           },
@@ -13920,7 +13860,7 @@
             "value_type": "number"
           },
           "1089": {
-            "label_type": "Argument",
+            "label_type": "NamedArgument",
             "value_id": "1092",
             "variable_id": "1090"
           },
@@ -14109,13 +14049,9 @@
             "label_type": "ExecutionBlock"
           },
           "204": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "207",
-            "variable_id": "205"
-          },
-          "205": {
-            "label_type": "SymbolLookup",
-            "symbol": "number"
+            "variable": "number"
           },
           "207": {
             "label_type": "Literal",
@@ -14123,13 +14059,9 @@
             "value_type": "number"
           },
           "209": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "212",
-            "variable_id": "210"
-          },
-          "210": {
-            "label_type": "SymbolLookup",
-            "symbol": "modulus"
+            "variable": "modulus"
           },
           "212": {
             "label_type": "BinaryOperation",
@@ -14219,13 +14151,9 @@
             "value_type": "string"
           },
           "247": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "250",
-            "variable_id": "248"
-          },
-          "248": {
-            "label_type": "SymbolLookup",
-            "symbol": "sum_var"
+            "variable": "sum_var"
           },
           "250": {
             "label_type": "Literal",
@@ -14233,13 +14161,9 @@
             "value_type": "number"
           },
           "252": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "255",
-            "variable_id": "253"
-          },
-          "253": {
-            "label_type": "SymbolLookup",
-            "symbol": "count"
+            "variable": "count"
           },
           "255": {
             "label_type": "Literal",
@@ -14275,18 +14199,14 @@
             "label_type": "ExecutionBlock"
           },
           "269": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "272",
-            "variable_id": "270"
+            "variable": "sum_var"
           },
           "27": {
             "expression": "itertools",
             "identifier": "chain",
             "label_type": "Import"
-          },
-          "270": {
-            "label_type": "SymbolLookup",
-            "symbol": "sum_var"
           },
           "272": {
             "label_type": "BinaryOperation",
@@ -14303,13 +14223,9 @@
             "symbol": "i"
           },
           "277": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "280",
-            "variable_id": "278"
-          },
-          "278": {
-            "label_type": "SymbolLookup",
-            "symbol": "avg"
+            "variable": "avg"
           },
           "280": {
             "label_type": "BinaryOperation",
@@ -14348,13 +14264,9 @@
             "symbol": "avg"
           },
           "296": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "299",
-            "variable_id": "297"
-          },
-          "297": {
-            "label_type": "SymbolLookup",
-            "symbol": "count"
+            "variable": "count"
           },
           "299": {
             "label_type": "Literal",
@@ -14362,13 +14274,9 @@
             "value_type": "number"
           },
           "301": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "304",
-            "variable_id": "302"
-          },
-          "302": {
-            "label_type": "SymbolLookup",
-            "symbol": "mult_var"
+            "variable": "mult_var"
           },
           "304": {
             "label_type": "Literal",
@@ -14402,13 +14310,9 @@
             "label_type": "ExecutionBlock"
           },
           "314": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "317",
-            "variable_id": "315"
-          },
-          "315": {
-            "label_type": "SymbolLookup",
-            "symbol": "count"
+            "variable": "count"
           },
           "317": {
             "label_type": "BinaryOperation",
@@ -14448,13 +14352,9 @@
             "label_type": "ExecutionBlock"
           },
           "338": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "341",
-            "variable_id": "339"
-          },
-          "339": {
-            "label_type": "SymbolLookup",
-            "symbol": "input_list"
+            "variable": "input_list"
           },
           "341": {
             "label_type": "ArrayInitializer"
@@ -14509,13 +14409,9 @@
             "value_type": "number"
           },
           "362": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "365",
-            "variable_id": "363"
-          },
-          "363": {
-            "label_type": "SymbolLookup",
-            "symbol": "list_using_comp"
+            "variable": "list_using_comp"
           },
           "365": {
             "label_type": "ArrayInitializer"
@@ -14585,13 +14481,9 @@
             "symbol": "list_using_comp"
           },
           "391": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "394",
-            "variable_id": "392"
-          },
-          "392": {
-            "label_type": "SymbolLookup",
-            "symbol": "set_using_comp"
+            "variable": "set_using_comp"
           },
           "394": {
             "label_type": "ArrayInitializer"
@@ -14610,10 +14502,10 @@
             "symbol": "var"
           },
           "40": {
-            "label_type": "Assignment",
-            "operator": "43",
+            "label_type": "VariableDeclaration",
             "value_id": "58",
-            "variable_id": "41"
+            "variable": "FIELDS_BY_LANGUAGE",
+            "variable_type": "dict[str,tuple[str,...]]"
           },
           "401": {
             "label_type": "SymbolLookup",
@@ -14644,10 +14536,6 @@
             "value": "2",
             "value_type": "number"
           },
-          "41": {
-            "label_type": "SymbolLookup",
-            "symbol": "FIELDS_BY_LANGUAGE"
-          },
           "410": {
             "label_type": "Literal",
             "value": "0",
@@ -14671,13 +14559,9 @@
             "symbol": "set_using_comp"
           },
           "420": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "423",
-            "variable_id": "421"
-          },
-          "421": {
-            "label_type": "SymbolLookup",
-            "symbol": "dict_using_comp"
+            "variable": "dict_using_comp"
           },
           "423": {
             "label_type": "ArrayInitializer"
@@ -14767,13 +14651,9 @@
             "symbol": "dict_using_comp"
           },
           "455": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "458",
-            "variable_id": "456"
-          },
-          "456": {
-            "label_type": "SymbolLookup",
-            "symbol": "state"
+            "variable": "state"
           },
           "458": {
             "label_type": "ArrayInitializer"
@@ -14794,13 +14674,9 @@
             "value_type": "string"
           },
           "473": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "476",
-            "variable_id": "474"
-          },
-          "474": {
-            "label_type": "SymbolLookup",
-            "symbol": "capital"
+            "variable": "capital"
           },
           "476": {
             "label_type": "ArrayInitializer"
@@ -14821,13 +14697,9 @@
             "value_type": "string"
           },
           "491": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "494",
-            "variable_id": "492"
-          },
-          "492": {
-            "label_type": "SymbolLookup",
-            "symbol": "output_dict"
+            "variable": "output_dict"
           },
           "494": {
             "label_type": "Object"
@@ -14901,13 +14773,9 @@
             "label_type": "ExecutionBlock"
           },
           "530": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "533",
-            "variable_id": "531"
-          },
-          "531": {
-            "label_type": "SymbolLookup",
-            "symbol": "my_numbers"
+            "variable": "my_numbers"
           },
           "533": {
             "label_type": "ArrayInitializer"
@@ -15134,13 +15002,9 @@
             "symbol": "env_var"
           },
           "655": {
-            "label_type": "Assignment",
+            "label_type": "VariableDeclaration",
             "value_id": "658",
-            "variable_id": "656"
-          },
-          "656": {
-            "label_type": "SymbolLookup",
-            "symbol": "TREE_SITTER_PARSERS"
+            "variable": "TREE_SITTER_PARSERS"
           },
           "658": {
             "arguments_id": "660",
@@ -15283,14 +15147,10 @@
             "label_type": "Break"
           },
           "728": {
-            "label_type": "Assignment",
-            "operator": "731",
+            "label_type": "VariableDeclaration",
             "value_id": "734",
-            "variable_id": "729"
-          },
-          "729": {
-            "label_type": "SymbolLookup",
-            "symbol": "path"
+            "variable": "path",
+            "variable_type": "str"
           },
           "734": {
             "arguments_id": "742",
@@ -15358,7 +15218,7 @@
             "symbol": "path"
           },
           "765": {
-            "label_type": "Argument",
+            "label_type": "NamedArgument",
             "value_id": "768",
             "variable_id": "766"
           },

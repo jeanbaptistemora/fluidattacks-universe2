@@ -31,14 +31,6 @@ from utils.encodings import (
         ),
         (
             (
-                "skims/test/data/graphs/syntax/test_cfg.dart",
-                "skims/test/data/graphs/syntax/test_cfg.go",
-                "skims/test/data/graphs/syntax/test_cfg.kt",
-            ),
-            "cfg",
-        ),
-        (
-            (
                 "skims/test/data/graphs/syntax/test_cfg.json",
                 "skims/test/data/graphs/syntax/test_cfg.tf",
                 "skims/test/data/graphs/syntax/test_cfg.yaml",
@@ -59,12 +51,24 @@ from utils.encodings import (
             "syntax_csharp",
         ),
         (
+            ("skims/test/data/graphs/syntax/test_cfg.dart",),
+            "syntax_dart",
+        ),
+        (
+            ("skims/test/data/graphs/syntax/test_cfg.go",),
+            "syntax_go",
+        ),
+        (
             ("skims/test/data/graphs/syntax/syntax_cfg.java",),
             "syntax_java",
         ),
         (
             ("skims/test/data/graphs/syntax/syntax_cfg.js",),
             "syntax_javascript",
+        ),
+        (
+            ("skims/test/data/graphs/syntax/test_cfg.kt",),
+            "syntax_kotlin",
         ),
         (
             ("skims/test/data/graphs/syntax/syntax_cfg.py",),

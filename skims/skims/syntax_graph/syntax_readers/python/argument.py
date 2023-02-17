@@ -28,6 +28,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     identifier_id = n_attrs.get("label_field_name")
     if identifier_id:
-        build_named_argument_node(args, identifier_id, value_id)
+        return build_named_argument_node(args, identifier_id, value_id)
 
     return build_argument_node(args, cast(Iterator[str], [value_id]))

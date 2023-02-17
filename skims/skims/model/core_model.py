@@ -4157,6 +4157,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.BASIC_SAST,
     )
+    PYTHON_XML_PARSER = MethodInfo(
+        file_name="python",
+        name="python_xml_parser",
+        module="lib_root",
+        finding=FindingEnum.F083,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_CLIENT_STORAGE = MethodInfo(
         file_name="javascript",
         name="javascript_client_storage",
