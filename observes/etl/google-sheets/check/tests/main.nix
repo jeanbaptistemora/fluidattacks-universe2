@@ -5,7 +5,7 @@
   projectPath,
   ...
 }: let
-  root = projectPath inputs.observesIndex.tap.json.root;
+  root = projectPath inputs.observesIndex.etl.google_sheets.root;
   pkg = import "${root}/entrypoint.nix" {
     inherit projectPath fetchNixpkgs;
     observesIndex = inputs.observesIndex;
@@ -16,6 +16,6 @@ in
     searchPaths = {
       bin = [check];
     };
-    name = "observes-tap-json-check-tests";
+    name = "observes-etl-google-sheets-check-tests";
     entrypoint = "";
   }

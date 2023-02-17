@@ -11,13 +11,16 @@
     observesIndex = inputs.observesIndex;
   };
   env = pkg.env.dev;
+  bins = pkg.bin_deps;
 in
   makeTemplate {
     name = "observes-etl-google-sheets-env-dev";
     searchPaths = {
-      bin = [
-        env
-      ];
+      bin =
+        bins
+        ++ [
+          env
+        ];
     };
     replace = {
       __argPython__ = inputs.nixpkgs.python310;

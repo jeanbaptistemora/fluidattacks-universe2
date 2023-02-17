@@ -13,6 +13,7 @@
   deps = import ./deps {
     inherit nixpkgs python_version;
   };
+
   runtime_deps = with deps.python_pkgs; [
     fa-purity
     utils-logger
@@ -24,13 +25,17 @@
     pylint
     pytest
   ];
-  pkg = (import ./pkg) {
+  bin_deps = [
+    nixpkgs.tap-google-sheets
+  ];
+
+  pkg = import ./pkg {
     inherit src metadata runtime_deps build_deps test_deps;
     lib = deps.lib;
   };
-  env = (import ./env.nix) {
+  env = import ./env.nix {
     inherit pkg runtime_deps test_deps;
     lib = deps.lib;
   };
-  check = (import ./check.nix) {inherit pkg;};
-in {inherit pkg env check;}
+  check = import ./check.nix {inherit pkg;};
+in {inherit pkg env check bin_deps;}

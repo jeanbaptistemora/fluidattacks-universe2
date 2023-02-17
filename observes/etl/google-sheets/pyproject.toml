@@ -1,5 +1,5 @@
 [project]
-name = "dynamo_etl_conf"
+name = "google_sheets_etl"
 description = "Google sheets ETL"
 dynamic = ["version"]
 authors = [

@@ -17,12 +17,21 @@
   in
     import src;
 
+  # bins
+  tap-google-sheets = let
+    root = projectPath observesIndex.tap.google_sheets.root;
+    pkg = import "${root}/entrypoint.nix" {
+      inherit fetchNixpkgs;
+    };
+  in
+    pkg.env.bin;
+
   out = import ./build {
     inherit python_version;
     nixpkgs =
       nixpkgs
       // {
-        inherit utils-logger-src;
+        inherit tap-google-sheets utils-logger-src;
       };
     src = nix-filter {
       root = ./.;

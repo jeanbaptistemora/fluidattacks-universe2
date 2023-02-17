@@ -7,6 +7,7 @@
     buildEnv = nixpkgs."${python_version}".buildEnv.override;
     buildPythonPackage = nixpkgs."${python_version}".pkgs.buildPythonPackage;
     fetchPypi = nixpkgs.python3Packages.fetchPypi;
+    mkShell = nixpkgs.mkShell;
   };
   arch-lint = import ./arch_lint.nix {inherit nixpkgs;};
   fa-purity = import ./fa_purity.nix {inherit nixpkgs;};
@@ -17,7 +18,7 @@
   override_1 = python_pkgs:
     python_pkgs
     // {
-      inherit utils-logger;
+      utils-logger = utils-logger.pkg;
       arch-lint = arch-lint."${python_version}".pkg;
       fa-purity = fa-purity."${python_version}".pkg;
     };

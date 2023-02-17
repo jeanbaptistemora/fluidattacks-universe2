@@ -55,6 +55,7 @@
     common.utils_logger_2
     etl.code
     etl.dynamo
+    etl.google_sheets
     service.batch_stability
     service.scheduler
     service.success_indicators
