@@ -3,12 +3,12 @@ import { useTranslation } from "react-i18next";
 
 import { HeaderContainer } from "./styles";
 
+import { Row } from "components/Layout";
 import { Tag } from "components/Tag";
 import {
   Col100,
   EventHeaderGrid,
   EventHeaderLabel,
-  Row,
 } from "styles/styledComponents";
 import { castEventStatus, castEventType } from "utils/formatHelpers";
 
