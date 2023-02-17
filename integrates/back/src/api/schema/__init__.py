@@ -23,6 +23,7 @@ import os
 API_PATH = os.path.join(os.path.dirname(__file__), os.pardir)
 SDL_CONTENT = "\n".join(
     [
+        load_schema_from_path(f"{API_PATH}/interfaces"),
         load_schema_from_path(f"{API_PATH}/mutations"),
         load_schema_from_path(f"{API_PATH}/resolvers"),
         load_schema_from_path(f"{API_PATH}/schema"),

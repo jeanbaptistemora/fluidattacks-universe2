@@ -1,3 +1,6 @@
+from .schema import (
+    CREDENTIALS,
+)
 from db_model.credentials.types import (
     Credentials,
     HttpsPatSecret,
@@ -20,6 +23,7 @@ from typing import (
 )
 
 
+@CREDENTIALS.field("token")
 @enforce_owner
 async def resolve(
     parent: Credentials, info: GraphQLResolveInfo

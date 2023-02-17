@@ -1,3 +1,6 @@
+from .schema import (
+    CREDENTIALS,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -18,6 +21,7 @@ from typing import (
 )
 
 
+@CREDENTIALS.field("organization")
 @require_organization_access
 async def resolve(
     parent: Credentials,

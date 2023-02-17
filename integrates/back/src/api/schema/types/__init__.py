@@ -1,9 +1,3 @@
-from .consult import (
-    CONSULT,
-)
-from .entity_report_subscription import (
-    ENTITY_REPORT_SUBSCRIPTION,
-)
 from .event import (
     EVENT,
 )
@@ -100,14 +94,20 @@ from .vulnerability_historic_state import (
 from api.resolvers.billing.schema import (
     BILLING,
 )
-from api.schema.types.credentials import (
+from api.resolvers.consult.schema import (
+    CONSULT,
+)
+from api.resolvers.credentials.schema import (
     CREDENTIALS,
+)
+from api.resolvers.entity_report_subscription.schema import (
+    ENTITY_REPORT_SUBSCRIPTION,
+)
+from api.resolvers.event_evidence_item.schema import (
+    EVENT_EVIDENCE_ITEM,
 )
 from api.schema.types.event_evidence import (
     EVENT_EVIDENCE,
-)
-from api.schema.types.event_evidence_item import (
-    EVENT_EVIDENCE_ITEM,
 )
 from api.schema.types.group_compliance import (
     GROUP_COMPLIANCE,

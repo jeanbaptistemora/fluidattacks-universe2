@@ -1,3 +1,6 @@
+from .schema import (
+    CREDENTIALS,
+)
 from db_model.credentials.types import (
     Credentials,
 )
@@ -9,5 +12,6 @@ from typing import (
 )
 
 
+@CREDENTIALS.field("azureOrganization")
 def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> Optional[str]:
     return parent.state.azure_organization

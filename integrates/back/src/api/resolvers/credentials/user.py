@@ -1,3 +1,6 @@
+from .schema import (
+    CREDENTIALS,
+)
 from db_model.credentials.types import (
     Credentials,
     HttpsSecret,
@@ -13,6 +16,7 @@ from typing import (
 )
 
 
+@CREDENTIALS.field("user")
 @enforce_owner
 def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> Optional[str]:
     return (

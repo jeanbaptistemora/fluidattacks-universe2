@@ -1,4 +1,4 @@
-from api.resolvers.event_evidence import (
+from api.resolvers.event_evidence_item import (
     date,
 )
 from ariadne import (

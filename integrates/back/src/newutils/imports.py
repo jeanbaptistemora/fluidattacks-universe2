@@ -3,7 +3,7 @@ import os
 
 
 def generate_all(path: str, package: str) -> list[str]:
-    """Util to generate __all__ dinamically"""
+    """Util to generate __all__ dynamically"""
     modules = []
 
     for file in os.listdir(os.path.dirname(path)):

@@ -1,3 +1,6 @@
+from .schema import (
+    CREDENTIALS,
+)
 from db_model.credentials.types import (
     Credentials,
 )
@@ -9,5 +12,6 @@ from roots.utils import (
 )
 
 
+@CREDENTIALS.field("oauthType")
 def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str:
     return get_oauth_type(parent)
