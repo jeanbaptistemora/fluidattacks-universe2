@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -19,6 +22,7 @@ from typing import (
 )
 
 
+@QUERY.field("me")
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(

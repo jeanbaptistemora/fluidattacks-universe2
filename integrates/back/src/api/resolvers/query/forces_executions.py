@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -28,6 +31,7 @@ from typing import (
 )
 
 
+@QUERY.field("forcesExecutions")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from aioextensions import (
     collect,
 )
@@ -33,6 +36,7 @@ from tags import (
 )
 
 
+@QUERY.field("tag")
 @require_login
 async def resolve(
     _parent: None, info: GraphQLResolveInfo, **kwargs: str

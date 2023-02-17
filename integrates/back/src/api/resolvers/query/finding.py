@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -30,6 +33,7 @@ async def _get_draft(finding: Finding, **_kwargs: Any) -> Finding:
     return finding
 
 
+@QUERY.field("finding")
 @convert_kwargs_to_snake_case
 @rename_kwargs({"identifier": "finding_id"})
 @concurrent_decorators(

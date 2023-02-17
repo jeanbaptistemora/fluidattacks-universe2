@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -53,6 +56,7 @@ async def _resolve_for_group(
     return await get_stakeholder(loaders, email)
 
 
+@QUERY.field("stakeholder")
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(

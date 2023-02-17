@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from aioextensions import (
     collect,
 )
@@ -26,6 +29,7 @@ from newutils import (
 )
 
 
+@QUERY.field("listUserGroups")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

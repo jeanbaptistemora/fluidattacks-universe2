@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .query import (
-    QUERY,
-)
 from .root import (
     ENVIRONMENT_URL,
     GITROOT,
@@ -150,6 +147,9 @@ from api.resolvers.price.schema import (
 )
 from api.resolvers.prices.schema import (
     PRICES,
+)
+from api.resolvers.query.schema import (
+    QUERY,
 )
 from api.resolvers.report.schema import (
     REPORT,

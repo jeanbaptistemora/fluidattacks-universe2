@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -262,6 +265,7 @@ async def _get_finding_title(
     return ""
 
 
+@QUERY.field("report")
 @convert_kwargs_to_snake_case
 @require_login
 async def resolve(  # pylint: disable=too-many-locals

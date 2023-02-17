@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -44,6 +47,7 @@ def _format_group_files(group_files: list[GroupFile]) -> list[Resource]:
     ]
 
 
+@QUERY.field("resources")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

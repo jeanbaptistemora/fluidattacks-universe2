@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from decorators import (
     require_login,
 )
@@ -10,6 +13,7 @@ from typing import (
 )
 
 
+@QUERY.field("billing")
 @require_login
 async def resolve(
     _parent: None, _info: GraphQLResolveInfo, **_kwargs: str

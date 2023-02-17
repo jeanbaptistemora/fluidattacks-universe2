@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -19,6 +22,7 @@ from graphql.type.definition import (
 )
 
 
+@QUERY.field("event")
 @rename_kwargs({"identifier": "event_id"})
 @concurrent_decorators(
     require_login,

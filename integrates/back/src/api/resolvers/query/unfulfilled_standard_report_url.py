@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -33,6 +36,7 @@ from verify import (
 )
 
 
+@QUERY.field("unfulfilledStandardReportUrl")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

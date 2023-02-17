@@ -1,3 +1,6 @@
+from .schema import (
+    QUERY,
+)
 from aioextensions import (
     collect,
 )
@@ -26,6 +29,7 @@ from organizations import (
 )
 
 
+@QUERY.field("vulnerabilitiesToReattack")
 @concurrent_decorators(
     require_login,
     enforce_user_level_auth_async,
