@@ -1,9 +1,11 @@
 from syntax_graph.syntax_readers.swift import (
     assignment as swift_assignment,
     class_declaration as swift_class_declaration,
+    comment as swift_comment,
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
     if_statement as swift_if_statement,
+    parameter as swift_parameter,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
     while_statement as swift_while_statement,
@@ -27,6 +29,10 @@ SWIFT_DISPATCHERS: Dispatchers = (
         syntax_reader=swift_class_declaration.reader,
     ),
     Dispatcher(
+        applicable_types={"comment", "multiline_comment"},
+        syntax_reader=swift_comment.reader,
+    ),
+    Dispatcher(
         applicable_types={
             "function_declaration",
         },
@@ -35,6 +41,7 @@ SWIFT_DISPATCHERS: Dispatchers = (
     Dispatcher(
         applicable_types={
             "identifier",
+            "postfix_expression",
             "simple_identifier",
         },
         syntax_reader=swift_identifier.reader,
@@ -44,6 +51,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "if_statement",
         },
         syntax_reader=swift_if_statement.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "parameter",
+        },
+        syntax_reader=swift_parameter.reader,
     ),
     Dispatcher(
         applicable_types={
