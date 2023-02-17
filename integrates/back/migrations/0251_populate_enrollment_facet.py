@@ -1,6 +1,6 @@
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 """
 Populate the enrollment items for the old stakeholders
 

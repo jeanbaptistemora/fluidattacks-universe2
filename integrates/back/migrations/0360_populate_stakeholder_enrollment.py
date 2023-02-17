@@ -16,9 +16,6 @@ from aioextensions import (
 from dataloaders import (
     get_new_context,
 )
-from db_model.enrollment.types import (
-    Enrollment,
-)
 from db_model.stakeholders import (
     get_all_stakeholders,
 )
@@ -45,7 +42,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def process_user(user: Stakeholder, progress: float) -> None:
     loaders = get_new_context()
     user_email = user.email
-    enrollment: Enrollment = await loaders.enrollment.load(user_email)
+    enrollment = await loaders.enrollment.load(user_email)
 
     await stakeholders_domain.update(
         email=user_email,

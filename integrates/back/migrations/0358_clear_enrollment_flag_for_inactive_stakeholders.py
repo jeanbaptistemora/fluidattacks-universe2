@@ -1,6 +1,6 @@
 # type: ignore
 
-# pylint: disable=invalid-name
+# pylint: disable=import-error,invalid-name
 """
 Clear flag enrolled in enrollment_metadata facet for stakeholders
 previously removed due to inactivity.
