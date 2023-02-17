@@ -12,11 +12,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_INSEC_ADDHEADER_WRITE: cs_insec_addheader_write,
     MethodsEnum.JS_UNSAFE_XSS_CONTENT: unsafe_xss_content,
     MethodsEnum.TS_UNSAFE_XSS_CONTENT: unsafe_xss_content,

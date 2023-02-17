@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_UNSAFE_SQL_STATEMENT: cs_sql_user_params,
 }
 

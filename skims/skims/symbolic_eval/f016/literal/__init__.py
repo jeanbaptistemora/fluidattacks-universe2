@@ -9,11 +9,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_SERVICE_POINT_MANAGER_DISABLED: cs_service_point_disabled,
 }
 

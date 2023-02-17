@@ -1,16 +1,17 @@
+from collections.abc import (
+    Callable,
+    Iterator,
+)
 from model.graph_model import (
     Graph,
     NId,
 )
 from typing import (
-    Callable,
-    Iterator,
     NamedTuple,
-    Tuple,
 )
 
 # Bool value indicates whether the founded node is a definition or not
-SearchResult = Tuple[bool, NId]
+SearchResult = tuple[bool, NId]
 
 
 class SearchArgs(NamedTuple):

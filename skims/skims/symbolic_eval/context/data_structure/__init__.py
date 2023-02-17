@@ -11,10 +11,6 @@ from symbolic_eval.types import (
 from symbolic_eval.utils import (
     get_lookup_path,
 )
-from typing import (
-    List,
-    Optional,
-)
 from utils import (
     graph as g,
 )
@@ -22,7 +18,7 @@ from utils import (
 
 def search_data_element(
     graph: Graph, path: Path, method_id: NId
-) -> Optional[NId]:
+) -> NId | None:
     n_attrs = graph.nodes[method_id]
     obj_id = n_attrs.get("object_id")
     al_id = n_attrs.get("arguments_id")
@@ -60,8 +56,8 @@ def search_data_element(
 
 def get_element_by_idx(
     graph: Graph, path: Path, var_name: str, access_val: int
-) -> Optional[NId]:
-    d_nodes: List[str] = []
+) -> NId | None:
+    d_nodes: list[str] = []
     for n_id in reversed(path):
         n_attrs = graph.nodes[n_id]
         if (
@@ -89,7 +85,7 @@ def get_element_by_idx(
 
 def get_element_by_key(
     graph: Graph, path: Path, var_name: str, access_key: str
-) -> Optional[NId]:
+) -> NId | None:
     for n_id in path:
         n_attrs = graph.nodes[n_id]
         if (

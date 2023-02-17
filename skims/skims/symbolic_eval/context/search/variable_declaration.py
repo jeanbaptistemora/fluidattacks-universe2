@@ -1,12 +1,12 @@
+from collections.abc import (
+    Iterator,
+)
 from symbolic_eval.context.search.types import (
     SearchArgs,
     SearchResult,
 )
 from symbolic_eval.context.utils import (
     build_ctx,
-)
-from typing import (
-    Iterator,
 )
 from utils import (
     graph as g,

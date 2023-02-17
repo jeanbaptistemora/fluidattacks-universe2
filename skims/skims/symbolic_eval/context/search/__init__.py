@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     Graph,
     NId,
@@ -22,13 +25,8 @@ from symbolic_eval.context.search.types import (
 from symbolic_eval.types import (
     Path,
 )
-from typing import (
-    Dict,
-    Iterator,
-    Optional,
-)
 
-SEARCHERS: Dict[str, Searcher] = {
+SEARCHERS: dict[str, Searcher] = {
     "Assignment": assignment.search,
     "ClassBody": class_body.search,
     "DeclarationBlock": declaration_block.search,
@@ -57,7 +55,7 @@ def search_until_def(graph: Graph, path: Path, symbol: str) -> Iterator[NId]:
             break
 
 
-def definition_search(graph: Graph, path: Path, symbol: str) -> Optional[NId]:
+def definition_search(graph: Graph, path: Path, symbol: str) -> NId | None:
     for _, ref_id in search(graph, path, symbol, def_only=True):
         return ref_id
     return None

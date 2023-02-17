@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from model.graph_model import (
     Graph,
     NId,
@@ -7,16 +10,14 @@ from symbolic_eval.types import (
 )
 from typing import (
     Any,
-    Callable,
     NamedTuple,
-    Optional,
 )
 
 SOLVER_ARGS = Any  # pylint: disable=invalid-name
 
 
 class SolverArgs(NamedTuple):
-    generic: Callable[[SOLVER_ARGS], Optional[NId]]
+    generic: Callable[[SOLVER_ARGS], NId | None]
     graph: Graph
     path: Path
     n_id: NId
@@ -30,4 +31,4 @@ class SolverArgs(NamedTuple):
         )
 
 
-Solver = Callable[[SolverArgs], Optional[NId]]
+Solver = Callable[[SolverArgs], NId | None]

@@ -1,15 +1,13 @@
+from collections.abc import (
+    Iterator,
+    Set,
+)
 from model.graph_model import (
     Graph,
     NId,
 )
 from symbolic_eval.types import (
     Path,
-)
-from typing import (
-    Iterator,
-    List,
-    Optional,
-    Set,
 )
 from utils import (
     graph as g,
@@ -85,7 +83,7 @@ def get_lookup_path(graph: Graph, path: Path, symbol_id: NId) -> Path:
     return path[cfg_parent_idx + 1 :]  # from previus instruction idx
 
 
-def get_object_identifiers(graph: Graph, obj_names: Set[str]) -> List[str]:
+def get_object_identifiers(graph: Graph, obj_names: Set[str]) -> list[str]:
     identifiers = []
     for nid in g.matching_nodes(graph, label_type="ObjectCreation"):
         if (
@@ -99,7 +97,7 @@ def get_object_identifiers(graph: Graph, obj_names: Set[str]) -> List[str]:
 
 def get_value_member_access(
     graph: Graph, expression: str, member: str
-) -> Optional[str]:
+) -> str | None:
     possible_types = {"Literal"}
     for nid in g.filter_nodes(
         graph,

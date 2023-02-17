@@ -1,12 +1,12 @@
+from collections.abc import (
+    Set,
+)
 from model.graph_model import (
     Graph,
     NId,
 )
 from symbolic_eval.utils import (
     filter_ast,
-)
-from typing import (
-    Set,
 )
 
 

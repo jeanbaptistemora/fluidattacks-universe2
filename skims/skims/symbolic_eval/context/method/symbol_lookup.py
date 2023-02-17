@@ -10,12 +10,9 @@ from symbolic_eval.context.search import (
 from symbolic_eval.utils import (
     get_lookup_path,
 )
-from typing import (
-    Optional,
-)
 
 
-def solve(args: SolverArgs) -> Optional[NId]:
+def solve(args: SolverArgs) -> NId | None:
     symbol = args.graph.nodes[args.n_id]["symbol"]
     try:
         search_path = get_lookup_path(args.graph, args.path, args.n_id)

@@ -1,9 +1,9 @@
+from collections.abc import (
+    Iterator,
+)
 from symbolic_eval.context.search.types import (
     SearchArgs,
     SearchResult,
-)
-from typing import (
-    Iterator,
 )
 from utils import (
     graph as g,

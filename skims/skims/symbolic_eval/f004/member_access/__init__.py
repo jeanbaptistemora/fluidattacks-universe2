@@ -12,11 +12,8 @@ from symbolic_eval.types import (
     SymbolicEvalArgs,
     SymbolicEvaluation,
 )
-from typing import (
-    Dict,
-)
 
-METHOD_EVALUATORS: Dict[MethodsEnum, Evaluator] = {
+METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.CS_REMOTE_COMMAND_EXECUTION: cs_remote_command_execution,
     MethodsEnum.JS_REMOTE_COMMAND_EXECUTION: remote_command_execution,
     MethodsEnum.TS_REMOTE_COMMAND_EXECUTION: remote_command_execution,
