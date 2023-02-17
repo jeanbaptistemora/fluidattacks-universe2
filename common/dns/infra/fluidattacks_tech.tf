@@ -76,6 +76,15 @@ resource "cloudflare_record" "help" {
   ttl     = 1
 }
 
+resource "cloudflare_record" "iam" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = "iam.${cloudflare_zone.fluidattacks_tech.zone}"
+  type    = "CNAME"
+  value   = "fluidattacks.customdomains.okta.com"
+  proxied = true
+  ttl     = 1
+}
+
 resource "cloudflare_record" "rebrandly" {
   zone_id = cloudflare_zone.fluidattacks_tech.id
   name    = "go.${cloudflare_zone.fluidattacks_tech.zone}"
@@ -182,6 +191,15 @@ resource "cloudflare_record" "dmarc" {
   name    = "_dmarc.${cloudflare_zone.fluidattacks_tech.zone}"
   type    = "TXT"
   value   = "v=DMARC1; p=none;"
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "okta_verification_iam" {
+  zone_id = cloudflare_zone.fluidattacks_tech.id
+  name    = "_oktaverification.iam.${cloudflare_zone.fluidattacks_tech.zone}"
+  type    = "TXT"
+  value   = "11d8ae25d25749a1a3c0fed23df3b9d6"
   ttl     = 1
   proxied = false
 }
