@@ -12,13 +12,12 @@ from typing import (
 def build_if_node(
     args: SyntaxGraphArgs,
     condition_id: NId,
-    true_id: NId,
+    true_id: Optional[NId],
     false_id: Optional[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         condition_id=condition_id,
-        true_id=true_id,
         label_type="If",
     )
 
@@ -28,11 +27,14 @@ def build_if_node(
         label_ast="AST",
     )
 
-    args.syntax_graph.add_edge(
-        args.n_id,
-        args.generic(args.fork_n_id(true_id)),
-        label_ast="AST",
-    )
+    if true_id:
+        args.syntax_graph.nodes[args.n_id]["true_id"] = true_id
+
+        args.syntax_graph.add_edge(
+            args.n_id,
+            args.generic(args.fork_n_id(true_id)),
+            label_ast="AST",
+        )
 
     if false_id:
         args.syntax_graph.nodes[args.n_id]["false_id"] = false_id
