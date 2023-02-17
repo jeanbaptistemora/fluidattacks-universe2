@@ -1,0 +1,7 @@
+"Definition for language distribution in a repository"
+type CodeLanguages {
+  "Name of the language"
+  language: String!
+  "Number of lines of code"
+  loc: Int!
+}

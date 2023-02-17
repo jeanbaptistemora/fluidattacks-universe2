@@ -1,0 +1,19 @@
+"Root interface definition"
+interface IRoot {
+  "ID of the root"
+  id: ID!
+  "Nickname for the root"
+  nickname: String!
+  "Whether the root is active or not"
+  state: ResourceState!
+}
+
+"Root environment url definition"
+interface EnvironmentUrl {
+  "Date of creation"
+  createdAt: DateTime
+  "GitRoot environment url"
+  id: String!
+  "Environment url"
+  url: String!
+}

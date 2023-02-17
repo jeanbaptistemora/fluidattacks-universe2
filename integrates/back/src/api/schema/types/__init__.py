@@ -34,6 +34,9 @@ from .vulnerability_historic_state import (
 from api.resolvers.billing.schema import (
     BILLING,
 )
+from api.resolvers.code_languages.schema import (
+    CODE_LANGUAGES,
+)
 from api.resolvers.consult.schema import (
     CONSULT,
 )
@@ -78,6 +81,9 @@ from api.resolvers.forces_execution.schema import (
 )
 from api.resolvers.forces_executions.schema import (
     FORCES_EXECUTIONS,
+)
+from api.resolvers.git_root_cloning_status.schema import (
+    GIT_ROOT_CLONING_STATUS,
 )
 from api.resolvers.group.schema import (
     GROUP,
@@ -198,6 +204,7 @@ from typing import (
 
 TYPES: Tuple[ObjectType, ...] = (
     BILLING,
+    CODE_LANGUAGES,
     CONSULT,
     CREDENTIALS,
     ENTITY_REPORT_SUBSCRIPTION,
@@ -216,6 +223,7 @@ TYPES: Tuple[ObjectType, ...] = (
     GITROOT,
     GROUP_COMPLIANCE,
     ENVIRONMENT_URL,
+    GIT_ROOT_CLONING_STATUS,
     GROUP,
     GROUP_BILLING,
     GROUP_FILE,
