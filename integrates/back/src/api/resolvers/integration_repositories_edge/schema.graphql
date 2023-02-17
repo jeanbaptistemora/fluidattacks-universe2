@@ -1,0 +1,7 @@
+"IntegrationRepositories Edge type definition"
+type IntegrationRepositoriesEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: OrganizationIntegrationRepositories
+}

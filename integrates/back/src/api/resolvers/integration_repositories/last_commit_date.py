@@ -1,3 +1,6 @@
+from .schema import (
+    INTEGRATION_REPOSITORIES,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -13,6 +16,7 @@ from typing import (
 )
 
 
+@INTEGRATION_REPOSITORIES.field("lastCommitDate")
 async def resolve(
     parent: CredentialsGitRepository,
     info: GraphQLResolveInfo,

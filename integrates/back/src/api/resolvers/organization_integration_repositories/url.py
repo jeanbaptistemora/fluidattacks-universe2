@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION_INTEGRATION_REPOSITORIES,
+)
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
@@ -9,6 +12,7 @@ from urllib.parse import (
 )
 
 
+@ORGANIZATION_INTEGRATION_REPOSITORIES.field("url")
 async def resolve(
     parent: OrganizationIntegrationRepository,
     _info: GraphQLResolveInfo,

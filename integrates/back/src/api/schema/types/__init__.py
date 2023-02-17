@@ -112,8 +112,16 @@ from api.resolvers.group_compliance.schema import (
 from api.resolvers.group_file.schema import (
     GROUP_FILE,
 )
-from api.schema.types.integration_repositories import (
+from api.resolvers.integration_repositories.schema import (
     INTEGRATION_REPOSITORIES,
+)
+from api.resolvers.integration_repositories_connection.schema import (
+    INTEGRATION_REPOSITORIES_CONNECTION,
+)
+from api.resolvers.integration_repositories_edge.schema import (
+    INTEGRATION_REPOSITORIES_EDGE,
+)
+from api.resolvers.organization_integration_repositories.schema import (
     ORGANIZATION_INTEGRATION_REPOSITORIES,
 )
 from api.schema.types.mutation_payloads import (
@@ -174,6 +182,8 @@ TYPES: Tuple[ObjectType, ...] = (
     GROUP_BILLING,
     GROUP_FILE,
     INTEGRATION_REPOSITORIES,
+    INTEGRATION_REPOSITORIES_CONNECTION,
+    INTEGRATION_REPOSITORIES_EDGE,
     IPROOT,
     ME,
     MUTATION,

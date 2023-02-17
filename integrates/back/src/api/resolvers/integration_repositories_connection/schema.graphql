@@ -1,0 +1,9 @@
+"IntegrationRepositories Connection type definition"
+type IntegrationRepositoriesConnection {
+  "A list of IntegrationRepositories edges"
+  edges: [IntegrationRepositoriesEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+  "Total IntegrationRepositories found"
+  total: Int
+}

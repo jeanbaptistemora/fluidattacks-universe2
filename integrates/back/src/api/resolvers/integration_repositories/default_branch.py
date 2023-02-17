@@ -1,3 +1,6 @@
+from .schema import (
+    INTEGRATION_REPOSITORIES,
+)
 from db_model.azure_repositories.types import (
     CredentialsGitRepository,
 )
@@ -6,6 +9,7 @@ from graphql.type.definition import (
 )
 
 
+@INTEGRATION_REPOSITORIES.field("defaultBranch")
 async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,

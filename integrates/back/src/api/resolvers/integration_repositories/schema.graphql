@@ -1,0 +1,9 @@
+"IntegrationRepositories type definition"
+type IntegrationRepositories {
+  "Name of the default repository branch"
+  defaultBranch: String!
+  "Date of the last commit"
+  lastCommitDate: String
+  "Repository URL"
+  url: String!
+}

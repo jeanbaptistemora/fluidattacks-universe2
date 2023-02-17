@@ -1,3 +1,6 @@
+from .schema import (
+    ORGANIZATION_INTEGRATION_REPOSITORIES,
+)
 from db_model.integration_repositories.types import (
     OrganizationIntegrationRepository,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@ORGANIZATION_INTEGRATION_REPOSITORIES.field("lastCommitDate")
 async def resolve(
     parent: OrganizationIntegrationRepository,
     _info: GraphQLResolveInfo,

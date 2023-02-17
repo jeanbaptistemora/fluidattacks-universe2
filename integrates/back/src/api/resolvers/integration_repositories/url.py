@@ -1,3 +1,6 @@
+from .schema import (
+    INTEGRATION_REPOSITORIES,
+)
 from db_model.azure_repositories.types import (
     CredentialsGitRepository,
 )
@@ -9,6 +12,7 @@ from urllib.parse import (
 )
 
 
+@INTEGRATION_REPOSITORIES.field("url")
 async def resolve(
     parent: CredentialsGitRepository,
     _info: GraphQLResolveInfo,
