@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .tag import (
-    TAG,
-)
 from .toe_input import (
     TOEINPUT,
 )
@@ -178,6 +175,15 @@ from api.resolvers.snippet.schema import (
 from api.resolvers.stakeholder.schema import (
     STAKEHOLDER,
 )
+from api.resolvers.tag.schema import (
+    TAG,
+)
+from api.resolvers.toe_input_edge.schema import (
+    TOE_INPUT_EDGE,
+)
+from api.resolvers.toe_inputs_connection.schema import (
+    TOE_INPUTS_CONNECTION,
+)
 from api.resolvers.url_root.schema import (
     URL_ROOT,
 )
@@ -265,6 +271,8 @@ TYPES: Tuple[ObjectType, ...] = (
     STAKEHOLDER,
     TAG,
     TOEINPUT,
+    TOE_INPUT_EDGE,
+    TOE_INPUTS_CONNECTION,
     TOELINES,
     TOEPORT,
     TRACKING,

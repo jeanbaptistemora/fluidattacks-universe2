@@ -1,3 +1,6 @@
+from .schema import (
+    TAG,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +18,7 @@ from newutils import (
 )
 
 
+@TAG.field("groups")
 async def resolve(
     parent: Portfolio,
     info: GraphQLResolveInfo,

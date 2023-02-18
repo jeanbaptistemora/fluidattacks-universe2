@@ -1,3 +1,6 @@
+from .schema import (
+    TAG,
+)
 from db_model.portfolios.types import (
     Portfolio,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@TAG.field("meanRemediateLowSeverity")
 async def resolve(
     parent: Portfolio,
     _info: GraphQLResolveInfo,

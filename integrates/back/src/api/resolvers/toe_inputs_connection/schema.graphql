@@ -1,0 +1,8 @@
+
+"Toe Inputs Connection type definition"
+type ToeInputsConnection {
+  "A list of Toe Inputs edges"
+  edges: [ToeInputEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+}

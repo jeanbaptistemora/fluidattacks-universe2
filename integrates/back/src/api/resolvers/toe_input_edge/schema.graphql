@@ -1,0 +1,7 @@
+"Toe Input Edge type definition"
+type ToeInputEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: ToeInput
+}
