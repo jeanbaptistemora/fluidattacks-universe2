@@ -1,0 +1,9 @@
+"Toe lines Connection type definition"
+type ToeLinesConnection {
+  "A list of Toe Lines edges"
+  edges: [ToeLinesEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+  "Total lines found"
+  total: Int
+}

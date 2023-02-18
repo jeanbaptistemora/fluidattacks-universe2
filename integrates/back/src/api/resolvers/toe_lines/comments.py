@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_LINES,
+)
 from db_model.toe_lines.types import (
     ToeLines,
 )
@@ -9,6 +12,7 @@ from graphql.type.definition import (
 )
 
 
+@TOE_LINES.field("comments")
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None

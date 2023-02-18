@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_LINES,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -15,6 +18,7 @@ from roots import (
 )
 
 
+@TOE_LINES.field("root")
 async def resolve(
     parent: ToeLines,
     info: GraphQLResolveInfo,

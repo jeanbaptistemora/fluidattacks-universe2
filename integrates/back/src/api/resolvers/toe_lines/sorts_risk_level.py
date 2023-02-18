@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_LINES,
+)
 from db_model.toe_lines.types import (
     ToeLines,
 )
@@ -6,6 +9,7 @@ from graphql.type.definition import (
 )
 
 
+@TOE_LINES.field("sortsRiskLevel")
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> int:

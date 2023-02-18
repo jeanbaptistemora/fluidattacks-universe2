@@ -1,0 +1,7 @@
+"Toe lines Edge type definition"
+type ToeLinesEdge implements Edge {
+  "The cursor for the edge"
+  cursor: String!
+  "The node with the payload"
+  node: ToeLines
+}

@@ -1,0 +1,7 @@
+"Sorts suggestion for vulnerabilities in the file, given as a probability"
+type ToeLinesSortSuggestion {
+  "Finding title related to the suggestion"
+  findingTitle: String!
+  "Probability as a percentage"
+  probability: Int!
+}

@@ -184,6 +184,18 @@ from api.resolvers.toe_input_edge.schema import (
 from api.resolvers.toe_inputs_connection.schema import (
     TOE_INPUTS_CONNECTION,
 )
+from api.resolvers.toe_lines.schema import (
+    TOE_LINES,
+)
+from api.resolvers.toe_lines_connection.schema import (
+    TOE_LINES_CONNECTION,
+)
+from api.resolvers.toe_lines_edge.schema import (
+    TOE_LINES_EDGE,
+)
+from api.resolvers.toe_lines_sort_suggestion.schema import (
+    TOE_LINES_SORT_SUGGESTION,
+)
 from api.resolvers.url_root.schema import (
     URL_ROOT,
 )
@@ -194,9 +206,6 @@ from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-)
-from api.schema.types.toe_lines import (
-    TOELINES,
 )
 from api.schema.types.toe_port import (
     TOEPORT,
@@ -273,7 +282,10 @@ TYPES: Tuple[ObjectType, ...] = (
     TOE_INPUT,
     TOE_INPUT_EDGE,
     TOE_INPUTS_CONNECTION,
-    TOELINES,
+    TOE_LINES,
+    TOE_LINES_CONNECTION,
+    TOE_LINES_EDGE,
+    TOE_LINES_SORT_SUGGESTION,
     TOEPORT,
     TRACKING,
     TREATMENT,

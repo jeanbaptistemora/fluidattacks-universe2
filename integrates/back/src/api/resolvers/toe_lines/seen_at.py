@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_LINES,
+)
 from datetime import (
     datetime,
 )
@@ -9,6 +12,7 @@ from graphql.type.definition import (
 )
 
 
+@TOE_LINES.field("seenAt")
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime:
