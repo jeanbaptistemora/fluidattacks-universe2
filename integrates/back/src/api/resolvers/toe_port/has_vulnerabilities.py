@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_PORT,
+)
 from db_model.toe_ports.types import (
     ToePort,
 )
@@ -9,6 +12,7 @@ from typing import (
 )
 
 
+@TOE_PORT.field("hasVulnerabilities")
 async def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[bool]:

@@ -1,0 +1,7 @@
+"Toe Ports Connection type definition"
+type ToePortsConnection {
+  "A list of Toe Ports edges"
+  edges: [ToePortEdge]
+  "Information to aid in pagination"
+  pageInfo: PageInfo!
+}

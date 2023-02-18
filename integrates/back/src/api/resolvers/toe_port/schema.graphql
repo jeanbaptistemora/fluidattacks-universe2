@@ -26,19 +26,3 @@ type ToePort {
   "Hacker who found the application port"
   seenFirstTimeBy: String
 }
-
-"Toe Port Edge type definition"
-type ToePortEdge implements Edge {
-  "The cursor for the edge"
-  cursor: String!
-  "The node with the payload"
-  node: ToePort
-}
-
-"Toe Ports Connection type definition"
-type ToePortsConnection {
-  "A list of Toe Ports edges"
-  edges: [ToePortEdge]
-  "Information to aid in pagination"
-  pageInfo: PageInfo!
-}

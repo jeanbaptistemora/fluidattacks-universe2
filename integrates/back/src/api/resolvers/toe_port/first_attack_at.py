@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_PORT,
+)
 from datetime import (
     datetime,
 )
@@ -15,6 +18,7 @@ from typing import (
 )
 
 
+@TOE_PORT.field("firstAttackAt")
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToePort, _info: GraphQLResolveInfo, **_kwargs: None

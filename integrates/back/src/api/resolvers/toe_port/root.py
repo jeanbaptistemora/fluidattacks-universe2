@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_PORT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,6 +19,7 @@ from typing import (
 )
 
 
+@TOE_PORT.field("root")
 async def resolve(
     parent: ToePort,
     info: GraphQLResolveInfo,
