@@ -1,3 +1,6 @@
+from .schema import (
+    STAKEHOLDER,
+)
 from aioextensions import (
     collect,
 )
@@ -21,6 +24,7 @@ from newutils import (
 )
 
 
+@STAKEHOLDER.field("groups")
 async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,

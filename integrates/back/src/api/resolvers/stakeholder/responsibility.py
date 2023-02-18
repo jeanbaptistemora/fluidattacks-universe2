@@ -1,3 +1,6 @@
+from .schema import (
+    STAKEHOLDER,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -28,6 +31,7 @@ from typing import (
 )
 
 
+@STAKEHOLDER.field("responsibility")
 async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,

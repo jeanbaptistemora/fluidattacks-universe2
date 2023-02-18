@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .stakeholder import (
-    STAKEHOLDER,
-)
 from .tag import (
     TAG,
 )
@@ -175,6 +172,12 @@ from api.resolvers.secret.schema import (
 from api.resolvers.severity.schema import (
     SEVERITY,
 )
+from api.resolvers.snippet.schema import (
+    SNIPPET,
+)
+from api.resolvers.stakeholder.schema import (
+    STAKEHOLDER,
+)
 from api.resolvers.url_root.schema import (
     URL_ROOT,
 )
@@ -185,9 +188,6 @@ from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-)
-from api.schema.types.snippet import (
-    SNIPPET,
 )
 from api.schema.types.toe_lines import (
     TOELINES,

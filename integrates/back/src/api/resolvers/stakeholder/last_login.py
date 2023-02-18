@@ -1,3 +1,6 @@
+from .schema import (
+    STAKEHOLDER,
+)
 from db_model.stakeholders.types import (
     Stakeholder,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@STAKEHOLDER.field("lastLogin")
 async def resolve(
     parent: Stakeholder,
     _info: GraphQLResolveInfo,

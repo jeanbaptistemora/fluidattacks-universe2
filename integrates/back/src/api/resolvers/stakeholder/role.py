@@ -1,3 +1,6 @@
+from .schema import (
+    STAKEHOLDER,
+)
 import authz
 from dataloaders import (
     Dataloaders,
@@ -42,6 +45,7 @@ from typing import (
 )
 
 
+@STAKEHOLDER.field("role")
 async def resolve(
     parent: Stakeholder,
     info: GraphQLResolveInfo,
