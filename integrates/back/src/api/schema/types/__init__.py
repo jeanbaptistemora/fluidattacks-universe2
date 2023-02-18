@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .vulnerability import (
-    VULNERABILITY,
-)
 from api.resolvers.billing.schema import (
     BILLING,
 )
@@ -219,6 +216,9 @@ from api.resolvers.verification_summary.schema import (
 )
 from api.resolvers.vulnerabilities_summary.schema import (
     VULNERABILITIES_SUMMARY,
+)
+from api.resolvers.vulnerability.schema import (
+    VULNERABILITY,
 )
 from api.resolvers.vulnerability_historic_state.schema import (
     VULNERABILITY_HISTORIC_STATE,
