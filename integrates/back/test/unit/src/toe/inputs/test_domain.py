@@ -9,7 +9,6 @@ from datetime import (
     datetime,
 )
 from db_model.toe_inputs.types import (
-    GroupToeInputsRequest,
     ToeInput,
     ToeInputMetadataToUpdate,
     ToeInputState,
@@ -27,6 +26,9 @@ from toe.inputs.types import (
     ToeInputAttributesToAdd,
     ToeInputAttributesToUpdate,
 )
+from typing import (
+    Any,
+)
 from unittest.mock import (
     AsyncMock,
     patch,
@@ -40,7 +42,6 @@ pytestmark = [
 ]
 
 
-@pytest.mark.changes_db
 @pytest.mark.parametrize(
     [
         "group_name",
@@ -70,37 +71,74 @@ pytestmark = [
             ),
             True,
         ],
+        [
+            "unittesting",
+            "https://test.com/test/new.aspx",
+            "btnTest",
+            ToeInputAttributesToAdd(
+                attacked_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                attacked_by="test@test.com",
+                be_present=True,
+                has_vulnerabilities=False,
+                first_attack_at=datetime.fromisoformat(
+                    "2021-02-12T05:00:00+00:00"
+                ),
+                seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
+                seen_first_time_by="new@test.com",
+                unreliable_root_id="4039d098-ffc5-4984-8ed3-eb17bca98e19",
+            ),
+            False,
+        ],
     ],
 )
+@patch(MODULE_AT_TEST + "toe_inputs_model.add", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "validate_component", new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "roots_domain.get_root", new_callable=AsyncMock)
 @freeze_time("2022-11-11T05:00:00+00:00")
-async def test_add(
+async def test_add(  # pylint: disable=too-many-arguments
+    mock_roots_domain_get_root: AsyncMock,
+    mock_validate_component: AsyncMock,
+    mock_toe_inputs_model_add: AsyncMock,
     group_name: str,
     component: str,
     entry_point: str,
     attributes: ToeInputAttributesToAdd,
     is_moving_toe_input: bool,
 ) -> None:
+    if is_moving_toe_input:
+        assert set_mocks_return_values(
+            mocks_args=[[group_name, component, entry_point, attributes]],
+            mocked_objects=[mock_toe_inputs_model_add],
+            module_at_test=MODULE_AT_TEST,
+            paths_list=["toe_inputs_model.add"],
+        )
+    else:
+        mocked_objects, mocked_paths = [
+            [
+                mock_roots_domain_get_root,
+                mock_validate_component,
+                mock_toe_inputs_model_add,
+            ],
+            [
+                "roots_domain.get_root",
+                "validate_component",
+                "toe_inputs_model.add",
+            ],
+        ]
+        mocks_args: list[list[Any]] = [
+            [attributes.unreliable_root_id, group_name],
+            [attributes.unreliable_root_id, group_name, component],
+            [group_name, component, entry_point, attributes],
+        ]
+        assert set_mocks_return_values(
+            mocks_args=mocks_args,
+            mocked_objects=mocked_objects,
+            module_at_test=MODULE_AT_TEST,
+            paths_list=mocked_paths,
+        )
     loaders = get_new_context()
-    toe_input = ToeInput(
-        component="https://test.com/test/new.aspx",
-        entry_point="btnTest",
-        group_name=group_name,
-        state=ToeInputState(
-            attacked_at=datetime.fromisoformat("2021-02-12T05:00:00+00:00"),
-            attacked_by="test@test.com",
-            be_present=True,
-            be_present_until=None,
-            first_attack_at=datetime.fromisoformat(
-                "2021-02-12T05:00:00+00:00"
-            ),
-            has_vulnerabilities=False,
-            modified_by="new@test.com",
-            modified_date=datetime.fromisoformat("2022-11-11T05:00:00+00:00"),
-            seen_at=datetime.fromisoformat("2000-01-01T05:00:00+00:00"),
-            seen_first_time_by="new@test.com",
-            unreliable_root_id="",
-        ),
-    )
     await add(
         loaders=loaders,
         entry_point=entry_point,
@@ -109,10 +147,12 @@ async def test_add(
         attributes=attributes,
         is_moving_toe_input=is_moving_toe_input,
     )
-    group_toe_inputs = await loaders.group_toe_inputs.clear_all().load_nodes(
-        GroupToeInputsRequest(group_name=group_name)
-    )
-    assert toe_input in group_toe_inputs
+    if is_moving_toe_input:
+        assert mock_toe_inputs_model_add.called
+    else:
+        assert all(
+            mock_object.called is True for mock_object in mocked_objects
+        )
 
 
 @pytest.mark.parametrize(
