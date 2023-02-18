@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -9,6 +12,7 @@ from newutils import (
 )
 
 
+@GIT_ROOT.field("lastStateStatusUpdate")
 def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> str:
     update_date = parent.unreliable_indicators.unreliable_last_status_update
     if not update_date:

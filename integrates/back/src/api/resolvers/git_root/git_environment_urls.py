@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -10,6 +13,7 @@ from graphql.type.definition import (
 )
 
 
+@GIT_ROOT.field("gitEnvironmentUrls")
 async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
 ) -> list[RootEnvironmentUrl]:

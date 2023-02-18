@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -19,6 +22,7 @@ from typing import (
 )
 
 
+@GIT_ROOT.field("credentials")
 async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
 ) -> Optional[Credentials]:

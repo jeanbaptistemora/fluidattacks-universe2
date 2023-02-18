@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from datetime import (
     datetime,
 )
@@ -9,5 +12,6 @@ from graphql.type.definition import (
 )
 
 
+@GIT_ROOT.field("createdAt")
 def resolve(parent: GitRoot, _info: GraphQLResolveInfo) -> datetime:
     return parent.created_date

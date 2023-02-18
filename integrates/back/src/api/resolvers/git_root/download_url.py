@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from db_model.roots.enums import (
     RootStatus,
 )
@@ -18,6 +21,7 @@ from typing import (
 )
 
 
+@GIT_ROOT.field("downloadUrl")
 @enforce_group_level_auth_async
 async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
     if parent.state.status == RootStatus.INACTIVE:

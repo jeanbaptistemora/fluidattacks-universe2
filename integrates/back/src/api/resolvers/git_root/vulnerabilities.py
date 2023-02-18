@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -16,6 +19,7 @@ from newutils.vulnerabilities import (
 )
 
 
+@GIT_ROOT.field("vulnerabilities")
 async def resolve(
     parent: Root, info: GraphQLResolveInfo
 ) -> list[Vulnerability]:

@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from db_model.roots.get import (
     get_upload_url,
 )
@@ -15,6 +18,7 @@ from typing import (
 )
 
 
+@GIT_ROOT.field("uploadUrl")
 @enforce_group_level_auth_async
 async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
     return await get_upload_url(

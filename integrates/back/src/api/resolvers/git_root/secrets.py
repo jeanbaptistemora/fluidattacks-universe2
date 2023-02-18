@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -17,6 +20,7 @@ from typing import (
 )
 
 
+@GIT_ROOT.field("secrets")
 @enforce_group_level_auth_async
 async def resolve(
     parent: Union[GitRoot, URLRoot], info: GraphQLResolveInfo

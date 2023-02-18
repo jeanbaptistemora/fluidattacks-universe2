@@ -1,3 +1,6 @@
+from .schema import (
+    GIT_ROOT,
+)
 from db_model.roots.types import (
     GitRoot,
 )
@@ -9,6 +12,7 @@ from roots.types import (
 )
 
 
+@GIT_ROOT.field("cloningStatus")
 def resolve(
     parent: GitRoot, _info: GraphQLResolveInfo
 ) -> GitRootCloningStatus:

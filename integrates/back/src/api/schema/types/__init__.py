@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .root import (
-    GITROOT,
-)
 from .stakeholder import (
     STAKEHOLDER,
 )
@@ -81,6 +78,9 @@ from api.resolvers.forces_executions.schema import (
 )
 from api.resolvers.git_environment_url.schema import (
     GIT_ENVIRONMENT_URL,
+)
+from api.resolvers.git_root.schema import (
+    GIT_ROOT,
 )
 from api.resolvers.git_root_cloning_status.schema import (
     GIT_ROOT_CLONING_STATUS,
@@ -229,7 +229,7 @@ TYPES: Tuple[ObjectType, ...] = (
     FINDING,
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
-    GITROOT,
+    GIT_ROOT,
     GROUP_COMPLIANCE,
     GIT_ENVIRONMENT_URL,
     GIT_ROOT_CLONING_STATUS,
