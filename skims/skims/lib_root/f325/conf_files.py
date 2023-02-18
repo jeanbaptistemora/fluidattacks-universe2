@@ -2,7 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.utilities.json import (
-    get_key_value,
+    get_attribute,
     is_parent,
 )
 from model.core_model import (
@@ -24,15 +24,20 @@ from utils import (
 )
 
 
-def is_in_path(graph: Graph, nid: NId, key_pair: str, value: str) -> bool:
+def is_in_path(graph: Graph, nid: NId) -> Iterator[NId]:
     correct_parents = ["Statement"]
+    effect, effect_val, _ = get_attribute(graph, nid, "Effect")
+    principal, principa_val, principal_id = get_attribute(
+        graph, nid, "Principal"
+    )
     if (
-        key_pair == "Principal"
-        and value == "*"
-        and is_parent(graph, nid, correct_parents)
+        effect
+        and principal
+        and principa_val == "*"
+        and effect_val == "Allow"
+        and is_parent(graph, principal_id, correct_parents)
     ):
-        return True
-    return False
+        yield principal_id
 
 
 def principal_wildcard(
@@ -46,11 +51,9 @@ def principal_wildcard(
                 continue
             graph = shard.syntax_graph
 
-            for nid in g.matching_nodes(graph, label_type="Pair"):
-                key, value = get_key_value(graph, nid)
-
-                if is_in_path(graph, nid, key, value):
-                    yield shard, nid
+            for nid in g.matching_nodes(graph, label_type="Object"):
+                for report in is_in_path(graph, nid):
+                    yield shard, report
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f325.json_principal_wildcard",

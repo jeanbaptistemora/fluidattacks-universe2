@@ -13,6 +13,16 @@ from utils.graph import (
 )
 
 
+def get_attribute(
+    graph: Graph, object_id: NId, expected_attr: str
+) -> tuple[str | None, str, NId]:
+    for attr_id in adj_ast(graph, object_id, label_type="Pair"):
+        key, value = get_key_value(graph, attr_id)
+        if key == expected_attr:
+            return key, value, attr_id
+    return None, "", ""
+
+
 def get_key_value(graph: Graph, nid: NId) -> tuple[str, str]:
     key_id = graph.nodes[nid]["key_id"]
     key = graph.nodes[key_id]["value"]
