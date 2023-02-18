@@ -3,7 +3,6 @@ from .mutation import (
 )
 from .root import (
     GITROOT,
-    URLROOT,
 )
 from .stakeholder import (
     STAKEHOLDER,
@@ -176,6 +175,9 @@ from api.resolvers.secret.schema import (
 from api.resolvers.severity.schema import (
     SEVERITY,
 )
+from api.resolvers.url_root.schema import (
+    URL_ROOT,
+)
 from api.resolvers.vulnerabilities_summary.schema import (
     VULNERABILITIES_SUMMARY,
 )
@@ -274,7 +276,7 @@ TYPES: Tuple[ObjectType, ...] = (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-    URLROOT,
+    URL_ROOT,
     UNFULFILLED_STANDARDS,
     VERIFICATION_SUMMARY,
     VULNERABILITIES_SUMMARY,

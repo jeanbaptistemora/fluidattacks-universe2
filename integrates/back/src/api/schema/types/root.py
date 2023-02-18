@@ -23,13 +23,6 @@ from api.resolvers.root import (
     nickname,
     state,
 )
-from api.resolvers.url_root import (
-    host,
-    path,
-    port as url_port,
-    protocol,
-    query,
-)
 from ariadne import (
     ObjectType,
 )
@@ -58,14 +51,3 @@ GITROOT.set_field("uploadUrl", upload_url.resolve)
 GITROOT.set_field("url", url.resolve)
 GITROOT.set_field("useVpn", use_vpn.resolve)
 GITROOT.set_field("vulnerabilities", vulnerabilities.resolve)
-
-URLROOT: ObjectType = ObjectType("URLRoot")
-URLROOT.set_field("host", host.resolve)
-URLROOT.set_field("nickname", nickname.resolve)
-URLROOT.set_field("path", path.resolve)
-URLROOT.set_field("port", url_port.resolve)
-URLROOT.set_field("protocol", protocol.resolve)
-URLROOT.set_field("query", query.resolve)
-URLROOT.set_field("secrets", secrets.resolve)
-URLROOT.set_field("state", state.resolve)
-URLROOT.set_field("vulnerabilities", vulnerabilities.resolve)

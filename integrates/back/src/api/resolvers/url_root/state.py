@@ -2,13 +2,13 @@ from .schema import (
     URL_ROOT,
 )
 from db_model.roots.types import (
-    URLRoot,
+    Root,
 )
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
-@URL_ROOT.field("protocol")
-def resolve(parent: URLRoot, _info: GraphQLResolveInfo) -> str:
-    return parent.state.protocol
+@URL_ROOT.field("state")
+def resolve(parent: Root, _info: GraphQLResolveInfo) -> str:
+    return parent.state.status
