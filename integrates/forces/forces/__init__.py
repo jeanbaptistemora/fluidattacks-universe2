@@ -19,7 +19,7 @@ from forces.model import (
     KindEnum,
 )
 from forces.report import (
-    format_rich_report,
+    format_forces_report,
 )
 from forces.report.data import (
     compile_raw_report,
@@ -99,7 +99,7 @@ async def entrypoint(
 
         if report.summary.total > 0:
             await log("info", f"{tasks['processing']}{footer}")
-            forces_report: ForcesReport = format_rich_report(
+            forces_report: ForcesReport = format_forces_report(
                 config,
                 report,
             )
