@@ -20,10 +20,15 @@
         })
         (makeSearchPaths {
           pythonPackage = [
+            "$PWD/integrates"
             "$PWD/integrates/back/src"
+            "$PWD/integrates/streams/src"
+            "$PWD/common/utils/bugsnag/client"
+            "$PWD/common/utils/git_self/src"
           ];
         })
         outputs."/integrates/back/charts/pypi"
+        outputs."/integrates/back/env/pypi/unit-tests"
         outputs."/integrates/streams/runtime"
       ];
     };
