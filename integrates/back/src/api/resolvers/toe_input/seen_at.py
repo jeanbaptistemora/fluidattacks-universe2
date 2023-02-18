@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_INPUT,
+)
 from datetime import (
     datetime,
 )
@@ -12,6 +15,7 @@ from typing import (
 )
 
 
+@TOE_INPUT.field("seenAt")
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> Optional[datetime]:

@@ -1,9 +1,6 @@
 from .mutation import (
     MUTATION,
 )
-from .toe_input import (
-    TOEINPUT,
-)
 from .tracking import (
     TRACKING,
 )
@@ -178,6 +175,9 @@ from api.resolvers.stakeholder.schema import (
 from api.resolvers.tag.schema import (
     TAG,
 )
+from api.resolvers.toe_input.schema import (
+    TOE_INPUT,
+)
 from api.resolvers.toe_input_edge.schema import (
     TOE_INPUT_EDGE,
 )
@@ -270,7 +270,7 @@ TYPES: Tuple[ObjectType, ...] = (
     SEVERITY,
     STAKEHOLDER,
     TAG,
-    TOEINPUT,
+    TOE_INPUT,
     TOE_INPUT_EDGE,
     TOE_INPUTS_CONNECTION,
     TOELINES,

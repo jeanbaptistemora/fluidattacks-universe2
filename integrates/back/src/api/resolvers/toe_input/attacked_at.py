@@ -1,3 +1,6 @@
+from .schema import (
+    TOE_INPUT,
+)
 from datetime import (
     datetime,
 )
@@ -15,6 +18,7 @@ from typing import (
 )
 
 
+@TOE_INPUT.field("attackedAt")
 @enforce_group_level_auth_async
 async def resolve(
     parent: ToeInput, _info: GraphQLResolveInfo, **_kwargs: None
