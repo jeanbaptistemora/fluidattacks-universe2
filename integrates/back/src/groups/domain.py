@@ -1023,7 +1023,6 @@ async def invite_to_group(
                 url_token=url_token,
             ),
             responsibility=responsibility,
-            role=role,
             state=GroupAccessState(modified_date=datetime_utils.get_utc_now()),
         ),
     )

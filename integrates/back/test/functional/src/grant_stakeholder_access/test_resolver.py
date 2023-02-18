@@ -1,5 +1,6 @@
 # pylint: disable=import-error
 from . import (
+    get_group_data,
     get_result,
     get_stakeholders,
 )
@@ -31,6 +32,8 @@ async def test_grant_stakeholder_access_confirmed(
     group_name: str = "group13"
     stakeholder_responsibility: str = "test"
     stakeholder_role: str = "USER"
+    await sleep(8)
+
     result: dict[str, Any] = await get_result(
         user=email,
         stakeholder=stakeholder_email,
@@ -55,9 +58,14 @@ async def test_grant_stakeholder_access_confirmed(
         if stakeholder["email"] == stakeholder_email:
             assert stakeholder["invitationState"] == "PENDING"
 
+    group_data: dict = await get_group_data(
+        user=stakeholder_email, group=group_name
+    )
+    assert "errors" in group_data
+    assert group_data["errors"][0]["message"] == "Access denied"
+
     await complete_register(stakeholder_email, group_name)
 
-    await sleep(5)
     stakeholders_after_confirm: dict[str, Any] = await get_stakeholders(
         user=email, group=group_name
     )
@@ -68,6 +76,10 @@ async def test_grant_stakeholder_access_confirmed(
     ]:
         if stakeholder["email"] == stakeholder_email:
             assert stakeholder["invitationState"] == "REGISTERED"
+
+    group_data = await get_group_data(user=stakeholder_email, group=group_name)
+    assert "errors" not in group_data
+    assert len(group_data["data"]["group"]["vulnerabilities"]["edges"]) == 1
 
 
 @pytest.mark.asyncio

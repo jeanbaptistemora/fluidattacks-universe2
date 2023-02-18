@@ -69,3 +69,47 @@ async def get_stakeholders(
         stakeholder=user,
         context=get_new_context(),
     )
+
+
+async def get_group_data(
+    *,
+    user: str,
+    group: str,
+) -> dict[str, Any]:
+    query: str = """
+        query GetGroupVulns($after: String, $first: Int, $group: String!) {
+            group(groupName: $group) {
+                name
+                vulnerabilities(
+                    after: $after,
+                    first: $first,
+                    stateStatus: "SAFE"
+                ) {
+                    edges {
+                        node {
+                            state
+                            zeroRisk
+                        }
+                    }
+                    pageInfo {
+                        endCursor
+                        hasNextPage
+                    }
+                    total
+                }
+            }
+        }
+    """
+
+    data: dict[str, Any] = {
+        "query": query,
+        "variables": {
+            "group": group,
+            "first": 150,
+        },
+    }
+    return await get_graphql_result(
+        data,
+        stakeholder=user,
+        context=get_new_context(),
+    )
