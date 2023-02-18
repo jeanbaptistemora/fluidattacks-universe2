@@ -15,7 +15,10 @@ from typing import (
     Optional,
 )
 
+ROOT = UnionType("Root")
 
+
+@ROOT.type_resolver
 def resolve_root_type(
     result: Root,
     _info: GraphQLResolveInfo,
@@ -28,6 +31,3 @@ def resolve_root_type(
     if isinstance(result, URLRoot):
         return "URLRoot"
     return None
-
-
-ROOT = UnionType("Root", resolve_root_type)

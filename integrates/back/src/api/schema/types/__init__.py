@@ -1,20 +1,8 @@
 from .mutation import (
     MUTATION,
 )
-from .tracking import (
-    TRACKING,
-)
-from .treatment import (
-    TREATMENT,
-)
-from .treatment_summary import (
-    TREATMENT_SUMMARY,
-)
 from .vulnerability import (
     VULNERABILITY,
-)
-from .vulnerability_historic_state import (
-    VULNERABILITY_HISTORIC_STATE,
 )
 from api.resolvers.billing.schema import (
     BILLING,
@@ -205,25 +193,40 @@ from api.resolvers.toe_port_edge.schema import (
 from api.resolvers.toe_ports_connection.schema import (
     TOE_PORTS_CONNECTION,
 )
+from api.resolvers.tours.schema import (
+    TOURS,
+)
+from api.resolvers.tracking.schema import (
+    TRACKING,
+)
+from api.resolvers.treatment.schema import (
+    TREATMENT,
+)
+from api.resolvers.treatment_summary.schema import (
+    TREATMENT_SUMMARY,
+)
+from api.resolvers.trial.schema import (
+    TRIAL,
+)
+from api.resolvers.unfulfilled_standard.schema import (
+    UNFULFILLED_STANDARD,
+)
 from api.resolvers.url_root.schema import (
     URL_ROOT,
 )
+from api.resolvers.verification_summary.schema import (
+    VERIFICATION_SUMMARY,
+)
 from api.resolvers.vulnerabilities_summary.schema import (
     VULNERABILITIES_SUMMARY,
+)
+from api.resolvers.vulnerability_historic_state.schema import (
+    VULNERABILITY_HISTORIC_STATE,
 )
 from api.schema.types.mutation_payloads import (
     UPDATE_TOE_INPUT_PAYLOAD,
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
-)
-from api.schema.types.trial import (
-    TRIAL,
-)
-from api.schema.types.unfulfilled_standards import (
-    UNFULFILLED_STANDARDS,
-)
-from api.schema.types.verification_summary import (
-    VERIFICATION_SUMMARY,
 )
 from ariadne import (
     ObjectType,
@@ -295,6 +298,7 @@ TYPES: Tuple[ObjectType, ...] = (
     TOE_PORT,
     TOE_PORT_EDGE,
     TOE_PORTS_CONNECTION,
+    TOURS,
     TRACKING,
     TREATMENT,
     TREATMENT_SUMMARY,
@@ -305,7 +309,7 @@ TYPES: Tuple[ObjectType, ...] = (
     UPDATE_TOE_LINES_PAYLOAD,
     UPDATE_TOE_PORT_PAYLOAD,
     URL_ROOT,
-    UNFULFILLED_STANDARDS,
+    UNFULFILLED_STANDARD,
     VERIFICATION_SUMMARY,
     VULNERABILITIES_SUMMARY,
     VULNERABILITY,
