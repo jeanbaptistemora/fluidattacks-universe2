@@ -1,3 +1,6 @@
+from api.types import (
+    Operation,
+)
 from api.validations.directives import (
     validate_directives,
 )
@@ -7,14 +10,8 @@ from ariadne.asgi import (
 from ariadne.asgi.handlers import (
     GraphQLHTTPHandler,
 )
-from custom_exceptions import (
-    CustomBaseException,
-)
 from dataloaders import (
     apply_context_attrs,
-)
-from dynamodb.exceptions import (
-    DynamoDbBaseException,
 )
 from graphql import (
     DocumentNode,
@@ -28,16 +25,7 @@ from starlette.requests import (
 import sys
 from typing import (
     Any,
-    NamedTuple,
 )
-
-APP_EXCEPTIONS = (CustomBaseException, DynamoDbBaseException)
-
-
-class Operation(NamedTuple):
-    name: str
-    query: str
-    variables: dict[str, Any]
 
 
 def _get_operation(data: dict[str, Any]) -> Operation:

@@ -4,7 +4,7 @@ from .payloads.types import (
 from .schema import (
     MUTATION,
 )
-from api import (
+from api.types import (
     APP_EXCEPTIONS,
 )
 from ariadne import (

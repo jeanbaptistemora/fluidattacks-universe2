@@ -1,4 +1,4 @@
-from api import (
+from api.types import (
     Operation,
 )
 from graphql import (

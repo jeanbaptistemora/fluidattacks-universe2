@@ -1,9 +1,11 @@
 from api import (
     hook_early_validations,
-    Operation,
 )
 from api.schema import (
     SCHEMA,
+)
+from api.types import (
+    Operation,
 )
 from app.app import (
     get_validation_rules,
@@ -37,7 +39,7 @@ class ContextValue(NamedTuple):
 
 
 _context_value = ContextValue(
-    operation=Operation(name="", query="", variables="")  # type: ignore
+    operation=Operation(name="", query="", variables={})
 )
 
 

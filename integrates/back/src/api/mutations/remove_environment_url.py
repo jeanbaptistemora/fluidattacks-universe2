@@ -7,7 +7,7 @@ from .schema import (
 from aioextensions import (
     collect,
 )
-from api import (
+from api.types import (
     APP_EXCEPTIONS,
 )
 from ariadne.utils import (

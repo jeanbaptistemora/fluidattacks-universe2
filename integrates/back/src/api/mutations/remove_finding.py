@@ -7,7 +7,7 @@ from .schema import (
 from aioextensions import (
     schedule,
 )
-from api import (
+from api.types import (
     APP_EXCEPTIONS,
 )
 from ariadne.utils import (
