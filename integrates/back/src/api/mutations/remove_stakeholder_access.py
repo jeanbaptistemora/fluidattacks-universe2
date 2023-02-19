@@ -1,6 +1,9 @@
 from .payloads.types import (
     RemoveStakeholderAccessPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -24,6 +27,7 @@ from sessions import (
 )
 
 
+@MUTATION.field("removeStakeholderAccess")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

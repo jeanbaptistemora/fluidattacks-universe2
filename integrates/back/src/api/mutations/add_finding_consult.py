@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddConsultPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -113,6 +116,7 @@ async def _add_finding_consult(
     return comment_id
 
 
+@MUTATION.field("addFindingConsult")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

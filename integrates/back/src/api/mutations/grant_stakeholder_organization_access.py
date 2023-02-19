@@ -1,6 +1,9 @@
 from .payloads.types import (
     GrantStakeholderAccessPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -58,6 +61,7 @@ from stakeholders.domain import (
 LOGGER = logging.getLogger(__name__)
 
 
+@MUTATION.field("grantStakeholderOrganizationAccess")
 @convert_kwargs_to_snake_case
 @enforce_organization_level_auth_async
 async def mutate(

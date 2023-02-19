@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -21,6 +24,7 @@ from typing import (
 )
 
 
+@MUTATION.field("requestGroupsUpgrade")
 @require_login
 @convert_kwargs_to_snake_case
 async def mutate(

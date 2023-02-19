@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddStakeholderPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -37,6 +40,7 @@ from sessions import (
 LOGGER = logging.getLogger(__name__)
 
 
+@MUTATION.field("addStakeholder")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -33,6 +36,7 @@ from typing import (
 )
 
 
+@MUTATION.field("addOtherPaymentMethod")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     UpdateStakeholderPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -97,6 +100,7 @@ async def _update_stakeholder(
         )
 
 
+@MUTATION.field("updateGroupStakeholder")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -28,6 +31,7 @@ from subscriptions import (
 )
 
 
+@MUTATION.field("subscribeToEntityReport")
 @convert_kwargs_to_snake_case
 async def mutate(
     _: None,

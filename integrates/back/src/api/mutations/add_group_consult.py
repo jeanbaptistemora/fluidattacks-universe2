@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddConsultPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -36,6 +39,7 @@ from typing import (
 )
 
 
+@MUTATION.field("addGroupConsult")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

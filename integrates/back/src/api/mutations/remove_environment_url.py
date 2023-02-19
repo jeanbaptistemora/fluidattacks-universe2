@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from aioextensions import (
     collect,
 )
@@ -42,6 +45,7 @@ from toe.inputs.types import (
 )
 
 
+@MUTATION.field("removeEnvironmentUrl")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_service_white

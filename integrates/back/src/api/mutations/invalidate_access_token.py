@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -27,6 +30,7 @@ from typing import (
 )
 
 
+@MUTATION.field("invalidateAccessToken")
 @convert_kwargs_to_snake_case
 @require_login
 async def mutate(

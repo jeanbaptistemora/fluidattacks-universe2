@@ -1,6 +1,9 @@
 from .payloads.types import (
     DownloadFilePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -27,6 +30,7 @@ from newutils import (
 )
 
 
+@MUTATION.field("downloadEventFile")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

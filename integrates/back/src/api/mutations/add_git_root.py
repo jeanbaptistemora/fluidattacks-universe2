@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddRootPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from aioextensions import (
     schedule,
 )
@@ -80,6 +83,7 @@ from urllib3.util.url import (
 )
 
 
+@MUTATION.field("addGitRoot")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

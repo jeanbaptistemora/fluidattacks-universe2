@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimpleGroupPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -30,6 +33,7 @@ from sessions import (
 )
 
 
+@MUTATION.field("removeGroupTag")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login, enforce_group_level_auth_async, require_asm

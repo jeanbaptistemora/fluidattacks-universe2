@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -22,6 +25,7 @@ from sessions import (
 )
 
 
+@MUTATION.field("removeStakeholder")
 @require_login
 async def mutate(
     _: None,

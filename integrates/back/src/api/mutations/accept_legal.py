@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -18,6 +21,7 @@ from typing import (
 )
 
 
+@MUTATION.field("acceptLegal")
 @convert_kwargs_to_snake_case
 async def mutate(
     _: Any, info: GraphQLResolveInfo, remember: bool = False

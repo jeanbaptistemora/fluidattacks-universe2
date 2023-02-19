@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -23,6 +26,7 @@ from typing import (
 )
 
 
+@MUTATION.field("sendSalesMailToGetSquadPlan")
 @concurrent_decorators(
     require_corporate_email,
     require_login,

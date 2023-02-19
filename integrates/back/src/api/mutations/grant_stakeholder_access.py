@@ -1,6 +1,9 @@
 from .payloads.types import (
     GrantStakeholderAccessPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -51,6 +54,7 @@ from sessions import (
 LOGGER = logging.getLogger(__name__)
 
 
+@MUTATION.field("grantStakeholderAccess")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddOrganizationPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from decorators import (
     require_corporate_email,
     require_login,
@@ -24,6 +27,7 @@ from typing import (
 TRANSACTIONS_LOGGER: logging.Logger = logging.getLogger("transactional")
 
 
+@MUTATION.field("addOrganization")
 @require_login
 @require_corporate_email
 async def mutate(

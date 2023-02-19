@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimpleFindingPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -49,6 +52,7 @@ from typing import (
 )
 
 
+@MUTATION.field("updateSeverity")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -38,6 +41,7 @@ from typing import (
 )
 
 
+@MUTATION.field("removeCredentials")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

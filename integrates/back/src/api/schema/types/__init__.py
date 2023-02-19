@@ -1,6 +1,3 @@
-from .mutation import (
-    MUTATION,
-)
 from api.mutations.payloads.update_toe_input_payload import (
     UPDATE_TOE_INPUT_PAYLOAD,
 )
@@ -9,6 +6,9 @@ from api.mutations.payloads.update_toe_lines_payload import (
 )
 from api.mutations.payloads.update_toe_port_payload import (
     UPDATE_TOE_PORT_PAYLOAD,
+)
+from api.mutations.schema import (
+    MUTATION,
 )
 from api.resolvers.billing.schema import (
     BILLING,

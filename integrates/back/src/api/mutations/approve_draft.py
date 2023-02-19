@@ -1,6 +1,9 @@
 from .payloads.types import (
     ApproveDraftPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from aioextensions import (
     schedule,
 )
@@ -53,6 +56,7 @@ from unreliable_indicators.operations import (
 )
 
 
+@MUTATION.field("approveDraft")
 @convert_kwargs_to_snake_case
 @rename_kwargs({"draft_id": "finding_id"})
 @concurrent_decorators(

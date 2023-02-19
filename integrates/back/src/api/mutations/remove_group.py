@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -53,6 +56,7 @@ from typing import (
 LOGGER = logging.getLogger(__name__)
 
 
+@MUTATION.field("removeGroup")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

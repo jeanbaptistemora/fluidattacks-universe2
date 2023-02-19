@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from aioextensions import (
     schedule,
 )
@@ -39,6 +42,7 @@ from sessions import (
 )
 
 
+@MUTATION.field("submitDraft")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

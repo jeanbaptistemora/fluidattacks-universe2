@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -32,6 +35,7 @@ from typing import (
 )
 
 
+@MUTATION.field("updateNotificationsPreferences")
 @convert_kwargs_to_snake_case
 async def mutate(
     _: Any,

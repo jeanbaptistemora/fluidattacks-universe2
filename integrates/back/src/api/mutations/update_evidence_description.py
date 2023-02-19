@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -25,6 +28,7 @@ from newutils import (
 )
 
 
+@MUTATION.field("updateEvidenceDescription")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -36,6 +39,7 @@ from starlette.datastructures import (
 )
 
 
+@MUTATION.field("updateEventEvidence")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

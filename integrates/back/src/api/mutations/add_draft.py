@@ -1,6 +1,9 @@
 from .payloads.types import (
     AddDraftPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -56,6 +59,7 @@ from typing import (
 )
 
 
+@MUTATION.field("addDraft")
 @convert_kwargs_to_snake_case
 @rename_kwargs({"project_name": "group_name"})
 @concurrent_decorators(

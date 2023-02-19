@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from aioextensions import (
     schedule,
 )
@@ -54,6 +57,7 @@ from vulnerabilities.domain.core import (
 )
 
 
+@MUTATION.field("confirmVulnerabilities")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,

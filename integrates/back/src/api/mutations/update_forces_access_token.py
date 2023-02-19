@@ -1,6 +1,9 @@
 from .payloads.types import (
     UpdateAccessTokenPayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
 )
@@ -37,6 +40,7 @@ from stakeholders import (
 )
 
 
+@MUTATION.field("updateForcesAccessToken")
 @convert_kwargs_to_snake_case
 @enforce_group_level_auth_async
 async def mutate(

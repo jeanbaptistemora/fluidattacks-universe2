@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from ariadne import (
     convert_kwargs_to_snake_case,
 )
@@ -15,6 +18,7 @@ from stakeholders import (
 )
 
 
+@MUTATION.field("acknowledgeConcurrentSession")
 @convert_kwargs_to_snake_case
 async def mutate(
     _: None,

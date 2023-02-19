@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from .schema import (
+    MUTATION,
+)
 from api import (
     APP_EXCEPTIONS,
 )
@@ -69,6 +72,7 @@ def _format_sorts_suggestions(
     return sorted(unordered, key=attrgetter("probability"), reverse=True)
 
 
+@MUTATION.field("updateToeLinesSorts")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
