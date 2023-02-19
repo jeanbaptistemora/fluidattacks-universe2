@@ -1,11 +1,11 @@
+from .payloads.types import (
+    SimplePayload,
+)
 from aioextensions import (
     collect,
 )
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    SimplePayload,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,

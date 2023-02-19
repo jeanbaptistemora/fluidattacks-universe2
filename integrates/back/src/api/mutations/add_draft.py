@@ -1,8 +1,8 @@
+from .payloads.types import (
+    AddDraftPayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    AddDraftPayload,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,

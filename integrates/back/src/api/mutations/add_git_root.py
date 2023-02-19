@@ -1,8 +1,8 @@
+from .payloads.types import (
+    AddRootPayload,
+)
 from aioextensions import (
     schedule,
-)
-from api.mutations import (
-    AddRootPayload,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,

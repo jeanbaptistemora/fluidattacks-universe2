@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -32,7 +32,7 @@ from typing import (
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-) -> SimplePayloadType:
+) -> SimplePayload:
     user_info = await sessions_domain.get_jwt_content(info.context)
     try:
         await stakeholders_domain.remove_access_token(user_info["user_email"])
@@ -45,4 +45,4 @@ async def mutate(
             f'{user_info["user_email"]} attempted to invalidate access token',
         )
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

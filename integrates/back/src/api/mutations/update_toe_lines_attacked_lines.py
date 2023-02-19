@@ -1,8 +1,8 @@
+from .payloads.types import (
+    UpdateToeLinesPayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    UpdateToeLinesPayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,

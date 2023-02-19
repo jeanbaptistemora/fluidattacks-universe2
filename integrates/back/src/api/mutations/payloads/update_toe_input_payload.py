@@ -1,4 +1,4 @@
-from api.mutations import (
+from .types import (
     UpdateToeInputPayload,
 )
 from ariadne import (

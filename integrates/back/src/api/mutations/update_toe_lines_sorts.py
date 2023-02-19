@@ -1,8 +1,8 @@
+from .payloads.types import (
+    SimplePayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -84,7 +84,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     sorts_risk_level: Optional[int] = None,
     sorts_risk_level_date: Optional[datetime] = None,
     sorts_suggestions: Optional[list[dict[str, Any]]] = None,
-) -> SimplePayloadType:
+) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     if (
         sorts_risk_level is None
@@ -142,4 +142,4 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

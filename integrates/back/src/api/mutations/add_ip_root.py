@@ -1,4 +1,4 @@
-from api.mutations import (
+from .payloads.types import (
     AddRootPayload,
 )
 from ariadne.utils import (

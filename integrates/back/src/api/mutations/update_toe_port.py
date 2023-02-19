@@ -1,8 +1,8 @@
+from .payloads.types import (
+    UpdateToePortPayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    UpdateToePortPayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,

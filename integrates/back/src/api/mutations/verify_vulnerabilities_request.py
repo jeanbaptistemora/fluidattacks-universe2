@@ -1,8 +1,8 @@
+from .payloads.types import (
+    SimplePayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -50,7 +50,7 @@ async def mutate(
     justification: str,
     open_vulnerabilities: list[str],
     closed_vulnerabilities: list[str],
-) -> SimplePayloadType:
+) -> SimplePayload:
     try:
         user_info = await sessions_domain.get_jwt_content(info.context)
 
@@ -81,4 +81,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -19,9 +19,9 @@ from stakeholders import (
 async def mutate(
     _: None,
     info: GraphQLResolveInfo,
-) -> SimplePayloadType:
+) -> SimplePayload:
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     await stakeholders_domain.acknowledge_concurrent_session(user_email)
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

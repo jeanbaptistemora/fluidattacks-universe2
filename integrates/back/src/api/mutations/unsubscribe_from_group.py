@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -35,7 +35,7 @@ from sessions import (
 )
 async def mutate(
     _: None, info: GraphQLResolveInfo, group_name: str
-) -> SimplePayloadType:
+) -> SimplePayload:
     stakeholder_info = await sessions_domain.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
     loaders: Dataloaders = info.context.loaders
@@ -50,4 +50,4 @@ async def mutate(
     )
     logs_utils.cloudwatch_log(info.context, msg)
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

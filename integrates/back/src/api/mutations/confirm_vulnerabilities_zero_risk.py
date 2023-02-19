@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,
@@ -36,7 +36,7 @@ async def mutate(
     finding_id: str,
     justification: str,
     vulnerabilities: list[str],
-) -> SimplePayloadType:
+) -> SimplePayload:
     """Resolve confirm_vulnerabilities_zero_risk mutation."""
     user_info = await sessions_domain.get_jwt_content(info.context)
     await vulns_domain.confirm_vulnerabilities_zero_risk(
@@ -54,4 +54,4 @@ async def mutate(
         ),
     )
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

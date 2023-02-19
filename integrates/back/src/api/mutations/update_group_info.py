@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -57,7 +57,7 @@ async def mutate(
     group_name: str,
     language: str,
     **parameters: Any,
-) -> SimplePayloadType:
+) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     user_info = await sessions_domain.get_jwt_content(info.context)
@@ -102,4 +102,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

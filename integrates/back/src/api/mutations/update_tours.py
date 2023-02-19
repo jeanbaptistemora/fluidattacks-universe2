@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -24,9 +24,9 @@ async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
     tours: Dict[str, bool],
-) -> SimplePayloadType:
+) -> SimplePayload:
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
     await stakeholders_domain.update_tours(user_email, tours)
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

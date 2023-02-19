@@ -1,11 +1,11 @@
+from .payloads.types import (
+    ApproveDraftPayload,
+)
 from aioextensions import (
     schedule,
 )
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    ApproveDraftPayload,
 )
 from ariadne.utils import (
     convert_kwargs_to_snake_case,

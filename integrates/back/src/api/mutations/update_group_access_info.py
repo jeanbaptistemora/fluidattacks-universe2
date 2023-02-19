@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -46,7 +46,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     group_name: str,
     **kwargs: Any,
-) -> SimplePayloadType:
+) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     group_name = group_name.lower()
     group: Group = await loaders.group.load(group_name)
@@ -70,4 +70,4 @@ async def mutate(
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

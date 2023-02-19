@@ -1,5 +1,5 @@
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
+from .payloads.types import (
+    SimplePayload,
 )
 from dataloaders import (
     Dataloaders,
@@ -26,7 +26,7 @@ from sessions import (
 async def mutate(
     _: None,
     info: GraphQLResolveInfo,
-) -> SimplePayloadType:
+) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     stakeholder_info = await sessions_domain.get_jwt_content(info.context)
     stakeholder_email = stakeholder_info["user_email"]
@@ -37,4 +37,4 @@ async def mutate(
         validate_new_invitation_time_limit(deletion.expiration_time)
     await confirm_deletion_mail(loaders=loaders, email=stakeholder_email)
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

@@ -1,8 +1,8 @@
+from .payloads.types import (
+    SimplePayload,
+)
 from api import (
     APP_EXCEPTIONS,
-)
-from api.mutations import (
-    SimplePayload as SimplePayloadType,
 )
 from ariadne import (
     convert_kwargs_to_snake_case,
@@ -56,7 +56,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     loc: int,
     modified_date: datetime,
     **_kwargs: Any,
-) -> SimplePayloadType:
+) -> SimplePayload:
     try:
         loaders: Dataloaders = info.context.loaders
         user_data = await sessions_domain.get_jwt_content(info.context)
@@ -87,4 +87,4 @@ async def mutate(  # pylint: disable=too-many-arguments
         )
         raise
 
-    return SimplePayloadType(success=True)
+    return SimplePayload(success=True)

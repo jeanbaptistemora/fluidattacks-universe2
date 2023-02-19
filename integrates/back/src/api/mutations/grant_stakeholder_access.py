@@ -1,4 +1,4 @@
-from api.mutations import (
+from .payloads.types import (
     GrantStakeholderAccessPayload,
 )
 from ariadne import (
