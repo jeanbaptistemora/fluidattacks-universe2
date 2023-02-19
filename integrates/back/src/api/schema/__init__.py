@@ -1,14 +1,14 @@
 from ..enums import (
     ENUMS,
 )
+from ..resolvers import (
+    TYPES,
+)
 from ..scalars import (
     SCALARS,
 )
 from ..unions import (
     UNIONS,
-)
-from .types import (
-    TYPES,
 )
 from ariadne import (
     load_schema_from_path,
