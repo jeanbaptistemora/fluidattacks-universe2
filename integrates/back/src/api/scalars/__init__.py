@@ -11,11 +11,8 @@ from ariadne import (
     ScalarType,
     upload_scalar,
 )
-from typing import (
-    Tuple,
-)
 
-SCALARS: Tuple[ScalarType, ...] = (
+SCALARS: tuple[ScalarType, ...] = (
     JSON_STRING_SCALAR,
     GENERIC_SCALAR,
     DATETIME_SCALAR,
