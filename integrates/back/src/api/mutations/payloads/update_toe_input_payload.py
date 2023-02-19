@@ -1,6 +1,9 @@
 from api.mutations import (
     UpdateToeInputPayload,
 )
+from ariadne import (
+    ObjectType,
+)
 from custom_exceptions import (
     ToeInputNotFound,
 )
@@ -15,7 +18,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
+UPDATE_TOE_INPUT_PAYLOAD = ObjectType("UpdateToeInputPayload")
 
+
+@UPDATE_TOE_INPUT_PAYLOAD.field("toeInput")
 async def resolve(
     parent: UpdateToeInputPayload, info: GraphQLResolveInfo, **_kwargs: None
 ) -> ToeInput:

@@ -1,6 +1,9 @@
 from api.mutations import (
     UpdateToePortPayload,
 )
+from ariadne import (
+    ObjectType,
+)
 from custom_exceptions import (
     ToePortNotFound,
 )
@@ -15,7 +18,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
+UPDATE_TOE_PORT_PAYLOAD = ObjectType("UpdateToePortPayload")
 
+
+@UPDATE_TOE_PORT_PAYLOAD.field("toePort")
 async def resolve(
     parent: UpdateToePortPayload, info: GraphQLResolveInfo, **_kwargs: None
 ) -> ToePort:

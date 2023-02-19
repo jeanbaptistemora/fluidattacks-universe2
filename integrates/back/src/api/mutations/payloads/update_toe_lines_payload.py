@@ -1,6 +1,9 @@
 from api.mutations import (
     UpdateToeLinesPayload,
 )
+from ariadne import (
+    ObjectType,
+)
 from custom_exceptions import (
     ToeLinesNotFound,
 )
@@ -15,7 +18,10 @@ from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
+UPDATE_TOE_LINES_PAYLOAD = ObjectType("UpdateToeLinesPayload")
 
+
+@UPDATE_TOE_LINES_PAYLOAD.field("toeLines")
 async def resolve(
     parent: UpdateToeLinesPayload, info: GraphQLResolveInfo, **_kwargs: None
 ) -> ToeLines:

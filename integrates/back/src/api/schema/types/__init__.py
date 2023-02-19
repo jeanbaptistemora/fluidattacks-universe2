@@ -1,6 +1,15 @@
 from .mutation import (
     MUTATION,
 )
+from api.mutations.payloads.update_toe_input_payload import (
+    UPDATE_TOE_INPUT_PAYLOAD,
+)
+from api.mutations.payloads.update_toe_lines_payload import (
+    UPDATE_TOE_LINES_PAYLOAD,
+)
+from api.mutations.payloads.update_toe_port_payload import (
+    UPDATE_TOE_PORT_PAYLOAD,
+)
 from api.resolvers.billing.schema import (
     BILLING,
 )
@@ -66,6 +75,9 @@ from api.resolvers.group.schema import (
 )
 from api.resolvers.group_billing.schema import (
     GROUP_BILLING,
+)
+from api.resolvers.group_billing_author.schema import (
+    GROUP_BILLING_AUTHOR,
 )
 from api.resolvers.group_compliance.schema import (
     GROUP_COMPLIANCE,
@@ -223,11 +235,6 @@ from api.resolvers.vulnerability.schema import (
 from api.resolvers.vulnerability_historic_state.schema import (
     VULNERABILITY_HISTORIC_STATE,
 )
-from api.schema.types.mutation_payloads import (
-    UPDATE_TOE_INPUT_PAYLOAD,
-    UPDATE_TOE_LINES_PAYLOAD,
-    UPDATE_TOE_PORT_PAYLOAD,
-)
 from ariadne import (
     ObjectType,
 )
@@ -259,6 +266,7 @@ TYPES: Tuple[ObjectType, ...] = (
     GIT_ROOT_CLONING_STATUS,
     GROUP,
     GROUP_BILLING,
+    GROUP_BILLING_AUTHOR,
     GROUP_FILE,
     INTEGRATION_REPOSITORIES,
     INTEGRATION_REPOSITORIES_CONNECTION,
