@@ -195,6 +195,7 @@ async def add_root_environment_url(
         "created_at": get_as_utc_iso_format(url.created_at)
         if url.created_at
         else None,
+        "created_by": url.created_by,
         "type": url.url_type.value,
         "cloud_name": url.cloud_name.value if url.cloud_name else None,
     }

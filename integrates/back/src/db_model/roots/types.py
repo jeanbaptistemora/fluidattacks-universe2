@@ -66,6 +66,7 @@ class RootEnvironmentUrl(NamedTuple):
     id: str
     secrets: list[Secret] = []
     created_at: Optional[datetime] = None
+    created_by: Optional[str] = None
     group_name: Optional[str] = None
     url_type: RootEnvironmentUrlType = RootEnvironmentUrlType.URL
     cloud_name: Optional[RootEnvironmentCloud] = None

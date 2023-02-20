@@ -1731,6 +1731,7 @@ async def add_root_environment_url(
     environment = RootEnvironmentUrl(
         id=hashlib.sha1(url.encode()).hexdigest(),  # nosec
         created_at=datetime.now(),
+        created_by=user_email,
         url=url,
         url_type=_url_type,
         cloud_name=_cloud_type,

@@ -2,6 +2,8 @@
 type GitEnvironmentUrl implements EnvironmentUrl {
   "Date of creation"
   createdAt: DateTime
+  "User who added environment urll"
+  createdBy: String
   "GitRoot environment url"
   id: String!
   "Environment secrets"
