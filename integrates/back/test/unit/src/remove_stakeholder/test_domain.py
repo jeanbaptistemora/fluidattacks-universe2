@@ -4,7 +4,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     set_mocks_side_effects,
 )
 from dataloaders import (
-    apply_context_attrs,
     Dataloaders,
     get_new_context,
 )
@@ -14,26 +13,10 @@ from remove_stakeholder.domain import (
     confirm_deletion_mail,
     remove_stakeholder_all_organizations,
 )
-from settings import (
-    TEMPLATES_DIR,
-)
-from starlette.datastructures import (
-    Headers,
-)
-from starlette.requests import (
-    Request,
-)
-from starlette.routing import (
-    Mount,
-)
-from starlette.staticfiles import (
-    StaticFiles,
-)
 from unittest.mock import (
     AsyncMock,
     patch,
 )
-import uuid
 
 MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
@@ -41,34 +24,6 @@ MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 pytestmark = [
     pytest.mark.asyncio,
 ]
-
-
-def create_dummy_simple_session(
-    username: str,
-    url_token: str,
-) -> Request:
-    payload = {"url_token": url_token}
-    request = Request(
-        {
-            "type": "http",
-            "path": "/confirm_deletion/",
-            "http_version": "1.1",
-            "method": "GET",
-            "path_params": payload,
-            "session": dict(username=username, session_key=str(uuid.uuid4())),
-            "cookies": {},
-            "name": "static",
-            "headers": Headers(None).raw,
-            "router": Mount(
-                "/static",
-                StaticFiles(directory=f"{TEMPLATES_DIR}/static"),
-                name="static",
-            ),
-        }
-    )
-    request = apply_context_attrs(request)
-
-    return request
 
 
 @pytest.mark.parametrize(
