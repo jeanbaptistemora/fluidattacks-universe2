@@ -8,10 +8,6 @@ from syntax_graph.syntax_nodes.import_statement import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Dict,
-    Optional,
-)
 from utils import (
     graph as g,
 )
@@ -32,7 +28,7 @@ def get_expression(graph: Graph, n_id: NId, args_n_id: NId) -> str:
     return expression
 
 
-def get_alias(graph: Graph, n_id: NId) -> Optional[str]:
+def get_alias(graph: Graph, n_id: NId) -> str | None:
     if (alias_node := g.match_ast_d(graph, n_id, "identifier")) and (
         alias := graph.nodes[alias_node].get("label_text")
     ):
@@ -42,7 +38,7 @@ def get_alias(graph: Graph, n_id: NId) -> Optional[str]:
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph: Graph = args.ast_graph
-    node_attrs: Dict[str, str] = {}
+    node_attrs: dict[str, str] = {}
 
     for n_id in g.match_ast_group_d(
         graph, args.n_id, "import_specification", depth=-1

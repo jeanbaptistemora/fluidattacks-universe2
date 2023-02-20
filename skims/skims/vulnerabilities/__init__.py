@@ -9,12 +9,9 @@ from model.core_model import (
     VulnerabilityKindEnum,
     VulnerabilityStateEnum,
 )
-from typing import (
-    Optional,
-)
 
 
-def search_method(method_path: str) -> Optional[MethodsEnum]:
+def search_method(method_path: str) -> MethodsEnum | None:
     for method in MethodsEnum:
         if f"{method.value.file_name}.{method.value. name}" == method_path:
             return method
@@ -25,7 +22,7 @@ def build_metadata(
     method: MethodsEnum,
     description: str,
     snippet: str,
-    http_properties: Optional[HTTPProperties] = None,
+    http_properties: HTTPProperties | None = None,
 ) -> SkimsVulnerabilityMetadata:
     return SkimsVulnerabilityMetadata(
         cwe=(method.value.get_cwe(),),

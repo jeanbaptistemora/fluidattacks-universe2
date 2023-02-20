@@ -13,10 +13,6 @@ from types import (
 )
 from typing import (
     Any,
-    Optional,
-    Tuple,
-    Type,
-    Union,
 )
 from utils.bugs import (
     META as BUGS_META,
@@ -96,15 +92,15 @@ async def log_exception(
 
 def log_to_remote_blocking(
     *,
-    msg: Union[
-        str,
-        Exception,
-        Tuple[
-            Optional[Type[BaseException]],
-            Optional[BaseException],
-            Optional[TracebackType],
-        ],
-    ],
+    msg: (
+        str
+        | Exception
+        | tuple[
+            type[BaseException] | None,
+            BaseException | None,
+            TracebackType | None,
+        ]
+    ),
     severity: str,  # info, error, warning
     **meta_data: str,
 ) -> None:
@@ -118,15 +114,15 @@ def log_to_remote_blocking(
 
 async def log_to_remote(
     *,
-    msg: Union[
-        str,
-        Exception,
-        Tuple[
-            Optional[Type[BaseException]],
-            Optional[BaseException],
-            Optional[TracebackType],
-        ],
-    ],
+    msg: (
+        str
+        | Exception
+        | tuple[
+            type[BaseException] | None,
+            BaseException | None,
+            TracebackType | None,
+        ]
+    ),
     severity: str,  # info, error, warning
     **meta_data: str,
 ) -> None:

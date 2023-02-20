@@ -1,7 +1,4 @@
 import socket
-from typing import (
-    Optional,
-)
 from utils.logs import (
     log_blocking,
 )
@@ -11,7 +8,7 @@ def tcp_connect(
     hostname: str,
     port: int,
     intention: str = "establish tcp connection",
-) -> Optional[socket.socket]:
+) -> socket.socket | None:
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((hostname, port))
@@ -33,7 +30,7 @@ def tcp_connect(
         return None
 
 
-def tcp_read(sock: socket.socket, size: int) -> Optional[bytes]:
+def tcp_read(sock: socket.socket, size: int) -> bytes | None:
     try:
         return sock.recv(size)
     except (

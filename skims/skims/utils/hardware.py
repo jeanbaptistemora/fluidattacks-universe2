@@ -1,13 +1,13 @@
 from aioextensions import (
     BoundedSemaphore,
 )
+from collections.abc import (
+    Iterator,
+)
 from resource import (
     getrusage,
     RUSAGE_CHILDREN,
     RUSAGE_SELF,
-)
-from typing import (
-    Iterator,
 )
 
 # Useful notes

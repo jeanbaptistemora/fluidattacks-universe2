@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     NId,
 )
@@ -10,7 +13,6 @@ from syntax_graph.types import (
 )
 from typing import (
     cast,
-    Iterator,
 )
 from utils.graph import (
     match_ast,

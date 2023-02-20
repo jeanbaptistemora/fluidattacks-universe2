@@ -8,10 +8,6 @@ from syntax_graph.syntax_nodes.import_statement import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Dict,
-    List,
-)
 from utils import (
     graph as g,
 )
@@ -32,8 +28,8 @@ def import_label_text(args: SyntaxGraphArgs) -> str:
 
 def get_namespace_import(
     graph: Graph, n_id: NId, library_name: str
-) -> Dict[str, str]:
-    node_attrs: Dict[str, str] = {}
+) -> dict[str, str]:
+    node_attrs: dict[str, str] = {}
     if (identifier_n_id := g.match_ast_d(graph, n_id, "identifier")) and (
         identifier := graph.nodes[identifier_n_id].get("label_text")
     ):
@@ -50,10 +46,10 @@ def get_namespace_import(
 
 def get_named_imports_attrs(
     graph: Graph, n_id: NId, library_name: str
-) -> List[Dict[str, str]]:
-    named_imports: List[Dict[str, str]] = []
+) -> list[dict[str, str]]:
+    named_imports: list[dict[str, str]] = []
     for specifier_n_id in g.match_ast_group_d(graph, n_id, "import_specifier"):
-        n_attrs: Dict[str, str] = {
+        n_attrs: dict[str, str] = {
             "expression": library_name,
             "import_type": "named_import",
             "corrected_n_id": specifier_n_id,
@@ -73,8 +69,8 @@ def get_named_imports_attrs(
 
 def get_default_export(
     graph: Graph, n_id: NId, library_name: str
-) -> Dict[str, str]:
-    node_attrs: Dict[str, str] = {}
+) -> dict[str, str]:
+    node_attrs: dict[str, str] = {}
     if identifier := graph.nodes[n_id].get("label_text"):
         node_attrs.update(
             {
@@ -90,7 +86,7 @@ def get_default_export(
 def reader(args: SyntaxGraphArgs) -> NId:
     graph: Graph = args.ast_graph
     library_name = import_label_text(args)
-    imported_elements: List[Dict[str, str]] = []
+    imported_elements: list[dict[str, str]] = []
 
     if import_clause_n_id := g.match_ast_d(graph, args.n_id, "import_clause"):
         if identifier_n_id := g.match_ast_d(

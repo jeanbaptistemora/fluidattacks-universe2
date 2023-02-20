@@ -1,6 +1,10 @@
 from asyncio import (
     sleep,
 )
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from contextlib import (
     suppress,
 )
@@ -26,12 +30,7 @@ from time import (
 import traceback
 from typing import (
     Any,
-    Callable,
     cast,
-    List,
-    Optional,
-    Tuple,
-    Type,
     TypeVar,
 )
 from utils.env import (
@@ -99,7 +98,7 @@ def get_signature(function: Callable[..., Any]) -> inspect.Signature:
     return signature
 
 
-def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
+def get_node_by_keys(node: Node, keys: Iterable[str]) -> Node | None:
     cur_node = node
     for key in keys:
         if hasattr(cur_node, "inner") and key in cur_node.inner:
@@ -110,7 +109,7 @@ def get_node_by_keys(node: Node, keys: List[str]) -> Optional[Node]:
     return cur_node
 
 
-def get_dict_values(dict_val: dict, *keys: str) -> Optional[Any]:
+def get_dict_values(dict_val: dict, *keys: str) -> Any | None:
     cur_dict = dict_val
     for key in keys:
         if key in cur_dict.keys():
@@ -147,7 +146,7 @@ def semver_match(left: str, right: str, exc: bool = False) -> bool:
 def shield(
     *,
     on_error_return: Any = RAISE,
-    on_exceptions: Tuple[Type[BaseException], ...] = (
+    on_exceptions: tuple[type[BaseException], ...] = (
         BaseException,
         RetryAndFinallyReturn,
     ),
@@ -202,7 +201,7 @@ def shield(
 def shield_blocking(
     *,
     on_error_return: Any = RAISE,
-    on_exceptions: Tuple[Type[BaseException], ...] = (
+    on_exceptions: tuple[type[BaseException], ...] = (
         BaseException,
         RetryAndFinallyReturn,
     ),

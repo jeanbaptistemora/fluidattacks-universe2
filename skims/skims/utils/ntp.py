@@ -5,12 +5,9 @@ from ntplib import (
     NTPClient,
     NTPException,
 )
-from typing import (
-    Optional,
-)
 
 
-def get_offset() -> Optional[float]:
+def get_offset() -> float | None:
     with suppress(NTPException):
         response = NTPClient().request("pool.ntp.org", port=123, version=3)
 

@@ -3,15 +3,12 @@ from bugsnag_client import (
     add_batch_metadata as bugsnag_add_batch_metadata,
     remove_nix_hash as bugsnag_remove_nix_hash,
 )
-from typing import (
-    Dict,
-)
 from utils.env import (
     guess_environment,
 )
 
 # Constants
-META: Dict[str, str] = {}
+META: dict[str, str] = {}
 
 
 def add_bugsnag_data(**data: str) -> None:

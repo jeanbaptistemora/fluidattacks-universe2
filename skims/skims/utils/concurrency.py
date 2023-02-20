@@ -1,10 +1,12 @@
 from asyncio import (
     Lock,
 )
+from collections.abc import (
+    Callable,
+)
 import functools
 from typing import (
     Any,
-    Callable,
     cast,
     TypeVar,
 )

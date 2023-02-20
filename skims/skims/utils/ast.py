@@ -1,9 +1,10 @@
 import ast
-from typing import (
+from collections.abc import (
     Callable,
-    cast,
     Iterator,
-    Tuple,
+)
+from typing import (
+    cast,
     TypeVar,
 )
 
@@ -22,7 +23,7 @@ def parse(content: str) -> ast.AST:
 
 def iterate_nodes(
     content: str,
-    filters: Tuple[Callable[[_T], bool], ...],
+    filters: tuple[Callable[[_T], bool], ...],
 ) -> Iterator[_T]:
     for _node in ast.walk(parse(content)):
         node = cast(_T, _node)

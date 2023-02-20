@@ -9,15 +9,12 @@ from model.core_model import (
     SkimsDastConfig,
 )
 import os
-from typing import (
-    Tuple,
-)
 
 
 def create_test_context(
     debug: bool = True,
-    include: Tuple[str, ...] = (),
-    exclude: Tuple[str, ...] = (),
+    include: tuple[str, ...] = (),
+    exclude: tuple[str, ...] = (),
 ) -> None:
     CTX.debug = debug
     CTX.config = core_model.SkimsConfig(

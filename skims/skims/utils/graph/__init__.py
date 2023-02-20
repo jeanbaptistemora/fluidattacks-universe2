@@ -1,3 +1,8 @@
+from collections.abc import (
+    Callable,
+    Iterable,
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -18,14 +23,6 @@ import networkx as nx
 import os
 from typing import (
     Any,
-    Callable,
-    Dict,
-    Iterable,
-    Iterator,
-    List,
-    Optional,
-    Set,
-    Tuple,
 )
 from utils.logs import (
     log_blocking,
@@ -77,15 +74,15 @@ def filter_nodes(
     graph: Graph,
     nodes: Iterable[str],
     predicate: NAttrsPredicateFunction,
-) -> Tuple[str, ...]:
-    result: Tuple[str, ...] = tuple(
+) -> tuple[str, ...]:
+    result: tuple[str, ...] = tuple(
         n_id for n_id in nodes if predicate(graph.nodes[n_id])
     )
 
     return result
 
 
-def matching_nodes(graph: Graph, **expected_attrs: str) -> Tuple[str, ...]:
+def matching_nodes(graph: Graph, **expected_attrs: str) -> tuple[str, ...]:
     return filter_nodes(graph, graph.nodes, pred_has_labels(**expected_attrs))
 
 
@@ -94,7 +91,7 @@ def adj_lazy(
     n_id: str,
     depth: int = 1,
     strict: bool = False,
-    _processed_n_ids: Optional[Set[str]] = None,
+    _processed_n_ids: set[str] | None = None,
     **edge_attrs: str,
 ) -> Iterator[str]:
     """Return adjacent nodes to `n_id`, following just edges with given attrs.
@@ -110,13 +107,13 @@ def adj_lazy(
     becomes unstable (unordered) after mutating the graph, also this allow
     following just edges matching `edge_attrs`.
     """
-    processed_n_ids: Set[str] = _processed_n_ids or set()
+    processed_n_ids: set[str] = _processed_n_ids or set()
     if depth == 0 or n_id in processed_n_ids:
         return
 
     processed_n_ids.add(n_id)
 
-    childs: List[str] = sorted(graph.adj[n_id], key=int)
+    childs: list[str] = sorted(graph.adj[n_id], key=int)
 
     edge_keys = set(edge_attrs.keys())
 
@@ -154,9 +151,9 @@ def adj(
     n_id: str,
     depth: int = 1,
     strict: bool = False,
-    _processed_n_ids: Optional[Set[str]] = None,
+    _processed_n_ids: set[str] | None = None,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     return tuple(
         adj_lazy(
             graph,
@@ -175,7 +172,7 @@ def adj_ast(
     depth: int = 1,
     strict: bool = False,
     **n_attrs: str,
-) -> Tuple[Any, ...]:
+) -> tuple[Any, ...]:
     return tuple(
         c_id
         for c_id in adj(graph, n_id, depth, strict=strict, label_ast="AST")
@@ -189,7 +186,7 @@ def adj_ctx(
     depth: int = 1,
     strict: bool = False,
     **n_attrs: str,
-) -> Tuple[Any, ...]:
+) -> tuple[Any, ...]:
     return tuple(
         c_id
         for c_id in adj(graph, n_id, depth, strict=strict, label_ctx="CTX")
@@ -203,7 +200,7 @@ def adj_cfg(
     depth: int = 1,
     strict: bool = False,
     **n_attrs: str,
-) -> Tuple[Any, ...]:
+) -> tuple[Any, ...]:
     return tuple(
         c_id
         for c_id in adj(graph, n_id, depth, strict=strict, label_cfg="CFG")
@@ -233,17 +230,17 @@ def pred_lazy(
     graph: Graph,
     n_id: str,
     depth: int = 1,
-    _processed_n_ids: Optional[Set[str]] = None,
+    _processed_n_ids: set[str] | None = None,
     **edge_attrs: str,
 ) -> Iterator[str]:
     """Same as `adj` but follow edges in the opposite direction."""
-    processed_n_ids: Set[str] = _processed_n_ids or set()
+    processed_n_ids: set[str] = _processed_n_ids or set()
     if depth == 0 or n_id in processed_n_ids:
         return
 
     processed_n_ids.add(n_id)
 
-    p_ids: List[str] = sorted(graph.pred[n_id], key=int)
+    p_ids: list[str] = sorted(graph.pred[n_id], key=int)
 
     # Append direct parents
     for p_id in p_ids:
@@ -267,9 +264,9 @@ def pred(
     graph: Graph,
     n_id: str,
     depth: int = 1,
-    _processed_n_ids: Optional[Set[str]] = None,
+    _processed_n_ids: set[str] | None = None,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     return tuple(
         pred_lazy(
             graph,
@@ -286,7 +283,7 @@ def pred_ast(
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     return tuple(pred_ast_lazy(graph, n_id, depth, **edge_attrs))
 
 
@@ -311,7 +308,7 @@ def pred_cfg(
     n_id: str,
     depth: int = 1,
     **edge_attrs: str,
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     return tuple(pred_cfg_lazy(graph, n_id, depth, **edge_attrs))
 
 
@@ -336,7 +333,7 @@ def paths(
     s_id: str,
     t_id: str,
     **edge_attrs: str,
-) -> Tuple[Tuple[str, ...], ...]:
+) -> tuple[tuple[str, ...], ...]:
     return tuple(_paths(graph, s_id, t_id, **edge_attrs))
 
 
@@ -345,13 +342,13 @@ def _paths(
     s_id: str,
     t_id: str,
     **edge_attrs: str,
-) -> Iterator[Tuple[str, ...]]:
+) -> Iterator[tuple[str, ...]]:
     t_ids = {t_id}
 
     if s_id in t_ids:
         return
 
-    visited: Dict[str, None] = dict.fromkeys([s_id])
+    visited: dict[str, None] = dict.fromkeys([s_id])
     pending = [(s_id, iter(graph[s_id]))]
 
     while pending:
@@ -402,9 +399,9 @@ def match_ast(
     n_id: str,
     *label_type: str,
     depth: int = 1,
-) -> Dict[str, Optional[str]]:
+) -> dict[str, str | None]:
     index: int = 0
-    nodes: Dict[str, Optional[str]] = dict.fromkeys(label_type)
+    nodes: dict[str, str | None] = dict.fromkeys(label_type)
 
     for c_id in adj_ast(graph, n_id, depth=depth):
         c_type = graph.nodes[c_id]["label_type"]
@@ -422,7 +419,7 @@ def match_ast_d(
     n_id: str,
     label_type: str,
     depth: int = 1,
-) -> Optional[str]:
+) -> str | None:
     return match_ast(graph, n_id, label_type, depth=depth)[label_type]
 
 
@@ -431,9 +428,9 @@ def match_ast_group(
     n_id: str,
     *label_type: str,
     depth: int = 1,
-) -> Dict[str, List[str]]:
+) -> dict[str, list[str]]:
     index: int = 0
-    nodes: Dict[str, List[str]] = {label: [] for label in label_type}
+    nodes: dict[str, list[str]] = {label: [] for label in label_type}
 
     for c_id in adj_ast(graph, n_id, depth=depth):
         c_type = graph.nodes[c_id]["label_type"]
@@ -451,7 +448,7 @@ def match_ast_group_d(
     n_id: str,
     label_type: str,
     depth: int = 1,
-) -> List[str]:
+) -> list[str]:
     return match_ast_group(graph, n_id, label_type, depth=depth)[label_type]
 
 
@@ -461,7 +458,7 @@ def get_ast_childs(
     label_type: str,
     *,
     depth: int = 1,
-) -> Tuple[NId, ...]:
+) -> tuple[NId, ...]:
     return tuple(
         n_id
         for n_id in adj_ast(graph, n_id, depth=depth)
@@ -488,7 +485,7 @@ def lookup_first_cfg_parent(
 
 def ast_filter_sink_connected_n_ids(
     graph: Graph, n_id: NId, finding: core_model.FindingEnum, only_sinks: bool
-) -> Tuple[str, ...]:
+) -> tuple[str, ...]:
     # Compute all childs reachable from CFG edges
     c_ids = adj_cfg(graph, n_id, depth=-1)
 
@@ -522,7 +519,7 @@ def branches_cfg(
     n_id: NId,
     finding: core_model.FindingEnum,
     only_sinks: bool = False,
-) -> Tuple[Tuple[str, ...], ...]:
+) -> tuple[tuple[str, ...], ...]:
 
     # Temporarily connect function call nodes with function declaration
     # nodes if a sink is present inside the function.
@@ -561,7 +558,7 @@ def branches_cfg(
         }
     )
     # All branches, may be duplicated, some branches may be prefix of others
-    branches: Set[Tuple[str, ...]] = set(
+    branches: set[tuple[str, ...]] = set(
         path
         for leaf_id in target_ids
         for path in (
@@ -572,7 +569,7 @@ def branches_cfg(
     )
 
     # Deduplicate, merge prefixes and return branches
-    result: Tuple[Tuple[str, ...], ...] = tuple(sorted(branches))
+    result: tuple[tuple[str, ...], ...] = tuple(sorted(branches))
 
     # Remove temporary edges connecting function calls with their declarations
     for s_id, e_id in call_dcl_map.items():
@@ -602,8 +599,8 @@ def export_graph_as_json(
     graph: Graph,
     *,
     include_styles: bool = False,
-) -> Dict[str, Any]:
-    data: Dict[str, Any] = {}
+) -> dict[str, Any]:
+    data: dict[str, Any] = {}
     data["nodes"] = {}
     data["edges"] = {}
     ignored_attrs = GRAPH_STYLE_ATTRS
@@ -671,8 +668,8 @@ def copy_cfg(graph: Graph) -> Graph:
 
 def contains_label_type_in(
     graph: Graph,
-    c_ids: Tuple[str, ...],
-    label_types: Set[str],
+    c_ids: tuple[str, ...],
+    label_types: set[str],
 ) -> bool:
     return all(
         graph.nodes[c_id].get("label_type") in label_types for c_id in c_ids
@@ -681,8 +678,8 @@ def contains_label_type_in(
 
 def concatenate_label_text(
     graph: Graph,
-    c_ids: Tuple[str, ...],
-    separator: Optional[str] = None,
+    c_ids: tuple[str, ...],
+    separator: str | None = None,
 ) -> str:
     return (separator or "").join(
         graph.nodes[c_id]["label_text"] for c_id in c_ids
@@ -754,14 +751,14 @@ def yield_nodes(
     *,
     key: str = "__root__",
     value: Any,
-    key_predicates: Tuple[Callable[[str], bool], ...] = (),
+    key_predicates: tuple[Callable[[str], bool], ...] = (),
     value_extraction: str = "@",
-    value_predicates: Tuple[str, ...] = (),
-    pre_extraction: Tuple[Callable[[Any], Any], ...] = (
+    value_predicates: tuple[str, ...] = (),
+    pre_extraction: tuple[Callable[[Any], Any], ...] = (
         simplify,
         symbolic_evaluate,
     ),
-    post_extraction: Tuple[Callable[[Any], Any], ...] = (
+    post_extraction: tuple[Callable[[Any], Any], ...] = (
         simplify,
         symbolic_evaluate,
     ),
@@ -806,7 +803,7 @@ def yield_nodes(
             )
 
 
-def yield_dicts(model: Any) -> Iterator[Dict[str, Any]]:
+def yield_dicts(model: Any) -> Iterator[dict[str, Any]]:
     if isinstance(model, dict):
         yield model
         for sub_model in model.values():
@@ -837,7 +834,7 @@ def get_brother_node(
     graph: Graph,
     n_id: NId,
     label_type: str,
-) -> Optional[Any]:
+) -> Any | None:
     parent = pred_ast(graph, n_id)[0]
     childs = adj_ast(graph, parent)
     if filtered_types := [
@@ -852,9 +849,9 @@ def get_brother_node(
 def search_pred_until_type(
     graph: Graph,
     n_id: NId,
-    targets: Set[str],
-    last_child: Optional[str] = None,
-) -> Tuple[str, Optional[str]]:
+    targets: set[str],
+    last_child: str | None = None,
+) -> tuple[str, str | None]:
     if not last_child:
         last_child = n_id
     if pred_c := pred_ast(graph, n_id):
@@ -865,8 +862,8 @@ def search_pred_until_type(
 
 
 def get_nodes_by_path(
-    graph: Graph, n_id: NId, nodes: List[NId], *label_type_path: str
-) -> List[NId]:
+    graph: Graph, n_id: NId, nodes: list[NId], *label_type_path: str
+) -> list[NId]:
     if len(label_type_path) == 1:
         nodes.extend(match_ast_group_d(graph, n_id, label_type_path[0]))
         return nodes

@@ -8,17 +8,14 @@ import subprocess  # nosec
 import time
 from typing import (
     Any,
-    Dict,
-    Optional,
-    Tuple,
 )
 
 
 def call_blocking(
     binary: str,
     *binary_args: str,
-    cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = None,
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
     stdin: int = subprocess.DEVNULL,
     stdout: int = subprocess.PIPE,
     stderr: int = subprocess.PIPE,
@@ -41,8 +38,8 @@ def call_blocking(
 async def call(
     binary: str,
     *binary_args: str,
-    cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = None,
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
     stdin: int = asyncio.subprocess.DEVNULL,
     stdout: int = asyncio.subprocess.PIPE,
     stderr: int = asyncio.subprocess.PIPE,
@@ -68,13 +65,13 @@ async def call(
 def read_blocking(
     binary: str,
     *binary_args: str,
-    cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = None,
-    stdin_bytes: Optional[bytes] = None,
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
+    stdin_bytes: bytes | None = None,
     stdout: int = subprocess.PIPE,
     stderr: int = subprocess.PIPE,
     **kwargs: Any,
-) -> Tuple[int, bytes, bytes]:
+) -> tuple[int, bytes, bytes]:
     process = call_blocking(
         binary,
         *binary_args,
@@ -95,13 +92,13 @@ def read_blocking(
 async def read(
     binary: str,
     *binary_args: str,
-    cwd: Optional[str] = None,
-    env: Optional[Dict[str, str]] = None,
-    stdin_bytes: Optional[bytes] = None,
+    cwd: str | None = None,
+    env: dict[str, str] | None = None,
+    stdin_bytes: bytes | None = None,
     stdout: int = asyncio.subprocess.PIPE,
     stderr: int = asyncio.subprocess.PIPE,
     **kwargs: Any,
-) -> Tuple[int, bytes, bytes]:
+) -> tuple[int, bytes, bytes]:
     process: asyncio.subprocess.Process = await call(
         binary,
         *binary_args,
@@ -125,8 +122,8 @@ async def read(
 
 def wait_until_memory_usage(
     percent: float,
-    timeout: Optional[float] = None,
-    interval: Optional[float] = None,
+    timeout: float | None = None,
+    interval: float | None = None,
 ) -> None:
     interval = interval or 0.01
     current_date = datetime.now()

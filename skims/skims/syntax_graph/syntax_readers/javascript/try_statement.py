@@ -7,9 +7,6 @@ from syntax_graph.syntax_nodes.try_statement import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-)
 
 
 def reader(args: SyntaxGraphArgs) -> NId:
@@ -17,7 +14,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     block_id = try_node["label_field_body"]
     handler_id = try_node.get("label_field_handler")
     finalizer_id = try_node.get("label_field_finalizer")
-    catch_clauses: List[NId] = []
+    catch_clauses: list[NId] = []
     if finalizer_id:
         catch_clauses.append(finalizer_id)
 

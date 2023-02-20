@@ -1,4 +1,9 @@
 import aiofiles
+from collections.abc import (
+    Awaitable,
+    Callable,
+    Iterator,
+)
 from concurrent.futures import (
     ThreadPoolExecutor,
 )
@@ -28,16 +33,6 @@ import os
 from pyparsing import (
     Regex,
 )
-from typing import (
-    Awaitable,
-    Callable,
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Set,
-    Tuple,
-)
 from utils.logs import (
     log_blocking,
 )
@@ -49,7 +44,7 @@ class FileTooLarge(Exception):
     pass
 
 
-language_extensions_map: Dict[GraphShardMetadataLanguage, List[str]] = {
+language_extensions_map: dict[GraphShardMetadataLanguage, list[str]] = {
     GraphShardMetadataLanguage.CSHARP: [".cs"],
     GraphShardMetadataLanguage.DART: [".dart"],
     GraphShardMetadataLanguage.GO: [".go"],
@@ -81,7 +76,7 @@ def generate_file_content(
     encoding: str = "latin-1",
     size: int = -1,
 ) -> Callable[[], str]:
-    data: Dict[str, str] = {}
+    data: dict[str, str] = {}
 
     def get_one() -> str:
         if not data:
@@ -99,7 +94,7 @@ def generate_file_raw_content(
     path: str,
     size: int = -1,
 ) -> Callable[[], Awaitable[bytes]]:
-    data: Dict[str, bytes] = {}
+    data: dict[str, bytes] = {}
 
     async def get_one() -> bytes:
         if not data:
@@ -113,7 +108,7 @@ def generate_file_raw_content_blocking(
     path: str,
     size: int = -1,
 ) -> Callable[[], bytes]:
-    data: Dict[str, bytes] = {}
+    data: dict[str, bytes] = {}
 
     def get_one() -> bytes:
         if not data:
@@ -192,7 +187,7 @@ def sync_get_file_raw_content(path: str, size: int = MAX_FILE_SIZE) -> bytes:
 
 def safe_sync_get_file_raw_content(
     path: str, size: int = MAX_FILE_SIZE
-) -> Optional[bytes]:
+) -> bytes | None:
     try:
         return sync_get_file_raw_content(path, size)
     except FileTooLarge:
@@ -222,8 +217,8 @@ def check_dependency_code(path: str) -> bool:
     return False
 
 
-def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
-    nu_paths: Set[str] = set()
+def get_non_upgradable_paths(paths: set[str]) -> set[str]:
+    nu_paths: set[str] = set()
 
     intellisense_refs = {
         os.path.dirname(path)
@@ -260,8 +255,8 @@ def get_non_upgradable_paths(paths: Set[str]) -> Set[str]:
     return nu_paths
 
 
-def get_non_verifiable_paths(paths: Set[str]) -> Set[str]:
-    nv_paths: Set[str] = set()
+def get_non_verifiable_paths(paths: set[str]) -> set[str]:
+    nv_paths: set[str] = set()
 
     for path in paths:
         _, file_info = os.path.split(path)
@@ -318,7 +313,7 @@ def mkdir(name: str, mode: int = 0o777, exist_ok: bool = False) -> None:
     return os.makedirs(name, mode=mode, exist_ok=exist_ok)
 
 
-def recurse_dir(path: str) -> Tuple[str, ...]:
+def recurse_dir(path: str) -> tuple[str, ...]:
     try:
         scanner = tuple(os.scandir(path))
     except FileNotFoundError:
@@ -341,19 +336,19 @@ def recurse_dir(path: str) -> Tuple[str, ...]:
     return tree
 
 
-def recurse_path(path: str) -> Tuple[str, ...]:
+def recurse_path(path: str) -> tuple[str, ...]:
     return (path,) if os.path.isfile(path) else recurse_dir(path)
 
 
-def iter_glob_path(path: str) -> Iterable[str]:
+def iter_glob_path(path: str) -> Iterator[str]:
     if path.startswith("glob(") and path.endswith(")"):
         yield from glob(path[5:-1], recursive=True)
     else:
         yield path
 
 
-def list_paths(include: Tuple[str, ...], exclude: Tuple[str, ...]) -> Set[str]:
-    def evaluate(wkr: ThreadPoolExecutor, paths: Tuple[str, ...]) -> Set[str]:
+def list_paths(include: tuple[str, ...], exclude: tuple[str, ...]) -> set[str]:
+    def evaluate(wkr: ThreadPoolExecutor, paths: tuple[str, ...]) -> set[str]:
         return {
             os.path.normpath(path)
             for path in collapse(
@@ -375,7 +370,7 @@ def list_paths(include: Tuple[str, ...], exclude: Tuple[str, ...]) -> Set[str]:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
 
 
-def split_by_upgradable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
+def split_by_upgradable(paths: set[str]) -> tuple[set[str], set[str]]:
     try:
 
         nu_paths = get_non_upgradable_paths(paths)
@@ -385,7 +380,7 @@ def split_by_upgradable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
         raise SystemExit(f"File does not exist: {exc.filename}") from exc
 
 
-def split_by_verifiable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
+def split_by_verifiable(paths: set[str]) -> tuple[set[str], set[str]]:
     try:
 
         nv_paths = get_non_verifiable_paths(paths)
@@ -396,15 +391,15 @@ def split_by_verifiable(paths: Set[str]) -> Tuple[Set[str], Set[str]]:
 
 
 def split_by_upgradable_and_veriable(
-    paths: Set[str],
-) -> Tuple[Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]:
+    paths: set[str],
+) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     nu_paths, up_paths = split_by_upgradable(paths)
     nv_paths, ok_paths = split_by_verifiable(up_paths)
     return tuple(ok_paths), tuple(nu_paths), tuple(nv_paths)
 
 
 def resolve_paths(
-    include: Tuple[str, ...],
-    exclude: Tuple[str, ...],
-) -> Tuple[Tuple[str, ...], Tuple[str, ...], Tuple[str, ...]]:
+    include: tuple[str, ...],
+    exclude: tuple[str, ...],
+) -> tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]:
     return split_by_upgradable_and_veriable(list_paths(include, exclude))

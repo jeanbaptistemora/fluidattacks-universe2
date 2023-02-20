@@ -7,16 +7,12 @@ from ctx import (
 )
 import hashlib
 import hmac
-from typing import (
-    Dict,
-    Optional,
-)
 
 # Constants
 HASH = hashlib.blake2b  # https://blake2.net/
-_CIPHER_SUITES_IANA: Dict[str, bool] = {}
+_CIPHER_SUITES_IANA: dict[str, bool] = {}
 """Mapping from I.A.N.A. cipher suites to boolean indicating cipher safety."""
-_CIPHER_SUITES_OPEN_SSL: Dict[str, bool] = {}
+_CIPHER_SUITES_OPEN_SSL: dict[str, bool] = {}
 """Mapping from OpenSSL cipher suites to boolean indicating cipher safety."""
 
 
@@ -69,9 +65,7 @@ def is_open_ssl_cipher_suite_vulnerable(identifier: str) -> bool:
     return not safe
 
 
-def is_vulnerable_cipher(
-    alg: str, mode: str, pad: Optional[str] = None
-) -> bool:
+def is_vulnerable_cipher(alg: str, mode: str, pad: str | None = None) -> bool:
     pad = pad or ""
     alg = alg.lower()
     mode = mode.lower()

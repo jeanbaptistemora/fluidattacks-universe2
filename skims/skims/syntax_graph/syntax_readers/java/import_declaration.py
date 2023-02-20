@@ -8,9 +8,6 @@ from syntax_graph.types import (
     MissingCaseHandling,
     SyntaxGraphArgs,
 )
-from typing import (
-    Dict,
-)
 from utils.graph import (
     match_ast,
 )
@@ -31,7 +28,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if childs.get("asterisk"):
         import_text += ".*"
 
-    node_attrs: Dict[str, str] = {
+    node_attrs: dict[str, str] = {
         "expression": import_text,
     }
     return build_import_statement_node(args, node_attrs)

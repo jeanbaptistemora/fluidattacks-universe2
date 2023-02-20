@@ -12,8 +12,6 @@ from glob import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 import yaml
 
@@ -23,15 +21,15 @@ class LocalesEnum(Enum):
     ES: str = "ES"
 
 
-def load_translations() -> Dict[str, Dict[str, str]]:
+def load_translations() -> dict[str, dict[str, str]]:
     """Load the translations data from the static folder.
 
     :raises KeyError: On duplicated translations
     :return: A dictionary mapping keys to a dictionary mapping languages to
         translations
-    :rtype: Dict[str, Dict[str, str]]
+    :rtype: dict[str, dict[str, str]]
     """
-    translations: Dict[str, Dict[str, str]] = {}
+    translations: dict[str, dict[str, str]] = {}
     translations_folder: str = f"{STATIC}/translations"
     for path in iglob(f"{translations_folder}/**/*.yaml", recursive=True):
         with open(path, encoding="utf-8") as handle:
@@ -91,7 +89,7 @@ def load_translations() -> Dict[str, Dict[str, str]]:
     return translations
 
 
-TRANSLATIONS: Dict[str, Dict[str, str]] = load_translations()
+TRANSLATIONS: dict[str, dict[str, str]] = load_translations()
 
 IGNORED_CHARS = str.maketrans(
     "",
@@ -112,7 +110,7 @@ def t(  # pylint: disable=invalid-name
     *args: Any,
     **kwargs: Any,
 ) -> str:
-    locale: Optional[Enum] = kwargs.get("locale")
+    locale: Enum | None = kwargs.get("locale")
 
     return (
         TRANSLATIONS[key][(locale or CTX.config.language).value]

@@ -4,9 +4,6 @@ from git.exc import (
 from git.repo import (
     Repo,
 )
-from typing import (
-    Optional,
-)
 from utils.logs import (
     log_blocking,
 )
@@ -30,7 +27,7 @@ def get_repo_head_hash(path: str) -> str:
     return DEFAULT_COMMIT
 
 
-def get_repo_branch(path: str) -> Optional[str]:
+def get_repo_branch(path: str) -> str | None:
     try:
         repo: Repo = get_repo(path)
         return repo.active_branch.name
@@ -42,8 +39,8 @@ def get_repo_branch(path: str) -> Optional[str]:
     return None
 
 
-def get_repo_remote(path: str) -> Optional[str]:
-    url: Optional[str] = None
+def get_repo_remote(path: str) -> str | None:
+    url: str | None = None
     try:
         repo: Repo = get_repo(path)
         remotes = repo.remotes

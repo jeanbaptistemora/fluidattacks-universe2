@@ -5,8 +5,6 @@ from contextlib import (
 import requests
 from typing import (
     Any,
-    Dict,
-    Optional,
 )
 from urllib3.exceptions import (
     InsecureRequestWarning,
@@ -55,14 +53,14 @@ async def request(
     url: str,
     *args: Any,
     **kwargs: Any,
-) -> Optional[aiohttp.ClientResponse]:
+) -> aiohttp.ClientResponse | None:
     return await session.request(method, url, *args, **kwargs)
 
 
 def request_blocking(
     url: str,
-    headers: Dict[str, str],
-) -> Optional[requests.Response]:
+    headers: dict[str, str],
+) -> requests.Response | None:
     try:
         warnings.simplefilter("ignore", InsecureRequestWarning)
         return requests.get(
