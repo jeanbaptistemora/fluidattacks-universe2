@@ -48,6 +48,7 @@ from newutils.groups import (
     get_group_min_acceptance_severity,
 )
 from newutils.validations import (
+    check_exp,
     get_attr_value,
 )
 import re
@@ -229,6 +230,21 @@ def validate_stream(
 def validate_where(where: str) -> None:
     if not re.match("^[^=/]+.+$", where):
         raise InvalidVulnWhere.new()
+
+
+def validate_where_deco(where_field: str) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            where = get_attr_value(
+                field=where_field, kwargs=kwargs, obj_type=str
+            )
+            check_exp(where, r"^[^=/]+.+$", InvalidVulnWhere.new())
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
 
 
 def validate_path(path: str) -> None:

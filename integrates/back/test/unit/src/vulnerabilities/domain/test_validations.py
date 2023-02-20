@@ -1,6 +1,7 @@
 from custom_exceptions import (
     InvalidPath,
     InvalidSource,
+    InvalidVulnWhere,
 )
 from db_model.enums import (
     Source,
@@ -9,6 +10,7 @@ import pytest
 from vulnerabilities.domain.validations import (
     validate_path_deco,
     validate_source_deco,
+    validate_where_deco,
 )
 
 pytestmark = [
@@ -34,3 +36,13 @@ def test_validate_path_deco() -> None:
     assert decorated_func(path="C:/Program Files/MyApp")
     with pytest.raises(InvalidPath):
         decorated_func(path="C:\\Program Files\\MyApp")
+
+
+def test_validate_where_deco() -> None:
+    @validate_where_deco("where")
+    def decorated_func(where: str) -> str:
+        return where
+
+    assert decorated_func(where="MyVulnerability")
+    with pytest.raises(InvalidVulnWhere):
+        decorated_func(where="=MyVulnerability")
