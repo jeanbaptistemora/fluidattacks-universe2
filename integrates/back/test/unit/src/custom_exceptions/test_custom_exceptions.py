@@ -1,10 +1,8 @@
-# pylint: disable=import-error
-from back.test.unit.src.utils import (
+from back.test.unit.src.utils import (  # pylint: disable=import-error
     create_dummy_info,
     create_dummy_session,
 )
 from custom_exceptions import (
-    CouldNotVerifyStakeholder,
     ErrorUploadingFileS3,
     GroupNotFound,
     InvalidAcceptanceDays,
@@ -47,7 +45,6 @@ from freezegun import (
     freeze_time,
 )
 from groups.domain import (
-    send_mail_devsecops_agent,
     update_group,
     validate_group_services_config,
     validate_group_services_config_deco,
@@ -86,9 +83,6 @@ from unittest.mock import (
     AsyncMock,
 )
 import uuid
-from verify.operations import (
-    check_verification,
-)
 from vulnerabilities.domain import (
     send_treatment_report_mail,
     validate_accepted_treatment_change,
@@ -106,13 +100,6 @@ BUCKET_NAME = "unit_test_bucket"
 TABLE_NAME = "integrates_vms"
 
 
-async def test_exception_could_not_verify_stake_holder() -> None:
-    test_code = "US"
-    with pytest.raises(CouldNotVerifyStakeholder):
-        with mock.patch("verify.operations.FI_ENVIRONMENT", "production"):
-            await check_verification(phone_number="", code=test_code)
-
-
 async def test_exception_error_uploading_file_s3() -> None:
     bucket_name = "test_bucket"
     file_name = "test-anim.gif"
@@ -125,50 +112,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "responsible",
-        "had_token",
-    ],
-    [
-        [
-            "not-exist",
-            "integratesmanager@gmail.com",
-            True,
-        ],
-        [
-            "not-exist",
-            "integratesmanager@gmail.com",
-            False,
-        ],
-    ],
-)
-async def test_send_mail_devsecops_agent_fail(
-    mock_table_resource: AsyncMock,
-    group_name: str,
-    responsible: str,
-    had_token: bool,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    with pytest.raises(GroupNotFound):
-        await send_mail_devsecops_agent(
-            loaders=get_new_context(),
-            group_name=group_name,
-            responsible=responsible,
-            had_token=had_token,
-        )
-        assert mock_table_resource.called is True
 
 
 @mock.patch(

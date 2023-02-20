@@ -1,4 +1,7 @@
 # pylint: disable=too-many-lines
+from custom_exceptions import (
+    GroupNotFound,
+)
 from dataloaders import (
     apply_context_attrs,
 )
@@ -3766,6 +3769,83 @@ mocked_responses: dict[str, dict[str, Any]] = {
                 "2022-08-06T19:28:00+00:00"
             ),
         )
+    },
+    "db_model.groups.get._get_group": {
+        '["unittesting", "does-not-exist"]': [
+            Group(
+                created_by="unknown",
+                created_date=datetime.fromisoformat(
+                    "2018-03-08T00:43:18+00:00"
+                ),
+                description="Integrates unit test group",
+                language=GroupLanguage.EN,
+                name="unittesting",
+                organization_id="ORG#38eb8f25-7945-4173-ab6e-0af4ad8b7ef3",
+                state=GroupState(
+                    has_machine=True,
+                    has_squad=True,
+                    managed=GroupManaged.NOT_MANAGED,
+                    modified_by="unknown",
+                    modified_date=datetime.fromisoformat(
+                        "2018-03-08T00:43:18+00:00"
+                    ),
+                    status=GroupStateStatus.ACTIVE,
+                    tier=GroupTier.MACHINE,
+                    type=GroupSubscriptionType.CONTINUOUS,
+                    tags={"test-updates", "test-tag", "test-groups"},
+                    comments=None,
+                    justification=None,
+                    payment_id=None,
+                    pending_deletion_date=None,
+                    service=GroupService.WHITE,
+                ),
+                agent_token=None,
+                business_id="14441323",
+                business_name="Testing Company and Sons",
+                context="Group context test",
+                disambiguation="Disambiguation test",
+                files=[
+                    GroupFile(
+                        description="Test",
+                        file_name="test.zip",
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-03-01T20:21:00+00:00"
+                        ),
+                    ),
+                    GroupFile(
+                        description="shell",
+                        file_name="shell.exe",
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-24T19:56:00+00:00"
+                        ),
+                    ),
+                    GroupFile(
+                        description="shell2",
+                        file_name="shell2.exe",
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-04-24T19:56:00+00:00"
+                        ),
+                    ),
+                    GroupFile(
+                        description="eerweterterter",
+                        file_name="asdasd.py",
+                        modified_by="unittest@fluidattacks.com",
+                        modified_date=datetime.fromisoformat(
+                            "2019-08-06T19:28:00+00:00"
+                        ),
+                    ),
+                ],
+                policies=None,
+                sprint_duration=2,
+                sprint_start_date=datetime.fromisoformat(
+                    "2022-08-06T19:28:00+00:00"
+                ),
+            ),
+            GroupNotFound(),
+        ],
     },
     "db_model.group_access.get.GroupAccessLoader.load": {
         '["integrateshacker@fluidattacks.com", "unittesting",'
