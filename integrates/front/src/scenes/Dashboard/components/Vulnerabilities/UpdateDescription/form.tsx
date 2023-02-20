@@ -47,6 +47,7 @@ import { TreatmentField } from "./TreatmentField";
 import { GET_FINDING_HEADER } from "../../../containers/Finding-Content/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED_IDS } from "../../Navbar/Tasks/queries";
 import { UpdateDescriptionContext } from "../VulnerabilityModal/context";
+import { Row } from "components/Layout";
 import { GET_GROUP_USERS } from "scenes/Dashboard/components/Vulnerabilities/queries";
 import type {
   IUpdateVulnerabilityForm,
@@ -77,7 +78,7 @@ import type { IHistoricTreatment } from "scenes/Dashboard/containers/Finding-Con
 import { GET_FINDING_AND_GROUP_INFO } from "scenes/Dashboard/containers/Finding-Content/VulnerabilitiesView/queries";
 import { GET_GROUP_VULNERABILITIES } from "scenes/Dashboard/containers/Group-Content/GroupFindingsView/queries";
 import { GET_ME_VULNERABILITIES_ASSIGNED } from "scenes/Dashboard/containers/Tasks-Content/Vulnerabilities/queries";
-import { Col100, Col50, Row } from "styles/styledComponents";
+import { Col100, Col50 } from "styles/styledComponents";
 import type { IAuthContext } from "utils/auth";
 import { authContext } from "utils/auth";
 import {
