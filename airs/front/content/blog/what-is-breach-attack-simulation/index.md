@@ -82,7 +82,8 @@ We will expand on this in a future blog post.
 
 Breach and attack simulation tools may produce results faster than humans,
 but accuracy is a concern.
-Automation is prone to lies (false positives) and omissions (false negatives).
+Automation is prone to errors in its reports
+(false positives and false negatives).
 What's more,
 these technologies have to be updated constantly
 after understanding the latest TTPs of advanced persistent threats (APT).
