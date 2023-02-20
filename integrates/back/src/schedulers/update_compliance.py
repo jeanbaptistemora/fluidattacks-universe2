@@ -330,7 +330,6 @@ async def get_organization_standard_compliances(
     organization: Organization,
     compliance_file: dict[str, Any],
     requirements_file: dict[str, Any],
-    vulnerabilities_file: dict[str, Any],
 ) -> list[OrganizationStandardCompliance]:
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
@@ -352,10 +351,7 @@ async def get_organization_standard_compliances(
             open_findings.append(finding)
 
     requirements_by_finding = tuple(
-        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
-            "requirements"
-        ]
-        for finding in open_findings
+        finding.unfulfilled_requirements for finding in open_findings
     )
     non_compliance_definitions_by_standard = defaultdict(set)
     for requirements in requirements_by_finding:
@@ -372,7 +368,9 @@ async def get_organization_standard_compliances(
                 (
                     len(standard["definitions"])
                     - len(
-                        non_compliance_definitions_by_standard[standard_name]
+                        non_compliance_definitions_by_standard[
+                            standard_name
+                        ].intersection(set(standard["definitions"]))
                     )
                 )
                 / len(standard["definitions"])
@@ -500,7 +498,6 @@ async def update_organization_compliance(
         organization=organization,
         compliance_file=compliance_file,
         requirements_file=requirements_file,
-        vulnerabilities_file=vulnerabilities_file,
     )
     await orgs_model.update_unreliable_indicators(
         organization_id=organization.id,
