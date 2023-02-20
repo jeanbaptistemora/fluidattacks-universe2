@@ -193,8 +193,11 @@ def get_danger_n_id(
 ) -> Optional[NId]:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation and evaluation.danger:
-            return n_id
+        if evaluation:
+            if evaluation.danger:
+                return n_id
+            if vuln_n_id := next(iter(evaluation.triggers), None):
+                return vuln_n_id
     return None
 
 
@@ -210,7 +213,9 @@ def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
             method_args_n_ids = g.adj_ast(
                 graph, nodes[n_id].get("arguments_id"), 1
             )
-            if len(method_args_n_ids) < 3:
+            if len(method_args_n_ids) < 3 or nodes[method_args_n_ids[2]].get(
+                "label_type"
+            ) not in {"Object", "SymbolLookup"}:
                 vuln_nodes.append(n_id)
                 continue
 

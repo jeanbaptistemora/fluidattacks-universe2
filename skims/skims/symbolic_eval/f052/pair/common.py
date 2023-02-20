@@ -37,3 +37,25 @@ def insecure_key_pair(
             args.triggers.add("unsafecurve")
 
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def insecure_sign(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    nodes = args.graph.nodes
+    key_id = nodes[args.n_id].get("key_id")
+    value_id = nodes[args.n_id].get("value_id")
+
+    if (nodes[key_id].get("label_type") == "SymbolLookup") and (
+        nodes[key_id].get("symbol").lower() == "algorithm"
+        and (label_type := nodes[value_id].get("label_type"))
+    ):
+        if (label_type == "Literal") and (
+            nodes[value_id].get("value").lower()[1:-1] == "hs256"
+        ):
+            args.triggers.add(args.n_id)
+        elif label_type == "SymbolLookup" and (
+            symbol := nodes[value_id].get("symbol")
+        ):
+            args.triggers.add(f"{symbol}_{value_id}")
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

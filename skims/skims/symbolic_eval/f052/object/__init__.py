@@ -3,6 +3,7 @@ from model.core_model import (
 )
 from symbolic_eval.f052.object.common import (
     insecure_encrypt,
+    insecure_sign,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -13,6 +14,8 @@ from symbolic_eval.types import (
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JS_INSECURE_ENCRYPT: insecure_encrypt,
     MethodsEnum.TS_INSECURE_ENCRYPT: insecure_encrypt,
+    MethodsEnum.JS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
+    MethodsEnum.TS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
 }
 
 

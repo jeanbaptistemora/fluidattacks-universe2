@@ -4,6 +4,7 @@ from model.core_model import (
 from symbolic_eval.f052.pair.common import (
     insecure_key_pair,
     insecure_mode,
+    insecure_sign,
 )
 from symbolic_eval.types import (
     Evaluator,
@@ -18,6 +19,8 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.TS_INSECURE_EC_KEYPAIR: insecure_key_pair,
     MethodsEnum.JS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
     MethodsEnum.TS_INSECURE_RSA_KEYPAIR: insecure_key_pair,
+    MethodsEnum.JS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
+    MethodsEnum.TS_JWT_INSEC_SIGN_ALGORITHM: insecure_sign,
 }
 
 
