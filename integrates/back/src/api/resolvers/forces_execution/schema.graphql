@@ -20,7 +20,8 @@ type ForcesExecution {
   groupName: String!
   "Kind of application security testing technique applied"
   kind: String
-  "Forces execution log"
+  """Forces execution log. It is recommended to check this string with a
+  viewer capable of reading ANSI escape codes"""
   log: String!
   """Minimum CVSS score of an `open` vulnerability for DevSecOps to break the
   build in strict mode"""

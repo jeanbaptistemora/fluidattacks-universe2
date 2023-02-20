@@ -81,7 +81,7 @@ async def entrypoint(
                     "info",
                     (
                         f"Running DevSecOps agent for vulnerabilities in the "
-                        f"repo: [bright_yellow]{config.repository_name}[/]"
+                        f"repo: [bright_yellow]{config.repository_name}[/] "
                         f"of group {config.group}"
                     ),
                 )

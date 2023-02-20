@@ -30,6 +30,7 @@ TIMEZONE: ZoneInfo = ZoneInfo("America/Bogota")
 def test_set_breaking_severity() -> None:
     assert set_breaking_severity(0.0, 5.0) == Decimal("0.0")
     assert set_breaking_severity(0.1, 5.0) == Decimal("0.1")
+    assert set_breaking_severity(6.0, 4.0) == Decimal("4.0")
     assert set_breaking_severity(None, 0.0) == Decimal("0.0")
     assert set_breaking_severity(None, 5.0) == Decimal("5.0")
     assert set_breaking_severity(None, None) == Decimal("0.0")

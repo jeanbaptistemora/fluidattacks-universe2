@@ -26,8 +26,11 @@ def set_breaking_severity(
         `cli_severity_policy (float | None)`: The value set in the CLI
 
     Returns:
-        Decimal: The global value if it exists, local otherwise, 0.0 otherwise
+        `Decimal`: `min(arm, cli)` if both exist, ARM value otherwise,
+        local otherwise, 0.0 otherwise
     """
+    if arm_severity_policy is not None and cli_severity_policy is not None:
+        return Decimal(str(min(arm_severity_policy, cli_severity_policy)))
     if arm_severity_policy is not None:
         return Decimal(str(arm_severity_policy))
     if cli_severity_policy is not None:

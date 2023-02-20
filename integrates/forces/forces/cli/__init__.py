@@ -143,8 +143,8 @@ def show_banner() -> None:
     default=None,
     help="""Vulnerable spots with a CVSS score below this threshold won't
     break the build. Keep in mind that the value set, if set, in your ARM
-    organization/group's policies takes precedence over the one passed to
-    this CLI setting. (Strict mode only)""",
+    organization/group's policies will cap the one passed to this CLI setting.
+    (Strict mode only)""",
     type=click.FloatRange(min=0.0, max=10.0),
 )
 # pylint: disable=too-many-arguments
