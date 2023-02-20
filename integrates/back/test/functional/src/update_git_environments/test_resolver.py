@@ -32,6 +32,9 @@ from db_model.toe_inputs.types import (
     RootToeInputsRequest,
     ToeInput,
 )
+from freezegun import (
+    freeze_time,
+)
 import hashlib
 import pytest
 from typing import (
@@ -63,6 +66,7 @@ async def _get_root_toe_inputs(
         ["admin@gmail.com"],
     ],
 )
+@freeze_time("2022-11-25T05:00:00.00")
 async def test_add_git_environments(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
@@ -116,7 +120,12 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
         key=lambda x: x["url"],
     ) == sorted(
         [
-            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            {
+                "createdAt": "2022-11-25T05:00:00+00:00",
+                "createdBy": "admin@gmail.com",
+                "url": url,
+                "urlType": RootEnvironmentUrlType.URL,
+            }
             for url in env_urls
         ],
         key=lambda x: x["url"],
@@ -132,6 +141,7 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
         ["admin@gmail.com"],
     ],
 )
+@freeze_time("2022-11-25T05:00:00.00")
 async def test_remove_git_environments(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
@@ -156,10 +166,15 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
         key=lambda x: x["url"],
     ) == sorted(
         [
-            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            {
+                "createdAt": None,
+                "createdBy": None,
+                "url": url,
+                "urlType": RootEnvironmentUrlType.URL,
+            }
             for url in env_urls
         ],
-        key=lambda x: x["url"],
+        key=lambda x: str(x["url"]),
     )
     assert root.state.environment_urls == env_urls
 
@@ -207,7 +222,12 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     assert result_group["data"]["root"] == {
         "environmentUrls": [env_urls[0]],
         "gitEnvironmentUrls": [
-            {"url": url, "urlType": RootEnvironmentUrlType.URL}
+            {
+                "createdAt": None,
+                "createdBy": None,
+                "url": url,
+                "urlType": RootEnvironmentUrlType.URL,
+            }
             for url in [env_urls[0]]
         ],
         "id": "88637616-41d4-4242-854a-db8ff7fe1ab7",
@@ -223,6 +243,7 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
         ["admin@gmail.com"],
     ],
 )
+@freeze_time("2022-11-25T05:00:00.00")
 async def test_add_git_environment_url(populate: bool, email: str) -> None:
     assert populate
     group_name: str = "group1"
@@ -241,6 +262,25 @@ async def test_add_git_environment_url(populate: bool, email: str) -> None:
     )
     assert "errors" not in result
     assert result["data"]["addGitEnvironmentUrl"]["success"]
+
+    result_group: dict = await get_git_root(
+        user=email,
+        group=group_name,
+        root_id=root_id,
+    )
+    assert (
+        next(
+            (
+                env_url["createdBy"]
+                for env_url in result_group["data"]["root"][
+                    "gitEnvironmentUrls"
+                ]
+                if env_url["url"] == env_urls
+            ),
+            "",
+        )
+        == email
+    )
 
     loaders.root_environment_urls.clear_all()
     assert len(await loaders.root_environment_urls.load(root_id)) == 3

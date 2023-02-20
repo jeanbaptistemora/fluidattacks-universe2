@@ -211,6 +211,8 @@ async def get_git_root(*, user: str, group: str, root_id: str) -> dict:
                     id
                     environmentUrls
                     gitEnvironmentUrls {
+                        createdAt
+                        createdBy
                         url
                         urlType
                     }
