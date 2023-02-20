@@ -434,7 +434,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_admin_policy_attached.yam
   16 | }
      ^ Col 0
 ",cloudformation.cfn_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf,23,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf","
   13 |           ""Effect"": ""Allow"",
   14 |           ""Sid"": """"
   15 |         }
@@ -458,7 +458,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf
   33 |   policy_arn = ""arn:aws:iam::aws:policy/IAMFullAccess""
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf,38,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf","
   19 | }
   20 |
   21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {
@@ -482,7 +482,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf
   39 | }
      ^ Col 0
 ",terraform.terraform_admin_policy_attached
-F031,lines,namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_path/f031/hcl2_admin_policy_attached.tf","
+F031,lines,namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf,33,250,skims,031. Excessive privileges - AWS,"Excessive privileges, complete access over all resources in namespace/skims/test/data/lib_root/f031/hcl2_admin_policy_attached.tf","
   19 | }
   20 |
   21 | resource ""aws_iam_role_policy_attachment"" ""test-attach1"" {

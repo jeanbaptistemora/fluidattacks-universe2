@@ -3216,7 +3216,7 @@ class MethodsEnum(Enum):
     TFM_ADMIN_POLICY = MethodInfo(
         file_name="terraform",
         name="terraform_admin_policy_attached",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F031,
         developer=DeveloperEnum.ANDRES_CUBEROS,
         technique=TechniqueEnum.BASIC_SAST,

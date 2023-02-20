@@ -14,7 +14,6 @@ from lib_path.f031.cloudformation import (
     cfn_negative_statement,
 )
 from lib_path.f031.terraform import (
-    terraform_admin_policy_attached,
     terraform_negative_statement,
     terraform_open_passrole,
     tfm_bucket_policy_allows_public_access,
@@ -86,16 +85,6 @@ def run_cfn_iam_has_full_access_to_ssm(
 ) -> Vulnerabilities:
     return cfn_iam_has_full_access_to_ssm(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_terraform_admin_policy_attached(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    # cfn_nag W43 IAM role should not have AdministratorAccess policy
-    return terraform_admin_policy_attached(
-        content=content, path=path, model=model
     )
 
 
@@ -189,7 +178,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_terraform_admin_policy_attached,
                     run_tfm_bucket_policy_allows_public_access,
                     run_tfm_iam_excessive_role_policy,
                     run_terraform_negative_statement,
