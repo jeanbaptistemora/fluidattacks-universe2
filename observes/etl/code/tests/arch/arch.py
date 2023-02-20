@@ -28,7 +28,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "_keeper",
         "_report",
         "_getter",
-        ("core", "_retry"),
+        ("core",),
     ),
     "code_etl.clients": (
         "_dry_client",

@@ -36,7 +36,6 @@ from fa_purity.utils import (
 from functools import (
     lru_cache,
 )
-import logging
 from ratelimiter import (  # type: ignore[import]
     RateLimiter,
 )
@@ -54,19 +53,11 @@ from redshift_client.sql_client.query import (
 from typing import (
     Dict,
     FrozenSet,
-    NoReturn,
 )
-
-LOG = logging.getLogger(__name__)
 
 
 class UnexpectedResponse(Exception):
     pass
-
-
-def _log_and_raise(log: Cmd[None], err: Exception) -> NoReturn:
-    unsafe_unwrap(log)
-    raise err
 
 
 @RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
