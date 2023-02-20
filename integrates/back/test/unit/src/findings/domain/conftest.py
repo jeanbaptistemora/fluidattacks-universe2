@@ -215,6 +215,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2020-01-19T15:41:04+00:00",
                 status="REQUESTED",
             ),
+            unfulfilled_requirements=["029", "174"],
         ),
         dict(
             severity=dict(
@@ -358,6 +359,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2018-04-08T00:43:18+00:00",
                 status="CREATED",
             ),
+            unfulfilled_requirements=["266"],
         ),
         dict(
             severity=dict(
@@ -476,6 +478,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2018-04-08T00:43:18+00:00",
                 status="CREATED",
             ),
+            unfulfilled_requirements=["077", "176"],
         ),
         dict(
             treatment=dict(
@@ -705,10 +708,12 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 rejection=None,
                 justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
-            description="La aplicación permite engañar a un usuario \
-            autenticado por medio de links manipulados para \
-            ejecutaracciones sobre la aplicación sin su \
-            consentimiento.",
+            description=(
+                "La aplicación permite engañar a un usuario            "
+                " autenticado por medio de links manipulados para            "
+                " ejecutaracciones sobre la aplicación sin su            "
+                " consentimiento."
+            ),
             evidences=FindingEvidences(
                 animation=None,
                 evidence1=FindingEvidence(
@@ -750,12 +755,16 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 records=None,
             ),
             min_time_to_remediate=18,
-            recommendation="Hacer uso de tokens en los formularios para la \
-            verificación de las peticiones realizadas por usuarios \
-            legítimos.",
-            requirements="REQ.0174. La aplicación debe garantizar que las \
-            peticiones que ejecuten transacciones no sigan un \
-            patróndiscernible.",
+            recommendation=(
+                "Hacer uso de tokens en los formularios para la            "
+                " verificación de las peticiones realizadas por usuarios      "
+                "       legítimos."
+            ),
+            requirements=(
+                "REQ.0174. La aplicación debe garantizar que las            "
+                " peticiones que ejecuten transacciones no sigan un           "
+                "  patróndiscernible."
+            ),
             severity=Finding31Severity(
                 attack_complexity=Decimal("0.44"),
                 attack_vector=Decimal("0.62"),
@@ -792,6 +801,7 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
             threat="Test.",
+            unfulfilled_requirements=["029", "174"],
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=1,
                 unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long
@@ -865,12 +875,15 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 rejection=None,
                 justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
-            description="The source code uses generic exceptions to handle \
-            unexpected errors. Catching generic exceptions obscures the \
-            problem that caused the error and promotes a generic way to \
-            handle different categories or sources of error. This may \
-            cause security vulnerabilities to materialize, as some special \
-            flows go unnoticed.",
+            description=(
+                "The source code uses generic exceptions to handle            "
+                " unexpected errors. Catching generic exceptions obscures the "
+                "            problem that caused the error and promotes a"
+                " generic way to             handle different categories or"
+                " sources of error. This may             cause security"
+                " vulnerabilities to materialize, as some special            "
+                " flows go unnoticed."
+            ),
             evidences=FindingEvidences(
                 animation=FindingEvidence(
                     description="Test description",
@@ -930,8 +943,10 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 ),
             ),
             min_time_to_remediate=18,
-            recommendation="Implement password politicies with the best \
-                practicies for strong passwords.",
+            recommendation=(
+                "Implement password politicies with the best                "
+                " practicies for strong passwords."
+            ),
             requirements="R359. Avoid using generic exceptions.",
             severity=Finding31Severity(
                 attack_complexity=Decimal("0.77"),
@@ -968,9 +983,12 @@ findings: Dict[str, Tuple[Finding, ...]] = {
                 rejection=None,
                 justification=StateRemovalJustification.NO_JUSTIFICATION,
             ),
-            threat="An attacker can get passwords of users and \
-                impersonatethem or used the credentials for practices \
-                maliciosus.",
+            threat=(
+                "An attacker can get passwords of users and                "
+                " impersonatethem or used the credentials for practices       "
+                "          maliciosus."
+            ),
+            unfulfilled_requirements=["266"],
             unreliable_indicators=FindingUnreliableIndicators(
                 unreliable_closed_vulnerabilities=0,
                 unreliable_newest_vulnerability_report_date=datetime.fromisoformat(  # noqa: E501 pylint: disable=line-too-long

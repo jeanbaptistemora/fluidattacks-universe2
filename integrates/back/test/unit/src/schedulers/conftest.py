@@ -192,6 +192,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2019-04-08T00:43:18+00:00",
                 status="CREATED",
             ),
+            unfulfilled_requirements=["176", "177", "261", "300"],
             verification=dict(
                 modified_by="integrateshacker@fluidattacks.com",
                 vulnerability_ids=["15375781-31f2-4953-ac77-f31134225747"],
@@ -343,6 +344,7 @@ data: Dict[str, List[Any]] = dict(
                 modified_date="2018-04-08T00:43:18+00:00",
                 status="CREATED",
             ),
+            unfulfilled_requirements=["266"],
             verification=dict(
                 modified_by="integrateshacker@fluidattacks.com",
                 vulnerability_ids=["15375781-31f2-4953-ac77-f31134225747"],
@@ -415,6 +417,7 @@ data: Dict[str, List[Any]] = dict(
                 unreliable_status="VULNERABLE",
             ),
             title="014. Insecure functionality",
+            unfulfilled_requirements=["266"],
             analyst_email="integratesmanager@gmail.com",
             cvss_version="3.1",
             sk="GROUP#unittesting",
