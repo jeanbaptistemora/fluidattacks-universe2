@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { MemoryRouter, Route, Switch } from "react-router-dom";
 
 import { Environments } from "./environments";
-import { Repository } from "./repository";
+import { UpdateRepository } from "./updateRepository";
 
 import { Secrets } from "../../Secrets";
 import type { IFormValues } from "../../types";
@@ -129,27 +129,9 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                 title={t("group.scope.common.confirm")}
               >
                 {(confirm): React.ReactNode => {
-                  async function confirmAndSubmit(
-                    values: IFormValues
-                  ): Promise<void> {
-                    if (isEditing && values.branch !== initialValues.branch) {
-                      return new Promise((resolve): void => {
-                        confirm(
-                          (): void => {
-                            resolve(onSubmitRepo(values));
-                          },
-                          (): void => {
-                            resolve();
-                          }
-                        );
-                      });
-                    }
-
-                    return onSubmitRepo(values);
-                  }
-
                   return (
-                    <Repository
+                    <UpdateRepository
+                      confirm={confirm}
                       finishTour={finishTour}
                       initialValues={initialValues}
                       isEditing={isEditing}
@@ -157,7 +139,7 @@ const ManagementModal: React.FC<IManagementModalProps> = ({
                       modalMessages={modalMessages}
                       nicknames={nicknames}
                       onClose={onClose}
-                      onSubmit={confirmAndSubmit}
+                      onSubmitRepo={onSubmitRepo}
                       runTour={runTour}
                     />
                   );
