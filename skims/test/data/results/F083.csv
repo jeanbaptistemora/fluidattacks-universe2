@@ -49,6 +49,48 @@ F083,lines,namespace/skims/test/data/lib_root/f083/js_xml_parser_injection.js,20
   30 |   const xmlGoodDoc = libxmljs.parseXmlString(xml); // Compliant: noent set to false by default
      ^ Col 0
 ",javascript.js_xml_parser
+F083,lines,namespace/skims/test/data/lib_root/f083/python_xml_parser_inj.py,12,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
+ in namespace/skims/test/data/lib_root/f083/python_xml_parser_inj.py","
+   1 | # pylint: skip-file
+   2 | from lxml import (
+   3 |     etree,
+   4 | )
+   5 |
+   6 | CONFIG_VAL = True
+   7 |
+   8 |
+   9 | def main_unsafe() -> None:
+  10 |     # Noncompliant: by default resolve_entities is set to true
+  11 |     etree.XMLParser()
+> 12 |     etree.XMLParser(resolve_entities=CONFIG_VAL)
+  13 |
+  14 |
+  15 | def main_safe() -> None:
+  16 |     config_val = False
+  17 |     etree.XMLParser(resolve_entities=config_val)  # Compliant
+     ^ Col 0
+",python.python_xml_parser
+F083,lines,namespace/skims/test/data/lib_root/f083/python_xml_parser_inj.py,11,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
+ in namespace/skims/test/data/lib_root/f083/python_xml_parser_inj.py","
+   1 | # pylint: skip-file
+   2 | from lxml import (
+   3 |     etree,
+   4 | )
+   5 |
+   6 | CONFIG_VAL = True
+   7 |
+   8 |
+   9 | def main_unsafe() -> None:
+  10 |     # Noncompliant: by default resolve_entities is set to true
+> 11 |     etree.XMLParser()
+  12 |     etree.XMLParser(resolve_entities=CONFIG_VAL)
+  13 |
+  14 |
+  15 | def main_safe() -> None:
+  16 |     config_val = False
+  17 |     etree.XMLParser(resolve_entities=config_val)  # Compliant
+     ^ Col 0
+",python.python_xml_parser
 F083,lines,namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts,14,611,skims,083. XML injection (XXE),"Access to external entities in XML parsing is enabled.
  in namespace/skims/test/data/lib_root/f083/ts_xml_parser_injection.ts","
    4 | const fs = require(""fs"");
