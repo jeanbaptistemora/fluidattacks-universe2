@@ -7,6 +7,9 @@ from concurrent.futures import (
 from contextlib import (
     suppress,
 )
+from git.cmd import (
+    Git,
+)
 from git.exc import (
     GitError,
 )
@@ -205,6 +208,17 @@ def download_repo_from_s3(
         LOGGER.error("filed to unzip %s", nickname)
 
     os.remove(file_path)
+    with suppress(Exception):
+        Git().execute(
+            [
+                "git",
+                "config",
+                "--global",
+                "--add",
+                "safe.directory",
+                str(repo_path.resolve()),
+            ]
+        )
 
     try:
         repo = Repo(repo_path.resolve())
