@@ -137,7 +137,79 @@ async def serves_content_over_insecure_protocols(
     return vulns
 
 
+async def elbv2_uses_insecure_ssl_protocol(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    method = core_model.MethodsEnum.AWS_ELBV2_INSECURE_PROTOCOLS
+    acceptable_protos = ["SSLv3", "TLSv1", "TLSv1.1"]
+    describe_load_balancers: dict[str, Any] = await run_boto3_fun(
+        credentials,
+        service="elbv2",
+        function="describe_load_balancers",
+    )
+    balancers = (
+        describe_load_balancers.get("LoadBalancers", [])
+        if describe_load_balancers
+        else []
+    )
+    vulns: core_model.Vulnerabilities = ()
+    if balancers:
+        for balancer in balancers:
+            load_balancer_arn = balancer["LoadBalancerArn"]
+
+            config: dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="elbv2",
+                function="describe_listeners",
+                parameters={
+                    "LoadBalancerArn": str(load_balancer_arn),
+                },
+            )
+            locations: list[Location] = []
+            listeners = config.get("Listeners", [])
+            for listener in listeners:
+                if listener.get("SslPolicy", ""):
+                    describe_ssl_policies: dict[
+                        str, Any
+                    ] = await run_boto3_fun(
+                        credentials,
+                        service="elbv2",
+                        function="describe_ssl_policies",
+                        parameters={
+                            "Names": [listener["SslPolicy"]],
+                        },
+                    )
+                    policy = describe_ssl_policies.get("SslPolicies", [])
+                    locations = [
+                        Location(
+                            access_patterns=("/0/SslProtocols",),
+                            arn=(f"{listener['LoadBalancerArn']}"),
+                            values=(protocol,),
+                            description=(
+                                "lib_path.f016."
+                                "elbv2_uses_insecure_ssl_protocol"
+                            ),
+                        )
+                        for protocol in policy[0]["SslProtocols"]
+                        if protocol in acceptable_protos
+                    ]
+
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=method,
+                            aws_response=policy,
+                        ),
+                    )
+
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
-] = (serves_content_over_insecure_protocols,)
+] = (
+    serves_content_over_insecure_protocols,
+    elbv2_uses_insecure_ssl_protocol,
+)
