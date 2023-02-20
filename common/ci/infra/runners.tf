@@ -1,26 +1,44 @@
 locals {
   runners = {
     small = {
-      root_size = 10
-      replicas  = 4
-      instance  = "c5ad.large"
-      tags      = ["small"]
-      docker_machine_options = [
-        "amazonec2-volume-type=gp3",
-        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-        "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-      ]
+      runner = {
+        version  = "15.4.0"
+        replicas = 4
+        tags     = ["small"]
+      }
+      workers = {
+        instance  = "c5ad.large"
+        root_size = 10
+        docker_machine_options = [
+          "amazonec2-volume-type=gp3",
+          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+          "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
+        ]
+        idle = {
+          count = 5
+          time  = 1800
+        }
+      }
     }
     large = {
-      root_size = 10
-      replicas  = 1
-      instance  = "m5d.large"
-      tags      = ["large"]
-      docker_machine_options = [
-        "amazonec2-volume-type=gp3",
-        "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-        "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-      ]
+      runner = {
+        version  = "15.4.0"
+        replicas = 1
+        tags     = ["large"]
+      }
+      workers = {
+        instance  = "m5d.large"
+        root_size = 10
+        docker_machine_options = [
+          "amazonec2-volume-type=gp3",
+          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+          "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
+        ]
+        idle = {
+          count = 5
+          time  = 1800
+        }
+      }
     }
   }
 }
@@ -30,14 +48,13 @@ module "runners" {
   version = "5.1.0"
   for_each = merge([
     for name, values in local.runners : {
-      for replica in range(values.replicas) : "${name}_${replica}" => values
+      for replica in range(values.runner.replicas) : "${name}_${replica}" => values
     }
   ]...)
 
   # AWS
   # https://gitlab.com/gitlab-org/gitlab-runner/-/tags?sort=version_desc
   aws_region                             = "us-east-1"
-  gitlab_runner_version                  = "15.4.0"
   vpc_id                                 = data.aws_vpc.main.id
   allow_iam_service_linked_role_creation = true
   enable_kms                             = true
@@ -58,6 +75,7 @@ module "runners" {
 
   # Runner
   instance_type                     = "c5a.large"
+  gitlab_runner_version             = each.value.runner.version
   enable_runner_ssm_access          = true
   subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
   runner_instance_ebs_optimized     = true
@@ -76,7 +94,7 @@ module "runners" {
   }
   gitlab_runner_registration_config = {
     registration_token = var.gitlabRunnerToken
-    tag_list           = join(",", each.value.tags)
+    tag_list           = join(",", each.value.runner.tags)
     description        = "common-ci-${each.key}"
     locked_to_project  = "true"
     run_untagged       = "false"
@@ -86,25 +104,25 @@ module "runners" {
 
   # Workers
   enable_docker_machine_ssm_access = true
-  docker_machine_options           = each.value.docker_machine_options
+  docker_machine_options           = each.value.workers.docker_machine_options
   docker_machine_spot_price_bid    = ""
-  docker_machine_instance_type     = each.value.instance
+  docker_machine_instance_type     = each.value.workers.instance
   runners_gitlab_url               = "https://gitlab.com"
   runners_executor                 = "docker+machine"
-  runners_root_size                = each.value.root_size
+  runners_root_size                = each.value.workers.root_size
   runners_concurrent               = 1000
   runners_ebs_optimized            = true
-  runners_idle_count               = 3
-  runners_idle_time                = 1800
+  runners_idle_count               = each.value.workers.idle.count
+  runners_idle_time                = each.value.workers.idle.time
   runners_image                    = "docker"
   runners_limit                    = 1000
   runners_max_builds               = 30
   runners_monitoring               = false
   runners_name                     = "common-ci-${each.key}"
-  runners_output_limit             = 4096
+  runners_output_limit             = 8192
   runners_privileged               = false
   runners_pull_policy              = "always"
-  runners_request_concurrency      = 10
+  runners_request_concurrency      = 100
   runners_request_spot_instance    = true
   runners_use_private_address      = false
   subnet_id_runners                = data.aws_subnet.main.id

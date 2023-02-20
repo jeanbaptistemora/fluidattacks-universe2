@@ -53,10 +53,6 @@ in {
           };
         }
         {
-          output = "/deployTerraform/commonCi";
-          gitlabExtra = gitlabDeployInfra;
-        }
-        {
           output = "/deployTerraform/commonCompute";
           gitlabExtra = gitlabDeployInfra;
         }
@@ -66,6 +62,10 @@ in {
         }
         {
           output = "/deployTerraform/commonFoss";
+          gitlabExtra = gitlabDeployInfra;
+        }
+        {
+          output = "/deployTerraform/commonK8s";
           gitlabExtra = gitlabDeployInfra;
         }
         {
