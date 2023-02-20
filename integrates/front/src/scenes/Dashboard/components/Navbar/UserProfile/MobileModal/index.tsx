@@ -25,9 +25,10 @@ import type {
 } from "./types";
 import { VerificationCodeField } from "./VerificationCodeField";
 
+import { Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { GET_USER } from "scenes/Dashboard/queries";
-import { Col100, Row } from "styles/styledComponents";
+import { Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import type { IPhoneData } from "utils/forms/fields/PhoneNumber/FormikPhone/types";
 import { Logger } from "utils/logger";
