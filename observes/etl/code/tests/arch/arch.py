@@ -48,7 +48,8 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
     ),
     "code_etl.arm": (
         ("_ignored_paths", "_group_org"),
-        ("_raw_client", "_retry"),
+        "_raw_client",
+        "_retry",
     ),
     "code_etl.arm._retry": (
         ("delay", "handlers"),
