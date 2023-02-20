@@ -22,6 +22,7 @@ const GET_ROOTS: DocumentNode = gql`
             url
             id
             createdAt
+            createdBy
             urlType
           }
           gitignore

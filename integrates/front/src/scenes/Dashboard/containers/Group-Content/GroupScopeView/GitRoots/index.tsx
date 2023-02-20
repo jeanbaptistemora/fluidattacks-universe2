@@ -11,7 +11,13 @@ import type {
   VisibilityState,
 } from "@tanstack/react-table";
 import _ from "lodash";
-import React, { Fragment, useCallback, useContext, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useTranslation } from "react-i18next";
 
 import { renderEnvDescription } from "./envDescription";
@@ -89,17 +95,46 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const canShowModal: boolean =
     permissions.can("api_resolvers_git_root_secrets_resolve") ||
     permissions.can("api_mutations_update_git_root_mutate");
-  const roots = rootsAttr.map(
-    (root: IGitRootAttr): IGitRootData => ({
-      ...root,
-      environmentUrls: root.gitEnvironmentUrls.map(
-        (gitEnvironmentUrl: IEnvironmentUrl): string => gitEnvironmentUrl.url
-      ),
-    })
+
+  const roots = useMemo(
+    (): IGitRootData[] =>
+      rootsAttr.map((root: IGitRootAttr): IGitRootData => {
+        const lastChange: { date: Date; user: string } =
+          root.gitEnvironmentUrls.reduce(
+            (
+              previousValue: { date: Date; user: string },
+              current: IEnvironmentUrl
+            ): { date: Date; user: string } =>
+              current.createdAt === null ||
+              previousValue.date > current.createdAt
+                ? previousValue
+                : {
+                    date: current.createdAt,
+                    user: current.createdBy ?? previousValue.user,
+                  },
+            { date: root.lastEditedAt, user: root.lastEditedBy }
+          );
+
+        return {
+          ...root,
+          environmentUrls: root.gitEnvironmentUrls.map(
+            (gitEnvironmentUrl: IEnvironmentUrl): string =>
+              gitEnvironmentUrl.url
+          ),
+          lastEditedAt: lastChange.date,
+          lastEditedBy: lastChange.user,
+        };
+      }),
+    [rootsAttr]
   );
-  const nicknames: string[] = roots
-    .filter((root): boolean => root.state === "ACTIVE")
-    .map((root): string => root.nickname);
+
+  const nicknames: string[] = useMemo(
+    (): string[] =>
+      roots
+        .filter((root): boolean => root.state === "ACTIVE")
+        .map((root): string => root.nickname),
+    [roots]
+  );
 
   // State management
   const [isManagingRoot, setIsManagingRoot] = useState<
@@ -249,7 +284,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
 
   function handleRowUrlClick(
     rowInfo: Row<{
-      createdAt: string;
+      createdAt: Date | null;
       id: string;
       url: string;
       repositoryUrls: string[];
@@ -312,7 +347,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     })
   );
   const envUrlsDataSet: {
-    createdAt: string;
+    createdAt: Date | null;
     id: string;
     url: string;
     repositoryUrls: string[];
@@ -331,7 +366,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
       (
         envUrl
       ): {
-        createdAt: string;
+        createdAt: Date | null;
         id: string;
         url: string;
         repositoryUrls: string[];
@@ -353,7 +388,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   const handleUrlRowExpand = useCallback(
     (
       row: Row<{
-        createdAt: string;
+        createdAt: Date | null;
         id: string;
         url: string;
         repositoryUrls: string[];

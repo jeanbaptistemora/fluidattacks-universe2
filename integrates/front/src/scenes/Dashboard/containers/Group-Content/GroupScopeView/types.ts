@@ -8,7 +8,8 @@ interface IEnvironmentUrl {
   id: string;
   url: string;
   secrets: ISecret[];
-  createdAt: string;
+  createdAt: Date | null;
+  createdBy: string | null;
   urlType: string;
 }
 interface IBasicEnvironmentUrl {
@@ -47,7 +48,7 @@ interface IGitRootAttr {
     message: string;
     status: CloningStatusType;
   };
-  createdAt: string;
+  createdAt: Date | null;
   createdBy: string;
   credentials: ICredentials | null;
   environment: string;
@@ -56,7 +57,7 @@ interface IGitRootAttr {
   healthCheckConfirm: string[] | undefined;
   includesHealthCheck: boolean | null;
   id: string;
-  lastEditedAt: string;
+  lastEditedAt: Date;
   lastEditedBy: string;
   nickname: string;
   secrets: ISecret[];
@@ -81,6 +82,8 @@ interface IGitRootData {
   healthCheckConfirm: string[] | undefined;
   includesHealthCheck: boolean | null;
   id: string;
+  lastEditedAt: Date | null;
+  lastEditedBy: string;
   nickname: string;
   secrets: ISecret[];
   state: "ACTIVE" | "INACTIVE";

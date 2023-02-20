@@ -28,7 +28,7 @@ describe("GitRoots", (): void => {
           message: "",
           status: "UNKNOWN",
         },
-        createdAt: "2022-02-10T14:58:10+00:00",
+        createdAt: new Date("2022-02-10T14:58:10+00:00"),
         createdBy: "testuser1@test.test",
         credentials: {
           auth: "",
@@ -47,7 +47,8 @@ describe("GitRoots", (): void => {
         gitEnvironmentUrls: [
           {
             cloudName: undefined,
-            createdAt: "2022-04-27T17:30:07.230355",
+            createdAt: new Date("2022-04-27T17:30:07.230355"),
+            createdBy: null,
             id: "3f6eb6274ec7dc2855451c0fbb4ff9485360be5b",
             secrets: [],
             url: "https://app.fluidattacks.com",
@@ -58,7 +59,7 @@ describe("GitRoots", (): void => {
         healthCheckConfirm: [],
         id: "",
         includesHealthCheck: false,
-        lastEditedAt: "2022-10-21T15:58:31+00:00",
+        lastEditedAt: new Date("2022-10-21T15:58:31+00:00"),
         lastEditedBy: "testuser2@test.test",
         nickname: "",
         secrets: [],
@@ -244,7 +245,8 @@ describe("GitRoots", (): void => {
       gitEnvironmentUrls: [
         {
           cloudName: undefined,
-          createdAt: "2022-04-27T17:30:07.230355",
+          createdAt: new Date("2022-04-27T17:30:07.230355"),
+          createdBy: "user_test@test.test",
           id: "adc83b19e793491b1c6ea0fd8b46cd9f32e592fc",
           secrets: [],
           url: "",

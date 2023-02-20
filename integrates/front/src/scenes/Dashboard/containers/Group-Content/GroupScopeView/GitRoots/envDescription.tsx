@@ -6,7 +6,7 @@ import { formatDate } from "utils/formatHelpers";
 
 interface IDescriptionProps {
   repositoryUrls: string[];
-  createdAt: string;
+  createdAt: Date | null;
   url: string;
 }
 
@@ -26,7 +26,9 @@ const Description = ({
             {url}
           </a>
         </ul>
-        <ul>{`${t("group.scope.git.createdAt")} ${formatDate(createdAt)}`}</ul>
+        <ul>{`${t("group.scope.git.createdAt")} ${formatDate(
+          createdAt as unknown as string
+        )}`}</ul>
       </Row>
       <h3>{t("group.scope.git.title")}</h3>
       <Row>
