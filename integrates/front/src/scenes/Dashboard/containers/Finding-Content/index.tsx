@@ -116,8 +116,10 @@ const FindingContent: React.FC = (): JSX.Element => {
   const [submitDraft, { loading: submitting }] = useMutation(
     SUBMIT_DRAFT_MUTATION,
     {
-      onCompleted: (result: { submitDraft: { success: boolean } }): void => {
-        handleSuccessfulDraft(result, headerRefetch);
+      onCompleted: async (result: {
+        submitDraft: { success: boolean };
+      }): Promise<void> => {
+        await handleSuccessfulDraft(result, headerRefetch);
       },
       onError: (submitError: ApolloError): void => {
         handleDraftError(submitError, headerRefetch);

@@ -4,21 +4,20 @@ import type { FormikProps } from "formik";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import type { FC } from "react";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import type { StringSchema } from "yup";
 import { object, string } from "yup";
 
-import { ADD_ENVIRONMENT_URL, GET_ROOT_ENVIRONMENT_URLS } from "../../queries";
 import { Input, Label, Select } from "components/Input";
 import { Col, Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import { GET_FILES } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/queries";
-import type {
-  IGetFilesQuery,
-  IGroupFileAttr,
-} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/types";
+import type { IGetFilesQuery } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GroupSettingsView/types";
+import {
+  ADD_ENVIRONMENT_URL,
+  GET_ROOT_ENVIRONMENT_URLS,
+} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/queries";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 
@@ -42,7 +41,7 @@ interface IFile {
   uploadDate: string;
 }
 
-const AddEnvironment: FC<IAddEnvironmentProps> = ({
+const AddEnvironment: React.FC<IAddEnvironmentProps> = ({
   groupName,
   rootId,
   closeFunction,
@@ -83,11 +82,13 @@ const AddEnvironment: FC<IAddEnvironmentProps> = ({
     },
     variables: { groupName },
   });
-  const resourcesFiles: IGroupFileAttr[] =
-    _.isUndefined(data) || _.isEmpty(data) || _.isNull(data.resources.files)
-      ? []
-      : data.resources.files;
-  const filesDataset: IFile[] = resourcesFiles as IFile[];
+  const filesDataset = useMemo(
+    (): IFile[] =>
+      _.isUndefined(data) || _.isEmpty(data) || _.isNull(data.resources.files)
+        ? []
+        : (data.resources.files as IFile[]),
+    [data]
+  );
   const [addEnvironmentUrl] = useMutation(ADD_ENVIRONMENT_URL, {
     onCompleted: (): void => {
       msgSuccess(

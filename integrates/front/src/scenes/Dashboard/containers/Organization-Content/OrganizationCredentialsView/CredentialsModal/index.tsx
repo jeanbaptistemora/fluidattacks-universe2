@@ -88,7 +88,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
-      refetchQueries: [GET_ORGANIZATION_CREDENTIALS],
+      refetchQueries: [
+        { query: GET_ORGANIZATION_CREDENTIALS, variables: { organizationId } },
+      ],
     }
   );
   const [handleUpdateCredentials] = useMutation<IUpdateCredentialsResultAttr>(
@@ -119,7 +121,9 @@ const CredentialsModal: React.FC<ICredentialsModalProps> = (
           }
         });
       },
-      refetchQueries: [GET_ORGANIZATION_CREDENTIALS],
+      refetchQueries: [
+        { query: GET_ORGANIZATION_CREDENTIALS, variables: { organizationId } },
+      ],
     }
   );
 

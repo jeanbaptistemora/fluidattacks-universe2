@@ -78,11 +78,6 @@ const AddSecret: React.FC<ISecretsProps> = ({
   const canAddSecret: boolean = permissions.can(
     "api_mutations_add_git_environment_secret_mutate"
   );
-  const initialValues = {
-    description: secretDescription,
-    key: secretKey,
-    value: secretValue,
-  };
 
   const { t } = useTranslation();
   const [addSecret] = useMutation(ADD_ENVIRONMENT_SECRET, {
@@ -150,7 +145,11 @@ const AddSecret: React.FC<ISecretsProps> = ({
 
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        description: secretDescription,
+        key: secretKey,
+        value: secretValue,
+      }}
       name={"gitRootSecret"}
       onSubmit={handleSecretSubmit}
       validationSchema={getSecretSchema(isDuplicated, isUpdate)}

@@ -12,22 +12,20 @@ import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { translate } from "utils/translations/translate";
 
-const handleSuccessfulDraft = (
+const handleSuccessfulDraft = async (
   result: {
     submitDraft: { success: boolean };
   },
   headerRefetch: (
     variables?: Partial<OperationVariables> | undefined
   ) => Promise<ApolloQueryResult<IHeaderQueryResult>>
-): void => {
+): Promise<void> => {
   if (result.submitDraft.success) {
     msgSuccess(
       translate.t("group.drafts.successSubmit"),
       translate.t("group.drafts.titleSuccess")
     );
-    // Exception: FP(void operator is necessary)
-    // eslint-disable-next-line
-    void headerRefetch(); //NOSONAR
+    await headerRefetch();
   }
 };
 

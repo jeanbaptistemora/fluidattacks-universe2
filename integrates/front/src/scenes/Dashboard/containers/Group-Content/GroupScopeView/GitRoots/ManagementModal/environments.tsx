@@ -7,23 +7,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { VisibilityState } from "@tanstack/react-table";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
-import type { FC } from "react";
 import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AddEnvironment } from "./addEnvironment";
-
-import {
-  GET_ROOT_ENVIRONMENT_URLS,
-  REMOVE_ENVIRONMENT_URL,
-} from "../../queries";
-import type { IBasicEnvironmentUrl, IFormValues } from "../../types";
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
+import { AddEnvironment } from "scenes/Dashboard/containers/Group-Content/GroupScopeView/GitRoots/ManagementModal/addEnvironment";
+import {
+  GET_ROOT_ENVIRONMENT_URLS,
+  REMOVE_ENVIRONMENT_URL,
+} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/queries";
+import type {
+  IBasicEnvironmentUrl,
+  IFormValues,
+} from "scenes/Dashboard/containers/Group-Content/GroupScopeView/types";
 import { authzPermissionsContext } from "utils/authz/config";
 import { useStoredState } from "utils/hooks";
 import { Logger } from "utils/logger";
@@ -39,7 +40,7 @@ interface IEnvironmentUrlItem extends IBasicEnvironmentUrl {
   element: JSX.Element;
 }
 
-const Environments: FC<IEnvironmentsProps> = ({
+const Environments: React.FC<IEnvironmentsProps> = ({
   rootInitialValues,
   groupName,
   onClose,
@@ -48,16 +49,15 @@ const Environments: FC<IEnvironmentsProps> = ({
   const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
 
   const [isAddEnvModalOpen, setIsAddEnvModalOpen] = useState(false);
-  const initialValues = { ...rootInitialValues, other: "", reason: "" };
   const { data, loading } = useQuery<{
     root: { gitEnvironmentUrls: IBasicEnvironmentUrl[] };
   }>(GET_ROOT_ENVIRONMENT_URLS, {
     onError: ({ graphQLErrors }: ApolloError): void => {
       graphQLErrors.forEach((error: GraphQLError): void => {
-        Logger.error("Couldn't load secrets", error);
+        Logger.error("Couldn't load environment urls", error);
       });
     },
-    variables: { groupName, rootId: initialValues.id },
+    variables: { groupName, rootId: rootInitialValues.id },
   });
   const [columnVisibility, setColumnVisibility] =
     useStoredState<VisibilityState>("tblGitRootSecrets-visibilityState", {
@@ -81,7 +81,7 @@ const Environments: FC<IEnvironmentsProps> = ({
       refetchQueries: [
         {
           query: GET_ROOT_ENVIRONMENT_URLS,
-          variables: { groupName, rootId: initialValues.id },
+          variables: { groupName, rootId: rootInitialValues.id },
         },
       ],
     }
@@ -97,10 +97,10 @@ const Environments: FC<IEnvironmentsProps> = ({
   const handleRemoveClick = useCallback(
     (urlId: string): void => {
       void removeEnvironmentUrl({
-        variables: { groupName, rootId: initialValues.id, urlId },
+        variables: { groupName, rootId: rootInitialValues.id, urlId },
       });
     },
-    [groupName, initialValues.id, removeEnvironmentUrl]
+    [groupName, rootInitialValues.id, removeEnvironmentUrl]
   );
 
   const onConfirmDelete = useCallback(
@@ -176,7 +176,7 @@ const Environments: FC<IEnvironmentsProps> = ({
         <AddEnvironment
           closeFunction={closeAddModal}
           groupName={groupName}
-          rootId={initialValues.id}
+          rootId={rootInitialValues.id}
         />
       </Modal>
       <ModalConfirm
