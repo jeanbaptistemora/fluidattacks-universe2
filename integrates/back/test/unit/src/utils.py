@@ -234,7 +234,6 @@ mocked_paths: Dict[str, str] = {
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501 pylint: disable=line-too-long
     "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
-    "s3_ops.sign_url": "s3.operations.sign_url",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
     "update_evidence": "events.domain.update_evidence",
     "update_me_draft_index": "group_access.domain.update_me_draft_index",
@@ -636,6 +635,14 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
                 "queue": "integrates_medium",
             },
         ],
+    },
+    "billing.domain.s3_ops.sign_url": {
+        '["okada", "4722b0b7-cfeb-4898-8308-185dfc2523bc", "test_file.pdf"]': "https://s3.amazonaws.com/"  # noqa: E501 pylint: disable=line-too-long
+        "integrates/johndoeatfluid-test-unit/resources/billing/okada/"
+        "testing%20company%20and%20sons/test_file.pdf?X-Amz-Algorithm=Test"
+        "X-Amz-Credential=Testus-east-1%2Fs3%2Faws4_request&X-Amz-Date="
+        "20230117T170631Z&X-Amz-Expires=10&X-Amz-SignedHeaders=host&"
+        "X-Amz-Security-Token=TestX-Amz-Signature=Test"
     },
     "db_model.trials.get.TrialLoader.load": {
         '["org_testusermanager1@gmail.com"]': Trial(
@@ -10473,14 +10480,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "s3.operations.remove_file": {
         '["billing-test-file.png"]': None,
         '["unittesting-test-file.csv"]': None,
-    },
-    "s3.operations.sign_url": {
-        '["okada", "4722b0b7-cfeb-4898-8308-185dfc2523bc", "test_file.pdf"]': "https://s3.amazonaws.com/"  # noqa: E501 pylint: disable=line-too-long
-        "integrates/johndoeatfluid-test-unit/resources/billing/okada/"
-        "testing%20company%20and%20sons/test_file.pdf?X-Amz-Algorithm=Test"
-        "X-Amz-Credential=Testus-east-1%2Fs3%2Faws4_request&X-Amz-Date="
-        "20230117T170631Z&X-Amz-Expires=10&X-Amz-SignedHeaders=host&"
-        "X-Amz-Security-Token=TestX-Amz-Signature=Test"
     },
     "s3.operations.upload_memory_file": {
         '["billing-test-file.png"]': None,

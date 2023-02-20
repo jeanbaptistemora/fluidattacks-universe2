@@ -1,6 +1,8 @@
 from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mock_response,
     get_mocked_path,
+    get_module_at_test,
+    set_mocks_return_values,
 )
 from billing.domain import (
     customer_payment_methods,
@@ -40,6 +42,8 @@ from unittest.mock import (
     AsyncMock,
     patch,
 )
+
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
 
 pytestmark = [
     pytest.mark.asyncio,
@@ -218,7 +222,7 @@ async def test_customer_payment_methods(
         ),
     ),
 )
-@patch(get_mocked_path("s3_ops.sign_url"), new_callable=AsyncMock)
+@patch(MODULE_AT_TEST + "s3_ops.sign_url", new_callable=AsyncMock)
 async def test_get_document_link(
     mock_s3_ops_sign_url: AsyncMock,
     organization: Organization,
@@ -226,9 +230,11 @@ async def test_get_document_link(
     file_name: str,
     expected_result: str,
 ) -> None:
-    mock_s3_ops_sign_url.return_value = get_mock_response(
-        get_mocked_path("s3_ops.sign_url"),
-        json.dumps([organization.name, payment_id, file_name]),
+    assert set_mocks_return_values(
+        mocks_args=[[organization.name, payment_id, file_name]],
+        mocked_objects=[mock_s3_ops_sign_url],
+        module_at_test=MODULE_AT_TEST,
+        paths_list=["s3_ops.sign_url"],
     )
     result = await get_document_link(organization, payment_id, file_name)
     assert mock_s3_ops_sign_url.called is True
