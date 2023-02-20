@@ -1,6 +1,9 @@
 from model.core_model import (
     MethodsEnum,
 )
+from symbolic_eval.f091.method_invocation.dart import (
+    dart_uses_logger_method,
+)
 from symbolic_eval.f091.method_invocation.java import (
     java_insecure_logging,
 )
@@ -17,6 +20,7 @@ METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
     MethodsEnum.JAVA_INSECURE_LOGGING: java_insecure_logging,
     MethodsEnum.JS_INSECURE_LOGGING: javascript_insecure_logging,
     MethodsEnum.TS_INSECURE_LOGGING: javascript_insecure_logging,
+    MethodsEnum.DART_INSECURE_LOGGING: dart_uses_logger_method,
 }
 
 

@@ -25,7 +25,6 @@ def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
     symbol = graph.nodes[args.n_id]["label_text"]
     pred_nid = pred(graph, args.n_id)[0]
-    print(graph.nodes[pred_nid]["label_type"])
 
     if (
         graph.nodes[pred_nid]["label_type"]
