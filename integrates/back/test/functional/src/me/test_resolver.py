@@ -13,6 +13,9 @@ from back.test.functional.src.submit_draft import (
 from back.test.functional.src.unsubscribe_from_group import (
     get_result as unsubscribe_from_group,
 )
+from db_model.enums import (
+    CredentialType,
+)
 import pytest
 from typing import (
     Any,
@@ -30,6 +33,7 @@ from typing import (
         "groups_length",
         "assigned",
         "enrolled",
+        "credentials",
     ),
     (
         (
@@ -44,6 +48,7 @@ from typing import (
             3,
             [],
             True,
+            [],
         ),
         (
             "user@gmail.com",
@@ -57,6 +62,7 @@ from typing import (
             1,
             [{"id": "6401bc87-8633-4a4a-8d8e-7dae0ca57e6b"}],
             True,
+            [],
         ),
         (
             "user_manager@gmail.com",
@@ -70,6 +76,7 @@ from typing import (
             1,
             [{"id": "de70c2f7-7ec7-49aa-9a84-aff4fbe5d1ad"}],
             False,
+            [],
         ),
         (
             "vulnerability_manager@gmail.com",
@@ -83,6 +90,7 @@ from typing import (
             1,
             [{"id": "be09edb7-cd5c-47ed-bee4-97c645acdce8"}],
             False,
+            [],
         ),
         (
             "hacker@gmail.com",
@@ -96,6 +104,7 @@ from typing import (
             2,
             [],
             False,
+            [],
         ),
         (
             "reattacker@gmail.com",
@@ -109,6 +118,7 @@ from typing import (
             1,
             [],
             False,
+            [],
         ),
         (
             "resourcer@gmail.com",
@@ -122,6 +132,7 @@ from typing import (
             1,
             [],
             False,
+            [],
         ),
         (
             "reviewer@gmail.com",
@@ -135,6 +146,7 @@ from typing import (
             2,
             [],
             False,
+            [],
         ),
         (
             "service_forces@gmail.com",
@@ -144,6 +156,7 @@ from typing import (
             1,
             [],
             False,
+            [],
         ),
         (
             "customer_manager@fluidattacks.com",
@@ -157,6 +170,24 @@ from typing import (
             1,
             [],
             True,
+            [
+                {
+                    "azureOrganization": None,
+                    "isPat": False,
+                    "isToken": True,
+                    "key": None,
+                    "name": "cred_https_token",
+                    "oauthType": "",
+                    "organization": {
+                        "id": "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
+                    },
+                    "owner": "customer_manager@fluidattacks.com",
+                    "password": None,
+                    "token": "token test",
+                    "type": CredentialType.HTTPS,
+                    "user": None,
+                },
+            ],
         ),
     ),
 )
@@ -169,6 +200,7 @@ async def test_get_me(
     groups_length: int,
     assigned: list[dict[str, str]],
     enrolled: bool,
+    credentials: list[dict[str, str]],
 ) -> None:
     assert populate
     org_name: str = "orgtest"
@@ -182,6 +214,7 @@ async def test_get_me(
     assert result["data"]["me"]["callerOrigin"] == "API"
     assert result["data"]["me"]["enrolled"] == enrolled
     assert result["data"]["me"]["vulnerabilitiesAssigned"] == assigned
+    assert result["data"]["me"]["credentials"] == credentials
     assert not result["data"]["me"]["isConcurrentSession"]
     assert len(result["data"]["me"]["notificationsPreferences"]["email"]) == 18
     assert result["data"]["me"]["organizations"][0]["name"] == org_name

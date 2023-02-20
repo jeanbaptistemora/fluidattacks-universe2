@@ -19,6 +19,20 @@ async def get_result(
         me(callerOrigin: "API") {{
             accessToken
             callerOrigin
+            credentials {{
+                azureOrganization
+                isPat
+                key
+                isToken
+                name
+                oauthType
+                password
+                owner
+                organization {{id}}
+                user
+                token
+                type
+            }}
             enrolled
             isConcurrentSession
             notificationsPreferences{{

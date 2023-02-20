@@ -8,7 +8,13 @@ from collections import (
 from datetime import (
     datetime,
 )
+from db_model.credentials.types import (
+    Credentials,
+    CredentialsState,
+    HttpsPatSecret,
+)
 from db_model.enums import (
+    CredentialType,
     GitCloningStatus,
     Source,
 )
@@ -24,15 +30,15 @@ from db_model.events.types import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
     FindingVerificationSummary,
@@ -73,6 +79,23 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     data: dict[str, Any] = {
+        "credentials": (
+            Credentials(
+                id="9edc56a8-2743-437e-a6a9-4847b28e1fd5",
+                organization_id="ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db",
+                owner="customer_manager@fluidattacks.com",
+                state=CredentialsState(
+                    modified_by="customer_manager@fluidattacks.com",
+                    modified_date=datetime.fromisoformat(
+                        "2022-02-11 11:32:15+00:00"
+                    ),
+                    name="cred_https_token",
+                    type=CredentialType.HTTPS,
+                    secret=HttpsPatSecret(token="token test"),
+                    is_pat=False,
+                ),
+            ),
+        ),
         "events": [
             {
                 "event": Event(
