@@ -377,7 +377,6 @@ async def update_group_standard_fulfillment(
     loaders: Dataloaders,
     group: Group,
     requirements_file: dict[str, Any],
-    vulnerabilities_file: dict[str, Any],
 ) -> None:
     findings = await loaders.group_findings.load(group.name)
     findings_open_vulnerabilities = await collect(
@@ -394,10 +393,7 @@ async def update_group_standard_fulfillment(
             open_findings.append(finding)
 
     requirements_by_finding = tuple(
-        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
-            "requirements"
-        ]
-        for finding in open_findings
+        finding.unfulfilled_requirements for finding in open_findings
     )
     non_compliance_requirements_by_standard: defaultdict[
         str, set
@@ -434,7 +430,6 @@ async def update_groups_standard_fulfillment(
     loaders: Dataloaders,
     organization: Organization,
     requirements_file: dict[str, Any],
-    vulnerabilities_file: dict[str, Any],
 ) -> None:
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
@@ -445,7 +440,6 @@ async def update_groups_standard_fulfillment(
                 loaders=loaders,
                 group=group,
                 requirements_file=requirements_file,
-                vulnerabilities_file=vulnerabilities_file,
             )
             for group in org_groups
         ),
@@ -506,7 +500,6 @@ async def update_organization_compliance(
         loaders=loaders,
         organization=organization,
         requirements_file=requirements_file,
-        vulnerabilities_file=vulnerabilities_file,
     )
 
 
