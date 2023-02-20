@@ -76,7 +76,8 @@ async def process_stakeholder(
         extra={
             "email": stakeholder.email,
             "inactivity_days": inactivity_days,
-            "last_login_date": str(stakeholder.last_login_date),
+            "last_login_date": stakeholder.last_login_date,
+            "last_api_token_use_date": stakeholder.last_api_token_use_date,
         },
     )
 

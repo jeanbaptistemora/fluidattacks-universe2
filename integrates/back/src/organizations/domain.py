@@ -762,6 +762,7 @@ async def remove_access(
         organization_id=organization_id,
     )
     await org_access_model.remove(email=email, organization_id=organization_id)
+    stakeholder = await loaders.stakeholder_with_fallback.load(email)
     LOGGER.info(
         "Stakeholder removed from organization",
         extra={
@@ -769,6 +770,8 @@ async def remove_access(
                 "email": email,
                 "modified_by": modified_by,
                 "organization_id": organization_id,
+                "last_login_date": stakeholder.last_login_date,
+                "last_api_token_use_date": stakeholder.last_api_token_use_date,
             }
         },
     )
