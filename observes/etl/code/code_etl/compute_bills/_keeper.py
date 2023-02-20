@@ -81,20 +81,18 @@ class ReportKeeper:
         def _group_filter(grp: GroupId) -> bool:
             return self._inner.get_org.unwrap(grp) == org
 
-        if org:
-            groups_contributed = frozenset(filter(_group_filter, row.groups))
-            data: Dict[str, str] = {
-                "actor": row.user.name + " <" + row.user.email + ">",
-                "groups": ", ".join(map(_group_to_str, groups_contributed)),
-                "commit": row.contrib.commit_id.hash.hash,
-                "repository": row.contrib.commit_id.repo.repository,
-            }
-            return Cmd.from_cmd(
-                lambda: cast(None, self._inner.writer.writerow(data))  # type: ignore[misc]
-            ).map(lambda _: None)
-        return Cmd.from_cmd(
-            lambda: LOG.warning("Skipped group contribution: %s", current.name)
+        groups_contributed = (
+            frozenset(filter(_group_filter, row.groups)) if org else row.groups
         )
+        data: Dict[str, str] = {
+            "actor": row.user.name + " <" + row.user.email + ">",
+            "groups": ", ".join(map(_group_to_str, groups_contributed)),
+            "commit": row.contrib.commit_id.hash.hash,
+            "repository": row.contrib.commit_id.repo.repository,
+        }
+        return Cmd.from_cmd(
+            lambda: cast(None, self._inner.writer.writerow(data))  # type: ignore[misc]
+        ).map(lambda _: None)
 
     def save(
         self,
