@@ -504,4 +504,48 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
   });
+
+  it("should filter by loc", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
+      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
+      { action: "api_resolvers_toe_lines_comments_resolve" },
+      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
+      { action: "see_toe_lines_coverage" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    const numberOfRows: number = 3;
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
+    });
+
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    fireEvent.change(screen.getAllByRole("spinbutton", { name: "loc" })[0], {
+      target: { value: 170 },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+  });
 });
