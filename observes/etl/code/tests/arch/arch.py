@@ -50,6 +50,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         ("_ignored_paths", "_group_org"),
         "_raw_client",
         "_retry",
+        "_error",
     ),
     "code_etl.arm._retry": (
         ("delay", "handlers"),

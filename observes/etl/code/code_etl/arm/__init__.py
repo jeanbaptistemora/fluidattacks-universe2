@@ -6,6 +6,9 @@ from . import (
     _group_org,
     _ignored_paths,
 )
+from ._error import (
+    ApiError,
+)
 from ._ignored_paths import (
     IgnoredPath,
 )
@@ -17,7 +20,7 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
-    ResultE,
+    Result,
 )
 from typing import (
     FrozenSet,
@@ -72,10 +75,11 @@ class ArmClient:
     def get_ignored_paths(self, group: str) -> Cmd[FrozenSet[IgnoredPath]]:
         return _ignored_paths.get_ignored_paths(self._inner.client, group)
 
-    def get_org(self, group: str) -> Cmd[ResultE[str]]:
+    def get_org(self, group: str) -> Cmd[Result[str, ApiError]]:
         return _group_org.get_org(self._inner.client, group)
 
 
 __all__ = [
     "IgnoredPath",
+    "ApiError",
 ]

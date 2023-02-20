@@ -1,10 +1,13 @@
-from ._raw_client import (
+from ._error import (
     ApiError,
+)
+from ._raw_client import (
     GraphQlAsmClient,
 )
 from fa_purity import (
     Cmd,
     JsonObj,
+    Result,
     ResultE,
 )
 from fa_purity.frozen import (
@@ -18,17 +21,8 @@ from fa_purity.result.factory import (
 )
 
 
-def _decode_error(data: JsonObj) -> ResultE[None]:
-    return (
-        try_get(data, "errors")
-        .alt(lambda _: None)
-        .swap()
-        .alt(lambda m: ApiError(m).to_exception())
-    )
-
-
 def _decode_org(raw: JsonObj) -> ResultE[str]:
-    group = try_get(raw, "data").bind(lambda x: Unfolder(x).get("group"))
+    group = try_get(raw, "group")
     return group.bind(
         lambda g: Unfolder(g)
         .uget("organization")
@@ -36,7 +30,9 @@ def _decode_org(raw: JsonObj) -> ResultE[str]:
     )
 
 
-def get_org(client: GraphQlAsmClient, group: str) -> Cmd[ResultE[str]]:
+def get_org(
+    client: GraphQlAsmClient, group: str
+) -> Cmd[Result[str, ApiError]]:
     query = """
     query ObservesGetGroupOrganization($groupName: String!){
         group(groupName: $groupName){
@@ -46,5 +42,5 @@ def get_org(client: GraphQlAsmClient, group: str) -> Cmd[ResultE[str]]:
     """
     values = {"groupName": group}
     return client.get(query, freeze(values)).map(
-        lambda j: _decode_error(j).bind(lambda _: _decode_org(j))
+        lambda r: r.map(lambda d: _decode_org(d).unwrap())
     )

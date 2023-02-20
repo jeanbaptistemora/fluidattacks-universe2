@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from ._error import (
+    ApiError,
+)
 from ._retry import (
     delay,
     handlers,
@@ -12,8 +15,10 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    FrozenList,
     JsonObj,
     JsonValue,
+    Result,
     ResultE,
 )
 from fa_purity.frozen import (
@@ -39,14 +44,6 @@ from typing import (
 
 API_ENDPOINT = "https://app.fluidattacks.com/api"
 _T = TypeVar("_T")
-
-
-@dataclass(frozen=True)
-class ApiError(Exception):
-    errors: JsonValue
-
-    def to_exception(self) -> Exception:
-        return Exception(self)
 
 
 def error_handler(cmd: Cmd[_T]) -> Cmd[ResultE[_T]]:
@@ -84,9 +81,12 @@ class GraphQlAsmClient:
 
         return Cmd.from_cmd(_action)
 
-    def get(self, query: str, values: FrozenDict[str, str]) -> Cmd[JsonObj]:
-        return retry_cmd(
+    def get(
+        self, query: str, values: FrozenDict[str, str]
+    ) -> Cmd[Result[JsonObj, ApiError]]:
+        result = retry_cmd(
             error_handler(self._get(query, values)),
             lambda i, r: delay.delay_if_fail(i, r, i**2),
             10,
         ).map(lambda x: x.alt(raise_exception).unwrap())
+        return handlers.api_error_handler(result)

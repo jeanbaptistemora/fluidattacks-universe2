@@ -2,6 +2,7 @@ from code_etl._utils import (
     COMMIT_HASH_SENTINEL,
 )
 from code_etl.arm import (
+    ApiError,
     ArmClient,
 )
 from code_etl.compute_bills.core import (
@@ -20,7 +21,7 @@ from datetime import (
 from fa_purity import (
     Cmd,
     Maybe,
-    ResultE,
+    Result,
     Stream,
 )
 from fa_purity.cmd import (
@@ -69,19 +70,21 @@ def _log_and_raise(log: Cmd[None], err: Exception) -> NoReturn:
 
 
 @RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
-def _get_group_org(client: ArmClient, group: str) -> Cmd[ResultE[str]]:  # type: ignore[misc]
+def _get_group_org(client: ArmClient, group: str) -> Cmd[Result[str, ApiError]]:  # type: ignore[misc]
     return client.get_org(group)
 
 
 @lru_cache(maxsize=None)  # type: ignore[misc]
-def _get_group_org_cached(client: ArmClient, group: str) -> ResultE[str]:
-    result: ResultE[str] = unsafe_unwrap(
+def _get_group_org_cached(
+    client: ArmClient, group: str
+) -> Result[str, ApiError]:
+    result: Result[str, ApiError] = unsafe_unwrap(
         _get_group_org(client, group)  # type: ignore[misc]
     )
     return result
 
 
-def get_org(client: ArmClient, group: str) -> ResultE[str]:
+def get_org(client: ArmClient, group: str) -> Result[str, ApiError]:
     return _get_group_org_cached(client, group)
 
 

@@ -23,6 +23,9 @@ from fa_purity.pure_iter.factory import (
 from fa_purity.result.transform import (
     all_ok,
 )
+from fa_purity.utils import (
+    raise_exception,
+)
 from typing import (
     FrozenSet,
 )
@@ -99,6 +102,11 @@ def get_ignored_paths(
     values = {"groupName": group}
     return (
         client.get(query, freeze(values))
-        .map(lambda j: _decode_raw_ignored_paths(j, group).unwrap())
+        .map(lambda j: j.alt(raise_exception).unwrap())
+        .map(
+            lambda j: _decode_raw_ignored_paths(j, group)
+            .alt(raise_exception)
+            .unwrap()
+        )
         .map(frozenset)
     )
