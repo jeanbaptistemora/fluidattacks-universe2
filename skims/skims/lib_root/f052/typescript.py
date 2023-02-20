@@ -172,7 +172,7 @@ def typescript_insecure_hash_library(
 
     def n_ids() -> Iterator[GraphShardNode]:
         for shard in graph_db.shards_by_language(
-            GraphShardMetadataLanguage.JAVASCRIPT,
+            GraphShardMetadataLanguage.TYPESCRIPT,
         ):
             if shard.syntax_graph is None:
                 continue

@@ -2462,6 +2462,131 @@ F052,lines,namespace/skims/test/data/lib_root/f052/kotlin_insecure_ciphers.kt,51
   57 |
      ^ Col 8
 ",kotlin.kotlin_insecure_hash
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,10,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,"
+   1 | declare function require(name:string);
+   2 | const anyName = require(""js-sha1"")
+   3 |
+   4 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+   5 |
+   6 | anyName("""");
+   7 | anyName.hex("""");
+   8 | anyName.array("""");
+   9 | anyName.digest("""");
+> 10 | anyName.arrayBuffer('');
+     ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,"
+   1 | declare function require(name:string);
+   2 | const anyName = require(""js-sha1"")
+   3 |
+   4 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+   5 |
+   6 | anyName("""");
+   7 | anyName.hex("""");
+   8 | anyName.array("""");
+>  9 | anyName.digest("""");
+  10 | anyName.arrayBuffer('');
+     ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,8,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,"
+   1 | declare function require(name:string);
+   2 | const anyName = require(""js-sha1"")
+   3 |
+   4 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+   5 |
+   6 | anyName("""");
+   7 | anyName.hex("""");
+>  8 | anyName.array("""");
+   9 | anyName.digest("""");
+  10 | anyName.arrayBuffer('');
+     ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,"
+   1 | declare function require(name:string);
+   2 | const anyName = require(""js-sha1"")
+   3 |
+   4 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+   5 |
+   6 | anyName("""");
+>  7 | anyName.hex("""");
+   8 | anyName.array("""");
+   9 | anyName.digest("""");
+  10 | anyName.arrayBuffer('');
+     ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_require.ts,"
+   1 | declare function require(name:string);
+   2 | const anyName = require(""js-sha1"")
+   3 |
+   4 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+   5 |
+>  6 | anyName("""");
+   7 | anyName.hex("""");
+   8 | anyName.array("""");
+   9 | anyName.digest("""");
+  10 | anyName.arrayBuffer('');
+     ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,9,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+> 9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,8,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+> 8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,7,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+  6 | sha1.hex("""");
+> 7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,6,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+  5 | sha1("""");
+> 6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,5,310,skims,052. Insecure encryption algorithm,Use of insecure hashing function in namespace/skims/test/data/lib_root/f052/ts_insecure_sha1_use.ts,"
+  1 | import sha1 from ""js-sha1"";
+  2 |
+  3 | // As js-sha1 library uses sha-1 algorithm all its uses must be marked.
+  4 |
+> 5 | sha1("""");
+  6 | sha1.hex("""");
+  7 | sha1.array("""");
+  8 | sha1.digest("""");
+  9 | sha1.arrayBuffer('');
+    ^ Col 0
+",javascript.javascript_insecure_hash_library
 F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,34,310,skims,052. Insecure encryption algorithm,Use of insecure parameters in namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,"
   24 |
   25 |         MessageDigest md = MessageDigest.getInstance(""ShA-1"", provider); //
