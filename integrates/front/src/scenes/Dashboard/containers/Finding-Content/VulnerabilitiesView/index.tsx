@@ -3,6 +3,7 @@ import type { ApolloError } from "@apollo/client";
 import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import type { ColumnDef } from "@tanstack/react-table";
+import dayjs from "dayjs";
 import type { GraphQLError } from "graphql";
 import _ from "lodash";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
@@ -13,6 +14,8 @@ import type { IFilter, IPermanentData } from "components/Filter";
 import { Filters, useFilters } from "components/Filter";
 import { Modal, ModalConfirm } from "components/Modal";
 import { filterDate } from "components/Table/filters/filterFunctions/filterDate";
+import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
+import type { ICellHelper } from "components/Table/types";
 import { ExpertButton } from "scenes/Dashboard/components/ExpertButton";
 import { UpdateVerificationModal } from "scenes/Dashboard/components/UpdateVerificationModal";
 import { VulnComponent } from "scenes/Dashboard/components/Vulnerabilities";
@@ -459,7 +462,18 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
+      accessorFn: (row: IVulnRowAttr): IVulnRowAttr => {
+        return row;
+      },
       accessorKey: "where",
+      cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element | string => {
+        const vuln: IVulnRowAttr = cell.getValue();
+        const daysFromReport = dayjs().diff(vuln.reportDate, "days");
+
+        return daysFromReport <= 7 && vuln.state === "VULNERABLE"
+          ? newTagFormatter(vuln.where)
+          : vuln.where;
+      },
       enableColumnFilter: false,
       header: t("searchFindings.tabVuln.vulnTable.where"),
     },

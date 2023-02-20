@@ -131,7 +131,7 @@ describe("groupFindingsView", (): void => {
                 description: "Test description",
                 id: "438679960",
                 isExploitable: true,
-                lastVulnerability: 33,
+                lastVulnerability: 5,
                 minTimeToRemediate: 60,
                 openAge: 60,
                 openVulnerabilities: 6,
@@ -387,6 +387,7 @@ describe("groupFindingsView", (): void => {
       ).not.toBeInTheDocument();
     });
 
+    expect(screen.getByText("New")).toBeInTheDocument();
     expect(screen.getByText("Type")).toBeInTheDocument();
     expect(screen.getByText("Status")).toBeInTheDocument();
     expect(screen.getByText("Severity")).toBeInTheDocument();

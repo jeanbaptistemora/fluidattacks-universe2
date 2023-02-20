@@ -53,6 +53,7 @@ import { Filters, useFilters } from "components/Filter";
 import { Select } from "components/Input";
 import { Modal, ModalConfirm } from "components/Modal";
 import { Table } from "components/Table";
+import { newTagFormatter } from "components/Table/formatters/newTagFormatter";
 import type { ICellHelper } from "components/Table/types";
 import { Tooltip } from "components/Tooltip";
 import { searchingFindings } from "resources";
@@ -374,7 +375,17 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const tableColumns: ColumnDef<IFindingAttr>[] = [
     {
+      accessorFn: (row: IFindingAttr): IFindingAttr => {
+        return row;
+      },
       accessorKey: "title",
+      cell: (cell: ICellHelper<IFindingAttr>): JSX.Element | string => {
+        const finding: IFindingAttr = cell.getValue();
+
+        return finding.lastVulnerability <= 7 && finding.openVulnerabilities > 0
+          ? newTagFormatter(finding.title)
+          : finding.title;
+      },
       header: "Type",
     },
     {

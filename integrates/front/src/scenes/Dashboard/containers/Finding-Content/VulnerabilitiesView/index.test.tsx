@@ -3,6 +3,7 @@ import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import dayjs from "dayjs";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
 
@@ -69,7 +70,7 @@ describe("VulnerabilitiesView", (): void => {
                   lastTreatmentDate: "2019-07-05 09:56:40",
                   lastVerificationDate: null,
                   remediated: true,
-                  reportDate: "2019-07-05 09:56:40",
+                  reportDate: dayjs().format("YYYY-MM-DD hh:mm:ss"),
                   severity: "",
                   specific: "specific-1",
                   state: "VULNERABLE",
@@ -467,12 +468,14 @@ describe("VulnerabilitiesView", (): void => {
       screen.queryByText("searchFindings.tabVuln.buttons.edit")
     ).not.toBeInTheDocument();
 
+    expect(screen.getByText("New")).toBeInTheDocument();
+
     expect(
-      screen.getByRole("checkbox", { name: "https://example.com/inputs" })
+      screen.getByRole("checkbox", { name: "https://example.com/inputs New" })
     ).not.toBeDisabled();
 
     await userEvent.click(
-      screen.getByRole("checkbox", { name: "https://example.com/inputs" })
+      screen.getByRole("checkbox", { name: "https://example.com/inputs New" })
     );
     await userEvent.click(
       screen.getByText("searchFindings.tabDescription.markVerified.text")
