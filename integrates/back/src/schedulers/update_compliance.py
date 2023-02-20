@@ -142,7 +142,6 @@ async def get_organization_compliance_level(
     organization: Organization,
     compliance_file: dict[str, Any],
     requirements_file: dict[str, Any],
-    vulnerabilities_file: dict[str, Any],
 ) -> Decimal:
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
@@ -164,10 +163,7 @@ async def get_organization_compliance_level(
             open_findings.append(finding)
 
     requirements_by_finding = tuple(
-        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
-            "requirements"
-        ]
-        for finding in open_findings
+        finding.unfulfilled_requirements for finding in open_findings
     )
     compliances_by_finding = tuple(
         set(
@@ -470,7 +466,6 @@ async def update_organization_compliance(
         organization=organization,
         compliance_file=compliance_file,
         requirements_file=requirements_file,
-        vulnerabilities_file=vulnerabilities_file,
     )
     compliance_weekly_trend = await get_organization_compliance_weekly_trend(
         loaders=loaders,
