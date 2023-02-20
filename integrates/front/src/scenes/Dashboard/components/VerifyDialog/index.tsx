@@ -17,9 +17,10 @@ import type {
 } from "./types";
 
 import { Input } from "components/Input";
+import { Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { BaseStep, Tour } from "components/Tour";
-import { Col100, ControlLabel, Row } from "styles/styledComponents";
+import { Col100, ControlLabel } from "styles/styledComponents";
 import { Logger } from "utils/logger";
 import { msgError, msgSuccess } from "utils/notifications";
 import { required } from "utils/validations";
