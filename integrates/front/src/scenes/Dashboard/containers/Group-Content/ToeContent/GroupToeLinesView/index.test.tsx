@@ -421,14 +421,28 @@ describe("groupToeLinesView", (): void => {
     expect(
       screen.getByRole("textbox", { name: "filename" })
     ).toBeInTheDocument();
-    expect(
-      screen.getAllByRole("spinbutton", { name: "loc" })[0]
-    ).toBeInTheDocument();
-    expect(
-      screen.getAllByRole("spinbutton", { name: "loc" })[1]
-    ).toBeInTheDocument();
+    expect(screen.getAllByRole("spinbutton", { name: "loc" })).toHaveLength(2);
     expect(
       screen.getByRole("combobox", { name: "hasVulnerabilities" })
     ).toBeInTheDocument();
+    expect(
+      document.querySelectorAll(`input[name="modifiedDate"]`)
+    ).toHaveLength(2);
+    expect(
+      screen.getByRole("textbox", { name: "lastCommit" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("textbox", { name: "lastAuthor" })
+    ).toBeInTheDocument();
+    expect(document.querySelectorAll(`input[name="seenAt"]`)).toHaveLength(2);
+    expect(
+      screen.getAllByRole("spinbutton", { name: "sortsRiskLevel" })
+    ).toHaveLength(2);
+    expect(
+      screen.getByRole("combobox", { name: "bePresent" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getAllByRole("spinbutton", { name: "attackedLines" })
+    ).toHaveLength(2);
   });
 });
