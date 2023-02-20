@@ -8,6 +8,7 @@ from dataclasses import (
 from fa_purity import (
     Cmd,
     JsonObj,
+    JsonValue,
 )
 from fa_purity.frozen import (
     FrozenDict,
@@ -27,6 +28,14 @@ from typing import (
 )
 
 API_ENDPOINT = "https://app.fluidattacks.com/api"
+
+
+@dataclass(frozen=True)
+class ApiError(Exception):
+    errors: JsonValue
+
+    def to_exception(self) -> Exception:
+        return Exception(self)
 
 
 @dataclass(frozen=True)

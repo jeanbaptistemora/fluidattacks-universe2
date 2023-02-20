@@ -47,7 +47,7 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
         "core",
     ),
     "code_etl.arm": (
-        "_ignored_paths",
+        ("_ignored_paths", "_group_org"),
         "_raw_client",
     ),
     "code_etl.clients._raw_file_commit": (

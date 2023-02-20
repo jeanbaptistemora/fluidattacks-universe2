@@ -117,7 +117,7 @@ def _from_raw_json(data: JsonObj) -> ResultE[str]:
 
 
 @RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
-def _get_group_org(token: str, group: str) -> Cmd[str]:  # type: ignore[misc]
+def _get_group_org(token: str, group: str) -> Cmd[ResultE[str]]:  # type: ignore[misc]
     query = """
         query ObservesGetGroupOrganization($groupName: String!){
             group(groupName: $groupName){
@@ -149,7 +149,7 @@ def _get_group_org(token: str, group: str) -> Cmd[str]:  # type: ignore[misc]
     ).map(lambda r: r.bind(_from_raw_json))
     return result.map(
         lambda r: r.alt(
-            lambda e: _log_and_raise(  # type: ignore[misc]
+            lambda e: _log_and_raise(
                 Cmd.from_cmd(
                     lambda: LOG.error(
                         "Api call fail _get_group_org(%s) i.e. %s", group, e
@@ -157,7 +157,7 @@ def _get_group_org(token: str, group: str) -> Cmd[str]:  # type: ignore[misc]
                 ),
                 e,
             )
-        ).unwrap()
+        )
     )
 
 
