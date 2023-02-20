@@ -444,5 +444,20 @@ describe("groupToeLinesView", (): void => {
     expect(
       screen.getAllByRole("spinbutton", { name: "attackedLines" })
     ).toHaveLength(2);
+    expect(document.querySelectorAll(`input[name="attackedAt"]`)).toHaveLength(
+      2
+    );
+    expect(
+      screen.getByRole("textbox", { name: "attackedBy" })
+    ).toBeInTheDocument();
+    expect(
+      document.querySelectorAll(`input[name="firstAttackAt"]`)
+    ).toHaveLength(2);
+    expect(
+      screen.getByRole("textbox", { name: "comments" })
+    ).toBeInTheDocument();
+    expect(
+      document.querySelectorAll(`input[name="bePresentUntil"]`)
+    ).toHaveLength(2);
   });
 });
