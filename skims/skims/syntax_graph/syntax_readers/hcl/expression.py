@@ -27,9 +27,6 @@ from utils.graph.text_nodes import (
 
 def reader(args: SyntaxGraphArgs) -> NId:
     graph = args.ast_graph
-    valid_parameters = {
-        "object_elem",
-    }
     invalid_types = {
         "tuple_start",
         "tuple_end",
@@ -42,20 +39,18 @@ def reader(args: SyntaxGraphArgs) -> NId:
     if graph.nodes[child_id]["label_type"] == "collection_value":
         body_id = adj_ast(graph, child_id)[0]
         if graph.nodes[body_id]["label_type"] == "tuple":
-            childs_id = adj_ast(graph, body_id)
             valid_childs = [
                 child
-                for child in childs_id
+                for child in adj_ast(graph, body_id)
                 if graph.nodes[child]["label_type"] not in invalid_types
             ]
             return build_array_node(args, valid_childs)
-        c_ids = adj_ast(graph, str(body_id))
         return build_object_node(
             args,
             c_ids=(
                 _id
-                for _id in c_ids
-                if graph.nodes[_id]["label_type"] in valid_parameters
+                for _id in adj_ast(graph, str(body_id))
+                if graph.nodes[_id]["label_type"] in {"object_elem"}
             ),
         )
     if graph.nodes[child_id]["label_type"] == "function_call":
@@ -69,6 +64,15 @@ def reader(args: SyntaxGraphArgs) -> NId:
         return build_method_invocation_node(
             args, expr, str(expr_id), args_id, None
         )
+    if graph.nodes[child_id]["label_type"] == "template_expr":
+        template = match_ast_d(args.ast_graph, child_id, "quoted_template")
+        if not template:
+            template = match_ast_d(
+                args.ast_graph, child_id, "template_literal", 2
+            )
+            template_text = node_to_str(graph, str(template))
+            return build_string_literal_node(args, template_text)
+
     literal_text = node_to_str(graph, args.n_id)
     if literal_text[0] == '"':
         literal_text = literal_text[1:-1]

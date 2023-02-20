@@ -2802,6 +2802,10 @@
               "label_ast": "AST",
               "label_index": "3"
             },
+            "290": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
             "3": {
               "label_ast": "AST",
               "label_index": "0"
@@ -3267,6 +3271,60 @@
               "label_index": "0"
             }
           },
+          "290": {
+            "291": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "292": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "296": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "300": {
+              "label_ast": "AST",
+              "label_index": "3"
+            },
+            "302": {
+              "label_ast": "AST",
+              "label_index": "4"
+            },
+            "326": {
+              "label_ast": "AST",
+              "label_index": "5"
+            }
+          },
+          "292": {
+            "293": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "294": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "295": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "296": {
+            "297": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "298": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "299": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
           "3": {
             "13": {
               "label_ast": "AST",
@@ -3293,6 +3351,66 @@
               "label_index": "2"
             }
           },
+          "300": {
+            "301": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "302": {
+            "303": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "315": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "303": {
+            "304": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "305": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "306": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "306": {
+            "307": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "309": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "312": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "307": {
+            "308": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "309": {
+            "310": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "311": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
           "31": {
             "32": {
               "label_ast": "AST",
@@ -3301,6 +3419,72 @@
             "33": {
               "label_ast": "AST",
               "label_index": "1"
+            }
+          },
+          "312": {
+            "313": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "314": {
+              "label_ast": "AST",
+              "label_index": "1"
+            }
+          },
+          "315": {
+            "316": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "317": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "318": {
+              "label_ast": "AST",
+              "label_index": "2"
+            }
+          },
+          "318": {
+            "319": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "319": {
+            "320": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "320": {
+            "321": {
+              "label_ast": "AST",
+              "label_index": "0"
+            },
+            "323": {
+              "label_ast": "AST",
+              "label_index": "1"
+            },
+            "324": {
+              "label_ast": "AST",
+              "label_index": "2"
+            },
+            "325": {
+              "label_ast": "AST",
+              "label_index": "3"
+            }
+          },
+          "321": {
+            "322": {
+              "label_ast": "AST",
+              "label_index": "0"
+            }
+          },
+          "326": {
+            "327": {
+              "label_ast": "AST",
+              "label_index": "0"
             }
           },
           "34": {
@@ -4844,6 +5028,63 @@
             "label_l": 3,
             "label_type": "variable_expr"
           },
+          "290": {
+            "label_c": 1,
+            "label_l": 44,
+            "label_type": "block"
+          },
+          "291": {
+            "label_c": 1,
+            "label_l": 44,
+            "label_text": "resource",
+            "label_type": "identifier"
+          },
+          "292": {
+            "label_c": 10,
+            "label_l": 44,
+            "label_type": "string_lit"
+          },
+          "293": {
+            "label_c": 10,
+            "label_l": 44,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "294": {
+            "label_c": 11,
+            "label_l": 44,
+            "label_text": "aws_s3_bucket_policy",
+            "label_type": "template_literal"
+          },
+          "295": {
+            "label_c": 31,
+            "label_l": 44,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
+          "296": {
+            "label_c": 33,
+            "label_l": 44,
+            "label_type": "string_lit"
+          },
+          "297": {
+            "label_c": 33,
+            "label_l": 44,
+            "label_text": "\"",
+            "label_type": "quoted_template_start"
+          },
+          "298": {
+            "label_c": 34,
+            "label_l": 44,
+            "label_text": "b",
+            "label_type": "template_literal"
+          },
+          "299": {
+            "label_c": 35,
+            "label_l": 44,
+            "label_text": "\"",
+            "label_type": "quoted_template_end"
+          },
           "3": {
             "label_c": 1,
             "label_l": 1,
@@ -4855,16 +5096,171 @@
             "label_text": "var",
             "label_type": "identifier"
           },
+          "300": {
+            "label_c": 37,
+            "label_l": 44,
+            "label_type": "block_start"
+          },
+          "301": {
+            "label_c": 37,
+            "label_l": 44,
+            "label_text": "{",
+            "label_type": "{"
+          },
+          "302": {
+            "label_c": 3,
+            "label_l": 45,
+            "label_type": "body"
+          },
+          "303": {
+            "label_c": 3,
+            "label_l": 45,
+            "label_type": "attribute"
+          },
+          "304": {
+            "label_c": 3,
+            "label_l": 45,
+            "label_text": "bucket",
+            "label_type": "identifier"
+          },
+          "305": {
+            "label_c": 10,
+            "label_l": 45,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "306": {
+            "label_c": 12,
+            "label_l": 45,
+            "label_type": "expression"
+          },
+          "307": {
+            "label_c": 12,
+            "label_l": 45,
+            "label_type": "variable_expr"
+          },
+          "308": {
+            "label_c": 12,
+            "label_l": 45,
+            "label_text": "aws_s3_bucket",
+            "label_type": "identifier"
+          },
+          "309": {
+            "label_c": 25,
+            "label_l": 45,
+            "label_type": "get_attr"
+          },
           "31": {
             "label_c": 15,
             "label_l": 3,
             "label_type": "get_attr"
+          },
+          "310": {
+            "label_c": 25,
+            "label_l": 45,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "311": {
+            "label_c": 26,
+            "label_l": 45,
+            "label_text": "b",
+            "label_type": "identifier"
+          },
+          "312": {
+            "label_c": 27,
+            "label_l": 45,
+            "label_type": "get_attr"
+          },
+          "313": {
+            "label_c": 27,
+            "label_l": 45,
+            "label_text": ".",
+            "label_type": "."
+          },
+          "314": {
+            "label_c": 28,
+            "label_l": 45,
+            "label_text": "id",
+            "label_type": "identifier"
+          },
+          "315": {
+            "label_c": 3,
+            "label_l": 47,
+            "label_type": "attribute"
+          },
+          "316": {
+            "label_c": 3,
+            "label_l": 47,
+            "label_text": "policy",
+            "label_type": "identifier"
+          },
+          "317": {
+            "label_c": 10,
+            "label_l": 47,
+            "label_text": "=",
+            "label_type": "="
+          },
+          "318": {
+            "label_c": 12,
+            "label_l": 47,
+            "label_type": "expression"
+          },
+          "319": {
+            "label_c": 12,
+            "label_l": 47,
+            "label_type": "template_expr"
           },
           "32": {
             "label_c": 15,
             "label_l": 3,
             "label_text": ".",
             "label_type": "."
+          },
+          "320": {
+            "label_c": 12,
+            "label_l": 47,
+            "label_type": "heredoc_template"
+          },
+          "321": {
+            "label_c": 12,
+            "label_l": 47,
+            "label_type": "heredoc_start"
+          },
+          "322": {
+            "label_c": 12,
+            "label_l": 47,
+            "label_text": "<<",
+            "label_type": "<<"
+          },
+          "323": {
+            "label_c": 14,
+            "label_l": 47,
+            "label_text": "POLICY",
+            "label_type": "heredoc_identifier"
+          },
+          "324": {
+            "label_c": 3,
+            "label_l": 48,
+            "label_text": "{\n    \"Version\": \"2012-10-17\",\n    \"Id\": \"MYBUCKETPOLICY\",\n    \"Statement\": [\n      {\n        \"Sid\": \"IPAllow\",\n        \"Effect\": \"Deny\",\n        \"Principal\": \"*\",\n      }\n    ]\n  }",
+            "label_type": "template_literal"
+          },
+          "325": {
+            "label_c": 3,
+            "label_l": 59,
+            "label_text": "POLICY",
+            "label_type": "heredoc_identifier"
+          },
+          "326": {
+            "label_c": 1,
+            "label_l": 60,
+            "label_type": "block_end"
+          },
+          "327": {
+            "label_c": 1,
+            "label_l": 60,
+            "label_text": "}",
+            "label_type": "}"
           },
           "33": {
             "label_c": 16,
@@ -5286,6 +5682,10 @@
               "label_ast": "AST",
               "label_cfg": "CFG"
             },
+            "290": {
+              "label_ast": "AST",
+              "label_cfg": "CFG"
+            },
             "3": {
               "label_ast": "AST",
               "label_cfg": "CFG"
@@ -5457,11 +5857,35 @@
               "label_ast": "AST"
             }
           },
+          "290": {
+            "303": {
+              "label_ast": "AST"
+            },
+            "315": {
+              "label_ast": "AST"
+            }
+          },
           "3": {
             "16": {
               "label_ast": "AST"
             },
             "25": {
+              "label_ast": "AST"
+            }
+          },
+          "303": {
+            "304": {
+              "label_ast": "AST"
+            },
+            "306": {
+              "label_ast": "AST"
+            }
+          },
+          "315": {
+            "316": {
+              "label_ast": "AST"
+            },
+            "318": {
               "label_ast": "AST"
             }
           },
@@ -5741,10 +6165,45 @@
             "value": "var.tags",
             "value_type": "string"
           },
+          "290": {
+            "label_type": "Object",
+            "name": "aws_s3_bucket_policy",
+            "tf_reference": "aws_s3_bucket_policy.b"
+          },
           "3": {
             "label_type": "Object",
             "name": "aws_s3_bucket",
             "tf_reference": "aws_s3_bucket.s3_bucket"
+          },
+          "303": {
+            "key_id": "304",
+            "label_type": "Pair",
+            "value_id": "306"
+          },
+          "304": {
+            "label_type": "Literal",
+            "value": "bucket",
+            "value_type": "string"
+          },
+          "306": {
+            "label_type": "Literal",
+            "value": "aws_s3_bucket.b.id",
+            "value_type": "string"
+          },
+          "315": {
+            "key_id": "316",
+            "label_type": "Pair",
+            "value_id": "318"
+          },
+          "316": {
+            "label_type": "Literal",
+            "value": "policy",
+            "value_type": "string"
+          },
+          "318": {
+            "label_type": "Literal",
+            "value": "{\n    \"Version\": \"2012-10-17\",\n    \"Id\": \"MYBUCKETPOLICY\",\n    \"Statement\": [\n      {\n        \"Sid\": \"IPAllow\",\n        \"Effect\": \"Deny\",\n        \"Principal\": \"*\",\n      }\n    ]\n  }",
+            "value_type": "string"
           },
           "36": {
             "label_type": "Object",
