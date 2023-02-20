@@ -14,7 +14,7 @@ const Empty: React.FC<IEmptyProps> = ({
   title,
 }): JSX.Element => {
   return (
-    <Container pb={"4rem"} pt={"4rem"}>
+    <Container pb={"15rem"} pt={"15rem"}>
       <Container margin={"auto"} maxWidth={"150px"}>
         <img alt={srcImage} src={srcImage} />
       </Container>
