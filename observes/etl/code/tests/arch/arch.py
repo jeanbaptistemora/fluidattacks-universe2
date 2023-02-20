@@ -48,7 +48,11 @@ _dag: Dict[str, FrozenList[FrozenList[str] | str]] = {
     ),
     "code_etl.arm": (
         ("_ignored_paths", "_group_org"),
-        "_raw_client",
+        ("_raw_client", "_retry"),
+    ),
+    "code_etl.arm._retry": (
+        ("delay", "handlers"),
+        "_core",
     ),
     "code_etl.clients._raw_file_commit": (
         "_client",
