@@ -327,7 +327,7 @@ def validate_updated_commit_deco(
     return wrapper
 
 
-def validate_specific_deco(
+def validate_updated_specific_deco(
     vulnerability_type_field: str, specific_field: str
 ) -> Callable:
     def wrapper(func: Callable) -> Callable:
@@ -347,6 +347,32 @@ def validate_specific_deco(
                 validate_lines_specific(specific)
             if vulnerability_type is VulnerabilityType.PORTS:
                 validate_ports_specific(specific)
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def validate_updated_where_deco(
+    vulnerability_type_field: str, where_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            vulnerability_type = get_attr_value(
+                field=vulnerability_type_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            where = get_attr_value(
+                field=where_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            if vulnerability_type is VulnerabilityType.LINES:
+                validate_path(where)
+            validate_where(where)
             return func(*args, **kwargs)
 
         return decorated

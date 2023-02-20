@@ -17,8 +17,9 @@ import pytest
 from vulnerabilities.domain.validations import (
     validate_path_deco,
     validate_source_deco,
-    validate_specific_deco,
     validate_updated_commit_deco,
+    validate_updated_specific_deco,
+    validate_updated_where_deco,
     validate_where_deco,
 )
 
@@ -57,8 +58,8 @@ def test_validate_where_deco() -> None:
         decorated_func(where="=MyVulnerability")
 
 
-def test_validate_specific_deco() -> None:
-    @validate_specific_deco("vuln_type", "specific")
+def test_validate_updated_specific_deco() -> None:
+    @validate_updated_specific_deco("vuln_type", "specific")
     def decorated_func(vuln_type: str, specific: str) -> str:
         return vuln_type + specific
 
@@ -95,4 +96,22 @@ def test_validate_updated_commit_deco() -> None:
         decorated_func(
             vuln_type=VulnerabilityType.LINES,
             commit="da39a3ee5e6b4b0d3255bfef95601890afd80709543",
+        )
+
+
+def test_validate_updated_where_deco() -> None:
+    @validate_updated_where_deco("vuln_type", "where")
+    def decorated_func(vuln_type: str, where: str) -> str:
+        return vuln_type + where
+
+    assert decorated_func(
+        vuln_type=VulnerabilityType.LINES, where="C:/Program Files/MyApp"
+    )
+    with pytest.raises(InvalidPath):
+        decorated_func(
+            vuln_type=VulnerabilityType.LINES, where="C:\\Program Files\\MyApp"
+        )
+    with pytest.raises(InvalidVulnWhere):
+        decorated_func(
+            vuln_type=VulnerabilityType.LINES, where="=C:/Program Files/MyApp"
         )
