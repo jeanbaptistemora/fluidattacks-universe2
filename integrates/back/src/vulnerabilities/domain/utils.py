@@ -34,12 +34,7 @@ from newutils.vulnerabilities import (
     ignore_advisories,
 )
 from typing import (
-    Any,
-    List,
     Optional,
-)
-from uuid import (
-    uuid4 as uuid,
 )
 
 
@@ -98,14 +93,6 @@ async def get_hash_from_machine_vuln(
         ).digest()[:8],
         "little",
     )
-
-
-def get_hash_from_dict(vuln: dict[str, Any]) -> int:
-    nonce: str = uuid().hex
-    specific = vuln.get("specific", nonce)
-    type_ = vuln.get("vuln_type", nonce)
-    where = vuln.get("where", nonce)
-    return get_hash(specific=specific, type_=type_, where=where)
 
 
 def get_path_from_integrates_vulnerability(
@@ -239,5 +226,5 @@ def format_vulnerability_locations(where: list[str]) -> str:
 
 
 @validate_fields_deco(["tags"])
-def format_tags(tags: List[str]) -> List[str]:
+def format_tags(tags: list[str]) -> list[str]:
     return [html.unescape(tag.strip()) for tag in tags if tag.strip()]
