@@ -1,5 +1,5 @@
 # pylint: disable=import-error
-from api.schema import (
+from api import (
     SCHEMA,
 )
 from ariadne import (

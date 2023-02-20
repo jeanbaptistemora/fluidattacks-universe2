@@ -1,8 +1,40 @@
-from api.types import (
+from .enums import (
+    ENUMS,
+)
+from .extensions.opentelemetry import (
+    OpenTelemetryExtension,
+)
+from .resolvers import (
+    TYPES,
+)
+from .scalars import (
+    SCALARS,
+)
+from .types import (
     Operation,
 )
-from api.validations.directives import (
+from .unions import (
+    UNIONS,
+)
+from .validations.characters import (
+    validate_characters,
+)
+from .validations.directives import (
     validate_directives,
+)
+from .validations.query_breadth import (
+    QueryBreadthValidation,
+)
+from .validations.query_depth import (
+    QueryDepthValidation,
+)
+from .validations.variables_validation import (
+    variables_check,
+)
+from ariadne import (
+    load_schema_from_path,
+    make_executable_schema,
+    snake_case_fallback_resolvers,
 )
 from ariadne.asgi import (
     GraphQL,
@@ -10,14 +42,22 @@ from ariadne.asgi import (
 from ariadne.asgi.handlers import (
     GraphQLHTTPHandler,
 )
+from ariadne.types import (
+    ExtensionList,
+)
 from dataloaders import (
     apply_context_attrs,
 )
 from graphql import (
+    ASTValidationRule,
     DocumentNode,
 )
 from newutils import (
     logs as logs_utils,
+)
+import os
+from settings.various import (
+    DEBUG,
 )
 from starlette.requests import (
     Request,
@@ -25,6 +65,8 @@ from starlette.requests import (
 import sys
 from typing import (
     Any,
+    Optional,
+    Type,
 )
 
 
@@ -66,13 +108,7 @@ def hook_early_validations() -> None:
     ariadne_graphql.parse_query = before_parse  # type: ignore
 
 
-class IntegratesAPI(GraphQL):  # pylint: disable=too-few-public-methods
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
-        super().__init__(*args, **kwargs)
-        hook_early_validations()
-
-
-class IntegratesHTTPHandler(GraphQLHTTPHandler):
+class IntegratesAPIHTTPHandler(GraphQLHTTPHandler):
     async def get_context_for_request(self, request: Request) -> Request:
         data: dict[str, Any] = await super().extract_data_from_request(request)
         operation = _get_operation(data)
@@ -91,3 +127,48 @@ class IntegratesHTTPHandler(GraphQLHTTPHandler):
         _log_request(request, operation)
 
         return data
+
+
+def get_validation_rules(
+    context_value: Optional[Any],
+    _document: DocumentNode,
+    _data: dict[Any, Any],
+) -> tuple[Type[ASTValidationRule], ...]:
+    return (  # type: ignore
+        QueryBreadthValidation,
+        QueryDepthValidation,
+        validate_characters(context_value),
+        variables_check(context_value),
+    )
+
+
+API_EXTENSIONS: ExtensionList = [
+    OpenTelemetryExtension,
+]
+API_PATH = os.path.dirname(__file__)
+SDL_CONTENT = "\n".join(
+    [
+        load_schema_from_path(os.path.join(API_PATH, module))
+        for module in os.listdir(API_PATH)
+        if os.path.isdir(os.path.join(API_PATH, module))
+    ]
+)
+SCHEMA = make_executable_schema(
+    SDL_CONTENT,
+    *ENUMS,
+    *SCALARS,
+    *TYPES,
+    *UNIONS,
+    snake_case_fallback_resolvers,
+)
+
+
+class IntegratesAPI(GraphQL):  # pylint: disable=too-few-public-methods
+    def __init__(self) -> None:
+        super().__init__(
+            schema=SCHEMA,
+            debug=DEBUG,
+            http_handler=IntegratesAPIHTTPHandler(),
+            validation_rules=get_validation_rules,
+        )
+        hook_early_validations()

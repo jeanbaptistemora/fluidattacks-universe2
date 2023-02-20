@@ -1,4 +1,4 @@
-from api.schema import (
+from api import (
     SDL_CONTENT,
 )
 from datetime import (

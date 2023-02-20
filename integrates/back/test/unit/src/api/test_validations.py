@@ -1,17 +1,10 @@
 from api import (
+    get_validation_rules,
     hook_early_validations,
-)
-from api.schema import (
     SCHEMA,
 )
 from api.types import (
     Operation,
-)
-from app.app import (
-    get_validation_rules,
-)
-from ariadne.graphql import (
-    parse_query,
 )
 from graphql import (
     get_introspection_query,
@@ -24,6 +17,7 @@ from settings.api import (
     API_MAX_CHARACTERS,
     API_MAX_DIRECTIVES,
 )
+import sys
 from typing import (
     NamedTuple,
 )
@@ -48,9 +42,7 @@ def test_should_allow_introspection() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(
-            _context_value, parse(query), None  # type: ignore
-        ),
+        get_validation_rules(_context_value, parse(query), {}),
     )
     assert not errors
 
@@ -93,9 +85,7 @@ def test_should_validate_depth() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(
-            _context_value, parse(query), None  # type: ignore
-        ),
+        get_validation_rules(_context_value, parse(query), {}),
     )
     assert errors
     assert errors[0].message == "Exception - Max query depth exceeded"
@@ -133,9 +123,7 @@ def test_should_validate_breadth() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(
-            _context_value, parse(query), None  # type: ignore
-        ),
+        get_validation_rules(_context_value, parse(query), {}),
     )
     assert errors
     assert errors[0].message == "Exception - Max query breadth exceeded"
@@ -159,7 +147,7 @@ def test_should_validate_variables() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(  # type: ignore
+        get_validation_rules(
             ContextValue(
                 operation=Operation(
                     name="",
@@ -172,7 +160,7 @@ def test_should_validate_variables() -> None:
                 )
             ),
             parse(query),
-            None,
+            {},
         ),
     )
     assert errors
@@ -189,7 +177,7 @@ def test_should_validate_directives() -> None:
 
     hook_early_validations()
     with pytest.raises(GraphQLError):
-        parse_query(query)
+        sys.modules["ariadne.graphql"].parse_query(query)
 
 
 def test_should_validate_characters() -> None:
@@ -202,12 +190,12 @@ def test_should_validate_characters() -> None:
     errors = validate(
         SCHEMA,
         parse(query),
-        get_validation_rules(  # type: ignore
+        get_validation_rules(
             ContextValue(
                 operation=Operation(name="", query=query, variables={})
             ),
             parse(query),
-            None,
+            {},
         ),
     )
     assert errors

@@ -1,20 +1,20 @@
 from graphql import (
+    ASTValidationRule,
     GraphQLError,
     OperationDefinitionNode,
-    ValidationRule,
 )
 from typing import (
     Any,
 )
 
 
-def variables_check(context_value: Any) -> ValidationRule:
+def variables_check(context_value: Any) -> ASTValidationRule:
     """
     This validation prevents the execution of operation containing not defined
     variables.
     """
 
-    class VariableValidation(ValidationRule):
+    class VariableValidation(ASTValidationRule):
         def enter_operation_definition(
             self, node: OperationDefinitionNode, *_args: Any
         ) -> None:

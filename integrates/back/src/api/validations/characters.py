@@ -2,9 +2,9 @@ from api.types import (
     Operation,
 )
 from graphql import (
+    ASTValidationRule,
     GraphQLError,
     ValidationContext,
-    ValidationRule,
 )
 from settings.api import (
     API_MAX_CHARACTERS,
@@ -14,14 +14,14 @@ from typing import (
 )
 
 
-def validate_characters(context_value: Any) -> ValidationRule:
+def validate_characters(context_value: Any) -> ASTValidationRule:
     """
     This validation prevents the execution of queries containing an excessive
     amount characters to prevent abuse.
     """
     operation: Operation = context_value.operation
 
-    class CharactersThresholdValidation(ValidationRule):
+    class CharactersThresholdValidation(ASTValidationRule):
         def __init__(self, context: ValidationContext) -> None:
             super().__init__(context)
 

@@ -1,7 +1,7 @@
 from graphql import (
+    ASTValidationRule,
     GraphQLError,
     OperationDefinitionNode,
-    ValidationRule,
 )
 from settings.api import (
     API_MAX_QUERY_BREADTH,
@@ -11,7 +11,7 @@ from typing import (
 )
 
 
-class QueryBreadthValidation(ValidationRule):
+class QueryBreadthValidation(ASTValidationRule):
     """
     This validation prevents the execution of queries requesting an excessive
     amount of root resolvers to prevent abuse.

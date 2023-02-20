@@ -1,8 +1,8 @@
 from graphql import (
+    ASTValidationRule,
     FieldNode,
     GraphQLError,
     ValidationContext,
-    ValidationRule,
 )
 from settings.api import (
     API_MAX_QUERY_DEPTH,
@@ -12,7 +12,7 @@ from typing import (
 )
 
 
-class QueryDepthValidation(ValidationRule):
+class QueryDepthValidation(ASTValidationRule):
     """
     This validation prevents the execution of queries requesting an excessive
     amount of nested cyclic resolvers to prevent abuse.

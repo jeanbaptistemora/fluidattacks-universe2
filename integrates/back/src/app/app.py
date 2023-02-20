@@ -13,25 +13,6 @@ from aioextensions import (
 )
 from api import (
     IntegratesAPI,
-    IntegratesHTTPHandler,
-)
-from api.extensions.opentelemetry import (
-    OpenTelemetryExtension,
-)
-from api.schema import (
-    SCHEMA,
-)
-from api.validations.characters import (
-    validate_characters,
-)
-from api.validations.query_breadth import (
-    QueryBreadthValidation,
-)
-from api.validations.query_depth import (
-    QueryDepthValidation,
-)
-from api.validations.variables_validation import (
-    variables_check,
 )
 from app.views.oauth import (
     do_azure_oauth,
@@ -42,9 +23,6 @@ from app.views.oauth import (
     oauth_bitbucket,
     oauth_github,
     oauth_gitlab,
-)
-from ariadne.types import (
-    ExtensionList,
 )
 from billing.domain import (
     webhook,
@@ -77,10 +55,6 @@ from decorators import (
 from dynamodb.resource import (
     dynamo_shutdown,
     dynamo_startup,
-)
-from graphql import (
-    DocumentNode,
-    ValidationRule,
 )
 from group_access import (
     domain as group_access_domain,
@@ -146,9 +120,6 @@ from telemetry import (
 )
 from telemetry.instrumentation import (
     instrument,
-)
-from typing import (
-    Any,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -356,22 +327,6 @@ async def server_error(request: Request, ex: Exception) -> HTMLResponse:
 
 exception_handlers = {404: not_found, 500: server_error}
 
-API_EXTENSIONS: ExtensionList = [
-    OpenTelemetryExtension,
-]
-
-
-def get_validation_rules(
-    context_value: Any, _document: DocumentNode, _data: Any
-) -> tuple[ValidationRule, ...]:
-    return (  # type: ignore
-        QueryBreadthValidation,
-        QueryDepthValidation,
-        validate_characters(context_value),
-        variables_check(context_value),
-    )
-
-
 STARLETTE_APP = Starlette(
     debug=DEBUG,
     on_startup=[
@@ -383,15 +338,7 @@ STARLETTE_APP = Starlette(
     on_shutdown=[dynamo_shutdown, search_shutdown, s3_shutdown],
     routes=[
         Route("/", templates.login),
-        Route(
-            "/api",
-            IntegratesAPI(
-                SCHEMA,
-                debug=DEBUG,
-                http_handler=IntegratesHTTPHandler(),
-                validation_rules=get_validation_rules,
-            ),
-        ),
+        Route("/api", IntegratesAPI()),
         Route("/authz_azure", auth.authz_azure),
         Route("/dgitlab", do_gitlab_oauth),
         Route("/oauth_gitlab", oauth_gitlab),
