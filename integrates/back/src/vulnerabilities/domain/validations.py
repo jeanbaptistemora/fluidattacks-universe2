@@ -5,6 +5,7 @@ from custom_exceptions import (
     InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidNumberAcceptances,
+    InvalidParameter,
     InvalidPath,
     InvalidPort,
     InvalidSource,
@@ -175,33 +176,6 @@ def validate_ports_specific(specific: str) -> None:
         raise InvalidPort(expr=f'"values": "{specific}"')
 
 
-def validate_specific_deco(
-    vulnerability_type_field: str, specific_field: str
-) -> Callable:
-    def wrapper(func: Callable) -> Callable:
-        @functools.wraps(func)
-        def decorated(*args: Any, **kwargs: Any) -> Any:
-            vulnerability_type = get_attr_value(
-                field=vulnerability_type_field,
-                kwargs=kwargs,
-                obj_type=str,
-            )
-            specific = get_attr_value(
-                field=specific_field,
-                kwargs=kwargs,
-                obj_type=str,
-            )
-            if vulnerability_type is VulnerabilityType.LINES:
-                validate_lines_specific(specific)
-            if vulnerability_type is VulnerabilityType.PORTS:
-                validate_ports_specific(specific)
-            return func(*args, **kwargs)
-
-        return decorated
-
-    return wrapper
-
-
 def validate_uniqueness(
     *,
     finding_vulns_data: tuple[Vulnerability, ...],
@@ -324,6 +298,55 @@ def validate_source_deco(source_field: str) -> Callable:
                 Source.MACHINE,
             }:
                 raise InvalidSource()
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def validate_updated_commit_deco(
+    vulnerability_type_field: str, commit_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            vulnerability_type = get_attr_value(
+                field=vulnerability_type_field, kwargs=kwargs, obj_type=str
+            )
+            commit = get_attr_value(
+                field=commit_field, kwargs=kwargs, obj_type=str
+            )
+            if vulnerability_type is not VulnerabilityType.LINES:
+                raise InvalidParameter("commit")
+            validate_commit_hash(commit)
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def validate_specific_deco(
+    vulnerability_type_field: str, specific_field: str
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            vulnerability_type = get_attr_value(
+                field=vulnerability_type_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            specific = get_attr_value(
+                field=specific_field,
+                kwargs=kwargs,
+                obj_type=str,
+            )
+            if vulnerability_type is VulnerabilityType.LINES:
+                validate_lines_specific(specific)
+            if vulnerability_type is VulnerabilityType.PORTS:
+                validate_ports_specific(specific)
             return func(*args, **kwargs)
 
         return decorated

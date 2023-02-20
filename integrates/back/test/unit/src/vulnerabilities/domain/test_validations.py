@@ -1,7 +1,9 @@
 from custom_exceptions import (
+    InvalidParameter,
     InvalidPath,
     InvalidPort,
     InvalidSource,
+    InvalidVulnCommitHash,
     InvalidVulnSpecific,
     InvalidVulnWhere,
 )
@@ -16,6 +18,7 @@ from vulnerabilities.domain.validations import (
     validate_path_deco,
     validate_source_deco,
     validate_specific_deco,
+    validate_updated_commit_deco,
     validate_where_deco,
 )
 
@@ -67,3 +70,29 @@ def test_validate_specific_deco() -> None:
         decorated_func(vuln_type=VulnerabilityType.PORTS, specific="70000")
     with pytest.raises(InvalidVulnSpecific):
         decorated_func(vuln_type=VulnerabilityType.PORTS, specific="port 80")
+
+
+def test_validate_updated_commit_deco() -> None:
+    @validate_updated_commit_deco("vuln_type", "commit")
+    def decorated_func(vuln_type: str, commit: str) -> str:
+        return vuln_type + commit
+
+    assert decorated_func(
+        vuln_type=VulnerabilityType.LINES,
+        commit="da39a3ee5e6b4b0d3255bfef95601890afd80709",
+    )
+    with pytest.raises(InvalidParameter):
+        decorated_func(
+            vuln_type=VulnerabilityType.PORTS,
+            commit="da39a3ee5e6b4b0d3255bfef95601890afd80709",
+        )
+    with pytest.raises(InvalidVulnCommitHash):
+        decorated_func(
+            vuln_type=VulnerabilityType.LINES,
+            commit="da39a3ee5e6b4b0d3255bfey95601890afd80709",
+        )
+    with pytest.raises(InvalidVulnCommitHash):
+        decorated_func(
+            vuln_type=VulnerabilityType.LINES,
+            commit="da39a3ee5e6b4b0d3255bfef95601890afd80709543",
+        )
