@@ -6,7 +6,8 @@ import { DisplayImage } from "./DisplayImage";
 import { EvidenceForm } from "./EvidenceForm";
 import { DescriptionContainer, ImageContainer } from "./styles";
 
-import { Col33, EvidenceDescription, Row } from "styles/styledComponents";
+import { Row } from "components/Layout";
+import { Col33, EvidenceDescription } from "styles/styledComponents";
 import { getFileNameExtension } from "utils/validations";
 
 interface IEvidenceImageProps {
