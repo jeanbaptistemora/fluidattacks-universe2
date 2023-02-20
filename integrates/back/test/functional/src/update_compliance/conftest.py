@@ -70,6 +70,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     attack_vector_description=(
                         "This is an updated attack vector"
                     ),
+                    unfulfilled_requirements=["169", "173"],
                 ),
                 "historic_state": [
                     FindingState(

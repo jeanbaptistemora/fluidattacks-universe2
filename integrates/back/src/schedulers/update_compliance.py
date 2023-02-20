@@ -204,7 +204,6 @@ async def get_organization_compliance_weekly_trend(
     current_compliance_level: Decimal,
     compliance_file: dict[str, Any],
     requirements_file: dict[str, Any],
-    vulnerabilities_file: dict[str, Any],
 ) -> Decimal:
     org_groups: list[Group] = await loaders.organization_groups.load(
         organization.id
@@ -246,9 +245,7 @@ async def get_organization_compliance_weekly_trend(
             last_week_open_findings[finding.id] = finding
 
     requirements_by_finding = tuple(
-        vulnerabilities_file.get(finding.title[:3], {"requirements": []})[
-            "requirements"
-        ]
+        finding.unfulfilled_requirements
         for finding in last_week_open_findings.values()
     )
     compliances_by_finding = tuple(
@@ -481,7 +478,6 @@ async def update_organization_compliance(
         compliance_file=compliance_file,
         current_compliance_level=compliance_level,
         requirements_file=requirements_file,
-        vulnerabilities_file=vulnerabilities_file,
     )
     estimated_days_to_full_compliance = (
         await get_organization_estimated_days_to_full_compliance(
