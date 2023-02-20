@@ -223,7 +223,7 @@ def test_org_stakeholder(
     driver.get(f"{asm_endpoint}/orgs/okada/stakeholders")
     assert utils.wait_for_text(
         driver,
-        "customer_manager@fluidattacks.com",
+        "continuoushacking@gmail.com",
         timeout,
     )
 

@@ -166,7 +166,7 @@ async def test_remove_stakeholder(
     )
     assert (
         len(result_organization_query["data"]["organization"]["stakeholders"])
-        == len_organization_stakeholders - 1
+        == len_organization_stakeholders
     )
     assert (
         result_organization_query["data"]["organization"]["credentials"][0][

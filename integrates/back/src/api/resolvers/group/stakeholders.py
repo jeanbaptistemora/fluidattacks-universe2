@@ -52,7 +52,7 @@ async def resolve(
 
     exclude_fluid_staff = not validations.is_fluid_staff(user_email)
     if exclude_fluid_staff:
-        stakeholders = [
+        return [
             stakeholder
             for stakeholder in stakeholders
             if not validations.is_fluid_staff(stakeholder.email)

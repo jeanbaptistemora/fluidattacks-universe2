@@ -657,26 +657,15 @@ async def test_get_organization_ver_2(
     org_id: str = "ORG#40f6da5f-4f66-4bf0-825b-a2d9748ad6db"
     org_name: str = "orgtest"
     org_stakeholders: list[str] = [
-        "admin@fluidattacks.com",
         "admin@gmail.com",
-        "architect@fluidattacks.com",
         "architect@gmail.com",
-        "customer_manager@fluidattacks.com",
-        "hacker@fluidattacks.com",
         "hacker@gmail.com",
-        "reattacker@fluidattacks.com",
         "reattacker@gmail.com",
-        "resourcer@fluidattacks.com",
         "resourcer@gmail.com",
-        "reviewer@fluidattacks.com",
         "reviewer@gmail.com",
-        "service_forces@fluidattacks.com",
         "service_forces@gmail.com",
-        "user@fluidattacks.com",
         "user@gmail.com",
-        "user_manager@fluidattacks.com",
         "user_manager@gmail.com",
-        "vulnerability_manager@fluidattacks.com",
         "vulnerability_manager@gmail.com",
     ]
     with (
