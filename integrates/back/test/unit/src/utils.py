@@ -156,8 +156,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
     Optional,
 )
 from unittest.mock import (
@@ -165,7 +163,7 @@ from unittest.mock import (
 )
 import uuid
 
-mocked_paths: Dict[str, str] = {
+mocked_paths: dict[str, str] = {
     "add_stakeholder": "organizations.domain.add_stakeholder",
     "authz.grant_organization_level_role": "authz.grant_organization_level_role",  # noqa: E501 pylint: disable=line-too-long
     "authz.validate_handle_comment_scope": "authz.validate_handle_comment_scope",  # noqa: E501 pylint: disable=line-too-long
@@ -243,7 +241,7 @@ mocked_paths: Dict[str, str] = {
     "vulns_model.remove": "db_model.vulnerabilities.remove",
 }
 
-mocked_responses: Dict[str, Dict[str, Any]] = {
+mocked_responses: dict[str, dict[str, Any]] = {
     "authz.enforcer.get_user_level_role": {
         '["continuoushacking@gmail.com"]': "hacker",
         '["integrateshacker@fluidattacks.com"]': "hacker",
@@ -654,6 +652,12 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     "billing.domain.s3_ops.upload_memory_file": {
         '["billing-test-file.png"]': None,
         '["unittesting-test-file.csv"]': None,
+    },
+    "cli.invoker.dynamo_shutdown": {
+        "[]": None,
+    },
+    "cli.invoker.dynamo_startup": {
+        "[]": None,
     },
     "db_model.trials.get.TrialLoader.load": {
         '["org_testusermanager1@gmail.com"]': Trial(
@@ -10659,9 +10663,9 @@ def get_mocked_path(mocked_object: str) -> str:
 
 
 def set_mocks_return_values(
-    mocked_objects: List[AsyncMock],
-    paths_list: List[str],
-    mocks_args: List[List[Any]],
+    mocked_objects: list[AsyncMock],
+    paths_list: list[str],
+    mocks_args: list[list[Any]],
     module_at_test: str = "",
 ) -> bool:
     all_values_set = False
@@ -10687,9 +10691,9 @@ def set_mocks_return_values(
 
 
 def set_mocks_side_effects(
-    mocked_objects: List[AsyncMock],
-    paths_list: List[str],
-    mocks_args: List[List[Any]],
+    mocked_objects: list[AsyncMock],
+    paths_list: list[str],
+    mocks_args: list[list[Any]],
     module_at_test: str = "",
 ) -> bool:
     all_values_set = False
