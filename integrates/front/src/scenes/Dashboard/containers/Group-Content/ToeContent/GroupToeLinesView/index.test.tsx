@@ -1,7 +1,7 @@
 import { MockedProvider } from "@apollo/client/testing";
 import type { MockedResponse } from "@apollo/client/testing";
 import { PureAbility } from "@casl/ability";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
 import { MemoryRouter, Route } from "react-router-dom";
@@ -459,5 +459,49 @@ describe("groupToeLinesView", (): void => {
     expect(
       document.querySelectorAll(`input[name="bePresentUntil"]`)
     ).toHaveLength(2);
+  });
+
+  it("should filter by filename", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    const mockedPermissions = new PureAbility<string>([
+      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
+      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
+      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
+      { action: "api_resolvers_toe_lines_comments_resolve" },
+      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
+      { action: "see_toe_lines_coverage" },
+    ]);
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    const numberOfRows: number = 3;
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
+    });
+
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    fireEvent.change(screen.getByRole("textbox", { name: "filename" }), {
+      target: { value: "test/test#.config" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
   });
 });
