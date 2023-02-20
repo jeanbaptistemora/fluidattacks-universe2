@@ -18,7 +18,7 @@ from sast.query import (
 )
 
 
-def xml_parser(
+def js_xml_parser(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
     method = MethodsEnum.JS_XML_PARSER
