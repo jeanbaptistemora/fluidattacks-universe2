@@ -25,18 +25,12 @@ let optObj = {
 
 token = jwtAlias.sign(payload, secretKey, optObj);
 
+// Case 2: Async implementation with no options.
+// Line 31 must be marked.
 
-// Case 2: Options as external object, external var. Must mark line 31.
-
-var someAlgorithm = 'HS256';
-
-let optObj2 ={
-  expiresIn: '5s',
-  algorithm: someAlgorithm,
-  otherOption: 7,
-}
-
-token = jwtAlias.sign(payload, secretKey, optObj2);
+token = jwtAlias.sign({ foo: "bar" }, privateKey, function (err, token) {
+  console.log(token);
+});
 
 // Case 3: Default algorithm. If no Algorithm especified HS256 is used
 // So, it should be marked, here, line 44 must be marked:

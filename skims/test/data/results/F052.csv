@@ -11,6 +11,198 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypt
   9 | }
     ^ Col 0
 ",c_sharp.c_sharp_disabled_strong_crypto
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,14,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,"
+   4 |
+   5 | const payload = {
+   6 |   sub: ""1234567890"",
+   7 |   name: ""John Doe"",
+   8 |   manager: true,
+   9 | };
+  10 |
+  11 | const secretKey = ""secret"";
+  12 |
+  13 | let token = jwt.sign(payload, secretKey, {
+> 14 |   algorithm: ""HS256"",
+  15 |   expiresIn: ""10m"",
+  16 | });
+  17 |
+  18 | // Case 1: Options as external object. Must mark line 22.
+  19 |
+  20 | let optObj = {
+  21 |   expiresIn: ""5s"",
+  22 |   algorithm: ""HS256"",
+  23 |   otherOption: 7,
+  24 | };
+     ^ Col 0
+",javascript.javascript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,22,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,"
+  12 |
+  13 | let token = jwt.sign(payload, secretKey, {
+  14 |   algorithm: ""HS256"",
+  15 |   expiresIn: ""10m"",
+  16 | });
+  17 |
+  18 | // Case 1: Options as external object. Must mark line 22.
+  19 |
+  20 | let optObj = {
+  21 |   expiresIn: ""5s"",
+> 22 |   algorithm: ""HS256"",
+  23 |   otherOption: 7,
+  24 | };
+  25 |
+  26 | token = jwt.sign(payload, secretKey, optObj);
+  27 |
+  28 | // Case 2: Async implementation with no options.
+  29 | // Line 31 must be marked.
+  30 |
+  31 | token = jwt.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 |   console.log(token);
+     ^ Col 0
+",javascript.javascript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,31,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,"
+  21 |   expiresIn: ""5s"",
+  22 |   algorithm: ""HS256"",
+  23 |   otherOption: 7,
+  24 | };
+  25 |
+  26 | token = jwt.sign(payload, secretKey, optObj);
+  27 |
+  28 | // Case 2: Async implementation with no options.
+  29 | // Line 31 must be marked.
+  30 |
+> 31 | token = jwt.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 |   console.log(token);
+  33 | });
+  34 |
+  35 | // Case 3: Default algorithm. If no Algorithm especified HS256 is used
+  36 | // So, it should be marked, here, line 44 must be marked:
+  37 |
+  38 | token = jwt.sign(payload, secretKey, {
+  39 |   expiresIn: ""10m"",
+  40 | });
+  41 |
+     ^ Col 0
+",javascript.javascript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,38,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,"
+  28 | 2: Async implementation with no options.
+  29 | 31 must be marked.
+  30 |
+  31 | jwt.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 | e.log(token);
+  33 |
+  34 |
+  35 | 3: Default algorithm. If no Algorithm especified HS256 is used
+  36 | t should be marked, here, line 44 must be marked:
+  37 |
+> 38 | jwt.sign(payload, secretKey, {
+  39 | sIn: ""10m"",
+  40 |
+  41 |
+  42 | ol cases (No line should be marked:
+  43 |
+  44 | ase 0: Plain implementation with safe alg.
+  45 |
+  46 | jwt.sign(payload, secretKey, {
+  47 | thm: ""HS512"",
+  48 | sIn: ""10m"",
+     ^ Col 8
+",javascript.javascript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,14,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,"
+   4 |
+   5 | const payload = {
+   6 |   sub: ""1234567890"",
+   7 |   name: ""John Doe"",
+   8 |   manager: true
+   9 | };
+  10 |
+  11 | const secretKey = 'secret';
+  12 |
+  13 | let token = jwtAlias.sign(payload, secretKey, {
+> 14 |     algorithm: 'HS256',
+  15 |     expiresIn: '10m'
+  16 | });
+  17 |
+  18 | // Case 1: Options as external object. Must mark line 22.
+  19 |
+  20 | let optObj = {
+  21 |   expiresIn: '5s',
+  22 |   algorithm: 'HS256',
+  23 |   otherOption: 7,
+  24 | }
+     ^ Col 0
+",typescript.typescript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,22,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,"
+  12 |
+  13 | let token = jwtAlias.sign(payload, secretKey, {
+  14 |     algorithm: 'HS256',
+  15 |     expiresIn: '10m'
+  16 | });
+  17 |
+  18 | // Case 1: Options as external object. Must mark line 22.
+  19 |
+  20 | let optObj = {
+  21 |   expiresIn: '5s',
+> 22 |   algorithm: 'HS256',
+  23 |   otherOption: 7,
+  24 | }
+  25 |
+  26 | token = jwtAlias.sign(payload, secretKey, optObj);
+  27 |
+  28 | // Case 2: Async implementation with no options.
+  29 | // Line 31 must be marked.
+  30 |
+  31 | token = jwtAlias.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 |   console.log(token);
+     ^ Col 0
+",typescript.typescript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,31,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,"
+  20 | let optObj = {
+  21 |   expiresIn: '5s',
+  22 |   algorithm: 'HS256',
+  23 |   otherOption: 7,
+  24 | }
+  25 |
+  26 | token = jwtAlias.sign(payload, secretKey, optObj);
+  27 |
+  28 | // Case 2: Async implementation with no options.
+  29 | // Line 31 must be marked.
+  30 |
+> 31 | token = jwtAlias.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 |   console.log(token);
+  33 | });
+  34 |
+  35 | // Case 3: Default algorithm. If no Algorithm especified HS256 is used
+  36 | // So, it should be marked, here, line 44 must be marked:
+  37 |
+  38 | token = jwtAlias.sign(payload, secretKey, {
+  39 |   expiresIn: '10m'
+  40 | });
+     ^ Col 0
+",typescript.typescript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,38,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,"
+  20 | {
+  21 | '5s',
+  22 | 'HS256',
+  23 | : 7,
+  24 |
+  25 |
+  26 | ias.sign(payload, secretKey, optObj);
+  27 |
+  28 | ync implementation with no options.
+  29 | st be marked.
+  30 |
+  31 | ias.sign({ foo: ""bar"" }, privateKey, function (err, token) {
+  32 | (token);
+  33 |
+  34 |
+  35 | fault algorithm. If no Algorithm especified HS256 is used
+  36 | uld be marked, here, line 44 must be marked:
+  37 |
+> 38 | ias.sign(payload, secretKey, {
+  39 | '10m'
+  40 |
+     ^ Col 13
+",typescript.typescript_jwt_insec_sign_algorithm
 F052,lines,namespace/skims/test/data/lib_path/f052/java.properties,4,310,skims,052. Insecure encryption algorithm,Missing SSL in namespace/skims/test/data/lib_path/f052/java.properties,"
   1 | ibm.mq.use_ssl=true
   2 | ibm.mq.use_ssl=false
