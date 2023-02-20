@@ -1,15 +1,21 @@
 from custom_exceptions import (
     InvalidPath,
+    InvalidPort,
     InvalidSource,
+    InvalidVulnSpecific,
     InvalidVulnWhere,
 )
 from db_model.enums import (
     Source,
 )
+from db_model.vulnerabilities.enums import (
+    VulnerabilityType,
+)
 import pytest
 from vulnerabilities.domain.validations import (
     validate_path_deco,
     validate_source_deco,
+    validate_specific_deco,
     validate_where_deco,
 )
 
@@ -46,3 +52,18 @@ def test_validate_where_deco() -> None:
     assert decorated_func(where="MyVulnerability")
     with pytest.raises(InvalidVulnWhere):
         decorated_func(where="=MyVulnerability")
+
+
+def test_validate_specific_deco() -> None:
+    @validate_specific_deco("vuln_type", "specific")
+    def decorated_func(vuln_type: str, specific: str) -> str:
+        return vuln_type + specific
+
+    assert decorated_func(vuln_type=VulnerabilityType.LINES, specific="210")
+    assert decorated_func(vuln_type=VulnerabilityType.PORTS, specific="8080")
+    with pytest.raises(InvalidVulnSpecific):
+        decorated_func(vuln_type=VulnerabilityType.LINES, specific="line 200")
+    with pytest.raises(InvalidPort):
+        decorated_func(vuln_type=VulnerabilityType.PORTS, specific="70000")
+    with pytest.raises(InvalidVulnSpecific):
+        decorated_func(vuln_type=VulnerabilityType.PORTS, specific="port 80")
