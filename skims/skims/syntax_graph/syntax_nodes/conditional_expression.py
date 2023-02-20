@@ -4,14 +4,11 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_conditional_expression_node(
     args: SyntaxGraphArgs,
-    condition_node: Optional[str],
+    condition_node: str | None,
     true_block: str,
     false_block: str,
 ) -> NId:

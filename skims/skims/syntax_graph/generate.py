@@ -15,7 +15,6 @@ from syntax_graph.types import (
 )
 from typing import (
     cast,
-    Optional,
 )
 from utils.logs import (
     log_blocking,
@@ -40,7 +39,7 @@ def generic(args: SyntaxGraphArgs) -> str:
 
 def build_syntax_graph(
     path: str, language: GraphLanguage, ast_graph: Graph
-) -> Optional[Graph]:
+) -> Graph | None:
     try:
         syntax_graph = Graph()
         generic(

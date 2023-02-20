@@ -4,13 +4,10 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Dict,
-)
 
 
 def build_import_statement_node(
-    args: SyntaxGraphArgs, *imported_elements: Dict[str, str]
+    args: SyntaxGraphArgs, *imported_elements: dict[str, str]
 ) -> NId:
     if len(imported_elements) == 1:
         imported_elements[0].pop("corrected_n_id", None)

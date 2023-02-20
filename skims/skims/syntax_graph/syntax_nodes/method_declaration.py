@@ -1,21 +1,20 @@
+from collections.abc import (
+    Iterable,
+    Mapping,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Dict,
-    List,
-    Optional,
-)
 
 
 def build_method_declaration_node(
     args: SyntaxGraphArgs,
-    name: Optional[str],
-    block_id: Optional[NId],
-    children: Dict[str, List[NId]],
+    name: str | None,
+    block_id: NId | None,
+    children: Mapping[str, Iterable[NId]],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
@@ -35,14 +34,14 @@ def build_method_declaration_node(
 
     for name_node, n_ids in children.items():
         if n_ids:
-            if len(n_ids) == 1:
-                args.syntax_graph.nodes[args.n_id][name_node] = n_ids[0]
+            if len(list(n_ids)) == 1:
+                args.syntax_graph.nodes[args.n_id][name_node] = list(n_ids)[0]
                 args.syntax_graph.add_edge(
                     args.n_id,
-                    args.generic(args.fork_n_id(n_ids[0])),
+                    args.generic(args.fork_n_id(list(n_ids)[0])),
                     label_ast="AST",
                 )
-            elif len(n_ids) > 1:
+            elif len(list(n_ids)) > 1:
                 for attrlist_id in n_ids:
                     args.syntax_graph.add_edge(
                         args.n_id,

@@ -4,16 +4,13 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_assignment_node(
     args: SyntaxGraphArgs,
     var_id: NId,
-    val_id: Optional[NId],
-    operator: Optional[str],
+    val_id: NId | None,
+    operator: str | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

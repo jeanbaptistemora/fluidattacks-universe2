@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
@@ -6,11 +9,13 @@ from syntax_graph.types import (
 )
 from typing import (
     Any,
-    List,
 )
 
 
-def build_interpolation_node(args: SyntaxGraphArgs, c_ids: List[Any]) -> NId:
+def build_interpolation_node(
+    args: SyntaxGraphArgs,
+    c_ids: Iterable[Any],
+) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         label_type="Interpolation",

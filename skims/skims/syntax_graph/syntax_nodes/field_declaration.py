@@ -1,16 +1,16 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-)
 
 
 def build_field_declaration_node(
-    args: SyntaxGraphArgs, vars_list: List[str], field_type: str
+    args: SyntaxGraphArgs, vars_list: Iterable[str], field_type: str
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

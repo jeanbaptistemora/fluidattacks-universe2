@@ -4,17 +4,14 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_method_invocation_node(
     args: SyntaxGraphArgs,
     expr: str,
-    expr_id: Optional[NId],
-    arguments_id: Optional[NId],
-    object_id: Optional[NId],
+    expr_id: NId | None,
+    arguments_id: NId | None,
+    object_id: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

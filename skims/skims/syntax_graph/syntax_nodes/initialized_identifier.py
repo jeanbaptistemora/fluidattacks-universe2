@@ -1,19 +1,18 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Iterator,
-    Optional,
-)
 
 
 def build_initialized_identifier_node(
     args: SyntaxGraphArgs,
-    name: Optional[str],
-    expr_id: Optional[NId],
+    name: str | None,
+    expr_id: NId | None,
     c_ids: Iterator[NId],
 ) -> NId:
     args.syntax_graph.add_node(

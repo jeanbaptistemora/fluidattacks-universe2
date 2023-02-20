@@ -4,14 +4,11 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_name_equals_node(
     args: SyntaxGraphArgs,
-    name_id: Optional[NId],
+    name_id: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

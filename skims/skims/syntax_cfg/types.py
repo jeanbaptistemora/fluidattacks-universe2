@@ -1,14 +1,13 @@
+from collections.abc import (
+    Callable,
+)
 from model.graph_model import (
     Graph,
     NId,
 )
 from typing import (
     Any,
-    Callable,
     NamedTuple,
-    Optional,
-    Set,
-    Tuple,
 )
 
 SYNTAX_CFG_ARGS = Any  # pylint: disable=invalid-name
@@ -18,9 +17,9 @@ class SyntaxCfgArgs(NamedTuple):
     generic: Callable[[SYNTAX_CFG_ARGS], NId]
     graph: Graph
     n_id: NId
-    nxt_id: Optional[NId]
+    nxt_id: NId | None
 
-    def fork(self, n_id: NId, nxt_id: Optional[NId]) -> SYNTAX_CFG_ARGS:
+    def fork(self, n_id: NId, nxt_id: NId | None) -> SYNTAX_CFG_ARGS:
         return SyntaxCfgArgs(
             generic=self.generic,
             graph=self.graph,
@@ -33,11 +32,11 @@ CfgBuilder = Callable[[SyntaxCfgArgs], NId]
 
 
 class Dispatcher(NamedTuple):
-    applicable_types: Set[str]
+    applicable_types: set[str]
     cfg_builder: CfgBuilder
 
 
-Dispatchers = Tuple[Dispatcher, ...]
+Dispatchers = tuple[Dispatcher, ...]
 
 
 class MissingCfgBuilder(Exception):

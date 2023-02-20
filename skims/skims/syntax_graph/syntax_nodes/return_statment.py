@@ -4,12 +4,9 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
-def build_return_node(args: SyntaxGraphArgs, value_id: Optional[NId]) -> NId:
+def build_return_node(args: SyntaxGraphArgs, value_id: NId | None) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
         value_id=value_id,

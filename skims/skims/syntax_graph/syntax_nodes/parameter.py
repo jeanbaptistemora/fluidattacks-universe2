@@ -1,21 +1,20 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Iterator,
-    Optional,
-)
 
 
 def build_parameter_node(
     args: SyntaxGraphArgs,
-    variable: Optional[str],
-    variable_type: Optional[str],
-    value_id: Optional[NId],
-    c_ids: Optional[Iterator[NId]] = None,
+    variable: str | None,
+    variable_type: str | None,
+    value_id: NId | None,
+    c_ids: Iterator[NId] | None = None,
 ) -> NId:
 
     args.syntax_graph.add_node(

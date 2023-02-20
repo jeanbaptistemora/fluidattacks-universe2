@@ -4,17 +4,14 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_for_statement_node(
     args: SyntaxGraphArgs,
-    initializer_node: Optional[NId],
-    condition_node: Optional[NId],
-    update_node: Optional[NId],
-    body_node: Optional[NId],
+    initializer_node: NId | None,
+    condition_node: NId | None,
+    update_node: NId | None,
+    body_node: NId | None,
 ) -> NId:
 
     args.syntax_graph.add_node(

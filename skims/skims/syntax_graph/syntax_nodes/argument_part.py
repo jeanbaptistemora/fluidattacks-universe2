@@ -1,11 +1,11 @@
+from collections.abc import (
+    Iterator,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
-)
-from typing import (
-    Iterator,
 )
 
 

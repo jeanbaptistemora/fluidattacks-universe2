@@ -4,13 +4,10 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_update_expression_node(
-    args: SyntaxGraphArgs, expression_type: str, identifier_id: Optional[NId]
+    args: SyntaxGraphArgs, expression_type: str, identifier_id: NId | None
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

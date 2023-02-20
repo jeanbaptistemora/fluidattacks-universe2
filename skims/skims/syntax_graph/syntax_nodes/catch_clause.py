@@ -4,17 +4,14 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_catch_clause_node(
     args: SyntaxGraphArgs,
-    block_node: Optional[NId],
-    catch_declaration_block: Optional[NId],
-    catch_filter_clause_block: Optional[NId],
-    parameters_id: Optional[NId],
+    block_node: NId | None,
+    catch_declaration_block: NId | None,
+    catch_filter_clause_block: NId | None,
+    parameters_id: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

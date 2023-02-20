@@ -1,20 +1,19 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def build_property_declaration_node(
     args: SyntaxGraphArgs,
-    var_type: Optional[str],
-    identifier: Optional[str],
-    accessors: List[NId],
+    var_type: str | None,
+    identifier: str | None,
+    accessors: Iterable[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

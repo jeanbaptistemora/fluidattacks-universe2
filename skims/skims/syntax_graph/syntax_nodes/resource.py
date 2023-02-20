@@ -4,16 +4,13 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_resource_node(
     args: SyntaxGraphArgs,
     variable: str,
-    variable_type: Optional[str],
-    value: Optional[str],
+    variable_type: str | None,
+    value: str | None,
 ) -> NId:
 
     args.syntax_graph.add_node(

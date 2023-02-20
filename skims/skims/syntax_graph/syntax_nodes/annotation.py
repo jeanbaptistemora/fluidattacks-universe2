@@ -4,13 +4,10 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_annotation_node(
-    args: SyntaxGraphArgs, attr_name: str, al_id: Optional[NId]
+    args: SyntaxGraphArgs, attr_name: str, al_id: NId | None
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

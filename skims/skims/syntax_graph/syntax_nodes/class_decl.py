@@ -1,12 +1,11 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
-)
-from typing import (
-    List,
-    Optional,
 )
 
 
@@ -14,7 +13,7 @@ def build_class_node(
     args: SyntaxGraphArgs,
     name: str,
     block_id: NId,
-    attrl_ids: Optional[List[NId]],
+    attrl_ids: Iterable[NId] | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

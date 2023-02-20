@@ -4,16 +4,13 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_lambda_expression_node(
     args: SyntaxGraphArgs,
     var_name: str,
     block_id: NId,
-    parameters_id: Optional[NId],
+    parameters_id: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

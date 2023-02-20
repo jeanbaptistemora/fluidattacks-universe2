@@ -4,13 +4,10 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_accessor_declaration_node(
-    args: SyntaxGraphArgs, var_type: str, block: Optional[str]
+    args: SyntaxGraphArgs, var_type: str, block: str | None
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

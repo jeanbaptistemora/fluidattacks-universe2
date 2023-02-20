@@ -4,15 +4,12 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_catch_parameter_node(
     args: SyntaxGraphArgs,
     variable: str,
-    catch_type: Optional[NId],
+    catch_type: NId | None,
 ) -> NId:
 
     args.syntax_graph.add_node(

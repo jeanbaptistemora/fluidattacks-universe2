@@ -1,18 +1,18 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-)
 
 
 def build_switch_section_node(
     args: SyntaxGraphArgs,
     case_expr: str,
-    execution_ids: List[NId],
+    execution_ids: Iterable[NId],
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

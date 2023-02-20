@@ -1,16 +1,16 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-)
 
 
 def build_modifiers_node(
-    args: SyntaxGraphArgs, annotation_ids: List[str]
+    args: SyntaxGraphArgs, annotation_ids: Iterable[str]
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

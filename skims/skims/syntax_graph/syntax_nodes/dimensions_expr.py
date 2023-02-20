@@ -4,13 +4,10 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_dimensions_expr_node(
-    args: SyntaxGraphArgs, expr_type: Optional[str]
+    args: SyntaxGraphArgs, expr_type: str | None
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

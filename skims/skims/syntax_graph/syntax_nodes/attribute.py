@@ -4,15 +4,12 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_attribute_node(
     args: SyntaxGraphArgs,
     attr_name: str,
-    attr_list: Optional[str],
+    attr_list: str | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

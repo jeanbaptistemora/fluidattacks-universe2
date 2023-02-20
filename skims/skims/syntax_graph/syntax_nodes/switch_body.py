@@ -1,19 +1,18 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def build_switch_body_node(
     args: SyntaxGraphArgs,
-    case_ids: List[NId],
-    default_id: Optional[NId],
+    case_ids: Iterable[NId],
+    default_id: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

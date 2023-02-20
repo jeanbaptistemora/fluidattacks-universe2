@@ -4,15 +4,12 @@ from model.graph_model import (
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Optional,
-)
 
 
 def build_conditional_access_expression_node(
     args: SyntaxGraphArgs,
     condition: str,
-    binding: Optional[NId],
+    binding: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

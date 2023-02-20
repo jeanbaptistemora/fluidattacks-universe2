@@ -40,11 +40,8 @@ from syntax_graph.dispatchers.yaml import (
 from syntax_graph.types import (
     Dispatchers,
 )
-from typing import (
-    Dict,
-)
 
-DISPATCHERS_BY_LANG: Dict[GraphLanguage, Dispatchers] = {
+DISPATCHERS_BY_LANG: dict[GraphLanguage, Dispatchers] = {
     GraphLanguage.CSHARP: CSHARP_DISPATCHERS,
     GraphLanguage.DART: DART_DISPATCHERS,
     GraphLanguage.GO: GO_DISPATCHERS,

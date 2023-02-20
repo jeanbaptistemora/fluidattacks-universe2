@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from model.graph_model import (
     Graph,
     GraphShardMetadataLanguage as GraphLanguage,
@@ -5,10 +8,7 @@ from model.graph_model import (
 )
 from typing import (
     Any,
-    Callable,
     NamedTuple,
-    Set,
-    Tuple,
 )
 
 SYNTAX_GRAPH_ARGS = Any  # pylint: disable=invalid-name
@@ -37,11 +37,11 @@ SyntaxReader = Callable[[SyntaxGraphArgs], NId]
 
 
 class Dispatcher(NamedTuple):
-    applicable_types: Set[str]
+    applicable_types: set[str]
     syntax_reader: SyntaxReader
 
 
-Dispatchers = Tuple[Dispatcher, ...]
+Dispatchers = tuple[Dispatcher, ...]
 
 
 class MissingSyntaxReader(Exception):

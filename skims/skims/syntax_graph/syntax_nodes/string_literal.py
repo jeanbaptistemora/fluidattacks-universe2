@@ -1,21 +1,20 @@
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    Iterator,
-    List,
-    Optional,
-)
 
 
 def build_string_literal_node(
     args: SyntaxGraphArgs,
     value: str,
-    c_ids: Optional[Iterator] = None,
-    declaration_vars: Optional[List[str]] = None,
+    c_ids: Iterator | None = None,
+    declaration_vars: Iterable[str] | None = None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,

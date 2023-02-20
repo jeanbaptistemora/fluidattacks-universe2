@@ -11,7 +11,6 @@ from syntax_cfg.types import (
 )
 from typing import (
     cast,
-    Optional,
 )
 from utils import (
     logs,
@@ -28,7 +27,7 @@ def generic(args: SyntaxCfgArgs) -> NId:
     raise MissingCfgBuilder(f"Missing cfg builder for {node_type}")
 
 
-def add_syntax_cfg(graph: Graph) -> Optional[Graph]:
+def add_syntax_cfg(graph: Graph) -> Graph | None:
     try:
         generic(args=SyntaxCfgArgs(generic, graph, n_id="1", nxt_id=None))
         return graph

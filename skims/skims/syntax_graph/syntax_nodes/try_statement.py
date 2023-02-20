@@ -1,21 +1,20 @@
+from collections.abc import (
+    Iterable,
+)
 from model.graph_model import (
     NId,
 )
 from syntax_graph.types import (
     SyntaxGraphArgs,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 def build_try_statement_node(
     args: SyntaxGraphArgs,
     block_node: NId,
-    catch_blocks: Optional[List[NId]],
-    try_block: Optional[NId],
-    resources_spec: Optional[NId],
+    catch_blocks: Iterable[NId] | None,
+    try_block: NId | None,
+    resources_spec: NId | None,
 ) -> NId:
     args.syntax_graph.add_node(
         args.n_id,
