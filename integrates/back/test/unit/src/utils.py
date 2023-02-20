@@ -232,7 +232,6 @@ mocked_paths: Dict[str, str] = {
     "save_evidence": "events.domain.save_evidence",
     "search_evidence": "events.domain.search_evidence",
     "stakeholders_model.update_metadata": "db_model.stakeholders.update_metadata",  # noqa: E501 pylint: disable=line-too-long
-    "s3_ops.list_files": "s3.operations.list_files",
     "s3_ops.remove_file": "s3.operations.remove_file",
     "s3_ops.upload_memory_file": "s3.operations.upload_memory_file",
     "update_evidence": "events.domain.update_evidence",
@@ -636,6 +635,14 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
             },
         ],
     },
+    "billing.domain.s3_ops.list_files": {
+        '["billing-test-file.png"]': ["billing-test-file.png"],
+        '["unittesting-test-file.csv"]': ["unittesting-test-file.csv"],
+    },
+    "billing.domain.s3_ops.remove_file": {
+        '["billing-test-file.png"]': None,
+        '["unittesting-test-file.csv"]': None,
+    },
     "billing.domain.s3_ops.sign_url": {
         '["okada", "4722b0b7-cfeb-4898-8308-185dfc2523bc", "test_file.pdf"]': "https://s3.amazonaws.com/"  # noqa: E501 pylint: disable=line-too-long
         "integrates/johndoeatfluid-test-unit/resources/billing/okada/"
@@ -643,6 +650,10 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
         "X-Amz-Credential=Testus-east-1%2Fs3%2Faws4_request&X-Amz-Date="
         "20230117T170631Z&X-Amz-Expires=10&X-Amz-SignedHeaders=host&"
         "X-Amz-Security-Token=TestX-Amz-Signature=Test"
+    },
+    "billing.domain.s3_ops.upload_memory_file": {
+        '["billing-test-file.png"]': None,
+        '["unittesting-test-file.csv"]': None,
     },
     "db_model.trials.get.TrialLoader.load": {
         '["org_testusermanager1@gmail.com"]': Trial(
@@ -10472,14 +10483,6 @@ mocked_responses: Dict[str, Dict[str, Any]] = {
     },
     "remove_stakeholder.domain.remove_stakeholder_all_organizations": {
         '["unittest@test.com"]': None,
-    },
-    "s3.operations.list_files": {
-        '["billing-test-file.png"]': ["billing-test-file.png"],
-        '["unittesting-test-file.csv"]': ["unittesting-test-file.csv"],
-    },
-    "s3.operations.remove_file": {
-        '["billing-test-file.png"]': None,
-        '["unittesting-test-file.csv"]': None,
     },
     "s3.operations.upload_memory_file": {
         '["billing-test-file.png"]': None,
