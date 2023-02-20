@@ -67,26 +67,51 @@ from typing import (
 import uuid
 
 LOGGER = logging.getLogger(__name__)
-SUBSCRIPTIONS = [
-    "ACCESS_GRANTED",
-    "AGENT_TOKEN",
-    "CHARTS_REPORT",
-    "EVENT_REPORT",
-    "FILE_UPDATE",
-    "GROUP_INFORMATION",
-    "GROUP_REPORT",
-    "NEW_COMMENT",
-    "NEW_DRAFT",
-    "PORTFOLIO_UPDATE",
-    "REMEDIATE_FINDING",
-    "REMINDER_NOTIFICATION",
-    "ROOT_UPDATE",
-    "SERVICE_UPDATE",
-    "UNSUBSCRIPTION_ALERT",
-    "UPDATED_TREATMENT",
-    "VULNERABILITY_ASSIGNED",
-    "VULNERABILITY_REPORT",
-]
+SUBSCRIPTIONS = dict(
+    default=[
+        "ACCESS_GRANTED",
+        "AGENT_TOKEN",
+        "CHARTS_REPORT",
+        "EVENT_REPORT",
+        "FILE_UPDATE",
+        "GROUP_INFORMATION",
+        "GROUP_REPORT",
+        "NEW_COMMENT",
+        "NEW_DRAFT",
+        "PORTFOLIO_UPDATE",
+        "REMEDIATE_FINDING",
+        "REMINDER_NOTIFICATION",
+        "ROOT_UPDATE",
+        "SERVICE_UPDATE",
+        "UNSUBSCRIPTION_ALERT",
+        "UPDATED_TREATMENT",
+        "VULNERABILITY_ASSIGNED",
+        "VULNERABILITY_REPORT",
+    ],
+    user=[
+        "UPDATED_TREATMENT",
+        "VULNERABILITY_ASSIGNED",
+        "VULNERABILITY_REPORT",
+    ],
+    user_manager=[
+        "AGENT_TOKEN",
+        "EVENT_REPORT",
+        "FILE_UPDATE",
+        "GROUP_INFORMATION",
+        "GROUP_REPORT",
+        "REMINDER_NOTIFICATION",
+        "ROOT_UPDATE",
+        "SERVICE_UPDATE",
+        "UNSUBSCRIPTION_ALERT",
+        "UPDATED_TREATMENT",
+        "VULNERABILITY_REPORT",
+    ],
+    vulnerability_manager=[
+        "EVENT_REPORT",
+        "UPDATED_TREATMENT",
+        "VULNERABILITY_REPORT",
+    ],
+)
 
 
 @retry_on_exceptions(
@@ -190,7 +215,7 @@ async def complete_register(
                 user_email=email,
                 state=StakeholderState(
                     notifications_preferences=NotificationsPreferences(
-                        email=SUBSCRIPTIONS
+                        email=SUBSCRIPTIONS.get("default", [])
                     ),
                     modified_date=today,
                     modified_by=email.strip().lower(),
