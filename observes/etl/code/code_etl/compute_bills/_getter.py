@@ -1,9 +1,8 @@
-from ._retry import (
-    api_handler,
-    retry_cmd,
-)
 from code_etl._utils import (
     COMMIT_HASH_SENTINEL,
+)
+from code_etl.arm import (
+    ArmClient,
 )
 from code_etl.compute_bills.core import (
     Contribution,
@@ -15,18 +14,12 @@ from code_etl.objs import (
     RepoId,
     User,
 )
-from dataclasses import (
-    dataclass,
-)
 from datetime import (
     datetime,
 )
 from fa_purity import (
     Cmd,
-    JsonObj,
-    JsonValue,
     Maybe,
-    Result,
     ResultE,
     Stream,
 )
@@ -35,18 +28,6 @@ from fa_purity.cmd import (
 )
 from fa_purity.frozen import (
     freeze,
-)
-from fa_purity.json.factory import (
-    from_any,
-)
-from fa_purity.json.value.transform import (
-    Unfolder,
-)
-from fa_purity.result.factory import (
-    try_get,
-)
-from fa_purity.union import (
-    inl,
 )
 from fa_purity.utils import (
     raise_exception,
@@ -69,12 +50,10 @@ from redshift_client.sql_client.primitive import (
 from redshift_client.sql_client.query import (
     new_query,
 )
-import requests
 from typing import (
     Dict,
     FrozenSet,
     NoReturn,
-    Optional,
 )
 
 LOG = logging.getLogger(__name__)
@@ -89,88 +68,21 @@ def _log_and_raise(log: Cmd[None], err: Exception) -> NoReturn:
     raise err
 
 
-@dataclass(frozen=True)
-class ApiError(Exception):
-    errors: JsonValue
-
-    def to_exception(self) -> Exception:
-        return Exception(self)
-
-
-def _from_raw_json(data: JsonObj) -> ResultE[str]:
-    errors = (
-        try_get(data, "errors")
-        .alt(lambda _: None)
-        .swap()
-        .alt(lambda m: ApiError(m).to_exception())
-    )
-    group = errors.bind(
-        lambda _: try_get(data, "data").bind(
-            lambda x: Unfolder(x).get("group")
-        )
-    )
-    return group.bind(
-        lambda g: Unfolder(g)
-        .uget("organization")
-        .bind(lambda u: u.to_primitive(str).alt(Exception))
-    )
-
-
 @RateLimiter(max_calls=60, period=60)  # type: ignore[misc]
-def _get_group_org(token: str, group: str) -> Cmd[ResultE[str]]:  # type: ignore[misc]
-    query = """
-        query ObservesGetGroupOrganization($groupName: String!){
-            group(groupName: $groupName){
-                organization
-            }
-        }
-    """
-    variables = {"groupName": group}
-    json_data = {
-        "query": query,
-        "variables": variables,
-    }
-
-    def _request() -> requests.Response:
-        headers: Dict[str, str] = {"Authorization": f"Bearer {token}"}
-        result = requests.post(
-            "https://app.fluidattacks.com/api",
-            json=json_data,
-            headers=headers,
-        )
-        result.raise_for_status()
-        return result
-
-    req = retry_cmd(
-        api_handler(Cmd.from_cmd(_request)), 10, lambda i: (i + 1) ^ 2
-    )
-    result = req.map(
-        lambda r: from_any(r.json()).alt(Exception)  # type: ignore[misc]
-    ).map(lambda r: r.bind(_from_raw_json))
-    return result.map(
-        lambda r: r.alt(
-            lambda e: _log_and_raise(
-                Cmd.from_cmd(
-                    lambda: LOG.error(
-                        "Api call fail _get_group_org(%s) i.e. %s", group, e
-                    )
-                ),
-                e,
-            )
-        )
-    )
+def _get_group_org(client: ArmClient, group: str) -> Cmd[ResultE[str]]:  # type: ignore[misc]
+    return client.get_org(group)
 
 
 @lru_cache(maxsize=None)  # type: ignore[misc]
-def _get_group_org_cached(token: str, group: str) -> Optional[str]:
-    result: Optional[str] = unsafe_unwrap(
-        _get_group_org(token, group)  # type: ignore[misc]
+def _get_group_org_cached(client: ArmClient, group: str) -> ResultE[str]:
+    result: ResultE[str] = unsafe_unwrap(
+        _get_group_org(client, group)  # type: ignore[misc]
     )
     return result
 
 
-def get_org(token: str, group: str) -> Optional[str]:
-    return _get_group_org_cached(token, group)
+def get_org(client: ArmClient, group: str) -> ResultE[str]:
+    return _get_group_org_cached(client, group)
 
 
 def get_commit_first_seen_at(client: SqlClient, fa_hash: str) -> Cmd[datetime]:

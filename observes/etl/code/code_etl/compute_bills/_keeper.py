@@ -1,8 +1,15 @@
+from __future__ import (
+    annotations,
+)
+
 from ._getter import (
     get_org,
 )
 from code_etl._patch import (
     Patch,
+)
+from code_etl.arm import (
+    ArmClient,
 )
 from code_etl.compute_bills.core import (
     Contribution,
@@ -53,14 +60,13 @@ class ReportRow:
 
 @dataclass(frozen=True)  # type: ignore[misc]
 class _ReportKeeper:
-    _writer: DictWriter  # type: ignore[type-arg]
-    _get_org: Patch[Callable[[GroupId], Optional[OrgId]]]
+    writer: DictWriter  # type: ignore[type-arg]
+    get_org: Patch[Callable[[GroupId], Optional[OrgId]]]
 
 
 @dataclass(frozen=True)
-class ReportKeeper(_ReportKeeper):
-    def __init__(self, obj: _ReportKeeper) -> None:
-        super().__init__(**obj.__dict__)  # type: ignore[misc]
+class ReportKeeper:
+    _inner: _ReportKeeper
 
     def _write_row(
         self,
@@ -70,10 +76,10 @@ class ReportKeeper(_ReportKeeper):
         if current not in row.groups:
             title = "A user in the final report does not belong to the group"
             raise Exception(f"{title}: {current.name}")
-        org = self._get_org.unwrap(current)
+        org = self._inner.get_org.unwrap(current)
 
         def _group_filter(grp: GroupId) -> bool:
-            return self._get_org.unwrap(grp) == org
+            return self._inner.get_org.unwrap(grp) == org
 
         if org:
             groups_contributed = frozenset(filter(_group_filter, row.groups))
@@ -84,7 +90,7 @@ class ReportKeeper(_ReportKeeper):
                 "repository": row.contrib.commit_id.repo.repository,
             }
             return Cmd.from_cmd(
-                lambda: cast(None, self._writer.writerow(data))  # type: ignore[misc]
+                lambda: cast(None, self._inner.writer.writerow(data))  # type: ignore[misc]
             ).map(lambda _: None)
         return Cmd.from_cmd(
             lambda: LOG.warning("Skipped group contribution: %s", current.name)
@@ -104,21 +110,28 @@ class ReportKeeper(_ReportKeeper):
 
         write_rows = tuple(map(_write, report.data.items()))
         return Cmd.from_cmd(
-            lambda: cast(None, self._writer.writeheader())  # type: ignore[misc]
+            lambda: cast(None, self._inner.writer.writeheader())  # type: ignore[misc]
         ) + serial_merge(write_rows).map(lambda _: None)
 
+    @staticmethod
+    def new(file: IO[str], client: ArmClient) -> ReportKeeper:
+        file_columns = frozenset(["actor", "groups", "commit", "repository"])
+        writer = DictWriter(
+            file,
+            sorted(list(file_columns)),
+            quoting=QUOTE_NONNUMERIC,
+        )
 
-def new_keeper(file: IO[str], token: str) -> ReportKeeper:
-    file_columns = frozenset(["actor", "groups", "commit", "repository"])
-    writer = DictWriter(
-        file,
-        sorted(list(file_columns)),
-        quoting=QUOTE_NONNUMERIC,
-    )
+        def _get_org(grp: GroupId) -> Optional[OrgId]:
+            org = (
+                get_org(client, grp.name)
+                .alt(
+                    lambda e: LOG.error(
+                        "Api call fail get_org(%s) i.e. %s", grp.name, e
+                    )
+                )
+                .value_or(None)
+            )
+            return OrgId(org) if org is not None else None
 
-    def _get_org(grp: GroupId) -> Optional[OrgId]:
-        org = get_org(token, grp.name)
-        return OrgId(org) if org is not None else None
-
-    draft = _ReportKeeper(writer, Patch(_get_org))
-    return ReportKeeper(draft)
+        return ReportKeeper(_ReportKeeper(writer, Patch(_get_org)))

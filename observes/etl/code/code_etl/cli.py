@@ -6,6 +6,7 @@ from code_etl.amend.actions import (
     start as start_amend,
 )
 from code_etl.arm import (
+    ArmClient,
     ArmToken,
 )
 from code_etl.client import (
@@ -28,6 +29,7 @@ from datetime import (
     datetime,
 )
 from fa_purity import (
+    Cmd,
     JsonValue,
 )
 from fa_purity.cmd import (
@@ -156,9 +158,11 @@ def amend_authors(
 def compute_bills(
     folder: str, year: int, month: int, integrates_token: str
 ) -> NoReturn:
-    bill_reports(
-        integrates_token, Path(folder), datetime(year, month, 1)
-    ).compute()
+    token = ArmToken.new(integrates_token)
+    cmd: Cmd[None] = ArmClient.new(token).bind(
+        lambda c: bill_reports(c, Path(folder), datetime(year, month, 1))
+    )
+    cmd.compute()
 
 
 @click.command()  # type: ignore[misc]

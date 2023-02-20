@@ -3,7 +3,7 @@ from ._getter import (
     get_month_repos,
 )
 from ._keeper import (
-    new_keeper,
+    ReportKeeper,
 )
 from ._report import (
     extract_active_users,
@@ -14,6 +14,9 @@ from code_etl._utils import (
     DB_CREDS,
     DB_ID,
     log_info,
+)
+from code_etl.arm import (
+    ArmClient,
 )
 from code_etl.compute_bills.core import (
     ActiveUsersReport,
@@ -90,13 +93,15 @@ def gen_final_reports(
 
 
 def save_all(
-    token: str, folder: Path, data: FrozenDict[GroupId, FinalActiveUsersReport]
+    client: ArmClient,
+    folder: Path,
+    data: FrozenDict[GroupId, FinalActiveUsersReport],
 ) -> Cmd[None]:
     def _action(grp: GroupId, report: FinalActiveUsersReport) -> None:
         with open(
             str(folder.joinpath(grp.name + ".csv")), "w", encoding="UTF-8"
         ) as file:
-            unsafe_unwrap(new_keeper(file, token).save(grp, report))
+            unsafe_unwrap(ReportKeeper.new(file, client).save(grp, report))
 
     def _save(items: Tuple[GroupId, FinalActiveUsersReport]) -> Cmd[None]:
         return Cmd.from_cmd(lambda: _action(items[0], items[1]))
@@ -106,7 +111,7 @@ def save_all(
     return start + serial_merge(tuple(map(_save, data.items()))) + end
 
 
-def main(token: str, folder: Path, date: datetime) -> Cmd[None]:
+def main(client: ArmClient, folder: Path, date: datetime) -> Cmd[None]:
     connection = connect(DB_ID, DB_CREDS, True, IsolationLvl.AUTOCOMMIT)
     client_1 = connection.bind(
         lambda c: new_client(c, LOG.getChild("client_1"))
@@ -125,7 +130,7 @@ def main(token: str, folder: Path, date: datetime) -> Cmd[None]:
             )
             .bind(
                 lambda groups: gen_final_reports(c1, c2, date, groups).bind(
-                    lambda d: save_all(token, folder, d)
+                    lambda d: save_all(client, folder, d)
                 )
             )
         )
