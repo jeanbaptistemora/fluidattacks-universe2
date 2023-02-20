@@ -6,13 +6,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "components/Button";
 import type { IConfirmFn } from "components/ConfirmDialog";
 import { ConfirmDialog } from "components/ConfirmDialog";
+import { Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
-import {
-  ButtonToolbarCenter,
-  Col100,
-  Col33,
-  Row,
-} from "styles/styledComponents";
+import { ButtonToolbarCenter, Col100, Col33 } from "styles/styledComponents";
 
 interface IFileOptionsModalProps {
   canRemove: boolean;
