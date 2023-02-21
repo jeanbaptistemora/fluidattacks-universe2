@@ -110,13 +110,11 @@ from vulnerabilities.domain.utils import (
     get_finding,
 )
 from vulnerabilities.domain.validations import (
-    validate_commit_hash,
-    validate_lines_specific,
-    validate_path,
-    validate_ports_specific,
-    validate_source,
+    validate_source_deco,
     validate_uniqueness,
-    validate_where,
+    validate_updated_commit_deco,
+    validate_updated_specific_deco,
+    validate_updated_where_deco,
 )
 from vulnerabilities.types import (
     FindingGroupedVulnerabilitiesInfo,
@@ -1161,15 +1159,17 @@ async def update_description(  # noqa: MC0001 # NOSONAR
 
     vulnerability = await get_vulnerability(loaders, vulnerability_id)
     updated_commit = validate_and_get_updated_commit(
-        vulnerability, description
+        vulnerability=vulnerability, description=description
     )
     updated_specific = validate_and_get_updated_specific(
-        vulnerability, description
+        vulnerability=vulnerability, description=description
     )
     updated_source = validate_and_get_updated_source(
-        vulnerability, description
+        vulnerability=vulnerability, description=description
     )
-    updated_where = validate_and_get_updated_where(vulnerability, description)
+    updated_where = validate_and_get_updated_where(
+        vulnerability=vulnerability, description=description
+    )
 
     if any([description.specific is not None, description.where is not None]):
         vulnerabilities_connection: VulnerabilitiesConnection = (
@@ -1236,45 +1236,40 @@ async def update_description(  # noqa: MC0001 # NOSONAR
         )
 
 
+@validate_updated_commit_deco("vulnerability.type", "description.commit")
 def validate_and_get_updated_commit(
     vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
 ) -> Optional[str]:
-    if description.commit is not None:
-        if vulnerability.type is not VulnerabilityType.LINES:
-            raise InvalidParameter("commit")
-        validate_commit_hash(description.commit)
-        return description.commit
-    return vulnerability.state.commit
+    return (
+        description.commit
+        if description.commit is not None
+        else vulnerability.state.commit
+    )
 
 
+@validations_utils.validate_sanitized_csv_input_deco(["description.specific"])
+@validate_updated_specific_deco("vulnerability.type", "description.specific")
 def validate_and_get_updated_specific(
     vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
 ) -> str:
     if description.specific is not None:
-        validations_utils.validate_sanitized_csv_input(description.specific)
-        if vulnerability.type is VulnerabilityType.LINES:
-            validate_lines_specific(description.specific)
-        if vulnerability.type is VulnerabilityType.PORTS:
-            validate_ports_specific(description.specific)
         return description.specific
     return vulnerability.state.specific
 
 
+@validate_source_deco("description.source")
 def validate_and_get_updated_source(
     vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
 ) -> Source:
     if description.source is not None:
-        validate_source(description.source)
         return description.source
     return vulnerability.state.source
 
 
+@validate_updated_where_deco("vulnerability.type", "description.where")
 def validate_and_get_updated_where(
     vulnerability: Vulnerability, description: VulnerabilityDescriptionToUpdate
 ) -> str:
     if description.where is not None:
-        if vulnerability.type is VulnerabilityType.LINES:
-            validate_path(description.where)
-        validate_where(description.where)
         return description.where
     return vulnerability.state.where

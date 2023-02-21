@@ -317,9 +317,10 @@ def validate_updated_commit_deco(
             commit = get_attr_value(
                 field=commit_field, kwargs=kwargs, obj_type=str
             )
-            if vulnerability_type is not VulnerabilityType.LINES:
-                raise InvalidParameter("commit")
-            validate_commit_hash(commit)
+            if commit:
+                if vulnerability_type is not VulnerabilityType.LINES:
+                    raise InvalidParameter("commit")
+                validate_commit_hash(commit)
             return func(*args, **kwargs)
 
         return decorated
@@ -343,9 +344,9 @@ def validate_updated_specific_deco(
                 kwargs=kwargs,
                 obj_type=str,
             )
-            if vulnerability_type is VulnerabilityType.LINES:
+            if specific and vulnerability_type is VulnerabilityType.LINES:
                 validate_lines_specific(specific)
-            if vulnerability_type is VulnerabilityType.PORTS:
+            if specific and vulnerability_type is VulnerabilityType.PORTS:
                 validate_ports_specific(specific)
             return func(*args, **kwargs)
 
@@ -370,9 +371,10 @@ def validate_updated_where_deco(
                 kwargs=kwargs,
                 obj_type=str,
             )
-            if vulnerability_type is VulnerabilityType.LINES:
-                validate_path(where)
-            validate_where(where)
+            if where:
+                if vulnerability_type is VulnerabilityType.LINES:
+                    validate_path(where)
+                validate_where(where)
             return func(*args, **kwargs)
 
         return decorated
