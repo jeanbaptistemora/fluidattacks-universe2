@@ -362,7 +362,7 @@ locals {
         tags = {
           "Name"               = "prod_integrates"
           "management:area"    = "cost"
-          "management:product" = "common"
+          "management:product" = "integrates"
           "management:type"    = "product"
         }
       }
@@ -379,7 +379,7 @@ module "prod_integrates_aws" {
   tags = {
     "Name"               = "prod_integrates"
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = "integrates"
     "management:type"    = "product"
   }
 }

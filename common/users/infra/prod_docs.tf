@@ -66,7 +66,7 @@ locals {
         tags = {
           "Name"               = "prod_docs"
           "management:area"    = "cost"
-          "management:product" = "common"
+          "management:product" = "docs"
           "management:type"    = "product"
         }
       }
@@ -83,7 +83,7 @@ module "prod_docs_aws" {
   tags = {
     "Name"               = "prod_docs"
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = "docs"
     "management:type"    = "product"
   }
 }

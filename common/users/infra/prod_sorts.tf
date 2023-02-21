@@ -185,7 +185,7 @@ locals {
         tags = {
           "Name"               = "prod_sorts"
           "management:area"    = "cost"
-          "management:product" = "common"
+          "management:product" = "sorts"
           "management:type"    = "product"
         }
       }
@@ -213,7 +213,7 @@ module "prod_sorts_aws" {
   tags = {
     "Name"               = "prod_sorts"
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = "sorts"
     "management:type"    = "product"
   }
 }

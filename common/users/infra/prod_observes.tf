@@ -1,4 +1,36 @@
 locals {
+  # Redshift role Policy
+  observes_redshift = {
+    policies = {
+      aws = [
+        {
+          Sid    = "MigrationBucketManagement"
+          Effect = "Allow"
+          Action = [
+            "s3:GetObject",
+            "s3:GetBucketAcl",
+            "s3:GetBucketCors",
+            "s3:GetEncryptionConfiguration",
+            "s3:GetBucketLocation",
+            "s3:ListBucket",
+            "s3:ListAllMyBuckets",
+            "s3:ListMultipartUploadParts",
+            "s3:ListBucketMultipartUploads",
+            "s3:PutObject",
+            "s3:PutBucketAcl",
+            "s3:PutBucketCors",
+            "s3:DeleteObject",
+            "s3:AbortMultipartUpload",
+            "s3:CreateBucket",
+          ]
+          Resources = [
+            "arn:aws:s3:::observes.etl-data",
+            "arn:aws:s3:::observes.etl-data/*",
+          ]
+        },
+      ]
+    }
+  }
   prod_observes = {
     policies = {
       aws = [
@@ -272,7 +304,7 @@ locals {
         tags = {
           "Name"               = "prod_observes"
           "management:area"    = "cost"
-          "management:product" = "common"
+          "management:product" = "observes"
           "management:type"    = "product"
         }
       }
@@ -300,7 +332,30 @@ module "prod_observes_aws" {
   tags = {
     "Name"               = "prod_observes"
     "management:area"    = "cost"
-    "management:product" = "common"
+    "management:product" = "observes"
+    "management:type"    = "product"
+  }
+}
+
+module "observes_redshift_aws" {
+  source = "./modules/aws"
+
+  name   = "observes_redshift"
+  policy = local.observes_redshift.policies.aws
+  assume_role_policy = [
+    {
+      Sid    = "RedshiftAccess",
+      Effect = "Allow",
+      Principal = {
+        Service = "redshift.amazonaws.com"
+      },
+      Action = "sts:AssumeRole"
+    }
+  ]
+  tags = {
+    "Name"               = "observes_redshift"
+    "management:area"    = "cost"
+    "management:product" = "observes"
     "management:type"    = "product"
   }
 }
