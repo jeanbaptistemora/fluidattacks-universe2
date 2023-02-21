@@ -1,5 +1,6 @@
 from .core import (
     add_comment,
+    add_finding,
     add_reattack_justification,
     get_closed_vulnerabilities,
     get_finding,
@@ -52,6 +53,7 @@ from .evidence import (
 __all__ = [
     # core
     "add_comment",
+    "add_finding",
     "add_reattack_justification",
     "get_closed_vulnerabilities",
     "get_finding",

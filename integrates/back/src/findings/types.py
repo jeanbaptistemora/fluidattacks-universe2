@@ -37,7 +37,6 @@ class FindingDraftToAdd(NamedTuple):
 class FindingAttributesToAdd(NamedTuple):
     attack_vector_description: str
     description: str
-    hacker_email: str
     min_time_to_remediate: Optional[int]
     recommendation: str
     severity: Finding31Severity

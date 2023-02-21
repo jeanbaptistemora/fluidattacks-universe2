@@ -181,7 +181,7 @@ async def _validate_duplicated_finding(
             raise RepeatedFindingRecommendation()
 
 
-async def add(
+async def add_finding(
     loaders: Dataloaders,
     group_name: str,
     stakeholder_email: str,
