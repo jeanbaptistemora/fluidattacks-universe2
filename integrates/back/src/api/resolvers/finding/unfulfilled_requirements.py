@@ -10,16 +10,12 @@ from dataloaders import (
 from db_model.findings.types import (
     Finding,
 )
-from decorators import (
-    enforce_group_level_auth_async,
-)
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
 
 
 @FINDING.field("unfulfilledRequirements")
-@enforce_group_level_auth_async
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,

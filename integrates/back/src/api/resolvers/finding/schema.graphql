@@ -69,6 +69,12 @@ type Finding {
   reportDate: String
   "Rules that are broken and lead to the existence of the vulnerability"
   requirements: String!
+    @deprecated(
+      reason: """
+      This field will be removed after 2023/08/21.
+      Use `unfulfilledRequirements` instead.
+      """
+    )
   "Set of CVSS metrics used to assign the respective score"
   severity: Severity!
   "CVSS Score"
@@ -92,7 +98,7 @@ type Finding {
   tracking: [Tracking!]
   "Summary of the number of vulnerabilities in every treatment status"
   treatmentSummary: TreatmentSummary!
-  "Unfulfilled requirements of the standard"
+  "Rules that are broken and lead to the existence of the vulnerability"
   unfulfilledRequirements: [Requirement!]!
   "Summary of the number of vulnerabilities in every verification status"
   verificationSummary: VerificationSummary!
