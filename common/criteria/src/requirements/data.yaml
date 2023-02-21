@@ -12309,6 +12309,7 @@
     oneshot: true
   references:
     - capec.123
+    - capec.679
     - mitre.M1029
     - mitre.M1034
     - pdpo.9A_66G

@@ -313,6 +313,10 @@ capec:
     "678":
       title: System Build Data Maliciously Altered
       link: https://capec.mitre.org/data/definitions/678.html
+    "679":
+      title: Exploitation of Improperly Configured
+        or Implemented Memory Protections
+      link: https://capec.mitre.org/data/definitions/679.html
   metadata: {}
 cis:
   title: CIS
