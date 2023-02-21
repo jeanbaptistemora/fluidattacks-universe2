@@ -1,8 +1,12 @@
 from collections.abc import (
     Set,
 )
+from itertools import (
+    chain,
+)
 from lib_root.utilities.javascript import (
     get_default_alias,
+    get_namespace_alias,
 )
 from model.core_model import (
     MethodsEnum,
@@ -18,8 +22,11 @@ from symbolic_eval.utils import (
     get_backward_paths,
 )
 from typing import (
+    Dict,
+    Iterable,
     List,
     Optional,
+    Tuple,
 )
 from utils import (
     graph as g,
@@ -226,14 +233,37 @@ def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insec_msg_auth_mechanism(graph: Graph) -> List[NId]:
-    nodes = graph.nodes
-    vuln_nodes: List[NId] = []
-    if imported_name := get_default_alias(graph, "crypto-js"):
-        for n_id in g.matching_nodes(
-            graph,
-            label_type="PLACEHOLDER",
+def get_insec_auth_default_import(graph: Graph) -> Tuple[NId, ...]:
+    def match_predicate(node: Dict[str, str]) -> bool:
+        if (
+            (imported_name := get_default_alias(graph, "crypto-js"))
+            or (imported_name := get_namespace_alias(graph, "crypto-js"))
+        ) and (node.get("label_type") == "MethodInvocation"):
+            danger_methods: Set = {
+                f"{imported_name}.HmacSHA1",
+                f"{imported_name}.HmacSHA256",
+            }
+            return node.get("expression") in danger_methods
+        return False
+
+    return g.filter_nodes(graph, graph.nodes, match_predicate)
+
+
+def get_insec_auth_direct_import(graph: Graph) -> Tuple[NId, ...]:
+    def match_predicate(node: Dict[str, str]) -> bool:
+        import_sha1 = get_default_alias(graph, "crypto-js/hmac-sha1")
+        import_sha256 = get_default_alias(graph, "crypto-js/hmac-sha256")
+        if (import_sha1 or import_sha256) and (
+            node.get("label_type") == "MethodInvocation"
         ):
-            if nodes[n_id].get("PLACEHOLDER") == imported_name:
-                vuln_nodes.append(n_id)
-    return vuln_nodes
+            return node.get("expression") in {import_sha1, import_sha256}
+        return False
+
+    return g.filter_nodes(graph, graph.nodes, match_predicate)
+
+
+def insec_msg_auth_mechanism(graph: Graph) -> Iterable[NId]:
+    return chain(
+        get_insec_auth_default_import(graph),
+        get_insec_auth_direct_import(graph),
+    )
