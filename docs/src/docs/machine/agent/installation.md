@@ -201,6 +201,22 @@ pipeline {
 }
 ```
 
+In `GitHub`, the configuration file should look like this:
+
+```yaml
+jobs:
+  forces:
+    runs-on: ubuntu-latest
+    container:
+      image: fluidattacks/forces:new
+      env:
+        TOKEN: <your-token>
+        REPO_NAME: <repository name>
+    steps:
+      - name: Run Agent check
+        run: forces --token ${TOKEN} --strict --repo-name ${REPO_NAME}
+```
+
 ## Result of the execution of The Agent
 
 After any execution of the Agent,
