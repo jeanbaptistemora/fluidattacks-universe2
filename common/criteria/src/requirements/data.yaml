@@ -5459,6 +5459,7 @@
     - capec.240
     - capec.242
     - capec.248
+    - capec.676
     - cis.16_10
     - cwe.20
     - cwe.74
@@ -8900,6 +8901,7 @@
     - capec.169
     - capec.442
     - capec.549
+    - capec.676
     - cis.4_4
     - cis.10_6
     - cis.13_4

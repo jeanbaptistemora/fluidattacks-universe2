@@ -304,6 +304,9 @@ capec:
     "654":
       title: Credential Prompt Impersonation
       link: https://capec.mitre.org/data/definitions/654.html
+    "676":
+      title: NoSQL Injection
+      link: https://capec.mitre.org/data/definitions/676.html
   metadata: {}
 cis:
   title: CIS
