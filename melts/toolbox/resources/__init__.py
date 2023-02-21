@@ -515,7 +515,7 @@ def repo_cloning(subs: str, repo_name: str, force: bool = False) -> bool:
     os.makedirs(destination_folder, exist_ok=True)
     os.chdir(destination_folder)
 
-    roots = get_git_roots(subs)
+    roots = get_git_roots(subs) or []
 
     if repo_name == "*":
         repositories = list(

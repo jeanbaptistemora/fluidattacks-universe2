@@ -169,6 +169,36 @@ def delete_out_of_scope_files(group: str) -> bool:
     return True
 
 
+def _reset_repo(repo_path: str) -> bool:
+    try:
+        Git().execute(
+            [
+                "git",
+                "config",
+                "--global",
+                "--add",
+                "safe.directory",
+                str(repo_path),
+            ]
+        )
+    except GitError as exc:
+        LOGGER.error("Failed to add safe directory:")
+        LOGGER.info("Repository: %s", repo_path)
+        LOGGER.info(exc)
+        LOGGER.info("\n")
+
+    try:
+        repo = Repo(repo_path)
+        repo.git.reset("--hard", "HEAD")
+    except GitError as exc:
+        LOGGER.error("Expand repositories has failed:")
+        LOGGER.info("Repository: %s", repo_path)
+        LOGGER.info(exc)
+        LOGGER.info("\n")
+        return False
+    return True
+
+
 def download_repo_from_s3(
     group_name: str,
     nickname: str,
@@ -208,29 +238,8 @@ def download_repo_from_s3(
         LOGGER.error("filed to unzip %s", nickname)
 
     os.remove(file_path)
-    with suppress(Exception):
-        Git().execute(
-            [
-                "git",
-                "config",
-                "--global",
-                "--add",
-                "safe.directory",
-                str(repo_path.resolve()),
-            ]
-        )
 
-    try:
-        repo = Repo(repo_path.resolve())
-        repo.git.reset("--hard", "HEAD")
-    except GitError as exc:
-        LOGGER.error("Expand repositories has failed:")
-        LOGGER.info("Repository: %s", repo_path.resolve())
-        LOGGER.info(exc)
-        LOGGER.info("\n")
-        return False
-
-    return True
+    return _reset_repo(str(repo_path.resolve()))
 
 
 @shield(retries=1)
@@ -241,10 +250,13 @@ def main(subs: str, repository_name: Optional[str] = None) -> bool:
     param: subs: group to work with
     """
     passed: bool = True
+    roots = get_git_roots(group=subs)
+    if roots is None:
+        return False
 
-    roots_dict = {
+    git_roots_dict = {
         root["id"]: root
-        for root in get_git_roots(group=subs)
+        for root in roots
         if root.get("state") == "ACTIVE"
         and (
             root["nickname"] == repository_name
@@ -252,20 +264,21 @@ def main(subs: str, repository_name: Optional[str] = None) -> bool:
             else True
         )
     }
-    if not roots_dict:
-        return False
+    if not git_roots_dict:
+        LOGGER.info("Git roots not found")
+        return True
 
     with ThreadPoolExecutor() as executor:
         for root_id, download_url in executor.map(
             get_git_root_download_url,
-            [subs for _ in range(len(roots_dict))],
-            roots_dict.keys(),
+            [subs for _ in range(len(git_roots_dict))],
+            git_roots_dict.keys(),
         ):
-            roots_dict[root_id]["downloadUrl"] = download_url
+            git_roots_dict[root_id]["downloadUrl"] = download_url
 
     zip_roots = [
         root
-        for root in roots_dict.values()
+        for root in git_roots_dict.values()
         if root.get("downloadUrl") is not None
     ]
 
@@ -287,7 +300,7 @@ def main(subs: str, repository_name: Optional[str] = None) -> bool:
                 else True
             )
 
-    for root in roots_dict.values():
+    for root in git_roots_dict.values():
         if date := root.get("lastCloningStatusUpdate"):
             LOGGER.info(
                 "Data for %s was uploaded to S3 %i days ago",

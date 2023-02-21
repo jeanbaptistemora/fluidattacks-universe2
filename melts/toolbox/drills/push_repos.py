@@ -66,7 +66,7 @@ def create_git_root_tar_file(
 def get_root_upload_dates(subs: str) -> Dict[str, str]:
     return {
         root["nickname"]: root["lastCloningStatusUpdate"]
-        for root in get_git_roots(subs)
+        for root in get_git_roots(subs) or []
     }
 
 
@@ -159,7 +159,7 @@ def main(
         LOGGER.error("Either the subs or the fusion folder does not exist")
         return False
 
-    roots = get_git_roots(subs)
+    roots = get_git_roots(subs) or []
 
     roots_dict = {
         root["nickname"]: root
