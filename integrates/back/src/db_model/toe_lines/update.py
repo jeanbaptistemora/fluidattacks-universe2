@@ -61,19 +61,7 @@ async def update_state(
         state_item=json.loads(json.dumps(new_state, default=serialize)),
         metadata=metadata,
     )
-    metadata_item = (
-        base_item
-        | {
-            key: new_state_item.get(key)
-            for key in (
-                "loc",
-                "sorts_risk_level",
-                "sorts_risk_level_date",
-                "sorts_suggestions",
-            )
-        }
-        | {"state": new_state_item}
-    )
+    metadata_item = base_item | {"state": new_state_item}
 
     condition_expression = Attr(key_structure.partition_key).exists() & Attr(
         "state.modified_date"
@@ -114,7 +102,6 @@ async def update_state(
             primary_key=historic_key,
             key_structure=key_structure,
             toe_lines=current_value,
-            add_observes_compatibility=False,
         )
         | base_item
         | {"state": new_state_item}

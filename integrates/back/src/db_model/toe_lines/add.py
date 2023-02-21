@@ -53,7 +53,6 @@ async def add(*, toe_lines: ToeLines) -> None:
         primary_key=toe_lines_key,
         key_structure=key_structure,
         toe_lines=toe_lines,
-        add_observes_compatibility=True,
         gsi_2_index=gsi_2_index,
         gsi_2_key=gsi_2_key,
     )
@@ -81,7 +80,6 @@ async def add(*, toe_lines: ToeLines) -> None:
         primary_key=historic_key,
         key_structure=key_structure,
         toe_lines=toe_lines,
-        add_observes_compatibility=False,
     )
     try:
         await operations.put_item(

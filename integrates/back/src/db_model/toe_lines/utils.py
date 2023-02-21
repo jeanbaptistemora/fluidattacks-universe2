@@ -107,11 +107,10 @@ def format_toe_lines_sorts_suggestions_item(
     ]
 
 
-def format_toe_lines_item(  # pylint: disable=too-many-arguments
+def format_toe_lines_item(
     primary_key: PrimaryKey,
     key_structure: PrimaryKey,
     toe_lines: ToeLines,
-    add_observes_compatibility: bool = False,
     gsi_2_index: Optional[Index] = None,
     gsi_2_key: Optional[PrimaryKey] = None,
 ) -> Item:
@@ -168,22 +167,6 @@ def format_toe_lines_item(  # pylint: disable=too-many-arguments
             gsi_2_index.primary_key.sort_key: gsi_2_key.sort_key,
             gsi_2_index.primary_key.partition_key: gsi_2_key.partition_key,
         }
-    if add_observes_compatibility:
-        observes_compatibility: Item = {
-            "loc": toe_lines.state.loc,
-            "sorts_risk_level": toe_lines.state.sorts_risk_level,
-            "sorts_risk_level_date": get_as_utc_iso_format(
-                toe_lines.state.sorts_risk_level_date
-            )
-            if toe_lines.state.sorts_risk_level_date
-            else None,
-            "sorts_suggestions": format_toe_lines_sorts_suggestions_item(
-                toe_lines.state.sorts_suggestions
-            )
-            if toe_lines.state.sorts_suggestions
-            else None,
-        }
-        toe_lines_item |= observes_compatibility
     return toe_lines_item
 
 
