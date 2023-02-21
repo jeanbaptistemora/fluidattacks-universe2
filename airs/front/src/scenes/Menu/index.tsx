@@ -1,7 +1,8 @@
 /* eslint react/forbid-component-props: 0 */
 import { useMatomo } from "@datapunt/matomo-tracker-react";
 import { Link } from "gatsby";
-import React, { useCallback, useState } from "react";
+import React, { createRef, useCallback, useState } from "react";
+import type { RefObject } from "react";
 import { BsFillPersonFill } from "react-icons/bs";
 import { FiMenu } from "react-icons/fi";
 
@@ -10,6 +11,7 @@ import { PlatformMenu } from "./Categories/Platform";
 import { ResourcesMenu } from "./Categories/Resources";
 import { ServiceMenu } from "./Categories/Service";
 import { DropdownMenu } from "./MobileMenu/DropdownMenu";
+import { useClickOutside } from "./MobileMenu/Search/useClickOutside";
 import { NavbarContainer } from "./styles/styledComponents";
 
 import { AirsLink } from "../../components/AirsLink";
@@ -39,6 +41,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
     setCategoryCompany(false);
   }, []);
   const [menu, setMenu] = useState(false);
+  const menuRef: RefObject<HTMLDivElement> = createRef();
 
   const handleClick = useCallback((): void => {
     setMenuStatus(menuStatus === 0 ? 1 : 0);
@@ -75,8 +78,12 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
     trackEvent({ action: "free-trial-click", category: "navbar" });
   }, [trackEvent]);
 
+  useClickOutside(menuRef, (): void => {
+    resetState();
+  });
+
   return (
-    <NavbarContainer id={"navbar"}>
+    <NavbarContainer id={"navbar"} ref={menuRef}>
       <NavbarInnerContainer id={"inner_navbar"}>
         <NavbarList className={"poppins"} id={"navbar_list"}>
           <div className={"w-auto flex flex-nowrap"}>
