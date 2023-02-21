@@ -2,6 +2,10 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -15,9 +19,7 @@ from purity.v2.frozen import (
     FrozenList,
 )
 from typing import (
-    Callable,
     Generic,
-    Iterable,
     TypeVar,
 )
 

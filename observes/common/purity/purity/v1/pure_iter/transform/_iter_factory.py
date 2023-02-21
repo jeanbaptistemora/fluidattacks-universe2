@@ -1,5 +1,9 @@
 # Iterable builders
 # should always return a new instance because Iterables are mutable
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -13,8 +17,6 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    Iterable,
-    Optional,
     TypeVar,
 )
 
@@ -29,11 +31,11 @@ class IterableFactory:
         return chain.from_iterable(unchained)
 
     @staticmethod
-    def filter_none(items: PureIter[Optional[_I]]) -> Iterable[_I]:
+    def filter_none(items: PureIter[_I | None]) -> Iterable[_I]:
         return (i for i in items if i is not None)
 
     @staticmethod
-    def until_none(items: PureIter[Optional[_I]]) -> Iterable[_I]:
+    def until_none(items: PureIter[_I | None]) -> Iterator[_I]:
         for item in items:
             if item is None:
                 break
@@ -49,7 +51,7 @@ class IterableFactoryIO:
         return map(IO, chain.from_iterable(iters))
 
     @staticmethod
-    def filter_io(items: PureIter[IO[Optional[_I]]]) -> Iterable[IO[_I]]:
+    def filter_io(items: PureIter[IO[_I | None]]) -> Iterator[IO[_I]]:
         for item in items:
             _item = unsafe_perform_io(item)
             if _item is None:

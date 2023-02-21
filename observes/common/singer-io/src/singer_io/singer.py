@@ -1,19 +1,17 @@
 """Singer object interfaces"""
 
+from collections.abc import (
+    Callable,
+)
 import datetime
 from typing import (
     Any,
-    Callable,
-    Dict,
-    FrozenSet,
     NamedTuple,
-    Optional,
     TypeVar,
-    Union,
 )
 
-JSONschema = Dict[str, Any]
-JSONmap = Dict[str, Any]
+JSONschema = dict[str, Any]
+JSONmap = dict[str, Any]
 DateTime = datetime.datetime
 
 
@@ -22,8 +20,8 @@ class SingerSchema(NamedTuple):
 
     stream: str
     schema: JSONschema
-    key_properties: FrozenSet[str]
-    bookmark_properties: Optional[FrozenSet[str]] = None
+    key_properties: frozenset[str]
+    bookmark_properties: frozenset[str] | None = None
 
 
 class SingerRecord(NamedTuple):
@@ -31,7 +29,7 @@ class SingerRecord(NamedTuple):
 
     stream: str
     record: JSONmap
-    time_extracted: Optional[DateTime] = None
+    time_extracted: DateTime | None = None
 
 
 class SingerState(NamedTuple):
@@ -40,7 +38,7 @@ class SingerState(NamedTuple):
     value: JSONmap
 
 
-SingerMessage = Union[SingerRecord, SingerSchema, SingerState]
+SingerMessage = SingerRecord | SingerSchema | SingerState
 State = TypeVar("State")
 SingerHandler = Callable[[str, State], State]
 

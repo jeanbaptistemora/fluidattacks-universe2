@@ -13,24 +13,19 @@ from purity.v1._json._primitive import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
-    Type,
-    Union,
 )
 
 
 @dataclass(frozen=True)
 class JsonValue:
-    value: Union[Dict[str, JsonValue], List[JsonValue], Primitive]
+    value: dict[str, JsonValue] | list[JsonValue] | Primitive
 
     def unfold(
         self,
-    ) -> Union[Dict[str, JsonValue], List[JsonValue], Primitive]:
+    ) -> dict[str, JsonValue] | list[JsonValue] | Primitive:
         return self.value
 
-    def to_raw(self) -> Union[Dict[str, Any], List[Any], Primitive]:
+    def to_raw(self) -> dict[str, Any] | list[Any] | Primitive:
         raw = self.value
         if isinstance(raw, list):
             return [item.to_raw() for item in raw]
@@ -38,50 +33,50 @@ class JsonValue:
             return {key: val.to_raw() for key, val in raw.items()}
         return raw
 
-    def to_primitive(self, prim_type: Type[PrimitiveTVar]) -> PrimitiveTVar:
+    def to_primitive(self, prim_type: type[PrimitiveTVar]) -> PrimitiveTVar:
         if isinstance(self.value, prim_type):
             return self.value
         raise InvalidType("to_primitive", str(prim_type), self.value)
 
     def to_list_of(
-        self, prim_type: Type[PrimitiveTVar]
-    ) -> List[PrimitiveTVar]:
+        self, prim_type: type[PrimitiveTVar]
+    ) -> list[PrimitiveTVar]:
         if isinstance(self.value, list):
             return [item.to_primitive(prim_type) for item in self.value]
-        raise InvalidType("to_list_of", f"List[{prim_type}]", self.value)
+        raise InvalidType("to_list_of", f"list[{prim_type}]", self.value)
 
-    def to_list(self) -> List[JsonValue]:
+    def to_list(self) -> list[JsonValue]:
         if isinstance(self.value, list):
             return self.value
-        raise InvalidType("to_list", "List[JsonValue]", self.value)
+        raise InvalidType("to_list", "list[JsonValue]", self.value)
 
-    def to_opt_list(self) -> Optional[List[JsonValue]]:
+    def to_opt_list(self) -> list[JsonValue] | None:
         return None if self.value is None else self.to_list()
 
     def to_dict_of(
-        self, prim_type: Type[PrimitiveTVar]
-    ) -> Dict[str, PrimitiveTVar]:
+        self, prim_type: type[PrimitiveTVar]
+    ) -> dict[str, PrimitiveTVar]:
         if isinstance(self.value, dict):
             return {
                 key: val.to_primitive(prim_type)
                 for key, val in self.value.items()
             }
-        raise InvalidType("to_dict_of", "Dict[str, JsonValue]", self.value)
+        raise InvalidType("to_dict_of", "dict[str, JsonValue]", self.value)
 
-    def to_json(self) -> Dict[str, JsonValue]:
+    def to_json(self) -> dict[str, JsonValue]:
         if isinstance(self.value, dict):
             return self.value
-        raise InvalidType("to_json", "Dict[str, JsonValue]", self.value)
+        raise InvalidType("to_json", "dict[str, JsonValue]", self.value)
 
 
 @dataclass(frozen=True)
 class JsonValFactory:
     @classmethod
-    def from_list(cls, raw: List[Primitive]) -> JsonValue:
+    def from_list(cls, raw: list[Primitive]) -> JsonValue:
         return JsonValue([JsonValue(item) for item in raw])
 
     @classmethod
-    def from_dict(cls, raw: Dict[str, Primitive]) -> JsonValue:
+    def from_dict(cls, raw: dict[str, Primitive]) -> JsonValue:
         return JsonValue({key: JsonValue(val) for key, val in raw.items()})
 
     @classmethod

@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 import json
 from singer_io import (
     _factory,
@@ -14,10 +17,7 @@ from singer_io.singer import (
 import sys
 from typing import (
     Any,
-    Callable,
-    Dict,
     IO,
-    Optional,
 )
 
 
@@ -27,8 +27,8 @@ class UndefinedHandler(Exception):
 
 def deserialize(singer_msg: str) -> SingerMessage:
     """Generate `SingerRecord` or `SingerSchema` from json string"""
-    raw_json: Dict[str, Any] = json.loads(singer_msg)
-    data_type: Optional[str] = raw_json.get("type", None)
+    raw_json: dict[str, Any] = json.loads(singer_msg)
+    data_type: str | None = raw_json.get("type", None)
     if data_type == "RECORD":
         return _factory.deserialize_record(singer_msg)
     if data_type == "SCHEMA":
@@ -41,7 +41,7 @@ def deserialize(singer_msg: str) -> SingerMessage:
 
 
 def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
-    msg_dict: Dict[str, Any] = singer_msg._asdict()
+    msg_dict: dict[str, Any] = singer_msg._asdict()
     mapper = {
         SingerRecord: "RECORD",
         SingerSchema: "SCHEMA",
@@ -53,9 +53,9 @@ def emit(singer_msg: SingerMessage, target: IO[str] = sys.stdout) -> None:
 
 
 def singer_handler(
-    handle_schema: Optional[Callable[[SingerSchema, State], State]],
-    handle_record: Optional[Callable[[SingerRecord, State], State]],
-    handle_state: Optional[Callable[[SingerState, State], State]],
+    handle_schema: Callable[[SingerSchema, State], State] | None,
+    handle_record: Callable[[SingerRecord, State], State] | None,
+    handle_state: Callable[[SingerState, State], State] | None,
 ) -> SingerHandler[State]:
     def generic_handler(singer: SingerMessage, state: State) -> State:
         if handle_schema and isinstance(singer, SingerSchema):

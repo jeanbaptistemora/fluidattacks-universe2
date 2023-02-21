@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from purity.v2.cmd import (
     Cmd,
 )
@@ -6,7 +9,6 @@ from tempfile import (
     TemporaryFile,
 )
 from typing import (
-    Callable,
     IO,
     NoReturn,
 )

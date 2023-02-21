@@ -16,7 +16,6 @@ from purity.v2.stream.core import (
     Stream,
 )
 from typing import (
-    Optional,
     TypeVar,
 )
 
@@ -43,7 +42,7 @@ def consume(stm: Stream[Cmd[None]]) -> Cmd[None]:
     )
 
 
-def filter_opt(stm: Stream[Optional[_T]]) -> Stream[_T]:
+def filter_opt(stm: Stream[_T | None]) -> Stream[_T]:
     draft = _Stream(stm.unsafe_to_iter().map(_iter_factory.filter_none))
     return Stream(draft)
 
@@ -52,7 +51,7 @@ def filter_maybe(stm: Stream[Maybe[_T]]) -> Stream[_T]:
     return filter_opt(stm.map(lambda x: x.value_or(None)))
 
 
-def until_none(stm: Stream[Optional[_T]]) -> Stream[_T]:
+def until_none(stm: Stream[_T | None]) -> Stream[_T]:
     draft = _Stream(stm.unsafe_to_iter().map(_iter_factory.until_none))
     return Stream(draft)
 

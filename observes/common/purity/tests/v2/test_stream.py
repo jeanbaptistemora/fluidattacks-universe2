@@ -17,12 +17,9 @@ import pytest
 from secrets import (
     randbelow,
 )
-from typing import (
-    Optional,
-)
 
 
-def _rand_val(count: int, none_index: int) -> Cmd[Optional[int]]:
+def _rand_val(count: int, none_index: int) -> Cmd[int | None]:
     return Cmd.from_cmd(lambda: randbelow(11) if count != none_index else None)
 
 

@@ -2,6 +2,11 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+    Iterable,
+    Iterator,
+)
 from dataclasses import (
     dataclass,
 )
@@ -19,9 +24,6 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    Callable,
-    Iterable,
-    Iterator,
     TypeVar,
 )
 

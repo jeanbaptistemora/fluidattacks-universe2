@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -9,13 +12,9 @@ from purity.v2.result import (
     Result,
 )
 from typing import (
-    Callable,
     Generic,
     NoReturn,
-    Optional,
-    Type,
     TypeVar,
-    Union,
 )
 
 _A = TypeVar("_A")
@@ -31,7 +30,7 @@ class Maybe(Generic[_A]):
         return Maybe(Result.success(value))
 
     @staticmethod
-    def from_optional(value: Optional[_A]) -> Maybe[_A]:
+    def from_optional(value: _A | None) -> Maybe[_A]:
         if value is None:
             return Maybe(Result.failure(value))
         return Maybe(Result.success(value))
@@ -41,7 +40,7 @@ class Maybe(Generic[_A]):
         return Maybe(result)
 
     @staticmethod
-    def empty(_type: Optional[Type[_A]] = None) -> Maybe[_A]:
+    def empty(_type: type[_A] | None = None) -> Maybe[_A]:
         return Maybe.from_optional(None)
 
     def to_result(self) -> Result[_A, None]:
@@ -53,22 +52,20 @@ class Maybe(Generic[_A]):
     def bind(self, function: Callable[[_A], Maybe[_B]]) -> Maybe[_B]:
         return Maybe(self._value.bind(lambda a: function(a).to_result()))
 
-    def bind_optional(
-        self, function: Callable[[_A], Optional[_B]]
-    ) -> Maybe[_B]:
+    def bind_optional(self, function: Callable[[_A], _B | None]) -> Maybe[_B]:
         return self.bind(lambda a: Maybe.from_optional(function(a)))
 
     def lash(self, function: Callable[[], Maybe[_A]]) -> Maybe[_A]:
         return Maybe(self._value.lash(lambda _: function().to_result()))
 
-    def unwrap(self) -> Union[_A, NoReturn]:
+    def unwrap(self) -> _A | NoReturn:
         return self._value.unwrap()
 
-    def failure(self) -> Union[None, NoReturn]:
+    def failure(self) -> None | NoReturn:
         return self._value.unwrap_fail()
 
-    def value_or(self, default: _B) -> Union[_A, _B]:
+    def value_or(self, default: _B) -> _A | _B:
         return self._value.value_or(default)
 
-    def or_else_call(self, function: Callable[[], _B]) -> Union[_A, _B]:
+    def or_else_call(self, function: Callable[[], _B]) -> _A | _B:
         return self._value.or_else_call(function)

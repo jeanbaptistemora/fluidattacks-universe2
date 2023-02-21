@@ -7,25 +7,23 @@ from decimal import (
 )
 from typing import (
     Any,
-    Type,
     TypeVar,
-    Union,
 )
 from typing_extensions import (
     TypeGuard,
 )
 
-Primitive = Union[str, int, float, Decimal, bool, None]
-PrimitiveTypes = Union[
-    Type[str],
-    Type[int],
-    Type[float],
-    Type[Decimal],
-    Type[bool],
-    Type[None],
-]
+Primitive = str | int | float | Decimal | bool | None
+PrimitiveTypes = (
+    type[str]
+    | type[int]
+    | type[float]
+    | type[Decimal]
+    | type[bool]
+    | type[None]
+)
 PrimitiveTVar = TypeVar(
-    "PrimitiveTVar", str, int, float, Decimal, bool, Type[None]
+    "PrimitiveTVar", str, int, float, Decimal, bool, type[None]
 )
 NotNonePrimTvar = TypeVar("NotNonePrimTvar", str, int, float, Decimal, bool)
 

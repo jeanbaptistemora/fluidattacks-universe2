@@ -2,6 +2,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -10,7 +13,6 @@ from purity.v2._patch import (
 )
 import sys
 from typing import (
-    Callable,
     Generic,
     NoReturn,
     TypeVar,

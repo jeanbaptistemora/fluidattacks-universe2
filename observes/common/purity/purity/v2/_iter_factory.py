@@ -5,6 +5,10 @@
 from collections import (
     deque as deque_iter,
 )
+from collections.abc import (
+    Iterable,
+    Iterator,
+)
 from itertools import (
     chain as _chain,
 )
@@ -17,8 +21,6 @@ from purity.v2.frozen import (
     FrozenList,
 )
 from typing import (
-    Iterable,
-    Optional,
     TypeVar,
 )
 
@@ -39,16 +41,16 @@ def deque(items: Iterable[_T]) -> None:
     deque_iter(items, maxlen=0)
 
 
-def filter_none(items: Iterable[Optional[_T]]) -> Iterable[_T]:
+def filter_none(items: Iterable[_T | None]) -> Iterable[_T]:
     return (i for i in items if i is not None)
 
 
-def squash(items: Iterable[Cmd[_T]]) -> Iterable[_T]:
+def squash(items: Iterable[Cmd[_T]]) -> Iterator[_T]:
     for item in items:
         yield unsafe_unwrap(item)
 
 
-def until_none(items: Iterable[Optional[_T]]) -> Iterable[_T]:
+def until_none(items: Iterable[_T | None]) -> Iterator[_T]:
     for item in items:
         if item is None:
             break

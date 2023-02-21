@@ -22,8 +22,6 @@ from returns.functions import (
 )
 from typing import (
     Any,
-    Optional,
-    Type,
 )
 from typing_extensions import (
     TypeGuard,
@@ -53,7 +51,7 @@ class PrimitiveFactory:
 
     @classmethod
     def to_primitive(
-        cls, raw: Any, prim_type: Type[PrimitiveTVar]
+        cls, raw: Any, prim_type: type[PrimitiveTVar]
     ) -> PrimitiveTVar:
         return (
             factory.to_primitive(raw, prim_type).lash(raise_exception).unwrap()
@@ -61,8 +59,8 @@ class PrimitiveFactory:
 
     @staticmethod
     def to_opt_primitive(
-        raw: Any, prim_type: Type[NotNonePrimTvar]
-    ) -> Optional[NotNonePrimTvar]:
+        raw: Any, prim_type: type[NotNonePrimTvar]
+    ) -> NotNonePrimTvar | None:
         return (
             factory.to_opt_primitive(raw, prim_type)
             .lash(raise_exception)

@@ -35,12 +35,7 @@ from purity.v2.union import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
-    Type,
     TypeVar,
-    Union,
 )
 
 _T = TypeVar("_T")
@@ -62,13 +57,13 @@ class Unfolder:
             invalid_type.new("to_list", "FrozenList[JsonValue]", self.value)
         )
 
-    def to_opt_list(self) -> UnfoldResult[Optional[FrozenList[JsonValue]]]:
+    def to_opt_list(self) -> UnfoldResult[FrozenList[JsonValue] | None]:
         if self.value is None:
             return Result.success(None)
         return self.to_list().map(inr)
 
     def to_list_of(
-        self, prim_type: Type[PrimitiveTVar]
+        self, prim_type: type[PrimitiveTVar]
     ) -> UnfoldResult[FrozenList[PrimitiveTVar]]:
         try:
             return self.to_list().map(
@@ -96,7 +91,7 @@ class Unfolder:
         )
 
     def to_dict_of(
-        self, prim_type: Type[PrimitiveTVar]
+        self, prim_type: type[PrimitiveTVar]
     ) -> UnfoldResult[FrozenDict[str, PrimitiveTVar]]:
         try:
             return self.to_json().map(
@@ -110,12 +105,12 @@ class Unfolder:
         except UnwrapError[PrimitiveTVar, InvalidType]:
             return Result.failure(
                 invalid_type.new(
-                    f"to_dict_of", f"Dict[str, {prim_type}]", self.value
+                    f"to_dict_of", f"dict[str, {prim_type}]", self.value
                 )
             )
 
 
-def to_raw(jval: JsonValue) -> Union[Dict[str, Any], List[Any], Primitive]:
+def to_raw(jval: JsonValue) -> dict[str, Any] | list[Any] | Primitive:
     value = jval.unfold()
     if isinstance(value, tuple):
         return [to_raw(item) for item in value]

@@ -13,13 +13,11 @@ from purity.v2.result import (
 )
 from typing import (
     Any,
-    Optional,
-    Type,
 )
 
 
 def to_primitive(
-    raw: Any, prim_type: Type[PrimitiveTVar]
+    raw: Any, prim_type: type[PrimitiveTVar]
 ) -> Result[PrimitiveTVar, InvalidType]:
     if isinstance(raw, prim_type):
         return Result.success(raw)
@@ -29,8 +27,8 @@ def to_primitive(
 
 
 def to_opt_primitive(
-    raw: Any, prim_type: Type[NotNonePrimTvar]
-) -> Result[Optional[NotNonePrimTvar], InvalidType]:
+    raw: Any, prim_type: type[NotNonePrimTvar]
+) -> Result[NotNonePrimTvar | None, InvalidType]:
     if raw is None or isinstance(raw, prim_type):
         return Result.success(raw)
     return Result.failure(
