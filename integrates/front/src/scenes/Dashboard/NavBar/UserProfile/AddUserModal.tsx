@@ -153,6 +153,26 @@ const AddUserModal: FC<IAddUserModalProps> = ({
     role: string().required(t("validations.required")),
   });
 
+  const listGroupRoles: JSX.Element[] = (groupModal ? groupLevelRoles : []).map(
+    (role: string): JSX.Element => (
+      <Can do={`grant_group_level_role:${role}`} key={role}>
+        <option value={role.toUpperCase()}>
+          {t(`userModal.roles.${_.camelCase(role)}`)}
+        </option>
+      </Can>
+    )
+  );
+
+  const listOrgRoles: JSX.Element[] = (
+    isOrganizationTypeModal ? organizationLevelRoles : []
+  ).map(
+    (role: string): JSX.Element => (
+      <option key={role} value={role.toUpperCase()}>
+        {t(`userModal.roles.${_.camelCase(role)}`)}
+      </option>
+    )
+  );
+
   useEffect((): void => {
     setUserSuggestions(suggestions);
   }, [suggestions]);
@@ -218,15 +238,7 @@ const AddUserModal: FC<IAddUserModalProps> = ({
                     required={true}
                   >
                     <option value={""} />
-                    {(groupModal ? groupLevelRoles : []).map(
-                      (role: string): JSX.Element => (
-                        <Can do={`grant_group_level_role:${role}`} key={role}>
-                          <option value={role.toUpperCase()}>
-                            {t(`userModal.roles.${_.camelCase(role)}`)}
-                          </option>
-                        </Can>
-                      )
-                    )}
+                    {listGroupRoles}
                     {(sidebarModal ? userLevelRoles : []).map(
                       (role: string): JSX.Element => (
                         <Can do={`grant_user_level_role:${role}`} key={role}>
@@ -236,16 +248,7 @@ const AddUserModal: FC<IAddUserModalProps> = ({
                         </Can>
                       )
                     )}
-                    {(isOrganizationTypeModal
-                      ? organizationLevelRoles
-                      : []
-                    ).map(
-                      (role: string): JSX.Element => (
-                        <option key={role} value={role.toUpperCase()}>
-                          {t(`userModal.roles.${_.camelCase(role)}`)}
-                        </option>
-                      )
-                    )}
+                    {listOrgRoles}
                   </Select>
                   {groupName === undefined ? undefined : (
                     <Input
