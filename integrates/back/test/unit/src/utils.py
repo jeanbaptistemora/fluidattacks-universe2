@@ -10645,6 +10645,44 @@ mocked_responses: dict[str, dict[str, Any]] = {
     "vulnerabilities.domain.mask_vulnerability": {
         '["unittest@fluidattacks.com", "457497316"]': None,
     },
+    "vulnerabilities.domain.validations.Dataloaders.group": {
+        '["kurome"]': Group(
+            created_by="unknown",
+            created_date=datetime.fromisoformat("2020-05-20"),
+            description="Integrates group",
+            language=GroupLanguage.EN,
+            name="kurome",
+            organization_id="ORG#f2e2777d-a168-4bea-93cd-d79142b294d2",
+            state=GroupState(
+                has_machine=False,
+                has_squad=False,
+                managed=GroupManaged.NOT_MANAGED,
+                modified_by="unknown",
+                modified_date=datetime.fromisoformat("2020-05-20"),
+                status=GroupStateStatus.ACTIVE,
+                tier=GroupTier.OTHER,
+                type=GroupSubscriptionType.CONTINUOUS,
+                tags=None,
+                comments=None,
+                justification=None,
+                payment_id=None,
+                pending_deletion_date=None,
+                service=GroupService.WHITE,
+            ),
+            agent_token=None,
+            business_id="14441323",
+            business_name="Testing Company and Sons",
+            context=None,
+            disambiguation=None,
+            files=None,
+            policies=None,
+            sprint_duration=2,
+            sprint_start_date=datetime.fromisoformat("2022-06-06"),
+        )
+    },
+    "vulnerabilities.domain.validations.get_group_max_acceptance_days": {
+        '["kurome"]': 60,
+    },
 }
 
 

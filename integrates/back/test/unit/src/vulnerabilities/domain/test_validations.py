@@ -1,4 +1,9 @@
+from back.test.unit.src.utils import (  # pylint: disable=import-error
+    get_module_at_test,
+    set_mocks_return_values,
+)
 from custom_exceptions import (
+    InvalidAcceptanceDays,
     InvalidParameter,
     InvalidPath,
     InvalidPort,
@@ -7,14 +12,30 @@ from custom_exceptions import (
     InvalidVulnSpecific,
     InvalidVulnWhere,
 )
+from dataloaders import (
+    Dataloaders,
+    get_new_context,
+)
+from datetime import (
+    datetime,
+    timezone,
+)
 from db_model.enums import (
     Source,
 )
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
+from freezegun import (
+    freeze_time,
+)
 import pytest
+from unittest.mock import (
+    AsyncMock,
+    patch,
+)
 from vulnerabilities.domain.validations import (
+    validate_acceptance_days,
     validate_path_deco,
     validate_source_deco,
     validate_updated_commit_deco,
@@ -23,9 +44,75 @@ from vulnerabilities.domain.validations import (
     validate_where_deco,
 )
 
+MODULE_AT_TEST = get_module_at_test(file_path=__file__)
+
+
 pytestmark = [
     pytest.mark.asyncio,
 ]
+
+
+@freeze_time("2020-10-08")
+@pytest.mark.parametrize(
+    ["acceptance_date_good", "acceptance_date_bad", "group_name"],
+    [
+        [
+            datetime.fromisoformat("2020-10-30 00:00:00"),
+            datetime.fromisoformat("2020-10-06 23:59:59"),  # In the past
+            "kurome",
+        ],
+        [
+            datetime.fromisoformat("2020-12-07 00:00:00"),
+            datetime.fromisoformat(
+                "2020-12-31 00:00:00"
+            ),  # Over group's max_acceptance_days
+            "kurome",
+        ],
+    ],
+)
+@patch(
+    MODULE_AT_TEST + "get_group_max_acceptance_days", new_callable=AsyncMock
+)
+@patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
+async def test_validate_acceptance_days(
+    mock_dataloaders_group: AsyncMock,
+    mock_get_group_max_acceptance_days: AsyncMock,
+    acceptance_date_good: datetime,
+    acceptance_date_bad: datetime,
+    group_name: str,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_dataloaders_group.load,
+            mock_get_group_max_acceptance_days,
+        ],
+        [
+            "Dataloaders.group",
+            "get_group_max_acceptance_days",
+        ],
+        [[group_name], [group_name]],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+    await validate_acceptance_days(
+        loaders, acceptance_date_good.astimezone(tz=timezone.utc), group_name
+    )
+    assert all(
+        mock_object.assert_called_once for mock_object in mocked_objects
+    )
+
+    with pytest.raises(InvalidAcceptanceDays):
+        await validate_acceptance_days(
+            loaders,
+            acceptance_date_bad.astimezone(tz=timezone.utc),
+            group_name,
+        )
+    assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
 
 
 def test_validate_source_deco() -> None:

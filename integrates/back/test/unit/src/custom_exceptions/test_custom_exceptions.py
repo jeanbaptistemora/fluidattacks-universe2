@@ -4,8 +4,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     ErrorUploadingFileS3,
-    GroupNotFound,
-    InvalidAcceptanceDays,
     InvalidAcceptanceSeverity,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
@@ -26,12 +24,6 @@ from datetime import (
     timedelta,
     timezone,
 )
-from db_model.groups.enums import (
-    GroupService,
-    GroupStateJustification,
-    GroupSubscriptionType,
-    GroupTier,
-)
 from db_model.vulnerabilities.enums import (
     VulnerabilityTreatmentStatus,
 )
@@ -41,11 +33,7 @@ from db_model.vulnerabilities.types import (
 from decimal import (
     Decimal,
 )
-from freezegun import (
-    freeze_time,
-)
 from groups.domain import (
-    update_group,
     validate_group_services_config,
     validate_group_services_config_deco,
     validate_group_tags,
@@ -112,116 +100,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@pytest.mark.parametrize(
-    [
-        "group_name",
-        "service",
-        "subscription",
-        "has_machine",
-        "has_squad",
-        "has_arm",
-        "tier",
-    ],
-    [
-        [
-            "not-exists",
-            GroupService.WHITE,
-            GroupSubscriptionType.CONTINUOUS,
-            True,
-            True,
-            True,
-            GroupTier.MACHINE,
-        ],
-        [
-            "not-exists",
-            GroupService.WHITE,
-            GroupSubscriptionType.CONTINUOUS,
-            False,
-            False,
-            False,
-            GroupTier.FREE,
-        ],
-    ],
-)
-async def test_update_group_attrs_fail(
-    # pylint: disable=too-many-arguments
-    mock_table_resource: AsyncMock,
-    group_name: str,
-    service: GroupService,
-    subscription: GroupSubscriptionType,
-    has_machine: bool,
-    has_squad: bool,
-    has_arm: bool,
-    tier: GroupTier,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    with pytest.raises(GroupNotFound):
-        await update_group(
-            loaders=get_new_context(),
-            comments="",
-            email="test@test.test",
-            group_name=group_name,
-            justification=GroupStateJustification.NONE,
-            has_arm=has_arm,
-            has_machine=has_machine,
-            has_squad=has_squad,
-            service=service,
-            subscription=subscription,
-            tier=tier,
-        )
-    assert mock_table_resource.called is True
-
-
-@freeze_time("2020-10-08")
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-@pytest.mark.parametrize(
-    ["acceptance_date"],
-    [
-        ["2020-10-06 23:59:59"],  # In the past
-        ["2020-12-31 00:00:00"],  # Over org's max_acceptance_days
-    ],
-)
-async def test_validate_past_acceptance_days(
-    mock_table_resource: AsyncMock,
-    acceptance_date: str,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = [
-        VulnerabilityTreatment(
-            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.UNTREATED,
-        )
-    ]
-    finding_severity = Decimal("3.0")
-    accepted_until = datetime.fromisoformat(acceptance_date).astimezone(
-        tz=timezone.utc
-    )
-    with pytest.raises(InvalidAcceptanceDays):
-        await validate_accepted_treatment_change(
-            loaders=get_new_context(),
-            accepted_until=accepted_until,
-            finding_severity=finding_severity,
-            group_name="kurome",
-            historic_treatment=historic_treatment,
-        )
-    assert mock_table_resource.called is True
 
 
 @mock.patch(
