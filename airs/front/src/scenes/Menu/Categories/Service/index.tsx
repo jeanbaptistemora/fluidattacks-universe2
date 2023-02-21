@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { AirsLink } from "../../../../components/AirsLink";
 import { Container } from "../../../../components/Container";
@@ -16,6 +16,9 @@ const ServiceMenu: React.FC<IServiceProps> = ({
   display,
 }: IServiceProps): JSX.Element => {
   const { width } = useWindowSize();
+  const handleClick = useCallback((): void => {
+    document.body.setAttribute("style", "overflow-y: auto;");
+  }, []);
 
   return (
     <Container
@@ -48,6 +51,7 @@ const ServiceMenu: React.FC<IServiceProps> = ({
             <AirsLink
               hoverColor={"#bf0b1a"}
               href={"/services/continuous-hacking/"}
+              onClick={handleClick}
             >
               <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                 {translate.t("menu.services.allInOne.continuous.title")}
@@ -66,7 +70,11 @@ const ServiceMenu: React.FC<IServiceProps> = ({
           </Container>
           <Grid columns={2} columnsMd={1} columnsSm={1} gap={"1rem"} ph={"0px"}>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/solutions/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.services.solutions.applicationSec.title")}
                 </Text>
@@ -76,7 +84,11 @@ const ServiceMenu: React.FC<IServiceProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/compliance/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.services.solutions.compliance.title")}
                 </Text>

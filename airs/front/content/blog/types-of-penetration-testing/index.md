@@ -167,8 +167,8 @@ to check whether the assessed mobile apps lack effective mechanisms
 to obfuscate code and prevent information disclosure.
 The processes of reviewing code and attack the app as it runs correspond,
 respectively,
-to [static application security testing](../../categories/sast/) (SAST)
-and [dynamic application security testing](../../categories/dast/) (DAST).
+to [static application security testing](../../product/sast/) (SAST)
+and [dynamic application security testing](../../product/dast/) (DAST).
 We have defined mobile application security testing (MAST),
 as well as mentioned a list of top risks to mobile apps
 in [another blog post](../what-is-mast/).

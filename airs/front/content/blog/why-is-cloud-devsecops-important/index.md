@@ -137,7 +137,7 @@ thus potentially compromising sensitive data.
 The security of information is compromised
 in a similar way to the one we mentioned above.
 Fortunately,
-static application security testing ([SAST](../../categories/sast/))
+static application security testing ([SAST](../../product/sast/))
 can identify these flaws pretty early;
 no need to wait until the software
 testing phase or being hit by a cyberattack.
@@ -150,12 +150,12 @@ of application code and dependencies
 that, by virtualizing operating systems,
 allow applications to run quickly and reliably in any environment."
 Early and constant SAST
-and software composition analysis ([SCA](../../categories/sca/))
+and software composition analysis ([SCA](../../product/sca/))
 help find vulnerable code
 and dependencies in such packages
 that can open the door to exploitation.
 Further,
-continuous manual dynamic application security testing ([DAST](../../categories/dast/))
+continuous manual dynamic application security testing ([DAST](../../product/dast/))
 is advised
 to find network and storage misconfigurations
 that could allow unauthorized access

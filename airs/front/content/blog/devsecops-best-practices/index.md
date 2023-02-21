@@ -39,7 +39,7 @@ thus encouraging ownership and accountability.
 
 [Implementing DevSecOps](../how-to-implement-devsecops/) should mean
 that every developer is as responsible as anyone on the security team
-for  the security of the software.
+for the security of the software.
 Further,
 they can increase their secure coding knowledge
 by fixing the issues found by continuous security tests.
@@ -107,9 +107,9 @@ in your organization:
 - Teach developers to fix code vulnerabilities shortly after they're written,
   which is known as the just-in-time approach.
   This involves taking a look at somebody's code
-  through [static application security testing](../../categories/sast/) (SAST),
-  [software composition analysis](../../categories/sca/) (SCA)
-  or [dynamic application security testing](../../categories/dast/) (DAST)
+  through [static application security testing](../../product/sast/) (SAST),
+  [software composition analysis](../../product/sca/) (SCA)
+  or [dynamic application security testing](../../product/dast/) (DAST)
   and then giving education
   relevant to what it is that they're doing wrong.
 
@@ -197,7 +197,7 @@ which open the possibility for an injection attack.
 
 ### Dynamic application security testing (DAST)
 
-[DAST](../../categories/dast/)
+[DAST](../../product/dast/)
 does not require access to the application source code.
 It involves assessing running applications
 by sending attack vectors to their endpoints.
@@ -236,7 +236,7 @@ a best practice is to have a complete
 and updated inventory of the dependencies
 that make up your software
 and keep these up-to-date with the latest patches.
-The answer to this need is [SCA](../../categories/sca/).
+The answer to this need is [SCA](../../product/sca/).
 
 SCA requires access to your source code.
 It reveals external software dependencies.
@@ -272,7 +272,7 @@ of the systems' physical components,
 network security
 and employee behavior.
 
-We recommend *continuous* instead of *regular* security audits,
+We recommend _continuous_ instead of _regular_ security audits,
 since the latter could allow a time window
 during which risk exposure could be taken advantage of.
 By updating your knowledge of the security weaknesses in your systems,
@@ -310,11 +310,11 @@ that penetration testing is a valuable component
 in favor of accuracy and depth.
 
 In short,
-we advise *continuous* penetration tests
+we advise _continuous_ penetration tests
 to validate the security of your technology
 and test against new techniques used by threat actors.
 This is in contrast to the common advice
-to conduct just *regular* penetration tests
+to conduct just _regular_ penetration tests
 for the sake of complying with regulations,
 among other drives.
 Continuous assessments support a strong remediation culture,

@@ -175,12 +175,12 @@ library](https://git.openssl.org/gitweb/?p=openssl.git;a=blob;f=ssl/t1_lib.c;h=a
 \- `v1.0.1f` (the vulnerable version). This fragment contains the bug and
 I’m gonna break it in the essentials details.
 
-Fragment of the t1\_lib.c from `OpenSSL`
+Fragment of the t1_lib.c from `OpenSSL`
 [here](./openssl-fragment.c).
 
 The line responsible for the vulnerability is this one:
 
-``` c
+```c
 3997      memcpy(bp, pl, payload);
 ```
 
@@ -213,7 +213,7 @@ The **flaw** on the code is that the **length** of the **data** wasn’t
 being validated, there were a **missing bounds** check before memcpy was
 performed. We’ll see that in the following lines of code:
 
-``` c
+```c
 /* Read type and payload length first */
 3972         /* Read type and payload length first */
 3973         hbtype = *p++;
@@ -231,7 +231,7 @@ The next line is responsible to set the **length** of the response back,
 the **payload** variable holds the **expected length** of the
 **payload**, thus that length will be written into the **bp** variable.
 
-``` c
+```c
 3996      s2n(payload, bp);
 ```
 
@@ -241,7 +241,7 @@ little more sense, **pl** could have a length of **5 kB**, but
 variable will allocate in memory those **64 kB** and send it just back,
 [<sup>\[2\]</sup>](#r2).
 
-``` c
+```c
 3997      memcpy(bp, pl, payload);
 ```
 
@@ -255,7 +255,7 @@ got rid of the flaw.
 The **patch** is essentially a **bounds check**, to validate the actual
 **length** of the **payload**.
 
-``` c
+```c
 hbtype = *p++;
 n2s(p, payload);
 if (1 + 2 + payload + 16 > s->s3->rrec.length)
@@ -263,8 +263,7 @@ return 0; /* silently discard per RFC 6520 sec. 4 */
 pl = p;
 ```
 
-The fully code patched can be seen here in this [`git
-diff`](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=731f431497f463f3a2a97236fe0187b11c44aead).
+The fully code patched can be seen here in this [`git diff`](https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=731f431497f463f3a2a97236fe0187b11c44aead).
 
 This kind of vulnerability is named `buffer over-read`,
 [<sup>\[3\]</sup>](#r3). For example, in the `Heartbleed` case, the
@@ -284,11 +283,9 @@ companies like
 [`Github`](https://blog.github.com/2014-04-08-security-heartbleed-vulnerability/),
 the [Canada Revenue Agency
 `(CRA)`](http://business.financialpost.com/personal-finance/taxes/cra-website-shutdown-security),
-almost 78 devices from [`Cisco
-Systems`](https://blogs.cisco.com/security/openssl-heartbleed-vulnerability-cve-2014-0160-cisco-products-and-mitigations),
+almost 78 devices from [`Cisco Systems`](https://blogs.cisco.com/security/openssl-heartbleed-vulnerability-cve-2014-0160-cisco-products-and-mitigations),
 [`Hewlett-Packard`](http://www8.hp.com/us/en/heartbleed.html), even
-operating systems shipped with it, like [`Debian
-Wheezy`](https://www.debian.org/security/2014/dsa-2896),
+operating systems shipped with it, like [`Debian Wheezy`](https://www.debian.org/security/2014/dsa-2896),
 [`CentOS 6.5`](https://wiki.centos.org/Security/Heartbleed),
 [`Ubuntu 12.04.4 LTS`](https://usn.ubuntu.com/2165-1/), and a big
 etcetera had to shut online their services, warn or log out every user
@@ -304,7 +301,7 @@ that at least 200,000 services are still
 [affected](https://www.theregister.co.uk/2017/01/23/heartbleed_2017/).
 
 We at `Fluid Attacks`
-offer [Software Composition Analysis](../../categories/sca/)
+offer [Software Composition Analysis](../../product/sca/)
 to find vulnerable software components in our clients' systems.
 Our clients can then [manage these vulnerabilities](../../solutions/vulnerability-management/)
 in our Attack Resistance Management platform.
@@ -314,6 +311,6 @@ in our Attack Resistance Management platform.
 1. [Synopsys (2014).](https://heartbleed.com)
 
 2. IBM (2014). A technical view of the OpenSSL HeartBleed
-    vulnerability.
+   vulnerability.
 
 3. [CVE-2014-0160.](https://cve.mitre.org/cgi-bin/cvename.cgi?name=cve-2014-0160)

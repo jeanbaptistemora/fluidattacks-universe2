@@ -110,7 +110,7 @@ before the traditional testing phase.
 
 ### Static application security testing (SAST)
 
-[Static application security testing](../../categories/sast/)
+[Static application security testing](../../product/sast/)
 is a method
 that can be used continuously
 from the code phase of the SDLC onward
@@ -143,7 +143,7 @@ they all start to become security developers.
 
 ### Software composition analysis (SCA)
 
-[Software composition analysis](../../categories/sca/)
+[Software composition analysis](../../product/sca/)
 is a method
 that can be introduced in the building phase
 and used continuously
@@ -174,7 +174,7 @@ and identify any threat due to criminals exploiting zero-days in them.
 
 ### Dynamic application security testing (DAST)
 
-[Dynamic application security testing](../../categories/dast/)
+[Dynamic application security testing](../../product/dast/)
 is a method
 that can be used continuously from the test phase onward.
 It is performed

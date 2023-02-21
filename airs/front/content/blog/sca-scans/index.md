@@ -84,7 +84,7 @@ within these resources.
 Many organizations do not take into account the quality and security flaws
 that may be present in open-source components.
 This is where the process we focus on in this post comes in:
-[Software Composition Analysis](../../categories/sca/)
+[Software Composition Analysis](../../product/sca/)
 (SCA).
 (By the way,
 to know what to consider when choosing open-source code to use,
@@ -301,8 +301,8 @@ you can understand,
 manage and prioritize the vulnerabilities to be remediated.
 
 To complement the work of SCA scans,
-we have automated [SAST](../../categories/sast/)
-and [DAST](../../categories/dast/)
+we have automated [SAST](../../product/sast/)
+and [DAST](../../product/dast/)
 and [manual penetration testing](../solutions/penetration-testing/).
 Some time ago,
 we published here a post

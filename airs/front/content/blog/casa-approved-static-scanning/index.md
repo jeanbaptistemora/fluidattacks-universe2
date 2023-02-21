@@ -53,7 +53,7 @@ defined in the OWASP [Mobile Application Security Verification Standard](https:/
 we've listed [elsewhere](../what-is-mast/) the top risks to mobile apps
 and defined the role of mobile application security testing (MAST),
 which,
-if you [leverage with us](../../categories/mast/),
+if you [leverage with us](../../product/mast/),
 can check your compliance with MASVS and beyond.)
 
 We are, however,
@@ -103,7 +103,7 @@ And here's where we've got news!
 **We are listed under the [**static scanning procedures**](https://appdefensealliance.dev/casa/tier-2/ast-guide/static-scan).**
 You can use our CASA-approved,
 open-source CLI application without cost
-to perform [static application security testing](../../categories/sast/)
+to perform [static application security testing](../../product/sast/)
 (SAST).
 
 ## Our CLI app can be leveraged for vulnerability scanning
@@ -151,7 +151,7 @@ We configure Machine
 to detect your application's vulnerabilities with accuracy.
 You can see every finding and several details,
 including recommendations for fixing the security issues,
-on our [Attack Resistance Management (ARM) platform](../../product-overview/).
+on our [Attack Resistance Management (ARM) platform](../../platform/).
 There you can also contact us for support via live chat.
 
 Among the benefits of Continuous Hacking are
@@ -167,9 +167,9 @@ Among the benefits of Continuous Hacking are
 You can choose between [two paid plans](../../plans/):
 Machine and Squad.
 Machine Plan offers continuous
-[static application security testing](../../categories/sast/) (SAST),
-[dynamic application security testing](../../categories/dast/) (DAST)
-and [software composition analysis](../../categories/sca/) (SCA)
+[static application security testing](../../product/sast/) (SAST),
+[dynamic application security testing](../../product/dast/) (DAST)
+and [software composition analysis](../../product/sca/) (SCA)
 with our tool only.
 Squad Plan adds AI prioritization
 and continuous [manual penetration testing](../../solutions/penetration-testing/).

@@ -34,25 +34,25 @@ const CategoriesList: React.FC = (): JSX.Element => {
         >
           <InnerContentList>
             <InnerListItem>
-              <BodyLink link={"/categories/sast/"} name={"SAST"} />
+              <BodyLink link={"/product/sast/"} name={"SAST"} />
             </InnerListItem>
             <InnerListItem>
-              <BodyLink link={"/categories/dast/"} name={"DAST"} />
+              <BodyLink link={"/product/dast/"} name={"DAST"} />
             </InnerListItem>
             <InnerListItem>
               <BodyLink link={"/solutions/penetration-testing/"} name={"MPT"} />
             </InnerListItem>
             <InnerListItem>
-              <BodyLink link={"/categories/sca/"} name={"SCA"} />
+              <BodyLink link={"/product/sca/"} name={"SCA"} />
             </InnerListItem>
             <InnerListItem>
-              <BodyLink link={"/categories/re/"} name={"RE"} />
+              <BodyLink link={"/product/re/"} name={"RE"} />
             </InnerListItem>
             <InnerListItem>
-              <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} />
+              <BodyLink link={"/product/ptaas/"} name={"PTaaS"} />
             </InnerListItem>
             <InnerListItem>
-              <BodyLink link={"/categories/mast/"} name={"MAST"} />
+              <BodyLink link={"/product/mast/"} name={"MAST"} />
             </InnerListItem>
           </InnerContentList>
         </InnerListContainer>

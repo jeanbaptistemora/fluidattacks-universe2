@@ -29,7 +29,7 @@ and "automated penetration testing."
 However,
 some of us consider and affirm that
 what happens in the latter
-doesn't comply with what *pentesting* really is
+doesn't comply with what _pentesting_ really is
 and that this name was just a fruit of a marketing strategy.
 Manual pentesting,
 as we'll see,
@@ -366,14 +366,14 @@ for example,
 what may escape one group
 may possibly be discovered by another from a different perspective.
 We make use of our own automated tools
-for [SAST](../../categories/sast/), [DAST](../../categories/dast/)
-and [SCA-type](../../categories/sca/) tests.
+for [SAST](../../product/sast/), [DAST](../../product/dast/)
+and [SCA-type](../../product/sca/) tests.
 However,
 as happened last year
 and we highlighted in our last [State of Attacks](https://fluidattacks.docsend.com/view/d7wbu584digrbe9a)
 report,
 the detection of critical severity vulnerabilities
-may depend *entirely* on the manual work of our hackers.
+may depend _entirely_ on the manual work of our hackers.
 
 In our pentesting solution,
 we test,

@@ -31,7 +31,7 @@ we highlighted some key attributes
 you could keep in mind to choose a competent penetration testing vendor.
 Now,
 we will inform you about a more recent model,
-penetration testing as a service ([PTaaS](../../categories/ptaas/)),
+penetration testing as a service ([PTaaS](../../product/ptaas/)),
 in which traditional pen testing is tweaked
 to have more value within the agile
 and now popular [DevSecOps](../../solutions/devsecops/) methodology.
@@ -80,7 +80,7 @@ however,
 acts only as a first layer
 within a strategy of comprehensive security testing.
 Systems are checked through this method
-to quickly detect *previously known* security problems in them.
+to quickly detect _previously known_ security problems in them.
 Not including an active layer of human intervention
 in a security testing project,
 precisely with manual pen testing,
@@ -92,7 +92,7 @@ in the context of cybersecurity,
 automatic tools are also attributed the capability of performing pentesting.
 We do not dispute that tools can infiltrate
 or find their way into various nooks and crannies of a system.
-But *proper* penetration testing should not be limited to automation.
+But _proper_ penetration testing should not be limited to automation.
 Pentesting without human intervention ends up being
 mere vulnerability scanning.
 In contrast to what ethical hackers can achieve with in-depth inspection,
@@ -293,7 +293,7 @@ in accordance with your organization's policies.
 This solution is part of our [Continuous Hacking service](../../services/continuous-hacking/).
 We invite you to contact us
 if you are interested
-in experiencing the benefits of our pentesting as a service ([PTaaS](../../categories/ptaas/)).
+in experiencing the benefits of our pentesting as a service ([PTaaS](../../product/ptaas/)).
 If you want to get started
 with our security testing services by automatic tools,
 we have [a 21-day free trial](../../free-trial/)

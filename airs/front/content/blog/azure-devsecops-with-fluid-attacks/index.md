@@ -229,7 +229,7 @@ you can enjoy the following benefits:
 - Unlimited reattacks by our hackers without extra charge (i.e.,
   to verify whether vulnerabilities have indeed been remediated).
 
-**Red teaming**  is also a simulation of genuine attacks,
+**Red teaming** is also a simulation of genuine attacks,
 but it comes even closer to reality.
 For instance,
 it does not stop at assessments at the technological level,
@@ -256,11 +256,11 @@ you can enjoy the following benefits:
 
 - A broad view of your organization's security
   through the assessments of ethical hackers with advanced
-  [certifications](../../about-us/certifications/) (OSEE,
+  [certifications](../../certifications/) (OSEE,
   CRTO, CRTE and CARTP).
 
 You get a constantly updating view of all the findings
-on our [Attack Resistance Management platform](../../product-overview/) (ARM).
+on our [Attack Resistance Management platform](../../platform/) (ARM).
 There,
 we map all your organization's digital assets,
 and you can track their risk exposure over time.

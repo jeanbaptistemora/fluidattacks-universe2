@@ -7,7 +7,7 @@ category: opinions
 tags: cybersecurity, trend, security-testing, software, hacking, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1639694789/blog/cybersecurity-trends-2021/cover_trends.webp
 alt: Photo by Lance Anderson on Unsplash
-description:  In this post, we share a digest of 2021's trends in cyberattacks and prevention, as well as some predictions for the coming years.
+description: In this post, we share a digest of 2021's trends in cyberattacks and prevention, as well as some predictions for the coming years.
 keywords: Attacks, Trends, Predictions, Prevention, Security Testing, Automation, Company, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -160,7 +160,7 @@ to AI and machine learning to analyze great volumes of data.
 In addition to those techniques,
 organizations are soliciting [manual pentesting](../../solutions/penetration-testing/)
 as a way to find more complex and severe types of vulnerabilities.
-They are also in need of [attack surface management platforms](../../categories/arm/)
+They are also in need of [attack surface management platforms](../../platform/arm/)
 that help the prioritization of risks and fixes.
 Besides, the [Breach and Attack Simulation](../../solutions/attack-simulation/)
 solution is gaining recognition

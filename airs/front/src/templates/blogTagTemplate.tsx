@@ -3,10 +3,10 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { BlogSeo } from "../components/BlogSeo";
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { BlogsToFilterPage } from "../scenes/BlogsToFilterPage";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
 import { translate } from "../utils/translations/translate";
 import { capitalizeDashedString, capitalizeObject } from "../utils/utilities";

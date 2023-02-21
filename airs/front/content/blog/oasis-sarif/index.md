@@ -47,7 +47,7 @@ to assess the quality and security of software.
 (At `Fluid Attacks`,
 for example,
 we use our SAST tool for vulnerability detection.
-SAST stands for [Static Application Security Testing](../../categories/sast/).)
+SAST stands for [Static Application Security Testing](../../product/sast/).)
 It's called "static"
 because the software under evaluation is not running
 at that time.

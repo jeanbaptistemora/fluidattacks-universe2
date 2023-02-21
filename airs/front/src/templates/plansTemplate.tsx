@@ -13,10 +13,10 @@ import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { PlansPage } from "../components/PlansPage";
 import { Seo } from "../components/Seo";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
 
 const PlansIndex: React.FC<IQueryData> = ({
@@ -30,7 +30,7 @@ const PlansIndex: React.FC<IQueryData> = ({
       <Seo
         description={description}
         image={
-          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png"
+          "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/clients/cover-clients_llnlaw.png"
         }
         keywords={keywords}
         title={`${title} | Fluid Attacks`}

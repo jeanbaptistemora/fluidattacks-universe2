@@ -56,16 +56,16 @@ const LinksSection: React.FC = (): JSX.Element => (
       <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
-      <HeadLink link={"/categories/"} name={"Categories"} /> <br />
-      <BodyLink link={"/categories/sast/"} name={"SAST"} /> <br />
-      <BodyLink link={"/categories/dast/"} name={"DAST"} /> <br />
+      <HeadLink link={"/product/"} name={"Categories"} /> <br />
+      <BodyLink link={"/product/sast/"} name={"SAST"} /> <br />
+      <BodyLink link={"/product/dast/"} name={"DAST"} /> <br />
       <BodyLink link={"/solutions/penetration-testing/"} name={"MPT"} /> <br />
-      <BodyLink link={"/categories/sca/"} name={"SCA"} /> <br />
-      <BodyLink link={"/categories/re/"} name={"RE"} /> <br />
-      <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} /> <br />
-      <BodyLink link={"/categories/arm/"} name={"ARM"} /> <br />
+      <BodyLink link={"/product/sca/"} name={"SCA"} /> <br />
+      <BodyLink link={"/product/re/"} name={"RE"} /> <br />
+      <BodyLink link={"/product/ptaas/"} name={"PTaaS"} /> <br />
+      <BodyLink link={"/platform/arm/"} name={"ARM"} /> <br />
       <BodyLink link={"/solutions/attack-simulation/"} name={"BAS"} /> <br />
-      <BodyLink link={"/categories/mast/"} name={"MAST"} /> <br />
+      <BodyLink link={"/product/mast/"} name={"MAST"} /> <br />
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"/systems/"} name={"Systems"} /> <br />
@@ -105,7 +105,7 @@ const LinksSection: React.FC = (): JSX.Element => (
     </LinksContainer>
     <LinksContainer className={"dib-xl display-none"}>
       <HeadLink link={"/about-us/"} name={"About Us"} /> <br />
-      <BodyLink link={"/about-us/clients/"} name={"Clients"} /> <br />
+      <BodyLink link={"/clients/"} name={"Clients"} /> <br />
       <BodyLink
         link={"/about-us/differentiators/"}
         name={"Differentiators"}
@@ -119,11 +119,7 @@ const LinksSection: React.FC = (): JSX.Element => (
     </LinksContainer>
     <LinksContainer className={"dib-xl"}>
       <HeadLink link={"/blog/"} name={"Blog"} /> <br />
-      <HeadLink
-        link={"/about-us/certifications/"}
-        name={"Certifications"}
-      />{" "}
-      <br />
+      <HeadLink link={"/certifications/"} name={"Certifications"} /> <br />
       <HeadLink link={"/partners/"} name={"Partners"} /> <br />
       <HeadLink link={"/careers/"} name={"Careers"} /> <br />
       <HeadLink link={"/advisories/"} name={"Advisories"} /> <br />

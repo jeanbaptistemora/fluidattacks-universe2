@@ -47,8 +47,8 @@ const DemoBanner: React.FC<IDemoProps> = ({
           <ImageContainer margin={imageRight}>
             <InteractiveImage
               hasHotSpot={hasHotSpot}
-              image1={`/airs/product-overview/demo-section/${image1}`}
-              image2={`/airs/product-overview/demo-section/${image2}`}
+              image1={`/airs/platform/demo-section/${image1}`}
+              image2={`/airs/platform/demo-section/${image2}`}
               isRight={imageRight}
             />
           </ImageContainer>
@@ -58,8 +58,8 @@ const DemoBanner: React.FC<IDemoProps> = ({
           <ImageContainer margin={imageRight}>
             <InteractiveImage
               hasHotSpot={hasHotSpot}
-              image1={`/airs/product-overview/demo-section/${image1}`}
-              image2={`/airs/product-overview/demo-section/${image2}`}
+              image1={`/airs/platform/demo-section/${image1}`}
+              image2={`/airs/platform/demo-section/${image2}`}
               isRight={imageRight}
             />
           </ImageContainer>
@@ -91,8 +91,8 @@ const DemoBanner: React.FC<IDemoProps> = ({
         <ImageContainer margin={false}>
           <InteractiveImage
             hasHotSpot={hasHotSpot}
-            image1={`/airs/product-overview/demo-section/${image1}`}
-            image2={`/airs/product-overview/demo-section/${image2}`}
+            image1={`/airs/platform/demo-section/${image1}`}
+            image2={`/airs/platform/demo-section/${image2}`}
             isRight={false}
           />
         </ImageContainer>

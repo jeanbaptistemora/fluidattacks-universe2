@@ -578,7 +578,7 @@ on our [people](../../about-us/people) page.
 
 48\. What certifications does Fluid Attacks have?
 
-Please refer to our [certifications](../../about-us/certifications/)
+Please refer to our [certifications](../../certifications/)
 page for further information.
 
 </div>

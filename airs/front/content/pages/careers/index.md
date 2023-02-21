@@ -67,36 +67,36 @@ in `Fluid Attacks`.
 - **Software Developer:**
 
   1. Security scanners for vulnerability
-      detection (SCA, SAST, DAST, RE etc).
+     detection (SCA, SAST, DAST, RE etc).
 
   2. Data pipelines that extract data to
-      later be analyzed with Big Data techniques.
+     later be analyzed with Big Data techniques.
 
   3. We control the product roadmap and we decide
-      what will be incorporated into our products.
+     what will be incorporated into our products.
 
   4. We hate excessive planning and
-      useless meetings,
-      we believe in the power of programming and
-      that code speaks for you,
-      not handbooks or documentation.
+     useless meetings,
+     we believe in the power of programming and
+     that code speaks for you,
+     not handbooks or documentation.
 
   5. We love python with duck typing as a central
-      development tool,
-      our frontend is built in typescript and react,
-      using only stateless components.
+     development tool,
+     our frontend is built in typescript and react,
+     using only stateless components.
 
   6. We do not say that we are DevOps,
-      we live DevOps by having more than 70 daily
-      deployments to production.
+     we live DevOps by having more than 70 daily
+     deployments to production.
 
   7. All the infrastructure is as it is in Terraform,
-      deployed in AWS and with a Kubernetes cluster
-      which is the heart of our operation and that
-      allows us to have high availability systems.
+     deployed in AWS and with a Kubernetes cluster
+     which is the heart of our operation and that
+     allows us to have high availability systems.
 
   8. All problems are treated as software problems,
-      following SRE principles
+     following SRE principles
 
 - **IT Support Assistant:**
   This is an intern position for systems and
@@ -184,7 +184,7 @@ in `Fluid Attacks`.
   This means that there will always be challenging
   projects in which you can participate.
   To know our clients, enter
-  [here.](/about-us/clients/)
+  [here.](/clients/)
 
 - **Great talent working together:**
   Our most valuable asset is our people and we are
@@ -293,19 +293,19 @@ Below follow the step by step to apply.
   we verify and perform:
 
   1. References: The goal of this stage is
-      to validate the references from your
-      previous jobs.
-      This is mandatory and requires an estimated
-      effort of 15 to 25 minutes.
-      The referral step also includes a home
-      visit and requires an estimated
-      effort of 1 hour.
+     to validate the references from your
+     previous jobs.
+     This is mandatory and requires an estimated
+     effort of 15 to 25 minutes.
+     The referral step also includes a home
+     visit and requires an estimated
+     effort of 1 hour.
 
   2. Polygraph: Our company is focused on information
-      security and for this reason we may require you
-      to take a polygraph test during the selection process.
-      This step is mandatory and requires an average
-      effort of 2 hours.
+     security and for this reason we may require you
+     to take a polygraph test during the selection process.
+     This step is mandatory and requires an average
+     effort of 2 hours.
 
 - **Offer:**
   If you reach this stage in the process,

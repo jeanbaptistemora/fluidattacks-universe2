@@ -7,7 +7,7 @@ subtitle: About software composition analysis
 tags: security-testing, software, vulnerability
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1620331101/blog/stand-shoulders-giants/cover_iiuzyx.webp
 alt: Photo by Vincent Riszdorfer on Unsplash
-description: 'Here we mainly develop a discussion on ''A9'' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries.'
+description: "Here we mainly develop a discussion on 'A9' of the OWASP Top 10: Using components with known vulnerabilities, in particular free and open software libraries."
 keywords: Software Composition, Analysis, Dependency, Vulnerability, OWASP, Linux, Foss, Ethical Hacking, Pentesting
 author: Rafael Ballestas
 writer: raballestasr
@@ -159,8 +159,7 @@ yet.
   [`Versions`](http://www.mojohaus.org/versions-maven-plugin/) plugin
   for `Maven`.
 
-- Also for `Java` and `.NET`, you can use the [`OWASP
-  Dependency-Check`](https://www.owasp.org/index.php/OWASP_Dependency_Check)
+- Also for `Java` and `.NET`, you can use the [`OWASP Dependency-Check`](https://www.owasp.org/index.php/OWASP_Dependency_Check)
   tool.
 
 - There’s a [Dependency
@@ -191,7 +190,7 @@ third-party software vulnerabilities and other issues easily identified
 by Static Analysis when code is not available. This is done by following
 this procedure:
 
-1. The [SCA](../../categories/sca/) identifies the dependencies
+1. The [SCA](../../product/sca/) identifies the dependencies
    your software is based on.
 
 2. Detect those dependencies versions.
@@ -199,8 +198,8 @@ this procedure:
 3. Check the dependency master repository for updates.
 
 4. Check one or several vulnerability databases, like
-    [CVE](https://cve.mitre.org/) and [NVD](https://nvd.nist.gov/) or
-    their own.
+   [CVE](https://cve.mitre.org/) and [NVD](https://nvd.nist.gov/) or
+   their own.
 
 5. Report the findings.
 
@@ -279,12 +278,12 @@ open vulnerabilities, but in the meantime, stick to the tried-and-true.
 ## References
 
 1. [OWASP Top 10-2017. Using Components with Known
-    Vulnerabilities.](https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities)
+   Vulnerabilities.](https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities)
 
 2. [Millar, S. (2017). Vulnerability Detection in Open Source Software:
-    The Cure and the Cause. Queen’s University
-    Belfast.](https://pure.qub.ac.uk/portal/en/publications/vulnerability-detection-in-open-source-software-the-cure-and-the-cause\(94ec148c-80e4-448e-a267-c9ffb992b285\).html)
+   The Cure and the Cause. Queen’s University
+   Belfast.](<https://pure.qub.ac.uk/portal/en/publications/vulnerability-detection-in-open-source-software-the-cure-and-the-cause(94ec148c-80e4-448e-a267-c9ffb992b285).html>)
 
 3. [Williams, J. and Dabirsiaghi, A. (2014). The Unfortunate Reality of
-    Insecure Libraries. Aspect
-    Security.](https://www.contrastsecurity.com/the-unfortunate-reality-of-insecure-libraries)
+   Insecure Libraries. Aspect
+   Security.](https://www.contrastsecurity.com/the-unfortunate-reality-of-insecure-libraries)

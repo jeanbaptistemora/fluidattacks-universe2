@@ -62,7 +62,7 @@ a single computer.
 This case is different. We need to debug a DirectX
 GPU adapter on a Windows machine acting as hypervisor
 using Hyper-V with a VM running Linux. Enabling
-virtualized extensions (__VT-x__) in a Windows VM can
+virtualized extensions (**VT-x**) in a Windows VM can
 enable a nested Hyper-V, but the DirectX adapter will
 not be visible. After testing different scenarios,
 I ended needing to use two laptops.
@@ -105,7 +105,7 @@ ways to be debugged. In this case, I chose to use
 To do that, I had to:
 
 - Find a USB3 port on my debuggee laptop with debugging support.
-  That could be done using __USBView__ from Windows SDK:
+  That could be done using **USBView** from Windows SDK:
 
 ![dxgkrnl](https://res.cloudinary.com/fluid-attacks/image/upload/v1662481154/blog/offensive-hyperv-directx-1/Screenshot_2022-08-26_172045.webp)
 
@@ -428,8 +428,8 @@ You can download the `sample1.c` file [here](./sample1.c).
 
 The Hyper-V DirectX interaction is not officially documented.
 You can understand most of the internals by
-[reading](../../categories/sast/) the WSL code,
-performing [reverse engineering](../../categories/re/) of the
+[reading](../../product/sast/) the WSL code,
+performing [reverse engineering](../../product/re/) of the
 Windows drivers and doing
 [kernel debugging](../windows-kernel-debugging/).
 In the next article, we will see that most of the `dxgkrnl`

@@ -148,8 +148,8 @@ DevSecOps engineers often [have](https://devops.com/how-to-become-a-devsecops-en
 **a good understanding of automated application security testing tools
 used along with manual security testing**.
 For example,
-static application security testing ([SAST](../../categories/sast/))
-and dynamic application security testing ([DAST](../../categories/dast/))
+static application security testing ([SAST](../../product/sast/))
+and dynamic application security testing ([DAST](../../product/dast/))
 can be done both with automatic tools and manually.
 The expert must know
 how to [choose and deploy](https://www.techtarget.com/searchsecurity/tip/What-it-takes-to-be-a-DevSecOps-engineer)
@@ -168,10 +168,10 @@ and false negatives.
 Therefore,
 although we encourage teams to automate tools and processes,
 we see the highest value in manual security testing
-and see performing *continuous* [penetration tests](../../solutions/penetration-testing/)
+and see performing _continuous_ [penetration tests](../../solutions/penetration-testing/)
 as one of the DevSecOps best practices.
 It follows that it does not do
-to have just *regular* penetration tests,
+to have just _regular_ penetration tests,
 applied only eventually.
 When tests are done continually,
 a remediation culture is effectively maintained.
@@ -369,9 +369,9 @@ Our [DevSecOps solution](../../solutions/devsecops/) is fueled
 by our most trusted method: [ethical hacking](../../solutions/ethical-hacking/).
 This method
 comprises the manual use of different tools
-(e.g., [SAST](../../categories/sast/),
-[DAST](../../categories/dast/),
-[SCA](../../categories/sca/)).
+(e.g., [SAST](../../product/sast/),
+[DAST](../../product/dast/),
+[SCA](../../product/sca/)).
 It allows us to detect the most intricate and severe vulnerabilities.
 Additionally,
 our solution offers an automated DevSecOps agent,

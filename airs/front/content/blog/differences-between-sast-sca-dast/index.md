@@ -33,15 +33,15 @@ which can be analyzed from different points of view.
 In this blog post,
 we will define the three most popular methods used
 in software security testing:
-static application security testing ([SAST](../../categories/sast/)),
-software composition analysis ([SCA](../../categories/sca/))
-and dynamic application security testing ([DAST](../../categories/dast/)).
+static application security testing ([SAST](../../product/sast/)),
+software composition analysis ([SCA](../../product/sca/))
+and dynamic application security testing ([DAST](../../product/dast/)).
 We will see their differences
 and talk about how they complement each other.
 Further,
 we also argue that they reach their peak potential
 when performed by automated security testing tools
-*and* manually by human experts.
+_and_ manually by human experts.
 
 ## What's the difference between SAST, SCA and DAST?
 
@@ -64,7 +64,7 @@ to allow you to see our point.
 
 ### What is SAST?
 
-Static application security testing ([SAST](../../categories/sast/))
+Static application security testing ([SAST](../../product/sast/))
 is a kind of white-box testing.
 This means
 that security analysts
@@ -144,7 +144,7 @@ of static application security testing:
 
 ### What is SCA?
 
-Software composition analysis ([SCA](../../categories/sca/))
+Software composition analysis ([SCA](../../product/sca/))
 allows you to inventory your open-source components.
 By knowing their versions,
 you can check which ones are up to date.
@@ -235,7 +235,7 @@ of software composition analysis:
 
 ### What is DAST?
 
-Dynamic application security testing ([DAST](../../categories/dast/))
+Dynamic application security testing ([DAST](../../product/dast/))
 is a method to assess running applications.
 That is,
 these applications are already on a web server,
@@ -366,13 +366,13 @@ in your organization.
 ## Enjoy Fluid Attacks' comprehensive security testing
 
 At Fluid Attacks,
-we offer [SAST](../../categories/sast/),
-[SCA](../../categories/sca/)
-and [DAST](../../categories/dast/)
+we offer [SAST](../../product/sast/),
+[SCA](../../product/sca/)
+and [DAST](../../product/dast/)
 throughout the entire SDLC,
 all in a single solution:
 [Continuous Hacking](../../services/continuous-hacking/).
-Our [highly certified](../../about-us/certifications/)
+Our [highly certified](../../certifications/)
 [ethical hackers](../what-is-ethical-hacking/)
 work continuously alongside security testing tools
 to detect all the vulnerabilities in the assessed systems.

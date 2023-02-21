@@ -35,9 +35,9 @@ that we can employ to find vulnerabilities.
 In a [previous post](../fuzzing-forallsecure/)
 focused on fuzzing,
 we had already mentioned SAST
-([Static Application Security Testing](../../categories/sast/))
+([Static Application Security Testing](../../product/sast/))
 and DAST
-([Dynamic Application Security Testing](../../categories/dast/)) techniques.
+([Dynamic Application Security Testing](../../product/dast/)) techniques.
 The former,
 as Felipe Gómez (LATAM Manager of `Fluid Attacks`) suggests in a webinar,
 is the one we can apply
@@ -55,14 +55,14 @@ application, either manually or automatically.
 
 Additionally,
 there's a technique called SCA
-([Software Composition Analysis](../../categories/sca/)).
+([Software Composition Analysis](../../product/sca/)).
 This is nothing more than an extension of previous techniques,
 which [Rafael Ballestas](../stand-shoulders-giants/)
 had already told us about,
 and which is aimed at Free and Open Source Software (FOSS),
 specifically at the elements of this type
 that are part of a particular application.
-This is an [automated process](https://www.g2.com/categories/software-composition-analysis)
+This is an [automated process](https://www.g2.com/product/software-composition-analysis)
 for reviewing policy and license compliance,
 version updates and security risks.
 
@@ -141,9 +141,9 @@ us, the tools automatically search and report. The expert helps at first
 a little by directing the tool. What the tool cannot find, is in turn
 sought and found through human cleverness.
 
-Also, following what Kevin reports, "*tools find a percentage of the
+Also, following what Kevin reports, "_tools find a percentage of the
 total, but in the end, it's the human being who decides whether the tool
-is right or wrong.*" The analysis tools save work, and although they
+is right or wrong._" The analysis tools save work, and although they
 tell lies many times, it becomes easier to determine those lies, than to
 look for the total vulnerabilities by hand, according to Kevin.
 

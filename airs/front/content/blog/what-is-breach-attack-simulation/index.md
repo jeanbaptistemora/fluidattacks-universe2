@@ -95,7 +95,7 @@ That's why we at Fluid Attacks recommend a combination of automation
 and manual assessments by security professionals.
 
 [Our BAS solution](../../solutions/attack-simulation/) employs
-[highly certified](../../about-us/certifications/) ethical hackers,
+[highly certified](../../certifications/) ethical hackers,
 whose work is aided by our automated tool and AI.
 These professionals are up to date on the TTPs of malicious threat actors,
 after which they conduct analyses and create custom exploits
@@ -121,7 +121,7 @@ our hackers probe our clients' systems continuously
 and provide evidence of exploitation and information about its impact,
 as well as recommendations to fix the issues.
 This is all shown on a single pane of glass:
-our [Attack Resistance Management (ARM) platform](../../product-overview/).
+our [Attack Resistance Management (ARM) platform](../../platform/).
 
 <cta-banner
   buttontxt="Read more"

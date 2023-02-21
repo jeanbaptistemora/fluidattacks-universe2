@@ -283,7 +283,7 @@ the following are the main benefits of our [Red Teaming solution](../../solution
   and procedures of malicious threat actors.
 
 - Ethical hackers
-  with advanced [certifications](../../about-us/certifications/) (OSEE,
+  with advanced [certifications](../../certifications/) (OSEE,
   CRTO, CRTE and CARTP)
   give you a broad view of your organization's security.
 
@@ -291,7 +291,7 @@ What's more,
 in line with AWS DevOps security best practices
 and one under the operations perspective of the CAF,
 we present all the findings aggregated in a single pane of glass:
-our [Attack Resistance Management platform](../../product-overview/)
+our [Attack Resistance Management platform](../../platform/)
 (ARM).
 There you get detailed, updated reports,
 find out the risk associated with each detected vulnerability,

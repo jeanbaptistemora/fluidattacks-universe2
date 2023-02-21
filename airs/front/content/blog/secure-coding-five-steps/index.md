@@ -54,7 +54,7 @@ the posts in that series are
 "[Code Quality Must Include Security](../code-quality-and-security/)"
 and this one you're currently reading).
 Published in mid-2021 by Zeng and Zhu
-in the *Journal of Cybersecurity Education, Research and Practice*,
+in the _Journal of Cybersecurity Education, Research and Practice_,
 this is a free and open-access article
 that you can find and review in full
 at [digitalcommons.kennesaw.edu](https://digitalcommons.kennesaw.edu/jcerp/vol2021/iss1/5/).
@@ -132,8 +132,8 @@ that promote secure software development
 6. Define and use cryptography standards
 7. Manage the security risk of [using third-party components](../sca-scans/)
 8. Use approved tools
-9. Perform static analysis security testing ([SAST](../../categories/sast/))
-10. Perform dynamic analysis security testing ([DAST](../../categories/dast/))
+9. Perform static analysis security testing ([SAST](../../product/sast/))
+10. Perform dynamic analysis security testing ([DAST](../../product/dast/))
 11. Perform [penetration testing](../../solutions/penetration-testing/)
 12. Establish a standard [incident response process](../incident-response-plan/)
 
@@ -342,8 +342,8 @@ within our [Continuous Hacking service](../../services/continuous-hacking/)
 that mixes automated tools with expert intelligence
 to detect vulnerabilities in your software.
 If you want a first taste of our cybersecurity capabilities,
-we invite you to enjoy [SAST](../../categories/sast/),
-[DAST](../../categories/dast/)
-and [SCA](../../categories/sca/) techniques
+we invite you to enjoy [SAST](../../product/sast/),
+[DAST](../../product/dast/)
+and [SCA](../../product/sca/) techniques
 with our automated tools
 in our [21-day free trial](../../free-trial/).

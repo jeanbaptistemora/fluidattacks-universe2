@@ -142,8 +142,8 @@ the diagonal "Random Guess" line.
 At `Fluid Attacks`,
 we decided to test our primary,
 customized tool.
-Only by applying the [SAST](../../categories/sast/) technique
-(although it can also perform [DAST](../../categories/dast/)),
+Only by applying the [SAST](../../product/sast/) technique
+(although it can also perform [DAST](../../product/dast/)),
 this tool can achieve the best possible outcome against the OWASP Benchmark
 with a TPR of 100% and an FPR of 0%.
 So,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { AirsLink } from "../../../../components/AirsLink";
 import { Container } from "../../../../components/Container";
@@ -16,6 +16,9 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
   display,
 }: IPlatformProps): JSX.Element => {
   const { width } = useWindowSize();
+  const handleClick = useCallback((): void => {
+    document.body.setAttribute("style", "overflow-y: auto;");
+  }, []);
 
   return (
     <Container
@@ -43,7 +46,11 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
             </Text>
           </Container>
           <Container>
-            <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
+            <AirsLink
+              hoverColor={"#bf0b1a"}
+              href={"/platform/"}
+              onClick={handleClick}
+            >
               <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                 {translate.t(
                   "menu.platform.aSinglePane.platformOverview.title"
@@ -55,7 +62,11 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
                 "menu.platform.aSinglePane.platformOverview.subtitle"
               )}
             </Text>
-            <AirsLink hoverColor={"#bf0b1a"} href={"/platform/"}>
+            <AirsLink
+              hoverColor={"#bf0b1a"}
+              href={"/platform/arm/"}
+              onClick={handleClick}
+            >
               <Text
                 color={"#2e2e38"}
                 mb={3}
@@ -88,34 +99,58 @@ const PlatformMenu: React.FC<IPlatformProps> = ({
             ph={"0px"}
           >
             <Container width={"370px"} widthSm={"300px"}>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/sast/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.sast")}
                 </Text>
               </AirsLink>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/dast/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.dast")}
                 </Text>
               </AirsLink>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/sca/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.sca")}
                 </Text>
               </AirsLink>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/re/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.re")}
                 </Text>
               </AirsLink>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/ptaas/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.ptaas")}
                 </Text>
               </AirsLink>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/product/mast/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={3} size={"small"} weight={"bold"}>
                   {translate.t("menu.platform.products.links.mast")}
                 </Text>

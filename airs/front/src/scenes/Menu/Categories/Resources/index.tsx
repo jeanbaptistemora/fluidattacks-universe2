@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { AirsLink } from "../../../../components/AirsLink";
 import { Container } from "../../../../components/Container";
@@ -16,6 +16,9 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
   display,
 }: IResourcesProps): JSX.Element => {
   const { width } = useWindowSize();
+  const handleClick = useCallback((): void => {
+    document.body.setAttribute("style", "overflow-y: auto;");
+  }, []);
 
   return (
     <Container
@@ -49,7 +52,11 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
               pv={"0px"}
             >
               <Container>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/blog/"}>
+                <AirsLink
+                  hoverColor={"#bf0b1a"}
+                  href={"/blog/"}
+                  onClick={handleClick}
+                >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.learn.blog.title")}
                   </Text>
@@ -57,7 +64,11 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                 <Text color={"#535365"} mb={3} size={"xs"}>
                   {translate.t("menu.resources.learn.blog.subtitle")}
                 </Text>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/resources/"}>
+                <AirsLink
+                  hoverColor={"#bf0b1a"}
+                  href={"/resources/"}
+                  onClick={handleClick}
+                >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.learn.downloadables.title")}
                   </Text>
@@ -67,7 +78,11 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                 </Text>
               </Container>
               <Container ph={width > 1200 ? 3 : 0}>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/compliance/"}>
+                <AirsLink
+                  hoverColor={"#bf0b1a"}
+                  href={"/clients/"}
+                  onClick={handleClick}
+                >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.learn.clients.title")}
                   </Text>
@@ -92,6 +107,7 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                   decoration={"none"}
                   hoverColor={"#bf0b1a"}
                   href={"https://docs.fluidattacks.com/"}
+                  onClick={handleClick}
                 >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.help.documentation.title")}
@@ -102,7 +118,11 @@ const ResourcesMenu: React.FC<IResourcesProps> = ({
                 </Text>
               </Container>
               <Container ph={width > 1200 ? 3 : 0}>
-                <AirsLink hoverColor={"#bf0b1a"} href={"/faq/"}>
+                <AirsLink
+                  hoverColor={"#bf0b1a"}
+                  href={"/faq/"}
+                  onClick={handleClick}
+                >
                   <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                     {translate.t("menu.resources.help.faq.title")}
                   </Text>

@@ -16,6 +16,7 @@ import { AirsLink } from "../../components/AirsLink";
 import { Button } from "../../components/Button";
 import { CloudImage } from "../../components/CloudImage";
 import { Container } from "../../components/Container";
+import { Text } from "../../components/Typography";
 import {
   NavbarInnerContainer,
   NavbarList,
@@ -121,9 +122,11 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             >
               {"Resources"}
             </Button>
-            <Button size={"md"} variant={"ghost"}>
-              {"Advisories"}
-            </Button>
+            <AirsLink href={"/advisories/"}>
+              <Button size={"md"} variant={"ghost"}>
+                {"Advisories"}
+              </Button>
+            </AirsLink>
             <Button
               onClick={handleClickButton("company")}
               size={"md"}
@@ -140,12 +143,14 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             wrap={"nowrap"}
           >
             <AirsLink href={"/contact-us/"}>
-              <Button variant={"secondary"}>{"Contact now"}</Button>
+              <Button variant={"secondary"}>
+                <Text color={"#ffffff"}>{"Contact now"}</Text>
+              </Button>
             </AirsLink>
             <Container maxWidth={"142px"} ml={2} mr={2}>
               <AirsLink href={"https://app.fluidattacks.com/SignUp"}>
                 <Button onClick={matomoFreeTrialEvent} variant={"primary"}>
-                  {"Start free trial"}
+                  <Text color={"#ffffff"}>{"Start free trial"}</Text>
                 </Button>
               </AirsLink>
             </Container>

@@ -16,10 +16,10 @@ about1: Cybersecurity Editor
 source: https://unsplash.com/photos/R79qkPYvrcM
 ---
 
-[*Tribe of Hackers Red
-Team:*](https://www.amazon.com/gp/product/B07VWHCQMR/ref=dbs_a_def_rwt_bibl_vppi_i2)
-*Tribal Knowledge from the Best in Offensive Cybersecurity* by Marcus J.
-Carey and Jennifer Jin (2019) belongs to the *Tribe of Hackers*
+[_Tribe of Hackers Red
+Team:_](https://www.amazon.com/gp/product/B07VWHCQMR/ref=dbs_a_def_rwt_bibl_vppi_i2)
+_Tribal Knowledge from the Best in Offensive Cybersecurity_ by Marcus J.
+Carey and Jennifer Jin (2019) belongs to the _Tribe of Hackers_
 cybersecurity book series.
 It was recently shared with me here at `Fluid Attacks`,
 and now I would like to share with you some of the highlights
@@ -57,10 +57,10 @@ That sounds great\!
 
 ### Parenthesis
 
-At `Fluid Attacks`, we work purely as a *red team*, which means we are
+At `Fluid Attacks`, we work purely as a _red team_, which means we are
 continually testing or attacking infrastructures, applications, and
 source code to find vulnerabilities that can pose risks for both owners
-and users of those systems. On the other hand, a *blue team* is
+and users of those systems. On the other hand, a _blue team_ is
 responsible for defending the systems to ensure "that the
 confidentiality, integrity, and availability of all assets are not
 affected," Marcus says. In other words, the red team, with its cannon,
@@ -74,7 +74,7 @@ Specifically, Marcus and Jennifer (his collaborator) asked the same
 **21** questions to **47** experts in red teaming to shape this book. Of
 course, the first to answer them is Marcus himself. We are going to
 focus on some of his opinions in this post; possibly the first one of a
-series focused on *Tribe of Hackers Red Team*.
+series focused on _Tribe of Hackers Red Team_.
 
 <div class="imgblock">
 
@@ -97,7 +97,7 @@ to start working for a blue team and gain cybersecurity skills as a
 software engineer, systems administrator, or related roles. Once there,
 you can get more involved in cybersecurity
 [events](../../about-us/events/) and networks, and also prepare and seek
-to obtain some [certification](../../about-us/certifications/) from
+to obtain some [certification](../../certifications/) from
 those related to red teaming. Besides, you can download virtual machines
 and web applications with vulnerabilities if you want to start
 practicing by yourself. Of course, to avoid problems with the law, keep
@@ -156,7 +156,7 @@ Therefore, he proposes this human characteristic as one to consider when
 recruiting red team members. Nonetheless, I think it is necessary to
 clarify that empathy is common in people (leaving aside atypical cases),
 although its level of expression is variable. It is true that some of us
-*show more empathy* than others, but it’s also true that it is something
+_show more empathy_ than others, but it’s also true that it is something
 we can improve.
 
 Finally, and perhaps as a return to what he mentioned about himself

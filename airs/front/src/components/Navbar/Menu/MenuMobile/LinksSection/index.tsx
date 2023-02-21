@@ -10,7 +10,7 @@ const LinksSection: React.FC = (): JSX.Element => (
   <MenuLinksContainer>
     <div className={"mr3 mb3"}>
       <MenuLink link={"/plans/"} name={"Plans"} />
-      <MenuLink link={"/about-us/certifications/"} name={"Certifications"} />
+      <MenuLink link={"/certifications/"} name={"Certifications"} />
       <MenuLink link={"/blog/"} name={"Blog"} />
       <MenuLink link={"/partners/"} name={"Partners"} />
     </div>

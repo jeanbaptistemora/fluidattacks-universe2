@@ -20,7 +20,7 @@ source: https://unsplash.com/photos/h3sAF1cVURw
 While our main focus, as stated [previously](../machine-learning-hack/),
 is to apply machine learning (ML) techniques to the
 [discovery of vulnerabilities in source code](../../solutions/secure-code-review/),
-that is, a *white-box* approach to
+that is, a _white-box_ approach to
 ML-guided hacking, we’ve come across an interesting approach called
 [VDiscover](http://www.vdiscover.org/), which is radically different
 in the following sense:
@@ -41,9 +41,9 @@ unlike other approaches which need to be trained with labeled samples of
 vulnerable code. In a nutshell, you tell VDiscover what happens when
 you fuzz the program with a certain input, you tell it that it crashes
 with some other input, and hundreds more inputs with their outputs, to
-complete its *training* phase, and later it will be able to predict
+complete its _training_ phase, and later it will be able to predict
 which test cases are more likely to produce vulnerabilities in the
-*recall* phase. This process can be depicted as follows:
+_recall_ phase. This process can be depicted as follows:
 
 <div class="imgblock">
 
@@ -58,8 +58,8 @@ Taken from [their site](http://www.vdiscover.org/).
 
 </div>
 
-In this diagram, *vulnerability discovery procedure* means any of the
-[tests](../categories/attacks/) we use daily to find security flaws, but
+In this diagram, _vulnerability discovery procedure_ means any of the
+[tests](../product/attacks/) we use daily to find security flaws, but
 especially black-box [fuzzing](../infinite-monkey-fuzzer) of binaries,
 concrete [symbolic ("concolic") testing](../symbolic-execution-mortals)
 and [static](../pars-orationis-secura/)
@@ -76,7 +76,7 @@ just execute your test only on a thousand of them and let VDiscover
 predict the rest, to later focus only on the ones which are more likely
 to contain vulnerabilites? Sounds like a good deal to me\!
 
-Such a *modus operandi* is what makes VDiscover stand out among its
+Such a _modus operandi_ is what makes VDiscover stand out among its
 peers, besides the fact that it is a proper, relatively mature
 open-source project, while other ML-guided vulnerability detectors are
 still in development or provide proof-of-concept programs.
@@ -84,29 +84,29 @@ still in development or provide proof-of-concept programs.
 Hence, in order to test VDiscover, we need to choose:
 
 1. A particular kind of vulnerability. They choose heap and stack
-    memory corruptions.
+   memory corruptions.
 
 2. A special vulnerability detection procedure. They chose simple, one
-    byte at a time, [fuzzing](../infinite-monkey-fuzzer/) of inputs.
+   byte at a time, [fuzzing](../infinite-monkey-fuzzer/) of inputs.
 
 3. A dataset. They chose one made up from 1039 taken from the [Debian
-    Bug Tracker](https://security-tracker.debian.org/tracker/).
+   Bug Tracker](https://security-tracker.debian.org/tracker/).
 
 4. The particular machine learning models to apply to the dataset,
-    since VDiscover` is designed to work with more than one of those.
+   since VDiscover` is designed to work with more than one of those.
 
 This particular combination of vulnerability and detection procedure has
 several advantages:
 
 1. Both implicit and explicit hints to determine whether the
-    vulnerability was triggered, like the stack protections provided by
-    the [GNU C library](https://www.gnu.org/software/libc/) which
-    abort the execution, or the usage of functions like `strcpy` and
-    `fread`.
+   vulnerability was triggered, like the stack protections provided by
+   the [GNU C library](https://www.gnu.org/software/libc/) which
+   abort the execution, or the usage of functions like `strcpy` and
+   `fread`.
 
 2. It is an important kind of vulnerability unto itself, since they
-    might allow the attacker to execute arbitrary code in the host
-    machine.
+   might allow the attacker to execute arbitrary code in the host
+   machine.
 
 However, in order to be able to recognize the hints to memory corruption
 mentioned above, first some features need to be extracted from the
@@ -136,7 +136,7 @@ perceptron](../crash-course-machine-learning/#artificial-neural-networks-and-dee
 The dataset was divided into three disjoint sets for training,
 validation and testing, preprocessed with a combination of
 [n-grams](../natural-code) and `word2vec` encoding, and adjusted the
-training to compensate for *class imbalance* (an issue with data where
+training to compensate for _class imbalance_ (an issue with data where
 the interesting cases are too scarce amongst regular ones).
 
 The concrete implementation was done in Python using the
@@ -163,8 +163,8 @@ vulnerabilities in binaries at the operating sytem scale.
 ## References
 
 1. G. Grieco, G. Grinblat, L. Uzal, S. Rawat, J. Feist, L. Mounier
-    (2015). [*Toward large-scale vulnerability discovery using machine
-    learning*](https://dl.acm.org/doi/10.1145/2857705.2857720).
-    Technical Report. The Free International Center of Information
-    Sciences and Systems (CIFASIS), National Council for Science and
-    Technology of Argentina (CONICET).
+   (2015). [_Toward large-scale vulnerability discovery using machine
+   learning_](https://dl.acm.org/doi/10.1145/2857705.2857720).
+   Technical Report. The Free International Center of Information
+   Sciences and Systems (CIFASIS), National Council for Science and
+   Technology of Argentina (CONICET).

@@ -4,10 +4,10 @@ import { graphql } from "gatsby";
 import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
+import { Layout } from "../scenes/Footer/Layout";
 import { HomePage } from "../scenes/HomePage";
+import { NavbarComponent } from "../scenes/Menu";
 
 const NewHomeIndex: React.FC<IQueryData> = ({
   data,

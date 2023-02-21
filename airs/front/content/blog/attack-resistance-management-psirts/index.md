@@ -270,7 +270,7 @@ how the security of the products is evolving.
 
 ## Attack Resistance Management with Fluid Attacks
 
-`Fluid Attacks` offers [Attack Resistance Management](../../categories/arm/)
+`Fluid Attacks` offers [Attack Resistance Management](../../platform/arm/)
 as part of its [Continuous Hacking](../../services/continuous-hacking/)
 solution.
 In it,

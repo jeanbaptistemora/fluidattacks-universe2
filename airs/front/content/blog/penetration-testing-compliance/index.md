@@ -7,7 +7,7 @@ category: politics
 tags: pentesting, compliance, cybersecurity, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1674158363/blog/penetration-testing-compliance/cover_compliance.webp
 alt: Photo by Nik Shuliahin on Unsplash
-description: 'We present whether penetration testing is required for compliance with these security standards: GDPR, GLBA, HIPAA, ISO 27001, PCI DSS, SOC 2 and SWIFT CSCF.'
+description: "We present whether penetration testing is required for compliance with these security standards: GDPR, GLBA, HIPAA, ISO 27001, PCI DSS, SOC 2 and SWIFT CSCF."
 keywords: Soc 2 Penetration Testing, Iso Penetration Testing, Glba Penetration Testing, Gdpr Penetration Testing, Hipaa Penetration Testing, Pci Dss Penetration Testing, Compliance, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -174,7 +174,7 @@ across industries adopting the ISO 27001.
 So there is no one-size-fits-all set of controls to validate,
 although there are items explicitly required for certification.
 In this regard,
-there *are* clauses
+there _are_ clauses
 that can justify the use of pentesting as the preferred approach.
 One refers to the organization
 determining its information risk assessment process.
@@ -313,7 +313,7 @@ you are required to conduct security testing.
 Regardless of whether or not it is mandatory in your industry
 to conduct penetration testing specifically,
 you should know how selecting this approach is more sensible
-than running vulnerability scanning *solely*.
+than running vulnerability scanning _solely_.
 Moreover,
 we recommend
 that you subject your systems to security testing continuously,
@@ -347,7 +347,7 @@ because they make changes everyday
 and the threat landscape is also in perpetual evolution.
 
 Continuous Hacking includes access
-to our [Attack Resistance Management](../../product-overview/) (ARM) platform.
+to our [Attack Resistance Management](../../platform/) (ARM) platform.
 There,
 users can see how well they comply with several standards.
 Start your [**21-day free trial**](../../free-trial/)

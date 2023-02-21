@@ -16,10 +16,10 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { CloudImage } from "../components/CloudImage";
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { Paragraph, Title } from "../components/Texts";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   FlexCenterItemsContainer,
   PageArticle,
@@ -44,13 +44,13 @@ const CategoriesIndex: React.FC<IQueryData> = ({
   const categoryData = [
     {
       image: "sast",
-      link: "/categories/sast/",
+      link: "/product/sast/",
       paragraph: translate.t("categories.sast.paragraph"),
       title: translate.t("categories.sast.subtitle"),
     },
     {
       image: "dast",
-      link: "/categories/dast/",
+      link: "/product/dast/",
       paragraph: translate.t("categories.dast.paragraph"),
       title: translate.t("categories.dast.subtitle"),
     },
@@ -62,25 +62,25 @@ const CategoriesIndex: React.FC<IQueryData> = ({
     },
     {
       image: "sca",
-      link: "/categories/sca/",
+      link: "/product/sca/",
       paragraph: translate.t("categories.sca.paragraph"),
       title: translate.t("categories.sca.subtitle"),
     },
     {
       image: "re",
-      link: "/categories/re/",
+      link: "/product/re/",
       paragraph: translate.t("categories.re.paragraph"),
       title: translate.t("categories.re.subtitle"),
     },
     {
       image: "ptaas",
-      link: "/categories/ptaas/",
+      link: "/product/ptaas/",
       paragraph: translate.t("categories.ptaas.paragraph"),
       title: translate.t("categories.ptaas.subtitle"),
     },
     {
       image: "mast",
-      link: "/categories/mast/",
+      link: "/product/mast/",
       paragraph: translate.t("categories.mast.paragraph"),
       title: translate.t("categories.mast.subtitle"),
     },
@@ -119,7 +119,7 @@ const CategoriesIndex: React.FC<IQueryData> = ({
                   <SystemsCardContainer key={categoryCard.title}>
                     <CloudImage
                       alt={title}
-                      src={`airs/categories/${categoryCard.image}-card`}
+                      src={`airs/product/${categoryCard.image}-card`}
                       styles={"w-100"}
                     />
                     <Title
@@ -139,7 +139,7 @@ const CategoriesIndex: React.FC<IQueryData> = ({
                     </Paragraph>
                     <Link to={categoryCard.link}>
                       <PhantomRegularRedButton>
-                        {"Go to category"}
+                        {"Go to product"}
                       </PhantomRegularRedButton>
                     </Link>
                   </SystemsCardContainer>

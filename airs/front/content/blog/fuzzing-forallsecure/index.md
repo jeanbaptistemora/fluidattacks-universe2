@@ -44,27 +44,27 @@ it is available to users. What the use of testing is intended to find is
 the presence of vulnerabilities.
 
 Vulnerabilities may correspond to mistakes that developers made in their
-work with code. These vulnerabilities can be classified as *known*,
-*unknown*, and *zero-day*.
+work with code. These vulnerabilities can be classified as _known_,
+_unknown_, and _zero-day_.
 
-*Known* vulnerabilities are those that have already been disclosed to
-the security communities and software vendors. *Unknown* vulnerabilities
-are those that have not been discovered by anyone. And *zero-day*
+_Known_ vulnerabilities are those that have already been disclosed to
+the security communities and software vendors. _Unknown_ vulnerabilities
+are those that have not been discovered by anyone. And _zero-day_
 vulnerabilities have already been found by some subjects, but have not
 been disclosed to vendors or communities.
 
-Vulnerability detection can be done with [SAST](../../categories/sast/),
-[DAST](../../categories/dast/),
+Vulnerability detection can be done with [SAST](../../product/sast/),
+[DAST](../../product/dast/),
 or a mixture of both techniques
-(*grey-box* testing).
+(_grey-box_ testing).
 
 If we take the first one, we’re referring to **Static Analysis Security
-Testing**. This form of *white-box* testing uncovers vulnerabilities
+Testing**. This form of _white-box_ testing uncovers vulnerabilities
 through an analysis of the source code when the software is in a
 non-running state.
 
 The second technique is the **Dynamic Analysis Security Testing**, which
-corresponds to a form of *black-box* testing that uncovers
+corresponds to a form of _black-box_ testing that uncovers
 vulnerabilities by analyzing software in a running state without
 accessing the source code.
 
@@ -116,7 +116,7 @@ webinar](http://public2.brighttalk.com/resource/core/253964/2019---isaca-present
 </div>
 
 Fuzzing can also detect known and zero-day vulnerabilities. With the use
-of invalid inputs, *fuzzers* are intended to provoke anomalous behaviors
+of invalid inputs, _fuzzers_ are intended to provoke anomalous behaviors
 in the software, such as memory leaks, infinite loops, and crashes.
 These behaviors may be linked in some way to underlying vulnerabilities.
 
@@ -133,19 +133,19 @@ There are four categories in which we can divide fuzzing:
   of the template.
 
 - For the **Generational** fuzzing, engineers develop lots of test
-  cases written to resemble a valid input. Some *fuzzers* of this type
+  cases written to resemble a valid input. Some _fuzzers_ of this type
   can prioritize test cases based on feedback from the target, which
   can increase the chances of penetration and of triggering anomalous
   behavior.
 
-- In **Evolutionary** fuzzing, the *fuzzers* are intelligent. They
+- In **Evolutionary** fuzzing, the _fuzzers_ are intelligent. They
   have the ability to monitor and leverage the behavior of the target
   for the automatic generation of new custom test cases during the
   process. Besides, they don’t get test cases to begin with.
 
 More in line with this last category, the **Next-Generation fuzzing**
-works with random guessing, and the *fuzzer* learns as it automatically
-runs the program. The *fuzzer* tries to explore all paths, and never
+works with random guessing, and the _fuzzer_ learns as it automatically
+runs the program. The _fuzzer_ tries to explore all paths, and never
 repeat any of them twice, always moving on to a new one. The automatic
 generation of new test cases, thanks to feedback on the target’s
 reactions, can help in the discovery of more defects and new code edges.

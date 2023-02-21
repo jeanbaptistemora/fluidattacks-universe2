@@ -14,11 +14,11 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServicesPage } from "../components/ServicesPage";
 import { Title } from "../components/Texts";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle, SectionContainer } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 

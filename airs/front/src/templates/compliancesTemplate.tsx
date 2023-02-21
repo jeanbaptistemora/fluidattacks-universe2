@@ -15,10 +15,10 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
 import { CloudImage } from "../components/CloudImage";
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { Paragraph, Title } from "../components/Texts";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   FlexCenterItemsContainer,
   PageArticle,

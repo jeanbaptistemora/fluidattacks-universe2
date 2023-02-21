@@ -21,10 +21,10 @@ import { decode } from "he";
 import React from "react";
 
 import { BlogSeo } from "../components/BlogSeo";
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { BlogPage } from "../scenes/BlogPage";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import { PageArticle } from "../styles/styledComponents";
 import { capitalizeObject, capitalizePlainString } from "../utils/utilities";
 

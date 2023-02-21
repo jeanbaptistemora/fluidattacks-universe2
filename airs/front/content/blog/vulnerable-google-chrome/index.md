@@ -21,7 +21,7 @@ you're using the latest version of Google Chrome?
 Make sure you are.
 So far this year,
 Chrome has received three strikes.
-Cybercriminals have exploited *at least* three zero-day vulnerabilities
+Cybercriminals have exploited _at least_ three zero-day vulnerabilities
 in this famed web browser.
 
 ## First strike: CVE-2022-0609
@@ -66,7 +66,7 @@ to deliver the exploit kit to visitors.
 There were also fake websites
 directing visitors to the same kit.
 
-This exploit kit served a highly [obfuscated](https://en.wikipedia.org/wiki/Obfuscation_(software))
+This exploit kit served a highly [obfuscated](<https://en.wikipedia.org/wiki/Obfuscation_(software)>)
 JavaScript
 to fingerprint the victim's system.
 It then collected data
@@ -223,7 +223,7 @@ many other security vulnerabilities
 that may affect our clients.
 Thanks to our [Continuous Hacking](../../services/continuous-hacking/)
 service,
-with our [highly certified](../../about-us/certifications/)
+with our [highly certified](../../certifications/)
 [red team](../../solutions/red-teaming/),
 you can enhance your [vulnerability management](../../solutions/vulnerability-management/)
 program

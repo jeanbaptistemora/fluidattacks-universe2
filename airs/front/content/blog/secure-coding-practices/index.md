@@ -129,7 +129,7 @@ the appearance of vulnerabilities in their products.
 It's easy to find secure coding best practices
 or guidelines on the Internet
 (e.g., [OWASP DevGuide](https://github.com/OWASP/DevGuide),
-[Microsoft Writing Secure Code](https://learn.microsoft.com/en-us/previous-versions/msdn10/aa570401(v=msdn.10)),
+[Microsoft Writing Secure Code](<https://learn.microsoft.com/en-us/previous-versions/msdn10/aa570401(v=msdn.10)>),
 [Red Hat Secure Coding Tutorials](https://developers.redhat.com/topics/secure-coding)).
 For this post,
 we partly took as a basis [Secure Coding Practices - Quick Reference Guide](https://owasp.org/www-pdf-archive/OWASP_SCP_Quick_Reference_Guide_v2.pdf)
@@ -349,8 +349,8 @@ it is not surprising that bugs and vulnerabilities continue to appear
 in their work over time.
 Through [Fluid Attacks' Secure Code Review](../../solutions/secure-code-review/),
 which involves our tools and our team of ethical hackers
-with techniques such as [SAST](../../categories/sast/)
-and [SCA](../categories/sca/),
+with techniques such as [SAST](../../product/sast/)
+and [SCA](../product/sca/),
 and in which we support around 40 programming languages
 and use more than [60 international security standards](https://docs.fluidattacks.com/criteria/compliance/)
 as a basis for assessment,
@@ -368,7 +368,7 @@ we offer Secure Code Review as part of our [Continuous Hacking service](../../se
 In this constant process,
 we are attentive to all the changes in your repositories,
 and we add techniques beyond the secure code review,
-such as dynamic application security testing ([DAST](../../categories/dast/)).
+such as dynamic application security testing ([DAST](../../product/dast/)).
 [Contact us](../../contact-us/)
 if you want to find out
 what your development teams are overlooking

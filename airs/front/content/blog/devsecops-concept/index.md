@@ -146,7 +146,7 @@ Why is DevSecOps important?
 Security in software engineering is still ignored by many.
 Others still see it as an obstacle
 that slows down the production process.
-But many others have come to see security as a *necessity*
+But many others have come to see security as a _necessity_
 in an ample shared virtual space,
 where the intentions of a lot turn out not to be the best.
 The most attentive to this issue
@@ -162,16 +162,16 @@ and subsequent attacks on products,
 security measures must be implemented from the early stages in the SDLC.
 It's true
 that security tests usually have been carried out
-*just before* the deployment of applications to the production environment.
+_just before_ the deployment of applications to the production environment.
 But for many,
 this testing approach has been a burden.
 What about those within the DevOps culture
 who are continually creating features on their applications?
 Are they investing time and effort
-in finding and detecting gaps in their code *just before* each deployment?
+in finding and detecting gaps in their code _just before_ each deployment?
 
 If they are already within the DevSecOps approach,
-the answer is *no*.
+the answer is _no_.
 When we say implementation in the early stages,
 as shown in the figure below,
 the security element has to cover the cycle from its beginning to its end.
@@ -216,8 +216,8 @@ combined with [teams of security experts](../../solutions/ethical-hacking/)
 that use their knowledge to detect gaps,
 keeping pace with DevOps.
 The use of these tools and human capabilities integrated into the pipelines,
-employing [static application security testing](../../categories/sast/)
-and [dynamic application security testing](../../categories/dast/) techniques,
+employing [static application security testing](../../product/sast/)
+and [dynamic application security testing](../../product/dast/) techniques,
 makes it possible to minimize the
 number of vulnerabilities.
 These weaknesses can be found early,
@@ -393,7 +393,7 @@ we make a brief summary:
   network security
   and employee behavior.
 
-- ***Continuous* instead of *regular* security audits:**
+- **_Continuous_ instead of _regular_ security audits:**
   Identifying the entire attack surface,
   and possible attack vectors for information systems,
   which is commonly a part of risk assessments
@@ -402,7 +402,7 @@ we make a brief summary:
 - **Continuous penetration tests:**
   Having ethical hackers assess the security of your systems
   throughout the entire SDLC,
-  as opposed to conducting *just regular* penetration tests
+  as opposed to conducting _just regular_ penetration tests
   that could allow a time window
   during which threat actors can get a way in.
 
@@ -453,15 +453,15 @@ As we mentioned earlier,
 it's ideal to have automated security checks.
 This includes essential things
 like having automated security testing tools
-(e.g., [SAST](../../categories/sast/),
-[DAST](../../categories/dast/))
+(e.g., [SAST](../../product/sast/),
+[DAST](../../product/dast/))
 running in your CI pipelines.
 However,
 these tools may generate false positives
 and false negatives,
 so an even better strategy is to have actual people use manual techniques
 (e.g., manual SAST, DAST
-and [SCA](../../categories/sca/))
+and [SCA](../../product/sca/))
 to find vulnerabilities in your software.
 In fact,
 our ethical hackers [found about 81%](https://try.fluidattacks.tech/report/state-of-attacks-2021/)

@@ -57,7 +57,7 @@ const ClientsPage: React.FC = (): JSX.Element => {
               htmlData={node.html}
               key={slug}
               logo={clientlogo}
-              logoPaths={"/airs/about-us/clients"}
+              logoPaths={"/airs/clients"}
               slug={slug}
               title={title}
             />

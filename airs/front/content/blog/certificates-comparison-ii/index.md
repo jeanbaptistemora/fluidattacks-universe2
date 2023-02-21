@@ -195,7 +195,7 @@ Security](https://elearnsecurity.com/)
 With this, we reach every certificate we have obtained to date, and
 therefore, the end of our review. We hope it has been helpful. We will
 advocate for continuing blogging this kind of post as we continue
-obtaining more [certificates](../../about-us/certifications/).
+obtaining more [certificates](../../certifications/).
 
 We at `Fluid Attacks` do not stop at our mission to offer the best [Red
 Team](../../solutions/red-teaming/) to our clients. That’s why we are

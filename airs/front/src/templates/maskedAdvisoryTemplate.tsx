@@ -15,11 +15,11 @@ import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React, { createElement } from "react";
 import rehypeReact from "rehype-react";
 
-import { Layout } from "../components/Layout";
 import { LogoutButton } from "../components/LogoutButton";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { TimeLapse } from "../components/TimeLapse";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   AdvisoryContainer,
   MarkedTitle,

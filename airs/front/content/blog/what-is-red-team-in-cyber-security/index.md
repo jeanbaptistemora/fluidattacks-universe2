@@ -379,7 +379,7 @@ and deliver transparent reports on your prevention,
 detection and response measures.
 Our ethical hackers have [certifications](../certificates-comparison-i/)
 such as OSCP, CEH, CRTP, CRTE, CRTO, eWPTv1, and eCPTXv2,
-[among many others](../../about-us/certifications/).
+[among many others](../../certifications/).
 They are also very experienced,
 possess diverse backgrounds and skills,
 and work in different roles.

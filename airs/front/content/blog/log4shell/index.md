@@ -136,7 +136,7 @@ that would cause excessive consumption of resources,
 such as allocated memory.
 This vulnerability,
 discovered on December 16,
-is known as  [CVE-2021-45105](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45105)
+is known as [CVE-2021-45105](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-45105)
 and has a high severity rating with a CVSS of 7.5.
 
 The risk of Denial of Service has already been addressed in the latest release,
@@ -187,7 +187,7 @@ At `Fluid Attacks`
 we're prepared to overcome this challenge.
 Our clients using any of our [Plans](../../plans/)
 can immediately find out if they use Log4j in their software.
-On our [Attack Resistance Management platform](../../categories/arm/),
+On our [Attack Resistance Management platform](../../platform/arm/),
 the platform that makes [vulnerability management](../../solutions/vulnerability-management/)
 smoother,
 they can look for the vulnerability type

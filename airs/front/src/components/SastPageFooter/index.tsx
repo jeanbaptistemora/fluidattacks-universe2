@@ -17,7 +17,7 @@ export const SastPageFooter: React.FC = (): JSX.Element => (
     <SastParagraph>
       <CloudImage
         alt={"OWASP-logo"}
-        src={"/airs/categories/icon-logo-owasp-rojo"}
+        src={"/airs/product/icon-logo-owasp-rojo"}
         styles={"pr3 w3 h3"}
       />
       <p className={"ma0"}>{translate.t("sastCategoryParagraph.phrase1")}</p>

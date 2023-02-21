@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 
 import { AirsLink } from "../../../../components/AirsLink";
 import { Container } from "../../../../components/Container";
@@ -16,6 +16,9 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
   display,
 }: ICompanyProps): JSX.Element => {
   const { width } = useWindowSize();
+  const handleClick = useCallback((): void => {
+    document.body.setAttribute("style", "overflow-y: auto;");
+  }, []);
 
   return (
     <Container
@@ -49,7 +52,11 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
             pv={"0px"}
           >
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/about-us/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/about-us/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.about.title")}
                 </Text>
@@ -59,7 +66,11 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/solutions/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/certifications/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.certifications.title")}
                 </Text>
@@ -69,7 +80,11 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/partners/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/partners/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.partners.title")}
                 </Text>
@@ -79,7 +94,11 @@ const CompanyMenu: React.FC<ICompanyProps> = ({
               </Text>
             </Container>
             <Container>
-              <AirsLink hoverColor={"#bf0b1a"} href={"/careers/"}>
+              <AirsLink
+                hoverColor={"#bf0b1a"}
+                href={"/careers/"}
+                onClick={handleClick}
+              >
                 <Text color={"#2e2e38"} mb={2} size={"small"} weight={"bold"}>
                   {translate.t("menu.company.fluid.careers.title")}
                 </Text>

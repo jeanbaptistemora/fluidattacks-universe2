@@ -211,7 +211,7 @@ the DevSecOps practice,
 such as that this method leads to a greater number of security issues.
 What people is failing to see clearly is that
 existing issues are identified and reported in organizations
-*thanks* to this method,
+_thanks_ to this method,
 something that doesn't normally happen
 with a simple DevOps methodology.
 Many want to ignore that they are at risk.
@@ -333,16 +333,16 @@ for correctly implementing the DevSecOps culture in your organization.
   Then,
   in the building phase,
   having added code to the repository,
-  [static application security testing](../../categories/sast/)
+  [static application security testing](../../product/sast/)
   (SAST)
-  and [software composition analysis](../../categories/sca/)
+  and [software composition analysis](../../product/sca/)
   (SCA)
   can come into play.
   The former reviews code for vulnerabilities
   whereas the latter reviews code dependencies.
   In the testing phase,
   having a product ready to run and be tested,
-  [dynamic application security testing](../../categories/dast/)
+  [dynamic application security testing](../../product/dast/)
   (DAST) can be used.
   This method does not access code
   but sends attack vectors to the endpoints of running applications.
@@ -445,9 +445,9 @@ for correctly implementing the DevSecOps culture in your organization.
   ([ethical hacking](../../solutions/ethical-hacking/)).
   The recommendation is that
   your organization have its systems assessed
-  in *continuous* penetration tests
+  in _continuous_ penetration tests
   that maintain a strong remediation culture.
-  Just *regular* penetration tests are not recommended,
+  Just _regular_ penetration tests are not recommended,
   since the period of time between one test
   and the other
   could give threat actors the chance

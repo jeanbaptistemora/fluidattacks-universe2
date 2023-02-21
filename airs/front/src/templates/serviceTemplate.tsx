@@ -19,11 +19,11 @@ import React, { useCallback } from "react";
 
 import { FloatingButton } from "../components/FloatingButton";
 import { InternalCta } from "../components/InternalCta";
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
 import { Paragraph } from "../components/Texts";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   BigPageContainer,
   BlackH2,

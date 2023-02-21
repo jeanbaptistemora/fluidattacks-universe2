@@ -172,7 +172,7 @@ they mention the eLearnSecurity Certified Professional Penetration Tester
 among others.
 At `Fluid Attacks`,
 we have some of these and more.
-We recently included in [our list of certifications](../../about-us/certifications/)
+We recently included in [our list of certifications](../../certifications/)
 several from [Mile2](https://www.mile2.com/).
 Closely associated with red teaming,
 we have,

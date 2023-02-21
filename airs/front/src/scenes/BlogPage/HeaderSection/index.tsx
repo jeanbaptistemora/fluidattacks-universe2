@@ -18,7 +18,7 @@ const HeaderSection: React.FC<IHeaderProps> = ({
   return (
     <Container bgColor={"#2e2e38"} ph={4} pv={5}>
       <Container center={true} maxWidth={"1000px"}>
-        <AirsLink href={`/blog/categories/${category}`}>
+        <AirsLink href={`/blog/product/${category}`}>
           <Button variant={"darkSecondary"}>
             {capitalizePlainString(category)}
           </Button>

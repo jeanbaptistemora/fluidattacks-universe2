@@ -18,10 +18,10 @@ import { decode } from "he";
 import React, { useCallback, useEffect, useState } from "react";
 import type { SetStateAction } from "react";
 
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { PageHeader } from "../components/PageHeader";
 import { Seo } from "../components/Seo";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   CenteredSpacedContainer,
   FaqContainer,

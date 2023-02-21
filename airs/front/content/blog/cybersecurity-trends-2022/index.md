@@ -102,7 +102,7 @@ Notably,
 this is the type of vulnerability
 that generated the most exposure to risk when aggregated.
 (Our analyses included systems
-where our software composition analysis ([SCA](../../categories/sca/))
+where our software composition analysis ([SCA](../../product/sca/))
 detected Log4Shell,
 among others.
 Recently,
@@ -269,7 +269,7 @@ it's important that software itself is safe.
 Regarding authentication,
 it's time that software solution developers start
 requesting a combination of automated and manual
-static application security testing ([SAST](../../categories/sast/))
+static application security testing ([SAST](../../product/sast/))
 to see if credentials are exposed in code,
 as this was another prominent, high-risk flaw
 that [we found](https://try.fluidattacks.tech/state-of-attacks-2022/)
@@ -295,7 +295,7 @@ This gives us a risk exposure measure we call [CVSSF](https://try.fluidattacks.t
 As a result,
 visibility becomes greater the riskier vulnerabilities get.
 Our clients get the CVSSF of each detected vulnerability
-on our [Attack Resistance Management platform](../../product-overview/) (ARM)
+on our [Attack Resistance Management platform](../../platform/) (ARM)
 and make better decisions to prioritize remediation,
 not thinking about numbers, but risk.
 

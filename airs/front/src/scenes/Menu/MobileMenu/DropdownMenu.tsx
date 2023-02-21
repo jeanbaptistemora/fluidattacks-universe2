@@ -209,21 +209,24 @@ const DropdownMenu: React.FC<IServiceProps> = ({
               </Container>
             </Button>
           </Container>
-          <Container ph={4} width={"auto"} widthSm={"100%"}>
-            <Button display={"block"} variant={"ghost"}>
-              <Container display={"flex"} width={"100%"}>
-                <Container width={"98%"}>
-                  <Text
-                    color={"#2e2e38"}
-                    display={"inline"}
-                    textAlign={"start"}
-                  >
-                    {"Plans"}
-                  </Text>
+          <AirsLink href={"/plans/"}>
+            <Container ph={4} width={"auto"} widthSm={"100%"}>
+              <Button display={"block"} onClick={handleClick} variant={"ghost"}>
+                <Container display={"flex"} width={"100%"}>
+                  <Container width={"98%"}>
+                    <Text
+                      color={"#2e2e38"}
+                      display={"inline"}
+                      textAlign={"start"}
+                    >
+                      {"Plans"}
+                    </Text>
+                  </Container>
                 </Container>
-              </Container>
-            </Button>
-          </Container>
+              </Button>
+            </Container>
+          </AirsLink>
+
           <Container ph={4} width={"auto"} widthSm={"100%"}>
             <Button
               display={"block"}
@@ -251,21 +254,24 @@ const DropdownMenu: React.FC<IServiceProps> = ({
               </Container>
             </Button>
           </Container>
-          <Container ph={4} width={"auto"} widthSm={"100%"}>
-            <Button display={"block"} variant={"ghost"}>
-              <Container display={"flex"} width={"100%"}>
-                <Container width={"98%"}>
-                  <Text
-                    color={"#2e2e38"}
-                    display={"inline"}
-                    textAlign={"start"}
-                  >
-                    {"Advisories"}
-                  </Text>
+          <AirsLink href={"/advisories/"}>
+            <Container ph={4} width={"auto"} widthSm={"100%"}>
+              <Button display={"block"} onClick={handleClick} variant={"ghost"}>
+                <Container display={"flex"} width={"100%"}>
+                  <Container width={"98%"}>
+                    <Text
+                      color={"#2e2e38"}
+                      display={"inline"}
+                      textAlign={"start"}
+                    >
+                      {"Advisories"}
+                    </Text>
+                  </Container>
                 </Container>
-              </Container>
-            </Button>
-          </Container>
+              </Button>
+            </Container>
+          </AirsLink>
+
           <Container ph={4} width={"auto"} widthSm={"100%"}>
             <Button
               display={"block"}

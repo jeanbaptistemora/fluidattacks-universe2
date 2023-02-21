@@ -33,11 +33,11 @@ manner, they can later be discovered and exploited by attackers. So, it
 is important to detect vulnerabilities in the early stages of a system’s
 development.
 
-There are tools that can perform [static analysis](../../categories/sast/)
+There are tools that can perform [static analysis](../../product/sast/)
 of the source code.
 These tools check the source code for problems without the need for
 compiling and executing it.
-There are also [dynamic analysis](../../categories/dast/) tools
+There are also [dynamic analysis](../../product/dast/) tools
 that send information to the system inputs with presets or random values in
 order to check for failures or improper exceptions handling.
 
@@ -91,7 +91,7 @@ they used dynamic analyzers in order to search outputs that later could
 be interpreted by security professionals as one of the known
 vulnerabilities from the Common Weakness Enumeration (`CWE`) list. Also
 in the `GitHub` repositories, they searched inside the commits, words
-like *“buggy”*, *“error”*, *“fixed”*, *“broken”*, and others, in order
+like _“buggy”_, _“error”_, _“fixed”_, _“broken”_, and others, in order
 to classify each block of source code as vulnerable or non-vulnerable.
 
 <div class="imgblock">
@@ -188,15 +188,15 @@ system.
 ## References
 
 1. [Russell et al. (2018). Automated Vulnerability Detection in Source
-    Code Using Deep Representation
-    Learning](https://arxiv.org/pdf/1807.04320.pdf).
+   Code Using Deep Representation
+   Learning](https://arxiv.org/pdf/1807.04320.pdf).
 
 2. [Saha (2018). A Comprehensive Guide to Convolutional Neural
-    Networks — the ELI5
-    way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53).
+   Networks — the ELI5
+   way](https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53).
 
 3. [Venkatachalam (2019). Recurrent Neural
-    Networks](https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce).
+   Networks](https://towardsdatascience.com/recurrent-neural-networks-d4642c9bc7ce).
 
 4. [Yiu (2019). Random
-    Forest](https://towardsdatascience.com/understanding-random-forest-58381e0602d2).
+   Forest](https://towardsdatascience.com/understanding-random-forest-58381e0602d2).

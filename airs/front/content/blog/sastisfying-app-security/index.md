@@ -17,7 +17,7 @@ about2: Enjoy life
 source: https://unsplash.com/photos/kwzWjTnDPLk
 ---
 
-SAST ([Static Application Security Testing](../../categories/sast/))
+SAST ([Static Application Security Testing](../../product/sast/))
 is a type of white box test
 in which a set of technologies is used
 to analyze the source code,
@@ -27,8 +27,8 @@ that can be exploited by malicious users.
 
 ## A Bit of History
 
-In his 1976 paper, *Design and Code Inspections to Reduce Errors in
-Program Development*, Michael E. Fagan explains how to do a code review
+In his 1976 paper, _Design and Code Inspections to Reduce Errors in
+Program Development_, Michael E. Fagan explains how to do a code review
 and, thus, creates the world’s first code review process. [Fagan
 inspection](https://en.wikipedia.org/wiki/Fagan_inspection) is a formal
 execution process involving several phases and participants, and also
@@ -46,7 +46,7 @@ Figure 1. Fagan Flow via [secjuice.com](https://www.secjuice.com/sast-isnt-code-
 
 </div>
 
-In 1992, in his article *Experience with Fagan’s Inspection Method*,
+In 1992, in his article _Experience with Fagan’s Inspection Method_,
 E.P. Doolan proposes using software that keeps a database of detected
 errors and automatically scans the code for them. This begins the use of
 automated tools.
@@ -77,10 +77,10 @@ vulnerabilities quickly, before the application’s release. These
 vulnerabilities can be found on the following websites:
 
 1. [OWASP Top Ten
-    Project](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project).
+   Project](https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project).
 
 2. [CWE/SANS TOP 25 Most Dangerous Software
-    Errors](https://www.sans.org/top25-software-errors/).
+   Errors](https://www.sans.org/top25-software-errors/).
 
 3. [CWE Common Weakness Enumeration](https://cwe.mitre.org/).
 
@@ -110,17 +110,17 @@ vulnerabilities are found, they are reported to the development team to
 be solved. Manual testing includes several stages including:
 
 1. **Synchronization:** This stage includes receiving from the
-    developers the application, a complete explanation of what the
-    application does, and how the application does it.
+   developers the application, a complete explanation of what the
+   application does, and how the application does it.
 
 2. **Review:** In this stage, the testing team takes the source code
-    and analyzes each line, method, class, and file for security
-    vulnerabilities.
+   and analyzes each line, method, class, and file for security
+   vulnerabilities.
 
 3. **Reporting:** At this stage, false positives and irrelevant
-    information are eliminated, finding reports are created and
-    delivered to project leaders responsible for communicating with
-    developers, who then mitigate or patch the vulnerabilities.
+   information are eliminated, finding reports are created and
+   delivered to project leaders responsible for communicating with
+   developers, who then mitigate or patch the vulnerabilities.
 
 <div class="imgblock">
 
@@ -176,39 +176,39 @@ says:
 > different languages, frameworks, and platforms."
 
 1. **Finalize the tool:** "Select a static analysis tool that can
-    perform code reviews of applications written in the programming
-    languages you use."
+   perform code reviews of applications written in the programming
+   languages you use."
 
 2. **Create the scanning infrastructure and deploy the tool**: "This
-    step involves handling the licensing requirements, setting up access
-    control and authorization, and procuring the resources required
-    (e.g., servers and databases) to deploy the tool."
+   step involves handling the licensing requirements, setting up access
+   control and authorization, and procuring the resources required
+   (e.g., servers and databases) to deploy the tool."
 
 3. **Customize the tool:** "Fine-tune the tool to suit the needs of the
-    organization. For example, you might configure it to reduce false
-    positives or find additional security vulnerabilities by writing new
-    rules or updating existing ones. Integrate the tool into the build
-    environment, create dashboards for tracking scan results, and build
-    custom reports.
+   organization. For example, you might configure it to reduce false
+   positives or find additional security vulnerabilities by writing new
+   rules or updating existing ones. Integrate the tool into the build
+   environment, create dashboards for tracking scan results, and build
+   custom reports.
 
 4. **Prioritize and onboard applications:** "Once the tool is ready,
-    onboard your applications. If you have a large number of
-    applications, prioritize the high-risk applications to scan first.
-    Eventually, all your applications should be onboarded and scanned
-    regularly, with application scans synced with release cycles, daily
-    or monthly builds, or code check-ins."
+   onboard your applications. If you have a large number of
+   applications, prioritize the high-risk applications to scan first.
+   Eventually, all your applications should be onboarded and scanned
+   regularly, with application scans synced with release cycles, daily
+   or monthly builds, or code check-ins."
 
 5. **Analyze scan results:** "This step involves
-    [triaging](../triage-hacker/) the results of the scan to remove
-    false positives. Once the set of issues is finalized, they should be
-    tracked and provided to the deployment teams for proper and timely
-    remediation."
+   [triaging](../triage-hacker/) the results of the scan to remove
+   false positives. Once the set of issues is finalized, they should be
+   tracked and provided to the deployment teams for proper and timely
+   remediation."
 
 6. **Provide governance and training:** "Proper governance ensures that
-    your development teams are employing the scanning tools properly.
-    The software security touchpoints should be present within the
-    SDLC. SAST should be incorporated as part of your application
-    development and deployment process."
+   your development teams are employing the scanning tools properly.
+   The software security touchpoints should be present within the
+   SDLC. SAST should be incorporated as part of your application
+   development and deployment process."
 
 ## Benefits
 
@@ -249,19 +249,19 @@ Using SAST helps programmers reinforce coding standards.
 ## References
 
 1. [Application Security Testing – Automated Vs
-    Manual](https://www.checkmarx.com/2015/05/19/application-security-testing-automated-vs-manual/).
+   Manual](https://www.checkmarx.com/2015/05/19/application-security-testing-automated-vs-manual/).
 
 2. [Static Application Security
-    Testing](https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html).
+   Testing](https://www.synopsys.com/software-integrity/resources/knowledge-database/static-application-security-testing.html).
 
 3. [SAST vs DAST – Why
-    SAST?](https://www.checkmarx.com/2015/04/29/sast-vs-dast-why-sast-3/).
+   SAST?](https://www.checkmarx.com/2015/04/29/sast-vs-dast-why-sast-3/).
 
 4. [Source Code Analysis
-    Tools](https://www.owasp.org/index.php/Source_Code_Analysis_Tools).
+   Tools](https://www.owasp.org/index.php/Source_Code_Analysis_Tools).
 
 5. [Common Weakness Enumeration, A Community-Developed List of Software
-    Weakness Types](https://cwe.mitre.org/).
+   Weakness Types](https://cwe.mitre.org/).
 
 6. [SAST Isn’t Code
-    Review](https://www.secjuice.com/sast-isnt-code-review-fight-me/).
+   Review](https://www.secjuice.com/sast-isnt-code-review-fight-me/).

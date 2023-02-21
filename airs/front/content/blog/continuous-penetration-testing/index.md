@@ -53,7 +53,7 @@ with a snapshot of their security posture.
 This could be in terms of the known attack surface,
 vulnerabilities in systems,
 quantified risks
-or remediation rate *at that time*.
+or remediation rate _at that time_.
 That is their baseline,
 which is useful for comparisons with the next assessment.
 But there's still the uncertainty
@@ -80,7 +80,7 @@ is immediately imitated by the ethical hackers performing the tests.
 Although ideally,
 these highly certified professionals find the weaknesses or vulnerabilities
 before any exploit in the wild is heard of.
-Risk identified and mitigated is also true to the security posture *now*,
+Risk identified and mitigated is also true to the security posture _now_,
 not to that of months ago.
 And because developers are notified instantly
 of any flaw found in recent changes,
@@ -185,7 +185,7 @@ it is a matter of the firm asking,
 in relation to our budget for cybersecurity?"
 Indeed,
 the company may allow itself only the regular point-in-time assessment.
-And it may do so *at least* annually,
+And it may do so _at least_ annually,
 in the case it needs to follow [certain standards](../penetration-testing-compliance/)
 where penetration testing compliance is mandatory.
 
@@ -220,7 +220,7 @@ that addresses the challenges to continuous pen testing:
   so they test micro changes and report the cybersecurity issues they find.
 
 - We include with our service access
-  to our [Attack Resistance Management (ARM) platform](../../product-overview/),
+  to our [Attack Resistance Management (ARM) platform](../../platform/),
   where users configure the assessments' scope,
   view findings through helpful visuals,
   assign remediation,

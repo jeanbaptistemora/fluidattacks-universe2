@@ -87,8 +87,8 @@ especially when there are constant changes in their architecture.
 Therefore,
 [security testing](../../solutions/security-testing/)
 must also be [continuous](../../services/continuous-hacking/).
-Automation in processes such as [SAST](../../categories/sast/)
-and [DAST](../../categories/dast/)
+Automation in processes such as [SAST](../../product/sast/)
+and [DAST](../../product/dast/)
 will depend on some tools;
 you must be careful with your use of them.
 It’s not a question of acquiring tools because they’re offered as new,

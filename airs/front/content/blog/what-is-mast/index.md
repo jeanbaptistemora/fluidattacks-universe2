@@ -201,8 +201,8 @@ from threat actors.
 
 The most commonly used evaluation techniques in MAST
 for vulnerability detection
-are static application security testing ([SAST](../../categories/sast/))
-and dynamic application security testing ([DAST](../../categories/dast/)).
+are static application security testing ([SAST](../../product/sast/))
+and dynamic application security testing ([DAST](../../product/dast/)).
 [The former is](../sastisfying-app-security/) the one
 that accesses the internal structure of the app
 while it's not running
@@ -251,9 +251,9 @@ At `Fluid Attacks`,
 we offer MAST,
 integrating SAST, DAST and manual penetration testing
 to identify vulnerabilities in your [mobile apps](../../systems/mobile-apps/).
-(Our ethical hackers have certifications such as [eMAPT](../../about-us/certifications/emapt/)
+(Our ethical hackers have certifications such as [eMAPT](../../certifications/emapt/)
 to evaluate the security of mobile apps
-and many other credentials that [you can see here](../../about-us/certifications/)).
+and many other credentials that [you can see here](../../certifications/)).
 We easily introduce our tests into your software development lifecycle
 to continuously analyze your code and configurations
 to identify security issues
@@ -262,7 +262,7 @@ Furthermore,
 you might not restrict our tests to your apps
 but also request them to check many other systems.
 We remind you that within our analysis techniques,
-we also have [SCA](../../categories/sca/)
+we also have [SCA](../../product/sca/)
 for detecting security issues
 in your open source or third-party components.
 

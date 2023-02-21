@@ -14,8 +14,8 @@ import type { StaticQueryDocument } from "gatsby";
 import React from "react";
 
 import { FreeTrialPage } from "../components/FreeTrialPage";
-import { Layout } from "../components/Layout";
 import { Seo } from "../components/Seo";
+import { Layout } from "../scenes/Footer/Layout";
 import { PageArticle } from "../styles/styledComponents";
 
 const FreeTrialIndex: React.FC<IQueryData> = ({

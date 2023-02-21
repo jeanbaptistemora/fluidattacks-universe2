@@ -52,9 +52,9 @@ it was responsible for issuing preliminary guidelines,
 which it did in November last year.
 And early this month,
 it issued an update
-on the *Cybersecurity Supply Chain Risk Management Practices
-for Systems and Organizations*
-([*NIST Special Publication 800-161 Revision 1*](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-161r1.pdf)).
+on the _Cybersecurity Supply Chain Risk Management Practices
+for Systems and Organizations_
+([_NIST Special Publication 800-161 Revision 1_](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-161r1.pdf)).
 
 Let's consider the supplier relationship:
 How one supplier gets components for their solution
@@ -233,7 +233,7 @@ our advice at `Fluid Attacks` is to search for vulnerabilities
 in your software third-party components
 and your own code
 throughout the entire software development lifecycle.
-Our automated and manual [Software Composition Analysis](../../categories/sca/)
+Our automated and manual [Software Composition Analysis](../../product/sca/)
 helps you identify issues
 that you can fix to prevent falling victim to supply chain attacks.
 Want to know more?

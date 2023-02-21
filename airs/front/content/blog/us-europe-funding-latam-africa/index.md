@@ -201,7 +201,7 @@ we at `Fluid Attacks`
 reiterate the importance of testing the security of systems
 while they are being developed.
 Our [ethical hackers](../../solutions/ethical-hacking/)
-use [several techniques](../../categories/)
+use [several techniques](../../product/)
 to find the vulnerabilities in organizations' systems
 before malicious attackers do.
 By fixing these issues promptly,

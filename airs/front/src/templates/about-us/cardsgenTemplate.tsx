@@ -16,10 +16,10 @@ import React from "react";
 
 import { CertificationsPage } from "../../components/CertificationsPage";
 import { ClientsPage } from "../../components/ClientsPage";
-import { Layout } from "../../components/Layout";
-import { NavbarComponent } from "../../components/Navbar";
 import { PartnerPage } from "../../components/PartnerPage";
 import { Seo } from "../../components/Seo";
+import { Layout } from "../../scenes/Footer/Layout";
+import { NavbarComponent } from "../../scenes/Menu";
 import {
   BannerContainer,
   BannerTitle,
@@ -52,10 +52,10 @@ const CardsgenIndex: React.FC<IQueryData> = ({
     if (partnersindex === "yes") {
       return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619633627/airs/partners/cover-partners_n4sshp.png";
     } else if (clientsindex === "yes") {
-      return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/about-us/clients/cover-clients_llnlaw.png";
+      return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619635918/airs/clients/cover-clients_llnlaw.png";
     }
 
-    return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/about-us/certifications/cover-certifications_dos6xu.png";
+    return "https://res.cloudinary.com/fluid-attacks/image/upload/v1619632703/airs/certifications/cover-certifications_dos6xu.png";
   }
 
   const metaImage: string = getMetaImage();

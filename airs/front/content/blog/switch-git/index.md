@@ -65,7 +65,7 @@ and highly communicative work between team members.
 When considering the [kinds](https://www.iiis.org/cds2011/cd2011imc/iceme_2011/paperspdf/fb394vz.pdf)
 of VCS that exist,
 we need to understand
-that they vary according to where the *repository* sits
+that they vary according to where the _repository_ sits
 and where the developer… well, sits.
 (Repository is a filesystem that is being tracked for modifications.)
 The **local** kind of VCS is relatively simple:
@@ -82,7 +82,7 @@ the repository sits on the server
 and clients can read and submit changes from their machines.
 
 The server model has been known as a centralized VCS.
-Developers *commit* changes to a central server
+Developers _commit_ changes to a central server
 that contains all the versioned files.
 (To commit [means](https://faun.pub/centralized-vs-distributed-version-control-systems-a135091299f0)
 to record the change in the central system.)
@@ -173,7 +173,7 @@ and your team becomes bigger.
 
 When a developer is done with the intended change
 and wants to incorporate it into the main repository,
-then they make a *merge request*.
+then they make a _merge request_.
 Basically,
 they're proposing a change and are asking their peers to review it.
 This is the essence of peer review.
@@ -228,9 +228,9 @@ we enable our clients to **go fast without crashing**.
 What's more,
 clients of our Squad Plan can achieve better precision
 (less false positives and false negatives)
-as our [highly certified](../../about-us/certifications/)
+as our [highly certified](../../certifications/)
 [ethical hackers](../../solutions/ethical-hacking/)
-use [manual techniques](../../categories/)
+use [manual techniques](../../product/)
 to test the security of their software.
 Want to learn more?
 [Contact us](../../contact-us/)\!

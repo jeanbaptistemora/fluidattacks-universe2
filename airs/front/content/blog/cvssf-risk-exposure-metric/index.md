@@ -250,7 +250,7 @@ their risk management would be jeopardized.
 
 Want us to assess your system?
 We provide the CVSSF units of every detected security issue
-on our [Attack Resistance Management (ARM) platform](../../product-overview/).
+on our [Attack Resistance Management (ARM) platform](../../platform/).
 You can also see the aggregated risk exposure,
 as well as its management,
 over time,

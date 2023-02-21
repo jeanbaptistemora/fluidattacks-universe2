@@ -40,7 +40,7 @@ const PlanCard: React.FC<IPlansCard> = ({
           <CardTitle>
             <CloudImage
               alt={`Plan ${title} Fluid Attacks`}
-              src={`airs/product-overview/plans-section/${
+              src={`airs/platform/plans-section/${
                 isMachine ? "machine" : "squad"
               }`}
               styles={"mr1"}
@@ -58,7 +58,7 @@ const PlanCard: React.FC<IPlansCard> = ({
               <CardItem key={`${item.text}`}>
                 <CloudImage
                   alt={`plan-check`}
-                  src={`airs/product-overview/plans-section/${
+                  src={`airs/platform/plans-section/${
                     item.check ? "check" : "xmark"
                   }`}
                   styles={"mr3 check-icon"}

@@ -14,12 +14,12 @@ import type { StaticQueryDocument } from "gatsby";
 import { Breadcrumb } from "gatsby-plugin-breadcrumb";
 import React from "react";
 
-import { Layout } from "../components/Layout";
-import { NavbarComponent } from "../components/Navbar";
 import { SastPageFooter } from "../components/SastPageFooter";
 import { Seo } from "../components/Seo";
 import { ServiceSeo } from "../components/ServiceSeo";
 import { Paragraph } from "../components/Texts";
+import { Layout } from "../scenes/Footer/Layout";
+import { NavbarComponent } from "../scenes/Menu";
 import {
   BlackH2,
   ComplianceContainer,
@@ -58,8 +58,8 @@ const CategoryIndex: React.FC<IQueryData> = ({
         keywords={keywords}
         title={
           headtitle
-            ? `${headtitle} | Categories | Fluid Attacks`
-            : `${title} | Categories | Fluid Attacks`
+            ? `${headtitle} | Products | Fluid Attacks`
+            : `${title} | Products | Fluid Attacks`
         }
         url={slug}
       />
@@ -99,7 +99,7 @@ const CategoryIndex: React.FC<IQueryData> = ({
                   }}
                 />
               </FullWidthContainer>
-              {slug === "categories/sast/" ? <SastPageFooter /> : undefined}
+              {slug === "product/sast/" ? <SastPageFooter /> : undefined}
             </ComplianceContainer>
           </PageArticle>
         </div>

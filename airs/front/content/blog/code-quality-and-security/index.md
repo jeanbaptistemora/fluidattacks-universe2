@@ -305,11 +305,11 @@ we go beyond the [Secure Code Review](../../solutions/secure-code-review/),
 which is only a part of our comprehensive [Continuous Hacking service](../../services/continuous-hacking/).
 In this service,
 we conduct exhaustive reviews with techniques
-such as [SAST](../../categories/sast/),
-[SCA](../../categories/sca/),
-[DAST](../../categories/dast/),
+such as [SAST](../../product/sast/),
+[SCA](../../product/sca/),
+[DAST](../../product/dast/),
 [manual pentesting](../../solutions/penetration-testing/)
-and [reverse engineering](../../categories/re/).
+and [reverse engineering](../../product/re/).
 In addition to using our automated tools,
 Continuous Hacking has as indispensable
 the intervention of our ethical hackers,

@@ -83,7 +83,7 @@ const NavbarItems: React.FC = (): JSX.Element => {
           </NavbarSubcategory>
         </NavbarItem>
         <NavbarItem className={"db-l dn"}>
-          <Link className={"no-underline"} to={"/about-us/certifications/"}>
+          <Link className={"no-underline"} to={"/certifications/"}>
             <NavbarRegularButton>{"Certifications"}</NavbarRegularButton>
           </Link>
         </NavbarItem>

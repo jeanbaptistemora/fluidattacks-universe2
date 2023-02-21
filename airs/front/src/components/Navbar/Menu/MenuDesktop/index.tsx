@@ -35,7 +35,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
 
           <MenuDesktopSectionList>
             <HeadLink link={"/about-us/"} margin={"mb4"} name={"About Us"} />
-            <BodyLink link={"/about-us/clients/"} name={"Clients"} />
+            <BodyLink link={"/clients/"} name={"Clients"} />
             <BodyLink
               link={"/about-us/differentiators/"}
               name={"Differentiators"}
@@ -84,20 +84,16 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           </MenuDesktopSectionList>
 
           <MenuDesktopSectionList>
-            <HeadLink
-              link={"/categories/"}
-              margin={"mb4"}
-              name={"Categories"}
-            />
-            <BodyLink link={"/categories/sast/"} name={"SAST"} />
-            <BodyLink link={"/categories/dast/"} name={"DAST"} />
+            <HeadLink link={"/product/"} margin={"mb4"} name={"Categories"} />
+            <BodyLink link={"/product/sast/"} name={"SAST"} />
+            <BodyLink link={"/product/dast/"} name={"DAST"} />
             <BodyLink link={"/solutions/penetration-testing/"} name={"MPT"} />
-            <BodyLink link={"/categories/sca/"} name={"SCA"} />
-            <BodyLink link={"/categories/re/"} name={"RE"} />
-            <BodyLink link={"/categories/ptaas/"} name={"PTaaS"} />
-            <BodyLink link={"/categories/arm/"} name={"ARM"} />
+            <BodyLink link={"/product/sca/"} name={"SCA"} />
+            <BodyLink link={"/product/re/"} name={"RE"} />
+            <BodyLink link={"/product/ptaas/"} name={"PTaaS"} />
+            <BodyLink link={"/platform/arm/"} name={"ARM"} />
             <BodyLink link={"/solutions/attack-simulation/"} name={"BAS"} />
-            <BodyLink link={"/categories/mast/"} name={"MAST"} />
+            <BodyLink link={"/product/mast/"} name={"MAST"} />
           </MenuDesktopSectionList>
         </div>
 
@@ -127,7 +123,7 @@ const MenuDesktop: React.FC = (): JSX.Element => (
           <MenuDesktopSectionList>
             <HeadLink link={"/plans/"} margin={"mb3"} name={"Plans"} />
             <HeadLink
-              link={"/about-us/certifications/"}
+              link={"/certifications/"}
               margin={"mb3"}
               name={"Certifications"}
             />

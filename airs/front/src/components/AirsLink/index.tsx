@@ -13,6 +13,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
   decoration,
   hoverColor,
   href,
+  onClick,
 }): JSX.Element => {
   const allowLinks = [
     "https://status.fluidattacks.com",
@@ -32,6 +33,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
         decoration={decoration}
         hoverColor={hoverColor}
         href={href}
+        onClick={onClick}
         rel={"noopener noreferrer"}
         target={"_blank"}
       >
@@ -44,6 +46,7 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
         decoration={decoration}
         hoverColor={hoverColor}
         href={href}
+        onClick={onClick}
         rel={"nofollow noopener noreferrer"}
         target={"_blank"}
       >
@@ -53,7 +56,12 @@ const AirsLink: React.FC<IAirsLinkProps> = ({
   }
 
   return (
-    <InternalLink decoration={decoration} hoverColor={hoverColor} to={href}>
+    <InternalLink
+      decoration={decoration}
+      hoverColor={hoverColor}
+      onClick={onClick}
+      to={href}
+    >
       {children}
     </InternalLink>
   );

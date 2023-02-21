@@ -59,9 +59,9 @@ some more than others,
 from the defect of reporting false positives
 (saying that something is a vulnerability when it is not).
 Among the most commonly used methods in secure code review
-are [Static Application Security Testing](../../categories/sast/)
+are [Static Application Security Testing](../../product/sast/)
 (SAST)
-and [Software Composition Analysis](../../categories/sca/)
+and [Software Composition Analysis](../../product/sca/)
 (SCA).
 (Understand in [this previous blog post](../differences-between-sast-sca-dast/)
 how one differs from the other.)
@@ -248,8 +248,8 @@ At `Fluid Attacks`,
 we offer our [Secure Code Review solution](../../solutions/secure-code-review/)
 as a comprehensive and accurate review of your software source code,
 combining manual and automatic procedures
-based on methods such as [SAST](../../categories/sast/)
-and [SCA](../../categories/sca/).
+based on methods such as [SAST](../../product/sast/)
+and [SCA](../../product/sca/).
 With us,
 you can apply secure code review from the earliest stages of your SDLC
 in a continuous manner.
@@ -275,9 +275,9 @@ where you can thoroughly understand and analyze your security issues,
 as well as receive recommendations and manage remediation processes.
 All this is part of our [Continuous Hacking](../../services/continuous-hacking/)
 service,
-which also integrates security testing methods such as [DAST](../../categories/dast/),
+which also integrates security testing methods such as [DAST](../../product/dast/),
 [manual penetration testing](../../solutions/penetration-testing/)
-and [reverse engineering](../../categories/re/).
+and [reverse engineering](../../product/re/).
 
 Do not hesitate to [contact us](../../contact-us/)
 if you want more information about our Secure Code Review

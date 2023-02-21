@@ -67,21 +67,21 @@ work and, at the same time, a great place to learn and develop your skills.
 The first three `Debian` developers in Colombia work with `Fluid Attacks`.
 Compared to other companies, `Fluid Attacks` has the highest
 percentage of employees certified in
-[`CEH`](../../about-us/certifications/#certified-ethical-hacker-\(ceh\))
+[`CEH`](<../../certifications/#certified-ethical-hacker-(ceh)>)
 and
-[`OSWP`](../../about-us/certifications/#offensive-security-wireless-professional-\(oswp\)).
+[`OSWP`](<../../certifications/#offensive-security-wireless-professional-(oswp)>).
 The majority of the team members of the Latin American Security Wargames
 Championship work with us. Additionally, our employees have important
 certifications such as
-[`CEH`](../../about-us/certifications/#certified-ethical-hacker-\(ceh\)),
-[`OSCP`](../../about-us/certifications/#offensive-security-certified-professional-\(oscp\)),
-[`CISA`](../../about-us/certifications/#certified-information-systems-auditor-\(cisa\)),
-[`CISM`](../../about-us/certifications/#certified-information-security-manager-\(cism\)),
-[`GISP`](../../about-us/certifications/#giac-information-security-professional-\(gisp\)),
-[`CISSP`](../../about-us/certifications/#certified-information-systems-security-professional-\(cissp\))
-[`CompTIA Security+`](../../about-us/certifications/#comptia-security+)
+[`CEH`](<../../certifications/#certified-ethical-hacker-(ceh)>),
+[`OSCP`](<../../certifications/#offensive-security-certified-professional-(oscp)>),
+[`CISA`](<../../certifications/#certified-information-systems-auditor-(cisa)>),
+[`CISM`](<../../certifications/#certified-information-security-manager-(cism)>),
+[`GISP`](<../../certifications/#giac-information-security-professional-(gisp)>),
+[`CISSP`](<../../certifications/#certified-information-systems-security-professional-(cissp)>)
+[`CompTIA Security+`](../../certifications/#comptia-security+)
 and
-[`ITIL`](../../about-us/certifications/#information-technology-infrastructure-library-certification-\(itil\)).
+[`ITIL`](<../../certifications/#information-technology-infrastructure-library-certification-(itil)>).
 
 ## Socially responsible
 
@@ -98,10 +98,10 @@ working in major universities and companies all over the world. Here is
 a short list:
 
 1. Rafael: Masters in Math from the Royal Institute of Technology in
-    Sweden, currently `PhD` in Math at the University of Miami.
+   Sweden, currently `PhD` in Math at the University of Miami.
 
 2. Miguel: Masters in Computer Science from the Max Planck Institute in
-    Germany, currently PhD at the same institute.
+   Germany, currently PhD at the same institute.
 
 3. Diego: Masters in Information Security, Australia.
 
