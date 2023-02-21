@@ -26,6 +26,7 @@ import {
 } from "./helpers";
 
 import { Button } from "components/Button";
+import { Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { EvidenceImage } from "scenes/Dashboard/components/EvidenceImage/index";
 import { EvidenceLightbox } from "scenes/Dashboard/components/EvidenceLightbox";
@@ -39,7 +40,7 @@ import type {
   IEvidenceItem,
   IGetFindingEvidences,
 } from "scenes/Dashboard/containers/Finding-Content/EvidenceView/types";
-import { ButtonToolbarRow, Row } from "styles/styledComponents";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { Logger } from "utils/logger";
 import { msgError } from "utils/notifications";
