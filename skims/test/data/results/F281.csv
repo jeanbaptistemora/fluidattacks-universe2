@@ -95,7 +95,7 @@ F281,lines,namespace/skims/test/data/lib_path/f281/cfn_bucket_policy_has_secure_
    69 | erties"": {
       ^ Col 11
 ",cloudformation.cfn_bucket_policy_has_secure_transport
-F281,lines,namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,4,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_path/f281/tfm_bucket_policy_has_secure_transport.tf,"
+F281,lines,namespace/skims/test/data/lib_root/f281/tfm_bucket_policy_has_secure_transport.tf,4,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_root/f281/tfm_bucket_policy_has_secure_transport.tf,"
    1 | resource ""aws_s3_bucket_policy"" ""b"" {
    2 |   bucket = aws_s3_bucket.b.id
    3 |
