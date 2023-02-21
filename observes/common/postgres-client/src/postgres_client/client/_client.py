@@ -24,11 +24,10 @@ from returns.primitives.types import (
 from typing import (
     IO,
     NamedTuple,
-    Tuple,
 )
 
 
-def _extract_conf_info(auth_file: IO[str]) -> Tuple[DatabaseID, Credentials]:
+def _extract_conf_info(auth_file: IO[str]) -> tuple[DatabaseID, Credentials]:
     auth = json.load(auth_file)
     auth["db_name"] = auth["dbname"]
     db_id_raw = dict(

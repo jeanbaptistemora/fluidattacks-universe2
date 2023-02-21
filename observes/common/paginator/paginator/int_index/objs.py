@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Iterator,
+)
 from deprecated import (
     deprecated,
 )
@@ -5,11 +9,8 @@ from paginator.pages import (
     AllPages,
 )
 from typing import (
-    Callable,
-    Iterator,
     NamedTuple,
     TypeVar,
-    Union,
 )
 import warnings
 
@@ -34,7 +35,7 @@ class EmptyPage(NamedTuple):
     pass
 
 
-PageOrAll = Union[AllPages, PageId]
+PageOrAll = AllPages | PageId
 _ResultPage = TypeVar("_ResultPage")
-EPage = Union[_ResultPage, EmptyPage]
+EPage = _ResultPage | EmptyPage
 PageGetter = Callable[[PageId], EPage[_ResultPage]]

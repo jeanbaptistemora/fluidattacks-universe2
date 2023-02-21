@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -23,10 +26,8 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    Callable,
     overload,
     TypeVar,
-    Union,
 )
 
 _S = TypeVar("_S")
@@ -52,8 +53,8 @@ def from_returns(item: LegacyResult[_S, _F]) -> Result[_S, _F]:  # type: ignore
 
 
 def from_returns(
-    item: Union[LegacyResult[_S, _F], LegacyMaybe[_T]]
-) -> Union[Result[_S, _F], Maybe[_T]]:
+    item: LegacyResult[_S, _F] | LegacyMaybe[_T]
+) -> Result[_S, _F] | Maybe[_T]:
     if isinstance(item, LegacyResult):
         success = item.value_or(NoValue())
         fail = item.swap().value_or(NoValue())

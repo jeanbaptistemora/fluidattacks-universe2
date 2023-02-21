@@ -8,6 +8,10 @@ from boto3.dynamodb.conditions import (
     Attr,
     Key,
 )
+from collections.abc import (
+    Mapping,
+    Sequence,
+)
 from dataclasses import (
     dataclass,
 )
@@ -51,40 +55,35 @@ from mypy_boto3_dynamodb.type_defs import (
 )
 from typing import (
     Any,
-    Mapping,
-    Optional,
-    Sequence,
-    Set,
-    Union,
 )
 
 LOG = logging.getLogger(__name__)
 _ORGS_TABLE = "integrates_vms"
 _LastObjKey = Mapping[  # type: ignore[misc]
     str,
-    Union[
-        bytes,
-        bytearray,
-        str,
-        int,
-        Decimal,
-        bool,
-        Set[int],
-        Set[Decimal],
-        Set[str],
-        Set[bytes],
-        Set[bytearray],
-        Sequence[Any],
-        Mapping[str, Any],
-        None,
-    ],
+    (
+        bytes
+        | bytearray
+        | str
+        | int
+        | Decimal
+        | bool
+        | set[int]
+        | set[Decimal]
+        | set[str]
+        | set[bytes]
+        | set[bytearray]
+        | Sequence[Any]
+        | Mapping[str, Any]
+        | None
+    ),
 ]
 
 
 @dataclass(frozen=True)
 class _Page:
     response: QueryOutputTableTypeDef
-    last_index: Optional[_LastObjKey]
+    last_index: _LastObjKey | None
 
 
 def _to_group(pag: _Page) -> FrozenList[GroupId]:
@@ -106,7 +105,7 @@ class GroupsClient(_GroupsClient):
         super().__init__(resource.Table(_ORGS_TABLE))
 
     def _get_groups_page(
-        self, org: OrganizationId, last_index: Optional[_LastObjKey]
+        self, org: OrganizationId, last_index: _LastObjKey | None
     ) -> Cmd[_Page]:
         def _action() -> _Page:
             LOG.debug("Getting groups of %s", org)

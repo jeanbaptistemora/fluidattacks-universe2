@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from collections.abc import (
+    Iterator,
+)
 from paginator.pages import (
     PageGetter,
     PageGetterIO,
@@ -17,7 +20,6 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
-    Iterator,
     TypeVar,
 )
 

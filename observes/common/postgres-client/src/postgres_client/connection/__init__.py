@@ -13,7 +13,6 @@ import psycopg2.extensions as postgres_extensions
 from typing import (
     Any,
     NamedTuple,
-    Optional,
 )
 
 
@@ -34,9 +33,7 @@ class Credentials:
 
 
 class Options(NamedTuple):
-    isolation_lvl: Optional[
-        int
-    ] = postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
+    isolation_lvl: int | None = postgres_extensions.ISOLATION_LEVEL_AUTOCOMMIT
 
 
 DbConn = Any

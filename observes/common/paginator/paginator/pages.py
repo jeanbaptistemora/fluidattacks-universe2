@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -17,10 +20,8 @@ from returns.primitives.hkt import (
     SupportsKind2,
 )
 from typing import (
-    Callable,
     NamedTuple,
     TypeVar,
-    Union,
 )
 import warnings
 
@@ -73,6 +74,6 @@ class PageResult(
     total_items: Maybe[int]
 
 
-PageOrAll = Union[AllPages, PageId[_IdType]]
+PageOrAll = AllPages | PageId[_IdType]
 PageGetter = Callable[[PageId[_IdType]], Maybe[_Data]]
 PageGetterIO = Callable[[PageId[_IdType]], IO[Maybe[_Data]]]

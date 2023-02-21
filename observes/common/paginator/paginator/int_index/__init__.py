@@ -7,6 +7,11 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
+from collections.abc import (
+    AsyncGenerator,
+    Callable,
+    Iterator,
+)
 from deprecated import (
     deprecated,
 )
@@ -21,22 +26,15 @@ from paginator.pages import (
     Limits,
 )
 from typing import (
-    AsyncGenerator,
-    Callable,
     cast,
-    Iterator,
-    Optional,
-    Tuple,
-    Type,
     TypeVar,
-    Union,
 )
 import warnings
 
 warnings.warn("module is deprecated use v2", DeprecationWarning, stacklevel=2)
 _Data = TypeVar("_Data")
 ResultPage = TypeVar("ResultPage")
-EPage = Union[ResultPage, EmptyPage]
+EPage = ResultPage | EmptyPage
 PageGetter = Callable[[PageId], EPage[_Data]]
 
 
@@ -45,7 +43,7 @@ def _iter_over_async(
 ) -> Iterator[_Data]:
     ait = ait.__aiter__()  # type: ignore
 
-    async def get_next() -> Tuple[bool, Optional[_Data]]:
+    async def get_next() -> tuple[bool, _Data | None]:
         try:
             obj: _Data = await ait.__anext__()
             return False, obj
@@ -98,7 +96,7 @@ def get_pages(
 # _type is necessary to correctly infer the type var
 @deprecated(reason="Use IntIndexGetter from v2")
 def get_until_end(
-    _type: Type[_Data],
+    _type: type[_Data],
     start: PageId,
     getter: PageGetter[_Data],
     pages_chunk: int,
@@ -119,7 +117,7 @@ def get_until_end(
 
 @deprecated(reason="Use IntIndexGetter from v2")
 def build_getter(
-    _type: Type[ResultPage],
+    _type: type[ResultPage],
     get_page: Callable[[PageId], ResultPage],
     is_empty: Callable[[ResultPage], bool],
 ) -> PageGetter[ResultPage]:

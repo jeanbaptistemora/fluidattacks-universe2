@@ -9,6 +9,10 @@ import asyncio
 from asyncio.events import (
     AbstractEventLoop,
 )
+from collections.abc import (
+    AsyncGenerator,
+    Iterator,
+)
 from deprecated import (
     deprecated,
 )
@@ -22,12 +26,8 @@ from returns.maybe import (
     Maybe,
 )
 from typing import (
-    AsyncGenerator,
     cast,
-    Iterator,
     NamedTuple,
-    Optional,
-    Tuple,
     TypeVar,
 )
 import warnings
@@ -43,7 +43,7 @@ def _iter_over_async(
 ) -> Iterator[_Data]:
     ait = ait.__aiter__()  # type: ignore
 
-    async def get_next() -> Tuple[bool, Optional[_Data]]:
+    async def get_next() -> tuple[bool, _Data | None]:
         try:
             obj: _Data = await ait.__anext__()
             return False, obj

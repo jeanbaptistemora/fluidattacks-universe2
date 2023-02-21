@@ -1,6 +1,9 @@
 from ._core import (
     OrganizationId,
 )
+from collections.abc import (
+    Iterable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -34,8 +37,6 @@ from mypy_boto3_dynamodb.type_defs import (
 )
 from typing import (
     Any,
-    Dict,
-    Iterable,
     TypeVar,
 )
 
@@ -48,7 +49,7 @@ def _mark_impure(item: _T) -> Cmd[_T]:
     return Cmd.from_cmd(lambda: item)
 
 
-def _assert_dict(item: _T) -> Dict[Any, Any]:  # type: ignore[misc]
+def _assert_dict(item: _T) -> dict[Any, Any]:  # type: ignore[misc]
     if isinstance(item, dict):
         return item
     raise Exception(f"Expected `dict` instance; got `{type(item)}`")
@@ -73,7 +74,7 @@ class OrgsClient:
     def all_orgs(self) -> Stream[OrganizationId]:
         def _new_iter() -> Iterable[Cmd[ScanOutputTableTypeDef]]:
             LOG.debug("Getting all orgs")
-            exp_attrs_values: Dict[str, Dict[str, str]] = {
+            exp_attrs_values: dict[str, dict[str, str]] = {
                 ":pk": {"S": "ORG#all"},
                 ":sk": {"S": "ORG#"},
             }

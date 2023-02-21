@@ -15,9 +15,7 @@ from returns.primitives.types import (
 )
 from typing import (
     Any,
-    Dict,
     NamedTuple,
-    Optional,
 )
 
 LOG = logging.getLogger(__name__)
@@ -40,7 +38,7 @@ class RedshiftDataType(Enum):
     TIMETZ = "TIMETZ"
 
 
-ALIAS_MAP: Dict[str, RedshiftDataType] = {
+ALIAS_MAP: dict[str, RedshiftDataType] = {
     "INT2": RedshiftDataType.SMALLINT,
     "INT": RedshiftDataType.INTEGER,
     "INT4": RedshiftDataType.INTEGER,
@@ -88,25 +86,25 @@ class PrecisionRequired(Exception):
 
 class _ColumnType(NamedTuple):
     field_type: RedshiftDataType
-    precision: Optional[int]
-    scale: Optional[int]
-    default_val: Optional[str]
+    precision: int | None
+    scale: int | None
+    default_val: str | None
     nullable: bool
 
 
 class ColumnType(Immutable):
     field_type: RedshiftDataType
-    precision: Optional[int]
-    scale: Optional[int]
-    default_val: Optional[str]
+    precision: int | None
+    scale: int | None
+    default_val: str | None
     nullable: bool
 
     def __new__(
         cls,
         field_type: RedshiftDataType,
-        precision: Optional[int] = None,
-        scale: Optional[int] = None,
-        default_val: Optional[str] = None,
+        precision: int | None = None,
+        scale: int | None = None,
+        default_val: str | None = None,
         nullable: bool = True,
     ) -> ColumnType:
         _precision = Maybe.from_optional(precision).or_else_call(

@@ -22,7 +22,6 @@ from returns.result import (
 from typing import (
     overload,
     TypeVar,
-    Union,
 )
 
 _T = TypeVar("_T")
@@ -43,8 +42,8 @@ def to_returns(item: Result[_S, _F]) -> LegacyResult[_S, _F]:
 
 
 def to_returns(
-    item: Union[Result[_S, _F], Maybe[_T]]
-) -> Union[LegacyResult[_S, _F], LegacyMaybe[_T]]:
+    item: Result[_S, _F] | Maybe[_T]
+) -> LegacyResult[_S, _F] | LegacyMaybe[_T]:
     if isinstance(item, Result):
         return (
             item.map(lambda x: Success(x))

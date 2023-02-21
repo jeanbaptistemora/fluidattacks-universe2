@@ -18,15 +18,13 @@ from returns.primitives.types import (
     Immutable,
 )
 from typing import (
-    Dict,
     NamedTuple,
-    Optional,
 )
 
 
 class SqlArgs(NamedTuple):
-    values: Dict[str, Optional[str]] = {}
-    identifiers: Dict[str, Optional[str]] = {}
+    values: dict[str, str | None] = {}
+    identifiers: dict[str, str | None] = {}
 
 
 def sql_id_purifier(statement: str, args: Maybe[SqlArgs] = Maybe.empty) -> str:
@@ -51,7 +49,7 @@ class Query(Immutable):
     query: str
     args: Maybe[SqlArgs]
 
-    def __new__(cls, query: str, args: Optional[SqlArgs] = None) -> Query:
+    def __new__(cls, query: str, args: SqlArgs | None = None) -> Query:
         self = object.__new__(cls)
         _args = Maybe.from_optional(args)
         obj = _Query(query=sql_id_purifier(query, _args), args=_args)

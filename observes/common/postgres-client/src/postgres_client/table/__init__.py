@@ -4,6 +4,9 @@ from __future__ import (
     annotations,
 )
 
+from collections.abc import (
+    Iterator,
+)
 from postgres_client.column import (
     Column,
     ColumnType,
@@ -40,11 +43,8 @@ from returns.unsafe import (
 )
 from typing import (
     Any,
-    FrozenSet,
-    Iterator,
     Literal,
     NamedTuple,
-    Tuple,
 )
 
 IOResultBool = IOResult[Literal[True], Literal[False]]
@@ -60,7 +60,7 @@ def _exist(cursor: Cursor, table_id: TableID) -> IOResultBool:
     return IOFailure(False)
 
 
-def _raw_to_coulmn(raw: Tuple[Any, ...]) -> Column:
+def _raw_to_coulmn(raw: tuple[Any, ...]) -> Column:
     data_type = to_rs_datatype(str(raw[2]).upper())
     requires_precision = data_type in DEFAULT_PRECISION
     requires_scale = data_type in DEFAULT_SCALE
@@ -81,7 +81,7 @@ def _retrieve(cursor: Cursor, table_id: TableID) -> IO[MetaTable]:
     cursor.execute_query(query)
     results = cursor.fetch_all()
 
-    def _extract(raw: Iterator[Tuple[Any, ...]]) -> MetaTable:
+    def _extract(raw: Iterator[tuple[Any, ...]]) -> MetaTable:
         columns = frozenset(_raw_to_coulmn(column) for column in raw)
         return MetaTable.new(table_id, frozenset(), columns)
 
@@ -110,7 +110,7 @@ class Table(Immutable):
     def __str__(self) -> str:
         return "Table(data={}, redshift={})".format(self.table, self.redshift)
 
-    def add_columns(self, columns: FrozenSet[Column]) -> IO[None]:
+    def add_columns(self, columns: frozenset[Column]) -> IO[None]:
         _queries = queries.add_columns(self.table, columns)
         self.cursor.execute_queries(_queries)
         return IO(None)

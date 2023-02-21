@@ -1,5 +1,8 @@
 # pylint: skip-file
 
+from collections.abc import (
+    Callable,
+)
 from dataclasses import (
     dataclass,
 )
@@ -16,7 +19,6 @@ from returns.primitives.hkt import (
     SupportsKind2,
 )
 from typing import (
-    Callable,
     TypeVar,
 )
 
