@@ -112,6 +112,16 @@ describe("groupToeLinesView", (): void => {
     },
   };
 
+  const mockedPermissions = new PureAbility<string>([
+    { action: "api_resolvers_toe_lines_attacked_at_resolve" },
+    { action: "api_resolvers_toe_lines_attacked_by_resolve" },
+    { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
+    { action: "api_resolvers_toe_lines_be_present_until_resolve" },
+    { action: "api_resolvers_toe_lines_comments_resolve" },
+    { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
+    { action: "see_toe_lines_coverage" },
+  ]);
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof GroupToeLinesView).toBe("function");
@@ -120,16 +130,6 @@ describe("groupToeLinesView", (): void => {
   it("should display group toe lines", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-      // { action: "api_mutations_update_toe_lines_attacked_lines_mutate" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
@@ -234,7 +234,7 @@ describe("groupToeLinesView", (): void => {
         result: { data: { updateToeLinesAttackedLines: { success: true } } },
       },
     ];
-    const mockedPermissions = new PureAbility<string>([
+    const handleMockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
@@ -249,7 +249,7 @@ describe("groupToeLinesView", (): void => {
           addTypename={true}
           mocks={[mockedToeLines, ...mocksMutation]}
         >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={handleMockedPermissions}>
             <Route path={"/:groupName/surface/lines"}>
               <GroupToeLinesView isInternal={true} />
             </Route>
@@ -340,7 +340,7 @@ describe("groupToeLinesView", (): void => {
         },
       },
     ];
-    const mockedPermissions = new PureAbility<string>([
+    const handleMockedPermissions = new PureAbility<string>([
       { action: "api_resolvers_toe_lines_attacked_at_resolve" },
       { action: "api_resolvers_toe_lines_attacked_by_resolve" },
       { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
@@ -355,7 +355,7 @@ describe("groupToeLinesView", (): void => {
           addTypename={true}
           mocks={[mockedToeLines, ...mocksMutation]}
         >
-          <authzPermissionsContext.Provider value={mockedPermissions}>
+          <authzPermissionsContext.Provider value={handleMockedPermissions}>
             <Route path={"/:groupName/surface/lines"}>
               <GroupToeLinesView isInternal={true} />
             </Route>
@@ -391,15 +391,6 @@ describe("groupToeLinesView", (): void => {
 
     jest.clearAllMocks();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
@@ -464,15 +455,6 @@ describe("groupToeLinesView", (): void => {
   it("should filter by filename", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
@@ -508,15 +490,6 @@ describe("groupToeLinesView", (): void => {
   it("should filter by loc", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
@@ -552,15 +525,6 @@ describe("groupToeLinesView", (): void => {
   it("should filter by modified date", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
@@ -605,15 +569,6 @@ describe("groupToeLinesView", (): void => {
   it("should filter by last commit", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_resolvers_toe_lines_attacked_at_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_by_resolve" },
-      { action: "api_resolvers_toe_lines_attacked_lines_resolve" },
-      { action: "api_resolvers_toe_lines_be_present_until_resolve" },
-      { action: "api_resolvers_toe_lines_comments_resolve" },
-      { action: "api_resolvers_toe_lines_first_attack_at_resolve" },
-      { action: "see_toe_lines_coverage" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
         <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
