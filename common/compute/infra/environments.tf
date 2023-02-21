@@ -224,7 +224,7 @@ resource "aws_batch_compute_environment" "main" {
   compute_environment_name_prefix = "${each.key}_"
 
   service_role = data.aws_iam_role.main["prod_common"].arn
-  state        = "ENABLED"
+  state        = each.value.product != "skims" ? "ENABLED" : "DISABLED"
   type         = "MANAGED"
 
   compute_resources {
