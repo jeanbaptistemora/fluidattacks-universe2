@@ -5,6 +5,7 @@ locals {
         version  = "15.4.0"
         replicas = 4
         tags     = ["small"]
+        ami      = "ami-0f5ea7c2783b14c09"
       }
       workers = {
         instance  = "c5ad.large"
@@ -18,6 +19,7 @@ locals {
           count = 5
           time  = 1800
         }
+        ami = "ami-03a80f322a6053f85"
       }
     }
     large = {
@@ -25,6 +27,7 @@ locals {
         version  = "15.4.0"
         replicas = 1
         tags     = ["large"]
+        ami      = "ami-0f5ea7c2783b14c09"
       }
       workers = {
         instance  = "m5d.large"
@@ -38,6 +41,7 @@ locals {
           count = 5
           time  = 1800
         }
+        ami = "ami-03a80f322a6053f85"
       }
     }
   }
@@ -62,7 +66,7 @@ module "runners" {
   enable_manage_gitlab_token             = true
   enable_cloudwatch_logging              = false
   ami_filter = {
-    "name" = ["amzn2-ami-hvm-2.0.20210721.2-x86_64-ebs"]
+    image-id = [each.value.runner.ami]
   }
 
   # Cache
@@ -82,8 +86,7 @@ module "runners" {
   runner_instance_enable_monitoring = true
   userdata_pre_install              = data.local_file.init_runner.content
   runner_ami_filter = {
-    "name"     = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-20210907"]
-    "image-id" = ["ami-03a80f322a6053f85"]
+    image-id = [each.value.workers.ami]
   }
   runner_root_block_device = {
     delete_on_termination = true
