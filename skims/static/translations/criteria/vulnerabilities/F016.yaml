@@ -62,3 +62,6 @@ lib_path.f016.aws_elb_without_sslpolicy:
 lib_path.f016.elbv2_uses_insecure_ssl_protocol:
   en: Listeners uses unsafe SSL protocol
   es: Listeners usan protocolos SSL inseguros
+lib_path.f016.elbv2_uses_insecure_ssl_cipher:
+  en: ELB Load Balancers allows insecure SSL ciphers
+  es: Balanceadores de carga ELB permiten cifrados SSL inseguros
