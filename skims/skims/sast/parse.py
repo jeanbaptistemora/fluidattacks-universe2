@@ -184,6 +184,10 @@ def _is_final_node(node: Node, language: GraphShardMetadataLanguage) -> bool:
             language == GraphShardMetadataLanguage.KOTLIN
             and node.type in {"boolean_literal", "line_string_literal"}
         )
+        or (
+            language == GraphShardMetadataLanguage.PYTHON
+            and node.type in {"string", "integer", "float", "true", "false"}
+        )
     )
 
 
