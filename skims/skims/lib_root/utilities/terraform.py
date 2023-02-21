@@ -21,6 +21,42 @@ from utils.graph import (
 )
 
 
+def get_list_from_node(graph: Graph, nid: NId) -> list:
+    if graph.nodes[nid]["label_type"] == "ArrayInitializer":
+        child_ids = adj_ast(graph, nid)
+        result: list = []
+        for c_id in child_ids:
+            result.append(graph.nodes[c_id].get("value"))
+        return result
+    return [graph.nodes[nid].get("value")]
+
+
+def get_principals(graph: Graph, stmt: NId) -> str:
+    principal = get_argument(graph, stmt, "principals")
+    if principal:
+        types, type_val, _ = get_attribute(graph, principal, "type")
+        identifier, _, identifier_id = get_attribute(
+            graph, principal, "identifiers"
+        )
+        identifier_list = get_list_from_node(
+            graph, graph.nodes[identifier_id]["value_id"]
+        )
+        if not identifier or not types:
+            return ""
+        if type_val == "*" and "*" in identifier_list:
+            return "*"
+    return ""
+
+
+def iter_statements_from_policy_document(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    for block_id in adj_ast(graph, nid, label_type="Object"):
+        name = graph.nodes[block_id].get("name")
+        if name == "statement":
+            yield block_id
+
+
 def get_attr_inside_attrs(
     graph: Graph, nid: NId, attrs: list
 ) -> tuple[str | None, str, NId]:

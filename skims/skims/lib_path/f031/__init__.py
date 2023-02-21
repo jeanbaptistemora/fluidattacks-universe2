@@ -16,7 +16,6 @@ from lib_path.f031.cloudformation import (
 from lib_path.f031.terraform import (
     terraform_negative_statement,
     terraform_open_passrole,
-    tfm_bucket_policy_allows_public_access,
     tfm_iam_excessive_role_policy,
     tfm_iam_has_full_access_to_ssm,
 )
@@ -85,15 +84,6 @@ def run_cfn_iam_has_full_access_to_ssm(
 ) -> Vulnerabilities:
     return cfn_iam_has_full_access_to_ssm(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_bucket_policy_allows_public_access(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_bucket_policy_allows_public_access(
-        content=content, path=path, model=model
     )
 
 
@@ -178,7 +168,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_tfm_bucket_policy_allows_public_access,
                     run_tfm_iam_excessive_role_policy,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,

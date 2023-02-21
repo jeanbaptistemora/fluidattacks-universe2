@@ -29,7 +29,7 @@ from utils.graph import (
 )
 
 
-def _kms_key_has_master_keys_exposed_to_everyone_in_jsonencode(
+def _kms_key_has_master_keys_exposed_to_everyone_in_json(
     graph: Graph, nid: NId
 ) -> Iterator[NId]:
     child_id = graph.nodes[nid]["arguments_id"]
@@ -47,27 +47,33 @@ def _kms_key_has_master_keys_exposed_to_everyone_in_jsonencode(
                 yield aws_id
 
 
+def _aux_kms_key_exposed_to_everyone(
+    attr_val: str, attr_id: NId
+) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        aws = get_dict_values(stmt, "Principal", "AWS")
+        if effect == "Allow" and aws and aws == "*":
+            yield attr_id
+
+
 def _kms_key_has_master_keys_exposed_to_everyone(
     graph: Graph, nid: NId
 ) -> Iterator[NId]:
     attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
-    value_id = graph.nodes[attr_id]["value_id"]
-    if attr and graph.nodes[value_id]["label_type"] == "Literal":
-        dict_value = json.loads(attr_val)
-        statements = get_dict_values(dict_value, "Statement")
-        for stmt in statements if isinstance(statements, list) else []:
-            effect = stmt.get("Effect")
-            aws = get_dict_values(stmt, "Principal", "AWS")
-            if effect == "Allow" and aws and aws == "*":
-                yield attr_id
-    elif (
-        attr
-        and graph.nodes[value_id]["label_type"] == "MethodInvocation"
-        and graph.nodes[value_id]["expression"] == "jsonencode"
-    ):
-        yield from _kms_key_has_master_keys_exposed_to_everyone_in_jsonencode(
-            graph, value_id
-        )
+    if attr:
+        value_id = graph.nodes[attr_id]["value_id"]
+        if graph.nodes[value_id]["label_type"] == "Literal":
+            yield from _aux_kms_key_exposed_to_everyone(attr_val, attr_id)
+        elif (
+            graph.nodes[value_id]["label_type"] == "MethodInvocation"
+            and graph.nodes[value_id]["expression"] == "jsonencode"
+        ):
+            yield from _kms_key_has_master_keys_exposed_to_everyone_in_json(
+                graph, value_id
+            )
 
 
 def tfm_kms_key_has_master_keys_exposed_to_everyone(

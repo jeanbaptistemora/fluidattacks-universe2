@@ -864,7 +864,7 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_bucket_policy_allows_publ
   129 |           ]
       ^ Col 0
 ",cloudformation.cfn_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,5,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,"
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,5,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,"
    1 | resource ""aws_iam_role_policy"" ""test_policy"" {
    2 |   name = ""test_policy""
    3 |   role = aws_iam_role.test_role.id
@@ -888,28 +888,52 @@ F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_publ
   21 |           ""ec2:Something""
      ^ Col 0
 ",terraform.tfm_bucket_policy_allows_public_access
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,54,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_path/f031/tfm_bucket_policy_allows_public_access.tf,"
-  44 |       ""ec2:*"",
-  45 |       ""autoscaling:*"",
-  46 |       ""eks:*""
-  47 |     ]
-  48 |
-  49 |     resources = [
-  50 |       ""*"",
-  51 |     ]
-  52 |   }
-  53 |
-> 54 |   statement {
-  55 |     sid    = ""Enable IAM User Permissions""
-  56 |     effect = ""Allow""
-  57 |     principals {
-  58 |       type        = ""*""
-  59 |       identifiers = [""*""]
-  60 |     }
-  61 |     actions = [
-  62 |       ""s3:GetObject"",
-  63 |       ""s3:ListBucket"",
-  64 |       ""s3:DeleteObjectVersion"",
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,47,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,"
+  37 |   }
+  38 |   EOF
+  39 | }
+  40 |
+  41 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+  42 |   name = ""vuln_role_1""
+  43 |
+  44 |   policy = jsonencode({
+  45 |     Version = ""2012-10-17""
+  46 |     Statement = [
+> 47 |       {
+  48 |         Action = [
+  49 |           ""ec2:*"",
+  50 |           ""s3:DeleteObjectVersion"",
+  51 |           ""eks:*""
+  52 |         ],
+  53 |         Effect    = ""Allow""
+  54 |         Principal = ""*""
+  55 |         Resource  = ""*""
+  56 |       },
+  57 |     ]
+     ^ Col 0
+",terraform.tfm_bucket_policy_allows_public_access
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,74,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_public_access.tf,"
+  64 |       ""ec2:*"",
+  65 |       ""autoscaling:*"",
+  66 |       ""eks:*""
+  67 |     ]
+  68 |
+  69 |     resources = [
+  70 |       ""*"",
+  71 |     ]
+  72 |   }
+  73 |
+> 74 |   statement {
+  75 |     sid    = ""Enable IAM User Permissions""
+  76 |     effect = ""Allow""
+  77 |     principals {
+  78 |       type        = ""*""
+  79 |       identifiers = [""*""]
+  80 |     }
+  81 |     actions = [
+  82 |       ""s3:GetObject"",
+  83 |       ""s3:ListBucket"",
+  84 |       ""s3:DeleteObjectVersion"",
      ^ Col 0
 ",terraform.tfm_bucket_policy_allows_public_access
 F031,inputs,arn:aws:s3:::bucket-018de572ae43404d8 (namespace),/Grants/0/Permission: FULL_CONTROL,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"

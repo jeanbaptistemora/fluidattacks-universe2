@@ -44,23 +44,29 @@ def _iam_role_is_over_privileged_in_jsonencode(
                 yield np_id
 
 
+def _aux_iam_role_is_over_priv(attr_val: str, attr_id: NId) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        not_principal = get_dict_values(stmt, "NotPrincipal")
+        if effect == "Allow" and not_principal:
+            yield attr_id
+
+
 def _iam_role_is_over_privileged(graph: Graph, nid: NId) -> Iterator[NId]:
     attr, attr_val, attr_id = get_attribute(graph, nid, "assume_role_policy")
-    value_id = graph.nodes[attr_id]["value_id"]
-    if attr and graph.nodes[value_id]["label_type"] == "Literal":
-        dict_value = json.loads(attr_val)
-        statements = get_dict_values(dict_value, "Statement")
-        for stmt in statements if isinstance(statements, list) else []:
-            effect = stmt.get("Effect")
-            not_principal = get_dict_values(stmt, "NotPrincipal")
-            if effect == "Allow" and not_principal:
-                yield attr_id
-    elif (
-        attr
-        and graph.nodes[value_id]["label_type"] == "MethodInvocation"
-        and graph.nodes[value_id]["expression"] == "jsonencode"
-    ):
-        yield from _iam_role_is_over_privileged_in_jsonencode(graph, value_id)
+    if attr:
+        value_id = graph.nodes[attr_id]["value_id"]
+        if graph.nodes[value_id]["label_type"] == "Literal":
+            yield from _aux_iam_role_is_over_priv(attr_val, attr_id)
+        elif (
+            graph.nodes[value_id]["label_type"] == "MethodInvocation"
+            and graph.nodes[value_id]["expression"] == "jsonencode"
+        ):
+            yield from _iam_role_is_over_privileged_in_jsonencode(
+                graph, value_id
+            )
 
 
 def tfm_iam_role_is_over_privileged(

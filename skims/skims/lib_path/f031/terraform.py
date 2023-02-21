@@ -10,7 +10,6 @@ from lib_path.common import (
     get_vulnerabilities_from_iterator_blocking,
 )
 from lib_path.f031.utils import (
-    bucket_policy_allows_public_access_iterate_vulnerabilities,
     negative_statement_iterate_vulnerabilities,
     open_passrole_iterate_vulnerabilities,
 )
@@ -133,24 +132,6 @@ def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
         actions = stmt_raw.get("Action", [])
         if effect == "Allow" and action_has_full_access_to_ssm(actions):
             yield stmt
-
-
-def tfm_bucket_policy_allows_public_access(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f031.bucket_policy_allows_public_access",
-        iterator=get_cloud_iterator(
-            bucket_policy_allows_public_access_iterate_vulnerabilities(
-                statements_iterator=(
-                    terraform_iterate_iam_policy_documents(model=model)
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_BUCKET_ALLOWS_PUBLIC,
-    )
 
 
 def terraform_negative_statement(
