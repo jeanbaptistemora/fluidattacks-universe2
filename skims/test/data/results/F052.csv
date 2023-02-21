@@ -2855,3 +2855,123 @@ F052,lines,namespace/skims/test/data/lib_root/f052/java_insecure_ciphers.java,36
   46 | Hashing.sha256().hashString(password,StandardCharsets.UTF_8).toString();
      ^ Col 8
 ",java.java_insecure_pass
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,9,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,"
+  1 | const hmacSHA1 = require(""crypto-js/hmac-sha1"");
+  2 | const hmacSHA256 = require(""crypto-js/hmac-sha256"");
+  3 |
+  4 | const key = ""AnyKey"";
+  5 | const message = ""SensibleData"";
+  6 |
+  7 | // Lines 8 and 9 should be marked
+  8 | const hmacSHA1Result = hmacSHA1(message, key);
+> 9 | const hmacSHA256Result = hmacSHA256(message, key);
+    ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,8,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insec_auth_direct_imp.js,"
+  1 | const hmacSHA1 = require(""crypto-js/hmac-sha1"");
+  2 | const hmacSHA256 = require(""crypto-js/hmac-sha256"");
+  3 |
+  4 | const key = ""AnyKey"";
+  5 | const message = ""SensibleData"";
+  6 |
+  7 | // Lines 8 and 9 should be marked
+> 8 | const hmacSHA1Result = hmacSHA1(message, key);
+  9 | const hmacSHA256Result = hmacSHA256(message, key);
+    ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_auth_algorithm.js,10,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insecure_auth_algorithm.js,"
+   1 | const CryptoJSAlias = require(""crypto-js"");
+   2 |
+   3 | const key = ""AnyKey"";
+   4 | const message = ""SensibleData"";
+   5 |
+   6 | // Line 7 must be marked.
+   7 | const hmacSHA1 = CryptoJSAlias.HmacSHA1(message, key);
+   8 |
+   9 | // Line 10 must be marked.
+> 10 | const hmacSHA256 = CryptoJSAlias.HmacSHA256(message, key);
+  11 |
+  12 | //Safe lines: None of following lines should be marked:
+  13 |
+  14 | const hmacSHA512 = CryptoJSAlias.HmacSHA512(message, key);
+  15 | const hmacSHA = CryptoJSAlias.Hmac(message, key);
+     ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_auth_algorithm.js,7,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/js_insecure_auth_algorithm.js,"
+   1 | const CryptoJSAlias = require(""crypto-js"");
+   2 |
+   3 | const key = ""AnyKey"";
+   4 | const message = ""SensibleData"";
+   5 |
+   6 | // Line 7 must be marked.
+>  7 | const hmacSHA1 = CryptoJSAlias.HmacSHA1(message, key);
+   8 |
+   9 | // Line 10 must be marked.
+  10 | const hmacSHA256 = CryptoJSAlias.HmacSHA256(message, key);
+  11 |
+  12 | //Safe lines: None of following lines should be marked:
+  13 |
+  14 | const hmacSHA512 = CryptoJSAlias.HmacSHA512(message, key);
+  15 | const hmacSHA = CryptoJSAlias.Hmac(message, key);
+     ^ Col 0
+",javascript.javascript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,9,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,"
+  1 |  'crypto-js/hmac-sha1';
+  2 | om 'crypto-js/hmac-sha256';
+  3 |
+  4 | ""AnyKey"";
+  5 | g = ""SensibleData"";
+  6 |
+  7 | uld be marked
+  8 | : CryptoJS.lib.WordArray = hmacSHA1(message, key);
+> 9 | lt: CryptoJS.lib.WordArray = hmacSHA256(message, key);
+    ^ Col 20
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,8,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_direct_imp.ts,"
+  1 | om 'crypto-js/hmac-sha1';
+  2 | from 'crypto-js/hmac-sha256';
+  3 |
+  4 | = ""AnyKey"";
+  5 | ing = ""SensibleData"";
+  6 |
+  7 | hould be marked
+> 8 | lt: CryptoJS.lib.WordArray = hmacSHA1(message, key);
+  9 | sult: CryptoJS.lib.WordArray = hmacSHA256(message, key);
+    ^ Col 18
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_namespace_imp.ts,10,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_namespace_imp.ts,"
+   1 | SAlias from 'crypto-js';
+   2 |
+   3 |  ""AnyKey"";
+   4 | ng = ""SensibleData"";
+   5 |
+   6 | arked.
+   7 | ptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA1(message, key);
+   8 |
+   9 | marked.
+> 10 | ryptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA256(message, key);
+  11 |
+  12 | of following lines should be marked:
+  13 |
+  14 | ryptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA512(message, key);
+  15 | toJSAlias.lib.WordArray = CryptoJSAlias.Hmac(message, key);
+     ^ Col 19
+",typescript.typescript_insec_msg_auth_mechanism
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_auth_namespace_imp.ts,7,310,skims,052. Insecure encryption algorithm,Using vulnerable message authentication mechanisms could lead to brute force attacks. in namespace/skims/test/data/lib_root/f052/ts_insec_auth_namespace_imp.ts,"
+   1 | oJSAlias from 'crypto-js';
+   2 |
+   3 |  = ""AnyKey"";
+   4 | ring = ""SensibleData"";
+   5 |
+   6 |  marked.
+>  7 | ryptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA1(message, key);
+   8 |
+   9 | e marked.
+  10 |  CryptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA256(message, key);
+  11 |
+  12 | e of following lines should be marked:
+  13 |
+  14 |  CryptoJSAlias.lib.WordArray = CryptoJSAlias.HmacSHA512(message, key);
+  15 | yptoJSAlias.lib.WordArray = CryptoJSAlias.Hmac(message, key);
+     ^ Col 17
+",typescript.typescript_insec_msg_auth_mechanism

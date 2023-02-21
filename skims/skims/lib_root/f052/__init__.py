@@ -24,6 +24,7 @@ from lib_root.f052.java import (
     java_insecure_pass,
 )
 from lib_root.f052.javascript import (
+    javascript_insec_msg_auth_mechanism,
     javascript_insecure_create_cipher,
     javascript_insecure_ec_keypair,
     javascript_insecure_ecdh_key,
@@ -46,6 +47,7 @@ from lib_root.f052.typescript import (
     ts_insecure_create_cipher,
     ts_insecure_encrypt,
     ts_insecure_hash,
+    typescript_insec_msg_auth_mechanism,
     typescript_insecure_ec_keypair,
     typescript_insecure_ecdh_key,
     typescript_insecure_hash_library,
@@ -101,4 +103,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, typescript_insecure_ecdh_key),
     (FINDING, javascript_jwt_insec_sign_algorithm),
     (FINDING, typescript_jwt_insec_sign_algorithm),
+    (FINDING, javascript_insec_msg_auth_mechanism),
+    (FINDING, typescript_insec_msg_auth_mechanism),
 )
