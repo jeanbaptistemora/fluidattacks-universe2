@@ -18,6 +18,12 @@ JS_TS_HTTP_INPUTS: set[str] = {
 }
 
 
+PYTHON_INPUTS: set[str] = {
+    "request.GET",
+    "req.GET",
+}
+
+
 INSECURE_ALGOS = {
     "none",
     "blowfish",
@@ -44,3 +50,9 @@ def check_js_ts_http_inputs(args: SymbolicEvalArgs) -> bool:
     n_attrs = args.graph.nodes[args.n_id]
     member_access = f'{n_attrs["member"]}.{n_attrs["expression"]}'
     return member_access in JS_TS_HTTP_INPUTS
+
+
+def check_python_inputs(args: SymbolicEvalArgs) -> bool:
+    ma_attr = args.graph.nodes[args.n_id]
+    member_access = f'{ma_attr["expression"]}.{ma_attr["member"]}'
+    return member_access in PYTHON_INPUTS

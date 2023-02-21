@@ -25,6 +25,56 @@ F280,lines,namespace/skims/test/data/lib_root/f280/js_insecure_construction_of_c
   9 |   };
     ^ Col 0
 ",javascript.javascript_non_secure_construction_of_cookies
+F280,lines,namespace/skims/test/data/lib_root/f280/python_session_fixation.py,11,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/python_session_fixation.py","
+   1 | # pylint: skip-file
+   2 | from testdjango.http import (  # noqa
+   3 |     HttpRequest,
+   4 |     HttpResponse,
+   5 | )
+   6 |
+   7 |
+   8 | def unsafe_values(request: HttpRequest) -> HttpResponse:
+   9 |     value = request.GET.get(""value"")
+  10 |     response = HttpResponse("""")
+> 11 |     response[""Set-Cookie""] = value  # Noncompliant
+  12 |     response.set_cookie(""sessionid"", value)  # Noncompliant
+  13 |     return response
+  14 |
+  15 |
+  16 | def safe_values(request: HttpRequest, cookie: str) -> HttpResponse:
+  17 |     value = request.GET.get(""value"")
+  18 |     response = HttpResponse("""")
+  19 |     response[""X-Data""] = value
+  20 |     response[""Set-Cookie""] = cookie
+  21 |     response.set_cookie(""data"", value)
+     ^ Col 0
+",python.python_session_fixation
+F280,lines,namespace/skims/test/data/lib_root/f280/python_session_fixation.py,12,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
+ in namespace/skims/test/data/lib_root/f280/python_session_fixation.py","
+   2 | from testdjango.http import (  # noqa
+   3 |     HttpRequest,
+   4 |     HttpResponse,
+   5 | )
+   6 |
+   7 |
+   8 | def unsafe_values(request: HttpRequest) -> HttpResponse:
+   9 |     value = request.GET.get(""value"")
+  10 |     response = HttpResponse("""")
+  11 |     response[""Set-Cookie""] = value  # Noncompliant
+> 12 |     response.set_cookie(""sessionid"", value)  # Noncompliant
+  13 |     return response
+  14 |
+  15 |
+  16 | def safe_values(request: HttpRequest, cookie: str) -> HttpResponse:
+  17 |     value = request.GET.get(""value"")
+  18 |     response = HttpResponse("""")
+  19 |     response[""X-Data""] = value
+  20 |     response[""Set-Cookie""] = cookie
+  21 |     response.set_cookie(""data"", value)
+  22 |     response.set_cookie(""sessionid"", cookie)
+     ^ Col 0
+",python.python_session_fixation
 F280,lines,namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts,7,384,skims,280. Session Fixation,"The variables used to create cookies or to set headers are not properly sanitized.
  in namespace/skims/test/data/lib_root/f280/ts_insecure_construction_of_cookies.ts","
    1 | declare var module: any;

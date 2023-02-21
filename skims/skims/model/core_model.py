@@ -1693,6 +1693,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JULIAN_GOMEZ,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_SESSION_FIXATION = MethodInfo(
+        file_name="python",
+        name="python_session_fixation",
+        module="lib_root",
+        finding=FindingEnum.F280,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     JS_SALT_IS_HARDCODED = MethodInfo(
         file_name="javascript",
         name="js_salt_is_harcoded",

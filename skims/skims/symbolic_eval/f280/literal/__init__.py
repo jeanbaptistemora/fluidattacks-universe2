@@ -1,10 +1,7 @@
 from model.core_model import (
     MethodsEnum,
 )
-from symbolic_eval.f280.member_access.common import (
-    is_user_input,
-)
-from symbolic_eval.f280.member_access.python import (
+from symbolic_eval.f280.literal.python import (
     xml_parser,
 )
 from symbolic_eval.types import (
@@ -14,9 +11,7 @@ from symbolic_eval.types import (
 )
 
 METHOD_EVALUATORS: dict[MethodsEnum, Evaluator] = {
-    MethodsEnum.JS_NON_SECURE_CONSTRUCTION_OF_COOKIES: is_user_input,
     MethodsEnum.PYTHON_SESSION_FIXATION: xml_parser,
-    MethodsEnum.TS_NON_SECURE_CONSTRUCTION_OF_COOKIES: is_user_input,
 }
 
 
