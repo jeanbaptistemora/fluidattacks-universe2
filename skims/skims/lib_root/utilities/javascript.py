@@ -51,14 +51,20 @@ def file_imports_module(graph: Graph, module_name: str) -> bool:
 
 
 def get_namespace_alias(graph: Graph, module_name: str) -> str | None:
-    if (
-        namespace_import_n_ids := g.matching_nodes(
-            graph,
-            label_type="Import",
-            import_type="namespace_import",
-            expression='"' + module_name + '"',
+    def predicate_matcher(node: Dict[str, str]) -> bool:
+        return bool(
+            (node.get("label_type") == "Import")
+            and (node.get("import_type") == "namespace_import")
+            and (n_exp := node.get("expression"))
+            and (n_exp[1:-1] == module_name)
         )
-    ) and (alias := graph.nodes[namespace_import_n_ids[0]].get("identifier")):
+
+    nodes = graph.nodes
+    if (
+        import_n_id := next(
+            iter(g.filter_nodes(graph, nodes, predicate_matcher)), None
+        )
+    ) and (alias := nodes[import_n_id].get("identifier")):
         return alias
     return None
 
@@ -73,7 +79,7 @@ def get_default_alias(graph: Graph, module_name: str) -> str | None:
 
     nodes = graph.nodes
 
-    for n_id in g.filter_nodes(graph, graph.nodes, predicate_matcher):
+    for n_id in g.filter_nodes(graph, nodes, predicate_matcher):
         if (nodes[n_id].get("import_type") == "default_import") and (
             alias := nodes[n_id].get("identifier")
         ):
