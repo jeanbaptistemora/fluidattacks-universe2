@@ -5866,6 +5866,7 @@
     - owaspapi.API1
     - owaspapi.API5
     - owaspapi.API6
+    - capec.680
   metadata: {}
 "177":
   en:
