@@ -53,7 +53,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -89,7 +88,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -125,7 +123,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",

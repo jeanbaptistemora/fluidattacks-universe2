@@ -276,7 +276,6 @@ async def populate() -> bool:
                     organization_name="wano",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -312,7 +311,6 @@ async def populate() -> bool:
                     organization_name="wano",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,

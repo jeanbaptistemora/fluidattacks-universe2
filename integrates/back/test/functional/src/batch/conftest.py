@@ -453,7 +453,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -491,7 +490,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -529,7 +527,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="4a5dacda-1d52-365c-5158-f6fd5dfe0999",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -566,7 +563,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="1a5dacda-1d52-465c-9158-f6fd5dfe0998",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -602,7 +598,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -640,7 +635,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         branch="master",
                         credential_id="3912827d-2b35-4e08-bd35-1bb24457951d",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by="admin@gmail.com",
@@ -676,7 +670,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="main",
                         credential_id="5a6dacda-2d63-76c-6269-f6fd6dfe1000",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -713,7 +706,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="main",
                         credential_id="6a7dacda-3d64-87c-7370-f7fd7dfe2111",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,

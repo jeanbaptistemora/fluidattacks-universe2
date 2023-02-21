@@ -350,7 +350,6 @@ async def add_git_root(  # pylint: disable=too-many-locals
             credential_id=organization_credential.id
             if organization_credential
             else None,
-            environment_urls=[],
             environment=kwargs["environment"],
             gitignore=gitignore,
             includes_health_check=includes_health_check,
@@ -596,7 +595,8 @@ def _format_root_credential_new(
     )
 
 
-async def update_git_environments(  # pylint: disable=too-many-arguments
+async def update_git_environments(
+    *,
     loaders: Dataloaders,
     user_email: str,
     group_name: str,
@@ -666,28 +666,6 @@ async def update_git_environments(  # pylint: disable=too-many-arguments
                 reason=reason,
             )
         )
-
-    await roots_model.update_root_state(
-        current_value=root.state,
-        group_name=group_name,
-        root_id=root_id,
-        state=GitRootState(
-            branch=root.state.branch,
-            credential_id=root.state.credential_id,
-            environment_urls=environment_urls,
-            environment=root.state.environment,
-            gitignore=root.state.gitignore,
-            includes_health_check=root.state.includes_health_check,
-            modified_by=user_email,
-            modified_date=modified_date,
-            nickname=root.state.nickname,
-            other=other,
-            reason=reason,
-            status=root.state.status,
-            url=root.state.url,
-            use_vpn=root.state.use_vpn,
-        ),
-    )
 
 
 async def _update_git_root_credentials(  # noqa: MC0001
@@ -843,7 +821,6 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         branch=branch,
         credential_id=credential_id,
         environment=kwargs["environment"],
-        environment_urls=root.state.environment_urls,
         gitignore=gitignore,
         includes_health_check=kwargs["includes_health_check"],
         modified_by=user_email,
@@ -1208,7 +1185,6 @@ async def activate_root(
                 state=GitRootState(
                     branch=root.state.branch,
                     credential_id=root.state.credential_id,
-                    environment_urls=root.state.environment_urls,
                     environment=root.state.environment,
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
@@ -1300,7 +1276,6 @@ async def deactivate_root(
                     branch=root.state.branch,
                     credential_id=root.state.credential_id,
                     environment=root.state.environment,
-                    environment_urls=root.state.environment_urls,
                     gitignore=root.state.gitignore,
                     includes_health_check=root.state.includes_health_check,
                     modified_by=email,

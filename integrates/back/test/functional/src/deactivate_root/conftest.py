@@ -11,19 +11,20 @@ from db_model.enums import (
 )
 from db_model.findings.enums import (
     FindingStateStatus,
+    FindingStatus,
     FindingVerificationStatus,
 )
-from db_model.findings.types import (  # type: ignore
+from db_model.findings.types import (
     Finding,
     Finding31Severity,
     FindingEvidence,
     FindingEvidences,
     FindingState,
-    FindingStatus,
     FindingUnreliableIndicatorsToUpdate,
     FindingVerification,
 )
 from db_model.roots.enums import (
+    RootStatus,
     RootType,
 )
 from db_model.roots.types import (
@@ -60,7 +61,7 @@ from typing import (
 @pytest_asyncio.fixture(autouse=True, scope="session")
 async def populate(generic_data: dict[str, Any]) -> bool:
     test_email = "admin@gmail.com"
-    test_status = "ACTIVE"
+    test_status = RootStatus.ACTIVE
     data: dict[str, Any] = {
         "roots": [
             {
@@ -82,7 +83,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
@@ -92,7 +92,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="nickname",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                         url="https://gitlab.com/fluidattacks/universe",
                     ),
                     type=RootType.GIT,
@@ -117,7 +117,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="deactivate_ip_1",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                     ),
                     type=RootType.IP,
                 ),
@@ -144,7 +144,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                     ),
                     type=RootType.URL,
                 ),
@@ -169,7 +169,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         environment="production",
-                        environment_urls=["https://test.com"],
                         gitignore=["bower_components/*", "node_modules/*"],
                         includes_health_check=True,
                         modified_by=test_email,
@@ -179,7 +178,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="nickname",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                         url="https://gitlab.com/fluidattacks/repo",
                     ),
                     type=RootType.GIT,
@@ -205,7 +204,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         nickname="deactivate_ip_2",
                         other=None,
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                     ),
                     type=RootType.IP,
                 ),
@@ -232,7 +231,7 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                         port="8080",
                         protocol="HTTPS",
                         reason=None,
-                        status=test_status,  # type: ignore
+                        status=test_status,
                     ),
                     type=RootType.URL,
                 ),

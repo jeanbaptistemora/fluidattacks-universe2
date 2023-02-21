@@ -130,7 +130,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="261bf518-f8f4-4f82-b996-3d034df44a27",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -167,7 +166,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="9edc56a8-2743-437e-a6a9-4847b28e1fd5",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -203,7 +201,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -239,7 +236,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -276,7 +272,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     state=GitRootState(
                         branch="master",
                         credential_id="9edc56a8-2743-437e-a6a9-4847b28e1fd5",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,

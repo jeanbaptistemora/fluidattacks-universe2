@@ -45,13 +45,13 @@ async def mutate(
     other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
 
     await roots_domain.update_git_environments(
-        info.context.loaders,
-        user_email,
-        kwargs["group_name"],
-        kwargs["id"],
-        kwargs["environment_urls"],
-        reason,
-        other,
+        loaders=info.context.loaders,
+        user_email=user_email,
+        group_name=kwargs["group_name"],
+        root_id=kwargs["id"],
+        environment_urls=kwargs["environment_urls"],
+        reason=reason,
+        other=other,
     )
     logs_utils.cloudwatch_log(
         info.context, f'Security: Updated git envs for root {kwargs["id"]}'

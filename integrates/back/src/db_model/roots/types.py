@@ -82,7 +82,6 @@ class GitRootState(NamedTuple):
     status: RootStatus
     url: str
     credential_id: Optional[str] = None
-    environment_urls: list[str] = []
     gitignore: list[str] = []
     other: Optional[str] = None
     reason: Optional[str] = None

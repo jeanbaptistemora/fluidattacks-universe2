@@ -101,11 +101,6 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["updateGitEnvironments"]["success"]
 
-    loaders.root.clear_all()
-    changed_root = cast(
-        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
-    )
-    assert changed_root.state.modified_date.date() == datetime.now().date()
     result_group = await get_git_root(
         user=email,
         group="group1",
@@ -130,7 +125,6 @@ async def test_add_git_environments(populate: bool, email: str) -> None:
         ],
         key=lambda x: x["url"],
     )
-    assert changed_root.state.environment_urls == env_urls
 
 
 @pytest.mark.asyncio
@@ -148,10 +142,6 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     root_id: str = "88637616-41d4-4242-854a-db8ff7fe1ab7"
     env_urls = ["https://nice-env.net", "https://mistaken-site.ru"]
 
-    loaders = get_new_context()
-    root = cast(
-        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
-    )
     result_group: dict = await get_git_root(
         user=email,
         group="group1",
@@ -176,7 +166,6 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
         ],
         key=lambda x: str(x["url"]),
     )
-    assert root.state.environment_urls == env_urls
 
     with suppress(InvalidParameter):
         # No reason for deletion
@@ -209,10 +198,6 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
     assert "errors" not in result
     assert result["data"]["updateGitEnvironments"]["success"]
 
-    loaders.root.clear_all()
-    changed_root = cast(
-        GitRoot, await loaders.root.load(RootRequest(group_name, root_id))
-    )
     result_group = await get_git_root(
         user=email,
         group="group1",
@@ -232,7 +217,6 @@ async def test_remove_git_environments(populate: bool, email: str) -> None:
         ],
         "id": "88637616-41d4-4242-854a-db8ff7fe1ab7",
     }
-    assert changed_root.state.environment_urls == [env_urls[0]]
 
 
 @pytest.mark.asyncio

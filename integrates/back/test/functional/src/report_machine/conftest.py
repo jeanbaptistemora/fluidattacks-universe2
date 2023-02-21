@@ -126,7 +126,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -169,7 +168,6 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,

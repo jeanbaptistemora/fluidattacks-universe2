@@ -48,7 +48,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,
@@ -84,10 +83,6 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     organization_name="orgtest",
                     state=GitRootState(
                         branch="master",
-                        environment_urls=[
-                            "https://nice-env.net",
-                            "https://mistaken-site.ru",
-                        ],
                         environment="production",
                         gitignore=[],
                         includes_health_check=False,

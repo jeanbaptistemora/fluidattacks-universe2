@@ -4060,10 +4060,6 @@ mocked_responses: dict[str, dict[str, Any]] = {
                 status=RootStatus.ACTIVE,
                 url="https://gitlab.com/fluidattacks/universe",
                 credential_id=None,
-                environment_urls=[
-                    "https://app.fluidattacks.com",
-                    "https://test.com",
-                ],
                 gitignore=["bower_components/*", "node_modules/*"],
                 other=None,
                 reason=None,
@@ -10603,10 +10599,6 @@ mocked_responses: dict[str, dict[str, Any]] = {
                 status=RootStatus.ACTIVE,
                 url="https://gitlab.com/fluidattacks/universe",
                 credential_id=None,
-                environment_urls=[
-                    "https://app.fluidattacks.com",
-                    "https://test.com",
-                ],
                 gitignore=["bower_components/*", "node_modules/*"],
                 other=None,
                 reason=None,
