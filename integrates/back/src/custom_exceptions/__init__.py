@@ -1809,3 +1809,9 @@ class InvalidStandardId(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The standard id is invalid"
         super(InvalidStandardId, self).__init__(msg)
+
+
+class InvalidVulnerabilityRequirement(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - The requirement is not valid in the vulnerability"
+        super(InvalidVulnerabilityRequirement, self).__init__(msg)

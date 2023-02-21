@@ -16,6 +16,7 @@ from contextlib import (
 from custom_exceptions import (
     FindingNotFound,
     InvalidCommentParent,
+    InvalidVulnerabilityRequirement,
     MachineCanNotOperate,
     PermissionDenied,
     RootNotFound,
@@ -76,6 +77,7 @@ from findings import (
     storage as findings_storage,
 )
 from findings.types import (
+    FindingAttributesToAdd,
     FindingDescriptionToUpdate,
     Tracking,
 )
@@ -118,6 +120,7 @@ from typing import (
     TypedDict,
     Union,
 )
+import uuid
 from vulnerabilities import (
     domain as vulns_domain,
 )
@@ -137,6 +140,52 @@ class VulnsProperties(TypedDict):
     severity_level: str
     severity_score: Decimal
     vulns_props: dict[str, dict[str, dict[str, Any]]]
+
+
+async def add(
+    loaders: Dataloaders,
+    group_name: str,
+    stakeholder_email: str,
+    attributes: FindingAttributesToAdd,
+) -> Finding:
+    await findings_utils.is_valid_finding_title(loaders, attributes.title)
+
+    finding_id = str(uuid.uuid4())
+    vulnerabilities_file = await loaders.vulnerabilities_file.load("")
+    criteria_vulnerability_id = attributes.title.split(".")[0].strip()
+    criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
+    criteria_vulnerabilily_requirements: list[str] = (
+        criteria_vulnerability["requirements"]
+        if criteria_vulnerability
+        else []
+    )
+    if not set(attributes.unfulfilled_requirements).issubset(
+        criteria_vulnerabilily_requirements
+    ):
+        raise InvalidVulnerabilityRequirement()
+    finding = Finding(
+        hacker_email=stakeholder_email,
+        attack_vector_description=attributes.attack_vector_description,
+        description=attributes.description,
+        group_name=group_name,
+        id=finding_id,
+        min_time_to_remediate=attributes.min_time_to_remediate,
+        state=FindingState(
+            modified_by=stakeholder_email,
+            modified_date=datetime_utils.get_utc_now(),
+            source=attributes.source,
+            status=FindingStateStatus.CREATED,
+        ),
+        recommendation=attributes.recommendation,
+        severity=attributes.severity,
+        title=attributes.title,
+        threat=attributes.threat,
+        unfulfilled_requirements=sorted(
+            set(attributes.unfulfilled_requirements)
+        ),
+    )
+    await findings_model.add(finding=finding)
+    return finding
 
 
 async def get_finding(loaders: Dataloaders, finding_id: str) -> Finding:

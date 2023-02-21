@@ -1,3 +1,6 @@
+from db_model.enums import (
+    Source,
+)
 from db_model.findings.enums import (
     FindingSorts,
 )
@@ -29,6 +32,19 @@ class FindingDraftToAdd(NamedTuple):
     severity: Finding31Severity
     threat: str
     title: str
+
+
+class FindingAttributesToAdd(NamedTuple):
+    attack_vector_description: str
+    description: str
+    hacker_email: str
+    min_time_to_remediate: Optional[int]
+    recommendation: str
+    severity: Finding31Severity
+    source: Source
+    threat: str
+    title: str
+    unfulfilled_requirements: list[str]
 
 
 class Tracking(NamedTuple):
