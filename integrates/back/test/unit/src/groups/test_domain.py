@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     get_mocked_path,
     set_mocks_return_values,
 )
+from custom_exceptions import (
+    InvalidGroupServicesConfig,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -49,6 +52,7 @@ from groups.domain import (
     send_mail_devsecops_agent,
     set_pending_deletion_date,
     update_group,
+    validate_group_services_config,
     validate_group_tags,
 )
 import json
@@ -749,3 +753,43 @@ async def test_get_mean_remediate_severity_medium(
         else None,
     )
     assert mean_remediate_medium_severity == expected_output
+
+
+@pytest.mark.parametrize(
+    ["has_machine", "has_squad", "has_arm"],
+    [
+        [
+            True,
+            True,
+            True,
+        ],
+    ],
+)
+def test_validate_group_services_config(
+    has_machine: bool,
+    has_squad: bool,
+    has_arm: bool,
+) -> None:
+    validate_group_services_config(has_machine, has_squad, has_arm)
+
+    with pytest.raises(
+        InvalidGroupServicesConfig
+    ) as invalid_group_service_asm:
+        validate_group_services_config(
+            has_machine=True, has_squad=True, has_arm=False
+        )
+    assert (
+        str(invalid_group_service_asm.value)
+        == "Exception - Squad is only available when ASM is too"
+    )
+
+    with pytest.raises(
+        InvalidGroupServicesConfig
+    ) as invalid_group_service_machine:
+        validate_group_services_config(
+            has_machine=False, has_squad=True, has_arm=True
+        )
+    assert (
+        str(invalid_group_service_machine.value)
+        == "Exception - Squad is only available when Machine is too"
+    )

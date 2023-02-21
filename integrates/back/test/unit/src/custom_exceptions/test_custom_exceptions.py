@@ -33,7 +33,6 @@ from decimal import (
     Decimal,
 )
 from groups.domain import (
-    validate_group_services_config,
     validate_group_services_config_deco,
     validate_group_tags,
 )
@@ -99,13 +98,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-async def test_validate_group_services_config() -> None:
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(True, True, False)
-    with pytest.raises(InvalidGroupServicesConfig):
-        validate_group_services_config(False, True, True)
 
 
 def test_validate_group_services_config_deco() -> None:
