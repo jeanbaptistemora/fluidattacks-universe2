@@ -19,6 +19,8 @@ from custom_exceptions import (
     InvalidVulnerabilityRequirement,
     MachineCanNotOperate,
     PermissionDenied,
+    RepeatedFindingDescription,
+    RepeatedFindingRecommendation,
     RootNotFound,
     VulnNotFound,
 )
@@ -142,6 +144,43 @@ class VulnsProperties(TypedDict):
     vulns_props: dict[str, dict[str, dict[str, Any]]]
 
 
+async def _validate_finding_requirements(
+    loaders: Dataloaders, title: str, unfulfilled_requirements: list[str]
+) -> None:
+    vulnerabilities_file = await loaders.vulnerabilities_file.load("")
+    criteria_vulnerability_id = title.split(".")[0].strip()
+    criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
+    criteria_vulnerabilily_requirements: list[str] = (
+        criteria_vulnerability["requirements"]
+        if criteria_vulnerability
+        else []
+    )
+    if not set(unfulfilled_requirements).issubset(
+        criteria_vulnerabilily_requirements
+    ):
+        raise InvalidVulnerabilityRequirement()
+
+
+async def _validate_duplicated_finding(
+    loaders: Dataloaders,
+    group_name: str,
+    title: str,
+    description: str,
+    recommendation: str,
+) -> None:
+    group_findings = await loaders.group_drafts_and_findings.load(group_name)
+    same_type_of_findings = [
+        finding
+        for finding in group_findings
+        if finding.title.split(".")[0].strip() == title.split(".")[0].strip()
+    ]
+    for finding in same_type_of_findings:
+        if finding.description.strip() == description.strip():
+            raise RepeatedFindingDescription()
+        if finding.recommendation.strip() == recommendation.strip():
+            raise RepeatedFindingRecommendation()
+
+
 async def add(
     loaders: Dataloaders,
     group_name: str,
@@ -149,26 +188,23 @@ async def add(
     attributes: FindingAttributesToAdd,
 ) -> Finding:
     await findings_utils.is_valid_finding_title(loaders, attributes.title)
-
-    finding_id = str(uuid.uuid4())
-    vulnerabilities_file = await loaders.vulnerabilities_file.load("")
-    criteria_vulnerability_id = attributes.title.split(".")[0].strip()
-    criteria_vulnerability = vulnerabilities_file[criteria_vulnerability_id]
-    criteria_vulnerabilily_requirements: list[str] = (
-        criteria_vulnerability["requirements"]
-        if criteria_vulnerability
-        else []
+    await _validate_finding_requirements(
+        loaders, attributes.title, attributes.unfulfilled_requirements
     )
-    if not set(attributes.unfulfilled_requirements).issubset(
-        criteria_vulnerabilily_requirements
-    ):
-        raise InvalidVulnerabilityRequirement()
+    await _validate_duplicated_finding(
+        loaders,
+        group_name,
+        attributes.title,
+        attributes.description,
+        attributes.recommendation,
+    )
+
     finding = Finding(
         hacker_email=stakeholder_email,
         attack_vector_description=attributes.attack_vector_description,
         description=attributes.description,
         group_name=group_name,
-        id=finding_id,
+        id=str(uuid.uuid4()),
         min_time_to_remediate=attributes.min_time_to_remediate,
         state=FindingState(
             modified_by=stakeholder_email,

@@ -1815,3 +1815,15 @@ class InvalidVulnerabilityRequirement(CustomBaseException):
     def __init__(self) -> None:
         msg = "Exception - The requirement is not valid in the vulnerability"
         super(InvalidVulnerabilityRequirement, self).__init__(msg)
+
+
+class RepeatedFindingRecommendation(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Finding with the same recommendation already exists"
+        super(RepeatedFindingRecommendation, self).__init__(msg)
+
+
+class RepeatedFindingDescription(CustomBaseException):
+    def __init__(self) -> None:
+        msg = "Exception - Finding with the same description already exists"
+        super(RepeatedFindingDescription, self).__init__(msg)
