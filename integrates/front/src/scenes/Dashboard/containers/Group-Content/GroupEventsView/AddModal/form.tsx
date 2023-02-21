@@ -14,13 +14,13 @@ import type {
   IFindingsQuery,
 } from "../AffectedReattackAccordion/types";
 import { InputDateTime, InputFile, Select, TextArea } from "components/Input";
+import { Row } from "components/Layout";
 import { ModalConfirm } from "components/Modal";
 import {
   Col100,
   Col50,
   ControlLabel,
   FormGroup,
-  Row,
 } from "styles/styledComponents";
 import { authzGroupContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
