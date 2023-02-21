@@ -60,6 +60,14 @@ def prints_danger_values(graph: Graph, n_id: NId) -> bool:
     return False
 
 
+def n_expression(graph: Graph, n_id: NId) -> str:
+    n_expr = graph.nodes[n_id]["symbol"]
+    parent = g.pred_ast(graph, n_id)[0]
+    if graph.nodes[parent]["label_type"] == "MethodInvocation":
+        n_expr = graph.nodes[parent]["expression"]
+    return n_expr
+
+
 def has_print_statements(
     graph_db: GraphDB,
 ) -> Vulnerabilities:
@@ -71,8 +79,11 @@ def has_print_statements(
                 continue
             graph = shard.syntax_graph
             print_methods = get_print_methods(graph)
-            for n_id in g.matching_nodes(graph, label_type="SymbolLookup"):
-                n_expr = get_expression(graph, n_id)
+            for n_id in g.matching_nodes(
+                graph,
+                label_type="SymbolLookup",
+            ):
+                n_expr = n_expression(graph, n_id)
                 if n_expr in print_methods and prints_danger_values(
                     graph, n_id
                 ):

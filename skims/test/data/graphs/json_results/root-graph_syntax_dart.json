@@ -20330,7 +20330,7 @@
             "881": {
               "label_ast": "AST"
             },
-            "882": {
+            "885": {
               "label_ast": "AST"
             },
             "888": {
@@ -22527,15 +22527,19 @@
             "label_type": "Break"
           },
           "880": {
-            "label_type": "ExpressionStatement"
+            "arguments_id": "888",
+            "expression": "candidate.interview",
+            "expression_id": "885",
+            "label_type": "MethodInvocation",
+            "object_id": "881"
           },
           "881": {
             "label_type": "SymbolLookup",
             "symbol": "candidate"
           },
-          "882": {
-            "label_type": "Selector",
-            "selector_name": "interview"
+          "885": {
+            "label_type": "SymbolLookup",
+            "symbol": "interview"
           },
           "888": {
             "label_type": "ArgumentList"

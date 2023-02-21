@@ -172,10 +172,10 @@ def evaluate(args: SymbolicEvalArgs) -> SymbolicEvaluation:
         else:
             d_arguments = False
 
-        d_expression = evaluate_method_expression(
-            args, n_attrs["expression_id"]
-        )
-
+        if expr_id := n_attrs.get("expression_id"):
+            d_expression = evaluate_method_expression(args, expr_id)
+        else:
+            d_expression = False
         if obj_id := n_attrs.get("object_id"):
             d_object = args.generic(args.fork_n_id(obj_id)).danger
         else:
