@@ -16,6 +16,7 @@ import { mapSeveritytoStringValues, tooltipPropHelper } from "./helpers";
 import { validateValues } from "./SeverityContent/utils";
 
 import { Button } from "components/Button/index";
+import { Row } from "components/Layout";
 import { Tooltip } from "components/Tooltip";
 import { GET_FINDING_HEADER } from "scenes/Dashboard/containers/Finding-Content/queries";
 import {
@@ -29,7 +30,7 @@ import type {
   IUpdateSeverityAttr,
 } from "scenes/Dashboard/containers/Finding-Content/SeverityView/types";
 import { castFieldsCVSS3 } from "scenes/Dashboard/containers/Finding-Content/SeverityView/utils";
-import { ButtonToolbarRow, Col100, Row } from "styles/styledComponents";
+import { ButtonToolbarRow, Col100 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { calcCVSSv3 } from "utils/cvss";
 import { EditableField, FormikDropdown } from "utils/forms/fields";
