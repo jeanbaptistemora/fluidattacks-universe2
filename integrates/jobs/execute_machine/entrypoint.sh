@@ -41,6 +41,12 @@ function main() {
           && if [ ! -d "groups/${group_name}/fusion/${root}/" ]; then
             continue
           fi \
+          && pushd "groups/${group_name}/fusion/${root}/" \
+          && if ! git reset --hard; then
+            echo "Can not reset ${root}"
+            continue
+          fi \
+          && popd \
           && python3 __argScript__ generate-configs \
             --group-name "${group_name}" \
             --root-nickname "${root}" \
