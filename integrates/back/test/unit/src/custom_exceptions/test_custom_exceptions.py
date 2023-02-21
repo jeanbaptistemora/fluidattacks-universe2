@@ -4,7 +4,6 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     ErrorUploadingFileS3,
-    InvalidAcceptanceSeverity,
     InvalidGroupServicesConfig,
     InvalidNumberAcceptances,
     InvalidRange,
@@ -100,39 +99,6 @@ async def test_exception_error_uploading_file_s3() -> None:
                 file_name,
                 bucket_name,
             )
-
-
-@mock.patch(
-    "dynamodb.operations.get_table_resource",
-    new_callable=AsyncMock,
-)
-async def test_validate_acceptance_severity(
-    mock_table_resource: AsyncMock,
-    dynamo_resource: ServiceResource,
-) -> None:
-    def mock_query(**kwargs: Any) -> Any:
-        return dynamo_resource.Table(TABLE_NAME).query(**kwargs)
-
-    mock_table_resource.return_value.query.side_effect = mock_query
-    historic_treatment = [
-        VulnerabilityTreatment(
-            modified_date=datetime.fromisoformat("2020-02-01T17:00:00+00:00"),
-            status=VulnerabilityTreatmentStatus.UNTREATED,
-        )
-    ]
-    finding_severity = Decimal("8.5")
-    accepted_until = (datetime.now() + timedelta(days=10)).astimezone(
-        tz=timezone.utc
-    )
-    with pytest.raises(InvalidAcceptanceSeverity):
-        await validate_accepted_treatment_change(
-            loaders=get_new_context(),
-            accepted_until=accepted_until,
-            finding_severity=finding_severity,
-            group_name="kurome",
-            historic_treatment=historic_treatment,
-        )
-    assert mock_table_resource.called is True
 
 
 async def test_validate_group_services_config() -> None:

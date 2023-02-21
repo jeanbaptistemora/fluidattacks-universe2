@@ -4,6 +4,7 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
 )
 from custom_exceptions import (
     InvalidAcceptanceDays,
+    InvalidAcceptanceSeverity,
     InvalidParameter,
     InvalidPath,
     InvalidPort,
@@ -26,6 +27,9 @@ from db_model.enums import (
 from db_model.vulnerabilities.enums import (
     VulnerabilityType,
 )
+from decimal import (
+    Decimal,
+)
 from freezegun import (
     freeze_time,
 )
@@ -36,6 +40,7 @@ from unittest.mock import (
 )
 from vulnerabilities.domain.validations import (
     validate_acceptance_days,
+    validate_acceptance_severity,
     validate_path_deco,
     validate_source_deco,
     validate_updated_commit_deco,
@@ -54,7 +59,7 @@ pytestmark = [
 
 @freeze_time("2020-10-08")
 @pytest.mark.parametrize(
-    ["acceptance_date_good", "acceptance_date_bad", "group_name"],
+    ["acceptance_date", "acceptance_date_to_raise_exception", "group_name"],
     [
         [
             datetime.fromisoformat("2020-10-30 00:00:00"),
@@ -77,8 +82,8 @@ pytestmark = [
 async def test_validate_acceptance_days(
     mock_dataloaders_group: AsyncMock,
     mock_get_group_max_acceptance_days: AsyncMock,
-    acceptance_date_good: datetime,
-    acceptance_date_bad: datetime,
+    acceptance_date: datetime,
+    acceptance_date_to_raise_exception: datetime,
     group_name: str,
 ) -> None:
     mocked_objects, mocked_paths, mocks_args = [
@@ -100,7 +105,7 @@ async def test_validate_acceptance_days(
     )
     loaders: Dataloaders = get_new_context()
     await validate_acceptance_days(
-        loaders, acceptance_date_good.astimezone(tz=timezone.utc), group_name
+        loaders, acceptance_date.astimezone(tz=timezone.utc), group_name
     )
     assert all(
         mock_object.assert_called_once for mock_object in mocked_objects
@@ -109,8 +114,69 @@ async def test_validate_acceptance_days(
     with pytest.raises(InvalidAcceptanceDays):
         await validate_acceptance_days(
             loaders,
-            acceptance_date_bad.astimezone(tz=timezone.utc),
+            acceptance_date_to_raise_exception.astimezone(tz=timezone.utc),
             group_name,
+        )
+    assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
+
+
+@pytest.mark.parametrize(
+    ["group_name", "severity", "severity_to_raise_exception"],
+    [
+        [
+            "kurome",
+            Decimal("6.9"),
+            Decimal("8.5"),  # Over group's max_acceptance_severity
+        ],
+    ],
+)
+@patch(
+    MODULE_AT_TEST + "get_group_max_acceptance_severity",
+    new_callable=AsyncMock,
+)
+@patch(
+    MODULE_AT_TEST + "get_group_min_acceptance_severity",
+    new_callable=AsyncMock,
+)
+@patch(MODULE_AT_TEST + "Dataloaders.group", new_callable=AsyncMock)
+async def test_validate_acceptance_severity(
+    # pylint: disable=too-many-arguments
+    mock_dataloaders_group: AsyncMock,
+    mock_get_group_min_acceptance_severity: AsyncMock,
+    mock_get_group_max_acceptance_severity: AsyncMock,
+    group_name: str,
+    severity: Decimal,
+    severity_to_raise_exception: Decimal,
+) -> None:
+    mocked_objects, mocked_paths, mocks_args = [
+        [
+            mock_dataloaders_group.load,
+            mock_get_group_min_acceptance_severity,
+            mock_get_group_max_acceptance_severity,
+        ],
+        [
+            "Dataloaders.group",
+            "get_group_min_acceptance_severity",
+            "get_group_max_acceptance_severity",
+        ],
+        [[group_name], [group_name], [group_name]],
+    ]
+    assert set_mocks_return_values(
+        mocks_args=mocks_args,
+        mocked_objects=mocked_objects,
+        module_at_test=MODULE_AT_TEST,
+        paths_list=mocked_paths,
+    )
+    loaders: Dataloaders = get_new_context()
+    await validate_acceptance_severity(loaders, group_name, severity)
+    assert all(
+        mock_object.assert_called_once for mock_object in mocked_objects
+    )
+    with pytest.raises(InvalidAcceptanceSeverity):
+        await validate_acceptance_severity(
+            loaders,
+            group_name,
+            severity_to_raise_exception,
         )
     assert all(mock_object.call_count == 2 for mock_object in mocked_objects)
 

@@ -10683,6 +10683,12 @@ mocked_responses: dict[str, dict[str, Any]] = {
     "vulnerabilities.domain.validations.get_group_max_acceptance_days": {
         '["kurome"]': 60,
     },
+    "vulnerabilities.domain.validations.get_group_max_acceptance_severity": {
+        '["kurome"]': Decimal("7.0"),
+    },
+    "vulnerabilities.domain.validations.get_group_min_acceptance_severity": {
+        '["kurome"]': Decimal("0.0"),
+    },
 }
 
 
