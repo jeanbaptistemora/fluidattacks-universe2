@@ -12,30 +12,34 @@ from newutils.validations import (
 )
 
 
-def _get_email(objective_data: FindingComment) -> str:
+def _get_email(objective_data: FindingComment, is_draft: bool = False) -> str:
     objective_email = objective_data.email
-    if is_fluid_staff(objective_email):
+    if is_fluid_staff(objective_email) and not is_draft:
         return "help@fluidattacks.com"
 
     return objective_email
 
 
-def _get_fullname(objective_data: FindingComment) -> str:
+def _get_fullname(
+    objective_data: FindingComment, is_draft: bool = False
+) -> str:
     objective_email = objective_data.email
     objective_possible_fullname = (
         objective_data.full_name if objective_data.full_name else None
     )
     real_name = objective_possible_fullname or objective_email
 
-    if is_fluid_staff(objective_email):
+    if is_fluid_staff(objective_email) and not is_draft:
         return "Fluid Attacks"
 
     return real_name
 
 
-def format_finding_consulting_resolve(finding_comment: FindingComment) -> Item:
-    email = _get_email(objective_data=finding_comment)
-    fullname = _get_fullname(objective_data=finding_comment)
+def format_finding_consulting_resolve(
+    finding_comment: FindingComment, is_draft: bool = False
+) -> Item:
+    email = _get_email(objective_data=finding_comment, is_draft=is_draft)
+    fullname = _get_fullname(objective_data=finding_comment, is_draft=is_draft)
     comment_date: str = format_comment_datetime(finding_comment.creation_date)
     return {
         "content": finding_comment.content,

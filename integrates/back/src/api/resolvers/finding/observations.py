@@ -7,6 +7,9 @@ from dataloaders import (
 from db_model.finding_comments.types import (
     FindingComment,
 )
+from db_model.findings.enums import (
+    FindingStateStatus,
+)
 from db_model.findings.types import (
     Finding,
 )
@@ -44,7 +47,12 @@ async def resolve(
     ] = await comments_domain.get_observations(
         loaders, parent.group_name, parent.id, user_data["user_email"]
     )
+    is_draft = parent.state.status in (
+        FindingStateStatus.CREATED,
+        FindingStateStatus.SUBMITTED,
+    )
 
     return [
-        format_finding_consulting_resolve(comment) for comment in observations
+        format_finding_consulting_resolve(comment, is_draft)
+        for comment in observations
     ]
