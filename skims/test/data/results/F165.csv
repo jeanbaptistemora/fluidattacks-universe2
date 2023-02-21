@@ -149,10 +149,8 @@ F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.y
    74 |         },
       ^ Col 0
 ",cloudformation.cfn_iam_trust_policy_allow_not_principal
-F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf,23,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
- in namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileged.tf","
-  13 |         }
-  14 |       }
+F165,lines,namespace/skims/test/data/lib_root/f165/tfm_iam_role_is_over_privileged.tf,29,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotPrincipal in its trust policy
+ in namespace/skims/test/data/lib_root/f165/tfm_iam_role_is_over_privileged.tf","
   15 |     ]
   16 |   }
   17 |   EOF
@@ -161,17 +159,19 @@ F165,lines,namespace/skims/test/data/lib_path/f165/tfm_iam_role_is_over_privileg
   20 | resource ""aws_iam_role"" ""vuln_role_1"" {
   21 |   name = ""vuln_role_1""
   22 |
-> 23 |   assume_role_policy = jsonencode({
+  23 |   assume_role_policy = jsonencode({
   24 |     Version = ""2012-10-17""
   25 |     Statement = [
   26 |       {
   27 |         Action = ""sts:AssumeRole""
   28 |         Effect = ""Allow""
-  29 |         NotPrincipal = {
+> 29 |         NotPrincipal = {
   30 |           Servive = ""ec2.amazonaws.com""
   31 |         }
   32 |       },
   33 |     ]
+  34 |   })
+  35 | }
      ^ Col 0
 ",terraform.tfm_iam_role_is_over_privileged
 F165,lines,namespace/skims/test/data/lib_path/f165/cfn_iam_has_privileges_over.yaml,73,16,skims,165. Insecure service configuration - AWS,"IAM Role is miss configured: - Should not allow AllowNotResource

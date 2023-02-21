@@ -5185,7 +5185,7 @@ class MethodsEnum(Enum):
     TFM_IAM_ROLE_OVER_PRIVILEGED = MethodInfo(
         file_name="terraform",
         name="tfm_iam_role_is_over_privileged",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F165,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
