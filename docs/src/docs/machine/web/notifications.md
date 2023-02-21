@@ -186,28 +186,6 @@ email is the User Manager.
 
 ![Root Updated](https://res.cloudinary.com/fluid-attacks/image/upload/v1663174050/docs/web/notifications/root_updated.png)
 
-### Analytics report
-
-If you enable these notifications,
-you will receive an email daily,
-weekly or monthly containing
-the report of your organization,
-group or portfolio
-[Analytics](/machine/web/analytics) sections.
-You just need to
-[subscribe](/machine/web/analytics/reports#subscription-to-reports)
-by clicking on the button at the
-end of any of the Analytics sections
-on the ARM and selecting one of
-the periodicity options.
-The message will include charts
-and data on the status and
-characteristics of reported
-vulnerabilities and your
-remediation practices.
-
-![Analytics Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1663083596/docs/web/notifications/analytics_report.png)
-
 ### Technical report
 
 If you order a
@@ -376,7 +354,7 @@ of the Scope tab.
 This email will be sent
 to the User Manager role.
 
-![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1664547999/docs/web/notifications/portfolios_added.png)
+![Portfolio Report](https://res.cloudinary.com/fluid-attacks/image/upload/v1676985859/docs/web/notifications/portfolios_deleted.png)
 
 ### Root status
 
