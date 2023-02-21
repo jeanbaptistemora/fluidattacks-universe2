@@ -6,7 +6,8 @@ import { useTranslation } from "react-i18next";
 
 import { GET_GIT_ROOT_DETAILS } from "../queries";
 import type { IEnvironmentUrl } from "../types";
-import { Col50, Row } from "styles/styledComponents";
+import { Row } from "components/Layout";
+import { Col50 } from "styles/styledComponents";
 import { formatIsoDate } from "utils/date";
 import { Logger } from "utils/logger";
 
