@@ -5,11 +5,7 @@ import type { ReactElement } from "react";
 import { useTranslation } from "react-i18next";
 import type { ConfigurableValidator } from "revalidate";
 
-import {
-  getRequerimentsData,
-  getRequirementsText,
-  getVulnsData,
-} from "./utils";
+import { getVulnsData } from "./utils";
 
 import { ExternalLink } from "components/ExternalLink";
 import { Editable, Select, TextArea } from "components/Input";
@@ -19,6 +15,7 @@ import { ActionButtons } from "scenes/Dashboard/containers/Finding-Content/Descr
 import type {
   IFinding,
   IFindingDescriptionData,
+  IUnfulfilledRequirement,
 } from "scenes/Dashboard/containers/Finding-Content/DescriptionView/types";
 import { validateNotEmpty } from "scenes/Dashboard/containers/Group-Content/GroupDraftsView/utils";
 import { ControlLabel, FormGroup } from "styles/styledComponents";
@@ -70,7 +67,6 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   const criteriaIdSlice: number = 3;
   const baseCriteriaUrl: string = "https://docs.fluidattacks.com/criteria/";
 
-  const [reqsList, setReqsList] = useState<string[]>([]);
   const [titleSuggestions, setTitleSuggestions] = useState<string[]>([]);
 
   const toggleEdit: () => void = useCallback((): void => {
@@ -93,13 +89,8 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
   useEffect((): void => {
     async function fetchData(): Promise<void> {
       const vulnsData = await getVulnsData();
-      const requirementsData = await getRequerimentsData();
 
       if (!_.isNil(vulnsData) && !_.isNil(findingNumber)) {
-        const { requirements } = vulnsData[findingNumber];
-        setReqsList(
-          getRequirementsText(requirements, requirementsData, groupLanguage)
-        );
         const titlesList = Object.keys(vulnsData).map((key: string): string => {
           return groupLanguage === "ES"
             ? `${key}. ${validateNotEmpty(vulnsData[key].es.title)}`
@@ -109,7 +100,7 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
       }
     }
     void fetchData();
-  }, [findingNumber, groupLanguage, setReqsList]);
+  }, [findingNumber, groupLanguage]);
 
   if (_.isUndefined(data) || _.isEmpty(data)) {
     return <div />;
@@ -232,30 +223,21 @@ const DescriptionViewForm: React.FC<IDescriptionViewFormProps> = ({
                       {t("searchFindings.tabDescription.requirements.text")}
                     </b>
                   </ControlLabel>
-                  {reqsList.length === 0 ? (
-                    <p>
-                      {t(
-                        "searchFindings.tabDescription.requirements.loadingText"
-                      )}
-                    </p>
-                  ) : (
-                    <div className={"ws-pre-wrap"}>
-                      {reqsList.map((req: string): ReactElement => {
+                  <div className={"ws-pre-wrap"}>
+                    {dataset.unfulfilledRequirements.map(
+                      (requirement: IUnfulfilledRequirement): ReactElement => {
                         return (
-                          <div className={"w-100"} key={req}>
+                          <div className={"w-100"} key={requirement.id}>
                             <ExternalLink
-                              href={`${baseCriteriaUrl}requirements/${req.slice(
-                                0,
-                                criteriaIdSlice
-                              )}`}
+                              href={`${baseCriteriaUrl}requirements/${requirement.id}`}
                             >
-                              {req}
+                              {`${requirement.id}. ${requirement.summary}`}
                             </ExternalLink>
                           </div>
                         );
-                      })}
-                    </div>
-                  )}
+                      }
+                    )}
+                  </div>
                 </FormGroup>
               </Tooltip>
             </Col>

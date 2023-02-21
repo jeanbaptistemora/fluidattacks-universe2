@@ -8,6 +8,11 @@ interface IHistoricTreatment {
   user: string;
 }
 
+interface IUnfulfilledRequirement {
+  id: string;
+  summary: string;
+}
+
 interface IFinding {
   attackVectorDescription: string;
   description: string;
@@ -16,11 +21,11 @@ interface IFinding {
   openVulnerabilities: number;
   recommendation: string;
   releaseDate: string | null;
-  requirements: string;
   sorts: string;
   status: "SAFE" | "VULNERABLE";
   threat: string;
   title: string;
+  unfulfilledRequirements: IUnfulfilledRequirement[];
 }
 
 interface IFindingDescriptionData {
@@ -45,4 +50,5 @@ export type {
   IFindingDescriptionData,
   IFindingDescriptionVars,
   ILanguageData,
+  IUnfulfilledRequirement,
 };

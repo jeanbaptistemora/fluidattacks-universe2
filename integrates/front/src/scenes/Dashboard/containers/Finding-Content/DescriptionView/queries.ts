@@ -15,11 +15,14 @@ const GET_FINDING_DESCRIPTION: DocumentNode = gql`
       openVulnerabilities
       recommendation
       releaseDate
-      requirements
       sorts @include(if: $canRetrieveSorts)
       status
       threat
       title
+      unfulfilledRequirements {
+        id
+        summary
+      }
     }
   }
 `;

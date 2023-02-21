@@ -105,11 +105,16 @@ describe("Finding Description", (): void => {
     openVulnerabilities: 0,
     recommendation: "Use good security practices and standards",
     releaseDate: null,
-    requirements: "REQ.0265. System must restrict access",
     sorts: "No",
     status: "VULNERABLE",
     threat: "External attack",
     title: "004. Remote command execution",
+    unfulfilledRequirements: [
+      {
+        id: "0265",
+        summary: "Requirement summary",
+      },
+    ],
   };
   const language: ILanguageData = {
     group: {
