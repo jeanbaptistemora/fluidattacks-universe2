@@ -13,3 +13,13 @@ class ApiError(Exception):
 
     def to_exception(self) -> Exception:
         return Exception(self)
+
+
+@dataclass(frozen=True)
+class DecodeError(Exception):
+    description: str
+    value: str
+    previous: Exception
+
+    def __str__(self) -> str:
+        return "DecodeError: " + super().__str__()

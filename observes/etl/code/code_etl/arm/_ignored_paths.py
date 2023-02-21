@@ -1,6 +1,12 @@
 from ._raw_client import (
     GraphQlAsmClient,
 )
+from code_etl._error import (
+    assert_or_raise,
+)
+from code_etl.arm._error import (
+    DecodeError,
+)
 from dataclasses import (
     dataclass,
 )
@@ -14,6 +20,9 @@ from fa_purity import (
 from fa_purity.frozen import (
     freeze,
 )
+from fa_purity.json.transform import (
+    dumps,
+)
 from fa_purity.json.value.transform import (
     Unfolder,
 )
@@ -22,9 +31,6 @@ from fa_purity.pure_iter.factory import (
 )
 from fa_purity.result.transform import (
     all_ok,
-)
-from fa_purity.utils import (
-    raise_exception,
 )
 from typing import (
     FrozenSet,
@@ -55,7 +61,7 @@ def _decode_ignored_paths(
         lambda n: files.map(
             lambda fs: tuple(IgnoredPath(group, n, f) for f in fs)
         )
-    ).alt(lambda e: Exception(f"decode_ignored_paths failed i.e. {e}"))
+    )
 
 
 def _decode_raw_ignored_paths(
@@ -80,7 +86,7 @@ def _decode_raw_ignored_paths(
             )
         )
         .map(lambda i: from_flist(i).bind(lambda x: from_flist(x)).to_list())
-        .alt(lambda e: Exception(f"decode_raw_ignored_paths failed i.e. {e}"))
+        .alt(lambda e: DecodeError("raw_ignored_paths", dumps(raw), e))
     )
 
 
@@ -102,11 +108,11 @@ def get_ignored_paths(
     values = {"groupName": group}
     return (
         client.get(query, freeze(values))
-        .map(lambda j: j.alt(raise_exception).unwrap())
+        .map(lambda j: assert_or_raise(group, j.alt(Exception)))
         .map(
-            lambda j: _decode_raw_ignored_paths(j, group)
-            .alt(raise_exception)
-            .unwrap()
+            lambda j: assert_or_raise(
+                group, _decode_raw_ignored_paths(j, group)
+            )
         )
         .map(frozenset)
     )
