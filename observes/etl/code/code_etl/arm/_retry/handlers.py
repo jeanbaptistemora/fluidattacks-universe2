@@ -53,7 +53,9 @@ def api_error_handler(cmd: Cmd[_T]) -> Cmd[Result[_T, ApiError]]:
         try:
             return factory.success(unwrapper.act(cmd))
         except TransportQueryError as err:  # type: ignore[misc]
-            errors = from_any(err).bind(lambda x: Unfolder(x).to_list())
+            errors = from_any(err.errors).bind(  # type: ignore[misc]
+                lambda x: Unfolder(x).to_list()
+            )
             return factory.failure(ApiError(errors.unwrap()))
 
     return Cmd.new_cmd(_action)
