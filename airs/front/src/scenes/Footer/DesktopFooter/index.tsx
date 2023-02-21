@@ -288,7 +288,7 @@ const DesktopFooter: React.FC = (): JSX.Element => {
         >
           <Text color={"#b0b0bf"} size={"xs"} textAlign={"center"}>
             {
-              "Copyright © 2022 Fluid Attacks. We hack your software. All rights reserved."
+              "Copyright © 2023 Fluid Attacks. We hack your software. All rights reserved."
             }
           </Text>
         </Container>
