@@ -360,6 +360,16 @@ module "observes_redshift_aws" {
   }
 }
 
+resource "aws_iam_role_policy_attachment" "apply_kinessis_infra_manager" {
+  role       = "prod_observes"
+  policy_arn = aws_iam_policy.observes_kinesis_infra_management.arn
+}
+
+resource "aws_iam_role_policy_attachment" "apply_kinesis_infra_read" {
+  role       = "prod_observes"
+  policy_arn = aws_iam_policy.observes_kinesis_infra_read.arn
+}
+
 module "prod_observes_keys" {
   source   = "./modules/key"
   for_each = local.prod_observes.keys
