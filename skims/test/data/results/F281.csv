@@ -119,6 +119,30 @@ F281,lines,namespace/skims/test/data/lib_root/f281/tfm_bucket_policy_has_secure_
   21 |   }
      ^ Col 0
 ",terraform.tfm_bucket_policy_has_secure_transport
+F281,lines,namespace/skims/test/data/lib_root/f281/tfm_bucket_policy_has_secure_transport.tf,38,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL in namespace/skims/test/data/lib_root/f281/tfm_bucket_policy_has_secure_transport.tf,"
+  23 | }
+  24 |
+  25 |
+  26 | resource ""aws_s3_bucket_policy"" ""b"" {
+  27 |   name = ""vuln_role_1""
+  28 |
+  29 |   policy = jsonencode({
+  30 |     Version = ""2012-10-17""
+  31 |     Id      = ""MYBUCKETPOLICY""
+  32 |     Statement = [
+  33 |       {
+  34 |         Sid    = ""IPAllow""
+  35 |         Action = ""s3:*""
+  36 |         Effect = ""Allow""
+  37 |         Condition = {
+> 38 |           Bool = { ""aws:SecureTransport"" = ""False"" }
+  39 |         }
+  40 |       },
+  41 |     ]
+  42 |   })
+  43 | }
+     ^ Col 0
+",terraform.tfm_bucket_policy_has_secure_transport
 F281,inputs,arn:aws:s3:::fluidattacksSCA (namespace),/0/Condition/Bool/aws:SecureTransport: false,311,skims,281. Use of an insecure channel - AWS,Bucket is not checking whether the request was sent using SSL,"
    2 |     {
    3 |         ""Effect"": ""Allow"",

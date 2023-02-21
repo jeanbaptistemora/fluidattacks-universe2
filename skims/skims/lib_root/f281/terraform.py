@@ -7,6 +7,7 @@ from lib_path.common import (
     TRUE_OPTIONS,
 )
 from lib_root.utilities.terraform import (
+    get_attr_inside_attrs,
     get_attribute,
     iterate_resource,
 )
@@ -27,13 +28,38 @@ from sast.query import (
 from utils.function import (
     get_dict_values,
 )
+from utils.graph import (
+    adj_ast,
+)
+
+
+def _bucket_policy_has_secure_transport_in_jsonencode(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    child_id = graph.nodes[nid]["arguments_id"]
+    statements, _, stmt_id = get_attribute(graph, child_id, "Statement")
+    if statements:
+        value_id = graph.nodes[stmt_id]["value_id"]
+        for c_id in adj_ast(graph, value_id, label_type="Object"):
+            _, effect_val, _ = get_attribute(graph, c_id, "Effect")
+            sec_trans, sec_trans_val, sec_trans_id = get_attr_inside_attrs(
+                graph,
+                c_id,
+                ["Condition", "Bool", "aws:SecureTransport"],
+            )
+            if sec_trans and (
+                (effect_val == "Deny" and sec_trans_val in TRUE_OPTIONS)
+                or (effect_val == "Allow" and sec_trans_val in FALSE_OPTIONS)
+            ):
+                yield sec_trans_id
 
 
 def _bucket_policy_has_secure_transport(
     graph: Graph, nid: NId
 ) -> Iterator[NId]:
     attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
-    if attr:
+    value_id = graph.nodes[attr_id]["value_id"]
+    if attr and graph.nodes[value_id]["label_type"] == "Literal":
         dict_value = json.loads(attr_val)
         statements = get_dict_values(dict_value, "Statement")
         for stmt in statements if isinstance(statements, list) else []:
@@ -46,6 +72,14 @@ def _bucket_policy_has_secure_transport(
                 or (effect == "Allow" and secure_transport in FALSE_OPTIONS)
             ):
                 yield attr_id
+    elif (
+        attr
+        and graph.nodes[value_id]["label_type"] == "MethodInvocation"
+        and graph.nodes[value_id]["expression"] == "jsonencode"
+    ):
+        yield from _bucket_policy_has_secure_transport_in_jsonencode(
+            graph, value_id
+        )
 
 
 def tfm_bucket_policy_has_secure_transport(

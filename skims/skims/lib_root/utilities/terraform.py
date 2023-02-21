@@ -21,6 +21,25 @@ from utils.graph import (
 )
 
 
+def get_attr_inside_attrs(
+    graph: Graph, nid: NId, attrs: list
+) -> tuple[str | None, str, NId]:
+    curr_nid = nid
+    final_key, final_val, final_id = None, "", ""
+    attr, attr_val, attr_id = None, "", ""
+    for key in attrs:
+        if not curr_nid:
+            break
+        attr, attr_val, attr_id = get_attribute(graph, curr_nid, key)
+        if not attr:
+            break
+        curr_nid = graph.nodes[attr_id].get("value_id")
+    else:
+        final_key, final_val, final_id = attr, attr_val, attr_id
+
+    return final_key, final_val, final_id
+
+
 def is_cidr(cidr: str) -> bool:
     """Validate if a string is a valid CIDR."""
     result = False
@@ -68,10 +87,11 @@ def get_key_value(graph: Graph, nid: NId) -> tuple[str, str]:
 def get_attribute(
     graph: Graph, object_id: NId, expected_attr: str
 ) -> tuple[str | None, str, NId]:
-    for attr_id in adj_ast(graph, object_id, label_type="Pair"):
-        key, value = get_key_value(graph, attr_id)
-        if key == expected_attr:
-            return key, value, attr_id
+    if object_id != "":
+        for attr_id in adj_ast(graph, object_id, label_type="Pair"):
+            key, value = get_key_value(graph, attr_id)
+            if key == expected_attr:
+                return key, value, attr_id
     return None, "", ""
 
 
