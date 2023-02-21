@@ -11,6 +11,7 @@ from lib_path.f393.composer import (
 from lib_path.f393.conan import (
     conan_conanfile_py_dev,
     conan_conanfile_txt_dev,
+    conan_conaninfo_txt_dev,
 )
 from lib_path.f393.gem import (
     gem_gemfile_dev,
@@ -46,6 +47,11 @@ def run_conan_conanfile_py_dev(content: str, path: str) -> Vulnerabilities:
 @SHIELD_BLOCKING
 def run_conan_conanfile_txt_dev(content: str, path: str) -> Vulnerabilities:
     return conan_conanfile_txt_dev(content, path)
+
+
+@SHIELD_BLOCKING
+def run_conan_conaninfo_txt_dev(content: str, path: str) -> Vulnerabilities:
+    return conan_conaninfo_txt_dev(content, path)
 
 
 @SHIELD_BLOCKING
