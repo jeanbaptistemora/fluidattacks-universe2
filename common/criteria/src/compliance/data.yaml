@@ -320,6 +320,10 @@ capec:
     "680":
       title: Exploitation of Improperly Controlled Registers
       link: https://capec.mitre.org/data/definitions/680.html
+    "681":
+      title: Exploitation of Improperly Controlled
+        Hardware Security Identifiers
+      link: https://capec.mitre.org/data/definitions/681.html
   metadata: {}
 cis:
   title: CIS

@@ -12402,6 +12402,7 @@
     - iec62443.UC-2_4
     - nistssdf.PW_6_1
     - owaspmasvs.V8_7
+    - capec.681
   metadata: {}
 "353":
   en:
