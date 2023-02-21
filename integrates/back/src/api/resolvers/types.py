@@ -5,4 +5,5 @@ from typing import (
 
 class Requirement(NamedTuple):
     id: str
+    summary: str
     title: str

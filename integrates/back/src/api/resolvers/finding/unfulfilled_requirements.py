@@ -27,6 +27,7 @@ async def resolve(
     return [
         Requirement(
             id=requirement_id,
+            summary=requirements_file[requirement_id]["en"]["summary"],
             title=requirements_file[requirement_id]["en"]["title"],
         )
         for requirement_id in parent.unfulfilled_requirements

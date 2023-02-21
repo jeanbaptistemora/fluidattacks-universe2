@@ -37,6 +37,7 @@ async def resolve(
             unfulfilled_requirements=[
                 Requirement(
                     id=requirement_id,
+                    summary=requirements_file[requirement_id]["en"]["summary"],
                     title=requirements_file[requirement_id]["en"]["title"],
                 )
                 for requirement_id in (
