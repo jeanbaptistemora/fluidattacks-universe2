@@ -635,4 +635,42 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
     });
   });
+
+  it("should filter by seen at", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    const numberOfRows: number = 3;
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
+    });
+
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    fireEvent.change(document.querySelectorAll(`input[name="seenAt"]`)[0], {
+      target: { value: "2020-02-01" },
+    });
+    fireEvent.change(document.querySelectorAll(`input[name="seenAt"`)[1], {
+      target: { value: "2020-02-02" },
+    });
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+  });
 });
