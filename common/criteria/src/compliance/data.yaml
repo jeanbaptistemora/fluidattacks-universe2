@@ -307,6 +307,9 @@ capec:
     "676":
       title: NoSQL Injection
       link: https://capec.mitre.org/data/definitions/676.html
+    "677":
+      title: Server Motherboard Compromise
+      link: https://capec.mitre.org/data/definitions/677.html
   metadata: {}
 cis:
   title: CIS
