@@ -90,7 +90,7 @@ const SolutionsSection: React.FC = (): JSX.Element => {
           </Text>
           <AirsLink href={"/solutions/"}>
             <Button display={"block"} variant={"primary"}>
-              {"Learn more"}
+              <Text color={"inherit"}>{"Learn more"}</Text>
             </Button>
           </AirsLink>
         </Container>

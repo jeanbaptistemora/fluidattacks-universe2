@@ -91,14 +91,14 @@ const Hero: React.FC<IHeroProps> = ({
                     onClick={matomoFreeTrialEvent}
                     variant={tones[tone].button1}
                   >
-                    {button1Text}
+                    <Text color={"inherit"}>{button1Text}</Text>
                   </Button>
                 </AirsLink>
               </Container>
               <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
                 <AirsLink href={button2Link}>
                   <Button display={"block"} variant={tones[tone].button2}>
-                    {button2Text}
+                    <Text color={"inherit"}>{button2Text}</Text>
                   </Button>
                 </AirsLink>
               </Container>
@@ -163,14 +163,14 @@ const Hero: React.FC<IHeroProps> = ({
                   onClick={matomoFreeTrialEvent}
                   variant={tones[tone].button1}
                 >
-                  {button1Text}
+                  <Text color={"inherit"}>{button1Text}</Text>
                 </Button>
               </AirsLink>
             </Container>
             <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
               <AirsLink href={button2Link}>
                 <Button display={"block"} variant={tones[tone].button2}>
-                  {button2Text}
+                  <Text color={"inherit"}>{button2Text}</Text>
                 </Button>
               </AirsLink>
             </Container>

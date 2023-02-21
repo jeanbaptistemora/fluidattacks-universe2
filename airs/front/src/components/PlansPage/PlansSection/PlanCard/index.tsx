@@ -19,6 +19,7 @@ import {
 } from "../../../../styles/styledComponents";
 import { CloudImage } from "../../../CloudImage";
 import { Paragraph, Title } from "../../../Texts";
+import { Text } from "../../../Typography";
 
 const PlanCard: React.FC<IPlansCard> = ({
   description,
@@ -62,13 +63,13 @@ const PlanCard: React.FC<IPlansCard> = ({
           {isMachine ? (
             <Link onClick={matomoFreeTrialEvent} to={"/free-trial"}>
               <NewRegularRedButton className={"mv4 w-100"}>
-                {"Start free trial"}
+                <Text color={"inherit"}>{"Start free trial"}</Text>
               </NewRegularRedButton>
             </Link>
           ) : (
             <Link to={"/contact-us-demo"}>
               <PhantomRegularRedButton className={"mv4 w-100"}>
-                {"Request a demo"}
+                <Text color={"inherit"}>{"Request a demo"}</Text>
               </PhantomRegularRedButton>
             </Link>
           )}
@@ -80,7 +81,7 @@ const PlanCard: React.FC<IPlansCard> = ({
                   src={`airs/plans/${item.check ? "check" : "xmark"}`}
                   styles={"mr3 check-icon"}
                 />
-                {item.text}
+                <Text color={"inherit"}>{item.text}</Text>
               </CardItem>
             );
           })}

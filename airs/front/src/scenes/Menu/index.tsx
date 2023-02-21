@@ -101,18 +101,18 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              {"Service"}
+              <Text color={"#535365"}>{"Service"}</Text>
             </Button>
             <Button
               onClick={handleClickButton("platform")}
               size={"md"}
               variant={"ghost"}
             >
-              {"Platform"}
+              <Text color={"#535365"}>{"Platform"}</Text>
             </Button>
             <AirsLink href={"/plans/"}>
               <Button size={"md"} variant={"ghost"}>
-                {"Plans"}
+                <Text color={"#535365"}>{"Plans"}</Text>
               </Button>
             </AirsLink>
             <Button
@@ -120,11 +120,11 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              {"Resources"}
+              <Text color={"#535365"}>{"Resources"}</Text>
             </Button>
             <AirsLink href={"/advisories/"}>
               <Button size={"md"} variant={"ghost"}>
-                {"Advisories"}
+                <Text color={"#535365"}>{"Advisories"}</Text>
               </Button>
             </AirsLink>
             <Button
@@ -132,7 +132,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
               size={"md"}
               variant={"ghost"}
             >
-              {"Company"}
+              <Text color={"#535365"}>{"Company"}</Text>
             </Button>
           </Container>
           <Container
@@ -157,7 +157,7 @@ export const NavbarComponent: React.FC = (): JSX.Element => {
             <AirsLink href={"https://app.fluidattacks.com/"}>
               <Button variant={"ghost"}>
                 <BsFillPersonFill />
-                {"Log in"}
+                <Text color={"#535365"}>{"Log in"}</Text>
               </Button>
             </AirsLink>
           </Container>

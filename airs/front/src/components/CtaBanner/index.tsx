@@ -109,7 +109,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
                   onClick={matomoFreeTrialEvent}
                   variant={"primary"}
                 >
-                  {button1Text}
+                  <Text color={"inherit"}>{button1Text}</Text>
                 </Button>
               </AirsLink>
             </Container>
@@ -119,7 +119,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
                   display={"block"}
                   variant={variant === "light" ? "tertiary" : "darkTertiary"}
                 >
-                  {button2Text}
+                  <Text color={"inherit"}>{button2Text}</Text>
                 </Button>
               </AirsLink>
             </Container>
@@ -173,14 +173,14 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
                 onClick={matomoFreeTrialEvent}
                 variant={"primary"}
               >
-                {button1Text}
+                <Text color={"inherit"}>{button1Text}</Text>
               </Button>
             </AirsLink>
           </Container>
           <Container ph={3} phSm={0} pv={1} width={"auto"} widthSm={"100%"}>
             <AirsLink decoration={"none"} href={button2Link}>
               <Button display={"block"} variant={"tertiary"}>
-                {button2Text}
+                <Text color={"inherit"}>{button2Text}</Text>
               </Button>
             </AirsLink>
           </Container>
@@ -230,7 +230,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
                 size={"lg"}
                 variant={"primary"}
               >
-                {button1Text}
+                <Text color={"inherit"}>{button1Text}</Text>
               </Button>
             </AirsLink>
           </Container>
@@ -278,7 +278,7 @@ const CtaBanner: React.FC<ICtaBannerProps> = ({
               size={"lg"}
               variant={"primary"}
             >
-              {button1Text}
+              <Text color={"inherit"}>{button1Text}</Text>
             </Button>
           </AirsLink>
         </Container>
