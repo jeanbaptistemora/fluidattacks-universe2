@@ -310,6 +310,9 @@ capec:
     "677":
       title: Server Motherboard Compromise
       link: https://capec.mitre.org/data/definitions/677.html
+    "678":
+      title: System Build Data Maliciously Altered
+      link: https://capec.mitre.org/data/definitions/678.html
   metadata: {}
 cis:
   title: CIS
