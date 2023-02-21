@@ -1,4 +1,5 @@
 /* eslint react/forbid-component-props: 0 */
+import dayjs from "dayjs";
 import React from "react";
 import {
   FaFacebookSquare,
@@ -15,6 +16,8 @@ import { Text } from "../../../components/Typography";
 import { translate } from "../../../utils/translations/translate";
 
 const DesktopFooter: React.FC = (): JSX.Element => {
+  const currentYear = dayjs().year();
+
   return (
     <Container align={"end"}>
       <Container
@@ -287,9 +290,7 @@ const DesktopFooter: React.FC = (): JSX.Element => {
           width={"50%"}
         >
           <Text color={"#b0b0bf"} size={"xs"} textAlign={"center"}>
-            {
-              "Copyright © 2023 Fluid Attacks. We hack your software. All rights reserved."
-            }
+            {`Copyright © ${currentYear} Fluid Attacks. We hack your software. All rights reserved.`}
           </Text>
         </Container>
         <Container
