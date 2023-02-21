@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 
 import type { IVerificationSummaryAttr } from "./types";
 
-import { Col33, Row } from "styles/styledComponents";
+import { Row } from "components/Layout";
+import { Col33 } from "styles/styledComponents";
 
 interface IDescriptionProps {
   description: string;
