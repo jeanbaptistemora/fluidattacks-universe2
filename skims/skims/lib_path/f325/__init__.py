@@ -18,7 +18,6 @@ from lib_path.f325.cloudformation import (
 from lib_path.f325.terraform import (
     terraform_permissive_policy,
     tfm_iam_has_wildcard_resource_on_write_action,
-    tfm_kms_key_has_master_keys_exposed_to_everyone,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -107,15 +106,6 @@ def run_tfm_iam_has_wildcard_resource_on_write_action(
 
 
 @SHIELD_BLOCKING
-def run_tfm_kms_key_has_master_keys_exposed_to_everyone(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_kms_key_has_master_keys_exposed_to_everyone(
-        content=content, path=path, model=model
-    )
-
-
-@SHIELD_BLOCKING
 def run_terraform_permissive_policy(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -165,7 +155,6 @@ def analyze(
             *(
                 fun(content, path, model)
                 for fun in (
-                    run_tfm_kms_key_has_master_keys_exposed_to_everyone,
                     run_tfm_iam_has_wildcard_resource_on_write_action,
                     run_terraform_permissive_policy,
                 )

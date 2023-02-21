@@ -76,22 +76,3 @@ resource "aws_iam_role_policy" "vuln_role_policy_1" {
   }
   EOF
 }
-
-resource "aws_kms_key" "vuln_key_exposed_1" {
-  description             = "KMS key 1"
-  deletion_window_in_days = 10
-
-  policy = <<-EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Principal": {
-          "AWS": "*"
-        },
-        "Effect": "Allow"
-      }
-    ]
-  }
-  EOF
-}

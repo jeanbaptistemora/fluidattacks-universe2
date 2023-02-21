@@ -49,29 +49,29 @@ F325,lines,namespace/skims/test/data/lib_path/f325/cfn_kms_key_has_master_keys_e
   37 |       ""Type"": ""AWS::KMS::Key"",
      ^ Col 0
 ",cloudformation.cfn_kms_key_has_master_keys_exposed_to_everyone
-F325,lines,namespace/skims/test/data/lib_path/f325/terraform.tf,84,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
- in namespace/skims/test/data/lib_path/f325/terraform.tf","
-  74 |       }
-  75 |     ]
-  76 |   }
-  77 |   EOF
-  78 | }
-  79 |
-  80 | resource ""aws_kms_key"" ""vuln_key_exposed_1"" {
-  81 |   description             = ""KMS key 1""
-  82 |   deletion_window_in_days = 10
-  83 |
-> 84 |   policy = <<-EOF
-  85 |   {
-  86 |     ""Version"": ""2012-10-17"",
-  87 |     ""Statement"": [
-  88 |       {
-  89 |         ""Principal"": {
-  90 |           ""AWS"": ""*""
-  91 |         },
-  92 |         ""Effect"": ""Allow""
-  93 |       }
-  94 |     ]
+F325,lines,namespace/skims/test/data/lib_root/f325/tfm_kms_key_has_master_keys_exposed_to_everyone.tf,5,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone
+ in namespace/skims/test/data/lib_root/f325/tfm_kms_key_has_master_keys_exposed_to_everyone.tf","
+   1 | resource ""aws_kms_key"" ""vuln_key_exposed_1"" {
+   2 |   description             = ""KMS key 1""
+   3 |   deletion_window_in_days = 10
+   4 |
+>  5 |   policy = <<-EOF
+   6 |   {
+   7 |     ""Version"": ""2012-10-17"",
+   8 |     ""Statement"": [
+   9 |       {
+  10 |         ""Principal"": {
+  11 |           ""AWS"": ""*""
+  12 |         },
+  13 |         ""Effect"": ""Allow""
+  14 |       }
+  15 |     ]
+  16 |   }
+  17 |   EOF
+  18 | }
+  19 |
+  20 |
+  21 | resource ""aws_kms_key"" ""sec_key"" {
      ^ Col 0
 ",terraform.tfm_kms_key_has_master_keys_exposed_to_everyone
 F325,inputs,arn:aws:iam::123456789012:alias/ (namespace),/Statement/0/Principal/AWS: *,250,skims,325. Excessive privileges - Wildcards,"Amazon KMS master keys are exposed to everyone

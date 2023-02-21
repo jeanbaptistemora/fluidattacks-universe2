@@ -5177,7 +5177,7 @@ class MethodsEnum(Enum):
     TFM_KMS_MASTER_KEYS_EXPOSED = MethodInfo(
         file_name="terraform",
         name="tfm_kms_key_has_master_keys_exposed_to_everyone",
-        module="lib_path",
+        module="lib_root",
         finding=FindingEnum.F325,
         developer=DeveloperEnum.ALEJANDRO_TRUJILLO,
         technique=TechniqueEnum.BASIC_SAST,
