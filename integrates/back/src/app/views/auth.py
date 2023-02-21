@@ -196,8 +196,22 @@ async def do_google_login(request: Request) -> Response:
     return await google.authorize_redirect(request, redirect_uri)
 
 
+def get_subscriptions(roles: list[str]) -> list[str]:
+    if all(rol in SUBSCRIPTIONS for rol in roles):
+        all_subscriptions = [
+            SUBSCRIPTIONS.get(item, []) for item in set(roles)
+        ]
+        return list({item for list in all_subscriptions for item in list})
+
+    return SUBSCRIPTIONS.get("default", [])
+
+
 async def complete_register(
-    *, email: str, first_name: str, last_name: str
+    *,
+    email: str,
+    first_name: str,
+    last_name: str,
+    roles: list[str],
 ) -> None:
     today = datetime_utils.get_utc_now()
     await collect(
@@ -215,7 +229,7 @@ async def complete_register(
                 user_email=email,
                 state=StakeholderState(
                     notifications_preferences=NotificationsPreferences(
-                        email=SUBSCRIPTIONS.get("default", [])
+                        email=get_subscriptions(roles)
                     ),
                     modified_date=today,
                     modified_by=email.strip().lower(),
@@ -251,19 +265,38 @@ async def autoenroll_stakeholder(
     )
 
     await complete_register(
-        email=email, first_name=first_name, last_name=last_name
+        email=email,
+        first_name=first_name,
+        last_name=last_name,
+        roles=["user_manager"],
     )
 
 
 async def invited_stakeholder(
+    loaders: Dataloaders,
     email: str,
     first_name: str,
     last_name: str,
 ) -> None:
     await analytics.mixpanel_track(email, "Register")
+    orgs_access = await loaders.stakeholder_organizations_access.load(email)
+    groups_access = await loaders.stakeholder_groups_access.load(email)
+    roles = []
+    if len(orgs_access) > 0:
+        roles.extend(
+            [org.invitation.role for org in orgs_access if org.invitation]
+        )
+    if len(groups_access) > 0:
+        roles.extend(
+            [
+                group.invitation.role
+                for group in groups_access
+                if group.invitation
+            ]
+        )
 
     await complete_register(
-        email=email, first_name=first_name, last_name=last_name
+        email=email, first_name=first_name, last_name=last_name, roles=roles
     )
 
 
@@ -280,7 +313,7 @@ async def log_stakeholder_in(
         if not stakeholder.enrolled:
             await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
         if not stakeholder.registration_date:
-            await invited_stakeholder(email, first_name, last_name)
+            await invited_stakeholder(loaders, email, first_name, last_name)
         if not stakeholder.is_registered:
             await stakeholders_domain.register(email)
 
