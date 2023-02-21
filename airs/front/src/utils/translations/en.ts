@@ -21,7 +21,7 @@ const pageTexts: ResourceKey = {
   },
   blog: {
     ctaDescription:
-      "Discover benefits of our Continuous Hacking solution, " +
+      "Discover the benefits of our Continuous Hacking solution, " +
       "which hundreds of organizations are already enjoying.",
     ctaTitle: "Start your 21-day free trial",
     description:
