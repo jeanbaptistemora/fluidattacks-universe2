@@ -32,7 +32,7 @@ describe("eventDescriptionView", (): void => {
     {
       request: {
         query: GET_EVENT_DESCRIPTION,
-        variables: { eventId: "413372600" },
+        variables: { canRetrieveHacker: true, eventId: "413372600" },
       },
       result: {
         data: {
@@ -49,6 +49,13 @@ describe("eventDescriptionView", (): void => {
     },
   ];
 
+  const mockedPermissions = new PureAbility<string>([
+    { action: "api_mutations_reject_event_solution_mutate" },
+    { action: "api_mutations_solve_event_mutate" },
+    { action: "api_mutations_update_event_mutate" },
+    { action: "api_resolvers_event_hacker_resolve" },
+  ]);
+
   it("should return a function", (): void => {
     expect.hasAssertions();
     expect(typeof EventDescriptionView).toBe("function");
@@ -60,10 +67,12 @@ describe("eventDescriptionView", (): void => {
     render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
-          <Route
-            component={EventDescriptionView}
-            path={"/:groupName/events/:eventId/description"}
-          />
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route
+              component={EventDescriptionView}
+              path={"/:groupName/events/:eventId/description"}
+            />
+          </authzPermissionsContext.Provider>
         </MockedProvider>
       </MemoryRouter>
     );
@@ -80,9 +89,6 @@ describe("eventDescriptionView", (): void => {
   it("should render solving modal", async (): Promise<void> => {
     expect.hasAssertions();
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_mutations_solve_event_mutate" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider addTypename={false} mocks={mocks}>
@@ -126,7 +132,7 @@ describe("eventDescriptionView", (): void => {
       {
         request: {
           query: GET_EVENT_DESCRIPTION,
-          variables: { eventId: "413372600" },
+          variables: { canRetrieveHacker: true, eventId: "413372600" },
         },
         result: {
           data: {
@@ -167,9 +173,6 @@ describe("eventDescriptionView", (): void => {
       },
     ];
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_mutations_update_event_mutate" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider
@@ -236,7 +239,7 @@ describe("eventDescriptionView", (): void => {
       {
         request: {
           query: GET_EVENT_DESCRIPTION,
-          variables: { eventId: "413372600" },
+          variables: { canRetrieveHacker: true, eventId: "413372600" },
         },
         result: {
           data: {
@@ -275,9 +278,6 @@ describe("eventDescriptionView", (): void => {
       },
     ];
 
-    const mockedPermissions = new PureAbility<string>([
-      { action: "api_mutations_reject_event_solution_mutate" },
-    ]);
     render(
       <MemoryRouter initialEntries={["/TEST/events/413372600/description"]}>
         <MockedProvider

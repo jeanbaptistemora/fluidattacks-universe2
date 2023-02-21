@@ -1,6 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
 import type { ApolloError } from "@apollo/client";
-import type { PureAbility } from "@casl/ability";
 import { useAbility } from "@casl/react";
 import { Form, Formik } from "formik";
 import type { GraphQLError } from "graphql";
@@ -36,6 +35,7 @@ import {
   FormGroup,
   Row,
 } from "styles/styledComponents";
+import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { castEventType } from "utils/formatHelpers";
 import { EditableField, FormikText } from "utils/forms/fields";
@@ -46,7 +46,7 @@ import { composeValidators, required } from "utils/validations";
 const EventDescriptionView: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
   const { eventId } = useParams<{ eventId: string }>();
-  const permissions: PureAbility<string> = useAbility(authzPermissionsContext);
+  const permissions = useAbility(authzPermissionsContext);
   const canUpdateEvent: boolean = permissions.can(
     "api_mutations_update_event_mutate"
   );
@@ -197,7 +197,12 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
     GET_EVENT_DESCRIPTION,
     {
       onError: handleErrors,
-      variables: { eventId },
+      variables: {
+        canRetrieveHacker: permissions.can(
+          "api_resolvers_event_hacker_resolve"
+        ),
+        eventId,
+      },
     }
   );
 
@@ -577,15 +582,17 @@ const EventDescriptionView: React.FC = (): JSX.Element => {
                     </Row>
                     <Row>
                       <Col50>
-                        <EditableField
-                          alignField={"horizontalWide"}
-                          component={FormikText}
-                          currentValue={data.event.hacker}
-                          label={t("searchFindings.tabEvents.hacker")}
-                          name={"hacker"}
-                          renderAsEditable={false}
-                          type={"text"}
-                        />
+                        <Can do={"api_resolvers_event_hacker_resolve"}>
+                          <EditableField
+                            alignField={"horizontalWide"}
+                            component={FormikText}
+                            currentValue={data.event.hacker}
+                            label={t("searchFindings.tabEvents.hacker")}
+                            name={"hacker"}
+                            renderAsEditable={false}
+                            type={"text"}
+                          />
+                        </Can>
                       </Col50>
                       <Col50>
                         <EditableField

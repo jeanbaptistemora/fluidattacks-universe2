@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 
 const GET_EVENT_DESCRIPTION: DocumentNode = gql`
-  query GetEventDescription($eventId: String!) {
+  query GetEventDescription($canRetrieveHacker: Boolean!, $eventId: String!) {
     event(identifier: $eventId) {
       affectedReattacks {
         findingId
@@ -14,7 +14,7 @@ const GET_EVENT_DESCRIPTION: DocumentNode = gql`
       detail
       eventType
       eventStatus
-      hacker
+      hacker @include(if: $canRetrieveHacker)
       id
       otherSolvingReason
       solvingReason

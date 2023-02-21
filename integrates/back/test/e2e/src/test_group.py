@@ -101,7 +101,7 @@ def test_group_events(
     event.click()
     assert utils.wait_for_text(
         driver,
-        "unittest@fluidattacks.com",
+        "Authorization for a special attack",
         timeout,
     )
 

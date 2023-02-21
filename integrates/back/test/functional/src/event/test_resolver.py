@@ -27,7 +27,12 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert populate
     event_id: str = "418900971"
     result: dict[str, Any] = await get_result(user=email, event=event_id)
-    assert "errors" not in result
+
+    if "errors" in result:
+        assert result["data"]["event"]["hacker"] is None
+    else:
+        assert result["data"]["event"]["hacker"] == "unittest@fluidattacks.com"
+
     assert "event" in result["data"]
     assert result["data"]["event"]["client"] == "Fluid"
     assert result["data"]["event"]["closingDate"] == "-"
@@ -44,7 +49,6 @@ async def test_get_event(populate: bool, email: str) -> None:
     assert result["data"]["event"]["eventStatus"] == "CREATED"
     assert result["data"]["event"]["eventType"] == "OTHER"
     assert result["data"]["event"]["groupName"] == "group1"
-    assert result["data"]["event"]["hacker"] == "unittest@fluidattacks.com"
     assert result["data"]["event"]["id"] == event_id
     assert result["data"]["event"]["evidences"] == {
         "file1": {
