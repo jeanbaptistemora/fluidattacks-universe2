@@ -36,11 +36,12 @@ async def _resolve_for_organization(
     info: GraphQLResolveInfo,
     email: str,
     organization_id: str,
+    user_email: str,
 ) -> Stakeholder:
     if not organization_id:
         raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    return await get_stakeholder(loaders, email)
+    return await get_stakeholder(loaders, email, user_email)
 
 
 @enforce_group_level_auth_async
@@ -49,11 +50,12 @@ async def _resolve_for_group(
     info: GraphQLResolveInfo,
     email: str,
     group_name: str,
+    user_email: str,
 ) -> Stakeholder:
     if not group_name:
         raise StakeholderNotFound()
     loaders: Dataloaders = info.context.loaders
-    return await get_stakeholder(loaders, email)
+    return await get_stakeholder(loaders, email, user_email)
 
 
 @QUERY.field("stakeholder")
@@ -66,6 +68,8 @@ async def resolve(
     entity: str = kwargs["entity"]
     request_store["entity"] = entity
     email: str = kwargs["user_email"]
+    user_data = await sessions_domain.get_jwt_content(info.context)
+    user_email: str = user_data["user_email"]
 
     if entity == "ORGANIZATION" and "organization_id" in kwargs:
         org_id: str = kwargs["organization_id"]
@@ -74,6 +78,7 @@ async def resolve(
             info=info,
             email=email,
             organization_id=org_id,
+            user_email=user_email,
         )
 
     if entity == "GROUP" and "group_name" in kwargs:
@@ -83,6 +88,7 @@ async def resolve(
             info=info,
             email=email,
             group_name=group_name,
+            user_email=user_email,
         )
 
     raise InvalidParameter()

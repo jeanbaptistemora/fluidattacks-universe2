@@ -388,7 +388,7 @@ async def test_create_user() -> None:
     time.sleep(1)
     await log_stakeholder_in(
         loaders=loaders,
-        stakeholder=UserAccessInfo(
+        user_info=UserAccessInfo(
             first_name="First_Name", last_name="Last_Name", user_email=email
         ),
     )

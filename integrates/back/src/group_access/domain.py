@@ -57,6 +57,7 @@ import logging
 import logging.config
 from newutils import (
     datetime as datetime_utils,
+    validations,
 )
 from newutils.group_access import (
     format_invitation_state,
@@ -124,14 +125,23 @@ async def get_reattackers(
 async def get_group_stakeholders(
     loaders: Dataloaders,
     group_name: str,
+    user_email: str | None = None,
 ) -> list[Stakeholder]:
-    stakeholders_access = await loaders.group_stakeholders_access.load(
-        group_name
-    )
+    emails = [
+        access.email
+        for access in await loaders.group_stakeholders_access.load(group_name)
+    ]
 
-    return await loaders.stakeholder_with_fallback.load_many(
-        [access.email for access in stakeholders_access]
-    )
+    if user_email and not validations.is_fluid_staff(user_email):
+        return await loaders.stakeholder_with_fallback.load_many(
+            [
+                email
+                for email in emails
+                if not validations.is_fluid_staff(email)
+            ]
+        )
+
+    return await loaders.stakeholder_with_fallback.load_many(emails)
 
 
 async def get_group_stakeholders_emails(

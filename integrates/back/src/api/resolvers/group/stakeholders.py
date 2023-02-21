@@ -21,9 +21,6 @@ from graphql.type.definition import (
 from group_access.domain import (
     get_group_stakeholders,
 )
-from newutils import (
-    validations,
-)
 from sessions import (
     domain as sessions_domain,
 )
@@ -44,18 +41,12 @@ async def resolve(
     request_store = sessions_domain.get_request_store(info.context)
     request_store["entity"] = "GROUP"
     request_store["group_name"] = parent.name
-    user_data: dict[str, str] = await sessions_domain.get_jwt_content(
-        info.context
+    user_data = await sessions_domain.get_jwt_content(info.context)
+    user_email = user_data["user_email"]
+    stakeholders = await get_group_stakeholders(
+        loaders,
+        parent.name,
+        user_email,
     )
-    user_email: str = user_data["user_email"]
-    stakeholders = await get_group_stakeholders(loaders, parent.name)
-
-    exclude_fluid_staff = not validations.is_fluid_staff(user_email)
-    if exclude_fluid_staff:
-        return [
-            stakeholder
-            for stakeholder in stakeholders
-            if not validations.is_fluid_staff(stakeholder.email)
-        ]
 
     return stakeholders

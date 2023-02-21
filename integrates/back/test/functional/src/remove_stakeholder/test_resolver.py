@@ -36,7 +36,7 @@ import pytest
     [
         [
             "customer_manager@fluidattacks.com",
-            "admin@gmail.com",
+            "admin@fluidattacks.com",
         ],
     ],
 )
@@ -166,7 +166,7 @@ async def test_remove_stakeholder(
     )
     assert (
         len(result_organization_query["data"]["organization"]["stakeholders"])
-        == len_organization_stakeholders
+        == len_organization_stakeholders - 1
     )
     assert (
         result_organization_query["data"]["organization"]["credentials"][0][

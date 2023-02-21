@@ -564,9 +564,20 @@ async def get_stakeholders_emails(
 
 
 async def get_stakeholders(
-    loaders: Dataloaders, organization_id: str
+    loaders: Dataloaders,
+    organization_id: str,
+    user_email: str | None = None,
 ) -> list[Stakeholder]:
     emails = await get_stakeholders_emails(loaders, organization_id)
+
+    if user_email and not validations_utils.is_fluid_staff(user_email):
+        return await loaders.stakeholder_with_fallback.load_many(
+            [
+                email
+                for email in emails
+                if not validations_utils.is_fluid_staff(email)
+            ]
+        )
 
     return await loaders.stakeholder_with_fallback.load_many(emails)
 

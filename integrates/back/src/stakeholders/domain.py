@@ -77,6 +77,7 @@ from newutils import (
     analytics as analytics_utils,
     datetime as datetime_utils,
     logs as logs_utils,
+    validations,
 )
 from newutils.validations import (
     is_fluid_staff,
@@ -112,11 +113,21 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 
 
-async def get_stakeholder(loaders: Dataloaders, email: str) -> Stakeholder:
+async def get_stakeholder(
+    loaders: Dataloaders,
+    email: str,
+    user_email: str | None = None,
+) -> Stakeholder:
+    if user_email and not validations.is_fluid_staff(user_email):
+        if validations.is_fluid_staff(email):
+            raise StakeholderNotFound()
+
     stakeholder = await loaders.stakeholder.load(email)
-    if not stakeholder:
-        raise StakeholderNotFound()
-    return stakeholder
+
+    if stakeholder:
+        return stakeholder
+
+    raise StakeholderNotFound()
 
 
 async def acknowledge_concurrent_session(email: str) -> None:

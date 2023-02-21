@@ -268,21 +268,22 @@ async def invited_stakeholder(
 
 
 async def log_stakeholder_in(
-    loaders: Dataloaders, stakeholder: UserAccessInfo
+    loaders: Dataloaders,
+    user_info: UserAccessInfo,
 ) -> None:
-    email = stakeholder.user_email.lower()
-    first_name = stakeholder.first_name[:29]
-    last_name = stakeholder.last_name[:29]
-    if await stakeholders_domain.exists(loaders, email):
-        stakeholder_in_db = await stakeholders_domain.get_stakeholder(
-            loaders, email
-        )
-        if not stakeholder_in_db.enrolled:
+    email = user_info.user_email.lower()
+    first_name = user_info.first_name[:29]
+    last_name = user_info.last_name[:29]
+    stakeholder = await loaders.stakeholder.load(email)
+
+    if stakeholder:
+        if not stakeholder.enrolled:
             await analytics.mixpanel_track(email, "AutoenrollmentWelcome")
-        if not stakeholder_in_db.registration_date:
+        if not stakeholder.registration_date:
             await invited_stakeholder(email, first_name, last_name)
-        if not stakeholder_in_db.is_registered:
+        if not stakeholder.is_registered:
             await stakeholders_domain.register(email)
+
         await stakeholders_domain.update_last_login(email)
     else:
         await autoenroll_stakeholder(email, first_name, last_name)

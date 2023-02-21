@@ -22,6 +22,9 @@ from .consult.schema import (
 from .credentials.schema import (
     CREDENTIALS,
 )
+from .document_file.schema import (
+    DOCUMENT_FILE,
+)
 from .entity_report_subscription.schema import (
     ENTITY_REPORT_SUBSCRIPTION,
 )
@@ -51,6 +54,9 @@ from .finding.schema import (
 )
 from .finding_evidence.schema import (
     FINDING_EVIDENCE,
+)
+from .finding_evidence_item.schema import (
+    FINDING_EVIDENCE_ITEM,
 )
 from .finding_policy.schema import (
     FINDING_POLICY,
@@ -244,6 +250,7 @@ TYPES: tuple[ObjectType, ...] = (
     CODE_LANGUAGES,
     CONSULT,
     CREDENTIALS,
+    DOCUMENT_FILE,
     ENTITY_REPORT_SUBSCRIPTION,
     EVENT,
     EVENT_EVIDENCE,
@@ -254,6 +261,7 @@ TYPES: tuple[ObjectType, ...] = (
     EXPLOIT_RESULT,
     FINDING_POLICY,
     FINDING_EVIDENCE,
+    FINDING_EVIDENCE_ITEM,
     FINDING,
     FORCES_EXECUTION,
     FORCES_EXECUTIONS,
