@@ -2,7 +2,7 @@ locals {
   runners = {
     small = {
       runner = {
-        version  = "15.4.0"
+        version  = "15.9.1"
         replicas = 4
         tags     = ["small"]
         ami      = "ami-0f5ea7c2783b14c09"
@@ -10,11 +10,14 @@ locals {
       workers = {
         instance  = "c5ad.large"
         root_size = 10
-        docker_machine_options = [
-          "amazonec2-volume-type=gp3",
-          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-          "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-        ]
+        docker-machine = {
+          version = "0.16.2-gitlab.15"
+          options = [
+            "amazonec2-volume-type=gp3",
+            "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+            "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
+          ]
+        }
         idle = {
           count = 5
           time  = 1800
@@ -24,7 +27,7 @@ locals {
     }
     large = {
       runner = {
-        version  = "15.4.0"
+        version  = "15.9.1"
         replicas = 1
         tags     = ["large"]
         ami      = "ami-0f5ea7c2783b14c09"
@@ -32,11 +35,14 @@ locals {
       workers = {
         instance  = "m5d.large"
         root_size = 10
-        docker_machine_options = [
-          "amazonec2-volume-type=gp3",
-          "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-          "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-        ]
+        docker-machine = {
+          version = "0.16.2-gitlab.15"
+          options = [
+            "amazonec2-volume-type=gp3",
+            "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
+            "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
+          ]
+        }
         idle = {
           count = 5
           time  = 1800
@@ -49,10 +55,10 @@ locals {
 
 module "runners" {
   source  = "npalm/gitlab-runner/aws"
-  version = "5.1.0"
+  version = "5.9.1"
   for_each = merge([
     for name, values in local.runners : {
-      for replica in range(values.runner.replicas) : "${name}_${replica}" => values
+      for replica in range(values.runner.replicas) : "${name}-${replica}" => values
     }
   ]...)
 
@@ -107,12 +113,14 @@ module "runners" {
 
   # Workers
   enable_docker_machine_ssm_access = true
-  docker_machine_options           = each.value.workers.docker_machine_options
+  docker_machine_version           = each.value.workers.docker-machine.version
+  docker_machine_options           = each.value.workers.docker-machine.options
   docker_machine_spot_price_bid    = ""
   docker_machine_instance_type     = each.value.workers.instance
   runners_gitlab_url               = "https://gitlab.com"
   runners_executor                 = "docker+machine"
   runners_root_size                = each.value.workers.root_size
+  runners_volume_type              = "gp3"
   runners_concurrent               = 1000
   runners_ebs_optimized            = true
   runners_idle_count               = each.value.workers.idle.count
