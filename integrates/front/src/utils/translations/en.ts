@@ -1776,7 +1776,7 @@ export const enTranslations: ResourceKey = {
           headers: {
             costsTotal: "Total costs ($)",
             groupName: "Group name",
-            managed: "Managed",
+            managed: "Payment methods",
             numberAuthors: "Month-To-Date Authors",
             tier: "Tier",
           },
@@ -1878,6 +1878,7 @@ export const enTranslations: ResourceKey = {
               couldNotBeCreated:
                 "Payment method could not be created. Please make sure all the details you provided are correct",
             },
+            label: "Select payment method",
             otherMethods: {
               add: "Add other payment method",
               businessName: "Business name",
@@ -1894,6 +1895,7 @@ export const enTranslations: ResourceKey = {
               body: "Payment method successfully added",
               title: "Success",
             },
+            title: "Add payment method",
           },
           defaultPaymentMethod: "(Default)",
           remove: {
