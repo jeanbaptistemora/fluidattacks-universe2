@@ -34,8 +34,11 @@ def is_message_on_args(
     n_id: NId,
 ) -> bool:
     arg_list = g.adj_ast(graph, n_id, label_type="ArgumentList")[0]
-    args_childs = g.adj_ast(graph, arg_list, label_type="Literal")[0]
-    if graph.nodes[args_childs]["value"] == "'message'":
+    args_childs = g.adj_ast(graph, arg_list)
+    if (
+        graph.nodes[args_childs[0]]["value"] == "'message'"
+        and graph.nodes[args_childs[1]]["label_type"] == "MethodDeclaration"
+    ):
         return True
     return False
 
