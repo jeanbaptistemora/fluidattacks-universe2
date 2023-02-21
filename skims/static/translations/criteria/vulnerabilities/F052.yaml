@@ -21,9 +21,11 @@ src.lib_path.f052.insecure_pass.description:
   en: Use of insecure password encoder
   es: Uso de codificador de contraseña inseguro
 lib_root.f052.c_sharp_disabled_strong_crypto:
-  en: A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto
+  en:
+    A AppContext.SetSwitch method call sets Switch.System.Net.DontEnableSchUseStrongCrypto
     to true
-  es: Una llamada al método AppContext.SetSwitch establece Switch.System.Net.DontEnableSchUseStrongCrypto
+  es:
+    Una llamada al método AppContext.SetSwitch establece Switch.System.Net.DontEnableSchUseStrongCrypto
     en verdadero
 lib_ssl.analyze_protocol.weak_ciphers_allowed:
   en: >
@@ -40,3 +42,8 @@ lib_root.f052.c_sharp_obsolete_key_derivation:
 lib_root.f052.jwt_insecure_signing_algorithm:
   en: JWT is signed with an insecure algorithm.
   es: JWT es firmado con un algoritmo seguro.
+lib_root.f052.insec_message_auth_mechanism:
+  en: Using vulnerable message authentication mechanisms could lead to
+    brute force attacks.
+  es: El uso de mecanismos de autenticación de mensajes vulnerables
+    abre la posibilidad a ataques de fuerza bruta.

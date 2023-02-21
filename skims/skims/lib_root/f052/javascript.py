@@ -2,6 +2,7 @@ from collections.abc import (
     Iterator,
 )
 from lib_root.f052.common import (
+    insec_msg_auth_mechanism,
     insecure_create_cipher,
     insecure_ec_keypair,
     insecure_ecdh_key,
@@ -206,6 +207,30 @@ def javascript_jwt_insec_sign_algorithm(
 
     return get_vulnerabilities_from_n_ids(
         desc_key="lib_root.f052.jwt_insecure_signing_algorithm",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def javascript_insec_msg_auth_mechanism(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JS_INSEC_MSG_AUTH_MECHANISM
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in insec_msg_auth_mechanism(graph):
+                yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f052.insec_message_auth_mechanism",
         desc_params={},
         graph_shard_nodes=n_ids(),
         method=method,

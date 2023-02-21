@@ -224,3 +224,16 @@ def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
             ):
                 vuln_nodes.append(vuln_node)
     return vuln_nodes
+
+
+def insec_msg_auth_mechanism(graph: Graph) -> List[NId]:
+    nodes = graph.nodes
+    vuln_nodes: List[NId] = []
+    if imported_name := get_default_alias(graph, "crypto-js"):
+        for n_id in g.matching_nodes(
+            graph,
+            label_type="PLACEHOLDER",
+        ):
+            if nodes[n_id].get("PLACEHOLDER") == imported_name:
+                vuln_nodes.append(n_id)
+    return vuln_nodes

@@ -6087,3 +6087,19 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
+        file_name="javascript",
+        name="javascript_insec_msg_auth_mechanism",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
+    TS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
+        file_name="typescript",
+        name="typescript_insec_msg_auth_mechanism",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
