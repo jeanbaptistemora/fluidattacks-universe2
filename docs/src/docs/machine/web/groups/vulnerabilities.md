@@ -106,6 +106,10 @@ the column filter offers you.
 
 ![Vulnerability Table Second Half](https://res.cloudinary.com/fluid-attacks/image/upload/v1675162531/docs/web/groups/vulnerabilities/down_row.png)
 
+> **Note:** You can see the total of your open vulnerabilities;
+> when you put the mouse cursor on vulnerabilities,
+> you will see a tooltip where it will give you the total sum of these.
+
 ## Functionalities
 
 ### Columns filter
