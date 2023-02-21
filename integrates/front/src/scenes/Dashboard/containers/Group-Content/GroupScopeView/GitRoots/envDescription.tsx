@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { Row } from "styles/styledComponents";
+import { Row } from "components/Layout";
 import { formatDate } from "utils/formatHelpers";
 
 interface IDescriptionProps {
