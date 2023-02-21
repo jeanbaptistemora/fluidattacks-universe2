@@ -483,6 +483,7 @@ async def update_tours(email: str, tours: dict[str, bool]) -> None:
                 new_group=tours["new_group"],
                 new_root=tours["new_root"],
                 new_risk_exposure=tours["new_risk_exposure"],
+                welcome=bool(tours.get("welcome", False)),
             ),
         ),
         email=email,

@@ -19,7 +19,12 @@ from typing import (
     (
         (
             "admin@gmail.com",
-            {"newGroup": "true", "newRiskExposure": "true", "newRoot": "true"},
+            {
+                "newGroup": "true",
+                "newRiskExposure": "true",
+                "newRoot": "true",
+                "welcome": "true",
+            },
         ),
     ),
 )
@@ -41,3 +46,4 @@ async def test_update_tours(
     assert stakeholder.tours.new_group is True
     assert stakeholder.tours.new_risk_exposure is True
     assert stakeholder.tours.new_root is True
+    assert stakeholder.tours.welcome is True

@@ -18,7 +18,8 @@ async def get_result(*, user: str, tours: dict[str, bool]) -> Dict[str, Any]:
     {{
         newGroup: {tours["newGroup"]},
         newRiskExposure: {tours["newRiskExposure"]},
-        newRoot: {tours["newRoot"]} }})
+        newRoot: {tours["newRoot"]},
+        welcome: {tours["welcome"]} }})
     {{
       success
         }}

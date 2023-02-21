@@ -6,4 +6,6 @@ type Tours {
   newRiskExposure: Boolean!
   "Add git roots new user workflow"
   newRoot: Boolean!
+  "Manage welcome tour"
+  welcome: Boolean
 }
