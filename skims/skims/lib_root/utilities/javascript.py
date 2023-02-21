@@ -5,9 +5,6 @@ from model.graph_model import (
     Graph,
     NId,
 )
-from typing import (
-    Dict,
-)
 from utils import (
     graph as g,
 )
@@ -51,7 +48,7 @@ def file_imports_module(graph: Graph, module_name: str) -> bool:
 
 
 def get_namespace_alias(graph: Graph, module_name: str) -> str | None:
-    def predicate_matcher(node: Dict[str, str]) -> bool:
+    def predicate_matcher(node: dict[str, str]) -> bool:
         return bool(
             (node.get("label_type") == "Import")
             and (node.get("import_type") == "namespace_import")
@@ -70,7 +67,7 @@ def get_namespace_alias(graph: Graph, module_name: str) -> str | None:
 
 
 def get_default_alias(graph: Graph, module_name: str) -> str | None:
-    def predicate_matcher(node: Dict[str, str]) -> bool:
+    def predicate_matcher(node: dict[str, str]) -> bool:
         return bool(
             (node.get("label_type") == "Import")
             and (n_exp := node.get("expression"))

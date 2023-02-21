@@ -59,7 +59,6 @@ from state.ephemeral import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 CHECKS: tuple[tuple[core_model.FindingEnum, Any], ...] = (
@@ -101,7 +100,7 @@ CHECKS: tuple[tuple[core_model.FindingEnum, Any], ...] = (
 async def analyze(
     *,
     credentials: AwsCredentials,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
 
     vulnerabilities: list[Vulnerability] = list(

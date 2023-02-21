@@ -5,9 +5,6 @@ from model import (
 import os
 import pytest
 import subprocess
-from typing import (
-    List,
-)
 from zone import (
     t,
 )
@@ -110,7 +107,7 @@ def _has_method_correct_information(method: core_model.MethodsEnum) -> bool:
     module_path: str = os.path.join(
         os.getcwd(), f"skims/skims/{method_info.module}"
     )
-    file_options: List[str] = [
+    file_options: list[str] = [
         os.path.join(
             method_info.module, method_info.file_name
         ),  # lib_http/analyze_headers

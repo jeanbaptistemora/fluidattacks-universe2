@@ -7,10 +7,6 @@ from model import (
 )
 import os
 import re
-from typing import (
-    Dict,
-    List,
-)
 from utils.encodings import (
     yaml_dumps_blocking,
 )
@@ -19,7 +15,7 @@ from utils.encodings import (
 FOLDER = "../owasp_benchmark"
 
 
-def get_tests_cases() -> Dict[str, List[str]]:
+def get_tests_cases() -> dict[str, list[str]]:
     tests = {}
     pattern = re.compile(
         r'@WebServlet\(value\s*=\s*"/(\w+)-',
@@ -47,7 +43,7 @@ def get_tests_cases() -> Dict[str, List[str]]:
 
 def main() -> None:
     year: str = datetime.datetime.now().strftime("%Y")
-    suites: List[str] = []
+    suites: list[str] = []
     categories = {
         "cmdi": [core_model.FindingEnum.F004.name],
         "crypto": [core_model.FindingEnum.F052.name],
@@ -61,7 +57,7 @@ def main() -> None:
         "xpathi": [core_model.FindingEnum.F021.name],
         "xss": [core_model.FindingEnum.F008.name],
     }
-    extra_files: List[str] = [
+    extra_files: list[str] = [
         "src/main/java/org/owasp/benchmark/helpers/DatabaseHelper.java",
         "src/main/java/org/owasp/benchmark/helpers/SeparateClassRequest.java",
         "src/main/java/org/owasp/benchmark/helpers/Thing1.java",

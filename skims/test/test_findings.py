@@ -1,3 +1,6 @@
+from collections.abc import (
+    Callable,
+)
 import os
 import pytest
 from pytest_mock import (
@@ -44,8 +47,6 @@ from test.test_z_functional import (
 )
 from typing import (
     Any,
-    Callable,
-    Optional,
 )
 
 MOCKERS: dict[str, Callable] = {
@@ -95,7 +96,7 @@ def create_config(
         return content
 
 
-def get_mock_info(finding: str) -> Optional[dict[str, Any]]:
+def get_mock_info(finding: str) -> dict[str, Any] | None:
     data = MOCKERS.get(finding)
     if data:
         return data()

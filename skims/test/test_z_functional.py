@@ -1,6 +1,10 @@
 from cli import (
     cli,
 )
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from contextlib import (
     redirect_stderr,
     redirect_stdout,
@@ -16,12 +20,7 @@ from model import (
 import os
 import pytest
 from typing import (
-    Callable,
-    Dict,
-    Iterable,
-    List,
     Text,
-    Tuple,
 )
 from utils.logs import (
     configure,
@@ -32,7 +31,7 @@ def _default_snippet_filter(snippet: str) -> str:
     return snippet
 
 
-def skims(*args: str) -> Tuple[int, str, str]:
+def skims(*args: str) -> tuple[int, str, str]:
     out_buffer, err_buffer = io.StringIO(), io.StringIO()
 
     code: int = 0
@@ -66,8 +65,8 @@ def _format_csv(
     content: Iterable[Text],
     *,
     snippet_filter: Callable[[str], str],
-) -> List[Dict[str, str]]:
-    result: List[Dict[str, str]] = []
+) -> list[dict[str, str]]:
+    result: list[dict[str, str]] = []
     for row in csv.DictReader(content):
         row["snippet"] = snippet_filter(row["snippet"])
         result.append(row)

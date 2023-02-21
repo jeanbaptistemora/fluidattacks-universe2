@@ -6,9 +6,6 @@ import pytest
 from sast.parse import (
     get_graph_db,
 )
-from typing import (
-    Tuple,
-)
 from utils.encodings import (
     json_dumps,
 )
@@ -81,7 +78,7 @@ from utils.encodings import (
     ],
 )
 async def test_graph_generation(
-    files_to_test: Tuple[str, ...],
+    files_to_test: tuple[str, ...],
     suffix_out: str,
 ) -> None:
     # Test the GraphDB

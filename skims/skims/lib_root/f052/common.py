@@ -1,4 +1,5 @@
 from collections.abc import (
+    Iterable,
     Set,
 )
 from itertools import (
@@ -20,13 +21,6 @@ from symbolic_eval.evaluate import (
 )
 from symbolic_eval.utils import (
     get_backward_paths,
-)
-from typing import (
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
 )
 from utils import (
     graph as g,
@@ -75,8 +69,8 @@ def get_eval_triggers(
     return False
 
 
-def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     ciphers_methods = {
         "createdecipher",
         "createcipher",
@@ -98,8 +92,8 @@ def insecure_create_cipher(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_hash(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_methods = complete_attrs_on_set({"crypto.createHash"})
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -114,7 +108,7 @@ def insecure_hash(graph: Graph, method: MethodsEnum) -> List[NId]:
 
 
 def insecure_encrypt(graph: Graph, method: MethodsEnum) -> list[NId]:
-    vuln_nodes: List[NId] = []
+    vuln_nodes: list[NId] = []
     crypto_methods = {"encrypt", "decrypt"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -129,8 +123,8 @@ def insecure_encrypt(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
-def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"createecdh"}
 
     for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
@@ -147,8 +141,8 @@ def insecure_ecdh_key(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"rsa", "unsafemodulus"}
 
@@ -166,8 +160,8 @@ def insecure_rsa_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
     danger_f = {"generatekeypair"}
     rules = {"ec", "unsafecurve"}
 
@@ -185,8 +179,8 @@ def insecure_ec_keypair(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def insecure_hash_library(graph: Graph) -> List[NId]:
-    vuln_nodes: List[NId] = []
+def insecure_hash_library(graph: Graph) -> list[NId]:
+    vuln_nodes: list[NId] = []
     if dangerous_name := get_default_alias(graph, "js-sha1"):
         for n_id in g.matching_nodes(graph, label_type="MethodInvocation"):
             method_expression = graph.nodes[n_id]["expression"]
@@ -197,7 +191,7 @@ def insecure_hash_library(graph: Graph) -> List[NId]:
 
 def get_danger_n_id(
     graph: Graph, n_id: NId, method: MethodsEnum
-) -> Optional[NId]:
+) -> NId | None:
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
         if evaluation:
@@ -208,9 +202,9 @@ def get_danger_n_id(
     return None
 
 
-def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
+def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> list[NId]:
     nodes = graph.nodes
-    vuln_nodes: List[NId] = []
+    vuln_nodes: list[NId] = []
     if imported_name := get_default_alias(graph, "jsonwebtoken"):
         for n_id in g.matching_nodes(
             graph,
@@ -233,8 +227,8 @@ def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> List[NId]:
     return vuln_nodes
 
 
-def get_insec_auth_default_import(graph: Graph) -> Tuple[NId, ...]:
-    def match_predicate(node: Dict[str, str]) -> bool:
+def get_insec_auth_default_import(graph: Graph) -> tuple[NId, ...]:
+    def match_predicate(node: dict[str, str]) -> bool:
         if (
             (imported_name := get_default_alias(graph, "crypto-js"))
             or (imported_name := get_namespace_alias(graph, "crypto-js"))
@@ -249,8 +243,8 @@ def get_insec_auth_default_import(graph: Graph) -> Tuple[NId, ...]:
     return g.filter_nodes(graph, graph.nodes, match_predicate)
 
 
-def get_insec_auth_direct_import(graph: Graph) -> Tuple[NId, ...]:
-    def match_predicate(node: Dict[str, str]) -> bool:
+def get_insec_auth_direct_import(graph: Graph) -> tuple[NId, ...]:
+    def match_predicate(node: dict[str, str]) -> bool:
         import_sha1 = get_default_alias(graph, "crypto-js/hmac-sha1")
         import_sha256 = get_default_alias(graph, "crypto-js/hmac-sha256")
         if (import_sha1 or import_sha256) and (

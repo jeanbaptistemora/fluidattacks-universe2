@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     DependencyType,
     format_pkg_dep,
@@ -54,12 +57,6 @@ from operator import (
 )
 import pytest
 import re
-from typing import (
-    Dict,
-    Iterator,
-    List,
-    Pattern,
-)
 
 
 def get_file_info_from_path(path: str) -> str:
@@ -74,11 +71,11 @@ def get_file_info_from_path(path: str) -> str:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_gem_gemfile() -> None:
-    gemfile_dep: Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
+    gemfile_dep: re.Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
     path: str = "skims/test/data/lib_path/f011/Gemfile"
     file_contents: str = get_file_info_from_path(path)
     gem_gemfile_fun = gem_gemfile.__wrapped__  # type: ignore
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_gem: Iterator[DependencyType] = gem_gemfile_fun(
         file_contents, path
     )
@@ -104,7 +101,7 @@ def test_gem_gemfile() -> None:
 @pytest.mark.skims_test_group("unittesting")
 def test_gem_gemfile_dev() -> None:
     path: str = "skims/test/data/lib_path/f011/Gemfile"
-    gemfile_dep: Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
+    gemfile_dep: re.Pattern[str] = re.compile(r'\s*gem "(?P<name>[\w\-]+)"')
     with open(
         path,
         mode="r",
@@ -112,7 +109,7 @@ def test_gem_gemfile_dev() -> None:
     ) as file_handle:
         file_contents: str = file_handle.read(-1)
     gem_gemfile_fun = gem_gemfile_dev.__wrapped__  # type: ignore
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_gem: Iterator[DependencyType] = gem_gemfile_fun(
         file_contents, path
     )
@@ -137,12 +134,12 @@ def test_gem_gemfile_dev() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_gem_gemfile_lock() -> None:
-    gem_lock_dep: Pattern[str] = re.compile(
+    gem_lock_dep: re.Pattern[str] = re.compile(
         r"^\s{4}(?P<gem>(?P<name>[\w\-]+)\s?(\(.*\))?)"
     )
     path: str = "skims/test/data/lib_path/f011/Gemfile.lock"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     gemfile_lock_fun = gem_gemfile_lock.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
         file_contents, path
@@ -166,7 +163,7 @@ def test_gem_gemfile_lock() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_go_add_require() -> None:
-    req_dict: Dict[str, DependencyType] = {}
+    req_dict: dict[str, DependencyType] = {}
     dep_line: str = "require gorm.io/gorm v1.24.0"
     line_number: int = 24
     if matched := re.search(GO_REQ_MOD_DEP, dep_line):
@@ -183,7 +180,7 @@ def test_go_add_require() -> None:
 def test_go_mod() -> None:
     path: str = "skims/test/data/lib_path/f011/go.mod"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = go_mod.__wrapped__(file_contents, path)  # type: ignore
     assertion: bool = True
     for line_num in [*range(5, 28), *range(31, 85), 91, 94, 95]:
@@ -215,7 +212,7 @@ def test_go_mod() -> None:
 def test_pip_requirements_txt() -> None:
     path: str = "skims/test/data/lib_path/f011/requirements.txt"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = pip_requirements_txt.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -242,7 +239,7 @@ def test_pip_requirements_txt() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_maven_pom_xml() -> None:
-    pom_xml_ver: Pattern[str] = re.compile(
+    pom_xml_ver: re.Pattern[str] = re.compile(
         r"<version>(\$\{)?(?P<version>[^\}]*)\}?</version>"
     )
     path = "skims/test/data/lib_path/f011/frst_child/scdn_child/pom.xml"
@@ -280,12 +277,12 @@ def test_maven_pom_xml() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_composer_json() -> None:
-    patt_dep_info: Pattern[str] = re.compile(
+    patt_dep_info: re.Pattern[str] = re.compile(
         r'"(?P<pkg_name>.*?)": "(?P<version>.*?)"'
     )
     path: str = "skims/test/data/lib_path/f011/composer.json"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = composer_json.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -312,12 +309,12 @@ def test_composer_json() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_composer_json_dev() -> None:
-    patt_dep_info: Pattern[str] = re.compile(
+    patt_dep_info: re.Pattern[str] = re.compile(
         r'"(?P<pkg_name>.*?)": "(?P<version>.*?)"'
     )
     path: str = "skims/test/data/lib_path/f011/composer.json"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = composer_json_dev.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -344,10 +341,10 @@ def test_composer_json_dev() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_composer_lock() -> None:
-    patt_info: Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
+    patt_info: re.Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
     path: str = "skims/test/data/lib_path/f011/composer.lock"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = composer_lock.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -377,10 +374,10 @@ def test_composer_lock() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_composer_lock_dev() -> None:
-    patt_info: Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
+    patt_info: re.Pattern[str] = re.compile(r'".*?": "(?P<info>.*?)"')
     path: str = "skims/test/data/lib_path/f011/composer.lock"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = composer_lock_dev.__wrapped__(  # type: ignore
         file_contents, path
     )
@@ -412,7 +409,7 @@ def test_composer_lock_dev() -> None:
 def test_pub_pubspec_yaml() -> None:
     path: str = "skims/test/data/lib_path/f011/pubspec.yaml"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     gemfile_lock_fun = pub_pubspec_yaml.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
         file_contents, path
@@ -440,7 +437,7 @@ def test_pub_pubspec_yaml() -> None:
 def test_pub_pubspec_yaml_dev() -> None:
     path: str = "skims/test/data/lib_path/f011/pubspec.yaml"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     gemfile_lock_fun = pub_pubspec_yaml_dev.__wrapped__  # type: ignore
     generator_gem: Iterator[DependencyType] = gemfile_lock_fun(
         file_contents, path
@@ -634,13 +631,13 @@ def test_maven_gradle() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_maven_sbt() -> None:
-    sbt_dep: Pattern[str] = re.compile(
+    sbt_dep: re.Pattern[str] = re.compile(
         r'"(?P<pkg>[\w\.\-]+)"\s+%\s+"(?P<module>[\w\.\-]+)"'
         r'\s+%\s+"(?P<version>[\d\.]+)"'
     )
     path: str = "skims/test/data/lib_path/f011/build.sbt"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = maven_sbt.__wrapped__(file_contents, path)  # type: ignore
     assertion: bool = True
     for line_num in [*range(3, 8), 10, *range(14, 18), *range(20, 22), 23]:
@@ -664,12 +661,12 @@ def test_maven_sbt() -> None:
 
 @pytest.mark.skims_test_group("unittesting")
 def test_conan_conanfile_txt() -> None:
-    conan_dep: Pattern[str] = re.compile(
+    conan_dep: re.Pattern[str] = re.compile(
         r"^(?P<product>[\w\-]+)\/\[?(?P<version>[^\],]+)"
     )
     path: str = "skims/test/data/lib_path/f011/conanfile.txt"
     file_contents: str = get_file_info_from_path(path)
-    content: List[str] = file_contents.splitlines()
+    content: list[str] = file_contents.splitlines()
     generator_dep = conan_conanfile_txt.__wrapped__(  # type: ignore
         file_contents, path
     )

@@ -22,9 +22,6 @@ import pytest
 from textwrap import (
     dedent,
 )
-from typing import (
-    Optional,
-)
 
 
 @pytest.mark.skims_test_group("unittesting")
@@ -194,7 +191,7 @@ def test_content_security_policy() -> None:
 )
 def test_date(
     line: str,
-    expected: Optional[DateHeader],
+    expected: DateHeader | None,
 ) -> None:
     assert date.parse(line) == expected
 
@@ -378,7 +375,7 @@ def test_strict_transport_security() -> None:
 )
 def test_www_authenticate(
     line: str,
-    expected: Optional[WWWAuthenticate],
+    expected: WWWAuthenticate | None,
 ) -> None:
     assert www_authenticate.parse(line) == expected
 

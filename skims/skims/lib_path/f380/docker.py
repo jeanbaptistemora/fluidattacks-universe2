@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from lib_path.common import (
     get_cloud_iterator,
     get_vulnerabilities_blocking,
@@ -15,11 +18,6 @@ from pyparsing import (
     Regex,
 )
 import re
-from typing import (
-    Iterator,
-    Pattern,
-    Set,
-)
 
 
 def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
@@ -45,7 +43,7 @@ def unpinned_docker_image(content: str, path: str) -> Vulnerabilities:
     )
 
 
-def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
+def get_values_by_key(node: Node, key: str, nodes: set[Node]) -> set[Node]:
     if isinstance(node.data, dict):
         for parent, sub_tree in node.data.items():
             if parent.data == key:
@@ -57,8 +55,8 @@ def get_values_by_key(node: Node, key: str, nodes: Set[Node]) -> Set[Node]:
 
 
 def check_digest(line: str) -> bool:
-    env_var_re: Pattern = re.compile(r"\$\{.+\}")
-    digest_re: Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
+    env_var_re: re.Pattern = re.compile(r"\$\{.+\}")
+    digest_re: re.Pattern = re.compile(".*@sha256:[a-fA-F0-9]{64}")
     return bool(env_var_re.search(line) or digest_re.search(line))
 
 

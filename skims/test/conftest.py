@@ -1,3 +1,7 @@
+from collections.abc import (
+    Generator,
+    Iterator,
+)
 import contextlib
 from ctx import (
     NAMESPACES_FOLDER,
@@ -31,10 +35,6 @@ from test_helpers import (
 )
 from typing import (
     Any,
-    Generator,
-    Iterator,
-    List,
-    Set,
 )
 
 # Side effects
@@ -42,13 +42,13 @@ os.chdir("..")
 create_test_context(debug=False)
 
 
-def load_test_groups() -> Set[str]:
+def load_test_groups() -> set[str]:
     with open("skims/test/test_groups.json", encoding="utf-8") as file:
         return json.load(file)
 
 
 # Constants
-TEST_GROUPS: Set[str] = set(load_test_groups())
+TEST_GROUPS: set[str] = set(load_test_groups())
 
 
 def pytest_addoption(parser: Any) -> None:
@@ -118,7 +118,7 @@ def test_prepare_cfn_json_data() -> Generator:
         os.remove(path)
 
 
-def _exec_and_wait_command(cmd: List[str]) -> int:
+def _exec_and_wait_command(cmd: list[str]) -> int:
     exit_code: int = -1
     with subprocess.Popen(cmd) as process:
         exit_code = process.wait()
@@ -126,7 +126,7 @@ def _exec_and_wait_command(cmd: List[str]) -> int:
 
 
 @contextlib.contextmanager
-def _exec_command(cmd: List[str], signal: str = "15") -> Iterator[None]:
+def _exec_command(cmd: list[str], signal: str = "15") -> Iterator[None]:
     with subprocess.Popen(cmd, start_new_session=True) as sproc:
         try:
             yield
@@ -137,7 +137,7 @@ def _exec_command(cmd: List[str], signal: str = "15") -> Iterator[None]:
 
 
 def _exec_mock_server(
-    cmd: List[str], port: str, signal: str = "15", wait_time: str = "5"
+    cmd: list[str], port: str, signal: str = "15", wait_time: str = "5"
 ) -> Iterator[None]:
     _exec_and_wait_command(["common-kill-port", port])
     with _exec_command(cmd, signal):

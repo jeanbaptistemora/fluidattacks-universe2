@@ -44,11 +44,6 @@ from state.ephemeral import (
     reset as reset_ephemeral_state,
 )
 import tempfile
-from typing import (
-    Dict,
-    Optional,
-    Union,
-)
 from utils.bugs import (
     add_bugsnag_data,
 )
@@ -67,7 +62,7 @@ from zone import (
 
 async def upload_sarif_result(
     config: core_model.SkimsConfig,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     with tempfile.TemporaryDirectory() as tmp_dir:
         file_path = f"{tmp_dir}/{CTX.config.execution_id}.csv"
@@ -85,9 +80,9 @@ async def upload_sarif_result(
 
 
 async def execute_skims(
-    stores: Optional[Dict[core_model.FindingEnum, EphemeralStore]] = None,
-    config: Optional[core_model.SkimsConfig] = None,
-) -> Dict[core_model.FindingEnum, EphemeralStore]:
+    stores: dict[core_model.FindingEnum, EphemeralStore] | None = None,
+    config: core_model.SkimsConfig | None = None,
+) -> dict[core_model.FindingEnum, EphemeralStore]:
     """
     Execute skims according to the provided config.
 
@@ -120,7 +115,7 @@ async def execute_skims(
 
 def report_results(
     config: core_model.SkimsConfig,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     if config.output:
         if config.output.format == core_model.OutputFormat.CSV:
@@ -136,7 +131,7 @@ def report_results(
 
 
 def notify_findings_as_snippets(
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
 ) -> None:
     """Print user-friendly messages about the results found."""
     for store in stores.values():
@@ -149,7 +144,7 @@ def notify_findings_as_snippets(
 
 
 def notify_findings_as_csv(
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
+    stores: dict[core_model.FindingEnum, EphemeralStore],
     output: str,
 ) -> int:
     headers = (
@@ -201,8 +196,8 @@ def notify_findings_as_csv(
 
 def notify_findings_as_sarif(
     config: core_model.SkimsConfig,
-    stores: Dict[core_model.FindingEnum, EphemeralStore],
-    output_path: Optional[str] = None,
+    stores: dict[core_model.FindingEnum, EphemeralStore],
+    output_path: str | None = None,
 ) -> None:
     if output_path is None and config.output is None:
         log_to_remote_blocking(
@@ -224,8 +219,8 @@ def notify_findings_as_sarif(
 
 
 async def main(
-    config: Union[str, core_model.SkimsConfig],
-    group: Optional[str],
+    config: str | core_model.SkimsConfig,
+    group: str | None,
 ) -> bool:
     try:
         # FP: The function referred to is from another product (reviews)

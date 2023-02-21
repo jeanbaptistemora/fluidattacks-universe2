@@ -32,6 +32,9 @@ from aws.model import (
     AWSS3VersionConfig,
     S3VersioningEnum,
 )
+from collections.abc import (
+    Iterator,
+)
 from itertools import (
     chain,
 )
@@ -51,7 +54,6 @@ from parse_hcl2.tokens import (
 )
 from typing import (
     Any,
-    Iterator,
     Literal,
 )
 
