@@ -565,6 +565,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer1@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                    last_commit_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                     loc=4324,
                     seen_at=datetime.fromisoformat(
                         "2020-01-01T15:41:04+00:00"
@@ -598,6 +601,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer2@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                    last_commit_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                     loc=180,
                     seen_at=datetime.fromisoformat(
                         "2020-02-01T15:41:04+00:00"

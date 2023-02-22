@@ -134,6 +134,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer1@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                    last_commit_date=datetime.fromisoformat(
+                        "2021-11-16T15:41:04+00:00"
+                    ),
                     loc=4324,
                     seen_at=datetime.fromisoformat(
                         "2020-01-01T15:41:04+00:00"

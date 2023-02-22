@@ -159,6 +159,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer1@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                    last_commit_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                     loc=4324,
                     modified_by="test@test.com",
                     modified_date=datetime.fromisoformat(
@@ -192,6 +195,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer2@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                    last_commit_date=datetime.fromisoformat(
+                        "2020-11-15T15:41:04+00:00"
+                    ),
                     loc=180,
                     modified_by="test2@test.com",
                     modified_date=datetime.fromisoformat(
@@ -225,6 +231,9 @@ async def populate(generic_data: Dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer3@gmail.com",
                     last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c3",
+                    last_commit_date=datetime.fromisoformat(
+                        "2020-11-16T15:41:04+00:00"
+                    ),
                     loc=243,
                     modified_by="test3@test.com",
                     modified_date=datetime.fromisoformat(

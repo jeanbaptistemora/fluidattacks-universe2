@@ -26,6 +26,7 @@ class ToeLinesState(NamedTuple):
     has_vulnerabilities: Optional[bool]
     last_author: str
     last_commit: str
+    last_commit_date: datetime
     loc: int
     modified_by: str
     modified_date: datetime

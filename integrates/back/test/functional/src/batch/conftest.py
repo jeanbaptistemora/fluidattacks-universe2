@@ -837,6 +837,9 @@ async def populate(generic_data: dict[str, Any]) -> bool:
                     has_vulnerabilities=False,
                     last_author="customer1@gmail.com",
                     last_commit="be8d00f5fe64d59dc463adb34f9fabdf262e1ed9",
+                    last_commit_date=datetime.fromisoformat(
+                        "2022-09-05T00:45:11+00:00"
+                    ),
                     seen_at=datetime.fromisoformat(
                         "2020-01-01T15:41:04+00:00"
                     ),

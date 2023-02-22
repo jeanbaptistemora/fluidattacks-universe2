@@ -85,6 +85,9 @@ async def test_add() -> None:
                 has_vulnerabilities=False,
                 last_author="user@gmail.com",
                 last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                last_commit_date=datetime.fromisoformat(
+                    "2017-08-01T05:00:00+00:00"
+                ),
                 loc=1000,
                 modified_by="machine@fluidattacks.com",
                 modified_date=datetime.fromisoformat(
@@ -159,6 +162,9 @@ async def test_update() -> None:
                 has_vulnerabilities=False,
                 last_author="customer2@gmail.com",
                 last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
+                last_commit_date=datetime.fromisoformat(
+                    "2020-08-01T05:00:00+00:00"
+                ),
                 loc=1111,
                 modified_by="hacker2@test.com",
                 modified_date=datetime.fromisoformat(

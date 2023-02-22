@@ -66,6 +66,7 @@ def format_toe_lines(item: Item) -> ToeLines:
             has_vulnerabilities=state_item.get("has_vulnerabilities"),
             last_author=state_item["last_author"],
             last_commit=state_item["last_commit"],
+            last_commit_date=datetime.fromisoformat(item["modified_date"]),
             loc=int(state_item["loc"]),
             modified_by=state_item["modified_by"],
             modified_date=datetime.fromisoformat(state_item["modified_date"]),
@@ -143,6 +144,9 @@ def format_toe_lines_item(
             "has_vulnerabilities": toe_lines.state.has_vulnerabilities,
             "last_author": toe_lines.state.last_author,
             "last_commit": toe_lines.state.last_commit,
+            "last_commit_date": get_as_utc_iso_format(
+                toe_lines.state.last_commit_date
+            ),
             "loc": toe_lines.state.loc,
             "modified_by": toe_lines.state.modified_by,
             "modified_date": get_as_utc_iso_format(

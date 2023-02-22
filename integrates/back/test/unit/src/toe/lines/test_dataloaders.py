@@ -50,6 +50,9 @@ async def test_get() -> None:
             has_vulnerabilities=False,
             last_author="user@gmail.com",
             last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+            last_commit_date=datetime.fromisoformat(
+                "2020-11-15T15:41:04+00:00"
+            ),
             loc=180,
             first_attack_at=datetime.fromisoformat(
                 "2020-02-19T15:41:04+00:00"
@@ -102,6 +105,9 @@ async def test_get() -> None:
             has_vulnerabilities=False,
             last_author="user@gmail.com",
             last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+            last_commit_date=datetime.fromisoformat(
+                "2020-11-16T15:41:04+00:00"
+            ),
             loc=172,
             modified_by="test2@test.com",
             modified_date=datetime.fromisoformat("2020-11-16T15:41:04+00:00"),
@@ -151,6 +157,9 @@ async def test_get_by_group() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                         loc=350,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
@@ -207,6 +216,9 @@ async def test_get_by_group() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                         loc=180,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
@@ -261,6 +273,9 @@ async def test_get_by_group() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-16T15:41:04+00:00"
+                        ),
                         loc=172,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
@@ -320,6 +335,9 @@ async def test_get_by_root() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="e17059d1e17059d1e17059d1e17059d1e17059d1",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                         loc=350,
                         first_attack_at=datetime.fromisoformat(
                             "2020-02-19T15:41:04+00:00"
@@ -379,6 +397,9 @@ async def test_get_by_root() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-15T15:41:04+00:00"
+                        ),
                         loc=180,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(
@@ -443,6 +464,9 @@ async def test_get_by_root() -> None:
                         has_vulnerabilities=False,
                         last_author="user@gmail.com",
                         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c1",
+                        last_commit_date=datetime.fromisoformat(
+                            "2020-11-16T15:41:04+00:00"
+                        ),
                         loc=172,
                         modified_by="test2@test.com",
                         modified_date=datetime.fromisoformat(

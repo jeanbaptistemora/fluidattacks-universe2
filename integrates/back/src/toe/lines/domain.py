@@ -136,6 +136,7 @@ def _assign_toe_lines(
             modified_date=datetime_utils.get_utc_now(),
             last_author=attributes.last_author,
             last_commit=attributes.last_commit,
+            last_commit_date=attributes.modified_date,
             loc=attributes.loc,
             seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
             sorts_risk_level=attributes.sorts_risk_level,
@@ -327,6 +328,9 @@ async def update(
         last_commit=attributes.last_commit
         if attributes.last_commit is not None
         else current_value.state.last_commit,
+        last_commit_date=attributes.modified_date
+        if attributes.modified_date is not None
+        else current_value.state.last_commit_date,
         modified_by=attributes.attacked_by
         if attributes.attacked_by
         else "machine@fluidattacks.com",
