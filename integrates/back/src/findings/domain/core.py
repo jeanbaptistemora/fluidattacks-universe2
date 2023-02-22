@@ -181,7 +181,39 @@ async def _validate_duplicated_finding(
             raise RepeatedFindingRecommendation()
 
 
+@validations.validate_fields_deco(
+    [
+        "attributes.attack_vector_description",
+        "attributes.description",
+        "attributes.recommendation",
+        "attributes.unfulfilled_requirements",
+        "attributes.threat",
+    ]
+)
+@validations.validate_fields_length_deco(
+    [
+        "attributes.attack_vector_description",
+        "attributes.description",
+        "attributes.recommendation",
+        "attributes.unfulfilled_requirements",
+        "attributes.threat",
+    ],
+    limit=5000,
+)
+@validations.validate_fields_length_deco(
+    [
+        "attributes.attack_vector_description",
+        "attributes.description",
+        "attributes.recommendation",
+        "attributes.unfulfilled_requirements",
+        "attributes.threat",
+    ],
+    limit=0,
+    is_greater_than_limit=True,
+)
+@validations.validate_update_severity_values_deco("attributes.severity")
 async def add_finding(
+    *,
     loaders: Dataloaders,
     group_name: str,
     stakeholder_email: str,

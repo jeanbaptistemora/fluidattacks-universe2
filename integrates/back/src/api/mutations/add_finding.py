@@ -64,29 +64,31 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     group_name: str,
+    description: str,
+    recommendation: str,
     title: str,
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     stakeholder_info = await sessions_domain.get_jwt_content(info.context)
-    stakeholer_email = stakeholder_info["user_email"]
+    stakeholder_email = stakeholder_info["user_email"]
     try:
         if not operation_can_be_executed(info.context, title):
             raise MachineCanNotOperate()
 
         await findings_domain.add_finding(
-            loaders,
-            group_name,
-            stakeholer_email,
-            FindingAttributesToAdd(
+            loaders=loaders,
+            group_name=group_name,
+            stakeholder_email=stakeholder_email,
+            attributes=FindingAttributesToAdd(
                 attack_vector_description=kwargs.get(
                     "attack_vector_description", ""
                 ),
-                description=kwargs.get("description", ""),
+                description=description,
                 min_time_to_remediate=check_and_set_min_time_to_remediate(
                     kwargs.get("min_time_to_remediate", None)
                 ),
-                recommendation=kwargs.get("recommendation", ""),
+                recommendation=recommendation,
                 severity=Finding31Severity(
                     attack_complexity=Decimal(
                         kwargs.get("attack_complexity", "0.0")
