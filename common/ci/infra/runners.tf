@@ -1,53 +1,103 @@
 locals {
+  user-data = {
+    ephemeral-disk = <<-EOT
+      Content-Type: multipart/mixed; boundary="==BOUNDARY=="
+      MIME-Version: 1.0
+
+      --==BOUNDARY==
+      Content-Type: text/cloud-config; charset="us-ascii"
+      MIME-Version: 1.0
+      Content-Transfer-Encoding: 7bit
+      Content-Disposition: attachment; filename="cloud-config.txt"
+
+      disk_setup:
+        /dev/nvme1n1:
+          table_type: mbr
+          layout: true
+          overwrite: true
+
+      fs_setup:
+        - label: nvme
+          filesystem: ext4
+          device: /dev/nvme1n1
+          partition: auto
+          overwrite: true
+
+      mounts:
+        - [/dev/nvme1n1, /var/lib/docker]
+
+      --==BOUNDARY==--
+    EOT
+  }
   runners = {
     small = {
       runner = {
-        version  = "15.9.1"
-        replicas = 4
-        tags     = ["small"]
-        ami      = "ami-0f5ea7c2783b14c09"
-      }
-      workers = {
-        instance  = "c5ad.large"
-        root_size = 10
+        replicas   = 1
+        instance   = "m5a.large"
+        version    = "15.9.1"
+        ami        = "ami-08a127d31bb7fa804"
+        monitoring = true
+        user-data  = ""
+        disk = {
+          size      = 15
+          type      = "gp3"
+          optimized = true
+        }
         docker-machine = {
           version = "0.16.2-gitlab.15"
-          options = [
-            "amazonec2-volume-type=gp3",
-            "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-            "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-          ]
+          options = []
         }
+        tags = ["small"]
+      }
+      workers = {
+        instance   = "c5ad.large"
+        ami        = "ami-07dc2dd8e0efbc46a"
+        user-data  = local.user-data.ephemeral-disk
+        monitoring = false
         idle = {
-          count = 5
+          count = 32
           time  = 1800
         }
-        ami = "ami-03a80f322a6053f85"
+        disk = {
+          size      = 10
+          type      = "gp3"
+          optimized = true
+        }
       }
     }
     large = {
       runner = {
-        version  = "15.9.1"
-        replicas = 1
-        tags     = ["large"]
-        ami      = "ami-0f5ea7c2783b14c09"
-      }
-      workers = {
-        instance  = "m5d.large"
-        root_size = 10
+        replicas   = 1
+        instance   = "m5a.large"
+        version    = "15.9.1"
+        ami        = "ami-08a127d31bb7fa804"
+        monitoring = true
+        user-data  = ""
+        disk = {
+          size      = 15
+          type      = "gp3"
+          optimized = true
+        }
         docker-machine = {
           version = "0.16.2-gitlab.15"
-          options = [
-            "amazonec2-volume-type=gp3",
-            "amazonec2-userdata=/etc/gitlab-runner/init/worker.sh",
-            "engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'",
-          ]
+          options = []
         }
+        tags = ["large"]
+      }
+      workers = {
+        instance   = "m5d.large"
+        ami        = "ami-07dc2dd8e0efbc46a"
+        user-data  = local.user-data.ephemeral-disk
+        monitoring = false
         idle = {
-          count = 5
+          count = 8
           time  = 1800
         }
-        ami = "ami-03a80f322a6053f85"
+        disk = {
+          size      = 10
+          type      = "gp3"
+          optimized = true
+        }
       }
     }
   }
@@ -63,7 +113,6 @@ module "runners" {
   ]...)
 
   # AWS
-  # https://gitlab.com/gitlab-org/gitlab-runner/-/tags?sort=version_desc
   aws_region                             = "us-east-1"
   vpc_id                                 = data.aws_vpc.main.id
   allow_iam_service_linked_role_creation = true
@@ -71,35 +120,28 @@ module "runners" {
   kms_deletion_window_in_days            = 30
   enable_manage_gitlab_token             = true
   enable_cloudwatch_logging              = false
+
+  # Runner
+  enable_runner_ssm_access          = true
+  subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
+  instance_type                     = each.value.runner.instance
+  gitlab_runner_version             = each.value.runner.version
+  runner_instance_enable_monitoring = each.value.runner.monitoring
+  runner_instance_ebs_optimized     = each.value.runner.disk.optimized
+  userdata_pre_install              = each.value.runner.user-data
+  docker_machine_version            = each.value.runner.docker-machine.version
+  docker_machine_options = concat(
+    ["engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'"],
+    each.value.runner.docker-machine.options,
+  )
   ami_filter = {
     image-id = [each.value.runner.ami]
   }
-
-  # Cache
-  cache_shared = true
-  cache_bucket = {
-    create = false
-    policy = module.cache.policy_arn
-    bucket = module.cache.bucket
-  }
-
-  # Runner
-  instance_type                     = "c5a.large"
-  gitlab_runner_version             = each.value.runner.version
-  enable_runner_ssm_access          = true
-  subnet_ids_gitlab_runner          = [data.aws_subnet.main.id]
-  runner_instance_ebs_optimized     = true
-  runner_instance_enable_monitoring = true
-  userdata_pre_install              = data.local_file.init_runner.content
-  runner_ami_filter = {
-    image-id = [each.value.workers.ami]
-  }
   runner_root_block_device = {
     delete_on_termination = true
-    volume_type           = "gp3"
-    volume_size           = 15
     encrypted             = true
-    iops                  = 3000
+    volume_type           = each.value.runner.disk.type
+    volume_size           = each.value.runner.disk.size
   }
   gitlab_runner_registration_config = {
     registration_token = var.gitlabRunnerToken
@@ -113,30 +155,31 @@ module "runners" {
 
   # Workers
   enable_docker_machine_ssm_access = true
-  docker_machine_version           = each.value.workers.docker-machine.version
-  docker_machine_options           = each.value.workers.docker-machine.options
   docker_machine_spot_price_bid    = ""
-  docker_machine_instance_type     = each.value.workers.instance
   runners_gitlab_url               = "https://gitlab.com"
   runners_executor                 = "docker+machine"
-  runners_root_size                = each.value.workers.root_size
-  runners_volume_type              = "gp3"
-  runners_concurrent               = 1000
-  runners_ebs_optimized            = true
-  runners_idle_count               = each.value.workers.idle.count
-  runners_idle_time                = each.value.workers.idle.time
-  runners_image                    = "docker"
   runners_limit                    = 1000
   runners_max_builds               = 30
-  runners_monitoring               = false
+  runners_concurrent               = 1000
   runners_name                     = "common-ci-${each.key}"
   runners_output_limit             = 8192
   runners_privileged               = false
   runners_pull_policy              = "always"
-  runners_request_concurrency      = 100
+  runners_request_concurrency      = 500
   runners_request_spot_instance    = true
   runners_use_private_address      = false
   subnet_id_runners                = data.aws_subnet.main.id
+  runners_monitoring               = each.value.workers.monitoring
+  docker_machine_instance_type     = each.value.workers.instance
+  runners_root_size                = each.value.workers.disk.size
+  runners_volume_type              = each.value.workers.disk.type
+  runners_ebs_optimized            = each.value.workers.disk.optimized
+  runners_userdata                 = each.value.workers.user-data
+  runners_idle_count               = each.value.workers.idle.count
+  runners_idle_time                = each.value.workers.idle.time
+  runner_ami_filter = {
+    image-id = [each.value.workers.ami]
+  }
   runners_machine_autoscaling = [
     {
       periods = [
@@ -148,6 +191,14 @@ module "runners" {
       timezone   = "America/Bogota"
     }
   ]
+
+  # Cache
+  cache_shared = true
+  cache_bucket = {
+    create = false
+    policy = module.cache.policy_arn
+    bucket = module.cache.bucket
+  }
 
   # Tags
   environment = "common-ci-${each.key}"
