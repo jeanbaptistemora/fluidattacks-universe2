@@ -1,4 +1,112 @@
 locals {
+  runners = {
+    small = {
+      replicas = 4
+      runner = merge(
+        local.config.small.runner,
+        { tags = ["small"] },
+      )
+      workers = merge(
+        local.config.small.workers,
+        { idle-count = 32 }
+      )
+      tags = merge(
+        local.config.small.tags,
+        { "management:product" = "common" },
+      )
+    }
+    large = {
+      replicas = 1
+      runner = merge(
+        local.config.large.runner,
+        { tags = ["large"] },
+      )
+      workers = merge(
+        local.config.large.workers,
+        { idle-count = 8 }
+      )
+      tags = merge(
+        local.config.large.tags,
+        { "management:product" = "common" },
+      )
+    }
+  }
+  config = {
+    small = {
+      replicas = 0
+      runner = {
+        instance   = "m5a.large"
+        version    = "15.9.1"
+        ami        = "ami-08a127d31bb7fa804"
+        monitoring = true
+        user-data  = ""
+
+        disk-size      = 15
+        disk-type      = "gp3"
+        disk-optimized = true
+
+        docker-machine-version = "0.16.2-gitlab.15"
+        docker-machine-options = []
+
+        tags = []
+      }
+      workers = {
+        instance   = "c5ad.large"
+        ami        = "ami-07dc2dd8e0efbc46a"
+        user-data  = local.user-data.ephemeral-disk
+        monitoring = false
+        limit      = 1000
+
+        idle-count = 0
+        idle-time  = 1800
+
+        disk-size      = 10
+        disk-type      = "gp3"
+        disk-optimized = true
+      }
+      tags = {
+        "management:area" = "innovation"
+        "management:type" = "product"
+      }
+    }
+    large = {
+      replicas = 0
+      runner = {
+        instance   = "m5a.large"
+        version    = "15.9.1"
+        ami        = "ami-08a127d31bb7fa804"
+        monitoring = true
+        user-data  = ""
+
+        disk-size      = 15
+        disk-type      = "gp3"
+        disk-optimized = true
+
+        docker-machine-version = "0.16.2-gitlab.15"
+        docker-machine-options = []
+
+        tags = []
+      }
+      workers = {
+        instance   = "m5d.large"
+        ami        = "ami-07dc2dd8e0efbc46a"
+        user-data  = local.user-data.ephemeral-disk
+        monitoring = false
+        limit      = 1000
+
+        idle-count = 0
+        idle-time  = 1800
+
+        disk-size      = 10
+        disk-type      = "gp3"
+        disk-optimized = true
+      }
+      tags = {
+        "management:area" = "innovation"
+        "management:type" = "product"
+      }
+    }
+  }
   user-data = {
     ephemeral-disk = <<-EOT
       Content-Type: multipart/mixed; boundary="==BOUNDARY=="
@@ -29,78 +137,6 @@ locals {
       --==BOUNDARY==--
     EOT
   }
-  runners = {
-    small = {
-      runner = {
-        replicas   = 1
-        instance   = "m5a.large"
-        version    = "15.9.1"
-        ami        = "ami-08a127d31bb7fa804"
-        monitoring = true
-        user-data  = ""
-        disk = {
-          size      = 15
-          type      = "gp3"
-          optimized = true
-        }
-        docker-machine = {
-          version = "0.16.2-gitlab.15"
-          options = []
-        }
-        tags = ["small"]
-      }
-      workers = {
-        instance   = "c5ad.large"
-        ami        = "ami-07dc2dd8e0efbc46a"
-        user-data  = local.user-data.ephemeral-disk
-        monitoring = false
-        idle = {
-          count = 32
-          time  = 1800
-        }
-        disk = {
-          size      = 10
-          type      = "gp3"
-          optimized = true
-        }
-      }
-    }
-    large = {
-      runner = {
-        replicas   = 1
-        instance   = "m5a.large"
-        version    = "15.9.1"
-        ami        = "ami-08a127d31bb7fa804"
-        monitoring = true
-        user-data  = ""
-        disk = {
-          size      = 15
-          type      = "gp3"
-          optimized = true
-        }
-        docker-machine = {
-          version = "0.16.2-gitlab.15"
-          options = []
-        }
-        tags = ["large"]
-      }
-      workers = {
-        instance   = "m5d.large"
-        ami        = "ami-07dc2dd8e0efbc46a"
-        user-data  = local.user-data.ephemeral-disk
-        monitoring = false
-        idle = {
-          count = 8
-          time  = 1800
-        }
-        disk = {
-          size      = 10
-          type      = "gp3"
-          optimized = true
-        }
-      }
-    }
-  }
 }
 
 module "runners" {
@@ -108,7 +144,7 @@ module "runners" {
   version = "5.9.1"
   for_each = merge([
     for name, values in local.runners : {
-      for replica in range(values.runner.replicas) : "${name}-${replica}" => values
+      for replica in range(values.replicas) : "${name}-${replica}" => values
     }
   ]...)
 
@@ -127,12 +163,12 @@ module "runners" {
   instance_type                     = each.value.runner.instance
   gitlab_runner_version             = each.value.runner.version
   runner_instance_enable_monitoring = each.value.runner.monitoring
-  runner_instance_ebs_optimized     = each.value.runner.disk.optimized
+  runner_instance_ebs_optimized     = each.value.runner.disk-optimized
   userdata_pre_install              = each.value.runner.user-data
-  docker_machine_version            = each.value.runner.docker-machine.version
+  docker_machine_version            = each.value.runner.docker-machine-version
   docker_machine_options = concat(
     ["engine-install-url='https://releases.rancher.com/install-docker/20.10.21.sh'"],
-    each.value.runner.docker-machine.options,
+    each.value.runner.docker-machine-options,
   )
   ami_filter = {
     image-id = [each.value.runner.ami]
@@ -140,8 +176,8 @@ module "runners" {
   runner_root_block_device = {
     delete_on_termination = true
     encrypted             = true
-    volume_type           = each.value.runner.disk.type
-    volume_size           = each.value.runner.disk.size
+    volume_type           = each.value.runner.disk-type
+    volume_size           = each.value.runner.disk-size
   }
   gitlab_runner_registration_config = {
     registration_token = var.gitlabRunnerToken
@@ -158,25 +194,25 @@ module "runners" {
   docker_machine_spot_price_bid    = ""
   runners_gitlab_url               = "https://gitlab.com"
   runners_executor                 = "docker+machine"
-  runners_limit                    = 1000
   runners_max_builds               = 30
-  runners_concurrent               = 1000
   runners_name                     = "common-ci-${each.key}"
   runners_output_limit             = 8192
   runners_privileged               = false
   runners_pull_policy              = "always"
-  runners_request_concurrency      = 500
   runners_request_spot_instance    = true
   runners_use_private_address      = false
   subnet_id_runners                = data.aws_subnet.main.id
+  runners_idle_time                = each.value.workers.idle-time
+  runners_idle_count               = each.value.workers.idle-count / each.value.replicas
+  runners_limit                    = each.value.workers.limit / each.value.replicas
+  runners_concurrent               = each.value.workers.limit / each.value.replicas
+  runners_request_concurrency      = each.value.workers.limit / each.value.replicas / 2
   runners_monitoring               = each.value.workers.monitoring
   docker_machine_instance_type     = each.value.workers.instance
-  runners_root_size                = each.value.workers.disk.size
-  runners_volume_type              = each.value.workers.disk.type
-  runners_ebs_optimized            = each.value.workers.disk.optimized
+  runners_root_size                = each.value.workers.disk-size
+  runners_volume_type              = each.value.workers.disk-type
+  runners_ebs_optimized            = each.value.workers.disk-optimized
   runners_userdata                 = each.value.workers.user-data
-  runners_idle_count               = each.value.workers.idle.count
-  runners_idle_time                = each.value.workers.idle.time
   runner_ami_filter = {
     image-id = [each.value.workers.ami]
   }
@@ -191,6 +227,7 @@ module "runners" {
       timezone   = "America/Bogota"
     }
   ]
+
 
   # Cache
   cache_shared = true
@@ -208,9 +245,5 @@ module "runners" {
     name_sg                     = "",
     name_iam_objects            = "",
   }
-  tags = {
-    "management:area"    = "innovation"
-    "management:product" = "common"
-    "management:type"    = "product"
-  }
+  tags = each.value.tags
 }
