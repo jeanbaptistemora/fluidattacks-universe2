@@ -73,6 +73,13 @@ from a security point of view:
   as security breaches
   that your system no longer has.
 
+Remember that this graph has three different filters:
+
+- [CVSSF](/about/glossary#cvss)
+  Exposure Level. (The graph that displays by default)
+- Vulnerability level, where it tells you the total vulnerabilities.
+- The data of the last 30, 90 days, or all.
+
 ## Total vulnerabilities
 
 ![Total Vulnerabilities](https://res.cloudinary.com/fluid-attacks/image/upload/v1652121574/docs/web/analytics/common/total_vulns.png)
@@ -226,29 +233,35 @@ severities.
 
 ![Mean Days To Remediate](https://res.cloudinary.com/fluid-attacks/image/upload/v1623443230/docs/web/analytics/common/mean_average_days_to_remediate_eyfowf.png)
 
-Here you can see the average
-number of days it takes to
-remediate vulnerabilities
-grouped by the CVSS severity
-in your organization,
+Here you can see the average number of days
+it takes to remediate vulnerabilities grouped
+by the CVSS severity in your organization,
 group,
 or portfolio.
-These times are weighted by
-exposure to risk (CVSSF).
+These times are weighted by exposure to risk (CVSSF).
+
+Remember that this graph has six different filters:
+
+- Days per exposure (The graph that displays by default)
+- Days are counted without applying CVSSF
+- Non-treated CVSSF which refers to non
+  permanently accepted treatment vulnerabilities.
+- Non-treated days are counted without applying
+  CVSSF which refers to vulnerabilities whose
+  treatment is not permanently accepted.
+- The data of the last 30, 90 days, or all.
 
 ## Mean time to remediate (MTTR) benchmark
 
 ![MTTR Benchmark](https://res.cloudinary.com/fluid-attacks/image/upload/v1643928855/docs/web/analytics/common/common_mttr.png)
 
-This section shows the average
-time it takes for your
-organization,
+This section shows the average time your organization,
 group,
-or portfolio to fix vulnerabilities.
-These times are weighted
-by exposure to risk (CVSSF).
-You can compare your numbers
-to those of the best,
+or portfolio takes to fix vulnerabilities.
+These times are weighted by exposure to risk (CVSSF)
+and days with non-treated,
+which refers to non permanently accepted treatment vulnerabilities.
+You can compare your numbers to those of the best,
 the average,
 and the worst organizations.
 
@@ -292,20 +305,22 @@ reported to this date.
 
 ![Exposure management over time](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929350/docs/web/analytics/common/common_distribution_time.png)
 
-This section shows the percentage of
-closed, accepted and open vulnerabilities
-over time, based on our standard
-[CVSSF](/about/faq/#severity-vs-vulnerabilities).
+This section shows the **percentage** of closed,
+accepted and open vulnerabilities over time,
+based on our standard
+[CVSSF](/about/glossary#cvss)
+and total Vulnerabilities.
 
 ## Exposure by type
 
 ![Exposure By Type](https://res.cloudinary.com/fluid-attacks/image/upload/v1643929472/docs/web/analytics/common/common_open_severity.png)
 
-This section shows what vulnerability
-types are open and their severity
-level according to our
-[CVSSF](/about/faq/#severity-vs-vulnerabilities)
-metric.
+This section shows what vulnerability types are open according to:
+
+- Exposure severity level the our CVSSF metric.
+- Number of Vulnerabilities.
+- According to what type Code,
+  infra and app.
 
 ## Vulnerabilities by assignment
 
