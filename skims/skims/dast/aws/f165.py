@@ -218,6 +218,75 @@ async def has_root_active_signing_certificates(
     return vulns
 
 
+async def dynamob_encrypted_with_aws_master_keys(
+    credentials: AwsCredentials,
+) -> core_model.Vulnerabilities:
+    response: dict[str, Any] = await run_boto3_fun(
+        credentials, service="dynamodb", function="list_tables"
+    )
+    table_names = response.get("TableNames", []) if response else []
+    method = core_model.MethodsEnum.AWS_DYNAMODB_ENCRYPTED_WITH_AWS_MASTER_KEYS
+    vulns: core_model.Vulnerabilities = ()
+    if table_names:
+        for table_name in table_names:
+            locations: list[Location] = []
+
+            describe_table: dict[str, Any] = await run_boto3_fun(
+                credentials,
+                service="dynamodb",
+                function="describe_table",
+                parameters={
+                    "TableName": table_name,
+                },
+            )
+            table_arn = describe_table["Table"]["TableArn"]
+            table = describe_table["Table"]
+            try:
+                vulnerable = table["SSEDescription"]["SSEType"] == "AES256"
+                if vulnerable:
+                    locations = [
+                        Location(
+                            access_patterns=("/SSEDescription/SSEType",),
+                            arn=(table_arn),
+                            values=(table["SSEDescription"]["SSEType"],),
+                            description=(
+                                "src.lib_path.f165."
+                                "dynamob_encrypted_with_aws_master_keys"
+                            ),
+                        ),
+                    ]
+                    vulns = (
+                        *vulns,
+                        *build_vulnerabilities(
+                            locations=locations,
+                            method=(method),
+                            aws_response=table,
+                        ),
+                    )
+
+            except KeyError:
+                locations = [
+                    Location(
+                        access_patterns=(),
+                        arn=(table_arn),
+                        values=(),
+                        description=(
+                            "src.lib_path.f165."
+                            "dynamob_encrypted_with_aws_master_keys"
+                        ),
+                    ),
+                ]
+                vulns = (
+                    *vulns,
+                    *build_vulnerabilities(
+                        locations=locations,
+                        method=(method),
+                        aws_response=table,
+                    ),
+                )
+    return vulns
+
+
 CHECKS: tuple[
     Callable[[AwsCredentials], Coroutine[Any, Any, tuple[Vulnerability, ...]]],
     ...,
@@ -226,4 +295,5 @@ CHECKS: tuple[
     root_has_access_keys,
     has_not_support_role,
     has_root_active_signing_certificates,
+    dynamob_encrypted_with_aws_master_keys,
 )
