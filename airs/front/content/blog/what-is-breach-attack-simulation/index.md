@@ -7,7 +7,7 @@ category: philosophy
 tags: cybersecurity, security-testing, hacking, red-team, company
 image: https://res.cloudinary.com/fluid-attacks/image/upload/v1671457188/blog/what-is-breach-attack-simulation/cover_bas.webp
 alt: Photo by Jeff Lemond on Unsplash
-description: Learn about what breach and attack simulation is, how it works, why we need it for security testing and its benefits for defending against advanced threats.
+description: Learn about what breach and attack simulation is, how it works, its role in security testing, and its benefits for defending against advanced threats.
 keywords: What Is Breach And Attack Simulation, What Is Bas, Breach And Attack Simulation Services, Breach And Attack Simulation Solution, Attack Simulation, Security Testing, Simulated Attack, Ethical Hacking, Pentesting
 author: Jason Chavarría
 writer: jchavarria
@@ -94,43 +94,20 @@ in gaining access to sensitive resources.
 That's why we at Fluid Attacks recommend a combination of automation
 and manual assessments by security professionals.
 
-[Our BAS solution](../../solutions/attack-simulation/) employs
-[highly certified](../../certifications/) ethical hackers,
-whose work is aided by our automated tool and AI.
+Highly certified ethical hackers' work can be aided by automated tools.
 These professionals are up to date on the TTPs of malicious threat actors,
 after which they conduct analyses and create custom exploits
 to bypass defenses.
 Unlike tools,
-our hackers can get to work as soon as the threats are announced
+hackers can get to work as soon as the threats are announced
 by cybersecurity researchers and response teams,
 among other entities (e.g., the US Computer Emergency Readiness Team).
-
-In their assessments,
-our professionals check
-that systems comply with our rich catalog of [security requirements](https://docs.fluidattacks.com/criteria/requirements/)
-curated from several international standards.
-So,
-unlike most solutions,
-we do not limit our assessments
+And their assessments might not be limited
 to the controls from the MITRE ATT&CK (adversarial tactics,
 techniques and common knowledge) framework
 and the NVD (National Vulnerability Database).
 
-As expected,
-our hackers probe our clients' systems continuously
-and provide evidence of exploitation and information about its impact,
-as well as recommendations to fix the issues.
-This is all shown on a single pane of glass:
-our [Attack Resistance Management (ARM) platform](../../platform/).
-
-<cta-banner
-  buttontxt="Read more"
-  link="/solutions/attack-simulation/"
-  title="Get started with Fluid Attacks' Breach and Attack Simulation solution
-  right now"
-/>
-
-## Why do we need breach and attack simulation?
+## Why do organizations conduct breach and attack simulations?
 
 What are the implications of vulnerable systems?
 Those include risks of successful attacks
@@ -175,41 +152,21 @@ The relentless simulated attacks are specially crafted
 and done along the whole cyber kill chain
 targeting critical assets.
 To prevent a breach,
-attack simulation is the best path.
-Embracing this proactive approach,
-organizations can keep a security stance
-that is preventive rather than reactive.
+attack simulation is a possible path.
 
 ## What are the benefits of breach and attack simulations?
 
 The following are the main benefits
-teams can expect from a proficient BAS solution,
-all of which they can enjoy with Fluid Attacks:
+teams can expect from an advanced BAS solution:
 
 - It conducts security testing reproducing scenarios
   in which real threat actors today would
-  attempt to bypass the systems' defenses.
+  attempt to bypass networks' defenses.
 
-- It offers continuous coverage
-  throughout the software development lifecycle (SDLC),
-  since technology evolves, and so do threats.
-
-- It tests a wide variety of security requirements in different systems
-  (i.e., not only internal networks but also in the enterprise perimeter).
-
-- It enables organizations to enhance their security stance,
-  as they defend preventively instead of reactively.
+- It tests a wide variety of security requirements,
+  not only in internal networks but also in the enterprise perimeter.
 
 - It helps organizations validate areas of most exposure to risk
+  in their networks
   so they can prioritize cybersecurity spend.
 
-- It offers expert support throughout the SDLC,
-  helping the development team understand the security issues
-  and guiding remediation.
-
-If you are interested in Fluid Attacks' [Breach and Attack Simulation solution](../../solutions/attack-simulation/),
-[contact us](../../contact-us/).
-Or try first our [21-day free trial](../../free-trial/)
-of our automated security testing.
-You can upgrade at any time
-to include BAS.
