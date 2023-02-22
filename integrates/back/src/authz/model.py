@@ -14,6 +14,7 @@ GROUP_LEVEL_ROLES: dict[str, dict[str, set[str]]] = dict(
             "api_mutations_add_event_mutate",
             "api_mutations_add_files_mutate",
             "api_mutations_add_files_to_db_mutate",
+            "api_mutations_add_finding_mutate",
             "api_mutations_add_finding_consult_mutate",
             "api_mutations_add_git_root_mutate",
             "api_mutations_add_group_consult_mutate",
