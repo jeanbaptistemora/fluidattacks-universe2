@@ -1,7 +1,4 @@
-import { Buffer } from "buffer";
-
 import { useMutation, useQuery } from "@apollo/client";
-import _ from "lodash";
 // https://github.com/mixpanel/mixpanel-js/issues/321
 // eslint-disable-next-line import/no-named-default
 import { default as mixpanel } from "mixpanel-browser";
@@ -14,7 +11,7 @@ import { LanguagesButton } from "./components/LanguagesButton";
 import { Sidebar } from "./components/Sidebar";
 import { Standby } from "./components/Standby";
 import { ContainerAutoenrollment, DashboardContent } from "./styles";
-import { isPersonalEmail } from "./utils";
+import { getAddGitRootCredentials, isPersonalEmail } from "./utils";
 
 import { Announce } from "components/Announce";
 import { Card } from "components/Card";
@@ -251,32 +248,7 @@ const Autoenrollment: React.FC = (): JSX.Element => {
           const response = await addGitRoot({
             variables: {
               branch: branch.trim(),
-              credentials:
-                credentials.key === "" &&
-                credentials.user === "" &&
-                credentials.password === "" &&
-                credentials.token === ""
-                  ? null
-                  : {
-                      azureOrganization:
-                        _.isUndefined(credentials.azureOrganization) ||
-                        _.isUndefined(credentials.isPat) ||
-                        !credentials.isPat
-                          ? undefined
-                          : credentials.azureOrganization,
-                      isPat: _.isUndefined(credentials.isPat)
-                        ? false
-                        : credentials.isPat,
-                      key:
-                        credentials.key === ""
-                          ? undefined
-                          : Buffer.from(credentials.key).toString("base64"),
-                      name: credentials.name,
-                      password: credentials.password,
-                      token: credentials.token,
-                      type: credentials.type,
-                      user: credentials.user,
-                    },
+              credentials: getAddGitRootCredentials(credentials),
               environment: env,
               gitignore: exclusions,
               groupName: values.groupName.toUpperCase(),

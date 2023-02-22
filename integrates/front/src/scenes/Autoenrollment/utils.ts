@@ -1,3 +1,7 @@
+import { Buffer } from "buffer";
+
+import _ from "lodash";
+
 import { Logger } from "utils/logger";
 
 const EMAIL_DOMAINS_URL =
@@ -26,4 +30,46 @@ const isPersonalEmail = async (userEmail: string): Promise<boolean> => {
   }
 };
 
-export { EMAIL_DOMAINS_URL, isPersonalEmail };
+const getAddGitRootCredentials = (credentials: {
+  auth: "TOKEN" | "USER";
+  azureOrganization: string | undefined;
+  isPat: boolean | undefined;
+  key: string;
+  name: string;
+  password: string;
+  token: string;
+  type: "" | "HTTPS" | "SSH";
+  user: string;
+}): Record<string, boolean | string | undefined> | null => {
+  if (
+    !(
+      credentials.key === "" &&
+      credentials.user === "" &&
+      credentials.password === "" &&
+      credentials.token === ""
+    )
+  ) {
+    return {
+      azureOrganization:
+        _.isUndefined(credentials.azureOrganization) ||
+        _.isUndefined(credentials.isPat) ||
+        !credentials.isPat
+          ? undefined
+          : credentials.azureOrganization,
+      isPat: _.isUndefined(credentials.isPat) ? false : credentials.isPat,
+      key:
+        credentials.key === ""
+          ? undefined
+          : Buffer.from(credentials.key).toString("base64"),
+      name: credentials.name,
+      password: credentials.password,
+      token: credentials.token,
+      type: credentials.type,
+      user: credentials.user,
+    };
+  }
+
+  return null;
+};
+
+export { EMAIL_DOMAINS_URL, getAddGitRootCredentials, isPersonalEmail };
