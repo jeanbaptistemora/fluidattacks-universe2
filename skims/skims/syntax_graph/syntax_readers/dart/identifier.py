@@ -28,7 +28,7 @@ def reader(args: SyntaxGraphArgs) -> NId:
 
     if (
         graph.nodes[pred_nid]["label_type"]
-        == "initialized_variable_definition"
+        in {"initialized_variable_definition", "assignment_expression"}
         and (sel := get_ast_childs(graph, pred_nid, label_type="selector"))
         and len(sel) == 2
         and (
