@@ -326,8 +326,8 @@ locals {
           Sid    = "XRay"
           Effect = "Allow"
           Action = [
-            "PutTelemetryRecords",
-            "PutTraceSegments"
+            "xray:PutTelemetryRecords",
+            "xray:PutTraceSegments"
           ]
           Resource = ["*"]
         }

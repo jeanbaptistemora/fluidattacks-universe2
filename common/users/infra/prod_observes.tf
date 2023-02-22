@@ -23,7 +23,7 @@ locals {
             "s3:AbortMultipartUpload",
             "s3:CreateBucket",
           ]
-          Resources = [
+          Resource = [
             "arn:aws:s3:::observes.etl-data",
             "arn:aws:s3:::observes.etl-data/*",
           ]
