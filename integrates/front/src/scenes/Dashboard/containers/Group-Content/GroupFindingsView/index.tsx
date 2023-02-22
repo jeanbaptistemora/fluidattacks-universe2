@@ -375,12 +375,9 @@ const GroupFindingsView: React.FC = (): JSX.Element => {
 
   const tableColumns: ColumnDef<IFindingAttr>[] = [
     {
-      accessorFn: (row: IFindingAttr): IFindingAttr => {
-        return row;
-      },
       accessorKey: "title",
       cell: (cell: ICellHelper<IFindingAttr>): JSX.Element | string => {
-        const finding: IFindingAttr = cell.getValue();
+        const finding: IFindingAttr = cell.row.original;
 
         return finding.lastVulnerability <= 7 && finding.openVulnerabilities > 0
           ? newTagFormatter(finding.title)
