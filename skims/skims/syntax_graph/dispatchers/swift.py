@@ -3,10 +3,12 @@ from syntax_graph.syntax_readers.swift import (
     class_body as swift_class_body,
     class_declaration as swift_class_declaration,
     comment as swift_comment,
+    function_body as swift_function_body,
     function_declaration as swift_function_declaration,
     identifier as swift_identifier,
     if_statement as swift_if_statement,
     navigation_expression as swift_navigation_expression,
+    navigation_suffix as swift_navigation_suffix,
     parameter as swift_parameter,
     property_declaration as swift_property_declaration,
     source_file as swift_source_file,
@@ -42,6 +44,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
     ),
     Dispatcher(
         applicable_types={
+            "function_body",
+        },
+        syntax_reader=swift_function_body.reader,
+    ),
+    Dispatcher(
+        applicable_types={
             "function_declaration",
         },
         syntax_reader=swift_function_declaration.reader,
@@ -65,6 +73,12 @@ SWIFT_DISPATCHERS: Dispatchers = (
             "navigation_expression",
         },
         syntax_reader=swift_navigation_expression.reader,
+    ),
+    Dispatcher(
+        applicable_types={
+            "navigation_suffix",
+        },
+        syntax_reader=swift_navigation_suffix.reader,
     ),
     Dispatcher(
         applicable_types={
