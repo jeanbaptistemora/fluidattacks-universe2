@@ -16,6 +16,7 @@ makeScript {
   searchPaths = {
     bin = [inputs.nixpkgs.nodejs-18_x];
     source = [
+      outputs."/common/utils/aws"
       outputs."/common/utils/retrieves/config/dev-runtime-env"
       outputs."/common/utils/sops"
     ];
