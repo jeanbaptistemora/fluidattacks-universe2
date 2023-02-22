@@ -76,6 +76,11 @@ resource "cloudflare_zone_dnssec" "fluidattacks_com" {
   zone_id = cloudflare_zone.fluidattacks_com.id
 }
 
+# Workers
+resource "cloudflare_worker_script" "mta_sts_records" {
+  name    = "mta_sts_records"
+  content = data.local_file.mta_sts.content
+}
 
 # CNAME Records
 resource "cloudflare_record" "www" {
@@ -372,6 +377,24 @@ resource "cloudflare_record" "verify_google_1" {
   name    = cloudflare_zone.fluidattacks_com.zone
   type    = "TXT"
   value   = "google-site-verification=SK6CMgAtuuw7tR6eCev6XY8D6rjn9BW8AGd5KWS1b5g"
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "mta_sts_txt_record" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "TXT"
+  value   = "v=STSv1;id=1676413653341;"
+  ttl     = 1
+  proxied = false
+}
+
+resource "cloudflare_record" "report_diagnostic" {
+  zone_id = cloudflare_zone.fluidattacks_com.id
+  name    = cloudflare_zone.fluidattacks_com.zone
+  type    = "TXT"
+  value   = "TLSRPTv1;rua=mailto:smtp-tls-reports@fluidattacks.com;"
   ttl     = 1
   proxied = false
 }
