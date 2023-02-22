@@ -73,15 +73,15 @@ def _assign_attacked_lines(
         return attributes.loc
     if (
         attributes.attacked_at
-        and attributes.modified_date
-        and attributes.attacked_at <= attributes.modified_date
+        and attributes.last_commit_date
+        and attributes.attacked_at <= attributes.last_commit_date
     ):
         return attributes.attacked_lines
     return 0
 
 
 @validate_loc_deco("attributes.loc")
-@validate_modified_date_deco("attributes.modified_date")
+@validate_modified_date_deco("attributes.last_commit_date")
 def _validate_assign_attacked_lines(
     *,
     filename: str,
@@ -118,7 +118,7 @@ def _assign_toe_lines(
     return ToeLines(
         filename=filename,
         group_name=group_name,
-        modified_date=attributes.modified_date,
+        modified_date=attributes.last_commit_date,
         root_id=root.id,
         seen_first_time_by=attributes.seen_first_time_by,
         state=ToeLinesState(
@@ -136,7 +136,7 @@ def _assign_toe_lines(
             modified_date=datetime_utils.get_utc_now(),
             last_author=attributes.last_author,
             last_commit=attributes.last_commit,
-            last_commit_date=attributes.modified_date,
+            last_commit_date=attributes.last_commit_date,
             loc=attributes.loc,
             seen_at=attributes.seen_at or datetime_utils.get_utc_now(),
             sorts_risk_level=attributes.sorts_risk_level,
@@ -259,8 +259,8 @@ async def update(
     last_attacked_at = (
         attributes.attacked_at or current_value.state.attacked_at
     )
-    last_modified_date = (
-        attributes.modified_date or current_value.modified_date
+    last_commit_date = (
+        attributes.last_commit_date or current_value.state.last_commit_date
     )
     first_attack_at = current_value.state.first_attack_at
     if attributes.first_attack_at is not None:
@@ -273,7 +273,7 @@ async def update(
     elif (
         attributes.attacked_lines != 0
         and last_attacked_at
-        and last_modified_date <= last_attacked_at
+        and last_commit_date <= last_attacked_at
     ):
         attacked_lines = min(
             attributes.attacked_lines or current_value.state.attacked_lines,
@@ -328,8 +328,8 @@ async def update(
         last_commit=attributes.last_commit
         if attributes.last_commit is not None
         else current_value.state.last_commit,
-        last_commit_date=attributes.modified_date
-        if attributes.modified_date is not None
+        last_commit_date=attributes.last_commit_date
+        if attributes.last_commit_date is not None
         else current_value.state.last_commit_date,
         modified_by=attributes.attacked_by
         if attributes.attacked_by
@@ -349,7 +349,7 @@ async def update(
         else current_value.state.sorts_suggestions,
     )
     metadata = ToeLinesMetadataToUpdate(
-        modified_date=attributes.modified_date,
+        modified_date=attributes.last_commit_date,
         clean_be_present_until=attributes.be_present is not None
         and be_present_until is None,
     )

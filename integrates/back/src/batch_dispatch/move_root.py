@@ -495,7 +495,7 @@ async def _process_toe_lines(
         has_vulnerabilities=toe_lines.state.has_vulnerabilities,
         loc=toe_lines.state.loc,
         last_commit=toe_lines.state.last_commit,
-        modified_date=toe_lines.modified_date,
+        last_commit_date=toe_lines.state.last_commit_date,
         seen_at=toe_lines.state.seen_at,
         sorts_risk_level=toe_lines.state.sorts_risk_level,
     )

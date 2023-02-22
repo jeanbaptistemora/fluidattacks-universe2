@@ -43,7 +43,7 @@ async def test_add() -> None:
         has_vulnerabilities=False,
         loc=1000,
         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c2",
-        modified_date=datetime.fromisoformat("2017-08-01T05:00:00+00:00"),
+        last_commit_date=datetime.fromisoformat("2017-08-01T05:00:00+00:00"),
         sorts_risk_level=100,
     )
     await toe_lines_domain.add(
@@ -122,7 +122,7 @@ async def test_update() -> None:
         has_vulnerabilities=False,
         loc=1111,
         last_commit="f9e4beba70c4f34d6117c3b0c23ebe6b2bff66c4",
-        modified_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
+        last_commit_date=datetime.fromisoformat("2020-08-01T05:00:00+00:00"),
         seen_at=datetime.fromisoformat("2019-08-01T05:00:00+00:00"),
         sorts_risk_level=50,
     )

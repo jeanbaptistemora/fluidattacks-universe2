@@ -117,7 +117,9 @@ def format_toe_lines_item(
         key_structure.sort_key: primary_key.sort_key,
         "filename": toe_lines.filename,
         "group_name": toe_lines.group_name,
-        "modified_date": get_as_utc_iso_format(toe_lines.modified_date),
+        "modified_date": get_as_utc_iso_format(
+            toe_lines.state.last_commit_date
+        ),
         "root_id": toe_lines.root_id,
         "seen_first_time_by": toe_lines.seen_first_time_by,
         "state": {

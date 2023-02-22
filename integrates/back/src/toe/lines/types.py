@@ -14,7 +14,7 @@ class ToeLinesAttributesToAdd(NamedTuple):
     last_author: str
     loc: int
     last_commit: str
-    modified_date: datetime
+    last_commit_date: datetime
     attacked_at: Optional[datetime] = None
     attacked_by: str = ""
     attacked_lines: int = 0
@@ -39,7 +39,7 @@ class ToeLinesAttributesToUpdate(NamedTuple):
     has_vulnerabilities: Optional[bool] = None
     loc: Optional[int] = None
     last_commit: Optional[str] = None
-    modified_date: Optional[datetime] = None
+    last_commit_date: Optional[datetime] = None
     seen_at: Optional[datetime] = None
     sorts_risk_level: Optional[int] = None
     sorts_risk_level_date: Optional[datetime] = None

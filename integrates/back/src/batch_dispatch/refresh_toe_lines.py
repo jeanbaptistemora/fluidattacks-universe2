@@ -174,7 +174,7 @@ async def get_present_toe_lines_to_add(
                 comments="",
                 loc=last_loc,
                 last_commit=last_commit_info.hash,
-                modified_date=last_commit_info.modified_date,
+                last_commit_date=last_commit_info.modified_date,
             ),
         )
         for (filename, last_commit_info, last_loc,) in zip(
@@ -226,7 +226,7 @@ async def get_present_toe_lines_to_update(
                 last_author=last_commit_info.author,
                 loc=last_loc,
                 last_commit=last_commit_info.hash,
-                modified_date=last_commit_info.modified_date,
+                last_commit_date=last_commit_info.modified_date,
             ),
         )
         for (filename, last_commit_info, last_loc,) in zip(
@@ -246,7 +246,7 @@ async def get_present_toe_lines_to_update(
             repo_toe_lines[filename].state.last_author,
             repo_toe_lines[filename].state.loc,
             repo_toe_lines[filename].state.last_commit,
-            repo_toe_lines[filename].modified_date,
+            repo_toe_lines[filename].state.last_commit_date,
         )
     )
 

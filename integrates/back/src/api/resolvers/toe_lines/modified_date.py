@@ -16,4 +16,4 @@ from graphql.type.definition import (
 async def resolve(
     parent: ToeLines, _info: GraphQLResolveInfo, **_kwargs: None
 ) -> datetime:
-    return parent.modified_date
+    return parent.state.last_commit_date

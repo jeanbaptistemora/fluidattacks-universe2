@@ -76,7 +76,7 @@ async def mutate(  # pylint: disable=too-many-arguments
                 last_author=last_author,
                 last_commit=last_commit,
                 loc=loc,
-                modified_date=modified_date,
+                last_commit_date=modified_date,
                 seen_first_time_by=user_email,
             ),
         )
