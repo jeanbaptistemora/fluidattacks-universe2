@@ -1850,7 +1850,10 @@ export const enTranslations: ResourceKey = {
         },
         paymentMethods: {
           add: {
-            button: "Add",
+            button: {
+              label: "Add payment method",
+              tooltip: "Add Credit cards or other payment methods",
+            },
             creditCard: {
               add: "Add credit card",
               cvc: {

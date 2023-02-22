@@ -10,20 +10,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { ColumnDef } from "@tanstack/react-table";
 import _ from "lodash";
-// https://github.com/mixpanel/mixpanel-js/issues/321
-// eslint-disable-next-line import/no-named-default
-import { default as mixpanel } from "mixpanel-browser";
 import React, { Fragment, useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { AddCreditCardModal } from "./AddCreditCardModal";
-import { AddOtherMethodModal } from "./AddOtherMethodModal";
+import { AddPaymentMethod } from "./AddPaymentMethodModal";
 import { UpdateCreditCardModal } from "./UpdateCreditCardModal";
 import { UpdateOtherMethodModal } from "./UpdateOtherMethodModal";
 
 import {
-  ADD_CREDIT_CARD_PAYMENT_METHOD,
-  ADD_OTHER_PAYMENT_METHOD,
   DOWNLOAD_FILE_MUTATION,
   REMOVE_PAYMENT_METHOD,
   UPDATE_CREDIT_CARD_PAYMENT_METHOD,
@@ -34,6 +28,8 @@ import { Button } from "components/Button";
 import { Table } from "components/Table";
 import type { ICellHelper } from "components/Table/types";
 import { Text } from "components/Text";
+import { Tooltip } from "components/Tooltip";
+import { ButtonToolbarRow } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
 import { Logger } from "utils/logger";
@@ -97,135 +93,13 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
     });
 
     // Add payment method
-    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState<
-      "CREDIT_CARD" | "OTHER_METHOD" | false
-    >(false);
-    const openAddCreditCardModal = useCallback((): void => {
-      setIsAddingPaymentMethod("CREDIT_CARD");
-    }, []);
-    const openAddOtherMethodModal = useCallback((): void => {
-      setIsAddingPaymentMethod("OTHER_METHOD");
-    }, []);
+    const [isAddingPaymentMethod, setIsAddingPaymentMethod] = useState(false);
     const closeAddModal = useCallback((): void => {
       setIsAddingPaymentMethod(false);
     }, []);
-    const [addCreditCardPaymentMethod] = useMutation(
-      ADD_CREDIT_CARD_PAYMENT_METHOD,
-      {
-        onCompleted: (): void => {
-          onUpdate();
-          closeAddModal();
-          msgSuccess(
-            t("organization.tabs.billing.paymentMethods.add.success.body"),
-            t("organization.tabs.billing.paymentMethods.add.success.title")
-          );
-        },
-        onError: ({ graphQLErrors }): void => {
-          graphQLErrors.forEach((error): void => {
-            if (
-              error.message ===
-              "Exception - Provided payment method could not be created"
-            ) {
-              msgError(
-                t(
-                  "organization.tabs.billing.paymentMethods.add.errors.couldNotBeCreated"
-                )
-              );
-            } else {
-              msgError(t("groupAlerts.errorTextsad"));
-              Logger.error("Couldn't create payment method", error);
-            }
-          });
-        },
-      }
-    );
-    const [addOtherPaymentMethod] = useMutation(ADD_OTHER_PAYMENT_METHOD, {
-      onCompleted: (): void => {
-        onUpdate();
-        closeAddModal();
-        msgSuccess(
-          t("organization.tabs.billing.paymentMethods.add.success.body"),
-          t("organization.tabs.billing.paymentMethods.add.success.title")
-        );
-      },
-      onError: ({ graphQLErrors }): void => {
-        graphQLErrors.forEach((error): void => {
-          msgError(t("groupAlerts.errorTextsad"));
-          Logger.error("Couldn't create payment method", error);
-        });
-      },
-    });
-    const handleAddCreditCardMethodSubmit = useCallback(
-      async ({
-        cardCvc,
-        cardExpirationMonth,
-        cardExpirationYear,
-        cardNumber,
-        makeDefault,
-      }: {
-        cardCvc: string;
-        cardExpirationMonth: string;
-        cardExpirationYear: string;
-        cardNumber: string;
-        makeDefault: boolean;
-      }): Promise<void> => {
-        mixpanel.track("AddPaymentMethod", { method: "TC" });
-        await addCreditCardPaymentMethod({
-          variables: {
-            cardCvc,
-            cardExpirationMonth,
-            cardExpirationYear,
-            cardNumber,
-            makeDefault,
-            organizationId,
-          },
-        });
-      },
-      [addCreditCardPaymentMethod, organizationId]
-    );
-
-    const handleFileListUpload = (
-      file: FileList | undefined
-    ): File | undefined => {
-      return _.isEmpty(file) ? undefined : (file as FileList)[0];
-    };
-
-    const handleAddOtherMethodSubmit = useCallback(
-      async ({
-        businessName,
-        city,
-        country,
-        email,
-        rutList,
-        state,
-        taxIdList,
-      }: {
-        businessName: string;
-        city: string;
-        country: string;
-        email: string;
-        rutList: FileList | undefined;
-        state: string;
-        taxIdList: FileList | undefined;
-      }): Promise<void> => {
-        const rut = handleFileListUpload(rutList);
-        const taxId = handleFileListUpload(taxIdList);
-        mixpanel.track("AddPaymentMethod", { method: "Wired" });
-        await addOtherPaymentMethod({
-          variables: {
-            businessName,
-            city,
-            country,
-            email,
-            organizationId,
-            rut,
-            state,
-            taxId,
-          },
-        });
-      },
-      [addOtherPaymentMethod, organizationId]
-    );
+    const openAddModal = useCallback((): void => {
+      setIsAddingPaymentMethod(true);
+    }, []);
 
     // Remove payment method
     const canRemove: boolean = permissions.can(
@@ -393,7 +267,11 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
       },
       [updateCreditCardPaymentMethod, organizationId, currentCreditCardRow]
     );
-
+    const handleFileListUpload = (
+      file: FileList | undefined
+    ): File | undefined => {
+      return _.isEmpty(file) ? undefined : (file as FileList)[0];
+    };
     const handleUpdateOtherPaymentMethodSubmit = useCallback(
       async ({
         businessName,
@@ -530,6 +408,28 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
         <Text fw={7} mb={3} mt={4} size={"big"}>
           {t("organization.tabs.billing.paymentMethods.title")}
         </Text>
+        <ButtonToolbarRow>
+          <Can do={"api_mutations_add_credit_card_payment_method_mutate"}>
+            <Tooltip
+              id={t(
+                "organization.tabs.billing.paymentMethods.add.button.tooltip.id"
+              )}
+              tip={t(
+                "organization.tabs.billing.paymentMethods.add.button.tooltip"
+              )}
+            >
+              <Button
+                id={"addPaymentMethod"}
+                onClick={openAddModal}
+                variant={"primary"}
+              >
+                <FontAwesomeIcon icon={faPlus} />
+                &nbsp;
+                {t("organization.tabs.billing.paymentMethods.add.button.label")}
+              </Button>
+            </Tooltip>
+          </Can>
+        </ButtonToolbarRow>
         <Text fw={7} mb={2} mt={3} size={"medium"}>
           {t("organization.tabs.billing.paymentMethods.add.creditCard.label")}
         </Text>
@@ -538,17 +438,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           data={creditCardData}
           extraButtons={
             <Fragment>
-              <Can do={"api_mutations_add_credit_card_payment_method_mutate"}>
-                <Button
-                  id={"addCreditCard"}
-                  onClick={openAddCreditCardModal}
-                  variant={"primary"}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;
-                  {t("organization.tabs.billing.paymentMethods.add.button")}
-                </Button>
-              </Can>
               <Can
                 do={"api_mutations_update_credit_card_payment_method_mutate"}
               >
@@ -602,17 +491,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           data={otherMetodData}
           extraButtons={
             <Fragment>
-              <Can do={"api_mutations_add_other_payment_method_mutate"}>
-                <Button
-                  id={"addOtherMethod"}
-                  onClick={openAddOtherMethodModal}
-                  variant={"primary"}
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-                  &nbsp;
-                  {t("organization.tabs.billing.paymentMethods.add.button")}
-                </Button>
-              </Can>
               <Can do={"api_mutations_update_other_payment_method_mutate"}>
                 <Button
                   disabled={
@@ -654,20 +532,6 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
           rowSelectionState={currentOtherMethodRow}
           selectionMode={"radio"}
         />
-        {isAddingPaymentMethod === "CREDIT_CARD" && (
-          <AddCreditCardModal
-            onChangeMethod={setIsAddingPaymentMethod}
-            onClose={closeAddModal}
-            onSubmit={handleAddCreditCardMethodSubmit}
-          />
-        )}
-        {isAddingPaymentMethod === "OTHER_METHOD" && (
-          <AddOtherMethodModal
-            onChangeMethod={setIsAddingPaymentMethod}
-            onClose={closeAddModal}
-            onSubmit={handleAddOtherMethodSubmit}
-          />
-        )}
         {isUpdatingCreditCard === false ? undefined : (
           <UpdateCreditCardModal
             onClose={closeUpdateCreditCardModal}
@@ -689,6 +553,13 @@ export const OrganizationPaymentMethods: React.FC<IOrganizationPaymentMethodsPro
             onSubmit={handleUpdateOtherPaymentMethodSubmit}
           />
         )}
+        {isAddingPaymentMethod ? (
+          <AddPaymentMethod
+            onClose={closeAddModal}
+            onUpdate={onUpdate}
+            organizationId={organizationId}
+          />
+        ) : undefined}
       </div>
     );
   };
