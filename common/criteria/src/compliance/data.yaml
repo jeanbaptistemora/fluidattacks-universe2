@@ -331,6 +331,9 @@ capec:
     "690":
       title: Metadata Spoofing
       link: https://capec.mitre.org/data/definitions/690.html
+    "691":
+      title: Spoof Open-Source Software Metadata
+      link: https://capec.mitre.org/data/definitions/691.html
   metadata: {}
 cis:
   title: CIS

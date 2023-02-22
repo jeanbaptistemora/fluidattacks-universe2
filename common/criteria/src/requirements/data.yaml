@@ -5463,6 +5463,7 @@
     - capec.248
     - capec.676
     - capec.690
+    - capec.691
     - cis.16_10
     - cwe.20
     - cwe.74
@@ -5871,6 +5872,7 @@
     - owaspapi.API6
     - capec.680
     - capec.690
+    - capec.691
   metadata: {}
 "177":
   en:
@@ -8436,6 +8438,7 @@
     - capec.240
     - capec.242
     - capec.682
+    - capec.691
     - cis.2_1
     - cis.7_4
     - cis.16_4
