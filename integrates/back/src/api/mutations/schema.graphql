@@ -151,6 +151,67 @@ type Mutation {
     groupName: String!
   ): SimplePayload!
 
+  "Adds a new Finding to the specified Group"
+  addFinding(
+    """
+    Measure of the effort and resources needed for an attacker to put
+    in to successfully breach the system
+    """
+    attackComplexity: Float!
+    "Level of access needed for an attack to succeed"
+    attackVector: Float!
+    "Malicious actions that can be performed by exploiting the vulnerability"
+    attackVectorDescription: String!
+    """
+    Hypothetical impact on resource (webpages, content etc...) availability
+    and possibility of service denial
+    """
+    availabilityImpact: Float!
+    """
+    Measure of the sensible/restricted information (e.g. password,
+    encryption keys) the attacker could gather from the breached component
+    """
+    confidentialityImpact: Float!
+    "Brief explanation of the vulnerability and how it works"
+    description: String!
+    """
+    Measure of the availability of resources and details, both theoretical
+    and practical, available for a malicious actor to build and/or automate an
+    attack
+    """
+    exploitability: Float!
+    "Name of the Group where the new draft will be in"
+    groupName: String!
+    """
+    How vulnerable for malicious modification are the files in the impacted
+    components
+    """
+    integrityImpact: Float!
+    """
+    Minimum time in minutes to remediate a typical vulnerability in this
+    Finding
+    """
+    minTimeToRemediate: Int
+    "Privileges required by the attacker to exploit the vulnerabilities"
+    privilegesRequired: Float!
+    "Recommended course of action to close the vulnerabilities"
+    recommendation: String!
+    "Availability of a fix"
+    remediationLevel: Float!
+    "Report Confidence"
+    reportConfidence: Float!
+    "Security scope of the affected resources by the exploited vulnerabilities"
+    severityScope: Float!
+    "Actor and scenery where the vulnerability can be exploited"
+    threat: String!
+    "Finding number and name"
+    title: String!
+    "Rules that are broken and lead to the existence of the vulnerability"
+    unfulfilledRequirements: [String!]!
+    "User involvement needed for a successful attack"
+    userInteraction: Float!
+  ): SimplePayload!
+
   "Adds a consult/comment in a Finding"
   addFindingConsult(
     "Content of the comment/consult"

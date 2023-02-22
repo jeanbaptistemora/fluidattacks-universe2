@@ -1,6 +1,9 @@
 from .payloads.types import (
     SimplePayload,
 )
+from api.mutations.schema import (
+    MUTATION,
+)
 from api.types import (
     APP_EXCEPTIONS,
 )
@@ -53,6 +56,7 @@ from typing import (
 )
 
 
+@MUTATION.field("addFinding")
 @convert_kwargs_to_snake_case
 @concurrent_decorators(
     require_login,
@@ -60,13 +64,14 @@ from typing import (
     require_asm,
     require_report_vulnerabilities,
 )
-async def mutate(
+async def mutate(  # pylint: disable=too-many-arguments
     _parent: None,
     info: GraphQLResolveInfo,
     group_name: str,
     description: str,
     recommendation: str,
     title: str,
+    threat: str,
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
@@ -81,49 +86,29 @@ async def mutate(
             group_name=group_name,
             stakeholder_email=stakeholder_email,
             attributes=FindingAttributesToAdd(
-                attack_vector_description=kwargs.get(
-                    "attack_vector_description", ""
-                ),
+                attack_vector_description=kwargs["attack_vector_description"],
                 description=description,
                 min_time_to_remediate=check_and_set_min_time_to_remediate(
                     kwargs.get("min_time_to_remediate", None)
                 ),
                 recommendation=recommendation,
                 severity=Finding31Severity(
-                    attack_complexity=Decimal(
-                        kwargs.get("attack_complexity", "0.0")
-                    ),
-                    attack_vector=Decimal(kwargs.get("attack_vector", "0.0")),
-                    availability_impact=Decimal(
-                        kwargs.get("availability_impact", "0.0")
-                    ),
+                    attack_complexity=Decimal(kwargs["attack_complexity"]),
+                    attack_vector=Decimal(kwargs["attack_vector"]),
+                    availability_impact=Decimal(kwargs["availability_impact"]),
                     confidentiality_impact=Decimal(
-                        kwargs.get("confidentiality_impact", "0.0")
+                        kwargs["confidentiality_impact"]
                     ),
-                    exploitability=Decimal(
-                        kwargs.get("exploitability", "0.0")
-                    ),
-                    integrity_impact=Decimal(
-                        kwargs.get("integrity_impact", "0.0")
-                    ),
-                    privileges_required=Decimal(
-                        kwargs.get("privileges_required", "0.0")
-                    ),
-                    remediation_level=Decimal(
-                        kwargs.get("remediation_level", "0.0")
-                    ),
-                    report_confidence=Decimal(
-                        kwargs.get("report_confidence", "0.0")
-                    ),
-                    severity_scope=Decimal(
-                        kwargs.get("severity_scope", "0.0")
-                    ),
-                    user_interaction=Decimal(
-                        kwargs.get("user_interaction", "0.0")
-                    ),
+                    exploitability=Decimal(kwargs["exploitability"]),
+                    integrity_impact=Decimal(kwargs["integrity_impact"]),
+                    privileges_required=Decimal(kwargs["privileges_required"]),
+                    remediation_level=Decimal(kwargs["remediation_level"]),
+                    report_confidence=Decimal(kwargs["report_confidence"]),
+                    severity_scope=Decimal(kwargs["severity_scope"]),
+                    user_interaction=Decimal(kwargs["user_interaction"]),
                 ),
                 source=requests_utils.get_source_new(info.context),
-                threat=kwargs.get("threat", ""),
+                threat=threat,
                 title=title,
                 unfulfilled_requirements=kwargs["unfulfilled_requirements"],
             ),
