@@ -16,9 +16,6 @@ from graphql.type.definition import (
 from newutils import (
     datetime as datetime_utils,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("deletionDate")
@@ -27,7 +24,7 @@ async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     return (
         datetime_utils.get_as_str(parent.state.modified_date)
         if parent.state.status == GroupStateStatus.DELETED

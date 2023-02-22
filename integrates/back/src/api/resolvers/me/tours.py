@@ -16,13 +16,12 @@ from stakeholders.domain import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 @ME.field("tours")
 async def resolve(
-    parent: Dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
+    parent: dict[str, Any], info: GraphQLResolveInfo, **_kwargs: None
 ) -> StakeholderTours:
     user_email = str(parent["user_email"])
     loaders: Dataloaders = info.context.loaders

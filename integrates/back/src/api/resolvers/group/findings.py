@@ -21,7 +21,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -34,7 +33,7 @@ async def resolve(
 ) -> list[Finding]:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
-    filters: Optional[dict[str, Any]] = kwargs.get("filters")
+    filters: dict[str, Any] | None = kwargs.get("filters")
     findings = await loaders.group_findings.load(group_name)
     if filters:
         return await utils.filter_findings(findings, filters)

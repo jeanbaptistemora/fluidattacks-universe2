@@ -15,9 +15,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("forcesToken")
@@ -30,5 +27,5 @@ async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     return parent.agent_token

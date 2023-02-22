@@ -28,8 +28,6 @@ from search.operations import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 
@@ -45,7 +43,7 @@ async def resolve(
     **kwargs: Any,
 ) -> ExecutionsConnection:
     group_name: str = parent.name
-    executions_filters: Dict[str, Any] = executions_filter(**kwargs)
+    executions_filters: dict[str, Any] = executions_filter(**kwargs)
 
     after = kwargs.get("after")
     first = kwargs.get("first", 10)
@@ -83,14 +81,14 @@ async def resolve(
     )
 
 
-def executions_filter(**kwargs: Any) -> Dict[str, Any]:
-    exec_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
-    exec_must_match_prefix_filters: List[
-        Dict[str, Any]
+def executions_filter(**kwargs: Any) -> dict[str, Any]:
+    exec_must_filters: list[dict[str, Any]] = must_filter(**kwargs)
+    exec_must_match_prefix_filters: list[
+        dict[str, Any]
     ] = must_match_prefix_filter(**kwargs)
-    exec_must_range_filters: List[Dict[str, Any]] = must_range_filter(**kwargs)
+    exec_must_range_filters: list[dict[str, Any]] = must_range_filter(**kwargs)
 
-    filters: Dict[str, Any] = {
+    filters: dict[str, Any] = {
         "must_filters": exec_must_filters,
         "must_match_prefix_filters": exec_must_match_prefix_filters,
         "must_range_filters": exec_must_range_filters,
@@ -99,7 +97,7 @@ def executions_filter(**kwargs: Any) -> Dict[str, Any]:
     return filters
 
 
-def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_filters = []
 
     if execution_type := kwargs.get("type"):
@@ -111,7 +109,7 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     return must_filters
 
 
-def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_match_filters = []
 
     if repo := kwargs.get("gitRepo"):
@@ -120,8 +118,8 @@ def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     return must_match_filters
 
 
-def must_range_filter(**kwargs: Any) -> List[Dict[str, Any]]:
-    must_range_filters: List[Dict[str, Any]] = []
+def must_range_filter(**kwargs: Any) -> list[dict[str, Any]]:
+    must_range_filters: list[dict[str, Any]] = []
 
     if from_date := kwargs.get("fromDate"):
         must_range_filters.append(

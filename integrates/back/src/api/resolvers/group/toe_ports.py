@@ -23,9 +23,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("toePorts")
@@ -37,10 +34,10 @@ from typing import (
 async def resolve(  # pylint: disable=too-many-arguments
     parent: Group,
     info: GraphQLResolveInfo,
-    root_id: Optional[str] = None,
-    after: Optional[str] = None,
-    be_present: Optional[bool] = None,
-    first: Optional[int] = None,
+    root_id: str | None = None,
+    after: str | None = None,
+    be_present: bool | None = None,
+    first: int | None = None,
 ) -> ToePortsConnection:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name

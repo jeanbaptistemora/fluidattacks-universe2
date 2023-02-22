@@ -12,7 +12,6 @@ from trials import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -21,7 +20,7 @@ async def resolve(
     parent: dict[str, Any],
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[dict[str, Any]]:
+) -> dict[str, Any] | None:
     loaders: Dataloaders = info.context.loaders
     trial = await loaders.trial.load(parent["user_email"])
 

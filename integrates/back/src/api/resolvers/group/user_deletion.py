@@ -10,16 +10,13 @@ from db_model.groups.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("userDeletion")
 async def resolve(
     parent: Group,
     _info: GraphQLResolveInfo,
-) -> Optional[str]:
+) -> str | None:
     return (
         parent.state.modified_by
         if parent.state.status == GroupStateStatus.DELETED

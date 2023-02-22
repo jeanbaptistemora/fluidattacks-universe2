@@ -7,9 +7,6 @@ from db_model.organizations.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @ORGANIZATION.field("maxNumberAcceptances")
@@ -17,5 +14,5 @@ async def resolve(
     parent: Organization,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[int]:
+) -> int | None:
     return parent.policies.max_number_acceptances

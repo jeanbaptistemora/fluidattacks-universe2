@@ -17,9 +17,6 @@ from db_model.roots.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("credentials")
@@ -27,7 +24,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> list[Optional[Credentials]]:
+) -> list[Credentials | None]:
     loaders: Dataloaders = info.context.loaders
     group_roots = await loaders.group_roots.load(parent.name)
     group_credential_ids = {

@@ -31,8 +31,6 @@ from search.operations import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -44,7 +42,7 @@ async def resolve(
     info: GraphQLResolveInfo,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
-    vulnerabilities_filters: Dict[str, Any] = vulnerabilities_filter(**kwargs)
+    vulnerabilities_filters: dict[str, Any] = vulnerabilities_filter(**kwargs)
 
     results = await search(
         after=kwargs.get("after"),
@@ -81,12 +79,12 @@ async def resolve(
     )
 
 
-def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
-    vulns_must_filters: List[Dict[str, Any]] = must_filter(**kwargs)
-    vulns_must_match_prefix_filters: List[
-        Dict[str, Any]
+def vulnerabilities_filter(**kwargs: Any) -> dict[str, Any]:
+    vulns_must_filters: list[dict[str, Any]] = must_filter(**kwargs)
+    vulns_must_match_prefix_filters: list[
+        dict[str, Any]
     ] = must_match_prefix_filter(**kwargs)
-    vulns_must_not_filters: List[Dict[str, Any]] = must_not_filter()
+    vulns_must_not_filters: list[dict[str, Any]] = must_not_filter()
 
     if zero_risk := kwargs.get("zeroRisk"):
         vulns_must_filters.append({"zero_risk.status": zero_risk})
@@ -95,7 +93,7 @@ def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
             {"zero_risk.status": VulnerabilityZeroRiskStatus.REQUESTED}
         )
 
-    filters: Dict[str, Any] = {
+    filters: dict[str, Any] = {
         "must_filters": vulns_must_filters,
         "must_match_filters": vulns_must_match_prefix_filters,
         "must_not_filters": vulns_must_not_filters,
@@ -104,7 +102,7 @@ def vulnerabilities_filter(**kwargs: Any) -> Dict[str, Any]:
     return filters
 
 
-def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+def must_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_filters = []
 
     if vulnerability_type := kwargs.get("type"):
@@ -130,7 +128,7 @@ def must_filter(**kwargs: Any) -> List[Dict[str, Any]]:
     return must_filters
 
 
-def must_match_prefix_filter(**kwargs: Any) -> List[Dict[str, Any]]:
+def must_match_prefix_filter(**kwargs: Any) -> list[dict[str, Any]]:
     must_match_filters = []
 
     if root := kwargs.get("root"):

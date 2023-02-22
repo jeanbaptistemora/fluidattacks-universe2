@@ -10,9 +10,6 @@ from graphql.type.definition import (
 from newutils.groups import (
     get_group_max_number_acceptances,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("maxNumberAcceptances")
@@ -20,7 +17,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[int]:
+) -> int | None:
 
     return await get_group_max_number_acceptances(
         loaders=info.context.loaders,

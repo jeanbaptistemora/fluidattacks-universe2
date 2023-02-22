@@ -16,9 +16,6 @@ from graphql.type.definition import (
 from organizations import (
     utils as orgs_utils,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("minBreakingSeverity")
@@ -26,7 +23,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Decimal]:
+) -> Decimal | None:
     if parent.policies:
         return parent.policies.min_breaking_severity
 

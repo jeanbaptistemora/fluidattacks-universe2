@@ -14,17 +14,14 @@ from db_model.organizations.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @ORGANIZATION.field("integrationRepositoriesConnection")
 async def resolve(
     parent: Organization,
     info: GraphQLResolveInfo,
-    after: Optional[str] = None,
-    first: Optional[int] = None,
+    after: str | None = None,
+    first: int | None = None,
     **_kwargs: None,
 ) -> OrganizationIntegrationRepositoryConnection:
     loaders: Dataloaders = info.context.loaders

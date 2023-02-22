@@ -11,9 +11,6 @@ from db_model.azure_repositories.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @INTEGRATION_REPOSITORIES.field("lastCommitDate")
@@ -21,7 +18,7 @@ async def resolve(
     parent: CredentialsGitRepository,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     loaders: Dataloaders = info.context.loaders
     git_commits = (
         await loaders.organization_integration_repositories_commits.load(

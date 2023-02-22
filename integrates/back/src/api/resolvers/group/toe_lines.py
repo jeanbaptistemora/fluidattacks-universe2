@@ -27,7 +27,6 @@ from search.operations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -89,8 +88,8 @@ def toe_lines_filter(**kwargs: Any) -> dict[str, Any]:
 def get_items_to_filter(
     filters: dict[str, Any],
     kwargs: Any,
-    parameter: Optional[str] = None,
-    range_condition: Optional[str] = None,
+    parameter: str | None = None,
+    range_condition: str | None = None,
 ) -> list[dict[str, Any]]:
     items_to_filter = [
         {

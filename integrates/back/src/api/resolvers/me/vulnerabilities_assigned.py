@@ -19,15 +19,13 @@ from search.operations import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 
 
 @ME.field("vulnerabilitiesAssigned")
 async def resolve(
-    parent: Dict[str, Any], _info: GraphQLResolveInfo
-) -> Tuple[Vulnerability, ...]:
+    parent: dict[str, Any], _info: GraphQLResolveInfo
+) -> tuple[Vulnerability, ...]:
     email: str = str(parent["user_email"])
 
     results = await search(

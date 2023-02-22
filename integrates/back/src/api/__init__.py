@@ -65,8 +65,6 @@ from starlette.requests import (
 import sys
 from typing import (
     Any,
-    Optional,
-    Type,
 )
 
 
@@ -130,10 +128,10 @@ class IntegratesAPIHTTPHandler(GraphQLHTTPHandler):
 
 
 def get_validation_rules(
-    context_value: Optional[Any],
+    context_value: Any | None,
     _document: DocumentNode,
     _data: dict[Any, Any],
-) -> tuple[Type[ASTValidationRule], ...]:
+) -> tuple[type[ASTValidationRule], ...]:
     return (  # type: ignore
         QueryBreadthValidation,
         QueryDepthValidation,

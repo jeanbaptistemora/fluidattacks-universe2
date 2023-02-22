@@ -17,9 +17,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("meanRemediate")
@@ -28,7 +25,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Decimal]:
+) -> Decimal | None:
     loaders: Dataloaders = info.context.loaders
     group_name: str = parent.name
     group_indicators: GroupUnreliableIndicators = (

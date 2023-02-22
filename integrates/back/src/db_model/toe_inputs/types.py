@@ -6,20 +6,19 @@ from dynamodb.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class ToeInputState(NamedTuple):
-    attacked_at: Optional[datetime]
+    attacked_at: datetime | None
     attacked_by: str
     be_present: bool
-    be_present_until: Optional[datetime]
-    first_attack_at: Optional[datetime]
-    has_vulnerabilities: Optional[bool]
+    be_present_until: datetime | None
+    first_attack_at: datetime | None
+    has_vulnerabilities: bool | None
     modified_by: str
     modified_date: datetime
-    seen_at: Optional[datetime]
+    seen_at: datetime | None
     seen_first_time_by: str
     unreliable_root_id: str
 
@@ -53,18 +52,18 @@ class ToeInputRequest(NamedTuple):
 
 class GroupToeInputsRequest(NamedTuple):
     group_name: str
-    after: Optional[str] = None
-    be_present: Optional[bool] = None
-    first: Optional[int] = None
+    after: str | None = None
+    be_present: bool | None = None
+    first: int | None = None
     paginate: bool = False
 
 
 class RootToeInputsRequest(NamedTuple):
     group_name: str
     root_id: str
-    after: Optional[str] = None
-    be_present: Optional[bool] = None
-    first: Optional[int] = None
+    after: str | None = None
+    be_present: bool | None = None
+    first: int | None = None
     paginate: bool = False
 
 
