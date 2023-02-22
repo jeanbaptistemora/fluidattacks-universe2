@@ -18,6 +18,7 @@ import type {
 } from "./types";
 
 import { Input, Select } from "components/Input";
+import { Row } from "components/Layout";
 import { Modal, ModalConfirm } from "components/Modal";
 import { RemediationModal } from "scenes/Dashboard/components/RemediationModal";
 import {
@@ -33,7 +34,6 @@ import {
   ControlLabel,
   EditableFieldTitle50,
   FormGroup,
-  Row,
 } from "styles/styledComponents";
 import { Can } from "utils/authz/Can";
 import { authzPermissionsContext } from "utils/authz/config";
