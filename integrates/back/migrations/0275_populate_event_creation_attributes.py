@@ -49,9 +49,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -62,7 +59,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 async def process_event(loaders: Dataloaders, event: Event) -> None:
     historic = await loaders.event_historic_state.load(event.id)
-    creation_state: Optional[EventState] = None
+    creation_state: EventState | None = None
     for state in historic:
         if state.status is EventStateStatus.CREATED:
             creation_state = state

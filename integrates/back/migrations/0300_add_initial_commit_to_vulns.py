@@ -42,10 +42,6 @@ from tempfile import (
     TemporaryDirectory,
 )
 import time
-from typing import (
-    Optional,
-    Tuple,
-)
 from unidiff import (
     Hunk,
     PatchedFile,
@@ -58,7 +54,7 @@ def rebase_one_commit_at_a_time(
     path: str,
     line: int,
     diff: PatchSet,
-) -> Optional[Tuple[str, int]]:
+) -> tuple[str, int] | None:
     hunk: Hunk
     patch: PatchedFile
 
@@ -94,10 +90,10 @@ def rebase_one_commit_at_a_time(
 
 def get_diffs(
     log: str, commit_prefix: str
-) -> Tuple[Tuple[str, PatchSet], ...]:
-    result: Tuple[Tuple[str, PatchSet], ...] = tuple()
-    current_commit: Optional[str] = None
-    lines: Tuple[str, ...] = tuple()
+) -> tuple[tuple[str, PatchSet], ...]:
+    result: tuple[tuple[str, PatchSet], ...] = tuple()
+    current_commit: str | None = None
+    lines: tuple[str, ...] = tuple()
     for line in log.splitlines():
         if line.startswith(commit_prefix):
             if current_commit:
@@ -124,7 +120,7 @@ def rebase(
     line: int,
     rev_a: str,
     rev_b: str,
-) -> Optional[RebaseResult]:
+) -> RebaseResult | None:
     revs_str: str = repo.git.log(
         "--color=never",
         "--minimal",

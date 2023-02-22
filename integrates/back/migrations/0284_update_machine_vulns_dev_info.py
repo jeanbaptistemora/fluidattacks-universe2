@@ -42,11 +42,7 @@ from organizations import (
 )
 import time
 from typing import (
-    Dict,
-    List,
     NamedTuple,
-    Optional,
-    Tuple,
 )
 
 
@@ -1887,7 +1883,7 @@ class SkimsMethods(Enum):
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    methods_developers: Dict[str, str] = {
+    methods_developers: dict[str, str] = {
         f"{method.value.file_name}.{method.value.name}": method.value.developer
         for method in SkimsMethods
     }
@@ -1899,19 +1895,19 @@ async def main() -> None:
         vulns = await loaders.finding_vulnerabilities.load_many_chained(
             [fin.id for fin in findings]
         )
-        machine_vulns: List[Vulnerability] = [
+        machine_vulns: list[Vulnerability] = [
             vuln
             for vuln in vulns
             if (vuln.state.source == Source.MACHINE) or vuln.skims_method
         ]
         if machine_vulns:
-            vulns_developers: List[Optional[str]] = [
+            vulns_developers: list[str | None] = [
                 methods_developers.get(vuln.skims_method)
                 if vuln.skims_method
                 else None
                 for vuln in machine_vulns
             ]
-            vulns_to_update: List[Tuple[Vulnerability, Optional[str]]] = [
+            vulns_to_update: list[tuple[Vulnerability, str | None]] = [
                 (vuln, developer)
                 for vuln, developer in zip(machine_vulns, vulns_developers)
                 if (

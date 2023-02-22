@@ -38,9 +38,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -53,9 +50,7 @@ async def process_event(
     loaders: Dataloaders, event_data: dict[str, str]
 ) -> None:
     try:
-        event: Optional[Event] = await loaders.event.load(
-            event_data["event_id"]
-        )
+        event: Event | None = await loaders.event.load(event_data["event_id"])
     except EventNotFound:
         event = None
     if event:

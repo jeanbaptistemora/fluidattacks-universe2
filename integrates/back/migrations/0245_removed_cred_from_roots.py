@@ -37,9 +37,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -53,7 +50,7 @@ async def process_root(root: Item, credentials_ids: set[str]) -> None:
         partition_key=root["pk"],
         sort_key=root["sk"],
     )
-    root_credential_id: Optional[str] = root["state"].get("credential_id")
+    root_credential_id: str | None = root["state"].get("credential_id")
     if root_credential_id and root_credential_id not in credentials_ids:
         condition_expression = Attr(TABLE.primary_key.partition_key).exists()
         await operations.update_item(

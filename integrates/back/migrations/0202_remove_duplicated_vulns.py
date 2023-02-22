@@ -27,9 +27,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -60,7 +57,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
             },
         )
         unique = []
-        duplicated: List[Vulnerability] = []
+        duplicated: list[Vulnerability] = []
 
         for vuln in vulns:
             unique_identifiers = (vuln.where, vuln.specific, vuln.root_id)
@@ -103,7 +100,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
 
 
 async def main() -> None:
-    groups: List[str] = []  # Masked
+    groups: list[str] = []  # Masked
     loaders: Dataloaders = get_new_context()
 
     for group_name in groups:

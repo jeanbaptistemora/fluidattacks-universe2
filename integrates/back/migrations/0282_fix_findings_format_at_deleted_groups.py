@@ -35,9 +35,6 @@ from organizations.domain import (
     get_all_deleted_groups,
 )
 import time
-from typing import (
-    Optional,
-)
 
 
 async def _has_inconsistencies_in_group(
@@ -63,7 +60,7 @@ async def _get_findings_items(group_name: str) -> list[Item]:
 
 def _get_milestone_item(
     finding_id: str, milestones_items: list[Item], suffix: str
-) -> Optional[Item]:
+) -> Item | None:
     item = next(
         (
             item

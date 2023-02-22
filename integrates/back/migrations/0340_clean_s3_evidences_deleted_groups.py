@@ -31,14 +31,11 @@ from s3.resource import (
     get_s3_resource,
 )
 import time
-from typing import (
-    Optional,
-)
 
 
 async def _s3_list_files(
-    name: Optional[str] = None,
-    start_after: Optional[str] = "",
+    name: str | None = None,
+    start_after: str | None = "",
 ) -> tuple[bool, list[str]]:
     client = await get_s3_resource()
     resp = await client.list_objects_v2(

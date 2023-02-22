@@ -40,10 +40,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-    Tuple,
-)
 from vulnerabilities.domain.utils import (
     get_hash_from_typed,
 )
@@ -67,7 +63,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
                 }
             },
         )
-        vulns: Tuple[Vulnerability, ...] = tuple(
+        vulns: tuple[Vulnerability, ...] = tuple(
             vuln
             for vuln in (
                 await loaders.finding_vulnerabilities.load(finding.id)
@@ -92,7 +88,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
             },
         )
         unique_hashes = []
-        duplicated: List[Vulnerability] = []
+        duplicated: list[Vulnerability] = []
 
         for vuln in vulns:
             hash_identifier = get_hash_from_typed(vuln)
@@ -137,7 +133,7 @@ async def process_group(loaders: Dataloaders, group_name: str) -> None:
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    groups: List[str] = [
+    groups: list[str] = [
         group.name for group in await get_all_active_groups(loaders)
     ]  # Masked
 

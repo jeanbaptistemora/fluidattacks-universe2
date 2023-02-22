@@ -43,9 +43,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -53,7 +50,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Secret = Union[HttpsSecret, HttpsPatSecret, SshSecret]
+Secret = HttpsSecret | HttpsPatSecret | SshSecret
 
 
 async def check_and_update_owner_pk(item: Item) -> None:

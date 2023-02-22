@@ -49,9 +49,6 @@ from settings import (
 )
 import simplejson as json
 import time
-from typing import (
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -60,8 +57,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def adjust_historic_dates(
-    historic: Union[tuple[OrganizationState, ...], tuple[Policies, ...]],
-) -> Union[tuple[OrganizationState, ...], tuple[Policies, ...]]:
+    historic: tuple[OrganizationState, ...] | tuple[Policies, ...],
+) -> tuple[OrganizationState, ...] | tuple[Policies, ...]:
     """Ensure dates are not the same and in ascending order."""
     new_historic = []
     comparison_date = ""

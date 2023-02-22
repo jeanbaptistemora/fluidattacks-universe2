@@ -31,9 +31,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -78,7 +75,7 @@ async def process_group(group_name: str, progress: float) -> None:
     )
 
 
-async def get_group_names() -> List[str]:
+async def get_group_names() -> list[str]:
     return sorted(
         group["project_name"] for group in await groups_dal.get_all()
     )

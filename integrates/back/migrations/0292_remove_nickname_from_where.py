@@ -12,6 +12,9 @@ from aioextensions import (
     collect,
     run,
 )
+from collections.abc import (
+    Coroutine,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -35,7 +38,6 @@ from organizations import (
 import time
 from typing import (
     Any,
-    Coroutine,
 )
 from vulnerabilities.domain.utils import (
     get_path_from_integrates_vulnerability,

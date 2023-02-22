@@ -36,9 +36,6 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    List,
-)
 from vulnerabilities.domain import (
     remove_vulnerability,
 )
@@ -51,7 +48,7 @@ async def main() -> None:
         await loaders.group_drafts_and_findings.load_many_chained(list(groups))
     )
 
-    f419_findings: List[Finding] = [
+    f419_findings: list[Finding] = [
         finding
         for finding in groups_findings
         if finding.state.status

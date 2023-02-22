@@ -16,21 +16,20 @@ from aioextensions import (
 from batch_dispatch.utils.s3 import (
     SESSION,
 )
+from collections.abc import (
+    Coroutine,
+)
 from more_itertools import (
     chunked,
 )
 import time
-from typing import (
-    Coroutine,
-    Tuple,
-)
 
 
 async def main() -> None:
     async with SESSION.client(service_name="s3") as client:
         next_version_id = None
         next_key_marker = None
-        objects_to_delete: list[Tuple[str, str]] = []
+        objects_to_delete: list[tuple[str, str]] = []
         while True:
             response = await client.list_object_versions(
                 Bucket="continuous-repositories",

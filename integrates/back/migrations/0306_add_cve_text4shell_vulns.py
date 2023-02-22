@@ -28,9 +28,6 @@ from organizations.domain import (
     get_all_active_group_names,
 )
 import time
-from typing import (
-    List,
-)
 
 
 async def main() -> None:
@@ -39,7 +36,7 @@ async def main() -> None:
     groups_findings = await loaders.group_findings.load_many_chained(
         list(groups)
     )
-    sca_findings: List[Finding] = [
+    sca_findings: list[Finding] = [
         finding
         for finding in groups_findings
         if any(finding.title.startswith(code) for code in ["011", "393"])

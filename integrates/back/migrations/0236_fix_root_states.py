@@ -47,7 +47,6 @@ import simplejson as json
 import time
 from typing import (
     Any,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -57,7 +56,7 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-async def _get_organization_roots(organization_name: str) -> Tuple[Root, ...]:
+async def _get_organization_roots(organization_name: str) -> tuple[Root, ...]:
     primary_key = keys.build_key(
         facet=ORG_INDEX_METADATA,
         values={"name": organization_name},

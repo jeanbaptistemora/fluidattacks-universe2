@@ -32,9 +32,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Dict,
-)
 from vulnerabilities.domain.utils import (
     get_hash_from_machine_vuln,
 )
@@ -44,7 +41,7 @@ async def process_group(group: str) -> None:
     print(f"Processing {group}")
     loaders: Dataloaders = get_new_context()
 
-    findings: Dict[str, Finding] = {
+    findings: dict[str, Finding] = {
         fin.id: fin
         for fin in (await loaders.group_drafts_and_findings.load(group))
     }

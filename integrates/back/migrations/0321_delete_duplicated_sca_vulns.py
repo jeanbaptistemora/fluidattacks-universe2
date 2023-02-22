@@ -41,11 +41,6 @@ from organizations.domain import (
 )
 import re
 import time
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityAttr,
 )
@@ -64,14 +59,14 @@ SCA_REGEX = (
 
 
 def get_duplicate_vulns(
-    vulns: List[Vulnerability],
-) -> Dict[Tuple[str, ...], List[Vulnerability]]:
-    original_items: Dict[Tuple[str, ...], Vulnerability] = {}
-    duplicate_items: Dict[Tuple[str, ...], List[Vulnerability]] = {}
+    vulns: list[Vulnerability],
+) -> dict[tuple[str, ...], list[Vulnerability]]:
+    original_items: dict[tuple[str, ...], Vulnerability] = {}
+    duplicate_items: dict[tuple[str, ...], list[Vulnerability]] = {}
     for vuln in vulns:
         if match := re.match(SCA_REGEX, vuln.state.where):
             match_dict = match.groupdict()
-            item: Tuple[str, ...] = (
+            item: tuple[str, ...] = (
                 vuln.root_id or "",
                 match_dict["where"],
                 match_dict["package_name"],
@@ -92,13 +87,13 @@ def get_duplicate_vulns(
 
 
 def process_duplicates(
-    duplicates: Dict[Tuple[str, ...], List[Vulnerability]]
-) -> Tuple[List[Vulnerability], List[Vulnerability]]:
-    vulns_to_delete: List[Vulnerability] = []
-    vulns_to_open: List[Vulnerability] = []
+    duplicates: dict[tuple[str, ...], list[Vulnerability]]
+) -> tuple[list[Vulnerability], list[Vulnerability]]:
+    vulns_to_delete: list[Vulnerability] = []
+    vulns_to_open: list[Vulnerability] = []
     for vulns in duplicates.values():
-        treatment_vulns: List[Vulnerability] = []
-        no_treatment_vulns: List[Vulnerability] = []
+        treatment_vulns: list[Vulnerability] = []
+        no_treatment_vulns: list[Vulnerability] = []
         has_open_vulns: bool = False
         for vuln in vulns:
             (
@@ -151,7 +146,7 @@ async def main() -> None:
     groups_findings = (
         await loaders.group_drafts_and_findings.load_many_chained(list(groups))
     )
-    sca_findings: List[Finding] = [
+    sca_findings: list[Finding] = [
         finding
         for finding in groups_findings
         if finding.state.status
@@ -167,7 +162,7 @@ async def main() -> None:
             f"Processing finding {finding.title} "
             f"in group {finding.group_name}({idx+1}/{num_findings})..."
         )
-        machine_vulns: List[Vulnerability] = sorted(
+        machine_vulns: list[Vulnerability] = sorted(
             [
                 vuln
                 for vuln in vulns

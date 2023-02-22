@@ -39,22 +39,17 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 from vulnerabilities import (
     domain as vulns_domain,
 )
 
 
 def get_duplicates(
-    vulns_by_idx: Dict[int, Vulnerability]
-) -> Dict[int, List[Vulnerability]]:
-    unique_items: List[Tuple[str, str]] = []
-    original_vulns: List[int] = []
-    duplicated_vulns: Dict[int, List[Vulnerability]] = {}
+    vulns_by_idx: dict[int, Vulnerability]
+) -> dict[int, list[Vulnerability]]:
+    unique_items: list[tuple[str, str]] = []
+    original_vulns: list[int] = []
+    duplicated_vulns: dict[int, list[Vulnerability]] = {}
     for idx, vuln in vulns_by_idx.items():
         where: str = vuln.where.split(" [", maxsplit=1)[0]
         if (item := (where, vuln.specific, vuln.root_id)) not in unique_items:
@@ -70,8 +65,8 @@ def get_duplicates(
     return duplicated_vulns
 
 
-def get_closed_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
-    closed_vulns_by_idx: Dict[int, Vulnerability] = {
+def get_closed_duplicates(vulns: list[Vulnerability]) -> list[Vulnerability]:
+    closed_vulns_by_idx: dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
         if vuln.state.status == VulnerabilityStateStatus.SAFE
@@ -81,8 +76,8 @@ def get_closed_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
     return list(chain.from_iterable(duplicates.values()))
 
 
-def get_new_open_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
-    new_open_vulns_by_idx: Dict[int, Vulnerability] = {
+def get_new_open_duplicates(vulns: list[Vulnerability]) -> list[Vulnerability]:
+    new_open_vulns_by_idx: dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
         if (
@@ -102,18 +97,18 @@ def get_new_open_duplicates(vulns: List[Vulnerability]) -> List[Vulnerability]:
 
 
 def get_open_with_treatment_duplicates(
-    vulns: List[Vulnerability],
-) -> List[Vulnerability]:
-    open_vulns_by_idx: Dict[int, Vulnerability] = {
+    vulns: list[Vulnerability],
+) -> list[Vulnerability]:
+    open_vulns_by_idx: dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
         if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     }
     open_duplicates = get_duplicates(open_vulns_by_idx)
-    open_with_treatment_duplicates: Dict[int, List[Vulnerability]] = {}
+    open_with_treatment_duplicates: dict[int, list[Vulnerability]] = {}
     for vuln_idx, duplicates in open_duplicates.items():
         all_vulns = [vulns[vuln_idx]] + duplicates
-        eternally_accepted: List[Vulnerability] = sorted(
+        eternally_accepted: list[Vulnerability] = sorted(
             all_vulns,
             key=lambda x: (
                 -(
@@ -136,7 +131,7 @@ def get_open_with_treatment_duplicates(
             )
             continue
 
-        treatment_approved: List[Vulnerability] = sorted(
+        treatment_approved: list[Vulnerability] = sorted(
             all_vulns,
             key=lambda x: (
                 -(
@@ -159,7 +154,7 @@ def get_open_with_treatment_duplicates(
             )
             continue
 
-        any_treatment: List[Vulnerability] = sorted(
+        any_treatment: list[Vulnerability] = sorted(
             all_vulns,
             key=lambda x: (
                 -(
@@ -185,17 +180,17 @@ def get_open_with_treatment_duplicates(
 
 
 def get_open_with_zr_duplicates(
-    vulns: List[Vulnerability],
-) -> List[Vulnerability]:
-    open_vulns_by_idx: Dict[int, Vulnerability] = {
+    vulns: list[Vulnerability],
+) -> list[Vulnerability]:
+    open_vulns_by_idx: dict[int, Vulnerability] = {
         idx: vuln
         for idx, vuln in enumerate(vulns)
         if vuln.state.status == VulnerabilityStateStatus.VULNERABLE
     }
     open_duplicates = get_duplicates(open_vulns_by_idx)
-    open_with_zr_duplicates: Dict[int, List[Vulnerability]] = {}
+    open_with_zr_duplicates: dict[int, list[Vulnerability]] = {}
     for vuln_idx, duplicates in open_duplicates.items():
-        sorted_open_duplicates: List[Vulnerability] = sorted(
+        sorted_open_duplicates: list[Vulnerability] = sorted(
             [vulns[vuln_idx]] + duplicates,
             key=lambda x: (
                 -(
@@ -232,9 +227,9 @@ async def main() -> None:
             [fin.id for fin in findings]
         )
 
-        vulns_to_delete: List[Tuple[str, str]] = []
+        vulns_to_delete: list[tuple[str, str]] = []
         for finding, vulns in zip(findings, findings_vulns):
-            machine_vulns: List[Vulnerability] = sorted(
+            machine_vulns: list[Vulnerability] = sorted(
                 [
                     vuln
                     for vuln in vulns

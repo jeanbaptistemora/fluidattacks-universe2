@@ -31,13 +31,10 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Dict,
-)
 
 
 async def update_description(
-    loaders: Dataloaders, group: Group, finding_id: str, criteria: Dict
+    loaders: Dataloaders, group: Group, finding_id: str, criteria: dict
 ) -> None:
     print(f"Updating F380 from group {group.name}")
     await findings_domain.update_description(

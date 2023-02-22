@@ -33,9 +33,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -54,7 +51,7 @@ async def main() -> None:
     for result in asyncio.as_completed(
         [get_credentials(group_name=group) for group in groups]
     ):
-        credentials: Tuple[CredentialItem, ...] = await result
+        credentials: tuple[CredentialItem, ...] = await result
         if not credentials:
             continue
         for cred in credentials:

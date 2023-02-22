@@ -102,9 +102,6 @@ from starlette.datastructures import (
     UploadFile,
 )
 import time
-from typing import (
-    Optional,
-)
 import uuid
 
 logging.config.dictConfig(LOGGING)
@@ -175,8 +172,8 @@ async def _update_finding_evidence(
     evidence_id: str,
     file_object: UploadFile,
     modified_date: datetime,
-    description: Optional[str] = None,
-    validate_name: Optional[bool] = False,
+    description: str | None = None,
+    validate_name: bool | None = False,
 ) -> None:
     finding: Finding = await loaders.finding.load(finding_id)  # type: ignore
     await validate_evidence(
@@ -189,9 +186,7 @@ async def _update_finding_evidence(
     await save_evidence(
         file_object, f"{finding.group_name}/{finding.id}/{filename}"
     )
-    evidence: Optional[FindingEvidence] = getattr(
-        finding.evidences, evidence_id
-    )
+    evidence: FindingEvidence | None = getattr(finding.evidences, evidence_id)
     if evidence:
         await replace_different_format(
             finding=finding,

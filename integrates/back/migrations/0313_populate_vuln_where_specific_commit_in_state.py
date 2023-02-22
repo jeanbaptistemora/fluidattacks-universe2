@@ -47,9 +47,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -65,7 +62,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 async def process_state(  # pylint: disable=too-many-arguments
     vulnerability: Vulnerability,
     state: VulnerabilityState,
-    commit: Optional[str],
+    commit: str | None,
     specific: str,
     where: str,
     is_last_state: bool,

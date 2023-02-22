@@ -40,9 +40,6 @@ from settings import (
 )
 import simplejson as json
 import time
-from typing import (
-    List,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -101,7 +98,7 @@ async def process_root(loaders: Dataloaders, root_id: str) -> None:
 
 
 async def main() -> None:
-    roots: List[str] = []  # Masked
+    roots: list[str] = []  # Masked
     loaders: Dataloaders = get_new_context()
 
     for root in roots:

@@ -27,9 +27,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    List,
-)
 
 
 async def main() -> None:
@@ -38,7 +35,7 @@ async def main() -> None:
     for group in groups:
         print(f"Processing group {group}")
         findings = await loaders.group_drafts_and_findings.load(group)
-        findings_to_update: List[Finding] = [
+        findings_to_update: list[Finding] = [
             fin
             for fin in findings
             if (

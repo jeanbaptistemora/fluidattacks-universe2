@@ -43,10 +43,6 @@ from organizations import (
     domain as orgs_domain,
 )
 import time
-from typing import (
-    Dict,
-    List,
-)
 from vulnerabilities.domain.core import (
     remove_vulnerability,
 )
@@ -71,7 +67,7 @@ async def process_group(group: str) -> None:
         in ("kamado@fluidattacks.com", "machine@fluidattacks.com")
     ]
 
-    duplicates: Dict[str, List[Vulnerability]] = {}
+    duplicates: dict[str, list[Vulnerability]] = {}
     for vuln in vulns:
         if vuln.zero_risk:
             continue

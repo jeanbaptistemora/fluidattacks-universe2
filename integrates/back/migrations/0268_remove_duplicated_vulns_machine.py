@@ -55,9 +55,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-)
 from vulnerabilities.domain.core import (
     remove_vulnerability,
 )
@@ -121,8 +118,8 @@ async def process_group(  # pylint: disable=too-many-locals
 
         unique_hashes = []
         duplicated_hashes = []
-        unique_vulns: List[Vulnerability] = []
-        duplicated: List[Vulnerability] = []
+        unique_vulns: list[Vulnerability] = []
+        duplicated: list[Vulnerability] = []
 
         for vuln in vulns:
             hash_identifier = get_hash_from_typed(vuln)
@@ -221,7 +218,7 @@ async def process_group(  # pylint: disable=too-many-locals
 
 async def main() -> None:
     loaders: Dataloaders = get_new_context()
-    groups: List[str] = [
+    groups: list[str] = [
         group.name for group in await get_all_active_groups(loaders)
     ]  # Masked
 

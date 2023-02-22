@@ -64,7 +64,6 @@ from settings import (
 import time
 from typing import (
     cast,
-    Union,
 )
 from uuid import (
     uuid4,
@@ -76,7 +75,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Secret = Union[HttpsSecret, HttpsPatSecret, SshSecret]
+Secret = HttpsSecret | HttpsPatSecret | SshSecret
 
 
 def _get_secret_info(

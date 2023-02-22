@@ -32,7 +32,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -42,7 +41,7 @@ LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
 
-async def _get_group_roots(dataloaders: Any, group: str) -> Tuple[str, Any]:
+async def _get_group_roots(dataloaders: Any, group: str) -> tuple[str, Any]:
     return (group, await dataloaders.group_roots.load(group))
 
 

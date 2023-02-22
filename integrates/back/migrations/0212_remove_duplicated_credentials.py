@@ -33,7 +33,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -44,7 +43,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def get_creds_ids(
-    credentials: Tuple[CredentialItem, ...], group: Any
+    credentials: tuple[CredentialItem, ...], group: Any
 ) -> list[str]:
     remove_creds_ids = []
     for cred_a in credentials:
@@ -110,7 +109,7 @@ async def main() -> None:  # noqa: MC0001
     groups = sorted(await get_all_active_group_names(loaders=loaders))
 
     for group in groups:
-        credentials: Tuple[CredentialItem, ...] = await get_credentials(
+        credentials: tuple[CredentialItem, ...] = await get_credentials(
             group_name=group
         )
         if not credentials:

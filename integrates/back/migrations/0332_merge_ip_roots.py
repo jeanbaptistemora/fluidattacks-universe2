@@ -57,9 +57,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -160,7 +157,7 @@ async def merge_roots(
 
 async def process_address_roots(
     loaders: Dataloaders,
-    address_info: dict[str, Union[str, list[str]]],
+    address_info: dict[str, str | list[str]],
     ip_roots: list[IPRoot],
 ) -> None:
     ip_roots_by_nickname = {
@@ -191,9 +188,7 @@ async def process_address_roots(
 
 async def process_group(
     group_name: str,
-    duplicated_ip_roots: dict[
-        tuple[str, str], dict[str, Union[str, list[str]]]
-    ],
+    duplicated_ip_roots: dict[tuple[str, str], dict[str, str | list[str]]],
 ) -> None:
     loaders = get_new_context()
     group_roots = await loaders.group_roots.load(group_name)
@@ -231,7 +226,7 @@ async def main() -> None:
     ) as in_file:
         reader = csv.reader(in_file)
         duplicated_ip_roots: dict[
-            tuple[str, str], dict[str, Union[str, list[str]]]
+            tuple[str, str], dict[str, str | list[str]]
         ] = {
             (str(row[0]).strip(), str(row[1]).strip()): dict(
                 group_name=str(row[0]).strip(),

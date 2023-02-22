@@ -12,6 +12,9 @@ from aioextensions import (
     collect,
     run,
 )
+from collections.abc import (
+    Iterable,
+)
 from dataloaders import (
     get_new_context,
 )
@@ -33,18 +36,11 @@ from organizations import (
 )
 import re
 import time
-from typing import (
-    Dict,
-    Iterable,
-    List,
-    Optional,
-    Tuple,
-)
 from vulnerabilities import (
     domain as vulns_domain,
 )
 
-INPUT_FINDINGS_DESCRIPTIONS: Dict[str, List[str]] = {
+INPUT_FINDINGS_DESCRIPTIONS: dict[str, list[str]] = {
     "F024": [
         "Security groups contain RFC-1918 CIDRs open\n",
         "Los grupos de seguridad contienen RFC-1918 CIDRs abiertas\n",
@@ -143,7 +139,7 @@ INPUT_FINDINGS_DESCRIPTIONS: Dict[str, List[str]] = {
 
 def get_tls_information(
     description: str,
-) -> Tuple[Optional[str], Optional[str]]:
+) -> tuple[str | None, str | None]:
     cipher_regexes = [
         r"cipher method:? ([A-Z0-9_]*)",
         r"cifrado débil: ([A-Z0-9_]*)",
@@ -155,8 +151,8 @@ def get_tls_information(
         r"soporta CBC en ([A-Z0-9v\.]*)",
     ]
 
-    cipher: Optional[str] = None
-    protocol: Optional[str] = None
+    cipher: str | None = None
+    protocol: str | None = None
     for regex in cipher_regexes:
         if match := re.search(regex, description):
             cipher = match.group(1)
@@ -170,11 +166,11 @@ def get_tls_information(
 
 def get_vulns_with_description_issues(
     f_id: str, vulns: Iterable[Vulnerability]
-) -> List[Vulnerability]:
-    vulns_with_issues: List[Vulnerability] = []
+) -> list[Vulnerability]:
+    vulns_with_issues: list[Vulnerability] = []
     finding_key: str = f"F{f_id}"
-    descriptions: List[str] = INPUT_FINDINGS_DESCRIPTIONS[finding_key]
-    descriptions_splits: List[List[str]] = [
+    descriptions: list[str] = INPUT_FINDINGS_DESCRIPTIONS[finding_key]
+    descriptions_splits: list[list[str]] = [
         description.split(",")
         if "," in description
         else description.split("-")
@@ -182,8 +178,8 @@ def get_vulns_with_description_issues(
     ]
 
     for vuln in vulns:
-        aux_descriptions: List[str] = descriptions
-        aux_descriptions_splits: List[List[str]] = descriptions_splits
+        aux_descriptions: list[str] = descriptions
+        aux_descriptions_splits: list[list[str]] = descriptions_splits
         vuln_description = vuln.specific
 
         if finding_key in ["F052", "F094"]:
@@ -219,13 +215,13 @@ async def main() -> None:
     groups = await orgs_domain.get_all_active_group_names(loaders)
     groups_findings = await loaders.group_findings.load_many(groups)
     total_groups: int = len(groups)
-    machine_input_findings: List[str] = [
+    machine_input_findings: list[str] = [
         key[1:] for key in INPUT_FINDINGS_DESCRIPTIONS
     ]
 
     for idx, (group, findings) in enumerate(zip(groups, groups_findings)):
         print(f"Processing group {group} ({idx+1}/{total_groups})...")
-        input_findings: List[Finding] = [
+        input_findings: list[Finding] = [
             finding
             for finding in findings
             if any(
@@ -233,14 +229,14 @@ async def main() -> None:
             )
         ]
         if input_findings:
-            vulns_to_delete: List[Vulnerability] = []
+            vulns_to_delete: list[Vulnerability] = []
             input_findings_vulns = (
                 await loaders.finding_vulnerabilities.load_many(
                     [finding.id for finding in input_findings]
                 )
             )
             for finding, vulns in zip(input_findings, input_findings_vulns):
-                machine_vulns: List[Vulnerability] = [
+                machine_vulns: list[Vulnerability] = [
                     vuln
                     for vuln in vulns
                     if (

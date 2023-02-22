@@ -26,8 +26,6 @@ import time
 from typing import (
     Any,
     cast,
-    Dict,
-    List,
 )
 
 # Constants
@@ -39,17 +37,17 @@ EVENTS_TABLE: str = "fi_events"
 async def get_all_events(
     filtering_exp: object = "",
     data_attr: str = "",
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     scan_attrs = {}
     if filtering_exp:
         scan_attrs["FilterExpression"] = filtering_exp
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
     items = await dynamodb_ops.scan(EVENTS_TABLE, scan_attrs)
-    return cast(List[Dict[str, Any]], items)
+    return cast(list[dict[str, Any]], items)
 
 
-async def update(event_id: str, data: Dict[str, None]) -> bool:
+async def update(event_id: str, data: dict[str, None]) -> bool:
     """Manually updates db data"""
     success = False
     set_expression = ""
@@ -87,7 +85,7 @@ async def update(event_id: str, data: Dict[str, None]) -> bool:
     return success
 
 
-async def process_event(event: Dict[str, Any]) -> bool:
+async def process_event(event: dict[str, Any]) -> bool:
     success = False
     if PROD:
         success = await update(
@@ -97,7 +95,7 @@ async def process_event(event: Dict[str, Any]) -> bool:
     return success
 
 
-async def remove_affectations(events: List[Dict[str, Any]]) -> None:
+async def remove_affectations(events: list[dict[str, Any]]) -> None:
     success = all(await collect(process_event(event) for event in events))
     print(f"Hours before blocking removed: {success}")
 

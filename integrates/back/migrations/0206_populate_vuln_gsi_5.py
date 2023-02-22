@@ -60,9 +60,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Dict,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -75,7 +72,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
     exceptions=(UnavailabilityError,),
     sleep_seconds=5,
 )
-async def populate_zr_index_by_vuln(current_item: Dict) -> None:
+async def populate_zr_index_by_vuln(current_item: dict) -> None:
     key_structure = TABLE.primary_key
     gsi_5_index = TABLE.indexes["gsi_5"]
     vulnerability = format_vulnerability(current_item)

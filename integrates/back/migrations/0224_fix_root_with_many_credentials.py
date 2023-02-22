@@ -33,9 +33,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -45,7 +42,7 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 async def process_root(root_id: str, group_name: str) -> None:
-    credentials: Tuple[CredentialItem, ...] = await get_credentials(
+    credentials: tuple[CredentialItem, ...] = await get_credentials(
         group_name=group_name
     )
     root_credentials: list[CredentialItem] = []
@@ -87,7 +84,7 @@ async def main() -> None:  # noqa: MC0001
     for index, group in enumerate(groups):
         print(group, index / len(groups))
 
-        credentials: Tuple[CredentialItem, ...] = await get_credentials(
+        credentials: tuple[CredentialItem, ...] = await get_credentials(
             group_name=group
         )
         roots_to_process = set()
