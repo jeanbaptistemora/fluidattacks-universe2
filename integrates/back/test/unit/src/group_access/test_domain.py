@@ -3,6 +3,9 @@ from back.test.unit.src.utils import (  # pylint: disable=import-error
     set_mocks_return_values,
     set_mocks_side_effects,
 )
+from custom_exceptions import (
+    RequestedInvitationTooSoon,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -16,6 +19,9 @@ from db_model.group_access.types import (
     GroupAccessRequest,
     GroupAccessState,
 )
+from freezegun import (
+    freeze_time,
+)
 from group_access.domain import (
     add_access,
     exists,
@@ -24,6 +30,7 @@ from group_access.domain import (
     get_reattackers,
     remove_access,
     update,
+    validate_new_invitation_time_limit,
 )
 from newutils import (
     datetime as datetime_utils,
@@ -416,4 +423,25 @@ async def test_update(
         email=email,
         group_name=group_name,
         metadata=data_to_update,
+    )
+
+
+@freeze_time("2023-01-23 00:35:00-05:00")
+@pytest.mark.parametrize(
+    ["inv_expiration_time", "inv_expiration_time_to_raise_exception"],
+    [
+        [1674452100, 1675056910],
+    ],
+)
+def test_validate_new_invitation_time_limit(
+    inv_expiration_time: int, inv_expiration_time_to_raise_exception: int
+) -> None:
+    assert validate_new_invitation_time_limit(inv_expiration_time)
+    with pytest.raises(RequestedInvitationTooSoon) as invalid_too_soon:
+        validate_new_invitation_time_limit(
+            inv_expiration_time_to_raise_exception
+        )
+    assert str(invalid_too_soon.value) == (
+        "Exception - The previous "
+        "invitation to this user was requested less than a minute ago"
     )
