@@ -24,8 +24,8 @@ with 10 being the most severe.
 
 ## CVSSF
 
-The Metric is made up of `Fluid Attacks`
-and shows the level of **risk exposure**
+The CVSSF metric is a creation of `Fluid Attacks.`
+It shows the level of **risk exposure**
 represented by the vulnerabilities in your system.
 The **CVSSF** allows an aggregate analysis
 of vulnerabilities.
