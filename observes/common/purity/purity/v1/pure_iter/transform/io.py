@@ -18,6 +18,7 @@ from returns.maybe import (
     Maybe,
 )
 from typing import (
+    Optional,
     TypeVar,
 )
 
@@ -37,15 +38,15 @@ def consume(p_iter: PureIter[IO[None]]) -> IO[None]:
     return IO(None)
 
 
-def until_none(items: PureIter[IO[_I | None]]) -> PureIter[IO[_I]]:
+def until_none(items: PureIter[IO[Optional[_I]]]) -> PureIter[IO[_I]]:
     return unsafe_from_generator(
         lambda: iter_obj(IterableFactoryIO.filter_io(items))
     )
 
 
 def until_empty(items: PureIter[IO[Maybe[_I]]]) -> PureIter[IO[_I]]:
-    def _to_opt(item: IO[Maybe[_I]]) -> IO[_I | None]:
+    def _to_opt(item: IO[Maybe[_I]]) -> IO[Optional[_I]]:
         return item.map(lambda i: i.value_or(None))
 
-    opt: PureIter[IO[_I | None]] = items.map(_to_opt)
+    opt: PureIter[IO[Optional[_I]]] = items.map(_to_opt)
     return until_none(opt)

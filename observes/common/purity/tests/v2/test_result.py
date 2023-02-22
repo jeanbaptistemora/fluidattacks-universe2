@@ -5,6 +5,9 @@ from purity.v2.union import (
     inl,
     inr,
 )
+from typing import (
+    Union,
+)
 
 
 def test_use_case_1() -> None:
@@ -21,7 +24,7 @@ def test_use_case_1() -> None:
 
 def test_result_with_union() -> None:
     value = "hi"
-    result: Result[str | int, None] = Result.failure(None, int).map(inl)
+    result: Result[Union[str, int], None] = Result.failure(None, int).map(inl)
     result_2 = result.lash(
         lambda _: Result.success(value, type(None)).map(inr)
     )

@@ -31,6 +31,7 @@ from returns.maybe import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
@@ -66,7 +67,7 @@ class RequestMethod(Enum):
 @dataclass(frozen=True)
 class RawClient:
     url_base: str
-    headers: dict[str, Any]
+    headers: Dict[str, Any]
     max_retries: int
     handler: Patch[ErrorHandler]
 
@@ -74,7 +75,7 @@ class RawClient:
         self,
         method: RequestMethod,
         endpoint: str,
-        params: dict[str, Any],
+        params: Dict[str, Any],
         **kargs: Any,
     ) -> RawResponse:
         response = requests.request(
@@ -90,19 +91,19 @@ class RawClient:
         return IOFailure(error.unwrap())
 
     def try_get(
-        self, endpoint: str, params: dict[str, Any], **kargs: Any
+        self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> RawResponse:
         return self._try_call(RequestMethod.GET, endpoint, params, **kargs)
 
     def try_post(
-        self, endpoint: str, json: dict[str, Any], **kargs: Any
+        self, endpoint: str, json: Dict[str, Any], **kargs: Any
     ) -> RawResponse:
         return self._try_call(
             RequestMethod.POST, endpoint, {}, json=json, **kargs
         )
 
     def get(
-        self, endpoint: str, params: dict[str, Any], **kargs: Any
+        self, endpoint: str, params: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
         return insistent_call(
             lambda: self.try_get(endpoint, params, **kargs),
@@ -111,7 +112,7 @@ class RawClient:
         )
 
     def post(
-        self, endpoint: str, json: dict[str, Any], **kargs: Any
+        self, endpoint: str, json: Dict[str, Any], **kargs: Any
     ) -> IO[Response]:
         return insistent_call(
             lambda: self.try_post(endpoint, json, **kargs),

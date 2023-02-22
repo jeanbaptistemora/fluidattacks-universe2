@@ -1,9 +1,6 @@
 from collections import (
     OrderedDict,
 )
-from collections.abc import (
-    Callable,
-)
 import dataclasses
 from datetime import (
     date,
@@ -21,6 +18,12 @@ from enum import (
 import json
 from typing import (
     Any,
+    Callable,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    Type,
     TypeVar,
 )
 
@@ -28,7 +31,7 @@ from typing import (
 TVar = TypeVar("TVar")
 
 # Factory signature, args, kwargs
-Serialized = tuple[tuple[str, str], tuple[Any, ...], dict[str, Any]]
+Serialized = Tuple[Tuple[str, str], Tuple[Any, ...], Dict[str, Any]]
 
 
 class LoadError(Exception):
@@ -67,14 +70,14 @@ def _decimal_load(data: str) -> Decimal:
     return Decimal(data)
 
 
-def _dict_dump(instance: dict[str, Any]) -> Serialized:
+def _dict_dump(instance: Dict[str, Any]) -> Serialized:
     return serialize(
         instance,
         *((dump_raw(key), dump_raw(val)) for key, val in instance.items()),
     )
 
 
-def _dict_load(*args: tuple[Serialized, Serialized]) -> dict[Any, Any]:
+def _dict_load(*args: Tuple[Serialized, Serialized]) -> Dict[Any, Any]:
     return dict((_deserialize(key), _deserialize(val)) for key, val in args)
 
 
@@ -86,11 +89,11 @@ def _enum_load(factory: Callable[..., TVar]) -> Callable[..., TVar]:
     return lambda value: factory(_deserialize(value))
 
 
-def list_load(*args: Serialized) -> list[Any]:
+def list_load(*args: Serialized) -> List[Any]:
     return list(_tuple_load(*args))
 
 
-def _namedtuple_dump(instance: tuple[Any, ...]) -> Serialized:
+def _namedtuple_dump(instance: Tuple[Any, ...]) -> Serialized:
     return serialize(instance, *map(dump_raw, instance))
 
 
@@ -106,15 +109,15 @@ def _none_load() -> None:
     return None
 
 
-def _ordereddict_load(*args: tuple[Serialized, Serialized]) -> dict[Any, Any]:
+def _ordereddict_load(*args: Tuple[Serialized, Serialized]) -> Dict[Any, Any]:
     return OrderedDict(_dict_load(*args))
 
 
-def tuple_dump(instance: list[Any]) -> Serialized:
+def tuple_dump(instance: List[Any]) -> Serialized:
     return serialize(instance, *map(dump_raw, instance))
 
 
-def _tuple_load(*args: Serialized) -> tuple[Any, ...]:
+def _tuple_load(*args: Serialized) -> Tuple[Any, ...]:
     return tuple(map(_deserialize, args))
 
 
@@ -123,12 +126,12 @@ def _idem_dump(obj: Any) -> Serialized:
 
 
 # This is what guarantees security, only this types are whitelisted
-ALLOWED_FACTORIES: dict[type, dict[str, Any]] = {}
-SIGNATURE_TO_FACTORY: dict[Any, type] = {}
+ALLOWED_FACTORIES: Dict[type, Dict[str, Any]] = {}
+SIGNATURE_TO_FACTORY: Dict[Any, type] = {}
 
 
 def register(
-    factory: type[TVar],
+    factory: Type[TVar],
     dumper: Callable[[TVar], Serialized],
     loader: Callable[..., TVar],
 ) -> None:
@@ -197,7 +200,7 @@ def dump_raw(instance: Any) -> Serialized:
     return dumper(instance)
 
 
-def dump(instance: Any, ttl: int | None = None) -> bytes:
+def dump(instance: Any, ttl: Optional[int] = None) -> bytes:
     dumped: Serialized = dump_raw(instance)
     message = {
         "expires_at": (
@@ -215,7 +218,7 @@ def load(stream: bytes) -> Any:
     try:
         deserialized: Any = json.loads(stream)
 
-        expires_at: int | None = deserialized["expires_at"]
+        expires_at: Optional[int] = deserialized["expires_at"]
         if expires_at and datetime.now().timestamp() > expires_at:
             raise LoadError("Data has expired")
 

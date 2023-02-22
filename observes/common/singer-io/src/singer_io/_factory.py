@@ -11,19 +11,22 @@ from singer_io.singer import (
 )
 from typing import (
     Any,
+    Dict,
+    List,
+    Optional,
 )
 
 
 def deserialize_schema(raw_singer_schema: str) -> SingerSchema:
     """Generate `SingerSchema` from json string"""
-    raw_json: dict[str, Any] = json.loads(raw_singer_schema)
+    raw_json: Dict[str, Any] = json.loads(raw_singer_schema)
     required_keys = frozenset({"type", "stream", "schema", "key_properties"})
     invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
     if invalid:
         raise MissingKeys("Can not generate `SingerSchema` object")
 
     if raw_json["type"] == "SCHEMA":
-        bookmark_properties: list[str] | None = raw_json.get(
+        bookmark_properties: Optional[List[str]] = raw_json.get(
             "bookmark_properties", None
         )
         return SingerSchema(
@@ -39,7 +42,7 @@ def deserialize_schema(raw_singer_schema: str) -> SingerSchema:
 
 def deserialize_record(raw_singer_record: str) -> SingerRecord:
     """Generate `SingerRecord` from json string"""
-    raw_json: dict[str, Any] = json.loads(raw_singer_record)
+    raw_json: Dict[str, Any] = json.loads(raw_singer_record)
     required_keys = frozenset({"type", "stream", "record"})
     invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
     if invalid:
@@ -55,7 +58,7 @@ def deserialize_record(raw_singer_record: str) -> SingerRecord:
 
 def deserialize_state(raw_singer_state: str) -> SingerState:
     """Generate `SingerState` from json string"""
-    raw_json: dict[str, Any] = json.loads(raw_singer_state)
+    raw_json: Dict[str, Any] = json.loads(raw_singer_state)
     required_keys = frozenset({"type", "value"})
     invalid: bool = any(map(lambda x: x not in raw_json, required_keys))
     if invalid:

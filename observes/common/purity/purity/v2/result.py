@@ -2,16 +2,17 @@ from __future__ import (
     annotations,
 )
 
-from collections.abc import (
-    Callable,
-)
 from dataclasses import (
     dataclass,
 )
 from typing import (
+    Callable,
     Generic,
     NoReturn,
+    Optional,
+    Type,
     TypeVar,
+    Union,
 )
 
 _S = TypeVar("_S")
@@ -36,14 +37,14 @@ class _Failure(Generic[_T]):
 
 @dataclass(frozen=True)
 class Result(Generic[_S, _F]):
-    _value: _Success[_S] | _Failure[_F]
+    _value: Union[_Success[_S], _Failure[_F]]
 
     @staticmethod
-    def success(val: _S, _type: type[_F] | None = None) -> Result[_S, _F]:
+    def success(val: _S, _type: Optional[Type[_F]] = None) -> Result[_S, _F]:
         return Result(_Success(val))
 
     @staticmethod
-    def failure(val: _F, _type: type[_S] | None = None) -> Result[_S, _F]:
+    def failure(val: _F, _type: Optional[Type[_S]] = None) -> Result[_S, _F]:
         return Result(_Failure(val))
 
     def map(self, function: Callable[[_S], _T]) -> Result[_T, _F]:
@@ -74,26 +75,26 @@ class Result(Generic[_S, _F]):
     def apply(self, wrapped: Result[Callable[[_S], _T], _F]) -> Result[_T, _F]:
         return wrapped.bind(lambda f: self.map(f))
 
-    def value_or(self, default: _T) -> _S | _T:
+    def value_or(self, default: _T) -> Union[_S, _T]:
         if isinstance(self._value, _Success):
             return self._value.value
         return default
 
-    def or_else_call(self, function: Callable[[], _T]) -> _S | _T:
+    def or_else_call(self, function: Callable[[], _T]) -> Union[_S, _T]:
         # lazy version of `value_or`
         if isinstance(self._value, _Success):
             return self._value.value
         return function()
 
-    def to_union(self) -> _S | _F:
+    def to_union(self) -> Union[_S, _F]:
         return self._value.value
 
-    def unwrap(self) -> _S | NoReturn:
+    def unwrap(self) -> Union[_S, NoReturn]:
         if isinstance(self._value, _Success):
             return self._value.value
         raise UnwrapError(self)
 
-    def unwrap_fail(self) -> _F | NoReturn:
+    def unwrap_fail(self) -> Union[_F, NoReturn]:
         if isinstance(self._value, _Failure):
             return self._value.value
         raise UnwrapError(self)

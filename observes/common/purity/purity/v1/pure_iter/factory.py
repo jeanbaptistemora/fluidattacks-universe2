@@ -2,11 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from collections.abc import (
-    Callable,
-    Iterable,
-    Iterator,
-)
 from itertools import (
     count,
 )
@@ -24,7 +19,12 @@ from returns.io import (
     IO,
 )
 from typing import (
+    Callable,
+    Iterable,
+    Iterator,
+    List,
     TypeVar,
+    Union,
 )
 
 _T = TypeVar("_T")
@@ -56,7 +56,7 @@ def from_flist(items: FrozenList[_T]) -> PureIter[_T]:
     return unsafe_from_iterable(items)
 
 
-def from_list(items: Union[list[_T], FrozenList[_T]]) -> PureIter[_T]:
+def from_list(items: Union[List[_T], FrozenList[_T]]) -> PureIter[_T]:
     _items = tuple(items) if isinstance(items, list) else items
     return from_flist(_items)
 
@@ -70,6 +70,6 @@ def infinite_range(start: int, step: int) -> PureIter[int]:
 
 
 def pure_map(
-    function: Callable[[_I], _R], items: Union[list[_I], FrozenList[_I]]
+    function: Callable[[_I], _R], items: Union[List[_I], FrozenList[_I]]
 ) -> PureIter[_R]:
     return from_list(items).map(function)

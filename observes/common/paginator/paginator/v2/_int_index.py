@@ -1,8 +1,5 @@
 # pylint: skip-file
 
-from collections.abc import (
-    Callable,
-)
 from dataclasses import (
     dataclass,
 )
@@ -32,7 +29,9 @@ from returns.primitives.hkt import (
     SupportsKind1,
 )
 from typing import (
+    Callable,
     TypeVar,
+    Union,
 )
 
 _DataTVar = TypeVar("_DataTVar")
@@ -57,7 +56,7 @@ class IntIndexGetter(
 
     def get_pages(
         self,
-        page_range: range | FrozenList[int],
+        page_range: Union[range, FrozenList[int]],
     ) -> IO[FrozenList[Maybe[_DataTVar]]]:
         getter: ParallelGetter[int, _DataTVar] = ParallelGetter(self.getter)
         pages = (

@@ -12,10 +12,13 @@ from purity.v2.frozen import (
 from purity.v2.json.primitive.core import (
     Primitive,
 )
-
-UnfoldedJVal = (
-    FrozenDict[str, "JsonValue"] | FrozenList["JsonValue"] | Primitive
+from typing import (
+    Union,
 )
+
+UnfoldedJVal = Union[
+    FrozenDict[str, "JsonValue"], FrozenList["JsonValue"], Primitive
+]
 
 
 @dataclass(frozen=True)

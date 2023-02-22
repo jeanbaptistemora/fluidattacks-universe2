@@ -6,8 +6,9 @@ from purity.v2.json.value import (
 )
 from typing import (
     Any,
+    Dict,
 )
 
 
-def to_raw(json_obj: JsonObj) -> dict[str, Any]:
+def to_raw(json_obj: JsonObj) -> Dict[str, Any]:
     return {key: jval_transform.to_raw(val) for key, val in json_obj.items()}

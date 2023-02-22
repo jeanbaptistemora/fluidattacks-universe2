@@ -32,6 +32,7 @@ import simplejson
 from typing import (
     Any,
     cast,
+    Dict,
     IO as IO_FILE,
 )
 
@@ -46,17 +47,17 @@ def from_any(raw: Any) -> UnfoldResult[JsonObj]:
     return jval_factory.from_any(raw).bind(lambda j: Unfolder(j).to_json())
 
 
-def from_prim_dict(raw: dict[str, Primitive]) -> JsonObj:
+def from_prim_dict(raw: Dict[str, Primitive]) -> JsonObj:
     return FrozenDict({key: JsonValue(val) for key, val in raw.items()})
 
 
 def loads(raw: str) -> UnfoldResult[JsonObj]:
-    raw_json = cast(dict[str, Any], simplejson.loads(raw))
+    raw_json = cast(Dict[str, Any], simplejson.loads(raw))
     return from_any(raw_json)
 
 
 def load(raw: IO_FILE[str]) -> UnfoldResult[JsonObj]:
-    raw_json = cast(dict[str, Any], simplejson.load(raw))
+    raw_json = cast(Dict[str, Any], simplejson.load(raw))
     return from_any(raw_json)
 
 

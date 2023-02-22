@@ -15,6 +15,8 @@ import os
 import tempfile
 from typing import (
     NamedTuple,
+    Optional,
+    Tuple,
 )
 from urllib.parse import (
     ParseResult,
@@ -115,7 +117,7 @@ async def ssh_ls_remote(
     repo_url: str,
     credential_key: str,
     branch: str = "HEAD",
-) -> str | None:
+) -> Optional[str]:
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
         parsed_url = urlparse(repo_url)
@@ -191,9 +193,9 @@ def _format_token(
 def _format_https_url(
     *,
     repo_url: str,
-    user: str | None = None,
-    password: str | None = None,
-    token: str | None = None,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
     is_oauth: bool = False,
     provider: str = "",
 ) -> str:
@@ -220,13 +222,13 @@ def _format_https_url(
 
 async def https_ls_remote(  # pylint: disable=too-many-arguments
     repo_url: str,
-    user: str | None = None,
-    password: str | None = None,
-    token: str | None = None,
+    user: Optional[str] = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
     branch: str = "HEAD",
     is_oauth: bool = False,
     provider: str = "",
-) -> str | None:
+) -> Optional[str]:
     url = _format_https_url(
         repo_url=repo_url,
         user=user,
@@ -276,7 +278,7 @@ async def https_ls_remote(  # pylint: disable=too-many-arguments
 
 async def ssh_clone(
     *, branch: str, credential_key: str, repo_url: str, temp_dir: str
-) -> tuple[str | None, str | None]:
+) -> Tuple[Optional[str], Optional[str]]:
     raw_root_url = repo_url
     if "source.developers.google" not in raw_root_url:
         raw_root_url = repo_url.replace(f"{urlparse(repo_url).scheme}://", "")
@@ -330,12 +332,12 @@ async def https_clone(
     branch: str,
     repo_url: str,
     temp_dir: str,
-    password: str | None = None,
-    token: str | None = None,
-    user: str | None = None,
+    password: Optional[str] = None,
+    token: Optional[str] = None,
+    user: Optional[str] = None,
     is_oauth: bool = False,
     provider: str = "",
-) -> tuple[str | None, str | None]:
+) -> Tuple[Optional[str], Optional[str]]:
     url = _format_https_url(
         repo_url=repo_url,
         user=user,
@@ -379,7 +381,7 @@ def rebase(
     line: int,
     rev_a: str,
     rev_b: str,
-) -> RebaseResult | None:
+) -> Optional[RebaseResult]:
     try:
         result: list[str] = repo.git.blame(
             f"{rev_a}..{rev_b}",
@@ -415,7 +417,7 @@ def make_group_dir(tmpdir: str, group_name: str) -> None:
 
 
 def pull_repositories(
-    tmpdir: str, group_name: str, optional_repo_nickname: str | None
+    tmpdir: str, group_name: str, optional_repo_nickname: Optional[str]
 ) -> None:
     make_group_dir(tmpdir, group_name)
     call_melts = [

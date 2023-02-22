@@ -15,6 +15,7 @@ from purity.v2.pure_iter.factory import (
     unsafe_from_cmd,
 )
 from typing import (
+    Optional,
     TypeVar,
 )
 
@@ -35,7 +36,7 @@ def consume(p_iter: PureIter[Cmd[None]]) -> Cmd[None]:
     )
 
 
-def filter_opt(items: PureIter[_T | None]) -> PureIter[_T]:
+def filter_opt(items: PureIter[Optional[_T]]) -> PureIter[_T]:
     return unsafe_from_cmd(
         Cmd.from_cmd(lambda: _iter_factory.filter_none(items))
     )
@@ -45,7 +46,7 @@ def filter_maybe(items: PureIter[Maybe[_T]]) -> PureIter[_T]:
     return filter_opt(items.map(lambda x: x.value_or(None)))
 
 
-def until_none(items: PureIter[_T | None]) -> PureIter[_T]:
+def until_none(items: PureIter[Optional[_T]]) -> PureIter[_T]:
     return unsafe_from_cmd(
         Cmd.from_cmd(lambda: _iter_factory.until_none(items))
     )

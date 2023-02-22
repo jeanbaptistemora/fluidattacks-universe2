@@ -1,8 +1,5 @@
 # pylint: skip-file
 
-from collections.abc import (
-    Callable,
-)
 from requests.exceptions import (
     HTTPError,
 )
@@ -18,6 +15,9 @@ from returns.io import (
 )
 from returns.pipeline import (
     is_successful,
+)
+from typing import (
+    Callable,
 )
 
 

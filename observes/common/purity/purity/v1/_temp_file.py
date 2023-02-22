@@ -1,6 +1,3 @@
-from collections.abc import (
-    Callable,
-)
 from dataclasses import (
     dataclass,
 )
@@ -9,6 +6,7 @@ from tempfile import (
     NamedTemporaryFile,
 )
 from typing import (
+    Callable,
     IO as IO_FILE,
     TypeVar,
 )

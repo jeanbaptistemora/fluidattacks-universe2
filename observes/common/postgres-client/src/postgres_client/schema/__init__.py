@@ -4,9 +4,6 @@ from __future__ import (
     annotations,
 )
 
-from collections.abc import (
-    Iterator,
-)
 import logging
 from postgres_client.client import (
     Client,
@@ -43,6 +40,7 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
+    Iterator,
     Literal,
     NamedTuple,
     NoReturn,

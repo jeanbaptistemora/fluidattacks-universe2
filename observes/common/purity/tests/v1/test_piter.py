@@ -18,6 +18,8 @@ from secrets import (
     randbelow,
 )
 from typing import (
+    List,
+    Optional,
     TypeVar,
 )
 
@@ -83,7 +85,7 @@ class TestSelfTransforms:
         for sub_piter in piter:
             assert_immutability(sub_piter)
             assert sum(1 for _ in sub_piter) == 5
-        module: list[int] = []
+        module: List[int] = []
         assert functools.reduce(
             lambda a, b: list(a) + list(b), piter, module
         ) == list(items)
@@ -111,7 +113,7 @@ class TestTransforms:
 
     @staticmethod
     def test_until_none() -> None:
-        raw: FrozenList[int | None] = (1, 2, None, 5, 6)
+        raw: FrozenList[Optional[int]] = (1, 2, None, 5, 6)
         items = factory.from_flist(raw)
         filtered = transform.until_none(items)
         assert_immutability(filtered)

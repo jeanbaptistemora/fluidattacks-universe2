@@ -2,10 +2,6 @@ from __future__ import (
     annotations,
 )
 
-from collections.abc import (
-    Callable,
-    Iterable,
-)
 from itertools import (
     count,
 )
@@ -20,7 +16,11 @@ from purity.v2.pure_iter.core import (
     PureIter,
 )
 from typing import (
+    Callable,
+    Iterable,
+    List,
     TypeVar,
+    Union,
 )
 
 _T = TypeVar("_T")
@@ -62,7 +62,7 @@ def from_flist(items: FrozenList[_T]) -> PureIter[_T]:
     return unsafe_from_cmd(Cmd.from_cmd(lambda: items))
 
 
-def from_list(items: list[_T] | FrozenList[_T]) -> PureIter[_T]:
+def from_list(items: Union[List[_T], FrozenList[_T]]) -> PureIter[_T]:
     _items = tuple(items) if isinstance(items, list) else items
     return from_flist(_items)
 
@@ -76,6 +76,6 @@ def infinite_range(start: int, step: int) -> PureIter[int]:
 
 
 def pure_map(
-    function: Callable[[_I], _R], items: list[_I] | FrozenList[_I]
+    function: Callable[[_I], _R], items: Union[List[_I], FrozenList[_I]]
 ) -> PureIter[_R]:
     return from_list(items).map(function)

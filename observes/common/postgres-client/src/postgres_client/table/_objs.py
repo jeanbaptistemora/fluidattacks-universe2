@@ -12,6 +12,8 @@ from postgres_client.ids import (
     TableID,
 )
 from typing import (
+    Dict,
+    FrozenSet,
     NamedTuple,
 )
 
@@ -22,19 +24,19 @@ class InvalidPrimaryKey(Exception):
 
 class MetaTable(NamedTuple):
     table_id: TableID
-    primary_keys: frozenset[str]
-    columns: frozenset[Column]
+    primary_keys: FrozenSet[str]
+    columns: FrozenSet[Column]
     path: str
 
-    def field_type_map(self) -> dict[str, ColumnType]:
+    def field_type_map(self) -> Dict[str, ColumnType]:
         return dict((column.name, column.c_type) for column in self.columns)
 
     @classmethod
     def new(
         cls,
         table_id: TableID,
-        primary_keys: frozenset[str],
-        columns: frozenset[Column],
+        primary_keys: FrozenSet[str],
+        columns: FrozenSet[Column],
     ) -> MetaTable:
         columns_names = [col.name for col in columns]
         invalid_keys = list(

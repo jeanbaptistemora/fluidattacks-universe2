@@ -26,13 +26,18 @@ from tests.v2.stream._utils import (
     assert_different_iter,
     rand_int,
 )
+from typing import (
+    Optional,
+)
 
 
 def _equal(a: int, b: int) -> None:
     assert a == b
 
 
-def _mock_stream_opt(size: int, none_at: int | None) -> Stream[int | None]:
+def _mock_stream_opt(
+    size: int, none_at: Optional[int]
+) -> Stream[Optional[int]]:
     items = from_range(range(size)).map(
         lambda i: rand_int().map(lambda r: r if none_at != i else None)
     )

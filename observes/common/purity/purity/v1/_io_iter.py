@@ -5,10 +5,6 @@ from __future__ import (
 from collections import (
     deque,
 )
-from collections.abc import (
-    Callable,
-    Iterator,
-)
 from dataclasses import (
     dataclass,
 )
@@ -28,6 +24,8 @@ from returns.unsafe import (
     unsafe_perform_io,
 )
 from typing import (
+    Callable,
+    Iterator,
     TypeVar,
 )
 

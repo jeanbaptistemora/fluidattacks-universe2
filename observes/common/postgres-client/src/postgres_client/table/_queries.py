@@ -14,6 +14,12 @@ from postgres_client.query import (
 from postgres_client.table._objs import (
     MetaTable,
 )
+from typing import (
+    Dict,
+    FrozenSet,
+    List,
+    Optional,
+)
 
 
 class MutateColumnException(Exception):
@@ -29,19 +35,19 @@ LOG = logging.getLogger(__name__)
 
 def add_columns(
     table: MetaTable,
-    columns: frozenset[Column],
-) -> list[Query]:
+    columns: FrozenSet[Column],
+) -> List[Query]:
     old_columns = table.columns
     new_columns = columns
-    diff_columns: frozenset[Column] = new_columns - old_columns
-    diff_names: frozenset[str] = frozenset(col.name for col in diff_columns)
-    current_names: frozenset[str] = frozenset(col.name for col in old_columns)
+    diff_columns: FrozenSet[Column] = new_columns - old_columns
+    diff_names: FrozenSet[str] = frozenset(col.name for col in diff_columns)
+    current_names: FrozenSet[str] = frozenset(col.name for col in old_columns)
     if not diff_names.isdisjoint(current_names):
         raise MutateColumnException(
             "Cannot update the type of existing columns."
             f"diff: {diff_columns}"
         )
-    queries: list[Query] = []
+    queries: List[Query] = []
     for column in diff_columns:
         field_type = column.c_type.field_type.value
         statement: str = (
@@ -123,7 +129,7 @@ def create(table: MetaTable, if_not_exist: bool = False) -> Query:
     )
     fields_def: str = f"{fields}{pkeys_fields}"
     statement: str = f"CREATE TABLE {not_exists}{table_path} ({fields_def})"
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "schema": str(table.table_id.schema),
         "table_name": table.table_id.table_name,
     }
@@ -142,7 +148,7 @@ def create_like(blueprint: TableID, new_table: TableID) -> Query:
             LIKE {blueprint_schema}.{blueprint_table}
         );
     """
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "new_schema": str(new_table.schema),
         "new_table": new_table.table_name,
         "blueprint_schema": str(blueprint.schema),
@@ -156,7 +162,7 @@ def rename(table: TableID, new_name: str) -> Query:
     query = """
         ALTER TABLE {schema}.{table} RENAME TO {new_name};
     """
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "schema": str(table.schema),
         "table": table.table_name,
         "new_name": new_name,
@@ -169,7 +175,7 @@ def delete(table: TableID) -> Query:
     query = """
         DROP TABLE {schema}.{table} CASCADE;
     """
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "schema": str(table.schema),
         "table": table.table_name,
     }
@@ -180,12 +186,12 @@ def delete(table: TableID) -> Query:
 def redshift_move(
     source: TableID,
     target: TableID,
-) -> list[Query]:
+) -> List[Query]:
     query = """
         ALTER TABLE {target_schema}.{target_table}
         APPEND FROM {source_schema}.{source_table};
     """
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "source_schema": str(source.schema),
         "source_table": source.table_name,
         "target_schema": str(target.schema),
@@ -198,13 +204,13 @@ def redshift_move(
 def move(
     source: TableID,
     target: TableID,
-) -> list[Query]:
+) -> List[Query]:
     """redshift_move equivalent for postgres DB"""
     query = """
         ALTER TABLE {source_schema}.{source_table}
         SET SCHEMA {target_schema};
     """
-    identifiers: dict[str, str | None] = {
+    identifiers: Dict[str, Optional[str]] = {
         "source_schema": str(source.schema),
         "source_table": source.table_name,
         "target_schema": str(target.schema),
