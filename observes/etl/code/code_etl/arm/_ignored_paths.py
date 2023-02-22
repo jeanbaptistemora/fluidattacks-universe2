@@ -3,6 +3,7 @@ from ._raw_client import (
 )
 from code_etl._error import (
     assert_or_raise,
+    group_metadata,
 )
 from code_etl.arm._error import (
     DecodeError,
@@ -15,6 +16,7 @@ from fa_purity import (
     FrozenList,
     JsonObj,
     JsonValue,
+    Result,
     ResultE,
 )
 from fa_purity.frozen import (
@@ -66,7 +68,7 @@ def _decode_ignored_paths(
 
 def _decode_raw_ignored_paths(
     raw: JsonObj, group: str
-) -> ResultE[FrozenList[IgnoredPath]]:
+) -> Result[FrozenList[IgnoredPath], DecodeError]:
     return (
         Unfolder(JsonValue(raw))
         .uget("group")
@@ -106,12 +108,13 @@ def get_ignored_paths(
     }
     """
     values = {"groupName": group}
+    metadata = group_metadata(group)
     return (
         client.get(query, freeze(values))
-        .map(lambda j: assert_or_raise(group, j.alt(Exception)))
+        .map(lambda j: assert_or_raise(j, metadata))
         .map(
             lambda j: assert_or_raise(
-                group, _decode_raw_ignored_paths(j, group)
+                _decode_raw_ignored_paths(j, group), metadata
             )
         )
         .map(frozenset)

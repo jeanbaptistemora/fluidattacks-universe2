@@ -7,6 +7,7 @@ from ._raw_client import (
 )
 from code_etl._error import (
     assert_or_raise,
+    group_metadata,
 )
 from fa_purity import (
     Cmd,
@@ -35,6 +36,7 @@ def _decode_org(raw: JsonObj) -> ResultE[str]:
         .uget("organization")
         .bind(lambda u: u.to_primitive(str).alt(Exception))
         .alt(lambda e: DecodeError("group org", dumps(raw), e))
+        .alt(Exception)
     )
 
 
@@ -49,6 +51,7 @@ def get_org(
     }
     """
     values = {"groupName": group}
+    metadata = group_metadata(group)
     return client.get(query, freeze(values)).map(
-        lambda r: r.map(lambda d: assert_or_raise(group, _decode_org(d)))
+        lambda r: r.map(lambda d: assert_or_raise(_decode_org(d), metadata))
     )

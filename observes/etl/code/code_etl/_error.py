@@ -3,6 +3,7 @@ from dataclasses import (
     dataclass,
 )
 from fa_purity import (
+    FrozenDict,
     FrozenList,
     JsonValue,
     Result,
@@ -10,31 +11,40 @@ from fa_purity import (
 from typing import (
     Dict,
     NoReturn,
+    Optional,
     TypeVar,
 )
 
-_S = TypeVar("_S")
+_T = TypeVar("_T")
+_F = TypeVar("_F")
+
+# https://docs.bugsnag.com/platforms/python/other/#reporting-handled-errors
+def notify_error(
+    err: _T, metadata: Optional[FrozenDict[str, str]]
+) -> Exception:
+    exception = Exception(err)
+    if metadata:
+        _metadata: Dict[str, str] = dict(metadata)
+        bugsnag.notify(exception, metadata=_metadata)
+    else:
+        bugsnag.notify(exception)
+    exception.skip_bugsnag = True  # type: ignore[attr-defined]
+    return exception
 
 
-@dataclass(frozen=True)
-class NotifiedException(Exception):
-    err: Exception
-    skip_bugsnag: bool
+def group_metadata(group: str) -> FrozenDict[str, str]:
+    return FrozenDict({"group": group})
 
 
-def notify_error(group: str, err: Exception) -> Exception:
-    metadata: Dict[str, str] = {"group": group}
-    bugsnag.notify(err, metadata=metadata)
-    return NotifiedException(err, True)
+def notify_and_raise(
+    err: _T, metadata: Optional[FrozenDict[str, str]]
+) -> NoReturn:
+    raise notify_error(err, metadata)
 
 
-def notify_and_raise(group: str, err: Exception) -> NoReturn:
-    metadata: Dict[str, str] = {"group": group}
-    bugsnag.notify(err, metadata=metadata)
-    raise NotifiedException(err, True)
-
-
-def assert_or_raise(group: str, result: Result[_S, Exception]) -> _S:
+def assert_or_raise(
+    result: Result[_T, _F], metadata: Optional[FrozenDict[str, str]]
+) -> _T:
     return result.alt(
-        lambda e: notify_and_raise(group, e)  # type: ignore[misc]
+        lambda e: notify_and_raise(e, metadata)  # type: ignore[misc]
     ).unwrap()

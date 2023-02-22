@@ -8,18 +8,12 @@ from fa_purity import (
 
 
 @dataclass(frozen=True)
-class ApiError(Exception):
+class ApiError:
     errors: FrozenList[JsonValue]
-
-    def to_exception(self) -> Exception:
-        return Exception(self)
 
 
 @dataclass(frozen=True)
-class DecodeError(Exception):
+class DecodeError:
     description: str
     value: str
     previous: Exception
-
-    def __str__(self) -> str:
-        return "DecodeError: " + super().__str__()
