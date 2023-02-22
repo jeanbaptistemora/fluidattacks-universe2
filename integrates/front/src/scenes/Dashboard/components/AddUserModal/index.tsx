@@ -124,6 +124,12 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
     role: string().required(t("validations.required")),
   });
 
+  const groupRoles: string[] = groupModal ? groupLevelRoles : [];
+  const userRoles: string[] = sidebarModal ? userLevelRoles : [];
+  const organizationRoles: string[] = isOrganizationTypeModal
+    ? organizationLevelRoles
+    : [];
+
   useEffect((): void => {
     setUserSuggestions(suggestions);
   }, [suggestions]);
@@ -201,7 +207,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                     name={"role"}
                   >
                     <option value={""} />
-                    {(groupModal ? groupLevelRoles : []).map(
+                    {groupRoles.map(
                       (role: string): JSX.Element => (
                         <Can do={`grant_group_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
@@ -210,7 +216,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                         </Can>
                       )
                     )}
-                    {(sidebarModal ? userLevelRoles : []).map(
+                    {userRoles.map(
                       (role: string): JSX.Element => (
                         <Can do={`grant_user_level_role:${role}`} key={role}>
                           <option value={role.toUpperCase()}>
@@ -219,10 +225,7 @@ export const AddUserModal: React.FC<IAddStakeholderModalProps> = ({
                         </Can>
                       )
                     )}
-                    {(isOrganizationTypeModal
-                      ? organizationLevelRoles
-                      : []
-                    ).map(
+                    {organizationRoles.map(
                       (role: string): JSX.Element => (
                         <option key={role} value={role.toUpperCase()}>
                           {t(`userModal.roles.${_.camelCase(role)}`)}
