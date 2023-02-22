@@ -4,13 +4,14 @@ import { useTranslation } from "react-i18next";
 
 import { Col100, Col25, Col33, Col50 } from "./components/ChartCols";
 
+import { Row } from "components/Layout";
 import { Graphic } from "graphics/components/Graphic";
 import { ChartsGenericViewExtras } from "scenes/Dashboard/components/ChartsGenericView/components/Extras";
 import type {
   EntityType,
   IChartsGenericViewProps,
 } from "scenes/Dashboard/components/ChartsGenericView/types";
-import { PanelCollapseHeader, Row, RowCenter } from "styles/styledComponents";
+import { PanelCollapseHeader, RowCenter } from "styles/styledComponents";
 
 export const ChartsView: React.FC<IChartsGenericViewProps> = ({
   bgChange,
