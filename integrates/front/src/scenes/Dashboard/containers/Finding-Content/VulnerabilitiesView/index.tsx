@@ -462,12 +462,9 @@ export const VulnsView: React.FC = (): JSX.Element => {
 
   const columns: ColumnDef<IVulnRowAttr>[] = [
     {
-      accessorFn: (row: IVulnRowAttr): IVulnRowAttr => {
-        return row;
-      },
       accessorKey: "where",
       cell: (cell: ICellHelper<IVulnRowAttr>): JSX.Element | string => {
-        const vuln: IVulnRowAttr = cell.getValue();
+        const vuln: IVulnRowAttr = cell.row.original;
         const daysFromReport = dayjs().diff(vuln.reportDate, "days");
 
         return daysFromReport <= 7 && vuln.state === "VULNERABLE"
