@@ -85,6 +85,7 @@ locals {
             "arn:aws:s3:::observes*",
           ]
         },
+        ###### Batch ######
         {
           Sid    = "batchTags"
           Effect = "Allow"
@@ -123,6 +124,7 @@ locals {
           ]
           "Condition" : { "StringEquals" : { "aws:RequestTag/management:product" : "observes" } }
         },
+        ###### Redshift ######
         {
           # required to rename tags
           Sid    = "redshiftTags"
@@ -230,6 +232,47 @@ locals {
           ]
           Resource = ["*"]
         },
+        ###### Kinesis ######
+        {
+          Sid    = "KinesisInfraManagement"
+          Effect = "Allow"
+          Action = [
+            "kinesis:AddTagsToStream",
+            "kinesis:CreateStream",
+            "kinesis:DeleteStream",
+            "kinesis:DecreaseStreamRetentionPeriod",
+            "kinesis:DeregisterStreamConsumer",
+            "kinesis:DisableEnhancedMonitoring",
+            "kinesis:EnableEnhancedMonitoring",
+            "kinesis:GetRecords",
+            "kinesis:GetShardIterator",
+            "kinesis:IncreaseStreamRetentionPeriod",
+            "kinesis:MergeShards",
+            "kinesis:RegisterStreamConsumer",
+            "kinesis:RemoveTagsFromStream",
+            "kinesis:SplitShard",
+            "kinesis:StartStreamEncryption",
+            "kinesis:StopStreamEncryption",
+            "kinesis:SubscribeToShard",
+            "kinesis:UpdateShardCount",
+            "kinesis:UpdateStreamMode",
+          ]
+          Resource = [
+            "arn:aws:kinesis:${var.region}:${data.aws_caller_identity.main.account_id}:stream/observes-mirror"
+          ]
+        },
+        {
+          Sid    = "KinesisInfraRead"
+          Effect = "Allow"
+          Action = [
+            "kinesis:Describe*",
+            "kinesis:List*",
+          ]
+          Resource = [
+            "arn:aws:kinesis:${var.region}:${data.aws_caller_identity.main.account_id}:stream/observes-mirror"
+          ]
+        },
+        ###### Terraform ######
         {
           Sid    = "dynamoWrite"
           Effect = "Allow"
@@ -242,6 +285,7 @@ locals {
             var.terraform_state_lock_arn,
           ]
         },
+        ###### IAM (should be removed) ######
         {
           Sid    = "manageObservesIAM"
           Effect = "Allow"
@@ -271,6 +315,7 @@ locals {
             "arn:aws:iam::${data.aws_caller_identity.main.account_id}:policy/redshift*",
           ]
         },
+        ###### SecGroups ######
         {
           Sid    = "manageObservesSecGroups"
           Effect = "Allow"
@@ -358,16 +403,6 @@ module "observes_redshift_aws" {
     "management:product" = "observes"
     "management:type"    = "product"
   }
-}
-
-resource "aws_iam_role_policy_attachment" "apply_kinessis_infra_manager" {
-  role       = "prod_observes"
-  policy_arn = aws_iam_policy.observes_kinesis_infra_management.arn
-}
-
-resource "aws_iam_role_policy_attachment" "apply_kinesis_infra_read" {
-  role       = "prod_observes"
-  policy_arn = aws_iam_policy.observes_kinesis_infra_read.arn
 }
 
 module "prod_observes_keys" {
