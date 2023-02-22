@@ -2741,6 +2741,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_SAAVEDRA,
         technique=TechniqueEnum.DAST,
     )
+    AWS_DYNAMODB_ENCRYPTED_WITH_AWS_MASTER_KEYS = MethodInfo(
+        file_name="aws",
+        name="dynamob_encrypted_with_aws_master_keys",
+        module="dast",
+        finding=FindingEnum.F165,
+        developer=DeveloperEnum.LUIS_SAAVEDRA,
+        technique=TechniqueEnum.DAST,
+    )
     AWS_IAM_NOT_REQUIRES_LOWERCASE = MethodInfo(
         file_name="aws",
         name="not_requires_lowercase",

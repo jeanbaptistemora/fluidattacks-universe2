@@ -55,3 +55,6 @@ src.lib_path.f165.has_not_support_role:
 src.lib_path.f165.has_root_active_signing_certificates:
   en: Root user has activated signing X.509 certificates.
   es: El usuario root tiene activados los certificados firmados X.509.
+src.lib_path.f165.dynamob_encrypted_with_aws_master_keys:
+  en: DynamoDB tables uses AWS-owned Master Keys for Server-Side Encryption.
+  es: Las tablas DynamoDB usan claves maestras poriedad de AWS para la encripcion al lado del servidor.
