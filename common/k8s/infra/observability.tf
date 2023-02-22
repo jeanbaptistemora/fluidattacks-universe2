@@ -45,6 +45,53 @@ resource "helm_release" "datadog" {
   atomic          = true
   cleanup_on_fail = true
 
+  values = [
+    yamlencode(
+      {
+        agents = {
+          affinity = {
+            nodeAffinity = {
+              requiredDuringSchedulingIgnoredDuringExecution = {
+                nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key      = "worker-group"
+                        operator = "In"
+                        values   = ["prod-integrates"]
+                      }
+                    ]
+                  }
+                ]
+              }
+
+            }
+          }
+        },
+        clusterAgent = {
+          affinity = {
+            nodeAffinity = {
+              requiredDuringSchedulingIgnoredDuringExecution = {
+                nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key      = "worker-group"
+                        operator = "In"
+                        values   = ["prod-integrates"]
+                      }
+                    ]
+                  }
+                ]
+              }
+
+            }
+          }
+        }
+      }
+    )
+  ]
+
   set_sensitive {
     name  = "datadog.apiKey"
     value = var.datadogApiKey
