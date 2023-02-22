@@ -1,3 +1,4 @@
+variable "datadogApiKey" {}
 variable "newRelicLicenseKey" {}
 
 resource "helm_release" "newrelic" {
@@ -32,5 +33,20 @@ resource "helm_release" "newrelic" {
   set_sensitive {
     name  = "global.licenseKey"
     value = var.newRelicLicenseKey
+  }
+}
+
+resource "helm_release" "datadog" {
+  name            = "datadog-agent"
+  namespace       = "kube-system"
+  repository      = "https://helm.datadoghq.com"
+  chart           = "datadog"
+  version         = "3.10.9"
+  atomic          = true
+  cleanup_on_fail = true
+
+  set_sensitive {
+    name  = "datadog.apiKey"
+    value = var.datadogApiKey
   }
 }
