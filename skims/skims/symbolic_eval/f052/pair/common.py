@@ -59,3 +59,21 @@ def insecure_sign(
         ):
             args.triggers.add(f"{symbol}_{value_id}")
     return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)
+
+
+def insecure_sign_async(
+    args: SymbolicEvalArgs,
+) -> SymbolicEvaluation:
+    nodes = args.graph.nodes
+    key_id = nodes[args.n_id].get("key_id")
+    value_id = nodes[args.n_id].get("value_id")
+
+    if (
+        (nodes[key_id].get("label_type") == "SymbolLookup")
+        and (nodes[key_id].get("symbol").lower() == "alg")
+        and (label_type := nodes[value_id].get("label_type"))
+        and (label_type == "Literal")
+        and (nodes[value_id].get("value").lower()[1:-1] == "hs256")
+    ):
+        args.evaluation[args.n_id] = True
+    return SymbolicEvaluation(args.evaluation[args.n_id], args.triggers)

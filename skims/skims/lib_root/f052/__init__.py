@@ -32,6 +32,7 @@ from lib_root.f052.javascript import (
     javascript_insecure_hash,
     javascript_insecure_hash_library,
     javascript_insecure_rsa_keypair,
+    javascript_jwt_insec_sign_algo_async,
     javascript_jwt_insec_sign_algorithm,
 )
 from lib_root.f052.kotlin import (
@@ -52,6 +53,7 @@ from lib_root.f052.typescript import (
     typescript_insecure_ecdh_key,
     typescript_insecure_hash_library,
     typescript_insecure_rsa_keypair,
+    typescript_jwt_insec_sign_algo_async,
     typescript_jwt_insec_sign_algorithm,
 )
 from model import (
@@ -105,4 +107,6 @@ QUERIES: graph_model.Queries = (
     (FINDING, typescript_jwt_insec_sign_algorithm),
     (FINDING, javascript_insec_msg_auth_mechanism),
     (FINDING, typescript_insec_msg_auth_mechanism),
+    (FINDING, javascript_jwt_insec_sign_algo_async),
+    (FINDING, typescript_jwt_insec_sign_algo_async),
 )

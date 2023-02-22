@@ -11,6 +11,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/c_sharp_disabled_strong_crypt
   9 | }
     ^ Col 0
 ",c_sharp.c_sharp_disabled_strong_crypto
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,10,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,"
+    1 | async function first_test() {
+    2 |   const jose = require(""jose"");
+    3 |
+    4 |   const secret = new TextEncoder().encode(
+    5 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+    6 |   );
+    7 |   const alg = ""HS256"";
+    8 |
+    9 |   const jwt = await new jose.SignJWT({ ""urn:example:claim"": true })
+>  10 |     .setProtectedHeader({ alg })
+   11 |     .setIssuedAt()
+   12 |     .setIssuer(""urn:example:issuer"")
+   13 |     .setAudience(""urn:example:audience"")
+   14 |     .setExpirationTime(""2h"")
+   15 |     .sign(secret);
+   16 |
+   17 |   console.log(jwt);
+   18 | }
+   19 |
+   20 | async function second_test() {
+   21 |   const secret = new TextEncoder().encode(
+      ^ Col 0
+",javascript.javascript_jwt_insec_sign_algo_async
+F052,lines,namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,29,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insec_sign_algo_jose.js,"
+   19 |
+   20 | async function second_test() {
+   21 |   const secret = new TextEncoder().encode(
+   22 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+   23 |   );
+   24 |
+   25 |   const jwt = await new jose.SignJWT({ ""urn:example:claim"": true })
+   26 |     .setIssuedAt()
+   27 |     .setIssuer(""urn:example:issuer"")
+   28 |     .setAudience(""urn:example:audience"")
+>  29 |     .setProtectedHeader({ alg: ""HS256"" })
+   30 |     .setExpirationTime(""2h"")
+   31 |     .sign(secret);
+   32 |
+   33 |   console.log(jwt);
+   34 | }
+   35 |
+   36 | // Following test is safe (No lines should be marked)
+   37 | async function safe_test_i() {
+   38 |   const secret = new TextEncoder().encode(
+   39 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+      ^ Col 0
+",javascript.javascript_jwt_insec_sign_algo_async
 F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,14,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js,"
    4 |
    5 | const payload = {
@@ -107,6 +155,54 @@ F052,lines,namespace/skims/test/data/lib_root/f052/js_insecure_sign_algorithm.js
   48 | sIn: ""10m"",
      ^ Col 8
 ",javascript.javascript_jwt_insec_sign_algorithm
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_sign_algo_jose.ts,10,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insec_sign_algo_jose.ts,"
+   1 | import jose from ""jose"";
+   2 |
+   3 | async function firstTest(): Promise<void> {
+   4 |   const secret = new TextEncoder().encode(
+   5 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+   6 |   );
+   7 |   const alg = ""HS256"";
+   8 |
+   9 |   const jwt = await new jose.SignJWT({ ""urn:example:claim"": true })
+> 10 |     .setProtectedHeader({ alg })
+  11 |     .setIssuedAt()
+  12 |     .setIssuer(""urn:example:issuer"")
+  13 |     .setAudience(""urn:example:audience"")
+  14 |     .setExpirationTime(""2h"")
+  15 |     .sign(secret);
+  16 |
+  17 |   console.log(jwt);
+  18 | }
+  19 |
+  20 | async function secondTest(): Promise<void> {
+  21 |   const secret = new TextEncoder().encode(
+     ^ Col 0
+",typescript.typescript_jwt_insec_sign_algo_async
+F052,lines,namespace/skims/test/data/lib_root/f052/ts_insec_sign_algo_jose.ts,29,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insec_sign_algo_jose.ts,"
+  19 |
+  20 | async function secondTest(): Promise<void> {
+  21 |   const secret = new TextEncoder().encode(
+  22 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+  23 |   );
+  24 |
+  25 |   const jwt = await new jose.SignJWT({ ""urn:example:claim"": true })
+  26 |     .setIssuedAt()
+  27 |     .setIssuer(""urn:example:issuer"")
+  28 |     .setAudience(""urn:example:audience"")
+> 29 |     .setProtectedHeader({ alg: ""HS256"" })
+  30 |     .setExpirationTime(""2h"")
+  31 |     .sign(secret);
+  32 |
+  33 |   console.log(jwt);
+  34 | }
+  35 |
+  36 | // Following test is safe (No lines should be marked)
+  37 | async function safeTestI(): Promise<void> {
+  38 |   const secret = new TextEncoder().encode(
+  39 |     ""cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2""
+     ^ Col 0
+",typescript.typescript_jwt_insec_sign_algo_async
 F052,lines,namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,14,310,skims,052. Insecure encryption algorithm,JWT is signed with an insecure algorithm. in namespace/skims/test/data/lib_root/f052/ts_insecure_sign_algorithm.ts,"
    4 |
    5 | const payload = {
