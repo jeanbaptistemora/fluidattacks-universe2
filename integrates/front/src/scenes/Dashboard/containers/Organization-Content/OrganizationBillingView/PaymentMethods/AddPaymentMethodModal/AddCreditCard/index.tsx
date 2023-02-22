@@ -87,6 +87,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.number.placeholder"
                   )}
+                  required={true}
                   type={"text"}
                   validate={composeValidators([maxCreditNumberLength])}
                 />
@@ -103,6 +104,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationMonth.placeholder"
                   )}
+                  required={true}
                   type={"text"}
                   validate={composeValidators([maxDateNumberLength])}
                 />
@@ -117,6 +119,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.expirationYear.placeholder"
                   )}
+                  required={true}
                   type={"text"}
                   validate={composeValidators([maxDateNumberLength])}
                 />
@@ -131,6 +134,7 @@ export const AddCreditCardModal: React.FC<IAddCreditCardModalProps> = ({
                   placeholder={t(
                     "organization.tabs.billing.paymentMethods.add.creditCard.cvc.placeholder"
                   )}
+                  required={true}
                   type={"text"}
                   validate={composeValidators([maxcvcNumberLength])}
                 />
