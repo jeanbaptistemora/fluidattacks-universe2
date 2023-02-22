@@ -58,6 +58,10 @@ which consists of a three-step cycle:
 
 ![TDD steps](https://res.cloudinary.com/fluid-attacks/image/upload/v1676369649/docs/development/values/process_tdd.jpg)
 
+> From Growing Object-Oriented Software by Nat Pryce
+> and Steve Freeman
+> <http://www.growing-object-oriented-software.com/index.html>
+
 The purpose of TDD is to be able to achieve:
 
 - Clean and working code.
