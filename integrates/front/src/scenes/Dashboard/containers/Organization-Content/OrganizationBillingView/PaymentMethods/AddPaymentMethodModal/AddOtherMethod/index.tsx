@@ -6,11 +6,13 @@ import { mixed, object, string } from "yup";
 
 import { Input, InputFile, Select } from "components/Input";
 import { Gap } from "components/Layout";
+import { ModalConfirm } from "components/Modal";
 import { getCountries } from "utils/countries";
 import type { ICountry } from "utils/countries";
 import { validEmail } from "utils/validations";
 
 interface IAddOtherMethodModalProps {
+  onClose: () => void;
   onSubmit: (values: {
     businessName: string;
     city: string;
@@ -23,6 +25,7 @@ interface IAddOtherMethodModalProps {
 }
 
 export const AddOtherMethodModal = ({
+  onClose,
   onSubmit,
 }: IAddOtherMethodModalProps): JSX.Element => {
   const { t } = useTranslation();
@@ -93,7 +96,13 @@ export const AddOtherMethodModal = ({
         onSubmit={onSubmit}
         validationSchema={validations}
       >
-        {({ setFieldValue, values }): JSX.Element => {
+        {({
+          dirty,
+          isSubmitting,
+          isValid,
+          setFieldValue,
+          values,
+        }): JSX.Element => {
           function changeCountry(): void {
             setFieldValue("state", "");
             setFieldValue("city", "");
@@ -239,6 +248,11 @@ export const AddOtherMethodModal = ({
                   </div>
                 )}
               </Gap>
+              <ModalConfirm
+                disabled={!dirty || isSubmitting || !isValid}
+                id={"add-other-method-confirm"}
+                onCancel={onClose}
+              />
             </Form>
           );
         }}
