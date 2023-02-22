@@ -76,6 +76,7 @@ const RiskExposureTour: React.FC<IRiskExposureTourProps> = ({
         newGroup: user.tours.newGroup,
         newRiskExposure: user.tours.newRiskExposure,
         newRoot: user.tours.newRoot,
+        welcome: user.tours.welcome,
       },
     });
   }, [updateTours, user.tours]);
