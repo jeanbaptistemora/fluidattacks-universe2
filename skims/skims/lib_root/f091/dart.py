@@ -29,8 +29,6 @@ def is_logger_unsafe(graph: Graph, n_id: str) -> bool:
     method = MethodsEnum.DART_INSECURE_LOGGING
     for path in get_backward_paths(graph, n_id):
         evaluation = evaluate(method, graph, path, n_id)
-        if evaluation:
-            print(evaluation.triggers)
         if (
             evaluation
             and evaluation.danger

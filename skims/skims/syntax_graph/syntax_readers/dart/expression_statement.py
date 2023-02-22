@@ -49,5 +49,11 @@ def reader(args: SyntaxGraphArgs) -> NId:
         return build_method_invocation_node(
             args, expr, expr_id, args_id, filtered_ids[0]
         )
+    if (
+        len(filtered_ids) == 1
+        and args.ast_graph.nodes[filtered_ids[0]]["label_type"]
+        == "assignment_expression"
+    ):
+        return args.generic(args.fork_n_id(filtered_ids[0]))
 
     return build_expression_statement_node(args, iter(filtered_ids))
