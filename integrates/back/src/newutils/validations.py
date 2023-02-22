@@ -52,6 +52,7 @@ from typing import (
     NamedTuple,
     Optional,
     Set,
+    Sized,
     Tuple,
     Type,
     TypeVar,
@@ -359,7 +360,7 @@ def validate_field_length(
 
 
 def check_field_length(
-    field: str,
+    field: Sized,
     limit: int,
     is_greater_than_limit: bool,
     ex: CustomBaseException,
@@ -390,6 +391,29 @@ def validate_field_length_deco(
                 is_greater_than_limit,
                 InvalidFieldLength(),
             )
+            return func(*args, **kwargs)
+
+        return decorated
+
+    return wrapper
+
+
+def validate_fields_length_deco(
+    fields: Iterable[str], limit: int, is_greater_than_limit: bool = False
+) -> Callable:
+    def wrapper(func: Callable) -> Callable:
+        @functools.wraps(func)
+        def decorated(*args: Any, **kwargs: Any) -> Any:
+            for field in fields:
+                field_content = get_sized_attr_value(
+                    field=field, kwargs=kwargs
+                )
+                check_field_length(
+                    field_content,
+                    limit,
+                    is_greater_than_limit,
+                    InvalidFieldLength(),
+                )
             return func(*args, **kwargs)
 
         return decorated
@@ -798,8 +822,27 @@ def get_attr_value(field: str, kwargs: dict, obj_type: Type[T]) -> T:
     for part in parts:
         value = getattr(obj, part)
         obj = value
+    if isinstance_namedtuple(value) and obj_type is dict:
+        return value._asdict()
     if not isinstance(value, obj_type):
         return cast(T, value)
+    return value
+
+
+def get_sized_attr_value(field: str, kwargs: dict) -> Sized:
+    if "." in field:
+        obj_name, obj_attr = field.split(".", 1)
+        parts = obj_attr.split(".")
+        obj = kwargs[obj_name]
+        field_name = parts[-1]
+        for part in parts:
+            value = getattr(obj, part)
+            obj = value
+    else:
+        value = kwargs[field]
+        field_name = field
+    if not isinstance(value, Sized):
+        raise InvalidField(field_name)
     return value
 
 
