@@ -334,6 +334,9 @@ capec:
     "691":
       title: Spoof Open-Source Software Metadata
       link: https://capec.mitre.org/data/definitions/691.html
+    "692":
+      title: Spoof Version Control System Commit Metadata
+      link: https://capec.mitre.org/data/definitions/692.html
   metadata: {}
 cis:
   title: CIS
