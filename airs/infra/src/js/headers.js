@@ -1099,6 +1099,7 @@ const redirectMap = new Map([
   ["/blog/pars-orationis-secura/test-cases.lst/", "https://fluidattacks.com/blog/pars-orationis-secura/test-cases.lst"],
   ["/services/one-shot-hacking/", "https://fluidattacks.com/services/continuous-hacking/"],
   ["/services/comparative/", "https://fluidattacks.com/services/continuous-hacking/"],
+  ["/blog/amsi-bypass-python/amsibypass.py/", "https://fluidattacks.com/blog/amsi-bypass-python/amsibypass.py"],
 ]);
 
 addEventListener('fetch', event => {
