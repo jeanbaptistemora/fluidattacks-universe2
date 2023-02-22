@@ -6,6 +6,8 @@ from itertools import (
 )
 import json
 from lib_root.f031.utils import (
+    _iam_user_missing_role_based_security,
+    action_has_full_access_to_ssm,
     is_public_principal,
     is_s3_action_writeable,
 )
@@ -36,15 +38,6 @@ from utils.function import (
 from utils.graph import (
     adj_ast,
 )
-
-
-def _iam_user_missing_role_based_security(
-    graph: Graph, nid: NId
-) -> NId | None:
-    expected_attr = get_attribute(graph, nid, "name")
-    if expected_attr[0]:
-        return expected_attr[2]
-    return None
 
 
 def _iam_excessive_privileges(graph: Graph, nid: NId) -> NId | None:
@@ -146,6 +139,101 @@ def _bucket_policy_allows_public_access(
                 yield from _bucket_policy_allows_public_access_in_jsonencode(
                     graph, value_id
                 )
+
+
+def _iam_has_full_access_to_ssm_in_jsonencode(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    child_id = graph.nodes[nid]["arguments_id"]
+    statements, _, stmt_id = get_attribute(graph, child_id, "Statement")
+    if statements:
+        value_id = graph.nodes[stmt_id]["value_id"]
+        for c_id in adj_ast(graph, value_id, label_type="Object"):
+            _, effect_val, _ = get_attribute(graph, c_id, "Effect")
+            actions, _, action_id = get_attribute(graph, c_id, "Action")
+            if actions:
+                action_list = get_list_from_node(
+                    graph, graph.nodes[action_id]["value_id"]
+                )
+                if effect_val == "Allow" and action_has_full_access_to_ssm(
+                    action_list
+                ):
+                    yield c_id
+
+
+def _iam_has_full_access_to_ssm_policy_resource(
+    graph: Graph, nid: NId
+) -> Iterator[NId]:
+    for stmt in iter_statements_from_policy_document(graph, nid):
+        effect, effect_val, _ = get_attribute(graph, stmt, "effect")
+        action, _, action_id = get_attribute(graph, stmt, "actions")
+        if action:
+            action_list = get_list_from_node(
+                graph, graph.nodes[action_id]["value_id"]
+            )
+            if (
+                effect_val == "Allow" or effect is None
+            ) and action_has_full_access_to_ssm(action_list):
+                yield stmt
+
+
+def _aux_iam_has_full_access_to_ssm(
+    attr_val: str, attr_id: NId
+) -> Iterator[NId]:
+    dict_value = json.loads(attr_val)
+    statements = get_dict_values(dict_value, "Statement")
+    for stmt in statements if isinstance(statements, list) else []:
+        effect = stmt.get("Effect")
+        actions = stmt.get("Action", [])
+        if effect == "Allow" and action_has_full_access_to_ssm(actions):
+            yield attr_id
+
+
+def _iam_has_full_access_to_ssm(graph: Graph, nid: NId) -> Iterator[NId]:
+    if graph.nodes[nid]["name"] == "aws_iam_policy_document":
+        yield from _iam_has_full_access_to_ssm_policy_resource(graph, nid)
+    else:
+        attr, attr_val, attr_id = get_attribute(graph, nid, "policy")
+        if attr:
+            value_id = graph.nodes[attr_id]["value_id"]
+            if graph.nodes[value_id]["label_type"] == "Literal":
+                yield from _aux_iam_has_full_access_to_ssm(attr_val, attr_id)
+            elif (
+                graph.nodes[value_id]["label_type"] == "MethodInvocation"
+                and graph.nodes[value_id]["expression"] == "jsonencode"
+            ):
+                yield from _iam_has_full_access_to_ssm_in_jsonencode(
+                    graph, value_id
+                )
+
+
+def tfm_iam_has_full_access_to_ssm(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.TFM_IAM_FULL_ACCESS_SSM
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(GraphLanguage.HCL):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for nid in chain(
+                iterate_resource(graph, "aws_iam_group_policy"),
+                iterate_resource(graph, "aws_iam_policy"),
+                iterate_resource(graph, "aws_iam_role_policy"),
+                iterate_resource(graph, "aws_iam_user_policy"),
+                iterate_resource(graph, "aws_iam_policy_document"),
+            ):
+                for report in _iam_has_full_access_to_ssm(graph, nid):
+                    yield shard, report
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="src.lib_path.f031.iam_has_full_access_to_ssm",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
 
 
 def tfm_bucket_policy_allows_public_access(

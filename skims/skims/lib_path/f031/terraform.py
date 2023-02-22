@@ -1,6 +1,3 @@
-from aws.model import (
-    AWSIamPolicyStatement,
-)
 from collections.abc import (
     Iterable,
     Iterator,
@@ -33,14 +30,6 @@ import re
 from typing import (
     Any,
 )
-
-
-def action_has_full_access_to_ssm(actions: str | Iterable[str]) -> bool:
-    actions_list = actions if isinstance(actions, list) else [actions]
-    for action in actions_list:
-        if action == "ssm:*":
-            return True
-    return False
 
 
 def check_resource_name(
@@ -119,21 +108,6 @@ def _tfm_iam_role_excessive_privilege(
             yield stmt
 
 
-def _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
-    statements_iterator: Iterator[AWSIamPolicyStatement | Node],
-) -> Iterator[AWSIamPolicyStatement | Node]:
-    for stmt in statements_iterator:
-        stmt_raw = (
-            stmt.raw
-            if isinstance(stmt, Node) and hasattr(stmt, "raw")
-            else stmt.data
-        )
-        effect = stmt_raw.get("Effect", "")
-        actions = stmt_raw.get("Action", [])
-        if effect == "Allow" and action_has_full_access_to_ssm(actions):
-            yield stmt
-
-
 def terraform_negative_statement(
     content: str, path: str, model: Any
 ) -> Vulnerabilities:
@@ -167,24 +141,6 @@ def terraform_open_passrole(
         ),
         path=path,
         method=MethodsEnum.TFM_OPEN_PASSROLE,
-    )
-
-
-def tfm_iam_has_full_access_to_ssm(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return get_vulnerabilities_from_iterator_blocking(
-        content=content,
-        description_key="src.lib_path.f031.iam_has_full_access_to_ssm",
-        iterator=get_cloud_iterator(
-            _tfm_iam_has_full_access_to_ssm_iterate_vulnerabilities(
-                statements_iterator=terraform_iterate_iam_policy_documents(
-                    model=model,
-                )
-            )
-        ),
-        path=path,
-        method=MethodsEnum.TFM_IAM_FULL_ACCESS_SSM,
     )
 
 

@@ -936,6 +936,30 @@ F031,lines,namespace/skims/test/data/lib_root/f031/tfm_bucket_policy_allows_publ
   84 |       ""s3:DeleteObjectVersion"",
      ^ Col 0
 ",terraform.tfm_bucket_policy_allows_public_access
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,91,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies in namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,"
+   81 |   }
+   82 | }
+   83 |
+   84 |
+   85 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+   86 |   name = ""vuln_role_1""
+   87 |
+   88 |   policy = jsonencode({
+   89 |     Version = ""2012-10-17""
+   90 |     Statement = [
+>  91 |       {
+   92 |         Action = [
+   93 |           ""ec2:*"",
+   94 |           ""s3:DeleteObjectVersion"",
+   95 |           ""eks:*"",
+   96 |           ""ssm:*""
+   97 |         ],
+   98 |         Effect    = ""Allow""
+   99 |         Principal = ""*""
+  100 |       },
+  101 |     ]
+      ^ Col 0
+",terraform.tfm_bucket_policy_allows_public_access
 F031,inputs,arn:aws:s3:::bucket-018de572ae43404d8 (namespace),/Grants/0/Permission: FULL_CONTROL,250,skims,031. Excessive privileges - AWS,S3 buckets allow unauthorized public access via bucket policies,"
   28 |     },
   29 |     ""Grants"": [
@@ -1080,53 +1104,77 @@ F031,lines,namespace/skims/test/data/lib_path/f031/cfn_iam_has_full_access_to_ss
   43 |               ""Action"": ""ssm:*"",
      ^ Col 0
 ",cloudformation.cfn_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
-  27 |       }
-  28 |     ]
-  29 |   }
-  30 |   EOF
-  31 | }
-  32 |
-  33 | resource ""aws_iam_role_policy"" ""test_policy"" {
-  34 |   name = ""test_policy""
-  35 |   role = aws_iam_role.test_role.id
-  36 |
-> 37 |   policy = <<-EOF
-  38 |   {
-  39 |     ""Version"": ""2012-10-17"",
-  40 |     ""Statement"": [
-  41 |       {
-  42 |         ""Action"": [
-  43 |           ""Deny"",
-  44 |           ""autoscaling:*"",
-  45 |           ""ssm:*""
-  46 |         ],
-  47 |         ""Resource"": ""*"",
-     ^ Col 0
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,37,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,"
+   27 |       }
+   28 |     ]
+   29 |   }
+   30 |   EOF
+   31 | }
+   32 |
+   33 | resource ""aws_iam_role_policy"" ""test_policy"" {
+   34 |   name = ""test_policy""
+   35 |   role = aws_iam_role.test_role.id
+   36 |
+>  37 |   policy = <<-EOF
+   38 |   {
+   39 |     ""Version"": ""2012-10-17"",
+   40 |     ""Statement"": [
+   41 |       {
+   42 |         ""Action"": [
+   43 |           ""Deny"",
+   44 |           ""autoscaling:*"",
+   45 |           ""ssm:*""
+   46 |         ],
+   47 |         ""Resource"": ""*"",
+      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
-F031,lines,namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_path/f031/tfm_iam_has_full_access_to_ssm.tf,"
-  58 |       ""ec2:*"",
-  59 |       ""autoscaling:*"",
-  60 |       ""eks:*""
-  61 |     ]
-  62 |
-  63 |     resources = [
-  64 |       ""*"",
-  65 |     ]
-  66 |   }
-  67 |
-> 68 |   statement {
-  69 |     sid    = ""Enable IAM User Permissions""
-  70 |     effect = ""Allow""
-  71 |     principals {
-  72 |       type        = ""AWS""
-  73 |       identifiers = [""arn:aws:iam::${data.aws_caller_identity.current.account_id}:root""]
-  74 |     }
-  75 |     actions = [
-  76 |       ""ssm:*""
-  77 |     ]
-  78 |     resources = [
-     ^ Col 0
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,68,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,"
+   58 |       ""ec2:*"",
+   59 |       ""autoscaling:*"",
+   60 |       ""eks:*""
+   61 |     ]
+   62 |
+   63 |     resources = [
+   64 |       ""*"",
+   65 |     ]
+   66 |   }
+   67 |
+>  68 |   statement {
+   69 |     sid    = ""Enable IAM User Permissions""
+   70 |     effect = ""Allow""
+   71 |     principals {
+   72 |       type        = ""AWS""
+   73 |       identifiers = [""arn:aws:iam::${data.aws_caller_identity.current.account_id}:root""]
+   74 |     }
+   75 |     actions = [
+   76 |       ""ssm:*""
+   77 |     ]
+   78 |     resources = [
+      ^ Col 0
+",terraform.tfm_iam_has_full_access_to_ssm
+F031,lines,namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,91,250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent in namespace/skims/test/data/lib_root/f031/tfm_iam_has_full_access_to_ssm.tf,"
+   81 |   }
+   82 | }
+   83 |
+   84 |
+   85 | resource ""aws_iam_role_policy"" ""vuln_role_1"" {
+   86 |   name = ""vuln_role_1""
+   87 |
+   88 |   policy = jsonencode({
+   89 |     Version = ""2012-10-17""
+   90 |     Statement = [
+>  91 |       {
+   92 |         Action = [
+   93 |           ""ec2:*"",
+   94 |           ""s3:DeleteObjectVersion"",
+   95 |           ""eks:*"",
+   96 |           ""ssm:*""
+   97 |         ],
+   98 |         Effect    = ""Allow""
+   99 |         Principal = ""*""
+  100 |       },
+  101 |     ]
+      ^ Col 0
 ",terraform.tfm_iam_has_full_access_to_ssm
 F031,inputs,arn:aws:iam::aws:policy/AdministratorAccess (namespace),/Statement/2/Action: ['ssm:*'],250,skims,031. Excessive privileges - AWS,There are policy documents that allow full access to ssm agent,"
    8 |             ],

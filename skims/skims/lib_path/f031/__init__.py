@@ -17,7 +17,6 @@ from lib_path.f031.terraform import (
     terraform_negative_statement,
     terraform_open_passrole,
     tfm_iam_excessive_role_policy,
-    tfm_iam_has_full_access_to_ssm,
 )
 from model.core_model import (
     Vulnerabilities,
@@ -84,15 +83,6 @@ def run_cfn_iam_has_full_access_to_ssm(
 ) -> Vulnerabilities:
     return cfn_iam_has_full_access_to_ssm(
         content=content, path=path, template=template
-    )
-
-
-@SHIELD_BLOCKING
-def run_tfm_iam_has_full_access_to_ssm(
-    content: str, path: str, model: Any
-) -> Vulnerabilities:
-    return tfm_iam_has_full_access_to_ssm(
-        content=content, path=path, model=model
     )
 
 
@@ -171,7 +161,6 @@ def analyze(
                     run_tfm_iam_excessive_role_policy,
                     run_terraform_negative_statement,
                     run_terraform_open_passrole,
-                    run_tfm_iam_has_full_access_to_ssm,
                 )
             ),
         )
