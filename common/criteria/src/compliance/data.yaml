@@ -328,6 +328,9 @@ capec:
       title: Exploitation of Firmware or ROM Code with
         Unpatchable Vulnerabilities
       link: https://capec.mitre.org/data/definitions/682.html
+    "690":
+      title: Metadata Spoofing
+      link: https://capec.mitre.org/data/definitions/690.html
   metadata: {}
 cis:
   title: CIS

@@ -897,6 +897,7 @@
     oneshot: true
   references:
     - capec.233
+    - capec.690
     - cwe.267
     - cwe.269
     - cwe.639
@@ -2588,6 +2589,7 @@
   references:
     - capec.1
     - capec.122
+    - capec.690
     - cis.3_3
     - cwe.250
     - cwe.276
@@ -5460,6 +5462,7 @@
     - capec.242
     - capec.248
     - capec.676
+    - capec.690
     - cis.16_10
     - cwe.20
     - cwe.74
@@ -5867,6 +5870,7 @@
     - owaspapi.API5
     - owaspapi.API6
     - capec.680
+    - capec.690
   metadata: {}
 "177":
   en:
@@ -8646,6 +8650,7 @@
   references:
     - capec.13
     - capec.122
+    - capec.690
     - cis.2_7
     - cwe.306
     - cwe.78
@@ -10125,6 +10130,7 @@
     - capec.34
     - capec.39
     - capec.153
+    - capec.690
     - cwe.284
     - cwe.285
     - cwe.290
