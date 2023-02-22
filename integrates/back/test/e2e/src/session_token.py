@@ -76,7 +76,7 @@ def encode_token(
             },
             recipient=jwe_key,
         ).serialize(),
-        header={"alg": "HS512"},
+        header={"alg": "RS512"},
     )
     jwt_object.make_signed_token(jws_key)
 

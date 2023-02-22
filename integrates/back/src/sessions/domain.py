@@ -92,9 +92,9 @@ def encode_token(
     secret = FI_JWT_SECRET_API_RS512 if api else FI_JWT_SECRET_RS512
     jws_key = JWK.from_json(secret)
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    default_claims1 = dict(exp=expiration_time, sub=subject)
+    default_claims = dict(exp=expiration_time, sub=subject)
     jwt_object = JWT(
-        default_claims=default_claims1,
+        default_claims=default_claims,
         claims=JWE(
             algs=[
                 "A256GCM",
