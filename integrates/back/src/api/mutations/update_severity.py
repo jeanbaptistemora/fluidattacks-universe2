@@ -48,7 +48,6 @@ from newutils import (
 )
 from typing import (
     Any,
-    Union,
 )
 
 
@@ -82,7 +81,7 @@ async def mutate(
             set(cvss_fields.keys()), cvss_version
         )
         validations.validate_update_severity_values(cvss_fields)
-        severity: Union[Finding20Severity, Finding31Severity]
+        severity: Finding20Severity | Finding31Severity
         if cvss_version == FindingCvssVersion.V20.value:
             severity = Finding20Severity(
                 access_complexity=cvss_fields["access_complexity"],

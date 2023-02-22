@@ -23,9 +23,6 @@ import machine.jobs
 from machine.jobs import (
     get_finding_code_from_title,
 )
-from typing import (
-    Optional,
-)
 
 
 @FINDING.field("machineJobs")
@@ -36,7 +33,7 @@ async def resolve(
     **_: None,
 ) -> list[Job]:
     loaders: Dataloaders = info.context.loaders
-    finding_code: Optional[str] = get_finding_code_from_title(parent.title)
+    finding_code: str | None = get_finding_code_from_title(parent.title)
     root_nicknames: dict[str, str] = {
         root.id: root.state.nickname
         for root in await loaders.group_roots.load(parent.group_name)

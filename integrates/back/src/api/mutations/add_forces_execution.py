@@ -24,7 +24,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -35,7 +34,7 @@ async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
     group_name: str,
-    log: Optional[UploadFile] = None,
+    log: UploadFile | None = None,
     **parameters: Any,
 ) -> SimplePayload:
     await forces_domain.add_forces_execution(

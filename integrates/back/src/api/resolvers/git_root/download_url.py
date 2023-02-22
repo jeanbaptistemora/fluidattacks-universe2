@@ -16,14 +16,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GIT_ROOT.field("downloadUrl")
 @enforce_group_level_auth_async
-async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
+async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> str | None:
     if parent.state.status == RootStatus.INACTIVE:
         return None
 

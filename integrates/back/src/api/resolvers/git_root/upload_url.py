@@ -13,14 +13,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GIT_ROOT.field("uploadUrl")
 @enforce_group_level_auth_async
-async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> Optional[str]:
+async def resolve(parent: GitRoot, _: GraphQLResolveInfo) -> str | None:
     return await get_upload_url(
         group_name=parent.group_name, root_nickname=parent.state.nickname
     )

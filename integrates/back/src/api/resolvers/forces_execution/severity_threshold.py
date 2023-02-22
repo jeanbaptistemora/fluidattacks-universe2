@@ -12,16 +12,15 @@ from graphql.type.definition import (
 )
 from typing import (
     Any,
-    Union,
 )
 
 
 @FORCES_EXECUTION.field("severityThreshold")
 async def resolve(
-    parent: Union[dict[str, Any], ForcesExecution],
+    parent: dict[str, Any] | ForcesExecution,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Union[float, Decimal]:
+) -> float | Decimal:
     if isinstance(parent, dict):
         if parent.get("severity_threshold"):
             return float(str(parent["severity_threshold"]))

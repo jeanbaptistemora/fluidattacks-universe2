@@ -29,7 +29,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -42,8 +41,8 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    rut: Optional[UploadFile] = None,
-    tax_id: Optional[UploadFile] = None,
+    rut: UploadFile | None = None,
+    tax_id: UploadFile | None = None,
     **kwargs: Any,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders

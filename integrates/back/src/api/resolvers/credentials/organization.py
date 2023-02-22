@@ -16,9 +16,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @CREDENTIALS.field("organization")
@@ -26,7 +23,7 @@ from typing import (
 async def resolve(
     parent: Credentials,
     info: GraphQLResolveInfo,
-) -> Optional[Organization]:
+) -> Organization | None:
     loaders: Dataloaders = info.context.loaders
     organization = await loaders.organization.load(parent.organization_id)
     return organization

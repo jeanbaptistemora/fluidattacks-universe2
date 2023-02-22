@@ -27,9 +27,6 @@ from organizations_finding_policies import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Optional,
-)
 
 
 @MUTATION.field("addOrganizationFindingPolicy")
@@ -43,7 +40,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_name: str,
     organization_name: str,
-    tags: Optional[list[str]] = None,
+    tags: list[str] | None = None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     user_info: dict[str, str] = await sessions_domain.get_jwt_content(

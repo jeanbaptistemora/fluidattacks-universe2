@@ -10,15 +10,12 @@ from graphql.type.definition import (
 from newutils.datetime import (
     get_as_str,
 )
-from typing import (
-    Optional,
-)
 
 
 @FINDING.field("reportDate")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Optional[str]:
+) -> str | None:
     unreliable_indicators = parent.unreliable_indicators
     if unreliable_indicators.unreliable_oldest_vulnerability_report_date:
         return get_as_str(

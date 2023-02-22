@@ -40,7 +40,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -71,9 +70,7 @@ async def mutate(
             if kwargs.get("solving_reason")
             else None
         )
-        other_solving_reason: Optional[str] = kwargs.get(
-            "other_solving_reason"
-        )
+        other_solving_reason: str | None = kwargs.get("other_solving_reason")
         event = await events_domain.get_event(loaders, event_id)
         await events_domain.update_event(
             loaders=loaders,

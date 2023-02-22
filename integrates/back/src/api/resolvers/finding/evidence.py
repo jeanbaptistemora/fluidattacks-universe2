@@ -10,14 +10,10 @@ from graphql.type.definition import (
 from newutils.findings import (
     get_formatted_evidence,
 )
-from typing import (
-    Dict,
-    Optional,
-)
 
 
 @FINDING.field("evidence")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Dict[str, Dict[str, Optional[str]]]:
+) -> dict[str, dict[str, str | None]]:
     return get_formatted_evidence(parent)

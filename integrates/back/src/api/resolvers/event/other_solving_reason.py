@@ -11,9 +11,6 @@ from db_model.events.types import (
 from graphql import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @EVENT.field("otherSolvingReason")
@@ -21,7 +18,7 @@ async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[str]:
+) -> str | None:
     return (
         parent.state.other
         if parent.state.status == EventStateStatus.SOLVED

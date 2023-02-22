@@ -7,15 +7,12 @@ from db_model.findings.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Dict,
-)
 
 
 @FINDING.field("verificationSummary")
 def resolve(
     parent: Finding, _info: GraphQLResolveInfo, **_kwargs: None
-) -> Dict[str, int]:
+) -> dict[str, int]:
     return (
         parent.unreliable_indicators.unreliable_verification_summary._asdict()
     )

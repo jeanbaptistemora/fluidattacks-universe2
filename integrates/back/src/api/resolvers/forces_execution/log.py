@@ -15,13 +15,12 @@ from newutils.utils import (
 )
 from typing import (
     Any,
-    Union,
 )
 
 
 @FORCES_EXECUTION.field("log")
 async def resolve(
-    parent: Union[dict[str, Any], ForcesExecution],
+    parent: dict[str, Any] | ForcesExecution,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
 ) -> str:

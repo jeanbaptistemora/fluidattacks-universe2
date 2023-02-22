@@ -17,9 +17,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @FINDING.field("draftsConnection")
@@ -27,8 +24,8 @@ from typing import (
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
-    after: Optional[str] = None,
-    first: Optional[int] = None,
+    after: str | None = None,
+    first: int | None = None,
     **_kwargs: None,
 ) -> VulnerabilitiesConnection:
     loaders: Dataloaders = info.context.loaders

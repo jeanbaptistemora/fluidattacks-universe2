@@ -17,10 +17,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    List,
-    Optional,
-)
 
 
 @GROUP.field("codeLanguages")
@@ -29,7 +25,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[List[CodeLanguage]]:
+) -> list[CodeLanguage] | None:
     loaders: Dataloaders = info.context.loaders
     group_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(parent.name)

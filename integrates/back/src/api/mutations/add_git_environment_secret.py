@@ -20,7 +20,6 @@ from roots.domain import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -36,7 +35,7 @@ async def mutate(
     key: str,
     value: str,
     url_id: str,
-    description: Optional[str] = None,
+    description: str | None = None,
     **_kwargs: Any,
 ) -> SimplePayload:
     result = await add_root_environment_secret(url_id, key, value, description)

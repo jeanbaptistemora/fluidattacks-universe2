@@ -10,9 +10,6 @@ from db_model.events.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @EVENT.field("evidenceFileDate")
@@ -20,7 +17,7 @@ async def resolve(
     parent: Event,
     _info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[datetime]:
+) -> datetime | None:
     if not parent.evidences.file_1:
         return None
     return parent.evidences.file_1.modified_date

@@ -27,7 +27,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -41,8 +40,8 @@ async def mutate(
 ) -> SimplePayload:
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]
-    reason: Optional[str] = kwargs.get("reason", None)
-    other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
+    reason: str | None = kwargs.get("reason", None)
+    other: str | None = kwargs.get("other") if reason == "OTHER" else None
 
     await roots_domain.update_git_environments(
         loaders=info.context.loaders,

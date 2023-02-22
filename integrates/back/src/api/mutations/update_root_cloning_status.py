@@ -34,7 +34,6 @@ from roots import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -52,7 +51,7 @@ async def mutate(
     loaders: Dataloaders = info.context.loaders
     group_name: str = kwargs["group_name"]
     root_id: str = kwargs["id"]
-    commit: Optional[str] = kwargs.get("commit")
+    commit: str | None = kwargs.get("commit")
     queue_machine: bool = kwargs.get("queue_machine", True)
     root = await loaders.root.load(RootRequest(group_name, root_id))
     if commit is not None and queue_machine and isinstance(root, GitRoot):

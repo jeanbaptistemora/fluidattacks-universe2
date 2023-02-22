@@ -11,14 +11,11 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @CREDENTIALS.field("key")
 @enforce_owner
-def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> Optional[str]:
+def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str | None:
     return (
         parent.state.secret.key
         if isinstance(parent.state.secret, SshSecret)

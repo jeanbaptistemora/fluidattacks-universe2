@@ -15,15 +15,12 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Union,
-)
 
 
 @GIT_ROOT.field("secrets")
 @enforce_group_level_auth_async
 async def resolve(
-    parent: Union[GitRoot, URLRoot], info: GraphQLResolveInfo
+    parent: GitRoot | URLRoot, info: GraphQLResolveInfo
 ) -> list[Secret]:
     loaders: Dataloaders = info.context.loaders
     return await loaders.root_secrets.load(parent.id)

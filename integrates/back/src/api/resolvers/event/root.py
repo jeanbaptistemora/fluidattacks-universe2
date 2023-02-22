@@ -14,9 +14,6 @@ from db_model.roots.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @EVENT.field("root")
@@ -24,7 +21,7 @@ async def resolve(
     parent: Event,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[Root]:
+) -> Root | None:
     loaders: Dataloaders = info.context.loaders
     if parent.root_id:
         root = await loaders.root.load(

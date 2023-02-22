@@ -18,7 +18,6 @@ from stakeholders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -27,7 +26,7 @@ from typing import (
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    tours: Dict[str, bool],
+    tours: dict[str, bool],
 ) -> SimplePayload:
     user_info = await sessions_domain.get_jwt_content(info.context)
     user_email = user_info["user_email"]

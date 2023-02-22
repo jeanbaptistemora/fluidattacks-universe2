@@ -18,16 +18,11 @@ from graphql.type.definition import (
 from roots.validations import (
     get_cred_token,
 )
-from typing import (
-    Optional,
-)
 
 
 @CREDENTIALS.field("token")
 @enforce_owner
-async def resolve(
-    parent: Credentials, info: GraphQLResolveInfo
-) -> Optional[str]:
+async def resolve(parent: Credentials, info: GraphQLResolveInfo) -> str | None:
     if isinstance(parent.state.secret, HttpsPatSecret):
         return parent.state.secret.token
 

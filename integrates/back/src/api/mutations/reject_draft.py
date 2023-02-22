@@ -53,9 +53,6 @@ from sessions import (
 from stakeholders.domain import (
     get_stakeholder,
 )
-from typing import (
-    Optional,
-)
 
 
 @MUTATION.field("rejectDraft")
@@ -72,12 +69,12 @@ async def mutate(
     info: GraphQLResolveInfo,
     finding_id: str,
     reasons: list[str],
-    other: Optional[str] = None,
+    other: str | None = None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     try:
         # Graphql returns optional string args as "None" instead of None
-        other_reason: Optional[str] = other if other != str(None) else None
+        other_reason: str | None = other if other != str(None) else None
         user_info = await sessions_domain.get_jwt_content(info.context)
         source = requests_utils.get_source_new(info.context)
         rejection: DraftRejection = await findings_domain.reject_draft(

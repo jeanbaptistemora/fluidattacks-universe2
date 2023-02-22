@@ -17,15 +17,12 @@ from db_model.roots.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GIT_ROOT.field("credentials")
 async def resolve(
     parent: GitRoot, info: GraphQLResolveInfo
-) -> Optional[Credentials]:
+) -> Credentials | None:
     loaders: Dataloaders = info.context.loaders
     group: Group = await loaders.group.load(parent.group_name)
     if parent.state.credential_id:

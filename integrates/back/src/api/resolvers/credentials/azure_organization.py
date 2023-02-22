@@ -7,11 +7,8 @@ from db_model.credentials.types import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @CREDENTIALS.field("azureOrganization")
-def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> Optional[str]:
+def resolve(parent: Credentials, _info: GraphQLResolveInfo) -> str | None:
     return parent.state.azure_organization

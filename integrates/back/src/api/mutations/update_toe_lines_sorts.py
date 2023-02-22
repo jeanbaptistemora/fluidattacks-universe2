@@ -55,7 +55,6 @@ from toe.lines.validations import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -85,9 +84,9 @@ async def mutate(  # pylint: disable=too-many-arguments
     group_name: str,
     root_nickname: str,
     filename: str,
-    sorts_risk_level: Optional[int] = None,
-    sorts_risk_level_date: Optional[datetime] = None,
-    sorts_suggestions: Optional[list[dict[str, Any]]] = None,
+    sorts_risk_level: int | None = None,
+    sorts_risk_level_date: datetime | None = None,
+    sorts_suggestions: list[dict[str, Any]] | None = None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders
     if (

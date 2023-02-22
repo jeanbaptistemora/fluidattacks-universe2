@@ -56,9 +56,6 @@ import string
 from tags import (
     domain as tags_domain,
 )
-from typing import (
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -122,12 +119,12 @@ async def get_graphics_report(
 
 async def handle_authz_claims(
     *,
-    params: Union[
-        GraphicParameters,
-        GraphicsForEntityParameters,
-        ReportParameters,
-        GraphicsCsvParameters,
-    ],
+    params: (
+        GraphicParameters
+        | GraphicsForEntityParameters
+        | ReportParameters
+        | GraphicsCsvParameters
+    ),
     request: Request,
 ) -> None:
     loaders: Dataloaders = get_new_context()

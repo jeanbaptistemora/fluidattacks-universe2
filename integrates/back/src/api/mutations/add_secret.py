@@ -18,9 +18,6 @@ from graphql.type.definition import (
 from roots.domain import (
     add_secret,
 )
-from typing import (
-    Optional,
-)
 
 
 @MUTATION.field("addSecret")
@@ -36,7 +33,7 @@ async def mutate(  # pylint: disable=too-many-arguments
     key: str,
     value: str,
     root_id: str,
-    description: Optional[str] = None,
+    description: str | None = None,
 ) -> SimplePayload:
     result = await add_secret(
         info.context.loaders, group_name, root_id, key, value, description

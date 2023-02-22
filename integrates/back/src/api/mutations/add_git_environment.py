@@ -28,9 +28,6 @@ from roots import (
 from sessions.domain import (
     get_jwt_content,
 )
-from typing import (
-    Optional,
-)
 
 
 @MUTATION.field("addGitEnvironmentUrl")
@@ -45,7 +42,7 @@ async def mutate(  # pylint: disable = too-many-arguments
     url: str,
     url_type: str,
     root_id: str,
-    cloud_name: Optional[str] = None,
+    cloud_name: str | None = None,
     **_kwargs: None,
 ) -> SimplePayload:
     loaders: Dataloaders = info.context.loaders

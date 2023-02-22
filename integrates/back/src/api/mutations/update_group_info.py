@@ -43,7 +43,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -71,7 +70,7 @@ async def mutate(
         business_id = parameters.get("business_id")
         business_name = parameters.get("business_name")
         sprint_duration = parameters.get("sprint_duration")
-        sprint_start_date: Optional[datetime] = parameters.get(
+        sprint_start_date: datetime | None = parameters.get(
             "sprint_start_date"
         )
         description = description.strip()

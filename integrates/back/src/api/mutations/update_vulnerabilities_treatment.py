@@ -42,9 +42,6 @@ from newutils import (
 from sessions import (
     domain as sessions_domain,
 )
-from typing import (
-    Optional,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -60,9 +57,9 @@ from vulnerabilities.types import (
 
 
 def _get_accepted_until(
-    acceptance_date: Optional[str],
+    acceptance_date: str | None,
     treatment_status: VulnerabilityTreatmentStatus,
-) -> Optional[datetime]:
+) -> datetime | None:
     if (
         treatment_status != VulnerabilityTreatmentStatus.ACCEPTED
         or not acceptance_date

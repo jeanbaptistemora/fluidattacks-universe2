@@ -21,9 +21,6 @@ from graphql.type.definition import (
 from mailer import (
     forms as forms_mail,
 )
-from typing import (
-    Dict,
-)
 
 
 @MUTATION.field("sendSalesMailToGetSquadPlan")
@@ -36,7 +33,7 @@ async def mutate(
     info: GraphQLResolveInfo,
     name: str,
     email: str,
-    phone: Dict[str, str],
+    phone: dict[str, str],
 ) -> SimplePayload:
 
     loaders: Dataloaders = info.context.loaders

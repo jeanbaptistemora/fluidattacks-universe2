@@ -23,9 +23,6 @@ from graphql.type.definition import (
 from newutils.vulnerabilities import (
     get_inverted_state_converted,
 )
-from typing import (
-    Optional,
-)
 
 
 @FINDING.field("zeroRiskConnection")
@@ -33,9 +30,9 @@ from typing import (
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
-    after: Optional[str] = None,
-    first: Optional[int] = None,
-    state: Optional[str] = None,
+    after: str | None = None,
+    first: int | None = None,
+    state: str | None = None,
     **_kwargs: None,
 ) -> VulnerabilitiesConnection:
     loaders: Dataloaders = info.context.loaders

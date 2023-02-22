@@ -67,7 +67,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Optional,
 )
 from unreliable_indicators.enums import (
     EntityDependency,
@@ -90,7 +89,7 @@ async def deactivate_root(  # pylint: disable=too-many-locals
     group_name: str = kwargs["group_name"]
     loaders: Dataloaders = info.context.loaders
     reason: str = kwargs["reason"]
-    other: Optional[str] = kwargs.get("other") if reason == "OTHER" else None
+    other: str | None = kwargs.get("other") if reason == "OTHER" else None
     last_status_update = await roots_domain.get_last_status_update(
         loaders,
         root.id,

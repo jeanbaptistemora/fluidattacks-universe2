@@ -27,7 +27,6 @@ from sessions import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -39,7 +38,7 @@ from typing import (
 async def mutate(
     _parent: None, info: GraphQLResolveInfo, **kwargs: Any
 ) -> AddRootPayload:
-    user_info: Dict[str, str] = await sessions_domain.get_jwt_content(
+    user_info: dict[str, str] = await sessions_domain.get_jwt_content(
         info.context
     )
     user_email: str = user_info["user_email"]

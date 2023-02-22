@@ -31,7 +31,6 @@ from stakeholders.domain import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -40,7 +39,7 @@ from typing import (
 async def mutate(
     _: Any,
     info: GraphQLResolveInfo,
-    notifications_preferences: Dict[str, Any],
+    notifications_preferences: dict[str, Any],
 ) -> SimplePayload:
     loaders = info.context.loaders
     user_info = await sessions_domain.get_jwt_content(info.context)

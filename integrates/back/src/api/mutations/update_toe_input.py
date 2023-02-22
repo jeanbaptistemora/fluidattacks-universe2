@@ -44,7 +44,6 @@ from toe.inputs.types import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -69,7 +68,7 @@ async def mutate(  # pylint: disable=too-many-arguments
         user_info = await sessions_domain.get_jwt_content(info.context)
         user_email: str = user_info["user_email"]
         loaders: Dataloaders = info.context.loaders
-        current_value: Optional[ToeInput] = await loaders.toe_input.load(
+        current_value: ToeInput | None = await loaders.toe_input.load(
             ToeInputRequest(
                 component=component,
                 entry_point=entry_point,

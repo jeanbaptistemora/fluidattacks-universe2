@@ -32,7 +32,6 @@ from stakeholders import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
@@ -45,7 +44,7 @@ from typing import (
 async def mutate(
     _parent: None,
     info: GraphQLResolveInfo,
-    phone: Dict[str, str],
+    phone: dict[str, str],
     verification_code: str,
     **_kwargs: Any,
 ) -> SimplePayload:

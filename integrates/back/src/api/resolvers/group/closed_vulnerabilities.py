@@ -14,9 +14,6 @@ from decorators import (
 from graphql.type.definition import (
     GraphQLResolveInfo,
 )
-from typing import (
-    Optional,
-)
 
 
 @GROUP.field("closedVulnerabilities")
@@ -25,7 +22,7 @@ async def resolve(
     parent: Group,
     info: GraphQLResolveInfo,
     **_kwargs: None,
-) -> Optional[int]:
+) -> int | None:
     loaders: Dataloaders = info.context.loaders
     group_indicators: GroupUnreliableIndicators = (
         await loaders.group_unreliable_indicators.load(parent.name)

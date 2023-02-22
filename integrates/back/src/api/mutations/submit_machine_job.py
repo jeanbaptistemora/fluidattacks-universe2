@@ -39,9 +39,6 @@ from machine.jobs import (
     get_finding_code_from_title,
     queue_job_new,
 )
-from typing import (
-    Optional,
-)
 
 
 @MUTATION.field("submitMachineJob")
@@ -69,8 +66,8 @@ async def mutate(
     if not root_nicknames:
         raise RootNotFound()
 
-    finding_code: Optional[str] = get_finding_code_from_title(finding_title)
-    if finding_code is None:
+    finding_code: str | None = get_finding_code_from_title(finding_title)
+    if not finding_code:
         raise FindingNotFound()
 
     try:

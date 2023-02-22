@@ -31,7 +31,6 @@ from starlette.datastructures import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -46,8 +45,8 @@ async def mutate(
     _: None,
     info: GraphQLResolveInfo,
     group_name: str,
-    image: Optional[UploadFile] = None,
-    file: Optional[UploadFile] = None,
+    image: UploadFile | None = None,
+    file: UploadFile | None = None,
     **kwargs: Any,
 ) -> AddEventPayload:
     """Resolve add_event mutation."""

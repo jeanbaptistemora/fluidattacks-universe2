@@ -23,7 +23,6 @@ from newutils.vulnerabilities import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -31,9 +30,9 @@ from typing import (
 async def resolve(
     parent: Finding,
     info: GraphQLResolveInfo,
-    after: Optional[str] = None,
-    first: Optional[int] = None,
-    state: Optional[str] = None,
+    after: str | None = None,
+    first: int | None = None,
+    state: str | None = None,
     **kwargs: Any,
 ) -> VulnerabilitiesConnection:
     loaders: Dataloaders = info.context.loaders
