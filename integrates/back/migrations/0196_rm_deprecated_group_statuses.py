@@ -47,8 +47,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -97,7 +95,7 @@ async def process_group(
     ]
 
     if all(success):
-        new_data: Dict[str, Any] = {
+        new_data: dict[str, Any] = {
             "group_status": "DELETED",
             "project_status": "DELETED",
         }
@@ -116,7 +114,7 @@ async def process_group(
     )
 
 
-async def get_groups() -> List[str]:
+async def get_groups() -> list[str]:
     filtering_exp = Attr("project_status").eq("SUSPENDED") | Attr(
         "project_status"
     ).eq("FINISHED")

@@ -95,9 +95,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 from vulnerabilities import (
     dal as vulns_dal,
@@ -112,11 +109,11 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 async def send_vulns_to_redshift(
     *,
-    vulns_metadata: Tuple[Vulnerability, ...],
-    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
-    vulns_treatment: Tuple[Tuple[VulnerabilityTreatment, ...], ...],
-    vulns_verification: Tuple[Tuple[VulnerabilityVerification, ...], ...],
-    vulns_zero_risk: Tuple[Tuple[VulnerabilityZeroRisk, ...], ...],
+    vulns_metadata: tuple[Vulnerability, ...],
+    vulns_state: tuple[tuple[VulnerabilityState, ...], ...],
+    vulns_treatment: tuple[tuple[VulnerabilityTreatment, ...], ...],
+    vulns_verification: tuple[tuple[VulnerabilityVerification, ...], ...],
+    vulns_zero_risk: tuple[tuple[VulnerabilityZeroRisk, ...], ...],
 ) -> None:
     vulns_id = tuple(vuln.id for vuln in vulns_metadata)
     await insert_batch_metadata(
@@ -145,7 +142,7 @@ async def send_vulns_to_redshift(
 
 
 def _check_vuln_item_state(vuln: Item) -> bool:
-    last_state: Dict[str, Any] = vuln["historic_state"][-1]
+    last_state: dict[str, Any] = vuln["historic_state"][-1]
     state_status = str(last_state["state"]).upper()
     if state_status != "DELETED":
         return True
@@ -162,25 +159,25 @@ def _check_vuln_item_state(vuln: Item) -> bool:
 
 
 def _filter_out_deleted_vulns(
-    vulns: List[Item],
-) -> List[Item]:
+    vulns: list[Item],
+) -> list[Item]:
     return [vuln for vuln in vulns if _check_vuln_item_state(vuln)]
 
 
-async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
-    items: List[Item] = await vulns_dal.get_by_finding(finding_id=finding_id)
+async def _get_vulnerabilities_by_finding(finding_id: str) -> list[Item]:
+    items: list[Item] = await vulns_dal.get_by_finding(finding_id=finding_id)
     return items
 
 
 def _format_metadata(
-    vulns_items: List[Item],
-) -> Tuple[Vulnerability, ...]:
+    vulns_items: list[Item],
+) -> tuple[Vulnerability, ...]:
     return tuple(format_vulnerability(item=item) for item in vulns_items)
 
 
 def _format_state(
-    vulns_items: List[Item],
-) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
+    vulns_items: list[Item],
+) -> tuple[tuple[VulnerabilityState, ...], ...]:
     return tuple(
         adjust_historic_dates(
             tuple(
@@ -193,8 +190,8 @@ def _format_state(
 
 
 def _format_treatment(
-    vulns_items: List[Item],
-) -> Tuple[Tuple[VulnerabilityTreatment, ...], ...]:
+    vulns_items: list[Item],
+) -> tuple[tuple[VulnerabilityTreatment, ...], ...]:
     return tuple(
         adjust_historic_dates(
             tuple(
@@ -211,8 +208,8 @@ def _format_treatment(
 
 
 def _format_verification(
-    vulns_items: List[Item],
-) -> Tuple[Tuple[VulnerabilityVerification, ...], ...]:
+    vulns_items: list[Item],
+) -> tuple[tuple[VulnerabilityVerification, ...], ...]:
     return tuple(
         adjust_historic_dates(
             tuple(
@@ -227,8 +224,8 @@ def _format_verification(
 
 
 def _format_zero_risk(
-    vulns_items: List[Item],
-) -> Tuple[Tuple[VulnerabilityZeroRisk, ...], ...]:
+    vulns_items: list[Item],
+) -> tuple[tuple[VulnerabilityZeroRisk, ...], ...]:
     return tuple(
         adjust_historic_dates(
             tuple(
@@ -254,7 +251,7 @@ def _format_zero_risk(
 async def process_finding(
     *,
     finding: Finding,
-) -> List[Item]:
+) -> list[Item]:
     # Only vulns for released findings will be stored
     if finding.state.status not in {
         FindingStateStatus.APPROVED,
@@ -297,7 +294,7 @@ async def process_group(
         group_name
     )
     all_findings = group_findings + group_removed_findings
-    vulns_items_to_store: List[Item] = list(
+    vulns_items_to_store: list[Item] = list(
         chain.from_iterable(
             await collect(
                 tuple(
@@ -345,7 +342,7 @@ async def process_group(
     )
 
 
-async def get_removed_groups() -> List[str]:
+async def get_removed_groups() -> list[str]:
     filtering_exp = Attr("project_status").eq("DELETED") | Attr(
         "project_status"
     ).eq("FINISHED")

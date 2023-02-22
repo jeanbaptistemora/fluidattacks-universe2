@@ -37,9 +37,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -60,7 +57,7 @@ async def process_group(
     progress: float,
 ) -> None:
     success = False
-    token: Optional[str] = await get_agent_token(group_name=group_name)
+    token: str | None = await get_agent_token(group_name=group_name)
     if token:
         success = await groups_dal.update(group_name, {"agent_token": token})
         LOGGER_CONSOLE.info(

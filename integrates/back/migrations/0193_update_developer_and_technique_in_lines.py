@@ -46,8 +46,6 @@ from time import (
 )
 from typing import (
     Any,
-    Dict,
-    Tuple,
 )
 import yaml
 
@@ -56,11 +54,11 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Element = Tuple[Finding, Vulnerability]
-MethodMap = Dict[Any, Any]
+Element = tuple[Finding, Vulnerability]
+MethodMap = dict[Any, Any]
 
 
-def read_yaml(file_name: str) -> Dict[Any, Any]:
+def read_yaml(file_name: str) -> dict[Any, Any]:
     with open(file_name, "r", encoding="utf8") as f:
         data = yaml.safe_load(f)
     return data
@@ -80,7 +78,7 @@ def meth_is_set(vuln: Vulnerability) -> bool:
 
 async def vulns_to_update(
     loaders: Any, group: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     raw_findings = await loaders.group_findings.load(group)
     f_ids = (finding.id for finding in raw_findings)
     return tuple(

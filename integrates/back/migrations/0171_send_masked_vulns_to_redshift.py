@@ -60,10 +60,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -74,8 +70,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 def filter_out_deleted_vulns(
     *,
-    vulns: Tuple[Vulnerability, ...],
-) -> Tuple[Vulnerability, ...]:
+    vulns: tuple[Vulnerability, ...],
+) -> tuple[Vulnerability, ...]:
     return tuple(
         vuln
         for vuln in vulns
@@ -91,7 +87,7 @@ async def send_vulns_to_redshift(
     *,
     loaders: Dataloaders,
     finding: Finding,
-    vulns: Tuple[Vulnerability, ...],
+    vulns: tuple[Vulnerability, ...],
 ) -> None:
     if finding.state.status not in {
         FindingStateStatus.APPROVED,
@@ -173,7 +169,7 @@ async def process_group(
     group_drafts_and_findings = await loaders.group_drafts_and_findings.load(
         group_name
     )
-    group_removed_findings: Tuple[
+    group_removed_findings: tuple[
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
     all_findings = group_drafts_and_findings + group_removed_findings
@@ -195,7 +191,7 @@ async def process_group(
     )
 
 
-async def get_removed_groups() -> List[str]:
+async def get_removed_groups() -> list[str]:
     filtering_exp = Attr("project_status").eq("DELETED") | Attr(
         "project_status"
     ).eq("FINISHED")

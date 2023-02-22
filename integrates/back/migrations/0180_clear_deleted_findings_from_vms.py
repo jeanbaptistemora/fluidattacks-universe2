@@ -64,10 +64,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    List,
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -77,8 +73,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 def filter_out_deleted_findings(
     *,
-    findings: Tuple[Finding, ...],
-) -> Tuple[Finding, ...]:
+    findings: tuple[Finding, ...],
+) -> tuple[Finding, ...]:
     return tuple(
         finding
         for finding in findings
@@ -90,7 +86,7 @@ def filter_out_deleted_findings(
 async def send_findings_to_redshift(
     *,
     loaders: Dataloaders,
-    findings: Tuple[Finding, ...],
+    findings: tuple[Finding, ...],
 ) -> None:
     # Only deleted vulns by external users will be stored
     findings_to_store = filter_out_deleted_findings(findings=findings)
@@ -162,7 +158,7 @@ async def process_group(
         if finding.state.status == FindingStateStatus.DELETED
     )
     # Get findings with their keys modified by REMOVED#
-    findings_removed_preffix: Tuple[
+    findings_removed_preffix: tuple[
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
     target_findings = findings_removed_status + findings_removed_preffix
@@ -194,7 +190,7 @@ async def process_group(
     )
 
 
-async def get_group_names() -> List[str]:
+async def get_group_names() -> list[str]:
     return sorted(
         [
             group["project_name"]

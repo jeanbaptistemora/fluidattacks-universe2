@@ -40,8 +40,6 @@ from time import (
 )
 from typing import (
     Any,
-    Optional,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -49,7 +47,7 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Element = Tuple[Optional[str], Vulnerability]
+Element = tuple[str | None, Vulnerability]
 
 METHODS = [
     "query.query_f001",
@@ -73,13 +71,13 @@ def is_query_method(vuln: Vulnerability) -> bool:
     return vuln.skims_method == "query.get_vulnerabilities_from_syntax"
 
 
-def get_new_skims_method(finding: Finding) -> Optional[str]:
+def get_new_skims_method(finding: Finding) -> str | None:
     number, _ = finding.title.split(".", maxsplit=1)
     new_skims_method = f"query.query_f{number}"
     return new_skims_method if new_skims_method in METHODS else None
 
 
-async def elements_to_update(loaders: Any, group: str) -> Tuple[Element, ...]:
+async def elements_to_update(loaders: Any, group: str) -> tuple[Element, ...]:
     raw_findings = await loaders.group_findings.load(group)
     findings = {finding.id: finding for finding in raw_findings}
     f_ids = findings.keys()

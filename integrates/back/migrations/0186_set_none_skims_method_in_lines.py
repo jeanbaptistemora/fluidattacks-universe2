@@ -17,6 +17,10 @@ from aioextensions import (
     collect,
     run,
 )
+from collections.abc import (
+    AsyncGenerator,
+    Iterator,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -52,11 +56,6 @@ from time import (
 )
 from typing import (
     Any,
-    AsyncGenerator,
-    Dict,
-    Iterator,
-    List,
-    Tuple,
 )
 import yaml
 
@@ -65,10 +64,10 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Element = Tuple[Finding, Vulnerability]
-MethodDesc = Tuple[str, List[str]]
-MethodDescDict = Dict[str, List[str]]
-MethodMap = Dict[str, List[MethodDescDict]]
+Element = tuple[Finding, Vulnerability]
+MethodDesc = tuple[str, list[str]]
+MethodDescDict = dict[str, list[str]]
+MethodMap = dict[str, list[MethodDescDict]]
 
 
 def vuln_is_machine(vuln: Vulnerability) -> bool:
@@ -106,7 +105,7 @@ def list_checks(methods: MethodMap, finding_code: str) -> Iterator[MethodDesc]:
                 yield name, extensions
 
 
-def read_yaml(file_name: str) -> Dict[Any, Any]:
+def read_yaml(file_name: str) -> dict[Any, Any]:
     with open(file_name, "r", encoding="utf8") as f:
         data = yaml.safe_load(f)
     return data

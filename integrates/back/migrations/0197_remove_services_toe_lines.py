@@ -35,9 +35,6 @@ import logging.config
 from settings import (
     LOGGING,
 )
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -66,7 +63,7 @@ async def main() -> None:
     )
     groups_len = len(group_names)
     for (index, group_name) in zip(range(groups_len), group_names):
-        group_services_toe_lines: Tuple[
+        group_services_toe_lines: tuple[
             ServicesToeLines, ...
         ] = await loaders.group_services_toe_lines.load(group_name)
         await collect(

@@ -50,8 +50,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Dict,
-    List,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -64,7 +62,7 @@ index = TABLE.indexes["inverted_index"]
 key_structure = index.primary_key
 
 
-async def process_root(root_id: str, items: List[Dict[str, Any]]) -> None:
+async def process_root(root_id: str, items: list[dict[str, Any]]) -> None:
     metadata = historics.get_metadata(
         item_id=root_id, key_structure=key_structure, raw_items=items
     )
@@ -146,7 +144,7 @@ async def process_group(group_name: str, progress: float) -> None:
     )
 
 
-async def get_group_names() -> List[str]:
+async def get_group_names() -> list[str]:
     return sorted(
         group["project_name"] for group in await groups_dal.get_all()
     )

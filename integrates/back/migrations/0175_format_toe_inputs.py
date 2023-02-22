@@ -58,9 +58,6 @@ from settings import (
 from toe.inputs import (
     domain as toe_inputs_domain,
 )
-from typing import (
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -113,7 +110,7 @@ async def remove_input(
 
 async def process_input(
     current_toe_input: ToeInput,
-    group_roots: Tuple[RootItem, ...],
+    group_roots: tuple[RootItem, ...],
     group: Group,
 ) -> None:
     root, component = toe_inputs_domain.get_unreliable_component_legacy(

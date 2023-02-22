@@ -27,8 +27,6 @@ from dynamodb import (
 import time
 from typing import (
     cast,
-    Dict,
-    List,
 )
 
 # Constants
@@ -40,7 +38,7 @@ AUTHZ_TABLE: str = "fi_authz"
 async def get_all_users(
     role: str = "",
     data_attr: str = "",
-) -> List[UserType]:
+) -> list[UserType]:
     filtering_exp: object = ""
     if role:
         filtering_exp = Attr("role").eq(role)
@@ -50,11 +48,11 @@ async def get_all_users(
     if data_attr:
         scan_attrs["ProjectionExpression"] = data_attr
     items = await dynamodb_ops.scan(AUTHZ_TABLE, scan_attrs)
-    return cast(List[UserType], items)
+    return cast(list[UserType], items)
 
 
 async def update(
-    subject: str, object_param: str, data: Dict[str, str]
+    subject: str, object_param: str, data: dict[str, str]
 ) -> bool:
     """Manually updates db data"""
     success = False
@@ -94,7 +92,7 @@ async def update(
     return success
 
 
-async def process_user(user: Dict[str, str]) -> bool:
+async def process_user(user: dict[str, str]) -> bool:
     success = False
     if PROD:
         success = await update(
@@ -107,7 +105,7 @@ async def process_user(user: Dict[str, str]) -> bool:
     return success
 
 
-async def migrate_users(users: List[UserType]) -> None:
+async def migrate_users(users: list[UserType]) -> None:
     success = all(await collect(process_user(user) for user in users))
     print(f"System owners migrated: {success}")
 

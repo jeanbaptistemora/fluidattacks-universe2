@@ -45,9 +45,6 @@ from groups import (
     dal as groups_dal,
 )
 import time
-from typing import (
-    List,
-)
 
 
 async def process_finding(
@@ -91,7 +88,7 @@ async def process_group(
         index=index,
         table=TABLE,
     )
-    group_findings: List[Item] = response.items
+    group_findings: list[Item] = response.items
     await collect(
         tuple(process_finding(finding=finding) for finding in group_findings),
         workers=64,

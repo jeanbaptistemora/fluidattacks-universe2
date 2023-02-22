@@ -57,10 +57,6 @@ from settings import (
     LOGGING,
 )
 import time
-from typing import (
-    Optional,
-    Tuple,
-)
 from unreliable_indicators.enums import (
     EntityAttr,
 )
@@ -76,8 +72,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 
 def _format_datetime_iso_format(
-    optional_datetime: Optional[datetime],
-) -> Optional[str]:
+    optional_datetime: datetime | None,
+) -> str | None:
     unreliable_datetime = None
     if optional_datetime:
         unreliable_datetime = datetime_utils.get_as_utc_iso_format(
@@ -199,7 +195,7 @@ async def populate_indicators_by_group(
     group_drafts_and_findings = await loaders.group_drafts_and_findings.load(
         group_name
     )
-    group_removed_findings: Tuple[
+    group_removed_findings: tuple[
         Finding, ...
     ] = await loaders.group_removed_findings.load(group_name)
     all_findings = group_drafts_and_findings + group_removed_findings

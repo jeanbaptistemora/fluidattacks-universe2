@@ -2,17 +2,12 @@ import authz
 from pandas import (
     DataFrame,
 )
-from typing import (
-    Dict,
-    List,
-    Set,
-)
 
 
 def create_dataframe(
-    dataset: Dict[str, List[str]],
-    columns: List[str],
-    rows: List[str],
+    dataset: dict[str, list[str]],
+    columns: list[str],
+    rows: list[str],
     filename: str,
 ) -> None:
     dataframe = DataFrame(dataset, columns=columns, index=rows)
@@ -27,10 +22,10 @@ def create_dataframe(
 
 
 def fill_matrix(
-    roles_and_permissions: Dict[str, Dict[str, Set[str]]],
-    columns: List[str],
-    all_actions: List[str],
-) -> Dict[str, List[str]]:
+    roles_and_permissions: dict[str, dict[str, set[str]]],
+    columns: list[str],
+    all_actions: list[str],
+) -> dict[str, list[str]]:
     dataset = {}
     for role in columns:
         values = []
@@ -46,7 +41,7 @@ def fill_matrix(
 
 
 def get_matrix_parameters(
-    roles_and_permissions: Dict[str, Dict[str, Set[str]]], filename: str
+    roles_and_permissions: dict[str, dict[str, set[str]]], filename: str
 ) -> None:
     all_actions = []
     columns = list(roles_and_permissions.keys())

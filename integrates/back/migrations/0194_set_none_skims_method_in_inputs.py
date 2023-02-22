@@ -46,9 +46,6 @@ from time import (
 )
 from typing import (
     Any,
-    Dict,
-    Optional,
-    Tuple,
 )
 import yaml
 
@@ -57,10 +54,10 @@ logging.config.dictConfig(LOGGING)
 LOGGER = logging.getLogger(__name__)
 LOGGER_CONSOLE = logging.getLogger("console")
 
-Element = Tuple[Finding, Vulnerability]
+Element = tuple[Finding, Vulnerability]
 
 
-def read_yaml(file_name: str) -> Dict[Any, Any]:
+def read_yaml(file_name: str) -> dict[Any, Any]:
     with open(file_name, "r", encoding="utf8") as f:
         data = yaml.safe_load(f)
     return data
@@ -80,7 +77,7 @@ def meth_is_none(vuln: Vulnerability) -> bool:
 
 async def vulns_to_update(
     loaders: Any, group: str
-) -> Tuple[Vulnerability, ...]:
+) -> tuple[Vulnerability, ...]:
     raw_findings = await loaders.group_findings.load(group)
     f_ids = (finding.id for finding in raw_findings)
     return tuple(
@@ -90,7 +87,7 @@ async def vulns_to_update(
     )
 
 
-def get_method(vuln: Vulnerability, methods: Dict[str, str]) -> Optional[str]:
+def get_method(vuln: Vulnerability, methods: dict[str, str]) -> str | None:
     for specific in methods:
         if specific in vuln.specific:
             return methods[specific]
@@ -98,7 +95,7 @@ def get_method(vuln: Vulnerability, methods: Dict[str, str]) -> Optional[str]:
 
 
 async def process_group(
-    loaders: Dataloaders, group: str, methods: Dict[str, str], progress: float
+    loaders: Dataloaders, group: str, methods: dict[str, str], progress: float
 ) -> None:
     # pylint: disable=logging-fstring-interpolation
 

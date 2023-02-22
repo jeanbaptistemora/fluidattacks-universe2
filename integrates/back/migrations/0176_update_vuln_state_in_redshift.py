@@ -77,9 +77,6 @@ from settings import (
 import time
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 from vulnerabilities import (
     dal as vulns_dal,
@@ -94,8 +91,8 @@ LOGGER_CONSOLE = logging.getLogger("console")
 
 async def _update_state_redshift(
     *,
-    vulns_id: Tuple[Vulnerability, ...],
-    vulns_state: Tuple[Tuple[VulnerabilityState, ...], ...],
+    vulns_id: tuple[Vulnerability, ...],
+    vulns_state: tuple[tuple[VulnerabilityState, ...], ...],
 ) -> None:
     sql_vars = [
         dict(
@@ -117,7 +114,7 @@ async def _update_state_redshift(
 
 
 def _check_vuln_item_state(vuln: Item) -> bool:
-    last_state: Dict[str, Any] = vuln["historic_state"][-1]
+    last_state: dict[str, Any] = vuln["historic_state"][-1]
     state_status = str(last_state["state"]).upper()
     if state_status != "DELETED":
         return True
@@ -134,19 +131,19 @@ def _check_vuln_item_state(vuln: Item) -> bool:
 
 
 def _filter_out_deleted_vulns(
-    vulns: List[Item],
-) -> List[Item]:
+    vulns: list[Item],
+) -> list[Item]:
     return [vuln for vuln in vulns if _check_vuln_item_state(vuln)]
 
 
-async def _get_vulnerabilities_by_finding(finding_id: str) -> List[Item]:
-    items: List[Item] = await vulns_dal.get_by_finding(finding_id=finding_id)
+async def _get_vulnerabilities_by_finding(finding_id: str) -> list[Item]:
+    items: list[Item] = await vulns_dal.get_by_finding(finding_id=finding_id)
     return items
 
 
 def _format_state(
-    vulns_items: List[Item],
-) -> Tuple[Tuple[VulnerabilityState, ...], ...]:
+    vulns_items: list[Item],
+) -> tuple[tuple[VulnerabilityState, ...], ...]:
     return tuple(
         adjust_historic_dates(
             tuple(
@@ -170,7 +167,7 @@ def _format_state(
 async def process_finding(
     *,
     finding: Finding,
-) -> List[Item]:
+) -> list[Item]:
     # Only vulns for released findings will be stored
     if finding.state.status not in {
         FindingStateStatus.APPROVED,
@@ -213,7 +210,7 @@ async def process_group(
         group_name
     )
     all_findings = group_findings + group_removed_findings
-    vulns_items_to_store: List[Item] = list(
+    vulns_items_to_store: list[Item] = list(
         chain.from_iterable(
             await collect(
                 tuple(
@@ -241,7 +238,7 @@ async def process_group(
     )
 
 
-async def get_removed_groups() -> List[str]:
+async def get_removed_groups() -> list[str]:
     filtering_exp = Attr("project_status").eq("DELETED") | Attr(
         "project_status"
     ).eq("FINISHED")

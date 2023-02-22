@@ -46,14 +46,9 @@ from newutils.findings import (
     get_vulns_file,
 )
 import time
-from typing import (
-    Dict,
-    List,
-    Optional,
-)
 
 
-def get_mttr(title: str, finding_info: Dict) -> Optional[int]:
+def get_mttr(title: str, finding_info: dict) -> int | None:
     finding_code = title[:3]
     if (
         finding_code in finding_info
@@ -69,7 +64,7 @@ def get_mttr(title: str, finding_info: Dict) -> Optional[int]:
 async def process_finding(
     *,
     finding: Item,
-    new_mttr: Optional[int],
+    new_mttr: int | None,
 ) -> None:
     await operations.update_item(
         item={"min_time_to_remediate": new_mttr},
@@ -89,7 +84,7 @@ async def process_group(
     *,
     group_name: str,
     progress: float,
-    finding_info: Dict,
+    finding_info: dict,
 ) -> None:
     index = TABLE.indexes["inverted_index"]
     key_structure = index.primary_key
@@ -109,7 +104,7 @@ async def process_group(
         index=index,
         table=TABLE,
     )
-    group_findings: List[Item] = response.items
+    group_findings: list[Item] = response.items
     await collect(
         tuple(
             process_finding(
