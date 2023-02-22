@@ -44,4 +44,4 @@ async def test_grouploader(
     assert mock__get_group.called is True
     with pytest.raises(GroupNotFound):
         await group.load(group_name_bad)
-        assert mock__get_group.called is True
+    assert mock__get_group.called is True
