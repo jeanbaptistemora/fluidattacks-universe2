@@ -196,7 +196,37 @@ resource "kubernetes_manifest" "adot_collector" {
             service: "aps"
             region: "us-east-1"
 
+        hostmetrics:
+          collection_interval: 10s
+          scrapers:
+            paging:
+              metrics:
+                system.paging.utilization:
+                  enabled: true
+            cpu:
+              metrics:
+                system.cpu.utilization:
+                  enabled: true
+            disk:
+            filesystem:
+              metrics:
+                system.filesystem.utilization:
+                  enabled: true
+            load:
+            memory:
+            network:
+
+        processors:
+          k8sattributes:
+          batch:
+            send_batch_max_size: 100
+            send_batch_size: 10
+            timeout: 10s
+
         receivers:
+          otlp:
+            protocols:
+              grpc:
           prometheus:
             config:
               scrape_configs:
@@ -256,6 +286,10 @@ resource "kubernetes_manifest" "adot_collector" {
                       target_label: instance
 
         exporters:
+          datadog:
+            api:
+              site: datadoghq.com
+              key: ${var.datadogApiKey}
           prometheusremotewrite:
             endpoint: https://aps-workspaces.us-east-1.amazonaws.com/workspaces/ws-e60ff23e-bccf-4df2-bf46-745c50b45c70/api/v1/remote_write
             auth:
@@ -265,8 +299,13 @@ resource "kubernetes_manifest" "adot_collector" {
           extensions: [sigv4auth]
           pipelines:
             metrics:
-              receivers: [prometheus]
-              exporters: [prometheusremotewrite]
+              receivers: [hostmetrics, otlp, prometheus]
+              processors: [k8sattributes, batch]
+              exporters: [datadog, prometheusremotewrite]
+            traces:
+              receivers: [otlp]
+              processors: [k8sattributes, batch]
+              exporters: [datadog]
       EOT
     }
   }

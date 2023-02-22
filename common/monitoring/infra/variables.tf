@@ -7,3 +7,4 @@ data "aws_redshift_cluster" "observes" {
 variable "redshiftUser" {}
 variable "redshiftPassword" {}
 variable "oktaApiToken" {}
+variable "datadogApiKey" {}
