@@ -13,6 +13,7 @@ from dataclasses import (
 )
 from fa_purity import (
     Cmd,
+    FrozenDict,
     FrozenList,
     JsonObj,
     JsonValue,
@@ -49,6 +50,8 @@ class IgnoredPath:
 def _decode_ignored_paths(
     raw: JsonObj, group: str
 ) -> ResultE[FrozenList[IgnoredPath]]:
+    if raw == FrozenDict({}):
+        return Result.success(tuple([]))
     nickname = (
         Unfolder(JsonValue(raw))
         .uget("nickname")
