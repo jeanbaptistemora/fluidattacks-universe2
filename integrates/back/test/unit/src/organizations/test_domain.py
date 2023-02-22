@@ -234,7 +234,7 @@ async def test_add_organization(  # pylint: disable=too-many-arguments
             email=email,
             country=country,
         )
-        assert str(repeated) == "Exception - Name taken"
+    assert str(repeated.value) == "Name taken"
     with pytest.raises(InvalidOrganization) as invalid:
         invalid_name: str = "#@^" + organization_name
         mock_exist.return_value = get_mock_response(
@@ -247,7 +247,7 @@ async def test_add_organization(  # pylint: disable=too-many-arguments
             email=email,
             country=country,
         )
-        assert str(invalid) == "Exception - Invalid name"
+    assert str(invalid.value) == "Invalid name"
 
 
 async def test_get_group_names() -> None:

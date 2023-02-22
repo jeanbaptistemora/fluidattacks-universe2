@@ -311,8 +311,8 @@ async def test_token_expired() -> None:
         setattr(request, "store", defaultdict(lambda: None))
         assert await sessions_domain.get_jwt_content(request)
 
-        setattr(new_request, "store", defaultdict(lambda: None))
-        assert await sessions_domain.get_jwt_content(new_request)
+    setattr(new_request, "store", defaultdict(lambda: None))
+    assert await sessions_domain.get_jwt_content(new_request)
 
 
 async def test_revoked_token() -> None:

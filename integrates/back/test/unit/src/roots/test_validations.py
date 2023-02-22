@@ -117,10 +117,10 @@ async def test_validate_component() -> None:
         await validate_component(
             loaders, git_root, "https://app.invalid.com/test"
         )
+    with pytest.raises(InvalidRootComponent):
         await validate_component(
             loaders, url_root, "https://app.fluidattacks.com:440"
         )
-        await validate_component(loaders, ip_root, "127.0.0.1/test")
     with pytest.raises(InvalidUrl):
         await validate_component(
             loaders, git_root, "://app.invalid.com:66000/test"

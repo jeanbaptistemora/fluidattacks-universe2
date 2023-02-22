@@ -115,6 +115,7 @@ def test_validate_group_services_config_deco() -> None:
     assert decorated_func(has_machine=False, has_squad=False, has_arm=False)
     with pytest.raises(InvalidGroupServicesConfig):
         decorated_func(has_machine=True, has_squad=True, has_arm=False)
+    with pytest.raises(InvalidGroupServicesConfig):
         decorated_func(has_machine=False, has_squad=True, has_arm=True)
 
 
