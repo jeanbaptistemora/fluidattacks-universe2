@@ -162,6 +162,7 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
           newGroup: user.tours.newGroup,
           newRiskExposure: user.tours.newRiskExposure,
           newRoot: true,
+          welcome: user.tours.welcome,
         },
         userEmail: user.userEmail,
         userIntPhone: user.userIntPhone,

@@ -29,6 +29,7 @@ describe("Dashboard", (): void => {
           newGroup: true,
           newRiskExposure: true,
           newRoot: true,
+          welcome: true,
         },
         userEmail: "",
         userName: "",

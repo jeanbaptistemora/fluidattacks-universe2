@@ -40,6 +40,7 @@ const App: React.FC = (): JSX.Element => {
       newGroup: true,
       newRiskExposure: true,
       newRoot: true,
+      welcome: true,
     },
     userEmail: "",
     userName: "",

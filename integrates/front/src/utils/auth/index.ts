@@ -10,6 +10,7 @@ interface IUser {
     newGroup: boolean;
     newRiskExposure: boolean;
     newRoot: boolean;
+    welcome: boolean;
   };
   userEmail: string;
   userIntPhone?: string;
@@ -25,6 +26,7 @@ const authContext: React.Context<IAuthContext> = createContext<IAuthContext>({
     newGroup: false,
     newRiskExposure: false,
     newRoot: false,
+    welcome: false,
   },
   userEmail: "",
   userName: "",

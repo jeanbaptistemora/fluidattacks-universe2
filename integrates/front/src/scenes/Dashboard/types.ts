@@ -21,6 +21,7 @@ interface IUser {
       newGroup: boolean;
       newRiskExposure: boolean;
       newRoot: boolean;
+      welcome: boolean;
     };
     userEmail: string;
     userName: string;

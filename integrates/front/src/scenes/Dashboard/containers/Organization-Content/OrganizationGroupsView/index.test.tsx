@@ -382,6 +382,7 @@ describe("Organization groups view", (): void => {
                     newGroup: true,
                     newRiskExposure: true,
                     newRoot: true,
+                    welcome: true,
                   },
                   userEmail: "",
                   userName: "",
