@@ -81,6 +81,7 @@ const GET_USER: DocumentNode = gql`
         newGroup
         newRiskExposure
         newRoot
+        welcome
       }
       userEmail
       userName
