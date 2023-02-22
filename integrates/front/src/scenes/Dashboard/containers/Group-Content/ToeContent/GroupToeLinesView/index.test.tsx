@@ -790,4 +790,48 @@ describe("groupToeLinesView", (): void => {
       expect(screen.queryAllByRole("row")).toHaveLength(2);
     });
   });
+
+  it("should filter by attacked lines", async (): Promise<void> => {
+    expect.hasAssertions();
+
+    render(
+      <MemoryRouter initialEntries={["/unittesting/surface/lines"]}>
+        <MockedProvider addTypename={true} mocks={[mockedToeLines]}>
+          <authzPermissionsContext.Provider value={mockedPermissions}>
+            <Route path={"/:groupName/surface/lines"}>
+              <GroupToeLinesView isInternal={true} />
+            </Route>
+          </authzPermissionsContext.Provider>
+        </MockedProvider>
+      </MemoryRouter>
+    );
+    const numberOfRows: number = 3;
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(numberOfRows);
+    });
+
+    expect(
+      screen.getByRole("button", { name: "Add filter" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Add filter" }));
+
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "attackedLines" })[0],
+      {
+        target: { value: 119 },
+      }
+    );
+    fireEvent.change(
+      screen.getAllByRole("spinbutton", { name: "attackedLines" })[1],
+      {
+        target: { value: 121 },
+      }
+    );
+
+    await waitFor((): void => {
+      expect(screen.queryAllByRole("row")).toHaveLength(2);
+    });
+  });
 });
