@@ -337,6 +337,9 @@ capec:
     "692":
       title: Spoof Version Control System Commit Metadata
       link: https://capec.mitre.org/data/definitions/692.html
+    "693":
+      title: StarJacking
+      link: https://capec.mitre.org/data/definitions/693.html
   metadata: {}
 cis:
   title: CIS
