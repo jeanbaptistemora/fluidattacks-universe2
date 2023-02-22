@@ -247,11 +247,7 @@ const AddGroupModal: React.FC<IAddGroupModalProps> = (
                       );
                     })}
                     <Col paddingTop={16}>
-                      <ExternalLink
-                        href={
-                          "https://fluidattacks.com/services/continuous-hacking/"
-                        }
-                      >
+                      <ExternalLink href={"https://fluidattacks.com/plans/"}>
                         <Text size={"xs"}>
                           {"Learn more about Continuous Hacking plans"}
                         </Text>
