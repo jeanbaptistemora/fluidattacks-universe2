@@ -267,21 +267,25 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
   });
 
   // Event handlers
-  const handleSyncClick: (row: IGitRootData) => void = (row): void => {
-    void syncGitRoot({ variables: { groupName, rootId: row.id } });
-  };
+  const handleSyncClick = useCallback(
+    async (row: IGitRootData): Promise<void> => {
+      await syncGitRoot({ variables: { groupName, rootId: row.id } });
+    },
+    [groupName, syncGitRoot]
+  );
 
-  function handleRowClick(
-    rowInfo: Row<IGitRootData>
-  ): (event: React.FormEvent) => void {
-    return (event: React.FormEvent): void => {
-      if (rowInfo.original.state === "ACTIVE") {
-        setCurrentRow(rowInfo.original);
-        setIsManagingRoot({ mode: "EDIT" });
-      }
-      event.preventDefault();
-    };
-  }
+  const handleRowClick = useCallback(
+    (rowInfo: Row<IGitRootData>): ((event: React.FormEvent) => void) => {
+      return (event: React.FormEvent): void => {
+        if (rowInfo.original.state === "ACTIVE") {
+          setCurrentRow(rowInfo.original);
+          setIsManagingRoot({ mode: "EDIT" });
+        }
+        event.preventDefault();
+      };
+    },
+    []
+  );
 
   function handleRowUrlClick(
     rowInfo: Row<{
@@ -310,26 +314,34 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     updateGitRoot
   );
 
-  const rootsGroupedByEnvs = roots
-    .filter(
-      (root): boolean =>
-        root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
-    )
-    .reduce<Record<string, string[]>>(
-      (previousValue, currentValue): Record<string, string[]> => ({
-        ...previousValue,
-        ...Object.fromEntries(
-          currentValue.gitEnvironmentUrls.map((envUrl): [string, string[]] => [
-            envUrl.url,
-            [
-              ...(envUrl.url in previousValue ? previousValue[envUrl.url] : []),
-              currentValue.url,
-            ],
-          ])
+  const rootsGroupedByEnvs = useMemo(
+    (): Record<string, string[]> =>
+      roots
+        .filter(
+          (root): boolean =>
+            root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
+        )
+        .reduce<Record<string, string[]>>(
+          (previousValue, currentValue): Record<string, string[]> => ({
+            ...previousValue,
+            ...Object.fromEntries(
+              currentValue.gitEnvironmentUrls.map(
+                (envUrl): [string, string[]] => [
+                  envUrl.url,
+                  [
+                    ...(envUrl.url in previousValue
+                      ? previousValue[envUrl.url]
+                      : []),
+                    currentValue.url,
+                  ],
+                ]
+              )
+            ),
+          }),
+          {}
         ),
-      }),
-      {}
-    );
+    [roots]
+  );
 
   const formatBoolean = useCallback(
     (value: boolean): string =>
@@ -339,45 +351,53 @@ export const GitRoots: React.FC<IGitRootsProps> = ({
     [t]
   );
 
-  const envDataset: Record<string, unknown>[] = Object.entries(
-    rootsGroupedByEnvs
-  ).map(
-    ([environmentUrl, repositoryUrls]): Record<string, unknown> => ({
-      environmentUrl,
-      repositoryUrls,
-    })
+  const envDataset = useMemo(
+    (): Record<string, unknown>[] =>
+      Object.entries(rootsGroupedByEnvs).map(
+        ([environmentUrl, repositoryUrls]): Record<string, unknown> => ({
+          environmentUrl,
+          repositoryUrls,
+        })
+      ),
+    [rootsGroupedByEnvs]
   );
-  const envUrlsDataSet: {
-    createdAt: Date | null;
-    id: string;
-    url: string;
-    repositoryUrls: string[];
-  }[] = roots
-    .filter(
-      (root): boolean =>
-        root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
-    )
-    .map((root): IEnvironmentUrl[] => root.gitEnvironmentUrls)
-    .flatMap((envUrls): IEnvironmentUrl[] => envUrls)
-    .filter(
-      (envUrl, index, envUrls): boolean =>
-        envUrls.findIndex((env): boolean => env.url === envUrl.url) === index
-    )
-    .map(
-      (
-        envUrl
-      ): {
-        createdAt: Date | null;
-        id: string;
-        url: string;
-        repositoryUrls: string[];
-      } => {
-        return {
-          ...envUrl,
-          repositoryUrls: rootsGroupedByEnvs[envUrl.url],
-        };
-      }
-    );
+
+  const envUrlsDataSet = useMemo(
+    (): {
+      createdAt: Date | null;
+      id: string;
+      url: string;
+      repositoryUrls: string[];
+    }[] =>
+      roots
+        .filter(
+          (root): boolean =>
+            root.state === "ACTIVE" && root.gitEnvironmentUrls.length > 0
+        )
+        .map((root): IEnvironmentUrl[] => root.gitEnvironmentUrls)
+        .flatMap((envUrls): IEnvironmentUrl[] => envUrls)
+        .filter(
+          (envUrl, index, envUrls): boolean =>
+            envUrls.findIndex((env): boolean => env.url === envUrl.url) ===
+            index
+        )
+        .map(
+          (
+            envUrl
+          ): {
+            createdAt: Date | null;
+            id: string;
+            url: string;
+            repositoryUrls: string[];
+          } => {
+            return {
+              ...envUrl,
+              repositoryUrls: rootsGroupedByEnvs[envUrl.url],
+            };
+          }
+        ),
+    [roots, rootsGroupedByEnvs]
+  );
 
   const handleRowExpand = useCallback(
     (row: Row<IGitRootData>): JSX.Element => {

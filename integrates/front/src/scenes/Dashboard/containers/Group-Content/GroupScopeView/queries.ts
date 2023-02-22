@@ -62,6 +62,7 @@ const GET_ROOT: DocumentNode = gql`
   query GetRoot($groupName: String!, $rootId: ID!) {
     root(groupName: $groupName, rootId: $rootId) {
       ... on GitRoot {
+        id
         secrets {
           description
           key
