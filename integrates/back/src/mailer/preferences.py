@@ -21,13 +21,13 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     add_repositories=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     add_stakeholders=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
@@ -45,7 +45,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     consulting_digest=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
@@ -63,13 +63,13 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     delete_finding=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     deprecation_notice=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
@@ -81,13 +81,13 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     devsecops_agent_token=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     environment_report=dict(
         email_preferences=Notification.ROOT_UPDATE,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={"customer_manager", "resourcer", "user_manager"}, org={}
@@ -101,7 +101,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     file_report=dict(
         email_preferences=Notification.FILE_UPDATE,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={
@@ -151,31 +151,31 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     new_comment=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     new_draft=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     new_enrolled=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     numerator_digest=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     portfolio_report=dict(
         email_preferences=Notification.PORTFOLIO_UPDATE,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={"customer_manager", "resourcer", "user_manager"}, org={}
@@ -189,7 +189,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     reminder=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
@@ -211,7 +211,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     root_credential_report=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
@@ -269,13 +269,13 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     unsubmitted_draft=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     updated_group_info=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={"customer_manager", "resourcer", "user_manager"}, org={}
@@ -283,13 +283,13 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     updated_policies=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),
     updated_root=dict(
         email_preferences=Notification.ROOT_UPDATE,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={"customer_manager", "resourcer", "user_manager"}, org={}
@@ -297,7 +297,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     updated_services=dict(
         email_preferences=Notification.SERVICE_UPDATE,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(
             group={"customer_manager", "resourcer", "user_manager"}, org={}
@@ -351,7 +351,7 @@ MAIL_PREFERENCES: Dict[str, Dict[str, Any]] = dict(
     ),
     vulnerability_rejection=dict(
         email_preferences=Notification.GROUP_INFORMATION,
-        exclude_trial=False,
+        exclude_trial=True,
         only_fluid_staff=False,
         roles=dict(group={}, org={}),
     ),

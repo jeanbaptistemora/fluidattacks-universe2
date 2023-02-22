@@ -59,7 +59,7 @@ async def test_get_available_notifications(
     [
         [
             "unittesting",
-            "updated_group_info",
+            "user_unsubscribed",
         ],
     ],
 )
