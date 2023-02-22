@@ -227,6 +227,19 @@ def jwt_insecure_sign(graph: Graph, method: MethodsEnum) -> list[NId]:
     return vuln_nodes
 
 
+def jwt_insec_sign_async(graph: Graph, method: MethodsEnum) -> list[NId]:
+    vuln_nodes: list[NId] = []
+    if imported_name := get_default_alias(graph, "jose"):
+        for n_id in g.matching_nodes(
+            graph,
+            label_type="PLACEHOLDER",
+            expression=f"{imported_name}.placeholder",
+        ):
+            if vuln_node := get_danger_n_id(graph, n_id, method):
+                vuln_nodes.append(vuln_node)
+    return vuln_nodes
+
+
 def get_insec_auth_default_import(graph: Graph) -> tuple[NId, ...]:
     def match_predicate(node: dict[str, str]) -> bool:
         if (

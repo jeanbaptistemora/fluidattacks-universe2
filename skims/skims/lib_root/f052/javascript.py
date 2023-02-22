@@ -10,6 +10,7 @@ from lib_root.f052.common import (
     insecure_hash,
     insecure_hash_library,
     insecure_rsa_keypair,
+    jwt_insec_sign_async,
     jwt_insecure_sign,
 )
 from model.core_model import (
@@ -203,6 +204,30 @@ def javascript_jwt_insec_sign_algorithm(
             graph = shard.syntax_graph
 
             for n_id in jwt_insecure_sign(graph, method):
+                yield shard, n_id
+
+    return get_vulnerabilities_from_n_ids(
+        desc_key="lib_root.f052.jwt_insecure_signing_algorithm",
+        desc_params={},
+        graph_shard_nodes=n_ids(),
+        method=method,
+    )
+
+
+def javascript_jwt_insec_sign_algo_async(
+    graph_db: GraphDB,
+) -> Vulnerabilities:
+    method = MethodsEnum.JS_JWT_INSEC_SIGN_ALGO_ASYNC
+
+    def n_ids() -> Iterator[GraphShardNode]:
+        for shard in graph_db.shards_by_language(
+            GraphShardMetadataLanguage.JAVASCRIPT,
+        ):
+            if shard.syntax_graph is None:
+                continue
+            graph = shard.syntax_graph
+
+            for n_id in jwt_insec_sign_async(graph, method):
                 yield shard, n_id
 
     return get_vulnerabilities_from_n_ids(

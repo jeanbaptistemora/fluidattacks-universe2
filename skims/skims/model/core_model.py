@@ -6103,6 +6103,22 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.LUIS_PATINO,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    JS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
+        file_name="javascript",
+        name="javascript_jwt_insec_sign_algo_async",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
+    TS_JWT_INSEC_SIGN_ALGO_ASYNC = MethodInfo(
+        file_name="typescript",
+        name="typescript_jwt_insec_sign_algo_async",
+        module="lib_root",
+        finding=FindingEnum.F052,
+        developer=DeveloperEnum.LUIS_PATINO,
+        technique=TechniqueEnum.ADVANCE_SAST,
+    )
     JS_INSEC_MSG_AUTH_MECHANISM = MethodInfo(
         file_name="javascript",
         name="javascript_insec_msg_auth_mechanism",
