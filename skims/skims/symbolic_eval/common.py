@@ -19,8 +19,9 @@ JS_TS_HTTP_INPUTS: set[str] = {
 
 
 PYTHON_INPUTS: set[str] = {
-    "request.GET",
-    "req.GET",
+    "request.GET.get",
+    "request.args.get",
+    "request.files",
 }
 
 
@@ -53,6 +54,8 @@ def check_js_ts_http_inputs(args: SymbolicEvalArgs) -> bool:
 
 
 def check_python_inputs(args: SymbolicEvalArgs) -> bool:
-    ma_attr = args.graph.nodes[args.n_id]
-    member_access = f'{ma_attr["expression"]}.{ma_attr["member"]}'
+    n_attrs = args.graph.nodes[args.n_id]
+    if n_attrs["label_type"] != "MemberAccess":
+        return False
+    member_access = f'{n_attrs["expression"]}.{n_attrs["member"]}'
     return member_access in PYTHON_INPUTS

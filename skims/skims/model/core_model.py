@@ -4285,6 +4285,14 @@ class MethodsEnum(Enum):
         developer=DeveloperEnum.JUAN_ECHEVERRI,
         technique=TechniqueEnum.ADVANCE_SAST,
     )
+    PYTHON_DESERIALIZATION_INJECTION = MethodInfo(
+        file_name="python",
+        name="python_deserialization_injection",
+        module="lib_root",
+        finding=FindingEnum.F096,
+        developer=DeveloperEnum.FABIO_LAGOS,
+        technique=TechniqueEnum.BASIC_SAST,
+    )
     HTML_HAS_REVERSE_TABNABBING = MethodInfo(
         file_name="html",
         name="html_has_reverse_tabnabbing",

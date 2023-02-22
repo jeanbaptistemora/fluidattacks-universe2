@@ -71,6 +71,54 @@ F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_xmlserializer.cs,19,5
   25 |
      ^ Col 9
 ",c_sharp.c_sharp_check_xml_serializer
+F096,lines,namespace/skims/test/data/lib_root/f096/python_deserialization_injection.py,14,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/python_deserialization_injection.py,"
+   4 |     yaml,
+   5 | )
+   6 | from typing import (
+   7 |     Any,
+   8 | )
+   9 |
+  10 |
+  11 | def unsafe_loads(request: Any) -> None:
+  12 |     file_to_load = request.files[""pickle""]
+  13 |     # Noncompliant: Using pickle module to deserialize user inputs
+> 14 |     pickle.load(file_to_load)
+  15 |     data = request.GET.get(""data"")
+  16 |     # Noncompliant: Using yaml.load with unsafe yaml.Loader
+  17 |     yaml.load(data, Loader=yaml.Loader)
+  18 |
+  19 |
+  20 | def safe_loads(request: Any, some_data: Any) -> None:
+  21 |     data = request.GET.get(""data"")
+  22 |     # Compliant:  Using yaml.load with the default safe loader
+  23 |     yaml.load(data)
+  24 |     # Non-deterministic: The data is not a user param
+     ^ Col 0
+",python.python_deserialization_injection
+F096,lines,namespace/skims/test/data/lib_root/f096/python_deserialization_injection.py,17,502,skims,096. Insecure deserialization,The way it's deserializing is insecure in namespace/skims/test/data/lib_root/f096/python_deserialization_injection.py,"
+   6 | from typing import (
+   7 |     Any,
+   8 | )
+   9 |
+  10 |
+  11 | def unsafe_loads(request: Any) -> None:
+  12 |     file_to_load = request.files[""pickle""]
+  13 |     # Noncompliant: Using pickle module to deserialize user inputs
+  14 |     pickle.load(file_to_load)
+  15 |     data = request.GET.get(""data"")
+  16 |     # Noncompliant: Using yaml.load with unsafe yaml.Loader
+> 17 |     yaml.load(data, Loader=yaml.Loader)
+  18 |
+  19 |
+  20 | def safe_loads(request: Any, some_data: Any) -> None:
+  21 |     data = request.GET.get(""data"")
+  22 |     # Compliant:  Using yaml.load with the default safe loader
+  23 |     yaml.load(data)
+  24 |     # Non-deterministic: The data is not a user param
+  25 |     yaml.load(some_data, Loader=yaml.Loader)
+  26 |     pickle.load(some_data)
+     ^ Col 0
+",python.python_deserialization_injection
 F096,lines,namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs,7,502,skims,096. Insecure deserialization,"A JavaScriptSerializer deserialization method was called or referenced after initializing with a SimpleTypeResolver.
  in namespace/skims/test/data/lib_root/f096/c_sharp_js_deserialization.cs","
    1 | g System.Web.Script.Serialization;
