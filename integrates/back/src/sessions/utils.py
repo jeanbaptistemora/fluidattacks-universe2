@@ -3,6 +3,8 @@ from context import (
     FI_JWT_ENCRYPTION_KEY,
     FI_JWT_SECRET,
     FI_JWT_SECRET_API,
+    FI_JWT_SECRET_API_RS512,
+    FI_JWT_SECRET_RS512,
 )
 from cryptography.exceptions import (
     InvalidKey,
@@ -73,12 +75,20 @@ def get_secret(jwt_token: JWT) -> str:
     """Returns the secret needed to decrypt JWE"""
     # pylint: disable=protected-access
     payload = jwt_token._token.objects["payload"]
+    protected = jwt_token._token.objects["protected"]
     deserialized_payload = json.loads(payload.decode("utf-8"))
+    alg = json.loads(protected).get("alg")
     sub = deserialized_payload.get("sub")
 
     # Old token check
     if sub is None:
         sub = decode_jwe(payload).get("sub")
+
+    if alg == "RS512":
+
+        if sub == "api_token":
+            return FI_JWT_SECRET_API_RS512
+        return FI_JWT_SECRET_RS512
 
     if sub == "api_token":
         return FI_JWT_SECRET_API

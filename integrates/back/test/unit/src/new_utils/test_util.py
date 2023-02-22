@@ -10,8 +10,8 @@ from collections import (
     defaultdict,
 )
 from context import (
-    FI_JWT_SECRET,
-    FI_JWT_SECRET_API,
+    FI_JWT_SECRET_API_RS512,
+    FI_JWT_SECRET_RS512,
 )
 from custom_exceptions import (
     ExpiredToken,
@@ -110,7 +110,7 @@ def test_get_secret_session_token() -> None:
         subject="starlette_session",
     )
     secret = sessions_utils.get_secret(JWT(jwt=token))
-    assert secret == FI_JWT_SECRET
+    assert secret == FI_JWT_SECRET_RS512
 
 
 def test_get_secret_api_token() -> None:
@@ -128,7 +128,7 @@ def test_get_secret_api_token() -> None:
         subject="api_token",
     )
     secret = sessions_utils.get_secret(JWT(jwt=token))
-    assert secret == FI_JWT_SECRET_API
+    assert secret == FI_JWT_SECRET_API_RS512
 
 
 def test_decode_jwe() -> None:

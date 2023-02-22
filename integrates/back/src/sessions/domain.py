@@ -7,8 +7,8 @@ from botocore.exceptions import (
 import collections
 from context import (
     FI_JWT_ENCRYPTION_KEY,
-    FI_JWT_SECRET,
-    FI_JWT_SECRET_API,
+    FI_JWT_SECRET_API_RS512,
+    FI_JWT_SECRET_RS512,
 )
 from contextlib import (
     suppress,
@@ -89,12 +89,12 @@ def encode_token(
     api: bool = False,
 ) -> str:
     """Encrypts the payload into a jwe token and returns its encoded version"""
-    secret = FI_JWT_SECRET_API if api else FI_JWT_SECRET
+    secret = FI_JWT_SECRET_API_RS512 if api else FI_JWT_SECRET_RS512
     jws_key = JWK.from_json(secret)
     jwe_key = JWK.from_json(FI_JWT_ENCRYPTION_KEY)
-    default_claims = dict(exp=expiration_time, sub=subject)
+    default_claims1 = dict(exp=expiration_time, sub=subject)
     jwt_object = JWT(
-        default_claims=default_claims,
+        default_claims=default_claims1,
         claims=JWE(
             algs=[
                 "A256GCM",
@@ -107,7 +107,7 @@ def encode_token(
             },
             recipient=jwe_key,
         ).serialize(),
-        header={"alg": "HS512"},
+        header={"alg": "RS512"},
     )
     jwt_object.make_signed_token(jws_key)
 

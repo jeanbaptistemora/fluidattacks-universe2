@@ -59,6 +59,8 @@ try:
     FI_JWT_ENCRYPTION_KEY = os.environ["JWT_ENCRYPTION_KEY"]
     FI_JWT_SECRET = os.environ["JWT_SECRET"]
     FI_JWT_SECRET_API = os.environ["JWT_SECRET_API"]
+    FI_JWT_SECRET_RS512 = os.environ["JWT_SECRET_HS512"]
+    FI_JWT_SECRET_API_RS512 = os.environ["JWT_SECRET_API_RS512"]
     FI_MAIL_CONTINUOUS = os.environ["MAIL_CONTINUOUS"]
     FI_MAIL_COS = os.environ["MAIL_COS"]
     FI_MAIL_CTO = os.environ["MAIL_CTO"]
