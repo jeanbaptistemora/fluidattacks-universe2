@@ -8,14 +8,14 @@ from .policy import (
     get_group_service_policies,
     get_user_level_role,
 )
+from collections.abc import (
+    Callable,
+)
 from dataloaders import (
     Dataloaders,
 )
 from db_model.groups.types import (
     Group,
-)
-from typing import (
-    Callable,
 )
 
 

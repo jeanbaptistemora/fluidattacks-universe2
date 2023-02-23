@@ -65,9 +65,6 @@ from settings import (
     LOGGING,
 )
 import tempfile
-from typing import (
-    Optional,
-)
 from vulnerabilities.domain import (
     get_vulnerabilities,
 )
@@ -110,7 +107,7 @@ def _rebase_vulnerability(
     repo: Repo,
     vulnerability: Vulnerability,
     states: tuple[VulnerabilityState, ...],
-) -> Optional[git_utils.RebaseResult]:
+) -> git_utils.RebaseResult | None:
     try:
         if (
             states[0].commit
@@ -210,7 +207,7 @@ async def rebase_root(
     )
     with ThreadPoolExecutor(max_workers=8) as executor:
         all_rebase: tuple[
-            tuple[Optional[git_utils.RebaseResult], Vulnerability], ...
+            tuple[git_utils.RebaseResult | None, Vulnerability], ...
         ] = tuple(
             executor.map(
                 lambda vuln: (

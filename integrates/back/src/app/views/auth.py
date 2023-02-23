@@ -61,9 +61,6 @@ from starlette.responses import (
     RedirectResponse,
     Response,
 )
-from typing import (
-    Dict,
-)
 import uuid
 
 LOGGER = logging.getLogger(__name__)
@@ -240,7 +237,7 @@ async def complete_register(
 
 
 async def handle_user(
-    request: Request, response: HTMLResponse, user: Dict[str, str]
+    request: Request, response: HTMLResponse, user: dict[str, str]
 ) -> None:
     user_info: UserAccessInfo = sessions_utils.format_user_access_info(user)
     session_key = str(uuid.uuid4())

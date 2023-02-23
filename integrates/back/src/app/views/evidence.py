@@ -3,6 +3,9 @@
 
 import aiohttp
 import authz
+from collections.abc import (
+    Sequence,
+)
 from dataloaders import (
     Dataloaders,
     get_new_context,
@@ -37,10 +40,6 @@ from starlette.requests import (
 from starlette.responses import (
     JSONResponse,
     Response,
-)
-from typing import (
-    List,
-    Sequence,
 )
 
 download_evidence_file = retry_on_exceptions(
@@ -140,7 +139,7 @@ async def get_evidence(  # pylint: disable=too-many-locals
         )
 
 
-async def list_s3_evidences(prefix: str) -> List[str]:
+async def list_s3_evidences(prefix: str) -> list[str]:
     return list(await list_files(prefix))
 
 

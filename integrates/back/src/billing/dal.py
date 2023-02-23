@@ -45,9 +45,6 @@ from starlette.requests import (
 import stripe
 from typing import (
     Any,
-    Dict,
-    List,
-    Optional,
 )
 
 stripe.api_key = FI_STRIPE_API_KEY
@@ -85,7 +82,7 @@ async def _get_billing_buffer(*, date: datetime, group: str) -> io.BytesIO:
 
 async def _pay_squad_authors_to_date(
     *,
-    prices: Dict[str, Price],
+    prices: dict[str, Price],
     subscription: Subscription,
 ) -> bool:
     """Pay squad authors to date"""
@@ -220,7 +217,7 @@ async def create_subscription(
     return sub.status in ("active", "trialing")
 
 
-async def get_prices() -> Dict[str, Price]:
+async def get_prices() -> dict[str, Price]:
     """Get model prices"""
     data = stripe.Price.list(
         lookup_keys=[
@@ -245,9 +242,9 @@ async def get_group_subscriptions(
     group_name: str,
     org_billing_customer: str,
     status: str = "",
-) -> List[Subscription]:
+) -> list[Subscription]:
     """Return subscriptions for a group"""
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "customer": org_billing_customer,
         "limit": 1000,
     }
@@ -282,7 +279,7 @@ async def get_customer(
         org_billing_customer,
     )
 
-    address: Optional[Address] = None
+    address: Address | None = None
     if data["address"] is not None:
         address = Address(
             line_1=data["address"]["line1"],
@@ -293,9 +290,9 @@ async def get_customer(
             postal_code=data["address"]["postal_code"],
         )
 
-    default_payment_method: Optional[
-        str
-    ] = data.invoice_settings.default_payment_method
+    default_payment_method: (
+        str | None
+    ) = data.invoice_settings.default_payment_method
 
     return Customer(
         id=data["id"],
@@ -312,9 +309,9 @@ async def get_customer_subscriptions(
     org_billing_customer: str,
     limit: int = 1000,
     status: str = "",
-) -> List[Subscription]:
+) -> list[Subscription]:
     """Return subscriptions for a customer"""
-    data: Dict[str, Any] = {
+    data: dict[str, Any] = {
         "customer": org_billing_customer,
         "limit": limit,
     }
@@ -340,7 +337,7 @@ async def get_customer_subscriptions(
 
 async def get_customer_payment_methods(
     *, org_billing_customer: str, limit: int = 100
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     """Return list of customer's payment methods"""
     return stripe.Customer.list_payment_methods(
         org_billing_customer,
@@ -383,7 +380,7 @@ async def update_payment_method(
 async def update_default_payment_method(
     *,
     payment_method_id: str,
-    org_billing_customer: Optional[str],
+    org_billing_customer: str | None,
 ) -> bool:
     """Make a payment method default for a customer"""
     data = stripe.Customer.modify(
@@ -445,8 +442,8 @@ async def update_subscription(
     upgrade: bool,
 ) -> bool:
     """Upgrade or downgrade a subscription"""
-    prices: Dict[str, Price] = await get_prices()
-    data: Dict[str, Any] = {
+    prices: dict[str, Price] = await get_prices()
+    data: dict[str, Any] = {
         "items": [],
         "metadata": {"subscription": ""},
     }

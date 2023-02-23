@@ -42,9 +42,6 @@ from toe.ports import (
 from toe.ports.types import (
     ToePortAttributesToUpdate,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -211,7 +208,7 @@ async def refresh_inactive_root_toe_ports(
     ),
 )
 async def refresh_root_toe_ports(
-    group_name: str, optional_repo_nickname: Optional[str], modified_by: str
+    group_name: str, optional_repo_nickname: str | None, modified_by: str
 ) -> None:
     loaders = get_new_context()
     roots = await loaders.group_roots.load(group_name)
@@ -260,7 +257,7 @@ async def refresh_root_toe_ports(
 async def refresh_toe_ports(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
     modified_by: str = item.subject
-    optional_repo_nickname: Optional[str] = (
+    optional_repo_nickname: str | None = (
         None if item.additional_info == "*" else item.additional_info
     )
     await refresh_root_toe_ports(

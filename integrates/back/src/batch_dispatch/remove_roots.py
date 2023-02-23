@@ -5,14 +5,11 @@ import asyncio
 from batch.types import (
     BatchProcessing,
 )
-from typing import (
-    List,
-)
 
 
 async def remove_roots(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    root_nicknames: List[str] = item.additional_info.split(",")
+    root_nicknames: list[str] = item.additional_info.split(",")
     bucket_path: str = "integrates/continuous-repositories"
     await collect(
         [

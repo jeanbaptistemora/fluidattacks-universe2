@@ -46,7 +46,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -70,17 +69,17 @@ async def get_report(  # NOSONAR # pylint: disable=too-many-locals
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
 ) -> str:
-    report_file_name: Optional[str] = None
+    report_file_name: str | None = None
     try:
         report_file_name = await reports_domain.get_group_report_url(
             report_type=report_type,
@@ -127,14 +126,14 @@ async def send_report(  # NOSONAR # pylint: disable=too-many-locals
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
 ) -> None:
     loaders = get_new_context()
@@ -182,7 +181,7 @@ async def send_report(  # NOSONAR # pylint: disable=too-many-locals
         )
 
 
-def _get_filter_message(value: Optional[Any], text: str) -> str:
+def _get_filter_message(value: Any | None, text: str) -> str:
     if value is not None:
         return text
 
@@ -195,14 +194,14 @@ def get_filter_message(
     states: set[VulnerabilityStateStatus],
     treatments: set[VulnerabilityTreatmentStatus],
     verifications: set[VulnerabilityVerificationStatus],
-    closing_date: Optional[datetime],
+    closing_date: datetime | None,
     finding_title: str,
-    age: Optional[int],
-    min_severity: Optional[Decimal],
-    max_severity: Optional[Decimal],
-    last_report: Optional[int],
-    min_release_date: Optional[datetime],
-    max_release_date: Optional[datetime],
+    age: int | None,
+    min_severity: Decimal | None,
+    max_severity: Decimal | None,
+    last_report: int | None,
+    min_release_date: datetime | None,
+    max_release_date: datetime | None,
     location: str,
 ) -> str:
     if closing_date:
@@ -285,7 +284,7 @@ async def report(  # pylint: disable=too-many-locals
         VulnerabilityVerificationStatus[verification]
         for verification in additional_info["verifications"]
     }
-    closing_date: Optional[datetime] = (
+    closing_date: datetime | None = (
         datetime.fromisoformat(
             str(additional_info["closing_date"])
         ).astimezone(tz=timezone.utc)
@@ -293,26 +292,26 @@ async def report(  # pylint: disable=too-many-locals
         else None
     )
     finding_title: str = additional_info.get("finding_title", "")
-    age: Optional[int] = additional_info.get("age", None)
-    min_severity: Optional[Decimal] = (
+    age: int | None = additional_info.get("age", None)
+    min_severity: Decimal | None = (
         Decimal(additional_info["min_severity"]).quantize(Decimal("0.1"))
         if additional_info.get("min_severity", None) is not None
         else None
     )
-    max_severity: Optional[Decimal] = (
+    max_severity: Decimal | None = (
         Decimal(additional_info["max_severity"]).quantize(Decimal("0.1"))
         if additional_info.get("max_severity", None) is not None
         else None
     )
-    last_report: Optional[int] = additional_info.get("last_report", None)
-    min_release_date: Optional[datetime] = (
+    last_report: int | None = additional_info.get("last_report", None)
+    min_release_date: datetime | None = (
         datetime.fromisoformat(
             str(additional_info.get("min_release_date"))
         ).astimezone(tz=timezone.utc)
         if additional_info.get("min_release_date") is not None
         else None
     )
-    max_release_date: Optional[datetime] = (
+    max_release_date: datetime | None = (
         datetime.fromisoformat(
             str(additional_info["max_release_date"])
         ).astimezone(tz=timezone.utc)

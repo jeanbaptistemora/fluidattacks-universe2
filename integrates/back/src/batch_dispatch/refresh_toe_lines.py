@@ -70,12 +70,6 @@ from toe.lines.types import (
     ToeLinesAttributesToAdd,
     ToeLinesAttributesToUpdate,
 )
-from typing import (
-    Dict,
-    Optional,
-    Set,
-    Tuple,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -105,7 +99,7 @@ git_get_last_commit_info = retry_on_exceptions(
 )(git_utils.get_last_commit_info)
 
 
-async def get_present_filenames(repo: Repo, repo_nickname: str) -> Set[str]:
+async def get_present_filenames(repo: Repo, repo_nickname: str) -> set[str]:
     LOGGER.info(
         "Getting present filenames",
         extra={
@@ -138,11 +132,11 @@ async def get_present_filenames(repo: Repo, repo_nickname: str) -> Set[str]:
 
 
 async def get_present_toe_lines_to_add(
-    present_filenames: Set[str],
+    present_filenames: set[str],
     repo: Repo,
     repo_nickname: str,
-    repo_toe_lines: Dict[str, ToeLines],
-) -> Tuple[Tuple[str, ToeLinesAttributesToAdd], ...]:
+    repo_toe_lines: dict[str, ToeLines],
+) -> tuple[tuple[str, ToeLinesAttributesToAdd], ...]:
     LOGGER.info(
         "Getting present toe lines to add",
         extra={
@@ -192,11 +186,11 @@ async def get_present_toe_lines_to_add(
 
 
 async def get_present_toe_lines_to_update(
-    present_filenames: Set[str],
+    present_filenames: set[str],
     repo: Repo,
     repo_nickname: str,
-    repo_toe_lines: Dict[str, ToeLines],
-) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    repo_toe_lines: dict[str, ToeLines],
+) -> tuple[tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting present toe lines to update",
         extra={
@@ -258,10 +252,10 @@ async def get_present_toe_lines_to_update(
 
 
 def get_non_present_toe_lines_to_update(
-    present_filenames: Set[str],
+    present_filenames: set[str],
     repo_nickname: str,
-    repo_toe_lines: Dict[str, ToeLines],
-) -> Tuple[Tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
+    repo_toe_lines: dict[str, ToeLines],
+) -> tuple[tuple[ToeLines, ToeLinesAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting non present toe lines to update",
         extra={
@@ -430,7 +424,7 @@ async def refresh_inactive_root_repo_toe_lines(
             RootToeLinesRequest(group_name=group_name, root_id=root_repo.id)
         )
     }
-    present_filenames: Set[str] = set()
+    present_filenames: set[str] = set()
     non_present_toe_lines_to_update = get_non_present_toe_lines_to_update(
         present_filenames,
         root_repo.state.nickname,
@@ -462,7 +456,7 @@ async def refresh_inactive_root_repo_toe_lines(
     max_attempts=3,
 )
 async def refresh_root_repo_toe_lines(
-    group_name: str, optional_repo_nickname: Optional[str]
+    group_name: str, optional_repo_nickname: str | None
 ) -> None:
     loaders = get_new_context()
     roots = await loaders.group_roots.load(group_name)
@@ -512,7 +506,7 @@ async def refresh_root_repo_toe_lines(
 
 async def refresh_toe_lines(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    optional_repo_nickname: Optional[str] = (
+    optional_repo_nickname: str | None = (
         None if item.additional_info == "*" else item.additional_info
     )
 

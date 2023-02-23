@@ -9,7 +9,6 @@ from datetime import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -21,7 +20,7 @@ class BatchProcessing(NamedTuple):
     time: str
     additional_info: str
     queue: str
-    batch_job_id: Optional[str] = None
+    batch_job_id: str | None = None
     retries: int = 0
     running: bool = False
 
@@ -32,17 +31,17 @@ class VulnerabilitiesSummary(NamedTuple):
 
 
 class Job(NamedTuple):
-    created_at: Optional[int]
-    exit_code: Optional[int]
-    exit_reason: Optional[str]
+    created_at: int | None
+    exit_code: int | None
+    exit_reason: str | None
     id: str
     name: str
     queue: str
-    started_at: Optional[int]
-    stopped_at: Optional[int]
+    started_at: int | None
+    stopped_at: int | None
     status: str
-    vulnerabilities: Optional[VulnerabilitiesSummary] = None
-    root_nickname: Optional[str] = None
+    vulnerabilities: VulnerabilitiesSummary | None = None
+    root_nickname: str | None = None
 
 
 class JobContainer(NamedTuple):
@@ -66,15 +65,15 @@ class JobPayload(NamedTuple):
 
 class CloneResult(NamedTuple):
     success: bool
-    commit: Optional[str] = None
-    commit_date: Optional[datetime] = None
-    message: Optional[str] = None
+    commit: str | None = None
+    commit_date: datetime | None = None
+    message: str | None = None
 
 
 class PutActionResult(NamedTuple):
     success: bool
-    batch_job_id: Optional[str] = None
-    dynamo_pk: Optional[str] = None
+    batch_job_id: str | None = None
+    dynamo_pk: str | None = None
 
 
 class AttributesNoOverridden(CustomBaseException):

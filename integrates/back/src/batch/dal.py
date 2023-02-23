@@ -23,6 +23,9 @@ from boto3.dynamodb.conditions import (
 from botocore.exceptions import (
     ClientError,
 )
+from collections.abc import (
+    Callable,
+)
 from context import (
     CACHIX_AUTH_TOKEN,
     FI_AWS_REGION_NAME,
@@ -64,12 +67,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Callable,
-    Dict,
-    List,
-    Optional,
-    Tuple,
-    Union,
 )
 from urllib.parse import (
     urlparse,
@@ -102,13 +99,13 @@ class IntegratesBatchQueue(str, Enum):
 
 def to_queue(
     raw: str, fluid_product: Product
-) -> Union[IntegratesBatchQueue, SkimsBatchQueue]:
+) -> IntegratesBatchQueue | SkimsBatchQueue:
     if fluid_product is Product.INTEGRATES:
         return IntegratesBatchQueue(raw.lower())
     return SkimsBatchQueue(raw.lower())
 
 
-def mapping_to_key(items: List[str]) -> str:
+def mapping_to_key(items: list[str]) -> str:
     key = ".".join(
         [safe_encode(attribute_value) for attribute_value in sorted(items)]
     )
@@ -116,11 +113,11 @@ def mapping_to_key(items: List[str]) -> str:
 
 
 async def list_queues_jobs(
-    queues: List[IntegratesBatchQueue],
-    statuses: List[JobStatus],
+    queues: list[IntegratesBatchQueue],
+    statuses: list[JobStatus],
     *,
-    filters: Tuple[Callable[[Job], bool], ...] = (),
-) -> List[Job]:
+    filters: tuple[Callable[[Job], bool], ...] = (),
+) -> list[Job]:
     if FI_ENVIRONMENT == "development":
         return []
     return list(
@@ -151,9 +148,9 @@ def _get_signature_key(
 
 async def list_jobs(  # pylint: disable=too-many-locals
     queue: IntegratesBatchQueue,
-    next_token: Optional[str] = None,
+    next_token: str | None = None,
     **kwargs: Any,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     service = "batch"
     session = boto3.Session()
     credentials = session.get_credentials()
@@ -273,7 +270,7 @@ async def list_jobs(  # pylint: disable=too-many-locals
     return {}
 
 
-async def _get_all_jobs(**kwargs: Any) -> List[Dict[str, Any]]:
+async def _get_all_jobs(**kwargs: Any) -> list[dict[str, Any]]:
     _response = await list_jobs(**kwargs)
     for _job in _response["jobSummaryList"]:
         _job["jobQueue"] = kwargs.get("queue")
@@ -288,7 +285,7 @@ async def _get_all_jobs(**kwargs: Any) -> List[Dict[str, Any]]:
 
 async def list_jobs_by_group(
     queue: IntegratesBatchQueue, group: str
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     return await _get_all_jobs(
         queue=queue,
         filters=[
@@ -299,21 +296,21 @@ async def list_jobs_by_group(
 
 async def list_jobs_by_status(
     queue: IntegratesBatchQueue, status: str
-) -> List[Dict[str, Any]]:
+) -> list[dict[str, Any]]:
     return await _get_all_jobs(queue=queue, jobStatus=status)
 
 
 async def list_log_streams(
     group: str, *job_ids: str
-) -> List[Dict[str, Union[str, int]]]:
+) -> list[dict[str, str | int]]:
     options = OPTIONS.copy()
     options.update({"service_name": "logs"})
 
     async with aioboto3.Session().client(**options) as cloudwatch:
 
         async def _request(
-            _job_id: Optional[str] = None, next_token: Optional[str] = None
-        ) -> List[Dict[str, Any]]:
+            _job_id: str | None = None, next_token: str | None = None
+        ) -> list[dict[str, Any]]:
             _response = await cloudwatch.describe_log_streams(
                 logGroupName="skims",
                 logStreamNamePrefix=f"{group}/{_job_id}/"
@@ -321,7 +318,7 @@ async def list_log_streams(
                 else f"{group}/",
                 **({"nextToken": next_token} if next_token else {}),
             )
-            result: List[Dict[str, Any]] = _response["logStreams"]
+            result: list[dict[str, Any]] = _response["logStreams"]
 
             if _next_token := _response.get("nextToken"):
                 result.extend(await _request(_job_id, next_token=_next_token))
@@ -336,7 +333,7 @@ async def list_log_streams(
         return await _request()
 
 
-async def describe_jobs(*job_ids: str) -> Tuple[Dict[str, Any], ...]:
+async def describe_jobs(*job_ids: str) -> tuple[dict[str, Any], ...]:
     if not job_ids:
         return ()
 
@@ -360,12 +357,12 @@ async def _list_queue_jobs(
     queue: IntegratesBatchQueue,
     status: JobStatus,
     *,
-    filters: Tuple[Callable[[Job], bool], ...],
-) -> List[Job]:
+    filters: tuple[Callable[[Job], bool], ...],
+) -> list[Job]:
     client = boto3.client("batch")
-    results: List[Job] = []
+    results: list[Job] = []
 
-    async def _request(next_token: Optional[str] = None) -> Optional[str]:
+    async def _request(next_token: str | None = None) -> str | None:
         response = await in_thread(
             client.list_jobs,
             jobQueue=queue.value,
@@ -399,12 +396,12 @@ async def _list_queue_jobs(
 
 async def delete_action(
     *,
-    action_name: Optional[str] = None,
-    additional_info: Optional[str] = None,
-    entity: Optional[str] = None,
-    subject: Optional[str] = None,
-    time: Optional[str] = None,
-    dynamodb_pk: Optional[str] = None,
+    action_name: str | None = None,
+    additional_info: str | None = None,
+    entity: str | None = None,
+    subject: str | None = None,
+    time: str | None = None,
+    dynamodb_pk: str | None = None,
 ) -> bool:
     try:
         if not dynamodb_pk and any(
@@ -450,7 +447,7 @@ async def is_action_by_key(*, key: str) -> bool:
 async def get_action(
     *,
     action_dynamo_pk: str,
-) -> Optional[BatchProcessing]:
+) -> BatchProcessing | None:
     query_attrs = dict(KeyConditionExpression=Key("pk").eq(action_dynamo_pk))
     response_items = await dynamodb_ops.query(TABLE_NAME, query_attrs)
     if not response_items:
@@ -473,7 +470,7 @@ async def get_action(
 
 async def get_actions_by_name(
     action_name: str, entity: str
-) -> Tuple[BatchProcessing, ...]:
+) -> tuple[BatchProcessing, ...]:
     query_attrs = {
         "IndexName": "gsi-1",
         "KeyConditionExpression": (
@@ -499,7 +496,7 @@ async def get_actions_by_name(
     )
 
 
-async def get_actions() -> List[BatchProcessing]:
+async def get_actions() -> list[BatchProcessing]:
     items = await dynamodb_ops.scan(table=TABLE_NAME, scan_attrs={})
 
     return [
@@ -543,10 +540,10 @@ async def put_action_to_dynamodb(
     subject: str,
     time: str,
     additional_info: str,
-    queue: Union[IntegratesBatchQueue, SkimsBatchQueue],
-    batch_job_id: Optional[str] = None,
-    key: Optional[str] = None,
-) -> Optional[str]:
+    queue: IntegratesBatchQueue | SkimsBatchQueue,
+    batch_job_id: str | None = None,
+    key: str | None = None,
+) -> str | None:
     try:
         key = key or generate_key_to_dynamod(
             action_name=action_name,
@@ -629,12 +626,12 @@ async def put_action_to_batch(
     action_dynamo_pk: str,
     entity: str,
     product_name: str,
-    queue: Union[IntegratesBatchQueue, SkimsBatchQueue],
+    queue: IntegratesBatchQueue | SkimsBatchQueue,
     attempt_duration_seconds: int = 3600,
     memory: int = 3800,
     vcpus: int = 2,
     **kwargs: Any,
-) -> Optional[str]:
+) -> str | None:
     if FI_ENVIRONMENT == "development":
         return None
     try:
@@ -740,9 +737,9 @@ async def put_action(
     entity: str,
     product_name: Product,
     subject: str,
-    queue: Union[IntegratesBatchQueue, SkimsBatchQueue],
+    queue: IntegratesBatchQueue | SkimsBatchQueue,
     attempt_duration_seconds: int = 3600,
-    dynamodb_pk: Optional[str] = None,
+    dynamodb_pk: str | None = None,
     vcpus: int = 2,
     **kwargs: Any,
 ) -> PutActionResult:

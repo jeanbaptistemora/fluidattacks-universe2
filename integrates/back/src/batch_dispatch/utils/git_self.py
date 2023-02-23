@@ -59,9 +59,6 @@ from settings.logger import (
 )
 import shutil
 import tempfile
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -80,7 +77,7 @@ async def _get_token(  # pylint: disable=too-many-return-statements
     *,
     credential: Credentials,
     loaders: Dataloaders,
-) -> Optional[str]:
+) -> str | None:
     if isinstance(credential.state.secret, OauthGitlabSecret):
         if credential.state.secret.valid_until <= get_utc_now():
             return await get_token(credential=credential, loaders=loaders)

@@ -124,10 +124,6 @@ from settings import (
     LOGGING,
 )
 import tempfile
-from typing import (
-    Optional,
-    Union,
-)
 from urllib3.util.url import (
     parse_url,
 )
@@ -627,9 +623,7 @@ async def update_organization_unreliable(  # pylint: disable=too-many-locals
     )
 
 
-def _get_id(
-    repository: Union[CredentialsGitRepository, OGitRepository]
-) -> str:
+def _get_id(repository: CredentialsGitRepository | OGitRepository) -> str:
     return hashlib.sha256(
         str(parse_url(repository.repository.web_url).url)
         .lower()
@@ -641,9 +635,7 @@ def __get_id(url: str) -> str:
     return hashlib.sha256(url.lower().encode("utf-8")).hexdigest()
 
 
-def _get_branch(
-    repository: Union[CredentialsGitRepository, OGitRepository]
-) -> str:
+def _get_branch(repository: CredentialsGitRepository | OGitRepository) -> str:
     return str(
         repository.repository.default_branch
         if repository.repository.default_branch is not None
@@ -694,7 +686,7 @@ async def _get_repository_count(
     *, repository: CredentialsGitRepository
 ) -> int:
     repo_stats: tuple[
-        Optional[GitRepositoryStats], ...
+        GitRepositoryStats | None, ...
     ] = await get_repositories_stats(
         repositories=tuple(
             [
@@ -828,7 +820,7 @@ async def _get_azure_credentials_tokens(
     if isinstance(credential.state.secret, OauthAzureSecret):
         token: str = credential.state.secret.access_token
         if credential.state.secret.valid_until <= get_utc_now():
-            updated_token: Optional[str] = await get_azure_token(
+            updated_token: str | None = await get_azure_token(
                 credential=credential,
                 loaders=loaders,
             )
@@ -841,7 +833,7 @@ async def _get_azure_credentials_tokens(
 
 async def _get_oauth_repository_count(*, repository: OGitRepository) -> int:
     repo_stats: tuple[
-        Optional[GitRepositoryStats], ...
+        GitRepositoryStats | None, ...
     ] = await get_oauth_repositories_stats(
         repositories=[
             GitRepositoryCommit(
@@ -985,7 +977,7 @@ async def _get_gitlab_credential_stats(
     get_all: bool = False,
 ) -> tuple[ProjectStats, ...]:
     if isinstance(credential.state.secret, OauthGitlabSecret):
-        token: Optional[str] = credential.state.secret.access_token
+        token: str | None = credential.state.secret.access_token
         if credential.state.secret.valid_until <= get_utc_now():
             token = await get_token(
                 credential=credential,
@@ -1151,7 +1143,7 @@ async def _get_bitbucket_credential_stats(
     urls: set[str],
 ) -> tuple[ProjectStats, ...]:
     if isinstance(credential.state.secret, OauthBitbucketSecret):
-        token: Optional[str] = credential.state.secret.access_token
+        token: str | None = credential.state.secret.access_token
         if credential.state.secret.valid_until <= get_utc_now():
             token = await get_bitbucket_token(
                 credential=credential,

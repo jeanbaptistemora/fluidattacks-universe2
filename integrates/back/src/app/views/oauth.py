@@ -97,9 +97,6 @@ from starlette.responses import (
     RedirectResponse,
     Response,
 )
-from typing import (
-    Optional,
-)
 from urllib3.util.url import (
     parse_url,
 )
@@ -195,7 +192,7 @@ async def oauth_gitlab(
         redirect = get_redirect_url(request, "oauth_gitlab")
         params = {"subject": organization_id}
         url = f"{redirect}?{urlencode(params)}"
-        token_data: Optional[dict] = await get_refresh_token(
+        token_data: dict | None = await get_refresh_token(
             code=code,
             redirect_uri=url,
             code_verifier=request.session.get(
@@ -304,7 +301,7 @@ async def oauth_github(request: Request) -> RedirectResponse:
         ):
             raise PermissionError("Access denied")
 
-        token: Optional[str] = await get_access_token(code=code)
+        token: str | None = await get_access_token(code=code)
         if not token:
             raise OAuthError()
     except (ConnectTimeout, MismatchingStateError, OAuthError) as ex:
@@ -390,7 +387,7 @@ async def oauth_bitbucket(request: Request) -> RedirectResponse:
             loaders=loaders, email=email, organization_id=organization_id
         )
         redirect = get_redirect_url(request, "oauth_bitbucket")
-        token_data: Optional[dict] = await get_bitbucket_refresh_token(
+        token_data: dict | None = await get_bitbucket_refresh_token(
             code=code,
             subject=organization_id,
             redirect_uri=redirect,
@@ -496,7 +493,7 @@ async def oauth_azure(
             organization_id=organization_id,
         )
         redirect = get_redirect_url(request, "oauth_azure")
-        token_data: Optional[dict] = await get_azure_refresh_token(
+        token_data: dict | None = await get_azure_refresh_token(
             code=code,
             redirect_uri=redirect,
         )

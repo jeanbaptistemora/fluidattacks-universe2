@@ -35,9 +35,6 @@ from organizations_finding_policies.domain import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Optional,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -61,9 +58,9 @@ async def handle_finding_policy(*, item: BatchProcessing) -> None:
 
     organization_name = item.additional_info
     loaders: Dataloaders = get_new_context()
-    finding_policy: Optional[
-        OrgFindingPolicy
-    ] = await loaders.organization_finding_policy.load(
+    finding_policy: (
+        OrgFindingPolicy | None
+    ) = await loaders.organization_finding_policy.load(
         OrgFindingPolicyRequest(
             organization_name=organization_name, policy_id=item.entity
         )

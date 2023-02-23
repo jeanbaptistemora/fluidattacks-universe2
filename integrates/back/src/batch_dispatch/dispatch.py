@@ -52,9 +52,6 @@ from settings import (
     LOGGING,
 )
 import sys
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -79,9 +76,7 @@ ACTIONS = {
 }
 
 
-async def dispatch(
-    action_dynamo_pk: Optional[str] = None,
-) -> None:
+async def dispatch(action_dynamo_pk: str | None = None) -> None:
     try:
         action_dynamo_pk = action_dynamo_pk or sys.argv[1]
 
@@ -112,7 +107,7 @@ async def dispatch(
     return None
 
 
-async def main(action_dynamo_pk: Optional[str] = None) -> None:
+async def main(action_dynamo_pk: str | None = None) -> None:
     await dynamo_startup()
     try:
         await dispatch(action_dynamo_pk)

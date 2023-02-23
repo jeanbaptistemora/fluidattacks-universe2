@@ -5,6 +5,9 @@ from .enforcer import (
     get_group_level_enforcer,
     get_group_service_attributes_enforcer,
 )
+from collections.abc import (
+    Callable,
+)
 from custom_exceptions import (
     InvalidCommentParent,
     InvalidUserProvided,
@@ -23,7 +26,6 @@ from newutils.validations import (
 )
 from typing import (
     Any,
-    Callable,
 )
 
 # Constants

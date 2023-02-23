@@ -23,9 +23,6 @@ from settings.logger import (
 import shutil
 import tarfile
 import tempfile
-from typing import (
-    Optional,
-)
 from urllib.request import (
     urlretrieve,
 )
@@ -38,7 +35,7 @@ SESSION = aioboto3.Session()
 
 
 def create_git_root_tar_file(
-    root_nickname: str, repo_path: str, output_path: Optional[str] = None
+    root_nickname: str, repo_path: str, output_path: str | None = None
 ) -> bool:
     git_dir = os.path.normpath(f"{repo_path}/.git")
     with tarfile.open(

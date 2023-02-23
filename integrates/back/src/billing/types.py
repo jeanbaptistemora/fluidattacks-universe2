@@ -6,16 +6,15 @@ from db_model.organizations.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class GroupAuthor(NamedTuple):
     actor: str
-    commit: Optional[str]
+    commit: str | None
     groups: frozenset[str]
-    organization: Optional[str]
-    repository: Optional[str]
+    organization: str | None
+    repository: str | None
 
 
 class GroupBilling(NamedTuple):
@@ -52,9 +51,9 @@ class OrganizationBilling(NamedTuple):
 
 class Address(NamedTuple):
     line_1: str
-    line_2: Optional[str]
+    line_2: str | None
     city: str
-    state: Optional[str]
+    state: str | None
     country: str
     postal_code: str
 
@@ -62,10 +61,10 @@ class Address(NamedTuple):
 class Customer(NamedTuple):
     id: str
     name: str
-    address: Optional[Address]
+    address: Address | None
     email: str
-    phone: Optional[str]
-    default_payment_method: Optional[str]
+    phone: str | None
+    default_payment_method: str | None
 
 
 class PaymentMethod(NamedTuple):
@@ -81,8 +80,8 @@ class PaymentMethod(NamedTuple):
     country: str
     email: str
     state: str
-    rut: Optional[DocumentFile]
-    tax_id: Optional[DocumentFile]
+    rut: DocumentFile | None
+    tax_id: DocumentFile | None
 
 
 class Price(NamedTuple):

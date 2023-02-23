@@ -95,7 +95,6 @@ from stripe.error import (
 )
 from typing import (
     Any,
-    Optional,
 )
 import uuid
 
@@ -226,7 +225,7 @@ async def _has_subscription(
 async def _get_active_subscription(
     *,
     subscriptions: list[Subscription],
-) -> Optional[Subscription]:
+) -> Subscription | None:
     result: list[Subscription] = [
         subscription
         for subscription in subscriptions
@@ -240,7 +239,7 @@ async def _get_active_subscription(
 async def update_subscription(
     *,
     subscription: str,
-    org_billing_customer: Optional[str],
+    org_billing_customer: str | None,
     org_name: str,
     group_name: str,
 ) -> bool:
@@ -268,7 +267,7 @@ async def update_subscription(
     ):
         raise CouldNotUpdateSubscription()
 
-    current: Optional[Subscription] = await _get_active_subscription(
+    current: Subscription | None = await _get_active_subscription(
         subscriptions=subscriptions
     )
 
@@ -406,7 +405,7 @@ async def customer_portal(
     org_id: str,
     org_name: str,
     user_email: str,
-    org_billing_customer: Optional[str],
+    org_billing_customer: str | None,
 ) -> str:
     """Create Stripe portal session"""
     # Create customer if it does not exist
@@ -445,7 +444,7 @@ async def create_billing_customer(
     org: Organization,
     user_email: str,
 ) -> Customer:
-    customer: Optional[Customer] = None
+    customer: Customer | None = None
     billing_customer = org.billing_customer
     if billing_customer is None:
         customer = await dal.create_customer(
@@ -462,7 +461,7 @@ async def create_billing_customer(
 
 
 async def validate_legal_document(
-    rut: Optional[UploadFile], tax_id: Optional[UploadFile]
+    rut: UploadFile | None, tax_id: UploadFile | None
 ) -> None:
     if rut:
         await validate_file(file=rut)
@@ -495,8 +494,8 @@ async def update_documents(
     country: str,
     email: str,
     state: str,
-    rut: Optional[UploadFile] = None,
-    tax_id: Optional[UploadFile] = None,
+    rut: UploadFile | None = None,
+    tax_id: UploadFile | None = None,
 ) -> bool:
 
     documents = OrganizationDocuments()
@@ -632,8 +631,8 @@ async def create_other_payment_method(
     country: str,
     email: str,
     state: str,
-    rut: Optional[UploadFile] = None,
-    tax_id: Optional[UploadFile] = None,
+    rut: UploadFile | None = None,
+    tax_id: UploadFile | None = None,
 ) -> bool:
     """Create other payment method and associate it to the organization"""
     if rut:

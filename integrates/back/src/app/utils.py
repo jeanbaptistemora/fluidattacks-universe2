@@ -13,13 +13,12 @@ from starlette.requests import (
 )
 from typing import (
     Any,
-    Dict,
 )
 
 
 async def get_bitbucket_oauth_userinfo(
-    client: OAuth, token: Dict[str, str]
-) -> Dict[str, str]:
+    client: OAuth, token: dict[str, str]
+) -> dict[str, str]:
     query_headers = {"Authorization": f'Bearer {token["access_token"]}'}
     user = await client.get("user", token=token, headers=query_headers)
     emails = await client.get(
@@ -51,7 +50,7 @@ async def get_bitbucket_oauth_userinfo(
 )
 async def get_jwt_userinfo(
     client: OAuth, request: Request, token: str
-) -> Dict[str, str]:
+) -> dict[str, str]:
     return dict(
         await client.parse_id_token(
             request,

@@ -43,11 +43,6 @@ from toe.inputs import (
 from toe.inputs.types import (
     ToeInputAttributesToUpdate,
 )
-from typing import (
-    Optional,
-    Tuple,
-    Union,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -64,9 +59,9 @@ toe_inputs_update = retry_on_exceptions(
 
 
 def get_non_present_toe_inputs_to_update(
-    root: Union[GitRoot, URLRoot],
-    root_toe_inputs: Tuple[ToeInput, ...],
-) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
+    root: GitRoot | URLRoot,
+    root_toe_inputs: tuple[ToeInput, ...],
+) -> tuple[tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting non present toe inputs to update",
         extra={
@@ -88,9 +83,9 @@ def get_non_present_toe_inputs_to_update(
 
 
 def get_toe_inputs_to_remove(
-    root: Union[GitRoot, URLRoot],
-    root_toe_inputs: Tuple[ToeInput, ...],
-) -> Tuple[ToeInput, ...]:
+    root: GitRoot | URLRoot,
+    root_toe_inputs: tuple[ToeInput, ...],
+) -> tuple[ToeInput, ...]:
     LOGGER.info(
         "Getting toe inputs to remove",
         extra={
@@ -108,9 +103,9 @@ def get_toe_inputs_to_remove(
 
 
 def get_present_toe_inputs_to_update(
-    root: Union[GitRoot, URLRoot],
-    root_toe_inputs: Tuple[ToeInput, ...],
-) -> Tuple[Tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
+    root: GitRoot | URLRoot,
+    root_toe_inputs: tuple[ToeInput, ...],
+) -> tuple[tuple[ToeInput, ToeInputAttributesToUpdate], ...]:
     LOGGER.info(
         "Getting present toe inputs to update",
         extra={
@@ -133,7 +128,7 @@ def get_present_toe_inputs_to_update(
 async def refresh_active_root_toe_inputs(
     loaders: Dataloaders,
     group_name: str,
-    root: Union[GitRoot, URLRoot],
+    root: GitRoot | URLRoot,
 ) -> None:
     LOGGER.info(
         "Refreshing active toe inputs",
@@ -180,7 +175,7 @@ async def refresh_active_root_toe_inputs(
 async def refresh_inactive_root_toe_inputs(
     loaders: Dataloaders,
     group_name: str,
-    root: Union[GitRoot, URLRoot],
+    root: GitRoot | URLRoot,
 ) -> None:
     LOGGER.info(
         "Refreshing inactive toe inputs",
@@ -237,7 +232,7 @@ async def refresh_inactive_root_toe_inputs(
     ),
 )
 async def refresh_root_toe_inputs(
-    group_name: str, optional_repo_nickname: Optional[str]
+    group_name: str, optional_repo_nickname: str | None
 ) -> None:
     loaders = get_new_context()
     roots = await loaders.group_roots.load(group_name)
@@ -282,7 +277,7 @@ async def refresh_root_toe_inputs(
 
 async def refresh_toe_inputs(*, item: BatchProcessing) -> None:
     group_name: str = item.entity
-    optional_repo_nickname: Optional[str] = (
+    optional_repo_nickname: str | None = (
         None if item.additional_info == "*" else item.additional_info
     )
     await refresh_root_toe_inputs(group_name, optional_repo_nickname)

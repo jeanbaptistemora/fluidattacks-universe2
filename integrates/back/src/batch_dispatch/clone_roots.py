@@ -47,9 +47,6 @@ from roots import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -103,7 +100,7 @@ async def clone_roots(*, item: BatchProcessing) -> None:
             status=GitCloningStatus.CLONING,
             message="Cloning in progress...",
         )
-        root_cred: Optional[Credentials] = (
+        root_cred: Credentials | None = (
             await loaders.credentials.load(
                 CredentialsRequest(
                     id=root.state.credential_id,
