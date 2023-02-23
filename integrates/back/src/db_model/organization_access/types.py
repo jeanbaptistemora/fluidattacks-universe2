@@ -3,7 +3,6 @@ from datetime import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -14,23 +13,23 @@ class OrganizationInvitation(NamedTuple):
 
 
 class OrganizationAccessState(NamedTuple):
-    modified_date: Optional[datetime]
+    modified_date: datetime | None
 
 
 class OrganizationAccess(NamedTuple):
     organization_id: str
     email: str
-    expiration_time: Optional[int] = None
-    has_access: Optional[bool] = None
-    invitation: Optional[OrganizationInvitation] = None
-    role: Optional[str] = None
+    expiration_time: int | None = None
+    has_access: bool | None = None
+    invitation: OrganizationInvitation | None = None
+    role: str | None = None
 
 
 class OrganizationAccessMetadataToUpdate(NamedTuple):
-    expiration_time: Optional[int] = None
-    has_access: Optional[bool] = None
-    invitation: Optional[OrganizationInvitation] = None
-    role: Optional[str] = None
+    expiration_time: int | None = None
+    has_access: bool | None = None
+    invitation: OrganizationInvitation | None = None
+    role: str | None = None
 
 
 class OrganizationAccessRequest(NamedTuple):

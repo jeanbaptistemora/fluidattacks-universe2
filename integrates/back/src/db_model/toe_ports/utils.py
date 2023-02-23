@@ -18,9 +18,6 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
-from typing import (
-    Optional,
-)
 
 
 def format_state(item: Item) -> ToePortState:
@@ -84,7 +81,7 @@ def format_toe_port(
 
 
 def format_toe_port_edge(
-    index: Optional[Index],
+    index: Index | None,
     item: Item,
     table: Table,
 ) -> ToePortEdge:

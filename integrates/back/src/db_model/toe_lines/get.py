@@ -21,6 +21,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from dynamodb import (
     keys,
     operations,
@@ -34,15 +37,11 @@ from dynamodb.model import (
 from dynamodb.types import (
     PageInfo,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_toe_lines(
     requests: Iterable[ToeLinesRequest],
-) -> list[Optional[ToeLines]]:
+) -> list[ToeLines | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_lines_metadata"],
@@ -68,11 +67,11 @@ async def _get_toe_lines(
     return [response.get(request) for request in requests]
 
 
-class ToeLinesLoader(DataLoader[ToeLinesRequest, Optional[ToeLines]]):
+class ToeLinesLoader(DataLoader[ToeLinesRequest, ToeLines | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeLinesRequest]
-    ) -> list[Optional[ToeLines]]:
+    ) -> list[ToeLines | None]:
         return await _get_toe_lines(requests)
 
 

@@ -14,6 +14,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     StakeholderNotInGroup,
 )
@@ -23,9 +26,6 @@ from db_model import (
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
 )
 
 

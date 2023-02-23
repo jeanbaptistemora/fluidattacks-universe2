@@ -12,7 +12,6 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -22,8 +21,8 @@ class DocumentFile(NamedTuple):
 
 
 class OrganizationDocuments(NamedTuple):
-    rut: Optional[DocumentFile] = None
-    tax_id: Optional[DocumentFile] = None
+    rut: DocumentFile | None = None
+    tax_id: DocumentFile | None = None
 
 
 class OrganizationPaymentMethods(NamedTuple):
@@ -40,7 +39,7 @@ class OrganizationState(NamedTuple):
     status: OrganizationStateStatus
     modified_by: str
     modified_date: datetime
-    pending_deletion_date: Optional[datetime] = None
+    pending_deletion_date: datetime | None = None
 
 
 class OrganizationStandardCompliance(NamedTuple):
@@ -49,45 +48,45 @@ class OrganizationStandardCompliance(NamedTuple):
 
 
 class OrganizationUnreliableIndicators(NamedTuple):
-    covered_authors: Optional[int] = None
-    covered_commits: Optional[int] = None
-    covered_repositories: Optional[int] = None
-    missed_authors: Optional[int] = None
-    missed_commits: Optional[int] = None
-    missed_repositories: Optional[int] = None
-    compliance_level: Optional[Decimal] = None
-    compliance_weekly_trend: Optional[Decimal] = None
-    estimated_days_to_full_compliance: Optional[Decimal] = None
-    standard_compliances: Optional[list[OrganizationStandardCompliance]] = None
+    covered_authors: int | None = None
+    covered_commits: int | None = None
+    covered_repositories: int | None = None
+    missed_authors: int | None = None
+    missed_commits: int | None = None
+    missed_repositories: int | None = None
+    compliance_level: Decimal | None = None
+    compliance_weekly_trend: Decimal | None = None
+    estimated_days_to_full_compliance: Decimal | None = None
+    standard_compliances: list[OrganizationStandardCompliance] | None = None
 
 
 class Organization(NamedTuple):
     created_by: str
-    created_date: Optional[datetime]
+    created_date: datetime | None
     id: str
     name: str
     policies: Policies
     state: OrganizationState
     country: str
-    payment_methods: Optional[list[OrganizationPaymentMethods]] = None
-    billing_customer: Optional[str] = None
-    vulnerabilities_url: Optional[str] = None
+    payment_methods: list[OrganizationPaymentMethods] | None = None
+    billing_customer: str | None = None
+    vulnerabilities_url: str | None = None
 
 
 class OrganizationMetadataToUpdate(NamedTuple):
-    billing_customer: Optional[str] = None
-    payment_methods: Optional[list[OrganizationPaymentMethods]] = None
-    vulnerabilities_url: Optional[str] = None
+    billing_customer: str | None = None
+    payment_methods: list[OrganizationPaymentMethods] | None = None
+    vulnerabilities_url: str | None = None
 
 
 class OrganizationUnreliableIndicatorsToUpdate(NamedTuple):
-    covered_authors: Optional[int] = None
-    covered_commits: Optional[int] = None
-    covered_repositories: Optional[int] = None
-    missed_authors: Optional[int] = None
-    missed_commits: Optional[int] = None
-    missed_repositories: Optional[int] = None
-    compliance_level: Optional[Decimal] = None
-    compliance_weekly_trend: Optional[Decimal] = None
-    estimated_days_to_full_compliance: Optional[Decimal] = None
-    standard_compliances: Optional[list[OrganizationStandardCompliance]] = None
+    covered_authors: int | None = None
+    covered_commits: int | None = None
+    covered_repositories: int | None = None
+    missed_authors: int | None = None
+    missed_commits: int | None = None
+    missed_repositories: int | None = None
+    compliance_level: Decimal | None = None
+    compliance_weekly_trend: Decimal | None = None
+    estimated_days_to_full_compliance: Decimal | None = None
+    standard_compliances: list[OrganizationStandardCompliance] | None = None

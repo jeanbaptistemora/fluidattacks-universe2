@@ -19,9 +19,6 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
-from typing import (
-    Optional,
-)
 
 
 def format_toe_input(
@@ -63,7 +60,7 @@ def format_toe_input(
 
 def format_toe_input_edge(
     group_name: str,
-    index: Optional[Index],
+    index: Index | None,
     item: Item,
     table: Table,
 ) -> ToeInputEdge:

@@ -23,6 +23,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     InvalidBePresentFilterCursor,
 )
@@ -39,15 +42,11 @@ from dynamodb.model import (
 from dynamodb.types import (
     PageInfo,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_toe_ports(
     requests: Iterable[ToePortRequest],
-) -> list[Optional[ToePort]]:
+) -> list[ToePort | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_port_metadata"],
@@ -75,11 +74,11 @@ async def _get_toe_ports(
     return list(response[request] for request in requests)
 
 
-class ToePortLoader(DataLoader[ToePortRequest, Optional[ToePort]]):
+class ToePortLoader(DataLoader[ToePortRequest, ToePort | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToePortRequest]
-    ) -> list[Optional[ToePort]]:
+    ) -> list[ToePort | None]:
         return await _get_toe_ports(requests)
 
 

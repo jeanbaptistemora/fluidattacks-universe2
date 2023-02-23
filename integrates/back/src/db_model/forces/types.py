@@ -13,7 +13,6 @@ from dynamodb.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -29,12 +28,12 @@ class ExecutionVulnerabilities(NamedTuple):
     num_of_accepted_vulnerabilities: int
     num_of_open_vulnerabilities: int
     num_of_closed_vulnerabilities: int
-    open: Optional[list[ExploitResult]] = None
-    closed: Optional[list[ExploitResult]] = None
-    accepted: Optional[list[ExploitResult]] = None
-    num_of_vulns_in_exploits: Optional[int] = None
-    num_of_vulns_in_integrates_exploits: Optional[int] = None
-    num_of_vulns_in_accepted_exploits: Optional[int] = None
+    open: list[ExploitResult] | None = None
+    closed: list[ExploitResult] | None = None
+    accepted: list[ExploitResult] | None = None
+    num_of_vulns_in_exploits: int | None = None
+    num_of_vulns_in_integrates_exploits: int | None = None
+    num_of_vulns_in_accepted_exploits: int | None = None
 
 
 class ForcesExecution(NamedTuple):
@@ -49,8 +48,8 @@ class ForcesExecution(NamedTuple):
     strictness: str
     origin: str
     vulnerabilities: ExecutionVulnerabilities
-    grace_period: Optional[int] = 0
-    severity_threshold: Optional[Decimal] = Decimal("0.0")
+    grace_period: int | None = 0
+    severity_threshold: Decimal | None = Decimal("0.0")
 
 
 class ExecutionEdge(NamedTuple):
@@ -61,7 +60,7 @@ class ExecutionEdge(NamedTuple):
 class ExecutionsConnection(NamedTuple):
     edges: tuple[ExecutionEdge, ...]
     page_info: PageInfo
-    total: Optional[int] = None
+    total: int | None = None
 
 
 class ForcesExecutionRequest(NamedTuple):
@@ -71,4 +70,4 @@ class ForcesExecutionRequest(NamedTuple):
 
 class GroupForcesExecutionsRequest(NamedTuple):
     group_name: str
-    limit: Optional[int] = None
+    limit: int | None = None

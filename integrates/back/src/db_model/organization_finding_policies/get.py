@@ -14,6 +14,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -21,16 +24,12 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_organization_finding_policy(
     *,
     requests: Iterable[OrgFindingPolicyRequest],
-) -> list[Optional[OrgFindingPolicy]]:
+) -> list[OrgFindingPolicy | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["org_finding_policy_metadata"],
@@ -97,12 +96,12 @@ async def _get_organization_finding_policies(
 
 
 class OrganizationFindingPolicyLoader(
-    DataLoader[OrgFindingPolicyRequest, Optional[OrgFindingPolicy]]
+    DataLoader[OrgFindingPolicyRequest, OrgFindingPolicy | None]
 ):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[OrgFindingPolicyRequest]
-    ) -> list[Optional[OrgFindingPolicy]]:
+    ) -> list[OrgFindingPolicy | None]:
         return await _get_organization_finding_policy(requests=requests)
 
 

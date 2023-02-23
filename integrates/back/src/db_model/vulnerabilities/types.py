@@ -25,8 +25,6 @@ from serializers import (
 )
 from typing import (
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
@@ -42,38 +40,38 @@ class VulnerabilityState(NamedTuple):
     specific: str
     status: VulnerabilityStateStatus
     where: str
-    commit: Optional[str] = None
-    reasons: Optional[list[VulnerabilityStateReason]] = None
-    other_reason: Optional[str] = None
-    tool: Optional[VulnerabilityTool] = None
-    snippet: Optional[Snippet] = None
+    commit: str | None = None
+    reasons: list[VulnerabilityStateReason] | None = None
+    other_reason: str | None = None
+    tool: VulnerabilityTool | None = None
+    snippet: Snippet | None = None
 
 
 class VulnerabilityTreatment(NamedTuple):
     modified_date: datetime
     status: VulnerabilityTreatmentStatus
-    acceptance_status: Optional[VulnerabilityAcceptanceStatus] = None
-    accepted_until: Optional[datetime] = None
-    justification: Optional[str] = None
-    assigned: Optional[str] = None
-    modified_by: Optional[str] = None
+    acceptance_status: VulnerabilityAcceptanceStatus | None = None
+    accepted_until: datetime | None = None
+    justification: str | None = None
+    assigned: str | None = None
+    modified_by: str | None = None
 
 
 class VulnerabilityUnreliableIndicators(NamedTuple):
-    unreliable_closing_date: Optional[datetime] = None
+    unreliable_closing_date: datetime | None = None
     unreliable_source: Source = Source.ASM
-    unreliable_efficacy: Optional[Decimal] = None
-    unreliable_last_reattack_date: Optional[datetime] = None
-    unreliable_last_reattack_requester: Optional[str] = None
-    unreliable_last_requested_reattack_date: Optional[datetime] = None
-    unreliable_reattack_cycles: Optional[int] = None
-    unreliable_treatment_changes: Optional[int] = None
+    unreliable_efficacy: Decimal | None = None
+    unreliable_last_reattack_date: datetime | None = None
+    unreliable_last_reattack_requester: str | None = None
+    unreliable_last_requested_reattack_date: datetime | None = None
+    unreliable_reattack_cycles: int | None = None
+    unreliable_treatment_changes: int | None = None
 
 
 class VulnerabilityVerification(NamedTuple):
     modified_date: datetime
     status: VulnerabilityVerificationStatus
-    event_id: Optional[str] = None
+    event_id: str | None = None
 
 
 class VulnerabilityZeroRisk(NamedTuple):
@@ -92,22 +90,22 @@ class Vulnerability(NamedTuple):
     id: str
     state: VulnerabilityState
     type: VulnerabilityType
-    bug_tracking_system_url: Optional[str] = None
-    custom_severity: Optional[int] = None
-    developer: Optional[str] = None
-    event_id: Optional[str] = None
-    hash: Optional[int] = None
-    root_id: Optional[str] = None
-    skims_method: Optional[str] = None
-    skims_technique: Optional[str] = None
-    stream: Optional[list[str]] = None
-    tags: Optional[list[str]] = None
-    treatment: Optional[VulnerabilityTreatment] = None
+    bug_tracking_system_url: str | None = None
+    custom_severity: int | None = None
+    developer: str | None = None
+    event_id: str | None = None
+    hash: int | None = None
+    root_id: str | None = None
+    skims_method: str | None = None
+    skims_technique: str | None = None
+    stream: list[str] | None = None
+    tags: list[str] | None = None
+    treatment: VulnerabilityTreatment | None = None
     unreliable_indicators: VulnerabilityUnreliableIndicators = (
         VulnerabilityUnreliableIndicators()
     )
-    verification: Optional[VulnerabilityVerification] = None
-    zero_risk: Optional[VulnerabilityZeroRisk] = None
+    verification: VulnerabilityVerification | None = None
+    zero_risk: VulnerabilityZeroRisk | None = None
 
 
 class VulnerabilityEdge(NamedTuple):
@@ -118,72 +116,72 @@ class VulnerabilityEdge(NamedTuple):
 class VulnerabilitiesConnection(NamedTuple):
     edges: tuple[VulnerabilityEdge, ...]
     page_info: PageInfo
-    total: Optional[int] = None
+    total: int | None = None
 
 
 class VulnerabilityMetadataToUpdate(NamedTuple):
-    bug_tracking_system_url: Optional[str] = None
-    created_by: Optional[str] = None
-    created_date: Optional[datetime] = None
-    custom_severity: Optional[str] = None
-    hacker_email: Optional[str] = None
-    hash: Optional[int] = None
-    skims_method: Optional[str] = None
-    skims_technique: Optional[str] = None
-    developer: Optional[str] = None
-    root_id: Optional[str] = None
-    stream: Optional[list[str]] = None
-    tags: Optional[list[str]] = None
-    type: Optional[VulnerabilityType] = None
+    bug_tracking_system_url: str | None = None
+    created_by: str | None = None
+    created_date: datetime | None = None
+    custom_severity: str | None = None
+    hacker_email: str | None = None
+    hash: int | None = None
+    skims_method: str | None = None
+    skims_technique: str | None = None
+    developer: str | None = None
+    root_id: str | None = None
+    stream: list[str] | None = None
+    tags: list[str] | None = None
+    type: VulnerabilityType | None = None
 
 
-VulnerabilityHistoric = Union[
-    tuple[VulnerabilityState, ...],
-    tuple[VulnerabilityTreatment, ...],
-    tuple[VulnerabilityVerification, ...],
-    tuple[VulnerabilityZeroRisk, ...],
-]
+VulnerabilityHistoric = (
+    tuple[VulnerabilityState, ...]
+    | tuple[VulnerabilityTreatment, ...]
+    | tuple[VulnerabilityVerification, ...]
+    | tuple[VulnerabilityZeroRisk, ...]
+)
 
-VulnerabilityHistoricEntry = Union[
-    VulnerabilityState,
-    VulnerabilityTreatment,
-    VulnerabilityVerification,
-    VulnerabilityZeroRisk,
-]
+VulnerabilityHistoricEntry = (
+    VulnerabilityState
+    | VulnerabilityTreatment
+    | VulnerabilityVerification
+    | VulnerabilityZeroRisk
+)
 
 
 class VulnerabilityUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_closing_date: Optional[datetime] = None
-    unreliable_efficacy: Optional[Decimal] = None
-    unreliable_last_reattack_date: Optional[datetime] = None
-    unreliable_last_reattack_requester: Optional[str] = None
-    unreliable_last_requested_reattack_date: Optional[datetime] = None
-    unreliable_reattack_cycles: Optional[int] = None
-    unreliable_source: Optional[Source] = None
-    unreliable_treatment_changes: Optional[int] = None
+    unreliable_closing_date: datetime | None = None
+    unreliable_efficacy: Decimal | None = None
+    unreliable_last_reattack_date: datetime | None = None
+    unreliable_last_reattack_requester: str | None = None
+    unreliable_last_requested_reattack_date: datetime | None = None
+    unreliable_reattack_cycles: int | None = None
+    unreliable_source: Source | None = None
+    unreliable_treatment_changes: int | None = None
     clean_unreliable_closing_date: bool = False
     clean_unreliable_last_reattack_date: bool = False
     clean_unreliable_last_requested_reattack_date: bool = False
 
 
 class VulnerabilityFilters(NamedTuple):
-    treatment_status: Optional[str] = None
-    verification_status: Optional[str] = None
-    where: Optional[str] = None
+    treatment_status: str | None = None
+    verification_status: str | None = None
+    where: str | None = None
 
 
 class FindingVulnerabilitiesZrRequest(NamedTuple):
     finding_id: str
-    after: Optional[str] = None
+    after: str | None = None
     filters: VulnerabilityFilters = VulnerabilityFilters()
-    first: Optional[int] = None
+    first: int | None = None
     paginate: bool = False
-    state_status: Optional[VulnerabilityStateStatus] = None
-    verification_status: Optional[VulnerabilityVerificationStatus] = None
+    state_status: VulnerabilityStateStatus | None = None
+    verification_status: VulnerabilityVerificationStatus | None = None
 
 
 class FindingVulnerabilitiesRequest(NamedTuple):
     finding_id: str
-    after: Optional[str] = None
-    first: Optional[int] = None
+    after: str | None = None
+    first: int | None = None
     paginate: bool = False

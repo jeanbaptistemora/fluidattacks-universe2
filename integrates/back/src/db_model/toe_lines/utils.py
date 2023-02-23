@@ -20,9 +20,6 @@ from dynamodb.types import (
 from dynamodb.utils import (
     get_cursor,
 )
-from typing import (
-    Optional,
-)
 
 
 def format_toe_lines_sorts_suggestions(
@@ -87,7 +84,7 @@ def format_toe_lines(item: Item) -> ToeLines:
 
 
 def format_toe_lines_edge(
-    index: Optional[Index],
+    index: Index | None,
     item: Item,
     table: Table,
 ) -> ToeLinesEdge:
@@ -112,8 +109,8 @@ def format_toe_lines_item(
     primary_key: PrimaryKey,
     key_structure: PrimaryKey,
     toe_lines: ToeLines,
-    gsi_2_index: Optional[Index] = None,
-    gsi_2_key: Optional[PrimaryKey] = None,
+    gsi_2_index: Index | None = None,
+    gsi_2_key: PrimaryKey | None = None,
 ) -> Item:
     toe_lines_item = {
         key_structure.partition_key: primary_key.partition_key,

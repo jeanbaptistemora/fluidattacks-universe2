@@ -28,6 +28,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     RequiredStateStatus,
 )
@@ -54,14 +57,10 @@ from itertools import (
 )
 from typing import (
     Any,
-    Iterable,
-    Optional,
 )
 
 
-async def _get_vulnerability(
-    *, vulnerability_id: str
-) -> Optional[Vulnerability]:
+async def _get_vulnerability(*, vulnerability_id: str) -> Vulnerability | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["vulnerability_metadata"],
         values={"id": vulnerability_id},
@@ -548,11 +547,11 @@ class EventVulnerabilitiesLoader(DataLoader[str, list[Vulnerability]]):
         )
 
 
-class VulnerabilityLoader(DataLoader[str, Optional[Vulnerability]]):
+class VulnerabilityLoader(DataLoader[str, Vulnerability | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, vulnerability_ids: Iterable[str]
-    ) -> list[Optional[Vulnerability]]:
+    ) -> list[Vulnerability | None]:
         return list(
             await collect(
                 _get_vulnerability(vulnerability_id=vulnerability_id)

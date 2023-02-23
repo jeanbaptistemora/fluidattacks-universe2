@@ -56,7 +56,6 @@ from serializers import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
@@ -189,7 +188,7 @@ def format_vulnerability(item: Item) -> Vulnerability:
 
 
 def format_vulnerability_edge(
-    index: Optional[Index],
+    index: Index | None,
     item: Item,
     table: Table,
 ) -> VulnerabilityEdge:
@@ -198,9 +197,7 @@ def format_vulnerability_edge(
     )
 
 
-def _format_snippet(
-    snippet: Optional[dict[str, Any]] = None
-) -> Optional[Snippet]:
+def _format_snippet(snippet: dict[str, Any] | None = None) -> Snippet | None:
     if not snippet or isinstance(snippet, str):
         return None
     return Snippet(
@@ -406,7 +403,7 @@ def historic_entry_type_to_str(item: VulnerabilityHistoricEntry) -> str:
 
 def get_current_entry(
     entry: VulnerabilityHistoricEntry, current_value: Vulnerability
-) -> Optional[VulnerabilityHistoricEntry]:
+) -> VulnerabilityHistoricEntry | None:
     if isinstance(entry, VulnerabilityState):
         return current_value.state
     if isinstance(entry, VulnerabilityTreatment):
@@ -419,7 +416,7 @@ def get_current_entry(
     raise VulnerabilityEntryNotFound()
 
 
-def get_assigned(*, treatment: Optional[VulnerabilityTreatment]) -> str:
+def get_assigned(*, treatment: VulnerabilityTreatment | None) -> str:
     if treatment is None or treatment.assigned is None:
         return ""
 
@@ -481,7 +478,7 @@ def get_zr_index_key_gsi_6(current_value: Vulnerability) -> PrimaryKey:
 
 def get_new_zr_index_key_gsi_6(
     current_value: Vulnerability, entry: VulnerabilityHistoricEntry
-) -> Optional[PrimaryKey]:
+) -> PrimaryKey | None:
     new_zr_index_key = None
     if isinstance(entry, VulnerabilityState):
         new_zr_index_key = keys.build_key(

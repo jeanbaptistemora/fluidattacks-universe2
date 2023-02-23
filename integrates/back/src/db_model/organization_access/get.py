@@ -14,6 +14,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -24,15 +27,11 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_organization_access(
     *, requests: Iterable[OrganizationAccessRequest]
-) -> list[Optional[OrganizationAccess]]:
+) -> list[OrganizationAccess | None]:
     requests_formatted = [
         request._replace(email=request.email.lower().strip())
         for request in requests
@@ -136,12 +135,12 @@ async def _get_stakeholder_organizations_access(
 
 
 class OrganizationAccessLoader(
-    DataLoader[OrganizationAccessRequest, Optional[OrganizationAccess]]
+    DataLoader[OrganizationAccessRequest, OrganizationAccess | None]
 ):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[OrganizationAccessRequest]
-    ) -> list[Optional[OrganizationAccess]]:
+    ) -> list[OrganizationAccess | None]:
         return await _get_organization_access(requests=requests)
 
 

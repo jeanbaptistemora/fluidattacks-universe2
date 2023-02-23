@@ -19,6 +19,10 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    AsyncIterator,
+    Iterable,
+)
 from custom_exceptions import (
     ErrorLoadingOrganizations,
 )
@@ -31,11 +35,6 @@ from db_model.organizations.utils import (
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    AsyncIterator,
-    Iterable,
-    Optional,
 )
 
 
@@ -69,7 +68,7 @@ async def iterate_organizations() -> AsyncIterator[Organization]:
 
 async def _get_organization_by_id(
     *, organization_id: str
-) -> Optional[Organization]:
+) -> Organization | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
         values={"id": remove_org_id_prefix(organization_id)},
@@ -94,7 +93,7 @@ async def _get_organization_by_id(
 
 async def _get_organization_by_name(
     *, organization_name: str
-) -> Optional[Organization]:
+) -> Organization | None:
     organization_name = organization_name.lower().strip()
     primary_key = keys.build_key(
         facet=TABLE.facets["organization_metadata"],
@@ -121,19 +120,17 @@ async def _get_organization_by_name(
     return format_organization(response.items[0])
 
 
-async def _get_organization(
-    *, organization_key: str
-) -> Optional[Organization]:
+async def _get_organization(*, organization_key: str) -> Organization | None:
     if organization_key.startswith(ORGANIZATION_ID_PREFIX):
         return await _get_organization_by_id(organization_id=organization_key)
     return await _get_organization_by_name(organization_name=organization_key)
 
 
-class OrganizationLoader(DataLoader[str, Optional[Organization]]):
+class OrganizationLoader(DataLoader[str, Organization | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, organization_keys: Iterable[str]
-    ) -> list[Optional[Organization]]:
+    ) -> list[Organization | None]:
         # Organizations can be loaded either by name or id(preceded by "ORG#")
         organizations = await collect(
             tuple(

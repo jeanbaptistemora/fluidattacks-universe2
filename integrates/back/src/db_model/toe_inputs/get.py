@@ -21,6 +21,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from dynamodb import (
     keys,
     operations,
@@ -34,15 +37,11 @@ from dynamodb.model import (
 from dynamodb.types import (
     PageInfo,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_toe_inputs(
     requests: Iterable[ToeInputRequest],
-) -> list[Optional[ToeInput]]:
+) -> list[ToeInput | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["toe_input_metadata"],
@@ -76,11 +75,11 @@ async def _get_toe_inputs(
     return [response.get(request) for request in requests]
 
 
-class ToeInputLoader(DataLoader[ToeInputRequest, Optional[ToeInput]]):
+class ToeInputLoader(DataLoader[ToeInputRequest, ToeInput | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ToeInputRequest]
-    ) -> list[Optional[ToeInput]]:
+    ) -> list[ToeInput | None]:
         return await _get_toe_inputs(requests)
 
 

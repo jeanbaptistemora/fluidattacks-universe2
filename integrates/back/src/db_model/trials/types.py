@@ -3,17 +3,16 @@ from datetime import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class Trial(NamedTuple):
     email: str
     completed: bool
-    extension_date: Optional[datetime]
+    extension_date: datetime | None
     extension_days: int
-    start_date: Optional[datetime]
+    start_date: datetime | None
 
 
 class TrialMetadataToUpdate(NamedTuple):
-    completed: Optional[bool] = None
+    completed: bool | None = None

@@ -6,7 +6,6 @@ from dynamodb.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -14,7 +13,7 @@ class OrganizationIntegrationRepository(NamedTuple):
     id: str
     organization_id: str
     branch: str
-    last_commit_date: Optional[datetime]
+    last_commit_date: datetime | None
     commit_count: int
     url: str
 
@@ -27,11 +26,11 @@ class OrganizationIntegrationRepositoryEdge(NamedTuple):
 class OrganizationIntegrationRepositoryConnection(NamedTuple):
     edges: tuple[OrganizationIntegrationRepositoryEdge, ...]
     page_info: PageInfo
-    total: Optional[int] = None
+    total: int | None = None
 
 
 class OrganizationIntegrationRepositoryRequest(NamedTuple):
     organization_id: str
-    after: Optional[str] = None
-    first: Optional[int] = None
+    after: str | None = None
+    first: int | None = None
     paginate: bool = False

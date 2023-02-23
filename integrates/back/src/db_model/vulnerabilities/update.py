@@ -48,9 +48,6 @@ from dynamodb.exceptions import (
 )
 import logging
 import simplejson as json
-from typing import (
-    Optional,
-)
 
 # Constants
 LOGGER = logging.getLogger(__name__)
@@ -108,7 +105,7 @@ async def update_metadata(
 async def update_assigned_index(
     *,
     finding_id: str,
-    entry: Optional[VulnerabilityTreatment],
+    entry: VulnerabilityTreatment | None,
     vulnerability_id: str,
 ) -> None:
     key_structure = TABLE.primary_key

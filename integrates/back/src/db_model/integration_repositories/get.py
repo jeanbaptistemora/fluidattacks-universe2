@@ -16,6 +16,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -26,16 +29,12 @@ from dynamodb import (
     keys,
     operations,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_unreliable_integration_repositories(
     organization_id: str,
-    url_id: Optional[str] = None,
-    branch: Optional[str] = None,
+    url_id: str | None = None,
+    branch: str | None = None,
 ) -> list[OrganizationIntegrationRepository]:
     organization_id = remove_org_id_prefix(organization_id)
     key_structure = TABLE.primary_key
@@ -113,13 +112,13 @@ async def _get_organization_unreliable_integration_repositories(
 
 class OrganizationUnreliableRepositoriesLoader(
     DataLoader[
-        tuple[str, Optional[str], Optional[str]],
+        tuple[str, str | None, str | None],
         list[OrganizationIntegrationRepository],
     ]
 ):
     # pylint: disable=method-hidden
     async def batch_load_fn(
-        self, ids: Iterable[tuple[str, Optional[str], Optional[str]]]
+        self, ids: Iterable[tuple[str, str | None, str | None]]
     ) -> list[list[OrganizationIntegrationRepository]]:
         return list(
             await collect(

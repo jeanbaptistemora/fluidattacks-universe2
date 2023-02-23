@@ -6,19 +6,18 @@ from dynamodb.types import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class ToePortState(NamedTuple):
-    attacked_at: Optional[datetime]
-    attacked_by: Optional[str]
+    attacked_at: datetime | None
+    attacked_by: str | None
     be_present: bool
-    be_present_until: Optional[datetime]
-    first_attack_at: Optional[datetime]
+    be_present_until: datetime | None
+    first_attack_at: datetime | None
     has_vulnerabilities: bool
-    modified_by: Optional[str]
-    modified_date: Optional[datetime]
+    modified_by: str | None
+    modified_date: datetime | None
 
 
 class ToePort(NamedTuple):
@@ -27,8 +26,8 @@ class ToePort(NamedTuple):
     port: str
     root_id: str
     state: ToePortState
-    seen_at: Optional[datetime]
-    seen_first_time_by: Optional[str]
+    seen_at: datetime | None
+    seen_first_time_by: str | None
 
     def get_hash(self) -> int:
         return hash((self.group_name, self.address, self.port))
@@ -53,16 +52,16 @@ class ToePortRequest(NamedTuple):
 
 class GroupToePortsRequest(NamedTuple):
     group_name: str
-    after: Optional[str] = None
-    be_present: Optional[bool] = None
-    first: Optional[int] = None
+    after: str | None = None
+    be_present: bool | None = None
+    first: int | None = None
     paginate: bool = False
 
 
 class RootToePortsRequest(NamedTuple):
     group_name: str
     root_id: str
-    after: Optional[str] = None
-    be_present: Optional[bool] = None
-    first: Optional[int] = None
+    after: str | None = None
+    be_present: bool | None = None
+    first: int | None = None
     paginate: bool = False

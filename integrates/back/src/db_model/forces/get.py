@@ -10,6 +10,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
@@ -24,10 +27,6 @@ from db_model.forces.utils import (
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
-    Optional,
 )
 
 
@@ -74,7 +73,7 @@ async def _get_group_executions(
 
 async def _get_executions(
     *, requests: Iterable[ForcesExecutionRequest]
-) -> list[Optional[ForcesExecution]]:
+) -> list[ForcesExecution | None]:
     primary_keys = tuple(
         keys.build_key(
             facet=TABLE.facets["forces_execution"],
@@ -94,12 +93,12 @@ async def _get_executions(
 
 
 class ForcesExecutionLoader(
-    DataLoader[ForcesExecutionRequest, Optional[ForcesExecution]]
+    DataLoader[ForcesExecutionRequest, ForcesExecution | None]
 ):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[ForcesExecutionRequest]
-    ) -> list[Optional[ForcesExecution]]:
+    ) -> list[ForcesExecution | None]:
         return await _get_executions(requests=requests)
 
 

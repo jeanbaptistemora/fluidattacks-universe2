@@ -3,19 +3,18 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class PortfolioUnreliableIndicators(NamedTuple):
-    last_closing_date: Optional[int] = None
-    max_open_severity: Optional[Decimal] = None
-    max_severity: Optional[Decimal] = None
-    mean_remediate: Optional[Decimal] = None
-    mean_remediate_critical_severity: Optional[Decimal] = None
-    mean_remediate_high_severity: Optional[Decimal] = None
-    mean_remediate_low_severity: Optional[Decimal] = None
-    mean_remediate_medium_severity: Optional[Decimal] = None
+    last_closing_date: int | None = None
+    max_open_severity: Decimal | None = None
+    max_severity: Decimal | None = None
+    mean_remediate: Decimal | None = None
+    mean_remediate_critical_severity: Decimal | None = None
+    mean_remediate_high_severity: Decimal | None = None
+    mean_remediate_low_severity: Decimal | None = None
+    mean_remediate_medium_severity: Decimal | None = None
 
 
 class Portfolio(NamedTuple):

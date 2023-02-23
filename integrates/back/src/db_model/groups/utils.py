@@ -33,10 +33,6 @@ from db_model.utils import (
 from dynamodb.types import (
     Item,
 )
-from typing import (
-    Optional,
-    Union,
-)
 
 
 def format_files(files: list[dict[str, str]]) -> list[GroupFile]:
@@ -55,7 +51,7 @@ def format_files(files: list[dict[str, str]]) -> list[GroupFile]:
 
 def format_files_items(
     files: list[GroupFile],
-) -> list[dict[str, Optional[str]]]:
+) -> list[dict[str, str | None]]:
     return [
         {
             "description": file.description,
@@ -288,7 +284,7 @@ def format_metadata_item(metadata: GroupMetadataToUpdate) -> Item:
     return item
 
 
-def format_state_managed(managed: Union[bool, str]) -> GroupManaged:
+def format_state_managed(managed: bool | str) -> GroupManaged:
     if not managed:
         return GroupManaged.NOT_MANAGED
     if managed is True:
@@ -351,7 +347,7 @@ def format_treatment_summary_item(
 
 def format_code_language(
     code_language: CodeLanguage,
-) -> dict[str, Union[str, int]]:
+) -> dict[str, str | int]:
     return {
         "language": code_language.language,
         "loc": code_language.loc,
@@ -360,7 +356,7 @@ def format_code_language(
 
 def format_unfulfilled_standard_item(
     unfulfilled_standard: UnfulfilledStandard,
-) -> dict[str, Union[str, list[str]]]:
+) -> dict[str, str | list[str]]:
     return {
         "name": unfulfilled_standard.name,
         "unfulfilled_requirements": (

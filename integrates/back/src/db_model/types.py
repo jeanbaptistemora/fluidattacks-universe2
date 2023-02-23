@@ -11,7 +11,6 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -23,20 +22,20 @@ class CodeLanguage(NamedTuple):
 class Policies(NamedTuple):
     modified_date: datetime
     modified_by: str
-    inactivity_period: Optional[int] = DEFAULT_INACTIVITY_PERIOD
-    max_acceptance_days: Optional[int] = None
-    max_acceptance_severity: Optional[Decimal] = DEFAULT_MAX_SEVERITY
-    max_number_acceptances: Optional[int] = None
-    min_acceptance_severity: Optional[Decimal] = DEFAULT_MIN_SEVERITY
-    min_breaking_severity: Optional[Decimal] = None
-    vulnerability_grace_period: Optional[int] = None
+    inactivity_period: int | None = DEFAULT_INACTIVITY_PERIOD
+    max_acceptance_days: int | None = None
+    max_acceptance_severity: Decimal | None = DEFAULT_MAX_SEVERITY
+    max_number_acceptances: int | None = None
+    min_acceptance_severity: Decimal | None = DEFAULT_MIN_SEVERITY
+    min_breaking_severity: Decimal | None = None
+    vulnerability_grace_period: int | None = None
 
 
 class PoliciesToUpdate(NamedTuple):
-    inactivity_period: Optional[int] = None
-    max_acceptance_days: Optional[int] = None
-    max_acceptance_severity: Optional[Decimal] = None
-    max_number_acceptances: Optional[int] = None
-    min_acceptance_severity: Optional[Decimal] = None
-    min_breaking_severity: Optional[Decimal] = None
-    vulnerability_grace_period: Optional[int] = None
+    inactivity_period: int | None = None
+    max_acceptance_days: int | None = None
+    max_acceptance_severity: Decimal | None = None
+    max_number_acceptances: int | None = None
+    min_acceptance_severity: Decimal | None = None
+    min_breaking_severity: Decimal | None = None
+    vulnerability_grace_period: int | None = None

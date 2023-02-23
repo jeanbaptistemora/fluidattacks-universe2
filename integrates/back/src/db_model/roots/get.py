@@ -7,6 +7,9 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_AWS_S3_MAIN_BUCKET,
     FI_AWS_S3_PATH_PREFIX,
@@ -56,10 +59,6 @@ from s3.operations import (
 from s3.resource import (
     get_s3_resource,
 )
-from typing import (
-    Iterable,
-    Optional,
-)
 
 
 async def _get_roots(*, requests: Iterable[RootRequest]) -> list[Root]:
@@ -75,11 +74,11 @@ async def _get_roots(*, requests: Iterable[RootRequest]) -> list[Root]:
     return [format_root(item) for item in items]
 
 
-class RootLoader(DataLoader[RootRequest, Optional[Root]]):
+class RootLoader(DataLoader[RootRequest, Root | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[RootRequest]
-    ) -> list[Optional[Root]]:
+    ) -> list[Root | None]:
         roots = {root.id: root for root in await _get_roots(requests=requests)}
 
         return [roots.get(request.root_id) for request in requests]
@@ -246,7 +245,7 @@ class RootHistoricCloningLoader(DataLoader[str, list[GitRootCloning]]):
 
 
 async def get_machine_executions(
-    *, root_id: str, job_id: Optional[str] = None
+    *, root_id: str, job_id: str | None = None
 ) -> list[RootMachineExecution]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
@@ -322,7 +321,7 @@ class RootMachineExecutionsLoader(DataLoader[str, list[RootMachineExecution]]):
 
 
 async def get_machine_executions_by_job_id(
-    *, job_id: str, root_id: Optional[str] = None
+    *, job_id: str, root_id: str | None = None
 ) -> list[RootMachineExecution]:
     primary_key = keys.build_key(
         facet=TABLE.facets["machine_git_root_execution"],
@@ -376,9 +375,7 @@ async def get_machine_executions_by_job_id(
     ]
 
 
-async def get_download_url(
-    group_name: str, root_nickname: str
-) -> Optional[str]:
+async def get_download_url(group_name: str, root_nickname: str) -> str | None:
     bucket_path: str = "continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
@@ -400,7 +397,7 @@ async def get_download_url(
     )
 
 
-async def get_upload_url(group_name: str, root_nickname: str) -> Optional[str]:
+async def get_upload_url(group_name: str, root_nickname: str) -> str | None:
     bucket_path: str = f"{FI_AWS_S3_PATH_PREFIX}continuous-repositories"
     object_name = f"{group_name}/{root_nickname}.tar.gz"
     client = await get_s3_resource()
@@ -429,7 +426,7 @@ async def get_upload_url_post(
 
 
 async def _get_secrets(
-    *, root_id: str, secret_key: Optional[str] = None
+    *, root_id: str, secret_key: str | None = None
 ) -> list[Secret]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_secret"],
@@ -478,7 +475,7 @@ class RootSecretsLoader(DataLoader[str, list[Secret]]):
 
 
 async def _get_environment_secrets(
-    *, url_id: str, secret_key: Optional[str] = None
+    *, url_id: str, secret_key: str | None = None
 ) -> list[Secret]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_secret"],
@@ -528,7 +525,7 @@ class GitEnvironmentSecretsLoader(DataLoader[str, list[Secret]]):
 
 
 async def _get_git_environment_urls(
-    *, root_id: str, url_id: Optional[str] = None
+    *, root_id: str, url_id: str | None = None
 ) -> list[RootEnvironmentUrl]:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_url"],
@@ -591,8 +588,8 @@ class RootEnvironmentUrlsLoader(DataLoader[str, list[RootEnvironmentUrl]]):
 
 
 async def get_git_environment_url_by_id(
-    *, url_id: str, root_id: Optional[str] = None
-) -> Optional[RootEnvironmentUrl]:
+    *, url_id: str, root_id: str | None = None
+) -> RootEnvironmentUrl | None:
     primary_key = keys.build_key(
         facet=TABLE.facets["root_environment_url"],
         values={

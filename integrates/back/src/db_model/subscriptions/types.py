@@ -7,12 +7,11 @@ from db_model.subscriptions.enums import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
 class SubscriptionState(NamedTuple):
-    modified_date: Optional[datetime]
+    modified_date: datetime | None
 
 
 class Subscription(NamedTuple):

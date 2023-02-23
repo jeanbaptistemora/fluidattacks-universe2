@@ -7,16 +7,15 @@ from .utils import (
 from aiodataloader import (
     DataLoader,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
-    Optional,
 )
 
 
@@ -33,11 +32,9 @@ async def _get_trials(emails: Iterable[str]) -> list[Trial]:
     return [format_trial(item) for item in items]
 
 
-class TrialLoader(DataLoader[str, Optional[Trial]]):
+class TrialLoader(DataLoader[str, Trial | None]):
     # pylint: disable=method-hidden
-    async def batch_load_fn(
-        self, emails: Iterable[str]
-    ) -> list[Optional[Trial]]:
+    async def batch_load_fn(self, emails: Iterable[str]) -> list[Trial | None]:
         trials = {trial.email: trial for trial in await _get_trials(emails)}
 
         return [trials.get(email) for email in emails]

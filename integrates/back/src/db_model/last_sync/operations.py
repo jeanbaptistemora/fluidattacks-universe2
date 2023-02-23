@@ -1,3 +1,6 @@
+from collections.abc import (
+    Iterator,
+)
 from context import (
     FI_AWS_REDSHIFT_DBNAME,
     FI_AWS_REDSHIFT_HOST,
@@ -12,9 +15,6 @@ import psycopg2
 from psycopg2.extensions import (
     cursor as cursor_cls,
     ISOLATION_LEVEL_AUTOCOMMIT,
-)
-from typing import (
-    Iterator,
 )
 
 

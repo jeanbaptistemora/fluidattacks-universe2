@@ -3,7 +3,6 @@ from datetime import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -14,4 +13,4 @@ class GroupComment(NamedTuple):
     creation_date: datetime
     content: str
     email: str
-    full_name: Optional[str] = None
+    full_name: str | None = None

@@ -14,16 +14,15 @@ from aioextensions import (
 from boto3.dynamodb.conditions import (
     Key,
 )
+from collections.abc import (
+    Iterable,
+)
 from db_model import (
     TABLE,
 )
 from dynamodb import (
     keys,
     operations,
-)
-from typing import (
-    Iterable,
-    Optional,
 )
 
 
@@ -68,7 +67,7 @@ async def _get_organization_portfolios(
 
 async def _get_portfolios(
     *, requests: Iterable[PortfolioRequest]
-) -> list[Optional[Portfolio]]:
+) -> list[Portfolio | None]:
     requests_formatted = list(
         request._replace(
             organization_name=request.organization_name.lower().strip()
@@ -118,9 +117,9 @@ class OrganizationPortfoliosLoader(DataLoader[str, list[Portfolio]]):
         )
 
 
-class PortfolioLoader(DataLoader[PortfolioRequest, Optional[Portfolio]]):
+class PortfolioLoader(DataLoader[PortfolioRequest, Portfolio | None]):
     # pylint: disable=method-hidden
     async def batch_load_fn(
         self, requests: Iterable[PortfolioRequest]
-    ) -> list[Optional[Portfolio]]:
+    ) -> list[Portfolio | None]:
         return await _get_portfolios(requests=requests)

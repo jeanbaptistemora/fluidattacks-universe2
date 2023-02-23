@@ -3,7 +3,6 @@ from datetime import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -16,33 +15,33 @@ class GroupInvitation(NamedTuple):
     is_used: bool
     role: str
     url_token: str
-    responsibility: Optional[str] = None
+    responsibility: str | None = None
 
 
 class GroupAccessState(NamedTuple):
-    modified_date: Optional[datetime]
+    modified_date: datetime | None
 
 
 class GroupAccess(NamedTuple):
     email: str
     group_name: str
     state: GroupAccessState
-    confirm_deletion: Optional[GroupConfirmDeletion] = None
-    expiration_time: Optional[int] = None
-    has_access: Optional[bool] = None
-    invitation: Optional[GroupInvitation] = None
-    responsibility: Optional[str] = None
-    role: Optional[str] = None
+    confirm_deletion: GroupConfirmDeletion | None = None
+    expiration_time: int | None = None
+    has_access: bool | None = None
+    invitation: GroupInvitation | None = None
+    responsibility: str | None = None
+    role: str | None = None
 
 
 class GroupAccessMetadataToUpdate(NamedTuple):
     state: GroupAccessState
-    confirm_deletion: Optional[GroupConfirmDeletion] = None
-    expiration_time: Optional[int] = None
-    has_access: Optional[bool] = None
-    invitation: Optional[GroupInvitation] = None
-    responsibility: Optional[str] = None
-    role: Optional[str] = None
+    confirm_deletion: GroupConfirmDeletion | None = None
+    expiration_time: int | None = None
+    has_access: bool | None = None
+    invitation: GroupInvitation | None = None
+    responsibility: str | None = None
+    role: str | None = None
 
 
 class GroupAccessRequest(NamedTuple):

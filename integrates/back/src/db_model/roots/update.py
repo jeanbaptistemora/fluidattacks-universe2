@@ -41,17 +41,14 @@ from dynamodb.exceptions import (
     ConditionalCheckFailedException,
 )
 import simplejson as json
-from typing import (
-    Union,
-)
 
 
 async def update_root_state(
     *,
-    current_value: Union[GitRootState, IPRootState, URLRootState],
+    current_value: GitRootState | IPRootState | URLRootState,
     group_name: str,
     root_id: str,
-    state: Union[GitRootState, IPRootState, URLRootState],
+    state: GitRootState | IPRootState | URLRootState,
 ) -> None:
     key_structure = TABLE.primary_key
     root_facets = {

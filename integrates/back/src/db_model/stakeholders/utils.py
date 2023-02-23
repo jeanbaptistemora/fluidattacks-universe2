@@ -26,9 +26,6 @@ from dynamodb.types import (
     Item,
 )
 import simplejson as json
-from typing import (
-    Optional,
-)
 
 
 def format_access_token(item: Item) -> StakeholderAccessToken:
@@ -66,7 +63,7 @@ def format_metadata_item(metadata: StakeholderMetadataToUpdate) -> Item:
 
 
 def format_notifications_preferences(
-    item: Optional[Item],
+    item: Item | None,
 ) -> NotificationsPreferences:
     if not item:
         return NotificationsPreferences(
@@ -97,7 +94,7 @@ def format_notifications_preferences(
     )
 
 
-def format_state(item: Optional[Item]) -> StakeholderState:
+def format_state(item: Item | None) -> StakeholderState:
     if item:
         return StakeholderState(
             modified_by=item["modified_by"],

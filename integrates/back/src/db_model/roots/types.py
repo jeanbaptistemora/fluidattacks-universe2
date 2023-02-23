@@ -17,34 +17,32 @@ from enum import (
 from typing import (
     Literal,
     NamedTuple,
-    Optional,
-    Union,
 )
 
 
 class RootUnreliableIndicators(NamedTuple):
     unreliable_code_languages: list[CodeLanguage] = []
-    unreliable_last_status_update: Optional[datetime] = None
+    unreliable_last_status_update: datetime | None = None
 
 
 class RootUnreliableIndicatorsToUpdate(NamedTuple):
-    unreliable_code_languages: Optional[list[CodeLanguage]] = None
-    unreliable_last_status_update: Optional[datetime] = None
+    unreliable_code_languages: list[CodeLanguage] | None = None
+    unreliable_last_status_update: datetime | None = None
 
 
 class GitRootCloning(NamedTuple):
     modified_date: datetime
     reason: str
     status: GitCloningStatus
-    commit: Optional[str] = None
-    commit_date: Optional[datetime] = None
+    commit: str | None = None
+    commit_date: datetime | None = None
 
 
 class Secret(NamedTuple):
     key: str
     value: str
-    description: Optional[str] = None
-    created_at: Optional[datetime] = None
+    description: str | None = None
+    created_at: datetime | None = None
 
 
 class RootEnvironmentUrlType(str, Enum):
@@ -65,11 +63,11 @@ class RootEnvironmentUrl(NamedTuple):
     url: str
     id: str
     secrets: list[Secret] = []
-    created_at: Optional[datetime] = None
-    created_by: Optional[str] = None
-    group_name: Optional[str] = None
+    created_at: datetime | None = None
+    created_by: str | None = None
+    group_name: str | None = None
     url_type: RootEnvironmentUrlType = RootEnvironmentUrlType.URL
-    cloud_name: Optional[RootEnvironmentCloud] = None
+    cloud_name: RootEnvironmentCloud | None = None
 
 
 class GitRootState(NamedTuple):
@@ -81,10 +79,10 @@ class GitRootState(NamedTuple):
     nickname: str
     status: RootStatus
     url: str
-    credential_id: Optional[str] = None
+    credential_id: str | None = None
     gitignore: list[str] = []
-    other: Optional[str] = None
-    reason: Optional[str] = None
+    other: str | None = None
+    reason: str | None = None
     use_vpn: bool = False
 
 
@@ -107,8 +105,8 @@ class IPRootState(NamedTuple):
     modified_by: str
     modified_date: datetime
     nickname: str
-    other: Optional[str]
-    reason: Optional[str]
+    other: str | None
+    reason: str | None
     status: RootStatus
 
 
@@ -130,13 +128,13 @@ class URLRootState(NamedTuple):
     modified_by: str
     modified_date: datetime
     nickname: str
-    other: Optional[str]
+    other: str | None
     path: str
     port: str
     protocol: str
-    reason: Optional[str]
+    reason: str | None
     status: RootStatus
-    query: Optional[str] = None
+    query: str | None = None
 
 
 class URLRoot(NamedTuple):
@@ -152,15 +150,15 @@ class URLRoot(NamedTuple):
     )
 
 
-Root = Union[GitRoot, IPRoot, URLRoot]
+Root = GitRoot | IPRoot | URLRoot
 
 
 class RootState(NamedTuple):
     modified_by: str
     modified_date: datetime
-    nickname: Optional[str]
-    other: Optional[str]
-    reason: Optional[str]
+    nickname: str | None
+    other: str | None
+    reason: str | None
     status: RootStatus
 
 
@@ -177,11 +175,11 @@ class RootMachineExecution(NamedTuple):
     queue: str
     root_id: str
     created_at: datetime
-    started_at: Optional[datetime] = None
-    stopped_at: Optional[datetime] = None
-    commit: Optional[str] = None
+    started_at: datetime | None = None
+    stopped_at: datetime | None = None
+    commit: str | None = None
     success: bool = True
-    status: Optional[str] = None
+    status: str | None = None
 
 
 class RootRequest(NamedTuple):

@@ -9,7 +9,6 @@ from enum import (
 )
 from typing import (
     NamedTuple,
-    Optional,
 )
 
 
@@ -54,8 +53,8 @@ class StakeholderTours(NamedTuple):
 
 
 class StakeholderState(NamedTuple):
-    modified_by: Optional[str]
-    modified_date: Optional[datetime]
+    modified_by: str | None
+    modified_date: datetime | None
     notifications_preferences: NotificationsPreferences = (
         NotificationsPreferences()
     )
@@ -63,20 +62,20 @@ class StakeholderState(NamedTuple):
 
 class Stakeholder(NamedTuple):
     email: str
-    access_token: Optional[StakeholderAccessToken] = None
+    access_token: StakeholderAccessToken | None = None
     enrolled: bool = False
-    first_name: Optional[str] = None
+    first_name: str | None = None
     is_concurrent_session: bool = False
     is_registered: bool = False
-    last_login_date: Optional[datetime] = None
-    last_api_token_use_date: Optional[datetime] = None
-    last_name: Optional[str] = None
+    last_login_date: datetime | None = None
+    last_api_token_use_date: datetime | None = None
+    last_name: str | None = None
     legal_remember: bool = False
-    phone: Optional[StakeholderPhone] = None
-    registration_date: Optional[datetime] = None
-    role: Optional[str] = None
-    session_key: Optional[str] = None
-    session_token: Optional[StakeholderSessionToken] = None
+    phone: StakeholderPhone | None = None
+    registration_date: datetime | None = None
+    role: str | None = None
+    session_key: str | None = None
+    session_token: StakeholderSessionToken | None = None
     state: StakeholderState = StakeholderState(
         notifications_preferences=NotificationsPreferences(),
         modified_by=None,
@@ -86,18 +85,18 @@ class Stakeholder(NamedTuple):
 
 
 class StakeholderMetadataToUpdate(NamedTuple):
-    access_token: Optional[StakeholderAccessToken] = None
-    enrolled: Optional[bool] = None
-    first_name: Optional[str] = None
-    is_concurrent_session: Optional[bool] = None
-    is_registered: Optional[bool] = None
-    last_login_date: Optional[datetime] = None
-    last_api_token_use_date: Optional[datetime] = None
-    last_name: Optional[str] = None
-    legal_remember: Optional[bool] = None
-    phone: Optional[StakeholderPhone] = None
-    registration_date: Optional[datetime] = None
-    role: Optional[str] = None
-    session_key: Optional[str] = None
-    session_token: Optional[StakeholderSessionToken] = None
-    tours: Optional[StakeholderTours] = None
+    access_token: StakeholderAccessToken | None = None
+    enrolled: bool | None = None
+    first_name: str | None = None
+    is_concurrent_session: bool | None = None
+    is_registered: bool | None = None
+    last_login_date: datetime | None = None
+    last_api_token_use_date: datetime | None = None
+    last_name: str | None = None
+    legal_remember: bool | None = None
+    phone: StakeholderPhone | None = None
+    registration_date: datetime | None = None
+    role: str | None = None
+    session_key: str | None = None
+    session_token: StakeholderSessionToken | None = None
+    tours: StakeholderTours | None = None

@@ -19,11 +19,9 @@ from decimal import (
 )
 from typing import (
     NamedTuple,
-    Optional,
-    Union,
 )
 
-RegisterByTime = list[list[dict[str, Union[str, Decimal]]]]
+RegisterByTime = list[list[dict[str, str | Decimal]]]
 
 
 class GroupState(NamedTuple):
@@ -35,12 +33,12 @@ class GroupState(NamedTuple):
     status: GroupStateStatus
     tier: GroupTier
     type: GroupSubscriptionType
-    tags: Optional[set[str]] = None
-    comments: Optional[str] = None
-    justification: Optional[GroupStateJustification] = None
-    payment_id: Optional[str] = None
-    pending_deletion_date: Optional[datetime] = None
-    service: Optional[GroupService] = None
+    tags: set[str] | None = None
+    comments: str | None = None
+    justification: GroupStateJustification | None = None
+    payment_id: str | None = None
+    pending_deletion_date: datetime | None = None
+    service: GroupService | None = None
 
 
 class GroupTreatmentSummary(NamedTuple):
@@ -56,42 +54,42 @@ class UnfulfilledStandard(NamedTuple):
 
 
 class GroupUnreliableIndicators(NamedTuple):
-    closed_vulnerabilities: Optional[int] = None
-    code_languages: Optional[list[CodeLanguage]] = None
-    exposed_over_time_cvssf: Optional[RegisterByTime] = None
-    exposed_over_time_month_cvssf: Optional[RegisterByTime] = None
-    exposed_over_time_year_cvssf: Optional[RegisterByTime] = None
-    last_closed_vulnerability_days: Optional[int] = None
-    last_closed_vulnerability_finding: Optional[str] = None
-    max_open_severity: Optional[Decimal] = None
-    max_open_severity_finding: Optional[str] = None
-    max_severity: Optional[Decimal] = None
-    mean_remediate: Optional[Decimal] = None
-    mean_remediate_critical_severity: Optional[Decimal] = None
-    mean_remediate_high_severity: Optional[Decimal] = None
-    mean_remediate_low_severity: Optional[Decimal] = None
-    mean_remediate_medium_severity: Optional[Decimal] = None
-    open_findings: Optional[int] = None
-    open_vulnerabilities: Optional[int] = None
-    remediated_over_time: Optional[RegisterByTime] = None
-    remediated_over_time_30: Optional[RegisterByTime] = None
-    remediated_over_time_90: Optional[RegisterByTime] = None
-    remediated_over_time_cvssf: Optional[RegisterByTime] = None
-    remediated_over_time_cvssf_30: Optional[RegisterByTime] = None
-    remediated_over_time_cvssf_90: Optional[RegisterByTime] = None
-    remediated_over_time_month: Optional[RegisterByTime] = None
-    remediated_over_time_month_cvssf: Optional[RegisterByTime] = None
-    remediated_over_time_year: Optional[RegisterByTime] = None
-    remediated_over_time_year_cvssf: Optional[RegisterByTime] = None
-    treatment_summary: Optional[GroupTreatmentSummary] = None
-    unfulfilled_standards: Optional[list[UnfulfilledStandard]] = None
+    closed_vulnerabilities: int | None = None
+    code_languages: list[CodeLanguage] | None = None
+    exposed_over_time_cvssf: RegisterByTime | None = None
+    exposed_over_time_month_cvssf: RegisterByTime | None = None
+    exposed_over_time_year_cvssf: RegisterByTime | None = None
+    last_closed_vulnerability_days: int | None = None
+    last_closed_vulnerability_finding: str | None = None
+    max_open_severity: Decimal | None = None
+    max_open_severity_finding: str | None = None
+    max_severity: Decimal | None = None
+    mean_remediate: Decimal | None = None
+    mean_remediate_critical_severity: Decimal | None = None
+    mean_remediate_high_severity: Decimal | None = None
+    mean_remediate_low_severity: Decimal | None = None
+    mean_remediate_medium_severity: Decimal | None = None
+    open_findings: int | None = None
+    open_vulnerabilities: int | None = None
+    remediated_over_time: RegisterByTime | None = None
+    remediated_over_time_30: RegisterByTime | None = None
+    remediated_over_time_90: RegisterByTime | None = None
+    remediated_over_time_cvssf: RegisterByTime | None = None
+    remediated_over_time_cvssf_30: RegisterByTime | None = None
+    remediated_over_time_cvssf_90: RegisterByTime | None = None
+    remediated_over_time_month: RegisterByTime | None = None
+    remediated_over_time_month_cvssf: RegisterByTime | None = None
+    remediated_over_time_year: RegisterByTime | None = None
+    remediated_over_time_year_cvssf: RegisterByTime | None = None
+    treatment_summary: GroupTreatmentSummary | None = None
+    unfulfilled_standards: list[UnfulfilledStandard] | None = None
 
 
 class GroupFile(NamedTuple):
     description: str
     file_name: str
     modified_by: str
-    modified_date: Optional[datetime] = None
+    modified_date: datetime | None = None
 
 
 class Group(NamedTuple):
@@ -102,26 +100,26 @@ class Group(NamedTuple):
     name: str
     organization_id: str
     state: GroupState
-    agent_token: Optional[str] = None
-    business_id: Optional[str] = None
-    business_name: Optional[str] = None
-    context: Optional[str] = None
-    disambiguation: Optional[str] = None
-    files: Optional[list[GroupFile]] = None
-    policies: Optional[Policies] = None
+    agent_token: str | None = None
+    business_id: str | None = None
+    business_name: str | None = None
+    context: str | None = None
+    disambiguation: str | None = None
+    files: list[GroupFile] | None = None
+    policies: Policies | None = None
     sprint_duration: int = 1
-    sprint_start_date: Optional[datetime] = None
+    sprint_start_date: datetime | None = None
 
 
 class GroupMetadataToUpdate(NamedTuple):
-    agent_token: Optional[str] = None
-    business_id: Optional[str] = None
-    business_name: Optional[str] = None
-    context: Optional[str] = None
-    description: Optional[str] = None
-    disambiguation: Optional[str] = None
-    files: Optional[list[GroupFile]] = None
-    language: Optional[GroupLanguage] = None
-    sprint_duration: Optional[int] = None
-    sprint_start_date: Optional[datetime] = None
+    agent_token: str | None = None
+    business_id: str | None = None
+    business_name: str | None = None
+    context: str | None = None
+    description: str | None = None
+    disambiguation: str | None = None
+    files: list[GroupFile] | None = None
+    language: GroupLanguage | None = None
+    sprint_duration: int | None = None
+    sprint_start_date: datetime | None = None
     clean_sprint_start_date: bool = False
