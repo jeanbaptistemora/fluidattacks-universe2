@@ -36,7 +36,6 @@ from schedulers.common import (
 from typing import (
     Any,
     cast,
-    Optional,
 )
 
 
@@ -84,7 +83,7 @@ async def main() -> None:
     session = aioboto3.Session(region_name=FI_AWS_REGION_NAME)
     batch_jobs: tuple[dict[str, Any], ...] = tuple()
     async with session.client("batch") as client:
-        next_token: Optional[str] = ""
+        next_token: str | None = ""
         while next_token is not None:
             response = await client.list_jobs(
                 jobQueue="medium",

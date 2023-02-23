@@ -29,7 +29,6 @@ from opensearchpy.helpers.signer import (
 from typing import (
     Any,
     cast,
-    Optional,
 )
 from urllib.parse import (
     urlencode,
@@ -61,11 +60,11 @@ class AsyncAWSConnection(AIOHttpConnection):
         self,
         method: str,
         url: str,
-        params: Optional[dict[str, Any]] = None,
-        body: Optional[bytes] = None,
-        timeout: Optional[float] = None,
+        params: dict[str, Any] | None = None,
+        body: bytes | None = None,
+        timeout: float | None = None,
         ignore: tuple[int, ...] = (),
-        headers: Optional[dict[str, str]] = None,
+        headers: dict[str, str] | None = None,
     ) -> tuple[int, dict[str, str], str]:
         headers_ = headers if headers else {}
         query_string = "?" + urlencode(params) if params else ""
@@ -107,7 +106,7 @@ CLIENT_OPTIONS = {
     "verify_certs": FI_ENVIRONMENT == "production",
 }
 CONTEXT_STACK = None
-CLIENT: Optional[AsyncOpenSearch] = None
+CLIENT: AsyncOpenSearch | None = None
 
 
 async def search_startup() -> None:

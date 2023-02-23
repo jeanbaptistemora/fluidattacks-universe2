@@ -12,23 +12,22 @@ from search.types import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 
 async def search(  # pylint: disable=too-many-locals
     *,
-    exact_filters: Optional[dict[str, Any]] = None,
+    exact_filters: dict[str, Any] | None = None,
     index: str,
     limit: int,
-    after: Optional[str] = None,
-    query: Optional[str] = None,
-    should_filters: Optional[list[dict[str, Any]]] = None,
-    must_filters: Optional[list[dict[str, Any]]] = None,
-    must_match_prefix_filters: Optional[list[dict[str, Any]]] = None,
-    range_filters: Optional[list[dict[str, Any]]] = None,
-    must_not_filters: Optional[list[dict[str, Any]]] = None,
-    sort_by: Optional[dict[str, Any]] = None,
+    after: str | None = None,
+    query: str | None = None,
+    should_filters: list[dict[str, Any]] | None = None,
+    must_filters: list[dict[str, Any]] | None = None,
+    must_match_prefix_filters: list[dict[str, Any]] | None = None,
+    range_filters: list[dict[str, Any]] | None = None,
+    must_not_filters: list[dict[str, Any]] | None = None,
+    sort_by: dict[str, Any] | None = None,
 ) -> SearchResponse:
     """
     Searches for items matching both the user input (full-text)

@@ -27,11 +27,6 @@ from starlette.datastructures import (
 from tempfile import (
     _TemporaryFileWrapper as TemporaryFileWrapper,
 )
-from typing import (
-    Dict,
-    List,
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -51,9 +46,9 @@ async def download_file(
 
 
 async def list_files(
-    name: Optional[str] = None,
+    name: str | None = None,
     bucket: str = FI_AWS_S3_MAIN_BUCKET,
-) -> List[str]:
+) -> list[str]:
     client = await get_s3_resource()
     resp = await client.list_objects_v2(
         Bucket=bucket, Prefix=f"{FI_AWS_S3_PATH_PREFIX}{name}"
@@ -125,7 +120,7 @@ async def upload_memory_file(
 
 async def sing_upload_url(
     file_name: str, expire_mins: float, bucket: str = FI_AWS_S3_MAIN_BUCKET
-) -> Dict[str, Dict[str, str]]:
+) -> dict[str, dict[str, str]]:
     params = {
         "conditions": [
             {"acl": "private"},

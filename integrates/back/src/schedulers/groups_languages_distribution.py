@@ -39,16 +39,11 @@ from organizations import (
 )
 import os
 import tempfile
-from typing import (
-    Dict,
-    List,
-    Tuple,
-)
 
 LOGGER = logging.getLogger(__name__)
 
 
-def clone_mirrors(tmpdir: str, group: str) -> Tuple[str, List[str]]:
+def clone_mirrors(tmpdir: str, group: str) -> tuple[str, list[str]]:
     os.chdir(tmpdir)
     pull_repositories(
         tmpdir=tmpdir,
@@ -65,8 +60,8 @@ def clone_mirrors(tmpdir: str, group: str) -> Tuple[str, List[str]]:
 
 
 async def get_root_languages_stats(
-    path: str, folder: str, group: str, roots_nicknames: List[str]
-) -> Dict[str, int]:
+    path: str, folder: str, group: str, roots_nicknames: list[str]
+) -> dict[str, int]:
     languages_stats = {}
     if folder not in roots_nicknames:
         LOGGER.warning(
@@ -119,10 +114,10 @@ async def get_root_languages_stats(
 async def update_language_indicators(
     loaders: Dataloaders,
     group: str,
-    roots_by_nickname: Dict[str, GitRoot],
-    roots_languages_distribution: Dict[str, Dict[str, int]],
+    roots_by_nickname: dict[str, GitRoot],
+    roots_languages_distribution: dict[str, dict[str, int]],
 ) -> None:
-    group_languages: Dict[str, int] = {}
+    group_languages: dict[str, int] = {}
     for nickname, languages in roots_languages_distribution.items():
         root = roots_by_nickname.get(nickname)
         if not root or not languages:
@@ -226,7 +221,7 @@ async def main() -> None:
     groups = await orgs_domain.get_all_active_group_names(loaders)
     groups_roots = await loaders.group_roots.load_many(list(groups))
     for group, roots in zip(groups, groups_roots):
-        active_git_roots: List[GitRoot] = [
+        active_git_roots: list[GitRoot] = [
             root
             for root in roots
             if (
@@ -240,15 +235,15 @@ async def main() -> None:
             len(active_git_roots),
         )
 
-        roots_nicknames: List[str] = [
+        roots_nicknames: list[str] = [
             root.state.nickname for root in active_git_roots
         ]
-        roots_by_nickname: Dict[str, GitRoot] = {
+        roots_by_nickname: dict[str, GitRoot] = {
             root.state.nickname: root for root in active_git_roots
         }
         with tempfile.TemporaryDirectory() as tmpdir:
             clone_path, clone_repos = clone_mirrors(tmpdir=tmpdir, group=group)
-            languages_distribution: Tuple[Dict[str, int], ...] = await collect(
+            languages_distribution: tuple[dict[str, int], ...] = await collect(
                 (
                     get_root_languages_stats(
                         path=clone_path,
@@ -260,7 +255,7 @@ async def main() -> None:
                 ),
                 workers=os.cpu_count(),  # type: ignore
             )
-            roots_language_distribution: Dict[str, Dict[str, int]] = dict(
+            roots_language_distribution: dict[str, dict[str, int]] = dict(
                 zip(clone_repos, languages_distribution)
             )
         await update_language_indicators(

@@ -77,7 +77,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Optional,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -184,7 +183,7 @@ def _common_generate_count_report(
     *,
     content: dict[str, Any],
     date_range: int,
-    date_report: Optional[datetime],
+    date_report: datetime | None,
     field: str,
     group: str,
     to_add: int = 1,
@@ -278,7 +277,7 @@ def _draft_created_content(
     content: dict[str, Any],
     cvss: Decimal = Decimal("0.0"),
     date_report: datetime,
-    date_submission: Optional[datetime],
+    date_submission: datetime | None,
     group: str,
     state: FindingStateStatus,
     user_email: str,
@@ -303,7 +302,7 @@ def _oldest_draft(  # pylint: disable=too-many-arguments
     content: dict[str, Any],
     cvss: Decimal,
     date_report: datetime,
-    date_submission: Optional[datetime],
+    date_submission: datetime | None,
     state: FindingStateStatus,
     user_email: str,
 ) -> None:

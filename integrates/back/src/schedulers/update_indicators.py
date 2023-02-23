@@ -11,6 +11,9 @@ from calendar import (
 from collections import (
     OrderedDict,
 )
+from collections.abc import (
+    Iterable,
+)
 from custom_exceptions import (
     GroupNotFound,
 )
@@ -75,10 +78,7 @@ from time import (
 )
 from typing import (
     cast,
-    Iterable,
     NamedTuple,
-    Optional,
-    Union,
 )
 from unreliable_indicators.enums import (
     Entity,
@@ -108,12 +108,12 @@ class VulnerabilitiesStatusByTimeRange(NamedTuple):
 
 
 class RegisterByTime(NamedTuple):
-    vulnerabilities: list[list[dict[str, Union[str, Decimal]]]]
-    vulnerabilities_cvssf: list[list[dict[str, Union[str, Decimal]]]]
-    exposed_cvssf: list[list[dict[str, Union[str, Decimal]]]]
-    vulnerabilities_yearly: list[list[dict[str, Union[str, Decimal]]]]
-    vulnerabilities_cvssf_yearly: list[list[dict[str, Union[str, Decimal]]]]
-    exposed_cvssf_yearly: list[list[dict[str, Union[str, Decimal]]]]
+    vulnerabilities: list[list[dict[str, str | Decimal]]]
+    vulnerabilities_cvssf: list[list[dict[str, str | Decimal]]]
+    exposed_cvssf: list[list[dict[str, str | Decimal]]]
+    vulnerabilities_yearly: list[list[dict[str, str | Decimal]]]
+    vulnerabilities_cvssf_yearly: list[list[dict[str, str | Decimal]]]
+    exposed_cvssf_yearly: list[list[dict[str, str | Decimal]]]
 
 
 class CvssfExposureByTimeRange(NamedTuple):
@@ -125,9 +125,9 @@ class CvssfExposureByTimeRange(NamedTuple):
 
 def create_data_format_chart(
     all_registers: dict[str, dict[str, Decimal]]
-) -> list[list[dict[str, Union[str, Decimal]]]]:
+) -> list[list[dict[str, str | Decimal]]]:
     result_data = []
-    plot_points: dict[str, list[dict[str, Union[str, Decimal]]]] = {
+    plot_points: dict[str, list[dict[str, str | Decimal]]] = {
         "found": [],
         "closed": [],
         "accepted": [],
@@ -145,9 +145,9 @@ def create_data_format_chart(
 
 def format_exposed_chart(
     all_registers: dict[str, dict[str, Decimal]]
-) -> list[list[dict[str, Union[str, Decimal]]]]:
+) -> list[list[dict[str, str | Decimal]]]:
     result_data = []
-    plot_points: dict[str, list[dict[str, Union[str, Decimal]]]] = {
+    plot_points: dict[str, list[dict[str, str | Decimal]]] = {
         "low": [],
         "medium": [],
         "high": [],
@@ -196,9 +196,9 @@ def get_yearly(x_date: str) -> str:
 
 def format_data_chart_yearly(
     all_registers: dict[str, dict[str, Decimal]]
-) -> list[list[dict[str, Union[str, Decimal]]]]:
+) -> list[list[dict[str, str | Decimal]]]:
     result_data = []
-    plot_points: dict[str, list[dict[str, Union[str, Decimal]]]] = {
+    plot_points: dict[str, list[dict[str, str | Decimal]]] = {
         "found": [],
         "closed": [],
         "accepted": [],
@@ -216,9 +216,9 @@ def format_data_chart_yearly(
 
 def format_exposed_chart_yearly(
     all_registers: dict[str, dict[str, Decimal]]
-) -> list[list[dict[str, Union[str, Decimal]]]]:
+) -> list[list[dict[str, str | Decimal]]]:
     result_data = []
-    plot_points: dict[str, list[dict[str, Union[str, Decimal]]]] = {
+    plot_points: dict[str, list[dict[str, str | Decimal]]] = {
         "low": [],
         "medium": [],
         "high": [],
@@ -269,7 +269,7 @@ async def _get_vulnerability_data(
     sleep_seconds=5,
 )
 async def create_register_by_week(  # pylint: disable=too-many-locals
-    loaders: Dataloaders, group: str, min_date: Optional[datetime] = None
+    loaders: Dataloaders, group: str, min_date: datetime | None = None
 ) -> RegisterByTime:
     """Create weekly vulnerabilities registry by group."""
     found: int = 0
@@ -630,7 +630,7 @@ def get_accepted_vulns(
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
     last_day: datetime,
-    min_date: Optional[datetime] = None,
+    min_date: datetime | None = None,
 ) -> VulnerabilityStatusByTimeRange:
     accepted_treatments = {
         VulnerabilityTreatmentStatus.ACCEPTED,
@@ -661,7 +661,7 @@ def get_open_vulnerabilities(
     historic_treatment: tuple[VulnerabilityTreatment, ...],
     severity: Decimal,
     last_day: datetime,
-    min_date: Optional[datetime] = None,
+    min_date: datetime | None = None,
 ) -> VulnerabilityStatusByTimeRange:
     accepted_treatments = {
         VulnerabilityTreatmentStatus.ACCEPTED,
@@ -706,7 +706,7 @@ def get_by_time_range(
     status: VulnerabilityStateStatus,
     severity: Decimal,
     last_day: datetime,
-    min_date: Optional[datetime] = None,
+    min_date: datetime | None = None,
 ) -> VulnerabilityStatusByTimeRange:
     states = tuple(
         state
@@ -758,7 +758,7 @@ def get_last_vulnerabilities_date(
 
 def get_first_week_dates(
     vulns: Iterable[Vulnerability],
-    min_date: Optional[datetime] = None,
+    min_date: datetime | None = None,
 ) -> tuple[datetime, datetime]:
     """Get first week vulnerabilities."""
     if min_date:
@@ -817,7 +817,7 @@ def get_status_vulns_by_time_range(
     ],
     first_day: datetime,
     last_day: datetime,
-    min_date: Optional[datetime] = None,
+    min_date: datetime | None = None,
 ) -> VulnerabilitiesStatusByTimeRange:
     """Get total closed and found vulnerabilities by time range."""
     vulnerabilities_found = [

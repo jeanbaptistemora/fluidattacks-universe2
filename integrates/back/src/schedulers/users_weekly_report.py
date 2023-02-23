@@ -27,9 +27,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Dict,
-    List,
-    Tuple,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -40,8 +37,8 @@ INACTIVE_DAYS = 7
 
 
 def get_inactive_users(
-    group_stakeholders: Tuple[Dict[str, Any], ...],
-) -> List[str]:
+    group_stakeholders: tuple[dict[str, Any], ...],
+) -> list[str]:
     inactive_users: list[str] = [
         stakeholder["email"]
         for stakeholder in group_stakeholders

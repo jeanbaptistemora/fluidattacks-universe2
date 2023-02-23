@@ -38,9 +38,6 @@ from organizations import (
 from schedulers.common import (
     info,
 )
-from typing import (
-    Optional,
-)
 from unreliable_indicators.enums import (
     EntityDependency,
 )
@@ -62,9 +59,7 @@ from vulnerabilities.types import (
         VulnNotFound,
     ),
 )
-async def process_vulnerability(
-    vulnerability: Vulnerability,
-) -> Optional[str]:
+async def process_vulnerability(vulnerability: Vulnerability) -> str | None:
     today = datetime_utils.get_utc_now()
     is_accepted_expired = (
         vulnerability.treatment.accepted_until < today

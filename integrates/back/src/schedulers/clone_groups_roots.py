@@ -14,16 +14,14 @@ from roots import (
     domain as roots_domain,
 )
 from typing import (
-    List,
     NamedTuple,
-    Optional,
 )
 
 
 class QuequeResult(NamedTuple):
     success: bool
     group: str
-    message: Optional[str] = None
+    message: str | None = None
 
 
 async def _queue_sync_git_roots(
@@ -34,7 +32,7 @@ async def _queue_sync_git_roots(
     queue_with_vpn: bool = False,
 ) -> QuequeResult:
     success = False
-    message: Optional[str] = None
+    message: str | None = None
     try:
         result = await (
             roots_domain.queue_sync_git_roots(
@@ -60,7 +58,7 @@ async def _queue_sync_git_roots(
 async def clone_groups_roots(queue_with_vpn: bool = False) -> None:
     loaders: Dataloaders = get_new_context()
     groups = await orgs_domain.get_all_active_groups(loaders)
-    machine_groups: List[str] = [
+    machine_groups: list[str] = [
         group.name for group in groups if group.state.has_machine is True
     ]
     for group in machine_groups:

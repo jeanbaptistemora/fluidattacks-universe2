@@ -28,9 +28,6 @@ from organizations import (
 from settings import (
     LOGGING,
 )
-from typing import (
-    Optional,
-)
 
 logging.config.dictConfig(LOGGING)
 
@@ -40,7 +37,7 @@ INACTIVE_DAYS = 21
 
 
 async def is_trial_end(loaders: Dataloaders, email: str) -> bool:
-    trial: Optional[Trial] = await loaders.trial.load(email)
+    trial: Trial | None = await loaders.trial.load(email)
     return trial.completed if trial else False
 
 

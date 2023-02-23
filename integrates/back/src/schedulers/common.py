@@ -1,6 +1,9 @@
 from aioextensions import (
     schedule,
 )
+from collections.abc import (
+    Callable,
+)
 from dataloaders import (
     Dataloaders,
 )
@@ -11,7 +14,6 @@ from settings import (
 )
 from typing import (
     Any,
-    Callable,
 )
 
 # FP: local testing

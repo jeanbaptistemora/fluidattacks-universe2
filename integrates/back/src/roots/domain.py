@@ -24,6 +24,9 @@ from batch.types import (
 from collections import (
     defaultdict,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_AWS_REGION_NAME,
     FI_ENVIRONMENT,
@@ -153,10 +156,6 @@ from settings.various import (
 from typing import (
     Any,
     cast,
-    DefaultDict,
-    Iterable,
-    Optional,
-    Union,
 )
 from urllib3.exceptions import (
     LocationParseError,
@@ -211,12 +210,12 @@ async def _get_credentials_type_to_add(  # pylint: disable=too-many-arguments
     group: Group,
     url: str,
     branch: str,
-    credentials: Optional[dict[str, str]],
+    credentials: dict[str, str] | None,
     required_credentials: bool,
     user_email: str,
     use_vpn: bool,
-) -> Optional[Credentials]:
-    organization_credential: Optional[Credentials] = None
+) -> Credentials | None:
+    organization_credential: Credentials | None = None
     if required_credentials and not credentials:
         raise RequiredCredentials()
 
@@ -320,7 +319,7 @@ async def add_git_root(  # pylint: disable=too-many-locals
         raise RepeatedRoot()
 
     root_id = str(uuid4())
-    credentials: Optional[dict[str, str]] = kwargs.get("credentials")
+    credentials: dict[str, str] | None = kwargs.get("credentials")
 
     organization_credential = await _get_credentials_type_to_add(
         loaders=loaders,
@@ -466,9 +465,9 @@ async def add_url_root(  # pylint: disable=too-many-locals
         raise InvalidParameter()
 
     host: str = url_attributes.host
-    fragment: Optional[str] = url_attributes.fragment
+    fragment: str | None = url_attributes.fragment
     path: str = url_attributes.path or "/"
-    query: Optional[str] = url_attributes.query
+    query: str | None = url_attributes.query
     default_port = "443" if url_attributes.scheme == "https" else "80"
     port = str(url_attributes.port) if url_attributes.port else default_port
     protocol: str = url_attributes.scheme.upper()
@@ -602,8 +601,8 @@ async def update_git_environments(
     group_name: str,
     root_id: str,
     environment_urls: list[str],
-    reason: Optional[str],
-    other: Optional[str],
+    reason: str | None,
+    other: str | None,
 ) -> None:
     root = await loaders.root.load(RootRequest(group_name, root_id))
     modified_date = datetime_utils.get_utc_now()
@@ -672,11 +671,11 @@ async def _update_git_root_credentials(  # noqa: MC0001
     loaders: Dataloaders,
     group: Group,
     root: GitRoot,
-    credentials: Optional[dict[str, str]],
+    credentials: dict[str, str] | None,
     user_email: str,
-) -> Optional[str]:
+) -> str | None:
     credential_id = credentials.get("id") if credentials else None
-    credential_to_add: Optional[Credentials] = None
+    credential_to_add: Credentials | None = None
     if credentials and credential_id is None:
         credential_to_add = _format_root_credential_new(
             credentials, group.organization_id, user_email
@@ -808,7 +807,7 @@ async def update_git_root(  # pylint: disable=too-many-locals # noqa: MC0001
         raise PermissionDenied()
     _validate_git_root_url(root, gitignore)
 
-    credentials: Optional[dict[str, str]] = kwargs.get("credentials")
+    credentials: dict[str, str] | None = kwargs.get("credentials")
     credential_id = await _update_git_root_credentials(
         loaders=loaders,
         group=group,
@@ -970,7 +969,7 @@ async def send_mail_updated_root(
     loaders: Dataloaders,
     group_name: str,
     root: Root,
-    new_state: Union[GitRootState, IPRootState, URLRootState],
+    new_state: GitRootState | IPRootState | URLRootState,
     user_email: str,
 ) -> None:
     users_email = await mailer_utils.get_group_emails_by_notification(
@@ -1007,8 +1006,8 @@ async def update_root_cloning_status(  # pylint: disable=too-many-arguments
     root_id: str,
     status: GitCloningStatus,
     message: str,
-    commit: Optional[str] = None,
-    commit_date: Optional[datetime] = None,
+    commit: str | None = None,
+    commit_date: datetime | None = None,
 ) -> None:
     root = await get_root(loaders, root_id, group_name)
     modified_date = datetime_utils.get_utc_now()
@@ -1260,7 +1259,7 @@ async def deactivate_root(
     *,
     email: str,
     group_name: str,
-    other: Optional[str],
+    other: str | None,
     reason: str,
     root: Root,
 ) -> None:
@@ -1442,7 +1441,7 @@ async def historic_cloning_grouped(
 
 async def get_last_cloning_successful(
     loaders: Dataloaders, root_id: str
-) -> Optional[GitRootCloning]:
+) -> GitRootCloning | None:
     """
     Returns last cloning item with "ok" state before failure
 
@@ -1643,7 +1642,7 @@ async def add_secret(  # pylint: disable=too-many-arguments
     root_id: str,
     key: str,
     value: str,
-    description: Optional[str] = None,
+    description: str | None = None,
 ) -> bool:
     await loaders.root.load(RootRequest(group_name, root_id))
     secret = Secret(key=key, value=value, description=description)
@@ -1654,7 +1653,7 @@ async def add_root_environment_secret(
     url_id: str,
     key: str,
     value: str,
-    description: Optional[str] = None,
+    description: str | None = None,
 ) -> bool:
     secret = Secret(
         key=key,
@@ -1689,9 +1688,9 @@ async def add_root_environment_url(
     url_type: str,
     user_email: str,
     should_notified: bool = False,
-    cloud_type: Optional[str] = None,
+    cloud_type: str | None = None,
 ) -> bool:
-    _cloud_type: Optional[RootEnvironmentCloud] = None
+    _cloud_type: RootEnvironmentCloud | None = None
     try:
         _url_type = RootEnvironmentUrlType[url_type]
         if cloud_type:
@@ -1754,8 +1753,8 @@ async def send_mail_environment(
     urls_added: list[str],
     urls_deleted: list[str],
     user_email: str,
-    other: Optional[str] = None,
-    reason: Optional[str] = None,
+    other: str | None = None,
+    reason: str | None = None,
 ) -> None:
     users_email = await mailer_utils.get_group_emails_by_notification(
         loaders=loaders,
@@ -1787,7 +1786,7 @@ async def remove_environment_url_id(
     group_name: str,
 ) -> str:
     urls = await loaders.root_environment_urls.load(root_id)
-    url: Optional[str] = next(
+    url: str | None = next(
         (env_url.url for env_url in urls if env_url.id == url_id),
         None,
     )
@@ -1863,8 +1862,8 @@ async def remove_root(
 async def get_unsolved_events_by_root(
     loaders: Dataloaders, group_name: str
 ) -> dict[str, tuple[Event, ...]]:
-    unsolved_events_by_root: DefaultDict[
-        Optional[str], list[Event]
+    unsolved_events_by_root: defaultdict[
+        str | None, list[Event]
     ] = defaultdict(list[Event])
     unsolved_events = await loaders.group_events.load(
         GroupEventsRequest(group_name=group_name, is_solved=False)
@@ -1880,8 +1879,8 @@ async def get_unsolved_events_by_root(
 
 async def _ls_remote_root(
     root: GitRoot, cred: Credentials, loaders: Dataloaders
-) -> Optional[str]:
-    last_commit: Optional[str]
+) -> str | None:
+    last_commit: str | None
 
     if root.state.use_vpn:
         last_commit = None
@@ -2020,7 +2019,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
     )
 
     last_root_commits_in_s3: tuple[
-        tuple[GitRoot, Optional[str], Optional[str], bool], ...
+        tuple[GitRoot, str | None, str | None, bool], ...
     ] = tuple(
         zip(
             roots,
@@ -2040,7 +2039,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         )
     )
 
-    roots_with_issues: tuple[tuple[GitRoot, Optional[str]], ...] = tuple(
+    roots_with_issues: tuple[tuple[GitRoot, str | None], ...] = tuple(
         (root, last_commit)
         for root, last_commit, commit, _ in last_root_commits_in_s3
         if commit is None and not root.state.use_vpn
@@ -2059,7 +2058,7 @@ async def _filter_roots_working_creds(  # pylint: disable=too-many-arguments
         ]
     )
 
-    unchanged_roots: tuple[tuple[GitRoot, Optional[str]], ...] = tuple(
+    unchanged_roots: tuple[tuple[GitRoot, str | None], ...] = tuple(
         (root, last_commit)
         for (
             root,
@@ -2113,12 +2112,12 @@ async def queue_sync_git_roots(
     loaders: Dataloaders,
     user_email: str,
     group_name: str,
-    roots: Optional[tuple[GitRoot, ...]] = None,
+    roots: tuple[GitRoot, ...] | None = None,
     check_existing_jobs: bool = True,
     force: bool = False,
     queue_with_vpn: bool = False,
     from_scheduler: bool = False,
-) -> Optional[PutActionResult]:
+) -> PutActionResult | None:
     group: Group = await loaders.group.load(group_name)
     if roots is None:
         roots = tuple(
@@ -2219,7 +2218,7 @@ async def queue_sync_git_roots(
 
 async def get_commit_last_sucessful_clone(
     loaders: Dataloaders, root: GitRoot
-) -> Optional[str]:
+) -> str | None:
     commit = root.cloning.commit
     if commit is None:
         clone_history: list[

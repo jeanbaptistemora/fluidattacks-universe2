@@ -39,7 +39,6 @@ from schedulers.common import (
 )
 from typing import (
     Any,
-    Union,
 )
 
 
@@ -47,8 +46,8 @@ def calculate_tag_indicators(
     tag: str,
     tags_dict: dict[str, list[dict[str, Any]]],
     indicator_list: list[str],
-) -> dict[str, Union[Decimal, list[str]]]:
-    tag_info: dict[str, Union[Decimal, list[str]]] = {}
+) -> dict[str, Decimal | list[str]]:
+    tag_info: dict[str, Decimal | list[str]] = {}
     for indicator in indicator_list:
         if "max" in indicator:
             tag_info[indicator] = Decimal(

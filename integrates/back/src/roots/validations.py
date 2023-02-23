@@ -1,3 +1,7 @@
+from collections.abc import (
+    Callable,
+    Iterable,
+)
 from custom_exceptions import (
     BranchNotFound,
     InactiveRoot,
@@ -71,10 +75,6 @@ from roots import (
 )
 from typing import (
     Any,
-    Callable,
-    Iterable,
-    Optional,
-    Union,
 )
 from urllib3.exceptions import (
     LocationParseError,
@@ -94,18 +94,18 @@ async def validate_git_access(
     *,
     url: str,
     branch: str,
-    secret: Union[
-        HttpsSecret,
-        HttpsPatSecret,
-        OauthAzureSecret,
-        OauthBitbucketSecret,
-        OauthGithubSecret,
-        OauthGitlabSecret,
-        SshSecret,
-    ],
+    secret: (
+        HttpsSecret
+        | HttpsPatSecret
+        | OauthAzureSecret
+        | OauthBitbucketSecret
+        | OauthGithubSecret
+        | OauthGitlabSecret
+        | SshSecret
+    ),
     loaders: Dataloaders,
-    credential_id: Optional[str] = None,
-    organization_id: Optional[str] = None,
+    credential_id: str | None = None,
+    organization_id: str | None = None,
 ) -> None:
     try:
         url = roots_utils.format_git_repo_url(url)
@@ -144,7 +144,7 @@ async def validate_credential_in_organization(
 async def working_credentials(
     url: str,
     branch: str,
-    credentials: Optional[Credentials],
+    credentials: Credentials | None,
     loaders: Dataloaders,
 ) -> None:
     if not credentials:
@@ -182,7 +182,7 @@ def is_exclude_valid(exclude_patterns: list[str], url: str) -> bool:
 
 def is_valid_url(url: str) -> bool:
     try:
-        url_attributes: Union[Url, ParseResult] = parse_url(url)
+        url_attributes: Url | ParseResult = parse_url(url)
     except LocationParseError:
         url_attributes = urlparse(url)
 
@@ -301,7 +301,7 @@ def is_url_unique(  # pylint: disable=too-many-arguments
     path: str,
     port: str,
     protocol: str,
-    query: Optional[str],
+    query: str | None,
     roots: Iterable[Root],
     include_inactive: bool = False,
 ) -> bool:
@@ -495,11 +495,11 @@ async def get_cred_token(
     credential_id: str,
     organization_id: str,
     loaders: Dataloaders,
-    credential: Optional[Credentials] = None,
-) -> Optional[str]:
-    _credential: Optional[
-        Credentials
-    ] = credential or await loaders.credentials.load(
+    credential: Credentials | None = None,
+) -> str | None:
+    _credential: (
+        Credentials | None
+    ) = credential or await loaders.credentials.load(
         CredentialsRequest(
             id=credential_id,
             organization_id=organization_id,
@@ -508,7 +508,7 @@ async def get_cred_token(
     if not _credential:
         return None
 
-    token: Optional[str] = None
+    token: str | None = None
     if isinstance(_credential.state.secret, OauthGithubSecret):
         token = _credential.state.secret.access_token
 
@@ -541,7 +541,7 @@ async def validate_git_credentials_oauth(
     credential_id: str,
     organization_id: str,
 ) -> None:
-    token: Optional[str] = await get_cred_token(
+    token: str | None = await get_cred_token(
         credential_id=credential_id,
         organization_id=organization_id,
         loaders=loaders,
@@ -578,9 +578,9 @@ async def validate_git_credentials_oauth(
 async def _validate_git_credentials_https(
     repo_url: str,
     branch: str,
-    user: Optional[str] = None,
-    password: Optional[str] = None,
-    token: Optional[str] = None,
+    user: str | None = None,
+    password: str | None = None,
+    token: str | None = None,
 ) -> None:
     last_commit = await git_self.https_ls_remote(
         branch=branch,
@@ -600,18 +600,18 @@ async def validate_git_credentials(
     *,
     repo_url: str,
     branch: str,
-    secret: Union[
-        HttpsSecret,
-        HttpsPatSecret,
-        OauthAzureSecret,
-        OauthBitbucketSecret,
-        OauthGithubSecret,
-        OauthGitlabSecret,
-        SshSecret,
-    ],
+    secret: (
+        HttpsSecret
+        | HttpsPatSecret
+        | OauthAzureSecret
+        | OauthBitbucketSecret
+        | OauthGithubSecret
+        | OauthGitlabSecret
+        | SshSecret
+    ),
     loaders: Dataloaders,
-    credential_id: Optional[str] = None,
-    organization_id: Optional[str] = None,
+    credential_id: str | None = None,
+    organization_id: str | None = None,
 ) -> None:
     if isinstance(secret, SshSecret):
         await _validate_git_credentials_ssh(repo_url, branch, secret.key)

@@ -1,6 +1,10 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    Awaitable,
+    Callable,
+)
 from custom_exceptions import (
     UnableToSendMail,
 )
@@ -25,10 +29,6 @@ from newutils import (
 )
 from organizations import (
     domain as orgs_domain,
-)
-from typing import (
-    Awaitable,
-    Callable,
 )
 
 mail_add_stakeholders_notification = retry_on_exceptions(

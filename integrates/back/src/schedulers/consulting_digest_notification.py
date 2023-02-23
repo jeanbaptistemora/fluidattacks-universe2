@@ -1,6 +1,9 @@
 from aioextensions import (
     collect,
 )
+from collections.abc import (
+    Iterable,
+)
 from context import (
     FI_ENVIRONMENT,
     FI_TEST_PROJECTS,
@@ -62,10 +65,7 @@ from settings import (
 )
 from typing import (
     Any,
-    Iterable,
-    Optional,
     TypedDict,
-    Union,
 )
 
 logging.config.dictConfig(LOGGING)
@@ -85,14 +85,12 @@ mail_consulting_digest = retry_on_exceptions(
 class CommentsDataType(TypedDict):
     org_name: str
     email_to: tuple[str, ...]
-    group_comments: tuple[
-        Union[GroupComment, EventComment, FindingComment], ...
-    ]
+    group_comments: tuple[GroupComment | EventComment | FindingComment, ...]
     event_comments: dict[
-        str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
+        str, tuple[GroupComment | EventComment | FindingComment, ...]
     ]
     finding_comments: dict[
-        str, tuple[Union[GroupComment, EventComment, FindingComment], ...]
+        str, tuple[GroupComment | EventComment | FindingComment, ...]
     ]
 
 
@@ -146,7 +144,7 @@ async def group_comments(
 
 async def instance_comments(
     loaders: Dataloaders, instance_id: str, instance_type: str
-) -> tuple[Union[GroupComment, EventComment, FindingComment], ...]:
+) -> tuple[GroupComment | EventComment | FindingComment, ...]:
     if instance_type == "event":
         return tuple(
             filter_last_event_comments(
@@ -169,9 +167,9 @@ async def instance_comments(
 
 async def group_instance_comments(
     loaders: Dataloaders,
-    group_instances: Iterable[Union[Event, Finding]],
+    group_instances: Iterable[Event | Finding],
     instance_type: str,
-) -> dict[str, tuple[Union[GroupComment, EventComment, FindingComment], ...]]:
+) -> dict[str, tuple[GroupComment | EventComment | FindingComment, ...]]:
     comments = await collect(
         [
             instance_comments(loaders, instance.id, instance_type)
@@ -216,8 +214,8 @@ def format_comment(comment: str) -> str:
 
 
 def digest_comments(
-    items: tuple[Union[GroupComment, EventComment, FindingComment], ...]
-) -> list[dict[str, Optional[str]]]:
+    items: tuple[GroupComment | EventComment | FindingComment, ...]
+) -> list[dict[str, str | None]]:
     return [
         {
             "date": datetime_utils.get_as_str(
