@@ -1,6 +1,9 @@
 from lib_root.f091.c_sharp import (
     insecure_logging as c_sharp_insecure_logging,
 )
+from lib_root.f091.dart import (
+    dart_insecure_logging,
+)
 from lib_root.f091.java import (
     insecure_logging as java_insecure_logging,
 )
@@ -21,4 +24,5 @@ QUERIES: graph_model.Queries = (
     (FINDING, java_insecure_logging),
     (FINDING, javascript_insecure_logging),
     (FINDING, typescript_insecure_logging),
+    (FINDING, dart_insecure_logging),
 )

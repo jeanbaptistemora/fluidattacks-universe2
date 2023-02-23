@@ -299,3 +299,53 @@ F091,lines,namespace/skims/test/data/lib_root/f091/ts_log_injection.ts,15,117,sk
   25 | }
      ^ Col 0
 ",typescript.typescript_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/dart_log_injection.dart,9,117,skims,091. Log injection,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f091/dart_log_injection.dart","
+   1 | import 'dart:io';
+   2 | import 'package:logging/logging.dart';
+   3 |
+   4 | class Test {
+   5 |   static final logger = Logger('Test');
+   6 |
+   7 |   void insecure1(HttpRequest req, HttpResponse resp) {
+   8 |     String param1 = req.uri.queryParameters['param'];
+>  9 |     logger.info('Param1: $param1'); // Insecure
+  10 |   }
+  11 |
+  12 |   void insecure2(HttpRequest req) {
+  13 |     String param = req.headers.value('header');
+  14 |     logger.severe('Dangerous: $param'); // Insecure
+  15 |   }
+  16 |
+  17 |   void safe(HttpRequest req) {
+  18 |     String param2 = req.uri.queryParameters['param2'];
+  19 |     param2 = param2.replaceAll(RegExp(""[\n\r\t]""), '_'); // Sanitize parameter
+  20 |     logger.info('Param1: $param2'); // Safe
+  21 |   }
+     ^ Col 0
+",dart.dart_insecure_logging
+F091,lines,namespace/skims/test/data/lib_root/f091/dart_log_injection.dart,14,117,skims,091. Log injection,"Using print or println on production exposes data what could increase the attack surface.
+ in namespace/skims/test/data/lib_root/f091/dart_log_injection.dart","
+   2 | import 'package:logging/logging.dart';
+   3 |
+   4 | class Test {
+   5 |   static final logger = Logger('Test');
+   6 |
+   7 |   void insecure1(HttpRequest req, HttpResponse resp) {
+   8 |     String param1 = req.uri.queryParameters['param'];
+   9 |     logger.info('Param1: $param1'); // Insecure
+  10 |   }
+  11 |
+  12 |   void insecure2(HttpRequest req) {
+  13 |     String param = req.headers.value('header');
+> 14 |     logger.severe('Dangerous: $param'); // Insecure
+  15 |   }
+  16 |
+  17 |   void safe(HttpRequest req) {
+  18 |     String param2 = req.uri.queryParameters['param2'];
+  19 |     param2 = param2.replaceAll(RegExp(""[\n\r\t]""), '_'); // Sanitize parameter
+  20 |     logger.info('Param1: $param2'); // Safe
+  21 |   }
+  22 | }
+     ^ Col 0
+",dart.dart_insecure_logging
